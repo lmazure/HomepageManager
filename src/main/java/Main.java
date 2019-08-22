@@ -1,4 +1,6 @@
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
 
 public class Main {
 
@@ -20,6 +22,17 @@ public class Main {
         if (!(new File(homepagePath + File.separator + s_markerFile)).exists()) {
             System.err.println(homepagePath + " does not contain the homepage");
             System.exit(1);             
+        }
+
+        try {
+            new WatchDir(Paths.get(homepagePath)).ignoreDirectory(".svn")
+                                                 .ignoreDirectory(".git")
+                                                 .ignoreDirectory(".vscode")
+                                                 .ignoreDirectory("node_modules")
+                                                 .processEvents();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
 
         System.out.println("Done!");
