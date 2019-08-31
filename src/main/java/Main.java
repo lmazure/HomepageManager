@@ -9,8 +9,7 @@ public class Main {
     public static void main(final String[] args) {
         
         if (args.length != 1) {
-            System.err.println("Syntax: HomepageManager <homepage directory>");
-            System.exit(1);             
+            ExitHelper.of().message("Syntax: HomepageManager <homepage directory>").exit();
         }
  
         final Main main = new Main();
@@ -20,8 +19,7 @@ public class Main {
     private void start(final String homepagePath) {
 
         if (!(new File(homepagePath + File.separator + s_markerFile)).exists()) {
-            System.err.println(homepagePath + " does not contain the homepage");
-            System.exit(1);             
+            ExitHelper.of().message(homepagePath + " does not contain the homepage").exit();
         }
 
         try {
@@ -30,9 +28,8 @@ public class Main {
                                                  .ignoreDirectory(".vscode")
                                                  .ignoreDirectory("node_modules")
                                                  .processEvents();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } catch (final IOException e) {
+            ExitHelper.of().exception(e).exit();
         }
 
         System.out.println("Done!");

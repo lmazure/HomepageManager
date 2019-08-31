@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.*;
 
 /**
- * Example to watch a directory (or tree) for changes to files.
+ * Watch a directory (and its sub-directories) for changes to files
  */
 
 public class WatchDir {
@@ -16,6 +16,10 @@ public class WatchDir {
     private final Map<WatchKey,Path> _keys;
     private final Set<String> _ignoredDirectories;
     
+    /**
+     * @param path directory to watch
+     * @throws IOException
+     */
     public WatchDir(final Path path) throws IOException {
 
         _path = path;
@@ -24,16 +28,21 @@ public class WatchDir {
         _ignoredDirectories = new HashSet<String>();
     }
 
-    public WatchDir ignoreDirectory(final String directory) {
+    /**
+     * @param directoryName dub-directories with this name will be ignored
+     * @return
+     */
+    public WatchDir ignoreDirectory(final String directoryName) {
         
-        _ignoredDirectories.add(directory);
+        _ignoredDirectories.add(directoryName);
         
         return this;
     }
     
     /**
-     * Register the given directory, and all its sub-directories, with the
-     * WatchService.
+     * register the given directory, and all its sub-directories, with the WatchService
+     * @param start directory
+     * @throws IOException
      */
     private void registerAll(final Path start) throws IOException {
 
@@ -45,49 +54,27 @@ public class WatchDir {
                 if (attrs.isDirectory() && _ignoredDirectories.contains(path.getFileName().toString())) {
                     return FileVisitResult.SKIP_SUBTREE;
                 }
-                register(path);
+                final WatchKey key = path.register(_watcher, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY);
+                _keys.put(key, path);
                 return FileVisitResult.CONTINUE;
             }
         });
     }
-
-    /**
-     * Register the given directory with the WatchService
-     */
-    private void register(final Path path) throws IOException {
-        final WatchKey key = path.register(_watcher, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY);
-        
-        // TODO delete line below --------------
-        Path prev = _keys.get(key);
-        if (prev == null) {
-            System.out.format("register: %s\n", path);
-        } else {
-            if (!path.equals(prev)) {
-                System.out.format("update: %s -> %s\n", prev, path);
-            }
-        }
-        // TODO delete line above --------------
-
-        _keys.put(key, path);
-    }
-
 
     @SuppressWarnings("unchecked")
     private static <T> WatchEvent<T> cast(WatchEvent<?> event) {
         return (WatchEvent<T>)event;
     }
 
-
     /**
-     * Process all events for _keys queued to the _watcher
+     * Process events
      */
     public void processEvents() {
 
         try {
             registerAll(_path);
         } catch (final IOException e) {
-            e.printStackTrace();
-            System.exit(1);
+            ExitHelper.of().exception(e).exit();
         }
 
         for (;;) {
@@ -97,8 +84,7 @@ public class WatchDir {
             try {
                 key = _watcher.take();
             } catch (final InterruptedException e) {
-                e.printStackTrace();
-                System.exit(1);
+                ExitHelper.of().exception(e).exit();
             }
             assert(key != null);
 
@@ -112,8 +98,7 @@ public class WatchDir {
                 final WatchEvent.Kind<?> kind = event.kind();
 
                 if (kind == OVERFLOW) {
-                    System.err.println(Thread.currentThread().getStackTrace().toString());
-                    System.exit(1);
+                    ExitHelper.of().message("Overflow in WatchDir events").exit();
                 }
 
                 // Context for directory entry event is the file name of entry
@@ -131,8 +116,7 @@ public class WatchDir {
                             registerAll(child);
                         }
                     } catch (final IOException e) {
-                        e.printStackTrace();
-                        System.exit(1);
+                        ExitHelper.of().exception(e).exit();
                     }
                 }
             }
