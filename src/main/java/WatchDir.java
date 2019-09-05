@@ -1,9 +1,23 @@
-import java.nio.file.*;
-import static java.nio.file.StandardWatchEventKinds.*;
-import static java.nio.file.LinkOption.*;
-import java.nio.file.attribute.*;
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
+import java.nio.file.PathMatcher;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.StandardWatchEventKinds;
+import java.nio.file.WatchEvent;
+import java.nio.file.WatchKey;
+import java.nio.file.WatchService;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.BiConsumer;
 
 /**
  * Watch a directory (and its sub-directories) for changes to files
@@ -11,10 +25,15 @@ import java.util.*;
 
 public class WatchDir {
 
+    public enum Event {
+        CREATE,
+        DELETE
+    };
     private final Path _path;
     private final WatchService _watcher;
     private final Map<WatchKey,Path> _keys;
     private final Set<String> _ignoredDirectories;
+    private final List<FileWatcher> _watchers;
     
     /**
      * @param path directory to watch
@@ -26,6 +45,7 @@ public class WatchDir {
         _watcher = FileSystems.getDefault().newWatchService();
         _keys = new HashMap<WatchKey,Path>();
         _ignoredDirectories = new HashSet<String>();
+        _watchers = new ArrayList<FileWatcher>();
     }
 
     /**
@@ -39,6 +59,13 @@ public class WatchDir {
         return this;
     }
     
+    public WatchDir addFileWatcher(final PathMatcher matcher,
+                                   final BiConsumer<Path, Event> consummer) {
+
+        _watchers.add(new FileWatcher(matcher, consummer));
+        
+        return this;
+    }
     /**
      * register the given directory, and all its sub-directories, with the WatchService
      * @param start directory
@@ -54,7 +81,7 @@ public class WatchDir {
                 if (attrs.isDirectory() && _ignoredDirectories.contains(path.getFileName().toString())) {
                     return FileVisitResult.SKIP_SUBTREE;
                 }
-                final WatchKey key = path.register(_watcher, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY);
+                final WatchKey key = path.register(_watcher, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY);
                 _keys.put(key, path);
                 return FileVisitResult.CONTINUE;
             }
@@ -90,14 +117,14 @@ public class WatchDir {
 
             final Path path = _keys.get(key);
             if (path == null) {
-                System.err.println("WatchKey not recognized!!");
-                continue;
+                ExitHelper.of().message("Unknown key in WatchDir events").exit();
             }
+            assert(path != null);
 
             for (WatchEvent<?> event: key.pollEvents()) {
                 final WatchEvent.Kind<?> kind = event.kind();
 
-                if (kind == OVERFLOW) {
+                if (kind == StandardWatchEventKinds.OVERFLOW) {
                     ExitHelper.of().message("Overflow in WatchDir events").exit();
                 }
 
@@ -107,12 +134,23 @@ public class WatchDir {
                 final Path child = path.resolve(name);
 
                 // print out event
-                System.out.format("%s: %s\n", event.kind().name(), child);
+                for (FileWatcher w: _watchers) {
+                    if (event.kind().equals(StandardWatchEventKinds.ENTRY_CREATE) ) {
+                        w.consume(child, Event.CREATE);
+                    } else if (event.kind().equals(StandardWatchEventKinds.ENTRY_DELETE) ) {
+                        w.consume(child, Event.DELETE);
+                    } else if (event.kind().equals(StandardWatchEventKinds.ENTRY_MODIFY) ) {
+                        w.consume(child, Event.DELETE);
+                        w.consume(child, Event.CREATE);
+                    } else {
+                        ExitHelper.of().message("Unexpected event type in WatchDir events").exit();                        
+                    }
+                }
 
                 // if directory is created, and watching recursively, then register it and its sub-directories
-                if (kind == ENTRY_CREATE) {
+                if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
                     try {
-                        if (Files.isDirectory(child, NOFOLLOW_LINKS) && !_ignoredDirectories.contains(path.getFileName().toString())) {
+                        if (Files.isDirectory(child, LinkOption.NOFOLLOW_LINKS) && !_ignoredDirectories.contains(path.getFileName().toString())) {
                             registerAll(child);
                         }
                     } catch (final IOException e) {
@@ -134,4 +172,26 @@ public class WatchDir {
         }
     }
 
+    private class FileWatcher {
+
+        private final PathMatcher _matcher;
+        private final BiConsumer<Path, Event> _consummer;
+
+        /**
+         * @param matcher
+         * @param consummer
+         */
+        public FileWatcher(final PathMatcher matcher,
+                           final BiConsumer<Path, Event> consummer) {
+            _matcher = matcher;
+            _consummer = consummer;
+        }
+        
+        public void consume(final Path path, final Event event) {
+            
+            if (_matcher.matches(path)) {
+                _consummer.accept(path, event);
+            }
+        }
+    }
 }

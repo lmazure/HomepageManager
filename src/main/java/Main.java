@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Main {
@@ -27,6 +29,7 @@ public class Main {
                                                  .ignoreDirectory(".git")
                                                  .ignoreDirectory(".vscode")
                                                  .ignoreDirectory("node_modules")
+                                                 .addFileWatcher(FileSystems.getDefault().getPathMatcher("glob:**/*.xml"), (Path p, WatchDir.Event e) -> System.out.println(p + " " + e))
                                                  .processEvents();
         } catch (final IOException e) {
             ExitHelper.of().exception(e).exit();
