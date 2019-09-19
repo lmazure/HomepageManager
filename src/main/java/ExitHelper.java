@@ -22,6 +22,7 @@ public class ExitHelper {
     }
     
     public void exit() {
+        // TODO supprimer les autres méthodes et ne garder que celle-ci
         
         if (_message != null) {
             System.err.println(_message); 
