@@ -32,7 +32,7 @@ public class FileTracker {
     public void addFile(final Path file) {
     
         if (_files.containsKey(file)) {
-            ExitHelper.of().message("Duplicated path");
+            ExitHelper.exit("Duplicated path");
         }
         
         _files.put(file, new TrackedFile(file));
@@ -47,7 +47,7 @@ public class FileTracker {
         }
 
         if (!f.isDeleted()) {
-            ExitHelper.of().message("Creating a file that currently exists");
+            ExitHelper.exit("Creating a file that currently exists");
         }
         
         f.setCreated();
@@ -59,12 +59,12 @@ public class FileTracker {
 
         final TrackedFile f = _files.get(file);
         if (f == null) {
-            ExitHelper.of().message("Unknown file");
+            ExitHelper.exit("Unknown file");
         }
         assert (f != null);
 
         if (f.isDeleted()) {
-            ExitHelper.of().message("Deleting a file that currently does not exist");
+            ExitHelper.exit("Deleting a file that currently does not exist");
         }
         
         f.setDeleted();

@@ -19,7 +19,7 @@ public class Main {
     public static void main(final String[] args) {
         
         if (args.length != 1) {
-            ExitHelper.of().message("Syntax: HomepageManager <homepage directory>").exit();
+            ExitHelper.exit("Syntax: HomepageManager <homepage directory>");
         }
  
         final Main main = new Main();
@@ -33,7 +33,7 @@ public class Main {
     private void start(final Path homepagePath) {
 
         if (!(new File(homepagePath + File.separator + s_markerFile)).exists()) {
-            ExitHelper.of().message(homepagePath + " does not contain the homepage").exit();
+            ExitHelper.exit(homepagePath + " does not contain the homepage");
         }
 
         try {
@@ -46,7 +46,7 @@ public class Main {
                                       .addFileWatcher(_matcher, (final Path p, final WatchDir.Event e) -> dispatchEvent(p, e))
                                       .processEvents();
         } catch (final IOException e) {
-            ExitHelper.of().exception(e).exit();
+            ExitHelper.exit(e);
         }
 
         System.out.println("Done!");
@@ -77,7 +77,7 @@ public class Main {
                 _fileTracker.handleFileDeletion(path);
                 break;
             default:
-                ExitHelper.of().message("Unknwown event").exit();
+                ExitHelper.exit("Unknwown event");
                 break;
         }
     }

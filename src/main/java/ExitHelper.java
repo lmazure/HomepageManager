@@ -1,39 +1,26 @@
 
 public class ExitHelper {
 
-    private Exception _exception;
-    private String _message;
-    
-    private ExitHelper() {
+    static public void exit(final String message) {
+        exit(message, null);
     }
-    
-    static public ExitHelper of() {
-        return new ExitHelper();
+
+    static public void exit(final Exception exception) {
+        exit(null, exception);
     }
-    
-    public ExitHelper exception(final Exception e) {
-        _exception = e;
-        return this;
-    }
-    
-    public ExitHelper message(final String message) {
-        _message = message;
-        return this;
-    }
-    
-    public void exit() {
-        // TODO supprimer les autres méthodes et ne garder que celle-ci
+
+    static public void exit(final String message, final Exception exception) {
         
-        if (_message != null) {
-            System.err.println(_message); 
+        if (message != null) {
+            System.err.println(message);
         }
         
-        if (_exception != null) {
-            _exception.printStackTrace();            
+        if (exception != null) {
+            exception.printStackTrace();
         } else {
             final StackTraceElement[] stack = Thread.currentThread().getStackTrace();
             for (StackTraceElement elem: stack) {
-                System.err.println(elem.toString());                
+                System.err.println(elem.toString());
             }
         }
         

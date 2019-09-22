@@ -101,7 +101,7 @@ public class WatchDir {
         try {
             registerAll(_path);
         } catch (final IOException e) {
-            ExitHelper.of().exception(e).exit();
+            ExitHelper.exit(e);
         }
 
         for (;;) {
@@ -111,13 +111,13 @@ public class WatchDir {
             try {
                 key = _watcher.take();
             } catch (final InterruptedException e) {
-                ExitHelper.of().exception(e).exit();
+                ExitHelper.exit(e);
             }
             assert(key != null);
 
             final Path path = _keys.get(key);
             if (path == null) {
-                ExitHelper.of().message("Unknown key in WatchDir events").exit();
+                ExitHelper.exit("Unknown key in WatchDir events");
             }
             assert(path != null);
 
@@ -125,7 +125,7 @@ public class WatchDir {
                 final WatchEvent.Kind<?> kind = event.kind();
 
                 if (kind == StandardWatchEventKinds.OVERFLOW) {
-                    ExitHelper.of().message("Overflow in WatchDir events").exit();
+                    ExitHelper.exit("Overflow in WatchDir events");
                 }
 
                 // Context for directory entry event is the file name of entry
@@ -143,7 +143,7 @@ public class WatchDir {
                         w.consume(child, Event.DELETE);
                         w.consume(child, Event.CREATE);
                     } else {
-                        ExitHelper.of().message("Unexpected event type in WatchDir events").exit();                        
+                        ExitHelper.exit("Unexpected event type in WatchDir events");                        
                     }
                 }
 
@@ -154,7 +154,7 @@ public class WatchDir {
                             registerAll(child);
                         }
                     } catch (final IOException e) {
-                        ExitHelper.of().exception(e).exit();
+                        ExitHelper.exit(e);
                     }
                 }
             }
