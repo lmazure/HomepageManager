@@ -14,37 +14,43 @@ public class Main {
     final static private String s_markerFile = "google1b78f05130a6dbb0.html";
     final static PathMatcher _matcher = FileSystems.getDefault().getPathMatcher("glob:**/*.xml");
     
+    final private Path _homepagePath;
+    final private Path _tmpPath;
     final private FileTracker _fileTracker;
 
     public static void main(final String[] args) {
         
-        if (args.length != 1) {
-            ExitHelper.exit("Syntax: HomepageManager <homepage directory>");
+        if (args.length != 2) {
+            ExitHelper.exit("Syntax: HomepageManager <homepage directory> <tmp directory>");
         }
  
-        final Main main = new Main();
-        main.start(Paths.get(args[0]));
+        final Path homepagePath = Paths.get(args[0]);
+        final Path tmpPath = Paths.get(args[1]);
+        final Main main = new Main(homepagePath, tmpPath);
+        main.start();
     }
 
-    public Main() {
-        _fileTracker = new FileTracker();
+    public Main(final Path homepagePath, final Path tmpPath) {
+        _homepagePath = homepagePath;
+        _tmpPath = tmpPath;
+        _fileTracker = new FileTracker(_homepagePath, _tmpPath);
     }
     
-    private void start(final Path homepagePath) {
+    private void start() {
 
-        if (!(new File(homepagePath + File.separator + s_markerFile)).exists()) {
-            ExitHelper.exit(homepagePath + " does not contain the homepage");
+        if (!(new File(_homepagePath + File.separator + s_markerFile)).exists()) {
+            ExitHelper.exit(_homepagePath + " does not contain the homepage");
         }
 
         try {
-            recordFilesExistingAtStartup(homepagePath, _matcher);
+            recordFilesExistingAtStartup(_matcher);
 
-            new WatchDir(homepagePath).ignoreDirectory(".svn")
-                                      .ignoreDirectory(".git")
-                                      .ignoreDirectory(".vscode")
-                                      .ignoreDirectory("node_modules")
-                                      .addFileWatcher(_matcher, (final Path p, final WatchDir.Event e) -> dispatchEvent(p, e))
-                                      .processEvents();
+            new WatchDir(_homepagePath).ignoreDirectory(".svn")
+                                       .ignoreDirectory(".git")
+                                       .ignoreDirectory(".vscode")
+                                       .ignoreDirectory("node_modules")
+                                       .addFileWatcher(_matcher, (final Path p, final WatchDir.Event e) -> dispatchEvent(p, e))
+                                       .processEvents();
         } catch (final IOException e) {
             ExitHelper.exit(e);
         }
@@ -52,9 +58,9 @@ public class Main {
         System.out.println("Done!");
     }
 
-    private void recordFilesExistingAtStartup(final Path homepagePath, final PathMatcher matcher) throws IOException {
+    private void recordFilesExistingAtStartup(final PathMatcher matcher) throws IOException {
         
-        Files.walkFileTree(homepagePath, new SimpleFileVisitor<Path>() {
+        Files.walkFileTree(_homepagePath, new SimpleFileVisitor<Path>() {
             @Override
             public FileVisitResult visitFile(final Path path, final BasicFileAttributes attrs)
                 throws IOException
