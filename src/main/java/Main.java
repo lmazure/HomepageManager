@@ -33,7 +33,8 @@ public class Main {
     public Main(final Path homepagePath, final Path tmpPath) {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;
-        _fileTracker = new FileTracker(_homepagePath, _tmpPath);
+        _fileTracker = new FileTracker();
+        _fileTracker.AddFileHandler(new HTMLFileGenerator(_homepagePath, _tmpPath));
     }
     
     private void start() {
