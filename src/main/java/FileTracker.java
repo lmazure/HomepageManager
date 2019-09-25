@@ -37,7 +37,7 @@ public class FileTracker {
         }
 
         if (!f.isDeleted()) {
-            ExitHelper.exit("Creating a file that currently exists");
+            ExitHelper.exit("Creating a file (" + file + ") that currently exists");
         }
         
         f.setCreated();
@@ -56,7 +56,7 @@ public class FileTracker {
         assert (f != null);
 
         if (f.isDeleted()) {
-            ExitHelper.exit("Deleting a file that currently does not exist");
+            ExitHelper.exit("Deleting a file (" + file + ") that currently does not exist");
         }
         
         f.setDeleted();
