@@ -9,8 +9,6 @@ import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 
-// TODO fix crash when copy an xml file
-
 public class Main {
 
     final static private String s_markerFile = "google1b78f05130a6dbb0.html";

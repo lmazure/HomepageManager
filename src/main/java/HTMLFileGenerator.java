@@ -1,6 +1,8 @@
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -39,15 +41,10 @@ public class HTMLFileGenerator implements FileHandler {
         final Path reportFile = getReportFile(file);
         createAndTruncateFile(reportFile);
 
-        final File datafile = file.toFile();
-
         //factory.setNamespaceAware(true);
         //factory.setValidating(true);
-        try {
-            final Document document = _builder.parse(datafile);
-
-            // Use a Transformer for output
-
+        try (final InputStream is = new FileInputStream(file.toFile());) {
+            final Document document = _builder.parse(is);
             final DOMSource source = new DOMSource(document);
             final StreamResult result = new StreamResult(outputFile);
             _transformer.transform(source, result);
