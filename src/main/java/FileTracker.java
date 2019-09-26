@@ -34,9 +34,7 @@ public class FileTracker {
         if (f == null) {
             f= new TrackedFile(file);
             _files.put(file, f);
-        }
-
-        if (!f.isDeleted()) {
+        } else if (!f.isDeleted()) {
             ExitHelper.exit("Creating a file (" + file + ") that currently exists");
         }
         
