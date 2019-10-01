@@ -49,23 +49,35 @@ public class WatchDir {
     }
 
     /**
-     * @param directoryName dub-directories with this name will be ignored
+     * @param directoryName sub-directories with this name will be ignored
      * @return
      */
     public WatchDir ignoreDirectory(final String directoryName) {
         
         _ignoredDirectories.add(directoryName);
+        return this;
+    }
+
+    /**
+     * @param directoryName sub-directories with these names will be ignored
+     * @return
+     */
+    public WatchDir ignoreDirectories(final Iterable<String> directoryNames) {
         
+        for (final String dir: directoryNames) {
+            ignoreDirectory(dir);
+        }
         return this;
     }
     
+
     public WatchDir addFileWatcher(final PathMatcher matcher,
                                    final BiConsumer<Path, Event> consummer) {
 
         _watchers.add(new FileWatcher(matcher, consummer));
-        
         return this;
     }
+    
     /**
      * register the given directory, and all its sub-directories, with the WatchService
      * @param start directory
@@ -78,7 +90,7 @@ public class WatchDir {
             public FileVisitResult preVisitDirectory(final Path path, final BasicFileAttributes attrs)
                 throws IOException
             {
-                if (attrs.isDirectory() && _ignoredDirectories.contains(path.getFileName().toString())) {
+                if (_ignoredDirectories.contains(path.getFileName().toString())) {
                     return FileVisitResult.SKIP_SUBTREE;
                 }
                 final WatchKey key = path.register(_watcher, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY);

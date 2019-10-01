@@ -20,4 +20,10 @@ public interface FileHandler {
     public Status handleCreation(final Path file);
 
     public Status handleDeletion(final Path file);
+    
+    public Path getOutputFile(final Path file);
+    
+    public Path getReportFile(final Path file);
+    
+    public boolean outputFileMustBeRegenerated(final Path file);
 }

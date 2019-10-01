@@ -1,10 +1,8 @@
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -19,6 +17,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.w3c.dom.Document;
+import org.xml.sax.SAXParseException;
 
 public class HTMLFileGenerator implements FileHandler {
 
@@ -37,9 +36,9 @@ public class HTMLFileGenerator implements FileHandler {
     @Override
     public Status handleCreation(final Path file) {
 
-        final File outputFile = getHtmlFile(file).toFile();
+        final File outputFile = getOutputFile(file).toFile();
         final Path reportFile = getReportFile(file);
-        createAndTruncateFile(reportFile);
+        FileHelper.createAndTruncateFile(reportFile);
 
         //factory.setNamespaceAware(true);
         //factory.setValidating(true);
@@ -88,10 +87,10 @@ public class HTMLFileGenerator implements FileHandler {
         } catch (final Exception e) {
             try (PrintStream reportWriter = new PrintStream(reportFile.toFile())) {
                 e.printStackTrace(reportWriter);
-            } catch (IOException e2) {
+            } catch (final IOException e2) {
                 ExitHelper.exit(e2);
             }
-            return Status.FAILED_TO_HANDLED;                
+            return (e instanceof SAXParseException) ? Status.HANDLED_WITH_ERROR : Status.FAILED_TO_HANDLED;                
             }
             
         return Status.HANDLED_WITH_SUCCESS;
@@ -100,8 +99,8 @@ public class HTMLFileGenerator implements FileHandler {
     @Override
     public Status handleDeletion(final Path file) {
 
-        deleteFile(getHtmlFile(file));
-        deleteFile(getReportFile(file));
+        FileHelper.deleteFile(getOutputFile(file));
+        FileHelper.deleteFile(getReportFile(file));
         
         return Status.HANDLED_WITH_SUCCESS;
     }
@@ -116,10 +115,9 @@ public class HTMLFileGenerator implements FileHandler {
         }
     }
     
-    private static Transformer newTransformer(final Path homepagePath) {
-        final File stylesheet = Paths.get(homepagePath.toString(), "css", "strict.xsl").toFile();
+    private Transformer newTransformer(final Path homepagePath) {
         final TransformerFactory tFactory = TransformerFactory.newInstance();
-        final StreamSource stylesource = new StreamSource(stylesheet);
+        final StreamSource stylesource = new StreamSource(getSylesheetFile().toFile());
         try {
             return tFactory.newTransformer(stylesource);
         } catch (final TransformerConfigurationException e) {
@@ -128,39 +126,30 @@ public class HTMLFileGenerator implements FileHandler {
         }
     }
 
-    private Path getHtmlFile(final Path file) {
+    @Override
+    public Path getOutputFile(final Path file) {
         final String s = file.toString();
         return Paths.get(s.substring(0, s.length() - 4).concat(".html"));
     }
     
-    private Path getReportFile(final Path file) {
+    @Override
+    public Path getReportFile(final Path file) {
          final Path relativePath = _homepagePath.relativize(file);
          final Path reportFilePath = _tmpPath.resolve(relativePath);
          final String s = reportFilePath.toString();
          return Paths.get(s.substring(0, s.length() - 4).concat("_report_html.txt"));         
     }
-    
-    private void createAndTruncateFile(final Path file) {
-        file.getParent().toFile().mkdirs();
-        try (FileWriter writer = new FileWriter(file.toFile(), false)) {
-            writer.flush();
-        } catch (final IOException e) {
-            ExitHelper.exit(e);
-        }
 
-        System.out.println("created file " + file);
+    public Path getSylesheetFile() {
+        return Paths.get(_homepagePath.toString(), "css", "strict.xsl");
     }
     
-    private void deleteFile(final Path file) {
-        if (file.toFile().exists()) {        
-            try {
-                Files.delete(file);
-            } catch (final IOException e) {
-                ExitHelper.exit(e);
-            }
-        }
+
+    @Override
+    public boolean outputFileMustBeRegenerated(final Path file) {
         
-        System.out.println("deleted file " + file);
+        return !getOutputFile(file).toFile().isFile()
+                || (getOutputFile(file).toFile().lastModified() <= file.toFile().lastModified())
+                || (getOutputFile(file).toFile().lastModified() <= getSylesheetFile().toFile().lastModified());
     }
- 
 }

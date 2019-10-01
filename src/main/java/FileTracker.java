@@ -22,9 +22,16 @@ public class FileTracker {
         }
         
         _files.put(file, new TrackedFile(file));
+        
+        for (FileHandler h: _fileHandlers) {
+            if (h.outputFileMustBeRegenerated(file)) {
+                h.handleDeletion(file);
+                h.handleCreation(file);                
+            }
+        }
     }
     
-    public void AddFileHandler(final FileHandler handler) {
+    public void addFileHandler(final FileHandler handler) {
         _fileHandlers.add(handler);
     }
     

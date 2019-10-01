@@ -8,12 +8,20 @@ import java.nio.file.PathMatcher;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
     final static private String s_markerFile = "google1b78f05130a6dbb0.html";
     final static PathMatcher _matcher = FileSystems.getDefault().getPathMatcher("glob:**/*.xml");
-    
+    final static List<String> _ignoredDirectories = new ArrayList<>(List.of( ".svn",
+                                                                             ".git",
+                                                                             ".vscode",
+                                                                             "node_modules",
+                                                                             "cap_fichiers",
+                                                                             "cmm_fichiers" ));
+
     final private Path _homepagePath;
     final private Path _tmpPath;
     final private FileTracker _fileTracker;
@@ -34,11 +42,11 @@ public class Main {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;
         _fileTracker = new FileTracker();
-        _fileTracker.AddFileHandler(new HTMLFileGenerator(_homepagePath, _tmpPath));
+        _fileTracker.addFileHandler(new HTMLFileGenerator(_homepagePath, _tmpPath));
     }
     
     private void start() {
-
+        
         if (!(new File(_homepagePath + File.separator + s_markerFile)).exists()) {
             ExitHelper.exit(_homepagePath + " does not contain the homepage");
         }
@@ -46,27 +54,29 @@ public class Main {
         try {
             recordFilesExistingAtStartup(_matcher);
 
-            new WatchDir(_homepagePath).ignoreDirectory(".svn")
-                                       .ignoreDirectory(".git")
-                                       .ignoreDirectory(".vscode")
-                                       .ignoreDirectory("node_modules")
+            new WatchDir(_homepagePath).ignoreDirectories(_ignoredDirectories)
                                        .addFileWatcher(_matcher, (final Path p, final WatchDir.Event e) -> dispatchEvent(p, e))
                                        .processEvents();
         } catch (final IOException e) {
             ExitHelper.exit(e);
         }
-
-        System.out.println("Done!");
     }
 
     private void recordFilesExistingAtStartup(final PathMatcher matcher) throws IOException {
-        
+
         Files.walkFileTree(_homepagePath, new SimpleFileVisitor<Path>() {
             @Override
-            public FileVisitResult visitFile(final Path path, final BasicFileAttributes attrs)
+            public FileVisitResult preVisitDirectory(final Path path, final BasicFileAttributes attrs)
                 throws IOException
             {
-                if (attrs.isRegularFile() && matcher.matches(path)) {
+                if (_ignoredDirectories.contains(path.getFileName().toString())) {
+                    return FileVisitResult.SKIP_SUBTREE;
+                }
+                return FileVisitResult.CONTINUE;
+            }
+            @Override
+            public FileVisitResult visitFile(final Path path, final BasicFileAttributes attrs) throws IOException {
+                if (matcher.matches(path)) {
                     _fileTracker.addFile(path);
                 }
                 return FileVisitResult.CONTINUE;
