@@ -42,7 +42,8 @@ public class Main {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;
         _fileTracker = new FileTracker();
-        _fileTracker.addFileHandler(new HTMLFileGenerator(_homepagePath, _tmpPath));
+        _fileTracker.addFileHandler(new HTMLFileGenerator(_homepagePath, _tmpPath))
+                    .addFileHandler(new FileCheckGenerator(_homepagePath, _tmpPath));
     }
     
     private void start() {

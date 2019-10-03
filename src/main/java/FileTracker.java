@@ -1,4 +1,3 @@
-import java.io.PrintStream;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,8 +30,9 @@ public class FileTracker {
         }
     }
     
-    public void addFileHandler(final FileHandler handler) {
+    public FileTracker addFileHandler(final FileHandler handler) {
         _fileHandlers.add(handler);
+        return this;
     }
     
     public void handleFileCreation(final Path file) {
@@ -68,13 +68,6 @@ public class FileTracker {
 
         for (FileHandler h: _fileHandlers) {
             h.handleDeletion(file);
-        }
-    }
-    
-    public void dump(final PrintStream stream) {
-        for (Path p: _files.keySet()) {
-            _files.get(p).dump(stream);
-            stream.print("-------------------------------------");
         }
     }
 }

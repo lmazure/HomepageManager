@@ -1,4 +1,3 @@
-import java.io.PrintStream;
 import java.nio.file.Path;
 
 public class TrackedFile {
@@ -6,7 +5,7 @@ public class TrackedFile {
     private Path _path;
     private boolean _isDeleted;
     
-    TrackedFile(final Path path) {
+    public TrackedFile(final Path path) {
         
         _path = path;
         _isDeleted = false;
@@ -20,12 +19,11 @@ public class TrackedFile {
         _isDeleted = false;
     }
     
-    boolean isDeleted() {
-        return _isDeleted;
+    public Path getPath() { //TODO delete this unused method
+        return _path;
     }
     
-    void dump(final PrintStream stream) {
-        stream.println("path=" + _path);
-        stream.println("isDeleted=" + _isDeleted);
+    boolean isDeleted() {
+        return _isDeleted;
     }
 }
