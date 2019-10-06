@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class FileCheckGenerator implements FileHandler {
 
-    public static final String UTF8_BOM = "\uFEFF";
+    static final private String UTF8_BOM = "\uFEFF";
     
     final private Path _homepagePath;
     final private Path _tmpPath;
@@ -35,19 +35,19 @@ public class FileCheckGenerator implements FileHandler {
              final BufferedReader br = new BufferedReader(fr);
              final FileOutputStream os = new FileOutputStream(getOutputFile(file).toFile());
              final PrintWriter pw = new PrintWriter(os)) {
-            final List<String> errors =  new ArrayList<String>();
+            final List<Error> errors =  new ArrayList<Error>();
             final byte[] encoded = Files.readAllBytes(file);
             final String content = new String(encoded, StandardCharsets.UTF_8);
             errors.addAll(checkFileBom(content));
-            errors.addAll(checkFile(br));
             errors.addAll(checkNewLine(content));
             errors.addAll(checkPath(file, content));
             if (!errors.isEmpty() ) {
                 System.out.println(file);
             }
-            for (final String error: errors) {
-                System.err.println(error);
-                pw.println(error);
+            for (final Error error: errors) {
+                final String message = "line " + error.getLineNumber() + ": " + error.getErrorMessage(); 
+                System.err.println(message);
+                pw.println(message);
             }
             pw.flush();
             os.flush();
@@ -66,37 +66,22 @@ public class FileCheckGenerator implements FileHandler {
         return Status.HANDLED_WITH_SUCCESS;
     }
 
-    private List<String> checkFileBom(final String str) {
+    private List<Error> checkFileBom(final String str) {
         
-        final List<String> errors = new ArrayList<String>();
+        final List<Error> errors = new ArrayList<Error>();
         if (str.startsWith(UTF8_BOM)) {
-            errors.add("line " + 0 + ": file has a UTF BOM");
+            errors.add(new Error(0, "file has a UTF BOM"));
         }
         return errors;
     }
 
-    private List<String> checkFile(final BufferedReader br) throws IOException {
-        
-        final List<String> errors = new ArrayList<String>();
+    private List<Error> checkNewLine(final String str) {
 
-        int n = 1;
-        String line;
-        while ((line = br.readLine()) != null) {
-            if (line.length() == 0) {
-                errors.add("line " + n + ": empty line");
-            }
-            n++;
-        }
-        
-        return errors;
-    }
-
-    private List<String> checkNewLine(final String str) {
-
-        final List<String> errors = new ArrayList<String>();
+        final List<Error> errors = new ArrayList<Error>();
 
         boolean isPreviousCharacterCarriageReturn = false;
         boolean isCurrentCharacterCarriageReturn = false;
+        boolean isLineEmpty = true;
         int lineNumber = 1;
         
         for (int i=0; i<str.length(); i++) {
@@ -107,9 +92,16 @@ public class FileCheckGenerator implements FileHandler {
                 isCurrentCharacterCarriageReturn = false;                            
                 if (str.charAt(i) == '\n') {
                     if (!isPreviousCharacterCarriageReturn) {
-                        errors.add("line " + lineNumber + ": line should finished by \\r\\n instead of \\n");                
+                        errors.add(new Error(lineNumber, "line should finished by \\r\\n instead of \\n"));                
+                    }
+                    if (isLineEmpty) {
+                        errors.add(new Error(lineNumber, "empty line"));                
                     }
                     lineNumber++;
+                    isLineEmpty = true;
+                } else {
+                    //TODO check for control characters
+                    isLineEmpty = false;
                 }
             }
         }
@@ -117,9 +109,9 @@ public class FileCheckGenerator implements FileHandler {
         return errors;
     }
     
-    private List<String> checkPath(final Path file, final String content) {
+    private List<Error> checkPath(final Path file, final String content) {
 
-        final List<String> errors = new ArrayList<String>();
+        final List<Error> errors = new ArrayList<Error>();
 
         try {
             final String filename = file.toFile().getCanonicalPath();
@@ -127,7 +119,7 @@ public class FileCheckGenerator implements FileHandler {
             final int previousSeparatorPosition = filename.lastIndexOf(File.separator, lastSeparatorPosition - 1);
             final String endOfFilename = filename.substring(previousSeparatorPosition + 1);            
             if (!content.contains("<PATH>" + endOfFilename.replace(File.separator, "/") + "</PATH>")) {
-                errors.add("line X : the name of the file does not appear in the <PATH> node");                            
+                errors.add(new Error(0, "the name of the file does not appear in the <PATH> node"));                            
             }
         } catch (final IOException e) {
             e.printStackTrace();
@@ -170,5 +162,25 @@ public class FileCheckGenerator implements FileHandler {
         }*/
         return !getOutputFile(file).toFile().isFile()
                || (getOutputFile(file).toFile().lastModified() <= file.toFile().lastModified());
+    }
+    
+    private class Error {
+        
+        final private int _lineNumber;
+        final private String _errorMessage;
+
+        public Error(final int lineNumber, final String errorMessage) {
+            _lineNumber = lineNumber;
+            _errorMessage = errorMessage;
+        }
+
+        public int getLineNumber() {
+            return _lineNumber;
+        }
+
+        public String getErrorMessage() {
+            return _errorMessage;
+        }
+        
     }
 }
