@@ -1,4 +1,3 @@
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,25 +8,10 @@ import java.nio.file.Paths;
  *
  */
 public class FileHelper {
-    
-    /**
-     * if the file exists, truncate it
-     * otherwise, create it (empty)
-     * @param file
-     */
-    static public void createAndTruncateFile2(final Path file) {
-        file.getParent().toFile().mkdirs();
-        try (final FileWriter writer = new FileWriter(file.toFile(), false)) {
-            writer.flush();
-        } catch (final IOException e) {
-            ExitHelper.exit(e);
-        }
 
-        System.out.println("Creating file " + file);
-    }
-    
     /**
      * create parent directory of the file
+     * 
      * @param file
      */
     static public void createParentDirectory(final Path file) {
@@ -36,6 +20,7 @@ public class FileHelper {
     
     /**
      * delete the file
+     * 
      * @param file
      */
     static public void deleteFile(final Path file) {
@@ -43,15 +28,15 @@ public class FileHelper {
             try {
                 Files.delete(file);
                 if (file.toFile().exists()) {
-                    System.out.println("Deleting file " + file + " - Argh! The file is still there!");
+                    //System.out.println("Deleting file " + file + " - Argh! The file is still there!");
                 } else {
-                    System.out.println("Deleting file " + file + " - The file is effectively deleted.");
+                    //System.out.println("Deleting file " + file + " - The file is effectively deleted.");
                 }
             } catch (final IOException e) {
                 ExitHelper.exit(e);
             }
         } else {
-            System.out.println("Deleting file " + file + " - Nothing to do, the file does not exist.");
+            //System.out.println("Deleting file " + file + " - Nothing to do, the file does not exist.");
         }        
     }
     

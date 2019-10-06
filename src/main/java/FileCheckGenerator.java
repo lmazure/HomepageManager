@@ -1,11 +1,13 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +17,8 @@ import java.util.List;
  */
 public class FileCheckGenerator implements FileHandler {
 
+    public static final String UTF8_BOM = "\uFEFF";
+    
     final private Path _homepagePath;
     final private Path _tmpPath;
     
@@ -31,9 +35,18 @@ public class FileCheckGenerator implements FileHandler {
              final BufferedReader br = new BufferedReader(fr);
              final FileOutputStream os = new FileOutputStream(getOutputFile(file).toFile());
              final PrintWriter pw = new PrintWriter(os)) {
-            final Iterable<String> errors = checkFile(br);
-            pw.println("hello");
+            final List<String> errors =  new ArrayList<String>();
+            final byte[] encoded = Files.readAllBytes(file);
+            final String content = new String(encoded, StandardCharsets.UTF_8);
+            errors.addAll(checkFileBom(content));
+            errors.addAll(checkFile(br));
+            errors.addAll(checkNewLine(content));
+            errors.addAll(checkPath(file, content));
+            if (!errors.isEmpty() ) {
+                System.out.println(file);
+            }
             for (final String error: errors) {
+                System.err.println(error);
                 pw.println(error);
             }
             pw.flush();
@@ -53,10 +66,19 @@ public class FileCheckGenerator implements FileHandler {
         return Status.HANDLED_WITH_SUCCESS;
     }
 
-    private Iterable<String> checkFile(final BufferedReader br) throws IOException {
+    private List<String> checkFileBom(final String str) {
         
         final List<String> errors = new ArrayList<String>();
+        if (str.startsWith(UTF8_BOM)) {
+            errors.add("line " + 0 + ": file has a UTF BOM");
+        }
+        return errors;
+    }
+
+    private List<String> checkFile(final BufferedReader br) throws IOException {
         
+        final List<String> errors = new ArrayList<String>();
+
         int n = 1;
         String line;
         while ((line = br.readLine()) != null) {
@@ -69,6 +91,51 @@ public class FileCheckGenerator implements FileHandler {
         return errors;
     }
 
+    private List<String> checkNewLine(final String str) {
+
+        final List<String> errors = new ArrayList<String>();
+
+        boolean isPreviousCharacterCarriageReturn = false;
+        boolean isCurrentCharacterCarriageReturn = false;
+        int lineNumber = 1;
+        
+        for (int i=0; i<str.length(); i++) {
+            isPreviousCharacterCarriageReturn = isCurrentCharacterCarriageReturn;
+            if (str.charAt(i) == '\r') {
+                isCurrentCharacterCarriageReturn = true;                            
+            } else {
+                isCurrentCharacterCarriageReturn = false;                            
+                if (str.charAt(i) == '\n') {
+                    if (!isPreviousCharacterCarriageReturn) {
+                        errors.add("line " + lineNumber + ": line should finished by \\r\\n instead of \\n");                
+                    }
+                    lineNumber++;
+                }
+            }
+        }
+                
+        return errors;
+    }
+    
+    private List<String> checkPath(final Path file, final String content) {
+
+        final List<String> errors = new ArrayList<String>();
+
+        try {
+            final String filename = file.toFile().getCanonicalPath();
+            final int lastSeparatorPosition = filename.lastIndexOf(File.separator);
+            final int previousSeparatorPosition = filename.lastIndexOf(File.separator, lastSeparatorPosition - 1);
+            final String endOfFilename = filename.substring(previousSeparatorPosition + 1);            
+            if (!content.contains("<PATH>" + endOfFilename.replace(File.separator, "/") + "</PATH>")) {
+                errors.add("line X : the name of the file does not appear in the <PATH> node");                            
+            }
+        } catch (final IOException e) {
+            e.printStackTrace();
+        }
+                
+        return errors;
+    }
+    
     @Override
     public Status handleDeletion(final Path file) {
 
@@ -91,7 +158,7 @@ public class FileCheckGenerator implements FileHandler {
     @Override
     public boolean outputFileMustBeRegenerated(final Path file) {
         
-        if (!getOutputFile(file).toFile().isFile()
+        /*if (!getOutputFile(file).toFile().isFile()
                 || (getOutputFile(file).toFile().lastModified() <= file.toFile().lastModified())) {
             System.out.println("----- BEGIN DEBUG");
             SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
@@ -100,7 +167,7 @@ public class FileCheckGenerator implements FileHandler {
             System.out.println("source file timestamp = " + df2.format(file.toFile().lastModified()));
             System.out.println("target file timestamp = " + df2.format(getOutputFile(file).toFile().lastModified()));
             System.out.println("----- END DEBUG");
-        }
+        }*/
         return !getOutputFile(file).toFile().isFile()
                || (getOutputFile(file).toFile().lastModified() <= file.toFile().lastModified());
     }

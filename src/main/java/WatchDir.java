@@ -50,7 +50,7 @@ public class WatchDir {
 
     /**
      * @param directoryName sub-directories with this name will be ignored
-     * @return
+     * @return the object itself
      */
     public WatchDir ignoreDirectory(final String directoryName) {
         
@@ -60,7 +60,7 @@ public class WatchDir {
 
     /**
      * @param directoryName sub-directories with these names will be ignored
-     * @return
+     * @return the object itself
      */
     public WatchDir ignoreDirectories(final Iterable<String> directoryNames) {
         
@@ -71,6 +71,11 @@ public class WatchDir {
     }
     
 
+    /**
+     * @param matcher
+     * @param consummer
+     * @return the object itself
+     */
     public WatchDir addFileWatcher(final PathMatcher matcher,
                                    final BiConsumer<Path, Event> consummer) {
 
@@ -107,6 +112,7 @@ public class WatchDir {
 
     /**
      * Process events
+     * This method never returns
      */
     public void processEvents() {
 
