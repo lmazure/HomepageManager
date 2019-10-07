@@ -35,12 +35,9 @@ public class FileCheckGenerator implements FileHandler {
              final BufferedReader br = new BufferedReader(fr);
              final FileOutputStream os = new FileOutputStream(getOutputFile(file).toFile());
              final PrintWriter pw = new PrintWriter(os)) {
-            final List<Error> errors =  new ArrayList<Error>();
             final byte[] encoded = Files.readAllBytes(file);
             final String content = new String(encoded, StandardCharsets.UTF_8);
-            errors.addAll(checkFileBom(content));
-            errors.addAll(checkNewLine(content));
-            errors.addAll(checkPath(file, content));
+            final List<Error> errors = check(file, content);
             if (!errors.isEmpty() ) {
                 System.out.println(file);
             }
@@ -66,43 +63,63 @@ public class FileCheckGenerator implements FileHandler {
         return Status.HANDLED_WITH_SUCCESS;
     }
 
+    public List<Error> check(final Path file, final String content) {  //TODO see how to test this method while keeping it private
+        final List<Error> errors =  new ArrayList<Error>();
+        errors.addAll(checkFileBom(content));
+        errors.addAll(checkCharacters(content));
+        errors.addAll(checkPath(file, content));
+        return errors;
+    }
+
     private List<Error> checkFileBom(final String str) {
         
         final List<Error> errors = new ArrayList<Error>();
         if (str.startsWith(UTF8_BOM)) {
-            errors.add(new Error(0, "file has a UTF BOM"));
+            errors.add(new Error(1, "file should not have a UTF BOM"));
         }
         return errors;
     }
 
-    private List<Error> checkNewLine(final String str) {
+    private List<Error> checkCharacters(final String str) {
 
         final List<Error> errors = new ArrayList<Error>();
 
         boolean isPreviousCharacterCarriageReturn = false;
+        boolean isPreviousCharacterWhiteSpace = false;
         boolean isCurrentCharacterCarriageReturn = false;
         boolean isLineEmpty = true;
         int lineNumber = 1;
         
-        for (int i=0; i<str.length(); i++) {
+        for (int i = 0; i<str.length(); i++) {
             isPreviousCharacterCarriageReturn = isCurrentCharacterCarriageReturn;
-            if (str.charAt(i) == '\r') {
+            final char ch = str.charAt(i);
+            if (ch == '\r') {
                 isCurrentCharacterCarriageReturn = true;                            
+            } else if (Character.isWhitespace(ch)) {
+                isCurrentCharacterCarriageReturn = false;                            
+                isPreviousCharacterWhiteSpace = true;
+            } else if (Character.isISOControl(ch)) {
+                isCurrentCharacterCarriageReturn = false;                            
+                isPreviousCharacterWhiteSpace = false;
+                errors.add(new Error(lineNumber, "line contains a control character"));                                        
+            } else if (ch == '\n') {
+                isCurrentCharacterCarriageReturn = false;                            
+                isPreviousCharacterWhiteSpace = false;
+                if (!isPreviousCharacterCarriageReturn) {
+                    errors.add(new Error(lineNumber, "line should finished by \\r\\n instead of \\n"));                
+                }
+                if (isPreviousCharacterWhiteSpace) {
+                    errors.add(new Error(lineNumber, "line is finishing with a white space"));                
+                }
+                if (isLineEmpty) {
+                    errors.add(new Error(lineNumber, "empty line"));                
+                }
+                lineNumber++;
+                isLineEmpty = true;
             } else {
                 isCurrentCharacterCarriageReturn = false;                            
-                if (str.charAt(i) == '\n') {
-                    if (!isPreviousCharacterCarriageReturn) {
-                        errors.add(new Error(lineNumber, "line should finished by \\r\\n instead of \\n"));                
-                    }
-                    if (isLineEmpty) {
-                        errors.add(new Error(lineNumber, "empty line"));                
-                    }
-                    lineNumber++;
-                    isLineEmpty = true;
-                } else {
-                    //TODO check for control characters
-                    isLineEmpty = false;
-                }
+                isPreviousCharacterWhiteSpace = false;
+                isLineEmpty = false;                    
             }
         }
                 
@@ -129,7 +146,7 @@ public class FileCheckGenerator implements FileHandler {
     }
     
     @Override
-    public Status handleDeletion(final Path file) {
+    public Status handleDeletion(final Path file) { //TODO see how to test this class while keeping this type private
 
         FileHelper.deleteFile(getOutputFile(file));
         FileHelper.deleteFile(getReportFile(file));
@@ -164,7 +181,7 @@ public class FileCheckGenerator implements FileHandler {
                || (getOutputFile(file).toFile().lastModified() <= file.toFile().lastModified());
     }
     
-    private class Error {
+    public class Error {
         
         final private int _lineNumber;
         final private String _errorMessage;
