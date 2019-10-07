@@ -136,7 +136,7 @@ public class FileCheckGenerator implements FileHandler {
             final int previousSeparatorPosition = filename.lastIndexOf(File.separator, lastSeparatorPosition - 1);
             final String endOfFilename = filename.substring(previousSeparatorPosition + 1);            
             if (!content.contains("<PATH>" + endOfFilename.replace(File.separator, "/") + "</PATH>")) {
-                errors.add(new Error(0, "the name of the file does not appear in the <PATH> node"));                            
+                errors.add(new Error(0, "the name of the file does not appear in the <PATH> node");                            
             }
         } catch (final IOException e) {
             e.printStackTrace();
@@ -181,7 +181,7 @@ public class FileCheckGenerator implements FileHandler {
                || (getOutputFile(file).toFile().lastModified() <= file.toFile().lastModified());
     }
     
-    public class Error {
+    static public class Error {
         
         final private int _lineNumber;
         final private String _errorMessage;
