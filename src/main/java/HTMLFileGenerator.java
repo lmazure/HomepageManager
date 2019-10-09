@@ -30,6 +30,12 @@ public class HTMLFileGenerator implements FileHandler {
     final private DocumentBuilder _builder;
     final private Transformer _transformer;
     
+    /**
+     * This class generates the HTML files from the XML files.
+     * 
+     * @param homepagePath
+     * @param tmpPath
+     */
     public HTMLFileGenerator(final Path homepagePath, final Path tmpPath) {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;

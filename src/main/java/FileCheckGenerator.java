@@ -22,6 +22,12 @@ public class FileCheckGenerator implements FileHandler {
     final private Path _homepagePath;
     final private Path _tmpPath;
     
+    /**
+     * This class checks the characters of the XML files.
+     * 
+     * @param homepagePath
+     * @param tmpPath
+     */
     public FileCheckGenerator(final Path homepagePath, final Path tmpPath) {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;
@@ -86,27 +92,16 @@ public class FileCheckGenerator implements FileHandler {
 
         boolean isPreviousCharacterCarriageReturn = false;
         boolean isPreviousCharacterWhiteSpace = false;
-        boolean isCurrentCharacterCarriageReturn = false;
         boolean isLineEmpty = true;
         int lineNumber = 1;
         
-        for (int i = 0; i<str.length(); i++) {
-            isPreviousCharacterCarriageReturn = isCurrentCharacterCarriageReturn;
+        for (int i = 0; i < str.length(); i++) {
             final char ch = str.charAt(i);
             if (ch == '\r') {
-                isCurrentCharacterCarriageReturn = true;                            
-            } else if (Character.isWhitespace(ch)) {
-                isCurrentCharacterCarriageReturn = false;                            
-                isPreviousCharacterWhiteSpace = true;
-            } else if (Character.isISOControl(ch)) {
-                isCurrentCharacterCarriageReturn = false;                            
-                isPreviousCharacterWhiteSpace = false;
-                errors.add(new Error(lineNumber, "line contains a control character"));                                        
+                isPreviousCharacterCarriageReturn = true;                            
             } else if (ch == '\n') {
-                isCurrentCharacterCarriageReturn = false;                            
-                isPreviousCharacterWhiteSpace = false;
                 if (!isPreviousCharacterCarriageReturn) {
-                    errors.add(new Error(lineNumber, "line should finished by \\r\\n instead of \\n"));                
+                    errors.add(new Error(lineNumber, "line should finish by \\r\\n instead of \\n"));                
                 }
                 if (isPreviousCharacterWhiteSpace) {
                     errors.add(new Error(lineNumber, "line is finishing with a white space"));                
@@ -116,17 +111,34 @@ public class FileCheckGenerator implements FileHandler {
                 }
                 lineNumber++;
                 isLineEmpty = true;
+                isPreviousCharacterCarriageReturn = false;                            
+                isPreviousCharacterWhiteSpace = false;
+            } else if (Character.isISOControl(ch)) {
+                isPreviousCharacterCarriageReturn = false;                            
+                isPreviousCharacterWhiteSpace = Character.isWhitespace(ch);
+                errors.add(new Error(lineNumber, "line contains a control character"));                                        
+            } else if (Character.isWhitespace(ch)) {
+                isPreviousCharacterCarriageReturn = false;                            
+                isPreviousCharacterWhiteSpace = true;
+
             } else {
-                isCurrentCharacterCarriageReturn = false;                            
+                isPreviousCharacterCarriageReturn = false;                            
                 isPreviousCharacterWhiteSpace = false;
                 isLineEmpty = false;                    
             }
         }
-                
+
+        if (isPreviousCharacterWhiteSpace) {
+            errors.add(new Error(lineNumber, "line is finishing with a white space"));                
+        }
+        if (isLineEmpty) {
+            errors.add(new Error(lineNumber, "empty line"));                
+        }
+
         return errors;
     }
     
-    private List<Error> checkPath(final Path file, final String content) { // TODO realy check that the 5th line is correct
+    private List<Error> checkPath(final Path file, final String content) { // TODO really check that the 5th line is correct
 
         final List<Error> errors = new ArrayList<Error>();
 
@@ -182,7 +194,7 @@ public class FileCheckGenerator implements FileHandler {
     }
     
     static public class Error {
-        
+
         final private int _lineNumber;
         final private String _errorMessage;
 
@@ -198,6 +210,5 @@ public class FileCheckGenerator implements FileHandler {
         public String getErrorMessage() {
             return _errorMessage;
         }
-        
     }
 }
