@@ -1,3 +1,4 @@
+package data;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -18,6 +19,9 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.w3c.dom.Document;
 import org.xml.sax.SAXParseException;
+
+import utils.ExitHelper;
+import utils.FileHelper;
 
 /**
  * Manage the creation of the HTML files

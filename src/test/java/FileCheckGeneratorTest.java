@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import data.FileCheckGenerator;
+
 class FileCheckGeneratorTest {
 
     static private String MESS_BOM  = "file should not have a UTF BOM";

@@ -1,3 +1,4 @@
+package data;
 import java.nio.file.Path;
 
 public class TrackedFile {

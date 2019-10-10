@@ -1,3 +1,4 @@
+package data;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.FileVisitResult;
@@ -18,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.BiConsumer;
+
+import utils.ExitHelper;
 
 /**
  * Watch a directory (and its sub-directories) for changes to files
