@@ -5,16 +5,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javafx.collections.ObservableList;
 import utils.ExitHelper;
 
 public class FileTracker {
 
-    final List<FileHandler> _fileHandlers;
-    final Map<Path, TrackedFile> _files;
+    private final List<FileHandler> _fileHandlers;
+    private final Map<Path, TrackedFile> _files;
+    private final ObservableList<MyFile> _data;
 
-    public FileTracker() {
+
+    public FileTracker(final ObservableList<MyFile> data) {
         _fileHandlers = new ArrayList<FileHandler>();
         _files= new HashMap<>();
+        _data = data;
     }
     
     public void addFile(final Path file) {
@@ -24,6 +28,7 @@ public class FileTracker {
         }
         
         _files.put(file, new TrackedFile(file));
+        _data.add(new MyFile(file));
         
         for (FileHandler h: _fileHandlers) {
             if (h.outputFileMustBeRegenerated(file)) {
@@ -44,6 +49,7 @@ public class FileTracker {
         if (f == null) {
             f= new TrackedFile(file);
             _files.put(file, f);
+            _data.add(new MyFile(file));
         } else if (!f.isDeleted()) {
             ExitHelper.exit("Creating a file (" + file + ") that currently exists");
         }
