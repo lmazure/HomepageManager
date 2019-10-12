@@ -52,13 +52,12 @@ public class HTMLFileGenerator implements FileHandler {
 
         final File outputFile = getOutputFile(file).toFile();
 
-        //factory.setNamespaceAware(true);
-        //factory.setValidating(true);
         try (final InputStream is = new FileInputStream(file.toFile())) {
             final Document document = _builder.parse(is);
             final DOMSource source = new DOMSource(document);
             final StreamResult result = new StreamResult(outputFile);
             _transformer.transform(source, result);
+            System.out.println(file + " is generated");
         } catch (final Exception e) {
             final Path reportFile = getReportFile(file);
             FileHelper.createParentDirectory(reportFile);
