@@ -29,7 +29,7 @@ public class DataOrchestrator {
     final private Path _tmpPath;
     final private FileTracker _fileTracker;
 
-    public DataOrchestrator(final Path homepagePath, final Path tmpPath, final ObservableList<MyFile> data) {
+    public DataOrchestrator(final Path homepagePath, final Path tmpPath, final ObservableList<TrackedFile> data) {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;
         _fileTracker = new FileTracker(data);

@@ -12,10 +12,10 @@ public class FileTracker {
 
     private final List<FileHandler> _fileHandlers;
     private final Map<Path, TrackedFile> _files;
-    private final ObservableList<MyFile> _data;
+    private final ObservableList<TrackedFile> _data;
 
 
-    public FileTracker(final ObservableList<MyFile> data) {
+    public FileTracker(final ObservableList<TrackedFile> data) {
         _fileHandlers = new ArrayList<FileHandler>();
         _files= new HashMap<>();
         _data = data;
@@ -27,13 +27,18 @@ public class FileTracker {
             ExitHelper.exit("Duplicated path");
         }
         
-        _files.put(file, new TrackedFile(file));
-        _data.add(new MyFile(file));
+        final TrackedFile f = new TrackedFile(file);
+        _files.put(file, f);
+        _data.add(f);
         
         for (FileHandler h: _fileHandlers) {
             if (h.outputFileMustBeRegenerated(file)) {
-                h.handleDeletion(file);
-                h.handleCreation(file);                
+                final FileHandler.Status status = h.handleDeletion(file);
+                if (h.getClass().equals(HTMLFileGenerator.class)) f.setHtmlFileStatus(status);
+                if (h.getClass().equals(FileCheckGenerator.class)) f.setFileCheckStatus(status);
+                final FileHandler.Status status2 = h.handleCreation(file);                
+                if (h.getClass().equals(HTMLFileGenerator.class)) f.setHtmlFileStatus(status2);
+                if (h.getClass().equals(FileCheckGenerator.class)) f.setFileCheckStatus(status2);
             }
         }
     }
@@ -49,7 +54,7 @@ public class FileTracker {
         if (f == null) {
             f= new TrackedFile(file);
             _files.put(file, f);
-            _data.add(new MyFile(file));
+            _data.add(f);
         } else if (!f.isDeleted()) {
             ExitHelper.exit("Creating a file (" + file + ") that currently exists");
         }
@@ -57,7 +62,9 @@ public class FileTracker {
         f.setCreated();
         
         for (FileHandler h: _fileHandlers) {
-            h.handleCreation(file);
+            final FileHandler.Status status = h.handleCreation(file);
+            if (h.getClass().equals(HTMLFileGenerator.class)) f.setHtmlFileStatus(status);
+            if (h.getClass().equals(FileCheckGenerator.class)) f.setFileCheckStatus(status);
         }
     }
     
@@ -76,7 +83,9 @@ public class FileTracker {
         f.setDeleted();
 
         for (FileHandler h: _fileHandlers) {
-            h.handleDeletion(file);
+            final FileHandler.Status status = h.handleDeletion(file);
+            if (h.getClass().equals(HTMLFileGenerator.class)) f.setHtmlFileStatus(status);
+            if (h.getClass().equals(FileCheckGenerator.class)) f.setFileCheckStatus(status);
         }
     }
 }
