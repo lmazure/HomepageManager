@@ -25,6 +25,7 @@ public class FileCheckGenerator implements FileHandler {
     
     final private Path _homepagePath;
     final private Path _tmpPath;
+    final private DataController _controller;
     
     /**
      * This class checks the characters of the XML files.
@@ -32,9 +33,12 @@ public class FileCheckGenerator implements FileHandler {
      * @param homepagePath
      * @param tmpPath
      */
-    public FileCheckGenerator(final Path homepagePath, final Path tmpPath) {
+    public FileCheckGenerator(final Path homepagePath,
+                              final Path tmpPath,
+                              final DataController controller) {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;
+        _controller = controller;
     }
     
     @Override
@@ -71,7 +75,8 @@ public class FileCheckGenerator implements FileHandler {
             }
             status = Status.FAILED_TO_HANDLED;                
         }
-            
+        
+        _controller.handleCreation(file, status);
         return status;
     }
 
@@ -169,6 +174,8 @@ public class FileCheckGenerator implements FileHandler {
         FileHelper.deleteFile(getOutputFile(file));
         FileHelper.deleteFile(getReportFile(file));
         
+        _controller.handleCreation(file, Status.HANDLED_WITH_SUCCESS);
+
         return Status.HANDLED_WITH_SUCCESS;
     }
 

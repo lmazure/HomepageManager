@@ -11,7 +11,6 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.collections.ObservableList;
 import utils.ExitHelper;
 
 public class DataOrchestrator {
@@ -29,11 +28,11 @@ public class DataOrchestrator {
     final private FileTracker _fileTracker;
 
     public DataOrchestrator(final Path homepagePath,
-                            final ObservableList<TrackedFile> data,
+                            final FileExistenceHandler handler,
                             final List<FileHandler> fileHandlers) {
         _homepagePath = homepagePath;
-        _fileTracker = new FileTracker(data);
-        for (FileHandler fh: fileHandlers) {
+        _fileTracker = new FileTracker(handler);
+        for (final FileHandler fh: fileHandlers) {
             _fileTracker.addFileHandler(fh);
         }
     }

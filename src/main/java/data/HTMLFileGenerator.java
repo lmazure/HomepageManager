@@ -20,7 +20,6 @@ import javax.xml.transform.stream.StreamSource;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXParseException;
 
-import data.FileHandler.Status;
 import utils.ExitHelper;
 import utils.FileHelper;
 
@@ -32,6 +31,8 @@ public class HTMLFileGenerator implements FileHandler {
 
     final private Path _homepagePath;
     final private Path _tmpPath;
+    final private DataController _controller;
+
     final private DocumentBuilder _builder;
     final private Transformer _transformer;
     
@@ -41,9 +42,12 @@ public class HTMLFileGenerator implements FileHandler {
      * @param homepagePath
      * @param tmpPath
      */
-    public HTMLFileGenerator(final Path homepagePath, final Path tmpPath) {
+    public HTMLFileGenerator(final Path homepagePath,
+                             final Path tmpPath,
+                             final DataController controller) {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;
+        _controller = controller;
         _builder = newDocumentBuilder();
         _transformer = newTransformer(_homepagePath);
     }
@@ -71,7 +75,8 @@ public class HTMLFileGenerator implements FileHandler {
             }
             status = (e instanceof SAXParseException) ? Status.HANDLED_WITH_ERROR : Status.FAILED_TO_HANDLED;                
         }
-            
+
+        _controller.handleDeletion(file, status);
         return status;
     }
 
@@ -81,6 +86,7 @@ public class HTMLFileGenerator implements FileHandler {
         FileHelper.deleteFile(getOutputFile(file));
         FileHelper.deleteFile(getReportFile(file));
         
+        _controller.handleDeletion(file, Status.HANDLED_WITH_SUCCESS);
         return Status.HANDLED_WITH_SUCCESS;
     }
 

@@ -1,6 +1,4 @@
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
@@ -8,6 +6,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import ui.FileCheckController;
+import ui.ObservableFileList;
+import ui.HtmlFileController;
+import ui.ObservableFile;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,21 +20,21 @@ import data.DataOrchestrator;
 import data.FileCheckGenerator;
 import data.FileHandler;
 import data.HTMLFileGenerator;
-import data.TrackedFile;
 import utils.ExitHelper;
 
 public class Main extends Application {
 
     static private Path _homepagePath;
     static private Path _tmpPath;
+    static private ObservableFileList _list;
     static private HTMLFileGenerator _htmlFileGenerator;
     static private FileCheckGenerator _fileCheckGenerator;
+    static private HtmlFileController _htmlFileController;
+    static private FileCheckController _fileCheckController;
  
-    private TableView<TrackedFile> _table;
-    private final ObservableList<TrackedFile> _data;
+    private TableView<ObservableFile> _table;
     
     public Main() {
-        _data = FXCollections.observableArrayList();
     }
     
     public static void main(final String[] args) {
@@ -43,8 +45,11 @@ public class Main extends Application {
  
         _homepagePath = Paths.get(args[0]);
         _tmpPath = Paths.get(args[1]);
-        _htmlFileGenerator = new HTMLFileGenerator(_homepagePath, _tmpPath);
-        _fileCheckGenerator = new FileCheckGenerator(_homepagePath, _tmpPath);
+        _list = new ObservableFileList();
+        _htmlFileController = new HtmlFileController(_list);
+        _fileCheckController = new FileCheckController(_list);
+        _htmlFileGenerator = new HTMLFileGenerator(_homepagePath, _tmpPath, _htmlFileController);
+        _fileCheckGenerator = new FileCheckGenerator(_homepagePath, _tmpPath, _fileCheckController);
 
         launch(args);
     }
@@ -55,17 +60,16 @@ public class Main extends Application {
         stage.setWidth(900);
         stage.setHeight(500);
  
-        _table = new TableView<TrackedFile>();
-        final TableColumn<TrackedFile, String> fileColumn = new TableColumn<TrackedFile, String>("File");
+        _table = new TableView<ObservableFile>();
+        final TableColumn<ObservableFile, String> fileColumn = new TableColumn<ObservableFile, String>("File");
         fileColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-        final TableColumn<TrackedFile, Boolean> deletedColumn = new TableColumn<TrackedFile, Boolean>("Deleted");
+        final TableColumn<ObservableFile, Boolean> deletedColumn = new TableColumn<ObservableFile, Boolean>("Deleted");
         deletedColumn.setCellValueFactory(cellData -> cellData.getValue().deletedProperty());
-        final TableColumn<TrackedFile, String> htmlStatusColumn = new TableColumn<TrackedFile, String>("HTML");
-        htmlStatusColumn.setCellValueFactory(cellData -> cellData.getValue().htmlFileProperty());
-        final TableColumn<TrackedFile, String> fileCheckColumn = new TableColumn<TrackedFile, String>("Check");
-        fileCheckColumn.setCellValueFactory(cellData -> cellData.getValue().fileCheckProperty());
-        _table.getColumns().addAll(fileColumn, deletedColumn, htmlStatusColumn, fileCheckColumn);
-        _table.setItems(_data);
+        _table.getColumns().add(fileColumn);
+        _table.getColumns().add(deletedColumn);
+        _table.getColumns().addAll(_fileCheckController.getColumns());
+        _table.getColumns().addAll(_htmlFileController.getColumns());
+        _table.setItems(_list.getObservableList());
  
         final BorderPane border = new BorderPane();
         border.setCenter(_table);
@@ -81,7 +85,7 @@ public class Main extends Application {
                         final List<FileHandler> fileHandlers = new ArrayList<FileHandler>();
                         fileHandlers.add(_htmlFileGenerator);
                         fileHandlers.add(_fileCheckGenerator);
-                        final DataOrchestrator main = new DataOrchestrator(_homepagePath, _data, fileHandlers);
+                        final DataOrchestrator main = new DataOrchestrator(_homepagePath, _list, fileHandlers);
                         main.start();
                         return null;
                     }
