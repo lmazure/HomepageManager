@@ -20,6 +20,7 @@ import javax.xml.transform.stream.StreamSource;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXParseException;
 
+import data.FileHandler.Status;
 import utils.ExitHelper;
 import utils.FileHelper;
 
@@ -50,6 +51,8 @@ public class HTMLFileGenerator implements FileHandler {
     @Override
     public Status handleCreation(final Path file) {
 
+        Status status = Status.HANDLED_WITH_SUCCESS;
+
         final File outputFile = getOutputFile(file).toFile();
 
         try (final InputStream is = new FileInputStream(file.toFile())) {
@@ -66,10 +69,10 @@ public class HTMLFileGenerator implements FileHandler {
             } catch (final IOException e2) {
                 ExitHelper.exit(e2);
             }
-            return (e instanceof SAXParseException) ? Status.HANDLED_WITH_ERROR : Status.FAILED_TO_HANDLED;                
+            status = (e instanceof SAXParseException) ? Status.HANDLED_WITH_ERROR : Status.FAILED_TO_HANDLED;                
         }
             
-        return Status.HANDLED_WITH_SUCCESS;
+        return status;
     }
 
     @Override

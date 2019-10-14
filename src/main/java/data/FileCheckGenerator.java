@@ -40,7 +40,8 @@ public class FileCheckGenerator implements FileHandler {
     @Override
     public Status handleCreation(final Path file) {
 
-
+        Status status = Status.HANDLED_WITH_SUCCESS;
+        
         try (final FileReader fr = new FileReader(file.toFile());
              final BufferedReader br = new BufferedReader(fr);
              final FileOutputStream os = new FileOutputStream(getOutputFile(file).toFile());
@@ -49,6 +50,7 @@ public class FileCheckGenerator implements FileHandler {
             final String content = new String(encoded, StandardCharsets.UTF_8);
             final List<Error> errors = check(file, content);
             if (!errors.isEmpty() ) {
+                status = Status.HANDLED_WITH_ERROR;
                 System.out.println(file);
             }
             for (final Error error: errors) {
@@ -67,10 +69,10 @@ public class FileCheckGenerator implements FileHandler {
             } catch (final IOException e2) {
                 ExitHelper.exit(e2);
             }
-            return Status.FAILED_TO_HANDLED;                
+            status = Status.FAILED_TO_HANDLED;                
         }
             
-        return Status.HANDLED_WITH_SUCCESS;
+        return status;
     }
 
     public List<Error> check(final Path file, final String content) {  //TODO see how to test this method while keeping it private

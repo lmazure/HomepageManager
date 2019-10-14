@@ -3,21 +3,21 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
-import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 import data.DataOrchestrator;
+import data.FileCheckGenerator;
+import data.FileHandler;
+import data.HTMLFileGenerator;
 import data.TrackedFile;
 import utils.ExitHelper;
 
@@ -25,6 +25,8 @@ public class Main extends Application {
 
     static private Path _homepagePath;
     static private Path _tmpPath;
+    static private HTMLFileGenerator _htmlFileGenerator;
+    static private FileCheckGenerator _fileCheckGenerator;
  
     private TableView<TrackedFile> _table;
     private final ObservableList<TrackedFile> _data;
@@ -41,12 +43,14 @@ public class Main extends Application {
  
         _homepagePath = Paths.get(args[0]);
         _tmpPath = Paths.get(args[1]);
+        _htmlFileGenerator = new HTMLFileGenerator(_homepagePath, _tmpPath);
+        _fileCheckGenerator = new FileCheckGenerator(_homepagePath, _tmpPath);
 
         launch(args);
     }
  
     @Override
-    public void start(Stage stage) {
+    public void start(final Stage stage) {
         stage.setTitle("Homepage Manager");
         stage.setWidth(900);
         stage.setHeight(500);
@@ -74,7 +78,10 @@ public class Main extends Application {
 
                     @Override
                     protected Void call() throws Exception {
-                        final DataOrchestrator main = new DataOrchestrator(_homepagePath, _tmpPath, _data);
+                        final List<FileHandler> fileHandlers = new ArrayList<FileHandler>();
+                        fileHandlers.add(_htmlFileGenerator);
+                        fileHandlers.add(_fileCheckGenerator);
+                        final DataOrchestrator main = new DataOrchestrator(_homepagePath, _data, fileHandlers);
                         main.start();
                         return null;
                     }

@@ -14,10 +14,9 @@ public class FileTracker {
     private final Map<Path, TrackedFile> _files;
     private final ObservableList<TrackedFile> _data;
 
-
     public FileTracker(final ObservableList<TrackedFile> data) {
         _fileHandlers = new ArrayList<FileHandler>();
-        _files= new HashMap<>();
+        _files= new HashMap<Path, TrackedFile>();
         _data = data;
     }
     

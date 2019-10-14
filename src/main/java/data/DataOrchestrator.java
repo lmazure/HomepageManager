@@ -26,15 +26,16 @@ public class DataOrchestrator {
                                                                              "cmm_fichiers" ));
 
     final private Path _homepagePath;
-    final private Path _tmpPath;
     final private FileTracker _fileTracker;
 
-    public DataOrchestrator(final Path homepagePath, final Path tmpPath, final ObservableList<TrackedFile> data) {
+    public DataOrchestrator(final Path homepagePath,
+                            final ObservableList<TrackedFile> data,
+                            final List<FileHandler> fileHandlers) {
         _homepagePath = homepagePath;
-        _tmpPath = tmpPath;
         _fileTracker = new FileTracker(data);
-        _fileTracker.addFileHandler(new HTMLFileGenerator(_homepagePath, _tmpPath))
-                    .addFileHandler(new FileCheckGenerator(_homepagePath, _tmpPath));
+        for (FileHandler fh: fileHandlers) {
+            _fileTracker.addFileHandler(fh);
+        }
     }
     
     public void start() {
