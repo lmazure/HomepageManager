@@ -131,7 +131,6 @@ public class FileCheckGenerator implements FileHandler {
             } else if (Character.isWhitespace(ch)) {
                 isPreviousCharacterCarriageReturn = false;                            
                 isPreviousCharacterWhiteSpace = true;
-
             } else {
                 isPreviousCharacterCarriageReturn = false;                            
                 isPreviousCharacterWhiteSpace = false;
@@ -157,9 +156,10 @@ public class FileCheckGenerator implements FileHandler {
             final String filename = file.toFile().getCanonicalPath();
             final int lastSeparatorPosition = filename.lastIndexOf(File.separator);
             final int previousSeparatorPosition = filename.lastIndexOf(File.separator, lastSeparatorPosition - 1);
-            final String endOfFilename = filename.substring(previousSeparatorPosition + 1);            
-            if (!content.contains("<PATH>" + endOfFilename.replace(File.separator, "/") + "</PATH>")) {
-                errors.add(new Error(5, "the name of the file does not appear in the <PATH> node"));                            
+            final String endOfFilename = filename.substring(previousSeparatorPosition + 1);
+            final String pathString = "<PATH>" + endOfFilename.replace(File.separator, "/") + "</PATH>"; 
+            if (!content.contains(pathString)) {
+                errors.add(new Error(5, "the name of the file does not appear in the <PATH> node (expected to see \"" + pathString + "\")"));                            
             }
         } catch (final IOException e) {
             e.printStackTrace();
