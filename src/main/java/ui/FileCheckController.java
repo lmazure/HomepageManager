@@ -20,7 +20,8 @@ public class FileCheckController implements UiController {
         
         final TableColumn<ObservableFile, String> fileCheckColumn = new TableColumn<ObservableFile, String>("Check");
         fileCheckColumn.setCellValueFactory(cellData -> cellData.getValue().fileCheckProperty());
-        
+        fileCheckColumn.setPrefWidth(150);
+
         final List<TableColumn<ObservableFile, ?>> list = new ArrayList<TableColumn<ObservableFile, ?>>();
         list.add(fileCheckColumn);
         

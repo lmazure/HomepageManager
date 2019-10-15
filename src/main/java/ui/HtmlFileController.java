@@ -20,6 +20,7 @@ public class HtmlFileController implements UiController {
         
         final TableColumn<ObservableFile, String> htmlStatusColumn = new TableColumn<ObservableFile, String>("HTML");
         htmlStatusColumn.setCellValueFactory(cellData -> cellData.getValue().htmlFileProperty());
+        htmlStatusColumn.setPrefWidth(150);
         
         final List<TableColumn<ObservableFile, ?>> list = new ArrayList<TableColumn<ObservableFile, ?>>();
         list.add(htmlStatusColumn);

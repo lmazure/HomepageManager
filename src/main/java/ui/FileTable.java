@@ -38,6 +38,7 @@ public class FileTable extends Application {
         final TableView<ObservableFile> _table = new TableView<ObservableFile>();
         final TableColumn<ObservableFile, String> fileColumn = new TableColumn<ObservableFile, String>("File");
         fileColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        fileColumn.setPrefWidth(250);
         final TableColumn<ObservableFile, Boolean> deletedColumn = new TableColumn<ObservableFile, Boolean>("Deleted");
         deletedColumn.setCellValueFactory(cellData -> cellData.getValue().deletedProperty());
         _table.getColumns().add(fileColumn);
