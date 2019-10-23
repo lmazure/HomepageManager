@@ -7,10 +7,6 @@ import utils.ExitHelper;
 
 public class Main {
 
-
-    public Main() {
-    }
-    
     public static void main(final String[] args) {
         
         if (args.length != 2) {
