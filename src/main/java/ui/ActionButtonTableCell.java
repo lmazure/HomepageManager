@@ -22,6 +22,7 @@ public class ActionButtonTableCell<S> extends TableCell<S, Button> {
         _actionButton = new Button();
         _actionButton.setOnAction(e -> callback.accept(getCurrentItem()));
         _actionButton.setMaxWidth(Double.MAX_VALUE);
+        _actionButton.setMnemonicParsing(false);
         _labelSetter = labelSetter;
     }
 

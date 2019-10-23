@@ -27,7 +27,7 @@ public class FileCheckController implements UiController {
         final TableColumn<ObservableFile, Button> fileCheckColumn2 = new TableColumn<ObservableFile, Button>("Check2");
         fileCheckColumn2.setCellFactory(ActionButtonTableCell.<ObservableFile>forTableColumn(
             f -> (f.getFileCheckStatus() == null) ? Optional.empty()
-                                                  : Optional.<String>of(f.getFileCheckStatus().toString()),
+                                                  : Optional.<String>of(f.getFileCheckStatus()),
             f -> displayLogFile(f)));
         fileCheckColumn2.setPrefWidth(170);
         
