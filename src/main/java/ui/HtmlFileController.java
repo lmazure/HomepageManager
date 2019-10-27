@@ -1,8 +1,6 @@
 package ui;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
 
 import data.FileHandler.Status;
 import javafx.scene.control.TableColumn;
@@ -16,16 +14,16 @@ public class HtmlFileController implements UiController {
     }
     
     @Override
-    public List<TableColumn<ObservableFile, ?>> getColumns() {
+    public TableColumn<ObservableFile, ?> getColumns() {
         
+        final TableColumn<ObservableFile, String> allColumns = new TableColumn<ObservableFile, String>("HTML");
+
         final TableColumn<ObservableFile, String> htmlStatusColumn = new TableColumn<ObservableFile, String>("HTML");
         htmlStatusColumn.setCellValueFactory(cellData -> cellData.getValue().htmlFileProperty());
         htmlStatusColumn.setPrefWidth(150);
+        allColumns.getColumns().add(htmlStatusColumn);
         
-        final List<TableColumn<ObservableFile, ?>> list = new ArrayList<TableColumn<ObservableFile, ?>>();
-        list.add(htmlStatusColumn);
-        
-        return list;
+        return allColumns;
     }
     
     @Override

@@ -43,8 +43,8 @@ public class FileTable extends Application {
         deletedColumn.setCellValueFactory(cellData -> cellData.getValue().deletedProperty());
         _table.getColumns().add(fileColumn);
         _table.getColumns().add(deletedColumn);
-        _table.getColumns().addAll(fileCheckController.getColumns());
-        _table.getColumns().addAll(htmlFileController.getColumns());
+        _table.getColumns().add(fileCheckController.getColumns());
+        _table.getColumns().add(htmlFileController.getColumns());
         _table.setItems(list.getObservableList());
  
         final BorderPane border = new BorderPane();

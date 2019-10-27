@@ -1,8 +1,6 @@
 package ui;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import data.FileHandler.Status;
@@ -18,11 +16,14 @@ public class FileCheckController implements UiController {
     }
     
     @Override
-    public List<TableColumn<ObservableFile, ?>> getColumns() {
+    public TableColumn<ObservableFile, ?> getColumns() {
+        
+        final TableColumn<ObservableFile, String> allColumns = new TableColumn<ObservableFile, String>("Check");
         
         final TableColumn<ObservableFile, String> fileCheckColumn = new TableColumn<ObservableFile, String>("Check");
         fileCheckColumn.setCellValueFactory(cellData -> cellData.getValue().fileCheckProperty());
         fileCheckColumn.setPrefWidth(150);
+        allColumns.getColumns().add(fileCheckColumn);
 
         final TableColumn<ObservableFile, Button> fileCheckColumn2 = new TableColumn<ObservableFile, Button>("Check2");
         fileCheckColumn2.setCellFactory(ActionButtonTableCell.<ObservableFile>forTableColumn(
@@ -31,6 +32,7 @@ public class FileCheckController implements UiController {
             f -> displayLogFile(f)));
         // fileCheckColumn2.setCellValueFactory(cellData -> cellData.getValue().fileCheckProperty());
         fileCheckColumn2.setPrefWidth(170);
+        allColumns.getColumns().add(fileCheckColumn2);
         
         final TableColumn<ObservableFile, Button> fileCheckColumn3 = new TableColumn<ObservableFile, Button>("Check3");
         fileCheckColumn3.setCellValueFactory(ActionButtonTableCell2.<ObservableFile>forTableColumn(
@@ -38,13 +40,9 @@ public class FileCheckController implements UiController {
                                                       : Optional.<String>of(f.getFileCheckStatus()),
                 f -> displayLogFile(f)));
         fileCheckColumn3.setPrefWidth(170);
-
-        final List<TableColumn<ObservableFile, ?>> list = new ArrayList<TableColumn<ObservableFile, ?>>();
-        list.add(fileCheckColumn);
-        list.add(fileCheckColumn2);
-        list.add(fileCheckColumn3);
+        allColumns.getColumns().add(fileCheckColumn3);
         
-        return list;
+        return allColumns;
     }
  
     @Override
