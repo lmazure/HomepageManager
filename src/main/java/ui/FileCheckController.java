@@ -29,11 +29,20 @@ public class FileCheckController implements UiController {
             f -> (f.getFileCheckStatus() == null) ? Optional.empty()
                                                   : Optional.<String>of(f.getFileCheckStatus()),
             f -> displayLogFile(f)));
+        // fileCheckColumn2.setCellValueFactory(cellData -> cellData.getValue().fileCheckProperty());
         fileCheckColumn2.setPrefWidth(170);
         
+        final TableColumn<ObservableFile, Button> fileCheckColumn3 = new TableColumn<ObservableFile, Button>("Check3");
+        fileCheckColumn3.setCellValueFactory(ActionButtonTableCell2.<ObservableFile>forTableColumn(
+                f -> (f.getFileCheckStatus() == null) ? Optional.empty()
+                                                      : Optional.<String>of(f.getFileCheckStatus()),
+                f -> displayLogFile(f)));
+        fileCheckColumn3.setPrefWidth(170);
+
         final List<TableColumn<ObservableFile, ?>> list = new ArrayList<TableColumn<ObservableFile, ?>>();
         list.add(fileCheckColumn);
         list.add(fileCheckColumn2);
+        list.add(fileCheckColumn3);
         
         return list;
     }

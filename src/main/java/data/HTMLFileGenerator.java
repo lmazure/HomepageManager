@@ -64,7 +64,7 @@ public class HTMLFileGenerator implements FileHandler {
             final DOMSource source = new DOMSource(document);
             final StreamResult result = new StreamResult(outputFile);
             _transformer.transform(source, result);
-            System.out.println(file + " is generated");
+            System.out.println(outputFile + " is generated");
         } catch (final Exception e) {
             final Path reportFile = getReportFile(file);
             FileHelper.createParentDirectory(reportFile);

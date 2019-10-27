@@ -3,6 +3,7 @@ package ui;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;

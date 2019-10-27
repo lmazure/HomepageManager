@@ -65,6 +65,7 @@ public class FileCheckGenerator implements FileHandler {
             pw.flush();
             os.flush();
             os.getFD().sync();
+            System.out.println(getOutputFile(file).toFile() + " is generated");
         } catch (final Exception e) {
             final Path reportFile = getReportFile(file);
             FileHelper.createParentDirectory(reportFile);

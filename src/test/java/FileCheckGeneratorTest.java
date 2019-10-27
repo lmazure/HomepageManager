@@ -1,5 +1,6 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,14 +8,16 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import data.DataController;
 import data.FileCheckGenerator;
+import data.FileHandler.Status;
 
 class FileCheckGeneratorTest {
 
     static private String MESS_BOM  = "file should not have a UTF BOM";
     static private String MESS_CTRL = "line contains a control character";
     static private String MESS_WTSP = "line is finishing with a white space";
-    static private String MESS_PATH = "the name of the file does not appear in the <PATH> node";
+    static private String MESS_PATH = "the name of the file does not appear in the <PATH> node (expected to see \"<PATH>HomepageManager/test.xml</PATH>\")";
     static private String MESS_CRLF = "line should finish by \\r\\n instead of \\n";
     static private String MESS_EMPT = "empty line";
     
@@ -356,7 +359,7 @@ class FileCheckGeneratorTest {
     static private void test(final String content,
                              final List<FileCheckGenerator.Error> expected) {
 
-        final FileCheckGenerator gen = new FileCheckGenerator(Paths.get("home"), Paths.get("tmp"));
+        final FileCheckGenerator gen = new FileCheckGenerator(Paths.get("home"), Paths.get("tmp"), new DummyDataController());
         final List<FileCheckGenerator.Error> effective = gen.check(Paths.get("test.xml"), content);
         
         assertEquals(normalize(expected), normalize(effective));
@@ -367,5 +370,19 @@ class FileCheckGeneratorTest {
                      .map(e -> String.format("%02d %s", e.getLineNumber(), e.getErrorMessage()))
                      .sorted()
                      .collect(Collectors.joining("\n"));
+    }
+    
+    static private class DummyDataController implements DataController {
+
+        @Override
+        public void handleCreation(Path file, Status status) {
+            // do noting
+        }
+
+        @Override
+        public void handleDeletion(Path file, Status status) {
+            // do noting
+        }
+        
     }
 }
