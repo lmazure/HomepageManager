@@ -29,7 +29,7 @@ public class ObservableFile {
         return _name.get();
     }
 
-    public void setName(final String name) { // TODO do we really need this method?
+    public void setName(final String name) {
        _name.set(name);
     }
 
@@ -41,7 +41,7 @@ public class ObservableFile {
         return _htmlFileStatus.get();
     }
 
-    public void setHtmlFileStatus(final FileHandler.Status status) { // TODO do we really need this method?
+    public void setHtmlFileStatus(final FileHandler.Status status) {
         _htmlFileStatus.set(status.toString());
     }
 
@@ -53,7 +53,7 @@ public class ObservableFile {
         return _fileCheckStatus.get();
     }
 
-    public void setFileCheckStatus(final FileHandler.Status status) { // TODO do we really need this method?
+    public void setFileCheckStatus(final FileHandler.Status status) {
         _fileCheckStatus.set(status.toString());
     }
 

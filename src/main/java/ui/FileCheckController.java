@@ -1,11 +1,12 @@
 package ui;
 
 import java.nio.file.Path;
-import java.util.Optional;
 
 import data.FileHandler.Status;
-import javafx.scene.control.Button;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.util.Callback;
 
 public class FileCheckController implements UiController {
     
@@ -20,28 +21,28 @@ public class FileCheckController implements UiController {
         
         final TableColumn<ObservableFile, String> allColumns = new TableColumn<ObservableFile, String>("Check");
         
-        final TableColumn<ObservableFile, String> fileCheckColumn = new TableColumn<ObservableFile, String>("Check");
-        fileCheckColumn.setCellValueFactory(cellData -> cellData.getValue().fileCheckProperty());
-        fileCheckColumn.setPrefWidth(150);
-        allColumns.getColumns().add(fileCheckColumn);
+        TableColumn<ObservableFile, String> statusColumn = new TableColumn<>("Status");
+        statusColumn.setPrefWidth(170);
 
-        final TableColumn<ObservableFile, Button> fileCheckColumn2 = new TableColumn<ObservableFile, Button>("Check2");
-        fileCheckColumn2.setCellFactory(ActionButtonTableCell.<ObservableFile>forTableColumn(
-            f -> (f.getFileCheckStatus() == null) ? Optional.empty()
-                                                  : Optional.<String>of(f.getFileCheckStatus()),
-            f -> displayLogFile(f)));
-        // fileCheckColumn2.setCellValueFactory(cellData -> cellData.getValue().fileCheckProperty());
-        fileCheckColumn2.setPrefWidth(170);
-        allColumns.getColumns().add(fileCheckColumn2);
+        statusColumn.setCellValueFactory(
+                new Callback<TableColumn.CellDataFeatures<ObservableFile, String>, ObservableValue<String>>() {
+                    @Override
+                    public ObservableValue<String> call(final TableColumn.CellDataFeatures<ObservableFile, String> p) {
+                        return p.getValue().fileCheckProperty();
+                    }
+                });
+
+        statusColumn.setCellFactory(
+                new Callback<TableColumn<ObservableFile, String>, TableCell<ObservableFile, String>>() {
+                    @Override
+                    public TableCell<ObservableFile, String> call(final TableColumn<ObservableFile, String> p) {
+                        return new ButtonCell<ObservableFile>(f -> displayLogFile(f));
+                    }
+
+                });
         
-        final TableColumn<ObservableFile, Button> fileCheckColumn3 = new TableColumn<ObservableFile, Button>("Check3");
-        fileCheckColumn3.setCellValueFactory(ActionButtonTableCell2.<ObservableFile>forTableColumn(
-                f -> (f.getFileCheckStatus() == null) ? Optional.empty()
-                                                      : Optional.<String>of(f.getFileCheckStatus()),
-                f -> displayLogFile(f)));
-        fileCheckColumn3.setPrefWidth(170);
-        allColumns.getColumns().add(fileCheckColumn3);
-        
+        allColumns.getColumns().add(statusColumn);
+
         return allColumns;
     }
  
