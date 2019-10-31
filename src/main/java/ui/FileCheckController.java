@@ -1,5 +1,7 @@
 package ui;
 
+import java.awt.Desktop;
+import java.io.IOException;
 import java.nio.file.Path;
 
 import data.FileHandler.Status;
@@ -7,6 +9,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.util.Callback;
+import utils.ExitHelper;
 
 public class FileCheckController implements UiController {
     
@@ -23,12 +26,11 @@ public class FileCheckController implements UiController {
         
         TableColumn<ObservableFile, String> statusColumn = new TableColumn<>("Status");
         statusColumn.setPrefWidth(170);
-
         statusColumn.setCellValueFactory(
                 new Callback<TableColumn.CellDataFeatures<ObservableFile, String>, ObservableValue<String>>() {
                     @Override
-                    public ObservableValue<String> call(final TableColumn.CellDataFeatures<ObservableFile, String> p) {
-                        return p.getValue().fileCheckProperty();
+                    public ObservableValue<String> call(final TableColumn.CellDataFeatures<ObservableFile, String> f) {
+                        return f.getValue().fileCheckProperty();
                     }
                 });
 
@@ -36,7 +38,7 @@ public class FileCheckController implements UiController {
                 new Callback<TableColumn<ObservableFile, String>, TableCell<ObservableFile, String>>() {
                     @Override
                     public TableCell<ObservableFile, String> call(final TableColumn<ObservableFile, String> p) {
-                        return new ButtonCell<ObservableFile>(f -> displayLogFile(f));
+                        return new ButtonCell<ObservableFile>(f -> displayReportFile(f));
                     }
 
                 });
@@ -47,16 +49,22 @@ public class FileCheckController implements UiController {
     }
  
     @Override
-    public void handleCreation(final Path file, final Status status) {
-        _list.getFile(file).setFileCheckStatus(status);
+    public void handleCreation(final Path file, final Status status, final Path outputFile, final Path reportFile) {
+        _list.getFile(file).setFileCheckStatus(status, outputFile, reportFile);
     }
 
     @Override
-    public void handleDeletion(final Path file, final Status status) {
-        _list.getFile(file).setFileCheckStatus(status);
+    public void handleDeletion(final Path file, final Status status, final Path outputFile, final Path reportFile) {
+        _list.getFile(file).setFileCheckStatus(status, outputFile, reportFile);
     }
     
-    static private void displayLogFile(final ObservableFile file) {
-        System.out.println("display : " + file.getName());
+    static private void displayReportFile(final ObservableFile file) {
+        if ((file.getFileCheckReportFile() == null) || !file.getFileCheckReportFile().toFile().isFile()) return; // nothing to display
+        
+        try {
+            Desktop.getDesktop().browse(file.getFileCheckReportFile().toUri());
+        } catch (final IOException e) {
+            ExitHelper.exit(e);
+        }
     }
 }

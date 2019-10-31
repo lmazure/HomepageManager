@@ -375,12 +375,12 @@ class FileCheckGeneratorTest {
     static private class DummyDataController implements DataController {
 
         @Override
-        public void handleCreation(Path file, Status status) {
+        public void handleCreation(final Path file, final Status status, final Path outputFile, final Path reportFile) {
             // do noting
         }
 
         @Override
-        public void handleDeletion(Path file, Status status) {
+        public void handleDeletion(final Path file, final Status status, final Path outputFile, final Path reportFile) {
             // do noting
         }
         

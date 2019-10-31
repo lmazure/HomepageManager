@@ -18,9 +18,9 @@ public interface FileHandler {
         FAILED_TO_HANDLED
     };
 
-    public Status handleCreation(final Path file);
+    public Status handleCreation(final Path inputfile);
 
-    public Status handleDeletion(final Path file);
+    public Status handleDeletion(final Path inputfile);
     
     public Path getOutputFile(final Path file);
     

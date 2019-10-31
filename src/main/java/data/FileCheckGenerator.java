@@ -77,7 +77,7 @@ public class FileCheckGenerator implements FileHandler {
             status = Status.FAILED_TO_HANDLED;                
         }
         
-        _controller.handleCreation(file, status);
+        _controller.handleCreation(file, status, getOutputFile(file), getReportFile(file));
         return status;
     }
 
@@ -175,7 +175,7 @@ public class FileCheckGenerator implements FileHandler {
         FileHelper.deleteFile(getOutputFile(file));
         FileHelper.deleteFile(getReportFile(file));
         
-        _controller.handleCreation(file, Status.HANDLED_WITH_SUCCESS);
+        _controller.handleCreation(file, Status.HANDLED_WITH_SUCCESS, getOutputFile(file), getReportFile(file));
 
         return Status.HANDLED_WITH_SUCCESS;
     }

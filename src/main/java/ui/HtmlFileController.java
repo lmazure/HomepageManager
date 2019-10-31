@@ -1,9 +1,15 @@
 package ui;
 
+import java.awt.Desktop;
+import java.io.IOException;
 import java.nio.file.Path;
 
 import data.FileHandler.Status;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.util.Callback;
+import utils.ExitHelper;
 
 public class HtmlFileController implements UiController {
 
@@ -18,21 +24,47 @@ public class HtmlFileController implements UiController {
         
         final TableColumn<ObservableFile, String> allColumns = new TableColumn<ObservableFile, String>("HTML");
 
-        final TableColumn<ObservableFile, String> htmlStatusColumn = new TableColumn<ObservableFile, String>("HTML");
-        htmlStatusColumn.setCellValueFactory(cellData -> cellData.getValue().htmlFileProperty());
-        htmlStatusColumn.setPrefWidth(150);
-        allColumns.getColumns().add(htmlStatusColumn);
+        TableColumn<ObservableFile, String> statusColumn = new TableColumn<>("Status");
+        statusColumn.setPrefWidth(170);
+        statusColumn.setCellValueFactory(
+                new Callback<TableColumn.CellDataFeatures<ObservableFile, String>, ObservableValue<String>>() {
+                    @Override
+                    public ObservableValue<String> call(final TableColumn.CellDataFeatures<ObservableFile, String> p) {
+                        return p.getValue().htmlFileProperty();
+                    }
+                });
+
+        statusColumn.setCellFactory(
+                new Callback<TableColumn<ObservableFile, String>, TableCell<ObservableFile, String>>() {
+                    @Override
+                    public TableCell<ObservableFile, String> call(final TableColumn<ObservableFile, String> p) {
+                        return new ButtonCell<ObservableFile>(f -> displayLogFile(f));
+                    }
+
+                });
+        
+        allColumns.getColumns().add(statusColumn);
         
         return allColumns;
     }
     
     @Override
-    public void handleCreation(final Path file, final Status status) {
-        _list.getFile(file).setHtmlFileStatus(status);
+    public void handleCreation(final Path file, final Status status, final Path outputFile, final Path reportFile) {
+        _list.getFile(file).setHtmlFileStatus(status, outputFile, reportFile);
     }
 
     @Override
-    public void handleDeletion(final Path file, final Status status) {
-        _list.getFile(file).setHtmlFileStatus(status);
+    public void handleDeletion(final Path file, final Status status, final Path outputFile, final Path reportFile) {
+        _list.getFile(file).setHtmlFileStatus(status, outputFile, reportFile);
+    }
+
+    static private void displayLogFile(final ObservableFile file) {
+        if ((file.getHtmlFileReportFile() == null) || !file.getHtmlFileReportFile().toFile().isFile()) return; // nothing to display
+        
+        try {
+            Desktop.getDesktop().browse(file.getHtmlFileReportFile().toUri());
+        } catch (final IOException e) {
+            ExitHelper.exit(e);
+        }
     }
 }

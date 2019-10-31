@@ -76,7 +76,7 @@ public class HTMLFileGenerator implements FileHandler {
             status = (e instanceof SAXParseException) ? Status.HANDLED_WITH_ERROR : Status.FAILED_TO_HANDLED;                
         }
 
-        _controller.handleDeletion(file, status);
+        _controller.handleDeletion(file, status, getOutputFile(file), getReportFile(file));
         return status;
     }
 
@@ -86,7 +86,7 @@ public class HTMLFileGenerator implements FileHandler {
         FileHelper.deleteFile(getOutputFile(file));
         FileHelper.deleteFile(getReportFile(file));
         
-        _controller.handleDeletion(file, Status.HANDLED_WITH_SUCCESS);
+        _controller.handleDeletion(file, Status.HANDLED_WITH_SUCCESS, getOutputFile(file), getReportFile(file));
         return Status.HANDLED_WITH_SUCCESS;
     }
 
