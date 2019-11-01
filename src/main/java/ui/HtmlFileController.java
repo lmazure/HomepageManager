@@ -18,11 +18,15 @@ public class HtmlFileController implements UiController {
         
         final TableColumn<ObservableFile, String> allColumns = new TableColumn<ObservableFile, String>("HTML");
 
-        TableColumn<ObservableFile, String> statusColumn = new TableColumn<>("Status");
+        final TableColumn<ObservableFile, String> displayColumn = new TableColumn<>("Display");
+        displayColumn.setPrefWidth(70);
+        displayColumn.setCellFactory(p -> { return new FixedButtonCell<ObservableFile>("display", f -> ActionHelper.displayFile(f.getHtmlFileOuputFile()));});
+        allColumns.getColumns().add(displayColumn);
+
+        final TableColumn<ObservableFile, String> statusColumn = new TableColumn<>("Status");
         statusColumn.setPrefWidth(170);
         statusColumn.setCellValueFactory(f -> f.getValue().htmlFileProperty());
-        statusColumn.setCellFactory(p -> { return new ButtonCell<ObservableFile>(f -> ActionHelper.displayFile(f.getHtmlFileReportFile()));});
-        
+        statusColumn.setCellFactory(p -> { return new UpdatableButtonCell<ObservableFile>(f -> ActionHelper.displayFile(f.getHtmlFileReportFile()));});
         allColumns.getColumns().add(statusColumn);
         
         return allColumns;

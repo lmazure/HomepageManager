@@ -17,12 +17,16 @@ public class FileCheckController implements UiController {
     public TableColumn<ObservableFile, ?> getColumns() {
         
         final TableColumn<ObservableFile, String> allColumns = new TableColumn<ObservableFile, String>("Check");
-        
-        TableColumn<ObservableFile, String> statusColumn = new TableColumn<>("Status");
+
+        final TableColumn<ObservableFile, String> displayColumn = new TableColumn<>("Display");
+        displayColumn.setPrefWidth(70);
+        displayColumn.setCellFactory(p -> { return new FixedButtonCell<ObservableFile>("display", f -> ActionHelper.displayFile(f.getFileCheckOuputFile()));});
+        allColumns.getColumns().add(displayColumn);
+
+        final TableColumn<ObservableFile, String> statusColumn = new TableColumn<>("Status");
         statusColumn.setPrefWidth(170);
         statusColumn.setCellValueFactory(f -> f.getValue().fileCheckProperty());
-        statusColumn.setCellFactory(p -> { return new ButtonCell<ObservableFile>(f -> ActionHelper.displayFile(f.getFileCheckReportFile()));});
-        
+        statusColumn.setCellFactory(p -> { return new UpdatableButtonCell<ObservableFile>(f -> ActionHelper.displayFile(f.getFileCheckReportFile()));});
         allColumns.getColumns().add(statusColumn);
 
         return allColumns;

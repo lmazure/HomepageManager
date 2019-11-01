@@ -5,7 +5,7 @@ import java.util.function.Consumer;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 
-class ButtonCell<S> extends TableCell<S, String> {
+abstract class ButtonCell<S> extends TableCell<S, String> {
     
     final private Button _cellButton;
 
@@ -13,8 +13,11 @@ class ButtonCell<S> extends TableCell<S, String> {
         _cellButton = new Button();
         _cellButton.setMaxWidth(Double.MAX_VALUE);
         _cellButton.setMnemonicParsing(false);
-        _cellButton.textProperty().bind(itemProperty());
         _cellButton.setOnAction(e -> callback.accept(getCurrentItem()));
+    }
+
+    protected Button getButton() {
+        return _cellButton;
     }
 
     private S getCurrentItem() {
