@@ -19,7 +19,7 @@ import utils.FileHelper;
  * Manage the creation of the HTML files
  *
  */
-public class FileCheckGenerator implements FileHandler {
+public class FileChecker implements FileHandler {
 
     static final private String UTF8_BOM = "\uFEFF";
     
@@ -33,7 +33,7 @@ public class FileCheckGenerator implements FileHandler {
      * @param homepagePath
      * @param tmpPath
      */
-    public FileCheckGenerator(final Path homepagePath,
+    public FileChecker(final Path homepagePath,
                               final Path tmpPath,
                               final DataController controller) {
         _homepagePath = homepagePath;

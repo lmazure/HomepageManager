@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import data.DataOrchestrator;
-import data.FileCheckGenerator;
+import data.FileChecker;
 import data.FileHandler;
-import data.HTMLFileGenerator;
+import data.HTMLGenerator;
 import javafx.application.Application;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -26,10 +26,10 @@ public class FileTable extends Application {
     public void start(final Stage stage) {
 
         final ObservableFileList list = new ObservableFileList();
-        final HtmlFileController htmlFileController = new HtmlFileController(list);
+        final HtmlGenerationController htmlFileController = new HtmlGenerationController(list);
         final FileCheckController fileCheckController = new FileCheckController(list);
-        final HTMLFileGenerator htmlFileGenerator = new HTMLFileGenerator(_homepagePath, _tmpPath, htmlFileController);
-        final FileCheckGenerator fileCheckGenerator = new FileCheckGenerator(_homepagePath, _tmpPath, fileCheckController);
+        final HTMLGenerator htmlFileGenerator = new HTMLGenerator(_homepagePath, _tmpPath, htmlFileController);
+        final FileChecker fileCheckGenerator = new FileChecker(_homepagePath, _tmpPath, fileCheckController);
 
         stage.setTitle("Homepage Manager");
         stage.setWidth(900);

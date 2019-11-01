@@ -27,7 +27,7 @@ import utils.FileHelper;
  * Manage the creation of the HTML files
  *
  */
-public class HTMLFileGenerator implements FileHandler {
+public class HTMLGenerator implements FileHandler {
 
     final private Path _homepagePath;
     final private Path _tmpPath;
@@ -42,7 +42,7 @@ public class HTMLFileGenerator implements FileHandler {
      * @param homepagePath
      * @param tmpPath
      */
-    public HTMLFileGenerator(final Path homepagePath,
+    public HTMLGenerator(final Path homepagePath,
                              final Path tmpPath,
                              final DataController controller) {
         _homepagePath = homepagePath;

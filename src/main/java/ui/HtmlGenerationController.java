@@ -5,11 +5,11 @@ import java.nio.file.Path;
 import data.FileHandler.Status;
 import javafx.scene.control.TableColumn;
 
-public class HtmlFileController implements UiController {
+public class HtmlGenerationController implements UiController {
 
     final private ObservableFileList _list;
     
-    public HtmlFileController(final ObservableFileList list) {
+    public HtmlGenerationController(final ObservableFileList list) {
         _list = list;
     }
     
@@ -25,7 +25,7 @@ public class HtmlFileController implements UiController {
 
         final TableColumn<ObservableFile, String> statusColumn = new TableColumn<>("Status");
         statusColumn.setPrefWidth(170);
-        statusColumn.setCellValueFactory(f -> f.getValue().htmlFileProperty());
+        statusColumn.setCellValueFactory(f -> f.getValue().htmlGenerationProperty());
         statusColumn.setCellFactory(p -> { return new UpdatableButtonCell<ObservableFile>(f -> ActionHelper.displayFile(f.getHtmlFileReportFile()));});
         allColumns.getColumns().add(statusColumn);
         
@@ -34,11 +34,11 @@ public class HtmlFileController implements UiController {
     
     @Override
     public void handleCreation(final Path file, final Status status, final Path outputFile, final Path reportFile) {
-        _list.getFile(file).setHtmlFileStatus(status, outputFile, reportFile);
+        _list.getFile(file).setHtmlGenerationStatus(status, outputFile, reportFile);
     }
 
     @Override
     public void handleDeletion(final Path file, final Status status, final Path outputFile, final Path reportFile) {
-        _list.getFile(file).setHtmlFileStatus(status, outputFile, reportFile);
+        _list.getFile(file).setHtmlGenerationStatus(status, outputFile, reportFile);
     }
 }

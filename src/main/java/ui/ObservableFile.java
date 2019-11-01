@@ -53,17 +53,19 @@ public class ObservableFile {
         return _isDeleted;
     }
     
-    // --- HTML file ---
+    // --- HTML generation ---
     
-    public SimpleStringProperty htmlFileProperty() {
+    public SimpleStringProperty htmlGenerationProperty() {
         return _htmlFileStatus;
     }
     
-    public String getHtmlFileStatus() {
+    public String getHtmlGenerationStatus() {
         return _htmlFileStatus.get();
     }
 
-    public void setHtmlFileStatus(final FileHandler.Status status, final Path outputFile, final Path reportFile) {
+    public void setHtmlGenerationStatus(final FileHandler.Status status,
+                                        final Path outputFile,
+                                        final Path reportFile) {
         _htmlFileStatus.set(status.toString());
         _htmlFileOuputFile = outputFile;
         _htmlFileReportFile = reportFile;
@@ -87,7 +89,9 @@ public class ObservableFile {
         return _fileCheckStatus.get();
     }
 
-    public void setFileCheckStatus(final FileHandler.Status status, final Path outputFile, final Path reportFile) {
+    public void setFileCheckStatus(final FileHandler.Status status,
+                                   final Path outputFile,
+                                   final Path reportFile) {
         _fileCheckStatus.set(status.toString());
         _fileCheckOuputFile = outputFile;
         _fileCheckReportFile = reportFile;
@@ -96,9 +100,8 @@ public class ObservableFile {
     public Path getFileCheckOuputFile() {
         return _fileCheckOuputFile;
     }
-    
+
     public Path getFileCheckReportFile() {
         return _fileCheckReportFile;
     }
-    
 }

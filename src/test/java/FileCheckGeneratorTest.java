@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import data.DataController;
-import data.FileCheckGenerator;
+import data.FileChecker;
 import data.FileHandler.Status;
 
 class FileCheckGeneratorTest {
@@ -322,15 +322,15 @@ class FileCheckGeneratorTest {
     }
     static private void test(final String content) {
 
-        final List<FileCheckGenerator.Error> expected= new ArrayList<FileCheckGenerator.Error>();        
+        final List<FileChecker.Error> expected= new ArrayList<FileChecker.Error>();        
         test(content, expected);
     }
 
     static private void test(final String content,
                              final int line0, final String message0) {
 
-        final List<FileCheckGenerator.Error> expected= new ArrayList<FileCheckGenerator.Error>();
-        expected.add(new FileCheckGenerator.Error(line0, message0));
+        final List<FileChecker.Error> expected= new ArrayList<FileChecker.Error>();
+        expected.add(new FileChecker.Error(line0, message0));
         test(content, expected);
     }
 
@@ -338,9 +338,9 @@ class FileCheckGeneratorTest {
                              final int line0, final String message0,
                              final int line1, final String message1) {
         
-        final List<FileCheckGenerator.Error> expected= new ArrayList<FileCheckGenerator.Error>();
-        expected.add(new FileCheckGenerator.Error(line0, message0));
-        expected.add(new FileCheckGenerator.Error(line1, message1));
+        final List<FileChecker.Error> expected= new ArrayList<FileChecker.Error>();
+        expected.add(new FileChecker.Error(line0, message0));
+        expected.add(new FileChecker.Error(line1, message1));
         test(content, expected);
     }
 
@@ -349,23 +349,23 @@ class FileCheckGeneratorTest {
             final int line1, final String message1,
             final int line2, final String message2) {
 
-        final List<FileCheckGenerator.Error> expected= new ArrayList<FileCheckGenerator.Error>();
-        expected.add(new FileCheckGenerator.Error(line0, message0));
-        expected.add(new FileCheckGenerator.Error(line1, message1));
-        expected.add(new FileCheckGenerator.Error(line2, message2));
+        final List<FileChecker.Error> expected= new ArrayList<FileChecker.Error>();
+        expected.add(new FileChecker.Error(line0, message0));
+        expected.add(new FileChecker.Error(line1, message1));
+        expected.add(new FileChecker.Error(line2, message2));
         test(content, expected);
     }
 
     static private void test(final String content,
-                             final List<FileCheckGenerator.Error> expected) {
+                             final List<FileChecker.Error> expected) {
 
-        final FileCheckGenerator gen = new FileCheckGenerator(Paths.get("home"), Paths.get("tmp"), new DummyDataController());
-        final List<FileCheckGenerator.Error> effective = gen.check(Paths.get("test.xml"), content);
+        final FileChecker gen = new FileChecker(Paths.get("home"), Paths.get("tmp"), new DummyDataController());
+        final List<FileChecker.Error> effective = gen.check(Paths.get("test.xml"), content);
         
         assertEquals(normalize(expected), normalize(effective));
     }
     
-    static private String normalize(final List<FileCheckGenerator.Error> errors) {
+    static private String normalize(final List<FileChecker.Error> errors) {
         return errors.stream()
                      .map(e -> String.format("%02d %s", e.getLineNumber(), e.getErrorMessage()))
                      .sorted()
