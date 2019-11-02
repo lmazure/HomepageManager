@@ -49,6 +49,9 @@ public class NodeValueChecker implements FileHandler, Logger {
             loggers.add(this);
             final ParseManager pm = new ParseManager(loggers);
             pm.parse(file.toFile());
+            if (_hasError) {
+                status = Status.HANDLED_WITH_ERROR;
+            }
         } catch (final Exception e) {
             final Path reportFile = getReportFile(file);
             FileHelper.createParentDirectory(reportFile);
@@ -111,10 +114,10 @@ public class NodeValueChecker implements FileHandler, Logger {
                        final String violation,
                        final String detail) {
         _hasError = true;
-        _pw.println("file =" + file +
-                "tag = " + tag +
-                "value = " + value +
-                "violation = " + violation +
-                "detail = " + detail);
+        _pw.println("file = " + file +
+                " tag = " + tag +
+                " value = " + value +
+                " violation = " + violation +
+                " detail = " + detail);
     }
 }

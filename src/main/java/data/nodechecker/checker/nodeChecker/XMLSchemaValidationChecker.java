@@ -76,7 +76,7 @@ public class XMLSchemaValidationChecker extends NodeChecker {
         try {
 			schema = factory.newSchema(schemaLocation);
 		} catch (final SAXException e1) {
-			System.err.println("failed to create the schema" + e1.getMessage());
+			System.err.println("failed to create the schema: " + e1.getMessage());
 			e1.printStackTrace();
 			return null;
 		}
@@ -88,9 +88,9 @@ public class XMLSchemaValidationChecker extends NodeChecker {
         try {
 			validator.validate(source);
         } catch (final SAXException e1) {
-			return new CheckStatus("not valid: " + e1. getMessage() +"cause: " + e1. getMessage());
+			return new CheckStatus("not valid: " + e1.toString());
 		} catch (final IOException e1) {
-			return new CheckStatus("cannot read:  " + e1.getMessage());
+			return new CheckStatus("cannot read: " + e1.getMessage());
 		}
 
 		return null;

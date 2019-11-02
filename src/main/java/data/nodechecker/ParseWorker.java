@@ -63,8 +63,6 @@ public class ParseWorker implements Runnable {
 	@Override
 	public void run() {
 
-		System.out.println(Thread.currentThread().getName() + " is parsing \"" + a_fileToBeParsed + "\"");
-
 		try {
 		    checkFileContent(a_fileToBeParsed);
 			final Document document = a_builder.parse(a_fileToBeParsed);
@@ -76,8 +74,6 @@ public class ParseWorker implements Runnable {
 			System.out.println("Failed to read the XML file: " + a_fileToBeParsed.getAbsolutePath());
 			ioe.printStackTrace();
 		}
-
-		System.out.println(Thread.currentThread().getName() + " has parsed \"" + a_fileToBeParsed + "\"");
 	}
 
 	private void checkFileContent(final File file) throws IOException {
