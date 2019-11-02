@@ -67,7 +67,8 @@ public class DataOrchestrator {
                 return FileVisitResult.CONTINUE;
             }
             @Override
-            public FileVisitResult visitFile(final Path path, final BasicFileAttributes attrs) throws IOException {
+            public FileVisitResult visitFile(final Path path,
+                                             final BasicFileAttributes attrs) throws IOException {
                 if (matcher.matches(path)) {
                     _fileTracker.addFile(path);
                 }
@@ -76,7 +77,8 @@ public class DataOrchestrator {
         });
     }
     
-    private void dispatchEvent(final Path path, final WatchDir.Event event) {
+    private void dispatchEvent(final Path path,
+                               final WatchDir.Event event) {
         
         switch (event) {
             case CREATE:

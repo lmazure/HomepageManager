@@ -66,7 +66,7 @@ public class FileTracker {
         if (f == null) {
             ExitHelper.exit("Unknown file");
         }
-        assert (f != null);
+        assert(f != null);
 
         if (f.isDeleted()) {
             ExitHelper.exit("Deleting a file (" + file + ") that currently does not exist");
