@@ -43,8 +43,8 @@ public class HTMLGenerator implements FileHandler {
      * @param tmpPath
      */
     public HTMLGenerator(final Path homepagePath,
-                             final Path tmpPath,
-                             final DataController controller) {
+                         final Path tmpPath,
+                         final DataController controller) {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;
         _controller = controller;
@@ -101,10 +101,10 @@ public class HTMLGenerator implements FileHandler {
     }
     
     private Transformer newTransformer(final Path homepagePath) {
-        final TransformerFactory tFactory = TransformerFactory.newInstance();
+        final TransformerFactory transformerFactory = TransformerFactory.newInstance();
         final StreamSource stylesource = new StreamSource(getSylesheetFile().toFile());
         try {
-            return tFactory.newTransformer(stylesource);
+            return transformerFactory.newTransformer(stylesource);
         } catch (final TransformerConfigurationException e) {
             ExitHelper.exit(e);
             return null;

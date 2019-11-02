@@ -34,8 +34,8 @@ public class FileChecker implements FileHandler {
      * @param tmpPath
      */
     public FileChecker(final Path homepagePath,
-                              final Path tmpPath,
-                              final DataController controller) {
+                       final Path tmpPath,
+                       final DataController controller) {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;
         _controller = controller;
@@ -175,7 +175,7 @@ public class FileChecker implements FileHandler {
         FileHelper.deleteFile(getOutputFile(file));
         FileHelper.deleteFile(getReportFile(file));
         
-        _controller.handleCreation(file, Status.HANDLED_WITH_SUCCESS, getOutputFile(file), getReportFile(file));
+        _controller.handleDeletion(file, Status.HANDLED_WITH_SUCCESS, getOutputFile(file), getReportFile(file));
 
         return Status.HANDLED_WITH_SUCCESS;
     }

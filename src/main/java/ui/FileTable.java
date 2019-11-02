@@ -8,6 +8,7 @@ import data.DataOrchestrator;
 import data.FileChecker;
 import data.FileHandler;
 import data.HTMLGenerator;
+import data.NodeValueChecker;
 import javafx.application.Application;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -27,9 +28,11 @@ public class FileTable extends Application {
 
         final ObservableFileList list = new ObservableFileList();
         final HtmlGenerationController htmlFileController = new HtmlGenerationController(list);
-        final FileCheckController fileCheckController = new FileCheckController(list);
         final HTMLGenerator htmlFileGenerator = new HTMLGenerator(_homepagePath, _tmpPath, htmlFileController);
+        final FileCheckController fileCheckController = new FileCheckController(list);
         final FileChecker fileCheckGenerator = new FileChecker(_homepagePath, _tmpPath, fileCheckController);
+        final NodeValueCheckController nodeCheckController = new NodeValueCheckController(list);
+        final NodeValueChecker nodeValueCheckGenerator = new NodeValueChecker(_homepagePath, _tmpPath, nodeCheckController);
 
         stage.setTitle("Homepage Manager");
         stage.setWidth(900);
@@ -44,6 +47,7 @@ public class FileTable extends Application {
         _table.getColumns().add(fileColumn);
         _table.getColumns().add(deletedColumn);
         _table.getColumns().add(fileCheckController.getColumns());
+        _table.getColumns().add(nodeCheckController.getColumns());
         _table.getColumns().add(htmlFileController.getColumns());
         _table.setItems(list.getObservableList());
  
@@ -61,6 +65,7 @@ public class FileTable extends Application {
                         final List<FileHandler> fileHandlers = new ArrayList<FileHandler>();
                         fileHandlers.add(htmlFileGenerator);
                         fileHandlers.add(fileCheckGenerator);
+                        fileHandlers.add(nodeValueCheckGenerator);
                         final DataOrchestrator main = new DataOrchestrator(_homepagePath, list, fileHandlers);
                         main.start();
                         return null;
