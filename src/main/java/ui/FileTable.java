@@ -35,7 +35,7 @@ public class FileTable extends Application {
         final NodeValueChecker nodeValueCheckGenerator = new NodeValueChecker(_homepagePath, _tmpPath, nodeCheckController);
 
         stage.setTitle("Homepage Manager");
-        stage.setWidth(900);
+        stage.setWidth(1100);
         stage.setHeight(500);
  
         final TableView<ObservableFile> _table = new TableView<ObservableFile>();

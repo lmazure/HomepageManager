@@ -1,3 +1,5 @@
+package data;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.nio.file.Path;
@@ -12,7 +14,7 @@ import data.DataController;
 import data.FileChecker;
 import data.FileHandler.Status;
 
-class FileCheckGeneratorTest {
+class FileCheckerTest {
 
     static private String MESS_BOM  = "file should not have a UTF BOM";
     static private String MESS_CTRL = "line contains a control character";

@@ -54,7 +54,9 @@ public class TitleFormatChecker extends NodeChecker {
 
 	private CheckStatus titleStartsWithUppercase(final Element e) {
 		
-		final String s = e.getTextContent();
+	    //TODO <TITLE><ANCHOR>foo<ANCHOR>Bar</TITLE> returns an error (because the text is "fooBar") while it should not
+	    
+	    final String s = XMLHelper.getFirstLevelTextContent(e);
 
 		if (Character.isLowerCase(s.codePointAt(0))) return new CheckStatus("TITLE \"" + s + "\" must start with an uppercase");
 		
