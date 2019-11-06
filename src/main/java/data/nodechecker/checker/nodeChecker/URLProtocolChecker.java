@@ -43,7 +43,7 @@ public class URLProtocolChecker extends NodeChecker {
 
 		final String s = e.getTextContent();
 		
-		if(s.indexOf(':')<0) return null; // pointer to another of my page
+		if(s.indexOf(':') < 0) return null; // pointer to another of my page
 		
 		if (s.startsWith("http:")) return null;
 		if (s.startsWith("https:")) return null;

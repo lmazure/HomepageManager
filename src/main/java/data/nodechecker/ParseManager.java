@@ -17,7 +17,6 @@ import data.nodechecker.checker.nodeChecker.LanguageChecker;
 import data.nodechecker.checker.nodeChecker.MiddleNewlineChecker;
 import data.nodechecker.checker.nodeChecker.MissingSpaceChecker;
 import data.nodechecker.checker.nodeChecker.ModifierKeyChecker;
-import data.nodechecker.checker.nodeChecker.MultipleAppearancesOfURLChecker;
 import data.nodechecker.checker.nodeChecker.NodeChecker;
 import data.nodechecker.checker.nodeChecker.NonEmptyChecker;
 import data.nodechecker.checker.nodeChecker.NonNormalizedAuthorChecker;
@@ -70,9 +69,6 @@ public class ParseManager {
 		nodeCheckers.add(new DurationChecker());
 		nodeCheckers.add(new ProtectionFromURLChecker());
 		nodeCheckers.add(new XMLSchemaValidationChecker(file));
-		if ( file.getParentFile().getName().equals("links") ) {
-			nodeCheckers.add(new MultipleAppearancesOfURLChecker(file));
-		}
 
 		final ParseWorker worker = new ParseWorker(file, nodeCheckers, a_loggers);
 		worker.run();
