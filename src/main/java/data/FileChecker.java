@@ -1,4 +1,5 @@
 package data;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -11,6 +12,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.XMLConstants;
+import javax.xml.transform.Source;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
+
+import org.xml.sax.SAXException;
 
 import utils.ExitHelper;
 import utils.FileHelper;
@@ -86,6 +96,7 @@ public class FileChecker implements FileHandler {
         errors.addAll(checkFileBom(content));
         errors.addAll(checkCharacters(content));
         errors.addAll(checkPath(file, content));
+        errors.addAll(checkSchema(file));
         return errors;
     }
 
@@ -164,6 +175,41 @@ public class FileChecker implements FileHandler {
             }
         } catch (final IOException e) {
             e.printStackTrace();
+        }
+                
+        return errors;
+    }
+    
+    private List<Error> checkSchema(final Path file) {
+
+        final List<Error> errors = new ArrayList<Error>();
+
+        final SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+
+        final File schemaLocation = new File(file.toFile().getParentFile().getParentFile()
+                                             + File.separator
+                                             + "css"
+                                             + File.separator
+                                             + "schema.xsd");
+        Schema schema = null;
+        
+        try {
+            schema = factory.newSchema(schemaLocation);
+        } catch (final SAXException e) {
+            ExitHelper.exit(e);
+            return null;
+        }
+
+        final Validator validator = schema.newValidator();
+
+        final Source source = new StreamSource(file.toFile());
+        
+        try {
+            validator.validate(source);
+        } catch (final SAXException e) {
+            errors.add(new Error(5, "the file violates the schema (\"" + e.toString() + "\")"));                            
+        } catch (final IOException e) {
+            ExitHelper.exit(e);;
         }
                 
         return errors;

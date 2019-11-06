@@ -43,7 +43,6 @@ import data.nodechecker.checker.nodeChecker.ProtectionFromURLChecker;
 import data.nodechecker.checker.nodeChecker.TableSortChecker;
 import data.nodechecker.checker.nodeChecker.TitleFormatChecker;
 import data.nodechecker.checker.nodeChecker.URLProtocolChecker;
-import data.nodechecker.checker.nodeChecker.XMLSchemaValidationChecker;
 import utils.ExitHelper;
 import utils.FileHelper;
 
@@ -53,8 +52,8 @@ public class NodeValueChecker implements FileHandler {
     final private Path _tmpPath;
     final private DataController _controller;
     PrintWriter _pw;
-    private List<Error> _errors;
     private final DocumentBuilder a_builder;
+    final private Set<NodeChecker> _nodeCheckers;
     
     /**
      * This class checks the characters of the XML files.
@@ -81,6 +80,27 @@ public class NodeValueChecker implements FileHandler {
 
         a_builder = builder;
 
+         _nodeCheckers = new HashSet<NodeChecker>(); 
+        _nodeCheckers.add(new ExtremitySpaceChecker());
+        _nodeCheckers.add(new MiddleNewlineChecker());
+        _nodeCheckers.add(new EllipsisChecker());
+        _nodeCheckers.add(new DoubleSpaceChecker());
+        _nodeCheckers.add(new MissingSpaceChecker());
+        _nodeCheckers.add(new TitleFormatChecker());
+        _nodeCheckers.add(new NonEmptyChecker());
+        _nodeCheckers.add(new FormatChecker());
+        _nodeCheckers.add(new LanguageChecker());
+        _nodeCheckers.add(new FormatFromURLChecker());
+        _nodeCheckers.add(new NonNormalizedURLChecker());
+        _nodeCheckers.add(new NonNormalizedAuthorChecker());
+        _nodeCheckers.add(new TableSortChecker());
+        _nodeCheckers.add(new DurationPresenceChecker());
+        _nodeCheckers.add(new URLProtocolChecker());
+        _nodeCheckers.add(new DateChecker());
+        _nodeCheckers.add(new ModifierKeyChecker());
+        _nodeCheckers.add(new KeyChecker());
+        _nodeCheckers.add(new DurationChecker());
+        _nodeCheckers.add(new ProtectionFromURLChecker());
     }
     
     @Override
@@ -118,43 +138,16 @@ public class NodeValueChecker implements FileHandler {
     }
     
     public List<Error> check(final Path file) {
-        _errors = new ArrayList<Error>();
         
-        final Set<NodeChecker> nodeCheckers = new HashSet<NodeChecker>(); 
-        nodeCheckers.add(new ExtremitySpaceChecker());
-        nodeCheckers.add(new MiddleNewlineChecker());
-        nodeCheckers.add(new EllipsisChecker());
-        nodeCheckers.add(new DoubleSpaceChecker());
-        nodeCheckers.add(new MissingSpaceChecker());
-        nodeCheckers.add(new TitleFormatChecker());
-        nodeCheckers.add(new NonEmptyChecker());
-        nodeCheckers.add(new FormatChecker());
-        nodeCheckers.add(new LanguageChecker());
-        nodeCheckers.add(new FormatFromURLChecker());
-        nodeCheckers.add(new NonNormalizedURLChecker());
-        nodeCheckers.add(new NonNormalizedAuthorChecker());
-        nodeCheckers.add(new TableSortChecker());
-        nodeCheckers.add(new DurationPresenceChecker());
-        nodeCheckers.add(new URLProtocolChecker());
-        nodeCheckers.add(new DateChecker());
-        nodeCheckers.add(new ModifierKeyChecker());
-        nodeCheckers.add(new KeyChecker());
-        nodeCheckers.add(new DurationChecker());
-        nodeCheckers.add(new ProtectionFromURLChecker());
-        nodeCheckers.add(new XMLSchemaValidationChecker(file.toFile()));
-
         try {
             final Document document = a_builder.parse(file.toFile());
-            checkNodesInFile(document, file.toFile(), nodeCheckers);
-        } catch (final SAXException se){
-            System.out.println("Failed to parse the XML file: " + file);
-            se.printStackTrace();
-        } catch (final IOException ioe){
-            System.out.println("Failed to read the XML file: " + file);
-            ioe.printStackTrace();
+            return checkNode(file.toFile(), document.getDocumentElement());
+        } catch (final SAXException | IOException e) {
+            ExitHelper.exit(e);
         }
         
-        return _errors; 
+        // NOT REACHED
+        return(null);
     }
     
     @Override
@@ -195,41 +188,31 @@ public class NodeValueChecker implements FileHandler {
                || (getOutputFile(file).toFile().lastModified() <= file.toFile().lastModified());
     }
 
-    private void checkNodesInFile(final Document document,
-                                  final File file,
-                                  final Set<NodeChecker> nodeCheckers) {
+    private List<Error> checkNode(final File file,
+                                  final Element e) {
 
-        checkNode(file, document.getDocumentElement(), nodeCheckers);
-    }
-
-    private void checkNode(final File file,
-                           final Element e,
-                           final Set<NodeChecker> nodeCheckers) {
-
+        final List<Error> errors = new ArrayList<Error>();
         final NodeList children = e.getChildNodes();
 
-        for (int j=0; j<children.getLength(); j++) {
+        for (int j = 0; j < children.getLength(); j++) {
             if ( children.item(j).getNodeType() == Node.ELEMENT_NODE ) {
-                checkNode(file, (Element)children.item(j), nodeCheckers);
+                errors.addAll(checkNode(file, (Element)children.item(j)));
             }
         }
 
-        for (NodeChecker checker: nodeCheckers) {
-
-            if ( checker.getTagSelector().isTagCheckable(e.getTagName())) {
-                final NodeChecker.NodeRule rules[] = checker.getRules();
-
-                for (int k = 0; k<rules.length; k++) {
-
-                    final CheckStatus status = rules[k].checkElement(e);
-
+        for (final NodeChecker checker: _nodeCheckers) {
+            if (checker.getTagSelector().isTagCheckable(e.getTagName())) {
+                for (final NodeChecker.NodeRule rule : checker.getRules()) {
+                    final CheckStatus status = rule.checkElement(e);
                     if ( status != null ) {
-                        _errors.add(new Error(e.getTagName(), e.getTextContent(), rules[k].getDescription(), status.getDetail()));                         
+                        errors.add(new Error(e.getTagName(), e.getTextContent(), rule.getDescription(), status.getDetail()));                         
                     }
 
                 }
             }
         }
+        
+        return errors;
     }
     
     static public class Error {
