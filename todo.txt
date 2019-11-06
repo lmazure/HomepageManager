@@ -1,0 +1,12 @@
+- Supprimer la règle sur les URLs qui apparaissent plusieurs fois
+- Mettre en place tests unitaires pour NodeValueChecker
+- Corriger et tester règle sur TITLE qui doit commencer par majuscule
+- Corriger et tester règle sur double espace
+
+- Réparer le build Maven qui ne fonctionne plus
+- Pouvoir lancer les tests par Maven
+
+- Ajouter la détection des liens morts
+- Ajouter des attributs qui ne correspondent pas au contenu du site
+- Ajouter la détection des malware
+- Ajouter la règle sur les URLs qui apparaissent plusieurs fois
