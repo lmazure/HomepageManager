@@ -361,8 +361,8 @@ class FileCheckerTest {
     static private void test(final String content,
                              final List<FileChecker.Error> expected) {
 
-        final FileChecker gen = new FileChecker(Paths.get("home"), Paths.get("tmp"), new DummyDataController());
-        final List<FileChecker.Error> effective = gen.check(Paths.get("test.xml"), content);
+        final FileChecker checker = new FileChecker(Paths.get("home"), Paths.get("tmp"), new DummyDataController());
+        final List<FileChecker.Error> effective = checker.check(Paths.get("test.xml"), content);
         
         assertEquals(normalize(expected), normalize(effective));
     }

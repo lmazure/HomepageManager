@@ -170,7 +170,7 @@ public class FileChecker implements FileHandler {
     }
     
     @Override
-    public Status handleDeletion(final Path file) { //TODO see how to test this class while keeping this type private
+    public Status handleDeletion(final Path file) {
 
         FileHelper.deleteFile(getOutputFile(file));
         FileHelper.deleteFile(getReportFile(file));

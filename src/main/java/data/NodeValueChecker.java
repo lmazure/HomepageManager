@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import data.nodechecker.Logger;
@@ -20,7 +22,7 @@ public class NodeValueChecker implements FileHandler, Logger {
     final private Path _tmpPath;
     final private DataController _controller;
     PrintWriter _pw;
-    boolean _hasError;
+    private List<Error> _errors;
     
     /**
      * This class checks the characters of the XML files.
@@ -44,14 +46,17 @@ public class NodeValueChecker implements FileHandler, Logger {
         try (final FileOutputStream os = new FileOutputStream(getOutputFile(file).toFile());
              final PrintWriter pw = new PrintWriter(os)) {
             _pw = pw; // TODO fix this crap
-            _hasError = false;
-            final Set<Logger> loggers = new HashSet<Logger>();
-            loggers.add(this);
-            final ParseManager pm = new ParseManager(loggers);
-            pm.parse(file.toFile());
-            if (_hasError) {
+            final List<Error> errors = check(file);
+            if (errors.size() > 0) {
+                for (Error error : errors ) {
+                    _pw.println(" tag = "       + error.getTag() +
+                                " value = "     + error.getValue() +
+                                " violation = " + error.getViolation() +
+                                " detail = "    + error.getDetail());
+
+                }
                 status = Status.HANDLED_WITH_ERROR;
-            }
+            }        
         } catch (final Exception e) {
             final Path reportFile = getReportFile(file);
             FileHelper.createParentDirectory(reportFile);
@@ -63,14 +68,21 @@ public class NodeValueChecker implements FileHandler, Logger {
             status = Status.FAILED_TO_HANDLED;                
         }
            
-         _controller.handleCreation(file, status, getOutputFile(file), getReportFile(file));
-        
         _controller.handleCreation(file, status, getOutputFile(file), getReportFile(file));
         return status;
     }
     
+    public List<Error> check(final Path file) {
+        _errors = new ArrayList<Error>();
+        final Set<Logger> loggers = new HashSet<Logger>();
+        loggers.add(this);
+        final ParseManager pm = new ParseManager(loggers);
+        pm.parse(file.toFile());
+        return _errors; 
+    }
+    
     @Override
-    public Status handleDeletion(final Path file) { //TODO see how to test this class while keeping this type private
+    public Status handleDeletion(final Path file) {
 
         FileHelper.deleteFile(getOutputFile(file));
         FileHelper.deleteFile(getReportFile(file));
@@ -113,11 +125,41 @@ public class NodeValueChecker implements FileHandler, Logger {
                        final String value,
                        final String violation,
                        final String detail) {
-        _hasError = true;
-        _pw.println("file = " + file +
-                " tag = " + tag +
-                " value = " + value +
-                " violation = " + violation +
-                " detail = " + detail);
+        _errors.add(new Error(tag, value, violation, detail));
+    }
+    
+    
+    static public class Error {
+
+        final private String _tag;
+        final private String _value;
+        final private String _violation;
+        final private String _detail;
+
+        public Error(final String tag,
+                     final String value,
+                     final String violation,
+                     final String detail) {
+            _tag = tag;
+            _value = value;
+            _violation = violation;
+            _detail = detail;
+        }
+
+        public String getTag() {
+            return _tag;
+        }
+
+        public String getValue() {
+            return _value;
+        }
+
+        public String getViolation() {
+            return _violation;
+        }
+
+        public String getDetail() {
+            return _detail;
+        }
     }
 }
