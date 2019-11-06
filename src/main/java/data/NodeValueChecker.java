@@ -11,8 +11,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import data.nodechecker.Logger;
-import data.nodechecker.ParseWorker;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.checker.nodeChecker.DateChecker;
 import data.nodechecker.checker.nodeChecker.DoubleSpaceChecker;
 import data.nodechecker.checker.nodeChecker.DurationChecker;
@@ -38,13 +47,14 @@ import data.nodechecker.checker.nodeChecker.XMLSchemaValidationChecker;
 import utils.ExitHelper;
 import utils.FileHelper;
 
-public class NodeValueChecker implements FileHandler, Logger {
+public class NodeValueChecker implements FileHandler {
 
     final private Path _homepagePath;
     final private Path _tmpPath;
     final private DataController _controller;
     PrintWriter _pw;
     private List<Error> _errors;
+    private final DocumentBuilder a_builder;
     
     /**
      * This class checks the characters of the XML files.
@@ -53,11 +63,24 @@ public class NodeValueChecker implements FileHandler, Logger {
      * @param tmpPath
      */
     public NodeValueChecker(final Path homepagePath,
-                              final Path tmpPath,
-                              final DataController controller) {
+                            final Path tmpPath,
+                            final DataController controller) {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;
         _controller = controller;
+        
+        final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+
+        DocumentBuilder builder = null;
+        try{
+            builder = factory.newDocumentBuilder();
+        } catch (final ParserConfigurationException pce){
+            System.out.println("Failed to configure the XML parser");
+            pce.printStackTrace();
+        }
+
+        a_builder = builder;
+
     }
     
     @Override
@@ -71,10 +94,10 @@ public class NodeValueChecker implements FileHandler, Logger {
             final List<Error> errors = check(file);
             if (errors.size() > 0) {
                 for (Error error : errors ) {
-                    _pw.println(" tag = "       + error.getTag() +
-                                " value = "     + error.getValue() +
-                                " violation = " + error.getViolation() +
-                                " detail = "    + error.getDetail());
+                    _pw.println(" tag = \""       + error.getTag()       + "\"" +
+                                " value = \""     + error.getValue()     + "\"" +
+                                " violation = \"" + error.getViolation() + "\"" +
+                                " detail = \""    + error.getDetail()    + "\"");
 
                 }
                 status = Status.HANDLED_WITH_ERROR;
@@ -96,8 +119,6 @@ public class NodeValueChecker implements FileHandler, Logger {
     
     public List<Error> check(final Path file) {
         _errors = new ArrayList<Error>();
-        final Set<Logger> loggers = new HashSet<Logger>();
-        loggers.add(this);
         
         final Set<NodeChecker> nodeCheckers = new HashSet<NodeChecker>(); 
         nodeCheckers.add(new ExtremitySpaceChecker());
@@ -122,8 +143,16 @@ public class NodeValueChecker implements FileHandler, Logger {
         nodeCheckers.add(new ProtectionFromURLChecker());
         nodeCheckers.add(new XMLSchemaValidationChecker(file.toFile()));
 
-        final ParseWorker worker = new ParseWorker(file.toFile(), nodeCheckers, loggers);
-        worker.run();
+        try {
+            final Document document = a_builder.parse(file.toFile());
+            checkNodesInFile(document, file.toFile(), nodeCheckers);
+        } catch (final SAXException se){
+            System.out.println("Failed to parse the XML file: " + file);
+            se.printStackTrace();
+        } catch (final IOException ioe){
+            System.out.println("Failed to read the XML file: " + file);
+            ioe.printStackTrace();
+        }
         
         return _errors; 
     }
@@ -166,15 +195,42 @@ public class NodeValueChecker implements FileHandler, Logger {
                || (getOutputFile(file).toFile().lastModified() <= file.toFile().lastModified());
     }
 
-    @Override
-    public void record(final File file, 
-                       final String tag,
-                       final String value,
-                       final String violation,
-                       final String detail) {
-        _errors.add(new Error(tag, value, violation, detail));
+    private void checkNodesInFile(final Document document,
+                                  final File file,
+                                  final Set<NodeChecker> nodeCheckers) {
+
+        checkNode(file, document.getDocumentElement(), nodeCheckers);
     }
-    
+
+    private void checkNode(final File file,
+                           final Element e,
+                           final Set<NodeChecker> nodeCheckers) {
+
+        final NodeList children = e.getChildNodes();
+
+        for (int j=0; j<children.getLength(); j++) {
+            if ( children.item(j).getNodeType() == Node.ELEMENT_NODE ) {
+                checkNode(file, (Element)children.item(j), nodeCheckers);
+            }
+        }
+
+        for (NodeChecker checker: nodeCheckers) {
+
+            if ( checker.getTagSelector().isTagCheckable(e.getTagName())) {
+                final NodeChecker.NodeRule rules[] = checker.getRules();
+
+                for (int k = 0; k<rules.length; k++) {
+
+                    final CheckStatus status = rules[k].checkElement(e);
+
+                    if ( status != null ) {
+                        _errors.add(new Error(e.getTagName(), e.getTextContent(), rules[k].getDescription(), status.getDetail()));                         
+                    }
+
+                }
+            }
+        }
+    }
     
     static public class Error {
 
