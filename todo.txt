@@ -1,12 +1,9 @@
-- Mettre en place tests unitaires pour NodeValueChecker
 - Corriger et tester règle sur TITLE qui doit commencer par majuscule
   Coriger l'exception de OutOfBounds
 - Corriger et tester règle sur double espace
 
 - Réparer le build Maven qui ne fonctionne plus
 - Pouvoir lancer les tests par Maven
-
-- Ajouter détection des lignes qui ont un nombre d'expace impart avant le '<'
 
 - Ajouter génération des fichiers json
 - Ajouter génération de robot.txt

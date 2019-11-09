@@ -21,7 +21,7 @@ class NodeValueCheckerTest {
             "<?xml version=\"1.0\"?>\r\n" + 
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" + 
             "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" + 
-            "<TITLE>test</TITLE>\r\n" + 
+            "<TITLE>Test</TITLE>\r\n" + 
             "<PATH>HomepageManager/test.xml</PATH>\r\n" + 
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" + 
             "<CONTENT>\r\n" + 
@@ -30,20 +30,38 @@ class NodeValueCheckerTest {
         
         test(content);
     }
-    
+
+    @Test
+    void testLowercaseTitle() {
+        
+        final String content =
+            "<?xml version=\"1.0\"?>\r\n" + 
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" + 
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" + 
+            "<TITLE>test</TITLE>\r\n" + 
+            "<PATH>HomepageManager/test.xml</PATH>\r\n" + 
+            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" + 
+            "<CONTENT>\r\n" + 
+            "</CONTENT>\r\n" + 
+            "</PAGE>";
+        
+        test(content,
+             "TITLE \"test\" must start with an uppercase");
+    }
+  
     static private void test(final String content) {
 
         final List<NodeValueChecker.Error> expected= new ArrayList<NodeValueChecker.Error>();        
         test(content, expected);
     }
 
-    /*static private void test(final String content,
+    static private void test(final String content,
                              final String detail0) {
 
         final List<NodeValueChecker.Error> expected= new ArrayList<NodeValueChecker.Error>();
         expected.add(new NodeValueChecker.Error("tag", "value", "violation", detail0));
         test(content, expected);
-    }*/
+    }
 
     /*static private void test(final String content,
                              final String detail0,
@@ -71,7 +89,7 @@ class NodeValueCheckerTest {
                              final List<NodeValueChecker.Error> expected) {
 
         final NodeValueChecker checker = new NodeValueChecker(Paths.get("home"), Paths.get("tmp"), new DummyDataController());
-        final List<NodeValueChecker.Error> effective = checker.check(Paths.get("test.xml"));
+        final List<NodeValueChecker.Error> effective = checker.check(Paths.get("test.xml"), content);
     
         assertEquals(normalize(expected), normalize(effective));
     }

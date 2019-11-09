@@ -1,10 +1,15 @@
 package data;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -108,10 +113,14 @@ public class NodeValueChecker implements FileHandler {
 
         Status status = Status.HANDLED_WITH_SUCCESS;
         
-        try (final FileOutputStream os = new FileOutputStream(getOutputFile(file).toFile());
+        try (final FileReader fr = new FileReader(file.toFile());
+             final BufferedReader br = new BufferedReader(fr);
+             final FileOutputStream os = new FileOutputStream(getOutputFile(file).toFile());
              final PrintWriter pw = new PrintWriter(os)) {
+            final byte[] encoded = Files.readAllBytes(file);
+            final String content = new String(encoded, StandardCharsets.UTF_8);
             _pw = pw; // TODO fix this crap
-            final List<Error> errors = check(file);
+            final List<Error> errors = check(file, content);
             if (errors.size() > 0) {
                 for (Error error : errors ) {
                     _pw.println(" tag = \""       + error.getTag()       + "\"" +
@@ -137,10 +146,11 @@ public class NodeValueChecker implements FileHandler {
         return status;
     }
     
-    public List<Error> check(final Path file) {
+    public List<Error> check(final Path file,
+                             final String content) {
         
         try {
-            final Document document = a_builder.parse(file.toFile());
+            final Document document = a_builder.parse(new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8)));
             return checkNode(file.toFile(), document.getDocumentElement());
         } catch (final SAXException | IOException e) {
             ExitHelper.exit(e);

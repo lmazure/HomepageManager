@@ -111,7 +111,8 @@ public class FileChecker implements FileHandler {
         return status;
     }
 
-    public List<Error> check(final Path file, final String content) {  //TODO see how to test this method while keeping it private
+    public List<Error> check(final Path file,
+                             final String content) {  //TODO see how to test this method while keeping it private
         final List<Error> errors =  new ArrayList<Error>();
         errors.addAll(checkFileBom(content));
         errors.addAll(checkCharacters(content));
@@ -121,16 +122,16 @@ public class FileChecker implements FileHandler {
         return errors;
     }
 
-    private List<Error> checkFileBom(final String str) {
+    private List<Error> checkFileBom(final String content) {
         
         final List<Error> errors = new ArrayList<Error>();
-        if (str.startsWith(UTF8_BOM)) {
+        if (content.startsWith(UTF8_BOM)) {
             errors.add(new Error(1, "file should not have a UTF BOM"));
         }
         return errors;
     }
 
-    private List<Error> checkCharacters(final String str) {
+    private List<Error> checkCharacters(final String content) {
 
         final List<Error> errors = new ArrayList<Error>();
 
@@ -139,8 +140,8 @@ public class FileChecker implements FileHandler {
         boolean isLineEmpty = true;
         int lineNumber = 1;
         
-        for (int i = 0; i < str.length(); i++) {
-            final char ch = str.charAt(i);
+        for (int i = 0; i < content.length(); i++) {
+            final char ch = content.charAt(i);
             if (ch == '\r') {
                 isPreviousCharacterCarriageReturn = true;                            
             } else if (ch == '\n') {
@@ -181,7 +182,8 @@ public class FileChecker implements FileHandler {
         return errors;
     }
     
-    private List<Error> checkPath(final Path file, final String content) { // TODO really check that the 5th line is correct
+    private List<Error> checkPath(final Path file,
+                                  final String content) { // TODO really check that the 5th line is correct
 
         final List<Error> errors = new ArrayList<Error>();
 
@@ -201,12 +203,12 @@ public class FileChecker implements FileHandler {
         return errors;
     }
 
-    private List<Error> checkEventNumberOfSpaces(final String str) {
+    private List<Error> checkEventNumberOfSpaces(final String content) {
         
         final List<Error> errors = new ArrayList<Error>();
         
         int n=0;
-        for (final String line : str.lines().toArray(String[]::new)) {
+        for (final String line : content.lines().toArray(String[]::new)) {
             n++;
             if (numberOfWhiteCharactersAtBeginning(line) % 2 == 1) {
                 errors.add(new Error(n, "odd number of spaces at the beginning of the line"));                                            
@@ -216,11 +218,11 @@ public class FileChecker implements FileHandler {
         return errors;
     }
 
-    private List<Error> checkSchema(final String str) {
+    private List<Error> checkSchema(final String content) {
 
         final List<Error> errors = new ArrayList<Error>();
         
-        final Source source = new StreamSource(new StringReader(str));
+        final Source source = new StreamSource(new StringReader(content));
         
         try {
             _validator.validate(source);
