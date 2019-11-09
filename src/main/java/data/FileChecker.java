@@ -117,6 +117,7 @@ public class FileChecker implements FileHandler {
         errors.addAll(checkCharacters(content));
         errors.addAll(checkPath(file, content));
         errors.addAll(checkSchema(content));
+        errors.addAll(checkEventNumberOfSpaces(content));
         return errors;
     }
 
@@ -199,8 +200,23 @@ public class FileChecker implements FileHandler {
                 
         return errors;
     }
-    
-    private List<Error> checkSchema(final String str) { // TODO add unit test for this
+
+    private List<Error> checkEventNumberOfSpaces(final String str) {
+        
+        final List<Error> errors = new ArrayList<Error>();
+        
+        int n=0;
+        for (final String line : str.lines().toArray(String[]::new)) {
+            n++;
+            if (numberOfWhiteCharactersAtBeginning(line) % 2 == 1) {
+                errors.add(new Error(n, "odd number of spaces at the beginning of the line"));                                            
+            }
+        }
+
+        return errors;
+    }
+
+    private List<Error> checkSchema(final String str) {
 
         final List<Error> errors = new ArrayList<Error>();
         
@@ -253,6 +269,13 @@ public class FileChecker implements FileHandler {
         }*/
         return !getOutputFile(file).toFile().isFile()
                || (getOutputFile(file).toFile().lastModified() <= file.toFile().lastModified());
+    }
+    
+    private int numberOfWhiteCharactersAtBeginning(final String str) {
+    
+        int n = 0;
+        while ((n < str.length()) && (str.charAt(n) == ' ')) n++;
+        return n;
     }
     
     static public class Error {

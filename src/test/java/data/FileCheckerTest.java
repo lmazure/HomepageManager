@@ -22,6 +22,7 @@ class FileCheckerTest {
     static private String MESS_PATH = "the name of the file does not appear in the <PATH> node (expected to see \"<PATH>HomepageManager/test.xml</PATH>\")";
     static private String MESS_CRLF = "line should finish by \\r\\n instead of \\n";
     static private String MESS_EMPT = "empty line";
+    static private String MESS_ODSP = "odd number of spaces at the beginning of the line";
     
     @Test
     void testNoError() {
@@ -284,11 +285,12 @@ class FileCheckerTest {
         test(content,
              0, "the file violates the schema (\"org.xml.sax.SAXParseException; lineNumber: 2; columnNumber: 6; The processing instruction target matching \"[xX][mM][lL]\" is not allowed.\")",
              1, MESS_EMPT,
-             1, MESS_WTSP);
+             1, MESS_WTSP,
+             1, MESS_ODSP);
     }
     
     @Test
-    void tesWhiteLineDetectionInMiddle() {
+    void testWhiteLineDetectionInMiddle() {
         
         final String content =
             "<?xml version=\"1.0\"?>\r\n" + 
@@ -296,7 +298,7 @@ class FileCheckerTest {
             "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" + 
             "<TITLE>test</TITLE>\r\n" + 
             "<PATH>HomepageManager/test.xml</PATH>\r\n" +
-            " \r\n" +
+            "  \r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" + 
             "<CONTENT>\r\n" + 
             "</CONTENT>\r\n" + 
@@ -324,8 +326,29 @@ class FileCheckerTest {
         
         test(content,
              10, MESS_EMPT,
-             10, MESS_WTSP);
+             10, MESS_WTSP,
+             10, MESS_ODSP);
     }
+    
+    @Test
+    void testOddNumberOfSpaces() {
+        
+        final String content =
+            "<?xml version=\"1.0\"?>\r\n" + 
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" + 
+            " <PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" + 
+            "  <TITLE>test</TITLE>\r\n" + 
+            "   <PATH>HomepageManager/test.xml</PATH>\r\n" + 
+            "    <DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" + 
+            "<CONTENT>\r\n" + 
+            "</CONTENT>\r\n" + 
+            "</PAGE>";
+        
+        test(content,
+             3, MESS_ODSP,
+             5, MESS_ODSP);
+    }
+    
     static private void test(final String content) {
 
         final List<FileChecker.Error> expected= new ArrayList<FileChecker.Error>();        
@@ -351,9 +374,9 @@ class FileCheckerTest {
     }
 
     static private void test(final String content,
-            final int line0, final String message0,
-            final int line1, final String message1,
-            final int line2, final String message2) {
+                             final int line0, final String message0,
+                             final int line1, final String message1,
+                             final int line2, final String message2) {
 
         final List<FileChecker.Error> expected= new ArrayList<FileChecker.Error>();
         expected.add(new FileChecker.Error(line0, message0));
@@ -361,6 +384,21 @@ class FileCheckerTest {
         expected.add(new FileChecker.Error(line2, message2));
         test(content, expected);
     }
+
+    static private void test(final String content,
+                             final int line0, final String message0,
+                             final int line1, final String message1,
+                             final int line2, final String message2,
+                             final int line3, final String message3) {
+
+        final List<FileChecker.Error> expected= new ArrayList<FileChecker.Error>();
+        expected.add(new FileChecker.Error(line0, message0));
+        expected.add(new FileChecker.Error(line1, message1));
+        expected.add(new FileChecker.Error(line2, message2));
+        expected.add(new FileChecker.Error(line3, message3));
+        test(content, expected);
+    }
+
 
     static private void test(final String content,
                              final List<FileChecker.Error> expected) {
