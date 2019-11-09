@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -36,7 +37,8 @@ public class FileChecker implements FileHandler {
     final private Path _homepagePath;
     final private Path _tmpPath;
     final private DataController _controller;
-    
+    final private Validator _validator;
+
     /**
      * This class checks the characters of the XML files.
      * 
@@ -49,6 +51,24 @@ public class FileChecker implements FileHandler {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;
         _controller = controller;
+        
+        final SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+
+        final File schemaLocation = new File(homepagePath
+                                             + File.separator
+                                             + "css"
+                                             + File.separator
+                                             + "schema.xsd");
+        Schema schema = null;
+        
+        try {
+            schema = factory.newSchema(schemaLocation);
+        } catch (final SAXException e) {
+            ExitHelper.exit(e);
+        }
+
+        assert(schema != null);
+        _validator = schema.newValidator();
     }
     
     @Override
@@ -96,7 +116,7 @@ public class FileChecker implements FileHandler {
         errors.addAll(checkFileBom(content));
         errors.addAll(checkCharacters(content));
         errors.addAll(checkPath(file, content));
-        errors.addAll(checkSchema(file));
+        errors.addAll(checkSchema(content));
         return errors;
     }
 
@@ -180,36 +200,18 @@ public class FileChecker implements FileHandler {
         return errors;
     }
     
-    private List<Error> checkSchema(final Path file) {
+    private List<Error> checkSchema(final String str) { // TODO add unit test for this
 
         final List<Error> errors = new ArrayList<Error>();
-
-        final SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-
-        final File schemaLocation = new File(file.toFile().getParentFile().getParentFile()
-                                             + File.separator
-                                             + "css"
-                                             + File.separator
-                                             + "schema.xsd");
-        Schema schema = null;
+        
+        final Source source = new StreamSource(new StringReader(str));
         
         try {
-            schema = factory.newSchema(schemaLocation);
+            _validator.validate(source);
         } catch (final SAXException e) {
-            ExitHelper.exit(e);
-            return null;
-        }
-
-        final Validator validator = schema.newValidator();
-
-        final Source source = new StreamSource(file.toFile());
-        
-        try {
-            validator.validate(source);
-        } catch (final SAXException e) {
-            errors.add(new Error(5, "the file violates the schema (\"" + e.toString() + "\")"));                            
+            errors.add(new Error(0, "the file violates the schema (\"" + e.toString() + "\")"));                            
         } catch (final IOException e) {
-            ExitHelper.exit(e);;
+            ExitHelper.exit(e);
         }
                 
         return errors;

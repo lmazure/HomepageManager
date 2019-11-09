@@ -55,6 +55,7 @@ class FileCheckerTest {
             "</PAGE>";
         
         test(content,
+             0, "the file violates the schema (\"org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 1; Content is not allowed in prolog.\")", 
              1, MESS_BOM);
     }
 
@@ -74,6 +75,7 @@ class FileCheckerTest {
             "</PAGE>";
         
         test(content,
+             0, "the file violates the schema (\"org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 7; The processing instruction target matching \"[xX][mM][lL]\" is not allowed.\")",
              1, MESS_CTRL);
     }
     
@@ -223,6 +225,7 @@ class FileCheckerTest {
             "</PAGE>";
         
         test(content,
+             0, "the file violates the schema (\"org.xml.sax.SAXParseException; lineNumber: 2; columnNumber: 6; The processing instruction target matching \"[xX][mM][lL]\" is not allowed.\")",
              1, MESS_EMPT);
     }
     
@@ -279,6 +282,7 @@ class FileCheckerTest {
             "</PAGE>";
         
         test(content,
+             0, "the file violates the schema (\"org.xml.sax.SAXParseException; lineNumber: 2; columnNumber: 6; The processing instruction target matching \"[xX][mM][lL]\" is not allowed.\")",
              1, MESS_EMPT,
              1, MESS_WTSP);
     }
@@ -361,7 +365,7 @@ class FileCheckerTest {
     static private void test(final String content,
                              final List<FileChecker.Error> expected) {
 
-        final FileChecker checker = new FileChecker(Paths.get("home"), Paths.get("tmp"), new DummyDataController());
+        final FileChecker checker = new FileChecker(Paths.get("testdata"), Paths.get("tmp"), new DummyDataController());
         final List<FileChecker.Error> effective = checker.check(Paths.get("test.xml"), content);
         
         assertEquals(normalize(expected), normalize(effective));
