@@ -17,17 +17,11 @@ public class TitleFormatChecker extends NodeChecker {
 	        NodeChecker.TITLE
 			} );
 	
-	/**
-	 * @see lmzr.homepagechecker.checker.nodeChecker.NodeChecker#getTagSelector()
-	 */
 	@Override
 	public TagSelector getTagSelector() {
 		return s_selector;
 	}
 
-	/**
-	 * @see lmzr.homepagechecker.checker.nodeChecker.NodeChecker#getRules()
-	 */
 	@Override
 	public NodeRule[] getRules() {
 		final NodeRule a[]= new NodeRule[2];
@@ -45,20 +39,20 @@ public class TitleFormatChecker extends NodeChecker {
 
 	private CheckStatus titleDoesNotFinishWithColon(final Element e) {
 		
-		final String s = e.getTextContent();
+		final String s = XMLHelper.getFirstLevelTextContent(e);
+		if (s == null) return null;
 
-		if (s.substring(s.length()-1).equals(":")) return new CheckStatus("TITLE \"" + s + "\" must not finish with colon");
+		if (s.endsWith(":")) return new CheckStatus("TITLE \"" + s + "\" must not finish with colon");
 		
 		return null;
 	}
 
 	private CheckStatus titleStartsWithUppercase(final Element e) {
 		
-	    //TODO <TITLE><ANCHOR>foo<ANCHOR>Bar</TITLE> returns an error (because the text is "fooBar") while it should not
-	    
 	    final String s = XMLHelper.getFirstLevelTextContent(e);
+        if ((s == null) || s.isEmpty()) return null;
 
-		if (Character.isLowerCase(s.codePointAt(0))) return new CheckStatus("TITLE \"" + s + "\" must start with an uppercase");
+	    if (Character.isLowerCase(s.codePointAt(0))) return new CheckStatus("TITLE \"" + s + "\" must start with an uppercase");
 		
 		return null;
 	}

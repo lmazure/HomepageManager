@@ -16,12 +16,11 @@ public class ExclusionTagSelector implements TagSelector {
 		a_tags = tagsToIgnore;
 	}
 	
-	/**
-	 * @see lmzr.homepagechecker.tagSelection#isTagCheckable(java.lang.String)
-	 */
 	@Override
 	public boolean isTagCheckable(final String tag) {
-		for (String t: a_tags) if ( t.equals(tag)) return(false); 
+		for (String t: a_tags) {
+		    if ( t.equals(tag)) return(false); 
+		}
 		return true;
 	}
 

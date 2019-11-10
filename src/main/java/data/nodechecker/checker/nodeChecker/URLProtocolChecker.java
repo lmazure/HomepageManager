@@ -17,18 +17,12 @@ public class URLProtocolChecker extends NodeChecker {
 			NodeChecker.A
 			} );
 	
-	/**
-	 * @see lmzr.homepagechecker.checker.nodeChecker.NodeChecker#getTagSelector()
-	 */
 	@Override
 	public TagSelector getTagSelector() {
 		return s_selector;
 	}
 
 
-	/**
-	 * @see lmzr.homepagechecker.checker.nodeChecker.NodeChecker#getRules()
-	 */
 	@Override
 	public NodeRule[] getRules() {
 		final NodeRule a[]= new NodeRule[1];

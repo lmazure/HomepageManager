@@ -17,17 +17,11 @@ public class MissingSpaceChecker extends NodeChecker {
     
     static final Pattern pattern = Pattern.compile("\\s([a-zA-Z])+[\\.?:,;)\\]}][a-zA-Z]+\\s");
 
-    /**
-     * @see lmzr.homepagechecker.checker.nodeChecker.NodeChecker#getTagSelector()
-     */
     @Override
     public TagSelector getTagSelector() {
         return s_selector;
     }
 
-    /**
-     * @see lmzr.homepagechecker.checker.nodeChecker.NodeChecker#getRules()
-     */
     @Override
     public NodeRule[] getRules() {
         final NodeRule a[]= new NodeRule[1];

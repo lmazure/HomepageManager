@@ -21,17 +21,11 @@ public class KeyChecker extends NodeChecker {
 			NodeChecker.KEY
 			} );
 
-	/**
-	 * @see lmzr.homepagechecker.checker.nodeChecker.NodeChecker#getTagSelector()
-	 */
 	@Override
 	public TagSelector getTagSelector() {
 		return s_selector;
 	}
 
-	/**
-	 * @see lmzr.homepagechecker.checker.nodeChecker.NodeChecker#getRules()
-	 */
 	@Override
 	public NodeRule[] getRules() {
 		final NodeRule a[]= new NodeRule[1];

@@ -16,12 +16,11 @@ public class InclusionTagSelector implements TagSelector {
 		a_tags = tagsToCheck;
 	}
 	
-	/**
-	 * @see lmzr.homepagechecker.tagSelection.TagSelector#isTagCheckable(java.lang.String)
-	 */
 	@Override
 	public boolean isTagCheckable(final String tag) {
-		for (String t: a_tags) if ( t.equals(tag)) return(true); 
+		for (String t: a_tags) {
+		    if ( t.equals(tag)) return(true); 
+		}
 		return false;
 	}
 

@@ -19,17 +19,11 @@ public class FormatFromURLChecker extends NodeChecker {
 			NodeChecker.X
 			} );
 	
-	/**
-	 * @see lmzr.homepagechecker.checker.nodeChecker.NodeChecker#getTagSelector()
-	 */
 	@Override
 	public TagSelector getTagSelector() {
 		return s_selector;
 	}
 
-	/**
-	 * @see lmzr.homepagechecker.checker.nodeChecker.NodeChecker#getRules()
-	 */
 	@Override
 	public NodeRule[] getRules() {
 		final NodeRule a[]= new NodeRule[1];
