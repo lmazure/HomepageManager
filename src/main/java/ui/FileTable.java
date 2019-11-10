@@ -27,7 +27,7 @@ public class FileTable extends Application {
     public void start(final Stage stage) {
 
         final ObservableFileList list = new ObservableFileList();
-        final HtmlGenerationController htmlFileController = new HtmlGenerationController(list);
+        final HtmlGenerationController htmlFileController = new HtmlGenerationController(list, _homepagePath);
         final HTMLGenerator htmlFileGenerator = new HTMLGenerator(_homepagePath, _tmpPath, htmlFileController);
         final FileCheckController fileCheckController = new FileCheckController(list);
         final FileChecker fileCheckGenerator = new FileChecker(_homepagePath, _tmpPath, fileCheckController);
@@ -79,7 +79,8 @@ public class FileTable extends Application {
         stage.show();
     }
 
-    public void display(final Path homepagePath, final Path tmpPath) {
+    public void display(final Path homepagePath,
+                        final Path tmpPath) {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;
         launch();

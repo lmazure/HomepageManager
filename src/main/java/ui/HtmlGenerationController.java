@@ -8,9 +8,12 @@ import javafx.scene.control.TableColumn;
 public class HtmlGenerationController implements UiController {
 
     final private ObservableFileList _list;
-    
-    public HtmlGenerationController(final ObservableFileList list) {
+    final private Path _homepagePath;
+
+    public HtmlGenerationController(final ObservableFileList list,
+                                    final Path homepagePath) {
         _list = list;
+        _homepagePath = homepagePath;
     }
     
     @Override
@@ -20,7 +23,7 @@ public class HtmlGenerationController implements UiController {
 
         final TableColumn<ObservableFile, String> displayColumn = new TableColumn<>("Display");
         displayColumn.setPrefWidth(70);
-        displayColumn.setCellFactory(p -> { return new FixedButtonCell<ObservableFile>("display", f -> ActionHelper.displayFile(f.getHtmlFileOuputFile()));});
+        displayColumn.setCellFactory(p -> { return new FixedButtonCell<ObservableFile>("display", f -> ActionHelper.displayHtmlFile(f.getHtmlFileOuputFile(), _homepagePath));});
         allColumns.getColumns().add(displayColumn);
 
         final TableColumn<ObservableFile, String> statusColumn = new TableColumn<>("Status");
