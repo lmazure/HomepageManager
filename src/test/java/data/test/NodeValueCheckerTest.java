@@ -1,4 +1,4 @@
-package data;
+package data.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -10,12 +10,14 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import data.DataController;
 import data.FileHandler.Status;
+import data.NodeValueChecker;
 
 class NodeValueCheckerTest {
 
     @Test
-    void testNoError() {
+    void noError() {
         
         final String content =
             "<?xml version=\"1.0\"?>\r\n" + 
@@ -32,7 +34,7 @@ class NodeValueCheckerTest {
     }
 
     @Test
-    void testLowercaseTitle() {
+    void detectLowercaseTitle() {
         
         final String content =
             "<?xml version=\"1.0\"?>\r\n" + 
@@ -48,7 +50,63 @@ class NodeValueCheckerTest {
         test(content,
              "TITLE \"test\" must start with an uppercase");
     }
-  
+
+
+    @Test
+    void detectTitleEndingWithColon() {
+        
+        final String content =
+            "<?xml version=\"1.0\"?>\r\n" + 
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" + 
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" + 
+            "<TITLE>Test:</TITLE>\r\n" + 
+            "<PATH>HomepageManager/test.xml</PATH>\r\n" + 
+            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" + 
+            "<CONTENT>\r\n" + 
+            "</CONTENT>\r\n" + 
+            "</PAGE>";
+        
+        test(content,
+             "TITLE \"Test:\" must not finish with colon");
+    }
+
+    @Test
+    void detectDoubleSpace() {
+        
+        final String content =
+            "<?xml version=\"1.0\"?>\r\n" + 
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" + 
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" + 
+            "<TITLE>Test</TITLE>\r\n" + 
+            "<PATH>HomepageManager/test.xml</PATH>\r\n" + 
+            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" + 
+            "<CONTENT>\r\n" + 
+            "<BLIST><TITLE>Foo  bar</TITLE></BLIST>\r\n" + 
+            "</CONTENT>\r\n" + 
+            "</PAGE>";
+        
+        test(content,
+             "\"Foo  bar\" should not contain a double space");
+    }
+
+    @Test
+    void ignoreDoubleSpaceDueToNodes() {
+        
+        final String content =
+            "<?xml version=\"1.0\"?>\r\n" + 
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" + 
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" + 
+            "<TITLE>Test</TITLE>\r\n" + 
+            "<PATH>HomepageManager/test.xml</PATH>\r\n" + 
+            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" + 
+            "<CONTENT>\r\n" + 
+            "<BLIST><TITLE>Foo <KEY ID='Down'/> bar</TITLE></BLIST>\r\n" + 
+            "</CONTENT>\r\n" + 
+            "</PAGE>";
+        
+        test(content);
+    }
+    
     static private void test(final String content) {
 
         final List<NodeValueChecker.Error> expected= new ArrayList<NodeValueChecker.Error>();        

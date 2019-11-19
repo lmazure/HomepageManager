@@ -4,6 +4,8 @@ import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.ExclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
 
+import java.util.List;
+
 import org.w3c.dom.Element;
 
 /**
@@ -44,9 +46,15 @@ public class DoubleSpaceChecker extends NodeChecker {
 	}
 
 	private CheckStatus checkDoubleSpace(final Element e) {
-		final String s = e.getTextContent();
-		final String ss = s.replaceAll("\\n *", "\\n"); // ignore indentations
-		if (ss.indexOf("  ") == -1) return null;
-		return new CheckStatus("\"" + s + "\" should not contain a double space");
+	    
+        final List<String> list = XMLHelper.getFirstLevelTextContent(e);
+        if (list.size() == 0) return null;
+
+        for (String l: list) {
+    		if (l.indexOf("  ") >= 0) {
+    	        return new CheckStatus("\"" + e.getTextContent() + "\" should not contain a double space");
+    		}
+        }
+        return null;
 	}
 }

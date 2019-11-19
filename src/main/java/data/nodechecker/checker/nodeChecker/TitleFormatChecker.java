@@ -4,6 +4,7 @@ import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
 
+import java.util.List;
 
 import org.w3c.dom.Element;
 
@@ -39,20 +40,20 @@ public class TitleFormatChecker extends NodeChecker {
 
 	private CheckStatus titleDoesNotFinishWithColon(final Element e) {
 		
-		final String s = XMLHelper.getFirstLevelTextContent(e);
-		if (s == null) return null;
+		final List<String> list = XMLHelper.getFirstLevelTextContent(e);
+		if (list.size() == 0) return null;
 
-		if (s.endsWith(":")) return new CheckStatus("TITLE \"" + s + "\" must not finish with colon");
+		if (list.get(list.size() - 1).endsWith(":")) return new CheckStatus("TITLE \"" + e.getTextContent() + "\" must not finish with colon");
 		
 		return null;
 	}
 
 	private CheckStatus titleStartsWithUppercase(final Element e) {
 		
-	    final String s = XMLHelper.getFirstLevelTextContent(e);
-        if ((s == null) || s.isEmpty()) return null;
+        final List<String> list = XMLHelper.getFirstLevelTextContent(e);
+        if (list.size() == 0) return null;
 
-	    if (Character.isLowerCase(s.codePointAt(0))) return new CheckStatus("TITLE \"" + s + "\" must start with an uppercase");
+	    if (Character.isLowerCase(list.get(0).codePointAt(0))) return new CheckStatus("TITLE \"" + e.getTextContent() + "\" must start with an uppercase");
 		
 		return null;
 	}

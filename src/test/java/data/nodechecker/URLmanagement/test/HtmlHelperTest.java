@@ -1,9 +1,11 @@
-package data.nodechecker.URLmanagement;
+package data.nodechecker.URLmanagement.test;
 
 import java.io.UnsupportedEncodingException;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import data.nodechecker.URLmanagement.HtmlHelper;
 
 public class HtmlHelperTest extends HtmlHelper {
 

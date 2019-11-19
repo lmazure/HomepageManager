@@ -1,15 +1,20 @@
-- Corriger et tester règle sur TITLE qui doit commencer par majuscule
-  Coriger l'exception de OutOfBounds
-- Corriger et tester règle sur double espace
+- dans javahistory.xml, il y a des "space is missing" faux, corriger la règle et ajouter les tests unitaires correspondants
+- tester robot.txt avec https://www.google.com/webmasters/tools/robots-testing-tool
+- Etudier utilisabilité de Future pour vérifier la vie des URLs
+
+- HP : mettre le focus automatiquement sur le champ de recherche
+- HP : pouvoir fermer le popup des authors avec Esc
+
+---------------------------------------------------------------------------------------------------------
 
 - Réparer le build Maven qui ne fonctionne plus
 - Pouvoir lancer les tests par Maven
 
 - Ajouter génération des fichiers json
-- Ajouter génération de robot.txt
-- Ajouter génération de gsitemap.xml
-  Vérifier avant si Google l'utilise encore
+- Ajouter génération de gsitemap.xml (https://www.sitemaps.org/index.html)
 - Ajouter la détection des liens morts
 - Ajouter des attributs qui ne correspondent pas au contenu du site
 - Ajouter la détection des malwares
 - Ajouter la règle sur les URLs qui apparaissent plusieurs fois
+
+- HP : mettre en place le système des keywords

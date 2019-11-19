@@ -1,6 +1,7 @@
 package ui;
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import data.FileHandler;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -35,6 +36,10 @@ public class ObservableFile {
     
     public String getName() {
         return _name.get();
+    }
+
+    public Path getPath() {
+        return Paths.get(_name.get());
     }
 
     public void setName(final String name) {

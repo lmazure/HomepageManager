@@ -1,5 +1,8 @@
 package ui;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,25 +16,27 @@ import javafx.application.Application;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import utils.ExitHelper;
 
 public class FileTable extends Application {
 
     static private Path _homepagePath;
     static private Path _tmpPath;
+    static private ObservableFileList _list;
 
     @Override
     public void start(final Stage stage) {
 
-        final ObservableFileList list = new ObservableFileList();
-        final HtmlGenerationController htmlFileController = new HtmlGenerationController(list, _homepagePath);
+        final HtmlGenerationController htmlFileController = new HtmlGenerationController(_list, _homepagePath);
         final HTMLGenerator htmlFileGenerator = new HTMLGenerator(_homepagePath, _tmpPath, htmlFileController);
-        final FileCheckController fileCheckController = new FileCheckController(list);
+        final FileCheckController fileCheckController = new FileCheckController(_list);
         final FileChecker fileCheckGenerator = new FileChecker(_homepagePath, _tmpPath, fileCheckController);
-        final NodeValueCheckController nodeCheckController = new NodeValueCheckController(list);
+        final NodeValueCheckController nodeCheckController = new NodeValueCheckController(_list);
         final NodeValueChecker nodeValueCheckGenerator = new NodeValueChecker(_homepagePath, _tmpPath, nodeCheckController);
 
         stage.setTitle("Homepage Manager");
@@ -49,10 +54,14 @@ public class FileTable extends Application {
         _table.getColumns().add(fileCheckController.getColumns());
         _table.getColumns().add(nodeCheckController.getColumns());
         _table.getColumns().add(htmlFileController.getColumns());
-        _table.setItems(list.getObservableList());
+        _table.setItems(_list.getObservableList());
  
         final BorderPane border = new BorderPane();
         border.setCenter(_table);
+        
+        final Button globalFileGeneration = new Button("Generate global files");
+        globalFileGeneration.setOnAction(event -> generateGlobalFiles());
+        border.setBottom(globalFileGeneration);
         final Scene scene = new Scene(border);
         
         final Service<Void> calculateService = new Service<Void>() {
@@ -66,7 +75,7 @@ public class FileTable extends Application {
                         fileHandlers.add(htmlFileGenerator);
                         fileHandlers.add(fileCheckGenerator);
                         fileHandlers.add(nodeValueCheckGenerator);
-                        final DataOrchestrator main = new DataOrchestrator(_homepagePath, list, fileHandlers);
+                        final DataOrchestrator main = new DataOrchestrator(_homepagePath, _list, fileHandlers);
                         main.start();
                         return null;
                     }
@@ -83,6 +92,24 @@ public class FileTable extends Application {
                         final Path tmpPath) {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;
+        _list = new ObservableFileList();
         launch();
+    }
+    
+    private void generateGlobalFiles() {
+        
+        final File file1 = _homepagePath.resolve("robot.txt").toFile();
+        try (final FileOutputStream os = new FileOutputStream(file1);
+             final PrintWriter pw = new PrintWriter(os)) {
+            pw.println("User-Agent: *");
+            for (final ObservableFile file: _list.getObservableList()) {
+                pw.println("Disallow: /" + _homepagePath.relativize(file.getPath()).toString().replace(File.separatorChar, '/'));
+            }
+            pw.println("Allow: /");
+        } catch (final Exception e) {
+                ExitHelper.exit(e);
+        }
+        
+        System.out.println(file1.toString() + " is generated");
     }
 }

@@ -76,10 +76,10 @@ public class ActionHelper {
     
     static boolean isUrlAlive(final URL url) {
         try {
-            final HttpURLConnection huc = (HttpURLConnection) url.openConnection();
+            final HttpURLConnection huc = (HttpURLConnection)url.openConnection();
             final int responseCode = huc.getResponseCode();
             return (responseCode == 400);
-        } catch (@SuppressWarnings("unused") final IOException e) {
+        } catch (final IOException e) {
             return e instanceof SSLHandshakeException;
         }
     }
