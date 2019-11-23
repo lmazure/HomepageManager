@@ -15,11 +15,12 @@ import utils.ExitHelper;
 
 public class DataOrchestrator {
 
-    final static private String s_markerFile = "google1b78f05130a6dbb0.html";
+    final static private String s_markerFile = "google1b78f05130a6dbb0.html"; // TODO this should not be hardcoded
     final static PathMatcher _matcher = FileSystems.getDefault().getPathMatcher("glob:**/*.xml");
     final static List<String> _ignoredDirectories = new ArrayList<>(List.of( ".svn",
                                                                              ".git",
                                                                              ".vscode",
+                                                                             "sitemap",  // TODO this directory name also appears in SiteFilesGenerator
                                                                              "node_modules",
                                                                              "cap_fichiers",
                                                                              "cmm_fichiers" ));

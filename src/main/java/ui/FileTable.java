@@ -9,7 +9,7 @@ import data.FileChecker;
 import data.FileHandler;
 import data.HTMLGenerator;
 import data.NodeValueChecker;
-import data.RobottxtGenerator;
+import data.SiteFilesGenerator;
 import javafx.application.Application;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -94,6 +94,6 @@ public class FileTable extends Application {
     }
     
     private void generateGlobalFiles() {        
-        RobottxtGenerator.generate(_homepagePath, _list.getFileList());
+        SiteFilesGenerator.generate(_homepagePath, _list.getFileList());
     }
 }

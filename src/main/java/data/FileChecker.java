@@ -83,7 +83,7 @@ public class FileChecker implements FileHandler {
             final byte[] encoded = Files.readAllBytes(file);
             final String content = new String(encoded, StandardCharsets.UTF_8);
             final List<Error> errors = check(file, content);
-            if (!errors.isEmpty() ) {
+            if (!errors.isEmpty()) {
                 status = Status.HANDLED_WITH_ERROR;
                 System.out.println(file);
             }
