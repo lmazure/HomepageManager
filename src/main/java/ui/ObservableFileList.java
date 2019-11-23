@@ -2,7 +2,9 @@ package ui;
 
 import java.nio.file.Path;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import data.FileExistenceHandler;
 import javafx.collections.FXCollections;
@@ -30,8 +32,14 @@ public class ObservableFileList implements FileExistenceHandler {
         getFile(file).setDeleted();
     }
     
-    public ObservableList<ObservableFile> getObservableList() {
+    public ObservableList<ObservableFile> getObservableFileList() {
         return _data;
+    }
+    
+    public List<Path> getFileList() {
+        return _data.stream()
+                    .map(f -> f.getPath())
+                    .collect(Collectors.toList());
     }
     
     public ObservableFile getFile(final Path file) {

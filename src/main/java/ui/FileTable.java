@@ -1,8 +1,5 @@
 package ui;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +9,7 @@ import data.FileChecker;
 import data.FileHandler;
 import data.HTMLGenerator;
 import data.NodeValueChecker;
+import data.RobottxtGenerator;
 import javafx.application.Application;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -21,7 +19,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import utils.ExitHelper;
 
 public class FileTable extends Application {
 
@@ -54,7 +51,7 @@ public class FileTable extends Application {
         _table.getColumns().add(fileCheckController.getColumns());
         _table.getColumns().add(nodeCheckController.getColumns());
         _table.getColumns().add(htmlFileController.getColumns());
-        _table.setItems(_list.getObservableList());
+        _table.setItems(_list.getObservableFileList());
  
         final BorderPane border = new BorderPane();
         border.setCenter(_table);
@@ -96,20 +93,7 @@ public class FileTable extends Application {
         launch();
     }
     
-    private void generateGlobalFiles() {
-        
-        final File file1 = _homepagePath.resolve("robot.txt").toFile();
-        try (final FileOutputStream os = new FileOutputStream(file1);
-             final PrintWriter pw = new PrintWriter(os)) {
-            pw.println("User-Agent: *");
-            for (final ObservableFile file: _list.getObservableList()) {
-                pw.println("Disallow: /" + _homepagePath.relativize(file.getPath()).toString().replace(File.separatorChar, '/'));
-            }
-            pw.println("Allow: /");
-        } catch (final Exception e) {
-                ExitHelper.exit(e);
-        }
-        
-        System.out.println(file1.toString() + " is generated");
+    private void generateGlobalFiles() {        
+        RobottxtGenerator.generate(_homepagePath, _list.getFileList());
     }
 }
