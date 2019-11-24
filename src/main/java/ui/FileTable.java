@@ -10,6 +10,7 @@ import data.FileHandler;
 import data.HTMLGenerator;
 import data.NodeValueChecker;
 import data.SiteFilesGenerator;
+import data.jsongenerator.JsonGenerator;
 import javafx.application.Application;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -95,5 +96,6 @@ public class FileTable extends Application {
     
     private void generateGlobalFiles() {        
         SiteFilesGenerator.generate(_homepagePath, _list.getFileList());
+        JsonGenerator.generate(_homepagePath);
     }
 }
