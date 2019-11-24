@@ -1,5 +1,6 @@
 package data.test;
 
+import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.nio.file.Path;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
+import org.xml.sax.SAXException;
 
 import data.DataController;
 import data.FileHandler.Status;
@@ -30,7 +32,11 @@ class NodeValueCheckerTest {
             "</CONTENT>\r\n" + 
             "</PAGE>";
         
-        test(content);
+        try {
+            test(content);
+        } catch (@SuppressWarnings("unused") final SAXException e) {
+            fail("SAXException");
+        }
     }
 
     @Test
@@ -46,9 +52,13 @@ class NodeValueCheckerTest {
             "<CONTENT>\r\n" + 
             "</CONTENT>\r\n" + 
             "</PAGE>";
-        
-        test(content,
-             "TITLE \"test\" must start with an uppercase");
+
+        try {        
+            test(content,
+                 "TITLE \"test\" must start with an uppercase");
+        } catch (@SuppressWarnings("unused") final SAXException e) {
+            fail("SAXException");
+        }
     }
 
 
@@ -66,8 +76,12 @@ class NodeValueCheckerTest {
             "</CONTENT>\r\n" + 
             "</PAGE>";
         
-        test(content,
-             "TITLE \"Test:\" must not finish with colon");
+        try {        
+            test(content,
+                 "TITLE \"Test:\" must not finish with colon");
+        } catch (@SuppressWarnings("unused") final SAXException e) {
+            fail("SAXException");
+        }
     }
 
     @Test
@@ -85,8 +99,12 @@ class NodeValueCheckerTest {
             "</CONTENT>\r\n" + 
             "</PAGE>";
         
-        test(content,
-             "\"Foo  bar\" should not contain a double space");
+        try {        
+            test(content,
+                 "\"Foo  bar\" should not contain a double space");
+        } catch (@SuppressWarnings("unused") final SAXException e) {
+            fail("SAXException");
+        }
     }
 
     @Test
@@ -104,17 +122,21 @@ class NodeValueCheckerTest {
             "</CONTENT>\r\n" + 
             "</PAGE>";
         
-        test(content);
+        try {        
+            test(content);
+        } catch (@SuppressWarnings("unused") final SAXException e) {
+            fail("SAXException");
+        }
     }
     
-    static private void test(final String content) {
+    static private void test(final String content) throws SAXException {
 
         final List<NodeValueChecker.Error> expected= new ArrayList<NodeValueChecker.Error>();        
         test(content, expected);
     }
 
     static private void test(final String content,
-                             final String detail0) {
+                             final String detail0) throws SAXException {
 
         final List<NodeValueChecker.Error> expected= new ArrayList<NodeValueChecker.Error>();
         expected.add(new NodeValueChecker.Error("tag", "value", "violation", detail0));
@@ -123,7 +145,7 @@ class NodeValueCheckerTest {
 
     /*static private void test(final String content,
                              final String detail0,
-                             final String detail1) {
+                             final String detail1) throws SAXException {
         
         final List<NodeValueChecker.Error> expected= new ArrayList<NodeValueChecker.Error>();
         expected.add(new NodeValueChecker.Error("tag", "value", "violation", detail0));
@@ -134,7 +156,7 @@ class NodeValueCheckerTest {
     /*static private void test(final String content,
                              final String detail0,
                              final String detail1,
-                             final String detail2) {
+                             final String detail2) throws SAXException {
 
         final List<NodeValueChecker.Error> expected= new ArrayList<NodeValueChecker.Error>();
         expected.add(new NodeValueChecker.Error("tag", "value", "violation", detail0));
@@ -144,7 +166,7 @@ class NodeValueCheckerTest {
     }*/
     
     static private void test(final String content,
-                             final List<NodeValueChecker.Error> expected) {
+                             final List<NodeValueChecker.Error> expected) throws SAXException {
 
         final NodeValueChecker checker = new NodeValueChecker(Paths.get("home"), Paths.get("tmp"), new DummyDataController());
         final List<NodeValueChecker.Error> effective = checker.check(Paths.get("test.xml"), content);

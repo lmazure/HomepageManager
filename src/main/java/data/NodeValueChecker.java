@@ -147,12 +147,12 @@ public class NodeValueChecker implements FileHandler {
     }
     
     public List<Error> check(final Path file,
-                             final String content) {
+                             final String content) throws SAXException {
         
         try {
             final Document document = a_builder.parse(new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8)));
             return checkNode(file.toFile(), document.getDocumentElement());
-        } catch (final SAXException | IOException e) {
+        } catch (final IOException e) {
             ExitHelper.exit(e);
         }
         

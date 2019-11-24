@@ -1,7 +1,5 @@
 - Dans javahistory.xml, il y a des "space is missing" faux, corriger la règle et ajouter les tests unitaires correspondants
 - Publier la HP et tester robot.txt avec https://www.google.com/webmasters/tools/robots-testing-tool
-- Ajouter génération de gsitemap.xml (https://www.sitemaps.org/index.html)
-- Etudier utilisabilité de Future pour vérifier la vie des URLs
 
 - HP : mettre le focus automatiquement sur le champ de recherche
 - HP : pouvoir fermer le popup des authors avec Esc
@@ -11,7 +9,6 @@
 - Réparer le build Maven qui ne fonctionne plus
 - Pouvoir lancer les tests par Maven
 
-- Ajouter génération des fichiers json
 - Ajouter la détection des liens morts
 - Ajouter des attributs qui ne correspondent pas au contenu du site
 - Ajouter la détection des malwares
