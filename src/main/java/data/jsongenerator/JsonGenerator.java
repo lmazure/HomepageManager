@@ -2,6 +2,7 @@ package data.jsongenerator;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.util.List;
 
 /**
  * @author Laurent
@@ -35,14 +36,17 @@ public class JsonGenerator {
 	/**
 	 * @param args
 	 */
-	public static void generate(final Path homepage) {
+	public static void generate(final Path homepage,
+	                            final List<Path> files) {
 		
 		final JsonGenerator main = new JsonGenerator();
 
 		final String homepagePath = homepage.toString();
 		
 		// parse the XML files
-		main.scanFiles(new File(homepagePath));
+		for (final Path file: files) {
+		    main.scanFile(file.toFile());
+		}
 		main.scanPersonFile(new File(homepagePath + File.separator + s_linksDirectoryFileName + File.separator + s_personFileName));
 
 		// generate content files
@@ -54,15 +58,8 @@ public class JsonGenerator {
 	/**
 	 * @param f
 	 */
-	private void scanFiles(final File f) {
-		if (f.isDirectory()) {
-			final File[] list = f.listFiles();
-			for (int i = 0; i < list.length; i++)
-				scanFiles(list[i]);
-		} else {
-			if (f.getName().endsWith(".xml"))
-				a_parser.parse(f);
-		}
+	private void scanFile(final File f) {
+        a_parser.parse(f);
 	}
 	
 	private void scanPersonFile(final File f) {

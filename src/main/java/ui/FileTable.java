@@ -96,6 +96,6 @@ public class FileTable extends Application {
     
     private void generateGlobalFiles() {        
         SiteFilesGenerator.generate(_homepagePath, _list.getFileList());
-        JsonGenerator.generate(_homepagePath);
+        JsonGenerator.generate(_homepagePath, _list.getFileList());
     }
 }
