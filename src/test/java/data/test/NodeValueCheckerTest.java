@@ -128,7 +128,52 @@ class NodeValueCheckerTest {
             fail("SAXException");
         }
     }
-    
+
+    @Test
+    void detectMissingSpace() {
+        
+        final String content =
+            "<?xml version=\"1.0\"?>\r\n" + 
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" + 
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" + 
+            "<TITLE>Test</TITLE>\r\n" + 
+            "<PATH>HomepageManager/test.xml</PATH>\r\n" + 
+            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" + 
+            "<CONTENT>\r\n" + 
+            "<BLIST><TITLE>He is Bob.She is Alice</TITLE></BLIST>\r\n" + 
+            "</CONTENT>\r\n" + 
+            "</PAGE>";
+        
+        try {        
+            test(content,
+                 "\"He is Bob.She is Alice\" is missing a space");
+        } catch (@SuppressWarnings("unused") final SAXException e) {
+            fail("SAXException");
+        }
+    }
+
+    @Test
+    void ignoreMissingSpaceDueToCode() {
+        
+        final String content =
+            "<?xml version=\"1.0\"?>\r\n" + 
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" + 
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" + 
+            "<TITLE>Test</TITLE>\r\n" + 
+            "<PATH>HomepageManager/test.xml</PATH>\r\n" + 
+            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" + 
+            "<CONTENT>\r\n" + 
+            "<BLIST><TITLE>Explanation of the <CODEROUTINE>class.method</CODEROUTINE> method</TITLE></BLIST>\r\n" + 
+            "</CONTENT>\r\n" + 
+            "</PAGE>";
+        
+        try {        
+            test(content);
+        } catch (@SuppressWarnings("unused") final SAXException e) {
+            fail("SAXException");
+        }
+    }
+
     static private void test(final String content) throws SAXException {
 
         final List<NodeValueChecker.Error> expected= new ArrayList<NodeValueChecker.Error>();        

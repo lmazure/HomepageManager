@@ -1,5 +1,8 @@
 package data.nodechecker.tagSelection;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Laurent
@@ -7,21 +10,17 @@ package data.nodechecker.tagSelection;
  */
 public class InclusionTagSelector implements TagSelector {
 
-	final String a_tags[];
+	final private Set<String> a_tags;
 	
 	/**
 	 * @param tagsToCheck
 	 */
 	public InclusionTagSelector(final String tagsToCheck[]) {
-		a_tags = tagsToCheck;
+		a_tags = new HashSet<String>(Arrays.asList(tagsToCheck));
 	}
 	
 	@Override
 	public boolean isTagCheckable(final String tag) {
-		for (String t: a_tags) {
-		    if ( t.equals(tag)) return(true); 
-		}
-		return false;
+		return a_tags.contains(tag);
 	}
-
 }

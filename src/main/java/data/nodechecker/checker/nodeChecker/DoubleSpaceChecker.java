@@ -50,11 +50,12 @@ public class DoubleSpaceChecker extends NodeChecker {
         final List<String> list = XMLHelper.getFirstLevelTextContent(e);
         if (list.size() == 0) return null;
 
-        for (String l: list) {
+        for (final String l: list) {
     		if (l.indexOf("  ") >= 0) {
     	        return new CheckStatus("\"" + e.getTextContent() + "\" should not contain a double space");
     		}
         }
+
         return null;
 	}
 }

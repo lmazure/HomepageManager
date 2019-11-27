@@ -1,5 +1,8 @@
 package data.nodechecker.tagSelection;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Laurent
@@ -7,21 +10,17 @@ package data.nodechecker.tagSelection;
  */
 public class ExclusionTagSelector implements TagSelector {
 
-	final String a_tags[];
+    final private Set<String> a_tags;
 	
 	/**
 	 * @param tagsToIgnore
 	 */
 	public ExclusionTagSelector(final String tagsToIgnore[]) {
-		a_tags = tagsToIgnore;
+        a_tags = new HashSet<String>(Arrays.asList(tagsToIgnore));
 	}
 	
 	@Override
 	public boolean isTagCheckable(final String tag) {
-		for (String t: a_tags) {
-		    if ( t.equals(tag)) return(false); 
-		}
-		return true;
+        return !a_tags.contains(tag);
 	}
-
 }

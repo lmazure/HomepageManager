@@ -1,5 +1,6 @@
 package data.nodechecker.checker.nodeChecker;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,6 +14,7 @@ public class MissingSpaceChecker extends NodeChecker {
     
     static final InclusionTagSelector s_selector = new InclusionTagSelector(new String[] {
             NodeChecker.COMMENT,
+            NodeChecker.TITLE,
             });
     
     static final Pattern pattern = Pattern.compile("\\s([a-zA-Z])+[\\.?:,;)\\]}][a-zA-Z]+\\s");
@@ -34,18 +36,17 @@ public class MissingSpaceChecker extends NodeChecker {
 
     private CheckStatus checkMissingSpace(final Element e) {
 
-        final String s = e.getTextContent();
-        
-        // ignore some cases
-        final String ss = s.replaceAll("\\.js", "")
-                           .replaceAll("\\.[nN][eE][tT]", "")
-                           .replaceAll("about:", "")
-                           .replaceAll("Intl.", "");
+        final List<String> list = XMLHelper.getFirstLevelTextContent(e);
+        if (list.size() == 0) return null;
 
-        final Matcher matcher = pattern.matcher(ss);
-        if (!matcher.find()) return null;
-        
-        return new CheckStatus("\"" + s + "\" is missing a space");
+        for (final String l: list) {
+            final Matcher matcher = pattern.matcher(l);
+            if (matcher.find()) {
+                return new CheckStatus("\"" + e.getTextContent() + "\" is missing a space");
+            }
+        }
+
+        return null;
     }    
 
 }
