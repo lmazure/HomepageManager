@@ -1,5 +1,4 @@
-- Dans javahistory.xml, il y a des "space is missing" faux, corriger la règle et ajouter les tests unitaires correspondants
-- Publier la HP et tester robot.txt avec https://www.google.com/webmasters/tools/robots-testing-tool
+- Tester robot.txt avec https://www.google.com/webmasters/tools/robots-testing-tool
 - Vérifier que les tests sont écrits avec jUnit 5, les mettre dans une suite
 - Mettre un bouton pour quitter l'application
 

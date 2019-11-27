@@ -1,6 +1,7 @@
 package data.jsongenerator.test;
 
-import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Assertions;
 
 import java.io.File;
 
@@ -28,7 +29,7 @@ class ArticleComparatorTest {
         final int result = comparator.compare(data1, data2); 
         
         // --- assert ---
-        assertTrue(result < 0);
+        Assertions.assertTrue(result < 0);
     }
 
     @Test
@@ -47,7 +48,7 @@ class ArticleComparatorTest {
         final int result = comparator.compare(data1, data2); 
         
         // --- assert ---
-        assertTrue(result < 0);
+        Assertions.assertTrue(result < 0);
     }
 
     @Test
@@ -66,6 +67,6 @@ class ArticleComparatorTest {
         final int result = comparator.compare(data1, data2); 
         
         // --- assert ---
-        assertTrue(result < 0);
+        Assertions.assertTrue(result < 0);
     }
 }

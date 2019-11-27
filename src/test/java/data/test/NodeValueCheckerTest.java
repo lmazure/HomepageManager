@@ -1,7 +1,6 @@
 package data.test;
 
-import static org.junit.Assert.fail;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Assertions;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -35,7 +34,7 @@ class NodeValueCheckerTest {
         try {
             test(content);
         } catch (@SuppressWarnings("unused") final SAXException e) {
-            fail("SAXException");
+            Assertions.fail("SAXException");
         }
     }
 
@@ -57,7 +56,7 @@ class NodeValueCheckerTest {
             test(content,
                  "TITLE \"test\" must start with an uppercase");
         } catch (@SuppressWarnings("unused") final SAXException e) {
-            fail("SAXException");
+            Assertions.fail("SAXException");
         }
     }
 
@@ -80,7 +79,7 @@ class NodeValueCheckerTest {
             test(content,
                  "TITLE \"Test:\" must not finish with colon");
         } catch (@SuppressWarnings("unused") final SAXException e) {
-            fail("SAXException");
+            Assertions.fail("SAXException");
         }
     }
 
@@ -103,7 +102,7 @@ class NodeValueCheckerTest {
             test(content,
                  "\"Foo  bar\" should not contain a double space");
         } catch (@SuppressWarnings("unused") final SAXException e) {
-            fail("SAXException");
+            Assertions.fail("SAXException");
         }
     }
 
@@ -125,7 +124,7 @@ class NodeValueCheckerTest {
         try {        
             test(content);
         } catch (@SuppressWarnings("unused") final SAXException e) {
-            fail("SAXException");
+            Assertions.fail("SAXException");
         }
     }
 
@@ -148,7 +147,7 @@ class NodeValueCheckerTest {
             test(content,
                  "\"He is Bob.She is Alice\" is missing a space");
         } catch (@SuppressWarnings("unused") final SAXException e) {
-            fail("SAXException");
+            Assertions.fail("SAXException");
         }
     }
 
@@ -170,7 +169,7 @@ class NodeValueCheckerTest {
         try {        
             test(content);
         } catch (@SuppressWarnings("unused") final SAXException e) {
-            fail("SAXException");
+            Assertions.fail("SAXException");
         }
     }
 
@@ -216,7 +215,7 @@ class NodeValueCheckerTest {
         final NodeValueChecker checker = new NodeValueChecker(Paths.get("home"), Paths.get("tmp"), new DummyDataController());
         final List<NodeValueChecker.Error> effective = checker.check(Paths.get("test.xml"), content);
     
-        assertEquals(normalize(expected), normalize(effective));
+        Assertions.assertEquals(normalize(expected), normalize(effective));
     }
     
     static private String normalize(final List<NodeValueChecker.Error> errors) {

@@ -1,13 +1,12 @@
 package data.test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import data.DataController;
@@ -406,7 +405,7 @@ class FileCheckerTest {
         final FileChecker checker = new FileChecker(Paths.get("testdata"), Paths.get("tmp"), new DummyDataController());
         final List<FileChecker.Error> effective = checker.check(Paths.get("test.xml"), content);
         
-        assertEquals(normalize(expected), normalize(effective));
+        Assertions.assertEquals(normalize(expected), normalize(effective));
     }
     
     static private String normalize(final List<FileChecker.Error> errors) {
