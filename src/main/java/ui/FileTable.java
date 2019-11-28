@@ -1,7 +1,7 @@
 package ui;
 
 import java.nio.file.Path;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import data.DataOrchestrator;
@@ -37,17 +37,16 @@ public class FileTable extends Application {
         final FileChecker fileCheckGenerator = new FileChecker(_homepagePath, _tmpPath, fileCheckController);
         final NodeValueCheckController nodeCheckController = new NodeValueCheckController(_list);
         final NodeValueChecker nodeValueCheckGenerator = new NodeValueChecker(_homepagePath, _tmpPath, nodeCheckController);
+        final List<FileHandler> fileHandlers = Arrays.asList(htmlFileGenerator, fileCheckGenerator, nodeValueCheckGenerator);
+        final List<UiController> uiControllers = Arrays.asList(htmlFileController, fileCheckController, nodeCheckController);
 
         stage.setTitle("Homepage Manager");
         stage.setWidth(1100);
         stage.setHeight(500);
  
         final BorderPane border = new BorderPane();
-        border.setCenter(buildTable(htmlFileController, fileCheckController, nodeCheckController));
-        
-        HBox buttonPanel = builtButtons();  
-        
-        border.setBottom(buttonPanel);
+        border.setCenter(buildTable(uiControllers));
+        border.setBottom(builtButtons());
         final Scene scene = new Scene(border);
         
         final Service<Void> calculateService = new Service<Void>() {
@@ -57,12 +56,8 @@ public class FileTable extends Application {
 
                     @Override
                     protected Void call() throws Exception {
-                        final List<FileHandler> fileHandlers = new ArrayList<FileHandler>();
-                        fileHandlers.add(htmlFileGenerator);
-                        fileHandlers.add(fileCheckGenerator);
-                        fileHandlers.add(nodeValueCheckGenerator);
-                        final DataOrchestrator main = new DataOrchestrator(_homepagePath, _list, fileHandlers);
-                        main.start();
+                        final DataOrchestrator dataOrchestrator = new DataOrchestrator(_homepagePath, _list, fileHandlers);
+                        dataOrchestrator.start();
                         return null;
                     }
                 };
@@ -74,24 +69,22 @@ public class FileTable extends Application {
         stage.show();
     }
 
-    private TableView<ObservableFile> buildTable(final HtmlGenerationController htmlFileController,
-                                                 final FileCheckController fileCheckController,
-                                                 final NodeValueCheckController nodeCheckController) {
+    private TableView<ObservableFile> buildTable(final List<UiController> uiControllers) {
         
         final TableView<ObservableFile> table = new TableView<ObservableFile>();
         
         final TableColumn<ObservableFile, String> fileColumn = new TableColumn<ObservableFile, String>("File");
         fileColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         fileColumn.setPrefWidth(250);
+        table.getColumns().add(fileColumn);
         
         final TableColumn<ObservableFile, Boolean> deletedColumn = new TableColumn<ObservableFile, Boolean>("Deleted");
         deletedColumn.setCellValueFactory(cellData -> cellData.getValue().deletedProperty());
-        table.getColumns().add(fileColumn);
-        
         table.getColumns().add(deletedColumn);
-        table.getColumns().add(fileCheckController.getColumns());
-        table.getColumns().add(nodeCheckController.getColumns());
-        table.getColumns().add(htmlFileController.getColumns());
+        
+        for (final UiController uiController: uiControllers) {
+            table.getColumns().add(uiController.getColumns());
+        }
         
         table.setItems(_list.getObservableFileList());
         
