@@ -1,6 +1,5 @@
 - Tester robot.txt avec https://www.google.com/webmasters/tools/robots-testing-tool
-- Vérifier que les tests sont écrits avec jUnit 5, les mettre dans une suite
-- Mettre un bouton pour quitter l'application
+- Mettre les tests dans une suite
 
 - HP : mettre le focus automatiquement sur le champ de recherche
 - HP : pouvoir fermer le popup des authors avec Esc

@@ -19,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class FileTable extends Application {
@@ -41,25 +42,12 @@ public class FileTable extends Application {
         stage.setWidth(1100);
         stage.setHeight(500);
  
-        final TableView<ObservableFile> _table = new TableView<ObservableFile>();
-        final TableColumn<ObservableFile, String> fileColumn = new TableColumn<ObservableFile, String>("File");
-        fileColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-        fileColumn.setPrefWidth(250);
-        final TableColumn<ObservableFile, Boolean> deletedColumn = new TableColumn<ObservableFile, Boolean>("Deleted");
-        deletedColumn.setCellValueFactory(cellData -> cellData.getValue().deletedProperty());
-        _table.getColumns().add(fileColumn);
-        _table.getColumns().add(deletedColumn);
-        _table.getColumns().add(fileCheckController.getColumns());
-        _table.getColumns().add(nodeCheckController.getColumns());
-        _table.getColumns().add(htmlFileController.getColumns());
-        _table.setItems(_list.getObservableFileList());
- 
         final BorderPane border = new BorderPane();
-        border.setCenter(_table);
+        border.setCenter(buildTable(htmlFileController, fileCheckController, nodeCheckController));
         
-        final Button globalFileGeneration = new Button("Generate global files");
-        globalFileGeneration.setOnAction(event -> generateGlobalFiles());
-        border.setBottom(globalFileGeneration);
+        HBox buttonPanel = builtButtons();  
+        
+        border.setBottom(buttonPanel);
         final Scene scene = new Scene(border);
         
         final Service<Void> calculateService = new Service<Void>() {
@@ -86,6 +74,45 @@ public class FileTable extends Application {
         stage.show();
     }
 
+    private TableView<ObservableFile> buildTable(final HtmlGenerationController htmlFileController,
+                                                 final FileCheckController fileCheckController,
+                                                 final NodeValueCheckController nodeCheckController) {
+        
+        final TableView<ObservableFile> table = new TableView<ObservableFile>();
+        
+        final TableColumn<ObservableFile, String> fileColumn = new TableColumn<ObservableFile, String>("File");
+        fileColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        fileColumn.setPrefWidth(250);
+        
+        final TableColumn<ObservableFile, Boolean> deletedColumn = new TableColumn<ObservableFile, Boolean>("Deleted");
+        deletedColumn.setCellValueFactory(cellData -> cellData.getValue().deletedProperty());
+        table.getColumns().add(fileColumn);
+        
+        table.getColumns().add(deletedColumn);
+        table.getColumns().add(fileCheckController.getColumns());
+        table.getColumns().add(nodeCheckController.getColumns());
+        table.getColumns().add(htmlFileController.getColumns());
+        
+        table.setItems(_list.getObservableFileList());
+        
+        return table;
+    }
+
+    private HBox builtButtons() {
+        
+        final HBox buttonPanel = new HBox();
+        
+        final Button generateGlobalFileButton = new Button("Generate global files");
+        generateGlobalFileButton.setOnAction(event -> generateGlobalFiles());
+        buttonPanel.getChildren().add(generateGlobalFileButton);
+        
+        final Button quitButton = new Button("Quit");
+        quitButton.setOnAction(event -> exit());
+        buttonPanel.getChildren().add(quitButton);
+        
+        return buttonPanel;
+    }
+
     public void display(final Path homepagePath,
                         final Path tmpPath) {
         _homepagePath = homepagePath;
@@ -97,5 +124,9 @@ public class FileTable extends Application {
     private void generateGlobalFiles() {        
         SiteFilesGenerator.generate(_homepagePath, _list.getFileList());
         JsonGenerator.generate(_homepagePath, _list.getFileList());
+    }
+    
+    private void exit() {
+        System.exit(0);
     }
 }
