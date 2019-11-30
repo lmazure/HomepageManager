@@ -46,13 +46,13 @@ public class DateChecker extends NodeChecker {
 		final int numberOfMonths = e.getElementsByTagName("MONTH").getLength();
 		final int numberOfDays = e.getElementsByTagName("DAY").getLength();
 		
-		if ( numberOfYears>1 ) return new CheckStatus("more than one YEAR");
-		if ( numberOfMonths>1 ) return new CheckStatus("more than one MONTH");
-		if ( numberOfDays>1 ) return new CheckStatus("more than one DAY");
+		if (numberOfYears > 1) return new CheckStatus("more than one YEAR");
+		if (numberOfMonths > 1) return new CheckStatus("more than one MONTH");
+		if (numberOfDays > 1) return new CheckStatus("more than one DAY");
 
-		if ( numberOfYears==0 ) return new CheckStatus("no YEAR");
+		if (numberOfYears == 0) return new CheckStatus("no YEAR");
 
-		if ( (numberOfMonths==0) && (numberOfDays==1)) return new CheckStatus("DAY without MONTH");
+		if ((numberOfMonths == 0) && (numberOfDays == 1)) return new CheckStatus("DAY without MONTH");
 
 		return null;						
 	}
@@ -72,7 +72,7 @@ public class DateChecker extends NodeChecker {
 		final String yearStr = years.item(0).getTextContent();
 		try {
 			year = Long.parseLong(yearStr);
-			if ( year<1900 ) {
+			if (year < 1900) {
 				// we check this only for articles
 				if ( e.getParentNode().getNodeName().equals("X") )
 				return new CheckStatus("YEAR is less than 1900");
@@ -89,8 +89,9 @@ public class DateChecker extends NodeChecker {
 			month = Integer.parseInt(monthStr);
 			if ( month<0 ) return new CheckStatus("MONTH is negative");
 			if ( month>12 ) return new CheckStatus("MONTH is greater than 12");
-			if ( (year==s_now_year) && (month>s_now_month) ) 
+			if ( (year==s_now_year) && (month>s_now_month) ) {
 				return new CheckStatus("YEAR/MONTH is in the future");
+			}
 		} catch (@SuppressWarnings("unused") final NumberFormatException ex) {
 			return new CheckStatus("MONTH ("+ monthStr + ") is not an integer");
 		}
@@ -105,7 +106,7 @@ public class DateChecker extends NodeChecker {
 			if ( (year==s_now_year) && (month==s_now_month) && (day>s_now_day))
 				return new CheckStatus("YEAR/MONTH/DAY is in the future");
 		} catch (@SuppressWarnings("unused") final NumberFormatException ex) {
-			return new CheckStatus("DAY ("+ dayStr + ") is not an integer");
+			return new CheckStatus("DAY (" + dayStr + ") is not an integer");
 		}
 
 		final Calendar calendar = Calendar.getInstance();
@@ -117,8 +118,9 @@ public class DateChecker extends NodeChecker {
 			final int normalizedMonth =  calendar.get(Calendar.MONTH)+1;
 			final int normalizedDay =  calendar.get(Calendar.DAY_OF_MONTH);
 			
-			if ( (year!= normalizedYear) || (month != normalizedMonth) || (day != normalizedDay) )
+			if ( (year!= normalizedYear) || (month != normalizedMonth) || (day != normalizedDay) ) {
 				return new CheckStatus("incorrect DATE");
+			}
 		} catch (@SuppressWarnings("unused") final IllegalArgumentException ex) {
 			return new CheckStatus("incorrect DATE");			
 		}

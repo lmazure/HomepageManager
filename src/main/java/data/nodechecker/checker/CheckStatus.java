@@ -1,9 +1,5 @@
 package data.nodechecker.checker;
 
-/**
- * @author Laurent
- *
- */
 public class CheckStatus {
     
     final String a_detail;
