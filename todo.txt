@@ -1,5 +1,6 @@
 - Tester robot.txt avec https://www.google.com/webmasters/tools/robots-testing-tool
 - Mettre les tests dans une suite
+- Corriger le fait que certains fichiers soient toujours recréés (essayer en créant un nouveau fichier et en supprimant l'ancien)
 
 - HP : mettre le focus automatiquement sur le champ de recherche
 - HP : pouvoir fermer le popup des authors avec Esc
