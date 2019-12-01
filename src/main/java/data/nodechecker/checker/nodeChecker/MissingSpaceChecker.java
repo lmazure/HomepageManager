@@ -9,6 +9,7 @@ import org.w3c.dom.Element;
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
+import utils.XMLHelper;
 
 public class MissingSpaceChecker extends NodeChecker {
     

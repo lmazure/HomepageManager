@@ -7,10 +7,6 @@ import data.nodechecker.tagSelection.TagSelector;
 
 import org.w3c.dom.Element;
 
-/**
- * @author Laurent
- *
- */
 public class LanguageChecker extends NodeChecker {
 
 	final static InclusionTagSelector s_selector = new InclusionTagSelector( new String[] {

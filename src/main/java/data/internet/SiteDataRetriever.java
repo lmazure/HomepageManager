@@ -20,6 +20,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -30,6 +32,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import utils.ExitHelper;
+import utils.FileHelper;
 
 public class SiteDataRetriever {
 
@@ -54,36 +57,28 @@ public class SiteDataRetriever {
     
     public SiteDataRetrieval retrieve(final URL url) {
         
-        URLConnection connection;        
+
+        final HashMap<String,String> cookies = new HashMap<String, String>();
 
         final Instant timestamp = Instant.now();
-        
+
+        getOutputDirectory(url, timestamp).toFile().mkdirs();
+        final File headerFile = getHeaderFile(url, timestamp).toFile();
         final File dataFile = getDataFile(url, timestamp).toFile();
         final File errorFile = getErrorFile(url, timestamp).toFile();
-        final HashMap<String,String> cookies = new HashMap<String, String>();
         
-        try (final PrintStream outWriter = new PrintStream(dataFile);
+        try (final PrintStream headerWriter = new PrintStream(headerFile);
+             final PrintStream outWriter = new PrintStream(dataFile);
              final PrintStream errorWriter = new PrintStream(errorFile)) {
                  
                  try {
-                     connection = url.openConnection();
+                     final URLConnection connection = url.openConnection();
+                     final HttpURLConnection httpConnection = (HttpURLConnection)connection;
                      if ( url.getProtocol().equals("https") ) {
                          ((HttpsURLConnection)connection).setSSLSocketFactory( _sslSocketFactory );
                      }
                      connection.setConnectTimeout(s_connectTimeout);
                      connection.setReadTimeout(s_readTimeout);
-                 } catch (final IOException e) {
-                     errorWriter.println("failed to create the connection");
-                     errorWriter.println(e);
-                     final CompletableFuture<SiteData> future = new CompletableFuture<SiteData>();
-                     future.complete(new SiteData(SiteData.Status.FAILURE, dataFile, errorFile));
-                     return new SiteDataRetrieval(SiteDataRetrieval.Status.UP_TO_DATE,
-                                                  new CompletableFuture<SiteData>(),
-                                                  null);
-                 }
-                 
-                 try {
-                     final HttpsURLConnection httpConnection = (HttpsURLConnection)connection;
                      httpConnection.setRequestMethod("GET"); // en mettant HEAD, certains sites renvoient 403
                      httpConnection.setRequestProperty ( "User-agent", s_userAgent);
                      final String host = httpConnection.getURL().getHost();
@@ -94,10 +89,10 @@ public class SiteDataRetriever {
                      httpConnection.connect();
                      final int response = httpConnection.getResponseCode();
                      
-                     if ( response == HttpURLConnection.HTTP_MOVED_PERM /* 301 */ ||
-                          response == HttpURLConnection.HTTP_MOVED_TEMP /* 302 */ ||
-                          response == HttpURLConnection.HTTP_SEE_OTHER  /* 303 */ ||
-                          response == HttpURLConnection.HTTP_USE_PROXY  /* 305 */) {
+                     if (response == HttpURLConnection.HTTP_MOVED_PERM /* 301 */ ||
+                         response == HttpURLConnection.HTTP_MOVED_TEMP /* 302 */ ||
+                         response == HttpURLConnection.HTTP_SEE_OTHER  /* 303 */ ||
+                         response == HttpURLConnection.HTTP_USE_PROXY  /* 305 */) {
                          
                              final String location = httpConnection.getHeaderField("Location");
                              if ( location==null ) {
@@ -143,8 +138,9 @@ public class SiteDataRetriever {
                                                       null);                         
                      } else {
                          
+                         writeUrlHeader(httpConnection, headerWriter);
                          try {
-                             loadUrlContent(httpConnection, outWriter);
+                             writeUrlContent(httpConnection, outWriter);
                          } catch (final SocketTimeoutException e) {
                              errorWriter.println("socket timed out during the retrieval of the URL content");
                              errorWriter.println(e);
@@ -217,6 +213,11 @@ public class SiteDataRetriever {
                                       null);
     }
     
+    private Path getHeaderFile(final URL url,
+                               final Instant timestamp) {
+        return getOutputDirectory(url, timestamp).resolve("header");
+    }
+
     private Path getDataFile(final URL url,
                              final Instant timestamp) {
         return getOutputDirectory(url, timestamp).resolve("data");
@@ -231,7 +232,7 @@ public class SiteDataRetriever {
                                     final Instant timestamp) {
         
         final LocalDateTime localizedTimestamp = LocalDateTime.ofInstant(timestamp, ZoneOffset.UTC);
-        return _cachePath.resolve(url.toString())
+        return _cachePath.resolve(FileHelper.generateFileNameFromURL(url))
                          .resolve(_timestampFormatter.format(localizedTimestamp));
     }
     
@@ -265,25 +266,35 @@ public class SiteDataRetriever {
         assert(sslContext != null);
         return sslContext.getSocketFactory();
     }
-    
-    static private void loadUrlContent(final URLConnection connection,
-                                       final PrintStream dataStream) throws IOException {
-        
-        long size = 0L;
 
+    static private void writeUrlHeader(final URLConnection connection,
+                                       final PrintStream headerStream) {
+
+        final Map<String, List<String>> headers = connection.getHeaderFields();
+        for (final String header : headers.keySet()) {
+            headerStream.print(header);
+            for (final String value : headers.get(header)) {
+                headerStream.print('\t');
+                headerStream.print(value);
+            }
+            headerStream.println();
+        }
+    }
+
+    static private void writeUrlContent(final URLConnection connection,
+                                        final PrintStream dataStream) throws IOException {
+
+        long size = 0L;
         try (final InputStream inputStream = connection.getInputStream()) {
             final byte[] buffer = new byte[s_file_buffer_size];
             int length;
-            while (( size <= s_max_content_size ) &&
-                   (length = inputStream.read(buffer)) > 0) {
+            while ((size <= s_max_content_size) && (length = inputStream.read(buffer)) > 0) {
                 dataStream.write(buffer, 0, length);
                 size += length;
             }
         }
-    
-        if ( size > s_max_content_size ) {
-            System.out.println("retrieved content of "+ connection.getURL() + " is truncated");
+        if (size > s_max_content_size) {
+            System.out.println("retrieved content of " + connection.getURL() + " is truncated");
         }
     }
-
 }

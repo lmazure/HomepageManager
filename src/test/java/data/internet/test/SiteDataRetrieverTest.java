@@ -19,14 +19,18 @@ class SiteDataRetrieverTest {
     @Test
     void test() {
         
-        final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp");
+        final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\SiteDataRetrieverTest");
         final SiteDataRetriever retriever = new SiteDataRetriever(cachePath);
-        try {
-            final SiteDataRetrieval retrieval = retriever.retrieve(new URL("http://example.com"));
-        } catch (final MalformedURLException e) {
-            Assertions.fail();
-        }
+        final SiteDataRetrieval retrieval = retriever.retrieve(buildURL("http://example.com"));
         Assertions.assertTrue(true);
     }
     
+    private URL buildURL(final String str) {
+        try {
+            return new URL(str);
+        } catch (@SuppressWarnings("unused") final MalformedURLException e) {
+            Assertions.fail("failed to convert " + str + " to URL");
+            return null;
+        }
+    }
 }

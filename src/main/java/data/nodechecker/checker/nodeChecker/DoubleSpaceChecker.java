@@ -3,6 +3,7 @@ package data.nodechecker.checker.nodeChecker;
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.ExclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
+import utils.XMLHelper;
 
 import java.util.List;
 

@@ -7,10 +7,6 @@ import data.nodechecker.tagSelection.TagSelector;
 
 import org.w3c.dom.Element;
 
-/**
- * @author Laurent
- *
- */
 public class EllipsisChecker extends NodeChecker {
 
 	static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new String[] {
@@ -47,7 +43,7 @@ public class EllipsisChecker extends NodeChecker {
 
 	private CheckStatus checkEllipsis(final Element e) {
 		final String s = e.getTextContent();
-		if ( s.indexOf("...") == -1 ) return null;
+		if (s.indexOf("...") == -1) return null;
 		return new CheckStatus("\""+s+"\" should not contain \"...\"");
 		}
 }

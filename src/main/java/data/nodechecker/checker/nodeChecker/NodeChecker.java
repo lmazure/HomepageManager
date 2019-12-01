@@ -6,10 +6,6 @@ import data.nodechecker.tagSelection.TagSelector;
 
 import org.w3c.dom.Element;
 
-/**
- * @author Laurent
- *
- */
 abstract public class NodeChecker {
 	
     final static String A = "A";
@@ -56,11 +52,6 @@ abstract public class NodeChecker {
     final static String TITLE = "TITLE";
     final static String X = "X";
 
-    
-	/**
-	 * @author Laurent
-	 *
-	 */
 	public interface NodeRule {
 		/**
 		 * @param e element to verify

@@ -7,10 +7,6 @@ import data.nodechecker.tagSelection.TagSelector;
 
 import org.w3c.dom.Element;
 
-/**
- * @author Laurent
- *
- */
 public class NonEmptyChecker extends NodeChecker {
 
 	static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new String[] {
@@ -45,7 +41,7 @@ public class NonEmptyChecker extends NodeChecker {
 		
 		final String s = e.getTextContent();
 		
-		if ( (s.length()>0) || (e.getChildNodes().getLength()>0) ) return null;
+		if ((s.length()>0) || (e.getChildNodes().getLength()>0)) return null;
 		
 		return new CheckStatus("node shall not be empty");
 	}

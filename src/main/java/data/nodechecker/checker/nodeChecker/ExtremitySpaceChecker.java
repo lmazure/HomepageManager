@@ -8,10 +8,6 @@ import data.nodechecker.tagSelection.TagSelector;
 
 import org.w3c.dom.Element;
 
-/**
- * @author Laurent
- *
- */
 public class ExtremitySpaceChecker extends NodeChecker {
 
 	static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new String[] {

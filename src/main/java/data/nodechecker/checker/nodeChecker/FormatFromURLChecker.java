@@ -8,11 +8,6 @@ import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
 
-
-/**
- * @author Laurent
- *
- */
 public class FormatFromURLChecker extends NodeChecker {
 
 	final static InclusionTagSelector s_selector = new InclusionTagSelector( new String[] {
@@ -48,18 +43,17 @@ public class FormatFromURLChecker extends NodeChecker {
 			}		
 		}
 		
-		if ( url.toUpperCase().endsWith("PDF") && !format.equals("PDF") )
+		if (url.toUpperCase().endsWith("PDF") && !format.equals("PDF"))
 		   return new CheckStatus("\""+url+"\" is not indicated as being a PDF format");
 
-		if ( url.toUpperCase().endsWith("WMV") && !format.equals("Windows Media Player") )
+		if (url.toUpperCase().endsWith("WMV") && !format.equals("Windows Media Player"))
 			   return new CheckStatus("\""+url+"\" is not indicated as being a Windows Media Player format");
 
-		if ( url.contains("youtube.com/watch") && !format.equals("Flash Video") )
+		if (url.contains("youtube.com/watch") && !format.equals("Flash Video"))
 			   return new CheckStatus("\""+url+"\" is not indicated as being a Flash Video format");
 
-		if ( url.contains("video.google.com/videoplay") && !format.equals("Flash Video") )
+		if (url.contains("video.google.com/videoplay") && !format.equals("Flash Video"))
 			   return new CheckStatus("\""+url+"\" is not indicated as being a Flash Video format");
-
 
 		return null;
 	}

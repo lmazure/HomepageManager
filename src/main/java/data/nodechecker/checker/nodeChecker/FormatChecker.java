@@ -7,10 +7,6 @@ import data.nodechecker.tagSelection.TagSelector;
 
 import org.w3c.dom.Element;
 
-/**
- * @author Laurent
- *
- */
 public class FormatChecker extends NodeChecker {
 
 	final static InclusionTagSelector s_selector = new InclusionTagSelector( new String[] {
@@ -59,5 +55,4 @@ public class FormatChecker extends NodeChecker {
 		
 		return new CheckStatus("\""+s+"\" is a unknown format");
 	}
-
 }

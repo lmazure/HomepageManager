@@ -11,10 +11,6 @@ import data.nodechecker.tagSelection.InclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
 
 
-/**
- * @author Laurent
- *
- */
 public class TableSortChecker extends NodeChecker {
 
 	final static InclusionTagSelector s_selector = new InclusionTagSelector( new String[] {
@@ -48,13 +44,13 @@ public class TableSortChecker extends NodeChecker {
 		final NodeList children = e.getChildNodes();
 		for (int i=0; i<children.getLength(); i++) {
 			final Node child = children.item(i);
-			if ( (child.getNodeType() == Node.ELEMENT_NODE) && 
-				 (child.getNodeName()=="ROW") ) {
+			if ((child.getNodeType() == Node.ELEMENT_NODE) && 
+				(child.getNodeName()=="ROW")) {
 				final NodeList childrenOfChild = child.getChildNodes();
 				for (int j=0; j<childrenOfChild.getLength(); j++) {
 					final Node childOfChild = childrenOfChild.item(j);
-					if ( (childOfChild.getNodeType() == Node.ELEMENT_NODE) && 
-						 (childOfChild.getNodeName()=="TERM") ) {
+					if ((childOfChild.getNodeType() == Node.ELEMENT_NODE) && 
+						(childOfChild.getNodeName()=="TERM") ) {
 						numberOfTerms++;
 						final Element elementOfChild = (Element)childOfChild;
 						final String textContent = getTextOfElementWithoutChildren(elementOfChild);
@@ -99,10 +95,10 @@ public class TableSortChecker extends NodeChecker {
 		final int len = s.length();
 		
 		for (int j = 0; j < len; j++) {
-            int c = s.codePointAt(j);
-            if ( Character.isLetter(c) && Character.isUpperCase(c) ) result = result + new String(Character.toChars(Character.toUpperCase(c)));
-            if ( Character.isLetter(c) && Character.isLowerCase(c) ) result = result + new String(Character.toChars(Character.toUpperCase(c)));
-            if (  Character.isDigit(c) ) result = result + new String(Character.toChars(Character.toLowerCase(c)));            
+            final int c = s.codePointAt(j);
+            if (Character.isLetter(c) && Character.isUpperCase(c)) result = result + new String(Character.toChars(Character.toUpperCase(c)));
+            if (Character.isLetter(c) && Character.isLowerCase(c)) result = result + new String(Character.toChars(Character.toUpperCase(c)));
+            if (Character.isDigit(c)) result = result + new String(Character.toChars(Character.toLowerCase(c)));            
 		}
 		
 		return result;
@@ -115,7 +111,7 @@ public class TableSortChecker extends NodeChecker {
 		
 		for (int i=0; i<children.getLength(); i++) {
 			final Node child = children.item(i);
-			if ( child.getNodeType() == Node.TEXT_NODE ) {
+			if (child.getNodeType() == Node.TEXT_NODE) {
 				text = text + child.getNodeValue();
 			}
 		}

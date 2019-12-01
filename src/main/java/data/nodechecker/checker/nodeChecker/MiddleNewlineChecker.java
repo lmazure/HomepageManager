@@ -7,10 +7,6 @@ import data.nodechecker.tagSelection.TagSelector;
 
 import org.w3c.dom.Element;
 
-/**
- * @author Laurent
- *
- */
 public class MiddleNewlineChecker extends NodeChecker {
 
 	static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new String[] {
@@ -55,7 +51,7 @@ public class MiddleNewlineChecker extends NodeChecker {
 
 	private CheckStatus checkNewline(final Element e) {
 		final String s = e.getTextContent();
-		if ( s.indexOf('\n') == -1 ) return null;
+		if (s.indexOf('\n') == -1) return null;
 		return new CheckStatus("\"" + s + "\" should not contain a newline");
 	}
 }

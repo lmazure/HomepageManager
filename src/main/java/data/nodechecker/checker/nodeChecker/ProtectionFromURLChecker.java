@@ -42,7 +42,7 @@ public class ProtectionFromURLChecker extends NodeChecker {
 		final NodeList children = e.getChildNodes();
 		for (int j=0; j<children.getLength(); j++) {
 			final Node child = children.item(j);
-			if ( child.getNodeType() == Node.ELEMENT_NODE ) {
+			if (child.getNodeType() == Node.ELEMENT_NODE) {
 				if (child.getNodeName()=="A") {
 					url=child.getTextContent();
 				}
@@ -54,7 +54,7 @@ public class ProtectionFromURLChecker extends NodeChecker {
 			protection = statusAttribute.getTextContent();
 		}
 
-		if ( url.contains("auntminnie.com/") && !protection.equals("free_registration") )
+		if (url.contains("auntminnie.com/") && !protection.equals("free_registration"))
 		   return new CheckStatus("\""+url+"\" should be flagged as 'free_registration'");
 
 		return null;

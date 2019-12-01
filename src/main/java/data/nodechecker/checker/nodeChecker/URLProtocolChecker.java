@@ -7,10 +7,6 @@ import data.nodechecker.tagSelection.TagSelector;
 
 import org.w3c.dom.Element;
 
-/**
- * @author Laurent
- *
- */
 public class URLProtocolChecker extends NodeChecker {
 
 	final static InclusionTagSelector s_selector = new InclusionTagSelector( new String[] {
@@ -46,6 +42,6 @@ public class URLProtocolChecker extends NodeChecker {
 		if (s.startsWith("javascript:")) return null;
 		if (s.startsWith("file:")) return null;
 		
-		return new CheckStatus("unknown protocol for URL \""+s+"\"");
+		return new CheckStatus("unknown protocol for URL \"" + s + "\"");
 	}
 }

@@ -3,15 +3,12 @@ package data.nodechecker.checker.nodeChecker;
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
+import utils.XMLHelper;
 
 import java.util.List;
 
 import org.w3c.dom.Element;
 
-/**
- * @author Laurent
- *
- */
 public class TitleFormatChecker extends NodeChecker {
 
 	final static InclusionTagSelector s_selector = new InclusionTagSelector( new String[] {
