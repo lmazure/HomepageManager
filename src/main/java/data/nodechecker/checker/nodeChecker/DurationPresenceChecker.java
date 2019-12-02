@@ -29,21 +29,26 @@ public class DurationPresenceChecker extends NodeChecker {
 		return a;
 	}
 
-	private CheckStatus checkFormat(final Element e) {
+	private CheckStatus checkFormat(final Element e) { //TODO record the format in a Set
 
 		boolean hasDuration = false;
-		String format="";
+		String format = "";
 		
 		final NodeList children = e.getChildNodes();
 		for (int j=0; j<children.getLength(); j++) {
 			final Node child = children.item(j);
 			if ( child.getNodeType() == Node.ELEMENT_NODE ) {
-				if (child.getNodeName()=="DURATION") hasDuration = true;
-				if (child.getNodeName()=="F") format=child.getTextContent();
+				if (child.getNodeName() == "DURATION") {
+				    hasDuration = true;
+				}
+				if (child.getNodeName() == "F") {
+				    format = child.getTextContent();
+				}
 			}		
 		}
 		
 		if (format.equals("HTML")) return null;
+		
 		if (format.equals("PDF")) {
 			if (hasDuration) return new CheckStatus("PDF cannot have duration");
 			return null;
@@ -107,5 +112,4 @@ public class DurationPresenceChecker extends NodeChecker {
 
 		return new CheckStatus("\""+format+"\" is a unknown format to get duration presence");
 	}
-
 }

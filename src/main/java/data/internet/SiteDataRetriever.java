@@ -66,6 +66,7 @@ public class SiteDataRetriever {
         final File headerFile = getHeaderFile(url, timestamp).toFile();
         final File dataFile = getDataFile(url, timestamp).toFile();
         final File errorFile = getErrorFile(url, timestamp).toFile();
+        int response = -1;
         
         try (final PrintStream headerWriter = new PrintStream(headerFile);
              final PrintStream outWriter = new PrintStream(dataFile);
@@ -87,92 +88,57 @@ public class SiteDataRetriever {
                          httpConnection.setRequestProperty( "Cookie", cookie);           
                      }
                      httpConnection.connect();
-                     final int response = httpConnection.getResponseCode();
+                     response = httpConnection.getResponseCode();
                      
-                     if (response == HttpURLConnection.HTTP_MOVED_PERM /* 301 */ ||
-                         response == HttpURLConnection.HTTP_MOVED_TEMP /* 302 */ ||
-                         response == HttpURLConnection.HTTP_SEE_OTHER  /* 303 */ ||
-                         response == HttpURLConnection.HTTP_USE_PROXY  /* 305 */) {
-                         
-                             final String location = httpConnection.getHeaderField("Location");
-                             if ( location==null ) {
-                                 errorWriter.println("\"" +
-                                         httpConnection.getURL().toString() +
-                                         "\" response is "+
-                                         response +
-                                         " but header \"Location\" is not present");
-                                 final CompletableFuture<SiteData> future = new CompletableFuture<SiteData>();
-                                 future.complete(new SiteData(SiteData.Status.FAILURE, dataFile, errorFile));
-                                 return new SiteDataRetrieval(SiteDataRetrieval.Status.UP_TO_DATE,
-                                                              new CompletableFuture<SiteData>(),
-                                                              null);
-                             }
-                             outWriter.println(response);
-                                  for (int i = 1; httpConnection.getHeaderField(i) != null; i++) {
-                                       final String key = httpConnection.getHeaderFieldKey(i);
-                                       if ( (key!=null) && key.equalsIgnoreCase("set-cookie") )
-                                       {
-                                           final String receivedCookie = httpConnection.getHeaderField(key);
-                                           final int index = receivedCookie.indexOf(";");
-                                           if ( index>0 ) { // some servers sent incorrect cookies
-                                               final String receivedCookieValue = receivedCookie.substring(0, index);
-                                               cookies.put(host,receivedCookieValue);
-                                           }
-                                       }
-                                   }
-                                 //final URL redirectURL = new URL(httpConnection.getURL(),location);
-                                 //final URLLivenessStatus s = internallyCheckURLLiveness(redirectURL,depth+1, cookies);
-                                 //finalRedirection = s.getFinalRedirection();
-                                 //status = s.getCode();
-                                 //detailedMessage += " -- " + s.getExplanation();
-                                 ExitHelper.exit("redirection is not implemented");
-                                 
-                     } else if ( response != HttpURLConnection.HTTP_OK      /* 200 */ &&
-                                 response != HttpURLConnection.HTTP_CREATED /* 201 */) {
+                     if ( response != HttpURLConnection.HTTP_OK         /* 200 */ &&
+                          response != HttpURLConnection.HTTP_CREATED    /* 201 */ &&
+                          response != HttpURLConnection.HTTP_MOVED_PERM /* 301 */ &&
+                          response != HttpURLConnection.HTTP_MOVED_TEMP /* 302 */ &&
+                          response != HttpURLConnection.HTTP_SEE_OTHER  /* 303 */ &&
+                          response != HttpURLConnection.HTTP_USE_PROXY  /* 305 */ ) {
                          
                          errorWriter.println("page not found");
                          final CompletableFuture<SiteData> future = new CompletableFuture<SiteData>();
-                         future.complete(new SiteData(SiteData.Status.FAILURE, dataFile, errorFile));
+                         future.complete(new SiteData(SiteData.Status.FAILURE, response, new HashMap<String, List<String>>(), dataFile, errorFile));
                          return new SiteDataRetrieval(SiteDataRetrieval.Status.UP_TO_DATE,
                                                       new CompletableFuture<SiteData>(),
                                                       null);                         
-                     } else {
-                         
-                         writeUrlHeader(httpConnection, headerWriter);
-                         try {
-                             writeUrlContent(httpConnection, outWriter);
-                         } catch (final SocketTimeoutException e) {
-                             errorWriter.println("socket timed out during the retrieval of the URL content");
-                             errorWriter.println(e);
-                             final CompletableFuture<SiteData> future = new CompletableFuture<SiteData>();
-                             future.complete(new SiteData(SiteData.Status.FAILURE, dataFile, errorFile));
-                             return new SiteDataRetrieval(SiteDataRetrieval.Status.UP_TO_DATE,
-                                                          new CompletableFuture<SiteData>(),
-                                                          null);
-                         } catch (final SocketException e) {
-                             errorWriter.println("socket exception during the retrieval of the URL content");
-                             errorWriter.println(e);
-                             final CompletableFuture<SiteData> future = new CompletableFuture<SiteData>();
-                             future.complete(new SiteData(SiteData.Status.FAILURE, dataFile, errorFile));
-                             return new SiteDataRetrieval(SiteDataRetrieval.Status.UP_TO_DATE,
-                                                          new CompletableFuture<SiteData>(),
-                                                          null);
-                         } catch (final IOException e) {
-                             errorWriter.println("unexpected exception during the retrieval of the URL content");
-                             errorWriter.println(e);
-                             final CompletableFuture<SiteData> future = new CompletableFuture<SiteData>();
-                             future.complete(new SiteData(SiteData.Status.FAILURE, dataFile, errorFile));
-                             return new SiteDataRetrieval(SiteDataRetrieval.Status.UP_TO_DATE,
-                                                          new CompletableFuture<SiteData>(),
-                                                          null);
-                         }
+                     }
+                     
+                    writeUrlHeader(httpConnection, headerWriter);
+                     try {
+                         writeUrlContent(httpConnection, outWriter);
+                     } catch (final SocketTimeoutException e) {
+                         errorWriter.println("socket timed out during the retrieval of the URL content");
+                         errorWriter.println(e);
+                         final CompletableFuture<SiteData> future = new CompletableFuture<SiteData>();
+                         future.complete(new SiteData(SiteData.Status.FAILURE, response, new HashMap<String, List<String>>(), dataFile, errorFile));
+                         return new SiteDataRetrieval(SiteDataRetrieval.Status.UP_TO_DATE,
+                                                      new CompletableFuture<SiteData>(),
+                                                      null);
+                     } catch (final SocketException e) {
+                         errorWriter.println("socket exception during the retrieval of the URL content");
+                         errorWriter.println(e);
+                         final CompletableFuture<SiteData> future = new CompletableFuture<SiteData>();
+                         future.complete(new SiteData(SiteData.Status.FAILURE, response, new HashMap<String, List<String>>(), dataFile, errorFile));
+                         return new SiteDataRetrieval(SiteDataRetrieval.Status.UP_TO_DATE,
+                                                      new CompletableFuture<SiteData>(),
+                                                      null);
+                     } catch (final IOException e) {
+                         errorWriter.println("unexpected exception during the retrieval of the URL content");
+                         errorWriter.println(e);
+                         final CompletableFuture<SiteData> future = new CompletableFuture<SiteData>();
+                         future.complete(new SiteData(SiteData.Status.FAILURE, response, new HashMap<String, List<String>>(), dataFile, errorFile));
+                         return new SiteDataRetrieval(SiteDataRetrieval.Status.UP_TO_DATE,
+                                                      new CompletableFuture<SiteData>(),
+                                                      null);
                      }
                      
                  } catch (final UnknownHostException e) {
                      errorWriter.println("unknown host");
                      errorWriter.println(e);
                      final CompletableFuture<SiteData> future = new CompletableFuture<SiteData>();
-                     future.complete(new SiteData(SiteData.Status.FAILURE, dataFile, errorFile));
+                     future.complete(new SiteData(SiteData.Status.FAILURE, response, new HashMap<String, List<String>>(), dataFile, errorFile));
                      return new SiteDataRetrieval(SiteDataRetrieval.Status.UP_TO_DATE,
                                                   new CompletableFuture<SiteData>(),
                                                   null);
@@ -180,7 +146,7 @@ public class SiteDataRetriever {
                      errorWriter.println("incorrect certificate");
                      errorWriter.println(e);
                      final CompletableFuture<SiteData> future = new CompletableFuture<SiteData>();
-                     future.complete(new SiteData(SiteData.Status.FAILURE, dataFile, errorFile));
+                     future.complete(new SiteData(SiteData.Status.FAILURE, response, new HashMap<String, List<String>>(), dataFile, errorFile));
                      return new SiteDataRetrieval(SiteDataRetrieval.Status.UP_TO_DATE,
                                                   new CompletableFuture<SiteData>(),
                                                   null);
@@ -188,7 +154,7 @@ public class SiteDataRetriever {
                      errorWriter.println("timeout");
                      errorWriter.println(e);
                      final CompletableFuture<SiteData> future = new CompletableFuture<SiteData>();
-                     future.complete(new SiteData(SiteData.Status.FAILURE, dataFile, errorFile));
+                     future.complete(new SiteData(SiteData.Status.FAILURE, response, new HashMap<String, List<String>>(), dataFile, errorFile));
                      return new SiteDataRetrieval(SiteDataRetrieval.Status.UP_TO_DATE,
                                                   new CompletableFuture<SiteData>(),
                                                   null);
@@ -196,7 +162,7 @@ public class SiteDataRetriever {
                      errorWriter.println("failed to connect");
                      errorWriter.println(e);
                      final CompletableFuture<SiteData> future = new CompletableFuture<SiteData>();
-                     future.complete(new SiteData(SiteData.Status.FAILURE, dataFile, errorFile));
+                     future.complete(new SiteData(SiteData.Status.FAILURE, response, new HashMap<String, List<String>>(), dataFile, errorFile));
                      return new SiteDataRetrieval(SiteDataRetrieval.Status.UP_TO_DATE,
                                                   new CompletableFuture<SiteData>(),
                                                   null);
@@ -207,9 +173,9 @@ public class SiteDataRetriever {
 
 
          final CompletableFuture<SiteData> future = new CompletableFuture<SiteData>();
-         future.complete(new SiteData(SiteData.Status.SUCCESS, dataFile, errorFile));
+         future.complete(new SiteData(SiteData.Status.SUCCESS, response, new HashMap<String, List<String>>(), dataFile, errorFile));
          return new SiteDataRetrieval(SiteDataRetrieval.Status.UP_TO_DATE,
-                                      new CompletableFuture<SiteData>(),
+                                      future,
                                       null);
     }
     

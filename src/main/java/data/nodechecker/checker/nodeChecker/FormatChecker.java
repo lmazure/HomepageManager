@@ -32,7 +32,7 @@ public class FormatChecker extends NodeChecker {
 	 * @param e
 	 * @return
 	 */
-	private CheckStatus checkFormat(final Element e) {
+	private CheckStatus checkFormat(final Element e) { // TODO this rule is useless since there is another rule checking the durations, but had a unit test before removing it
 		
 		final String s = e.getTextContent();
 		
