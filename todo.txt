@@ -1,3 +1,13 @@
+- site reaping
+  - étudier problème du header null
+  - implémenter récupération de la payload
+  - implémenter récupération de l'error
+  - tester avec HTTPS
+  - mettre le mécanisme de cache en marche
+  
+  
+
+
 - Tester robot.txt avec https://www.google.com/webmasters/tools/robots-testing-tool
 - Mettre les tests dans une suite
 - Corriger le fait que certains fichiers soient toujours recréés (essayer en créant un nouveau fichier et en supprimant l'ancien)

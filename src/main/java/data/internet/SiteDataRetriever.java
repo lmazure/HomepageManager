@@ -6,11 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.net.HttpURLConnection;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.UnknownHostException;
 import java.nio.file.Path;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
@@ -22,11 +19,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLHandshakeException;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
@@ -50,135 +46,63 @@ public class SiteDataRetriever {
 
     
     public SiteDataRetriever(final Path cachePath) {
-        
         _cachePath = cachePath;
         _sslSocketFactory = getDisabledPKIXCheck();
     }
     
-    public SiteDataRetrieval retrieve(final URL url) {
-        
-
-        final HashMap<String,String> cookies = new HashMap<String, String>();
+    public void retrieve(final URL url,
+                         final Consumer<SiteData> consumer) {
 
         final Instant timestamp = Instant.now();
-
         getOutputDirectory(url, timestamp).toFile().mkdirs();
+        final File httpCodeFile = getHttpCodeFile(url, timestamp).toFile();
         final File headerFile = getHeaderFile(url, timestamp).toFile();
         final File dataFile = getDataFile(url, timestamp).toFile();
         final File errorFile = getErrorFile(url, timestamp).toFile();
-        int response = -1;
         
-        try (final PrintStream headerWriter = new PrintStream(headerFile);
-             final PrintStream outWriter = new PrintStream(dataFile);
+        try (final PrintStream httpCodeWriter = new PrintStream(httpCodeFile);
+             final PrintStream headerWriter = new PrintStream(headerFile);
+             final PrintStream dataWriter = new PrintStream(dataFile);
              final PrintStream errorWriter = new PrintStream(errorFile)) {
-                 
-                 try {
-                     final URLConnection connection = url.openConnection();
-                     final HttpURLConnection httpConnection = (HttpURLConnection)connection;
-                     if ( url.getProtocol().equals("https") ) {
-                         ((HttpsURLConnection)connection).setSSLSocketFactory( _sslSocketFactory );
-                     }
-                     connection.setConnectTimeout(s_connectTimeout);
-                     connection.setReadTimeout(s_readTimeout);
-                     httpConnection.setRequestMethod("GET"); // en mettant HEAD, certains sites renvoient 403
-                     httpConnection.setRequestProperty ( "User-agent", s_userAgent);
-                     final String host = httpConnection.getURL().getHost();
-                     final String cookie = cookies.get(host);
-                     if (cookie != null) {
-                         httpConnection.setRequestProperty( "Cookie", cookie);           
-                     }
-                     httpConnection.connect();
-                     response = httpConnection.getResponseCode();
-                     
-                     if ( response != HttpURLConnection.HTTP_OK         /* 200 */ &&
-                          response != HttpURLConnection.HTTP_CREATED    /* 201 */ &&
-                          response != HttpURLConnection.HTTP_MOVED_PERM /* 301 */ &&
-                          response != HttpURLConnection.HTTP_MOVED_TEMP /* 302 */ &&
-                          response != HttpURLConnection.HTTP_SEE_OTHER  /* 303 */ &&
-                          response != HttpURLConnection.HTTP_USE_PROXY  /* 305 */ ) {
-                         
-                         errorWriter.println("page not found");
-                         final CompletableFuture<SiteData> future = new CompletableFuture<SiteData>();
-                         future.complete(new SiteData(SiteData.Status.FAILURE, response, new HashMap<String, List<String>>(), dataFile, errorFile));
-                         return new SiteDataRetrieval(SiteDataRetrieval.Status.UP_TO_DATE,
-                                                      new CompletableFuture<SiteData>(),
-                                                      null);                         
-                     }
-                     
-                    writeUrlHeader(httpConnection, headerWriter);
-                     try {
-                         writeUrlContent(httpConnection, outWriter);
-                     } catch (final SocketTimeoutException e) {
-                         errorWriter.println("socket timed out during the retrieval of the URL content");
-                         errorWriter.println(e);
-                         final CompletableFuture<SiteData> future = new CompletableFuture<SiteData>();
-                         future.complete(new SiteData(SiteData.Status.FAILURE, response, new HashMap<String, List<String>>(), dataFile, errorFile));
-                         return new SiteDataRetrieval(SiteDataRetrieval.Status.UP_TO_DATE,
-                                                      new CompletableFuture<SiteData>(),
-                                                      null);
-                     } catch (final SocketException e) {
-                         errorWriter.println("socket exception during the retrieval of the URL content");
-                         errorWriter.println(e);
-                         final CompletableFuture<SiteData> future = new CompletableFuture<SiteData>();
-                         future.complete(new SiteData(SiteData.Status.FAILURE, response, new HashMap<String, List<String>>(), dataFile, errorFile));
-                         return new SiteDataRetrieval(SiteDataRetrieval.Status.UP_TO_DATE,
-                                                      new CompletableFuture<SiteData>(),
-                                                      null);
-                     } catch (final IOException e) {
-                         errorWriter.println("unexpected exception during the retrieval of the URL content");
-                         errorWriter.println(e);
-                         final CompletableFuture<SiteData> future = new CompletableFuture<SiteData>();
-                         future.complete(new SiteData(SiteData.Status.FAILURE, response, new HashMap<String, List<String>>(), dataFile, errorFile));
-                         return new SiteDataRetrieval(SiteDataRetrieval.Status.UP_TO_DATE,
-                                                      new CompletableFuture<SiteData>(),
-                                                      null);
-                     }
-                     
-                 } catch (final UnknownHostException e) {
-                     errorWriter.println("unknown host");
-                     errorWriter.println(e);
-                     final CompletableFuture<SiteData> future = new CompletableFuture<SiteData>();
-                     future.complete(new SiteData(SiteData.Status.FAILURE, response, new HashMap<String, List<String>>(), dataFile, errorFile));
-                     return new SiteDataRetrieval(SiteDataRetrieval.Status.UP_TO_DATE,
-                                                  new CompletableFuture<SiteData>(),
-                                                  null);
-                 } catch (final SSLHandshakeException e) {
-                     errorWriter.println("incorrect certificate");
-                     errorWriter.println(e);
-                     final CompletableFuture<SiteData> future = new CompletableFuture<SiteData>();
-                     future.complete(new SiteData(SiteData.Status.FAILURE, response, new HashMap<String, List<String>>(), dataFile, errorFile));
-                     return new SiteDataRetrieval(SiteDataRetrieval.Status.UP_TO_DATE,
-                                                  new CompletableFuture<SiteData>(),
-                                                  null);
-                 } catch (final SocketTimeoutException e) {
-                     errorWriter.println("timeout");
-                     errorWriter.println(e);
-                     final CompletableFuture<SiteData> future = new CompletableFuture<SiteData>();
-                     future.complete(new SiteData(SiteData.Status.FAILURE, response, new HashMap<String, List<String>>(), dataFile, errorFile));
-                     return new SiteDataRetrieval(SiteDataRetrieval.Status.UP_TO_DATE,
-                                                  new CompletableFuture<SiteData>(),
-                                                  null);
-                 } catch (final IOException e) {
-                     errorWriter.println("failed to connect");
-                     errorWriter.println(e);
-                     final CompletableFuture<SiteData> future = new CompletableFuture<SiteData>();
-                     future.complete(new SiteData(SiteData.Status.FAILURE, response, new HashMap<String, List<String>>(), dataFile, errorFile));
-                     return new SiteDataRetrieval(SiteDataRetrieval.Status.UP_TO_DATE,
-                                                  new CompletableFuture<SiteData>(),
-                                                  null);
+             try {
+                 final URLConnection connection = url.openConnection();
+                 final HttpURLConnection httpConnection = (HttpURLConnection)connection;
+                 if ( url.getProtocol().equals("https") ) {
+                     ((HttpsURLConnection)connection).setSSLSocketFactory( _sslSocketFactory );
                  }
+                 connection.setConnectTimeout(s_connectTimeout);
+                 connection.setReadTimeout(s_readTimeout);
+                 httpConnection.setRequestMethod("GET");
+                 httpConnection.setRequestProperty("User-agent", s_userAgent);
+                 httpConnection.connect();
+                 final Map<String, List<String>> headers = connection.getHeaderFields();
+                 writeUrlHeader(headers, headerWriter);
+                 final int httpCode = httpConnection.getResponseCode();
+                 if ( httpCode != HttpURLConnection.HTTP_OK         /* 200 */ &&
+                      httpCode != HttpURLConnection.HTTP_CREATED    /* 201 */ &&
+                      httpCode != HttpURLConnection.HTTP_MOVED_PERM /* 301 */ &&
+                      httpCode != HttpURLConnection.HTTP_MOVED_TEMP /* 302 */ &&
+                      httpCode != HttpURLConnection.HTTP_SEE_OTHER  /* 303 */ &&
+                      httpCode != HttpURLConnection.HTTP_USE_PROXY  /* 305 */ ) {
+                     errorWriter.println("page not found");
+                     consumer.accept(new SiteData(SiteData.Status.FAILURE, httpCode, headers, dataFile, errorFile));
+                 }
+                 writeUrlContent(httpConnection, dataWriter);
+                 consumer.accept(new SiteData(SiteData.Status.SUCCESS, httpCode, headers, dataFile, errorFile));
+             } catch (final IOException e) {
+                 errorWriter.println(e);
+                 consumer.accept(new SiteData(SiteData.Status.FAILURE, -1, new HashMap<String, List<String>>(), dataFile, errorFile));
+             }
         } catch (final FileNotFoundException e1) {
             ExitHelper.exit(e1);
         }
-
-
-         final CompletableFuture<SiteData> future = new CompletableFuture<SiteData>();
-         future.complete(new SiteData(SiteData.Status.SUCCESS, response, new HashMap<String, List<String>>(), dataFile, errorFile));
-         return new SiteDataRetrieval(SiteDataRetrieval.Status.UP_TO_DATE,
-                                      future,
-                                      null);
     }
     
+    private Path getHttpCodeFile(final URL url,
+                                 final Instant timestamp) {
+        return getOutputDirectory(url, timestamp).resolve("http code");
+    }
+
     private Path getHeaderFile(final URL url,
                                final Instant timestamp) {
         return getOutputDirectory(url, timestamp).resolve("header");
@@ -233,10 +157,9 @@ public class SiteDataRetriever {
         return sslContext.getSocketFactory();
     }
 
-    static private void writeUrlHeader(final URLConnection connection,
+    static private void writeUrlHeader(final Map<String, List<String>> headers,
                                        final PrintStream headerStream) {
 
-        final Map<String, List<String>> headers = connection.getHeaderFields();
         for (final String header : headers.keySet()) {
             headerStream.print(header);
             for (final String value : headers.get(header)) {
