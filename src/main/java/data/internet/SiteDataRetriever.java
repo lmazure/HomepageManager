@@ -78,6 +78,7 @@ public class SiteDataRetriever {
                  final Map<String, List<String>> headers = connection.getHeaderFields();
                  writeUrlHeader(headers, headerWriter);
                  final int httpCode = httpConnection.getResponseCode();
+                 writeHttpCodeHeader(httpCode, httpCodeWriter);
                  if ( httpCode != HttpURLConnection.HTTP_OK         /* 200 */ &&
                       httpCode != HttpURLConnection.HTTP_CREATED    /* 201 */ &&
                       httpCode != HttpURLConnection.HTTP_MOVED_PERM /* 301 */ &&
@@ -90,7 +91,7 @@ public class SiteDataRetriever {
                  writeUrlContent(httpConnection, dataWriter);
                  consumer.accept(new SiteData(SiteData.Status.SUCCESS, httpCode, headers, dataFile, errorFile));
              } catch (final IOException e) {
-                 errorWriter.println(e);
+                 e.printStackTrace(errorWriter);
                  consumer.accept(new SiteData(SiteData.Status.FAILURE, -1, new HashMap<String, List<String>>(), dataFile, errorFile));
              }
         } catch (final FileNotFoundException e1) {
@@ -146,9 +147,7 @@ public class SiteDataRetriever {
         try {
             sslContext = SSLContext.getInstance( "SSL" );
             sslContext.init( null, trustAllCerts, new java.security.SecureRandom() );
-        } catch (final NoSuchAlgorithmException e) {
-            ExitHelper.exit(e);
-        } catch (final KeyManagementException e) {
+        } catch (final NoSuchAlgorithmException | KeyManagementException e) {
             ExitHelper.exit(e);
         }
 
@@ -168,6 +167,11 @@ public class SiteDataRetriever {
             }
             headerStream.println();
         }
+    }
+
+    static private void writeHttpCodeHeader(final int httpCode,
+                                            final PrintStream httpCodeStream) {
+        httpCodeStream.println(httpCode);
     }
 
     static private void writeUrlContent(final URLConnection connection,
