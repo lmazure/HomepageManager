@@ -30,7 +30,7 @@ import javax.net.ssl.X509TrustManager;
 import utils.ExitHelper;
 import utils.FileHelper;
 
-public class SiteDataRetriever {
+public class SynchronousSiteDataRetriever {
 
     private final Path _cachePath;
     static private final DateTimeFormatter _timestampFormatter = DateTimeFormatter.ofPattern("yyyyMMdd-hhmmss");
@@ -45,7 +45,7 @@ public class SiteDataRetriever {
     final private static int s_max_content_size = 8 * 1024 * 1024;
 
     
-    public SiteDataRetriever(final Path cachePath) {
+    public SynchronousSiteDataRetriever(final Path cachePath) {
         _cachePath = cachePath;
         _sslSocketFactory = getDisabledPKIXCheck();
     }

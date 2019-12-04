@@ -1,0 +1,46 @@
+package data.internet.test;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import org.junit.jupiter.api.Assertions;
+
+import org.junit.jupiter.api.Test;
+
+import data.internet.SiteData;
+import data.internet.SynchronousSiteDataRetriever;
+
+class SynchronousSiteDataRetrieverTest {
+
+    @Test
+    void basicHttpRequest() {
+        
+        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(TestHelper.buildURL("http://example.com"),
+                           (SiteData d) -> {
+                               consumerHasBeenCalled.set(true);
+                               TestHelper.assertData(d);
+                           });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    @Test
+    void basicHttpsRequest() {
+        
+        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(TestHelper.buildURL("https://example.com"),
+                           (SiteData d) -> {
+                               consumerHasBeenCalled.set(true);
+                               TestHelper.assertData(d);
+                           });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+    
+    private SynchronousSiteDataRetriever buildDataSiteRetriever() {
+        final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\SynchronousSiteDataRetrieverTest");
+        return new SynchronousSiteDataRetriever(cachePath);
+    }
+}
