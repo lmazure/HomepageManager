@@ -3,6 +3,7 @@ package data.internet;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class SiteData {
 
@@ -12,40 +13,40 @@ public class SiteData {
     };
     
     final private Status _status;
-    final private int _httpCode;
-    final private Map<String, List<String>> _headers; 
-    final private File _dataFile;
-    final private File _errorFile;
+    final private Optional<Integer> _httpCode;
+    final private Optional<Map<String, List<String>>> _headers; 
+    final private Optional<File> _dataFile;
+    final private Optional<String> _error;
     
     public SiteData(final Status status,
-                    final int httpCode,
-                    final Map<String, List<String>> headers,
-                    final File dataFile,
-                    final File errorFile) {
+                    final Optional<Integer> httpCode,
+                    final Optional<Map<String, List<String>>> headers,
+                    final Optional<File> dataFile,
+                    final Optional<String> error) {
         _status = status;
         _httpCode = httpCode;
         _headers = headers;
         _dataFile = dataFile;
-        _errorFile = errorFile;
+        _error = error;
     }
 
     public Status getStatus() {
         return _status;
     }
 
-    public int getHttpCode() {
+    public Optional<Integer> getHttpCode() {
         return _httpCode;
     }
 
-    public Map<String, List<String>> getHeaders() {
+    public Optional<Map<String, List<String>>> getHeaders() {
         return _headers;
     }
     
-    public File getDataFile() {
+    public Optional<File> getDataFile() {
         return _dataFile;
     }
 
-    public File getErrorFile() {
-        return _errorFile;
+    public Optional<String> getErrorFile() {
+        return _error;
     }
 }

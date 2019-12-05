@@ -10,7 +10,6 @@ public class AsynchronousSiteDataRetriever {
 
     final private SynchronousSiteDataRetriever _retriever;
     private final ExecutorService _threadPool;
-
     
     public AsynchronousSiteDataRetriever(final Path cachePath) {
         _retriever = new SynchronousSiteDataRetriever(cachePath);
@@ -20,10 +19,8 @@ public class AsynchronousSiteDataRetriever {
     public void retrieve(final URL url,
                          final Consumer<SiteData> consumer) {
         
-        final Runnable task = () -> {
+        _threadPool.execute(() -> {
             _retriever.retrieve(url, consumer);
-        };
-
-        _threadPool.execute(task);
+        });
     }
 }
