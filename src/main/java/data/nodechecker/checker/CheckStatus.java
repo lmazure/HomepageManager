@@ -17,4 +17,4 @@ public class CheckStatus {
     public String getDetail() {
         return a_detail;
     }
-};
+}

@@ -31,7 +31,7 @@ public class WatchDir {
     public enum Event {
         CREATE,
         DELETE
-    };
+    }
     private final Path _path;
     private final WatchService _watcher;
     private final Map<WatchKey,Path> _keys;

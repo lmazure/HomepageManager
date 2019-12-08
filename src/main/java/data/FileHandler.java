@@ -16,7 +16,7 @@ public interface FileHandler {
          * the file count not be handler
          */
         FAILED_TO_HANDLED
-    };
+    }
 
     public Status handleCreation(final Path inputfile);
 

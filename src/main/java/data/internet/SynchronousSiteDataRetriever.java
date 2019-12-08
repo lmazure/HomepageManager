@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-import java.nio.file.Path;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
@@ -23,6 +22,9 @@ import javax.net.ssl.X509TrustManager;
 
 import utils.ExitHelper;
 
+/**
+ * Synchronous retrieving of site data
+ */
 public class SynchronousSiteDataRetriever {
 
     private final SiteDataPersister _persister;
@@ -35,8 +37,8 @@ public class SynchronousSiteDataRetriever {
     private SSLSocketFactory _sslSocketFactory;
 
     
-    public SynchronousSiteDataRetriever(final Path cachePath) {
-        _persister = new SiteDataPersister(cachePath);
+    public SynchronousSiteDataRetriever(final SiteDataPersister persister) {
+        _persister = persister;
         _sslSocketFactory = getDisabledPKIXCheck();
     }
     
@@ -61,23 +63,26 @@ public class SynchronousSiteDataRetriever {
              httpConnection.connect();
              headers = Optional.of(connection.getHeaderFields());
              httpCode = Optional.of(httpConnection.getResponseCode());
-             if ( httpCode.get() != HttpURLConnection.HTTP_OK         /* 200 */ &&
-                  httpCode.get() != HttpURLConnection.HTTP_CREATED    /* 201 */ &&
-                  httpCode.get() != HttpURLConnection.HTTP_MOVED_PERM /* 301 */ &&
-                  httpCode.get() != HttpURLConnection.HTTP_MOVED_TEMP /* 302 */ &&
-                  httpCode.get() != HttpURLConnection.HTTP_SEE_OTHER  /* 303 */ &&
-                  httpCode.get() != HttpURLConnection.HTTP_USE_PROXY  /* 305 */ ) {
+             if (httpCode.get() != HttpURLConnection.HTTP_OK         /* 200 */ &&
+                 httpCode.get() != HttpURLConnection.HTTP_CREATED    /* 201 */ &&
+                 httpCode.get() != HttpURLConnection.HTTP_MOVED_PERM /* 301 */ &&
+                 httpCode.get() != HttpURLConnection.HTTP_MOVED_TEMP /* 302 */ &&
+                 httpCode.get() != HttpURLConnection.HTTP_SEE_OTHER  /* 303 */ &&
+                 httpCode.get() != HttpURLConnection.HTTP_USE_PROXY  /* 305 */ ) {
                  error = Optional.of("page not found");
-                 _persister.persist(url, timestamp, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error);
+                 _persister.persist(url, timestamp,
+                                    new SiteDataPersisterDtoIn(SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error));
                  consumer.accept(new SiteData(SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error));
                  return;
              }
-             _persister.persist(url, timestamp, SiteData.Status.SUCCESS, httpCode, headers, Optional.of(connection.getInputStream()), error);
+             _persister.persist(url, timestamp,
+                                new SiteDataPersisterDtoIn(SiteData.Status.SUCCESS, httpCode, headers, Optional.of(connection.getInputStream()), error));
              final File dataFile = _persister.getDataFile(url, timestamp).toFile();
              consumer.accept(new SiteData(SiteData.Status.SUCCESS, httpCode, headers, Optional.of(dataFile), error));
          } catch (final IOException e) {
              error = Optional.of(e.toString());
-             _persister.persist(url, timestamp, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error);
+             _persister.persist(url, timestamp,
+                                new SiteDataPersisterDtoIn(SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error));
              consumer.accept(new SiteData(SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error));
          }
     }

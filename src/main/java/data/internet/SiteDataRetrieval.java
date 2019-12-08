@@ -23,7 +23,7 @@ public class SiteDataRetrieval {
          * getUpToDateData() return a Future which will contain the up-to-date data
          */
         EMPTY
-    };
+    }
 
     final private Status _status;
     final private Future<SiteData> _upToDateData;

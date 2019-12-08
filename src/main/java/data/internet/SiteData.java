@@ -10,7 +10,7 @@ public class SiteData {
     public enum Status {
         SUCCESS,
         FAILURE
-    };
+    }
     
     final private Status _status;
     final private Optional<Integer> _httpCode;

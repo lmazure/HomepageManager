@@ -1,18 +1,22 @@
 package data.internet;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.net.URL;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import data.internet.SiteData.Status;
 import utils.ExitHelper;
@@ -21,33 +25,34 @@ import utils.FileHelper;
 public class SiteDataPersister {
 
     private final Path _path;
-    static private final DateTimeFormatter _timestampFormatter = DateTimeFormatter.ofPattern("yyyyMMdd-hhmmss");
-    static final private int s_file_buffer_size = 8192;
-    static final private int s_max_content_size = 8 * 1024 * 1024;
+    private static final int s_file_buffer_size = 8192;
+    private static final int s_max_content_size = 8 * 1024 * 1024;
 
-    SiteDataPersister(final Path path) {
+    public SiteDataPersister(final Path path) {
         _path = path;
     }
-    
+
     void persist(final URL url,
                  final Instant timestamp,
-                 final Status status,
-                 final Optional<Integer> httpCode,
-                 final Optional<Map<String, List<String>>> headers,
-                 final Optional<InputStream> dataStream,
-                 final Optional<String> error) {
+                 final SiteDataPersisterDtoIn dto) {
         
+        final Status status = dto.getStatus();
+        final Optional<Integer> httpCode = dto.getHttpCode();
+        final Optional<Map<String, List<String>>> headers = dto.getHeaders();
+        final Optional<InputStream> dataStream = dto.getDataStream();
+        final Optional<String> error= dto.getError();
+
         getOutputDirectory(url, timestamp).toFile().mkdirs();
 
         try (final PrintStream stream = new PrintStream(getStatusFile(url, timestamp).toFile())) {
-            stream.println(status);            
+            stream.print(status);            
         } catch (final FileNotFoundException e) {
             ExitHelper.exit(e);
         }
         
         if (httpCode.isPresent()) {
             try (final PrintStream stream = new PrintStream(getHttpCodeFile(url, timestamp).toFile())) {
-                stream.println(httpCode.get());            
+                stream.print(httpCode.get());            
             } catch (final FileNotFoundException e) {
                 ExitHelper.exit(e);
             }            
@@ -88,13 +93,128 @@ public class SiteDataPersister {
         
         if (error.isPresent()) {
             try (final PrintStream stream = new PrintStream(getErrorFile(url, timestamp).toFile())) {
-                stream.println(error.get());            
+                stream.print(error.get());            
             } catch (final FileNotFoundException e) {
                 ExitHelper.exit(e);
             }            
         }
     }
 
+    /**
+     * @param url
+     * @return the timestamps of the cached values (in reverse order, the first in the younger one)
+     */
+    List<Instant> getTimestampList(final URL url) {
+        
+        if (!Files.exists(getOutputDirectory(url))) {
+            return new ArrayList<Instant>(0);
+        }
+        
+        try {
+            return Files.list(getOutputDirectory(url))
+                        .filter(p -> p.toFile().isDirectory())
+                        .map(p -> Instant.parse(p.getFileName().toString().replaceAll(";", ":")))
+                        .sorted(Comparator.reverseOrder())
+                        .collect(Collectors.toList());
+        } catch (final IOException e) {
+            ExitHelper.exit(e);
+            return null;
+        }
+    }
+ 
+    public SiteData retrieve(final URL url,
+                             final Instant timestamp) {
+        
+        Status status;
+        Optional<Integer> httpCode;
+        Optional<Map<String, List<String>>> headers;
+        Optional<File> dataFile;
+        Optional<String> error;
+
+        if (Files.exists(getStatusFile(url, timestamp))) {
+            String str;
+            try {
+                str = Files.readString(getStatusFile(url, timestamp));
+            } catch (final IOException e) {
+                ExitHelper.exit(e);
+                // unreachable
+                str = null;
+            }
+            status = Status.valueOf(str);
+        } else {
+            ExitHelper.exit("status file " + getStatusFile(url, timestamp) + " does not exist");
+            // unreachable
+            status = Status.FAILURE;
+        }
+
+        if (Files.exists(getHttpCodeFile(url, timestamp))) {
+            String str;
+            try {
+                str = Files.readString(getHttpCodeFile(url, timestamp));
+            } catch (final IOException e) {
+                ExitHelper.exit(e);
+                // unreachable
+                str = null;
+            }
+            Integer code;
+            try {
+                code = Integer.parseInt(str);
+            } catch (final NumberFormatException e) {
+                ExitHelper.exit(e);
+                // unreachable
+                code = null;
+            }
+            httpCode = Optional.of(code);
+        } else {
+            httpCode = Optional.empty();
+        }
+
+        if (Files.exists(getHeadersFile(url, timestamp))) {
+            final Map<String, List<String>> map = new HashMap<String, List<String>>();
+            try (Stream<String> lines = Files.lines(getHeadersFile(url, timestamp))) {
+                lines.forEach(l -> {
+                    final String[] s = l.split("\t");
+                    final String header = s[0];
+                    final List<String> list = new ArrayList<String>(s.length - 1);
+                    for (int i = 1; i < s.length; i++) {
+                        list.add(s[i]);
+                    }
+                    map.put(header, list);
+                });
+                headers = Optional.of(map);
+            } catch (final IOException e) {
+                ExitHelper.exit(e);
+                // unreachable
+                headers = Optional.empty();
+            }
+            dataFile = Optional.of(getDataFile(url, timestamp).toFile());
+        } else {
+            headers = Optional.empty();
+        }
+
+        if (Files.exists(getDataFile(url, timestamp))) {
+            dataFile = Optional.of(getDataFile(url, timestamp).toFile());
+        } else {
+            dataFile = Optional.empty();
+        }
+
+        if (Files.exists(getErrorFile(url, timestamp))) {
+            String str;
+            try {
+                str = Files.readString(getErrorFile(url, timestamp));
+            } catch (final IOException e) {
+                ExitHelper.exit(e);
+                // unreachable
+                str = null;
+            }
+            error = Optional.of(str);
+        } else {
+            error = Optional.empty();
+        }
+        
+        return new SiteData(status, httpCode, headers, dataFile, error);
+    }
+    
     private Path getStatusFile(final URL url,
                                final Instant timestamp) {
         return getOutputDirectory(url, timestamp).resolve("status");
@@ -110,19 +230,22 @@ public class SiteDataPersister {
         return getOutputDirectory(url, timestamp).resolve("header");
     }
 
-    Path getDataFile(final URL url, final Instant timestamp) {
+    Path getDataFile(final URL url,
+                     final Instant timestamp) {
         return getOutputDirectory(url, timestamp).resolve("data");
     }
 
-    private Path getErrorFile(final URL url, final Instant timestamp) {
+    private Path getErrorFile(final URL url,
+                              final Instant timestamp) {
         return getOutputDirectory(url, timestamp).resolve("error");
     }
 
-    private Path getOutputDirectory(final URL url, final Instant timestamp) {
-
-        final LocalDateTime localizedTimestamp = LocalDateTime.ofInstant(timestamp, ZoneOffset.UTC);
-        return _path.resolve(FileHelper.generateFileNameFromURL(url))
-                .resolve(_timestampFormatter.format(localizedTimestamp));
+    private Path getOutputDirectory(final URL url,
+                                    final Instant timestamp) {
+        return getOutputDirectory(url).resolve(timestamp.toString().replaceAll(":", ";"));
     }
 
+    private Path getOutputDirectory(final URL url) {
+        return _path.resolve(FileHelper.generateFileNameFromURL(url));
+    }
 }

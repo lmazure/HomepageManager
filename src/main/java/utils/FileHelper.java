@@ -1,4 +1,5 @@
 package utils;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -16,16 +17,25 @@ public class FileHelper {
      * 
      * @param file
      */
-    static public void createParentDirectory(final Path file) {
+    public static void createParentDirectory(final Path file) {
         file.getParent().toFile().mkdirs();
     }
-    
+
+    public static void deleteDirectory(final File directoryToBeDeleted) {
+        File[] allContents = directoryToBeDeleted.listFiles();
+        if (allContents != null) {
+            for (File file : allContents) {
+                deleteDirectory(file);
+            }
+        }
+        directoryToBeDeleted.delete();
+    }
     /**
      * delete the file
      * 
      * @param file
      */
-    static public void deleteFile(final Path file) {
+    public static void deleteFile(final Path file) {
         if (file.toFile().exists()) {
             try {
                 Files.delete(file);
@@ -54,7 +64,7 @@ public class FileHelper {
      * @param extension
      * @return
      */
-    static public Path computeTargetFile(final Path sourceDirectory,
+    public static Path computeTargetFile(final Path sourceDirectory,
                                          final Path targetDirectory,
                                          final Path sourceFile,
                                          final String suffix,
@@ -65,7 +75,7 @@ public class FileHelper {
         return Paths.get(s.substring(0, s.lastIndexOf('.')).concat(suffix + "." + extension));     
    }
     
-    static public String generateFileNameFromURL(final URL url) {
+    public static String generateFileNameFromURL(final URL url) {
         
         final int MAX_FILENAME_LENGTH = 255;
         

@@ -69,18 +69,18 @@ public class ModifierKeyChecker extends NodeChecker {
 		if (modifier1.equals("Alt")) {
 			if (modifier2.equals("Ctrl")) return false;		
 			return true;
-		};
+		}
 		if (modifier1.equals("Shift")) {
 			if (modifier2.equals("Ctrl")) return false;		
 			if (modifier2.equals("Alt")) return false;		
 			return true;
-		};
+		}
 		if (modifier1.equals("SysRq"))  {
 			if (modifier2.equals("Ctrl")) return false;		
 			if (modifier2.equals("Alt")) return false;		
 			if (modifier2.equals("Shift")) return false;		
 			return true;
-		};
+		}
 
 		return false;
 	}

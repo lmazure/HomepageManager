@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 
 import data.internet.AsynchronousSiteDataRetriever;
 import data.internet.SiteData;
+import data.internet.SiteDataPersister;
+import utils.FileHelper;
 
 public class AsynchronousSiteDataRetrieverTest {
 
@@ -19,6 +21,7 @@ public class AsynchronousSiteDataRetrieverTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("http://example.com"),
                            (SiteData d) -> {
+                               Assertions.assertFalse(consumerHasBeenCalled.get());
                                consumerHasBeenCalled.set(true);
                                TestHelper.assertData(d);
                            });
@@ -26,7 +29,7 @@ public class AsynchronousSiteDataRetrieverTest {
         while (!consumerHasBeenCalled.get()) {
             try {
                 Thread.sleep(100);
-            } catch (InterruptedException e) {
+            } catch (final InterruptedException e) {
                 e.printStackTrace();
                 Assertions.fail();
             }
@@ -40,6 +43,7 @@ public class AsynchronousSiteDataRetrieverTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://example.com"),
                            (SiteData d) -> {
+                               Assertions.assertFalse(consumerHasBeenCalled.get());
                                consumerHasBeenCalled.set(true);
                                TestHelper.assertData(d);
                            });
@@ -47,7 +51,7 @@ public class AsynchronousSiteDataRetrieverTest {
         while (!consumerHasBeenCalled.get()) {
             try {
                 Thread.sleep(100);
-            } catch (InterruptedException e) {
+            } catch (final InterruptedException e) {
                 e.printStackTrace();
                 Assertions.fail();
             }
@@ -55,7 +59,8 @@ public class AsynchronousSiteDataRetrieverTest {
     }
 
     private AsynchronousSiteDataRetriever buildDataSiteRetriever() {
-        final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\SynchronousSiteDataRetrieverTest");
-        return new AsynchronousSiteDataRetriever(cachePath);
+        final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\test\\AsynchronousSiteDataRetrieverTest");
+        FileHelper.deleteDirectory(cachePath.toFile());
+        return new AsynchronousSiteDataRetriever(new SiteDataPersister(cachePath));
     }
 }

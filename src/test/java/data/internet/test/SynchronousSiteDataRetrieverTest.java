@@ -9,7 +9,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import data.internet.SiteData;
+import data.internet.SiteDataPersister;
 import data.internet.SynchronousSiteDataRetriever;
+import utils.FileHelper;
 
 class SynchronousSiteDataRetrieverTest {
 
@@ -20,6 +22,7 @@ class SynchronousSiteDataRetrieverTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("http://example.com"),
                            (SiteData d) -> {
+                               Assertions.assertFalse(consumerHasBeenCalled.get());
                                consumerHasBeenCalled.set(true);
                                TestHelper.assertData(d);
                            });
@@ -33,6 +36,7 @@ class SynchronousSiteDataRetrieverTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://example.com"),
                            (SiteData d) -> {
+                               Assertions.assertFalse(consumerHasBeenCalled.get());
                                consumerHasBeenCalled.set(true);
                                TestHelper.assertData(d);
                            });
@@ -40,7 +44,8 @@ class SynchronousSiteDataRetrieverTest {
     }
     
     private SynchronousSiteDataRetriever buildDataSiteRetriever() {
-        final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\SynchronousSiteDataRetrieverTest");
-        return new SynchronousSiteDataRetriever(cachePath);
+        final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\test\\SynchronousSiteDataRetrieverTest");
+        FileHelper.deleteDirectory(cachePath.toFile());
+        return new SynchronousSiteDataRetriever(new SiteDataPersister(cachePath));
     }
 }
