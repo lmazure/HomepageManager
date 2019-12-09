@@ -12,7 +12,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -43,7 +43,7 @@ public class SynchronousSiteDataRetriever {
     }
     
     public void retrieve(final URL url,
-                         final Consumer<SiteData> consumer) {
+                         final BiConsumer<Boolean, SiteData> consumer) {
 
         final Instant timestamp = Instant.now();
         Optional<Integer> httpCode = Optional.empty();
@@ -70,20 +70,17 @@ public class SynchronousSiteDataRetriever {
                  httpCode.get() != HttpURLConnection.HTTP_SEE_OTHER  /* 303 */ &&
                  httpCode.get() != HttpURLConnection.HTTP_USE_PROXY  /* 305 */ ) {
                  error = Optional.of("page not found");
-                 _persister.persist(url, timestamp,
-                                    new SiteDataPersisterDtoIn(SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error));
-                 consumer.accept(new SiteData(SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error));
+                 _persister.persist(url, timestamp, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error);
+                 consumer.accept(Boolean.TRUE, new SiteData(SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error));
                  return;
              }
-             _persister.persist(url, timestamp,
-                                new SiteDataPersisterDtoIn(SiteData.Status.SUCCESS, httpCode, headers, Optional.of(connection.getInputStream()), error));
+             _persister.persist(url, timestamp, SiteData.Status.SUCCESS, httpCode, headers, Optional.of(connection.getInputStream()), error);
              final File dataFile = _persister.getDataFile(url, timestamp).toFile();
-             consumer.accept(new SiteData(SiteData.Status.SUCCESS, httpCode, headers, Optional.of(dataFile), error));
+             consumer.accept(Boolean.TRUE, new SiteData(SiteData.Status.SUCCESS, httpCode, headers, Optional.of(dataFile), error));
          } catch (final IOException e) {
              error = Optional.of(e.toString());
-             _persister.persist(url, timestamp,
-                                new SiteDataPersisterDtoIn(SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error));
-             consumer.accept(new SiteData(SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error));
+             _persister.persist(url, timestamp, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error);
+             consumer.accept(Boolean.TRUE, new SiteData(SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error));
          }
     }
         

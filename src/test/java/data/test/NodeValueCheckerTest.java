@@ -128,6 +128,40 @@ class NodeValueCheckerTest {
         }
     }
 
+
+    @Test
+    void ignoreDoubleSpaceDueToIndentation() {
+        
+        final String content =
+            "<?xml version=\"1.0\"?>\r\n" + 
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" + 
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" + 
+            "<TITLE>Test</TITLE>\r\n" + 
+            "<PATH>HomepageManager/test.xml</PATH>\r\n" + 
+            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" + 
+            "<CONTENT>\r\n" +
+            "<DEFINITIONTABLE>\n" + 
+            "  <ROW>\n" + 
+            "    <TERM><CODEROUTINE>foo bar</CODEROUTINE></TERM>\n" + 
+            "  </ROW>\n" + 
+            "  <DESC>\r\n" + 
+            "    <BLIST><TITLE>Display</TITLE>\r\n" + 
+            "      <ITEM>alpha</ITEM>\r\n" + 
+            "      <ITEM>beta</ITEM>\r\n" + 
+            "      <ITEM>gamma</ITEM>\r\n" + 
+            "    </BLIST>\r\n" + 
+            "  </DESC>\r\n" + 
+            "</DEFINITIONTABLE>\r\n" +
+            "</CONTENT>\r\n" + 
+            "</PAGE>";
+        
+        try {        
+            test(content);
+        } catch (@SuppressWarnings("unused") final SAXException e) {
+            Assertions.fail("SAXException");
+        }
+    }
+    
     @Test
     void detectMissingSpace() {
         

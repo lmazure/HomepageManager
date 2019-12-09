@@ -34,14 +34,12 @@ public class SiteDataPersister {
 
     void persist(final URL url,
                  final Instant timestamp,
-                 final SiteDataPersisterDtoIn dto) {
+                 final Status status,
+                 final Optional<Integer> httpCode,
+                 final Optional<Map<String, List<String>>> headers,
+                 final Optional<InputStream> dataStream,
+                 final Optional<String> error) {
         
-        final Status status = dto.getStatus();
-        final Optional<Integer> httpCode = dto.getHttpCode();
-        final Optional<Map<String, List<String>>> headers = dto.getHeaders();
-        final Optional<InputStream> dataStream = dto.getDataStream();
-        final Optional<String> error= dto.getError();
-
         getOutputDirectory(url, timestamp).toFile().mkdirs();
 
         try (final PrintStream stream = new PrintStream(getStatusFile(url, timestamp).toFile())) {

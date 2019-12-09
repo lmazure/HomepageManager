@@ -24,9 +24,10 @@ public class CachedSiteDataRetrieverTest {
         // the first retrieval must not use the cache
         final AtomicBoolean firstConsumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (SiteData d) -> {
+                           (Boolean b, SiteData d) -> {
                                Assertions.assertFalse(firstConsumerHasBeenCalled.get());
                                firstConsumerHasBeenCalled.set(true);
+                               Assertions.assertTrue(b.booleanValue());
                                TestHelper.assertData(d);
                            },
                            3600);
@@ -43,9 +44,10 @@ public class CachedSiteDataRetrieverTest {
         // the second retrieval must use the cache and not call twice
         final AtomicBoolean secondConsumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (SiteData d) -> {
+                           (Boolean b, SiteData d) -> {
                                Assertions.assertFalse(secondConsumerHasBeenCalled.get());
                                secondConsumerHasBeenCalled.set(true);
+                               Assertions.assertTrue(b.booleanValue());
                                TestHelper.assertData(d);
                            },
                            3600);
@@ -56,12 +58,14 @@ public class CachedSiteDataRetrieverTest {
         final AtomicBoolean thirdConsumerHasBeenCalledOnce = new AtomicBoolean(false);
         final AtomicBoolean thirdConsumerHasBeenCalledTwice = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (SiteData d) -> {
+                           (Boolean b, SiteData d) -> {
                                if (thirdConsumerHasBeenCalledOnce.get()) {
                                    Assertions.assertFalse(thirdConsumerHasBeenCalledTwice.get());
                                    thirdConsumerHasBeenCalledTwice.set(true);
+                                   Assertions.assertTrue(b.booleanValue());
                                } else {
                                    thirdConsumerHasBeenCalledOnce.set(true);
+                                   Assertions.assertFalse(b.booleanValue());
                                }
                                TestHelper.assertData(d);
                            },

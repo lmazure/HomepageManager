@@ -53,7 +53,9 @@ public class DoubleSpaceChecker extends NodeChecker {
 
         for (final String l: list) {
     		if (l.indexOf("  ") >= 0) {
-    	        return new CheckStatus("\"" + e.getTextContent() + "\" should not contain a double space");
+                if (!l.matches("\\n +")) {
+                    return new CheckStatus("\"" + e.getTextContent() + "\" should not contain a double space");
+                }
     		}
         }
 

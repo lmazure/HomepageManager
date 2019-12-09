@@ -2,7 +2,7 @@ package data.internet;
 
 import java.net.URL;
 import java.nio.file.Path;
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 
 /**
  * Facade class for retrieving site data
@@ -23,7 +23,7 @@ public class SiteDataRetriever {
      * @param maxAge maximum age in seconds
      */
     public void retrieve(final URL url,
-                         final Consumer<SiteData> consumer,
+                         final BiConsumer<Boolean, SiteData> consumer,
                          final long maxAge) {
 
         _retriever.retrieve(url, consumer, maxAge);

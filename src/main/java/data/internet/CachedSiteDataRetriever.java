@@ -3,7 +3,7 @@ package data.internet;
 import java.net.URL;
 import java.time.Instant;
 import java.util.List;
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 
 /**
  * Cached retrieving of site data
@@ -24,19 +24,21 @@ public class CachedSiteDataRetriever {
      * @param maxAge maximum age in seconds
      */
     public void retrieve(final URL url,
-                         final Consumer<SiteData> consumer,
+                         final BiConsumer<Boolean, SiteData> consumer,
                          final long maxAge) {
 
         final List<Instant> timestamps = _persister.getTimestampList(url);
         
         if (timestamps.size() > 0) {
             
-            // call the consumer with the cached data
             final Instant lastTimestamp = timestamps.get(0);
-            consumer.accept(_persister.retrieve(url, lastTimestamp));
+            final boolean isDataFresh = lastTimestamp.isAfter(Instant.now().minusSeconds(maxAge));
+
+            // call the consumer with the cached data
+            consumer.accept(Boolean.valueOf(isDataFresh), _persister.retrieve(url, lastTimestamp));
             
             // stop here is the data is fresh enough
-            if (lastTimestamp.isAfter(Instant.now().minusSeconds(maxAge))) {
+            if (isDataFresh) {
                 return;
             }
         }

@@ -3,7 +3,7 @@ package data.internet;
 import java.net.URL;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 
 /**
  * Asynchronous retrieving of site data
@@ -19,7 +19,7 @@ public class AsynchronousSiteDataRetriever {
     }
     
     public void retrieve(final URL url,
-                         final Consumer<SiteData> consumer) {
+                         final BiConsumer<Boolean, SiteData> consumer) {
         
         _threadPool.execute(() -> {
             _retriever.retrieve(url, consumer);
