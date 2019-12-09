@@ -21,7 +21,7 @@ class SynchronousSiteDataRetrieverTest {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("http://example.com"),
-                           (Boolean b, SiteData d) -> {
+                           (final Boolean b, final SiteData d) -> {
                                Assertions.assertFalse(consumerHasBeenCalled.get());
                                consumerHasBeenCalled.set(true);
                                Assertions.assertTrue(b.booleanValue());
@@ -36,7 +36,7 @@ class SynchronousSiteDataRetrieverTest {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://example.com"),
-                           (Boolean b, SiteData d) -> {
+                           (final Boolean b, final SiteData d) -> {
                                Assertions.assertFalse(consumerHasBeenCalled.get());
                                consumerHasBeenCalled.set(true);
                                Assertions.assertTrue(b.booleanValue());
