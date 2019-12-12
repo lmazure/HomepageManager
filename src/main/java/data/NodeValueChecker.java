@@ -130,6 +130,9 @@ public class NodeValueChecker implements FileHandler {
 
                 }
                 status = Status.HANDLED_WITH_ERROR;
+            } else {
+                // must write something in the file otherwise its last modification datetime will be incorrect
+                pw.println("OK");
             }        
         } catch (final Exception e) {
             final Path reportFile = getReportFile(file);

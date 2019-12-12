@@ -85,16 +85,15 @@ public class FileChecker implements FileHandler {
             final List<Error> errors = check(file, content);
             if (!errors.isEmpty()) {
                 status = Status.HANDLED_WITH_ERROR;
-                System.out.println(file);
+            } else {
+                // must write something in the file otherwise its last modification datetime will be incorrect
+                pw.println("OK");
             }
             for (final Error error: errors) {
                 final String message = "line " + error.getLineNumber() + ": " + error.getErrorMessage(); 
                 System.err.println(message);
                 pw.println(message);
             }
-            pw.flush();
-            os.flush();
-            os.getFD().sync();
             System.out.println(getOutputFile(file).toFile() + " is generated");
         } catch (final Exception e) {
             final Path reportFile = getReportFile(file);
@@ -197,7 +196,7 @@ public class FileChecker implements FileHandler {
                 errors.add(new Error(5, "the name of the file does not appear in the <PATH> node (expected to see \"" + pathString + "\")"));                            
             }
         } catch (final IOException e) {
-            e.printStackTrace();
+            ExitHelper.exit(e);
         }
                 
         return errors;
@@ -259,8 +258,8 @@ public class FileChecker implements FileHandler {
     @Override
     public boolean outputFileMustBeRegenerated(final Path file) {
         
-        /*if (!getOutputFile(file).toFile().isFile()
-                || (getOutputFile(file).toFile().lastModified() <= file.toFile().lastModified())) {
+        /*if (!getOutputFile(file).toFile().isFile() ||
+            (getOutputFile(file).toFile().lastModified() <= file.toFile().lastModified())) {
             System.out.println("----- BEGIN DEBUG");
             SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
             System.out.println("source file = " + file);

@@ -22,7 +22,7 @@ public class FileHelper {
     }
 
     public static void deleteDirectory(final File directoryToBeDeleted) {
-        File[] allContents = directoryToBeDeleted.listFiles();
+        final File[] allContents = directoryToBeDeleted.listFiles();
         if (allContents != null) {
             for (File file : allContents) {
                 deleteDirectory(file);
@@ -36,20 +36,11 @@ public class FileHelper {
      * @param file
      */
     public static void deleteFile(final Path file) {
-        if (file.toFile().exists()) {
-            try {
-                Files.delete(file);
-                if (file.toFile().exists()) {
-                    //System.out.println("Deleting file " + file + " - Argh! The file is still there!");
-                } else {
-                    //System.out.println("Deleting file " + file + " - The file is effectively deleted.");
-                }
-            } catch (final IOException e) {
-                ExitHelper.exit(e);
-            }
-        } else {
-            //System.out.println("Deleting file " + file + " - Nothing to do, the file does not exist.");
-        }        
+        try {
+            Files.deleteIfExists(file);
+        } catch (final IOException e) {
+            ExitHelper.exit(e);
+        }
     }
     
     /**
