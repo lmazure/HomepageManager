@@ -5,28 +5,28 @@ import java.nio.file.Path;
 import data.FileHandler.Status;
 import javafx.scene.control.TableColumn;
 
-public class NodeValueCheckController implements UiController {
+public class LinkCheckController  implements UiController {
 
     final private ObservableFileList _list;
     
-    public NodeValueCheckController(final ObservableFileList list) {
+    public LinkCheckController(final ObservableFileList list) {
         _list = list;
     }
     
     @Override
     public TableColumn<ObservableFile, ?> getColumns() {
         
-        final TableColumn<ObservableFile, String> allColumns = new TableColumn<ObservableFile, String>("Check node values");
+        final TableColumn<ObservableFile, String> allColumns = new TableColumn<ObservableFile, String>("Check links");
 
         final TableColumn<ObservableFile, String> displayColumn = new TableColumn<>("Display");
         displayColumn.setPrefWidth(70);
-        displayColumn.setCellFactory(p -> { return new FixedButtonCell<ObservableFile>("display", f -> ActionHelper.displayFile(f.getNodeValueCheckOuputFile()));});
+        displayColumn.setCellFactory(p -> { return new FixedButtonCell<ObservableFile>("display", f -> ActionHelper.displayFile(f.getLinkCheckOuputFile()));});
         allColumns.getColumns().add(displayColumn);
 
         final TableColumn<ObservableFile, String> statusColumn = new TableColumn<>("Status");
         statusColumn.setPrefWidth(170);
         statusColumn.setCellValueFactory(f -> f.getValue().nodeValueCheckProperty());
-        statusColumn.setCellFactory(p -> { return new UpdatableButtonCell<ObservableFile>(f -> ActionHelper.displayFile(f.getNodeValueCheckReportFile()));});
+        statusColumn.setCellFactory(p -> { return new UpdatableButtonCell<ObservableFile>(f -> ActionHelper.displayFile(f.getLinkCheckReportFile()));});
         allColumns.getColumns().add(statusColumn);
 
         return allColumns;
@@ -34,11 +34,11 @@ public class NodeValueCheckController implements UiController {
  
     @Override
     public void handleCreation(final Path file, final Status status, final Path outputFile, final Path reportFile) {
-        _list.getFile(file).setNodeValueCheckStatus(status, outputFile, reportFile);
+        _list.getFile(file).setLinkCheckStatus(status, outputFile, reportFile);
     }
 
     @Override
     public void handleDeletion(final Path file, final Status status, final Path outputFile, final Path reportFile) {
-        _list.getFile(file).setNodeValueCheckStatus(status, outputFile, reportFile);
+        _list.getFile(file).setLinkCheckStatus(status, outputFile, reportFile);
     }
 }

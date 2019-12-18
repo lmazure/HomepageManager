@@ -1,16 +1,15 @@
+- quand on modifie un fichier, il reste reporté comme deleted
 - site reaping
+  - faire première version de la détection des liens morts
   - étudier problème du header null
-  - implémenter récupération de la payload
-  - implémenter récupération de l'error
-  - tester avec HTTPS
-  - mettre le mécanisme de cache en marche
+  - gérer les redirections 
+  
   
   
 
 
 - Tester robot.txt avec https://www.google.com/webmasters/tools/robots-testing-tool
 - Mettre les tests dans une suite
-- Corriger le fait que certains fichiers soient toujours recréés (essayer en créant un nouveau fichier et en supprimant l'ancien)
 
 - HP : mettre le focus automatiquement sur le champ de recherche
 - HP : pouvoir fermer le popup des authors avec Esc
@@ -24,5 +23,6 @@
 - Ajouter des attributs qui ne correspondent pas au contenu du site
 - Ajouter la détection des malwares
 - Ajouter la règle sur les URLs qui apparaissent plusieurs fois
+- Accelérer la création des fichier JSON (en extrayant les données de chaque fichier à la modification de celui-ci, en mettant cela dans un fichier de résumé et en ayant la création des JSON qui ne fasse que consolider ces fichiers) 
 
 - HP : mettre en place le système des keywords

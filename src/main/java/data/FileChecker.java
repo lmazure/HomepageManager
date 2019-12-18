@@ -258,16 +258,6 @@ public class FileChecker implements FileHandler {
     @Override
     public boolean outputFileMustBeRegenerated(final Path file) {
         
-        /*if (!getOutputFile(file).toFile().isFile() ||
-            (getOutputFile(file).toFile().lastModified() <= file.toFile().lastModified())) {
-            System.out.println("----- BEGIN DEBUG");
-            SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
-            System.out.println("source file = " + file);
-            System.out.println("target file = " + getOutputFile(file));
-            System.out.println("source file timestamp = " + df2.format(file.toFile().lastModified()));
-            System.out.println("target file timestamp = " + df2.format(getOutputFile(file).toFile().lastModified()));
-            System.out.println("----- END DEBUG");
-        }*/
         return !getOutputFile(file).toFile().isFile()
                || (getOutputFile(file).toFile().lastModified() <= file.toFile().lastModified());
     }

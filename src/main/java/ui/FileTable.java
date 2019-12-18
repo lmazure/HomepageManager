@@ -8,6 +8,7 @@ import data.DataOrchestrator;
 import data.FileChecker;
 import data.FileHandler;
 import data.HTMLGenerator;
+import data.LinkChecker;
 import data.NodeValueChecker;
 import data.SiteFilesGenerator;
 import data.jsongenerator.JsonGenerator;
@@ -37,8 +38,10 @@ public class FileTable extends Application {
         final FileChecker fileCheckGenerator = new FileChecker(_homepagePath, _tmpPath, fileCheckController);
         final NodeValueCheckController nodeCheckController = new NodeValueCheckController(_list);
         final NodeValueChecker nodeValueCheckGenerator = new NodeValueChecker(_homepagePath, _tmpPath, nodeCheckController);
-        final List<FileHandler> fileHandlers = Arrays.asList(htmlFileGenerator, fileCheckGenerator, nodeValueCheckGenerator);
-        final List<UiController> uiControllers = Arrays.asList(htmlFileController, fileCheckController, nodeCheckController);
+        final LinkCheckController linkCheckController = new LinkCheckController(_list);
+        final LinkChecker linkCheckGenerator = new LinkChecker(_homepagePath, _tmpPath, nodeCheckController);
+        final List<FileHandler> fileHandlers = Arrays.asList(htmlFileGenerator, fileCheckGenerator, nodeValueCheckGenerator, linkCheckGenerator);
+        final List<UiController> uiControllers = Arrays.asList(htmlFileController, fileCheckController, nodeCheckController, linkCheckController);
 
         stage.setTitle("Homepage Manager");
         stage.setWidth(1100);

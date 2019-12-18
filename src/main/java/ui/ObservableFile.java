@@ -14,12 +14,15 @@ public class ObservableFile {
     private final SimpleStringProperty _htmlFileStatus;
     private final SimpleStringProperty _fileCheckStatus;
     private final SimpleStringProperty _nodeValueCheckStatus;
+    private final SimpleStringProperty _linkCheckStatus;
     private Path _htmlFileOuputFile;
     private Path _htmlFileReportFile;
     private Path _fileCheckOuputFile;
     private Path _fileCheckReportFile;
     private Path _nodeValueCheckOuputFile;
     private Path _nodeValueCheckReportFile;
+    private Path _linkCheckOuputFile;
+    private Path _linkCheckReportFile;
 
     public ObservableFile(final Path path) {
         
@@ -28,6 +31,7 @@ public class ObservableFile {
         _htmlFileStatus = new SimpleStringProperty();
         _fileCheckStatus = new SimpleStringProperty();
         _nodeValueCheckStatus = new SimpleStringProperty();
+        _linkCheckStatus = new SimpleStringProperty();
     }
     
     public SimpleStringProperty nameProperty() {
@@ -139,4 +143,29 @@ public class ObservableFile {
     public Path getNodeValueCheckReportFile() {
         return _nodeValueCheckReportFile;
     }
-}
+    
+    // --- link check ---
+    
+    public SimpleStringProperty linkCheckProperty() {
+        return _linkCheckStatus;
+    }
+    
+    public String getLinkCheckStatus() {
+        return _linkCheckStatus.get();
+    }
+
+    public void setLinkCheckStatus(final FileHandler.Status status,
+                                   final Path outputFile,
+                                   final Path reportFile) {
+        _linkCheckStatus.set(status.toString());
+        _linkCheckOuputFile = outputFile;
+        _linkCheckReportFile = reportFile;
+    }
+
+    public Path getLinkCheckOuputFile() {
+        return _linkCheckOuputFile;
+    }
+
+    public Path getLinkCheckReportFile() {
+        return _linkCheckReportFile;
+    }}

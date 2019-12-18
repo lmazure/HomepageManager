@@ -17,8 +17,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -50,6 +48,7 @@ import data.nodechecker.checker.nodeChecker.TitleFormatChecker;
 import data.nodechecker.checker.nodeChecker.URLProtocolChecker;
 import utils.ExitHelper;
 import utils.FileHelper;
+import utils.XMLHelper;
 
 public class NodeValueChecker implements FileHandler {
 
@@ -57,7 +56,7 @@ public class NodeValueChecker implements FileHandler {
     final private Path _tmpPath;
     final private DataController _controller;
     PrintWriter _pw;
-    private final DocumentBuilder a_builder;
+    private final DocumentBuilder _builder;
     final private Set<NodeChecker> _nodeCheckers;
     
     /**
@@ -72,20 +71,9 @@ public class NodeValueChecker implements FileHandler {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;
         _controller = controller;
-        
-        final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        _builder = XMLHelper.buildDocumentBuilder();
 
-        DocumentBuilder builder = null;
-        try{
-            builder = factory.newDocumentBuilder();
-        } catch (final ParserConfigurationException pce){
-            System.out.println("Failed to configure the XML parser");
-            pce.printStackTrace();
-        }
-
-        a_builder = builder;
-
-         _nodeCheckers = new HashSet<NodeChecker>(); 
+        _nodeCheckers = new HashSet<NodeChecker>(); 
         _nodeCheckers.add(new ExtremitySpaceChecker());
         _nodeCheckers.add(new MiddleNewlineChecker());
         _nodeCheckers.add(new EllipsisChecker());
@@ -130,6 +118,7 @@ public class NodeValueChecker implements FileHandler {
 
                 }
                 status = Status.HANDLED_WITH_ERROR;
+                System.out.println(getOutputFile(file).toFile() + " is generated");
             } else {
                 // must write something in the file otherwise its last modification datetime will be incorrect
                 pw.println("OK");
@@ -153,7 +142,7 @@ public class NodeValueChecker implements FileHandler {
                              final String content) throws SAXException {
         
         try {
-            final Document document = a_builder.parse(new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8)));
+            final Document document = _builder.parse(new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8)));
             return checkNode(file.toFile(), document.getDocumentElement());
         } catch (final IOException e) {
             ExitHelper.exit(e);
@@ -187,16 +176,6 @@ public class NodeValueChecker implements FileHandler {
     @Override
     public boolean outputFileMustBeRegenerated(final Path file) {
         
-        /*if (!getOutputFile(file).toFile().isFile()
-                || (getOutputFile(file).toFile().lastModified() <= file.toFile().lastModified())) {
-            System.out.println("----- BEGIN DEBUG");
-            SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
-            System.out.println("source file = " + file);
-            System.out.println("target file = " + getOutputFile(file));
-            System.out.println("source file timestamp = " + df2.format(file.toFile().lastModified()));
-            System.out.println("target file timestamp = " + df2.format(getOutputFile(file).toFile().lastModified()));
-            System.out.println("----- END DEBUG");
-        }*/
         return !getOutputFile(file).toFile().isFile()
                || (getOutputFile(file).toFile().lastModified() <= file.toFile().lastModified());
     }
