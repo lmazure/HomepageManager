@@ -40,8 +40,14 @@ public class FileTable extends Application {
         final NodeValueChecker nodeValueCheckGenerator = new NodeValueChecker(_homepagePath, _tmpPath, nodeCheckController);
         final LinkCheckController linkCheckController = new LinkCheckController(_list);
         final LinkChecker linkCheckGenerator = new LinkChecker(_homepagePath, _tmpPath, linkCheckController);
-        final List<FileHandler> fileHandlers = Arrays.asList(htmlFileGenerator, fileCheckGenerator, nodeValueCheckGenerator, linkCheckGenerator);
-        final List<UiController> uiControllers = Arrays.asList(htmlFileController, fileCheckController, nodeCheckController, linkCheckController);
+        final List<FileHandler> fileHandlers = Arrays.asList(htmlFileGenerator,
+                                                             fileCheckGenerator,
+                                                             nodeValueCheckGenerator,
+                                                             linkCheckGenerator);
+        final List<GenericUiController> uiControllers = Arrays.asList(htmlFileController,
+                                                                      fileCheckController,
+                                                                      nodeCheckController,
+                                                                      linkCheckController);
 
         stage.setTitle("Homepage Manager");
         stage.setWidth(1100);
@@ -72,7 +78,7 @@ public class FileTable extends Application {
         stage.show();
     }
 
-    private TableView<ObservableFile> buildTable(final List<UiController> uiControllers) {
+    private TableView<ObservableFile> buildTable(final List<GenericUiController> uiControllers) {
         
         final TableView<ObservableFile> table = new TableView<ObservableFile>();
         
@@ -85,7 +91,7 @@ public class FileTable extends Application {
         deletedColumn.setCellValueFactory(cellData -> cellData.getValue().deletedProperty());
         table.getColumns().add(deletedColumn);
         
-        for (final UiController uiController: uiControllers) {
+        for (final GenericUiController uiController: uiControllers) {
             table.getColumns().add(uiController.getColumns());
         }
         

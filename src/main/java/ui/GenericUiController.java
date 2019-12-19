@@ -7,11 +7,11 @@ import data.FileHandler.Status;
 import javafx.scene.control.TableColumn;
 import utils.QuadriConsumer;
 
-public abstract class UiController implements DataController {
+public abstract class GenericUiController implements DataController {
     
     final private QuadriConsumer<Path, Status, Path, Path> _callback;
     
-    public UiController(final QuadriConsumer<Path, Status, Path, Path> callback) {
+    public GenericUiController(final QuadriConsumer<Path, Status, Path, Path> callback) {
         _callback = callback;
     }
     

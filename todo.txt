@@ -1,4 +1,3 @@
-- quand on modifie un fichier, il reste reporté comme deleted
 - site reaping
   - faire première version de la détection des liens morts
   - étudier problème du header null

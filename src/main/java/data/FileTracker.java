@@ -46,15 +46,16 @@ public class FileTracker {
 
         TrackedFile f = _files.get(file);
         if (f == null) {
-            f= new TrackedFile(file);
+            f = new TrackedFile(file);
             _files.put(file, f);
-            _handler.handleCreation(file);
         } else if (!f.isDeleted()) {
             ExitHelper.exit("Creating a file (" + file + ") that currently exists");
         }
         
         f.setCreated();
-        
+
+        _handler.handleCreation(file);
+
         for (final FileHandler h: _fileHandlers) {
             h.handleCreation(file);
         }

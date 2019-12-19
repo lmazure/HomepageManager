@@ -22,9 +22,14 @@ public class ObservableFileList implements FileExistenceHandler {
     
     @Override
     public void handleCreation(final Path file) {
-        final ObservableFile f = new ObservableFile(file);
-        _data.add(f);
-        _files.put(file, f);
+        final ObservableFile f = getFile(file);
+        if (f == null) {
+            final ObservableFile nf = new ObservableFile(file);
+            _data.add(nf);
+            _files.put(file, nf);            
+        } else {
+            f.setCreated();
+        }
     }
 
     @Override

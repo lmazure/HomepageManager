@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import data.FileHandler.Status;
 import javafx.scene.control.TableColumn;
 
-public class HtmlGenerationController extends UiController {
+public class HtmlGenerationController extends GenericUiController {
 
     final private Path _homepagePath;
 

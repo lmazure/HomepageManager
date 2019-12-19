@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import data.FileHandler.Status;
 import javafx.scene.control.TableColumn;
 
-public class FileCheckController extends UiController {
+public class FileCheckController extends GenericUiController {
     
     public FileCheckController(final ObservableFileList list) {
         super((final Path file, final Status status, final Path outputFile, final Path reportFile) -> list.getFile(file).setFileCheckStatus(status, outputFile, reportFile));
