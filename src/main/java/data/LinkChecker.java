@@ -127,8 +127,9 @@ public class LinkChecker implements FileHandler {
             }
         }
 
-            if (e.getTagName().equals(NodeChecker.X)) {
-                System.out.println(e.getTextContent());
-            }
+        if (e.getTagName().equals(NodeChecker.X)) {
+            final NodeList linkNodes = e.getElementsByTagName("A");
+            System.out.println(linkNodes.item(0).getTextContent());
+        }
     }
 }

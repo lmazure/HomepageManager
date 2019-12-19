@@ -14,17 +14,15 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.XMLConstants;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
 import org.xml.sax.SAXException;
 
 import utils.ExitHelper;
 import utils.FileHelper;
+import utils.XMLHelper;
 
 /**
  * Manage the creation of the HTML files
@@ -51,24 +49,7 @@ public class FileChecker implements FileHandler {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;
         _controller = controller;
-        
-        final SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-
-        final File schemaLocation = new File(homepagePath
-                                             + File.separator
-                                             + "css"
-                                             + File.separator
-                                             + "schema.xsd");
-        Schema schema = null;
-        
-        try {
-            schema = factory.newSchema(schemaLocation);
-        } catch (final SAXException e) {
-            ExitHelper.exit(e);
-        }
-
-        assert(schema != null);
-        _validator = schema.newValidator();
+        _validator = XMLHelper.buildValidator(homepagePath.resolve("css").resolve("schema.xsd"));
     }
     
     @Override
