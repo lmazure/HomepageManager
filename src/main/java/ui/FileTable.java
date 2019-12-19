@@ -39,7 +39,7 @@ public class FileTable extends Application {
         final NodeValueCheckController nodeCheckController = new NodeValueCheckController(_list);
         final NodeValueChecker nodeValueCheckGenerator = new NodeValueChecker(_homepagePath, _tmpPath, nodeCheckController);
         final LinkCheckController linkCheckController = new LinkCheckController(_list);
-        final LinkChecker linkCheckGenerator = new LinkChecker(_homepagePath, _tmpPath, nodeCheckController);
+        final LinkChecker linkCheckGenerator = new LinkChecker(_homepagePath, _tmpPath, linkCheckController);
         final List<FileHandler> fileHandlers = Arrays.asList(htmlFileGenerator, fileCheckGenerator, nodeValueCheckGenerator, linkCheckGenerator);
         final List<UiController> uiControllers = Arrays.asList(htmlFileController, fileCheckController, nodeCheckController, linkCheckController);
 

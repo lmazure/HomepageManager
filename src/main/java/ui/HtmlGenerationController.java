@@ -5,14 +5,13 @@ import java.nio.file.Path;
 import data.FileHandler.Status;
 import javafx.scene.control.TableColumn;
 
-public class HtmlGenerationController implements UiController {
+public class HtmlGenerationController extends UiController {
 
-    final private ObservableFileList _list;
     final private Path _homepagePath;
 
     public HtmlGenerationController(final ObservableFileList list,
                                     final Path homepagePath) {
-        _list = list;
+        super((final Path file, final Status status, final Path outputFile, final Path reportFile) -> list.getFile(file).setHtmlGenerationStatus(status, outputFile, reportFile));
         _homepagePath = homepagePath;
     }
     
@@ -33,15 +32,5 @@ public class HtmlGenerationController implements UiController {
         allColumns.getColumns().add(statusColumn);
         
         return allColumns;
-    }
-    
-    @Override
-    public void handleCreation(final Path file, final Status status, final Path outputFile, final Path reportFile) {
-        _list.getFile(file).setHtmlGenerationStatus(status, outputFile, reportFile);
-    }
-
-    @Override
-    public void handleDeletion(final Path file, final Status status, final Path outputFile, final Path reportFile) {
-        _list.getFile(file).setHtmlGenerationStatus(status, outputFile, reportFile);
     }
 }

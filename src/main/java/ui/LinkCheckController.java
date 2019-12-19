@@ -5,12 +5,10 @@ import java.nio.file.Path;
 import data.FileHandler.Status;
 import javafx.scene.control.TableColumn;
 
-public class LinkCheckController  implements UiController {
+public class LinkCheckController extends UiController {
 
-    final private ObservableFileList _list;
-    
     public LinkCheckController(final ObservableFileList list) {
-        _list = list;
+        super((final Path file, final Status status, final Path outputFile, final Path reportFile) -> list.getFile(file).setLinkCheckStatus(status, outputFile, reportFile));
     }
     
     @Override
@@ -30,15 +28,5 @@ public class LinkCheckController  implements UiController {
         allColumns.getColumns().add(statusColumn);
 
         return allColumns;
-    }
- 
-    @Override
-    public void handleCreation(final Path file, final Status status, final Path outputFile, final Path reportFile) {
-        _list.getFile(file).setLinkCheckStatus(status, outputFile, reportFile);
-    }
-
-    @Override
-    public void handleDeletion(final Path file, final Status status, final Path outputFile, final Path reportFile) {
-        _list.getFile(file).setLinkCheckStatus(status, outputFile, reportFile);
     }
 }
