@@ -14,7 +14,12 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 import javax.xml.parsers.DocumentBuilder;
 
@@ -67,8 +72,8 @@ public class LinkChecker implements FileHandler {
             final byte[] encoded = Files.readAllBytes(file);
             final String content = new String(encoded, StandardCharsets.UTF_8);
             final List<String> links = extractLinks(file, content);
-            launchCheck(links);
-            pw.println("OK");
+            launchCheck(file, links);
+            pw.println("Analysis of links is started");
             status = Status.HANDLING_NO_ERROR;
         } catch (final Exception e) {
             final Path reportFile = getReportFile(file);
@@ -144,34 +149,90 @@ public class LinkChecker implements FileHandler {
         return list;
     }
     
-    private void launchCheck(final List<String> links) {
+    private void launchCheck(final Path file,
+                             final List<String> links) {
         
-        for (final String link: links) {
-            //launchCheck(link);
-            System.out.println("no check of " + link);            
-        }
-    }
-
-    private void launchCheck(final String link) {
-        
-        if (link.indexOf(":") < 0) {
-            // TODO implement check of local links
-            System.out.println("TBD: local link " + link + " is not checked");
-            return;
-        }
-        
-        URL url = null;
-        try {
-            url = new URL(link);
-        } catch (final MalformedURLException e) {
-            ExitHelper.exit(e);
-        }
-        _retriever.retrieve(url, this::handleLinkData, 30*24*60*60);
+        final LinkDataHandler handler = new LinkDataHandler(file);
+        handler.launch(links);
     }
     
-    private void handleLinkData(final Boolean b, final SiteData siteData) {
+    class LinkDataHandler {
         
-        System.out.println("-----------");
-        System.out.println("URL " + siteData.getUrl());
+        private final Path _file;
+        private final Map<URL, SiteData> _siteData;
+        private final Set<URL> _siteRemainingToBeChecked;
+        
+        private LinkDataHandler(final Path file) {
+            _file = file;
+            _siteData = new TreeMap<URL, SiteData>(
+                    new Comparator<URL>() {
+                        @Override
+                        public int compare(final URL a, final URL b) {
+                            return a.toString().compareTo(b.toString());
+                        }});
+            _siteRemainingToBeChecked = new HashSet<>();
+        }
+        
+        private void launch(final List<String> links) {
+            for (final String link: links) {
+                launch(link);
+                //System.out.println("no check of " + link);            
+            }
+        }
+        
+        private void launch(final String link) {
+            
+            if (link.indexOf(":") < 0) {
+                // TODO implement check of local links
+                System.out.println("TBD: local link " + link + " is not checked");
+                return;
+            }
+
+            if (link.startsWith("javascript:")) return;
+
+            URL url = null;
+            try {
+                url = new URL(link);
+            } catch (final MalformedURLException e) {
+                ExitHelper.exit(e);
+            }
+            _siteRemainingToBeChecked.add(url);
+            _retriever.retrieve(url, this::handleLinkData, 30*24*60*60);
+        }
+        
+        private synchronized void handleLinkData(final Boolean isDataFresh, final SiteData siteData) {
+            
+            System.out.println("-----------");
+            System.out.println("URL " + siteData.getUrl());
+            
+            _siteData.put(siteData.getUrl(), siteData);
+            
+            if (isDataFresh) {
+                _siteRemainingToBeChecked.remove(siteData.getUrl());
+            }
+            
+            Status status = Status.HANDLED_WITH_SUCCESS;
+            try (final FileOutputStream os = new FileOutputStream(getOutputFile(_file).toFile());
+                 final PrintWriter pw = new PrintWriter(os)) {
+                for (final URL url : _siteData.keySet()) {
+                    pw.println("URL = " + url);
+                    pw.println("Status = " + _siteData.get(url).getStatus());
+                    pw.println("HTTP code = " + _siteData.get(url).getHttpCode());
+                    pw.println();
+                }
+                status = _siteRemainingToBeChecked.isEmpty() ? Status.HANDLED_WITH_SUCCESS : Status.HANDLING_NO_ERROR;
+            } catch (final Exception e) {
+               final Path reportFile = getReportFile(_file);
+               FileHelper.createParentDirectory(reportFile);
+               try (final PrintStream reportWriter = new PrintStream(reportFile.toFile())) {
+                   e.printStackTrace(reportWriter);
+               } catch (final IOException e2) {
+                   ExitHelper.exit(e2);
+               }
+               status = Status.FAILED_TO_HANDLED;                
+            }
+            
+            _controller.handleCreation(_file, status, getOutputFile(_file), getReportFile(_file));
+        }
     }
 }

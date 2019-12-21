@@ -28,8 +28,8 @@ import utils.ExitHelper;
 public class SynchronousSiteDataRetriever {
 
     private final SiteDataPersister _persister;
-    final private static int s_connectTimeout = 30000;
-    final private static int s_readTimeout = 60000;
+    private final static int s_connectTimeout = 30000;
+    private final static int s_readTimeout = 60000;
 
     // pretend to be Firefox 44.0.2
     final private static String s_userAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:44.0) Gecko/20100101 Firefox/44.0";
@@ -42,6 +42,13 @@ public class SynchronousSiteDataRetriever {
         _sslSocketFactory = getDisabledPKIXCheck();
     }
     
+    /**
+     * @param url
+     * @param consumer
+     * its first argument is always true since the data is always fresh
+     * its second argument is the site data
+     * @param maxAge maximum age in seconds
+     */
     public void retrieve(final URL url,
                          final BiConsumer<Boolean, SiteData> consumer) {
 

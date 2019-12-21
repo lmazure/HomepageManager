@@ -18,6 +18,13 @@ public class AsynchronousSiteDataRetriever {
         _threadPool = Executors.newFixedThreadPool(8);
     }
     
+    /**
+     * @param url
+     * @param consumer
+     * its first argument is always true since the data is always fresh
+     * its second argument is the site data
+     * @param maxAge maximum age in seconds
+     */
     public void retrieve(final URL url,
                          final BiConsumer<Boolean, SiteData> consumer) {
         
