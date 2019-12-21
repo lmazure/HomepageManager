@@ -32,7 +32,6 @@ public class LinkChecker implements FileHandler {
     final private Path _homepagePath;
     final private Path _tmpPath;
     final private DataController _controller;
-    PrintWriter _pw;
     private final DocumentBuilder _builder;
     
     /**
@@ -61,7 +60,6 @@ public class LinkChecker implements FileHandler {
              final PrintWriter pw = new PrintWriter(os)) {
             final byte[] encoded = Files.readAllBytes(file);
             final String content = new String(encoded, StandardCharsets.UTF_8);
-            _pw = pw; // TODO fix this crap
             extractLinks(file, content);
             pw.println("OK");
             status = Status.HANDLED_WITH_ERROR;

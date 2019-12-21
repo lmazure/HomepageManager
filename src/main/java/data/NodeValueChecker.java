@@ -55,7 +55,6 @@ public class NodeValueChecker implements FileHandler {
     final private Path _homepagePath;
     final private Path _tmpPath;
     final private DataController _controller;
-    PrintWriter _pw;
     private final DocumentBuilder _builder;
     final private Set<NodeChecker> _nodeCheckers;
     
@@ -107,14 +106,13 @@ public class NodeValueChecker implements FileHandler {
              final PrintWriter pw = new PrintWriter(os)) {
             final byte[] encoded = Files.readAllBytes(file);
             final String content = new String(encoded, StandardCharsets.UTF_8);
-            _pw = pw; // TODO fix this crap
             final List<Error> errors = check(file, content);
             if (errors.size() > 0) {
                 for (Error error : errors ) {
-                    _pw.println(" tag = \""       + error.getTag()       + "\"" +
-                                " value = \""     + error.getValue()     + "\"" +
-                                " violation = \"" + error.getViolation() + "\"" +
-                                " detail = \""    + error.getDetail()    + "\"");
+                    pw.println(" tag = \""       + error.getTag()       + "\"" +
+                               " value = \""     + error.getValue()     + "\"" +
+                               " violation = \"" + error.getViolation() + "\"" +
+                               " detail = \""    + error.getDetail()    + "\"");
 
                 }
                 status = Status.HANDLED_WITH_ERROR;
