@@ -11,6 +11,8 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 
@@ -60,7 +62,7 @@ public class LinkChecker implements FileHandler {
             final byte[] encoded = Files.readAllBytes(file);
             final String content = new String(encoded, StandardCharsets.UTF_8);
             _pw = pw; // TODO fix this crap
-            check(file, content);
+            extractLinks(file, content);
             pw.println("OK");
             status = Status.HANDLED_WITH_ERROR;
         } catch (final Exception e) {
@@ -78,14 +80,16 @@ public class LinkChecker implements FileHandler {
         return status;
     }
     
-    public void check(final Path file,
-                      final String content) throws SAXException {
+    private List<String> extractLinks(final Path file,
+                                      final String content) throws SAXException {
         
         try {
             final Document document = _builder.parse(new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8)));
-            checkNode(file.toFile(), document.getDocumentElement());
+            return extractLinks(file.toFile(), document.getDocumentElement());
         } catch (final IOException e) {
             ExitHelper.exit(e);
+            // NOT REACHED
+            return null;
         }
     }
     
@@ -117,20 +121,24 @@ public class LinkChecker implements FileHandler {
                || (getOutputFile(file).toFile().lastModified() <= file.toFile().lastModified());
     }
 
-    private void checkNode(final File file,
-                           final Element e) {
+    private List<String> extractLinks(final File file,
+                                      final Element e) {
 
+        final List<String> list = new ArrayList<String>();
+        
         final NodeList children = e.getChildNodes();
 
         for (int j = 0; j < children.getLength(); j++) {
             if ( children.item(j).getNodeType() == Node.ELEMENT_NODE ) {
-                checkNode(file, (Element)children.item(j));
+                list.addAll(extractLinks(file, (Element)children.item(j)));
             }
         }
 
         if (e.getTagName().equals(NodeChecker.X)) {
             final NodeList linkNodes = e.getElementsByTagName("A");
-            System.out.println(linkNodes.item(0).getTextContent());
+            list.add(linkNodes.item(0).getTextContent());
         }
+        
+        return list;
     }
 }
