@@ -19,11 +19,15 @@ public abstract class GenericUiController implements DataController {
     
     @Override
     public void handleCreation(final Path file, final Status status, final Path outputFile, final Path reportFile) {
-        _callback.accept(file, status, outputFile, reportFile);
+        callCallback(file, status, outputFile, reportFile);
     }
 
     @Override
     public void handleDeletion(final Path file, final Status status, final Path outputFile, final Path reportFile) {
+        callCallback(file, status, outputFile, reportFile);
+    }
+    
+    protected void callCallback(final Path file, final Status status, final Path outputFile, final Path reportFile) {
         _callback.accept(file, status, outputFile, reportFile);
     }
 }

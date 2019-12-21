@@ -53,7 +53,7 @@ public class FileChecker implements FileHandler {
     }
     
     @Override
-    public Status handleCreation(final Path file) {
+    public void handleCreation(final Path file) {
 
         Status status = Status.HANDLED_WITH_SUCCESS;
         
@@ -88,7 +88,6 @@ public class FileChecker implements FileHandler {
         }
         
         _controller.handleCreation(file, status, getOutputFile(file), getReportFile(file));
-        return status;
     }
 
     public List<Error> check(final Path file,
@@ -216,14 +215,12 @@ public class FileChecker implements FileHandler {
     }
     
     @Override
-    public Status handleDeletion(final Path file) {
+    public void handleDeletion(final Path file) {
 
         FileHelper.deleteFile(getOutputFile(file));
         FileHelper.deleteFile(getReportFile(file));
         
         _controller.handleDeletion(file, Status.HANDLED_WITH_SUCCESS, getOutputFile(file), getReportFile(file));
-
-        return Status.HANDLED_WITH_SUCCESS;
     }
 
     @Override

@@ -5,6 +5,14 @@ public interface FileHandler {
 
     public enum Status {
         /**
+         * the file is still being handled, not error yet
+         */
+        HANDLING_NO_ERROR,
+        /**
+         * the file is still being handled, an error already occurred
+         */
+        HANDLING_WITH_ERROR,
+        /**
          * the file handling was done successfully
          */
         HANDLED_WITH_SUCCESS,
@@ -13,14 +21,14 @@ public interface FileHandler {
          */
         HANDLED_WITH_ERROR,
         /**
-         * the file count not be handler
+         * the file count not be handled
          */
         FAILED_TO_HANDLED
     }
 
-    public Status handleCreation(final Path inputfile);
+    public void handleCreation(final Path inputfile);
 
-    public Status handleDeletion(final Path inputfile);
+    public void handleDeletion(final Path inputfile);
     
     public Path getOutputFile(final Path file);
     

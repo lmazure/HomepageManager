@@ -42,7 +42,7 @@ public class LinkChecker implements FileHandler {
      */
     public LinkChecker(final Path homepagePath,
                        final Path tmpPath,
-                       final DataController controller) {
+                       final BackgroundDataController controller) {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;
         _controller = controller;
@@ -50,7 +50,7 @@ public class LinkChecker implements FileHandler {
     }
     
     @Override
-    public Status handleCreation(final Path file) {
+    public void handleCreation(final Path file) {
 
         Status status = Status.HANDLED_WITH_SUCCESS;
         
@@ -60,9 +60,9 @@ public class LinkChecker implements FileHandler {
              final PrintWriter pw = new PrintWriter(os)) {
             final byte[] encoded = Files.readAllBytes(file);
             final String content = new String(encoded, StandardCharsets.UTF_8);
-            extractLinks(file, content);
+            final List<String> links = extractLinks(file, content);
             pw.println("OK");
-            status = Status.HANDLED_WITH_ERROR;
+            status = Status.HANDLING_NO_ERROR;
         } catch (final Exception e) {
             final Path reportFile = getReportFile(file);
             FileHelper.createParentDirectory(reportFile);
@@ -75,7 +75,6 @@ public class LinkChecker implements FileHandler {
         }
            
         _controller.handleCreation(file, status, getOutputFile(file), getReportFile(file));
-        return status;
     }
     
     private List<String> extractLinks(final Path file,
@@ -92,14 +91,12 @@ public class LinkChecker implements FileHandler {
     }
     
     @Override
-    public Status handleDeletion(final Path file) {
+    public void handleDeletion(final Path file) {
 
         FileHelper.deleteFile(getOutputFile(file));
         FileHelper.deleteFile(getReportFile(file));
         
         _controller.handleDeletion(file, Status.HANDLED_WITH_SUCCESS, getOutputFile(file), getReportFile(file));
-
-        return Status.HANDLED_WITH_SUCCESS;
     }
 
     @Override
