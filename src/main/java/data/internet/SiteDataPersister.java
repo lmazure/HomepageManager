@@ -210,7 +210,7 @@ public class SiteDataPersister {
             error = Optional.empty();
         }
         
-        return new SiteData(status, httpCode, headers, dataFile, error);
+        return new SiteData(url, status, httpCode, headers, dataFile, error);
     }
     
     private Path getStatusFile(final URL url,

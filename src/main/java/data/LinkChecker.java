@@ -8,6 +8,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -22,6 +24,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import data.internet.SiteData;
+import data.internet.SiteDataRetriever;
 import data.nodechecker.checker.nodeChecker.NodeChecker;
 import utils.ExitHelper;
 import utils.FileHelper;
@@ -29,10 +33,11 @@ import utils.XMLHelper;
 
 public class LinkChecker implements FileHandler {
 
-    final private Path _homepagePath;
-    final private Path _tmpPath;
-    final private DataController _controller;
+    private final Path _homepagePath;
+    private final Path _tmpPath;
+    private final DataController _controller;
     private final DocumentBuilder _builder;
+    private final SiteDataRetriever _retriever;
     
     /**
      * This class checks the characters of the XML files.
@@ -47,6 +52,7 @@ public class LinkChecker implements FileHandler {
         _tmpPath = tmpPath;
         _controller = controller;
         _builder = XMLHelper.buildDocumentBuilder();
+        _retriever = new SiteDataRetriever(tmpPath.resolve("internet_cache"));
     }
     
     @Override
@@ -61,6 +67,7 @@ public class LinkChecker implements FileHandler {
             final byte[] encoded = Files.readAllBytes(file);
             final String content = new String(encoded, StandardCharsets.UTF_8);
             final List<String> links = extractLinks(file, content);
+            launchCheck(links);
             pw.println("OK");
             status = Status.HANDLING_NO_ERROR;
         } catch (final Exception e) {
@@ -135,5 +142,36 @@ public class LinkChecker implements FileHandler {
         }
         
         return list;
+    }
+    
+    private void launchCheck(final List<String> links) {
+        
+        for (final String link: links) {
+            //launchCheck(link);
+            System.out.println("no check of " + link);            
+        }
+    }
+
+    private void launchCheck(final String link) {
+        
+        if (link.indexOf(":") < 0) {
+            // TODO implement check of local links
+            System.out.println("TBD: local link " + link + " is not checked");
+            return;
+        }
+        
+        URL url = null;
+        try {
+            url = new URL(link);
+        } catch (final MalformedURLException e) {
+            ExitHelper.exit(e);
+        }
+        _retriever.retrieve(url, this::handleLinkData, 30*24*60*60);
+    }
+    
+    private void handleLinkData(final Boolean b, final SiteData siteData) {
+        
+        System.out.println("-----------");
+        System.out.println("URL " + siteData.getUrl());
     }
 }
