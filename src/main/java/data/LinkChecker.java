@@ -61,6 +61,7 @@ public class LinkChecker implements FileHandler {
             final String content = new String(encoded, StandardCharsets.UTF_8);
             _pw = pw; // TODO fix this crap
             check(file, content);
+            pw.println("OK");
             status = Status.HANDLED_WITH_ERROR;
         } catch (final Exception e) {
             final Path reportFile = getReportFile(file);
