@@ -99,7 +99,9 @@ public class NodeValueChecker implements FileHandler {
     public void handleCreation(final Path file) {
 
         Status status = Status.HANDLED_WITH_SUCCESS;
-        
+
+        FileHelper.createParentDirectory(getOutputFile(file));
+
         try (final FileReader fr = new FileReader(file.toFile());
              final BufferedReader br = new BufferedReader(fr);
              final FileOutputStream os = new FileOutputStream(getOutputFile(file).toFile());

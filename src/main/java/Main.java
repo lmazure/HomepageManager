@@ -26,7 +26,6 @@ public class Main {
             } else {
                 exitOnErrorSyntax();
             }
-            
         }
         
         final Path homepagePath = Paths.get(args[args.length - 2]);

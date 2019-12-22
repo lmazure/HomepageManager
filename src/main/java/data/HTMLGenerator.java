@@ -57,6 +57,8 @@ public class HTMLGenerator implements FileHandler {
 
         Status status = Status.HANDLED_WITH_SUCCESS;
 
+        FileHelper.createParentDirectory(getOutputFile(file));
+
         final File outputFile = getOutputFile(file).toFile();
 
         try (final InputStream is = new FileInputStream(file.toFile())) {

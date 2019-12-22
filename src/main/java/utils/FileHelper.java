@@ -18,7 +18,14 @@ public class FileHelper {
      * @param file
      */
     public static void createParentDirectory(final Path file) {
-        file.getParent().toFile().mkdirs();
+        
+        final File parentDir = file.getParent().toFile();
+        
+        if (parentDir.isDirectory()) return;
+        
+        if (!parentDir.mkdirs()) {
+            ExitHelper.exit("Failed to create directory " + parentDir);
+        }
     }
 
     public static void deleteDirectory(final File directoryToBeDeleted) {
