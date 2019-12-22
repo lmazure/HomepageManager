@@ -1,5 +1,5 @@
+- bug : le premier fichier 106 est en erreur
 - site reaping
-  - faire première version de la détection des liens morts
   - étudier problème du header null
   - gérer les redirections 
   

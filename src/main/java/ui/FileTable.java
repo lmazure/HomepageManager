@@ -1,6 +1,7 @@
 package ui;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,30 +26,39 @@ import javafx.stage.Stage;
 
 public class FileTable extends Application {
 
-    static private Path _homepagePath;
-    static private Path _tmpPath;
-    static private ObservableFileList _list;
+    private static Path _homepagePath;
+    private static Path _tmpPath;
+    private static boolean _internetAccessiSEnabled;
+    private static ObservableFileList _list;
 
     @Override
     public void start(final Stage stage) {
 
+        final List<GenericUiController> uiControllers = new ArrayList<GenericUiController>();
+        final List<FileHandler> fileHandlers= new ArrayList<FileHandler>();
+        
         final HtmlGenerationController htmlFileController = new HtmlGenerationController(_list, _homepagePath);
         final HTMLGenerator htmlFileGenerator = new HTMLGenerator(_homepagePath, _tmpPath, htmlFileController);
+        uiControllers.add(htmlFileController);
+        fileHandlers.add(htmlFileGenerator);
+        
         final FileCheckController fileCheckController = new FileCheckController(_list);
         final FileChecker fileCheckGenerator = new FileChecker(_homepagePath, _tmpPath, fileCheckController);
+        uiControllers.add(fileCheckController);
+        fileHandlers.add(fileCheckGenerator);
+        
         final NodeValueCheckController nodeCheckController = new NodeValueCheckController(_list);
         final NodeValueChecker nodeValueCheckGenerator = new NodeValueChecker(_homepagePath, _tmpPath, nodeCheckController);
-        final LinkCheckController linkCheckController = new LinkCheckController(_list);
-        final LinkChecker linkCheckGenerator = new LinkChecker(_homepagePath, _tmpPath, linkCheckController);
-        final List<FileHandler> fileHandlers = Arrays.asList(htmlFileGenerator,
-                                                             fileCheckGenerator,
-                                                             nodeValueCheckGenerator,
-                                                             linkCheckGenerator);
-        final List<GenericUiController> uiControllers = Arrays.asList(htmlFileController,
-                                                                      fileCheckController,
-                                                                      nodeCheckController,
-                                                                      linkCheckController);
-
+        uiControllers.add(nodeCheckController);
+        fileHandlers.add(nodeValueCheckGenerator);
+        
+        if (_internetAccessiSEnabled) {
+            final LinkCheckController linkCheckController = new LinkCheckController(_list);
+            final LinkChecker linkCheckGenerator = new LinkChecker(_homepagePath, _tmpPath, linkCheckController);
+            uiControllers.add(linkCheckController);
+            fileHandlers.add(linkCheckGenerator);
+        }
+        
         stage.setTitle("Homepage Manager");
         stage.setWidth(1100);
         stage.setHeight(500);
@@ -116,9 +126,11 @@ public class FileTable extends Application {
     }
 
     public void display(final Path homepagePath,
-                        final Path tmpPath) {
+                        final Path tmpPath,
+                        final boolean internetAccessiSEnabled) {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;
+        _internetAccessiSEnabled = internetAccessiSEnabled;
         _list = new ObservableFileList();
         launch();
     }
