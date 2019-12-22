@@ -21,7 +21,7 @@ public class Main {
         if (args.length == 3) {
             if (args[0].equals(enableInternetAccessOption)) {
                 internetAccessiSEnabled = true;
-            } else if (args[0].equals(disableInternetAccessOption)){
+            } else if (args[0].equals(disableInternetAccessOption)) {
                 internetAccessiSEnabled = false;
             } else {
                 exitOnErrorSyntax();

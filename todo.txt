@@ -1,4 +1,3 @@
-- bug : le premier fichier 106 est en erreur
 - site reaping
   - étudier problème du header null
   - gérer les redirections 

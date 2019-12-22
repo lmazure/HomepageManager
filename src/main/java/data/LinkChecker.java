@@ -40,7 +40,7 @@ public class LinkChecker implements FileHandler {
 
     private final Path _homepagePath;
     private final Path _tmpPath;
-    private final DataController _controller;
+    private final BackgroundDataController _controller;
     private final DocumentBuilder _builder;
     private final SiteDataRetriever _retriever;
     
@@ -178,7 +178,6 @@ public class LinkChecker implements FileHandler {
         private void launch(final List<String> links) {
             for (final String link: links) {
                 launch(link);
-                //System.out.println("no check of " + link);            
             }
         }
         
@@ -192,6 +191,12 @@ public class LinkChecker implements FileHandler {
 
             if (link.startsWith("javascript:")) return;
 
+            if (link.startsWith("ftp:")) {
+                // TODO implement check of FTP links
+                System.out.println("TBD: FTP link " + link + " is not checked");
+                return;
+            }
+
             URL url = null;
             try {
                 url = new URL(link);
@@ -202,10 +207,8 @@ public class LinkChecker implements FileHandler {
             _retriever.retrieve(url, this::handleLinkData, 30*24*60*60);
         }
         
-        private synchronized void handleLinkData(final Boolean isDataFresh, final SiteData siteData) {
-            
-            System.out.println("-----------");
-            System.out.println("URL " + siteData.getUrl());
+        private synchronized void handleLinkData(final Boolean isDataFresh,
+                                                 final SiteData siteData) {
             
             _siteData.put(siteData.getUrl(), siteData);
             
@@ -219,7 +222,7 @@ public class LinkChecker implements FileHandler {
                 for (final URL url : _siteData.keySet()) {
                     pw.println("URL = " + url);
                     pw.println("Status = " + _siteData.get(url).getStatus());
-                    pw.println("HTTP code = " + _siteData.get(url).getHttpCode());
+                    pw.println("xHTTP code = " + _siteData.get(url).getHttpCode().map(i -> i.toString()).orElse("---"));
                     pw.println();
                 }
                 status = _siteRemainingToBeChecked.isEmpty() ? Status.HANDLED_WITH_SUCCESS : Status.HANDLING_NO_ERROR;
@@ -233,8 +236,10 @@ public class LinkChecker implements FileHandler {
                }
                status = Status.FAILED_TO_HANDLED;                
             }
-            
-            _controller.handleCreation(_file, status, getOutputFile(_file), getReportFile(_file));
+
+            System.out.println("URL " + siteData.getUrl() + " " + _siteRemainingToBeChecked.isEmpty());
+
+            _controller.handleUpdate(_file, status, getOutputFile(_file), getReportFile(_file));
         }
     }
 }
