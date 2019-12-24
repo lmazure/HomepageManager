@@ -1,3 +1,5 @@
+- report theoric status of  a link
+- delete low level file statis tracking
 - site reaping
   - étudier problème du header null
   - gérer les redirections 

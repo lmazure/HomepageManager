@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +44,7 @@ public class LinkChecker implements FileHandler {
     private final BackgroundDataController _controller;
     private final DocumentBuilder _builder;
     private final SiteDataRetriever _retriever;
+    private final Map<Path, LinkDataHandler> _handlers;
     
     /**
      * This class checks the characters of the XML files.
@@ -58,6 +60,7 @@ public class LinkChecker implements FileHandler {
         _controller = controller;
         _builder = XMLHelper.buildDocumentBuilder();
         _retriever = new SiteDataRetriever(tmpPath.resolve("internet_cache"));
+        _handlers = new HashMap<Path, LinkDataHandler>();
     }
     
     @Override
@@ -68,14 +71,11 @@ public class LinkChecker implements FileHandler {
         FileHelper.createParentDirectory(getOutputFile(file));
 
         try (final FileReader fr = new FileReader(file.toFile());
-             final BufferedReader br = new BufferedReader(fr);
-             final FileOutputStream os = new FileOutputStream(getOutputFile(file).toFile());
-             final PrintWriter pw = new PrintWriter(os)) {
+             final BufferedReader br = new BufferedReader(fr)) {
             final byte[] encoded = Files.readAllBytes(file);
             final String content = new String(encoded, StandardCharsets.UTF_8);
             final List<String> links = extractLinks(file, content);
             launchCheck(file, links);
-            pw.println("Analysis of links is started");
             status = Status.HANDLING_NO_ERROR;
         } catch (final Exception e) {
             final Path reportFile = getReportFile(file);
@@ -106,6 +106,12 @@ public class LinkChecker implements FileHandler {
     
     @Override
     public void handleDeletion(final Path file) {
+        
+        final LinkDataHandler handler = _handlers.get(file);
+        if (handler != null) {
+            handler.cancel();
+            _handlers.remove(file);
+        }
 
         FileHelper.deleteFile(getOutputFile(file));
         FileHelper.deleteFile(getReportFile(file));
@@ -155,14 +161,18 @@ public class LinkChecker implements FileHandler {
                              final List<String> links) {
         
         final LinkDataHandler handler = new LinkDataHandler(file);
+        _handlers.put(file, handler);
         handler.launch(links);
     }
-    
+
+    // ------------------------------------------------------------------------------------------------------------------
+
     class LinkDataHandler {
         
         private final Path _file;
         private final Map<URL, SiteData> _siteData;
         private final Set<URL> _siteRemainingToBeChecked;
+        private boolean _isCancelled;
         
         private LinkDataHandler(final Path file) {
             _file = file;
@@ -173,11 +183,27 @@ public class LinkChecker implements FileHandler {
                             return a.toString().compareTo(b.toString());
                         }});
             _siteRemainingToBeChecked = new HashSet<>();
+            _isCancelled = false;
+        }
+        
+        private void cancel() {
+            _isCancelled = true;
         }
         
         private void launch(final List<String> links) {
+            createOutputfile();
             for (final String link: links) {
                 launch(link);
+            }
+        }
+        
+        private void createOutputfile() {
+            try (final FileOutputStream os = new FileOutputStream(getOutputFile(_file).toFile());
+                 final PrintWriter pw = new PrintWriter(os)) {
+                   pw.println("Analysis of links is started");
+                   System.out.println(getOutputFile(_file).toFile() + " starts to be generated");
+            } catch (final Exception e) {
+                ExitHelper.exit(e);
             }
         }
         
@@ -209,6 +235,10 @@ public class LinkChecker implements FileHandler {
         
         private synchronized void handleLinkData(final Boolean isDataFresh,
                                                  final SiteData siteData) {
+        
+            if (_isCancelled) {
+                return;
+            }
             
             _siteData.put(siteData.getUrl(), siteData);
             

@@ -50,7 +50,8 @@ public class DataOrchestrator {
             new WatchDir(_homepagePath).ignoreDirectories(_ignoredDirectories)
                                        .addFileWatcher(_matcher, (final Path p, final WatchDir.Event e) -> dispatchEvent(p, e))
                                        .processEvents();
-        } catch (final IOException e) {
+        } catch (final Exception e) {
+            // catch all exceptions, otherwise JavaFX will swallow it and it will be a nightmare to debug
             ExitHelper.exit(e);
         }
     }
@@ -59,8 +60,8 @@ public class DataOrchestrator {
 
         Files.walkFileTree(_homepagePath, new SimpleFileVisitor<Path>() {
             @Override
-            public FileVisitResult preVisitDirectory(final Path path, final BasicFileAttributes attrs)
-                throws IOException
+            public FileVisitResult preVisitDirectory(final Path path,
+                                                     final BasicFileAttributes attrs)
             {
                 if (_ignoredDirectories.contains(path.getFileName().toString())) {
                     return FileVisitResult.SKIP_SUBTREE;
@@ -69,13 +70,15 @@ public class DataOrchestrator {
             }
             @Override
             public FileVisitResult visitFile(final Path path,
-                                             final BasicFileAttributes attrs) throws IOException {
+                                             final BasicFileAttributes attrs)
+            {
                 if (matcher.matches(path)) {
                     _fileTracker.addFile(path);
                 }
                 return FileVisitResult.CONTINUE;
             }
         });
+        System.out.println("visited all files");
     }
     
     private void dispatchEvent(final Path path,
