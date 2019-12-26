@@ -1,4 +1,4 @@
-- report theoric status of  a link
+- fix incorrect status of running link checker
 - delete low level file statis tracking
 - site reaping
   - étudier problème du header null
