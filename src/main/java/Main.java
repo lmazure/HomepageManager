@@ -16,13 +16,13 @@ public class Main {
             exitOnErrorSyntax();
         }
  
-        boolean internetAccessiSEnabled = false;
+        boolean internetAccessIsEnabled = false;
         
         if (args.length == 3) {
             if (args[0].equals(enableInternetAccessOption)) {
-                internetAccessiSEnabled = true;
+                internetAccessIsEnabled = true;
             } else if (args[0].equals(disableInternetAccessOption)) {
-                internetAccessiSEnabled = false;
+                internetAccessIsEnabled = false;
             } else {
                 exitOnErrorSyntax();
             }
@@ -31,7 +31,7 @@ public class Main {
         final Path homepagePath = Paths.get(args[args.length - 2]);
         final Path tmpPath = Paths.get(args[args.length - 1]);
         final FileTable table = new FileTable();
-        table.display(homepagePath, tmpPath, internetAccessiSEnabled);
+        table.display(homepagePath, tmpPath, internetAccessIsEnabled);
     }
     
     private static void exitOnErrorSyntax() {

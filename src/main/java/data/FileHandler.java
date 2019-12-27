@@ -1,7 +1,7 @@
 package data;
 import java.nio.file.Path;
 
-public interface FileHandler {
+public interface FileHandler extends FileExistenceHandler {
 
     public enum Status {
         /**
@@ -26,10 +26,6 @@ public interface FileHandler {
         FAILED_TO_HANDLED
     }
 
-    public void handleCreation(final Path inputfile);
-
-    public void handleDeletion(final Path inputfile);
-    
     public Path getOutputFile(final Path file);
     
     public Path getReportFile(final Path file);

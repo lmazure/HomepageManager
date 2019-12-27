@@ -25,17 +25,16 @@ public class DataOrchestrator {
                                                                              "cap_fichiers",
                                                                              "cmm_fichiers" ));
 
-    final private Path _homepagePath;
-    final private FileTracker _fileTracker;
+    private final Path _homepagePath;
+    private final List<FileHandler> _fileHandlers;
+    private final FileExistenceHandler _handler;
 
     public DataOrchestrator(final Path homepagePath,
                             final FileExistenceHandler handler,
                             final List<FileHandler> fileHandlers) {
         _homepagePath = homepagePath;
-        _fileTracker = new FileTracker(handler);
-        for (final FileHandler fh: fileHandlers) {
-            _fileTracker.addFileHandler(fh);
-        }
+        _fileHandlers = fileHandlers;
+        _handler = handler;
     }
     
     public void start() {
@@ -46,7 +45,6 @@ public class DataOrchestrator {
 
         try {
             recordFilesExistingAtStartup(_matcher);
-
             new WatchDir(_homepagePath).ignoreDirectories(_ignoredDirectories)
                                        .addFileWatcher(_matcher, (final Path p, final WatchDir.Event e) -> dispatchEvent(p, e))
                                        .processEvents();
@@ -73,12 +71,24 @@ public class DataOrchestrator {
                                              final BasicFileAttributes attrs)
             {
                 if (matcher.matches(path)) {
-                    _fileTracker.addFile(path);
+                    addFile(path);
                 }
                 return FileVisitResult.CONTINUE;
             }
         });
         System.out.println("visited all files");
+    }
+
+    private void addFile(final Path file) {
+        
+        _handler.handleCreation(file);
+        
+        for (final FileHandler h: _fileHandlers) {
+            if (h.outputFileMustBeRegenerated(file)) {
+                h.handleDeletion(file);
+                h.handleCreation(file);                
+            }
+        }
     }
     
     private void dispatchEvent(final Path path,
@@ -86,14 +96,28 @@ public class DataOrchestrator {
         
         switch (event) {
             case CREATE:
-                _fileTracker.handleFileCreation(path);
+                handleFileCreation(path);
                 break;
             case DELETE:
-                _fileTracker.handleFileDeletion(path);
+                handleFileDeletion(path);
                 break;
             default:
                 ExitHelper.exit("Unknwown event");
                 break;
+        }
+    }
+
+    private void handleFileCreation(final Path file) {
+        _handler.handleCreation(file);
+        for (final FileHandler h: _fileHandlers) {
+            h.handleCreation(file);
+        }
+    }
+    
+    private void handleFileDeletion(final Path file) {
+        _handler.handleDeletion(file);
+        for (final FileHandler h: _fileHandlers) {
+            h.handleDeletion(file);
         }
     }
 }
