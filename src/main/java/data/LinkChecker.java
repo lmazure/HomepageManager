@@ -18,12 +18,10 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.TreeMap;
 
 import javax.xml.parsers.DocumentBuilder;
 
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -36,6 +34,8 @@ import data.nodechecker.checker.nodeChecker.NodeChecker;
 import utils.ExitHelper;
 import utils.FileHelper;
 import utils.XMLHelper;
+import utils.xmlparsing.LinkData;
+import utils.xmlparsing.XmlParser;
 
 public class LinkChecker implements FileHandler {
 
@@ -150,70 +150,12 @@ public class LinkChecker implements FileHandler {
         }
 
         if (e.getTagName().equals(NodeChecker.X)) {
-            list.add(parseXNode(e));
+            list.add(XmlParser.parseXNode(e));
         }
         
         return list;
     }
     
-    private LinkData parseXNode(final Element linkNode) {
-        
-        final NodeList titleNodes = linkNode.getElementsByTagName("T");
-        final String title = ((Element)titleNodes.item(0)).getTextContent();
-
-        final NodeList subtitleNodes = linkNode.getElementsByTagName("ST");
-        final Optional<String> subtitle = (subtitleNodes.getLength() == 1) ? Optional.of(((Element)subtitleNodes.item(0)).getTextContent())
-                                                                           : Optional.empty();
-
-        final NodeList urlNodes = linkNode.getElementsByTagName("A");
-        final String url = ((Element)urlNodes.item(0)).getTextContent();
-
-        final NodeList languageNodes = linkNode.getElementsByTagName("L");
-        final String languages[] = new String[languageNodes.getLength()];
-        for (int k = 0; k < languageNodes.getLength(); k++) {
-            languages[k] = ((Element)languageNodes.item(k)).getTextContent();
-        }
-
-        final NodeList formatNodes = linkNode.getElementsByTagName("F");
-        final String formats[] = new String[formatNodes.getLength()];
-        for (int k = 0; k < formatNodes.getLength(); k++ ) {
-            formats[k] = ((Element)formatNodes.item(k)).getTextContent();
-        }
-
-        Optional<Integer> durationHour = Optional.empty();
-        Optional<Integer> durationMinute = Optional.empty();
-        Optional<Integer> durationSecond = Optional.empty();
-        
-        final NodeList durationNodes =  linkNode.getElementsByTagName("DURATION");
-        
-        if ( durationNodes.getLength()==1 ) {
-            final Element durationNode = (Element)durationNodes.item(0);
-            
-            final NodeList durationHourNodes = durationNode.getElementsByTagName("HOUR");
-            if (durationHourNodes.getLength() == 1) {
-                durationHour = Optional.of(Integer.parseInt(durationHourNodes.item(0).getTextContent()));
-            }
-            final NodeList durationMinuteNodes = durationNode.getElementsByTagName("MINUTE");
-            if (durationMinuteNodes.getLength() == 1) {
-                durationMinute = Optional.of(Integer.parseInt(durationMinuteNodes.item(0).getTextContent()));
-            }
-            final NodeList durationSecondNodes = durationNode.getElementsByTagName("SECOND");
-            if (durationSecondNodes.getLength() == 1) {
-                durationSecond = Optional.of(Integer.parseInt(durationSecondNodes.item(0).getTextContent()));
-            }
-        }
-        
-        final Attr statusAttribute = linkNode.getAttributeNode("status");
-        final Optional<String> status = (statusAttribute != null) ? Optional.of(statusAttribute.getValue())
-                                                                  : Optional.empty();
-
-        final Attr protectionAttribute = linkNode.getAttributeNode("protection");
-        final Optional<String> protection = (protectionAttribute != null) ? Optional.of(protectionAttribute.getValue())
-                                                                          : Optional.empty();
-
-        return new LinkData(title, subtitle, url, status, protection, formats, languages, durationHour, durationMinute, durationSecond);
-    }
-
     private void launchCheck(final Path file,
                              final List<LinkData> links) {
         
@@ -357,115 +299,6 @@ public class LinkChecker implements FileHandler {
             System.out.println("URL " + siteData.getUrl() + " " + _nbSitesRemainingToBeChecked);
 
             _controller.handleUpdate(_file, status, getOutputFile(_file), getReportFile(_file));
-        }
-    }
-    
-    // ------------------------------------------------------------------------------------------------------------------
-
-    class LinkData {
-
-        private final String _title;
-        private final Optional<String> _subtitle;
-        private final String _url;
-        private final Optional<String> _status;
-        private final Optional<String> _protection;
-        private final String _formats[];
-        private final String _languages[];
-        private final Optional<Integer> _durationHour; 
-        private final Optional<Integer> _durationMinute; 
-        private final Optional<Integer> _durationSecond;
-
-
-        LinkData(final String title,
-                 final Optional<String> subtitle,
-                 final String url,
-                 final Optional<String> status,
-                 final Optional<String> protection,
-                 final String formats[],
-                 final String languages[],
-                 final Optional<Integer> durationHour, 
-                 final Optional<Integer> durationMinute, 
-                 final Optional<Integer> durationSecond) {
-            _title = title;
-            _subtitle = subtitle;
-            _url = url;
-            _status = status;
-            _protection = protection;
-            _formats = formats;
-            _languages = languages;
-            _durationHour = durationHour;
-            _durationMinute = durationMinute;
-            _durationSecond = durationSecond;
-        }
-
-        /**
-         * @return the title
-         */
-        public String getTitle() {
-            return _title;
-        }
-
-        /**
-         * @return the subtitle
-         */
-        public Optional<String> getSubtitle() {
-            return _subtitle;
-        }
-
-        /**
-         * @return the URL
-         */
-        String getUrl() {
-            return _url;
-        }
-
-        /**
-         * @return the status
-         */
-        Optional<String> getStatus() {
-            return _status;
-        }
-
-        /**
-         * @return the protection
-         */
-        Optional<String> getProtection() {
-            return _protection;
-        }
-
-        /**
-         * @return the formats
-         */
-        String[] getFormats() {
-            return _formats;
-        }
-
-        /**
-         * @return the languages
-         */
-        String[] getLanguages() {
-            return _languages;
-        }
-
-        /**
-         * @return the durationHour
-         */
-        Optional<Integer> getDurationHour() {
-            return _durationHour;
-        }
-
-        /**
-         * @return the durationMinute
-         */
-        Optional<Integer> getDurationMinute() {
-            return _durationMinute;
-        }
-
-        /**
-         * @return the durationSecond
-         */
-        Optional<Integer> getDurationSecond() {
-            return _durationSecond;
         }
     }
 }

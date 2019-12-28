@@ -52,5 +52,4 @@ public class XMLHelper {
         assert(schema != null);
         return schema.newValidator();
     }
-
 }
