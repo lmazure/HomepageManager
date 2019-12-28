@@ -16,11 +16,9 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.TreeMap;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -49,7 +47,7 @@ public class LinkChecker implements FileHandler {
     private final Map<Path, LinkDataHandler> _handlers;
     
     /**
-     * This class checks the characters of the XML files.
+     * This class checks the appearing in XML files.
      * 
      * @param homepagePath
      * @param tmpPath
@@ -232,7 +230,7 @@ public class LinkChecker implements FileHandler {
         private final Path _file;
         private final Map<URL, SiteData> _effectiveData;
         private final Map<URL, LinkData> _expectedData;
-        private final Set<URL> _siteRemainingToBeChecked;
+        private int _nbSitesRemainingToBeChecked;
         private boolean _isCancelled;
         
         private LinkDataHandler(final Path file) {
@@ -243,43 +241,53 @@ public class LinkChecker implements FileHandler {
                         public int compare(final URL a, final URL b) {
                             return a.toString().compareTo(b.toString());
                         }});
-            _siteRemainingToBeChecked = new HashSet<URL>();
             _expectedData = new HashMap<URL, LinkData>();
             _isCancelled = false;
         }
         
         private void launch(final List<LinkData> linkDatas) {
             createOutputfile();
-            for (final LinkData link: linkDatas) {
-                launch(link);
+            final List<URL> list = build(linkDatas);
+            _nbSitesRemainingToBeChecked = list.size();
+            for (final URL url: list) {
+                _retriever.retrieve(url, this::handleLinkData, MAX_CACHE_AGE);
             }
         }
         
-        private void launch(final LinkData linkData) {
+        private List<URL> build(final List<LinkData> linkDatas) {
+        
+            final List<URL> list = new ArrayList<URL>();
+
+            for (final LinkData linkData: linkDatas) {
+                
+                if (linkData.getUrl().indexOf(":") < 0) {
+                    // TODO implement check of local links
+                    System.out.println("TBD: local link " + linkData.getUrl() + " is not checked");
+                    continue;
+                }
+
+                if (linkData.getUrl().startsWith("javascript:")) {
+                    continue;
+                }
+
+                if (linkData.getUrl().startsWith("ftp:")) {
+                    // TODO implement check of FTP links
+                    System.out.println("TBD: FTP link " + linkData.getUrl() + " is not checked");
+                    continue;
+                }
+
+                URL url = null;
+                try {
+                    url = new URL(linkData.getUrl());
+                } catch (final MalformedURLException e) {
+                    ExitHelper.exit(e);
+                }
+                
+                list.add(url);
+                _expectedData.put(url, linkData);
+            }
             
-            if (linkData.getUrl().indexOf(":") < 0) {
-                // TODO implement check of local links
-                System.out.println("TBD: local link " + linkData + " is not checked");
-                return;
-            }
-
-            if (linkData.getUrl().startsWith("javascript:")) return;
-
-            if (linkData.getUrl().startsWith("ftp:")) {
-                // TODO implement check of FTP links
-                System.out.println("TBD: FTP link " + linkData + " is not checked");
-                return;
-            }
-
-            URL url = null;
-            try {
-                url = new URL(linkData.getUrl());
-            } catch (final MalformedURLException e) {
-                ExitHelper.exit(e);
-            }
-            _expectedData.put(url, linkData);
-            _siteRemainingToBeChecked.add(url);
-            _retriever.retrieve(url, this::handleLinkData, MAX_CACHE_AGE);
+            return list;
         }
         
         private void cancel() {
@@ -311,7 +319,7 @@ public class LinkChecker implements FileHandler {
             _effectiveData.put(siteData.getUrl(), siteData);
             
             if (isDataFresh) {
-                _siteRemainingToBeChecked.remove(siteData.getUrl());
+                _nbSitesRemainingToBeChecked--;
             }
             
             Status status = Status.HANDLED_WITH_SUCCESS;
@@ -334,7 +342,7 @@ public class LinkChecker implements FileHandler {
                         pw.println();
                     }
                 }
-                status = _siteRemainingToBeChecked.isEmpty() ? Status.HANDLED_WITH_SUCCESS : Status.HANDLING_NO_ERROR;
+                status = (_nbSitesRemainingToBeChecked == 0) ? Status.HANDLED_WITH_SUCCESS : Status.HANDLING_NO_ERROR;
             } catch (final Exception e) {
                final Path reportFile = getReportFile(_file);
                FileHelper.createParentDirectory(reportFile);
@@ -346,7 +354,7 @@ public class LinkChecker implements FileHandler {
                status = Status.FAILED_TO_HANDLED;                
             }
 
-            System.out.println("URL " + siteData.getUrl() + " " + _expectedData.isEmpty());
+            System.out.println("URL " + siteData.getUrl() + " " + _nbSitesRemainingToBeChecked);
 
             _controller.handleUpdate(_file, status, getOutputFile(_file), getReportFile(_file));
         }
