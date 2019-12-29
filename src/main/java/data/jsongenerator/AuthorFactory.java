@@ -2,6 +2,8 @@ package data.jsongenerator;
 
 import java.util.Arrays;
 import java.util.HashMap;
+
+import utils.xmlparsing.AuthorData;
 /**
  * @author Laurent
  *
@@ -22,23 +24,23 @@ public class AuthorFactory {
 	 * if the author already exists, returns it<br/>
 	 * if the author does not exists, creates it and returns it
 	 * 
-	 * @param authorDto 
+	 * @param authorData 
 	 * @return author
 	 */
-	public Author buildAuthor(final ParserAuthorDto authorDto) {
+	public Author buildAuthor(final AuthorData authorData) {
 		
-		final String encodedName = computeEncodedName(authorDto);
+		final String encodedName = computeEncodedName(authorData);
 		
 		if (a_authors.containsKey(encodedName)) {
 			return a_authors.get(encodedName);
 		}
 		
-		final Author author = new Author(authorDto.getNamePrefix(),
-		                                 authorDto.getFirstName(),
-		                                 authorDto.getMiddleName(),
-		                                 authorDto.getLastName(),
-		                                 authorDto.getNameSuffix(),
-		                                 authorDto.getGivenName());
+		final Author author = new Author(authorData.getNamePrefix(),
+		                                 authorData.getFirstName(),
+		                                 authorData.getMiddleName(),
+		                                 authorData.getLastName(),
+		                                 authorData.getNameSuffix(),
+		                                 authorData.getGivenName());
 		a_authors.put(encodedName, author);
 		return author;
 	}
@@ -47,12 +49,12 @@ public class AuthorFactory {
      * if the author already exists, returns it<br/>
      * if the author does not exists, returns null
      * 
-     * @param authorDto 
+     * @param authorData 
      * @return author
      */
-    public Author peekAuthor(final ParserAuthorDto authorDto) {
+    public Author peekAuthor(final AuthorData authorData) {
         
-        final String encodedName = computeEncodedName(authorDto);
+        final String encodedName = computeEncodedName(authorData);
         
         if (a_authors.containsKey(encodedName)) {
             return a_authors.get(encodedName);
@@ -70,14 +72,14 @@ public class AuthorFactory {
 		return a;
 	}
 
-    private String computeEncodedName(final ParserAuthorDto authorDto) {
+    private String computeEncodedName(final AuthorData authorData) {
         final String encodedName =
-            ((authorDto.getLastName() == null)   ? "" : authorDto.getLastName())   + '\n' +
-            ((authorDto.getGivenName() == null)  ? "" : authorDto.getGivenName())  + '\n' +
-            ((authorDto.getFirstName() == null)  ? "" : authorDto.getFirstName())  + '\n' +
-            ((authorDto.getMiddleName() == null) ? "" : authorDto.getMiddleName()) + '\n' +
-            ((authorDto.getNamePrefix() == null) ? "" : authorDto.getNameSuffix()) + '\n' + 
-            ((authorDto.getNameSuffix() == null) ? "" : authorDto.getNamePrefix());
+            authorData.getLastName().orElse("") + '\n' +
+            authorData.getGivenName().orElse("") + '\n' +
+            authorData.getFirstName().orElse("") + '\n' +
+            authorData.getMiddleName().orElse("") + '\n' +
+            authorData.getNamePrefix().orElse("") + '\n' + 
+            authorData.getNameSuffix().orElse("");
         return encodedName;
     }
 }

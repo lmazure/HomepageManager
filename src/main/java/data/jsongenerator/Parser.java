@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 
 import javax.xml.parsers.DocumentBuilder;
 
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -15,6 +14,9 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import utils.XMLHelper;
+import utils.xmlparsing.AuthorData;
+import utils.xmlparsing.LinkData;
+import utils.xmlparsing.XmlParser;
 
 
 /**
@@ -113,9 +115,9 @@ public class Parser {
 				if ( linkNodes.item(j).getNodeType() != Node.ELEMENT_NODE ) continue;
             	final Element linkNode = (Element)linkNodes.item(j);
                 if ( linkNode.getTagName().compareTo("X") != 0 ) continue;
-                
-                final ParserLinkDto linkDto = parseLinkNode(linkNode);
-	            final Link link = a_linkFactory.newLink(article, linkDto);
+    
+                final LinkData linkData = XmlParser.parseXNode(linkNode);
+	            final Link link = a_linkFactory.newLink(article, linkData);
 				
 				article.addLink(link);
 			}
@@ -125,10 +127,8 @@ public class Parser {
 			for (int j=0; j<authorNodes.getLength(); j++) {
 				
             	final Element authorNode = (Element)authorNodes.item(j);
-
-    			final ParserAuthorDto authorDto = parseLinkAuthor(authorNode);
-
-            	final Author author = a_authorFactory.buildAuthor(authorDto);
+    			final AuthorData authorData = XmlParser.parseAuthorNode(authorNode);
+            	final Author author = a_authorFactory.buildAuthor(authorData);
             	author.addArticle(article);
 				article.addAuthor(author);
 			}
@@ -179,121 +179,23 @@ public class Parser {
                 throw new UnsupportedOperationException("Unexpected XML structure (the first child of the first child of a CLIST node is not a AUTHOR node)");
             }
 
-            final ParserAuthorDto authorDto = parseLinkAuthor((Element)authorNode);
+            final AuthorData authorData = XmlParser.parseAuthorNode((Element)authorNode);
 
-            final Author author = a_authorFactory.peekAuthor(authorDto);
+            final Author author = a_authorFactory.peekAuthor(authorData);
             
             if (author == null) continue;
             
             for (int j = 0; j < clistNode.getElementsByTagName("ITEM").getLength(); j++) {
                 
                 final Element linkNode = (Element)clistNode.getElementsByTagName("ITEM").item(j);
-                final ParserLinkDto linkDto = parseLinkNode(linkNode);
-                final Link link = a_linkFactory.newLink(null, linkDto);
+                final LinkData linkData = XmlParser.parseXNode(linkNode);
+                final Link link = a_linkFactory.newLink(null, linkData);
                 
                 author.addLink(link);
             }
             
         }
     }
-
-    private ParserAuthorDto parseLinkAuthor(final Element authorNode) {
-        
-        String namePrefix = null;
-        if ( authorNode.getElementsByTagName("NAMEPREFIX").getLength() == 1 ) {
-        	namePrefix = authorNode.getElementsByTagName("NAMEPREFIX").item(0).getTextContent();
-        } else if ( authorNode.getElementsByTagName("NAMEPREFIX").getLength() != 0 ) {
-        	throw new UnsupportedOperationException("Wrong number of NAMEPREFIX nodes");
-        }
-
-        String firstName = null;
-        if ( authorNode.getElementsByTagName("FIRSTNAME").getLength() == 1 ) {
-        	firstName = authorNode.getElementsByTagName("FIRSTNAME").item(0).getTextContent();
-        } else if ( authorNode.getElementsByTagName("FIRSTNAME").getLength() != 0 ) {
-        	throw new UnsupportedOperationException("Wrong number of FIRSTNAME nodes");
-        }
-
-        String middleName = null;
-        if ( authorNode.getElementsByTagName("MIDDLENAME").getLength() == 1 ) {
-        	middleName = authorNode.getElementsByTagName("MIDDLENAME").item(0).getTextContent();
-        } else if ( authorNode.getElementsByTagName("MIDDLENAME").getLength() != 0 ) {
-        	throw new UnsupportedOperationException("Wrong number of MIDDLENAME nodes");
-        }
-
-        String lastName = null;
-        if ( authorNode.getElementsByTagName("LASTNAME").getLength() == 1 ) {
-        	lastName = authorNode.getElementsByTagName("LASTNAME").item(0).getTextContent();
-        } else if ( authorNode.getElementsByTagName("LASTNAME").getLength() != 0 ) {
-        	throw new UnsupportedOperationException("Wrong number of LASTNAME nodes");
-        }
-
-        String nameSuffix = null;
-        if ( authorNode.getElementsByTagName("NAMESUFFIX").getLength() == 1 ) {
-        	nameSuffix = authorNode.getElementsByTagName("NAMESUFFIX").item(0).getTextContent();
-        } else if ( authorNode.getElementsByTagName("NAMESUFFIX").getLength() != 0 ) {
-        	throw new UnsupportedOperationException("Wrong number of NAMESUFFIX nodes");
-        }
-
-        String givenName = null;
-        if ( authorNode.getElementsByTagName("GIVENNAME").getLength() == 1 ) {
-        	givenName = authorNode.getElementsByTagName("GIVENNAME").item(0).getTextContent();
-        } else if ( authorNode.getElementsByTagName("GIVENNAME").getLength() != 0 ) {
-        	throw new UnsupportedOperationException("Wrong number of GIVENNAME nodes");
-        }
-
-        final ParserAuthorDto authorDto = new ParserAuthorDto(namePrefix, firstName, middleName, lastName, nameSuffix, givenName);
-        return authorDto;
-    }
-
-    private ParserLinkDto parseLinkNode(final Element linkNode) {
-        
-        final NodeList titleNodes = linkNode.getElementsByTagName("T");
-        final String title = ((Element)titleNodes.item(0)).getTextContent();
-
-        final NodeList subtitleNodes = linkNode.getElementsByTagName("ST");
-        final String subtitle = (subtitleNodes.getLength()==1) ? ((Element)subtitleNodes.item(0)).getTextContent() : null;
-
-        final NodeList urlNodes = linkNode.getElementsByTagName("A");
-        final String url = ((Element)urlNodes.item(0)).getTextContent();
-
-        final NodeList languageNodes = linkNode.getElementsByTagName("L");
-        final String languages[] = new String[languageNodes.getLength()];
-        for (int k=0; k<languageNodes.getLength(); k++ ) languages[k] = ((Element)languageNodes.item(k)).getTextContent();
-
-        final NodeList formatNodes = linkNode.getElementsByTagName("F");
-        final String formats[] = new String[formatNodes.getLength()];
-        for (int k=0; k<formatNodes.getLength(); k++ ) formats[k] = ((Element)formatNodes.item(k)).getTextContent();
-
-        Integer durationHour = null, durationMinute = null, durationSecond = null;
-        
-        final NodeList durationNodes =  linkNode.getElementsByTagName("DURATION");
-        
-        if ( durationNodes.getLength()==1 ) {
-            final Element durationNode = (Element)durationNodes.item(0);
-            
-            final NodeList durationHourNodes = durationNode.getElementsByTagName("HOUR");
-            if ( durationHourNodes.getLength()==1 ) {
-                durationHour = Integer.parseInt(durationHourNodes.item(0).getTextContent());
-            }
-            final NodeList durationMinuteNodes = durationNode.getElementsByTagName("MINUTE");
-            if ( durationMinuteNodes.getLength()==1 ) {
-                durationMinute = Integer.parseInt(durationMinuteNodes.item(0).getTextContent());
-            }
-            final NodeList durationSecondNodes = durationNode.getElementsByTagName("SECOND");
-            if ( durationSecondNodes.getLength()==1 ) {
-                durationSecond = Integer.parseInt(durationSecondNodes.item(0).getTextContent());
-            }
-        }
-        
-        final Attr statusAttribute = linkNode.getAttributeNode("status");
-        final String status = (statusAttribute!=null) ? statusAttribute.getValue() : null;
-
-        final Attr protectionAttribute = linkNode.getAttributeNode("protection");
-        final String protection = (protectionAttribute!=null) ? protectionAttribute.getValue() : null;
-
-        return new ParserLinkDto(title, subtitle, url, languages, formats, durationHour, durationMinute, durationSecond, status, protection);
-    }
-    
 
     /**
      * validate a DATE node

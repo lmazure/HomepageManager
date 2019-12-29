@@ -1,6 +1,7 @@
 package data.jsongenerator;
 
 import java.util.Comparator;
+import java.util.Optional;
 
 public class ArticleComparator implements Comparator<Article>
 {
@@ -13,17 +14,17 @@ public class ArticleComparator implements Comparator<Article>
         final int c1 = StringHelper.compare(title0, title1);
         if (c1 != 0) return c1;
         
-        final String subtitle0 = arg0.getLinks()[0].getSubtitle();
-        final String subtitle1 = arg1.getLinks()[0].getSubtitle();
-        if ( subtitle0 == null ) {
-            if ( subtitle1 == null ) {
+        final Optional<String> subtitle0 = arg0.getLinks()[0].getSubtitle();
+        final Optional<String> subtitle1 = arg1.getLinks()[0].getSubtitle();
+        if (subtitle0.isEmpty()) {
+            if (subtitle1.isEmpty()) {
                 return 0;
             }
             return 1;
         }
-        if ( subtitle1 == null ) {
+        if (subtitle1.isEmpty()) {
             return -1;
         }
-        return StringHelper.compare(subtitle0, subtitle1);
+        return StringHelper.compare(subtitle0.get(), subtitle1.get());
     }
 }

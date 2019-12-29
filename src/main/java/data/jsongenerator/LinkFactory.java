@@ -3,6 +3,8 @@ package data.jsongenerator;
 import java.util.Arrays;
 import java.util.HashSet;
 
+import utils.xmlparsing.LinkData;
+
 /**
  * @author Laurent
  *
@@ -33,18 +35,18 @@ public class LinkFactory {
 	 * @return
 	 */
 	public Link newLink(final Article article,
-			            final ParserLinkDto linkDto) {
+			            final LinkData linkData) {
 		final Link link = new Link(article,
-		                           linkDto.getTitle(),
-		                           linkDto.getSubtitle(),
-		                           linkDto.getUrl(),
-		                           linkDto.getStatus(),
-		                           linkDto.getProtection(),
-		                           linkDto.getFormats(),
-		                           linkDto.getLanguages(),
-		                           linkDto.getDurationHour(), 
-		                           linkDto.getDurationMinute(),
-		                           linkDto.getDurationSecond());
+		                           linkData.getTitle(),
+		                           linkData.getSubtitle(),
+		                           linkData.getUrl(),
+		                           linkData.getStatus(),
+		                           linkData.getProtection(),
+		                           linkData.getFormats(),
+		                           linkData.getLanguages(),
+		                           linkData.getDurationHour(), 
+		                           linkData.getDurationMinute(),
+		                           linkData.getDurationSecond());
 		a_links.add(link);
 		return link;
 	}

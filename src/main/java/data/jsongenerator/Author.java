@@ -2,39 +2,28 @@ package data.jsongenerator;
 
 import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Optional;
 
-/**
- * @author Laurent
- *
- */
-public class Author implements Comparable<Author> {
+import utils.xmlparsing.AuthorData;
 
-	private final String a_namePrefix;
-	private final String a_firstName;
-	private final String a_middleName;
-	private final String a_lastName;
-	private final String a_nameSuffix;
-	private final String a_givenName;
+public class Author extends AuthorData implements Comparable<Author> {
+
 	private final SortingKey a_sortingKey;
 	private final ArrayList<Article> a_articles;
     private final ArrayList<Link> a_links;
 	static private final Collator collator = Collator.getInstance();
 	
-	/**
-	 * @author Laurent
-	 *
-	 */
 	static public class SortingKey implements Comparable<SortingKey> {
 		
 		private final String a_normalizedName;
 		
 		SortingKey(
-				final String namePrefix,
-				final String firstName,
-				final String middleName,
-				final String lastName,
-				final String nameSuffix,
-				final String givenName) {
+				final Optional<String> namePrefix,
+				final Optional<String> firstName,
+				final Optional<String> middleName,
+				final Optional<String> lastName,
+				final Optional<String> nameSuffix,
+				final Optional<String> givenName) {
 			
 			String normalizedName = "";
 			normalizedName = append(normalizedName, lastName);
@@ -57,7 +46,7 @@ public class Author implements Comparable<Author> {
 			return a_normalizedName;
 		}
 		
-		private String append(final String str, final String app) {
+		private String append(final String str, final Optional<String> app) {
 			
 			String s = str;
 			
@@ -65,8 +54,8 @@ public class Author implements Comparable<Author> {
 				s += '!'; // to not use '\n', the collator will ignore it when comparing strings
 			}
 			
-			if (app != null) {
-				s += app;
+			if (app.isPresent()) {
+				s += app.get();
 			}
 			
 			return s;
@@ -82,65 +71,18 @@ public class Author implements Comparable<Author> {
 	 * @param givenName 
 	 */
 	public Author(
-			final String namePrefix,
-			final String firstName,
-			final String middleName,
-			final String lastName,
-			final String nameSuffix,
-			final String givenName) {
-		a_namePrefix = namePrefix;
-		a_firstName = firstName;
-		a_middleName = middleName;
-		a_lastName = lastName;
-		a_nameSuffix = nameSuffix;
-		a_givenName = givenName;
+			final Optional<String> namePrefix,
+			final Optional<String> firstName,
+			final Optional<String> middleName,
+			final Optional<String> lastName,
+			final Optional<String> nameSuffix,
+			final Optional<String> givenName) {
+	    super(namePrefix, firstName, middleName, lastName, nameSuffix, givenName);
 		a_sortingKey = new SortingKey(namePrefix, firstName, middleName, lastName, nameSuffix, givenName);
 		a_articles = new ArrayList<Article>();
         a_links = new ArrayList<Link>();
 	}
 	
-	/**
-	 * @return name prefix
-	 */
-	public String getNamePrefix() {
-		return a_namePrefix;
-	}
-
-	/**
-	 * @return first name
-	 */
-	public String getFirstName() {
-		return a_firstName;
-	}
-
-	/**
-	 * @return middle name
-	 */
-	public String getMiddleName() {
-		return a_middleName;
-	}
-
-	/**
-	 * @return last name
-	 */
-	public String getLastName() {
-		return a_lastName;
-	}
-
-	/**
-	 * @return name suffix
-	 */
-	public String getNameSuffix() {
-		return a_nameSuffix;
-	}
-
-	/**
-	 * @return given name
-	 */
-	public String getGivenName() {
-		return a_givenName;
-	}
-
 	/**
 	 * @return sorting key
 	 */

@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class XmlParser {
@@ -64,5 +65,52 @@ public class XmlParser {
                                                                           : Optional.empty();
 
         return new LinkData(title, subtitle, url, status, protection, formats, languages, durationHour, durationMinute, durationSecond);
+    }
+    
+    public static AuthorData parseAuthorNode(final Element authorNode) {
+        
+        Optional<String> namePrefix = Optional.empty();
+        if ( authorNode.getElementsByTagName("NAMEPREFIX").getLength() == 1 ) {
+            namePrefix = Optional.of(authorNode.getElementsByTagName("NAMEPREFIX").item(0).getTextContent());
+        } else if ( authorNode.getElementsByTagName("NAMEPREFIX").getLength() != 0 ) {
+            throw new UnsupportedOperationException("Wrong number of NAMEPREFIX nodes");
+        }
+
+        Optional<String> firstName = Optional.empty();
+        if ( authorNode.getElementsByTagName("FIRSTNAME").getLength() == 1 ) {
+            firstName = Optional.of(authorNode.getElementsByTagName("FIRSTNAME").item(0).getTextContent());
+        } else if ( authorNode.getElementsByTagName("FIRSTNAME").getLength() != 0 ) {
+            throw new UnsupportedOperationException("Wrong number of FIRSTNAME nodes");
+        }
+
+        Optional<String> middleName = Optional.empty();
+        if ( authorNode.getElementsByTagName("MIDDLENAME").getLength() == 1 ) {
+            middleName = Optional.of(authorNode.getElementsByTagName("MIDDLENAME").item(0).getTextContent());
+        } else if ( authorNode.getElementsByTagName("MIDDLENAME").getLength() != 0 ) {
+            throw new UnsupportedOperationException("Wrong number of MIDDLENAME nodes");
+        }
+
+        Optional<String> lastName = Optional.empty();
+        if ( authorNode.getElementsByTagName("LASTNAME").getLength() == 1 ) {
+            lastName = Optional.of(authorNode.getElementsByTagName("LASTNAME").item(0).getTextContent());
+        } else if ( authorNode.getElementsByTagName("LASTNAME").getLength() != 0 ) {
+            throw new UnsupportedOperationException("Wrong number of LASTNAME nodes");
+        }
+
+        Optional<String> nameSuffix = Optional.empty();
+        if ( authorNode.getElementsByTagName("NAMESUFFIX").getLength() == 1 ) {
+            nameSuffix = Optional.of(authorNode.getElementsByTagName("NAMESUFFIX").item(0).getTextContent());
+        } else if ( authorNode.getElementsByTagName("NAMESUFFIX").getLength() != 0 ) {
+            throw new UnsupportedOperationException("Wrong number of NAMESUFFIX nodes");
+        }
+
+        Optional<String> givenName = Optional.empty();
+        if ( authorNode.getElementsByTagName("GIVENNAME").getLength() == 1 ) {
+            givenName = Optional.of(authorNode.getElementsByTagName("GIVENNAME").item(0).getTextContent());
+        } else if ( authorNode.getElementsByTagName("GIVENNAME").getLength() != 0 ) {
+            throw new UnsupportedOperationException("Wrong number of GIVENNAME nodes");
+        }
+
+        return new AuthorData(namePrefix, firstName, middleName, lastName, nameSuffix, givenName);
     }
 }

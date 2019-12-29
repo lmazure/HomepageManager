@@ -51,43 +51,43 @@ public class Reporter {
                     out.write(",");                    
                 }
                 out.write("\n    {");
-                if (author.getNamePrefix() != null) {
-                    out.write("\n      \"namePrefix\" : \"" + jsonEscape(author.getNamePrefix()) +"\"");
+                if (author.getNamePrefix().isPresent()) {
+                    out.write("\n      \"namePrefix\" : \"" + jsonEscape(author.getNamePrefix().get()) +"\"");
                     isAComponentWritten = true;
                 }
-                if (author.getFirstName() != null) {
+                if (author.getFirstName().isPresent()) {
                     if (isAComponentWritten) {
                         out.write(",");
                     }
-                    out.write("\n      \"firstName\" : \"" + jsonEscape(author.getFirstName()) +"\"");
+                    out.write("\n      \"firstName\" : \"" + jsonEscape(author.getFirstName().get()) +"\"");
                     isAComponentWritten = true;
                 }
-                if (author.getMiddleName() != null) {
+                if (author.getMiddleName().isPresent()) {
                     if (isAComponentWritten) {
                         out.write(",");
                     }
-                    out.write("\n      \"middleName\" : \"" + jsonEscape(author.getMiddleName()) +"\"");
+                    out.write("\n      \"middleName\" : \"" + jsonEscape(author.getMiddleName().get()) +"\"");
                     isAComponentWritten = true;
                 }
-                if (author.getLastName() != null) {
+                if (author.getLastName().isPresent()) {
                     if (isAComponentWritten) {
                         out.write(",");
                     }
-                    out.write("\n      \"lastName\" : \"" + jsonEscape(author.getLastName()) +"\"");
+                    out.write("\n      \"lastName\" : \"" + jsonEscape(author.getLastName().get()) +"\"");
                     isAComponentWritten = true;
                 }
-                if (author.getNameSuffix() != null) {
+                if (author.getNameSuffix().isPresent()) {
                     if (isAComponentWritten) {
                         out.write(",");
                     }
-                    out.write("\n      \"nameSuffix\" : \"" + jsonEscape(author.getNameSuffix()) +"\"");
+                    out.write("\n      \"nameSuffix\" : \"" + jsonEscape(author.getNameSuffix().get()) +"\"");
                     isAComponentWritten = true;
                 }
-                if (author.getGivenName() != null) {
+                if (author.getGivenName().isPresent()) {
                     if (isAComponentWritten) {
                         out.write(",");
                     }
-                    out.write("\n      \"givenName\" : \"" + author.getGivenName() +"\"");
+                    out.write("\n      \"givenName\" : \"" + jsonEscape(author.getGivenName().get()) +"\"");
                     isAComponentWritten = true;
                 }
                 if (author.getLinks().length > 0) {
@@ -184,26 +184,26 @@ public class Reporter {
             if (j != 0) {
                 out.write(", ");
             }
-            out.write("\n        {\n          \"url\" : \"" + jsonEscape(link.getURL()) + "\",\n");                         
+            out.write("\n        {\n          \"url\" : \"" + jsonEscape(link.getUrl()) + "\",\n");                         
             out.write("          \"title\" : \"" + jsonEscape(link.getTitle()) + "\",\n");
-            if (link.getSubtitle() != null) {
-                out.write("          \"subtitle\" : \"" + jsonEscape(link.getSubtitle()) + "\",\n");                         
+            if (link.getSubtitle().isPresent()) {
+                out.write("          \"subtitle\" : \"" + jsonEscape(link.getSubtitle().get()) + "\",\n");                         
             }
-            if (link.getDurationSecond() != null) {
+            if (link.getDurationSecond().isPresent()) {
                 out.write("          \"duration\" : [");
-                if (link.getDurationMinute() != null) {
-                    if (link.getDurationHour() != null) {
-                        out.write(link.getDurationHour() + ", ");
+                if (link.getDurationMinute().isPresent()) {
+                    if (link.getDurationHour().isPresent()) {
+                        out.write(link.getDurationHour().get() + ", ");
                     }
-                    out.write(link.getDurationMinute() + ", ");
+                    out.write(link.getDurationMinute().get() + ", ");
                 }
-                out.write(link.getDurationSecond() + "],\n");
+                out.write(link.getDurationSecond().get() + "],\n");
             }
-            if (link.getStatus() != null) {
-                out.write("          \"status\" : \"" + link.getStatus() + "\",\n");                         
+            if (link.getStatus().isPresent()) {
+                out.write("          \"status\" : \"" + link.getStatus().get() + "\",\n");                         
             }
-            if (link.getProtection() != null) {
-                out.write("          \"protection\" : \"" + link.getProtection() + "\",\n");                         
+            if (link.getProtection().isPresent()) {
+                out.write("          \"protection\" : \"" + link.getProtection().get() + "\",\n");                         
             }
             out.write("          \"formats\" : [");                         
             for (int k = 0; k < link.getFormats().length; k++) {

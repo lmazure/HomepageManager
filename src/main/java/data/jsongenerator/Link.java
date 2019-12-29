@@ -1,22 +1,11 @@
 package data.jsongenerator;
 
-/**
- * @author Laurent
- *
- */
-public class Link implements Comparable<Link> {
+import java.util.Optional;
+
+import utils.xmlparsing.LinkData;
+
+public class Link extends LinkData implements Comparable<Link> {
 	
-	private final Article a_article;
-	private final String a_title;
-	private final String a_subtitle;
-	private final String a_URL;
-	private final String a_status;
-	private final String a_protection;
-	private final String a_formats[];
-	private final String a_languages[];
-	private final Integer a_durationHour; 
-	private final Integer a_durationMinute; 
-	private final Integer a_durationSecond;
 	private final String a_sortingKey;
 
 	/**
@@ -28,113 +17,25 @@ public class Link implements Comparable<Link> {
 	 * @param protection 
 	 * @param formats
 	 * @param languages
-	 * @param hour
-	 * @param minute
-	 * @param second
+	 * @param durationHour
+	 * @param durationMinute
+	 * @param durationSecond
 	 */
 	public Link(final Article article,
 			    final String title,
-			    final String subtitle,
+			    final Optional<String> subtitle,
 				final String url,
-				final String status,
-				final String protection,
+				final Optional<String> status,
+				final Optional<String> protection,
 				final String[] formats,
 				final String[] languages,
-				final Integer hour,
-				final Integer minute,
-				final Integer second) {
-		a_article = article;
-		a_title = title;
-		a_subtitle = subtitle;
-		a_URL = url;
-		a_status = status;
-		a_protection = protection;
-		a_formats = formats;
-		a_languages = languages;
-		a_durationHour = hour;
-		a_durationMinute = minute;
-		a_durationSecond = second;
+				final Optional<Integer> durationHour,
+				final Optional<Integer> durationMinute,
+				final Optional<Integer> durationSecond) {
+	    super(title, subtitle, url, status, protection, formats, languages, durationHour, durationMinute, durationSecond);
 		a_sortingKey = normalizeName(url);
 	}
 
-	/**
-	 * @return the article
-	 */
-	public Article getArticle() {
-		return a_article;
-	}
-
-	/**
-	 * @return the title
-	 */
-	public String getTitle() {
-		return a_title;
-	}
-
-	/**
-	 * @return the subtitle
-	 */
-	public String getSubtitle() {
-		return a_subtitle;
-	}
-
-	/**
-	 * @return the URL
-	 */
-	public String getURL() {
-		return a_URL;
-	}
-
-	/**
-	 * @return the status (dead, alive...)
-	 */
-	public String getStatus() {
-		return a_status;
-	}
-
-	/**
-	 * @return the protection (firewall, free_registration...)
-	 */
-	public String getProtection() {
-		return a_protection;
-	}
-
-	/**
-	 * @return the formats
-	 */
-	public String[] getFormats() {
-		return a_formats;
-	}
-
-	/**
-	 * @return the Languages
-	 */
-	public String[] getLanguages() {
-		return a_languages;
-	}
-
-
-	/**
-	 * @return the duration hour
-	 */
-	public Integer getDurationHour() {
-		return a_durationHour;
-	}
-
-	/**
-	 * @return the duration minute
-	 */
-	public Integer getDurationMinute() {
-		return a_durationMinute;
-	}
-	
-	/**
-	 * @return the duration second
-	 */
-	public Integer getDurationSecond() {
-		return a_durationSecond;
-	}
-	
 	/**
 	 * @return
 	 */
