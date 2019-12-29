@@ -12,6 +12,7 @@ import data.LinkChecker;
 import data.NodeValueChecker;
 import data.SiteFilesGenerator;
 import data.jsongenerator.JsonGenerator;
+import data.jsongenerator2.JsonGenerator2;
 import javafx.application.Application;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -137,6 +138,7 @@ public class FileTable extends Application {
     private void generateGlobalFiles() {        
         SiteFilesGenerator.generate(_homepagePath, _list.getFileList());
         JsonGenerator.generate(_homepagePath, _list.getFileList());
+        JsonGenerator2.generate(_homepagePath, _list.getFileList());
     }
     
     private void exit() {
