@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class XmlParser {
@@ -112,5 +111,34 @@ public class XmlParser {
         }
 
         return new AuthorData(namePrefix, firstName, middleName, lastName, nameSuffix, givenName);
+    }
+
+    public static DateData parseDateNode(final Element dateNode) {
+
+        Integer dateYear = 0;
+        final NodeList dateYearNodes = dateNode.getElementsByTagName("YEAR");
+        if (dateYearNodes.getLength() == 1) {
+            dateYear = Integer.parseInt(dateYearNodes.item(0).getTextContent());
+        } else {
+            throw new UnsupportedOperationException("Wrong number of YEAR nodes");
+        }
+
+        Optional<Integer> dateMonth = Optional.empty();
+        final NodeList dateMonthNodes = dateNode.getElementsByTagName("MONTH");
+        if (dateMonthNodes.getLength() == 1) {
+            dateMonth = Optional.of(Integer.parseInt(dateMonthNodes.item(0).getTextContent()));
+        } else if (dateMonthNodes.getLength() > 1) {
+            throw new UnsupportedOperationException("Wrong number of MONTH nodes");
+        }
+        
+        Optional<Integer> dateDay = Optional.empty();
+        final NodeList dateDayNodes = dateNode.getElementsByTagName("DAY");
+        if (dateDayNodes.getLength() == 1) {
+            dateDay = Optional.of(Integer.parseInt(dateDayNodes.item(0).getTextContent()));
+        } else if (dateDayNodes.getLength() > 1) {
+            throw new UnsupportedOperationException("Wrong number of DAY nodes");
+        }
+
+        return new DateData(dateYear, dateMonth, dateDay);
     }
 }

@@ -8,10 +8,6 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.HashMap;
 
-/**
- * @author Laurent
- *
- */
 public class Reporter {
 
 	private final ArticleFactory a_articleFactory;
@@ -140,12 +136,12 @@ public class Reporter {
                  out.write("\n    {");
                  printLinks(out, article.getLinks());
                  out.write(",");
-                 if (article.getDateYear() != null) {
-                     out.write("\n      \"date\" : [" + article.getDateYear());
-                     if (article.getDateMonth() != null) {
-                         out.write(", " + article.getDateMonth());
-                         if (article.getDateDay() != null) {
-                             out.write(", " + article.getDateDay());
+                 if (article.getDateData().isPresent()) {
+                     out.write("\n      \"date\" : [" + article.getDateData().get().getDateYear());
+                     if (article.getDateData().get().getDateMonth().isPresent()) {
+                         out.write(", " + article.getDateData().get().getDateMonth().get());
+                         if (article.getDateData().get().getDateDay().isPresent()) {
+                             out.write(", " + article.getDateData().get().getDateDay().get());
                          }
                      }
                      out.write("],");

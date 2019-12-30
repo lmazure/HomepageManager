@@ -4,10 +4,6 @@ import java.io.File;
 import java.nio.file.Path;
 import java.util.List;
 
-/**
- * @author Laurent
- *
- */
 public class JsonGenerator {
 
 	private final ArticleFactory a_articleFactory;

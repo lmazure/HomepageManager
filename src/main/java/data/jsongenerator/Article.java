@@ -3,34 +3,21 @@ package data.jsongenerator;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
-/**
- * @author Laurent
- *
- */
+import utils.xmlparsing.DateData;
+
 public class Article {
 
 	private final File a_referringPage;
-	private final Integer a_dateYear;
-	private final Integer a_dateMonth;
-	private final Integer a_dateDay;
+	private final Optional<DateData> _dateData;
 	private final ArrayList<Author> a_authors;
 	private final ArrayList<Link> a_links;
 	
-	/**
-	 * @param page
-	 * @param year
-	 * @param month
-	 * @param day
-	 */
 	public Article(final File page,
-			       final Integer year,
-			       final Integer month,
-			       final Integer day) {
+			       final Optional<DateData> dateData) {
 		a_referringPage = page;
-		a_dateYear = year;
-		a_dateMonth = month;
-		a_dateDay = day;
+		_dateData = dateData;
 		a_authors = new ArrayList<Author>();
 		a_links = new ArrayList<Link>();
 	}
@@ -42,25 +29,8 @@ public class Article {
 		return a_referringPage;
 	}
 
-	/**
-	 * @return the dateYear
-	 */
-	public Integer getDateYear() {
-		return a_dateYear;
-	}
-
-	/**
-	 * @return the dateMonth
-	 */
-	public Integer getDateMonth() {
-		return a_dateMonth;
-	}
-
-	/**
-	 * @return the dateDay
-	 */
-	public Integer getDateDay() {
-		return a_dateDay;
+	public Optional<DateData> getDateData() {
+		return _dateData;
 	}
 
 	/**

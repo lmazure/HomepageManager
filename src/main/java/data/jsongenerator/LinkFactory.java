@@ -5,10 +5,6 @@ import java.util.HashSet;
 
 import utils.xmlparsing.LinkData;
 
-/**
- * @author Laurent
- *
- */
 public class LinkFactory {
 
 	private final HashSet<Link> a_links;

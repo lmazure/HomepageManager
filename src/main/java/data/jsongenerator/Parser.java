@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import javax.xml.parsers.DocumentBuilder;
 
@@ -15,14 +16,10 @@ import org.xml.sax.SAXException;
 
 import utils.XMLHelper;
 import utils.xmlparsing.AuthorData;
+import utils.xmlparsing.DateData;
 import utils.xmlparsing.LinkData;
 import utils.xmlparsing.XmlParser;
 
-
-/**
- * @author Laurent
- *
- */
 public class Parser {
 
 	private final DocumentBuilder a_builder;
@@ -77,36 +74,16 @@ public class Parser {
 
 			final Element articleNode = (Element)list.item(i);
 
-			Integer dateYear=null, dateMonth=null, dateDay=null;
-			
 			final NodeList dateNodes =  articleNode.getElementsByTagName("DATE");
 			
+			Optional<DateData> dateData = Optional.empty();
             if (dateNodes.getLength() == 1) {
-            	final Element dateNode = (Element)dateNodes.item(0);
-            	
-				final NodeList dateYearNodes = dateNode.getElementsByTagName("YEAR");
-				if (dateYearNodes.getLength() == 1) {
-					dateYear = Integer.parseInt(dateYearNodes.item(0).getTextContent());
-				} else {
-                    throw new UnsupportedOperationException("Wrong number of YEAR nodes in file " + file.getPath());
-				}
-				final NodeList dateMonthNodes = dateNode.getElementsByTagName("MONTH");
-				if (dateMonthNodes.getLength() == 1) {
-					dateMonth = Integer.parseInt(dateMonthNodes.item(0).getTextContent());
-				} else if (dateMonthNodes.getLength() > 1) {
-                    throw new UnsupportedOperationException("Wrong number of MONTH nodes in file " + file.getPath());
-                }
-				final NodeList dateDayNodes = dateNode.getElementsByTagName("DAY");
-				if (dateDayNodes.getLength() == 1) {
-					dateDay = Integer.parseInt(dateDayNodes.item(0).getTextContent());
-				} else if (dateDayNodes.getLength() > 1) {
-                    throw new UnsupportedOperationException("Wrong number of DAY nodes in file " + file.getPath());
-                }
-				
-				validateDate(file, dateYear, dateMonth, dateDay);
+                final DateData dt = XmlParser.parseDateNode((Element)dateNodes.item(0));
+            	dateData = Optional.of(dt);				
+				validateDate(file, dt);
 			}
             
-            final Article article = a_articleFactory.buildArticle(file, dateYear, dateMonth, dateDay);
+            final Article article = a_articleFactory.buildArticle(file, dateData);
             
 			final NodeList linkNodes =  articleNode.getChildNodes();
 
@@ -207,16 +184,17 @@ public class Parser {
      * @param dateMonth
      * @param dateDay
      */
-    private void validateDate(final File file, Integer dateYear, Integer dateMonth, Integer dateDay) {
+    private void validateDate(final File file, final DateData dateData) {
+        
         try {
-            final LocalDateTime date = LocalDateTime.of(dateYear,
-                                                        (dateMonth != null) ? dateMonth : 1,
-                                                        (dateDay != null) ? dateDay : 1,
+            final LocalDateTime date = LocalDateTime.of(dateData.getDateYear(),
+                                                        dateData.getDateMonth().orElse(1),
+                                                        dateData.getDateDay().orElse(1),
                                                         0,
                                                         0);
-            if ((date.getYear() != dateYear) ||
-                ((dateMonth != null) && (date.getMonthValue() != dateMonth)) ||
-                ((dateDay != null) && (date.getDayOfMonth() != dateDay))) {
+            if ((date.getYear() != dateData.getDateYear()) ||
+                (date.getMonthValue() != dateData.getDateMonth().orElse(1)) ||
+                (date.getDayOfMonth() != dateData.getDateDay().orElse(1))) {
                 throw new UnsupportedOperationException("Invalid values for DATE node in file " + file.getPath());
             }
         } catch (final DateTimeException e) {
