@@ -12,7 +12,7 @@ public class Main {
     
     public static void main(final String[] args) {
         
-        if ((args.length < 2) || args.length > 3) {
+        if ((args.length < 2) || (args.length > 3)) {
             exitOnErrorSyntax();
         }
  

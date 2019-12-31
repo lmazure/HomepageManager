@@ -11,15 +11,15 @@ public class Article {
 
 	private final File a_referringPage;
 	private final Optional<DateData> _dateData;
-	private final ArrayList<Author> a_authors;
-	private final ArrayList<Link> a_links;
+	private final ArrayList<Author> _authors;
+	private final ArrayList<Link> _links;
 	
 	public Article(final File page,
 			       final Optional<DateData> dateData) {
 		a_referringPage = page;
 		_dateData = dateData;
-		a_authors = new ArrayList<Author>();
-		a_links = new ArrayList<Link>();
+		_authors = new ArrayList<Author>();
+		_links = new ArrayList<Link>();
 	}
 
 	/**
@@ -37,14 +37,14 @@ public class Article {
 	 * @param author
 	 */
 	public void addAuthor(final Author author) {
-		a_authors.add(author);
+		_authors.add(author);
 	}
 	
 	/**
 	 * @return
 	 */
 	public Author[] getAuthors() {
-		Author a[] = a_authors.toArray(new Author[0]);
+		Author a[] = _authors.toArray(new Author[0]);
 		Arrays.sort(a);
 		return a;
 	}
@@ -53,14 +53,14 @@ public class Article {
 	 * @param link
 	 */
 	public void addLink(final Link link) {
-		a_links.add(link);
+		_links.add(link);
 	}
 	
 	/**
 	 * @return
 	 */
 	public Link[] getLinks() {
-		Link a[] = a_links.toArray(new Link[0]);
+		Link a[] = _links.toArray(new Link[0]);
 		Arrays.sort(a);
 		return a;
 	}

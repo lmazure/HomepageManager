@@ -24,7 +24,7 @@ public class Link extends LinkData implements Comparable<Link> {
 	 */
 	public Link(final Article article,
 			    final String title,
-			    final Optional<String> subtitle,
+			    final Optional<String> subtitle, // TODO should be String[]
 				final String url,
 				final Optional<String> status,
 				final Optional<String> protection,

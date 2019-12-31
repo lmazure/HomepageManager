@@ -27,5 +27,4 @@ public class DurationData {
     public Optional<Integer> getHours() {
         return _hours;
     }
-
 }

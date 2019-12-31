@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import javax.xml.parsers.DocumentBuilder;
 
@@ -15,6 +14,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import utils.XMLHelper;
+import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.DateData;
 import utils.xmlparsing.LinkData;
@@ -73,39 +73,22 @@ public class Parser {
 		for (int i=0; i<list.getLength(); i++) {
 
 			final Element articleNode = (Element)list.item(i);
-
-			final NodeList dateNodes =  articleNode.getElementsByTagName("DATE");
 			
-			Optional<DateData> dateData = Optional.empty();
-            if (dateNodes.getLength() == 1) {
-                final DateData dt = XmlParser.parseDateNode((Element)dateNodes.item(0));
-            	dateData = Optional.of(dt);				
-				validateDate(file, dt);
+			final ArticleData articleData = XmlParser.parseArticleNode(articleNode);
+
+			if (articleData.getDate().isPresent()) {
+				validateDate(file, articleData.getDate().get());
 			}
             
-            final Article article = a_articleFactory.buildArticle(file, dateData);
+            final Article article = a_articleFactory.buildArticle(file, articleData.getDate());
             
-			final NodeList linkNodes =  articleNode.getChildNodes();
-
-			for (int j=0; j<linkNodes.getLength(); j++) {
-				
-				if ( linkNodes.item(j).getNodeType() != Node.ELEMENT_NODE ) continue;
-            	final Element linkNode = (Element)linkNodes.item(j);
-                if ( linkNode.getTagName().compareTo("X") != 0 ) continue;
-    
-                final LinkData linkData = XmlParser.parseXNode(linkNode);
-	            final Link link = a_linkFactory.newLink(article, linkData);
-				
-				article.addLink(link);
+            for (int j = 0; j < articleData.getLinks().size(); j++) {
+	            final Link link = a_linkFactory.newLink(article, articleData.getLinks().get(j));
+	            article.addLink(link);
 			}
 
-			final NodeList authorNodes =  articleNode.getElementsByTagName("AUTHOR");
-
-			for (int j=0; j<authorNodes.getLength(); j++) {
-				
-            	final Element authorNode = (Element)authorNodes.item(j);
-    			final AuthorData authorData = XmlParser.parseAuthorNode(authorNode);
-            	final Author author = a_authorFactory.buildAuthor(authorData);
+            for (int j = 0; j < articleData.getAuthors().size(); j++) {
+            	final Author author = a_authorFactory.buildAuthor(articleData.getAuthors().get(j));
             	author.addArticle(article);
 				article.addAuthor(author);
 			}

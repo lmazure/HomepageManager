@@ -13,9 +13,8 @@ public class LinkData {
     private final String _languages[];
     private final Optional<DurationData> _duration; 
 
-
     public LinkData(final String title,
-                    final Optional<String> subtitle,
+                    final Optional<String> subtitle, // TODO should be String[]
                     final String url,
                     final Optional<String> status,
                     final Optional<String> protection,
@@ -32,58 +31,34 @@ public class LinkData {
         _duration = duration;
     }
 
-    /**
-     * @return the title
-     */
     public String getTitle() {
         return _title;
     }
 
-    /**
-     * @return the subtitle
-     */
     public Optional<String> getSubtitle() {
         return _subtitle;
     }
 
-    /**
-     * @return the URL
-     */
     public String getUrl() {
         return _url;
     }
 
-    /**
-     * @return the status
-     */
     public Optional<String> getStatus() {
         return _status;
     }
 
-    /**
-     * @return the protection
-     */
     public Optional<String> getProtection() {
         return _protection;
     }
 
-    /**
-     * @return the formats
-     */
     public String[] getFormats() {
         return _formats;
     }
 
-    /**
-     * @return the languages
-     */
     public String[] getLanguages() {
         return _languages;
     }
 
-    /**
-     * @return the duration
-     */
     public Optional<DurationData> getDuration() {
         return _duration;
     }
