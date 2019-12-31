@@ -11,9 +11,7 @@ public class LinkData {
     private final Optional<String> _protection;
     private final String _formats[];
     private final String _languages[];
-    private final Optional<Integer> _durationHour; 
-    private final Optional<Integer> _durationMinute; 
-    private final Optional<Integer> _durationSecond;
+    private final Optional<DurationData> _duration; 
 
 
     public LinkData(final String title,
@@ -23,9 +21,7 @@ public class LinkData {
                     final Optional<String> protection,
                     final String formats[],
                     final String languages[],
-                    final Optional<Integer> durationHour, 
-                    final Optional<Integer> durationMinute, 
-                    final Optional<Integer> durationSecond) {
+                    final Optional<DurationData> duration) {
         _title = title;
         _subtitle = subtitle;
         _url = url;
@@ -33,9 +29,7 @@ public class LinkData {
         _protection = protection;
         _formats = formats;
         _languages = languages;
-        _durationHour = durationHour;
-        _durationMinute = durationMinute;
-        _durationSecond = durationSecond;
+        _duration = duration;
     }
 
     /**
@@ -88,23 +82,9 @@ public class LinkData {
     }
 
     /**
-     * @return the durationHour
+     * @return the duration
      */
-    public Optional<Integer> getDurationHour() {
-        return _durationHour;
-    }
-
-    /**
-     * @return the durationMinute
-     */
-    public Optional<Integer> getDurationMinute() {
-        return _durationMinute;
-    }
-
-    /**
-     * @return the durationSecond
-     */
-    public Optional<Integer> getDurationSecond() {
-        return _durationSecond;
+    public Optional<DurationData> getDuration() {
+        return _duration;
     }
 }

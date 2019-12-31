@@ -40,9 +40,7 @@ public class LinkFactory {
 		                           linkData.getProtection(),
 		                           linkData.getFormats(),
 		                           linkData.getLanguages(),
-		                           linkData.getDurationHour(), 
-		                           linkData.getDurationMinute(),
-		                           linkData.getDurationSecond());
+		                           linkData.getDuration());
 		a_links.add(link);
 		return link;
 	}

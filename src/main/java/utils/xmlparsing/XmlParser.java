@@ -31,28 +31,31 @@ public class XmlParser {
         for (int k = 0; k < formatNodes.getLength(); k++ ) {
             formats[k] = ((Element)formatNodes.item(k)).getTextContent();
         }
-
-        Optional<Integer> durationHour = Optional.empty();
-        Optional<Integer> durationMinute = Optional.empty();
-        Optional<Integer> durationSecond = Optional.empty();
         
         final NodeList durationNodes =  linkNode.getElementsByTagName("DURATION");
         
+        Optional<DurationData> duration = Optional.empty();
         if ( durationNodes.getLength()==1 ) {
             final Element durationNode = (Element)durationNodes.item(0);
             
+            Optional<Integer> durationHour = Optional.empty();
             final NodeList durationHourNodes = durationNode.getElementsByTagName("HOUR");
             if (durationHourNodes.getLength() == 1) {
                 durationHour = Optional.of(Integer.parseInt(durationHourNodes.item(0).getTextContent()));
             }
+
+            Optional<Integer> durationMinute = Optional.empty();
             final NodeList durationMinuteNodes = durationNode.getElementsByTagName("MINUTE");
             if (durationMinuteNodes.getLength() == 1) {
                 durationMinute = Optional.of(Integer.parseInt(durationMinuteNodes.item(0).getTextContent()));
             }
+
+            Integer durationSecond = 0;
             final NodeList durationSecondNodes = durationNode.getElementsByTagName("SECOND");
             if (durationSecondNodes.getLength() == 1) {
-                durationSecond = Optional.of(Integer.parseInt(durationSecondNodes.item(0).getTextContent()));
+                durationSecond = Integer.parseInt(durationSecondNodes.item(0).getTextContent());
             }
+            duration = Optional.of(new DurationData(durationSecond, durationMinute, durationHour));
         }
         
         final Attr statusAttribute = linkNode.getAttributeNode("status");
@@ -63,7 +66,7 @@ public class XmlParser {
         final Optional<String> protection = (protectionAttribute != null) ? Optional.of(protectionAttribute.getValue())
                                                                           : Optional.empty();
 
-        return new LinkData(title, subtitle, url, status, protection, formats, languages, durationHour, durationMinute, durationSecond);
+        return new LinkData(title, subtitle, url, status, protection, formats, languages, duration);
     }
     
     public static AuthorData parseAuthorNode(final Element authorNode) {

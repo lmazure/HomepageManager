@@ -137,11 +137,11 @@ public class Reporter {
                  printLinks(out, article.getLinks());
                  out.write(",");
                  if (article.getDateData().isPresent()) {
-                     out.write("\n      \"date\" : [" + article.getDateData().get().getDateYear());
-                     if (article.getDateData().get().getDateMonth().isPresent()) {
-                         out.write(", " + article.getDateData().get().getDateMonth().get());
-                         if (article.getDateData().get().getDateDay().isPresent()) {
-                             out.write(", " + article.getDateData().get().getDateDay().get());
+                     out.write("\n      \"date\" : [" + article.getDateData().get().getYear());
+                     if (article.getDateData().get().getMonth().isPresent()) {
+                         out.write(", " + article.getDateData().get().getMonth().get());
+                         if (article.getDateData().get().getDay().isPresent()) {
+                             out.write(", " + article.getDateData().get().getDay().get());
                          }
                      }
                      out.write("],");
@@ -185,15 +185,15 @@ public class Reporter {
             if (link.getSubtitle().isPresent()) {
                 out.write("          \"subtitle\" : \"" + jsonEscape(link.getSubtitle().get()) + "\",\n");                         
             }
-            if (link.getDurationSecond().isPresent()) {
+            if (link.getDuration().isPresent()) {
                 out.write("          \"duration\" : [");
-                if (link.getDurationMinute().isPresent()) {
-                    if (link.getDurationHour().isPresent()) {
-                        out.write(link.getDurationHour().get() + ", ");
+                if (link.getDuration().get().getMinutes().isPresent()) {
+                    if (link.getDuration().get().getHours().isPresent()) {
+                        out.write(link.getDuration().get().getHours().get() + ", ");
                     }
-                    out.write(link.getDurationMinute().get() + ", ");
+                    out.write(link.getDuration().get().getMinutes().get() + ", ");
                 }
-                out.write(link.getDurationSecond().get() + "],\n");
+                out.write(link.getDuration().get().getSeconds() + "],\n");
             }
             if (link.getStatus().isPresent()) {
                 out.write("          \"status\" : \"" + link.getStatus().get() + "\",\n");                         

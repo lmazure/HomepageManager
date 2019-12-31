@@ -2,6 +2,7 @@ package data.jsongenerator;
 
 import java.util.Optional;
 
+import utils.xmlparsing.DurationData;
 import utils.xmlparsing.LinkData;
 
 public class Link extends LinkData implements Comparable<Link> {
@@ -29,10 +30,8 @@ public class Link extends LinkData implements Comparable<Link> {
 				final Optional<String> protection,
 				final String[] formats,
 				final String[] languages,
-				final Optional<Integer> durationHour,
-				final Optional<Integer> durationMinute,
-				final Optional<Integer> durationSecond) {
-	    super(title, subtitle, url, status, protection, formats, languages, durationHour, durationMinute, durationSecond);
+				final Optional<DurationData> duration) {
+	    super(title, subtitle, url, status, protection, formats, languages, duration);
 		a_sortingKey = normalizeName(url);
 	}
 

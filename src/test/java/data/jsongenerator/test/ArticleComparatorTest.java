@@ -22,9 +22,9 @@ class ArticleComparatorTest {
         final String[] formats = { "HTML" };
         final String[] languages = { "HTML" };
         final Article data1 = new Article(new File(""), Optional.of(new DateData(2000, Optional.of(1), Optional.of(1))));
-        data1.addLink(new Link(data1, "aa", null, "url", null, null, formats, languages, null, null, null) );
+        data1.addLink(new Link(data1, "aa", null, "url", null, null, formats, languages, Optional.empty()) );
         final Article data2 = new Article(new File(""), Optional.of(new DateData(2000, Optional.of(1), Optional.of(1))));
-        data2.addLink(new Link(data2, "ab", null, "url", null, null, formats, languages, null, null, null) );
+        data2.addLink(new Link(data2, "ab", null, "url", null, null, formats, languages, Optional.empty()) );
         final ArticleComparator comparator = new ArticleComparator();
         
         // --- act ---
@@ -41,9 +41,9 @@ class ArticleComparatorTest {
         final String[] formats = { "HTML" };
         final String[] languages = { "HTML" };
         final Article data1 = new Article(new File(""), Optional.of(new DateData(2000, Optional.of(1), Optional.of(1))));
-        data1.addLink(new Link(data1, "a a", null, "url", null, null, formats, languages, null, null, null) );
+        data1.addLink(new Link(data1, "a a", null, "url", null, null, formats, languages, Optional.empty()) );
         final Article data2 = new Article(new File(""), Optional.of(new DateData(2000, Optional.of(1), Optional.of(1))));
-        data2.addLink(new Link(data2, "aa", null, "url", null, null, formats, languages, null, null, null) );
+        data2.addLink(new Link(data2, "aa", null, "url", null, null, formats, languages, Optional.empty()) );
         final ArticleComparator comparator = new ArticleComparator();
         
         // --- act ---
@@ -60,9 +60,9 @@ class ArticleComparatorTest {
         final String[] formats = { "HTML" };
         final String[] languages = { "HTML" };
         final Article data1 = new Article(new File(""), Optional.of(new DateData(2000, Optional.of(1), Optional.of(1))));
-        data1.addLink(new Link(data1, "a a", null, "url", null, null, formats, languages, null, null, null) );
+        data1.addLink(new Link(data1, "a a", null, "url", null, null, formats, languages, Optional.empty()) );
         final Article data2 = new Article(new File(""), Optional.of(new DateData(2000, Optional.of(1), Optional.of(1))));
-        data2.addLink(new Link(data2, "aØ", null, "url", null, null, formats, languages, null, null, null) );
+        data2.addLink(new Link(data2, "aØ", null, "url", null, null, formats, languages, Optional.empty()) );
         final ArticleComparator comparator = new ArticleComparator();
         
         // --- act ---

@@ -4,37 +4,27 @@ import java.util.Optional;
 
 public class DateData {
 
-    private final Integer _dateYear;
-    private final Optional<Integer> _dateMonth;
-    private final Optional<Integer> _dateDay;
+    private final Integer _year;
+    private final Optional<Integer> _month;
+    private final Optional<Integer> _day;
     
-    public DateData(final Integer dateYear,
-                    final Optional<Integer> dateMonth,
-                    final Optional<Integer> dateDay) {
-        _dateYear = dateYear;
-        _dateMonth = dateMonth;
-        _dateDay = dateDay;
+    public DateData(final Integer year,
+                    final Optional<Integer> month,
+                    final Optional<Integer> day) {
+        _year = year;
+        _month = month;
+        _day = day;
     }
 
-    /**
-     * @return the dateYear
-     */
-    public Integer getDateYear() {
-        return _dateYear;
+    public Integer getYear() {
+        return _year;
     }
 
-    /**
-     * @return the dateMonth
-     */
-    public Optional<Integer> getDateMonth() {
-        return _dateMonth;
+    public Optional<Integer> getMonth() {
+        return _month;
     }
 
-    /**
-     * @return the dateDay
-     */
-    public Optional<Integer> getDateDay() {
-        return _dateDay;
+    public Optional<Integer> getDay() {
+        return _day;
     }
-
 }

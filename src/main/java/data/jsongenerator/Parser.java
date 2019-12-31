@@ -187,14 +187,14 @@ public class Parser {
     private void validateDate(final File file, final DateData dateData) {
         
         try {
-            final LocalDateTime date = LocalDateTime.of(dateData.getDateYear(),
-                                                        dateData.getDateMonth().orElse(1),
-                                                        dateData.getDateDay().orElse(1),
+            final LocalDateTime date = LocalDateTime.of(dateData.getYear(),
+                                                        dateData.getMonth().orElse(1),
+                                                        dateData.getDay().orElse(1),
                                                         0,
                                                         0);
-            if ((date.getYear() != dateData.getDateYear()) ||
-                (date.getMonthValue() != dateData.getDateMonth().orElse(1)) ||
-                (date.getDayOfMonth() != dateData.getDateDay().orElse(1))) {
+            if ((date.getYear() != dateData.getYear()) ||
+                (date.getMonthValue() != dateData.getMonth().orElse(1)) ||
+                (date.getDayOfMonth() != dateData.getDay().orElse(1))) {
                 throw new UnsupportedOperationException("Invalid values for DATE node in file " + file.getPath());
             }
         } catch (final DateTimeException e) {

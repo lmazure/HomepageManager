@@ -20,13 +20,13 @@ public  class ArticleDataComparator implements Comparator<Article> {
             if (date1.isEmpty()) {
                 return 1;
             }
-            if (date0.get().getDateYear() != date1.get().getDateYear()) {
-                return date0.get().getDateYear() - date1.get().getDateYear();
+            if (date0.get().getYear() != date1.get().getYear()) {
+                return date0.get().getYear() - date1.get().getYear();
             }
         }
         
-        final Optional<Integer> m0 = date0.get().getDateMonth();
-        final Optional<Integer> m1 = date1.get().getDateMonth();
+        final Optional<Integer> m0 = date0.get().getMonth();
+        final Optional<Integer> m1 = date1.get().getMonth();
         if (m0.isEmpty()) {
             if (m1.isPresent()) {
                 return -1;                
@@ -40,8 +40,8 @@ public  class ArticleDataComparator implements Comparator<Article> {
             }
         }
         
-        final Optional<Integer> d0 = date0.get().getDateDay();
-        final Optional<Integer> d1 = date1.get().getDateDay();
+        final Optional<Integer> d0 = date0.get().getDay();
+        final Optional<Integer> d1 = date1.get().getDay();
         if (d0.isEmpty()) {
             if (d1.isPresent()) {
                 return -1;                
