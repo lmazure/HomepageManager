@@ -47,7 +47,7 @@ public class Parser2 {
 	 */
 	public void parse(final File file) {
 		
-		System.out.println("parsing file " + file.getName());
+		//System.out.println("parsing file " + file.getName());
 		
 		try {
 			final Document document = a_builder.parse(file);

@@ -28,5 +28,4 @@ public class ArticleData {
     public List<LinkData> getLinks() {
         return _links;
     }
-
 }

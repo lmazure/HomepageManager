@@ -24,5 +24,7 @@
 - Ajouter la détection des malwares
 - Ajouter la règle sur les URLs qui apparaissent plusieurs fois
 - Accelérer la création des fichier JSON (en extrayant les données de chaque fichier à la modification de celui-ci, en mettant cela dans un fichier de résumé et en ayant la création des JSON qui ne fasse que consolider ces fichiers) 
-
+- ajouter la vérification des <FEED>s
+- ajouter support des multiples <ST>
+- ajouter support des multiples <MIDDLENAME>
 - HP : mettre en place le système des keywords

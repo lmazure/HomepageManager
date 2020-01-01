@@ -5,7 +5,7 @@ import java.util.Optional;
 public class LinkData {
 
     private final String _title;
-    private final Optional<String> _subtitle;
+    private final String _subtitles[];
     private final String _url;
     private final Optional<String> _status;
     private final Optional<String> _protection;
@@ -14,7 +14,7 @@ public class LinkData {
     private final Optional<DurationData> _duration; 
 
     public LinkData(final String title,
-                    final Optional<String> subtitle, // TODO should be String[]
+                    final String subtitles[],
                     final String url,
                     final Optional<String> status,
                     final Optional<String> protection,
@@ -22,7 +22,7 @@ public class LinkData {
                     final String languages[],
                     final Optional<DurationData> duration) {
         _title = title;
-        _subtitle = subtitle;
+        _subtitles = subtitles;
         _url = url;
         _status = status;
         _protection = protection;
@@ -35,8 +35,8 @@ public class LinkData {
         return _title;
     }
 
-    public Optional<String> getSubtitle() {
-        return _subtitle;
+    public String[] getSubtitles() {
+        return _subtitles;
     }
 
     public String getUrl() {

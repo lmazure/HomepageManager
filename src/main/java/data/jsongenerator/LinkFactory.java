@@ -34,7 +34,7 @@ public class LinkFactory {
 			            final LinkData linkData) {
 		final Link link = new Link(article,
 		                           linkData.getTitle(),
-		                           linkData.getSubtitle(),
+		                           linkData.getSubtitles(),
 		                           linkData.getUrl(),
 		                           linkData.getStatus(),
 		                           linkData.getProtection(),
@@ -49,7 +49,7 @@ public class LinkFactory {
 	 * @return sorted list of links
 	 */
 	public Link[] getLinks() {
-		Link a[] = a_links.toArray(new Link[0]);
+		final Link a[] = a_links.toArray(new Link[0]);
 		Arrays.sort(a);
 		return a;
 	}

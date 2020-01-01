@@ -274,8 +274,8 @@ public class LinkChecker implements FileHandler {
                         effectiveData.getHttpCode().isEmpty() ||
                         effectiveData.getHttpCode().get() != 200) {
                         pw.println("Title = " + expectedData.getTitle());
-                        if (expectedData.getSubtitle().isPresent()) {
-                            pw.println("Subtitle = " + expectedData.getSubtitle().get());
+                        if (expectedData.getSubtitles().length > 0) {
+                            pw.println("Subtitle = \"" + String.join("\" \"",  expectedData.getSubtitles()) + "\"");
                         }
                         pw.println("URL = " + url);
                         pw.println("Expected status = " + expectedData.getStatus().orElse(""));

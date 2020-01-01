@@ -46,7 +46,7 @@ public class Parser {
 	 */
 	public void parse(final File file) {
 		
-		System.out.println("parsing file " + file.getName());
+		//System.out.println("parsing file " + file.getName());
 		
 		try {
 			final Document document = a_builder.parse(file);
@@ -100,7 +100,7 @@ public class Parser {
      */
     public void parsePersonFile(final File file) {
         
-        System.out.println("parsing person file " + file.getName());
+        //System.out.println("parsing person file " + file.getName());
         
         try {
             final Document document = a_builder.parse(file);
@@ -161,11 +161,6 @@ public class Parser {
      * validate a DATE node
      * if the date is incorrect, throws a {@link UnsupportedOperationException}
      * if the date is correct, does nothing
-     * 
-     * @param file
-     * @param dateYear
-     * @param dateMonth
-     * @param dateDay
      */
     private void validateDate(final File file, final DateData dateData) {
         

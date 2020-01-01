@@ -13,14 +13,8 @@ public class Reporter {
 	private final ArticleFactory a_articleFactory;
 	private final AuthorFactory a_authorFactory;
 
-	/**
-	 * @param articleFactory
-	 * @param linkFactory
-	 * @param authorFactory
-	 */
-	public Reporter(
-	    final ArticleFactory articleFactory,
-	    final AuthorFactory authorFactory) {
+	public Reporter(final ArticleFactory articleFactory,
+	                final AuthorFactory authorFactory) {
 	    
 		a_articleFactory = articleFactory;
 		a_authorFactory = authorFactory;
@@ -30,7 +24,8 @@ public class Reporter {
      * @param root
      * @param pageName
      */
-    public void generateAuthorJson(final File root, final String pageName) {
+    public void generateAuthorJson(final File root,
+                                   final String pageName) {
 
         final String rootFileName = root.getAbsolutePath();
         final File f = new File(rootFileName + File.separator + pageName);
@@ -125,7 +120,6 @@ public class Reporter {
          try {
              final Article articles[] = a_articleFactory.getArticles();
   			 Arrays.sort(articles, new ArticleComparator());
-             //final BufferedWriter out = new BufferedWriter(new FileWriter(f));
              final OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(f),Charset.forName("UTF-8").newEncoder());
              out.write("{\n  \"articles\" : [");
              for (int i = 0; i < articles.length; i++) {
@@ -157,10 +151,10 @@ public class Reporter {
                      out.write("],");
                  }
                  final String page = article.getReferringPage()
-                                         .getAbsolutePath()
-                                         .substring(rootFileName.length() + 1)
-                                         .replace(File.separatorChar, '/')
-                                         .replaceFirst("\\.xml$", ".html");
+                                            .getAbsolutePath()
+                                            .substring(rootFileName.length() + 1)
+                                            .replace(File.separatorChar, '/')
+                                            .replaceFirst("\\.xml$", ".html");
                  out.write("\n      \"page\" : \"" + page +"\"\n    }");
              }
              out.write("\n  ]\n}");
@@ -175,15 +169,16 @@ public class Reporter {
 
     private void printLinks(final OutputStreamWriter out, final Link[] links) throws IOException {
         out.write("\n      \"links\" : [");
-        for (int j = 0; j < links.length; j++) {
-            final Link link = links[j];
-            if (j != 0) {
+        for (int i = 0; i < links.length; i++) {
+            final Link link = links[i];
+            if (i != 0) {
                 out.write(", ");
             }
             out.write("\n        {\n          \"url\" : \"" + jsonEscape(link.getUrl()) + "\",\n");                         
             out.write("          \"title\" : \"" + jsonEscape(link.getTitle()) + "\",\n");
-            if (link.getSubtitle().isPresent()) {
-                out.write("          \"subtitle\" : \"" + jsonEscape(link.getSubtitle().get()) + "\",\n");                         
+            if (link.getSubtitles().length > 0) {
+                // TODO all subtitles should be written
+                out.write("          \"subtitle\" : \"" + jsonEscape(link.getSubtitles()[0]) + "\",\n");                         
             }
             if (link.getDuration().isPresent()) {
                 out.write("          \"duration\" : [");

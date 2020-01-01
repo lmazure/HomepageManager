@@ -20,11 +20,10 @@ public class XmlParser {
         final String title = ((Element)titleNodes.item(0)).getTextContent();
 
         final NodeList subtitleNodes = xNode.getElementsByTagName("ST");
-        //if (subtitleNodes.getLength() > 1) {
-        //    throw new UnsupportedOperationException("Wrong number of ST nodes");
-        //}
-        final Optional<String> subtitle = (subtitleNodes.getLength() == 1) ? Optional.of(((Element)subtitleNodes.item(0)).getTextContent())
-                                                                           : Optional.empty();
+        final String subtitles[] = new String[subtitleNodes.getLength()];
+        for (int k = 0; k < subtitleNodes.getLength(); k++) {
+            subtitles[k] = ((Element)subtitleNodes.item(k)).getTextContent();
+        }
 
         final NodeList urlNodes = xNode.getElementsByTagName("A");
         if (urlNodes.getLength() != 1) {
@@ -66,7 +65,7 @@ public class XmlParser {
         final Optional<String> protection = (protectionAttribute != null) ? Optional.of(protectionAttribute.getValue())
                                                                           : Optional.empty();
 
-        return new LinkData(title, subtitle, url, status, protection, formats, languages, duration);
+        return new LinkData(title, subtitles, url, status, protection, formats, languages, duration);
     }
     
     public static AuthorData parseAuthorNode(final Element authorNode) {
@@ -186,9 +185,9 @@ public class XmlParser {
         final NodeList linkNodes =  articleNode.getChildNodes();
         final List<LinkData> links = new ArrayList<LinkData>();
         for (int i = 0; i < linkNodes.getLength(); i++) {            
-            if (linkNodes.item(i).getNodeType() != Node.ELEMENT_NODE ) continue;
+            if (linkNodes.item(i).getNodeType() != Node.ELEMENT_NODE) continue;
             final Element linkNode = (Element)linkNodes.item(i);
-            if ( linkNode.getTagName().compareTo("X") != 0 ) continue;
+            if (linkNode.getTagName().compareTo("X") != 0) continue;
             links.add(XmlParser.parseXNode(linkNode));
         }
 
