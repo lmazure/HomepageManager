@@ -177,8 +177,14 @@ public class Reporter {
             out.write("\n        {\n          \"url\" : \"" + jsonEscape(link.getUrl()) + "\",\n");                         
             out.write("          \"title\" : \"" + jsonEscape(link.getTitle()) + "\",\n");
             if (link.getSubtitles().length > 0) {
-                // TODO all subtitles should be written
-                out.write("          \"subtitle\" : \"" + jsonEscape(link.getSubtitles()[0]) + "\",\n");                         
+                out.write("          \"subtitle\" : \"" + jsonEscape(link.getSubtitles()[0]) + "\",\n");                                         //out.write("          \"subtitle\" : [");                         
+                //for (int k = 0; k < link.getSubtitles().length; k++) {
+                //    if (k != 0) {
+                //        out.write(", ");
+                //    }
+                //    out.write("\"" + jsonEscape(link.getSubtitles()[k]) + "\"");                                                  
+                //}
+                //out.write("],\n");                         
             }
             if (link.getDuration().isPresent()) {
                 out.write("          \"duration\" : [");
