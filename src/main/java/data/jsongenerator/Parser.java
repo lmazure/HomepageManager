@@ -148,7 +148,13 @@ public class Parser {
             for (int j = 0; j < clistNode.getElementsByTagName("ITEM").getLength(); j++) {
                 
                 final Element linkNode = (Element)clistNode.getElementsByTagName("ITEM").item(j);
-                final LinkData linkData = XmlParser.parseXNode(linkNode);
+                if (linkNode.getChildNodes().getLength() != 1) {
+                    throw new UnsupportedOperationException("Illegal number of children nodes");                    
+                }
+                if (!((Element)linkNode.getChildNodes().item(0)).getTagName().equals("X")) {
+                    throw new UnsupportedOperationException("Illegal child node");                    
+                }
+                final LinkData linkData = XmlParser.parseXNode((Element)linkNode.getChildNodes().item(0));
                 final Link link = a_linkFactory.newLink(null, linkData);
                 
                 author.addLink(link);

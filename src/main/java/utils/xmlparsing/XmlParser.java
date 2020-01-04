@@ -13,9 +13,13 @@ public class XmlParser {
     
     public static LinkData parseXNode(final Element xNode) {
         
+        if (!xNode.getTagName().equals("X")) {
+            throw new UnsupportedOperationException("parseXNode called with wrong node (" + xNode.getTagName() + ")");            
+        }
+        
         final NodeList titleNodes = xNode.getElementsByTagName("T");
         if (titleNodes.getLength() != 1) {
-            throw new UnsupportedOperationException("Wrong number of T nodes");
+            throw new UnsupportedOperationException("Wrong number of T nodes (" + titleNodes.getLength() + ") in \"" + xNode.getTextContent() + "\"");
         }
         final String title = ((Element)titleNodes.item(0)).getTextContent();
 
@@ -25,11 +29,11 @@ public class XmlParser {
             subtitles[k] = ((Element)subtitleNodes.item(k)).getTextContent();
         }
 
-        final NodeList urlNodes = xNode.getElementsByTagName("A");
-        if (urlNodes.getLength() != 1) {
-            throw new UnsupportedOperationException("Wrong number of A nodes");
+        final List<Element> urlNodes = getChildElements(xNode, "A");
+        if (urlNodes.size() != 1) {
+            throw new UnsupportedOperationException("Wrong number of A nodes (" + urlNodes.size() + ") in \"" + title + "\"");
         }
-        final String url = ((Element)urlNodes.item(0)).getTextContent();
+        final String url = urlNodes.get(0).getTextContent();
 
         final NodeList languageNodes = xNode.getElementsByTagName("L");
         if (languageNodes.getLength() == 0) {
@@ -69,6 +73,10 @@ public class XmlParser {
     }
     
     public static AuthorData parseAuthorNode(final Element authorNode) {
+        
+        if (!authorNode.getTagName().equals("AUTHOR")) {
+            throw new UnsupportedOperationException("parseAuthorNode called with wrong node (" + authorNode.getTagName() + ")");            
+        }
         
         Optional<String> namePrefix = Optional.empty();
         if (authorNode.getElementsByTagName("NAMEPREFIX").getLength() == 1) {
@@ -117,6 +125,10 @@ public class XmlParser {
 
     public static DateData parseDateNode(final Element dateNode) {
 
+        if (!dateNode.getTagName().equals("DATE")) {
+            throw new UnsupportedOperationException("parseDateNode called with wrong node (" + dateNode.getTagName() + ")");            
+        }
+        
         Integer year = 0;
         final NodeList yearNodes = dateNode.getElementsByTagName("YEAR");
         if (yearNodes.getLength() == 1) {
@@ -145,6 +157,10 @@ public class XmlParser {
     }
 
     public static DurationData parseDurationNode(final Element durationNode) {
+
+        if (!durationNode.getTagName().equals("DURATION")) {
+            throw new UnsupportedOperationException("parseDurationNode called with wrong node (" + durationNode.getTagName() + ")");            
+        }
 
         Integer seconds = 0;
         final NodeList secondsNodes = durationNode.getElementsByTagName("SECOND");
@@ -175,6 +191,10 @@ public class XmlParser {
 
     public static ArticleData parseArticleNode(final Element articleNode) {
         
+        if (!articleNode.getTagName().equals("ARTICLE")) {
+            throw new UnsupportedOperationException("parseArticleNode called with wrong node (" + articleNode.getTagName() + ")");            
+        }
+
         final NodeList dateNodes =  articleNode.getElementsByTagName("DATE");
         Optional<DateData> dateData = Optional.empty();
         if (dateNodes.getLength() == 1) {
@@ -182,12 +202,8 @@ public class XmlParser {
             dateData = Optional.of(dt);             
         }
         
-        final NodeList linkNodes =  articleNode.getChildNodes();
         final List<LinkData> links = new ArrayList<LinkData>();
-        for (int i = 0; i < linkNodes.getLength(); i++) {            
-            if (linkNodes.item(i).getNodeType() != Node.ELEMENT_NODE) continue;
-            final Element linkNode = (Element)linkNodes.item(i);
-            if (linkNode.getTagName().compareTo("X") != 0) continue;
+        for (final Element linkNode: getChildElements(articleNode, "X")) {
             links.add(XmlParser.parseXNode(linkNode));
         }
 
@@ -198,5 +214,23 @@ public class XmlParser {
         }
 
         return new ArticleData(dateData, authors, links);
+    }
+    
+    private static List<Element> getChildElements(final Element element,
+                                                  final String tag) {
+        
+        final List<Element> list = new ArrayList<Element>();
+        
+        final NodeList children =  element.getChildNodes();
+        for (int i = 0; i < children.getLength(); i++) {            
+            if (children.item(i).getNodeType() == Node.ELEMENT_NODE) {
+                final Element child = (Element)children.item(i);
+                if (child.getTagName().equals(tag)) {
+                    list.add(child);
+                }
+            }
+        }
+        
+        return list;
     }
 }
