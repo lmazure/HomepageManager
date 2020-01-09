@@ -3,6 +3,7 @@ package data;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -263,42 +264,87 @@ public class LinkChecker implements FileHandler {
             if (isDataFresh) {
                 _nbSitesRemainingToBeChecked--;
             }
-            
+
+            try {
+                writeOutputFile();
+               } catch (final Exception e) {
+                  final Path reportFile = getReportFile(_file);
+                  FileHelper.createParentDirectory(reportFile);
+                  try (final PrintStream reportWriter = new PrintStream(reportFile.toFile())) {
+                      e.printStackTrace(reportWriter);
+                  } catch (final IOException e2) {
+                      ExitHelper.exit(e2);
+                  }
+                  _controller.handleUpdate(_file, Status.FAILED_TO_HANDLED, getOutputFile(_file), getReportFile(_file));
+                  return;
+               }
+
             Status status = Status.HANDLED_WITH_SUCCESS;
+            for (final URL url : _effectiveData.keySet()) {
+                final LinkData expectedData = _expectedData.get(url);
+                final SiteData effectiveData = _effectiveData.get(url);
+                if (expectedData.getStatus().isPresent() ||
+                    effectiveData.getHttpCode().isEmpty() ||
+                    effectiveData.getHttpCode().get() != 200) {
+                    status = Status.HANDLED_WITH_SUCCESS; // TODO properly set the status
+                }
+            }
+            
+            if (isDataExpected()) {
+                status = (_nbSitesRemainingToBeChecked == 0) ? Status.HANDLED_WITH_SUCCESS : Status.HANDLING_NO_ERROR;
+            } else {
+                status = (_nbSitesRemainingToBeChecked == 0) ? Status.HANDLED_WITH_ERROR : Status.HANDLING_WITH_ERROR;                
+            }
+
+            System.out.println("URL " + siteData.getUrl() + " " + _nbSitesRemainingToBeChecked + " " + status);
+
+            _controller.handleUpdate(_file, status, getOutputFile(_file), getReportFile(_file));
+        }
+        
+        private void writeOutputFile() throws FileNotFoundException, IOException {
+
             try (final FileOutputStream os = new FileOutputStream(getOutputFile(_file).toFile());
                  final PrintWriter pw = new PrintWriter(os)) {
                 for (final URL url : _effectiveData.keySet()) {
                     final LinkData expectedData = _expectedData.get(url);
                     final SiteData effectiveData = _effectiveData.get(url);
-                    if (expectedData.getStatus().isPresent() ||
-                        effectiveData.getHttpCode().isEmpty() ||
-                        effectiveData.getHttpCode().get() != 200) {
-                        pw.println("Title = " + expectedData.getTitle());
-                        if (expectedData.getSubtitles().length > 0) {
-                            pw.println("Subtitle = \"" + String.join("\" \"",  expectedData.getSubtitles()) + "\"");
-                        }
-                        pw.println("URL = " + url);
-                        pw.println("Expected status = " + expectedData.getStatus().orElse(""));
-                        pw.println("Effective status = " + effectiveData.getStatus());
-                        pw.println("Effective HTTP code = " + effectiveData.getHttpCode().map(i -> i.toString()).orElse("---"));
-                        pw.println();
+                    pw.println("=== " + (isOneDateExpected(expectedData, effectiveData) ? "OK" : "KO"));
+                    pw.println("Title = " + expectedData.getTitle());
+                    if (expectedData.getSubtitles().length > 0) {
+                        pw.println("Subtitle = \"" + String.join("\" \"",  expectedData.getSubtitles()) + "\"");
                     }
+                    pw.println("URL = " + url);
+                    pw.println("Expected status = " + expectedData.getStatus().orElse(""));
+                    pw.println("Effective status = " + effectiveData.getStatus());
+                    pw.println("Effective HTTP code = " + effectiveData.getHttpCode().map(i -> i.toString()).orElse("---"));
+                    pw.println();
                 }
-                status = (_nbSitesRemainingToBeChecked == 0) ? Status.HANDLED_WITH_SUCCESS : Status.HANDLING_NO_ERROR;
-            } catch (final Exception e) {
-               final Path reportFile = getReportFile(_file);
-               FileHelper.createParentDirectory(reportFile);
-               try (final PrintStream reportWriter = new PrintStream(reportFile.toFile())) {
-                   e.printStackTrace(reportWriter);
-               } catch (final IOException e2) {
-                   ExitHelper.exit(e2);
-               }
-               status = Status.FAILED_TO_HANDLED;                
             }
+        }
+        
+        private boolean isDataExpected() {
 
-            System.out.println("URL " + siteData.getUrl() + " " + _nbSitesRemainingToBeChecked);
-
-            _controller.handleUpdate(_file, status, getOutputFile(_file), getReportFile(_file));
+            for (final URL url : _effectiveData.keySet()) {
+                if (!isOneDateExpected(_expectedData.get(url), _effectiveData.get(url))) {
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+        
+        private boolean isOneDateExpected(final LinkData expectedData,
+                                          final SiteData effectiveData) {
+            
+            if (expectedData.getStatus().isPresent() && expectedData.getStatus().get().equals("dead")) {
+                if (effectiveData.getStatus() == SiteData.Status.FAILURE) return true;
+                if (effectiveData.getHttpCode().isEmpty()) return true;
+                if (effectiveData.getHttpCode().isPresent() && effectiveData.getHttpCode().get() != 200) return true;
+                return false;
+                
+            }
+            
+            return (effectiveData.getHttpCode().isPresent() && effectiveData.getHttpCode().get() == 200);
         }
     }
 }
