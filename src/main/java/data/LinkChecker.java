@@ -303,22 +303,28 @@ public class LinkChecker implements FileHandler {
         
         private void writeOutputFile() throws FileNotFoundException, IOException {
 
+            final StringBuilder ok = new StringBuilder();
+            final StringBuilder ko = new StringBuilder();
+            for (final URL url : _effectiveData.keySet()) {
+                final LinkData expectedData = _expectedData.get(url);
+                final SiteData effectiveData = _effectiveData.get(url);
+                final StringBuilder builder = isOneDateExpected(expectedData, effectiveData) ? ok : ko;
+                builder.append("Title = " + expectedData.getTitle() + "\n");
+                if (expectedData.getSubtitles().length > 0) {
+                    builder.append("Subtitle = \"" + String.join("\" \"",  expectedData.getSubtitles()) + "\"\n");
+                }
+                builder.append("URL = " + url + "\n");
+                builder.append("Expected status = " + expectedData.getStatus().orElse("") + "\n");
+                builder.append("Effective status = " + effectiveData.getStatus() + "\n");
+                builder.append("Effective HTTP code = " + effectiveData.getHttpCode().map(i -> i.toString()).orElse("---") + "\n");
+                builder.append("\n");
+            }
+
             try (final FileOutputStream os = new FileOutputStream(getOutputFile(_file).toFile());
                  final PrintWriter pw = new PrintWriter(os)) {
-                for (final URL url : _effectiveData.keySet()) {
-                    final LinkData expectedData = _expectedData.get(url);
-                    final SiteData effectiveData = _effectiveData.get(url);
-                    pw.println("=== " + (isOneDateExpected(expectedData, effectiveData) ? "OK" : "KO"));
-                    pw.println("Title = " + expectedData.getTitle());
-                    if (expectedData.getSubtitles().length > 0) {
-                        pw.println("Subtitle = \"" + String.join("\" \"",  expectedData.getSubtitles()) + "\"");
-                    }
-                    pw.println("URL = " + url);
-                    pw.println("Expected status = " + expectedData.getStatus().orElse(""));
-                    pw.println("Effective status = " + effectiveData.getStatus());
-                    pw.println("Effective HTTP code = " + effectiveData.getHttpCode().map(i -> i.toString()).orElse("---"));
-                    pw.println();
-                }
+                pw.println(ko.toString());
+                pw.println("=".repeat(80));
+                pw.println(ok.toString());
             }
         }
         
