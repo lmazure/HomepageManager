@@ -244,6 +244,7 @@ public class SiteDataPersister {
     }
 
     private Path getOutputDirectory(final URL url) {
-        return _path.resolve(FileHelper.generateFileNameFromURL(url));
+        return _path.resolve(url.getHost())
+                    .resolve(FileHelper.generateFileNameFromURL(url));
     }
 }

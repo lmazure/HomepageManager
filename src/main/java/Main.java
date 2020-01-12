@@ -36,9 +36,9 @@ public class Main {
     
     private static void exitOnErrorSyntax() {
         ExitHelper.exit("Syntax: HomepageManager [-" +
-                enableInternetAccessOption +
-                "|" +
-                disableInternetAccessOption +
-                "] <homepage directory> <tmp directory>");        
+                        enableInternetAccessOption +
+                        "|" +
+                        disableInternetAccessOption +
+                        "] <homepage directory> <tmp directory>");        
     }
 }
