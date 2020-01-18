@@ -34,6 +34,7 @@ import data.internet.SiteDataRetriever;
 import data.nodechecker.checker.nodeChecker.NodeChecker;
 import utils.ExitHelper;
 import utils.FileHelper;
+import utils.HttpHelper;
 import utils.XMLHelper;
 import utils.xmlparsing.LinkData;
 import utils.xmlparsing.XmlParser;
@@ -190,14 +191,14 @@ public class LinkChecker implements FileHandler {
         
         private void launch(final List<LinkData> linkDatas) {
             createOutputfile();
-            final List<URL> list = build(linkDatas);
+            final List<URL> list = buildListOfLinksToVeChecked(linkDatas);
             _nbSitesRemainingToBeChecked = list.size();
             for (final URL url: list) {
                 _retriever.retrieve(url, this::handleLinkData, MAX_CACHE_AGE);
             }
         }
         
-        private List<URL> build(final List<LinkData> linkDatas) {
+        private List<URL> buildListOfLinksToVeChecked(final List<LinkData> linkDatas) {
         
             final List<URL> list = new ArrayList<URL>();
 
@@ -316,7 +317,7 @@ public class LinkChecker implements FileHandler {
                 builder.append("URL = " + url + "\n");
                 builder.append("Expected status = " + expectedData.getStatus().orElse("") + "\n");
                 builder.append("Effective status = " + effectiveData.getStatus() + "\n");
-                builder.append("Effective HTTP code = " + effectiveData.getHttpCode().map(i -> i.toString()).orElse("---") + "\n");
+                builder.append("Effective HTTP code = " + effectiveData.getHttpCode().map(i -> i.toString() + " " + HttpHelper.getStringOfCode(i)).orElse("---") + "\n");
                 builder.append("\n");
             }
 
