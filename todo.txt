@@ -6,7 +6,8 @@
 - indiquer la sémantique du status
 - site reaping
   - étudier problème du header null
-  
+ 
+ - problème avec le lien http://marie.desplats.free.fr/diagora_home_page.html
 
 - bug : s'il n'y a aucun lien dans une page, le texte du rapport reste "analyse en cours"  
   
