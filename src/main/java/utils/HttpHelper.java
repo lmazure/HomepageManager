@@ -2,7 +2,7 @@ package utils;
 
 public class HttpHelper {
 
-    public static String getStringOfCode(final int code) {
+    public static String getStringOfCode(final int code) throws InvalidHttpCodeException {
         
         switch (code) {
             case 100: return "Continue";
@@ -47,10 +47,7 @@ public class HttpHelper {
             case 503: return "Service Unavailable";
             case 504: return "Gateway Timeout";
             case 505: return "HTTP Version Not Supported";
-            default: ExitHelper.exit("Invalide HTTP code (" + code + ")"); 
+            default: throw new InvalidHttpCodeException("Invalid HTTP code (" + code + ")"); 
         }
-        
-        // NOT REACHED
-        return null;
     }
 }

@@ -7,7 +7,7 @@ import utils.ExitHelper;
 
 public class Main {
 
-    private static final String enableInternetAccessOption = "-enableInternetAccess";
+    private static final String enableInternetAccessOption  = "-enableInternetAccess";
     private static final String disableInternetAccessOption = "-disableInternetAccess";
     
     public static void main(final String[] args) {

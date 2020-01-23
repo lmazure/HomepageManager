@@ -1,3 +1,4 @@
+- un site renvoie un HTTP code 999
 - fix incorrect status of running link checker
 - lettre un throttle sur les écritures de outfile par FileCheck
 - diminuer le nombre de fichiers générés

@@ -36,6 +36,7 @@ import data.nodechecker.checker.nodeChecker.NodeChecker;
 import utils.ExitHelper;
 import utils.FileHelper;
 import utils.HttpHelper;
+import utils.InvalidHttpCodeException;
 import utils.XMLHelper;
 import utils.xmlparsing.LinkData;
 import utils.xmlparsing.XmlParser;
@@ -265,7 +266,14 @@ class LinkCheckRunner {
             builder.append("URL = " + url + "\n");
             builder.append("Expected status = " + expectedData.getStatus().orElse("") + "\n");
             builder.append("Effective status = " + effectiveData.getStatus() + "\n");
-            builder.append("Effective HTTP code = " + effectiveData.getHttpCode().map(i -> i.toString() + " " + HttpHelper.getStringOfCode(i)).orElse("---") + "\n");
+            final String httpCode = effectiveData.getHttpCode().map(i -> {
+                try {
+                    return i.toString() + " " + HttpHelper.getStringOfCode(i);
+                } catch (@SuppressWarnings("unused") final InvalidHttpCodeException e) {
+                    return " invalid code ! (" + i.toString() + ")";
+                }
+            }).orElse("---");
+            builder.append("Effective HTTP code = " + httpCode + "\n");
             builder.append("\n");
         }
 
