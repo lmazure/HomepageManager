@@ -14,6 +14,8 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -43,10 +45,8 @@ import utils.xmlparsing.XmlParser;
 
 class LinkCheckRunner {
     
-    /**
-     * 
-     */
     private static final int MAX_CACHE_AGE = 30*24*60*60;
+    private static final int REPORT_THROTTLING_PERIOD = 90;
     private final Path _file;
     private final Map<URL, SiteData> _effectiveData;
     private final Map<URL, LinkData> _expectedData;
@@ -55,8 +55,9 @@ class LinkCheckRunner {
     private final BackgroundDataController _controller;
     private final SiteDataRetriever _retriever;
     private final DocumentBuilder _builder;
-    private Path _outputFile;
-    private Path _reportFile;
+    private final Path _outputFile;
+    private final Path _reportFile;
+    private Instant _lastFileWriteTimestamp; 
     
     LinkCheckRunner(final Path file,
                     final Path tmpPath,
@@ -73,10 +74,11 @@ class LinkCheckRunner {
         _expectedData = new HashMap<URL, LinkData>();
         _isCancelled = false;
         _builder = XMLHelper.buildDocumentBuilder();
-       _retriever = new SiteDataRetriever(tmpPath.resolve("internet_cache"));
-       _controller = controller;
-       _outputFile = ouputFile;
-       _reportFile = reportFile;
+        _retriever = new SiteDataRetriever(tmpPath.resolve("internet_cache"));
+        _controller = controller;
+        _outputFile = ouputFile;
+        _reportFile = reportFile;
+        _lastFileWriteTimestamp = Instant.MIN;
     }
     
     synchronized void launch() {
@@ -101,6 +103,7 @@ class LinkCheckRunner {
         }           
 
         createOutputfile();
+        
         final List<URL> list = buildListOfLinksToBeChecked(links);
         _nbSitesRemainingToBeChecked = list.size();
         for (final URL url: list) {
@@ -216,8 +219,15 @@ class LinkCheckRunner {
             _nbSitesRemainingToBeChecked--;
         }
 
-        try {
-            writeOutputFile();
+        final Status status = isDataExpected() ? ((_nbSitesRemainingToBeChecked == 0) ? Status.HANDLED_WITH_SUCCESS : Status.HANDLING_NO_ERROR)
+                                               : ((_nbSitesRemainingToBeChecked == 0) ? Status.HANDLED_WITH_ERROR : Status.HANDLING_WITH_ERROR);
+
+        final Instant now = Instant.now();
+        final Boolean updateIsPublished = (_nbSitesRemainingToBeChecked == 0) ||
+                                          (Duration.between(_lastFileWriteTimestamp, now).getSeconds() > REPORT_THROTTLING_PERIOD);
+        if (updateIsPublished) {
+           try {
+                writeOutputFile();
            } catch (final Exception e) {
               FileHelper.createParentDirectory(_reportFile);
               try (final PrintStream reportWriter = new PrintStream(_reportFile.toFile())) {
@@ -227,28 +237,15 @@ class LinkCheckRunner {
               }
               _controller.handleUpdate(_file, Status.FAILED_TO_HANDLED, _outputFile, _reportFile);
               return;
-           }
-
-        Status status = Status.HANDLED_WITH_SUCCESS;
-        for (final URL url : _effectiveData.keySet()) {
-            final LinkData expectedData = _expectedData.get(url);
-            final SiteData effectiveData = _effectiveData.get(url);
-            if (expectedData.getStatus().isPresent() ||
-                effectiveData.getHttpCode().isEmpty() ||
-                effectiveData.getHttpCode().get() != 200) {
-                status = Status.HANDLED_WITH_SUCCESS; // TODO properly set the status
-            }
+           }            
+           _controller.handleUpdate(_file, status, _outputFile, _reportFile);
         }
-        
-        if (isDataExpected()) {
-            status = (_nbSitesRemainingToBeChecked == 0) ? Status.HANDLED_WITH_SUCCESS : Status.HANDLING_NO_ERROR;
-        } else {
-            status = (_nbSitesRemainingToBeChecked == 0) ? Status.HANDLED_WITH_ERROR : Status.HANDLING_WITH_ERROR;                
-        }
+        _lastFileWriteTimestamp = now;
 
-        System.out.println("URL " + siteData.getUrl() + " " + _nbSitesRemainingToBeChecked + " " + status);
-
-        _controller.handleUpdate(_file, status, _outputFile, _reportFile);
+        System.out.println("URL " + siteData.getUrl() + " " +
+                           _nbSitesRemainingToBeChecked +
+                           " status=" + status +
+                           " updateIsPublished=" + updateIsPublished);
     }
     
     private void writeOutputFile() throws FileNotFoundException, IOException {
