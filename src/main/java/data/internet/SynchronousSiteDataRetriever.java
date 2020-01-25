@@ -70,7 +70,7 @@ public class SynchronousSiteDataRetriever {
              httpConnection.connect();
              headers = Optional.of(connection.getHeaderFields());
              httpCode = Optional.of(httpConnection.getResponseCode());
-             if (httpCode.get() != HttpURLConnection.HTTP_OK         /* 200 */ &&
+             if (httpCode.get() != HttpURLConnection.HTTP_OK         /* 200 */ && // TODO this cannot be right
                  httpCode.get() != HttpURLConnection.HTTP_CREATED    /* 201 */ &&
                  httpCode.get() != HttpURLConnection.HTTP_MOVED_PERM /* 301 */ &&
                  httpCode.get() != HttpURLConnection.HTTP_MOVED_TEMP /* 302 */ &&

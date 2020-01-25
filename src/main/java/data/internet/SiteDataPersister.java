@@ -85,7 +85,7 @@ public class SiteDataPersister {
                     System.out.println("retrieved content of " + url + " is truncated");
                 }
             } catch (final IOException e) {
-                System.err.println("Error (" + e.toString() + ")while getting data from " + url);
+                System.err.println("Error (" + e.toString() + ") while getting data from " + url);
             }            
         }
         
