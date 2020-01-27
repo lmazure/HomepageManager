@@ -13,7 +13,7 @@ import data.jsongenerator.ArticleComparator;
 import data.jsongenerator.Link;
 import utils.xmlparsing.DateData;
 
-class ArticleComparatorTest {
+public class ArticleComparatorTest {
 
     @Test
     void compareSimpleStrings() {

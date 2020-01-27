@@ -9,5 +9,4 @@ import org.junit.runner.RunWith;
                 AsynchronousSiteDataRetrieverTest.class,
                 CachedSiteDataRetrieverTest.class})
 public class AllSiteRetrieverTests {
-
 }

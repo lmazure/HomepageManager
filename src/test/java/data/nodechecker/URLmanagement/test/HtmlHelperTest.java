@@ -2,8 +2,9 @@ package data.nodechecker.URLmanagement.test;
 
 import java.io.UnsupportedEncodingException;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+
+import org.junit.jupiter.api.Test;
 
 import data.nodechecker.URLmanagement.HtmlHelper;
 
@@ -12,7 +13,7 @@ public class HtmlHelperTest extends HtmlHelper {
 	@Test
 	public void decode_singleQuote_correctlyConverted() throws UnsupportedEncodingException
 	{
-		Assert.assertEquals("Let's", decode("Let&#39;s".getBytes("ISO-8859-1")));
+		Assertions.assertEquals("Let's", decode("Let&#39;s".getBytes("ISO-8859-1")));
 	}
 
 	@Test
@@ -38,27 +39,27 @@ public class HtmlHelperTest extends HtmlHelper {
 	    s += "&ouml;";   e+= "ö";
 	    s += "&quot;";   e+= "\"";
 
-		Assert.assertEquals(e, decode(s.getBytes("ISO-8859-1")));
+		Assertions.assertEquals(e, decode(s.getBytes("ISO-8859-1")));
 	}
 
 
 	@Test
 	public void digest_verticalTab_replacedBySpace() {
-		Assert.assertEquals("foo bar", digest("foo\u000bbar"));
+		Assertions.assertEquals("foo bar", digest("foo\u000bbar"));
 	}
 
 	@Test
 	public void digest_breakTag_replacedBySpace() {
-		Assert.assertEquals("foo bar", digest("foo<br/>bar"));
+		Assertions.assertEquals("foo bar", digest("foo<br/>bar"));
 	}
 
 	@Test
 	public void digest_newline_replacedBySpace() {
-		Assert.assertEquals("foo bar", digest("foo\nbar"));
+		Assertions.assertEquals("foo bar", digest("foo\nbar"));
 	}
 
 	@Test
 	public void digest_duplicatedSpace_replacedBySingleSpace() {
-		Assert.assertEquals("foo bar", digest("foo  bar"));
+		Assertions.assertEquals("foo bar", digest("foo  bar"));
 	}
 }

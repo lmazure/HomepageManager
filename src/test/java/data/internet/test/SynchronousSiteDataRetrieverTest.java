@@ -13,7 +13,7 @@ import data.internet.SiteDataPersister;
 import data.internet.SynchronousSiteDataRetriever;
 import utils.FileHelper;
 
-class SynchronousSiteDataRetrieverTest {
+public class SynchronousSiteDataRetrieverTest {
 
     @Test
     void basicHttpRequest() {

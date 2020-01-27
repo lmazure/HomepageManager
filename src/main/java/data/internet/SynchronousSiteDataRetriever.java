@@ -71,11 +71,7 @@ public class SynchronousSiteDataRetriever {
              headers = Optional.of(connection.getHeaderFields());
              httpCode = Optional.of(httpConnection.getResponseCode());
              if (httpCode.get() != HttpURLConnection.HTTP_OK         /* 200 */ && // TODO this cannot be right
-                 httpCode.get() != HttpURLConnection.HTTP_CREATED    /* 201 */ &&
-                 httpCode.get() != HttpURLConnection.HTTP_MOVED_PERM /* 301 */ &&
-                 httpCode.get() != HttpURLConnection.HTTP_MOVED_TEMP /* 302 */ &&
-                 httpCode.get() != HttpURLConnection.HTTP_SEE_OTHER  /* 303 */ &&
-                 httpCode.get() != HttpURLConnection.HTTP_USE_PROXY  /* 305 */ ) {
+                 httpCode.get() != HttpURLConnection.HTTP_CREATED    /* 201 */) {
                  error = Optional.of("page not found");
                  _persister.persist(url, timestamp, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error);
                  consumer.accept(Boolean.TRUE, new SiteData(url, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error));

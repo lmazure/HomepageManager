@@ -8,5 +8,4 @@ import org.junit.runner.RunWith;
 @SelectClasses({FileCheckerTest.class,
                 NodeValueCheckerTest.class})
 public class AllCheckerTests {
-
 }
