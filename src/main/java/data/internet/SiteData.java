@@ -54,7 +54,7 @@ public class SiteData {
         return _dataFile;
     }
 
-    public Optional<String> getErrorFile() {
+    public Optional<String> getError() {
         return _error;
     }
 }

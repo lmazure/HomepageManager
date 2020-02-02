@@ -32,13 +32,13 @@ public class SiteDataPersister {
         _path = path;
     }
 
-    void persist(final URL url,
-                 final Instant timestamp,
-                 final Status status,
-                 final Optional<Integer> httpCode,
-                 final Optional<Map<String, List<String>>> headers,
-                 final Optional<InputStream> dataStream,
-                 final Optional<String> error) {
+    public void persist(final URL url,
+                        final Instant timestamp,
+                        final Status status,
+                        final Optional<Integer> httpCode,
+                        final Optional<Map<String, List<String>>> headers,
+                        final Optional<InputStream> dataStream,
+                        final Optional<String> error) {
         
         getOutputDirectory(url, timestamp).toFile().mkdirs();
 
@@ -102,7 +102,7 @@ public class SiteDataPersister {
      * @param url
      * @return the timestamps of the cached values (in reverse order, the first in the younger one)
      */
-    List<Instant> getTimestampList(final URL url) {
+    public List<Instant> getTimestampList(final URL url) {
         
         if (!Files.exists(getOutputDirectory(url))) {
             return new ArrayList<Instant>(0);

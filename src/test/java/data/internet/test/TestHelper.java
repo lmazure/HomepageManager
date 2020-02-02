@@ -22,6 +22,7 @@ public class TestHelper {
         Assertions.assertEquals(1, data.getHeaders().get().get("Cache-Control").size());
         Assertions.assertEquals("max-age=604800", data.getHeaders().get().get("Cache-Control").get(0));
         Assertions.assertTrue(data.getDataFile().isPresent());
+        Assertions.assertFalse(data.getError().isPresent());
         try {
             final String d = Files.readString(data.getDataFile().get().toPath());
             Assertions.assertNotEquals(-1, d.indexOf("This domain is for use in illustrative examples in documents."));

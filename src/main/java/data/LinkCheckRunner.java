@@ -256,7 +256,7 @@ class LinkCheckRunner {
             final LinkData expectedData = _expectedData.get(url);
             final SiteData effectiveData = _effectiveData.get(url);
             final StringBuilder builder = isOneDateExpected(expectedData, effectiveData) ? ok : ko;
-            builder.append("Title = " + expectedData.getTitle() + "\n");
+            builder.append("Title = \"" + expectedData.getTitle() + "\"\n");
             if (expectedData.getSubtitles().length > 0) {
                 builder.append("Subtitle = \"" + String.join("\" \"",  expectedData.getSubtitles()) + "\"\n");
             }
