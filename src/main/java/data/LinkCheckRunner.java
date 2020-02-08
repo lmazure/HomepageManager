@@ -149,34 +149,33 @@ class LinkCheckRunner {
 
         for (final LinkData linkData: linkDatas) {
             
-            if (linkData.getUrl().indexOf(":") < 0) {
+            final String urlStr = linkData.getUrl(); 
+            if (urlStr.startsWith("javascript:")) {
+                continue;
+            }
+            if (urlStr.indexOf(":") < 0) {
                 // TODO implement check of local links
-                System.out.println("TBD: local link " + linkData.getUrl() + " is not checked");
+                System.out.println("TBD: local link " + urlStr + " is not checked");
                 continue;
             }
-
-            if (linkData.getUrl().startsWith("javascript:")) {
-                continue;
-            }
-
-            if (linkData.getUrl().startsWith("ftp:")) {
+            if (urlStr.startsWith("ftp:")) {
                 // TODO implement check of FTP links
-                System.out.println("TBD: FTP link " + linkData.getUrl() + " is not checked");
+                System.out.println("TBD: FTP URL " + urlStr + " is not checked");
                 continue;
             }
-
-            if (linkData.getUrl().startsWith("mailto:")) {
-                System.out.println("TBD: mailto link " + linkData.getUrl() + " is not checked");
+            if (urlStr.startsWith("mailto:")) {
+                // TODO implement check of mail links
+                System.out.println("TBD: mailto URL " + urlStr + " is not checked");
                 continue;
             }
 
             URL url = null;
             try {
-                url = new URL(linkData.getUrl());
-            } catch (final MalformedURLException e) {
-                ExitHelper.exit(e);
+                url = new URL(urlStr);
+            } catch (@SuppressWarnings("unused") final MalformedURLException e) {
+                System.out.println("URL " + urlStr + " is not checked because the URL is malformed");
+                continue;
             }
-            
             list.add(url);
             _expectedData.put(url, linkData);
         }
@@ -271,6 +270,9 @@ class LinkCheckRunner {
                 }
             }).orElse("---");
             builder.append("Effective HTTP code = " + httpCode + "\n");
+            if (effectiveData.getError().isPresent()) {
+                builder.append("Effective error = \"" + effectiveData.getError().get() + "\"\n");
+            }
             builder.append("\n");
         }
 

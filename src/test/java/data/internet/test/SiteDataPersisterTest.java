@@ -44,7 +44,7 @@ public class SiteDataPersisterTest {
     }
     
     @Test
-    void allHttpCodeAbsent() {
+    void allHttpCodeEmpty() {
         
         final SiteDataPersister persister = buildSiteDataPersister();
         persister.persist(url, now, status, Optional.empty(), headers, Optional.empty(), error);
@@ -57,7 +57,7 @@ public class SiteDataPersisterTest {
     }
     
     @Test
-    void allHeadersAbsent() {
+    void allHeadersEmpty() {
         
         final SiteDataPersister persister = buildSiteDataPersister();
         persister.persist(url, now, status, httpCode, Optional.empty(), Optional.empty(), error);
@@ -70,7 +70,7 @@ public class SiteDataPersisterTest {
     }
     
     @Test
-    void allErrorAbsent() {
+    void allErrorEmpty() {
         
         final SiteDataPersister persister = buildSiteDataPersister();
         persister.persist(url, now, status, httpCode, headers, Optional.empty(), Optional.empty());
@@ -83,7 +83,7 @@ public class SiteDataPersisterTest {
     }
     
     @Test
-    void allAbsent() {
+    void allEmpty() {
         
         final SiteDataPersister persister = buildSiteDataPersister();
         persister.persist(url, now, status, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
