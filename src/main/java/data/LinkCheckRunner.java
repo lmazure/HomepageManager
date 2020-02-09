@@ -251,10 +251,17 @@ class LinkCheckRunner {
 
         final StringBuilder ok = new StringBuilder();
         final StringBuilder ko = new StringBuilder();
+        int nbOk = 0;
+        int nbKo = 0;
         for (final URL url : _effectiveData.keySet()) {
             final LinkData expectedData = _expectedData.get(url);
             final SiteData effectiveData = _effectiveData.get(url);
-            final StringBuilder builder = isOneDateExpected(expectedData, effectiveData) ? ok : ko;
+            final StringBuilder builder = isOneDataExpected(expectedData, effectiveData) ? ok : ko;
+            if (isOneDataExpected(expectedData, effectiveData)) {
+                nbOk++;
+            } else {
+                nbKo++;
+            }
             builder.append("Title = \"" + expectedData.getTitle() + "\"\n");
             if (expectedData.getSubtitles().length > 0) {
                 builder.append("Subtitle = \"" + String.join("\" \"",  expectedData.getSubtitles()) + "\"\n");
@@ -270,6 +277,10 @@ class LinkCheckRunner {
                 }
             }).orElse("---");
             builder.append("Effective HTTP code = " + httpCode + "\n");
+            if (effectiveData.getHeaders().isPresent() && effectiveData.getHeaders().get().containsKey("Location")) {
+                final String redirection = effectiveData.getHeaders().get().get("Location").get(0);
+                builder.append("Redirection = " + redirection + "\n");
+            }
             if (effectiveData.getError().isPresent()) {
                 builder.append("Effective error = \"" + effectiveData.getError().get() + "\"\n");
             }
@@ -278,6 +289,8 @@ class LinkCheckRunner {
 
         try (final FileOutputStream os = new FileOutputStream(_outputFile.toFile());
              final PrintWriter pw = new PrintWriter(os)) {
+            pw.println("good = " + nbOk + " / bad = " + nbKo);
+            pw.println();
             pw.println(ko.toString());
             pw.println("=".repeat(80));
             pw.println(ok.toString());
@@ -287,7 +300,7 @@ class LinkCheckRunner {
     private boolean isDataExpected() {
 
         for (final URL url : _effectiveData.keySet()) {
-            if (!isOneDateExpected(_expectedData.get(url), _effectiveData.get(url))) {
+            if (!isOneDataExpected(_expectedData.get(url), _effectiveData.get(url))) {
                 return false;
             }
         }
@@ -295,7 +308,7 @@ class LinkCheckRunner {
         return true;
     }
     
-    private boolean isOneDateExpected(final LinkData expectedData,
+    private boolean isOneDataExpected(final LinkData expectedData,
                                       final SiteData effectiveData) {
         
         if (expectedData.getStatus().isPresent() && expectedData.getStatus().get().equals("dead")) {
