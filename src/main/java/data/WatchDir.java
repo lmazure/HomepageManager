@@ -101,7 +101,9 @@ public class WatchDir {
                 if (_ignoredDirectories.contains(path.getFileName().toString())) {
                     return FileVisitResult.SKIP_SUBTREE;
                 }
-                final WatchKey key = path.register(_watcher, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY);
+                final WatchKey key = path.register(_watcher, StandardWatchEventKinds.ENTRY_CREATE,
+                                                             StandardWatchEventKinds.ENTRY_DELETE,
+                                                             StandardWatchEventKinds.ENTRY_MODIFY);
                 _keys.put(key, path);
                 return FileVisitResult.CONTINUE;
             }
@@ -142,30 +144,37 @@ public class WatchDir {
             }
             assert(path != null);
 
-            for (WatchEvent<?> event: key.pollEvents()) {
+            System.out.println("DBGWATCHDIR -- before WatchEvent loop");
+            for (final WatchEvent<?> event: key.pollEvents()) {
                 final WatchEvent.Kind<?> kind = event.kind();
 
                 if (kind == StandardWatchEventKinds.OVERFLOW) {
                     ExitHelper.exit("Overflow in WatchDir events");
                 }
 
-                // Context for directory entry event is the file name of entry
                 final WatchEvent<Path> ev = cast(event);
                 final Path name = ev.context();
                 final Path child = path.resolve(name);
 
-                // print out event
-                for (FileWatcher w: _watchers) {
-                    if (event.kind().equals(StandardWatchEventKinds.ENTRY_CREATE) ) {
+                // dispatch event
+                if (event.kind().equals(StandardWatchEventKinds.ENTRY_CREATE) ) {
+                    System.out.println("DBGWATCHDIR -- path = " + child + " create");
+                    for (FileWatcher w: _watchers) {
                         w.consume(child, Event.CREATE);
-                    } else if (event.kind().equals(StandardWatchEventKinds.ENTRY_DELETE) ) {
-                        w.consume(child, Event.DELETE);
-                    } else if (event.kind().equals(StandardWatchEventKinds.ENTRY_MODIFY) ) {
-                        w.consume(child, Event.DELETE);
-                        w.consume(child, Event.CREATE);
-                    } else {
-                        ExitHelper.exit("Unexpected event type in WatchDir events");                        
                     }
+                } else if (event.kind().equals(StandardWatchEventKinds.ENTRY_DELETE) ) {
+                    System.out.println("DBGWATCHDIR -- path = " + child + " delete");
+                    for (FileWatcher w: _watchers) {
+                        w.consume(child, Event.DELETE);
+                    }
+                } else if (event.kind().equals(StandardWatchEventKinds.ENTRY_MODIFY) ) {
+                    System.out.println("DBGWATCHDIR -- path = " + child + " modify");
+                    for (FileWatcher w: _watchers) {
+                        w.consume(child, Event.DELETE);
+                        w.consume(child, Event.CREATE);
+                    }
+                } else {
+                    ExitHelper.exit("Unexpected event type in WatchDir events");                        
                 }
 
                 // if directory is created, and watching recursively, then register it and its sub-directories
@@ -179,16 +188,12 @@ public class WatchDir {
                     }
                 }
             }
+            System.out.println("DBGWATCHDIR -- after WatchEvent loop");
 
             // reset key and remove from set if directory no longer accessible
-            boolean valid = key.reset();
+            final boolean valid = key.reset();
             if (!valid) {
                 _keys.remove(key);
-
-                // all directories are inaccessible
-                if (_keys.isEmpty()) {
-                    break;
-                }
             }
         }
     }

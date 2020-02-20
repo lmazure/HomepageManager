@@ -74,7 +74,6 @@ public class FileChecker implements FileHandler {
             }
             for (final Error error: errors) {
                 final String message = "line " + error.getLineNumber() + ": " + error.getErrorMessage(); 
-                System.err.println(message);
                 pw.println(message);
             }
             System.out.println(getOutputFile(file).toFile() + " is generated");

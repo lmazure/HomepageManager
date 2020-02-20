@@ -35,7 +35,7 @@ public class Main {
     }
     
     private static void exitOnErrorSyntax() {
-        ExitHelper.exit("Syntax: HomepageManager [-" +
+        ExitHelper.exit("Syntax: HomepageManager [" +
                         enableInternetAccessOption +
                         "|" +
                         disableInternetAccessOption +
