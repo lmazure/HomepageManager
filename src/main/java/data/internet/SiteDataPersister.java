@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.zip.GZIPInputStream;
 
 import data.internet.SiteData.Status;
 import utils.ExitHelper;
@@ -89,14 +90,18 @@ public class SiteDataPersister {
         } catch (final FileNotFoundException e) {
             ExitHelper.exit(e);
         }
-        
+                
         if (dataStream.isPresent()) {
-            try (final PrintStream stream = new PrintStream(getDataFile(url, timestamp).toFile())) {
+            final boolean gzip = headers.isPresent() &&
+             		             headers.get().containsKey("Content-Encoding") &&
+             		             headers.get().get("Content-Encoding").get(0).equals("gzip");
+    		try (final InputStream inputStream = gzip ? new GZIPInputStream(dataStream.get()) : dataStream.get();
+    		     final PrintStream outputStream = new PrintStream(getDataFile(url, timestamp).toFile())) {
                 long size = 0L;
                 final byte[] buffer = new byte[s_file_buffer_size];
                 int length;
-                while ((size <= s_max_content_size) && (length = dataStream.get().read(buffer)) > 0) {
-                    stream.write(buffer, 0, length);
+                while ((size <= s_max_content_size) && (length = inputStream.read(buffer)) > 0) {
+                    outputStream.write(buffer, 0, length);
                     size += length;
                 }
                 if (size > s_max_content_size) {
@@ -105,8 +110,7 @@ public class SiteDataPersister {
             } catch (final IOException e) {
                 System.err.println("Error (" + e.toString() + ") while getting data from " + url);
             }            
-        }
-        
+        }        
     }
 
     /**

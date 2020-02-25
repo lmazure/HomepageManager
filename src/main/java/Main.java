@@ -11,7 +11,7 @@ public class Main {
     private static final String disableInternetAccessOption = "-disableInternetAccess";
     
     public static void main(final String[] args) {
-        
+
         if ((args.length < 2) || (args.length > 3)) {
             exitOnErrorSyntax();
         }

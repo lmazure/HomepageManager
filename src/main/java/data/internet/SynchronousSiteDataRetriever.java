@@ -28,15 +28,13 @@ import utils.ExitHelper;
 public class SynchronousSiteDataRetriever {
 
     private final SiteDataPersister _persister;
+    private final SSLSocketFactory _sslSocketFactory;
     private final static int s_connectTimeout = 30000;
     private final static int s_readTimeout = 60000;
 
-    // pretend to be Firefox 44.0.2
-    final private static String s_userAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:44.0) Gecko/20100101 Firefox/44.0";
+    final private static String s_userAgent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36";
 
-    private SSLSocketFactory _sslSocketFactory;
 
-    
     public SynchronousSiteDataRetriever(final SiteDataPersister persister) {
         _persister = persister;
         _sslSocketFactory = getDisabledPKIXCheck();
@@ -67,6 +65,8 @@ public class SynchronousSiteDataRetriever {
              connection.setReadTimeout(s_readTimeout);
              httpConnection.setRequestMethod("GET");
              httpConnection.setRequestProperty("User-agent", s_userAgent);
+             httpConnection.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
+             httpConnection.setRequestProperty("Accept-Encoding", "gzip, deflate, sdch, br");
              httpConnection.connect();
              headers = Optional.of(connection.getHeaderFields());
              httpCode = Optional.of(httpConnection.getResponseCode());

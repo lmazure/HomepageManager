@@ -1,12 +1,18 @@
-- un site renvoie un HTTP code 999
+corriger bug quand un AUTHOR apparait dans le link d'un ARTICLE
+
+FATAL : utilisé pour journaliser une erreur grave pouvant mener à l'arrêt prématuré de l'application ;
+ERROR : utilisé pour journaliser une erreur qui n'empêche cependant pas l'application de fonctionner ;
+WARN : utilisé pour journaliser un avertissement, il peut s'agir par exemple d'une incohérence dans la configuration, l'application peut continuer à fonctionner mais pas forcément de la façon attendue ;
+INFO : utilisé pour journaliser des messages à caractère informatif (nom des fichiers, etc.) ;
+DEBUG : utilisé pour générer des messages pouvant être utiles au débogage.
+TRACE qui représente le niveau le plus fin (utilisé par exemple pour journaliser l'entrée ou la sortie d'une méthode).
+
+
+- LinkedIn renvoie un HTTP code 999
 - fix incorrect status of running link checker
-- lettre un throttle sur les Ã©critures de outfile par FileCheck
-- diminuer le nombre de fichiers gÃ©nÃ©rÃ©s
-- dÃ©tecter les URL qui finissent par deux slashes
+- détecter les URL qui finissent par deux slashes
 
 - indiquer la sÃ©mantique du status
-- site reaping
-  - Ã©tudier problÃ¨me du header null
  
  - problÃ¨me avec le lien http://marie.desplats.free.fr/diagora_home_page.html
 
@@ -25,7 +31,6 @@
 - RÃ©parer le build Maven qui ne fonctionne plus
 - Pouvoir lancer les tests par Maven
 
-- Ajouter la dÃ©tection des liens morts
 - Ajouter des attributs qui ne correspondent pas au contenu du site
 - Ajouter la dÃ©tection des malwares
 - Ajouter la rÃ¨gle sur les URLs qui apparaissent plusieurs fois

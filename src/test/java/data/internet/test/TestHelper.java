@@ -27,7 +27,7 @@ public class TestHelper {
             final String d = Files.readString(data.getDataFile().get().toPath());
             Assertions.assertNotEquals(-1, d.indexOf("This domain is for use in illustrative examples in documents."));
         } catch (@SuppressWarnings("unused") final IOException e) {
-            Assertions.fail("failure to read data file");
+            Assertions.fail("failure to read data file " + data.getDataFile().get() + " (" + e.getMessage() +")");
         }        
     }
 
