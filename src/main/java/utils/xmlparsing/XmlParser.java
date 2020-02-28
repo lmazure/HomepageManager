@@ -195,10 +195,10 @@ public class XmlParser {
             throw new UnsupportedOperationException("parseArticleNode called with wrong node (" + articleNode.getTagName() + ")");            
         }
 
-        final NodeList dateNodes =  articleNode.getElementsByTagName("DATE");
+        final List<Element> dateNodes =  getChildElements(articleNode, "DATE");
         Optional<DateData> dateData = Optional.empty();
-        if (dateNodes.getLength() == 1) {
-            final DateData dt = XmlParser.parseDateNode((Element)dateNodes.item(0));
+        if (dateNodes.size() == 1) {
+            final DateData dt = XmlParser.parseDateNode(dateNodes.get(0));
             dateData = Optional.of(dt);             
         }
         
@@ -207,10 +207,9 @@ public class XmlParser {
             links.add(XmlParser.parseXNode(linkNode));
         }
 
-        final NodeList authorNodes =  articleNode.getElementsByTagName("AUTHOR");
-        final List<AuthorData> authors = new ArrayList<AuthorData>(authorNodes.getLength());
-        for (int i = 0; i < authorNodes.getLength(); i++) {
-            authors.add(XmlParser.parseAuthorNode((Element)authorNodes.item(i)));
+        final List<AuthorData> authors = new ArrayList<AuthorData>();
+        for (final Element authorNode: getChildElements(articleNode, "AUTHOR")) {
+            authors.add(XmlParser.parseAuthorNode(authorNode));
         }
 
         return new ArticleData(dateData, authors, links);

@@ -1,18 +1,22 @@
 corriger bug quand un AUTHOR apparait dans le link d'un ARTICLE
 
-FATAL : utilisé pour journaliser une erreur grave pouvant mener à l'arrêt prématuré de l'application ;
-ERROR : utilisé pour journaliser une erreur qui n'empêche cependant pas l'application de fonctionner ;
-WARN : utilisé pour journaliser un avertissement, il peut s'agir par exemple d'une incohérence dans la configuration, l'application peut continuer à fonctionner mais pas forcément de la façon attendue ;
-INFO : utilisé pour journaliser des messages à caractère informatif (nom des fichiers, etc.) ;
-DEBUG : utilisé pour générer des messages pouvant être utiles au débogage.
-TRACE qui représente le niveau le plus fin (utilisé par exemple pour journaliser l'entrée ou la sortie d'une méthode).
+mettre en place mÃ©canisme de log
+FATAL : utilisï¿½ pour journaliser une erreur grave pouvant mener ï¿½ l'arrï¿½t prï¿½maturï¿½ de l'application ;
+ERROR : utilisï¿½ pour journaliser une erreur qui n'empï¿½che cependant pas l'application de fonctionner ;
+WARN : utilisï¿½ pour journaliser un avertissement, il peut s'agir par exemple d'une incohï¿½rence dans la configuration, l'application peut continuer ï¿½ fonctionner mais pas forcï¿½ment de la faï¿½on attendue ;
+INFO : utilisï¿½ pour journaliser des messages ï¿½ caractï¿½re informatif (nom des fichiers, etc.) ;
+DEBUG : utilisï¿½ pour gï¿½nï¿½rer des messages pouvant ï¿½tre utiles au dï¿½bogage.
+TRACE qui reprï¿½sente le niveau le plus fin (utilisï¿½ par exemple pour journaliser l'entrï¿½e ou la sortie d'une mï¿½thode).
 
+mettre un lien sur les pages pour recherche un lien mort
 
 - LinkedIn renvoie un HTTP code 999
-- fix incorrect status of running link checker
-- détecter les URL qui finissent par deux slashes
 
-- indiquer la sÃ©mantique du status
+- fix incorrect status of running link checker
+
+- dÃ©tecter les URL qui finissent par deux slashes
+
+- vÃ©rifier date / titre / durÃ©e des vidÃ©os youtube 
  
  - problÃ¨me avec le lien http://marie.desplats.free.fr/diagora_home_page.html
 
