@@ -1,4 +1,6 @@
-corriger bug quand un AUTHOR apparait dans le link d'un ARTICLE
+corriger bug create_index
+
+bug dans HTMLGenerator.java, si le fichier XSLT est modifié, la nouvelle versions n'est pas prise en compte
 
 mettre en place mécanisme de log
 FATAL : utilis� pour journaliser une erreur grave pouvant mener � l'arr�t pr�matur� de l'application ;
