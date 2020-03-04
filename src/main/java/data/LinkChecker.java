@@ -33,7 +33,7 @@ public class LinkChecker implements FileHandler {
     public void handleCreation(final Path file) {
 
         if (_handlers.get(file) != null) {
-            ExitHelper.exit("the is already a hanlder for file " + file);
+            ExitHelper.exit("there is already a hanlder for file " + file);
         }
 
         final LinkCheckRunner handler = new LinkCheckRunner(file, _tmpPath, _controller, getOutputFile(file), getReportFile(file));

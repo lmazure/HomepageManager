@@ -11,6 +11,7 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -111,11 +112,11 @@ class LinkCheckRunner {
         }
     }
     
-    private List<LinkData> extractLinks(final Path file, final String content) throws SAXException {
+    private List<LinkData> extractLinks(final Path file,
+    		                            final String content) throws SAXException {
 
         try {
-            final Document document = _builder
-                    .parse(new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8)));
+            final Document document = _builder.parse(new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8)));
             return extractLinks(file.toFile(), document.getDocumentElement());
         } catch (final IOException e) {
             ExitHelper.exit(e);
@@ -222,9 +223,9 @@ class LinkCheckRunner {
                                                : ((_nbSitesRemainingToBeChecked == 0) ? Status.HANDLED_WITH_ERROR : Status.HANDLING_WITH_ERROR);
 
         final Instant now = Instant.now();
-        final Boolean updateIsPublished = (_nbSitesRemainingToBeChecked == 0) ||
-                                          (Duration.between(_lastFileWriteTimestamp, now).getSeconds() > REPORT_THROTTLING_PERIOD);
-        if (updateIsPublished) {
+        final boolean shouldUpdateBePublished = (_nbSitesRemainingToBeChecked == 0) ||
+                                                (Duration.between(_lastFileWriteTimestamp, now).getSeconds() > REPORT_THROTTLING_PERIOD);
+        if (shouldUpdateBePublished) {
            try {
                 writeOutputFile();
            } catch (final Exception e) {
@@ -238,13 +239,13 @@ class LinkCheckRunner {
               return;
            }            
            _controller.handleUpdate(_file, status, _outputFile, _reportFile);
+           _lastFileWriteTimestamp = now;
         }
-        _lastFileWriteTimestamp = now;
 
         System.out.println("URL " + siteData.getUrl() + " " +
                            _nbSitesRemainingToBeChecked +
                            " status=" + status +
-                           " updateIsPublished=" + updateIsPublished);
+                           " updateIsPublished=" + shouldUpdateBePublished);
     }
     
     private void writeOutputFile() throws FileNotFoundException, IOException {
@@ -273,7 +274,7 @@ class LinkCheckRunner {
                 try {
                     return i.toString() + " " + HttpHelper.getStringOfCode(i);
                 } catch (@SuppressWarnings("unused") final InvalidHttpCodeException e) {
-                    return " invalid code ! (" + i.toString() + ")";
+                    return " invalid code! (" + i.toString() + ")";
                 }
             }).orElse("---");
             builder.append("Effective HTTP code = " + httpCode + "\n");
@@ -284,6 +285,7 @@ class LinkCheckRunner {
             if (effectiveData.getError().isPresent()) {
                 builder.append("Effective error = \"" + effectiveData.getError().get() + "\"\n");
             }
+            builder.append("Look for article = https://www.google.com/search?q=%22" + URLEncoder.encode(expectedData.getTitle(), StandardCharsets.UTF_8) + "%22\n");
             builder.append("\n");
         }
 
