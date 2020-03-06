@@ -87,7 +87,7 @@ public class MissingSpaceChecker extends NodeChecker {
     
     private static boolean containsPunctuation(final char[] chars) {
     	for (int i = 0; i < chars.length - 1; i++) {
-    		if (isPunctuation(chars[i])) return true;
+    		if (isPunctuation(chars[i])  && Character.isAlphabetic(chars[i + 1])) return true;
     	}    	
     	return false;
     }

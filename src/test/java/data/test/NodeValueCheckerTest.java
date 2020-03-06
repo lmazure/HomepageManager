@@ -180,6 +180,7 @@ class NodeValueCheckerTest {
             "<BLIST><TITLE>The string 12.34 should not be reported.</TITLE></BLIST>\r\n" +
             "<BLIST><TITLE>The string \".He is bright\" should be reported.</TITLE></BLIST>\r\n" +
             "<BLIST><TITLE>The string .He is bright should be reported.</TITLE></BLIST>\r\n" +
+            "<BLIST><TITLE>The string (isn't it?) should not be reported.</TITLE></BLIST>\r\n" +
             "</CONTENT>\r\n" + 
             "</PAGE>";
         
