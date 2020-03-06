@@ -1,8 +1,9 @@
 package data.nodechecker.checker.nodeChecker;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Set;
 
 import org.w3c.dom.Element;
 
@@ -12,14 +13,18 @@ import data.nodechecker.tagSelection.TagSelector;
 import utils.XMLHelper;
 
 public class MissingSpaceChecker extends NodeChecker {
-    
+
+	static final Set<String> s_authorizedList = new HashSet<String>(Arrays.asList("e.g.",
+			                                                                      "MANIFEST.MF",
+			                                                                      ".Net",
+			                                                                      "Node.js",
+			                                                                      "P.Anno"));
+
     static final InclusionTagSelector s_selector = new InclusionTagSelector(new String[] {
             NodeChecker.COMMENT,
             NodeChecker.TITLE,
             });
     
-    static final Pattern pattern = Pattern.compile("\\s([a-zA-Z])+[\\.?:,;)\\]}][a-zA-Z]+\\s");
-
     @Override
     public TagSelector getTagSelector() {
         return s_selector;
@@ -41,13 +46,53 @@ public class MissingSpaceChecker extends NodeChecker {
         if (list.size() == 0) return null;
 
         for (final String l: list) {
-            final Matcher matcher = pattern.matcher(l);
-            if (matcher.find()) {
-                return new CheckStatus("\"" + e.getTextContent() + "\" is missing a space");
-            }
+        	if (Arrays.stream(l.split(" ")).anyMatch(MissingSpaceChecker::isInvalid)) {
+                return new CheckStatus("\"" + e.getTextContent() + "\" is missing a space");        		
+        	}
         }
+        
+       return null;
+    }
+    
+    private static boolean isInvalid(final String str) {
 
-        return null;
-    }    
+    	for (final String a: s_authorizedList) {
+    		final String s = str.replace(a, "");
+    		if (containsNoLetter(s)) {
+    			return false;
+    		}
+    	}
 
+    	final char[] chars = str.toCharArray();
+
+    	if (isVersionString(chars)) return false;
+
+    	return containsPunctuation(chars);
+    }
+
+    private static boolean containsNoLetter(final String str) {
+    	final char[] chars = str.toCharArray();
+    	for (int i = 0; i < chars.length; i++) {
+    		if (Character.isLetter(chars[i])) return false;
+    	}    	
+    	return true;    	
+    }
+    
+    private static boolean isVersionString(final char[] chars) {
+    	for (int i = 0; i < chars.length; i++) {
+    		if (!isPunctuation(chars[i]) && !Character.isDigit(chars[i])) return false; // TODO sould test for dot instead of punctuation
+    	}    	
+    	return true;
+    }
+    
+    private static boolean containsPunctuation(final char[] chars) {
+    	for (int i = 0; i < chars.length - 1; i++) {
+    		if (isPunctuation(chars[i])) return true;
+    	}    	
+    	return false;
+    }
+    
+    private static boolean isPunctuation(final char c) {    	
+    	return (c == ',') || (c == '.') || (c == '!') || (c == '?') || (c == ':') || (c == ';');
+    }
 }

@@ -173,13 +173,21 @@ class NodeValueCheckerTest {
             "<PATH>HomepageManager/test.xml</PATH>\r\n" + 
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" + 
             "<CONTENT>\r\n" + 
-            "<BLIST><TITLE>He is Bob.She is Alice</TITLE></BLIST>\r\n" + 
+            "<BLIST><TITLE>He is Bob.She is Alice</TITLE></BLIST>\r\n" +
+            "<BLIST><TITLE>The string e.g. .Net should not be reported.</TITLE></BLIST>\r\n" +
+            "<BLIST><TITLE>The string (e.g. Node.js) should not be reported.</TITLE></BLIST>\r\n" +
+            "<BLIST><TITLE>Take care to not report something before a comma or a dot MANIFEST.MF, P.Anno.</TITLE></BLIST>\r\n" +
+            "<BLIST><TITLE>The string 12.34 should not be reported.</TITLE></BLIST>\r\n" +
+            "<BLIST><TITLE>The string \".He is bright\" should be reported.</TITLE></BLIST>\r\n" +
+            "<BLIST><TITLE>The string .He is bright should be reported.</TITLE></BLIST>\r\n" +
             "</CONTENT>\r\n" + 
             "</PAGE>";
         
         try {        
             test(content,
-                 "\"He is Bob.She is Alice\" is missing a space");
+                 "\"He is Bob.She is Alice\" is missing a space",
+                 "\"The string .He is bright should be reported.\" is missing a space",
+                 "\"The string \".He is bright\" should be reported.\" is missing a space");
         } catch (@SuppressWarnings("unused") final SAXException e) {
             Assertions.fail("SAXException");
         }
@@ -231,7 +239,7 @@ class NodeValueCheckerTest {
         test(content, expected);
     }*/
 
-    /*static private void test(final String content,
+    static private void test(final String content,
                              final String detail0,
                              final String detail1,
                              final String detail2) throws SAXException {
@@ -241,7 +249,7 @@ class NodeValueCheckerTest {
         expected.add(new NodeValueChecker.Error("tag", "value", "violation", detail1));
         expected.add(new NodeValueChecker.Error("tag", "value", "violation", detail2));
         test(content, expected);
-    }*/
+    }
     
     static private void test(final String content,
                              final List<NodeValueChecker.Error> expected) throws SAXException {

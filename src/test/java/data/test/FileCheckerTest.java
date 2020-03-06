@@ -347,7 +347,7 @@ class FileCheckerTest {
              3, MESS_ODSP,
              5, MESS_ODSP);
     }
-    
+
     static private void test(final String content) {
 
         final List<FileChecker.Error> expected= new ArrayList<FileChecker.Error>();        
@@ -426,6 +426,5 @@ class FileCheckerTest {
         public void handleDeletion(final Path file, final Status status, final Path outputFile, final Path reportFile) {
             // do noting
         }
-        
     }
 }

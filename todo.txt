@@ -1,8 +1,4 @@
-corriger bug create_index
-
-bug dans HTMLGenerator.java, si le fichier XSLT est modifié, la nouvelle versions n'est pas prise en compte
-
-mettre en place mécanisme de log
+- mettre en place mécanisme de log
 FATAL : utilis� pour journaliser une erreur grave pouvant mener � l'arr�t pr�matur� de l'application ;
 ERROR : utilis� pour journaliser une erreur qui n'emp�che cependant pas l'application de fonctionner ;
 WARN : utilis� pour journaliser un avertissement, il peut s'agir par exemple d'une incoh�rence dans la configuration, l'application peut continuer � fonctionner mais pas forc�ment de la fa�on attendue ;
@@ -10,7 +6,9 @@ INFO : utilis� pour journaliser des messages � caract�re informatif (nom d
 DEBUG : utilis� pour g�n�rer des messages pouvant �tre utiles au d�bogage.
 TRACE qui repr�sente le niveau le plus fin (utilis� par exemple pour journaliser l'entr�e ou la sortie d'une m�thode).
 
-mettre un lien sur les pages pour recherche un lien mort
+- corriger problème de certificat
+
+- bug dans HTMLGenerator.java, si le fichier XSLT est modifié, la nouvelle versions n'est pas prise en compte
 
 - LinkedIn renvoie un HTTP code 999
 
