@@ -5,13 +5,22 @@ import data.nodechecker.tagSelection.InclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
 import utils.XMLHelper;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import org.w3c.dom.Element;
 
 public class TitleFormatChecker extends NodeChecker {
 
-	final static InclusionTagSelector s_selector = new InclusionTagSelector( new String[] {
+	static final Set<String> s_authorizedList = new HashSet<String>(Arrays.asList("abc",
+			                                                                      "e",
+			                                                                      "quantum.country",
+			                                                                      "π"));
+
+	static final InclusionTagSelector s_selector = new InclusionTagSelector( new String[] {
 	        NodeChecker.TITLE
 			} );
 	
@@ -48,11 +57,23 @@ public class TitleFormatChecker extends NodeChecker {
 	private CheckStatus titleStartsWithUppercase(final Element e) {
 		
         final List<String> list = XMLHelper.getFirstLevelTextContent(e);
-        if (list.size() == 0) return null;
+        if (list.size() == 0) {
+        	return null;
+        }
 
-	    if (Character.isLowerCase(list.get(0).codePointAt(0))) return new CheckStatus("TITLE \"" + e.getTextContent() + "\" must start with an uppercase");
+        final Optional<String> firstWord = Arrays.stream(list.get(0).split(" ")).findFirst();
+        if (firstWord.isEmpty()) {
+        	return null;
+        }
+        		
+	    if (s_authorizedList.contains(firstWord.get())) {
+	    	return null;
+	    }
+	    
+	    if (Character.isLowerCase(firstWord.get().codePointAt(0))) {
+	    	return new CheckStatus("TITLE \"" + e.getTextContent() + "\" must start with an uppercase");
+	    }
 		
 		return null;
 	}
-
 }
