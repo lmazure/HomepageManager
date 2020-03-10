@@ -17,6 +17,8 @@ public class TitleFormatChecker extends NodeChecker {
 
 	static final Set<String> s_authorizedList = new HashSet<String>(Arrays.asList("abc",
 			                                                                      "e",
+			                                                                      "jQuery",
+			                                                                      "lit-html",
 			                                                                      "quantum.country",
 			                                                                      "π"));
 

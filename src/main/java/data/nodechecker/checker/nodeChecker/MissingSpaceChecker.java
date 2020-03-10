@@ -15,17 +15,21 @@ import utils.XMLHelper;
 public class MissingSpaceChecker extends NodeChecker {
 
 	static final Set<String> s_authorizedList = new HashSet<String>(Arrays.asList("a.k.a.",
+			                                                                      "Ampersand.js",
 			                                                                      "asm.js",
                                                                                   "ASP.NET",
 			                                                                      "Bubbl.us",
 			                                                                      "e.g.",
+			                                                                      "Famo.us",
 			                                                                      "i.e.",
+			                                                                      "Intro.js",
 			                                                                      "MANIFEST.MF",
 			                                                                      ".NET",
 			                                                                      "Node.js",
 			                                                                      "OpenOffice.org",
 			                                                                      "P.Anno",
-			                                                                      "quantum.country"));
+			                                                                      "quantum.country",
+			                                                                      "Sails.js"));
 
     static final InclusionTagSelector s_selector = new InclusionTagSelector(new String[] {
             NodeChecker.COMMENT,
