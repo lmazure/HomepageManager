@@ -17,9 +17,14 @@ public class TitleFormatChecker extends NodeChecker {
 
 	static final Set<String> s_authorizedList = new HashSet<String>(Arrays.asList("abc",
 			                                                                      "e",
+			                                                                      "etrials",
+			                                                                      "flexcipio",
+			                                                                      "gcc",
+			                                                                      "iostream",
 			                                                                      "jQuery",
 			                                                                      "lit-html",
 			                                                                      "quantum.country",
+			                                                                      "tgAAC94",
 			                                                                      "π"));
 
 	static final InclusionTagSelector s_selector = new InclusionTagSelector( new String[] {
@@ -64,7 +69,7 @@ public class TitleFormatChecker extends NodeChecker {
         }
 
         final Optional<String> firstWord = Arrays.stream(list.get(0).split(" ")).findFirst();
-        if (firstWord.isEmpty()) {
+        if (firstWord.isEmpty() || (firstWord.get().length() == 0)) {
         	return null;
         }
         		

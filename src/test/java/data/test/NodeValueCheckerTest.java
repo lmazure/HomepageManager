@@ -174,7 +174,7 @@ class NodeValueCheckerTest {
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" + 
             "<CONTENT>\r\n" + 
             "<BLIST><TITLE>He is Bob.She is Alice</TITLE></BLIST>\r\n" +
-            "<BLIST><TITLE>The string e.g. .Net should not be reported.</TITLE></BLIST>\r\n" +
+            "<BLIST><TITLE>The string e.g. .NET should not be reported.</TITLE></BLIST>\r\n" +
             "<BLIST><TITLE>The string (e.g. Node.js) should not be reported.</TITLE></BLIST>\r\n" +
             "<BLIST><TITLE>Take care to not report something before a comma or a dot MANIFEST.MF, P.Anno.</TITLE></BLIST>\r\n" +
             "<BLIST><TITLE>The string 12.34 should not be reported.</TITLE></BLIST>\r\n" +

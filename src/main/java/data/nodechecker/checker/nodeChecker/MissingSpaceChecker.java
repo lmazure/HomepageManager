@@ -22,14 +22,18 @@ public class MissingSpaceChecker extends NodeChecker {
 			                                                                      "e.g.",
 			                                                                      "Famo.us",
 			                                                                      "i.e.",
+			                                                                      "Intl.RelativeTimeFormat",
 			                                                                      "Intro.js",
 			                                                                      "MANIFEST.MF",
+			                                                                      "MVC.NET",
 			                                                                      ".NET",
 			                                                                      "Node.js",
 			                                                                      "OpenOffice.org",
 			                                                                      "P.Anno",
 			                                                                      "quantum.country",
-			                                                                      "Sails.js"));
+			                                                                      "Sails.js",
+			                                                                      "Three.js",
+			                                                                      "tween.js"));
 
     static final InclusionTagSelector s_selector = new InclusionTagSelector(new String[] {
             NodeChecker.COMMENT,
