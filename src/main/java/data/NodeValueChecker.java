@@ -48,6 +48,7 @@ import data.nodechecker.checker.nodeChecker.TitleFormatChecker;
 import data.nodechecker.checker.nodeChecker.URLProtocolChecker;
 import utils.ExitHelper;
 import utils.FileHelper;
+import utils.Logger;
 import utils.XMLHelper;
 
 public class NodeValueChecker implements FileHandler {
@@ -118,7 +119,7 @@ public class NodeValueChecker implements FileHandler {
 
                 }
                 status = Status.HANDLED_WITH_ERROR;
-                System.out.println(getOutputFile(file).toFile() + " is generated");
+                Logger.log(Logger.Level.INFO).append(getOutputFile(file).toFile() + " is generated").submit();
             } else {
                 // must write something in the file otherwise its last modification datetime will be incorrect
                 pw.println("OK");

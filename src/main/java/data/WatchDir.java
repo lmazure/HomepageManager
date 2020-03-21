@@ -21,6 +21,7 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 
 import utils.ExitHelper;
+import utils.Logger;
 
 /**
  * Watch a directory (and its sub-directories) for changes to files
@@ -144,7 +145,7 @@ public class WatchDir {
             }
             assert(path != null);
 
-            System.out.println("DBGWATCHDIR -- before WatchEvent loop");
+            Logger.log(Logger.Level.TRACE).append("DBGWATCHDIR -- before WatchEvent loop").submit();
             for (final WatchEvent<?> event: key.pollEvents()) {
                 final WatchEvent.Kind<?> kind = event.kind();
 
@@ -158,17 +159,17 @@ public class WatchDir {
 
                 // dispatch event
                 if (event.kind().equals(StandardWatchEventKinds.ENTRY_CREATE) ) {
-                    System.out.println("DBGWATCHDIR -- path = " + child + " create");
+                	Logger.log(Logger.Level.TRACE).append("DBGWATCHDIR -- path = " + child + " create").submit();
                     for (FileWatcher w: _watchers) {
                         w.consume(child, Event.CREATE);
                     }
                 } else if (event.kind().equals(StandardWatchEventKinds.ENTRY_DELETE) ) {
-                    System.out.println("DBGWATCHDIR -- path = " + child + " delete");
+                	Logger.log(Logger.Level.TRACE).append("DBGWATCHDIR -- path = " + child + " delete").submit();
                     for (FileWatcher w: _watchers) {
                         w.consume(child, Event.DELETE);
                     }
                 } else if (event.kind().equals(StandardWatchEventKinds.ENTRY_MODIFY) ) {
-                    System.out.println("DBGWATCHDIR -- path = " + child + " modify");
+                	Logger.log(Logger.Level.TRACE).append("DBGWATCHDIR -- path = " + child + " modify").submit();
                     for (FileWatcher w: _watchers) {
                         w.consume(child, Event.DELETE);
                         w.consume(child, Event.CREATE);
@@ -188,7 +189,7 @@ public class WatchDir {
                     }
                 }
             }
-            System.out.println("DBGWATCHDIR -- after WatchEvent loop");
+            Logger.log(Logger.Level.TRACE).append("DBGWATCHDIR -- after WatchEvent loop").submit();
 
             // reset key and remove from set if directory no longer accessible
             final boolean valid = key.reset();

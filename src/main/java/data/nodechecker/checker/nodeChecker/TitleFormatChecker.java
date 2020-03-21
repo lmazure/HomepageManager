@@ -16,15 +16,40 @@ import org.w3c.dom.Element;
 public class TitleFormatChecker extends NodeChecker {
 
 	static final Set<String> s_authorizedList = new HashSet<String>(Arrays.asList("abc",
+			                                                                      "apt",
+			                                                                      "autosrb.pl",
+                                                                                  "awk",
+                                                                                  "bash",
+                                                                                  "csh",
+                                                                                  "curses",
+			                                                                      "ddd",
+			                                                                      "deCODEme",
 			                                                                      "e",
+			                                                                      "ePRO",
 			                                                                      "etrials",
 			                                                                      "flexcipio",
 			                                                                      "gcc",
+			                                                                      "gdb",
+			                                                                      "glibc",
+			                                                                      "gulp",
 			                                                                      "iostream",
 			                                                                      "jQuery",
+			                                                                      "ksh",
 			                                                                      "lit-html",
+			                                                                      "m4",
+			                                                                      "make",
+			                                                                      "npm",
 			                                                                      "quantum.country",
+			                                                                      "rpm",
+			                                                                      "sed",
+			                                                                      "sh",
+			                                                                      "systat",
 			                                                                      "tgAAC94",
+			                                                                      "tkdiff",
+			                                                                      "vi",
+			                                                                      "xUnit",
+			                                                                      "yacc",
+			                                                                      "zsh",
 			                                                                      "π"));
 
 	static final InclusionTagSelector s_selector = new InclusionTagSelector( new String[] {
@@ -53,10 +78,12 @@ public class TitleFormatChecker extends NodeChecker {
 
 	private CheckStatus titleDoesNotFinishWithColon(final Element e) {
 		
+		/* TODO temporary disabled
 		final List<String> list = XMLHelper.getFirstLevelTextContent(e);
 		if (list.size() == 0) return null;
 
 		if (list.get(list.size() - 1).endsWith(":")) return new CheckStatus("TITLE \"" + e.getTextContent() + "\" must not finish with colon");
+		*/
 		
 		return null;
 	}

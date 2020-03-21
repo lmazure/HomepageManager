@@ -13,6 +13,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import utils.Logger;
 import utils.XMLHelper;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
@@ -46,16 +47,14 @@ public class Parser {
 	 */
 	public void parse(final File file) {
 		
-		//System.out.println("parsing file " + file.getName());
-		
 		try {
 			final Document document = a_builder.parse(file);
 			extractArticles(document, file);
 		} catch (final SAXException se) {
-			System.out.println("Failed to parse the XML file");
+			Logger.log(Logger.Level.ERROR).append("Failed to parse the XML file").submit();
 			se.printStackTrace();
 		} catch (final IOException ioe) {
-			System.out.println("Failed to read the XML file");
+			Logger.log(Logger.Level.ERROR).append("Failed to read the XML file").submit();
 			ioe.printStackTrace();
 		}
 	}
@@ -100,16 +99,14 @@ public class Parser {
      */
     public void parsePersonFile(final File file) {
         
-        //System.out.println("parsing person file " + file.getName());
-        
         try {
             final Document document = a_builder.parse(file);
             extractPersonLinks(document, file);
         } catch (final SAXException se) {
-            System.out.println("Failed to parse the XML file");
+        	Logger.log(Logger.Level.ERROR).append("Failed to parse the XML file").submit();
             se.printStackTrace();
         } catch (final IOException ioe) {
-            System.out.println("Failed to read the XML file");
+        	Logger.log(Logger.Level.ERROR).append("Failed to read the XML file").submit();
             ioe.printStackTrace();
         }
     }

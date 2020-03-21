@@ -22,6 +22,7 @@ import org.xml.sax.SAXParseException;
 
 import utils.ExitHelper;
 import utils.FileHelper;
+import utils.Logger;
 
 /**
  * Manage the creation of the HTML files
@@ -66,7 +67,7 @@ public class HTMLGenerator implements FileHandler {
             final DOMSource source = new DOMSource(document);
             final StreamResult result = new StreamResult(outputFile);
             _transformer.transform(source, result);
-            System.out.println(outputFile + " is generated");
+            Logger.log(Logger.Level.INFO).append(outputFile + " is generated").submit();
         } catch (final Exception e) {
             final Path reportFile = getReportFile(file);
             FileHelper.createParentDirectory(reportFile);

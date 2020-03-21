@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 import utils.ExitHelper;
+import utils.Logger;
 
 public class SiteFilesGenerator {
     
@@ -38,7 +39,7 @@ public class SiteFilesGenerator {
                 ExitHelper.exit(e);
         }
         
-        System.out.println(robottxt.toString() + " is generated");
+        Logger.log(Logger.Level.INFO).append(robottxt.toString() + " is generated").submit();
     }
 
     
@@ -64,7 +65,7 @@ public class SiteFilesGenerator {
                 ExitHelper.exit(e);
         }
         
-        System.out.println(sitemap.toString() + " is generated");
+        Logger.log(Logger.Level.INFO).append(sitemap.toString() + " is generated").submit();
     }
     
     static private String getXmlUrlFromFile(final Path homepage,

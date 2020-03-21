@@ -23,6 +23,7 @@ import java.util.zip.GZIPInputStream;
 import data.internet.SiteData.Status;
 import utils.ExitHelper;
 import utils.FileHelper;
+import utils.Logger;
 
 public class SiteDataPersister {
 
@@ -108,7 +109,7 @@ public class SiteDataPersister {
                     System.out.println("retrieved content of " + url + " is truncated");
                 }
             } catch (final IOException e) {
-                System.err.println("Error (" + e.toString() + ") while getting data from " + url);
+            	Logger.log(Logger.Level.ERROR).append("Error (" + e.toString() + ") while getting data from " + url).submit();
             }            
         }        
     }

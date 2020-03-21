@@ -8,6 +8,8 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import utils.Logger;
+
 public class Reporter {
 
 	private final ArticleFactory a_articleFactory;
@@ -93,11 +95,11 @@ public class Reporter {
             out.write("\n  ]\n}");
             out.close();
         } catch (final IOException e) {
-            System.out.println("Failed to write file " + f.getAbsolutePath());
+        	Logger.log(Logger.Level.ERROR).append("Failed to write file " + f.getAbsolutePath()).submit();
             e.printStackTrace();
         }
 
-        System.out.println(f.getPath() + " is created");
+        Logger.log(Logger.Level.INFO).append(f.getPath() + " is created").submit();
     }
 
     
@@ -160,11 +162,11 @@ public class Reporter {
              out.write("\n  ]\n}");
              out.close();
          } catch (final IOException e) {
-             System.out.println("Failed to write file " + f.getAbsolutePath());
+        	 Logger.log(Logger.Level.ERROR).append("Failed to write file " + f.getAbsolutePath()).submit();
              e.printStackTrace();
          }
     
-         System.out.println(f.getPath() + " is created");
+         Logger.log(Logger.Level.INFO).append(f.getPath() + " is created").submit();
      }
 
     private void printLinks(final OutputStreamWriter out, final Link[] links) throws IOException {

@@ -12,8 +12,10 @@ public class ExitHelper {
 
     static public void exit(final String message, final Exception exception) {
         
+    	final Log log = Logger.log(Logger.Level.FATAL);
+    	
         if (message != null) {
-            System.err.println(message);
+        	log.append(message);
         }
         
         if (exception != null) {
@@ -21,9 +23,11 @@ public class ExitHelper {
         } else {
             final StackTraceElement[] stack = Thread.currentThread().getStackTrace();
             for (StackTraceElement elem: stack) {
-                System.err.println(elem.toString());
+                log.append(elem.toString());
             }
         }
+        
+        log.submit();
         
         System.exit(1);
     }

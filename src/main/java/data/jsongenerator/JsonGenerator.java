@@ -4,6 +4,8 @@ import java.io.File;
 import java.nio.file.Path;
 import java.util.List;
 
+import utils.Logger;
+
 public class JsonGenerator {
 
 	private final ArticleFactory a_articleFactory;
@@ -48,7 +50,7 @@ public class JsonGenerator {
 		// generate content files
 		main.generateReports(homepagePath);
 
-		System.out.println("done! ");
+		Logger.log(Logger.Level.INFO).append("done! ").submit();
 	}
 
 	/**

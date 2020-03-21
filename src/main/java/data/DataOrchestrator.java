@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import utils.ExitHelper;
+import utils.Logger;
 
 public class DataOrchestrator {
 
@@ -76,7 +77,9 @@ public class DataOrchestrator {
                 return FileVisitResult.CONTINUE;
             }
         });
-        System.out.println("visited all files");
+        Logger.log(Logger.Level.INFO)
+              .append("visited all files")
+              .submit();
     }
 
     private void addFile(final Path file) {
