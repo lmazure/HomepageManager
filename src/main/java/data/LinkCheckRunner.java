@@ -213,7 +213,7 @@ class LinkCheckRunner {
              final PrintWriter pw = new PrintWriter(os)) {
                pw.println("Analysis of links is started");
                Logger.log(Logger.Level.INFO)
-                     .append(_outputFile.toFile().toString())
+                     .append(_outputFile)
                      .append(" starts to be generated")
                      .submit();
         } catch (final Exception e) {
@@ -264,7 +264,7 @@ class LinkCheckRunner {
 
         Logger.log(Logger.Level.INFO)
               .append("URL ")
-              .append(siteData.getUrl().toString())
+              .append(siteData.getUrl())
         	  .append(" ")
               .append(_nbSitesRemainingToBeChecked)
               .append(" status=")

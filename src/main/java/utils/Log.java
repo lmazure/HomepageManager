@@ -1,8 +1,11 @@
 package utils;
 
+import java.io.File;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.net.URL;
+import java.nio.file.Path;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -42,8 +45,19 @@ public class Log {
 	
 	public Log append(final int i) {
 		return append(Integer.toString(i));
-	}
-	
+	}	
+
+	public Log append(final File file) {
+		return append(file.getAbsolutePath());
+	}	
+
+	public Log append(final Path path) {
+		return append(path.toString());
+	}	
+
+	public Log append(final URL url) {
+		return append(url.toString());
+	}	
 
 	public Log append(final Exception exception) {
 		final StringWriter sw = new StringWriter();

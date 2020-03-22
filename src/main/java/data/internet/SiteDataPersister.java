@@ -108,7 +108,7 @@ public class SiteDataPersister {
                 if (size > s_max_content_size) {
                 	Logger.log(Logger.Level.WARN)
           	              .append("retrieved content of ")
-                          .append(url.toString())
+                          .append(url)
                           .append(" is truncated")
                           .submit();
                 }

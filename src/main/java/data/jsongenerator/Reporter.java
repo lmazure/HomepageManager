@@ -97,13 +97,13 @@ public class Reporter {
         } catch (final IOException e) {
         	Logger.log(Logger.Level.ERROR)
         	      .append("Failed to write file ")
-        	      .append(f.getAbsolutePath())
+        	      .append(f)
 			      .append(e)
         	      .submit();
         }
 
         Logger.log(Logger.Level.INFO)
-              .append(f.getPath())
+              .append(f)
               .append(" is created")
               .submit();
     }
@@ -170,13 +170,13 @@ public class Reporter {
          } catch (final IOException e) {
         	 Logger.log(Logger.Level.ERROR)
         	       .append("Failed to write file ")
-                   .append(f.getAbsolutePath())
+                   .append(f)
  			       .append(e)
                    .submit();
          }
     
          Logger.log(Logger.Level.INFO)
-               .append(f.getPath())
+               .append(f)
                .append(" is created")
                .submit();
      }

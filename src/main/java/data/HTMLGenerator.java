@@ -68,7 +68,7 @@ public class HTMLGenerator implements FileHandler {
             final StreamResult result = new StreamResult(outputFile);
             _transformer.transform(source, result);
             Logger.log(Logger.Level.INFO)
-                  .append(outputFile.toString())
+                  .append(outputFile)
                   .append(" is generated")
                   .submit();
         } catch (final Exception e) {

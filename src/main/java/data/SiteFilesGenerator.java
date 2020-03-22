@@ -40,7 +40,7 @@ public class SiteFilesGenerator {
         }
         
         Logger.log(Logger.Level.INFO)
-              .append(robottxt.toString())
+              .append(robottxt)
               .append(" is generated")
               .submit();
     }
@@ -69,7 +69,7 @@ public class SiteFilesGenerator {
         }
         
         Logger.log(Logger.Level.INFO)
-              .append(sitemap.toString())
+              .append(sitemap)
               .append(" is generated")
               .submit();
     }

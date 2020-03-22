@@ -78,7 +78,7 @@ public class FileChecker implements FileHandler {
                 pw.println(message);
             }
             Logger.log(Logger.Level.INFO)
-                  .append(getOutputFile(file).toFile().toString())
+                  .append(getOutputFile(file))
                   .append(" is generated")
                   .submit();
         } catch (final Exception e) {

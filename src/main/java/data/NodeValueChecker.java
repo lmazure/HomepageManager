@@ -120,7 +120,7 @@ public class NodeValueChecker implements FileHandler {
                 }
                 status = Status.HANDLED_WITH_ERROR;
                 Logger.log(Logger.Level.INFO)
-                      .append(getOutputFile(file).toFile().toString())
+                      .append(getOutputFile(file))
                       .append(" is generated")
                       .submit();
             } else {
