@@ -77,7 +77,10 @@ public class FileChecker implements FileHandler {
                 final String message = "line " + error.getLineNumber() + ": " + error.getErrorMessage(); 
                 pw.println(message);
             }
-            Logger.log(Logger.Level.INFO).append(getOutputFile(file).toFile() + " is generated").submit();
+            Logger.log(Logger.Level.INFO)
+                  .append(getOutputFile(file).toFile().toString())
+                  .append(" is generated")
+                  .submit();
         } catch (final Exception e) {
             final Path reportFile = getReportFile(file);
             FileHelper.createParentDirectory(reportFile);

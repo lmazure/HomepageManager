@@ -119,7 +119,10 @@ public class NodeValueChecker implements FileHandler {
 
                 }
                 status = Status.HANDLED_WITH_ERROR;
-                Logger.log(Logger.Level.INFO).append(getOutputFile(file).toFile() + " is generated").submit();
+                Logger.log(Logger.Level.INFO)
+                      .append(getOutputFile(file).toFile().toString())
+                      .append(" is generated")
+                      .submit();
             } else {
                 // must write something in the file otherwise its last modification datetime will be incorrect
                 pw.println("OK");

@@ -51,11 +51,15 @@ public class Parser {
 			final Document document = a_builder.parse(file);
 			extractArticles(document, file);
 		} catch (final SAXException se) {
-			Logger.log(Logger.Level.ERROR).append("Failed to parse the XML file").submit();
-			se.printStackTrace();
+			Logger.log(Logger.Level.ERROR)
+			      .append("Failed to parse the XML file")
+			      .append(se)
+			      .submit();
 		} catch (final IOException ioe) {
-			Logger.log(Logger.Level.ERROR).append("Failed to read the XML file").submit();
-			ioe.printStackTrace();
+			Logger.log(Logger.Level.ERROR)
+			      .append("Failed to read the XML file")
+			      .append(ioe)
+			      .submit();
 		}
 	}
 
@@ -103,11 +107,15 @@ public class Parser {
             final Document document = a_builder.parse(file);
             extractPersonLinks(document, file);
         } catch (final SAXException se) {
-        	Logger.log(Logger.Level.ERROR).append("Failed to parse the XML file").submit();
-            se.printStackTrace();
+        	Logger.log(Logger.Level.ERROR)
+        	      .append("Failed to parse the XML file")
+			      .append(se)
+        	      .submit();
         } catch (final IOException ioe) {
-        	Logger.log(Logger.Level.ERROR).append("Failed to read the XML file").submit();
-            ioe.printStackTrace();
+        	Logger.log(Logger.Level.ERROR)
+        	      .append("Failed to read the XML file")
+			      .append(ioe)
+        	      .submit();
         }
     }
     

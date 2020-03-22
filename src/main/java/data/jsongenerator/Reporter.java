@@ -95,11 +95,17 @@ public class Reporter {
             out.write("\n  ]\n}");
             out.close();
         } catch (final IOException e) {
-        	Logger.log(Logger.Level.ERROR).append("Failed to write file " + f.getAbsolutePath()).submit();
-            e.printStackTrace();
+        	Logger.log(Logger.Level.ERROR)
+        	      .append("Failed to write file ")
+        	      .append(f.getAbsolutePath())
+			      .append(e)
+        	      .submit();
         }
 
-        Logger.log(Logger.Level.INFO).append(f.getPath() + " is created").submit();
+        Logger.log(Logger.Level.INFO)
+              .append(f.getPath())
+              .append(" is created")
+              .submit();
     }
 
     
@@ -162,11 +168,17 @@ public class Reporter {
              out.write("\n  ]\n}");
              out.close();
          } catch (final IOException e) {
-        	 Logger.log(Logger.Level.ERROR).append("Failed to write file " + f.getAbsolutePath()).submit();
-             e.printStackTrace();
+        	 Logger.log(Logger.Level.ERROR)
+        	       .append("Failed to write file ")
+                   .append(f.getAbsolutePath())
+ 			       .append(e)
+                   .submit();
          }
     
-         Logger.log(Logger.Level.INFO).append(f.getPath() + " is created").submit();
+         Logger.log(Logger.Level.INFO)
+               .append(f.getPath())
+               .append(" is created")
+               .submit();
      }
 
     private void printLinks(final OutputStreamWriter out, final Link[] links) throws IOException {

@@ -19,7 +19,7 @@ public class ExitHelper {
         }
         
         if (exception != null) {
-            exception.printStackTrace();
+           log.append(exception);
         } else {
             final StackTraceElement[] stack = Thread.currentThread().getStackTrace();
             for (StackTraceElement elem: stack) {

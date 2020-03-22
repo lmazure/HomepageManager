@@ -1,6 +1,3 @@
-- supprimer les appels à printStackTrace
-- supprimer les concatenations de String dans les appels au logger
-
 - corriger problème de certificat
 
 - bug dans HTMLGenerator.java, si le fichier XSLT est modifié, la nouvelle versions n'est pas prise en compte

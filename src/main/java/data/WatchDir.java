@@ -145,7 +145,9 @@ public class WatchDir {
             }
             assert(path != null);
 
-            Logger.log(Logger.Level.TRACE).append("DBGWATCHDIR -- before WatchEvent loop").submit();
+            Logger.log(Logger.Level.TRACE)
+                  .append("DBGWATCHDIR -- before WatchEvent loop")
+                  .submit();
             for (final WatchEvent<?> event: key.pollEvents()) {
                 final WatchEvent.Kind<?> kind = event.kind();
 
@@ -159,17 +161,29 @@ public class WatchDir {
 
                 // dispatch event
                 if (event.kind().equals(StandardWatchEventKinds.ENTRY_CREATE) ) {
-                	Logger.log(Logger.Level.TRACE).append("DBGWATCHDIR -- path = " + child + " create").submit();
+                	Logger.log(Logger.Level.TRACE)
+                	      .append("DBGWATCHDIR -- path = ")
+                	      .append(child.toString())
+                	      .append(" create")
+                	      .submit();
                     for (FileWatcher w: _watchers) {
                         w.consume(child, Event.CREATE);
                     }
                 } else if (event.kind().equals(StandardWatchEventKinds.ENTRY_DELETE) ) {
-                	Logger.log(Logger.Level.TRACE).append("DBGWATCHDIR -- path = " + child + " delete").submit();
+                	Logger.log(Logger.Level.TRACE)
+                	      .append("DBGWATCHDIR -- path = ")
+                          .append(child.toString())
+                	      .append(" delete")
+                	      .submit();
                     for (FileWatcher w: _watchers) {
                         w.consume(child, Event.DELETE);
                     }
                 } else if (event.kind().equals(StandardWatchEventKinds.ENTRY_MODIFY) ) {
-                	Logger.log(Logger.Level.TRACE).append("DBGWATCHDIR -- path = " + child + " modify").submit();
+                	Logger.log(Logger.Level.TRACE)
+                	      .append("DBGWATCHDIR -- path = ")
+                          .append(child.toString())
+                	      .append(" modify")
+                	      .submit();
                     for (FileWatcher w: _watchers) {
                         w.consume(child, Event.DELETE);
                         w.consume(child, Event.CREATE);
@@ -189,7 +203,9 @@ public class WatchDir {
                     }
                 }
             }
-            Logger.log(Logger.Level.TRACE).append("DBGWATCHDIR -- after WatchEvent loop").submit();
+            Logger.log(Logger.Level.TRACE)
+                  .append("DBGWATCHDIR -- after WatchEvent loop")
+                  .submit();
 
             // reset key and remove from set if directory no longer accessible
             final boolean valid = key.reset();

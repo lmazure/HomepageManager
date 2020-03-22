@@ -50,7 +50,9 @@ public class JsonGenerator {
 		// generate content files
 		main.generateReports(homepagePath);
 
-		Logger.log(Logger.Level.INFO).append("done! ").submit();
+		Logger.log(Logger.Level.INFO)
+		      .append("done! ")
+		      .submit();
 	}
 
 	/**

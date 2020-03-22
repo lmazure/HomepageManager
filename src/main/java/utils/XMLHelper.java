@@ -35,8 +35,10 @@ public class XMLHelper {
         try {
             builder = factory.newDocumentBuilder();
         } catch (final ParserConfigurationException pce){
-        	Logger.log(Logger.Level.ERROR).append("Failed to configure the XML parser").submit();
-            pce.printStackTrace();
+        	Logger.log(Logger.Level.ERROR)
+        	      .append("Failed to configure the XML parser")
+			      .append(pce)
+        	      .submit();
         }
         return builder;
     }

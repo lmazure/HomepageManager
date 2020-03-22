@@ -106,10 +106,19 @@ public class SiteDataPersister {
                     size += length;
                 }
                 if (size > s_max_content_size) {
-                    System.out.println("retrieved content of " + url + " is truncated");
+                	Logger.log(Logger.Level.WARN)
+          	              .append("retrieved content of ")
+                          .append(url.toString())
+                          .append(" is truncated")
+                          .submit();
                 }
             } catch (final IOException e) {
-            	Logger.log(Logger.Level.ERROR).append("Error (" + e.toString() + ") while getting data from " + url).submit();
+            	Logger.log(Logger.Level.ERROR)
+            	      .append("Error (")
+                      .append(e.toString())
+                      .append(") while getting data from ")
+                      .append(url.toString())
+                      .submit();
             }            
         }        
     }

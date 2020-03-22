@@ -157,17 +157,29 @@ class LinkCheckRunner {
             }
             if (urlStr.indexOf(":") < 0) {
                 // TODO implement check of local links
-            	Logger.log(Logger.Level.INFO).append("TBD: local link " + urlStr + " is not checked").submit();
+            	Logger.log(Logger.Level.INFO)
+            	      .append("TBD: local link ")
+                      .append(urlStr)
+                      .append(" is not checked")
+                      .submit();
                 continue;
             }
             if (urlStr.startsWith("ftp:")) {
                 // TODO implement check of FTP links
-            	Logger.log(Logger.Level.INFO).append("TBD: FTP URL " + urlStr + " is not checked").submit();
+            	Logger.log(Logger.Level.INFO)
+            	      .append("TBD: FTP URL ")
+                      .append(urlStr)
+                      .append(" is not checked")
+                      .submit();
                 continue;
             }
             if (urlStr.startsWith("mailto:")) {
                 // TODO implement check of mail links
-            	Logger.log(Logger.Level.INFO).append("TBD: mailto URL " + urlStr + " is not checked").submit();
+            	Logger.log(Logger.Level.INFO)
+            	      .append("TBD: mailto URL ")
+                      .append(urlStr)
+                      .append(" is not checked")
+                      .submit();
                 continue;
             }
 
@@ -175,7 +187,11 @@ class LinkCheckRunner {
             try {
                 url = new URL(urlStr);
             } catch (@SuppressWarnings("unused") final MalformedURLException e) {
-            	Logger.log(Logger.Level.ERROR).append("URL " + urlStr + " is not checked because the URL is malformed").submit();
+            	Logger.log(Logger.Level.ERROR)
+            	      .append("URL ")
+                      .append(urlStr)
+                      .append(" is not checked because the URL is malformed")
+                      .submit();
                 continue;
             }
             list.add(url);
@@ -196,7 +212,10 @@ class LinkCheckRunner {
         try (final FileOutputStream os = new FileOutputStream(_outputFile.toFile());
              final PrintWriter pw = new PrintWriter(os)) {
                pw.println("Analysis of links is started");
-               Logger.log(Logger.Level.INFO).append(_outputFile.toFile() + " starts to be generated").submit();
+               Logger.log(Logger.Level.INFO)
+                     .append(_outputFile.toFile().toString())
+                     .append(" starts to be generated")
+                     .submit();
         } catch (final Exception e) {
             ExitHelper.exit(e);
         }
@@ -243,14 +262,16 @@ class LinkCheckRunner {
            _lastFileWriteTimestamp = now;
         }
 
-        Logger.log(Logger.Level.INFO).append("URL ")
-                                     .append(siteData.getUrl().toString())
-        		                     .append(" ")
-                                     .append(_nbSitesRemainingToBeChecked)
-                                     .append(" status=")
-                                     .append(status.toString())
-                                     .append(" updateIsPublished=")
-                                     .append(shouldUpdateBePublished).submit();
+        Logger.log(Logger.Level.INFO)
+              .append("URL ")
+              .append(siteData.getUrl().toString())
+        	  .append(" ")
+              .append(_nbSitesRemainingToBeChecked)
+              .append(" status=")
+              .append(status.toString())
+              .append(" updateIsPublished=")
+              .append(shouldUpdateBePublished)
+              .submit();
     }
     
     private void writeOutputFile() throws FileNotFoundException, IOException {

@@ -39,7 +39,10 @@ public class SiteFilesGenerator {
                 ExitHelper.exit(e);
         }
         
-        Logger.log(Logger.Level.INFO).append(robottxt.toString() + " is generated").submit();
+        Logger.log(Logger.Level.INFO)
+              .append(robottxt.toString())
+              .append(" is generated")
+              .submit();
     }
 
     
@@ -65,7 +68,10 @@ public class SiteFilesGenerator {
                 ExitHelper.exit(e);
         }
         
-        Logger.log(Logger.Level.INFO).append(sitemap.toString() + " is generated").submit();
+        Logger.log(Logger.Level.INFO)
+              .append(sitemap.toString())
+              .append(" is generated")
+              .submit();
     }
     
     static private String getXmlUrlFromFile(final Path homepage,
