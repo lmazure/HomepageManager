@@ -25,7 +25,7 @@ public class MissingSpaceChecker extends NodeChecker {
 			                                                                      "distributed.net",
 			                                                                      "e.g.",
 			                                                                      "Famo.us",
-			                                                                      "Heu?reka ",
+			                                                                      "Heu?reka",
 			                                                                      "i.e.",
 			                                                                      "Intl.RelativeTimeFormat",
 			                                                                      "Intro.js",

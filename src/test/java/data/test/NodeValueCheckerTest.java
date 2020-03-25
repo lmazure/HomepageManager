@@ -1,6 +1,7 @@
 package data.test;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -62,6 +63,7 @@ class NodeValueCheckerTest {
 
 
     @Test
+    @Disabled
     void detectTitleEndingWithColon() {
         
         final String content =
