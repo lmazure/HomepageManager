@@ -48,8 +48,18 @@ public class DoubleSpaceChecker extends NodeChecker {
 
 	private CheckStatus checkDoubleSpace(final Element e) {
 	    
+		// ignore titles of articles
+		if (e.getTagName().equals(NodeChecker.T) &&
+		    ((Element)e.getParentNode()).getTagName().equals(NodeChecker.X) &&
+	        ((Element)e.getParentNode().getParentNode()).getTagName().equals(NodeChecker.ARTICLE)) {
+			return null;
+		}
+			
+			
         final List<String> list = XMLHelper.getFirstLevelTextContent(e);
-        if (list.size() == 0) return null;
+        if (list.size() == 0) {
+        	return null;
+        }
 
         for (final String l: list) {
     		if (l.indexOf("  ") >= 0) {

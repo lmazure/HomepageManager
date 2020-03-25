@@ -109,6 +109,29 @@ class NodeValueCheckerTest {
     }
 
     @Test
+    void ignoreDoubleSpaceInArticleTitles() {
+        
+        final String content =
+            "<?xml version=\"1.0\"?>\r\n" + 
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" + 
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" + 
+            "<TITLE>Test</TITLE>\r\n" + 
+            "<PATH>HomepageManager/test.xml</PATH>\r\n" + 
+            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" + 
+            "<CONTENT>\r\n" + 
+            "<BLIST><TITLE>My articles</TITLE></BLIST>\r\n" + 
+            "<ITEM><ARTICLE><X><T>Fuz  baz</T><F>HTML</F></X></ARTICLE></ITEM>\r\n" + 
+            "</CONTENT>\r\n" + 
+            "</PAGE>";
+        
+        try {        
+            test(content);
+        } catch (@SuppressWarnings("unused") final SAXException e) {
+            Assertions.fail("SAXException");
+        }
+    }
+
+    @Test
     void ignoreDoubleSpaceDueToNodes() {
         
         final String content =
