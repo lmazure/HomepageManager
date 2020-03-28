@@ -52,6 +52,7 @@ class LinkCheckRunner {
     private final Path _file;
     private final Map<URL, SiteData> _effectiveData;
     private final Map<URL, LinkData> _expectedData;
+    private final Map<URL, List<LinkContentCheck>> _checks;
     private int _nbSitesRemainingToBeChecked;
     private boolean _isCancelled;
     private final BackgroundDataController _controller;
@@ -74,6 +75,7 @@ class LinkCheckRunner {
                         return a.toString().compareTo(b.toString());
                     }});
         _expectedData = new HashMap<URL, LinkData>();
+        _checks = new HashMap<URL, List<LinkContentCheck>>();
         _isCancelled = false;
         _builder = XMLHelper.buildDocumentBuilder();
         _retriever = new SiteDataRetriever(tmpPath.resolve("internet_cache"));
@@ -234,6 +236,12 @@ class LinkCheckRunner {
         }
         
         _effectiveData.put(siteData.getUrl(), siteData);
+        if (siteData.getStatus() == SiteData.Status.SUCCESS) {
+	        final LinkContentChecker contentChecker = new LinkContentChecker(siteData.getUrl(),
+	        		                                                         _expectedData.get(siteData.getUrl()),
+	        		                                                         siteData.getDataFile().get());
+	        _checks.put(siteData.getUrl(), contentChecker.check());
+        }
         
         if (isDataFresh) {
             _nbSitesRemainingToBeChecked--;
@@ -278,8 +286,11 @@ class LinkCheckRunner {
 
         final StringBuilder ok = new StringBuilder();
         final StringBuilder ko = new StringBuilder();
+        final StringBuilder checks = new StringBuilder();
+
         int nbOk = 0;
         int nbKo = 0;
+        
         for (final URL url : _effectiveData.keySet()) {
             final LinkData expectedData = _expectedData.get(url);
             final SiteData effectiveData = _effectiveData.get(url);
@@ -289,30 +300,16 @@ class LinkCheckRunner {
             } else {
                 nbKo++;
             }
-            builder.append("Title = \"" + expectedData.getTitle() + "\"\n");
-            if (expectedData.getSubtitles().length > 0) {
-                builder.append("Subtitle = \"" + String.join("\" \"",  expectedData.getSubtitles()) + "\"\n");
-            }
-            builder.append("URL = " + url + "\n");
-            builder.append("Expected status = " + expectedData.getStatus().orElse("") + "\n");
-            builder.append("Effective status = " + effectiveData.getStatus() + "\n");
-            final String httpCode = effectiveData.getHttpCode().map(i -> {
-                try {
-                    return i.toString() + " " + HttpHelper.getStringOfCode(i);
-                } catch (@SuppressWarnings("unused") final InvalidHttpCodeException e) {
-                    return " invalid code! (" + i.toString() + ")";
+            appendLivenessCheckResult(url, expectedData, effectiveData, builder);
+            if (_checks.containsKey(url)) {
+                checks.append('\n');
+                checks.append(url);
+                checks.append('\n');
+                for (LinkContentCheck c: _checks.get(url)) {
+                    checks.append(c.getDescription());
+                    checks.append('\n');
                 }
-            }).orElse("---");
-            builder.append("Effective HTTP code = " + httpCode + "\n");
-            if (effectiveData.getHeaders().isPresent() && effectiveData.getHeaders().get().containsKey("Location")) {
-                final String redirection = effectiveData.getHeaders().get().get("Location").get(0);
-                builder.append("Redirection = " + redirection + "\n");
             }
-            if (effectiveData.getError().isPresent()) {
-                builder.append("Effective error = \"" + effectiveData.getError().get() + "\"\n");
-            }
-            builder.append("Look for article = https://www.google.com/search?q=%22" + URLEncoder.encode(expectedData.getTitle(), StandardCharsets.UTF_8) + "%22\n");
-            builder.append("\n");
         }
 
         try (final FileOutputStream os = new FileOutputStream(_outputFile.toFile());
@@ -321,9 +318,50 @@ class LinkCheckRunner {
             pw.println();
             pw.println(ko.toString());
             pw.println("=".repeat(80));
+            pw.println(checks.toString());
+            pw.println("=".repeat(80));
             pw.println(ok.toString());
         }
     }
+
+	/**
+	 * append (at the end of builder) the result of the liveness check of url 
+	 * 
+	 * @param url
+	 * @param expectedData
+	 * @param effectiveData
+	 * @param builder
+	 */
+	private void appendLivenessCheckResult(final URL url,
+			                               final LinkData expectedData,
+			                               final SiteData effectiveData,
+			                               final StringBuilder builder) {
+		
+		builder.append("Title = \"" + expectedData.getTitle() + "\"\n");
+		if (expectedData.getSubtitles().length > 0) {
+		    builder.append("Subtitle = \"" + String.join("\" \"",  expectedData.getSubtitles()) + "\"\n");
+		}
+		builder.append("URL = " + url + "\n");
+		builder.append("Expected status = " + expectedData.getStatus().orElse("") + "\n");
+		builder.append("Effective status = " + effectiveData.getStatus() + "\n");
+		final String httpCode = effectiveData.getHttpCode().map(i -> {
+		    try {
+		        return i.toString() + " " + HttpHelper.getStringOfCode(i);
+		    } catch (@SuppressWarnings("unused") final InvalidHttpCodeException e) {
+		        return " invalid code! (" + i.toString() + ")";
+		    }
+		}).orElse("---");
+		builder.append("Effective HTTP code = " + httpCode + "\n");
+		if (effectiveData.getHeaders().isPresent() && effectiveData.getHeaders().get().containsKey("Location")) {
+		    final String redirection = effectiveData.getHeaders().get().get("Location").get(0);
+		    builder.append("Redirection = " + redirection + "\n");
+		}
+		if (effectiveData.getError().isPresent()) {
+		    builder.append("Effective error = \"" + effectiveData.getError().get() + "\"\n");
+		}
+		builder.append("Look for article = https://www.google.com/search?q=%22" + URLEncoder.encode(expectedData.getTitle(), StandardCharsets.UTF_8) + "%22\n");
+		builder.append("\n");
+	}
     
     private boolean isDataExpected() {
 

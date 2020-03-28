@@ -200,7 +200,6 @@ public class NodeValueChecker implements FileHandler {
                     if ( status != null ) {
                         errors.add(new Error(e.getTagName(), e.getTextContent(), rule.getDescription(), status.getDetail()));                         
                     }
-
                 }
             }
         }
