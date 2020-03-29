@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Instant;
@@ -97,7 +98,7 @@ public class SiteDataPersister {
              		             headers.get().containsKey("Content-Encoding") &&
              		             headers.get().get("Content-Encoding").get(0).equals("gzip");
     		try (final InputStream inputStream = gzip ? new GZIPInputStream(dataStream.get()) : dataStream.get();
-    		     final PrintStream outputStream = new PrintStream(getDataFile(url, timestamp).toFile())) {
+    		     final PrintStream outputStream = new PrintStream(getDataFile(url, timestamp).toFile(), StandardCharsets.UTF_8)) {
                 long size = 0L;
                 final byte[] buffer = new byte[s_file_buffer_size];
                 int length;

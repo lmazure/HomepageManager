@@ -2,6 +2,7 @@ package utils;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,6 +13,20 @@ import java.nio.file.Paths;
  */
 public class FileHelper {
 
+	public static String slurpFile(final File file) {
+	
+		try {
+			final String data = Files.readString(file.toPath(), StandardCharsets.UTF_8);
+			return data;
+		} catch (final IOException e) {
+			// TBD understand why some files cannot be read
+			System.err.println("failed to read " + file);
+			//ExitHelper.exit(e);
+			// NOT REACHED
+			return null;
+		}
+	}
+	
     /**
      * create parent directory of the file
      * 
@@ -37,6 +52,7 @@ public class FileHelper {
         }
         directoryToBeDeleted.delete();
     }
+    
     /**
      * delete the file
      * 

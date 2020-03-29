@@ -237,9 +237,9 @@ class LinkCheckRunner {
         
         _effectiveData.put(siteData.getUrl(), siteData);
         if (siteData.getStatus() == SiteData.Status.SUCCESS) {
-	        final LinkContentChecker contentChecker = new LinkContentChecker(siteData.getUrl(),
-	        		                                                         _expectedData.get(siteData.getUrl()),
-	        		                                                         siteData.getDataFile().get());
+	        final LinkContentChecker contentChecker = LinkContentCheckerFactory.build(siteData.getUrl(),
+	        		                                                                  _expectedData.get(siteData.getUrl()),
+	        		                                                                  siteData.getDataFile().get());
 	        _checks.put(siteData.getUrl(), contentChecker.check());
         }
         
