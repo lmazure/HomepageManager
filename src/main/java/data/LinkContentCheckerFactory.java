@@ -12,9 +12,9 @@ public class LinkContentCheckerFactory {
                                            final File file) {
 		
 		if (url.toString().startsWith("https://www.youtube.com/watch?v=")) {
-			return new YoutubeWatchLinkContentChecker(url, linkData, file);
+			return new YoutubeWatchLinkContentChecker(linkData, file);
 		}
 		
-		return new LinkContentChecker(url, linkData, file);
+		return new LinkContentChecker(linkData, file);
 	}
 }

@@ -1,52 +1,69 @@
 package data;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
-import utils.ExitHelper;
 import utils.FileHelper;
+import utils.xmlparsing.DurationData;
 import utils.xmlparsing.LinkData;
 
 public class LinkContentChecker {
 	
-	private final URL _url;
     private final LinkData _linkData;
     private final File _file;
 
-	public LinkContentChecker(final URL url,
-			                  final LinkData linkData,
+	public LinkContentChecker(final LinkData linkData,
 			                  final File file) {
-		_url = url;
 		_linkData = linkData;
 		_file = file;
 	}
 
-	public List<LinkContentCheck> check() {		
+	public final List<LinkContentCheck> check() {		
 		return check(FileHelper.slurpFile(_file));
 	}
 
-	public List<LinkContentCheck> check(final String data) {
+	public final List<LinkContentCheck> check(final String data) {
 		
-		final List<LinkContentCheck> checks = new ArrayList<LinkContentCheck>();
+				final List<LinkContentCheck> checks = new ArrayList<LinkContentCheck>();
+
 		
-		if (_linkData.getDuration().isPresent()) {
-			final LinkContentCheck check = checkDuration(data);
+		{
+			final LinkContentCheck check = checkGlobal(data);
+			if ( check != null) {
+				checks.add(check);
+				return checks;
+			}
+		}
+		
+		{
+			final LinkContentCheck check = checkTitle(data, _linkData.getTitle());
 			if ( check != null) {
 				checks.add(check);
 			}
 		}
-		checks.add(new LinkContentCheck("check content of " + _url + " " + _linkData.getTitle() + " using " + _file));
+		
+		if (_linkData.getDuration().isPresent()) {
+			final LinkContentCheck check = checkDuration(data, _linkData.getDuration().get());
+			if ( check != null) {
+				checks.add(check);
+			}
+		}
 		
 		return checks;
 	}
 	
-	public LinkContentCheck checkDuration(final String data) {
-		
+	public LinkContentCheck checkTitle(final String data,
+                                       final String title) {
+	    return null;
+	}
+
+	public LinkContentCheck checkDuration(final String data,
+			                              final DurationData duration) {
+		return null;
+	}
+	
+	protected LinkContentCheck checkGlobal(final String data) {
 		return null;
 	}
 }

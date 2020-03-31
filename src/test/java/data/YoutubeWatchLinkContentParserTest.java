@@ -18,6 +18,36 @@ import utils.FileHelper;
 class YoutubeWatchLinkContentParserTest {
 
 	@Test
+	void testPlayabiltyStatusOk() {
+        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=_kGqkxQo-Tw"),
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
+                               Assertions.assertTrue(parser.isPlayable());
+                               consumerHasBeenCalled.set(true);
+                           });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+	}
+
+	@Test
+	void testPlayabiltyStatusUnplayable() {
+        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=dM_JivN3HvI"),
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
+                               Assertions.assertFalse(parser.isPlayable());
+                               consumerHasBeenCalled.set(true);
+                           });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+	}
+
+	@Test
 	void testTitle() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
@@ -27,6 +57,36 @@ class YoutubeWatchLinkContentParserTest {
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
                                YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
                                Assertions.assertEquals("Alain Aspect - Le photon onde ou particule ? L’étrangeté quantique mise en lumière", parser.getTitle());
+                               consumerHasBeenCalled.set(true);
+                           });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+	}
+
+	@Test
+	void testTitleWithDeviceControlString() {
+        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=y7FVLPvw1-I"),
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
+                               Assertions.assertEquals("Spéciale \u0090Énigmes - Myriogon #7", parser.getTitle());
+                               consumerHasBeenCalled.set(true);
+                           });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+	}
+
+	@Test
+	void testTitleWithAmpersand() {
+        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=ytuHV2e4c4Q"),
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
+                               Assertions.assertEquals("Win a SMALL fortune with counting cards-the math of blackjack & Co.", parser.getTitle());
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -63,7 +123,6 @@ class YoutubeWatchLinkContentParserTest {
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
 	}
-
 
 	@Test
 	void testDescriptionWithDoubleQuote() {

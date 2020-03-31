@@ -1,3 +1,20 @@
+- corriger les deux erreurs de math.xml
+
+https://www.youtube.com/watch?v=y7FVLPvw1-I
+title "Spéciale Énigmes - Myriogon #7"  is not equal to the real title "Spéciale \u0090Énigmes - Myriogon #7"
+
+https://www.youtube.com/watch?v=ytuHV2e4c4Q
+title "Win a SMALL fortune with counting cards-the math of blackjack & Co."  is not equal to the real title "Win a SMALL fortune with counting cards-the math of blackjack \\u0026 Co."
+
+- résoudre le crash sur data.xml
+- corriger les fichiers non relisible
+- supprimer DurationData en le remplacant par duration
+- ajouter une règle comme quoi il n'y a pas de <ST> pour youtube
+- il faut vérifier les articles et non pas les links
+-     private boolean isDataExpected() { //TBD this method is very stupid, we should used a flag instead of computing the status every time
+
+
+
 - corriger problème de certificat
 
 - bug dans HTMLGenerator.java, si le fichier XSLT est modifié, la nouvelle versions n'est pas prise en compte

@@ -21,6 +21,11 @@ public class YoutubeWatchLinkContentParser {
 		_data = data;
 	}
 	
+	public boolean isPlayable() {
+		
+		return _data.contains("\"player_response\":\"{\\\"playabilityStatus\\\":{\\\"status\\\":\\\"OK\\\"");
+	}
+
 	public String getTitle() {
 		
 		if (_title == null) {
@@ -29,7 +34,6 @@ public class YoutubeWatchLinkContentParser {
 		
 		return _title;
 	}
-
 
 	public String getDescription() {
 		
@@ -95,11 +99,13 @@ public class YoutubeWatchLinkContentParser {
 		}
 		
 		if (text == null) {
-			ExitHelper.exit("Failed to extract  " + str + " text from YouTube watch page");			
+			ExitHelper.exit("Failed to extract " + str + " text from YouTube watch page");			
 		}
 		
 		assert(text != null);
 		text = text.replaceAll("\\\\\\\\n", "\n")
+ 		           .replaceAll("\\\\\\\\u0026","&")
+    		       .replaceAll("\\\\u0090","\u0090")
 				   .replaceAll("\\\\/","/")
        		       .replaceAll("\\\\\\\\\\\\\"","\"");
 		

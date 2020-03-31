@@ -288,20 +288,17 @@ class LinkCheckRunner {
         final StringBuilder ko = new StringBuilder();
         final StringBuilder checks = new StringBuilder();
 
-        int nbOk = 0;
-        int nbKo = 0;
+        int numberOfBrokenLinks = 0;
         
         for (final URL url : _effectiveData.keySet()) {
             final LinkData expectedData = _expectedData.get(url);
             final SiteData effectiveData = _effectiveData.get(url);
             final StringBuilder builder = isOneDataExpected(expectedData, effectiveData) ? ok : ko;
-            if (isOneDataExpected(expectedData, effectiveData)) {
-                nbOk++;
-            } else {
-                nbKo++;
+            if (!isOneDataExpected(expectedData, effectiveData)) {
+                numberOfBrokenLinks++;
             }
             appendLivenessCheckResult(url, expectedData, effectiveData, builder);
-            if (_checks.containsKey(url)) {
+            if (_checks.containsKey(url) && !_checks.get(url).isEmpty()) {
                 checks.append('\n');
                 checks.append(url);
                 checks.append('\n');
@@ -314,7 +311,7 @@ class LinkCheckRunner {
 
         try (final FileOutputStream os = new FileOutputStream(_outputFile.toFile());
              final PrintWriter pw = new PrintWriter(os)) {
-            pw.println("good = " + nbOk + " / bad = " + nbKo);
+            pw.println("number of broken links = " + numberOfBrokenLinks);
             pw.println();
             pw.println(ko.toString());
             pw.println("=".repeat(80));
@@ -363,11 +360,14 @@ class LinkCheckRunner {
 		builder.append("\n");
 	}
     
-    private boolean isDataExpected() {
+    private boolean isDataExpected() { //TBD this method is very stupid, we should used a flag instead of computing the status every time 
 
         for (final URL url : _effectiveData.keySet()) {
             if (!isOneDataExpected(_expectedData.get(url), _effectiveData.get(url))) {
                 return false;
+            }
+            if (_checks.containsKey(url) && !_checks.get(url).isEmpty()) {
+            	return false;
             }
         }
         

@@ -2,7 +2,7 @@ package utils.xmlparsing;
 
 import java.util.Optional;
 
-public class DurationData {
+public class DurationData { // TBD replace this class by duration
 
     private final Integer _seconds;
     private final Optional<Integer> _minutes;
