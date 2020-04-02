@@ -15,6 +15,10 @@ public class LinkContentCheckerFactory {
 			return new YoutubeWatchLinkContentChecker(linkData, file);
 		}
 		
+		if (url.toString().startsWith("https://medium.com/")) {
+			return new MediumLinkContentChecker(linkData, file);
+		}
+		
 		return new LinkContentChecker(linkData, file);
 	}
 }

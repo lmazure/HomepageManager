@@ -94,10 +94,7 @@ public class SiteDataPersister {
         }
                 
         if (dataStream.isPresent()) {
-            final boolean gzip = headers.isPresent() &&
-             		             headers.get().containsKey("Content-Encoding") &&
-             		             headers.get().get("Content-Encoding").get(0).equals("gzip");
-    		try (final InputStream inputStream = gzip ? new GZIPInputStream(dataStream.get()) : dataStream.get();
+    		try (final InputStream inputStream = isEncodedWithGzip(headers) ? new GZIPInputStream(dataStream.get()) : dataStream.get();
     		     final PrintStream outputStream = new PrintStream(getDataFile(url, timestamp).toFile(), StandardCharsets.UTF_8)) {
                 long size = 0L;
                 final byte[] buffer = new byte[s_file_buffer_size];
@@ -240,5 +237,23 @@ public class SiteDataPersister {
     private Path getOutputDirectory(final URL url) {
         return _path.resolve(url.getHost())
                     .resolve(FileHelper.generateFileNameFromURL(url));
+    }
+    
+    private static boolean isEncodedWithGzip(final Optional<Map<String, List<String>>> headers) {
+    	
+        if (!headers.isPresent()) {
+        	return false;
+        }
+        
+        if (headers.get().containsKey("Content-Encoding")) {
+        	return headers.get().get("Content-Encoding").get(0).equals("gzip");
+        }
+
+        
+        if (headers.get().containsKey("content-encoding")) {
+        	return headers.get().get("content-encoding").get(0).equals("gzip");
+        }
+        
+        return false;
     }
 }

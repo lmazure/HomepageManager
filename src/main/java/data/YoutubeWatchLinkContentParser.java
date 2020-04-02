@@ -22,7 +22,6 @@ public class YoutubeWatchLinkContentParser {
 	}
 	
 	public boolean isPlayable() {
-		
 		return _data.contains("\"player_response\":\"{\\\"playabilityStatus\\\":{\\\"status\\\":\\\"OK\\\"");
 	}
 

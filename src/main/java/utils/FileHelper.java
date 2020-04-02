@@ -1,7 +1,12 @@
 package utils;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.charset.CharsetDecoder;
+import java.nio.charset.CodingErrorAction;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -14,14 +19,22 @@ import java.nio.file.Paths;
 public class FileHelper {
 
 	public static String slurpFile(final File file) {
-	
-		try {
-			final String data = Files.readString(file.toPath(), StandardCharsets.UTF_8);
-			return data;
-		} catch (final IOException e) {
-			// TBD understand why some files cannot be read
-			System.err.println("failed to read " + file);
-			//ExitHelper.exit(e);
+
+        final CharsetDecoder decoder = StandardCharsets.UTF_8.newDecoder();
+        decoder.onMalformedInput(CodingErrorAction.REPLACE);
+
+		try (final FileInputStream input = new FileInputStream(file);
+		     final InputStreamReader reader = new InputStreamReader(input, decoder);
+		     final BufferedReader bufferedReader = new BufferedReader(reader)) {
+	        final StringBuilder sb = new StringBuilder();
+	        String line = bufferedReader.readLine();
+	        while(line != null) {
+	            sb.append(line);
+	            line = bufferedReader.readLine();
+	        }
+	        return sb.toString();
+	    } catch (final IOException e) {
+	    	ExitHelper.exit(e);
 			// NOT REACHED
 			return null;
 		}

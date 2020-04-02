@@ -44,7 +44,6 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
 		return null;
 	}
 
-
 	@Override
 	public LinkContentCheck checkDuration(final String data,
 			                              final DurationData duration) {
