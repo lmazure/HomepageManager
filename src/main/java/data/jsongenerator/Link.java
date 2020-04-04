@@ -1,8 +1,8 @@
 package data.jsongenerator;
 
+import java.time.Duration;
 import java.util.Optional;
 
-import utils.xmlparsing.DurationData;
 import utils.xmlparsing.LinkData;
 
 public class Link extends LinkData implements Comparable<Link> {
@@ -17,7 +17,7 @@ public class Link extends LinkData implements Comparable<Link> {
 				final Optional<String> protection,
 				final String[] formats,
 				final String[] languages,
-				final Optional<DurationData> duration) {
+				final Optional<Duration> duration) {
 	    super(title, subtitles, url, status, protection, formats, languages, duration);
 		a_sortingKey = normalizeName(url);
 	}

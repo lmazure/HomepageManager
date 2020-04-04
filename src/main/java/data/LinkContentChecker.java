@@ -1,11 +1,11 @@
 package data;
 
 import java.io.File;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
 import utils.FileHelper;
-import utils.xmlparsing.DurationData;
 import utils.xmlparsing.LinkData;
 
 public class LinkContentChecker {
@@ -59,7 +59,7 @@ public class LinkContentChecker {
 	}
 
 	public LinkContentCheck checkDuration(final String data,
-			                              final DurationData duration) {
+			                              final Duration duration) {
 		return null;
 	}
 	

@@ -4,7 +4,6 @@ import java.io.File;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 
-import utils.xmlparsing.DurationData;
 import utils.xmlparsing.LinkData;
 
 public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
@@ -46,15 +45,7 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
 
 	@Override
 	public LinkContentCheck checkDuration(final String data,
-			                              final DurationData duration) {
-
-		Duration expectedDuration = Duration.ofSeconds(duration.getSeconds());
-		if (duration.getMinutes().isPresent()) {
-			expectedDuration = expectedDuration.plus(Duration.ofMinutes(duration.getMinutes().get()));
-		}
-		if (duration.getHours().isPresent()) {
-			expectedDuration = expectedDuration.plus(Duration.ofHours(duration.getHours().get()));
-		}
+			                              final Duration expectedDuration) {
 
 		final Duration effectiveMinDuration = _parser.getMinDuration().truncatedTo(ChronoUnit.SECONDS);
 		final Duration effectiveMaxDuration = _parser.getMaxDuration().truncatedTo(ChronoUnit.SECONDS).plusSeconds(1);

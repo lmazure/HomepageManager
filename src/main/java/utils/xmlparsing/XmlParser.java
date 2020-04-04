@@ -1,5 +1,6 @@
 package utils.xmlparsing;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -54,7 +55,7 @@ public class XmlParser {
         }
         
         final NodeList durationNodes =  xNode.getElementsByTagName("DURATION");
-        Optional<DurationData> duration = Optional.empty();
+        Optional<Duration> duration = Optional.empty();
         if (durationNodes.getLength() == 1) {
             duration = Optional.of(parseDurationNode((Element)durationNodes.item(0)));
         }  else if (durationNodes.getLength() > 1) {
@@ -156,37 +157,39 @@ public class XmlParser {
         return new DateData(year, month, day);
     }
 
-    public static DurationData parseDurationNode(final Element durationNode) {
+    public static Duration parseDurationNode(final Element durationNode) {
 
         if (!durationNode.getTagName().equals("DURATION")) {
             throw new UnsupportedOperationException("parseDurationNode called with wrong node (" + durationNode.getTagName() + ")");            
         }
 
-        Integer seconds = 0;
+        Duration duration;
+
         final NodeList secondsNodes = durationNode.getElementsByTagName("SECOND");
         if (secondsNodes.getLength() == 1) {
-            seconds = Integer.parseInt(secondsNodes.item(0).getTextContent());
+        	final long seconds = Long.parseLong(secondsNodes.item(0).getTextContent());
+        	duration = Duration.ofSeconds(seconds);
         } else {
             throw new UnsupportedOperationException("Wrong number of SECOND nodes");
         }
 
-        Optional<Integer> minutes = Optional.empty();
         final NodeList minutesNodes = durationNode.getElementsByTagName("MINUTE");
         if (minutesNodes.getLength() == 1) {
-            minutes = Optional.of(Integer.parseInt(minutesNodes.item(0).getTextContent()));
+            final long minutes = Long.parseLong(minutesNodes.item(0).getTextContent());
+			duration = duration.plusMinutes(minutes);
         } else if (minutesNodes.getLength() > 1) {
             throw new UnsupportedOperationException("Wrong number of MINUTE nodes");
         }
         
-        Optional<Integer> hours = Optional.empty();
         final NodeList hoursNodes = durationNode.getElementsByTagName("HOUR");
         if (hoursNodes.getLength() == 1) {
-            hours = Optional.of(Integer.parseInt(hoursNodes.item(0).getTextContent()));
+            final long  hours = Long.parseLong(hoursNodes.item(0).getTextContent());
+			duration = duration.plusHours(hours);
         } else if (hoursNodes.getLength() > 1) {
             throw new UnsupportedOperationException("Wrong number of HOUR nodes");
         }
-
-        return new DurationData(seconds, minutes, hours);
+        
+        return duration;
     }
 
     public static ArticleData parseArticleNode(final Element articleNode) {

@@ -1,10 +1,7 @@
 package data;
 
 import java.io.File;
-import java.time.Duration;
-import java.time.temporal.ChronoUnit;
 
-import utils.xmlparsing.DurationData;
 import utils.xmlparsing.LinkData;
 
 public class MediumLinkContentChecker extends LinkContentChecker {

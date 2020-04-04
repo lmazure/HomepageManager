@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -202,13 +203,19 @@ public class Reporter {
             }
             if (link.getDuration().isPresent()) {
                 out.write("          \"duration\" : [");
-                if (link.getDuration().get().getMinutes().isPresent()) {
-                    if (link.getDuration().get().getHours().isPresent()) {
-                        out.write(link.getDuration().get().getHours().get() + ", ");
+                final Duration duration = link.getDuration().get();
+                final long hours = duration.toHours();
+                final Duration durationM = duration.minusHours(hours);
+                final long minutes = durationM.toMinutes();
+                final Duration durationS = durationM.minusMinutes(minutes);
+                final long seconds = durationS.toSeconds();
+                if (minutes > 0) {
+                    if (hours > 0) {
+                        out.write(hours + ", ");
                     }
-                    out.write(link.getDuration().get().getMinutes().get() + ", ");
+                    out.write(minutes + ", ");
                 }
-                out.write(link.getDuration().get().getSeconds() + "],\n");
+                out.write(seconds + "],\n");
             }
             if (link.getStatus().isPresent()) {
                 out.write("          \"status\" : \"" + link.getStatus().get() + "\",\n");                         

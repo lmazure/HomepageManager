@@ -1,5 +1,6 @@
 package utils.xmlparsing;
 
+import java.time.Duration;
 import java.util.Optional;
 
 public class LinkData {
@@ -11,7 +12,7 @@ public class LinkData {
     private final Optional<String> _protection;
     private final String _formats[];
     private final String _languages[];
-    private final Optional<DurationData> _duration; 
+    private final Optional<Duration> _duration; 
 
     public LinkData(final String title,
                     final String subtitles[],
@@ -20,7 +21,7 @@ public class LinkData {
                     final Optional<String> protection,
                     final String formats[],
                     final String languages[],
-                    final Optional<DurationData> duration) {
+                    final Optional<Duration> duration) {
         _title = title;
         _subtitles = subtitles;
         _url = url;
@@ -59,7 +60,7 @@ public class LinkData {
         return _languages;
     }
 
-    public Optional<DurationData> getDuration() {
+    public Optional<Duration> getDuration() {
         return _duration;
     }
 }

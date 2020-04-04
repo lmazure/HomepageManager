@@ -1,3 +1,4 @@
+- mauvais controle des titres de medium.com (pex coding.xml)
 - résoudre la vidéo morte de data.xml
 - corriger les fichiers non relisibles (encoding gzip)
 - supprimer DurationData en le remplacant par duration
