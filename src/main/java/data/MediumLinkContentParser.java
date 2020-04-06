@@ -28,7 +28,9 @@ public class MediumLinkContentParser {
 		final Pattern p = Pattern.compile("<title.*>(.*)</title>");
 		final Matcher m = p.matcher(_data);
 		if (m.find()) {
-			return m.group(1);
+			return m.group(1)
+					.replaceFirst(" - (.*) - Medium", "")
+					.replaceAll("&amp;","&");
 		}
 
 		ExitHelper.exit("Failed to find <title> in Medium page");
