@@ -1,11 +1,7 @@
 package data;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -13,7 +9,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.time.Instant;
@@ -90,13 +85,12 @@ class LinkCheckRunner {
         FileHelper.createParentDirectory(_outputFile);
 
         final List<LinkData> links;
-        
-        try (final FileReader fr = new FileReader(_file.toFile());
-             final BufferedReader br = new BufferedReader(fr)) {
-            final byte[] encoded = Files.readAllBytes(_file);
-            final String content = new String(encoded, StandardCharsets.UTF_8);
-            links = extractLinks(_file, content);
-        } catch (final Exception e) {
+
+        Document document;
+		try {
+			document = _builder.parse(_file.toFile());
+            links =  extractLinks(NodeChecker.X, document.getDocumentElement());
+		} catch (final SAXException | IOException e) {
             FileHelper.createParentDirectory(_reportFile);
             try (final PrintStream reportWriter = new PrintStream(_reportFile.toFile())) {
                 e.printStackTrace(reportWriter);
@@ -104,7 +98,7 @@ class LinkCheckRunner {
                 ExitHelper.exit(e2);
             }
             return;
-        }           
+		}
 
         createOutputfile();
         
@@ -115,32 +109,19 @@ class LinkCheckRunner {
         }
     }
     
-    private List<LinkData> extractLinks(final Path file,
-    		                            final String content) throws SAXException {
-
-        try {
-            final Document document = _builder.parse(new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8)));
-            return extractLinks(file.toFile(), document.getDocumentElement());
-        } catch (final IOException e) {
-            ExitHelper.exit(e);
-            // NOT REACHED
-            return null;
-        }
-    }
-
-    private List<LinkData> extractLinks(final File file,
-                                        final Element e) {
+    private List<LinkData> extractLinks(final String tagName,
+    		                            final Element e) {
 
         final List<LinkData> list = new ArrayList<LinkData>();
         final NodeList children = e.getChildNodes();
 
         for (int j = 0; j < children.getLength(); j++) {
             if (children.item(j).getNodeType() == Node.ELEMENT_NODE) {
-                list.addAll(extractLinks(file, (Element) children.item(j)));
+                list.addAll(extractLinks(tagName, (Element)children.item(j)));
             }
         }
 
-        if (e.getTagName().equals(NodeChecker.X)) {
+        if (e.getTagName().equals(tagName)) {
             list.add(XmlParser.parseXNode(e));
         }
 

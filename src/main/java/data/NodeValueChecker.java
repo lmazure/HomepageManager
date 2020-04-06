@@ -1,15 +1,10 @@
 package data;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -103,13 +98,9 @@ public class NodeValueChecker implements FileHandler {
 
         FileHelper.createParentDirectory(getOutputFile(file));
 
-        try (final FileReader fr = new FileReader(file.toFile());
-             final BufferedReader br = new BufferedReader(fr);
-             final FileOutputStream os = new FileOutputStream(getOutputFile(file).toFile());
+        try (final FileOutputStream os = new FileOutputStream(getOutputFile(file).toFile());
              final PrintWriter pw = new PrintWriter(os)) {
-            final byte[] encoded = Files.readAllBytes(file);
-            final String content = new String(encoded, StandardCharsets.UTF_8);
-            final List<Error> errors = check(file, content);
+            final List<Error> errors = check(file);
             if (errors.size() > 0) {
                 for (Error error : errors ) {
                     pw.println(" tag = \""       + error.getTag()       + "\"" +
@@ -141,11 +132,10 @@ public class NodeValueChecker implements FileHandler {
         _controller.handleCreation(file, status, getOutputFile(file), getReportFile(file));
     }
     
-    public List<Error> check(final Path file,
-                             final String content) throws SAXException {
+    public List<Error> check(final Path file) throws SAXException {
         
         try {
-            final Document document = _builder.parse(new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8)));
+            final Document document = _builder.parse(file.toFile());
             return checkNode(file.toFile(), document.getDocumentElement());
         } catch (final IOException e) {
             ExitHelper.exit(e);

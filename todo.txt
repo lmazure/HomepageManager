@@ -1,7 +1,8 @@
-- mauvais controle des titres de medium.com (pex coding.xml)
 - résoudre la vidéo morte de data.xml
-- corriger les fichiers non relisibles (encoding gzip)
-- supprimer DurationData en le remplacant par duration
+
+- utiliser TemporalAccessor et Year/YearMonth/LocalDate pour les partial date/time
+
+
 - ajouter une règle comme quoi il n'y a pas de <ST> pour youtube
 - il faut vérifier les articles et non pas les links
 -     private boolean isDataExpected() { //TBD this method is very stupid, we should used a flag instead of computing the status every time

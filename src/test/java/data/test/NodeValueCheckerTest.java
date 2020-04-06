@@ -3,6 +3,9 @@ package data.test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -14,6 +17,7 @@ import org.xml.sax.SAXException;
 
 import data.DataController;
 import data.FileHandler.Status;
+import utils.ExitHelper;
 import data.NodeValueChecker;
 
 class NodeValueCheckerTest {
@@ -280,8 +284,16 @@ class NodeValueCheckerTest {
     static private void test(final String content,
                              final List<NodeValueChecker.Error> expected) throws SAXException {
 
+    	List<NodeValueChecker.Error> effective = null;
+    	
         final NodeValueChecker checker = new NodeValueChecker(Paths.get("home"), Paths.get("tmp"), new DummyDataController());
-        final List<NodeValueChecker.Error> effective = checker.check(Paths.get("test.xml"), content);
+		try {
+			final Path tempFile = File.createTempFile("NodeValueCheckerTest", ".xml").toPath();
+	        Files.writeString(tempFile, content);
+	        effective = checker.check(tempFile);
+		} catch (final IOException e) {
+			ExitHelper.exit(e);
+		}
     
         Assertions.assertEquals(normalize(expected), normalize(effective));
     }
