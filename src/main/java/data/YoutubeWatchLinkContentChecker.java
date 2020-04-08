@@ -2,8 +2,12 @@ package data;
 
 import java.io.File;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Optional;
 
+import utils.xmlparsing.ArticleData;
+import utils.xmlparsing.DateData;
 import utils.xmlparsing.LinkData;
 
 public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
@@ -11,8 +15,9 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
 	private YoutubeWatchLinkContentParser _parser;
 	
 	public YoutubeWatchLinkContentChecker(final LinkData linkData,
+                                          final Optional<ArticleData> articleData,
 			                              final File file) {
-		super(linkData, file);
+		super(linkData, articleData, file);
 	}
 
 	@Override
@@ -62,5 +67,22 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
 		}
 		
 		return null;
+	}
+	
+	@Override
+	protected LinkContentCheck checkDate(final String data,
+			                             final DateData duration) {
+		
+		final LocalDate expectedDate = LocalDate.of(duration.getYear(), duration.getMonth().get(), duration.getDay().get());
+		final LocalDate effectiveDate = _parser.getPublishDate();
+
+		if (!expectedDate.equals(effectiveDate)) {
+			return new LinkContentCheck("expected date " +
+				                        expectedDate +
+                                        " is not equal to the effective publish date " +
+                                        effectiveDate);
+       }
+
+       return null;
 	}
 }

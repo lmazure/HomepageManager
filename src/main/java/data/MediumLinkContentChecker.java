@@ -1,7 +1,9 @@
 package data;
 
 import java.io.File;
+import java.util.Optional;
 
+import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkData;
 
 public class MediumLinkContentChecker extends LinkContentChecker {
@@ -9,8 +11,9 @@ public class MediumLinkContentChecker extends LinkContentChecker {
 	private MediumLinkContentParser _parser;
 	
 	public MediumLinkContentChecker(final LinkData linkData,
+                                    final Optional<ArticleData> articleData,
 			                        final File file) {
-		super(linkData, file);
+		super(linkData, articleData, file);
 	}
 
 	@Override

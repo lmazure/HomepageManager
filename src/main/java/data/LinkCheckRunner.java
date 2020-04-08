@@ -17,6 +17,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.TreeMap;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -37,6 +38,7 @@ import utils.HttpHelper;
 import utils.InvalidHttpCodeException;
 import utils.Logger;
 import utils.XMLHelper;
+import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkData;
 import utils.xmlparsing.XmlParser;
 
@@ -47,6 +49,7 @@ class LinkCheckRunner {
     private final Path _file;
     private final Map<URL, SiteData> _effectiveData;
     private final Map<URL, LinkData> _expectedData;
+    private final Map<URL, ArticleData> _articles;
     private final Map<URL, List<LinkContentCheck>> _checks;
     private int _nbSitesRemainingToBeChecked;
     private boolean _isCancelled;
@@ -70,6 +73,7 @@ class LinkCheckRunner {
                         return a.toString().compareTo(b.toString());
                     }});
         _expectedData = new HashMap<URL, LinkData>();
+        _articles = new HashMap<URL, ArticleData>();
         _checks = new HashMap<URL, List<LinkContentCheck>>();
         _isCancelled = false;
         _builder = XMLHelper.buildDocumentBuilder();
@@ -85,11 +89,13 @@ class LinkCheckRunner {
         FileHelper.createParentDirectory(_outputFile);
 
         final List<LinkData> links;
+        final List<ArticleData> articles;
 
         Document document;
 		try {
 			document = _builder.parse(_file.toFile());
-            links =  extractLinks(NodeChecker.X, document.getDocumentElement());
+            links =  extractLinks(document.getDocumentElement());
+            articles =  extractArticles(document.getDocumentElement());
 		} catch (final SAXException | IOException e) {
             FileHelper.createParentDirectory(_reportFile);
             try (final PrintStream reportWriter = new PrintStream(_reportFile.toFile())) {
@@ -102,6 +108,15 @@ class LinkCheckRunner {
 
         createOutputfile();
         
+        for (final ArticleData article : articles) {
+        	for (final LinkData link : article.getLinks()) {
+                final URL url = convertStringToUrl(link.getUrl());
+                if (url != null) {       		
+                	_articles.put(url, article);
+                }
+        	}
+        }
+
         final List<URL> list = buildListOfLinksToBeChecked(links);
         _nbSitesRemainingToBeChecked = list.size();
         for (final URL url: list) {
@@ -109,20 +124,37 @@ class LinkCheckRunner {
         }
     }
     
-    private List<LinkData> extractLinks(final String tagName,
-    		                            final Element e) {
+    private List<LinkData> extractLinks(final Element e) {
 
         final List<LinkData> list = new ArrayList<LinkData>();
         final NodeList children = e.getChildNodes();
 
         for (int j = 0; j < children.getLength(); j++) {
             if (children.item(j).getNodeType() == Node.ELEMENT_NODE) {
-                list.addAll(extractLinks(tagName, (Element)children.item(j)));
+                list.addAll(extractLinks((Element)children.item(j)));
             }
         }
 
-        if (e.getTagName().equals(tagName)) {
+        if (e.getTagName().equals(NodeChecker.X)) {
             list.add(XmlParser.parseXNode(e));
+        }
+
+        return list;
+    }
+    
+    private List<ArticleData> extractArticles(final Element e) {
+
+        final List<ArticleData> list = new ArrayList<ArticleData>();
+        final NodeList children = e.getChildNodes();
+
+        for (int j = 0; j < children.getLength(); j++) {
+            if (children.item(j).getNodeType() == Node.ELEMENT_NODE) {
+                list.addAll(extractArticles((Element)children.item(j)));
+            }
+        }
+
+        if (e.getTagName().equals(NodeChecker.ARTICLE)) {
+            list.add(XmlParser.parseArticleNode(e));
         }
 
         return list;
@@ -166,19 +198,11 @@ class LinkCheckRunner {
                 continue;
             }
 
-            URL url = null;
-            try {
-                url = new URL(urlStr);
-            } catch (@SuppressWarnings("unused") final MalformedURLException e) {
-            	Logger.log(Logger.Level.ERROR)
-            	      .append("URL ")
-                      .append(urlStr)
-                      .append(" is not checked because the URL is malformed")
-                      .submit();
-                continue;
+            final URL url = convertStringToUrl(urlStr);
+            if (url != null) {
+                list.add(url);
+                _expectedData.put(url, linkData);            	
             }
-            list.add(url);
-            _expectedData.put(url, linkData);
         }
         
         return list;
@@ -220,6 +244,7 @@ class LinkCheckRunner {
         if (siteData.getStatus() == SiteData.Status.SUCCESS) {
 	        final LinkContentChecker contentChecker = LinkContentCheckerFactory.build(siteData.getUrl(),
 	        		                                                                  _expectedData.get(siteData.getUrl()),
+	        		                                                                  Optional.ofNullable(_articles.get(siteData.getUrl())),
 	        		                                                                  siteData.getDataFile().get());
 	        _checks.put(siteData.getUrl(), contentChecker.check());
         }
@@ -355,8 +380,8 @@ class LinkCheckRunner {
         return true;
     }
     
-    private boolean isOneDataExpected(final LinkData expectedData,
-                                      final SiteData effectiveData) {
+    private static boolean isOneDataExpected(final LinkData expectedData,
+                                             final SiteData effectiveData) {
         
         if (expectedData.getStatus().isPresent() && expectedData.getStatus().get().equals("dead")) {
             if (effectiveData.getStatus() == SiteData.Status.FAILURE) return true;
@@ -367,4 +392,17 @@ class LinkCheckRunner {
         
         return (effectiveData.getHttpCode().isPresent() && effectiveData.getHttpCode().get() == 200);
     }
+
+	private static URL convertStringToUrl(final String str) {
+		try {
+		    return new URL(str);
+		} catch (@SuppressWarnings("unused") final MalformedURLException e) {
+			Logger.log(Logger.Level.ERROR)
+			      .append("URL ")
+		          .append(str)
+		          .append(" is not checked because the URL is malformed")
+		          .submit();
+			return null;
+		}
+	}
 }

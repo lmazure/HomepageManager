@@ -8,7 +8,7 @@ import org.w3c.dom.Element;
 
 abstract public class NodeChecker {
 	
-    public final static String A = "A";  // TODO mode this list in another class
+    public final static String A = "A";  // TODO move this list in another class
     public final static String ARTICLE = "ARTICLE";
     public final static String AUTHOR = "AUTHOR";
     public final static String BLIST = "BLIST";

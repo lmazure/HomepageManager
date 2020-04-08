@@ -2,23 +2,26 @@ package data;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Optional;
 
+import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkData;
 
 public class LinkContentCheckerFactory {
 
 	public static LinkContentChecker build(final URL url,
                                            final LinkData linkData,
+                                           final Optional<ArticleData> articleData,
                                            final File file) {
 		
 		if (url.toString().startsWith("https://www.youtube.com/watch?v=")) {
-			return new YoutubeWatchLinkContentChecker(linkData, file);
+			return new YoutubeWatchLinkContentChecker(linkData, articleData, file);
 		}
 		
 		if (url.toString().startsWith("https://medium.com/")) {
-			return new MediumLinkContentChecker(linkData, file);
+			return new MediumLinkContentChecker(linkData, articleData, file);
 		}
 		
-		return new LinkContentChecker(linkData, file);
+		return new LinkContentChecker(linkData, articleData, file);
 	}
 }

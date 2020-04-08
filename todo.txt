@@ -1,3 +1,12 @@
+- les popup d'auteur ne marchent plus
+
+- voir comment purger le cache après les mises à jour
+
+- Chrome indique qu'il n'arrive pas à charger les sourcemaps
+
+- supprimer la directory attic
+
+
 - résoudre la vidéo morte de data.xml
 
 - utiliser TemporalAccessor et Year/YearMonth/LocalDate pour les partial date/time
