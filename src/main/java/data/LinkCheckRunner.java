@@ -295,6 +295,7 @@ class LinkCheckRunner {
         final StringBuilder checks = new StringBuilder();
 
         int numberOfBrokenLinks = 0;
+        int numberOfBadLinkData = 0;
         
         for (final URL url : _effectiveData.keySet()) {
             final LinkData expectedData = _expectedData.get(url);
@@ -311,6 +312,7 @@ class LinkCheckRunner {
                 for (LinkContentCheck c: _checks.get(url)) {
                     checks.append(c.getDescription());
                     checks.append('\n');
+                    numberOfBadLinkData++;
                 }
             }
         }
@@ -318,6 +320,7 @@ class LinkCheckRunner {
         try (final FileOutputStream os = new FileOutputStream(_outputFile.toFile());
              final PrintWriter pw = new PrintWriter(os)) {
             pw.println("number of broken links = " + numberOfBrokenLinks);
+            pw.println("number of bad link data = " + numberOfBadLinkData);
             pw.println();
             pw.println(ko.toString());
             pw.println("=".repeat(80));

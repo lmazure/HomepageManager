@@ -2,13 +2,13 @@ package data;
 
 import java.io.File;
 import java.time.Duration;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import utils.FileHelper;
 import utils.xmlparsing.ArticleData;
-import utils.xmlparsing.DateData;
 import utils.xmlparsing.LinkData;
 
 public class LinkContentChecker {
@@ -78,7 +78,7 @@ public class LinkContentChecker {
 	}
       
 	protected LinkContentCheck checkDate(final String data,
-			                                   final DateData duration)
+			                                   final TemporalAccessor duration)
 	{
 		return null;
 	}

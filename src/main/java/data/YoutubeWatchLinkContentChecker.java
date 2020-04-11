@@ -4,10 +4,10 @@ import java.io.File;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAccessor;
 import java.util.Optional;
 
 import utils.xmlparsing.ArticleData;
-import utils.xmlparsing.DateData;
 import utils.xmlparsing.LinkData;
 
 public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
@@ -44,7 +44,7 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
                 	                    effectiveTitle +
                   		                "\"");	    	
 	    }
-	    
+
 		return null;
 	}
 
@@ -68,20 +68,33 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
 		
 		return null;
 	}
-	
+
 	@Override
 	protected LinkContentCheck checkDate(final String data,
-			                             final DateData duration) {
-		
-		final LocalDate expectedDate = LocalDate.of(duration.getYear(), duration.getMonth().get(), duration.getDay().get());
-		final LocalDate effectiveDate = _parser.getPublishDate();
+			                             final TemporalAccessor date) {
 
-		if (!expectedDate.equals(effectiveDate)) {
+		if (!(date instanceof LocalDate)) {
+			return new LinkContentCheck("Date without month or day");
+       }
+
+		final LocalDate expectedDate = (LocalDate)date;
+		final LocalDate effectivePublishDate = _parser.getPublishDate();
+		final LocalDate effectiveUploadDate = _parser.getUploadDate();
+
+		if (!expectedDate.equals(effectivePublishDate)) {
 			return new LinkContentCheck("expected date " +
 				                        expectedDate +
                                         " is not equal to the effective publish date " +
-                                        effectiveDate);
+                                        effectivePublishDate);
        }
+
+	   if (!expectedDate.equals(effectiveUploadDate)) {
+			return new LinkContentCheck("expected date " +
+				                        expectedDate +
+                                        " is not equal to the effective upload date " +
+                                        effectivePublishDate);
+       }
+
 
        return null;
 	}

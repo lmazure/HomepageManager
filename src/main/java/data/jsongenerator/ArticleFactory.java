@@ -1,10 +1,9 @@
 package data.jsongenerator;
 
 import java.io.File;
+import java.time.temporal.TemporalAccessor;
 import java.util.HashSet;
 import java.util.Optional;
-
-import utils.xmlparsing.DateData;
 
 public class ArticleFactory {
 
@@ -18,8 +17,8 @@ public class ArticleFactory {
 	}
 	
 	public Article buildArticle(final File page,
-		       				    final Optional<DateData> dateData) {
-		final Article article = new Article(page, dateData);
+		       				    final Optional<TemporalAccessor> date) {
+		final Article article = new Article(page, date);
 		a_articles.add(article);
 		return article;
 	}

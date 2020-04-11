@@ -1,3 +1,7 @@
+- les articles sont mal triés pour Scott Ambler
+
+- la sauvegarde du rapport de liens toutes les 30 secondes ne marche plus
+
 - les popup d'auteur ne marchent plus
 
 - voir comment purger le cache après les mises à jour

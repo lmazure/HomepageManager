@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 import java.time.Duration;
+import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalAccessor;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -129,7 +131,7 @@ public class Reporter {
          try {
              final Article articles[] = a_articleFactory.getArticles();
   			 Arrays.sort(articles, new ArticleComparator());
-             final OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(f),Charset.forName("UTF-8").newEncoder());
+             final OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(f), Charset.forName("UTF-8").newEncoder());
              out.write("{\n  \"articles\" : [");
              for (int i = 0; i < articles.length; i++) {
                  final Article article = articles[i];
@@ -140,11 +142,12 @@ public class Reporter {
                  printLinks(out, article.getLinks());
                  out.write(",");
                  if (article.getDateData().isPresent()) {
-                     out.write("\n      \"date\" : [" + article.getDateData().get().getYear());
-                     if (article.getDateData().get().getMonth().isPresent()) {
-                         out.write(", " + article.getDateData().get().getMonth().get());
-                         if (article.getDateData().get().getDay().isPresent()) {
-                             out.write(", " + article.getDateData().get().getDay().get());
+                	 final TemporalAccessor date = article.getDateData().get();
+                     out.write("\n      \"date\" : [" + date.get(ChronoField.YEAR));
+                     if (date.isSupported(ChronoField.MONTH_OF_YEAR)) {
+                         out.write(", " + date.get(ChronoField.MONTH_OF_YEAR));
+                         if (date.isSupported(ChronoField.DAY_OF_MONTH)) {
+                             out.write(", " + date.get(ChronoField.DAY_OF_MONTH));
                          }
                      }
                      out.write("],");

@@ -1,23 +1,22 @@
 package data.jsongenerator;
 
 import java.io.File;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 
-import utils.xmlparsing.DateData;
-
 public class Article {
 
 	private final File a_referringPage;
-	private final Optional<DateData> _dateData;
+	private final Optional<TemporalAccessor> _date;
 	private final ArrayList<Author> _authors;
 	private final ArrayList<Link> _links;
 	
 	public Article(final File page,
-			       final Optional<DateData> dateData) {
+			       final Optional<TemporalAccessor> date) {
 		a_referringPage = page;
-		_dateData = dateData;
+		_date = date;
 		_authors = new ArrayList<Author>();
 		_links = new ArrayList<Link>();
 	}
@@ -29,8 +28,8 @@ public class Article {
 		return a_referringPage;
 	}
 
-	public Optional<DateData> getDateData() {
-		return _dateData;
+	public Optional<TemporalAccessor> getDateData() {
+		return _date;
 	}
 
 	/**

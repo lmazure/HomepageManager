@@ -2,8 +2,6 @@ package data.jsongenerator;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.DateTimeException;
-import java.time.LocalDateTime;
 
 import javax.xml.parsers.DocumentBuilder;
 
@@ -17,7 +15,6 @@ import utils.Logger;
 import utils.XMLHelper;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
-import utils.xmlparsing.DateData;
 import utils.xmlparsing.LinkData;
 import utils.xmlparsing.XmlParser;
 
@@ -79,9 +76,9 @@ public class Parser {
 			
 			final ArticleData articleData = XmlParser.parseArticleNode(articleNode);
 
-			if (articleData.getDate().isPresent()) {
+			/*if (articleData.getDate().isPresent()) {
 				validateDate(file, articleData.getDate().get());
-			}
+			}*/
             
             final Article article = a_articleFactory.buildArticle(file, articleData.getDate());
             
@@ -172,7 +169,7 @@ public class Parser {
      * if the date is incorrect, throws a {@link UnsupportedOperationException}
      * if the date is correct, does nothing
      */
-    private void validateDate(final File file, final DateData dateData) {
+    /*private void validateDate(final File file, final DateData dateData) {
         
         try {
             final LocalDateTime date = LocalDateTime.of(dateData.getYear(),
@@ -188,5 +185,5 @@ public class Parser {
         } catch (final DateTimeException e) {
             throw new UnsupportedOperationException("Invalid values for DATE node in file " + file.getPath() + " " + e.getMessage());                        
         }
-    }
+    }*/
 }

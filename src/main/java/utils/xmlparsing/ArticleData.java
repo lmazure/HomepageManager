@@ -1,24 +1,25 @@
 package utils.xmlparsing;
 
+import java.time.temporal.TemporalAccessor;
 import java.util.List;
 import java.util.Optional;
 
 public class ArticleData {
 
-    private final Optional<DateData> _dateData;
+    private final Optional<TemporalAccessor> _date;
     private final List<AuthorData> _authors;
     private final List<LinkData> _links;
 
-    public ArticleData(final Optional<DateData> dateData,
+    public ArticleData(final Optional<TemporalAccessor> date,
                        final List<AuthorData> authors,
                        final List<LinkData> links) {
-        _dateData = dateData;
+        _date = date;
         _authors = authors;
         _links = links;
     }
 
-    public Optional<DateData> getDate() {
-        return _dateData;
+    public Optional<TemporalAccessor> getDate() {
+        return _date;
     }
 
     public List<AuthorData> getAuthors() {

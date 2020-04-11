@@ -1,6 +1,10 @@
 package utils.xmlparsing;
 
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.Year;
+import java.time.YearMonth;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -124,37 +128,32 @@ public class XmlParser {
         return new AuthorData(namePrefix, firstName, middleName, lastName, nameSuffix, givenName);
     }
 
-    public static DateData parseDateNode(final Element dateNode) {
+    public static TemporalAccessor parseDateNode(final Element dateNode) {
 
         if (!dateNode.getTagName().equals("DATE")) {
             throw new UnsupportedOperationException("parseDateNode called with wrong node (" + dateNode.getTagName() + ")");            
         }
         
-        Integer year = 0;
         final NodeList yearNodes = dateNode.getElementsByTagName("YEAR");
         if (yearNodes.getLength() == 1) {
-            year = Integer.parseInt(yearNodes.item(0).getTextContent());
-        } else {
-            throw new UnsupportedOperationException("Wrong number of YEAR nodes");
+            final int year = Integer.parseInt(yearNodes.item(0).getTextContent());
+            final NodeList monthNodes = dateNode.getElementsByTagName("MONTH");
+            if (monthNodes.getLength() == 1) {
+                final int month = Integer.parseInt(monthNodes.item(0).getTextContent());
+                final NodeList dayNodes = dateNode.getElementsByTagName("DAY");
+                if (dayNodes.getLength() == 1) {
+                    final int day = Integer.parseInt(dayNodes.item(0).getTextContent());
+                    return LocalDate.of(year, month, day);
+                } else if (dayNodes.getLength() > 1) {
+                    throw new UnsupportedOperationException("Wrong number of DAY nodes");
+                }
+                return YearMonth.of(year, month);
+            } else if (monthNodes.getLength() > 1) {
+                throw new UnsupportedOperationException("Wrong number of MONTH nodes");
+            }
+            return Year.of(year);
         }
-
-        Optional<Integer> month = Optional.empty();
-        final NodeList monthNodes = dateNode.getElementsByTagName("MONTH");
-        if (monthNodes.getLength() == 1) {
-            month = Optional.of(Integer.parseInt(monthNodes.item(0).getTextContent()));
-        } else if (monthNodes.getLength() > 1) {
-            throw new UnsupportedOperationException("Wrong number of MONTH nodes");
-        }
-        
-        Optional<Integer> day = Optional.empty();
-        final NodeList dayNodes = dateNode.getElementsByTagName("DAY");
-        if (dayNodes.getLength() == 1) {
-            day = Optional.of(Integer.parseInt(dayNodes.item(0).getTextContent()));
-        } else if (dayNodes.getLength() > 1) {
-            throw new UnsupportedOperationException("Wrong number of DAY nodes");
-        }
-
-        return new DateData(year, month, day);
+        throw new UnsupportedOperationException("Wrong number of YEAR nodes");
     }
 
     public static Duration parseDurationNode(final Element durationNode) {
@@ -199,9 +198,9 @@ public class XmlParser {
         }
 
         final List<Element> dateNodes =  getChildElements(articleNode, "DATE");
-        Optional<DateData> dateData = Optional.empty();
+        Optional<TemporalAccessor> dateData = Optional.empty();
         if (dateNodes.size() == 1) {
-            final DateData dt = XmlParser.parseDateNode(dateNodes.get(0));
+            final TemporalAccessor dt = XmlParser.parseDateNode(dateNodes.get(0));
             dateData = Optional.of(dt);             
         }
         
