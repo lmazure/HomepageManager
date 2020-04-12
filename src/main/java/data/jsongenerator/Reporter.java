@@ -116,7 +116,8 @@ public class Reporter {
       * @param root
       * @param pageName
       */
-     public void generateArticleJson(final File root, final String pageName) {
+     public void generateArticleJson(final File root,
+    		                         final String pageName) {
     
          final String rootFileName = root.getAbsolutePath();
          final File f = new File(rootFileName + File.separator + pageName);

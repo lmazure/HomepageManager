@@ -1,26 +1,26 @@
+- corriger ..
+
+- voir comment purger le cache après les mises à jour
+
+- ajouter notion de date de publication
+
 - les articles sont mal triés pour Scott Ambler
 
 - la sauvegarde du rapport de liens toutes les 30 secondes ne marche plus
 
 - les popup d'auteur ne marchent plus
 
-- voir comment purger le cache après les mises à jour
-
 - Chrome indique qu'il n'arrive pas à charger les sourcemaps
 
 - supprimer la directory attic
 
-
-- résoudre la vidéo morte de data.xml
+- résoudre la vidéo morte de data.xml (i.e. ne pas vérifier les vidéos zombie)
 
 - utiliser TemporalAccessor et Year/YearMonth/LocalDate pour les partial date/time
 
-
 - ajouter une règle comme quoi il n'y a pas de <ST> pour youtube
-- il faut vérifier les articles et non pas les links
--     private boolean isDataExpected() { //TBD this method is very stupid, we should used a flag instead of computing the status every time
 
-
+- private boolean isDataExpected() { //TBD this method is very stupid, we should used a flag instead of computing the status every time
 
 - corriger problème de certificat
 
@@ -32,29 +32,20 @@
 
 - détecter les URL qui finissent par deux slashes
 
-- vérifier date / titre / durée des vidéos youtube 
- 
  - problème avec le lien http://marie.desplats.free.fr/diagora_home_page.html
 
 - bug : s'il n'y a aucun lien dans une page, le texte du rapport reste "analyse en cours"  
   
-
-
 - Tester robot.txt avec https://www.google.com/webmasters/tools/robots-testing-tool
-- Mettre les tests dans une suite
 
-- HP : mettre le focus automatiquement sur le champ de recherche
-- HP : pouvoir fermer le popup des authors avec Esc
-
----------------------------------------------------------------------------------------------------------
-
-- Réparer le build Maven qui ne fonctionne plus
-- Pouvoir lancer les tests par Maven
-
-- Ajouter des attributs qui ne correspondent pas au contenu du site
 - Ajouter la détection des malwares
+
 - Ajouter la règle sur les URLs qui apparaissent plusieurs fois
+
 - Accelérer la création des fichier JSON (en extrayant les données de chaque fichier à la modification de celui-ci, en mettant cela dans un fichier de résumé et en ayant la création des JSON qui ne fasse que consolider ces fichiers) 
+
 - ajouter la vérification des <FEED>s
-- ajouter support des multiples <MIDDLENAME>
-- HP : mettre en place le système des keywords
+
+- ajouter support des <MIDDLENAME> multiples
+
+- mettre en place le système des keywords

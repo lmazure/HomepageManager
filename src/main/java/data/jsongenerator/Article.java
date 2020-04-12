@@ -8,14 +8,14 @@ import java.util.Optional;
 
 public class Article {
 
-	private final File a_referringPage;
+	private final File _referringPage;
 	private final Optional<TemporalAccessor> _date;
 	private final ArrayList<Author> _authors;
 	private final ArrayList<Link> _links;
 	
 	public Article(final File page,
 			       final Optional<TemporalAccessor> date) {
-		a_referringPage = page;
+		_referringPage = page;
 		_date = date;
 		_authors = new ArrayList<Author>();
 		_links = new ArrayList<Link>();
@@ -25,7 +25,7 @@ public class Article {
 	 * @return the referringPage
 	 */
 	public File getReferringPage() {
-		return a_referringPage;
+		return _referringPage;
 	}
 
 	public Optional<TemporalAccessor> getDateData() {
@@ -59,7 +59,7 @@ public class Article {
 	 * @return
 	 */
 	public Link[] getLinks() {
-		Link a[] = _links.toArray(new Link[0]);
+		final Link a[] = _links.toArray(new Link[0]);
 		Arrays.sort(a);
 		return a;
 	}

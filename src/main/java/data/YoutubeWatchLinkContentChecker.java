@@ -95,7 +95,6 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
                                         effectivePublishDate);
        }
 
-
        return null;
 	}
 }

@@ -76,10 +76,6 @@ public class Parser {
 			
 			final ArticleData articleData = XmlParser.parseArticleNode(articleNode);
 
-			/*if (articleData.getDate().isPresent()) {
-				validateDate(file, articleData.getDate().get());
-			}*/
-            
             final Article article = a_articleFactory.buildArticle(file, articleData.getDate());
             
             for (int j = 0; j < articleData.getLinks().size(); j++) {
@@ -163,27 +159,4 @@ public class Parser {
             
         }
     }
-
-    /**
-     * validate a DATE node
-     * if the date is incorrect, throws a {@link UnsupportedOperationException}
-     * if the date is correct, does nothing
-     */
-    /*private void validateDate(final File file, final DateData dateData) {
-        
-        try {
-            final LocalDateTime date = LocalDateTime.of(dateData.getYear(),
-                                                        dateData.getMonth().orElse(1),
-                                                        dateData.getDay().orElse(1),
-                                                        0,
-                                                        0);
-            if ((date.getYear() != dateData.getYear()) ||
-                (date.getMonthValue() != dateData.getMonth().orElse(1)) ||
-                (date.getDayOfMonth() != dateData.getDay().orElse(1))) {
-                throw new UnsupportedOperationException("Invalid values for DATE node in file " + file.getPath());
-            }
-        } catch (final DateTimeException e) {
-            throw new UnsupportedOperationException("Invalid values for DATE node in file " + file.getPath() + " " + e.getMessage());                        
-        }
-    }*/
 }
