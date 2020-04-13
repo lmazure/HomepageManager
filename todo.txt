@@ -1,14 +1,15 @@
+- si un lien n'est plus zombie, on ne le détecte pas car on ne vérifie pas les données des liens zombie
+
+- LinkData.getStatus() devrait être un enum
+  LinkData.getProtection() devrait être un enum
+
 - ne plus utiliser Google Analytics mais les stat d'Infomaniac
 
 - voir comment purger le cache après les mises à jour
 
 - ajouter notion de date de publication
 
-- les articles sont mal triés pour Scott Ambler
-
 - la sauvegarde du rapport de liens toutes les 30 secondes ne marche plus
-
-- les popup d'auteur ne marchent plus sur HP prod avec Firefox
 
 - Chrome indique qu'il n'arrive pas à charger les sourcemaps
 
@@ -24,7 +25,7 @@
 
 - corriger problème de certificat
 
-- bug dans HTMLGenerator.java, si le fichier XSLT est modifié, la nouvelle versions n'est pas prise en compte
+- bug dans HTMLGenerator.java, si le fichier XSLT est modifié, la nouvelle version n'est pas prise en compte
 
 - LinkedIn renvoie un HTTP code 999
 

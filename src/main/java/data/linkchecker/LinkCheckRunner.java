@@ -242,7 +242,8 @@ public class LinkCheckRunner {
         }
         
         _effectiveData.put(siteData.getUrl(), siteData);
-        if (siteData.getStatus() == SiteData.Status.SUCCESS) {
+        if ((siteData.getStatus() == SiteData.Status.SUCCESS) &&
+            _expectedData.get(siteData.getUrl()).getStatus().isEmpty()) {
 	        final LinkContentChecker contentChecker = LinkContentCheckerFactory.build(siteData.getUrl(),
 	        		                                                                  _expectedData.get(siteData.getUrl()),
 	        		                                                                  Optional.ofNullable(_articles.get(siteData.getUrl())),
