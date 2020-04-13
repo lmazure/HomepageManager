@@ -1,4 +1,4 @@
-package data;
+package data.linkchecker;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

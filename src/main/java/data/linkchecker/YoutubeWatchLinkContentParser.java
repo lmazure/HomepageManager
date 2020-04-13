@@ -1,4 +1,4 @@
-package data;
+package data.linkchecker;
 
 import java.time.Duration;
 import java.time.LocalDate;

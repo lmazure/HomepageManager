@@ -1,4 +1,4 @@
-package data;
+package data.linkchecker;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -28,6 +28,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import data.BackgroundDataController;
 import data.FileHandler.Status;
 import data.internet.SiteData;
 import data.internet.SiteDataRetriever;
@@ -42,7 +43,7 @@ import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkData;
 import utils.xmlparsing.XmlParser;
 
-class LinkCheckRunner {
+public class LinkCheckRunner {
     
     private static final int MAX_CACHE_AGE = 30*24*60*60;
     private static final int REPORT_THROTTLING_PERIOD = 90;
@@ -60,11 +61,11 @@ class LinkCheckRunner {
     private final Path _reportFile;
     private Instant _lastFileWriteTimestamp; 
     
-    LinkCheckRunner(final Path file,
-                    final Path tmpPath,
-                    final BackgroundDataController controller,
-                    final Path ouputFile,
-                    final Path reportFile) {
+    public LinkCheckRunner(final Path file,
+                           final Path tmpPath,
+                           final BackgroundDataController controller,
+                           final Path ouputFile,
+                           final Path reportFile) {
         _file = file;
         _effectiveData = new TreeMap<URL, SiteData>(
                 new Comparator<URL>() {
@@ -84,7 +85,7 @@ class LinkCheckRunner {
         _lastFileWriteTimestamp = Instant.MIN;
     }
     
-    synchronized void launch() {
+    public synchronized void launch() {
 
         FileHelper.createParentDirectory(_outputFile);
 
@@ -208,7 +209,7 @@ class LinkCheckRunner {
         return list;
     }
     
-    synchronized void cancel() {
+    public synchronized void cancel() {
         _isCancelled = true;
         FileHelper.deleteFile(_outputFile);
         FileHelper.deleteFile(_reportFile);

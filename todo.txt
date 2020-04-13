@@ -1,4 +1,4 @@
-- corriger ..
+- ne plus utiliser Google Analytics mais les stat d'Infomaniac
 
 - voir comment purger le cache après les mises à jour
 
@@ -8,7 +8,7 @@
 
 - la sauvegarde du rapport de liens toutes les 30 secondes ne marche plus
 
-- les popup d'auteur ne marchent plus
+- les popup d'auteur ne marchent plus sur HP prod avec Firefox
 
 - Chrome indique qu'il n'arrive pas à charger les sourcemaps
 
@@ -32,7 +32,7 @@
 
 - détecter les URL qui finissent par deux slashes
 
- - problème avec le lien http://marie.desplats.free.fr/diagora_home_page.html
+- problème avec le lien http://marie.desplats.free.fr/diagora_home_page.html
 
 - bug : s'il n'y a aucun lien dans une page, le texte du rapport reste "analyse en cours"  
   

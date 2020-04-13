@@ -11,6 +11,7 @@ import data.internet.SiteData;
 import data.internet.SiteDataPersister;
 import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
+import data.linkchecker.MediumLinkContentParser;
 import utils.FileHelper;
 
 public class MediumLinkContentParserTest {

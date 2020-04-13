@@ -1,4 +1,4 @@
-package data;
+package data.linkchecker;
 
 import java.io.File;
 import java.time.Duration;

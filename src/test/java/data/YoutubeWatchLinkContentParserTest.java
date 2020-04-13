@@ -13,6 +13,7 @@ import data.internet.SiteData;
 import data.internet.SiteDataPersister;
 import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
+import data.linkchecker.YoutubeWatchLinkContentParser;
 import utils.FileHelper;
 
 class YoutubeWatchLinkContentParserTest {
