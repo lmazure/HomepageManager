@@ -15,7 +15,35 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class XmlParser {
-    
+
+    public static ArticleData parseArticleNode(final Element articleNode) {
+        
+        if (!articleNode.getTagName().equals("ARTICLE")) {
+            throw new UnsupportedOperationException("parseArticleNode called with wrong node (" + articleNode.getTagName() + ")");            
+        }
+
+        final List<Element> dateNodes =  getChildElements(articleNode, "DATE");
+        Optional<TemporalAccessor> date = Optional.empty();
+        if (dateNodes.size() == 1) {
+            final TemporalAccessor dt = XmlParser.parseDateNode(dateNodes.get(0));
+            date = Optional.of(dt);             
+        } else if (dateNodes.size() > 1) {
+            throw new UnsupportedOperationException("Wrong number of DATE nodes (" + dateNodes.size() + ")");
+        }
+        
+        final List<LinkData> links = new ArrayList<LinkData>();
+        for (final Element linkNode: getChildElements(articleNode, "X")) {
+            links.add(XmlParser.parseXNode(linkNode));
+        }
+
+        final List<AuthorData> authors = new ArrayList<AuthorData>();
+        for (final Element authorNode: getChildElements(articleNode, "AUTHOR")) {
+            authors.add(XmlParser.parseAuthorNode(authorNode));
+        }
+
+        return new ArticleData(date, authors, links);
+    }
+
     public static LinkData parseXNode(final Element xNode) {
         
         if (!xNode.getTagName().equals("X")) {
@@ -65,6 +93,15 @@ public class XmlParser {
         }  else if (durationNodes.getLength() > 1) {
             throw new UnsupportedOperationException("Wrong number of DURATION nodes");
         }
+
+        final List<Element> dateNodes =  getChildElements(xNode, "DATE");
+        Optional<TemporalAccessor> publicationDate = Optional.empty();
+        if (dateNodes.size() == 1) {
+            final TemporalAccessor dt = XmlParser.parseDateNode(dateNodes.get(0));
+            publicationDate = Optional.of(dt);             
+        } else if (dateNodes.size() > 1) {
+            throw new UnsupportedOperationException("Wrong number of DATE nodes");
+        }
         
         final Attr statusAttribute = xNode.getAttributeNode("status");
         final Optional<String> status = (statusAttribute != null) ? Optional.of(statusAttribute.getValue())
@@ -74,7 +111,7 @@ public class XmlParser {
         final Optional<String> protection = (protectionAttribute != null) ? Optional.of(protectionAttribute.getValue())
                                                                           : Optional.empty();
 
-        return new LinkData(title, subtitles, url, status, protection, formats, languages, duration);
+        return new LinkData(title, subtitles, url, status, protection, formats, languages, duration, publicationDate);
     }
     
     public static AuthorData parseAuthorNode(final Element authorNode) {
@@ -191,32 +228,6 @@ public class XmlParser {
         return duration;
     }
 
-    public static ArticleData parseArticleNode(final Element articleNode) {
-        
-        if (!articleNode.getTagName().equals("ARTICLE")) {
-            throw new UnsupportedOperationException("parseArticleNode called with wrong node (" + articleNode.getTagName() + ")");            
-        }
-
-        final List<Element> dateNodes =  getChildElements(articleNode, "DATE");
-        Optional<TemporalAccessor> dateData = Optional.empty();
-        if (dateNodes.size() == 1) {
-            final TemporalAccessor dt = XmlParser.parseDateNode(dateNodes.get(0));
-            dateData = Optional.of(dt);             
-        }
-        
-        final List<LinkData> links = new ArrayList<LinkData>();
-        for (final Element linkNode: getChildElements(articleNode, "X")) {
-            links.add(XmlParser.parseXNode(linkNode));
-        }
-
-        final List<AuthorData> authors = new ArrayList<AuthorData>();
-        for (final Element authorNode: getChildElements(articleNode, "AUTHOR")) {
-            authors.add(XmlParser.parseAuthorNode(authorNode));
-        }
-
-        return new ArticleData(dateData, authors, links);
-    }
-    
     private static List<Element> getChildElements(final Element element,
                                                   final String tag) {
         

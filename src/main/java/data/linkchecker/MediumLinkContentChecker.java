@@ -17,15 +17,15 @@ public class MediumLinkContentChecker extends LinkContentChecker {
 	}
 
 	@Override
-	protected LinkContentCheck checkGlobal(String data) {
+	protected LinkContentCheck checkGlobalData(String data) {
 		_parser = new MediumLinkContentParser(data);
 		
 		return null;
 	}
 	
 	@Override
-	public LinkContentCheck checkTitle(final String data,
-                                       final String title) {
+	public LinkContentCheck checkLinkTitle(final String data,
+                                           final String title) {
 		
 	    final String effectiveTitle = _parser.getTitle();
 	    

@@ -21,7 +21,7 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
 	}
 
 	@Override
-	protected LinkContentCheck checkGlobal(String data) {
+	protected LinkContentCheck checkGlobalData(String data) {
 		_parser = new YoutubeWatchLinkContentParser(data);
 		
 		if (!_parser.isPlayable()) {
@@ -32,8 +32,8 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
 	}
 	
 	@Override
-	public LinkContentCheck checkTitle(final String data,
-                                       final String title) {
+	public LinkContentCheck checkLinkTitle(final String data,
+                                           final String title) {
 		
 	    final String effectiveTitle = _parser.getTitle();
 	    
@@ -49,8 +49,8 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
 	}
 
 	@Override
-	public LinkContentCheck checkDuration(final String data,
-			                              final Duration expectedDuration) {
+	public LinkContentCheck checkLinkDuration(final String data,
+			                                  final Duration expectedDuration) {
 
 		final Duration effectiveMinDuration = _parser.getMinDuration().truncatedTo(ChronoUnit.SECONDS);
 		final Duration effectiveMaxDuration = _parser.getMaxDuration().truncatedTo(ChronoUnit.SECONDS).plusSeconds(1);
@@ -70,9 +70,17 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
 	}
 
 	@Override
-	protected LinkContentCheck checkDate(final String data,
-			                             final TemporalAccessor date) {
+	protected LinkContentCheck checkArticleDate(final String data,
+                                                final Optional<TemporalAccessor> publicationDate,
+                                                final Optional<TemporalAccessor> creationDate)
+	{
 
+		if (creationDate.isEmpty()) {
+			return new LinkContentCheck("YouTube link with no creation date");			
+		}
+		
+	    final TemporalAccessor date = publicationDate.isPresent() ? publicationDate.get() : creationDate.get();
+	
 		if (!(date instanceof LocalDate)) {
 			return new LinkContentCheck("Date without month or day");
        }

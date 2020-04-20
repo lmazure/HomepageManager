@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
-import java.time.Duration;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
 import java.util.Arrays;
@@ -206,20 +205,7 @@ public class Reporter {
                 out.write("],\n");                         
             }
             if (link.getDuration().isPresent()) {
-                out.write("          \"duration\" : [");
-                final Duration duration = link.getDuration().get();
-                final long hours = duration.toHours();
-                final Duration durationM = duration.minusHours(hours);
-                final long minutes = durationM.toMinutes();
-                final Duration durationS = durationM.minusMinutes(minutes);
-                final long seconds = durationS.toSeconds();
-                if (minutes > 0) {
-                    if (hours > 0) {
-                        out.write(hours + ", ");
-                    }
-                    out.write(minutes + ", ");
-                }
-                out.write(seconds + "],\n");
+                out.write("          \"duration\" : " + link.getDuration().get().getSeconds() + ",\n");
             }
             if (link.getStatus().isPresent()) {
                 out.write("          \"status\" : \"" + link.getStatus().get() + "\",\n");                         

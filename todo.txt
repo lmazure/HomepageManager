@@ -1,3 +1,11 @@
+- ajouter une règle : la date de publication doit être après la date de création
+
+- ajouter notion de date de publication
+en cours
+gérer la date de publication coté client, en profiter pour modifier le tooltip
+
+- corriger le fait que les liens soient chargés deux fois
+
 - si un lien n'est plus zombie, on ne le détecte pas car on ne vérifie pas les données des liens zombie
 
 - LinkData.getStatus() devrait être un enum
@@ -7,13 +15,14 @@
 
 - voir comment purger le cache après les mises à jour
 
-- ajouter notion de date de publication
-
 - la sauvegarde du rapport de liens toutes les 30 secondes ne marche plus
 
 - Chrome indique qu'il n'arrive pas à charger les sourcemaps
 
 - supprimer la directory attic
+de plus cela génère des erreurs
+                   Thread-3 | 20200416T073001.802 | ERROR | URL ../attic/optimtut1.ps.gz is not checked because the URL is malformed
+                   Thread-3 | 20200416T073001.993 | ERROR | URL ../attic/tgr_softwareremodeling.pdf is not checked because the URL is malformed
 
 - résoudre la vidéo morte de data.xml (i.e. ne pas vérifier les vidéos zombie)
 
