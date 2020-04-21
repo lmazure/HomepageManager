@@ -1,3 +1,5 @@
+- nettoyer cracking.xml
+
 - ajouter une règle : la date de publication doit être après la date de création
 
 - ajouter notion de date de publication
@@ -25,8 +27,6 @@ de plus cela génère des erreurs
                    Thread-3 | 20200416T073001.993 | ERROR | URL ../attic/tgr_softwareremodeling.pdf is not checked because the URL is malformed
 
 - résoudre la vidéo morte de data.xml (i.e. ne pas vérifier les vidéos zombie)
-
-- utiliser TemporalAccessor et Year/YearMonth/LocalDate pour les partial date/time
 
 - ajouter une règle comme quoi il n'y a pas de <ST> pour youtube
 

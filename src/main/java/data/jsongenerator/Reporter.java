@@ -35,9 +35,8 @@ public class Reporter {
         final File f = new File(rootFileName + File.separator + pageName);
         f.delete();
 
-        try {
+        try (final OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(f),Charset.forName("UTF-8").newEncoder())) {
             final Author authors[] = a_authorFactory.getAuthors();
-            final OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(f),Charset.forName("UTF-8").newEncoder());
             out.write("{\n  \"authors\" : [");
             for (int i = 0; i < authors.length; i++) {
                 final Author author = authors[i];
@@ -47,42 +46,42 @@ public class Reporter {
                 }
                 out.write("\n    {");
                 if (author.getNamePrefix().isPresent()) {
-                    out.write("\n      \"namePrefix\" : \"" + jsonEscape(author.getNamePrefix().get()) +"\"");
+                    out.write("\n      \"namePrefix\" : \"" + jsonEscape(author.getNamePrefix().get()) + "\"");
                     isAComponentWritten = true;
                 }
                 if (author.getFirstName().isPresent()) {
                     if (isAComponentWritten) {
                         out.write(",");
                     }
-                    out.write("\n      \"firstName\" : \"" + jsonEscape(author.getFirstName().get()) +"\"");
+                    out.write("\n      \"firstName\" : \"" + jsonEscape(author.getFirstName().get()) + "\"");
                     isAComponentWritten = true;
                 }
                 if (author.getMiddleName().isPresent()) {
                     if (isAComponentWritten) {
                         out.write(",");
                     }
-                    out.write("\n      \"middleName\" : \"" + jsonEscape(author.getMiddleName().get()) +"\"");
+                    out.write("\n      \"middleName\" : \"" + jsonEscape(author.getMiddleName().get()) + "\"");
                     isAComponentWritten = true;
                 }
                 if (author.getLastName().isPresent()) {
                     if (isAComponentWritten) {
                         out.write(",");
                     }
-                    out.write("\n      \"lastName\" : \"" + jsonEscape(author.getLastName().get()) +"\"");
+                    out.write("\n      \"lastName\" : \"" + jsonEscape(author.getLastName().get()) + "\"");
                     isAComponentWritten = true;
                 }
                 if (author.getNameSuffix().isPresent()) {
                     if (isAComponentWritten) {
                         out.write(",");
                     }
-                    out.write("\n      \"nameSuffix\" : \"" + jsonEscape(author.getNameSuffix().get()) +"\"");
+                    out.write("\n      \"nameSuffix\" : \"" + jsonEscape(author.getNameSuffix().get()) + "\"");
                     isAComponentWritten = true;
                 }
                 if (author.getGivenName().isPresent()) {
                     if (isAComponentWritten) {
                         out.write(",");
                     }
-                    out.write("\n      \"givenName\" : \"" + jsonEscape(author.getGivenName().get()) +"\"");
+                    out.write("\n      \"givenName\" : \"" + jsonEscape(author.getGivenName().get()) + "\"");
                     isAComponentWritten = true;
                 }
                 if (author.getLinks().length > 0) {
@@ -95,7 +94,6 @@ public class Reporter {
                 out.write("\n    }");
             }
             out.write("\n  ]\n}");
-            out.close();
         } catch (final IOException e) {
         	Logger.log(Logger.Level.ERROR)
         	      .append("Failed to write file ")
@@ -128,10 +126,9 @@ public class Reporter {
              authorIndexes.put(authors[i], i);
          }
          
-         try {
+         try (final OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(f), Charset.forName("UTF-8").newEncoder())) {
              final Article articles[] = a_articleFactory.getArticles();
   			 Arrays.sort(articles, new ArticleComparator());
-             final OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(f), Charset.forName("UTF-8").newEncoder());
              out.write("{\n  \"articles\" : [");
              for (int i = 0; i < articles.length; i++) {
                  final Article article = articles[i];
@@ -143,14 +140,14 @@ public class Reporter {
                  out.write(",");
                  if (article.getDateData().isPresent()) {
                 	 final TemporalAccessor date = article.getDateData().get();
-                     out.write("\n      \"date\" : [" + date.get(ChronoField.YEAR));
+                     out.write("\n      \"date\" : " + date.get(ChronoField.YEAR));
                      if (date.isSupported(ChronoField.MONTH_OF_YEAR)) {
-                         out.write(", " + date.get(ChronoField.MONTH_OF_YEAR));
+                         out.write(String.format("%02d",date.get(ChronoField.MONTH_OF_YEAR)));
                          if (date.isSupported(ChronoField.DAY_OF_MONTH)) {
-                             out.write(", " + date.get(ChronoField.DAY_OF_MONTH));
+                             out.write(String.format("%02d",date.get(ChronoField.DAY_OF_MONTH)));
                          }
                      }
-                     out.write("],");
+                     out.write(",");
                  }
                  if (article.getAuthors().length != 0) {
                      out.write("\n      \"authorIndexes\" : [");
@@ -170,7 +167,6 @@ public class Reporter {
                  out.write("\n      \"page\" : \"" + page +"\"\n    }");
              }
              out.write("\n  ]\n}");
-             out.close();
          } catch (final IOException e) {
         	 Logger.log(Logger.Level.ERROR)
         	       .append("Failed to write file ")
@@ -185,7 +181,8 @@ public class Reporter {
                .submit();
      }
 
-    private void printLinks(final OutputStreamWriter out, final Link[] links) throws IOException {
+    private void printLinks(final OutputStreamWriter out,
+    		                final Link[] links) throws IOException {
         out.write("\n      \"links\" : [");
         for (int i = 0; i < links.length; i++) {
             final Link link = links[i];
@@ -195,7 +192,7 @@ public class Reporter {
             out.write("\n        {\n          \"url\" : \"" + jsonEscape(link.getUrl()) + "\",\n");                         
             out.write("          \"title\" : \"" + jsonEscape(link.getTitle()) + "\",\n");
             if (link.getSubtitles().length > 0) {
-                out.write("          \"subtitle\" : [");                                         //out.write("          \"subtitle\" : [");                         
+                out.write("          \"subtitle\" : [");                         
                 for (int k = 0; k < link.getSubtitles().length; k++) {
                     if (k != 0) {
                         out.write(", ");
