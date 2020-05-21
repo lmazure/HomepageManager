@@ -9,6 +9,7 @@ import data.FileChecker;
 import data.FileHandler;
 import data.HTMLGenerator;
 import data.LinkChecker;
+import data.MetricsExtractor;
 import data.NodeValueChecker;
 import data.SiteFilesGenerator;
 import data.jsongenerator.JsonGenerator;
@@ -137,6 +138,7 @@ public class FileTable extends Application {
     private void generateGlobalFiles() {        
         SiteFilesGenerator.generate(_homepagePath, _list.getFileList());
         JsonGenerator.generate(_homepagePath, _list.getFileList());
+        MetricsExtractor.generate(_homepagePath);
     }
     
     private void exit() {

@@ -49,8 +49,8 @@ public class FormatFromURLChecker extends NodeChecker {
 		if (url.toUpperCase().endsWith("WMV") && !format.equals("Windows Media Player"))
 			   return new CheckStatus("\""+url+"\" is not indicated as being a Windows Media Player format");
 
-		if (url.contains("youtube.com/watch") && !format.equals("Flash Video"))
-			   return new CheckStatus("\""+url+"\" is not indicated as being a Flash Video format");
+		if (url.contains("youtube.com/watch") && !format.equals("MP4"))
+			   return new CheckStatus("\""+url+"\" is not indicated as being a MP4 format");
 
 		if (url.contains("video.google.com/videoplay") && !format.equals("Flash Video"))
 			   return new CheckStatus("\""+url+"\" is not indicated as being a Flash Video format");

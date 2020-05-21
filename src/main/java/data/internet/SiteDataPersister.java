@@ -155,16 +155,16 @@ public class SiteDataPersister {
         Optional<Map<String, List<String>>> headers = Optional.empty();
         Optional<String> error = Optional.empty();
 
-        try (final BufferedReader r = new BufferedReader(new FileReader(getStatusFile(url, timestamp).toFile()))) {
+        try (final BufferedReader reader = new BufferedReader(new FileReader(getStatusFile(url, timestamp).toFile()))) {
 
             {
-                status = Status.valueOf(r.readLine());
+                status = Status.valueOf(reader.readLine());
             }
             
             {
-                final String httpCodePresence = r.readLine();
+                final String httpCodePresence = reader.readLine();
                 if (httpCodePresence.equals("present")) {
-                    httpCode = Optional.of(Integer.parseInt(r.readLine()));
+                    httpCode = Optional.of(Integer.parseInt(reader.readLine()));
                 } else if (httpCodePresence.equals("empty")) {
                     httpCode = Optional.empty();
                 } else {
@@ -173,12 +173,12 @@ public class SiteDataPersister {
             }
 
             {
-                final String headersPresence = r.readLine();
+                final String headersPresence = reader.readLine();
                 if (headersPresence.equals("present")) {
-                    final int nbHeaders = Integer.parseInt(r.readLine());
+                    final int nbHeaders = Integer.parseInt(reader.readLine());
                     final Map<String, List<String>> map = new HashMap<String, List<String>>(nbHeaders);
                     for (int i = 0; i < nbHeaders; i++) {
-                        final String[] lineParts = r.readLine().split("\t");
+                        final String[] lineParts = reader.readLine().split("\t");
                         final String header = lineParts[0];
                         final List<String> list = new ArrayList<String>(lineParts.length - 1);
                         for (int j = 1; j < lineParts.length; j++) {
@@ -195,12 +195,12 @@ public class SiteDataPersister {
             }
 
             {
-                final String errorPresence = r.readLine();
+                final String errorPresence = reader.readLine();
                 if (errorPresence.equals("present")) {
-                    final int nbErrorLines = Integer.parseInt(r.readLine());
+                    final int nbErrorLines = Integer.parseInt(reader.readLine());
                     final StringBuilder strBuilder = new StringBuilder();
                     for (int i = 0; i < nbErrorLines; i++) {
-                        strBuilder.append(r.readLine());
+                        strBuilder.append(reader.readLine());
                     }
                     error = Optional.of(strBuilder.toString());
                 } else if (errorPresence.equals("empty")) {
