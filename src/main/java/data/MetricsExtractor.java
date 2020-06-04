@@ -40,11 +40,11 @@ public class MetricsExtractor {
 
     	final StringBuilder builder = new StringBuilder();
     	
-    	builder.append("date" + SEPARATOR +
-    			       "hits" + SEPARATOR +
-    			       "files" + SEPARATOR +
-    			       "pages" + SEPARATOR +
-    			       "visits\n");
+    	builder.append("Date" + SEPARATOR +
+    			       "Hits" + SEPARATOR +
+    			       "Files" + SEPARATOR +
+    			       "Pages" + SEPARATOR +
+    			       "Visits\n");
 
     	final File[] files = metricsDirectory.toFile().listFiles((dir, name) -> name.startsWith("usage_"));
     	for (File file: files) {

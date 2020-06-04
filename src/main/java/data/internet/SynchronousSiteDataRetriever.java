@@ -67,6 +67,7 @@ public class SynchronousSiteDataRetriever {
              httpConnection.setRequestProperty("User-agent", s_userAgent);
              httpConnection.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
              httpConnection.setRequestProperty("Accept-Encoding", "gzip");
+             httpConnection.setRequestProperty("Accept-Language", "en");
              httpConnection.connect();
              headers = Optional.of(connection.getHeaderFields());
              httpCode = Optional.of(httpConnection.getResponseCode());

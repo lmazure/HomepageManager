@@ -1,9 +1,10 @@
 - nettoyage des fichiers
+notes/corrupter.xml
+c.xml
+perl.xml
 
-- hits
-récuperer les dernière statitiques de Google
-mettre les dux précédents dans les hits et mettre à jour la page de hits
-supprimer Google analytics de la HP
+- ajouter vérification de la langue
+ne pas vérifier les fichiers PDF
 
 - ajouter une règle : la date de publication doit être après la date de création
 

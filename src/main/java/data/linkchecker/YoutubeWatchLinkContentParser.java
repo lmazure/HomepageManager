@@ -10,6 +10,7 @@ import utils.ExitHelper;
 public class YoutubeWatchLinkContentParser {
 
 	private final String _data;
+	private Boolean _isPlayable;
 	private String _title;
 	private String _description;
 	private LocalDate _uploadDate;
@@ -22,8 +23,12 @@ public class YoutubeWatchLinkContentParser {
 	}
 	
 	public boolean isPlayable() {
-		//return _data.contains("\"player_response\":\"{\\\"playabilityStatus\\\":{\\\"status\\\":\\\"OK\\\"");
-		return _data.contains("\\\"playabilityStatus\\\":{\\\"status\\\":\\\"OK\\\"");
+		
+		if (_isPlayable == null) {
+				_isPlayable = getPlayable();
+		}
+		
+		return _isPlayable;
 	}
 
 	public String getTitle() {
@@ -81,6 +86,10 @@ public class YoutubeWatchLinkContentParser {
 		return _maxDuration;
 	}
 	
+	private boolean getPlayable() {
+		return _data.contains("\\\"playabilityStatus\\\":{\\\"status\\\":\\\"OK\\\"");
+	}
+
 	private String extractText(final String str) {
 		
 		String text = null;

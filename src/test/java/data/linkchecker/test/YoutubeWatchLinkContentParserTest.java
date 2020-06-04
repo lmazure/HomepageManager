@@ -1,4 +1,4 @@
-package data;
+package data.linkchecker.test;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import data.internet.SiteData;
@@ -26,7 +27,7 @@ class YoutubeWatchLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
+                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
                                Assertions.assertTrue(parser.isPlayable());
                                consumerHasBeenCalled.set(true);
                            });
@@ -41,7 +42,7 @@ class YoutubeWatchLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
+                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
                                Assertions.assertFalse(parser.isPlayable());
                                consumerHasBeenCalled.set(true);
                            });
@@ -56,7 +57,7 @@ class YoutubeWatchLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
+                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
                                Assertions.assertEquals("Alain Aspect - Le photon onde ou particule ? L’étrangeté quantique mise en lumière", parser.getTitle());
                                consumerHasBeenCalled.set(true);
                            });
@@ -64,6 +65,7 @@ class YoutubeWatchLinkContentParserTest {
 	}
 
 	@Test
+	@Disabled // I need to find another video with a control character, this one has been fixed
 	void testTitleWithDeviceControlString() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
@@ -71,7 +73,7 @@ class YoutubeWatchLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
+                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
                                Assertions.assertEquals("Spéciale \u0090Énigmes - Myriogon #7", parser.getTitle());
                                consumerHasBeenCalled.set(true);
                            });
@@ -86,7 +88,7 @@ class YoutubeWatchLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
+                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
                                Assertions.assertEquals("Win a SMALL fortune with counting cards-the math of blackjack & Co.", parser.getTitle());
                                consumerHasBeenCalled.set(true);
                            });
@@ -101,7 +103,7 @@ class YoutubeWatchLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
+                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
                                Assertions.assertEquals("Conférence organisée par les Amis de l'IHES le 23 mai 2019", parser.getDescription());
                                consumerHasBeenCalled.set(true);
                            });
@@ -116,7 +118,7 @@ class YoutubeWatchLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
+                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
                                Assertions.assertEquals("Ce soir, on joue ensemble autour de quelques énigmes mathématiques.\n" + 
                                		                   "\n" + 
                                		                   "La chaîne Myriogon : https://www.youtube.com/channel/UCvYEpQbJ81n2pjrQrKUrRog/", parser.getDescription());
@@ -133,7 +135,7 @@ class YoutubeWatchLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
+                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
                                Assertions.assertEquals("Watch Metallica perform \"Master of Puppets\" live on the Howard Stern Show.\n" + 
                                		                   "\n" + 
                                		                   "Metallica's new album \"Hardwired… to Self-Destruct\" is available on Nov. 18.\n" + 
@@ -160,7 +162,7 @@ class YoutubeWatchLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
+                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
                                Assertions.assertEquals(LocalDate.of(2019, 5, 27), parser.getUploadDate());
                                Assertions.assertEquals(LocalDate.of(2019, 5, 27), parser.getPublishDate());
                                consumerHasBeenCalled.set(true);
@@ -176,7 +178,7 @@ class YoutubeWatchLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
+                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
                                Assertions.assertEquals(Duration.ofMillis(5602280), parser.getMinDuration());
                                Assertions.assertEquals(Duration.ofMillis(5602348), parser.getMaxDuration());
                                consumerHasBeenCalled.set(true);

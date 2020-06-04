@@ -4,6 +4,7 @@ import java.io.File;
 import java.time.Duration;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +17,7 @@ public class LinkContentChecker {
     private final LinkData _linkData;
     private final Optional<ArticleData> _articleData;
     private final File _file;
+    private LinkContentParser _parser;
 
 	public LinkContentChecker(final LinkData linkData,
                               final Optional<ArticleData> articleData,
@@ -40,14 +42,14 @@ public class LinkContentChecker {
 				return checks;
 			}
 		}
-		
+
 		{
 			final LinkContentCheck check = checkLinkTitle(data, _linkData.getTitle());
 			if ( check != null) {
 				checks.add(check);
 			}
 		}
-		
+
 		if (_linkData.getDuration().isPresent()) {
 			final LinkContentCheck check = checkLinkDuration(data, _linkData.getDuration().get());
 			if ( check != null) {
@@ -55,6 +57,14 @@ public class LinkContentChecker {
 			}
 		}
 
+		if (!Arrays.asList(_linkData.getFormats()).contains("PDF"))
+		{
+			final LinkContentCheck check = checkLinkLanguages(data, _linkData.getLanguages());
+			if ( check != null) {
+				checks.add(check);
+			}
+			
+		}
 		if (_articleData.isPresent() &&
 		    (_articleData.get().getDate().isPresent() || _linkData.getPublicationDate().isPresent())) {
 			final LinkContentCheck check = checkArticleDate(data, _linkData.getPublicationDate(), _articleData.get().getDate());
@@ -83,6 +93,22 @@ public class LinkContentChecker {
 		return null;
 	}
       
+	protected LinkContentCheck checkLinkLanguages(final String data,
+                                                  final String[] languages)
+	{
+		if ( _parser == null) {
+			_parser = new LinkContentParser(data);
+		}
+
+		final String language = _parser.getLanguage();
+				
+		if (!Arrays.asList(languages).contains(language)) {
+			return new LinkContentCheck("language is \"" + language + "\" but this one is unexpected");	    	
+		}
+		
+		return null;
+	}
+
 	protected LinkContentCheck checkArticleDate(final String data,
 			                                    final Optional<TemporalAccessor> publicationDate,
 			                                    final Optional<TemporalAccessor> creationDate)

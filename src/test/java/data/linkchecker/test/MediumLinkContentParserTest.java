@@ -1,4 +1,4 @@
-package data;
+package data.linkchecker.test;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,7 +24,7 @@ public class MediumLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               MediumLinkContentParser parser = new MediumLinkContentParser(data);
+                               final MediumLinkContentParser parser = new MediumLinkContentParser(data);
                                Assertions.assertEquals("SB Changes", parser.getTitle());
                                consumerHasBeenCalled.set(true);
                            });
@@ -39,7 +39,7 @@ public class MediumLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               MediumLinkContentParser parser = new MediumLinkContentParser(data);
+                               final MediumLinkContentParser parser = new MediumLinkContentParser(data);
                                Assertions.assertEquals("Productive Compliments: Giving, Receiving, Connecting", parser.getTitle());
                                consumerHasBeenCalled.set(true);
                            });
@@ -54,7 +54,7 @@ public class MediumLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               MediumLinkContentParser parser = new MediumLinkContentParser(data);
+                               final MediumLinkContentParser parser = new MediumLinkContentParser(data);
                                Assertions.assertEquals("TCR (test && commit || revert). How to use? Alternative to TDD?", parser.getTitle());
                                consumerHasBeenCalled.set(true);
                            });
