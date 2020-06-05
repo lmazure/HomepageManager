@@ -186,7 +186,67 @@ class YoutubeWatchLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
 	}
 
-    private SynchronousSiteDataRetriever buildDataSiteRetriever() {
+	@Test
+	void testEnglishYoutube() {
+        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=X63MWZIN3gM"),
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
+                               Assertions.assertEquals("en", parser.getLanguage());
+                               consumerHasBeenCalled.set(true);
+                           });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+	}
+
+	@Test
+	void testEnglishYoutube2() {
+        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=8idr1WZ1A7Q"),
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
+                               Assertions.assertEquals("en", parser.getLanguage());
+                               consumerHasBeenCalled.set(true);
+                           });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+	}
+
+	@Test
+	void testFrenchYoutube() {
+        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=kiv32_P_T3k"),
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
+                               Assertions.assertEquals("fr", parser.getLanguage());
+                               consumerHasBeenCalled.set(true);
+                           });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+	}
+
+	@Test
+	void testFrenchYoutube2() {
+        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=16GlrK-bxaI"),
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
+                               Assertions.assertEquals("fr", parser.getLanguage());
+                               consumerHasBeenCalled.set(true);
+                           });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+	}
+
+	private SynchronousSiteDataRetriever buildDataSiteRetriever() {
         final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\test\\YoutubeWatchLinkContentParserTest");
         FileHelper.deleteDirectory(cachePath.toFile());
         return new SynchronousSiteDataRetriever(new SiteDataPersister(cachePath));

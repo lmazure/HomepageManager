@@ -6,6 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import utils.ExitHelper;
+import utils.StringHelper;
 
 public class YoutubeWatchLinkContentParser {
 
@@ -13,6 +14,7 @@ public class YoutubeWatchLinkContentParser {
 	private Boolean _isPlayable;
 	private String _title;
 	private String _description;
+	private String _language;
 	private LocalDate _uploadDate;
 	private LocalDate _publishDate;
 	private Duration _minDuration;
@@ -90,6 +92,20 @@ public class YoutubeWatchLinkContentParser {
 		return _data.contains("\\\"playabilityStatus\\\":{\\\"status\\\":\\\"OK\\\"");
 	}
 
+	public String getLanguage() {
+		
+		if (_data.contains("\\\"name\\\":{\\\"simpleText\\\":\\\"English (auto-generated)\\\"}")) {
+			return "en";
+		}
+		
+		if (_data.contains("\\\"name\\\":{\\\"simpleText\\\":\\\"French (auto-generated)\\\"}")) {
+			return "fr";
+		}
+		
+		return null;
+	}
+	
+	
 	private String extractText(final String str) {
 		
 		String text = null;

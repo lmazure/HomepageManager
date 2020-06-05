@@ -78,51 +78,6 @@ public class LinkContentParserTest {
 	}
 
 	@Test
-	void testEnglishYoutube() {
-        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=X63MWZIN3gM"),
-                           (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               final LinkContentParser parser = new LinkContentParser(data);
-                               Assertions.assertEquals("en", parser.getLanguage());
-                               consumerHasBeenCalled.set(true);
-                           });
-        Assertions.assertTrue(consumerHasBeenCalled.get());
-	}
-
-	@Test
-	void testEnglishYoutube2() {
-        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=8idr1WZ1A7Q"),
-                           (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               final LinkContentParser parser = new LinkContentParser(data);
-                               Assertions.assertEquals("en", parser.getLanguage());
-                               consumerHasBeenCalled.set(true);
-                           });
-        Assertions.assertTrue(consumerHasBeenCalled.get());
-	}
-
-	@Test
-	void testFrenchYoutube() {
-        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=kiv32_P_T3k"),
-                           (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               final LinkContentParser parser = new LinkContentParser(data);
-                               Assertions.assertEquals("fr", parser.getLanguage());
-                               consumerHasBeenCalled.set(true);
-                           });
-        Assertions.assertTrue(consumerHasBeenCalled.get());
-	}
-
-	@Test
 	@Disabled
 	void testEnglishTwitter() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
