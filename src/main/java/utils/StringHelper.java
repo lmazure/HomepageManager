@@ -16,18 +16,23 @@ public class StringHelper {
 				word.equalsIgnoreCase("some") ||
 				word.equalsIgnoreCase("is") ||
 				word.equalsIgnoreCase("are") ||
-				word.equalsIgnoreCase("at"))  {
+				word.equalsIgnoreCase("at") ||
+				word.equalsIgnoreCase("and") ||
+				word.equalsIgnoreCase("or") ||
+				word.equalsIgnoreCase("small") ||
+				word.equalsIgnoreCase("big"))  {
 				//System.out.println("en " + english + " " + word);
 			    english++;
-			} else if (word.equalsIgnoreCase("un") ||
-				word.equalsIgnoreCase("une") ||
-				word.equalsIgnoreCase("le") ||
-				word.equalsIgnoreCase("la") ||
-				word.equalsIgnoreCase("les") ||
+			} else if (word.equalsIgnoreCase("un") || word.equalsIgnoreCase("une") ||
+				word.equalsIgnoreCase("le") || word.equalsIgnoreCase("la") || word.equalsIgnoreCase("les") ||
 				word.equalsIgnoreCase("des") ||
 				word.equalsIgnoreCase("est") ||
 				word.equalsIgnoreCase("sont") ||
-				word.equalsIgnoreCase("à"))  {
+				word.equalsIgnoreCase("à") ||
+				word.equalsIgnoreCase("et") ||
+				word.equalsIgnoreCase("ou") ||
+				word.equalsIgnoreCase("petit") || word.equalsIgnoreCase("petite") || word.equalsIgnoreCase("petits") ||	word.equalsIgnoreCase("petites") ||
+				word.equalsIgnoreCase("dans"))  {
 				//System.out.println("fr " + french + " " + word);
 				french++;
 			}

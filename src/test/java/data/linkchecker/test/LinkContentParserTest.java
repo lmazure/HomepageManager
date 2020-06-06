@@ -7,6 +7,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import data.internet.SiteData;
 import data.internet.SiteDataPersister;
@@ -17,11 +19,17 @@ import utils.FileHelper;
 
 public class LinkContentParserTest {
 
-	@Test
-	void testEnglishArticle() {
+	@ParameterizedTest
+	@ValueSource(strings = {
+			"http://abbot.sourceforge.net/",
+         	"http://safsdev.sourceforge.net/FRAMESDataDrivenTestAutomationFrameworks.htm",
+         	"https://viterbi-web.usc.edu/~meshkati/tefall99/toki.html",
+			"https://www.wired.com/1998/04/es-lists/"
+			})
+	void testEnglishArticle(String url) {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL("https://www.wired.com/1998/04/es-lists/"),
+        retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
@@ -32,11 +40,14 @@ public class LinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
 	}
 
-	@Test
-	void testFrenchArticle() {
+	@ParameterizedTest
+	@ValueSource(strings = {
+			"https://www.lemonde.fr/blog/vidberg/2013/07/20/une-banale-histoire-de-proces-sur-internet/"
+			})
+	void testFrenchArticle(String url) {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL("https://www.lemonde.fr/blog/vidberg/2013/07/20/une-banale-histoire-de-proces-sur-internet/"),
+        retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());

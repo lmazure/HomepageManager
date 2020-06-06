@@ -14,7 +14,6 @@ public class YoutubeWatchLinkContentParser {
 	private Boolean _isPlayable;
 	private String _title;
 	private String _description;
-	private String _language;
 	private LocalDate _uploadDate;
 	private LocalDate _publishDate;
 	private Duration _minDuration;
@@ -94,15 +93,15 @@ public class YoutubeWatchLinkContentParser {
 
 	public String getLanguage() {
 		
+		if (_data.contains("\\\"name\\\":{\\\"simpleText\\\":\\\"French (auto-generated)\\\"}")) {
+			return "fr";
+		}
+
 		if (_data.contains("\\\"name\\\":{\\\"simpleText\\\":\\\"English (auto-generated)\\\"}")) {
 			return "en";
 		}
 		
-		if (_data.contains("\\\"name\\\":{\\\"simpleText\\\":\\\"French (auto-generated)\\\"}")) {
-			return "fr";
-		}
-		
-		return null;
+		return StringHelper.guessLanguage(getDescription());
 	}
 	
 	

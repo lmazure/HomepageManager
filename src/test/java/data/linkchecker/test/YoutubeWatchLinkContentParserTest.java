@@ -9,6 +9,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import data.internet.SiteData;
 import data.internet.SiteDataPersister;
@@ -186,11 +188,16 @@ class YoutubeWatchLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
 	}
 
-	@Test
-	void testEnglishYoutube() {
+	@ParameterizedTest
+	@ValueSource(strings = {
+            "https://www.youtube.com/watch?v=8idr1WZ1A7Q",
+            "https://www.youtube.com/watch?v=sPQViNNOAkw",
+            "https://www.youtube.com/watch?v=X63MWZIN3gM"
+			               })
+	void testEnglishYoutube(String url) {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=X63MWZIN3gM"),
+        retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
@@ -201,41 +208,21 @@ class YoutubeWatchLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
 	}
 
-	@Test
-	void testEnglishYoutube2() {
+	@ParameterizedTest
+	@ValueSource(strings = {
+			"https://www.youtube.com/watch?v=16GlrK-bxaI",
+			"https://www.youtube.com/watch?v=3QqR3AQe-SU",
+			"https://www.youtube.com/watch?v=6s_zXFmWM6g",
+			"https://www.youtube.com/watch?v=atKDrGedg_w",
+			"https://www.youtube.com/watch?v=fxTxU0Echq8",
+            "https://www.youtube.com/watch?v=kiv32_P_T3k",
+            "https://www.youtube.com/watch?v=lkdnOuzHdFE",
+   			"https://www.youtube.com/watch?v=ohU1tEwxOSE"
+                		   })
+	void testFrenchYoutube(String url) {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=8idr1WZ1A7Q"),
-                           (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
-                               Assertions.assertEquals("en", parser.getLanguage());
-                               consumerHasBeenCalled.set(true);
-                           });
-        Assertions.assertTrue(consumerHasBeenCalled.get());
-	}
-
-	@Test
-	void testFrenchYoutube() {
-        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=kiv32_P_T3k"),
-                           (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
-                               Assertions.assertEquals("fr", parser.getLanguage());
-                               consumerHasBeenCalled.set(true);
-                           });
-        Assertions.assertTrue(consumerHasBeenCalled.get());
-	}
-
-	@Test
-	void testFrenchYoutube2() {
-        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=16GlrK-bxaI"),
+        retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
