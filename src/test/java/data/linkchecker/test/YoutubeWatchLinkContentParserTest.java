@@ -191,10 +191,12 @@ class YoutubeWatchLinkContentParserTest {
 	@ParameterizedTest
 	@ValueSource(strings = {
             "https://www.youtube.com/watch?v=8idr1WZ1A7Q",
+            "https://www.youtube.com/watch?v=hMBJSMaI_uE",
+            "https://www.youtube.com/watch?v=MhTGX_ou1EM",
             "https://www.youtube.com/watch?v=sPQViNNOAkw",
             "https://www.youtube.com/watch?v=X63MWZIN3gM"
 			               })
-	void testEnglishYoutube(String url) {
+	void testEnglish(String url) {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
@@ -214,12 +216,14 @@ class YoutubeWatchLinkContentParserTest {
 			"https://www.youtube.com/watch?v=3QqR3AQe-SU",
 			"https://www.youtube.com/watch?v=6s_zXFmWM6g",
 			"https://www.youtube.com/watch?v=atKDrGedg_w",
+			// bilingue "https://www.youtube.com/watch?v=FGjWkQePk20",
 			"https://www.youtube.com/watch?v=fxTxU0Echq8",
+			// bilingue "https://www.youtube.com/watch?v=iJfJPXI5EZQ",
             "https://www.youtube.com/watch?v=kiv32_P_T3k",
             "https://www.youtube.com/watch?v=lkdnOuzHdFE",
    			"https://www.youtube.com/watch?v=ohU1tEwxOSE"
                 		   })
-	void testFrenchYoutube(String url) {
+	void testFrench(String url) {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),

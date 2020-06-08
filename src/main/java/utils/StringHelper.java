@@ -1,8 +1,49 @@
 package utils;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 public class StringHelper {
 
+	public static final Set<String> englishWords = new HashSet<String>(Arrays.asList(
+			"a", "an",
+			"the",
+			"this", "that", "these",
+			"some",
+			"not",
+			"is",
+			"are",
+			"at",
+			"and",
+			"or",
+			"in",
+			"small",
+			"big",
+			"map",
+			"japan"
+		));
+	
+	public static final Set<String> frenchWords = new HashSet<String>(Arrays.asList(
+			"le", "la", "les",
+			"des",
+			"ces",
+			"pas",
+			"est",
+			"sont",
+			"à",
+			"et",
+			"ou",
+			"dans",
+			"petit", "petite", "petits",	"petites",
+			"grand", "grande", "grands",	"grandes",
+			"carte",
+			"japon"
+		));
+	
 	public static String guessLanguage(final String text) {
+
+		//System.out.println(text);
 		
 		final String[] words = text.split("\\W");
 		
@@ -10,29 +51,11 @@ public class StringHelper {
 		int english = 0;		
 		
 		for (String word: words) {
-			if (word.equalsIgnoreCase("a") ||
-				word.equalsIgnoreCase("an") ||
-				word.equalsIgnoreCase("the") ||
-				word.equalsIgnoreCase("some") ||
-				word.equalsIgnoreCase("is") ||
-				word.equalsIgnoreCase("are") ||
-				word.equalsIgnoreCase("at") ||
-				word.equalsIgnoreCase("and") ||
-				word.equalsIgnoreCase("or") ||
-				word.equalsIgnoreCase("small") ||
-				word.equalsIgnoreCase("big"))  {
+			word = word.toLowerCase();
+			if (englishWords.contains(word))  {
 				//System.out.println("en " + english + " " + word);
 			    english++;
-			} else if (word.equalsIgnoreCase("un") || word.equalsIgnoreCase("une") ||
-				word.equalsIgnoreCase("le") || word.equalsIgnoreCase("la") || word.equalsIgnoreCase("les") ||
-				word.equalsIgnoreCase("des") ||
-				word.equalsIgnoreCase("est") ||
-				word.equalsIgnoreCase("sont") ||
-				word.equalsIgnoreCase("à") ||
-				word.equalsIgnoreCase("et") ||
-				word.equalsIgnoreCase("ou") ||
-				word.equalsIgnoreCase("petit") || word.equalsIgnoreCase("petite") || word.equalsIgnoreCase("petits") ||	word.equalsIgnoreCase("petites") ||
-				word.equalsIgnoreCase("dans"))  {
+			} else if (frenchWords.contains(word))  {
 				//System.out.println("fr " + french + " " + word);
 				french++;
 			}

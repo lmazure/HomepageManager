@@ -21,7 +21,6 @@ public class LinkContentParserTest {
 
 	@ParameterizedTest
 	@ValueSource(strings = {
-			"http://abbot.sourceforge.net/",
          	"http://safsdev.sourceforge.net/FRAMESDataDrivenTestAutomationFrameworks.htm",
          	"https://viterbi-web.usc.edu/~meshkati/tefall99/toki.html",
 			"https://www.wired.com/1998/04/es-lists/"
