@@ -22,7 +22,9 @@ public class LinkContentParserTest {
 	@ParameterizedTest
 	@ValueSource(strings = {
          	"http://safsdev.sourceforge.net/FRAMESDataDrivenTestAutomationFrameworks.htm",
+         	"https://spoutlink.com/",
          	"https://viterbi-web.usc.edu/~meshkati/tefall99/toki.html",
+         	"http://www.cultdeadcow.com",
 			"https://www.wired.com/1998/04/es-lists/"
 			})
 	void testEnglishArticle(String url) {
@@ -41,6 +43,8 @@ public class LinkContentParserTest {
 
 	@ParameterizedTest
 	@ValueSource(strings = {
+         	"http://www.wazabi-online.com/",
+			"https://www.marmiton.org/",
 			"https://www.lemonde.fr/blog/vidberg/2013/07/20/une-banale-histoire-de-proces-sur-internet/"
 			})
 	void testFrenchArticle(String url) {

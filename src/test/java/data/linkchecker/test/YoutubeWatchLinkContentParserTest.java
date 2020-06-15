@@ -215,12 +215,14 @@ class YoutubeWatchLinkContentParserTest {
 			"https://www.youtube.com/watch?v=16GlrK-bxaI",
 			"https://www.youtube.com/watch?v=3QqR3AQe-SU",
 			"https://www.youtube.com/watch?v=6s_zXFmWM6g",
+            "https://www.youtube.com/watch?v=AT89_nM0nes",
 			"https://www.youtube.com/watch?v=atKDrGedg_w",
-			// bilingue "https://www.youtube.com/watch?v=FGjWkQePk20",
+			// description bilingue "https://www.youtube.com/watch?v=FGjWkQePk20",
 			"https://www.youtube.com/watch?v=fxTxU0Echq8",
-			// bilingue "https://www.youtube.com/watch?v=iJfJPXI5EZQ",
+			// description bilingue "https://www.youtube.com/watch?v=iJfJPXI5EZQ",
             "https://www.youtube.com/watch?v=kiv32_P_T3k",
             "https://www.youtube.com/watch?v=lkdnOuzHdFE",
+            // vidéo bilingue "https://www.youtube.com/watch?v=nhDpozSK0uw",
    			"https://www.youtube.com/watch?v=ohU1tEwxOSE"
                 		   })
 	void testFrench(String url) {

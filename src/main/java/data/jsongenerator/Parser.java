@@ -122,7 +122,7 @@ public class Parser {
         final Element racine = document.getDocumentElement();
         final NodeList list = racine.getElementsByTagName("CLIST");
 
-        for (int i=0; i<list.getLength(); i++) {
+        for (int i = 0; i<list.getLength(); i++) {
 
             final Element clistNode = (Element)list.item(i);
 
@@ -156,7 +156,6 @@ public class Parser {
                 
                 author.addLink(link);
             }
-            
         }
     }
 }

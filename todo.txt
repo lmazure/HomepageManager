@@ -1,12 +1,10 @@
 - nettoyage des fichiers
+links/coding.xml
 notes/corrupter.xml
 c.xml
 perl.xml
 
-- ajouter vérification de la langue
-ne pas vérifier les fichiers PDF
-
-- ajouter une règle : la date de publication doit être après la date de création
+- mettre en place le système des keywords
 
 - ajouter une règle : la date de publication doit être après la date de création
 
@@ -19,8 +17,6 @@ gérer la date de publication coté client
 
 - LinkData.getStatus() devrait être un enum
   LinkData.getProtection() devrait être un enum
-
-- ne plus utiliser Google Analytics mais les stat d'Infomaniac
 
 - voir comment purger le cache après les mises à jour
 
@@ -65,4 +61,4 @@ de plus cela génère des erreurs
 
 - ajouter support des <MIDDLENAME> multiples
 
-- mettre en place le système des keywords
+

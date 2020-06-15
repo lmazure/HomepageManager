@@ -17,6 +17,7 @@ public class StringHelper {
 			"at",
 			"and",
 			"or",
+			"by",
 			"in",
 			"small",
 			"big",
@@ -34,9 +35,10 @@ public class StringHelper {
 			"à",
 			"et",
 			"ou",
+			"par",
 			"dans",
-			"petit", "petite", "petits",	"petites",
-			"grand", "grande", "grands",	"grandes",
+			"petit", "petite", "petits", "petites",
+			"grand", "grande", "grands", "grandes",
 			"carte",
 			"japon"
 		));
