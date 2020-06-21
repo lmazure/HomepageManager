@@ -3,35 +3,35 @@ package data.nodechecker.checker.nodeChecker;
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.ExclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
-
+import utils.xmlparsing.NodeType;
 
 import org.w3c.dom.Element;
 
 public class MiddleNewlineChecker extends NodeChecker {
 
-	static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new String[] {
-			NodeChecker.B,
-			NodeChecker.BLIST,
-			NodeChecker.CELL,
-			NodeChecker.CLIST,
-			NodeChecker.CODESAMPLE,
-			NodeChecker.CONTENT,
-			NodeChecker.DEFINITION2TABLE,
-			NodeChecker.DEFINITIONTABLE,
-			NodeChecker.DESC,
-			NodeChecker.I,
-			NodeChecker.ITEM,
-			NodeChecker.LLIST,
-			NodeChecker.NLIST,
-			NodeChecker.PAGE,
-			NodeChecker.ROW,
-			NodeChecker.SCRIPT,
-			NodeChecker.SLIST,
-			NodeChecker.SMALL,
-			NodeChecker.TABLE,
-			NodeChecker.TERM,
-			NodeChecker.TERM1,
-			NodeChecker.TEXTBLOCK
+	static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new NodeType[] {
+			NodeType.B,
+			NodeType.BLIST,
+			NodeType.CELL,
+			NodeType.CLIST,
+			NodeType.CODESAMPLE,
+			NodeType.CONTENT,
+			NodeType.DEFINITION2TABLE,
+			NodeType.DEFINITIONTABLE,
+			NodeType.DESC,
+			NodeType.I,
+			NodeType.ITEM,
+			NodeType.LLIST,
+			NodeType.NLIST,
+			NodeType.PAGE,
+			NodeType.ROW,
+			NodeType.SCRIPT,
+			NodeType.SLIST,
+			NodeType.SMALL,
+			NodeType.TABLE,
+			NodeType.TERM,
+			NodeType.TERM1,
+			NodeType.TEXTBLOCK
 			});
 
 	@Override

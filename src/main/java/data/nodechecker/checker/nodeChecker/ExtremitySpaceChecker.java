@@ -4,32 +4,32 @@ package data.nodechecker.checker.nodeChecker;
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.ExclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
-
+import utils.xmlparsing.NodeType;
 
 import org.w3c.dom.Element;
 
 public class ExtremitySpaceChecker extends NodeChecker {
 
-	static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new String[] {
-			NodeChecker.BLIST,
-			NodeChecker.CELL,
-			NodeChecker.CLIST,
-			NodeChecker.CODEFILE,
-			NodeChecker.CODESAMPLE,
-			NodeChecker.CONTENT,
-			NodeChecker.DEFINITION2TABLE,
-			NodeChecker.DEFINITIONTABLE,
-			NodeChecker.DESC,
-			NodeChecker.ITEM,
-			NodeChecker.LLIST,
-			NodeChecker.NLIST,
-			NodeChecker.PAGE,
-			NodeChecker.ROW,
-			NodeChecker.SCRIPT,
-			NodeChecker.SLIST,
-			NodeChecker.TABLE,
-			NodeChecker.TERM,
-			NodeChecker.TEXTBLOCK
+	static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new NodeType[] {
+			NodeType.BLIST,
+			NodeType.CELL,
+			NodeType.CLIST,
+			NodeType.CODEFILE,
+			NodeType.CODESAMPLE,
+			NodeType.CONTENT,
+			NodeType.DEFINITION2TABLE,
+			NodeType.DEFINITIONTABLE,
+			NodeType.DESC,
+			NodeType.ITEM,
+			NodeType.LLIST,
+			NodeType.NLIST,
+			NodeType.PAGE,
+			NodeType.ROW,
+			NodeType.SCRIPT,
+			NodeType.SLIST,
+			NodeType.TABLE,
+			NodeType.TERM,
+			NodeType.TEXTBLOCK
 			});
 	
 	@Override

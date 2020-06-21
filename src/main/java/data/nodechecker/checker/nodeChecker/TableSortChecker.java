@@ -9,13 +9,14 @@ import org.w3c.dom.NodeList;
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
+import utils.xmlparsing.NodeType;
 
 
 public class TableSortChecker extends NodeChecker {
 
-	final static InclusionTagSelector s_selector = new InclusionTagSelector( new String[] {
-	        NodeChecker.DEFINITION2TABLE,
-	        NodeChecker.DEFINITIONTABLE
+	final static InclusionTagSelector s_selector = new InclusionTagSelector( new NodeType[] {
+			NodeType.DEFINITION2TABLE,
+			NodeType.DEFINITIONTABLE
 			} );
 
 	@Override

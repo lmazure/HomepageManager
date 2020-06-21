@@ -7,11 +7,12 @@ import org.w3c.dom.Node;
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
+import utils.xmlparsing.NodeType;
 
 public class ModifierKeyChecker extends NodeChecker {
 
-	final static InclusionTagSelector s_selector = new InclusionTagSelector( new String[] {
-			NodeChecker.MODIFIERKEY
+	final static InclusionTagSelector s_selector = new InclusionTagSelector( new NodeType[] {
+			NodeType.MODIFIERKEY
 			} );
 
 	@Override

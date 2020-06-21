@@ -9,11 +9,12 @@ import org.w3c.dom.Element;
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
+import utils.xmlparsing.NodeType;
 
 public class KeyChecker extends NodeChecker {
 
-	final static InclusionTagSelector s_selector = new InclusionTagSelector( new String[] {
-			NodeChecker.KEY
+	final static InclusionTagSelector s_selector = new InclusionTagSelector( new NodeType[] {
+			NodeType.KEY
 			} );
 
 	@Override

@@ -3,7 +3,7 @@ package data.nodechecker.checker.nodeChecker;
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
-
+import utils.xmlparsing.NodeType;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -15,8 +15,8 @@ import org.w3c.dom.NodeList;
  */
 public class ProtectionFromURLChecker extends NodeChecker {
 
-	final static InclusionTagSelector s_selector = new InclusionTagSelector( new String[] {
-	        NodeChecker.X
+	final static InclusionTagSelector s_selector = new InclusionTagSelector( new NodeType[] {
+			NodeType.X
 			} );
 	
 	@Override
@@ -43,7 +43,7 @@ public class ProtectionFromURLChecker extends NodeChecker {
 		for (int j=0; j<children.getLength(); j++) {
 			final Node child = children.item(j);
 			if (child.getNodeType() == Node.ELEMENT_NODE) {
-				if (child.getNodeName()=="A") {
+				if (child.getNodeName()==NodeType.A.toString()) {
 					url=child.getTextContent();
 				}
 			}

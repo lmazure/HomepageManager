@@ -4,6 +4,7 @@ import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.ExclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
 import utils.XMLHelper;
+import utils.xmlparsing.NodeType;
 
 import java.util.List;
 
@@ -15,20 +16,20 @@ import org.w3c.dom.Element;
  */
 public class DoubleSpaceChecker extends NodeChecker {
 
-	static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new String[] {
-			NodeChecker.BLIST,
-			NodeChecker.CLIST,
-			NodeChecker.CODESAMPLE,
-			NodeChecker.CONTENT,
-			NodeChecker.DEFINITIONTABLE,
-			NodeChecker.ITEM,
-			NodeChecker.LLIST,
-			NodeChecker.NLIST,
-			NodeChecker.PAGE,
-			NodeChecker.ROW,
-			NodeChecker.SCRIPT,
-			NodeChecker.SLIST,
-			NodeChecker.TEXTBLOCK
+	static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new NodeType[] {
+			NodeType.BLIST,
+			NodeType.CLIST,
+			NodeType.CODESAMPLE,
+			NodeType.CONTENT,
+			NodeType.DEFINITIONTABLE,
+			NodeType.ITEM,
+			NodeType.LLIST,
+			NodeType.NLIST,
+			NodeType.PAGE,
+			NodeType.ROW,
+			NodeType.SCRIPT,
+			NodeType.SLIST,
+			NodeType.TEXTBLOCK
 			});
 	
 	@Override
@@ -49,9 +50,9 @@ public class DoubleSpaceChecker extends NodeChecker {
 	private CheckStatus checkDoubleSpace(final Element e) {
 	    
 		// ignore titles of articles
-		if (e.getTagName().equals(NodeChecker.T) &&
-		    ((Element)e.getParentNode()).getTagName().equals(NodeChecker.X) &&
-	        ((Element)e.getParentNode().getParentNode()).getTagName().equals(NodeChecker.ARTICLE)) {
+		if (e.getTagName().equals(NodeType.T.toString()) &&
+		    ((Element)e.getParentNode()).getTagName().equals(NodeType.X.toString()) &&
+	        ((Element)e.getParentNode().getParentNode()).getTagName().equals(NodeType.ARTICLE.toString())) {
 			return null;
 		}
 			

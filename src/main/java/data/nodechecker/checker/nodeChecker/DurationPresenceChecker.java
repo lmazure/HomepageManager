@@ -7,11 +7,12 @@ import org.w3c.dom.NodeList;
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
+import utils.xmlparsing.NodeType;
 
 public class DurationPresenceChecker extends NodeChecker {
 	
-	final static InclusionTagSelector s_selector = new InclusionTagSelector( new String[] {
-			NodeChecker.X
+	final static InclusionTagSelector s_selector = new InclusionTagSelector( new NodeType[] {
+			NodeType.X
 			} );
 	
 	@Override
@@ -38,10 +39,10 @@ public class DurationPresenceChecker extends NodeChecker {
 		for (int j=0; j<children.getLength(); j++) {
 			final Node child = children.item(j);
 			if ( child.getNodeType() == Node.ELEMENT_NODE ) {
-				if (child.getNodeName() == "DURATION") {
+				if (child.getNodeName() == NodeType.DURATION.toString()) {
 				    hasDuration = true;
 				}
-				if (child.getNodeName() == "F") {
+				if (child.getNodeName() == NodeType.F.toString()) {
 				    format = child.getTextContent();
 				}
 			}		

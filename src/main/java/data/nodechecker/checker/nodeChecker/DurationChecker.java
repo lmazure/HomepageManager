@@ -6,11 +6,12 @@ import org.w3c.dom.NodeList;
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
+import utils.xmlparsing.NodeType;
 
 public class DurationChecker extends NodeChecker {
 
-	final static InclusionTagSelector s_selector = new InclusionTagSelector( new String[] {
-	        NodeChecker.DURATION
+	final static InclusionTagSelector s_selector = new InclusionTagSelector( new NodeType[] {
+			NodeType.DURATION
 			} );
 	
 	@Override
@@ -34,9 +35,9 @@ public class DurationChecker extends NodeChecker {
 
 	private CheckStatus checkDurationHierarchy(final Element e) {
 		
-		final int numberOfSeconds = e.getElementsByTagName("SECOND").getLength();
-		final int numberOfMinutes = e.getElementsByTagName("MINUTE").getLength();
-		final int numberOfHours = e.getElementsByTagName("HOUR").getLength();
+		final int numberOfSeconds = e.getElementsByTagName(NodeType.SECOND.toString()).getLength();
+		final int numberOfMinutes = e.getElementsByTagName(NodeType.MINUTE.toString()).getLength();
+		final int numberOfHours = e.getElementsByTagName(NodeType.HOUR.toString()).getLength();
 		
 		if (numberOfSeconds > 1) return new CheckStatus("more than one SECOND");
 		if (numberOfMinutes > 1) return new CheckStatus("more than one MINUTE");
@@ -51,9 +52,9 @@ public class DurationChecker extends NodeChecker {
 
 	private CheckStatus checkDurationValue(final Element e) {
 		
-		final NodeList seconds = e.getElementsByTagName("SECOND");
-		final NodeList minutes = e.getElementsByTagName("MINUTE");
-		final NodeList hours = e.getElementsByTagName("HOUR");
+		final NodeList seconds = e.getElementsByTagName(NodeType.SECOND.toString());
+		final NodeList minutes = e.getElementsByTagName(NodeType.MINUTE.toString());
+		final NodeList hours = e.getElementsByTagName(NodeType.HOUR.toString());
 		
 		final int numberOfSeconds = seconds.getLength();
 		final int numberOfMinutes = minutes.getLength();

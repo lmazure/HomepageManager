@@ -32,7 +32,6 @@ import data.BackgroundDataController;
 import data.FileHandler.Status;
 import data.internet.SiteData;
 import data.internet.SiteDataRetriever;
-import data.nodechecker.checker.nodeChecker.NodeChecker;
 import utils.ExitHelper;
 import utils.FileHelper;
 import utils.HttpHelper;
@@ -42,6 +41,7 @@ import utils.Logger.Level;
 import utils.XMLHelper;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkData;
+import utils.xmlparsing.NodeType;
 import utils.xmlparsing.XmlParser;
 
 public class LinkCheckRunner {
@@ -137,7 +137,7 @@ public class LinkCheckRunner {
             }
         }
 
-        if (e.getTagName().equals(NodeChecker.X)) {
+        if (e.getTagName().equals(NodeType.X.toString())) {
             list.add(XmlParser.parseXNode(e));
         }
 
@@ -155,7 +155,7 @@ public class LinkCheckRunner {
             }
         }
 
-        if (e.getTagName().equals(NodeChecker.ARTICLE)) {
+        if (e.getTagName().equals(NodeType.ARTICLE.toString())) {
         	try {
                 list.add(XmlParser.parseArticleNode(e));
         		

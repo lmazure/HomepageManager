@@ -16,6 +16,7 @@ import utils.XMLHelper;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkData;
+import utils.xmlparsing.NodeType;
 import utils.xmlparsing.XmlParser;
 
 public class Parser {
@@ -68,7 +69,7 @@ public class Parser {
 			                     final File file) {
         
 		final Element racine = document.getDocumentElement();
-		final NodeList list = racine.getElementsByTagName("ARTICLE");
+		final NodeList list = racine.getElementsByTagName(NodeType.ARTICLE.toString());
 
 		for (int i=0; i<list.getLength(); i++) {
 
@@ -120,19 +121,19 @@ public class Parser {
                                     final File file) {
         
         final Element racine = document.getDocumentElement();
-        final NodeList list = racine.getElementsByTagName("CLIST");
+        final NodeList list = racine.getElementsByTagName(NodeType.CLIST.toString());
 
         for (int i = 0; i<list.getLength(); i++) {
 
             final Element clistNode = (Element)list.item(i);
 
             final Node titleNode =  clistNode.getFirstChild();
-            if (!titleNode.getNodeName().equals("TITLE")) {
+            if (!titleNode.getNodeName().equals(NodeType.TITLE.toString())) {
                 throw new UnsupportedOperationException("Unexpected XML structure (the first child of a CLIST node is not a TITLE node)");
             }
             
             final Node authorNode =  titleNode.getFirstChild();
-            if (!authorNode.getNodeName().equals("AUTHOR")) {
+            if (!authorNode.getNodeName().equals(NodeType.AUTHOR.toString())) {
                 throw new UnsupportedOperationException("Unexpected XML structure (the first child of the first child of a CLIST node is not a AUTHOR node)");
             }
 
@@ -142,13 +143,13 @@ public class Parser {
             
             if (author == null) continue;
             
-            for (int j = 0; j < clistNode.getElementsByTagName("ITEM").getLength(); j++) {
+            for (int j = 0; j < clistNode.getElementsByTagName(NodeType.ITEM.toString()).getLength(); j++) {
                 
-                final Element linkNode = (Element)clistNode.getElementsByTagName("ITEM").item(j);
+                final Element linkNode = (Element)clistNode.getElementsByTagName(NodeType.ITEM.toString()).item(j);
                 if (linkNode.getChildNodes().getLength() != 1) {
                     throw new UnsupportedOperationException("Illegal number of children nodes");                    
                 }
-                if (!((Element)linkNode.getChildNodes().item(0)).getTagName().equals("X")) {
+                if (!((Element)linkNode.getChildNodes().item(0)).getTagName().equals(NodeType.X.toString())) {
                     throw new UnsupportedOperationException("Illegal child node");                    
                 }
                 final LinkData linkData = XmlParser.parseXNode((Element)linkNode.getChildNodes().item(0));

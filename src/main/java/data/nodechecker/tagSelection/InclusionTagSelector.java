@@ -1,8 +1,10 @@
 package data.nodechecker.tagSelection;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import utils.xmlparsing.NodeType;
 
 /**
  * @author Laurent
@@ -15,8 +17,10 @@ public class InclusionTagSelector implements TagSelector {
 	/**
 	 * @param tagsToCheck
 	 */
-	public InclusionTagSelector(final String tagsToCheck[]) {
-		a_tags = new HashSet<String>(Arrays.asList(tagsToCheck));
+	public InclusionTagSelector(final NodeType tagsToCheck[]) {
+		a_tags = Stream.of(tagsToCheck)
+				       .map(NodeType::toString)
+				       .collect(Collectors.toSet());
 	}
 	
 	@Override

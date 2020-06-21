@@ -8,6 +8,7 @@ import org.w3c.dom.NodeList;
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
+import utils.xmlparsing.NodeType;
 
 public class DateChecker extends NodeChecker {
 
@@ -16,8 +17,8 @@ public class DateChecker extends NodeChecker {
 	final static int s_now_month = s_now.get(Calendar.MONTH)+1;
 	final static int s_now_day = s_now.get(Calendar.DAY_OF_MONTH);
 		
-	final static InclusionTagSelector s_selector = new InclusionTagSelector( new String[] {
-			NodeChecker.DATE
+	final static InclusionTagSelector s_selector = new InclusionTagSelector( new NodeType[] {
+			NodeType.DATE
 			} );
 
 	@Override
@@ -42,9 +43,9 @@ public class DateChecker extends NodeChecker {
 
 	private CheckStatus checkDateHierarchy(final Element e) {
 		
-		final int numberOfYears = e.getElementsByTagName("YEAR").getLength();
-		final int numberOfMonths = e.getElementsByTagName("MONTH").getLength();
-		final int numberOfDays = e.getElementsByTagName("DAY").getLength();
+		final int numberOfYears = e.getElementsByTagName(NodeType.YEAR.toString()).getLength();
+		final int numberOfMonths = e.getElementsByTagName(NodeType.MONTH.toString()).getLength();
+		final int numberOfDays = e.getElementsByTagName(NodeType.DAY.toString()).getLength();
 		
 		if (numberOfYears > 1) return new CheckStatus("more than one YEAR");
 		if (numberOfMonths > 1) return new CheckStatus("more than one MONTH");
@@ -59,9 +60,9 @@ public class DateChecker extends NodeChecker {
 
 	private CheckStatus checkDateValue(final Element e) {
 		
-		final NodeList years = e.getElementsByTagName("YEAR");
-		final NodeList months = e.getElementsByTagName("MONTH");
-		final NodeList days = e.getElementsByTagName("DAY");
+		final NodeList years = e.getElementsByTagName(NodeType.YEAR.toString());
+		final NodeList months = e.getElementsByTagName(NodeType.MONTH.toString());
+		final NodeList days = e.getElementsByTagName(NodeType.DAY.toString());
 		
 		final int numberOfYears = years.getLength();
 		final int numberOfMonths = months.getLength();
@@ -74,7 +75,7 @@ public class DateChecker extends NodeChecker {
 			year = Long.parseLong(yearStr);
 			if (year < 1900) {
 				// we check this only for articles
-				if ( e.getParentNode().getNodeName().equals("X") ) {
+				if ( e.getParentNode().getNodeName().equals(NodeType.X.toString()) ) {
 					return new CheckStatus("YEAR is less than 1900");
 				}
 			}

@@ -3,23 +3,23 @@ package data.nodechecker.checker.nodeChecker;
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.ExclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
-
+import utils.xmlparsing.NodeType;
 
 import org.w3c.dom.Element;
 
 public class NonEmptyChecker extends NodeChecker {
 
-	static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new String[] {
-	        NodeChecker.BR, 
-	        NodeChecker.CELL,
-	        NodeChecker.CONTENT, // added to avoid an OutOfMemoryError
-	        NodeChecker.KEY,
-	        NodeChecker.LINE,
-	        NodeChecker.MODIFIERKEY,
-	        NodeChecker.PAGE,    // added to avoid an OutOfMemoryError
-	        NodeChecker.PROMPT,
-	        NodeChecker.TAB,
-	        NodeChecker.TABCHAR
+	static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new NodeType[] {
+			NodeType.BR, 
+			NodeType.CELL,
+			NodeType.CONTENT, // added to avoid an OutOfMemoryError
+			NodeType.KEY,
+			NodeType.LINE,
+			NodeType.MODIFIERKEY,
+			NodeType.PAGE,    // added to avoid an OutOfMemoryError
+			NodeType.PROMPT,
+			NodeType.TAB,
+			NodeType.TABCHAR
 			});
 
 	@Override
