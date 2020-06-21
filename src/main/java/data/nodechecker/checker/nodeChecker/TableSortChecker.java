@@ -9,6 +9,7 @@ import org.w3c.dom.NodeList;
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
+import utils.XMLHelper;
 import utils.xmlparsing.NodeType;
 
 
@@ -28,9 +29,9 @@ public class TableSortChecker extends NodeChecker {
 	public NodeRule[] getRules() {
 		final NodeRule a[]= new NodeRule[1];
 		a[0] = new NodeRule() { @Override
-		                    public CheckStatus checkElement(final Element e) { return checkTableSorting(e);}
-		                    @Override
-							public String getDescription() { return "incorrect table sorting"; } };
+		                       public CheckStatus checkElement(final Element e) { return checkTableSorting(e);}
+		                       @Override
+					   		   public String getDescription() { return "incorrect table sorting"; } };
 		return a;
 	}
 
@@ -43,15 +44,15 @@ public class TableSortChecker extends NodeChecker {
 		String summary = "";
 		
 		final NodeList children = e.getChildNodes();
-		for (int i=0; i<children.getLength(); i++) {
+		for (int i = 0; i < children.getLength(); i++) {
 			final Node child = children.item(i);
 			if ((child.getNodeType() == Node.ELEMENT_NODE) && 
-				(child.getNodeName()=="ROW")) {
+				(XMLHelper.isOfType(child, NodeType.ROW))) {
 				final NodeList childrenOfChild = child.getChildNodes();
-				for (int j=0; j<childrenOfChild.getLength(); j++) {
+				for (int j = 0; j < childrenOfChild.getLength(); j++) {
 					final Node childOfChild = childrenOfChild.item(j);
 					if ((childOfChild.getNodeType() == Node.ELEMENT_NODE) && 
-						(childOfChild.getNodeName()=="TERM") ) {
+						(XMLHelper.isOfType(childOfChild, NodeType.TERM))) {
 						numberOfTerms++;
 						final Element elementOfChild = (Element)childOfChild;
 						final String textContent = getTextOfElementWithoutChildren(elementOfChild);
@@ -61,9 +62,9 @@ public class TableSortChecker extends NodeChecker {
 						} else {
 							String currentTerm = textContent;
 							String currentNormalizedTerm = normalize(currentTerm);
-							if (currentNormalizedTerm.compareTo(lastNormalizedTerm)<0) {
+							if (currentNormalizedTerm.compareTo(lastNormalizedTerm) < 0) {
 								numberOfUnsortedTerms++;
-								if ( summary.length()>0) {
+								if ( summary.length() > 0) {
 									summary += "\n";
 								}
 								summary += "\"" + currentTerm + "\" is not properly sorted";
@@ -76,12 +77,12 @@ public class TableSortChecker extends NodeChecker {
 			}
 		}
 		
-		if ( ((float)numberOfUnsortedTerms/(float)numberOfTerms) > 0.01 ) {
+		if (((float)numberOfUnsortedTerms/(float)numberOfTerms) > 0.01) {
 			// the table is considered as unsorted -> no error reported
 			return null;
 		}
 		
-		if ( numberOfUnsortedTerms>0 ) {
+		if (numberOfUnsortedTerms > 0) {
 			return new CheckStatus(summary);
 		}
 		
@@ -90,16 +91,22 @@ public class TableSortChecker extends NodeChecker {
 
 	static private String normalize(final String str) {
 		
-		final String s = Normalizer.normalize(str, Normalizer.Form.NFD); //re move the accents
+		final String s = Normalizer.normalize(str, Normalizer.Form.NFD); // remove the accents
 		
 		String result = "";
 		final int len = s.length();
 		
 		for (int j = 0; j < len; j++) {
             final int c = s.codePointAt(j);
-            if (Character.isLetter(c) && Character.isUpperCase(c)) result = result + new String(Character.toChars(Character.toUpperCase(c)));
-            if (Character.isLetter(c) && Character.isLowerCase(c)) result = result + new String(Character.toChars(Character.toUpperCase(c)));
-            if (Character.isDigit(c)) result = result + new String(Character.toChars(Character.toLowerCase(c)));            
+            if (Character.isLetter(c) && Character.isUpperCase(c)) {
+            	result = result + new String(Character.toChars(Character.toUpperCase(c)));
+            }
+            if (Character.isLetter(c) && Character.isLowerCase(c)) {
+            	result = result + new String(Character.toChars(Character.toUpperCase(c)));
+            }
+            if (Character.isDigit(c)) {
+            	result = result + new String(Character.toChars(Character.toLowerCase(c)));            
+            }
 		}
 		
 		return result;
@@ -110,7 +117,7 @@ public class TableSortChecker extends NodeChecker {
 		final NodeList children = element.getChildNodes();
 		String text = "";
 		
-		for (int i=0; i<children.getLength(); i++) {
+		for (int i = 0; i < children.getLength(); i++) {
 			final Node child = children.item(i);
 			if (child.getNodeType() == Node.TEXT_NODE) {
 				text = text + child.getNodeValue();

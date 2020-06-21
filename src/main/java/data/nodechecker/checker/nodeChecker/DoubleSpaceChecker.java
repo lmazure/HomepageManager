@@ -51,8 +51,8 @@ public class DoubleSpaceChecker extends NodeChecker {
 	    
 		// ignore titles of articles
 		if (XMLHelper.isOfType(e, NodeType.T) &&
-			XMLHelper.isOfType((Element)e.getParentNode(), NodeType.X) &&
-			XMLHelper.isOfType((Element)e.getParentNode().getParentNode(), NodeType.ARTICLE)) {
+			XMLHelper.isOfType(e.getParentNode(), NodeType.X) &&
+			XMLHelper.isOfType(e.getParentNode().getParentNode(), NodeType.ARTICLE)) {
 			return null;
 		}
 			
