@@ -8,6 +8,7 @@ import org.w3c.dom.NodeList;
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
+import utils.XMLHelper;
 import utils.xmlparsing.NodeType;
 
 public class DateChecker extends NodeChecker {
@@ -43,9 +44,9 @@ public class DateChecker extends NodeChecker {
 
 	private CheckStatus checkDateHierarchy(final Element e) {
 		
-		final int numberOfYears = e.getElementsByTagName(NodeType.YEAR.toString()).getLength();
-		final int numberOfMonths = e.getElementsByTagName(NodeType.MONTH.toString()).getLength();
-		final int numberOfDays = e.getElementsByTagName(NodeType.DAY.toString()).getLength();
+		final int numberOfYears = XMLHelper.getElementsByNodeType(e, NodeType.YEAR).getLength();
+		final int numberOfMonths = XMLHelper.getElementsByNodeType(e, NodeType.MONTH).getLength();
+		final int numberOfDays = XMLHelper.getElementsByNodeType(e, NodeType.DAY).getLength();
 		
 		if (numberOfYears > 1) return new CheckStatus("more than one YEAR");
 		if (numberOfMonths > 1) return new CheckStatus("more than one MONTH");
@@ -60,9 +61,9 @@ public class DateChecker extends NodeChecker {
 
 	private CheckStatus checkDateValue(final Element e) {
 		
-		final NodeList years = e.getElementsByTagName(NodeType.YEAR.toString());
-		final NodeList months = e.getElementsByTagName(NodeType.MONTH.toString());
-		final NodeList days = e.getElementsByTagName(NodeType.DAY.toString());
+		final NodeList years = XMLHelper.getElementsByNodeType(e, NodeType.YEAR);
+		final NodeList months = XMLHelper.getElementsByNodeType(e, NodeType.MONTH);
+		final NodeList days = XMLHelper.getElementsByNodeType(e, NodeType.DAY);
 		
 		final int numberOfYears = years.getLength();
 		final int numberOfMonths = months.getLength();

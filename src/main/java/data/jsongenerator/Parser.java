@@ -69,7 +69,7 @@ public class Parser {
 			                     final File file) {
         
 		final Element racine = document.getDocumentElement();
-		final NodeList list = racine.getElementsByTagName(NodeType.ARTICLE.toString());
+		final NodeList list = XMLHelper.getElementsByNodeType(racine, NodeType.ARTICLE);
 
 		for (int i=0; i<list.getLength(); i++) {
 
@@ -121,7 +121,7 @@ public class Parser {
                                     final File file) {
         
         final Element racine = document.getDocumentElement();
-        final NodeList list = racine.getElementsByTagName(NodeType.CLIST.toString());
+        final NodeList list = XMLHelper.getElementsByNodeType(racine, NodeType.CLIST);
 
         for (int i = 0; i<list.getLength(); i++) {
 
@@ -143,9 +143,9 @@ public class Parser {
             
             if (author == null) continue;
             
-            for (int j = 0; j < clistNode.getElementsByTagName(NodeType.ITEM.toString()).getLength(); j++) {
+            for (int j = 0; j < XMLHelper.getElementsByNodeType(clistNode, NodeType.ITEM).getLength(); j++) {
                 
-                final Element linkNode = (Element)clistNode.getElementsByTagName(NodeType.ITEM.toString()).item(j);
+                final Element linkNode = (Element)XMLHelper.getElementsByNodeType(clistNode, NodeType.ITEM).item(j);
                 if (linkNode.getChildNodes().getLength() != 1) {
                     throw new UnsupportedOperationException("Illegal number of children nodes");                    
                 }

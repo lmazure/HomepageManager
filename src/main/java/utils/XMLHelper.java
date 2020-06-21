@@ -12,9 +12,12 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+
+import utils.xmlparsing.NodeType;
 
 public class XMLHelper {
 
@@ -53,5 +56,10 @@ public class XMLHelper {
         }
         assert(schema != null);
         return schema.newValidator();
+    }
+    
+    public static NodeList getElementsByNodeType(final Element element,
+    		                                     final NodeType type) {
+    	return element.getElementsByTagName(type.toString());
     }
 }
