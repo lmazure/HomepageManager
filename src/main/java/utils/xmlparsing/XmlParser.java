@@ -20,7 +20,7 @@ public class XmlParser {
 
     public static ArticleData parseArticleNode(final Element articleNode) {
         
-        if (!articleNode.getTagName().equals(NodeType.ARTICLE.toString())) {
+        if (!XMLHelper.isOfType(articleNode, NodeType.ARTICLE)) {
             throw new UnsupportedOperationException("parseArticleNode called with wrong node (" + articleNode.getTagName() + ")");            
         }
 
@@ -48,7 +48,7 @@ public class XmlParser {
 
     public static LinkData parseXNode(final Element xNode) {
         
-        if (!xNode.getTagName().equals(NodeType.X.toString())) {
+        if (!XMLHelper.isOfType(xNode, NodeType.X)) {
             throw new UnsupportedOperationException("parseXNode called with wrong node (" + xNode.getTagName() + ")");            
         }
         
@@ -118,7 +118,7 @@ public class XmlParser {
     
     public static AuthorData parseAuthorNode(final Element authorNode) {
         
-        if (!authorNode.getTagName().equals(NodeType.AUTHOR.toString())) {
+        if (!XMLHelper.isOfType(authorNode, NodeType.AUTHOR)) {
             throw new UnsupportedOperationException("parseAuthorNode called with wrong node (" + authorNode.getTagName() + ")");            
         }
         
@@ -175,7 +175,7 @@ public class XmlParser {
 
     public static TemporalAccessor parseDateNode(final Element dateNode) {
 
-        if (!dateNode.getTagName().equals(NodeType.DATE.toString())) {
+        if (!XMLHelper.isOfType(dateNode, NodeType.DATE)) {
             throw new UnsupportedOperationException("parseDateNode called with wrong node (" + dateNode.getTagName() + ")");            
         }
         
@@ -203,7 +203,7 @@ public class XmlParser {
 
     public static Duration parseDurationNode(final Element durationNode) {
 
-        if (!durationNode.getTagName().equals(NodeType.DURATION.toString())) {
+        if (!XMLHelper.isOfType(durationNode, NodeType.DURATION)) {
             throw new UnsupportedOperationException("parseDurationNode called with wrong node (" + durationNode.getTagName() + ")");            
         }
 
@@ -245,7 +245,7 @@ public class XmlParser {
         for (int i = 0; i < children.getLength(); i++) {            
             if (children.item(i).getNodeType() == Node.ELEMENT_NODE) {
                 final Element child = (Element)children.item(i);
-                if (child.getTagName().equals(type.toString())) {
+                if (XMLHelper.isOfType(child, type)) {
                     list.add(child);
                 }
             }

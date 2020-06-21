@@ -128,12 +128,12 @@ public class Parser {
             final Element clistNode = (Element)list.item(i);
 
             final Node titleNode =  clistNode.getFirstChild();
-            if (!titleNode.getNodeName().equals(NodeType.TITLE.toString())) {
+            if (!XMLHelper.isOfType(titleNode, NodeType.TITLE)) {
                 throw new UnsupportedOperationException("Unexpected XML structure (the first child of a CLIST node is not a TITLE node)");
             }
             
             final Node authorNode =  titleNode.getFirstChild();
-            if (!authorNode.getNodeName().equals(NodeType.AUTHOR.toString())) {
+            if (!XMLHelper.isOfType(authorNode, NodeType.AUTHOR)) {
                 throw new UnsupportedOperationException("Unexpected XML structure (the first child of the first child of a CLIST node is not a AUTHOR node)");
             }
 
@@ -149,7 +149,7 @@ public class Parser {
                 if (linkNode.getChildNodes().getLength() != 1) {
                     throw new UnsupportedOperationException("Illegal number of children nodes");                    
                 }
-                if (!((Element)linkNode.getChildNodes().item(0)).getTagName().equals(NodeType.X.toString())) {
+                if (!XMLHelper.isOfType((Element)linkNode.getChildNodes().item(0), NodeType.X)) {
                     throw new UnsupportedOperationException("Illegal child node");                    
                 }
                 final LinkData linkData = XmlParser.parseXNode((Element)linkNode.getChildNodes().item(0));

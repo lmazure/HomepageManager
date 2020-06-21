@@ -3,6 +3,7 @@ package data.nodechecker.checker.nodeChecker;
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
+import utils.XMLHelper;
 import utils.xmlparsing.NodeType;
 
 import org.w3c.dom.Element;
@@ -43,7 +44,7 @@ public class ProtectionFromURLChecker extends NodeChecker {
 		for (int j=0; j<children.getLength(); j++) {
 			final Node child = children.item(j);
 			if (child.getNodeType() == Node.ELEMENT_NODE) {
-				if (child.getNodeName()==NodeType.A.toString()) {
+				if (XMLHelper.isOfType(child, NodeType.A)) {
 					url=child.getTextContent();
 				}
 			}

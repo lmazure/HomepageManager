@@ -62,4 +62,14 @@ public class XMLHelper {
     		                                     final NodeType type) {
     	return element.getElementsByTagName(type.toString());
     }
+    
+    public static boolean isOfType(final Element element,
+    		                       final NodeType type) {
+    	return element.getTagName().equals(type.toString());
+    }
+    
+    public static boolean isOfType(final Node element,
+    		                       final NodeType type) {
+    	return element.getNodeName().equals(type.toString());
+    }
 }

@@ -7,6 +7,7 @@ import org.w3c.dom.NodeList;
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
+import utils.XMLHelper;
 import utils.xmlparsing.NodeType;
 
 public class FormatFromURLChecker extends NodeChecker {
@@ -39,8 +40,12 @@ public class FormatFromURLChecker extends NodeChecker {
 		for (int j=0; j<children.getLength(); j++) {
 			final Node child = children.item(j);
 			if ( child.getNodeType() == Node.ELEMENT_NODE ) {
-				if (child.getNodeName() == NodeType.A.toString()) url=child.getTextContent();
-				if (child.getNodeName() == NodeType.F.toString()) format=child.getTextContent();
+				if (XMLHelper.isOfType(child, NodeType.A)) {
+					url=child.getTextContent();
+				}
+				if (XMLHelper.isOfType(child, NodeType.F)) {
+					format=child.getTextContent();
+				}
 			}		
 		}
 		

@@ -7,6 +7,7 @@ import org.w3c.dom.Node;
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
+import utils.XMLHelper;
 import utils.xmlparsing.NodeType;
 
 public class ModifierKeyChecker extends NodeChecker {
@@ -51,7 +52,7 @@ public class ModifierKeyChecker extends NodeChecker {
 	private CheckStatus checkModifierKeyOrder(final Element e) {
 		
 		final Node next = e.getNextSibling();
-		if ( !next.getNodeName().equals("MODIFIERKEY")) return null;
+		if ( !XMLHelper.isOfType(next, NodeType.MODIFIERKEY)) return null;
 
 		final String str = e.getAttribute("ID");
 		final String strNext = ((Element)next).getAttribute("ID");

@@ -137,7 +137,7 @@ public class LinkCheckRunner {
             }
         }
 
-        if (e.getTagName().equals(NodeType.X.toString())) {
+        if (XMLHelper.isOfType(e, NodeType.X)) {
             list.add(XmlParser.parseXNode(e));
         }
 
@@ -155,7 +155,7 @@ public class LinkCheckRunner {
             }
         }
 
-        if (e.getTagName().equals(NodeType.ARTICLE.toString())) {
+        if (XMLHelper.isOfType(e, NodeType.ARTICLE)) {
         	try {
                 list.add(XmlParser.parseArticleNode(e));
         		

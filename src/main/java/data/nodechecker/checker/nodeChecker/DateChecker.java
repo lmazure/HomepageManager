@@ -76,7 +76,7 @@ public class DateChecker extends NodeChecker {
 			year = Long.parseLong(yearStr);
 			if (year < 1900) {
 				// we check this only for articles
-				if ( e.getParentNode().getNodeName().equals(NodeType.X.toString()) ) {
+				if ( XMLHelper.isOfType(e.getParentNode(), NodeType.X) ) {
 					return new CheckStatus("YEAR is less than 1900");
 				}
 			}
