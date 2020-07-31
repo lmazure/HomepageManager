@@ -1,8 +1,36 @@
+- corriger le CSS qui pose problème dans notes/git.html
+
+- le contrôle
+https://www.youtube.com/watch?v=TSnsHW6DS6s
+YouTube link with no creation date
+est incorrect ?
+il est normal de pouvoir avoir uniquement une date de publication ?
+
+- corriger crash si on met <DAY>1258</DAY>
+
+- ajouter les liens vers les podcats Numberphile2 https://podcastaddict.com/episode/109050317 
+
+- forcer la mise à jour des caches avant  de modifier les fichiers JS de nouveau
+
+- remettre en place la détection des ordres alphabétiques incorrects
+
 - nettoyage des fichiers
 links/coding.xml
 notes/corrupter.xml
-c.xml
-perl.xml
+links/c.xml
+links/perl.xml
+links/xml.xml
+Nettoyer companies.xml
+Nettoyer cracking.xml
+Nettoyer jobs.xml
+Nettoyer news.xml
+Nettoyer quality.xml
+Nettoyer javascr.xml
+Classer les liens de links/ecology.xml
+bbst.xml
+
+- comprendre pourquoi certaines vidéos sont marquées non playable
+https://www.youtube.com/watch?v=qMyMCDPaV60
 
 - mettre en place le système des keywords
 

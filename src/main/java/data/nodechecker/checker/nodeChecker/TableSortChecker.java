@@ -37,8 +37,8 @@ public class TableSortChecker extends NodeChecker {
 
 	private CheckStatus checkTableSorting(final Element e) {
 		
-		String lastTerm="";
-		String lastNormalizedTerm="";
+		String lastTerm = "";
+		String lastNormalizedTerm = "";
 		int numberOfTerms = 0;
 		int numberOfUnsortedTerms = 0;
 		String summary = "";
@@ -64,7 +64,7 @@ public class TableSortChecker extends NodeChecker {
 							String currentNormalizedTerm = normalize(currentTerm);
 							if (currentNormalizedTerm.compareTo(lastNormalizedTerm) < 0) {
 								numberOfUnsortedTerms++;
-								if ( summary.length() > 0) {
+								if (summary.length() > 0) {
 									summary += "\n";
 								}
 								summary += "\"" + currentTerm + "\" is not properly sorted";

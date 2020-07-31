@@ -17,13 +17,12 @@ public class Author extends AuthorData implements Comparable<Author> {
 		
 		private final String a_normalizedName;
 		
-		SortingKey(
-				final Optional<String> namePrefix,
-				final Optional<String> firstName,
-				final Optional<String> middleName,
-				final Optional<String> lastName,
-				final Optional<String> nameSuffix,
-				final Optional<String> givenName) {
+		SortingKey(final Optional<String> namePrefix,
+				   final Optional<String> firstName,
+				   final Optional<String> middleName,
+				   final Optional<String> lastName,
+				   final Optional<String> nameSuffix,
+				   final Optional<String> givenName) {
 			
 			String normalizedName = "";
 			normalizedName = append(normalizedName, lastName);
@@ -70,13 +69,12 @@ public class Author extends AuthorData implements Comparable<Author> {
 	 * @param nameSuffix 
 	 * @param givenName 
 	 */
-	public Author(
-			final Optional<String> namePrefix,
-			final Optional<String> firstName,
-			final Optional<String> middleName,
-			final Optional<String> lastName,
-			final Optional<String> nameSuffix,
-			final Optional<String> givenName) {
+	public Author(final Optional<String> namePrefix,
+			      final Optional<String> firstName,
+			      final Optional<String> middleName,
+			      final Optional<String> lastName,
+			      final Optional<String> nameSuffix,
+			      final Optional<String> givenName) {
 	    super(namePrefix, firstName, middleName, lastName, nameSuffix, givenName);
 		a_sortingKey = new SortingKey(namePrefix, firstName, middleName, lastName, nameSuffix, givenName);
 		a_articles = new ArrayList<Article>();
@@ -118,7 +116,6 @@ public class Author extends AuthorData implements Comparable<Author> {
         return a_links.toArray(new Link[0]);
     }
     
-
 	@Override
 	public int compareTo(final Author o) {
 		return getSortingKey().compareTo(o.getSortingKey());

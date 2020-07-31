@@ -68,7 +68,6 @@ public class YoutubeWatchLinkContentParser {
 		return _publishDate;
 	}
 
-
 	public Duration getMinDuration() {
 		
 		if (_minDuration == null) {

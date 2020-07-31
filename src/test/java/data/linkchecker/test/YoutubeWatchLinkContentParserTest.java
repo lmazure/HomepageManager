@@ -22,7 +22,7 @@ import utils.FileHelper;
 class YoutubeWatchLinkContentParserTest {
 
 	@Test
-	void testPlayabiltyStatusOk() {
+	void testPlayabilityStatusOk() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=_kGqkxQo-Tw"),
@@ -37,7 +37,7 @@ class YoutubeWatchLinkContentParserTest {
 	}
 
 	@Test
-	void testPlayabiltyStatusUnplayable() {
+	void testPlayabilityStatusUnplayable() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=dM_JivN3HvI"),
@@ -220,6 +220,7 @@ class YoutubeWatchLinkContentParserTest {
 			// description bilingue "https://www.youtube.com/watch?v=FGjWkQePk20",
 			"https://www.youtube.com/watch?v=fxTxU0Echq8",
 			// description bilingue "https://www.youtube.com/watch?v=iJfJPXI5EZQ",
+			"https://www.youtube.com/watch?v=k0-5T_oDt1E",
             "https://www.youtube.com/watch?v=kiv32_P_T3k",
             "https://www.youtube.com/watch?v=lkdnOuzHdFE",
             // vidéo bilingue "https://www.youtube.com/watch?v=nhDpozSK0uw",

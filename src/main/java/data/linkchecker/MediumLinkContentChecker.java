@@ -1,6 +1,8 @@
 package data.linkchecker;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAccessor;
 import java.util.Optional;
 
 import utils.xmlparsing.ArticleData;
@@ -38,5 +40,36 @@ public class MediumLinkContentChecker extends LinkContentChecker {
 	    }
 	    
 		return null;
+	}
+	
+	@Override
+	protected LinkContentCheck checkArticleDate(final String data,
+                                                final Optional<TemporalAccessor> publicationDate,
+                                                final Optional<TemporalAccessor> creationDate)
+	{
+
+		if (creationDate.isEmpty()) {
+			return new LinkContentCheck("Medium link with no creation date");			
+		}
+		
+		if (publicationDate.isPresent()) {
+			return new LinkContentCheck("Medium link with publication date");			
+		}
+		
+		if (!(creationDate.get() instanceof LocalDate)) {
+			return new LinkContentCheck("Date without month or day");
+       }
+
+		final LocalDate expectedDate = (LocalDate)creationDate.get();
+		final LocalDate effectivePublishDate = _parser.getPublishDate();
+
+		if (!expectedDate.equals(effectivePublishDate)) {
+			return new LinkContentCheck("expected date " +
+				                        expectedDate +
+                                        " is not equal to the effective publish date " +
+                                        effectivePublishDate);
+       }
+
+       return null;
 	}
 }
