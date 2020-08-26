@@ -1,3 +1,27 @@
+- corriger les classes dont les attributs sont préfixés par a_
+
+- ajouter une colonne avec la date de dernière modification et pouvoir trier dessus
+
+- extraction des KEYWORDS
+* chercher tous les KEYWORD
+* si le père est un CLIST, enregistrer tous les fils en tant que Links
+* si le père est un comment dans un article, enregitrer l'article en tant que Article
+* sinon générer une erreur
+
+- faire un prefetch de la map quand on affiche la page d'accueil
+
+- nettoyer design.xml
+
+- problème de reconnaissance de langue
+https://www.youtube.com/watch?v=ccB09XRdGjo
+https://www.youtube.com/watch?v=hGbrH8DGzRg
+liens sur management.xml
+
+- content/adbook.json semble encore présent dans SVN
+
+- voir problème de 
+- corriger tous les crashs intempestifs...
+
 - corriger le CSS qui pose problème dans notes/git.html
 
 - le contrôle
@@ -15,7 +39,6 @@ il est normal de pouvoir avoir uniquement une date de publication ?
 - remettre en place la détection des ordres alphabétiques incorrects
 
 - nettoyage des fichiers
-links/coding.xml
 notes/corrupter.xml
 links/c.xml
 links/perl.xml
@@ -26,7 +49,8 @@ Nettoyer jobs.xml
 Nettoyer news.xml
 Nettoyer quality.xml
 Nettoyer javascr.xml
-Classer les liens de links/ecology.xml
+physics.xml
+coding.xml
 bbst.xml
 
 - comprendre pourquoi certaines vidéos sont marquées non playable
@@ -51,7 +75,7 @@ gérer la date de publication coté client
 - LinkData.getStatus() devrait être un enum
   LinkData.getProtection() devrait être un enum
 
-- voir comment purger le cache après les mises à jour
+- voir comment purger le cache navigateur après les mises à jour
 
 - la sauvegarde du rapport de liens toutes les 30 secondes ne marche plus
 

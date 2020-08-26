@@ -9,11 +9,11 @@ import java.util.Locale;
  */
 public class StringHelper {
 
-    static private final Collator collator = Collator.getInstance(Locale.UK);
+    static private final Collator s_collator = Collator.getInstance(Locale.UK);
     
     static public int compare(final String str1, final String str2) {
     
-        return collator.compare(StringHelper.cleanString(str1), StringHelper.cleanString(str2)); 
+        return s_collator.compare(StringHelper.cleanString(str1), StringHelper.cleanString(str2)); 
     }
     
 	/**

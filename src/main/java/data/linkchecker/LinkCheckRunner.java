@@ -158,7 +158,6 @@ public class LinkCheckRunner {
         if (XMLHelper.isOfType(e, NodeType.ARTICLE)) {
         	try {
                 list.add(XmlParser.parseArticleNode(e));
-        		
         	} catch (final UnsupportedOperationException ex) {
         		Logger.log(Level.ERROR)
         		      .append("Failed to parse Element ")

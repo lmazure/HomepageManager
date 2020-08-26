@@ -7,10 +7,10 @@ import utils.xmlparsing.LinkData;
 
 public class LinkFactory {
 
-	private final HashSet<Link> a_links;
+	private final HashSet<Link> _links;
 	
 	public LinkFactory() {
-		a_links = new HashSet<Link>();
+		_links = new HashSet<Link>();
 	}
 	
 	public Link newLink(final Article article,
@@ -25,7 +25,7 @@ public class LinkFactory {
 		                           linkData.getLanguages(),
 		                           linkData.getDuration(),
 		                           linkData.getPublicationDate());
-		a_links.add(link);
+		_links.add(link);
 		return link;
 	}
 	
@@ -33,7 +33,7 @@ public class LinkFactory {
 	 * @return sorted list of links
 	 */
 	public Link[] getLinks() {
-		final Link a[] = a_links.toArray(new Link[0]);
+		final Link a[] = _links.toArray(new Link[0]);
 		Arrays.sort(a);
 		return a;
 	}

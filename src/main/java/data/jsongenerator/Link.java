@@ -8,7 +8,7 @@ import utils.xmlparsing.LinkData;
 
 public class Link extends LinkData implements Comparable<Link> {
 	
-	private final String a_sortingKey;
+	private final String _sortingKey;
 
 	public Link(final Article article,
 			    final String title,
@@ -21,14 +21,14 @@ public class Link extends LinkData implements Comparable<Link> {
 				final Optional<Duration> duration,
 				final Optional<TemporalAccessor> publicationDate) {
 	    super(title, subtitles, url, status, protection, formats, languages, duration, publicationDate);
-		a_sortingKey = normalizeName(url);
+		_sortingKey = normalizeName(url);
 	}
 
 	/**
 	 * @return
 	 */
 	public String getSortingKey() {
-		return a_sortingKey;
+		return _sortingKey;
 	}
 
 	/**

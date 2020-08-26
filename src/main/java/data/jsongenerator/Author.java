@@ -8,10 +8,10 @@ import utils.xmlparsing.AuthorData;
 
 public class Author extends AuthorData implements Comparable<Author> {
 
-	private final SortingKey a_sortingKey;
-	private final ArrayList<Article> a_articles;
-    private final ArrayList<Link> a_links;
-	static private final Collator collator = Collator.getInstance();
+	private final SortingKey _sortingKey;
+	private final ArrayList<Article> _articles;
+    private final ArrayList<Link> _links;
+	static private final Collator s_collator = Collator.getInstance();
 	
 	static public class SortingKey implements Comparable<SortingKey> {
 		
@@ -37,7 +37,7 @@ public class Author extends AuthorData implements Comparable<Author> {
 		
 		@Override
 		public int compareTo(final SortingKey o) {
-			return collator.compare(a_normalizedName, o.a_normalizedName);
+			return s_collator.compare(a_normalizedName, o.a_normalizedName);
 		}
 
 		@Override
@@ -76,44 +76,44 @@ public class Author extends AuthorData implements Comparable<Author> {
 			      final Optional<String> nameSuffix,
 			      final Optional<String> givenName) {
 	    super(namePrefix, firstName, middleName, lastName, nameSuffix, givenName);
-		a_sortingKey = new SortingKey(namePrefix, firstName, middleName, lastName, nameSuffix, givenName);
-		a_articles = new ArrayList<Article>();
-        a_links = new ArrayList<Link>();
+		_sortingKey = new SortingKey(namePrefix, firstName, middleName, lastName, nameSuffix, givenName);
+		_articles = new ArrayList<Article>();
+        _links = new ArrayList<Link>();
 	}
 	
 	/**
 	 * @return sorting key
 	 */
 	public SortingKey getSortingKey() {
-		return a_sortingKey;
+		return _sortingKey;
 	}
 
 	/**
 	 * @param article
 	 */
 	public void addArticle(final Article article) {
-		a_articles.add(article);
+		_articles.add(article);
 	}
 	
 	/**
 	 * @return articles written by the author
 	 */
 	public Article[] getArticles() {
-		return a_articles.toArray(new Article[0]);
+		return _articles.toArray(new Article[0]);
 	}
 
     /**
      * @param link
      */
     public void addLink(final Link link) {
-        a_links.add(link);
+        _links.add(link);
     }
     
 	   /**
      * @return links containing information about the author
      */
     public Link[] getLinks() {
-        return a_links.toArray(new Link[0]);
+        return _links.toArray(new Link[0]);
     }
     
 	@Override

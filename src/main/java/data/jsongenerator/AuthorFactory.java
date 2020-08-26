@@ -7,13 +7,13 @@ import utils.xmlparsing.AuthorData;
 
 public class AuthorFactory {
 
-	private final HashMap<String,Author> a_authors;
+	private final HashMap<String,Author> _authors;
 	
 	/**
 	 * 
 	 */
 	public AuthorFactory() {
-		a_authors = new HashMap<String, Author>();
+		_authors = new HashMap<String, Author>();
 	}
 	
 	/**
@@ -27,8 +27,8 @@ public class AuthorFactory {
 		
 		final String encodedName = computeEncodedName(authorData);
 		
-		if (a_authors.containsKey(encodedName)) {
-			return a_authors.get(encodedName);
+		if (_authors.containsKey(encodedName)) {
+			return _authors.get(encodedName);
 		}
 		
 		final Author author = new Author(authorData.getNamePrefix(),
@@ -37,11 +37,11 @@ public class AuthorFactory {
 		                                 authorData.getLastName(),
 		                                 authorData.getNameSuffix(),
 		                                 authorData.getGivenName());
-		a_authors.put(encodedName, author);
+		_authors.put(encodedName, author);
 		return author;
 	}
 
-	   /**
+    /**
      * if the author already exists, returns it<br/>
      * if the author does not exists, returns null
      * 
@@ -52,8 +52,8 @@ public class AuthorFactory {
         
         final String encodedName = computeEncodedName(authorData);
         
-        if (a_authors.containsKey(encodedName)) {
-            return a_authors.get(encodedName);
+        if (_authors.containsKey(encodedName)) {
+            return _authors.get(encodedName);
         }
         
         return null;
@@ -63,7 +63,7 @@ public class AuthorFactory {
 	 * @return sorted list of all authors
 	 */
 	public Author[] getAuthors() {
-		final Author a[] = a_authors.values().toArray(new Author[0]);		
+		final Author a[] = _authors.values().toArray(new Author[0]);		
 		Arrays.sort(a);
 		return a;
 	}

@@ -14,14 +14,17 @@ import utils.Logger;
 
 public class Reporter {
 
-	private final ArticleFactory a_articleFactory;
-	private final AuthorFactory a_authorFactory;
+	private final ArticleFactory _articleFactory;
+	private final AuthorFactory _authorFactory;
+	private final KeywordFactory _keywordFactory;
 
 	public Reporter(final ArticleFactory articleFactory,
-	                final AuthorFactory authorFactory) {
+	                final AuthorFactory authorFactory,
+	                final KeywordFactory keywordFactory) {
 	    
-		a_articleFactory = articleFactory;
-		a_authorFactory = authorFactory;
+		_articleFactory = articleFactory;
+		_authorFactory = authorFactory;
+		_keywordFactory = keywordFactory;
 	}
 
 	   /**
@@ -36,7 +39,7 @@ public class Reporter {
         f.delete();
 
         try (final OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(f),Charset.forName("UTF-8").newEncoder())) {
-            final Author authors[] = a_authorFactory.getAuthors();
+            final Author authors[] = _authorFactory.getAuthors();
             out.write("{\n  \"authors\" : [");
             for (int i = 0; i < authors.length; i++) {
                 final Author author = authors[i];
@@ -111,23 +114,23 @@ public class Reporter {
     
     /**
       * @param root
-      * @param pageName
+      * @param fileName
       */
      public void generateArticleJson(final File root,
-    		                         final String pageName) {
+    		                         final String fileName) {
     
          final String rootFileName = root.getAbsolutePath();
-         final File f = new File(rootFileName + File.separator + pageName);
+         final File f = new File(rootFileName + File.separator + fileName);
          f.delete();
 
-         final Author authors[] = a_authorFactory.getAuthors();
+         final Author authors[] = _authorFactory.getAuthors();
          final HashMap<Author, Integer> authorIndexes = new HashMap<>();
          for (int i = 0; i < authors.length; i++) {
              authorIndexes.put(authors[i], i);
          }
          
          try (final OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(f), Charset.forName("UTF-8").newEncoder())) {
-             final Article articles[] = a_articleFactory.getArticles();
+             final Article articles[] = _articleFactory.getArticles();
   			 Arrays.sort(articles, new ArticleComparator());
              out.write("{\n  \"articles\" : [");
              for (int i = 0; i < articles.length; i++) {
@@ -180,6 +183,62 @@ public class Reporter {
                .append(" is created")
                .submit();
      }
+
+     public void generateKeywordJson(final File root,
+                                     final String fileName) {
+
+		final String rootFileName = root.getAbsolutePath();
+		final File f = new File(rootFileName + File.separator + fileName);
+		f.delete();
+
+		final Article[] articles = _articleFactory.getArticles();
+		final HashMap<Article, Integer> articleIndexes = new HashMap<>();
+        for (int i = 0; i < articles.length; i++) {
+            articleIndexes.put(articles[i], i);
+        }
+
+		final Author authors[] = _authorFactory.getAuthors();
+		final HashMap<Author, Integer> authorIndexes = new HashMap<>();
+		for (int i = 0; i < authors.length; i++) {
+			authorIndexes.put(authors[i], i);
+		}
+
+		try (final OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(f), Charset.forName("UTF-8").newEncoder())) {
+			final Keyword keywords[] = _keywordFactory.getKeywords();
+			Arrays.sort(keywords, new KeywordComparator());
+			out.write("{\n  \"keywords\" : [");
+			for (int i = 0; i < keywords.length; i++) {
+				final Keyword keyword = keywords[i];
+				if (i != 0) {
+					out.write(",");
+				}
+				out.write("\n    {");
+ 		        out.write("\n      \"id\" : \"" + jsonEscape(keyword.getId()) + "\"");
+				if (keyword.getLinks().length > 0) {
+					out.write(",");
+					printLinks(out, keyword.getLinks());
+				}
+				if (!keyword.getArticles().isEmpty()) {
+					out.write(",\n    \"articleIndexes\" : [");
+					boolean first = true;
+					for (Article article: keyword.getArticles()) {
+                        if (!first) {
+                            out.write(", ");
+                        }
+                        out.write(articleIndexes.get(article).toString());
+                        first = false;
+                    }
+                    out.write("]");
+				}
+				out.write("\n    }");
+			}
+            out.write("\n  ]\n}");
+		} catch (final IOException e) {
+			Logger.log(Logger.Level.ERROR).append("Failed to write file ").append(f).append(e).submit();
+		}
+
+		Logger.log(Logger.Level.INFO).append(f).append(" is created").submit();
+	}
 
     private void printLinks(final OutputStreamWriter out,
     		                final Link[] links) throws IOException {

@@ -23,6 +23,8 @@ public class LinkContentParser {
 	private String extractLanguage() {
 
 		final String data = _data.replaceAll("(?i)<SCRIPT[^>]*>.*?</SCRIPT *>", "")
+			     	             .replaceAll("(?i)<SVG[^>]*.*?</SVG *>", "")
+			     	             .replaceAll("(?i)<STYLE[^>]*.*?</STYLE *>", "")
 				                 .replaceAll("<[^>]*>", "");
 
 		return StringHelper.guessLanguage(data);

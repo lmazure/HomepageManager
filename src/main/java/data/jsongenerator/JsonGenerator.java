@@ -8,27 +8,26 @@ import utils.Logger;
 
 public class JsonGenerator {
 
-	private final ArticleFactory a_articleFactory;
-	private final LinkFactory a_linkFactory;
-	private final AuthorFactory a_authorFactory;
-	private final Parser a_parser;
-	private final Reporter a_reporter;
+	private final Parser parser;
+	private final Reporter reporter;
 
     final static private String s_linksDirectoryFileName = "links";
 	final static private String s_tableDirectoryFileName = "content";
     final static private String s_personFileName = "persons.xml";
     final static private String s_shortArticleJsonFileName = "article.json";
     final static private String s_shortAuthorJsonFileName = "author.json";
+    final static private String s_shortKeywordJsonFileName = "keyword.json";
 
 	/**
 	 * 
 	 */
 	public JsonGenerator() {
-		a_articleFactory = new ArticleFactory();
-		a_authorFactory = new AuthorFactory();
-		a_linkFactory = new LinkFactory();
-		a_parser = new Parser(a_articleFactory, a_linkFactory, a_authorFactory);
-		a_reporter = new Reporter(a_articleFactory, a_authorFactory);
+		final ArticleFactory articleFactory = new ArticleFactory();
+		final AuthorFactory authorFactory = new AuthorFactory();
+		final LinkFactory linkFactory = new LinkFactory();
+		final KeywordFactory keywordFactory = new KeywordFactory();
+		parser = new Parser(articleFactory, linkFactory, authorFactory, keywordFactory);
+		reporter = new Reporter(articleFactory, authorFactory, keywordFactory);
 	}
 
 	/**
@@ -59,11 +58,11 @@ public class JsonGenerator {
 	 * @param f
 	 */
 	private void scanFile(final File f) {
-        a_parser.parse(f);
+        parser.parse(f);
 	}
 	
 	private void scanPersonFile(final File f) {
-	    a_parser.parsePersonFile(f);
+	    parser.parsePersonFile(f);
 	}
 
 	/**
@@ -73,8 +72,10 @@ public class JsonGenerator {
 
         final String authorJsonFileName = s_tableDirectoryFileName + File.separator + s_shortAuthorJsonFileName;
         final String articleJsonFileName = s_tableDirectoryFileName + File.separator + s_shortArticleJsonFileName;
+        final String keywordJsonFileName = s_tableDirectoryFileName + File.separator + s_shortKeywordJsonFileName;
 
-        a_reporter.generateAuthorJson(new File(homepagePath), authorJsonFileName);
-        a_reporter.generateArticleJson(new File(homepagePath), articleJsonFileName);
+        reporter.generateAuthorJson(new File(homepagePath), authorJsonFileName);
+        reporter.generateArticleJson(new File(homepagePath), articleJsonFileName);
+        reporter.generateKeywordJson(new File(homepagePath), keywordJsonFileName);
 	}
 }
