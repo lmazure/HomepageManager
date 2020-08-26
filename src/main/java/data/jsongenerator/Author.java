@@ -15,7 +15,7 @@ public class Author extends AuthorData implements Comparable<Author> {
 	
 	static public class SortingKey implements Comparable<SortingKey> {
 		
-		private final String a_normalizedName;
+		private final String _normalizedName;
 		
 		SortingKey(final Optional<String> namePrefix,
 				   final Optional<String> firstName,
@@ -32,17 +32,17 @@ public class Author extends AuthorData implements Comparable<Author> {
 			normalizedName = append(normalizedName, nameSuffix);
 			normalizedName = append(normalizedName, namePrefix);
 			
-			a_normalizedName = normalizedName;
+			_normalizedName = normalizedName;
 		}
 		
 		@Override
 		public int compareTo(final SortingKey o) {
-			return s_collator.compare(a_normalizedName, o.a_normalizedName);
+			return s_collator.compare(_normalizedName, o._normalizedName);
 		}
 
 		@Override
 		public String toString() {
-			return a_normalizedName;
+			return _normalizedName;
 		}
 		
 		private String append(final String str, final Optional<String> app) {

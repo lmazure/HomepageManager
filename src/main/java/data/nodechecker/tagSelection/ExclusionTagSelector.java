@@ -12,19 +12,19 @@ import utils.xmlparsing.NodeType;
  */
 public class ExclusionTagSelector implements TagSelector {
 
-    final private Set<String> a_tags;
+    final private Set<String> _tags;
 	
 	/**
 	 * @param tagsToIgnore
 	 */
 	public ExclusionTagSelector(final NodeType tagsToIgnore[]) {
-		a_tags = Stream.of(tagsToIgnore)
+		_tags = Stream.of(tagsToIgnore)
 		   	           .map(NodeType::toString)
 			           .collect(Collectors.toSet());
 	}
 	
 	@Override
 	public boolean isTagCheckable(final String tag) {
-        return !a_tags.contains(tag);
+        return !_tags.contains(tag);
 	}
 }

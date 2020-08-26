@@ -12,19 +12,19 @@ import utils.xmlparsing.NodeType;
  */
 public class InclusionTagSelector implements TagSelector {
 
-	final private Set<String> a_tags;
+	final private Set<String> _tags;
 	
 	/**
 	 * @param tagsToCheck
 	 */
 	public InclusionTagSelector(final NodeType tagsToCheck[]) {
-		a_tags = Stream.of(tagsToCheck)
+		_tags = Stream.of(tagsToCheck)
 				       .map(NodeType::toString)
 				       .collect(Collectors.toSet());
 	}
 	
 	@Override
 	public boolean isTagCheckable(final String tag) {
-		return a_tags.contains(tag);
+		return _tags.contains(tag);
 	}
 }
