@@ -67,6 +67,7 @@ public class Log {
 	}
 	
 	public void submit() {
+		@SuppressWarnings("resource")
 		final PrintStream stream = (_level.ordinal() <= Logger.Level.WARN.ordinal()) ? System.err : System.out;		
 		stream.println(_stringBuilder.toString());
 	}

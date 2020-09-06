@@ -88,18 +88,22 @@ public class MissingSpaceChecker extends NodeChecker {
     
     private static boolean isInvalid(final String str) {
 
-    	for (final String a: s_authorizedList) {
+        final char[] chars = str.toCharArray();
+
+        if (isVersionString(chars)) return false;
+
+        if (!containsPunctuation(chars)) {
+            return false;
+        }
+
+        for (final String a: s_authorizedList) {
     		final String s = str.replace(a, "");
     		if (containsNoLetter(s)) {
     			return false;
     		}
     	}
 
-    	final char[] chars = str.toCharArray();
-
-    	if (isVersionString(chars)) return false;
-
-    	return containsPunctuation(chars);
+        return true;
     }
 
     private static boolean containsNoLetter(final String str) {
@@ -112,7 +116,7 @@ public class MissingSpaceChecker extends NodeChecker {
     
     private static boolean isVersionString(final char[] chars) {
     	for (int i = 0; i < chars.length; i++) {
-    		if (!isPunctuation(chars[i]) && !Character.isDigit(chars[i])) return false; // TODO sould test for dot instead of punctuation
+    		if (!isPunctuation(chars[i]) && !Character.isDigit(chars[i])) return false; // TODO should test for dot instead of punctuation
     	}    	
     	return true;
     }

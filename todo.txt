@@ -1,12 +1,7 @@
-- corriger les classes dont les attributs sont préfixés par a_
-
 - ajouter une colonne avec la date de dernière modification et pouvoir trier dessus
 
 - extraction des KEYWORDS
-* chercher tous les KEYWORD
-* si le père est un CLIST, enregistrer tous les fils en tant que Links
-* si le père est un comment dans un article, enregitrer l'article en tant que Article
-* sinon générer une erreur
+-- implémenter code client
 
 - faire un prefetch de la map quand on affiche la page d'accueil
 
@@ -39,6 +34,7 @@ il est normal de pouvoir avoir uniquement une date de publication ?
 - remettre en place la détection des ordres alphabétiques incorrects
 
 - nettoyage des fichiers
+links/jslib.xml
 notes/corrupter.xml
 links/c.xml
 links/perl.xml
@@ -55,8 +51,6 @@ bbst.xml
 
 - comprendre pourquoi certaines vidéos sont marquées non playable
 https://www.youtube.com/watch?v=qMyMCDPaV60
-
-- mettre en place le système des keywords
 
 - problème des langues
 * pas de langue pour http://download.eclipse.org/efxclipse/updates-released/3.0.0/site/
