@@ -47,7 +47,7 @@ public class MediumLinkContentParser {
 		}
 
 		ExitHelper.exit("Failed to find title in Medium page");
-		
+
 		// NOTREACHED
 		return null;
 	}

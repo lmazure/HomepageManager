@@ -119,5 +119,4 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
 		
 		return null;
 	}
-
 }

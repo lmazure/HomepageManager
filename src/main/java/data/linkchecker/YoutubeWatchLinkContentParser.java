@@ -14,6 +14,7 @@ public class YoutubeWatchLinkContentParser {
 	private Boolean _isPlayable;
 	private String _title;
 	private String _description;
+	private String _language;
 	private LocalDate _uploadDate;
 	private LocalDate _publishDate;
 	private Duration _minDuration;
@@ -91,18 +92,19 @@ public class YoutubeWatchLinkContentParser {
 	}
 
 	public String getLanguage() {
-		
-		if (_data.contains("\\\"name\\\":{\\\"simpleText\\\":\\\"French (auto-generated)\\\"}")) {
-			return "fr";
-		}
 
-		if (_data.contains("\\\"name\\\":{\\\"simpleText\\\":\\\"English (auto-generated)\\\"}")) {
-			return "en";
-		}
+	    if (_language == null) {
+	        if (_data.contains("\\\"name\\\":{\\\"simpleText\\\":\\\"French (auto-generated)\\\"}")) {
+	            _language = "fr";
+	        } else if (_data.contains("\\\"name\\\":{\\\"simpleText\\\":\\\"English (auto-generated)\\\"}")) {
+	            _language = "en";
+	        } else {
+	            _language = StringHelper.guessLanguage(getDescription());           
+	        }
+	    }
 		
-		return StringHelper.guessLanguage(getDescription());
+	    return _language;
 	}
-	
 	
 	private String extractText(final String str) {
 		
@@ -116,7 +118,7 @@ public class YoutubeWatchLinkContentParser {
 				text = t;
 			} else {
 				if (!text.equals(t)) {
-					ExitHelper.exit("Found different " + str + " texts in YouTube page");						
+					ExitHelper.exit("Found different " + str + " texts in YouTube watch page");						
 				}
 			}
 		}
