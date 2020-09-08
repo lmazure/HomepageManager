@@ -13,10 +13,10 @@ import data.internet.SiteData;
 import data.internet.SiteDataPersister;
 import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
-import data.linkchecker.YoutubeChannelLinkContentParser;
+import data.linkchecker.YoutubeChannelUserLinkContentParser;
 import utils.FileHelper;
 
-class YoutubeChannelLinkContentParserTest {
+class YoutubeChannelUserLinkContentParserTest {
 
     @Test
     void testErrorMessagePresent() {
@@ -26,7 +26,7 @@ class YoutubeChannelLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               final YoutubeChannelLinkContentParser parser = new YoutubeChannelLinkContentParser(data);
+                               final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
                                Assertions.assertTrue(parser.getErrorMessage().isPresent());
                                Assertions.assertEquals("This channel does not exist.", parser.getErrorMessage().get());
                                consumerHasBeenCalled.set(true);
@@ -42,7 +42,7 @@ class YoutubeChannelLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               final YoutubeChannelLinkContentParser parser = new YoutubeChannelLinkContentParser(data);
+                               final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
                                Assertions.assertTrue(parser.getErrorMessage().isEmpty());
                                consumerHasBeenCalled.set(true);
                            });
@@ -64,7 +64,7 @@ class YoutubeChannelLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               final YoutubeChannelLinkContentParser parser = new YoutubeChannelLinkContentParser(data);
+                               final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
                                Assertions.assertEquals("en", parser.getLanguage());
                                consumerHasBeenCalled.set(true);
                            });
@@ -83,7 +83,7 @@ class YoutubeChannelLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               final YoutubeChannelLinkContentParser parser = new YoutubeChannelLinkContentParser(data);
+                               final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
                                Assertions.assertEquals("fr", parser.getLanguage());
                                consumerHasBeenCalled.set(true);
                            });
@@ -91,7 +91,7 @@ class YoutubeChannelLinkContentParserTest {
     }
 
     private SynchronousSiteDataRetriever buildDataSiteRetriever() {
-        final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\test\\YoutubeWatchLinkContentParserTest");
+        final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\test\\YoutubeChannelUserLinkContentParserTest");
         FileHelper.deleteDirectory(cachePath.toFile());
         return new SynchronousSiteDataRetriever(new SiteDataPersister(cachePath));
     }

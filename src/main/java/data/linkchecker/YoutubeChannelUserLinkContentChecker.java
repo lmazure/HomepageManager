@@ -7,11 +7,11 @@ import java.util.Optional;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkData;
 
-public class YoutubeChannelLinkContentChecker extends LinkContentChecker {
+public class YoutubeChannelUserLinkContentChecker extends LinkContentChecker {
 
-    private YoutubeChannelLinkContentParser _parser;
+    private YoutubeChannelUserLinkContentParser _parser;
     
-    public YoutubeChannelLinkContentChecker(final LinkData linkData,
+    public YoutubeChannelUserLinkContentChecker(final LinkData linkData,
                                             final Optional<ArticleData> articleData,
                                             final File file) {
         super(linkData, articleData, file);
@@ -19,7 +19,7 @@ public class YoutubeChannelLinkContentChecker extends LinkContentChecker {
 
     @Override
     protected LinkContentCheck checkGlobalData(String data) {
-        _parser = new YoutubeChannelLinkContentParser(data);
+        _parser = new YoutubeChannelUserLinkContentParser(data);
 
         if (_parser.getErrorMessage().isPresent()) {
             return new LinkContentCheck(_parser.getErrorMessage().get());                       

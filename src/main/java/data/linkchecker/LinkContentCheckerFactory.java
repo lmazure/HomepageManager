@@ -19,11 +19,11 @@ public class LinkContentCheckerFactory {
         }
 
         if (url.toString().startsWith("https://www.youtube.com/channel/")) {
-            return new YoutubeChannelLinkContentChecker(linkData, articleData, file);
+            return new YoutubeChannelUserLinkContentChecker(linkData, articleData, file);
         }
 
         if (url.toString().startsWith("https://www.youtube.com/user/")) {
-            return new YoutubeChannelLinkContentChecker(linkData, articleData, file);
+            return new YoutubeChannelUserLinkContentChecker(linkData, articleData, file);
         }
 
 		if (url.toString().startsWith("https://www.youtube.com/watch?v=")) {

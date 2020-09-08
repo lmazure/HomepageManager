@@ -7,13 +7,13 @@ import java.util.regex.Pattern;
 import utils.ExitHelper;
 import utils.StringHelper;
 
-public class YoutubeChannelLinkContentParser {
+public class YoutubeChannelUserLinkContentParser {
 
     private final String _data;
     private String _language;
     private Optional<String> _errorMessage;
     
-    public YoutubeChannelLinkContentParser(final String data) {
+    public YoutubeChannelUserLinkContentParser(final String data) {
         _data = data;
     }
 

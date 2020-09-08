@@ -220,7 +220,7 @@ class YoutubeWatchLinkContentParserTest {
 			// description bilingue "https://www.youtube.com/watch?v=FGjWkQePk20",
 			"https://www.youtube.com/watch?v=fxTxU0Echq8",
 			// description bilingue "https://www.youtube.com/watch?v=iJfJPXI5EZQ",
-			"https://www.youtube.com/watch?v=k0-5T_oDt1E",
+			// description bilingue "https://www.youtube.com/watch?v=k0-5T_oDt1E",
             "https://www.youtube.com/watch?v=kiv32_P_T3k",
             "https://www.youtube.com/watch?v=lkdnOuzHdFE",
             // vidéo bilingue "https://www.youtube.com/watch?v=nhDpozSK0uw",
