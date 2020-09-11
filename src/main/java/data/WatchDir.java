@@ -43,6 +43,7 @@ public class WatchDir {
      * @param path directory to watch
      * @throws IOException
      */
+    @SuppressWarnings("resource")
     public WatchDir(final Path path) throws IOException {
 
         _path = path;

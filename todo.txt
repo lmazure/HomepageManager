@@ -34,6 +34,9 @@ il est normal de pouvoir avoir uniquement une date de publication ?
 - remettre en place la détection des ordres alphabétiques incorrects
 
 - nettoyage des fichiers
+links/office.xml
+links/tourism.xml
+links/life.xml
 links/jslib.xml
 notes/corrupter.xml
 links/c.xml

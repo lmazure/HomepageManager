@@ -290,6 +290,7 @@ public class Reporter {
     }
      
     static private String jsonEscape(final String str) {
-        return str.replace("\\", "\\\\").replace("\"", "\\\"");
+        return str.replace("\\", "\\\\")
+                  .replace("\"", "\\\"");
     }
 }
