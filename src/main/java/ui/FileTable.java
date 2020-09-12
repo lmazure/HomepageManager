@@ -41,28 +41,28 @@ public class FileTable extends Application {
         final HTMLGenerator htmlFileGenerator = new HTMLGenerator(_homepagePath, _tmpPath, htmlFileController);
         uiControllers.add(htmlFileController);
         fileHandlers.add(htmlFileGenerator);
-        
+
         final FileCheckController fileCheckController = new FileCheckController(_list);
         final FileChecker fileCheckGenerator = new FileChecker(_homepagePath, _tmpPath, fileCheckController);
         uiControllers.add(fileCheckController);
         fileHandlers.add(fileCheckGenerator);
-        
+
         final NodeValueCheckController nodeCheckController = new NodeValueCheckController(_list);
         final NodeValueChecker nodeValueCheckGenerator = new NodeValueChecker(_homepagePath, _tmpPath, nodeCheckController);
         uiControllers.add(nodeCheckController);
         fileHandlers.add(nodeValueCheckGenerator);
-        
+
         if (_internetAccessiSEnabled) {
             final LinkCheckController linkCheckController = new LinkCheckController(_list);
             final LinkChecker linkCheckGenerator = new LinkChecker(_homepagePath, _tmpPath, linkCheckController);
             uiControllers.add(linkCheckController);
             fileHandlers.add(linkCheckGenerator);
         }
-        
+
         stage.setTitle("Homepage Manager");
         stage.setWidth(1100);
         stage.setHeight(500);
- 
+
         final BorderPane border = new BorderPane();
         border.setCenter(buildTable(uiControllers));
         border.setBottom(builtButtons());
@@ -83,7 +83,7 @@ public class FileTable extends Application {
             }
         };
         calculateService.start();
-        
+
         stage.setScene(scene);
         stage.show();
     }
@@ -140,13 +140,13 @@ public class FileTable extends Application {
         _list = new ObservableFileList();
         launch();
     }
-    
+
     private void generateGlobalFiles() {        
         SiteFilesGenerator.generate(_homepagePath, _list.getFileList());
         JsonGenerator.generate(_homepagePath, _list.getFileList());
         MetricsExtractor.generate(_homepagePath);
     }
-    
+
     private void exit() {
         System.exit(0);
     }

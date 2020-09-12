@@ -10,10 +10,10 @@ public class LinkCheckController extends GenericBackgroundUiController {
     public LinkCheckController(final ObservableFileList list) {
         super((final Path file, final Status status, final Path outputFile, final Path reportFile) -> list.getFile(file).setLinkCheckStatus(status, outputFile, reportFile));
     }
-    
+
     @Override
     public TableColumn<ObservableFile, ?> getColumns() {
-        
+
         final TableColumn<ObservableFile, String> allColumns = new TableColumn<ObservableFile, String>("Check links");
 
         final TableColumn<ObservableFile, String> displayColumn = new TableColumn<>("Display");

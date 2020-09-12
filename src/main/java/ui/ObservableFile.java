@@ -27,7 +27,7 @@ public class ObservableFile { // TODO this class must be split, it currently kno
     private Path _nodeValueCheckReportFile;
     private Path _linkCheckOuputFile;
     private Path _linkCheckReportFile;
-    
+
     private static DateTimeFormatter s_formatter = DateTimeFormatter.ofPattern("YYYYMMdd'T'HHmmss");
 
     public ObservableFile(final Path path,
@@ -42,11 +42,11 @@ public class ObservableFile { // TODO this class must be split, it currently kno
         _nodeValueCheckStatus = new SimpleStringProperty();
         _linkCheckStatus = new SimpleStringProperty();
     }
-    
+
     public SimpleStringProperty getNameProperty() {
         return _name;
     }
-    
+
     public String getName() {
         return _name.get();
     }
@@ -59,7 +59,7 @@ public class ObservableFile { // TODO this class must be split, it currently kno
         _modificationDateTime.set("");
         _size.set(0L);
     }
-    
+
     void setCreated(final FileTime modificationDateTime,
                     final long size) {
         _modificationDateTime.set(formatFileTime(modificationDateTime));
@@ -91,21 +91,21 @@ public class ObservableFile { // TODO this class must be split, it currently kno
         _htmlFileOuputFile = outputFile;
         _htmlFileReportFile = reportFile;
     }
-    
+
     public Path getHtmlFileOuputFile() {
         return _htmlFileOuputFile;
     }
-    
+
     public Path getHtmlFileReportFile() {
         return _htmlFileReportFile;
     }
-    
+
     // --- file check ---
     
     public SimpleStringProperty getFileCheckProperty() {
         return _fileCheckStatus;
     }
-    
+
     public String getFileCheckStatus() {
         return _fileCheckStatus.get();
     }
@@ -127,11 +127,11 @@ public class ObservableFile { // TODO this class must be split, it currently kno
     }
     
     // --- node value check ---
-    
+
     public SimpleStringProperty getNodeValueCheckProperty() {
         return _nodeValueCheckStatus;
     }
-    
+
     public String getNodeValueCheckStatus() {
         return _nodeValueCheckStatus.get();
     }
@@ -151,13 +151,13 @@ public class ObservableFile { // TODO this class must be split, it currently kno
     public Path getNodeValueCheckReportFile() {
         return _nodeValueCheckReportFile;
     }
-    
+
     // --- link check ---
-    
+
     public SimpleStringProperty getLinkCheckProperty() {
         return _linkCheckStatus;
     }
-    
+
     public String getLinkCheckStatus() {
         return _linkCheckStatus.get();
     }

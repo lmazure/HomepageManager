@@ -162,29 +162,29 @@ public class WatchDir {
 
                 // dispatch event
                 if (event.kind().equals(StandardWatchEventKinds.ENTRY_CREATE) ) {
-                	Logger.log(Logger.Level.TRACE)
-                	      .append("DBGWATCHDIR -- path = ")
-                	      .append(child)
-                	      .append(" create")
-                	      .submit();
+                    Logger.log(Logger.Level.TRACE)
+                          .append("DBGWATCHDIR -- path = ")
+                          .append(child)
+                          .append(" create")
+                          .submit();
                     for (FileWatcher w: _watchers) {
                         w.consume(child, Event.CREATE);
                     }
                 } else if (event.kind().equals(StandardWatchEventKinds.ENTRY_DELETE) ) {
-                	Logger.log(Logger.Level.TRACE)
-                	      .append("DBGWATCHDIR -- path = ")
+                    Logger.log(Logger.Level.TRACE)
+                          .append("DBGWATCHDIR -- path = ")
                           .append(child)
-                	      .append(" delete")
-                	      .submit();
+                          .append(" delete")
+                          .submit();
                     for (FileWatcher w: _watchers) {
                         w.consume(child, Event.DELETE);
                     }
                 } else if (event.kind().equals(StandardWatchEventKinds.ENTRY_MODIFY) ) {
-                	Logger.log(Logger.Level.TRACE)
-                	      .append("DBGWATCHDIR -- path = ")
+                    Logger.log(Logger.Level.TRACE)
+                          .append("DBGWATCHDIR -- path = ")
                           .append(child)
-                	      .append(" modify")
-                	      .submit();
+                          .append(" modify")
+                          .submit();
                     for (FileWatcher w: _watchers) {
                         w.consume(child, Event.DELETE);
                         w.consume(child, Event.CREATE);
@@ -230,7 +230,7 @@ public class WatchDir {
             _matcher = matcher;
             _consummer = consummer;
         }
-        
+
         public void consume(final Path path, final Event event) {
             
             if (_matcher.matches(path)) {
