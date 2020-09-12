@@ -23,7 +23,7 @@ public class NodeValueCheckController extends GenericUiController {
 
         final TableColumn<ObservableFile, String> statusColumn = new TableColumn<>("Status");
         statusColumn.setPrefWidth(170);
-        statusColumn.setCellValueFactory(f -> f.getValue().nodeValueCheckProperty());
+        statusColumn.setCellValueFactory(f -> f.getValue().getNodeValueCheckProperty());
         statusColumn.setCellFactory(p -> { return new UpdatableButtonCell<ObservableFile>(f -> ActionHelper.displayFile(f.getNodeValueCheckReportFile()));});
         allColumns.getColumns().add(statusColumn);
 

@@ -27,7 +27,7 @@ public class HtmlGenerationController extends GenericUiController {
 
         final TableColumn<ObservableFile, String> statusColumn = new TableColumn<>("Status");
         statusColumn.setPrefWidth(170);
-        statusColumn.setCellValueFactory(f -> f.getValue().htmlGenerationProperty());
+        statusColumn.setCellValueFactory(f -> f.getValue().getHtmlGenerationProperty());
         statusColumn.setCellFactory(p -> { return new UpdatableButtonCell<ObservableFile>(f -> ActionHelper.displayFile(f.getHtmlFileReportFile()));});
         allColumns.getColumns().add(statusColumn);
 

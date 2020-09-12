@@ -13,7 +13,7 @@ import javafx.beans.property.SimpleStringProperty;
 public class ObservableFile { // TODO this class must be split, it currently knows all the types of generated files !
 
     private final SimpleStringProperty _name;
-    private final SimpleStringProperty _creationDateTime;
+    private final SimpleStringProperty _modificationDateTime;
     private final SimpleLongProperty _size;
     private final SimpleStringProperty _htmlFileStatus;
     private final SimpleStringProperty _fileCheckStatus;
@@ -31,11 +31,11 @@ public class ObservableFile { // TODO this class must be split, it currently kno
     private static DateTimeFormatter s_formatter = DateTimeFormatter.ofPattern("YYYYMMdd'T'HHmmss");
 
     public ObservableFile(final Path path,
-                          final FileTime creationDateTime,
+                          final FileTime modificationDateTime,
                           final long size) {
         
         _name = new SimpleStringProperty(path.toString());
-        _creationDateTime = new SimpleStringProperty(formatFileTime(creationDateTime));
+        _modificationDateTime = new SimpleStringProperty(formatFileTime(modificationDateTime));
         _size = new SimpleLongProperty(size);
         _htmlFileStatus = new SimpleStringProperty();
         _fileCheckStatus = new SimpleStringProperty();
@@ -43,7 +43,7 @@ public class ObservableFile { // TODO this class must be split, it currently kno
         _linkCheckStatus = new SimpleStringProperty();
     }
     
-    public SimpleStringProperty nameProperty() {
+    public SimpleStringProperty getNameProperty() {
         return _name;
     }
     
@@ -56,30 +56,30 @@ public class ObservableFile { // TODO this class must be split, it currently kno
     }
 
     void setDeleted() {
-        _creationDateTime.set("");
+        _modificationDateTime.set("");
         _size.set(0L);
     }
     
-    void setCreated(final FileTime creationDateTime,
+    void setCreated(final FileTime modificationDateTime,
                     final long size) {
-        _creationDateTime.set(formatFileTime(creationDateTime));
+        _modificationDateTime.set(formatFileTime(modificationDateTime));
         _size.set(size);
     }
-       
-    public SimpleStringProperty creationDateTimeProperty() {
-        return _creationDateTime;
+
+    public SimpleStringProperty getModificationDateTimeProperty() {
+        return _modificationDateTime;
     }
-    
-    public SimpleLongProperty sizeProperty() {
+
+    public SimpleLongProperty getSizeProperty() {
         return _size;
     }
-    
+
     // --- HTML generation ---
-    
-    public SimpleStringProperty htmlGenerationProperty() {
+
+    public SimpleStringProperty getHtmlGenerationProperty() {
         return _htmlFileStatus;
     }
-    
+
     public String getHtmlGenerationStatus() {
         return _htmlFileStatus.get();
     }
@@ -102,7 +102,7 @@ public class ObservableFile { // TODO this class must be split, it currently kno
     
     // --- file check ---
     
-    public SimpleStringProperty fileCheckProperty() {
+    public SimpleStringProperty getFileCheckProperty() {
         return _fileCheckStatus;
     }
     
@@ -128,7 +128,7 @@ public class ObservableFile { // TODO this class must be split, it currently kno
     
     // --- node value check ---
     
-    public SimpleStringProperty nodeValueCheckProperty() {
+    public SimpleStringProperty getNodeValueCheckProperty() {
         return _nodeValueCheckStatus;
     }
     
@@ -154,7 +154,7 @@ public class ObservableFile { // TODO this class must be split, it currently kno
     
     // --- link check ---
     
-    public SimpleStringProperty linkCheckProperty() {
+    public SimpleStringProperty getLinkCheckProperty() {
         return _linkCheckStatus;
     }
     

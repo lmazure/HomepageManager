@@ -23,7 +23,7 @@ public class FileCheckController extends GenericUiController {
 
         final TableColumn<ObservableFile, String> statusColumn = new TableColumn<>("Status");
         statusColumn.setPrefWidth(170);
-        statusColumn.setCellValueFactory(f -> f.getValue().fileCheckProperty());
+        statusColumn.setCellValueFactory(f -> f.getValue().getFileCheckProperty());
         statusColumn.setCellFactory(p -> { return new UpdatableButtonCell<ObservableFile>(f -> ActionHelper.displayFile(f.getFileCheckReportFile()));});
         allColumns.getColumns().add(statusColumn);
 

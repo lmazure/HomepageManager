@@ -4,7 +4,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-import data.DataOrchestrator;
+import data.FileEventDispachter;
 import data.FileChecker;
 import data.FileHandler;
 import data.HTMLGenerator;
@@ -75,7 +75,7 @@ public class FileTable extends Application {
 
                     @Override
                     protected Void call() throws Exception {
-                        final DataOrchestrator dataOrchestrator = new DataOrchestrator(_homepagePath, _list, fileHandlers);
+                        final FileEventDispachter dataOrchestrator = new FileEventDispachter(_homepagePath, _list, fileHandlers);
                         dataOrchestrator.start();
                         return null;
                     }
@@ -93,26 +93,26 @@ public class FileTable extends Application {
         final TableView<ObservableFile> table = new TableView<ObservableFile>();
         
         final TableColumn<ObservableFile, String> fileColumn = new TableColumn<ObservableFile, String>("File");
-        fileColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+        fileColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
         fileColumn.setPrefWidth(250);
         table.getColumns().add(fileColumn);
         
-        final TableColumn<ObservableFile, String> creationDateTimeColumn = new TableColumn<>("Creation");
-        creationDateTimeColumn.setPrefWidth(110);
-        creationDateTimeColumn.setCellValueFactory(f -> f.getValue().creationDateTimeProperty());
-        table.getColumns().add(creationDateTimeColumn);
+        final TableColumn<ObservableFile, String> modificationDateTimeColumn = new TableColumn<>("Modified on");
+        modificationDateTimeColumn.setPrefWidth(110);
+        modificationDateTimeColumn.setCellValueFactory(f -> f.getValue().getModificationDateTimeProperty());
+        table.getColumns().add(modificationDateTimeColumn);
 
         final TableColumn<ObservableFile, Number> sizeColumn = new TableColumn<>("Size");
         sizeColumn.setPrefWidth(45);
-        sizeColumn.setCellValueFactory(f -> f.getValue().sizeProperty());
+        sizeColumn.setCellValueFactory(f -> f.getValue().getSizeProperty());
         table.getColumns().add(sizeColumn);
 
         for (final GenericUiController uiController: uiControllers) {
             table.getColumns().add(uiController.getColumns());
         }
-        
+
         table.setItems(_list.getObservableFileList());
-        
+
         return table;
     }
 

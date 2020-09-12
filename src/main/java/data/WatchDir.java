@@ -222,7 +222,7 @@ public class WatchDir {
         private final BiConsumer<Path, Event> _consummer;
 
         /**
-         * @param _matcher
+         * @param matcher
          * @param consummer
          */
         public FileWatcher(final PathMatcher matcher,

@@ -14,10 +14,10 @@ import java.util.List;
 import utils.ExitHelper;
 import utils.Logger;
 
-public class DataOrchestrator {
+public class FileEventDispachter {
 
     final static private String s_markerFile = "google1b78f05130a6dbb0.html"; // TODO this should not be hardcoded
-    final static PathMatcher _matcher = FileSystems.getDefault().getPathMatcher("glob:**/*.xml");
+    final static private PathMatcher s_matcher = FileSystems.getDefault().getPathMatcher("glob:**/*.xml");
     final static List<String> _ignoredDirectories = new ArrayList<>(List.of( ".svn",
                                                                              ".git",
                                                                              ".vscode",
@@ -30,14 +30,14 @@ public class DataOrchestrator {
     private final List<FileHandler> _fileHandlers;
     private final FileExistenceHandler _handler;
 
-    public DataOrchestrator(final Path homepagePath,
-                            final FileExistenceHandler handler,
-                            final List<FileHandler> fileHandlers) {
+    public FileEventDispachter(final Path homepagePath,
+                               final FileExistenceHandler handler,
+                               final List<FileHandler> fileHandlers) {
         _homepagePath = homepagePath;
         _fileHandlers = fileHandlers;
         _handler = handler;
     }
-    
+
     public void start() {
         
         if (!(new File(_homepagePath + File.separator + s_markerFile)).exists()) {
@@ -45,9 +45,9 @@ public class DataOrchestrator {
         }
 
         try {
-            recordFilesExistingAtStartup(_matcher);
+            recordFilesExistingAtStartup(s_matcher);
             new WatchDir(_homepagePath).ignoreDirectories(_ignoredDirectories)
-                                       .addFileWatcher(_matcher, (final Path p, final WatchDir.Event e) -> dispatchEvent(p, e))
+                                       .addFileWatcher(s_matcher, (final Path p, final WatchDir.Event e) -> dispatchEvent(p, e))
                                        .processEvents();
         } catch (final Exception e) {
             // catch all exceptions, otherwise JavaFX will swallow it and it will be a nightmare to debug
@@ -72,7 +72,7 @@ public class DataOrchestrator {
                                              final BasicFileAttributes attrs)
             {
                 if (matcher.matches(path)) {
-                    addFile(path);
+                    addFile(path, attrs);
                 }
                 return FileVisitResult.CONTINUE;
             }
@@ -82,22 +82,22 @@ public class DataOrchestrator {
               .submit();
     }
 
-    private void addFile(final Path file) {
-        
-        final BasicFileAttributes attr = getBasicFileAttributes(file);
-        _handler.handleCreation(file, attr.creationTime(), attr.size());
-        
+    private void addFile(final Path file,
+                         final BasicFileAttributes attr) {
+
+        _handler.handleCreation(file, attr.lastModifiedTime(), attr.size());
+
         for (final FileHandler h: _fileHandlers) {
             if (h.outputFileMustBeRegenerated(file)) {
                 h.handleDeletion(file);
-                h.handleCreation(file);                
+                h.handleCreation(file);
             }
         }
     }
-    
+
     private void dispatchEvent(final Path path,
                                final WatchDir.Event event) {
-        
+
         switch (event) {
             case CREATE:
                 handleFileCreation(path);
@@ -114,27 +114,27 @@ public class DataOrchestrator {
     private void handleFileCreation(final Path file) {
 
         final BasicFileAttributes attr = getBasicFileAttributes(file);
-        _handler.handleCreation(file, attr.creationTime(), attr.size());
+        _handler.handleCreation(file, attr.lastModifiedTime(), attr.size());
 
         for (final FileHandler h: _fileHandlers) {
             h.handleCreation(file);
         }
     }
-    
+
     private void handleFileDeletion(final Path file) {
         _handler.handleDeletion(file);
         for (final FileHandler h: _fileHandlers) {
             h.handleDeletion(file);
         }
     }
-    
+
     private BasicFileAttributes getBasicFileAttributes(final Path file) {
         try {
             return Files.readAttributes(file, BasicFileAttributes.class);
         } catch (final IOException e) {
             ExitHelper.exit(e);
         }
-        
+
         // NOT REACHED
         return null;
     }
