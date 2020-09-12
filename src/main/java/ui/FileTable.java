@@ -97,10 +97,16 @@ public class FileTable extends Application {
         fileColumn.setPrefWidth(250);
         table.getColumns().add(fileColumn);
         
-        final TableColumn<ObservableFile, Boolean> deletedColumn = new TableColumn<ObservableFile, Boolean>("Deleted");
-        deletedColumn.setCellValueFactory(cellData -> cellData.getValue().deletedProperty());
-        table.getColumns().add(deletedColumn);
-        
+        final TableColumn<ObservableFile, String> creationDateTimeColumn = new TableColumn<>("Creation");
+        creationDateTimeColumn.setPrefWidth(110);
+        creationDateTimeColumn.setCellValueFactory(f -> f.getValue().creationDateTimeProperty());
+        table.getColumns().add(creationDateTimeColumn);
+
+        final TableColumn<ObservableFile, Number> sizeColumn = new TableColumn<>("Size");
+        sizeColumn.setPrefWidth(45);
+        sizeColumn.setCellValueFactory(f -> f.getValue().sizeProperty());
+        table.getColumns().add(sizeColumn);
+
         for (final GenericUiController uiController: uiControllers) {
             table.getColumns().add(uiController.getColumns());
         }

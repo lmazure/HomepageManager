@@ -2,15 +2,19 @@ package ui;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.FileTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 import data.FileHandler;
-import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 
-public class ObservableFile {
+public class ObservableFile { // TODO this class must be split, it currently knows all the types of generated files !
 
     private final SimpleStringProperty _name;
-    private final SimpleBooleanProperty _isDeleted;
+    private final SimpleStringProperty _creationDateTime;
+    private final SimpleLongProperty _size;
     private final SimpleStringProperty _htmlFileStatus;
     private final SimpleStringProperty _fileCheckStatus;
     private final SimpleStringProperty _nodeValueCheckStatus;
@@ -23,11 +27,16 @@ public class ObservableFile {
     private Path _nodeValueCheckReportFile;
     private Path _linkCheckOuputFile;
     private Path _linkCheckReportFile;
+    
+    private static DateTimeFormatter s_formatter = DateTimeFormatter.ofPattern("YYYYMMdd'T'HHmmss");
 
-    public ObservableFile(final Path path) {
+    public ObservableFile(final Path path,
+                          final FileTime creationDateTime,
+                          final long size) {
         
         _name = new SimpleStringProperty(path.toString());
-        _isDeleted = new SimpleBooleanProperty(false);
+        _creationDateTime = new SimpleStringProperty(formatFileTime(creationDateTime));
+        _size = new SimpleLongProperty(size);
         _htmlFileStatus = new SimpleStringProperty();
         _fileCheckStatus = new SimpleStringProperty();
         _nodeValueCheckStatus = new SimpleStringProperty();
@@ -46,24 +55,23 @@ public class ObservableFile {
         return Paths.get(_name.get());
     }
 
-    public void setName(final String name) {
-       _name.set(name);
-    }
-
     void setDeleted() {
-        _isDeleted.set(true);
+        _creationDateTime.set("");
+        _size.set(0L);
     }
     
-    void setCreated() {
-        _isDeleted.set(false);
+    void setCreated(final FileTime creationDateTime,
+                    final long size) {
+        _creationDateTime.set(formatFileTime(creationDateTime));
+        _size.set(size);
     }
        
-    boolean isDeleted() {
-        return _isDeleted.get();
+    public SimpleStringProperty creationDateTimeProperty() {
+        return _creationDateTime;
     }
     
-    public SimpleBooleanProperty deletedProperty() {
-        return _isDeleted;
+    public SimpleLongProperty sizeProperty() {
+        return _size;
     }
     
     // --- HTML generation ---
@@ -168,4 +176,13 @@ public class ObservableFile {
 
     public Path getLinkCheckReportFile() {
         return _linkCheckReportFile;
-    }}
+    }
+    
+    // --- helpers ---
+    
+    private static String formatFileTime(final FileTime fileTime) {
+        return s_formatter.format(fileTime.toInstant()
+                                          .atZone(ZoneId.systemDefault())
+                                          .toLocalDateTime());
+    }
+}

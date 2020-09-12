@@ -1,6 +1,7 @@
 package ui;
 
 import java.nio.file.Path;
+import java.nio.file.attribute.FileTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,14 +22,16 @@ public class ObservableFileList implements FileExistenceHandler {
     }
     
     @Override
-    public void handleCreation(final Path file) {
+    public void handleCreation(final Path file,
+                               final FileTime creationDateTime,
+                               final long size) {
         final ObservableFile f = getFile(file);
         if (f == null) {
-            final ObservableFile nf = new ObservableFile(file);
+            final ObservableFile nf = new ObservableFile(file, creationDateTime, size);
             _data.add(nf);
             _files.put(file, nf);            
         } else {
-            f.setCreated();
+            f.setCreated(creationDateTime, size);
         }
     }
 

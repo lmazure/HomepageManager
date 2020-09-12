@@ -84,7 +84,8 @@ public class DataOrchestrator {
 
     private void addFile(final Path file) {
         
-        _handler.handleCreation(file);
+        final BasicFileAttributes attr = getBasicFileAttributes(file);
+        _handler.handleCreation(file, attr.creationTime(), attr.size());
         
         for (final FileHandler h: _fileHandlers) {
             if (h.outputFileMustBeRegenerated(file)) {
@@ -111,7 +112,10 @@ public class DataOrchestrator {
     }
 
     private void handleFileCreation(final Path file) {
-        _handler.handleCreation(file);
+
+        final BasicFileAttributes attr = getBasicFileAttributes(file);
+        _handler.handleCreation(file, attr.creationTime(), attr.size());
+
         for (final FileHandler h: _fileHandlers) {
             h.handleCreation(file);
         }
@@ -122,5 +126,16 @@ public class DataOrchestrator {
         for (final FileHandler h: _fileHandlers) {
             h.handleDeletion(file);
         }
+    }
+    
+    private BasicFileAttributes getBasicFileAttributes(final Path file) {
+        try {
+            return Files.readAttributes(file, BasicFileAttributes.class);
+        } catch (final IOException e) {
+            ExitHelper.exit(e);
+        }
+        
+        // NOT REACHED
+        return null;
     }
 }

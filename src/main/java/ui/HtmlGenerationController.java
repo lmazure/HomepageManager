@@ -30,7 +30,7 @@ public class HtmlGenerationController extends GenericUiController {
         statusColumn.setCellValueFactory(f -> f.getValue().htmlGenerationProperty());
         statusColumn.setCellFactory(p -> { return new UpdatableButtonCell<ObservableFile>(f -> ActionHelper.displayFile(f.getHtmlFileReportFile()));});
         allColumns.getColumns().add(statusColumn);
-        
+
         return allColumns;
     }
 }
