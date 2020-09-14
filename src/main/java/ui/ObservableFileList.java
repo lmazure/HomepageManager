@@ -20,7 +20,7 @@ public class ObservableFileList implements FileExistenceHandler {
         _data = FXCollections.observableArrayList();
         _files = new HashMap<Path, ObservableFile>(); 
     }
-    
+
     @Override
     public void handleCreation(final Path file,
                                final FileTime creationDateTime,
@@ -39,17 +39,17 @@ public class ObservableFileList implements FileExistenceHandler {
     public void handleDeletion(final Path file) {
         getFile(file).setDeleted();
     }
-    
+
     public ObservableList<ObservableFile> getObservableFileList() {
         return _data;
     }
-    
+
     public List<Path> getFileList() {
         return _data.stream()
                     .map(f -> f.getPath())
                     .collect(Collectors.toList());
     }
-    
+
     public ObservableFile getFile(final Path file) {
         return _files.get(file);
     }

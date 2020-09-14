@@ -1,3 +1,5 @@
+- comprendre d'où vient lmzr
+
 - ajouter une colonne avec la date de dernière modification et pouvoir trier dessus
 
 - extraction des KEYWORDS
@@ -34,7 +36,6 @@ il est normal de pouvoir avoir uniquement une date de publication ?
 - remettre en place la détection des ordres alphabétiques incorrects
 
 - nettoyage des fichiers
-links/office.xml
 links/tourism.xml
 links/life.xml
 links/jslib.xml
