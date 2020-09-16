@@ -29,7 +29,7 @@ public class ObservableFileList implements FileExistenceHandler {
         if (f == null) {
             final ObservableFile nf = new ObservableFile(file, creationDateTime, size);
             _data.add(nf);
-            _files.put(file, nf);            
+            _files.put(file, nf);
         } else {
             f.setCreated(creationDateTime, size);
         }

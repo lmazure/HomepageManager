@@ -1,3 +1,7 @@
+- problème avec la date de publiction de https://medium.com/@kentbeck_7670/a-years-worth-c1cbc3085e9d
+
+- nettoyer le code des popups
+
 - comprendre d'où vient lmzr
 
 - ajouter une colonne avec la date de dernière modification et pouvoir trier dessus
@@ -36,8 +40,6 @@ il est normal de pouvoir avoir uniquement une date de publication ?
 - remettre en place la détection des ordres alphabétiques incorrects
 
 - nettoyage des fichiers
-links/tourism.xml
-links/life.xml
 links/jslib.xml
 notes/corrupter.xml
 links/c.xml
@@ -62,9 +64,6 @@ https://www.youtube.com/watch?v=qMyMCDPaV60
 - vérification des liens internes
 
 - ajouter une règle : la date de publication doit être après la date de création
-
-- ajouter notion de date de publication
-gérer la date de publication coté client
 
 - corriger le fait que les liens soient chargés deux fois
 
