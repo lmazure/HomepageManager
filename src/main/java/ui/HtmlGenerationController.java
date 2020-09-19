@@ -21,7 +21,7 @@ public class HtmlGenerationController extends GenericUiController {
         final TableColumn<ObservableFile, String> allColumns = new TableColumn<ObservableFile, String>("HTML");
 
         final TableColumn<ObservableFile, String> displayColumn = new TableColumn<>("Display");
-        displayColumn.setPrefWidth(70);
+        displayColumn.setPrefWidth(59);
         displayColumn.setCellFactory(p -> { return new FixedButtonCell<ObservableFile>("display", f -> ActionHelper.displayHtmlFile(f.getHtmlFileOuputFile(), _homepagePath));});
         allColumns.getColumns().add(displayColumn);
 

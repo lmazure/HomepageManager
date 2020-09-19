@@ -10,14 +10,14 @@ public class NodeValueCheckController extends GenericUiController {
     public NodeValueCheckController(final ObservableFileList list) {
         super((final Path file, final Status status, final Path outputFile, final Path reportFile) -> list.getFile(file).setNodeValueCheckStatus(status, outputFile, reportFile));
     }
-    
+
     @Override
     public TableColumn<ObservableFile, ?> getColumns() {
-        
+
         final TableColumn<ObservableFile, String> allColumns = new TableColumn<ObservableFile, String>("Check node values");
 
         final TableColumn<ObservableFile, String> displayColumn = new TableColumn<>("Display");
-        displayColumn.setPrefWidth(70);
+        displayColumn.setPrefWidth(59);
         displayColumn.setCellFactory(p -> { return new FixedButtonCell<ObservableFile>("display", f -> ActionHelper.displayFile(f.getNodeValueCheckOuputFile()));});
         allColumns.getColumns().add(displayColumn);
 

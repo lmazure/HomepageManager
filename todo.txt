@@ -1,13 +1,7 @@
+- éviter le crash sur <DAY></DAY>
+- corriger crash si on met <DAY>1258</DAY>
+
 - problème avec la date de publiction de https://medium.com/@kentbeck_7670/a-years-worth-c1cbc3085e9d
-
-- nettoyer le code des popups
-
-- comprendre d'où vient lmzr
-
-- ajouter une colonne avec la date de dernière modification et pouvoir trier dessus
-
-- extraction des KEYWORDS
--- implémenter code client
 
 - faire un prefetch de la map quand on affiche la page d'accueil
 
@@ -31,8 +25,6 @@ YouTube link with no creation date
 est incorrect ?
 il est normal de pouvoir avoir uniquement une date de publication ?
 
-- corriger crash si on met <DAY>1258</DAY>
-
 - ajouter les liens vers les podcats Numberphile2 https://podcastaddict.com/episode/109050317 
 
 - forcer la mise à jour des caches avant  de modifier les fichiers JS de nouveau
@@ -40,8 +32,7 @@ il est normal de pouvoir avoir uniquement une date de publication ?
 - remettre en place la détection des ordres alphabétiques incorrects
 
 - nettoyage des fichiers
-links/jslib.xml
-notes/corrupter.xml
+space.xml
 links/c.xml
 links/perl.xml
 links/xml.xml
@@ -54,6 +45,7 @@ Nettoyer javascr.xml
 physics.xml
 coding.xml
 bbst.xml
+autotest.xml
 
 - comprendre pourquoi certaines vidéos sont marquées non playable
 https://www.youtube.com/watch?v=qMyMCDPaV60
@@ -65,7 +57,7 @@ https://www.youtube.com/watch?v=qMyMCDPaV60
 
 - ajouter une règle : la date de publication doit être après la date de création
 
-- corriger le fait que les liens soient chargés deux fois
+s- corriger le fait que les liens soient chargés deux fois
 
 - si un lien n'est plus zombie, on ne le détecte pas car on ne vérifie pas les données des liens zombie
 

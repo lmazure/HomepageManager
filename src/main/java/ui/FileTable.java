@@ -36,7 +36,7 @@ public class FileTable extends Application {
 
         final List<GenericUiController> uiControllers = new ArrayList<GenericUiController>();
         final List<FileHandler> fileHandlers= new ArrayList<FileHandler>();
-        
+
         final HtmlGenerationController htmlFileController = new HtmlGenerationController(_list, _homepagePath);
         final HTMLGenerator htmlFileGenerator = new HTMLGenerator(_homepagePath, _tmpPath, htmlFileController);
         uiControllers.add(htmlFileController);
@@ -60,8 +60,9 @@ public class FileTable extends Application {
         }
 
         stage.setTitle("Homepage Manager");
-        stage.setWidth(1100);
-        stage.setHeight(500);
+        stage.setWidth(1000);
+        stage.setHeight(600);
+        stage.setMaximized(true);
 
         final BorderPane border = new BorderPane();
         border.setCenter(buildTable(uiControllers));
@@ -89,16 +90,16 @@ public class FileTable extends Application {
     }
 
     private TableView<ObservableFile> buildTable(final List<GenericUiController> uiControllers) {
-        
+
         final TableView<ObservableFile> table = new TableView<ObservableFile>();
-        
+
         final TableColumn<ObservableFile, String> fileColumn = new TableColumn<ObservableFile, String>("File");
         fileColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
-        fileColumn.setPrefWidth(250);
+        fileColumn.setPrefWidth(230);
         table.getColumns().add(fileColumn);
-        
+
         final TableColumn<ObservableFile, String> modificationDateTimeColumn = new TableColumn<>("Modified on");
-        modificationDateTimeColumn.setPrefWidth(110);
+        modificationDateTimeColumn.setPrefWidth(103);
         modificationDateTimeColumn.setCellValueFactory(f -> f.getValue().getModificationDateTimeProperty());
         table.getColumns().add(modificationDateTimeColumn);
 
@@ -117,17 +118,17 @@ public class FileTable extends Application {
     }
 
     private HBox builtButtons() {
-        
+
         final HBox buttonPanel = new HBox();
-        
+
         final Button generateGlobalFileButton = new Button("Generate global files");
         generateGlobalFileButton.setOnAction(event -> generateGlobalFiles());
         buttonPanel.getChildren().add(generateGlobalFileButton);
-        
+
         final Button quitButton = new Button("Quit");
         quitButton.setOnAction(event -> exit());
         buttonPanel.getChildren().add(quitButton);
-        
+
         return buttonPanel;
     }
 
