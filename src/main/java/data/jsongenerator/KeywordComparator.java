@@ -8,6 +8,6 @@ public class KeywordComparator implements Comparator<Keyword>{
     public int compare(final Keyword keyword0,
                        final Keyword keyword1) {
 
-    	return keyword0.getId().compareTo(keyword1.getId());
+        return keyword0.getId().compareTo(keyword1.getId());
     }
 }

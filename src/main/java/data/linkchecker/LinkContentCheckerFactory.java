@@ -9,11 +9,11 @@ import utils.xmlparsing.LinkData;
 
 public class LinkContentCheckerFactory {
 
-	public static LinkContentChecker build(final URL url,
+    public static LinkContentChecker build(final URL url,
                                            final LinkData linkData,
                                            final Optional<ArticleData> articleData,
                                            final File file) {
-		
+
         if (url.toString().startsWith("https://medium.com/")) {
             return new MediumLinkContentChecker(linkData, articleData, file);
         }
@@ -26,10 +26,10 @@ public class LinkContentCheckerFactory {
             return new YoutubeChannelUserLinkContentChecker(linkData, articleData, file);
         }
 
-		if (url.toString().startsWith("https://www.youtube.com/watch?v=")) {
-			return new YoutubeWatchLinkContentChecker(linkData, articleData, file);
-		}
+        if (url.toString().startsWith("https://www.youtube.com/watch?v=")) {
+            return new YoutubeWatchLinkContentChecker(linkData, articleData, file);
+        }
 
         return new LinkContentChecker(linkData, articleData, file);
-	}
+    }
 }

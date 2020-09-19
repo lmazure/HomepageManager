@@ -17,10 +17,10 @@ public class CachedSiteDataRetrieverTest {
 
     @Test
     void properlyCached() {
-        
+
         final CachedSiteDataRetriever retriever = buildDataSiteRetriever();
         final URL url = TestHelper.buildURL("http://example.com");
-        
+
         // the first retrieval must not use the cache
         final AtomicBoolean firstConsumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
@@ -53,7 +53,7 @@ public class CachedSiteDataRetrieverTest {
                            3600);
         Assertions.assertTrue(secondConsumerHasBeenCalled.get());
 
-        
+
         // the third retrieval must use the cache and call twice
         final AtomicBoolean thirdConsumerHasBeenCalledOnce = new AtomicBoolean(false);
         final AtomicBoolean thirdConsumerHasBeenCalledTwice = new AtomicBoolean(false);

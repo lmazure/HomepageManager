@@ -39,7 +39,7 @@ public class FileEventDispachter {
     }
 
     public void start() {
-        
+
         if (!(new File(_homepagePath + File.separator + s_markerFile)).exists()) {
             ExitHelper.exit(_homepagePath + " does not contain the homepage");
         }

@@ -38,7 +38,7 @@ public class HTMLGenerator implements FileHandler {
 
     /**
      * This class generates the HTML files from the XML files.
-     * 
+     *
      * @param homepagePath
      * @param tmpPath
      */
@@ -78,7 +78,7 @@ public class HTMLGenerator implements FileHandler {
             } catch (final IOException e2) {
                 ExitHelper.exit(e2);
             }
-            status = Status.FAILED_TO_HANDLED;                
+            status = Status.FAILED_TO_HANDLED;
         }
 
         _controller.handleDeletion(file, status, getOutputFile(file), getReportFile(file));
@@ -89,7 +89,7 @@ public class HTMLGenerator implements FileHandler {
 
         FileHelper.deleteFile(getOutputFile(file));
         FileHelper.deleteFile(getReportFile(file));
-        
+
         _controller.handleDeletion(file, Status.HANDLED_WITH_SUCCESS, getOutputFile(file), getReportFile(file));
     }
 
@@ -130,7 +130,7 @@ public class HTMLGenerator implements FileHandler {
 
     @Override
     public boolean outputFileMustBeRegenerated(final Path file) {
-        
+
         return !getOutputFile(file).toFile().isFile()
                || (getOutputFile(file).toFile().lastModified() <= file.toFile().lastModified())
                || (getOutputFile(file).toFile().lastModified() <= getSylesheetFile().toFile().lastModified());

@@ -12,12 +12,12 @@ public class AsynchronousSiteDataRetriever {
 
     final private SynchronousSiteDataRetriever _retriever;
     private final ExecutorService _threadPool;
-    
+
     public AsynchronousSiteDataRetriever(final SiteDataPersister persister) {
         _retriever = new SynchronousSiteDataRetriever(persister);
         _threadPool = Executors.newFixedThreadPool(8);
     }
-    
+
     /**
      * @param url
      * @param consumer
@@ -27,7 +27,7 @@ public class AsynchronousSiteDataRetriever {
      */
     public void retrieve(final URL url,
                          final BiConsumer<Boolean, SiteData> consumer) {
-        
+
         _threadPool.execute(() -> {
             _retriever.retrieve(url, consumer);
         });

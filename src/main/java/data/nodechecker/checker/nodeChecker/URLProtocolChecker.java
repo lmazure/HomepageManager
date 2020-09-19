@@ -9,39 +9,39 @@ import org.w3c.dom.Element;
 
 public class URLProtocolChecker extends NodeChecker {
 
-	final static InclusionTagSelector s_selector = new InclusionTagSelector( new NodeType[] {
-			NodeType.A
-			} );
-	
-	@Override
-	public TagSelector getTagSelector() {
-		return s_selector;
-	}
+    final static InclusionTagSelector s_selector = new InclusionTagSelector( new NodeType[] {
+            NodeType.A
+            } );
+
+    @Override
+    public TagSelector getTagSelector() {
+        return s_selector;
+    }
 
 
-	@Override
-	public NodeRule[] getRules() {
-		final NodeRule a[]= new NodeRule[1];
-		a[0] = new NodeRule() { @Override
-		public CheckStatus checkElement(final Element e) { return checkFormat(e);}
-		                    @Override
-							public String getDescription() { return "uses a non-normalized URL"; } };
-		return a;
-	}
+    @Override
+    public NodeRule[] getRules() {
+        final NodeRule a[]= new NodeRule[1];
+        a[0] = new NodeRule() { @Override
+        public CheckStatus checkElement(final Element e) { return checkFormat(e);}
+                            @Override
+                            public String getDescription() { return "uses a non-normalized URL"; } };
+        return a;
+    }
 
-	private CheckStatus checkFormat(final Element e) {
+    private CheckStatus checkFormat(final Element e) {
 
-		final String s = e.getTextContent();
-		
-		if(s.indexOf(':') < 0) return null; // pointer to another of my page
-		
-		if (s.startsWith("http:")) return null;
-		if (s.startsWith("https:")) return null;
-		if (s.startsWith("ftp:")) return null;
-		if (s.startsWith("mailto:")) return null;
-		if (s.startsWith("javascript:")) return null;
-		if (s.startsWith("file:")) return null;
-		
-		return new CheckStatus("unknown protocol for URL \"" + s + "\"");
-	}
+        final String s = e.getTextContent();
+
+        if(s.indexOf(':') < 0) return null; // pointer to another of my page
+
+        if (s.startsWith("http:")) return null;
+        if (s.startsWith("https:")) return null;
+        if (s.startsWith("ftp:")) return null;
+        if (s.startsWith("mailto:")) return null;
+        if (s.startsWith("javascript:")) return null;
+        if (s.startsWith("file:")) return null;
+
+        return new CheckStatus("unknown protocol for URL \"" + s + "\"");
+    }
 }

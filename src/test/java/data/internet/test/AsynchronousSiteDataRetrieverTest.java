@@ -16,7 +16,7 @@ public class AsynchronousSiteDataRetrieverTest {
 
     @Test
     void basicHttpRequest() {
-        
+
         final AsynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("http://example.com"),
@@ -39,7 +39,7 @@ public class AsynchronousSiteDataRetrieverTest {
 
     @Test
     void basicHttpsRequest() {
-        
+
         final AsynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://example.com"),

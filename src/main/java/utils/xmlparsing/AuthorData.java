@@ -10,7 +10,7 @@ public class AuthorData {
     final private Optional<String> _lastName;
     final private Optional<String> _nameSuffix;
     final private Optional<String> _givenName;
-    
+
     /**
      * @param namePrefix
      * @param firstName

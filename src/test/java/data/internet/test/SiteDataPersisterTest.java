@@ -29,66 +29,66 @@ public class SiteDataPersisterTest {
                                                                                     "header4", List.of("val31", "val32", "val33"),
                                                                                     "header5", List.of("val51")));
     private static Optional<String> error = Optional.of("error");
-    
+
     @Test
     void allPresent() {
-        
+
         final SiteDataPersister persister = buildSiteDataPersister();
         persister.persist(url, now, status, httpCode, headers, Optional.empty(), error);
         final SiteData data = persister.retrieve(url, now);
-        
+
         Assertions.assertEquals(httpCode, data.getHttpCode());
         Assertions.assertEquals(status, data.getStatus());
         Assertions.assertEquals(headers, data.getHeaders());
         Assertions.assertEquals(error, data.getError());
     }
-    
+
     @Test
     void allHttpCodeEmpty() {
-        
+
         final SiteDataPersister persister = buildSiteDataPersister();
         persister.persist(url, now, status, Optional.empty(), headers, Optional.empty(), error);
         final SiteData data = persister.retrieve(url, now);
-        
+
         Assertions.assertEquals(Optional.empty(), data.getHttpCode());
         Assertions.assertEquals(status, data.getStatus());
         Assertions.assertEquals(headers, data.getHeaders());
         Assertions.assertEquals(error, data.getError());
     }
-    
+
     @Test
     void allHeadersEmpty() {
-        
+
         final SiteDataPersister persister = buildSiteDataPersister();
         persister.persist(url, now, status, httpCode, Optional.empty(), Optional.empty(), error);
         final SiteData data = persister.retrieve(url, now);
-        
+
         Assertions.assertEquals(httpCode, data.getHttpCode());
         Assertions.assertEquals(status, data.getStatus());
         Assertions.assertEquals(Optional.empty(), data.getHeaders());
         Assertions.assertEquals(error, data.getError());
     }
-    
+
     @Test
     void allErrorEmpty() {
-        
+
         final SiteDataPersister persister = buildSiteDataPersister();
         persister.persist(url, now, status, httpCode, headers, Optional.empty(), Optional.empty());
         final SiteData data = persister.retrieve(url, now);
-        
+
         Assertions.assertEquals(httpCode, data.getHttpCode());
         Assertions.assertEquals(status, data.getStatus());
         Assertions.assertEquals(headers, data.getHeaders());
         Assertions.assertEquals(Optional.empty(), data.getError());
     }
-    
+
     @Test
     void allEmpty() {
-        
+
         final SiteDataPersister persister = buildSiteDataPersister();
         persister.persist(url, now, status, Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
         final SiteData data = persister.retrieve(url, now);
-        
+
         Assertions.assertEquals(Optional.empty(), data.getHttpCode());
         Assertions.assertEquals(status, data.getStatus());
         Assertions.assertEquals(Optional.empty(), data.getHeaders());
@@ -97,17 +97,17 @@ public class SiteDataPersisterTest {
 
     @Test
     void allPresentAndStatusFailure() {
-        
+
         final SiteDataPersister persister = buildSiteDataPersister();
         persister.persist(url, now, Status.FAILURE, httpCode, headers, Optional.empty(), error);
         final SiteData data = persister.retrieve(url, now);
-        
+
         Assertions.assertEquals(httpCode, data.getHttpCode());
         Assertions.assertEquals(Status.FAILURE, data.getStatus());
         Assertions.assertEquals(headers, data.getHeaders());
         Assertions.assertEquals(error, data.getError());
     }
- 
+
     private static SiteDataPersister buildSiteDataPersister() {
         final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\test\\SiteDataPersisterTest");
         FileHelper.deleteDirectory(cachePath.toFile());

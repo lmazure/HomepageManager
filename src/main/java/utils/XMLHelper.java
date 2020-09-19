@@ -38,10 +38,10 @@ public class XMLHelper {
         try {
             builder = factory.newDocumentBuilder();
         } catch (final ParserConfigurationException pce){
-        	Logger.log(Logger.Level.ERROR)
-        	      .append("Failed to configure the XML parser")
-			      .append(pce)
-        	      .submit();
+            Logger.log(Logger.Level.ERROR)
+                  .append("Failed to configure the XML parser")
+                  .append(pce)
+                  .submit();
         }
         return builder;
     }
@@ -57,19 +57,19 @@ public class XMLHelper {
         assert(schema != null);
         return schema.newValidator();
     }
-    
+
     public static NodeList getElementsByNodeType(final Element element,
-    		                                     final NodeType type) {
-    	return element.getElementsByTagName(type.toString());
+                                                 final NodeType type) {
+        return element.getElementsByTagName(type.toString());
     }
-    
+
     public static boolean isOfType(final Element element,
-    		                       final NodeType type) {
-    	return element.getTagName().equals(type.toString());
+                                   final NodeType type) {
+        return element.getTagName().equals(type.toString());
     }
-    
+
     public static boolean isOfType(final Node element,
-    		                       final NodeType type) {
-    	return element.getNodeName().equals(type.toString());
+                                   final NodeType type) {
+        return element.getNodeName().equals(type.toString());
     }
 }

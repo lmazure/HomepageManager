@@ -26,17 +26,17 @@ public class ArticleComparatorTest {
         final Article data2 = new Article(new File(""), Optional.of(LocalDate.of(2000, 1, 1)));
         data2.addLink(new Link(data2, "ab", null, "url", null, null, formats, languages, Optional.empty(), Optional.empty()));
         final ArticleComparator comparator = new ArticleComparator();
-        
+
         // --- act ---
-        final int result = comparator.compare(data1, data2); 
-        
+        final int result = comparator.compare(data1, data2);
+
         // --- assert ---
         Assertions.assertTrue(result < 0);
     }
 
     @Test
     void compareStringsWithSpace() {
-        
+
         // --- arrange ---
         final String[] formats = { "HTML" };
         final String[] languages = { "HTML" };
@@ -45,17 +45,17 @@ public class ArticleComparatorTest {
         final Article data2 = new Article(new File(""), Optional.of(LocalDate.of(2000, 1, 1)));
         data2.addLink(new Link(data2, "aa", null, "url", null, null, formats, languages, Optional.empty(), Optional.empty()));
         final ArticleComparator comparator = new ArticleComparator();
-        
+
         // --- act ---
-        final int result = comparator.compare(data1, data2); 
-        
+        final int result = comparator.compare(data1, data2);
+
         // --- assert ---
         Assertions.assertTrue(result < 0);
     }
 
     @Test
     void compareStringsWithSpaceAndSpecialLetter() {
-        
+
         // --- arrange ---
         final String[] formats = { "HTML" };
         final String[] languages = { "HTML" };
@@ -64,10 +64,10 @@ public class ArticleComparatorTest {
         final Article data2 = new Article(new File(""), Optional.of(LocalDate.of(2000, 1, 1)));
         data2.addLink(new Link(data2, "aØ", null, "url", null, null, formats, languages, Optional.empty(), Optional.empty()));
         final ArticleComparator comparator = new ArticleComparator();
-        
+
         // --- act ---
-        final int result = comparator.compare(data1, data2); 
-        
+        final int result = comparator.compare(data1, data2);
+
         // --- assert ---
         Assertions.assertTrue(result < 0);
     }

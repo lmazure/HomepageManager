@@ -53,10 +53,10 @@ public class NodeValueChecker implements FileHandler {
     final private DataController _controller;
     private final DocumentBuilder _builder;
     final private Set<NodeChecker> _nodeCheckers;
-    
+
     /**
      * This class checks the characters of the XML files.
-     * 
+     *
      * @param homepagePath
      * @param tmpPath
      */
@@ -68,7 +68,7 @@ public class NodeValueChecker implements FileHandler {
         _controller = controller;
         _builder = XMLHelper.buildDocumentBuilder();
 
-        _nodeCheckers = new HashSet<NodeChecker>(); 
+        _nodeCheckers = new HashSet<NodeChecker>();
         _nodeCheckers.add(new ExtremitySpaceChecker());
         _nodeCheckers.add(new MiddleNewlineChecker());
         _nodeCheckers.add(new EllipsisChecker());
@@ -90,7 +90,7 @@ public class NodeValueChecker implements FileHandler {
         _nodeCheckers.add(new DurationChecker());
         _nodeCheckers.add(new ProtectionFromURLChecker());
     }
-    
+
     @Override
     public void handleCreation(final Path file) {
 
@@ -117,7 +117,7 @@ public class NodeValueChecker implements FileHandler {
             } else {
                 // must write something in the file otherwise its last modification datetime will be incorrect
                 pw.println("OK");
-            }        
+            }
         } catch (final Exception e) {
             final Path reportFile = getReportFile(file);
             FileHelper.createParentDirectory(reportFile);
@@ -126,31 +126,31 @@ public class NodeValueChecker implements FileHandler {
             } catch (final IOException e2) {
                 ExitHelper.exit(e2);
             }
-            status = Status.FAILED_TO_HANDLED;                
+            status = Status.FAILED_TO_HANDLED;
         }
-           
+
         _controller.handleCreation(file, status, getOutputFile(file), getReportFile(file));
     }
-    
+
     public List<Error> check(final Path file) throws SAXException {
-        
+
         try {
             final Document document = _builder.parse(file.toFile());
             return checkNode(file.toFile(), document.getDocumentElement());
         } catch (final IOException e) {
             ExitHelper.exit(e);
         }
-        
+
         // NOT REACHED
         return(null);
     }
-    
+
     @Override
     public void handleDeletion(final Path file) {
 
         FileHelper.deleteFile(getOutputFile(file));
         FileHelper.deleteFile(getReportFile(file));
-        
+
         _controller.handleDeletion(file, Status.HANDLED_WITH_SUCCESS, getOutputFile(file), getReportFile(file));
     }
 
@@ -158,7 +158,7 @@ public class NodeValueChecker implements FileHandler {
     public Path getOutputFile(final Path file) {
         return FileHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_nodevaluecheck", "txt");
     }
-    
+
     @Override
     public Path getReportFile(final Path file) {
          return FileHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_report_nodevaluecheck", "txt");
@@ -166,7 +166,7 @@ public class NodeValueChecker implements FileHandler {
 
     @Override
     public boolean outputFileMustBeRegenerated(final Path file) {
-        
+
         return !getOutputFile(file).toFile().isFile()
                || (getOutputFile(file).toFile().lastModified() <= file.toFile().lastModified());
     }
@@ -188,15 +188,15 @@ public class NodeValueChecker implements FileHandler {
                 for (final NodeChecker.NodeRule rule : checker.getRules()) {
                     final CheckStatus status = rule.checkElement(e);
                     if ( status != null ) {
-                        errors.add(new Error(e.getTagName(), e.getTextContent(), rule.getDescription(), status.getDetail()));                         
+                        errors.add(new Error(e.getTagName(), e.getTextContent(), rule.getDescription(), status.getDetail()));
                     }
                 }
             }
         }
-        
+
         return errors;
     }
-    
+
     static public class Error {
 
         final private String _tag;

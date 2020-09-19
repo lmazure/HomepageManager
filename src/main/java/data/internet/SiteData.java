@@ -12,14 +12,14 @@ public class SiteData {
         SUCCESS,
         FAILURE
     }
-    
+
     final private URL _url;
     final private Status _status;
     final private Optional<Integer> _httpCode;
-    final private Optional<Map<String, List<String>>> _headers; 
+    final private Optional<Map<String, List<String>>> _headers;
     final private Optional<File> _dataFile;
     final private Optional<String> _error;
-    
+
     public SiteData(final URL url,
                     final Status status,
                     final Optional<Integer> httpCode,
@@ -49,7 +49,7 @@ public class SiteData {
     public Optional<Map<String, List<String>>> getHeaders() {
         return _headers;
     }
-    
+
     public Optional<File> getDataFile() {
         return _dataFile;
     }

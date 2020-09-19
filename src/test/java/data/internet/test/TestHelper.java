@@ -13,7 +13,7 @@ public class TestHelper {
 
     static public void assertData(final SiteData data) {
         Assertions.assertTrue(data.getHttpCode().isPresent());
-        Assertions.assertEquals(200, data.getHttpCode().get());                               
+        Assertions.assertEquals(200, data.getHttpCode().get());
         Assertions.assertTrue(data.getHeaders().isPresent());
         Assertions.assertTrue(data.getHeaders().get().keySet().contains("Content-Type"));
         Assertions.assertEquals(1, data.getHeaders().get().get("Content-Type").size());
@@ -28,7 +28,7 @@ public class TestHelper {
             Assertions.assertNotEquals(-1, d.indexOf("This domain is for use in illustrative examples in documents."));
         } catch (final IOException e) {
             Assertions.fail("failure to read data file " + data.getDataFile().get() + " (" + e.getMessage() +")");
-        }        
+        }
     }
 
     static public URL buildURL(final String str) {

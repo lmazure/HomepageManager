@@ -12,55 +12,55 @@ import utils.xmlparsing.NodeType;
 
 public class FormatFromURLChecker extends NodeChecker {
 
-	final static InclusionTagSelector s_selector = new InclusionTagSelector( new NodeType[] {
-			NodeType.X
-			} );
-	
-	@Override
-	public TagSelector getTagSelector() {
-		return s_selector;
-	}
+    final static InclusionTagSelector s_selector = new InclusionTagSelector( new NodeType[] {
+            NodeType.X
+            } );
 
-	@Override
-	public NodeRule[] getRules() {
-		final NodeRule a[]= new NodeRule[1];
-		a[0] = new NodeRule() { @Override
-		public CheckStatus checkElement(final Element e) { return checkFormat(e);}
-		                    @Override
-							public String getDescription() { return "given the URL, the format is incorrect"; } };
-		return a;
-	}
+    @Override
+    public TagSelector getTagSelector() {
+        return s_selector;
+    }
 
-	private CheckStatus checkFormat(final Element e) {
+    @Override
+    public NodeRule[] getRules() {
+        final NodeRule a[]= new NodeRule[1];
+        a[0] = new NodeRule() { @Override
+        public CheckStatus checkElement(final Element e) { return checkFormat(e);}
+                            @Override
+                            public String getDescription() { return "given the URL, the format is incorrect"; } };
+        return a;
+    }
 
-		String url="";
-		String format="";
-		
-		final NodeList children = e.getChildNodes();
-		for (int j=0; j<children.getLength(); j++) {
-			final Node child = children.item(j);
-			if ( child.getNodeType() == Node.ELEMENT_NODE ) {
-				if (XMLHelper.isOfType(child, NodeType.A)) {
-					url=child.getTextContent();
-				}
-				if (XMLHelper.isOfType(child, NodeType.F)) {
-					format=child.getTextContent();
-				}
-			}		
-		}
-		
-		if (url.toUpperCase().endsWith("PDF") && !format.equals("PDF"))
-		   return new CheckStatus("\""+url+"\" is not indicated as being a PDF format");
+    private CheckStatus checkFormat(final Element e) {
 
-		if (url.toUpperCase().endsWith("WMV") && !format.equals("Windows Media Player"))
-			   return new CheckStatus("\""+url+"\" is not indicated as being a Windows Media Player format");
+        String url="";
+        String format="";
 
-		if (url.contains("youtube.com/watch") && !format.equals("MP4"))
-			   return new CheckStatus("\""+url+"\" is not indicated as being a MP4 format");
+        final NodeList children = e.getChildNodes();
+        for (int j=0; j<children.getLength(); j++) {
+            final Node child = children.item(j);
+            if ( child.getNodeType() == Node.ELEMENT_NODE ) {
+                if (XMLHelper.isOfType(child, NodeType.A)) {
+                    url=child.getTextContent();
+                }
+                if (XMLHelper.isOfType(child, NodeType.F)) {
+                    format=child.getTextContent();
+                }
+            }
+        }
 
-		if (url.contains("video.google.com/videoplay") && !format.equals("Flash Video"))
-			   return new CheckStatus("\""+url+"\" is not indicated as being a Flash Video format");
+        if (url.toUpperCase().endsWith("PDF") && !format.equals("PDF"))
+           return new CheckStatus("\""+url+"\" is not indicated as being a PDF format");
 
-		return null;
-	}
+        if (url.toUpperCase().endsWith("WMV") && !format.equals("Windows Media Player"))
+               return new CheckStatus("\""+url+"\" is not indicated as being a Windows Media Player format");
+
+        if (url.contains("youtube.com/watch") && !format.equals("MP4"))
+               return new CheckStatus("\""+url+"\" is not indicated as being a MP4 format");
+
+        if (url.contains("video.google.com/videoplay") && !format.equals("Flash Video"))
+               return new CheckStatus("\""+url+"\" is not indicated as being a Flash Video format");
+
+        return null;
+    }
 }

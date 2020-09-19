@@ -10,7 +10,7 @@ import utils.ExitHelper;
 import utils.Logger;
 
 public class SiteFilesGenerator {
-    
+
     final static private String DOMAIN = "mazure.fr"; // TODO this should not be hardcoded
     final static private String ROBOTTXT = "robot.txt";
     final static private String SITEMAPDIR = "sitemap"; // TODO this directory name also appears in DataOrchestrator
@@ -21,12 +21,12 @@ public class SiteFilesGenerator {
         generateRobottxt(homepage, files);
         generateSitemap(homepage, files);
     }
-    
+
     static private void generateRobottxt(final Path homepage,
                                          final List<Path> files) {
-        
+
         final File robottxt = homepage.resolve(ROBOTTXT).toFile();
-        
+
         try (final FileOutputStream os = new FileOutputStream(robottxt);
              final PrintWriter pw = new PrintWriter(os)) {
             pw.println("User-Agent: *");
@@ -38,22 +38,22 @@ public class SiteFilesGenerator {
         } catch (final Exception e) {
                 ExitHelper.exit(e);
         }
-        
+
         Logger.log(Logger.Level.INFO)
               .append(robottxt)
               .append(" is generated")
               .submit();
     }
 
-    
+
     static private void generateSitemap(final Path homepage,
                                         final List<Path> files) {
-        
+
         final Path sitemapDir = homepage.resolve(SITEMAPDIR);
         sitemapDir.toFile().mkdir();
-        
+
         final File sitemap = sitemapDir.resolve(SITEMAP).toFile();
-        
+
         try (final FileOutputStream os = new FileOutputStream(sitemap);
              final PrintWriter pw = new PrintWriter(os)) {
             pw.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
@@ -67,13 +67,13 @@ public class SiteFilesGenerator {
         } catch (final Exception e) {
                 ExitHelper.exit(e);
         }
-        
+
         Logger.log(Logger.Level.INFO)
               .append(sitemap)
               .append(" is generated")
               .submit();
     }
-    
+
     static private String getXmlUrlFromFile(final Path homepage,
                                             final Path file) {
         return "/" + homepage.relativize(file).toString().replace(File.separatorChar, '/');

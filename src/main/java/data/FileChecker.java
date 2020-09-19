@@ -32,7 +32,7 @@ import utils.XMLHelper;
 public class FileChecker implements FileHandler {
 
     static final private String UTF8_BOM = "\uFEFF";
-    
+
     final private Path _homepagePath;
     final private Path _tmpPath;
     final private DataController _controller;
@@ -40,7 +40,7 @@ public class FileChecker implements FileHandler {
 
     /**
      * This class checks the characters of the XML files.
-     * 
+     *
      * @param homepagePath
      * @param tmpPath
      */
@@ -52,12 +52,12 @@ public class FileChecker implements FileHandler {
         _controller = controller;
         _validator = XMLHelper.buildValidator(homepagePath.resolve("css").resolve("schema.xsd"));
     }
-    
+
     @Override
     public void handleCreation(final Path file) {
 
         Status status = Status.HANDLED_WITH_SUCCESS;
-        
+
         FileHelper.createParentDirectory(getOutputFile(file));
 
         try (final FileReader fr = new FileReader(file.toFile());
@@ -74,7 +74,7 @@ public class FileChecker implements FileHandler {
                 pw.println("OK");
             }
             for (final Error error: errors) {
-                final String message = "line " + error.getLineNumber() + ": " + error.getErrorMessage(); 
+                final String message = "line " + error.getLineNumber() + ": " + error.getErrorMessage();
                 pw.println(message);
             }
             Logger.log(Logger.Level.INFO)
@@ -89,9 +89,9 @@ public class FileChecker implements FileHandler {
             } catch (final IOException e2) {
                 ExitHelper.exit(e2);
             }
-            status = Status.FAILED_TO_HANDLED;                
+            status = Status.FAILED_TO_HANDLED;
         }
-        
+
         _controller.handleCreation(file, status, getOutputFile(file), getReportFile(file));
     }
 
@@ -107,7 +107,7 @@ public class FileChecker implements FileHandler {
     }
 
     private List<Error> checkFileBom(final String content) {
-        
+
         final List<Error> errors = new ArrayList<Error>();
         if (content.startsWith(UTF8_BOM)) {
             errors.add(new Error(1, "file should not have a UTF BOM"));
@@ -123,49 +123,49 @@ public class FileChecker implements FileHandler {
         boolean isPreviousCharacterWhiteSpace = false;
         boolean isLineEmpty = true;
         int lineNumber = 1;
-        
+
         for (int i = 0; i < content.length(); i++) {
             final char ch = content.charAt(i);
             if (ch == '\r') {
-                isPreviousCharacterCarriageReturn = true;                            
+                isPreviousCharacterCarriageReturn = true;
             } else if (ch == '\n') {
                 if (!isPreviousCharacterCarriageReturn) {
-                    errors.add(new Error(lineNumber, "line should finish by \\r\\n instead of \\n"));                
+                    errors.add(new Error(lineNumber, "line should finish by \\r\\n instead of \\n"));
                 }
                 if (isPreviousCharacterWhiteSpace) {
-                    errors.add(new Error(lineNumber, "line is finishing with a white space"));                
+                    errors.add(new Error(lineNumber, "line is finishing with a white space"));
                 }
                 if (isLineEmpty) {
-                    errors.add(new Error(lineNumber, "empty line"));                
+                    errors.add(new Error(lineNumber, "empty line"));
                 }
                 lineNumber++;
                 isLineEmpty = true;
-                isPreviousCharacterCarriageReturn = false;                            
+                isPreviousCharacterCarriageReturn = false;
                 isPreviousCharacterWhiteSpace = false;
             } else if (Character.isISOControl(ch)) {
-                isPreviousCharacterCarriageReturn = false;                            
+                isPreviousCharacterCarriageReturn = false;
                 isPreviousCharacterWhiteSpace = Character.isWhitespace(ch);
-                errors.add(new Error(lineNumber, "line contains a control character"));                                        
+                errors.add(new Error(lineNumber, "line contains a control character"));
             } else if (Character.isWhitespace(ch)) {
-                isPreviousCharacterCarriageReturn = false;                            
+                isPreviousCharacterCarriageReturn = false;
                 isPreviousCharacterWhiteSpace = true;
             } else {
-                isPreviousCharacterCarriageReturn = false;                            
+                isPreviousCharacterCarriageReturn = false;
                 isPreviousCharacterWhiteSpace = false;
-                isLineEmpty = false;                    
+                isLineEmpty = false;
             }
         }
 
         if (isPreviousCharacterWhiteSpace) {
-            errors.add(new Error(lineNumber, "line is finishing with a white space"));                
+            errors.add(new Error(lineNumber, "line is finishing with a white space"));
         }
         if (isLineEmpty) {
-            errors.add(new Error(lineNumber, "empty line"));                
+            errors.add(new Error(lineNumber, "empty line"));
         }
 
         return errors;
     }
-    
+
     private List<Error> checkPath(final Path file,
                                   final String content) { // TODO really check that the 5th line is correct
 
@@ -176,26 +176,26 @@ public class FileChecker implements FileHandler {
             final int lastSeparatorPosition = filename.lastIndexOf(File.separator);
             final int previousSeparatorPosition = filename.lastIndexOf(File.separator, lastSeparatorPosition - 1);
             final String endOfFilename = filename.substring(previousSeparatorPosition + 1);
-            final String pathString = "<PATH>" + endOfFilename.replace(File.separator, "/") + "</PATH>"; 
+            final String pathString = "<PATH>" + endOfFilename.replace(File.separator, "/") + "</PATH>";
             if (!content.contains(pathString)) {
-                errors.add(new Error(5, "the name of the file does not appear in the <PATH> node (expected to see \"" + pathString + "\")"));                            
+                errors.add(new Error(5, "the name of the file does not appear in the <PATH> node (expected to see \"" + pathString + "\")"));
             }
         } catch (final IOException e) {
             ExitHelper.exit(e);
         }
-                
+
         return errors;
     }
 
     private List<Error> checkEventNumberOfSpaces(final String content) {
-        
+
         final List<Error> errors = new ArrayList<Error>();
-        
+
         int n=0;
         for (final String line : content.lines().toArray(String[]::new)) {
             n++;
             if (numberOfWhiteCharactersAtBeginning(line) % 2 == 1) {
-                errors.add(new Error(n, "odd number of spaces at the beginning of the line"));                                            
+                errors.add(new Error(n, "odd number of spaces at the beginning of the line"));
             }
         }
 
@@ -205,26 +205,26 @@ public class FileChecker implements FileHandler {
     private List<Error> checkSchema(final String content) {
 
         final List<Error> errors = new ArrayList<Error>();
-        
+
         final Source source = new StreamSource(new StringReader(content));
-        
+
         try {
             _validator.validate(source);
         } catch (final SAXException e) {
-            errors.add(new Error(0, "the file violates the schema (\"" + e.toString() + "\")"));                            
+            errors.add(new Error(0, "the file violates the schema (\"" + e.toString() + "\")"));
         } catch (final IOException e) {
             ExitHelper.exit(e);
         }
-                
+
         return errors;
     }
-    
+
     @Override
     public void handleDeletion(final Path file) {
 
         FileHelper.deleteFile(getOutputFile(file));
         FileHelper.deleteFile(getReportFile(file));
-        
+
         _controller.handleDeletion(file, Status.HANDLED_WITH_SUCCESS, getOutputFile(file), getReportFile(file));
     }
 
@@ -232,7 +232,7 @@ public class FileChecker implements FileHandler {
     public Path getOutputFile(final Path file) {
         return FileHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_filecheck", "txt");
     }
-    
+
     @Override
     public Path getReportFile(final Path file) {
          return FileHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_report_filecheck", "txt");
@@ -240,18 +240,18 @@ public class FileChecker implements FileHandler {
 
     @Override
     public boolean outputFileMustBeRegenerated(final Path file) {
-        
+
         return !getOutputFile(file).toFile().isFile()
                || (getOutputFile(file).toFile().lastModified() <= file.toFile().lastModified());
     }
-    
+
     private int numberOfWhiteCharactersAtBeginning(final String str) {
-    
+
         int n = 0;
         while ((n < str.length()) && (str.charAt(n) == ' ')) n++;
         return n;
     }
-    
+
     static public class Error {
 
         final private int _lineNumber;

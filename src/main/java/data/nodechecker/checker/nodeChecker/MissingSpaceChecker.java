@@ -15,48 +15,48 @@ import utils.xmlparsing.NodeType;
 
 public class MissingSpaceChecker extends NodeChecker {
 
-	static final Set<String> s_authorizedList = new HashSet<String>(Arrays.asList("a.k.a.",
-			                                                                      "Ampersand.js",
-			                                                                      "asm.js",
-			                                                                      "autosrb.pl",
+    static final Set<String> s_authorizedList = new HashSet<String>(Arrays.asList("a.k.a.",
+                                                                                  "Ampersand.js",
+                                                                                  "asm.js",
+                                                                                  "autosrb.pl",
                                                                                   "ASP.NET",
-			                                                                      "Bubbl.us",
-			                                                                      "clinicaltrials.gov",
-			                                                                      "Clipboard.com",
-			                                                                      "distributed.net",
-			                                                                      "e.g.",
-			                                                                      "Famo.us",
-			                                                                      "Heu?reka",
-			                                                                      "i.e.",
-			                                                                      "Intl.RelativeTimeFormat",
-			                                                                      "Intro.js",
-			                                                                      "Java.Next",
-			                                                                      "MANIFEST.MF",
-			                                                                      "MSCTF.DLL",
-			                                                                      "MVC.NET",
-			                                                                      ".NET",
-			                                                                      "Node.js",
-			                                                                      "Normalize.css",
-			                                                                      "OpenOffice.org",
-			                                                                      "P.Anno",
-			                                                                      "quantum.country",
-			                                                                      "redhat.com",
-			                                                                      "Sails.js",
-			                                                                      "Three.js",
-			                                                                      "tween.js",
-			                                                                      "U.S.",
-			                                                                      "Venus.js",
-			                                                                      "view.json",
-			                                                                      "Wallaby.js",
-			                                                                      "xml:id",
-			                                                                      "X.org",
-			                                                                      "xsl:key"));
+                                                                                  "Bubbl.us",
+                                                                                  "clinicaltrials.gov",
+                                                                                  "Clipboard.com",
+                                                                                  "distributed.net",
+                                                                                  "e.g.",
+                                                                                  "Famo.us",
+                                                                                  "Heu?reka",
+                                                                                  "i.e.",
+                                                                                  "Intl.RelativeTimeFormat",
+                                                                                  "Intro.js",
+                                                                                  "Java.Next",
+                                                                                  "MANIFEST.MF",
+                                                                                  "MSCTF.DLL",
+                                                                                  "MVC.NET",
+                                                                                  ".NET",
+                                                                                  "Node.js",
+                                                                                  "Normalize.css",
+                                                                                  "OpenOffice.org",
+                                                                                  "P.Anno",
+                                                                                  "quantum.country",
+                                                                                  "redhat.com",
+                                                                                  "Sails.js",
+                                                                                  "Three.js",
+                                                                                  "tween.js",
+                                                                                  "U.S.",
+                                                                                  "Venus.js",
+                                                                                  "view.json",
+                                                                                  "Wallaby.js",
+                                                                                  "xml:id",
+                                                                                  "X.org",
+                                                                                  "xsl:key"));
 
     static final InclusionTagSelector s_selector = new InclusionTagSelector(new NodeType[] {
-    		NodeType.COMMENT,
-    		NodeType.TITLE,
+            NodeType.COMMENT,
+            NodeType.TITLE,
             });
-    
+
     @Override
     public TagSelector getTagSelector() {
         return s_selector;
@@ -78,14 +78,14 @@ public class MissingSpaceChecker extends NodeChecker {
         if (list.size() == 0) return null;
 
         for (final String l: list) {
-        	if (Arrays.stream(l.split(" ")).anyMatch(MissingSpaceChecker::isInvalid)) {
-                return new CheckStatus("\"" + e.getTextContent() + "\" is missing a space");        		
-        	}
+            if (Arrays.stream(l.split(" ")).anyMatch(MissingSpaceChecker::isInvalid)) {
+                return new CheckStatus("\"" + e.getTextContent() + "\" is missing a space");
+            }
         }
-        
+
        return null;
     }
-    
+
     private static boolean isInvalid(final String str) {
 
         final char[] chars = str.toCharArray();
@@ -97,38 +97,38 @@ public class MissingSpaceChecker extends NodeChecker {
         }
 
         for (final String a: s_authorizedList) {
-    		final String s = str.replace(a, "");
-    		if (containsNoLetter(s)) {
-    			return false;
-    		}
-    	}
+            final String s = str.replace(a, "");
+            if (containsNoLetter(s)) {
+                return false;
+            }
+        }
 
         return true;
     }
 
     private static boolean containsNoLetter(final String str) {
-    	final char[] chars = str.toCharArray();
-    	for (int i = 0; i < chars.length; i++) {
-    		if (Character.isLetter(chars[i])) return false;
-    	}    	
-    	return true;    	
+        final char[] chars = str.toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            if (Character.isLetter(chars[i])) return false;
+        }
+        return true;
     }
-    
+
     private static boolean isVersionString(final char[] chars) {
-    	for (int i = 0; i < chars.length; i++) {
-    		if (!isPunctuation(chars[i]) && !Character.isDigit(chars[i])) return false; // TODO should test for dot instead of punctuation
-    	}    	
-    	return true;
+        for (int i = 0; i < chars.length; i++) {
+            if (!isPunctuation(chars[i]) && !Character.isDigit(chars[i])) return false; // TODO should test for dot instead of punctuation
+        }
+        return true;
     }
-    
+
     private static boolean containsPunctuation(final char[] chars) {
-    	for (int i = 0; i < chars.length - 1; i++) {
-    		if (isPunctuation(chars[i])  && Character.isAlphabetic(chars[i + 1])) return true;
-    	}    	
-    	return false;
+        for (int i = 0; i < chars.length - 1; i++) {
+            if (isPunctuation(chars[i])  && Character.isAlphabetic(chars[i + 1])) return true;
+        }
+        return false;
     }
-    
-    private static boolean isPunctuation(final char c) {    	
-    	return (c == ',') || (c == '.') || (c == '!') || (c == '?') || (c == ':') || (c == ';');
+
+    private static boolean isPunctuation(final char c) {
+        return (c == ',') || (c == '.') || (c == '!') || (c == '?') || (c == ':') || (c == ';');
     }
 }

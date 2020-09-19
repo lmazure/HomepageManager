@@ -17,7 +17,7 @@ public class SynchronousSiteDataRetrieverTest {
 
     @Test
     void basicHttpRequest() {
-        
+
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("http://example.com"),
@@ -32,7 +32,7 @@ public class SynchronousSiteDataRetrieverTest {
 
     @Test
     void basicHttpsRequest() {
-        
+
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://example.com"),
@@ -48,11 +48,11 @@ public class SynchronousSiteDataRetrieverTest {
     @Disabled("I have not found yet a workaround for LinkedIn protection")
     @Test
     void linkedInRequest() {
-        
+
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         retriever.retrieve(TestHelper.buildURL("https://www.linkedin.com/in/thomas-cabaret-36766674/"),
                            (final Boolean b, final SiteData d) -> {
-                        	   Assertions.assertEquals(200, d.getHttpCode().get().intValue());
+                               Assertions.assertEquals(200, d.getHttpCode().get().intValue());
                            });
     }
 

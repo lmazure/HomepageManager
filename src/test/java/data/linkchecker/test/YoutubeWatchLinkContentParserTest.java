@@ -21,8 +21,8 @@ import utils.FileHelper;
 
 class YoutubeWatchLinkContentParserTest {
 
-	@Test
-	void testPlayabilityStatusOk() {
+    @Test
+    void testPlayabilityStatusOk() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=_kGqkxQo-Tw"),
@@ -34,10 +34,10 @@ class YoutubeWatchLinkContentParserTest {
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
-	}
+    }
 
-	@Test
-	void testPlayabilityStatusUnplayable() {
+    @Test
+    void testPlayabilityStatusUnplayable() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=dM_JivN3HvI"),
@@ -49,10 +49,10 @@ class YoutubeWatchLinkContentParserTest {
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
-	}
+    }
 
-	@Test
-	void testTitle() {
+    @Test
+    void testTitle() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=_kGqkxQo-Tw"),
@@ -64,11 +64,11 @@ class YoutubeWatchLinkContentParserTest {
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
-	}
+    }
 
-	@Test
-	@Disabled // I need to find another video with a control character, this one has been fixed
-	void testTitleWithDeviceControlString() {
+    @Test
+    @Disabled // I need to find another video with a control character, this one has been fixed
+    void testTitleWithDeviceControlString() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=y7FVLPvw1-I"),
@@ -80,10 +80,10 @@ class YoutubeWatchLinkContentParserTest {
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
-	}
+    }
 
-	@Test
-	void testTitleWithAmpersand() {
+    @Test
+    void testTitleWithAmpersand() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=ytuHV2e4c4Q"),
@@ -95,10 +95,10 @@ class YoutubeWatchLinkContentParserTest {
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
-	}
+    }
 
-	@Test
-	void testDescription() {
+    @Test
+    void testDescription() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=_kGqkxQo-Tw"),
@@ -110,10 +110,10 @@ class YoutubeWatchLinkContentParserTest {
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
-	}
+    }
 
-	@Test
-	void testDescriptionWithNewline() {
+    @Test
+    void testDescriptionWithNewline() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=y7FVLPvw1-I"),
@@ -121,16 +121,16 @@ class YoutubeWatchLinkContentParserTest {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
                                final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
-                               Assertions.assertEquals("Ce soir, on joue ensemble autour de quelques énigmes mathématiques.\n" + 
-                               		                   "\n" + 
-                               		                   "La chaîne Myriogon : https://www.youtube.com/channel/UCvYEpQbJ81n2pjrQrKUrRog/", parser.getDescription());
+                               Assertions.assertEquals("Ce soir, on joue ensemble autour de quelques énigmes mathématiques.\n" +
+                                                          "\n" +
+                                                          "La chaîne Myriogon : https://www.youtube.com/channel/UCvYEpQbJ81n2pjrQrKUrRog/", parser.getDescription());
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
-	}
+    }
 
-	@Test
-	void testDescriptionWithDoubleQuote() {
+    @Test
+    void testDescriptionWithDoubleQuote() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=cJOSvvdy27I"),
@@ -138,26 +138,26 @@ class YoutubeWatchLinkContentParserTest {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
                                final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
-                               Assertions.assertEquals("Watch Metallica perform \"Master of Puppets\" live on the Howard Stern Show.\n" + 
-                               		                   "\n" + 
-                               		                   "Metallica's new album \"Hardwired… to Self-Destruct\" is available on Nov. 18.\n" + 
-                               		                   "\n" + 
-                               		                   "Want to know what's going on with Howard Stern in the future?\n" + 
-                               		                   "\n" + 
-                               		                   "Follow us on Twitter: http://bit.ly/1RzxGPD\n" + 
-                               		                   "On Facebook: http://on.fb.me/1JELtz3\n" + 
-                               		                   "On Instagram: https://goo.gl/VsWTND\n" + 
-                               		                   "\n" + 
-                               		                   "For more great content from the Howard Stern Show visit our official website: http://www.HowardStern.com\n" + 
-                               		                   "\n" + 
-                               		                   "Hear more Howard Stern by signing up for a free SiriusXM trial: https://goo.gl/uNL0Du", parser.getDescription());
+                               Assertions.assertEquals("Watch Metallica perform \"Master of Puppets\" live on the Howard Stern Show.\n" +
+                                                          "\n" +
+                                                          "Metallica's new album \"Hardwired… to Self-Destruct\" is available on Nov. 18.\n" +
+                                                          "\n" +
+                                                          "Want to know what's going on with Howard Stern in the future?\n" +
+                                                          "\n" +
+                                                          "Follow us on Twitter: http://bit.ly/1RzxGPD\n" +
+                                                          "On Facebook: http://on.fb.me/1JELtz3\n" +
+                                                          "On Instagram: https://goo.gl/VsWTND\n" +
+                                                          "\n" +
+                                                          "For more great content from the Howard Stern Show visit our official website: http://www.HowardStern.com\n" +
+                                                          "\n" +
+                                                          "Hear more Howard Stern by signing up for a free SiriusXM trial: https://goo.gl/uNL0Du", parser.getDescription());
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
-	}
+    }
 
-	@Test
-	void testDate() {
+    @Test
+    void testDate() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=_kGqkxQo-Tw"),
@@ -170,10 +170,10 @@ class YoutubeWatchLinkContentParserTest {
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
-	}
+    }
 
-	@Test
-	void testDuration() {
+    @Test
+    void testDuration() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=_kGqkxQo-Tw"),
@@ -186,17 +186,17 @@ class YoutubeWatchLinkContentParserTest {
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
-	}
+    }
 
-	@ParameterizedTest
-	@ValueSource(strings = {
+    @ParameterizedTest
+    @ValueSource(strings = {
             "https://www.youtube.com/watch?v=8idr1WZ1A7Q",
             "https://www.youtube.com/watch?v=hMBJSMaI_uE",
             "https://www.youtube.com/watch?v=MhTGX_ou1EM",
             "https://www.youtube.com/watch?v=sPQViNNOAkw",
             "https://www.youtube.com/watch?v=X63MWZIN3gM"
-			               })
-	void testEnglish(String url) {
+                           })
+    void testEnglish(String url) {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
@@ -208,25 +208,25 @@ class YoutubeWatchLinkContentParserTest {
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
-	}
+    }
 
-	@ParameterizedTest
-	@ValueSource(strings = {
-			"https://www.youtube.com/watch?v=16GlrK-bxaI",
-			"https://www.youtube.com/watch?v=3QqR3AQe-SU",
-			"https://www.youtube.com/watch?v=6s_zXFmWM6g",
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "https://www.youtube.com/watch?v=16GlrK-bxaI",
+            "https://www.youtube.com/watch?v=3QqR3AQe-SU",
+            "https://www.youtube.com/watch?v=6s_zXFmWM6g",
             "https://www.youtube.com/watch?v=AT89_nM0nes",
-			"https://www.youtube.com/watch?v=atKDrGedg_w",
-			// description bilingue "https://www.youtube.com/watch?v=FGjWkQePk20",
-			"https://www.youtube.com/watch?v=fxTxU0Echq8",
-			// description bilingue "https://www.youtube.com/watch?v=iJfJPXI5EZQ",
-			// description bilingue "https://www.youtube.com/watch?v=k0-5T_oDt1E",
+            "https://www.youtube.com/watch?v=atKDrGedg_w",
+            // description bilingue "https://www.youtube.com/watch?v=FGjWkQePk20",
+            "https://www.youtube.com/watch?v=fxTxU0Echq8",
+            // description bilingue "https://www.youtube.com/watch?v=iJfJPXI5EZQ",
+            // description bilingue "https://www.youtube.com/watch?v=k0-5T_oDt1E",
             "https://www.youtube.com/watch?v=kiv32_P_T3k",
             "https://www.youtube.com/watch?v=lkdnOuzHdFE",
             // vidéo bilingue "https://www.youtube.com/watch?v=nhDpozSK0uw",
-   			"https://www.youtube.com/watch?v=ohU1tEwxOSE"
-                		   })
-	void testFrench(String url) {
+               "https://www.youtube.com/watch?v=ohU1tEwxOSE"
+                           })
+    void testFrench(String url) {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
@@ -238,9 +238,9 @@ class YoutubeWatchLinkContentParserTest {
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
-	}
+    }
 
-	private SynchronousSiteDataRetriever buildDataSiteRetriever() {
+    private SynchronousSiteDataRetriever buildDataSiteRetriever() {
         final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\test\\YoutubeWatchLinkContentParserTest");
         FileHelper.deleteDirectory(cachePath.toFile());
         return new SynchronousSiteDataRetriever(new SiteDataPersister(cachePath));

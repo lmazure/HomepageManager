@@ -17,7 +17,7 @@ public class CachedSiteDataRetriever {
         _persister = persister;
         _retriever = new AsynchronousSiteDataRetriever(persister);
     }
-    
+
     /**
      * @param url
      * @param consumer
@@ -31,21 +31,21 @@ public class CachedSiteDataRetriever {
                          final long maxAge) {
 
         final List<Instant> timestamps = _persister.getTimestampList(url);
-        
+
         if (timestamps.size() > 0) {
-            
+
             final Instant lastTimestamp = timestamps.get(0);
             final boolean isDataFresh = lastTimestamp.isAfter(Instant.now().minusSeconds(maxAge));
 
             // call the consumer with the cached data
             consumer.accept(Boolean.valueOf(isDataFresh), _persister.retrieve(url, lastTimestamp));
-            
+
             // stop here is the data is fresh enough
             if (isDataFresh) {
                 return;
             }
         }
-        
+
         _retriever.retrieve(url, consumer);
     }
 }

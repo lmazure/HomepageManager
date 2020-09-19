@@ -17,7 +17,7 @@ import utils.ExitHelper;
 public class ActionHelper {
 
     static public void displayFile(final Path file) {
-        
+
         if (file == null) {
             final Alert alert = new Alert(AlertType.INFORMATION, "Undefined file");
             alert.showAndWait();
@@ -29,7 +29,7 @@ public class ActionHelper {
             alert.showAndWait();
             return;
         }
-        
+
         displayVerifiedFile(file);
     }
 
@@ -63,7 +63,7 @@ public class ActionHelper {
         } catch (final MalformedURLException e) {
             ExitHelper.exit(e);
         }
-        
+
     }
 
     static private void displayVerifiedFile(final Path file) {
@@ -73,7 +73,7 @@ public class ActionHelper {
             ExitHelper.exit(e);
         }
     }
-    
+
     static boolean isUrlAlive(final URL url) {
         try {
             final HttpURLConnection huc = (HttpURLConnection)url.openConnection();

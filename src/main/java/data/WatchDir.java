@@ -38,7 +38,7 @@ public class WatchDir {
     private final Map<WatchKey,Path> _keys;
     private final Set<String> _ignoredDirectories;
     private final List<FileWatcher> _watchers;
-    
+
     /**
      * @param path directory to watch
      * @throws IOException
@@ -58,7 +58,7 @@ public class WatchDir {
      * @return the object itself
      */
     public WatchDir ignoreDirectory(final String directoryName) {
-        
+
         _ignoredDirectories.add(directoryName);
         return this;
     }
@@ -68,13 +68,13 @@ public class WatchDir {
      * @return the object itself
      */
     public WatchDir ignoreDirectories(final Iterable<String> directoryNames) {
-        
+
         for (final String dir: directoryNames) {
             ignoreDirectory(dir);
         }
         return this;
     }
-    
+
 
     /**
      * @param matcher
@@ -87,7 +87,7 @@ public class WatchDir {
         _watchers.add(new FileWatcher(matcher, consummer));
         return this;
     }
-    
+
     /**
      * register the given directory, and all its sub-directories, with the WatchService
      * @param start directory
@@ -190,7 +190,7 @@ public class WatchDir {
                         w.consume(child, Event.CREATE);
                     }
                 } else {
-                    ExitHelper.exit("Unexpected event type in WatchDir events");                        
+                    ExitHelper.exit("Unexpected event type in WatchDir events");
                 }
 
                 // if directory is created, and watching recursively, then register it and its sub-directories
@@ -232,7 +232,7 @@ public class WatchDir {
         }
 
         public void consume(final Path path, final Event event) {
-            
+
             if (_matcher.matches(path)) {
                 _consummer.accept(path, event);
             }

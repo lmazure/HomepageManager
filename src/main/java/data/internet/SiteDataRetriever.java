@@ -24,7 +24,7 @@ public class SiteDataRetriever {
         _persister = new SiteDataPersister(cachePath);
         _retriever = new CachedSiteDataRetriever(_persister);
     }
-    
+
     /**
      * @param url
      * @param consumer

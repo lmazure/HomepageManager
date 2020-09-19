@@ -21,7 +21,7 @@ public class Reporter {
     public Reporter(final ArticleFactory articleFactory,
                     final AuthorFactory authorFactory,
                     final KeywordFactory keywordFactory) {
-        
+
         _articleFactory = articleFactory;
         _authorFactory = authorFactory;
         _keywordFactory = keywordFactory;
@@ -43,7 +43,7 @@ public class Reporter {
             out.write("{\n  \"authors\" : [");
             for (int i = 0; i < authors.length; i++) {
                 final Author author = authors[i];
-                boolean isAComponentWritten = false; 
+                boolean isAComponentWritten = false;
                 if (i != 0) {
                     out.write(",");
                 }
@@ -117,7 +117,7 @@ public class Reporter {
       */
      public void generateArticleJson(final File root,
                                      final String fileName) {
-    
+
          final String rootFileName = root.getAbsolutePath();
          final File f = new File(rootFileName + File.separator + fileName);
          f.delete();
@@ -127,7 +127,7 @@ public class Reporter {
          for (int i = 0; i < authors.length; i++) {
              authorIndexes.put(authors[i], i);
          }
-         
+
          try (final OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(f), Charset.forName("UTF-8").newEncoder())) {
              final Article articles[] = _articleFactory.getArticles();
              Arrays.sort(articles, new ArticleComparator());
@@ -135,7 +135,7 @@ public class Reporter {
              for (int i = 0; i < articles.length; i++) {
                  final Article article = articles[i];
                  if (i != 0) {
-                     out.write(",");                    
+                     out.write(",");
                  }
                  out.write("\n    {");
                  printLinks(out, article.getLinks());
@@ -176,7 +176,7 @@ public class Reporter {
                     .append(e)
                    .submit();
          }
-    
+
          Logger.log(Logger.Level.INFO)
                .append(f)
                .append(" is created")
@@ -264,31 +264,31 @@ public class Reporter {
                 out.write("          \"duration\" : " + link.getDuration().get().getSeconds() + ",\n");
             }
             if (link.getStatus().isPresent()) {
-                out.write("          \"status\" : \"" + link.getStatus().get() + "\",\n");                         
+                out.write("          \"status\" : \"" + link.getStatus().get() + "\",\n");
             }
             if (link.getProtection().isPresent()) {
-                out.write("          \"protection\" : \"" + link.getProtection().get() + "\",\n");                         
+                out.write("          \"protection\" : \"" + link.getProtection().get() + "\",\n");
             }
-            out.write("          \"formats\" : [");                         
+            out.write("          \"formats\" : [");
             for (int k = 0; k < link.getFormats().length; k++) {
                 if (k != 0) {
                     out.write(", ");
                 }
-                out.write("\"" + link.getFormats()[k] + "\"");                                                  
+                out.write("\"" + link.getFormats()[k] + "\"");
             }
-            out.write("],\n");                         
-            out.write("          \"languages\" : [");                         
+            out.write("],\n");
+            out.write("          \"languages\" : [");
             for (int k = 0; k < link.getLanguages().length; k++) {
                 if (k != 0) {
                     out.write(", ");
                 }
-                out.write("\"" + link.getLanguages()[k] + "\"");                                                  
+                out.write("\"" + link.getLanguages()[k] + "\"");
             }
-            out.write("]\n        }");                         
+            out.write("]\n        }");
         }
         out.write("\n      ]");
     }
-     
+
     static private String jsonEscape(final String str) {
         return str.replace("\\", "\\\\")
                   .replace("\"", "\\\"");

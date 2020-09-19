@@ -15,7 +15,7 @@ public class Main {
         if ((args.length < 2) || (args.length > 3)) {
             exitOnErrorSyntax();
         }
- 
+
         boolean internetAccessIsEnabled = false;
 
         if (args.length == 3) {
@@ -39,6 +39,6 @@ public class Main {
                         enableInternetAccessOption +
                         "|" +
                         disableInternetAccessOption +
-                        "] <homepage directory> <tmp directory>");        
+                        "] <homepage directory> <tmp directory>");
     }
 }

@@ -10,62 +10,62 @@ import utils.ExitHelper;
 
 public class MediumLinkContentParser {
 
-	private final String _data;
-	private String _title;
-	private LocalDate _publishDate;
+    private final String _data;
+    private String _title;
+    private LocalDate _publishDate;
 
-	public MediumLinkContentParser(final String data) {
-		_data = data;
-	}
-	
-	public String getTitle() {
-		
-		if (_title == null) {
-			_title = extractTitle();
-		}
-		
-		return _title;
-	}
+    public MediumLinkContentParser(final String data) {
+        _data = data;
+    }
 
-	public LocalDate getPublishDate() {
-		
-		if (_publishDate == null) {
-			_publishDate = extractDate();
-		}
-		
-		return _publishDate;
-	}
+    public String getTitle() {
 
-	private String extractTitle() {
-		
-		final Pattern p = Pattern.compile("\"datePublished\":\"[^\"]*\",\"dateModified\":\"[^\"]*\",\"headline\":\"([^\"]*)\"");
-		final Matcher m = p.matcher(_data);
-		if (m.find()) {
-			return m.group(1)
-					.replaceFirst(" - (.*) - Medium", "")
-					.replace("\\u002F", "/");
-		}
+        if (_title == null) {
+            _title = extractTitle();
+        }
 
-		ExitHelper.exit("Failed to find title in Medium page");
+        return _title;
+    }
 
-		// NOTREACHED
-		return null;
-	}
+    public LocalDate getPublishDate() {
+
+        if (_publishDate == null) {
+            _publishDate = extractDate();
+        }
+
+        return _publishDate;
+    }
+
+    private String extractTitle() {
+
+        final Pattern p = Pattern.compile("\"datePublished\":\"[^\"]*\",\"dateModified\":\"[^\"]*\",\"headline\":\"([^\"]*)\"");
+        final Matcher m = p.matcher(_data);
+        if (m.find()) {
+            return m.group(1)
+                    .replaceFirst(" - (.*) - Medium", "")
+                    .replace("\\u002F", "/");
+        }
+
+        ExitHelper.exit("Failed to find title in Medium page");
+
+        // NOTREACHED
+        return null;
+    }
 
 
-	private LocalDate extractDate() {
-		
-		final Pattern p = Pattern.compile("\"datePublished\":\"([^\"]*)\",\"dateModified\":\"[^\"]*\",\"headline\":\"[^\"]*\"");
-		final Matcher m = p.matcher(_data);
-		if (m.find()) {
-			final String formattedDate = m.group(1);
-			final Instant instant = Instant.parse(formattedDate);
-			return LocalDate.ofInstant(instant, ZoneOffset.UTC);
-		}
+    private LocalDate extractDate() {
 
-		ExitHelper.exit("Failed to find date in Medium page");
-		
-		// NOTREACHED
-		return null;
-	}
+        final Pattern p = Pattern.compile("\"datePublished\":\"([^\"]*)\",\"dateModified\":\"[^\"]*\",\"headline\":\"[^\"]*\"");
+        final Matcher m = p.matcher(_data);
+        if (m.find()) {
+            final String formattedDate = m.group(1);
+            final Instant instant = Instant.parse(formattedDate);
+            return LocalDate.ofInstant(instant, ZoneOffset.UTC);
+        }
+
+        ExitHelper.exit("Failed to find date in Medium page");
+
+        // NOTREACHED
+        return null;
+    }
 }

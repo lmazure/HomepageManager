@@ -23,133 +23,133 @@ import utils.xmlparsing.XmlParser;
 
 public class Parser {
 
-	private final DocumentBuilder _builder;
-	private final ArticleFactory _articleFactory;
-	private final LinkFactory _linkFactory;
-	private final AuthorFactory _authorFactory;
-	private final KeywordFactory _keywordFactory;
-	
-	/**
-	 * @param articleFactory
-	 * @param linkFactory
-	 * @param authorFactory
-	 */
-	public Parser(final ArticleFactory articleFactory,
-			      final LinkFactory linkFactory,
-			      final AuthorFactory authorFactory,
-			      final KeywordFactory keywordFactory) {
-		_articleFactory = articleFactory;
-		_authorFactory = authorFactory;
-		_linkFactory = linkFactory;
-		_keywordFactory = keywordFactory;
-		_builder = XMLHelper.buildDocumentBuilder();
-	}
-	
-	/**
-	 * @param file
-	 */
-	public void parse(final File file) {
-		
-		try {
-			final Document document = _builder.parse(file);
-			extractArticles(document, file);
-			extractKeywords(document, file);
-		} catch (final SAXException se) {
-			Logger.log(Logger.Level.ERROR)
-			      .append("Failed to parse the XML file")
-			      .append(se)
-			      .submit();
-		} catch (final IOException ioe) {
-			Logger.log(Logger.Level.ERROR)
-			      .append("Failed to read the XML file")
-			      .append(ioe)
-			      .submit();
-		}
-	}
+    private final DocumentBuilder _builder;
+    private final ArticleFactory _articleFactory;
+    private final LinkFactory _linkFactory;
+    private final AuthorFactory _authorFactory;
+    private final KeywordFactory _keywordFactory;
 
-	/**
-	 * @param document
-	 * @param file
-	 */
-	private void extractArticles(final Document document,
-			                     final File file) {
-        
-		final Element racine = document.getDocumentElement();
-		final NodeList list = XMLHelper.getElementsByNodeType(racine, NodeType.ARTICLE);
+    /**
+     * @param articleFactory
+     * @param linkFactory
+     * @param authorFactory
+     */
+    public Parser(final ArticleFactory articleFactory,
+                  final LinkFactory linkFactory,
+                  final AuthorFactory authorFactory,
+                  final KeywordFactory keywordFactory) {
+        _articleFactory = articleFactory;
+        _authorFactory = authorFactory;
+        _linkFactory = linkFactory;
+        _keywordFactory = keywordFactory;
+        _builder = XMLHelper.buildDocumentBuilder();
+    }
 
-		for (int i = 0; i < list.getLength(); i++) {
+    /**
+     * @param file
+     */
+    public void parse(final File file) {
 
-			final Element articleNode = (Element)list.item(i);
-			
-			final ArticleData articleData = XmlParser.parseArticleNode(articleNode);
+        try {
+            final Document document = _builder.parse(file);
+            extractArticles(document, file);
+            extractKeywords(document, file);
+        } catch (final SAXException se) {
+            Logger.log(Logger.Level.ERROR)
+                  .append("Failed to parse the XML file")
+                  .append(se)
+                  .submit();
+        } catch (final IOException ioe) {
+            Logger.log(Logger.Level.ERROR)
+                  .append("Failed to read the XML file")
+                  .append(ioe)
+                  .submit();
+        }
+    }
+
+    /**
+     * @param document
+     * @param file
+     */
+    private void extractArticles(final Document document,
+                                 final File file) {
+
+        final Element racine = document.getDocumentElement();
+        final NodeList list = XMLHelper.getElementsByNodeType(racine, NodeType.ARTICLE);
+
+        for (int i = 0; i < list.getLength(); i++) {
+
+            final Element articleNode = (Element)list.item(i);
+
+            final ArticleData articleData = XmlParser.parseArticleNode(articleNode);
 
             final Article article = _articleFactory.buildArticle(file, articleData.getDate());
-            
+
             for (int j = 0; j < articleData.getLinks().size(); j++) {
-	            final Link link = _linkFactory.newLink(article, articleData.getLinks().get(j));
-	            article.addLink(link);
-			}
+                final Link link = _linkFactory.newLink(article, articleData.getLinks().get(j));
+                article.addLink(link);
+            }
 
             for (int j = 0; j < articleData.getAuthors().size(); j++) {
-            	final Author author = _authorFactory.buildAuthor(articleData.getAuthors().get(j));
-            	author.addArticle(article);
-				article.addAuthor(author);
-			}
-		}
-	}
+                final Author author = _authorFactory.buildAuthor(articleData.getAuthors().get(j));
+                author.addArticle(article);
+                article.addAuthor(author);
+            }
+        }
+    }
 
-	/**
-	 * @param document
-	 * @param file
-	 */
-	private void extractKeywords(final Document document,
-			                     final File file) {
-        
-		final Element racine = document.getDocumentElement();
-		final NodeList list = XMLHelper.getElementsByNodeType(racine, NodeType.KEYWORD);
+    /**
+     * @param document
+     * @param file
+     */
+    private void extractKeywords(final Document document,
+                                 final File file) {
 
-		for (int i = 0; i < list.getLength(); i++) {
+        final Element racine = document.getDocumentElement();
+        final NodeList list = XMLHelper.getElementsByNodeType(racine, NodeType.KEYWORD);
 
-			final Element keywordNode = (Element)list.item(i);
-			
-			final KeywordData keywordData = XmlParser.parseKeywordNode(keywordNode);
-			
-			final Keyword keyword = _keywordFactory.newKeyword(keywordData.getKeyId());
-			
-			if (keywordData.getArticle().isPresent()) {
-				final Optional<Article> article =  _articleFactory.getArticle(keywordData.getArticle().get().getLinks().get(0).getUrl());
-				if (article.isEmpty()) {
-					throw new UnsupportedOperationException("Cannot retrieve article of KEYWORD");
-				}
-				keyword.addArticle(article.get());
-			}
-			
-			for (LinkData link : keywordData.getLinks() ) {
-				final Link l = _linkFactory.newLink(null, link);
-				keyword.addLink(l);					
-			}
-		}
-	}
+        for (int i = 0; i < list.getLength(); i++) {
+
+            final Element keywordNode = (Element)list.item(i);
+
+            final KeywordData keywordData = XmlParser.parseKeywordNode(keywordNode);
+
+            final Keyword keyword = _keywordFactory.newKeyword(keywordData.getKeyId());
+
+            if (keywordData.getArticle().isPresent()) {
+                final Optional<Article> article =  _articleFactory.getArticle(keywordData.getArticle().get().getLinks().get(0).getUrl());
+                if (article.isEmpty()) {
+                    throw new UnsupportedOperationException("Cannot retrieve article of KEYWORD");
+                }
+                keyword.addArticle(article.get());
+            }
+
+            for (LinkData link : keywordData.getLinks() ) {
+                final Link l = _linkFactory.newLink(null, link);
+                keyword.addLink(l);
+            }
+        }
+    }
 
 
-	   /**
+       /**
      * @param file
      */
     public void parsePersonFile(final File file) {
-        
+
         try {
             final Document document = _builder.parse(file);
             extractPersonLinks(document, file);
         } catch (final SAXException se) {
-        	Logger.log(Logger.Level.ERROR)
-        	      .append("Failed to parse the XML file")
-			      .append(se)
-        	      .submit();
+            Logger.log(Logger.Level.ERROR)
+                  .append("Failed to parse the XML file")
+                  .append(se)
+                  .submit();
         } catch (final IOException ioe) {
-        	Logger.log(Logger.Level.ERROR)
-        	      .append("Failed to read the XML file")
-			      .append(ioe)
-        	      .submit();
+            Logger.log(Logger.Level.ERROR)
+                  .append("Failed to read the XML file")
+                  .append(ioe)
+                  .submit();
         }
     }
 
@@ -159,7 +159,7 @@ public class Parser {
      */
     private void extractPersonLinks(final Document document,
                                     final File file) {
-        
+
         final Element racine = document.getDocumentElement();
         final NodeList list = XMLHelper.getElementsByNodeType(racine, NodeType.CLIST);
 
@@ -171,7 +171,7 @@ public class Parser {
             if (!XMLHelper.isOfType(titleNode, NodeType.TITLE)) {
                 throw new UnsupportedOperationException("Unexpected XML structure (the first child of a CLIST node is not a TITLE node)");
             }
-            
+
             final Node authorNode =  titleNode.getFirstChild();
             if (!XMLHelper.isOfType(authorNode, NodeType.AUTHOR)) {
                 throw new UnsupportedOperationException("Unexpected XML structure (the first child of the first child of a CLIST node is not a AUTHOR node)");
@@ -180,21 +180,21 @@ public class Parser {
             final AuthorData authorData = XmlParser.parseAuthorNode((Element)authorNode);
 
             final Author author = _authorFactory.peekAuthor(authorData);
-            
+
             if (author == null) continue; // TODO ne devrait jamais arriver ?
-            
+
             for (int j = 0; j < XMLHelper.getElementsByNodeType(clistNode, NodeType.ITEM).getLength(); j++) {
-                
+
                 final Element linkNode = (Element)XMLHelper.getElementsByNodeType(clistNode, NodeType.ITEM).item(j);
                 if (linkNode.getChildNodes().getLength() != 1) {
-                    throw new UnsupportedOperationException("Illegal number of children nodes");                    
+                    throw new UnsupportedOperationException("Illegal number of children nodes");
                 }
                 if (!XMLHelper.isOfType((Element)linkNode.getChildNodes().item(0), NodeType.X)) {
-                    throw new UnsupportedOperationException("Illegal child node");                    
+                    throw new UnsupportedOperationException("Illegal child node");
                 }
                 final LinkData linkData = XmlParser.parseXNode((Element)linkNode.getChildNodes().item(0));
                 final Link link = _linkFactory.newLink(null, linkData);
-                
+
                 author.addLink(link);
             }
         }

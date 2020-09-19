@@ -8,67 +8,67 @@ import utils.Logger;
 
 public class JsonGenerator {
 
-	private final Parser parser;
-	private final Reporter reporter;
+    private final Parser parser;
+    private final Reporter reporter;
 
     final static private String s_linksDirectoryFileName = "links";
-	final static private String s_tableDirectoryFileName = "content";
+    final static private String s_tableDirectoryFileName = "content";
     final static private String s_personFileName = "persons.xml";
     final static private String s_shortArticleJsonFileName = "article.json";
     final static private String s_shortAuthorJsonFileName = "author.json";
     final static private String s_shortKeywordJsonFileName = "keyword.json";
 
-	/**
-	 * 
-	 */
-	public JsonGenerator() {
-		final ArticleFactory articleFactory = new ArticleFactory();
-		final AuthorFactory authorFactory = new AuthorFactory();
-		final LinkFactory linkFactory = new LinkFactory();
-		final KeywordFactory keywordFactory = new KeywordFactory();
-		parser = new Parser(articleFactory, linkFactory, authorFactory, keywordFactory);
-		reporter = new Reporter(articleFactory, authorFactory, keywordFactory);
-	}
+    /**
+     *
+     */
+    public JsonGenerator() {
+        final ArticleFactory articleFactory = new ArticleFactory();
+        final AuthorFactory authorFactory = new AuthorFactory();
+        final LinkFactory linkFactory = new LinkFactory();
+        final KeywordFactory keywordFactory = new KeywordFactory();
+        parser = new Parser(articleFactory, linkFactory, authorFactory, keywordFactory);
+        reporter = new Reporter(articleFactory, authorFactory, keywordFactory);
+    }
 
-	/**
-	 * @param args
-	 */
-	public static void generate(final Path homepage,
-	                            final List<Path> files) {
-		
-		final JsonGenerator main = new JsonGenerator();
+    /**
+     * @param args
+     */
+    public static void generate(final Path homepage,
+                                final List<Path> files) {
 
-		final String homepagePath = homepage.toString();
-		
-		// parse the XML files
-		for (final Path file: files) {
-		    main.scanFile(file.toFile());
-		}
-		main.scanPersonFile(new File(homepagePath + File.separator + s_linksDirectoryFileName + File.separator + s_personFileName));
+        final JsonGenerator main = new JsonGenerator();
 
-		// generate content files
-		main.generateReports(homepagePath);
+        final String homepagePath = homepage.toString();
 
-		Logger.log(Logger.Level.INFO)
-		      .append("done! ")
-		      .submit();
-	}
+        // parse the XML files
+        for (final Path file: files) {
+            main.scanFile(file.toFile());
+        }
+        main.scanPersonFile(new File(homepagePath + File.separator + s_linksDirectoryFileName + File.separator + s_personFileName));
 
-	/**
-	 * @param f
-	 */
-	private void scanFile(final File f) {
+        // generate content files
+        main.generateReports(homepagePath);
+
+        Logger.log(Logger.Level.INFO)
+              .append("done! ")
+              .submit();
+    }
+
+    /**
+     * @param f
+     */
+    private void scanFile(final File f) {
         parser.parse(f);
-	}
-	
-	private void scanPersonFile(final File f) {
-	    parser.parsePersonFile(f);
-	}
+    }
 
-	/**
-	 * @param rootDirectory
-	 */
-	private void generateReports(final String homepagePath) {
+    private void scanPersonFile(final File f) {
+        parser.parsePersonFile(f);
+    }
+
+    /**
+     * @param rootDirectory
+     */
+    private void generateReports(final String homepagePath) {
 
         final String authorJsonFileName = s_tableDirectoryFileName + File.separator + s_shortAuthorJsonFileName;
         final String articleJsonFileName = s_tableDirectoryFileName + File.separator + s_shortArticleJsonFileName;
@@ -77,5 +77,5 @@ public class JsonGenerator {
         reporter.generateAuthorJson(new File(homepagePath), authorJsonFileName);
         reporter.generateArticleJson(new File(homepagePath), articleJsonFileName);
         reporter.generateKeywordJson(new File(homepagePath), keywordJsonFileName);
-	}
+    }
 }

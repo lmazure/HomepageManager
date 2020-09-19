@@ -10,66 +10,66 @@ import utils.xmlparsing.LinkData;
 
 public class MediumLinkContentChecker extends LinkContentChecker {
 
-	private MediumLinkContentParser _parser;
-	
-	public MediumLinkContentChecker(final LinkData linkData,
-                                    final Optional<ArticleData> articleData,
-			                        final File file) {
-		super(linkData, articleData, file);
-	}
+    private MediumLinkContentParser _parser;
 
-	@Override
-	protected LinkContentCheck checkGlobalData(String data) {
-		_parser = new MediumLinkContentParser(data);
-		
-		return null;
-	}
-	
-	@Override
-	public LinkContentCheck checkLinkTitle(final String data,
+    public MediumLinkContentChecker(final LinkData linkData,
+                                    final Optional<ArticleData> articleData,
+                                    final File file) {
+        super(linkData, articleData, file);
+    }
+
+    @Override
+    protected LinkContentCheck checkGlobalData(String data) {
+        _parser = new MediumLinkContentParser(data);
+
+        return null;
+    }
+
+    @Override
+    public LinkContentCheck checkLinkTitle(final String data,
                                            final String title) {
-		
-	    final String effectiveTitle = _parser.getTitle();
-	    
-	    if (!title.equals(effectiveTitle)) {
-			return new LinkContentCheck("title \"" +
-                	                    title +
-                	                    "\"  is not equal to the real title \"" +
-                	                    effectiveTitle +
-                  		                "\"");	    	
-	    }
-	    
-		return null;
-	}
-	
-	@Override
-	protected LinkContentCheck checkArticleDate(final String data,
+
+        final String effectiveTitle = _parser.getTitle();
+
+        if (!title.equals(effectiveTitle)) {
+            return new LinkContentCheck("title \"" +
+                                        title +
+                                        "\"  is not equal to the real title \"" +
+                                        effectiveTitle +
+                                          "\"");
+        }
+
+        return null;
+    }
+
+    @Override
+    protected LinkContentCheck checkArticleDate(final String data,
                                                 final Optional<TemporalAccessor> publicationDate,
                                                 final Optional<TemporalAccessor> creationDate)
-	{
+    {
 
-		if (creationDate.isEmpty()) {
-			return new LinkContentCheck("Medium link with no creation date");			
-		}
-		
-		if (publicationDate.isPresent()) {
-			return new LinkContentCheck("Medium link with publication date");			
-		}
-		
-		if (!(creationDate.get() instanceof LocalDate)) {
-			return new LinkContentCheck("Date without month or day");
+        if (creationDate.isEmpty()) {
+            return new LinkContentCheck("Medium link with no creation date");
+        }
+
+        if (publicationDate.isPresent()) {
+            return new LinkContentCheck("Medium link with publication date");
+        }
+
+        if (!(creationDate.get() instanceof LocalDate)) {
+            return new LinkContentCheck("Date without month or day");
        }
 
-		final LocalDate expectedDate = (LocalDate)creationDate.get();
-		final LocalDate effectivePublishDate = _parser.getPublishDate();
+        final LocalDate expectedDate = (LocalDate)creationDate.get();
+        final LocalDate effectivePublishDate = _parser.getPublishDate();
 
-		if (!expectedDate.equals(effectivePublishDate)) {
-			return new LinkContentCheck("expected date " +
-				                        expectedDate +
+        if (!expectedDate.equals(effectivePublishDate)) {
+            return new LinkContentCheck("expected date " +
+                                        expectedDate +
                                         " is not equal to the effective publish date " +
                                         effectivePublishDate);
        }
 
        return null;
-	}
+    }
 }

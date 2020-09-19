@@ -59,7 +59,7 @@ public class LinkCheckRunner {
     private final DocumentBuilder _builder;
     private final Path _outputFile;
     private final Path _reportFile;
-    private Instant _lastFileWriteTimestamp; 
+    private Instant _lastFileWriteTimestamp;
 
     public LinkCheckRunner(final Path file,
                            final Path tmpPath,
@@ -111,7 +111,7 @@ public class LinkCheckRunner {
         for (final ArticleData article : articles) {
             for (final LinkData link : article.getLinks()) {
                 final URL url = convertStringToUrl(link.getUrl());
-                if (url != null) {               
+                if (url != null) {
                     _articles.put(url, article);
                 }
             }
@@ -141,7 +141,7 @@ public class LinkCheckRunner {
 
         return list;
     }
-    
+
     private List<ArticleData> extractArticles(final Element e) {
 
         final List<ArticleData> list = new ArrayList<ArticleData>();
@@ -173,7 +173,7 @@ public class LinkCheckRunner {
 
         for (final LinkData linkData: linkDatas) {
 
-            final String urlStr = linkData.getUrl(); 
+            final String urlStr = linkData.getUrl();
             if (urlStr.startsWith("javascript:")) {
                 continue;
             }
@@ -208,7 +208,7 @@ public class LinkCheckRunner {
             final URL url = convertStringToUrl(urlStr);
             if (url != null) {
                 list.add(url);
-                _expectedData.put(url, linkData);                
+                _expectedData.put(url, linkData);
             }
         }
 
@@ -342,7 +342,7 @@ public class LinkCheckRunner {
 
     /**
      * append (at the end of builder) the result of the liveness check of url
-     * 
+     *
      * @param url
      * @param expectedData
      * @param effectiveData
@@ -352,7 +352,7 @@ public class LinkCheckRunner {
                                            final LinkData expectedData,
                                            final SiteData effectiveData,
                                            final StringBuilder builder) {
-        
+
         builder.append("Title = \"" + expectedData.getTitle() + "\"\n");
         if (expectedData.getSubtitles().length > 0) {
             builder.append("Subtitle = \"" + String.join("\" \"",  expectedData.getSubtitles()) + "\"\n");
@@ -378,8 +378,8 @@ public class LinkCheckRunner {
         builder.append("Look for article = https://www.google.com/search?q=%22" + URLEncoder.encode(expectedData.getTitle(), StandardCharsets.UTF_8) + "%22\n");
         builder.append("\n");
     }
-    
-    private boolean isDataExpected() { //TBD this method is very stupid, we should used a flag instead of computing the status every time 
+
+    private boolean isDataExpected() { //TBD this method is very stupid, we should used a flag instead of computing the status every time
 
         for (final URL url : _effectiveData.keySet()) {
             if (!isOneDataExpected(_expectedData.get(url), _effectiveData.get(url))) {

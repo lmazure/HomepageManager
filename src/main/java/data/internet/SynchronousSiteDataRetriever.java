@@ -39,7 +39,7 @@ public class SynchronousSiteDataRetriever {
         _persister = persister;
         _sslSocketFactory = getDisabledPKIXCheck();
     }
-    
+
     /**
      * @param url
      * @param consumer
@@ -54,7 +54,7 @@ public class SynchronousSiteDataRetriever {
         Optional<Integer> httpCode = Optional.empty();
         Optional<Map<String, List<String>>> headers = Optional.empty();
         Optional<String> error = Optional.empty();
-        
+
          try {
              final URLConnection connection = url.openConnection();
              final HttpURLConnection httpConnection = (HttpURLConnection)connection;
@@ -87,7 +87,7 @@ public class SynchronousSiteDataRetriever {
              consumer.accept(Boolean.TRUE, new SiteData(url, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error));
          }
     }
-        
+
     static private SSLSocketFactory getDisabledPKIXCheck() {
         // Create a trust manager that does not validate certificate chains
         final TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
@@ -102,7 +102,7 @@ public class SynchronousSiteDataRetriever {
                 return null;
             }
         } };
-        
+
         // Install the all-trusting trust manager
         SSLContext sslContext = null;
         try {

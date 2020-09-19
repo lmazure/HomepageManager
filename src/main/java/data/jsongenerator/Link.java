@@ -7,45 +7,45 @@ import java.util.Optional;
 import utils.xmlparsing.LinkData;
 
 public class Link extends LinkData implements Comparable<Link> {
-	
-	private final String _sortingKey;
 
-	public Link(final Article article,
-			    final String title,
-			    final String[] subtitles,
-				final String url,
-				final Optional<String> status,
-				final Optional<String> protection,
-				final String[] formats,
-				final String[] languages,
-				final Optional<Duration> duration,
-				final Optional<TemporalAccessor> publicationDate) {
-	    super(title, subtitles, url, status, protection, formats, languages, duration, publicationDate);
-		_sortingKey = normalizeName(url);
-	}
+    private final String _sortingKey;
 
-	/**
-	 * @return
-	 */
-	public String getSortingKey() {
-		return _sortingKey;
-	}
+    public Link(final Article article,
+                final String title,
+                final String[] subtitles,
+                final String url,
+                final Optional<String> status,
+                final Optional<String> protection,
+                final String[] formats,
+                final String[] languages,
+                final Optional<Duration> duration,
+                final Optional<TemporalAccessor> publicationDate) {
+        super(title, subtitles, url, status, protection, formats, languages, duration, publicationDate);
+        _sortingKey = normalizeName(url);
+    }
 
-	/**
-	 * @param name name to be normalized
-	 * @return normalized (i.e. usable for sorting) name
-	 */
-	static private String normalizeName(final String name) {
-		final int i = name.indexOf(':');
-		String str = name.substring(i + 1);
-		while (str.codePointAt(0) == "/".codePointAt(0)) {
-			str = str.substring(1);
-		}
-		return str;
-	}
+    /**
+     * @return
+     */
+    public String getSortingKey() {
+        return _sortingKey;
+    }
 
-	@Override
-	public int compareTo(final Link o) {
-		return getSortingKey().compareToIgnoreCase(o.getSortingKey());
-	}
+    /**
+     * @param name name to be normalized
+     * @return normalized (i.e. usable for sorting) name
+     */
+    static private String normalizeName(final String name) {
+        final int i = name.indexOf(':');
+        String str = name.substring(i + 1);
+        while (str.codePointAt(0) == "/".codePointAt(0)) {
+            str = str.substring(1);
+        }
+        return str;
+    }
+
+    @Override
+    public int compareTo(final Link o) {
+        return getSortingKey().compareToIgnoreCase(o.getSortingKey());
+    }
 }

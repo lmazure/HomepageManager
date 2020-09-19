@@ -10,7 +10,7 @@ import utils.xmlparsing.LinkData;
 public class YoutubeChannelUserLinkContentChecker extends LinkContentChecker {
 
     private YoutubeChannelUserLinkContentParser _parser;
-    
+
     public YoutubeChannelUserLinkContentChecker(final LinkData linkData,
                                             final Optional<ArticleData> articleData,
                                             final File file) {
@@ -22,23 +22,23 @@ public class YoutubeChannelUserLinkContentChecker extends LinkContentChecker {
         _parser = new YoutubeChannelUserLinkContentParser(data);
 
         if (_parser.getErrorMessage().isPresent()) {
-            return new LinkContentCheck(_parser.getErrorMessage().get());                       
+            return new LinkContentCheck(_parser.getErrorMessage().get());
         }
 
         return null;
     }
-    
+
 
     @Override
     protected LinkContentCheck checkLinkLanguages(final String data,
                                                   final String[] languages)
     {
         final String language = _parser.getLanguage();
-        
+
         if (!Arrays.asList(languages).contains(language)) {
-            return new LinkContentCheck("language is \"" + language + "\" but this one is unexpected");         
+            return new LinkContentCheck("language is \"" + language + "\" but this one is unexpected");
         }
-        
+
         return null;
     }
 }

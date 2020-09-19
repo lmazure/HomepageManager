@@ -18,39 +18,39 @@ import java.nio.file.Paths;
  */
 public class FileHelper {
 
-	public static String slurpFile(final File file) {
+    public static String slurpFile(final File file) {
 
         final CharsetDecoder decoder = StandardCharsets.UTF_8.newDecoder();
         decoder.onMalformedInput(CodingErrorAction.REPLACE);
 
-		try (final FileInputStream input = new FileInputStream(file);
-		     final InputStreamReader reader = new InputStreamReader(input, decoder);
-		     final BufferedReader bufferedReader = new BufferedReader(reader)) {
-	        final StringBuilder sb = new StringBuilder();
-	        String line = bufferedReader.readLine();
-	        while(line != null) {
-	            sb.append(line);
-	            line = bufferedReader.readLine();
-	        }
-	        return sb.toString();
-	    } catch (final IOException e) {
-	    	ExitHelper.exit(e);
-			// NOT REACHED
-			return null;
-		}
-	}
-	
+        try (final FileInputStream input = new FileInputStream(file);
+             final InputStreamReader reader = new InputStreamReader(input, decoder);
+             final BufferedReader bufferedReader = new BufferedReader(reader)) {
+            final StringBuilder sb = new StringBuilder();
+            String line = bufferedReader.readLine();
+            while(line != null) {
+                sb.append(line);
+                line = bufferedReader.readLine();
+            }
+            return sb.toString();
+        } catch (final IOException e) {
+            ExitHelper.exit(e);
+            // NOT REACHED
+            return null;
+        }
+    }
+
     /**
      * create parent directory of the file
-     * 
+     *
      * @param file
      */
     public static void createParentDirectory(final Path file) {
-        
+
         final File parentDir = file.getParent().toFile();
-        
+
         if (parentDir.isDirectory()) return;
-        
+
         if (!parentDir.mkdirs()) {
             ExitHelper.exit("Failed to create directory " + parentDir);
         }
@@ -65,10 +65,10 @@ public class FileHelper {
         }
         directoryToBeDeleted.delete();
     }
-    
+
     /**
      * delete the file
-     * 
+     *
      * @param file
      */
     public static void deleteFile(final Path file) {
@@ -78,12 +78,12 @@ public class FileHelper {
             ExitHelper.exit(e);
         }
     }
-    
+
     /**
      * Generate a new name from a file sourceFile which is in a directory sourceDirectory
      * The new name is in directory targetDirectory has the same name as the sourceFile except
      * with a suffix suffix and an extension extension
-     * 
+     *
      * @param sourceDirectory
      * @param targetDirectory
      * @param sourceFile
@@ -99,20 +99,20 @@ public class FileHelper {
         final Path relativePath = sourceDirectory.relativize(sourceFile);
         final Path reportFilePath = targetDirectory.resolve(relativePath);
         final String s = reportFilePath.toString();
-        return Paths.get(s.substring(0, s.lastIndexOf('.')).concat(suffix + "." + extension));     
+        return Paths.get(s.substring(0, s.lastIndexOf('.')).concat(suffix + "." + extension));
    }
-    
+
     public static String generateFileNameFromURL(final URL url) {
-        
+
         final int MAX_FILENAME_LENGTH = 255;
-        
+
         String s = url.toString()
                       .replaceFirst("://", "→")
                       .replaceAll(" ", "%20")
                       .replaceAll("/", "%2F")
                       .replaceAll(":", "%3A")
                       .replaceAll("\\?", "%3F");
-        
+
         if (s.length() > MAX_FILENAME_LENGTH) {
             s = s.substring(0, MAX_FILENAME_LENGTH - 9) + "_" + Integer.toHexString(s.hashCode()); // avoid crash on Windows due to too long file name
         }

@@ -13,18 +13,18 @@ import utils.xmlparsing.NodeType;
 public class ExclusionTagSelector implements TagSelector {
 
     final private Set<String> _tags;
-	
-	/**
-	 * @param tagsToIgnore
-	 */
-	public ExclusionTagSelector(final NodeType tagsToIgnore[]) {
-		_tags = Stream.of(tagsToIgnore)
-		   	           .map(NodeType::toString)
-			           .collect(Collectors.toSet());
-	}
-	
-	@Override
-	public boolean isTagCheckable(final String tag) {
+
+    /**
+     * @param tagsToIgnore
+     */
+    public ExclusionTagSelector(final NodeType tagsToIgnore[]) {
+        _tags = Stream.of(tagsToIgnore)
+                          .map(NodeType::toString)
+                       .collect(Collectors.toSet());
+    }
+
+    @Override
+    public boolean isTagCheckable(final String tag) {
         return !_tags.contains(tag);
-	}
+    }
 }

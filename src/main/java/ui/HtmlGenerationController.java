@@ -14,10 +14,10 @@ public class HtmlGenerationController extends GenericUiController {
         super((final Path file, final Status status, final Path outputFile, final Path reportFile) -> list.getFile(file).setHtmlGenerationStatus(status, outputFile, reportFile));
         _homepagePath = homepagePath;
     }
-    
+
     @Override
     public TableColumn<ObservableFile, ?> getColumns() {
-        
+
         final TableColumn<ObservableFile, String> allColumns = new TableColumn<ObservableFile, String>("HTML");
 
         final TableColumn<ObservableFile, String> displayColumn = new TableColumn<>("Display");

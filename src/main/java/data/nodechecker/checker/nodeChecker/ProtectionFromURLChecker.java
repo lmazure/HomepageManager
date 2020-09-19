@@ -16,48 +16,48 @@ import org.w3c.dom.NodeList;
  */
 public class ProtectionFromURLChecker extends NodeChecker {
 
-	final static InclusionTagSelector s_selector = new InclusionTagSelector( new NodeType[] {
-			NodeType.X
-			} );
-	
-	@Override
-	public TagSelector getTagSelector() {
-		return s_selector;
-	}
+    final static InclusionTagSelector s_selector = new InclusionTagSelector( new NodeType[] {
+            NodeType.X
+            } );
 
-	@Override
-	public NodeRule[] getRules() {
-		final NodeRule a[]= new NodeRule[1];
-		a[0] = new NodeRule() { @Override
-		public CheckStatus checkElement(final Element e) { return checkProtection(e);}
-		                    @Override
-							public String getDescription() { return "given the URL, the protection is incorrect"; } };
-		return a;
-	}
+    @Override
+    public TagSelector getTagSelector() {
+        return s_selector;
+    }
 
-	private CheckStatus checkProtection(final Element e) {
+    @Override
+    public NodeRule[] getRules() {
+        final NodeRule a[]= new NodeRule[1];
+        a[0] = new NodeRule() { @Override
+        public CheckStatus checkElement(final Element e) { return checkProtection(e);}
+                            @Override
+                            public String getDescription() { return "given the URL, the protection is incorrect"; } };
+        return a;
+    }
 
-		String url="";
-		String protection="";
-		
-		final NodeList children = e.getChildNodes();
-		for (int j=0; j<children.getLength(); j++) {
-			final Node child = children.item(j);
-			if (child.getNodeType() == Node.ELEMENT_NODE) {
-				if (XMLHelper.isOfType(child, NodeType.A)) {
-					url=child.getTextContent();
-				}
-			}
-		}
-		
-		final Node statusAttribute = e.getAttributeNode("protection");
-		if ( statusAttribute != null ) {
-			protection = statusAttribute.getTextContent();
-		}
+    private CheckStatus checkProtection(final Element e) {
 
-		if (url.contains("auntminnie.com/") && !protection.equals("free_registration"))
-		   return new CheckStatus("\""+url+"\" should be flagged as 'free_registration'");
+        String url="";
+        String protection="";
 
-		return null;
-	}
+        final NodeList children = e.getChildNodes();
+        for (int j=0; j<children.getLength(); j++) {
+            final Node child = children.item(j);
+            if (child.getNodeType() == Node.ELEMENT_NODE) {
+                if (XMLHelper.isOfType(child, NodeType.A)) {
+                    url=child.getTextContent();
+                }
+            }
+        }
+
+        final Node statusAttribute = e.getAttributeNode("protection");
+        if ( statusAttribute != null ) {
+            protection = statusAttribute.getTextContent();
+        }
+
+        if (url.contains("auntminnie.com/") && !protection.equals("free_registration"))
+           return new CheckStatus("\""+url+"\" should be flagged as 'free_registration'");
+
+        return null;
+    }
 }

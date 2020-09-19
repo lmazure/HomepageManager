@@ -12,7 +12,7 @@ public class YoutubeChannelUserLinkContentParser {
     private final String _data;
     private String _language;
     private Optional<String> _errorMessage;
-    
+
     public YoutubeChannelUserLinkContentParser(final String data) {
         _data = data;
     }
@@ -21,21 +21,21 @@ public class YoutubeChannelUserLinkContentParser {
         if (_errorMessage == null) {
             _errorMessage = extractErrorMessage();
         }
-        
+
         return _errorMessage;
     }
 
     public String getLanguage() {
         if (_language == null) {
             final String description = extractDescription();
-            _language = StringHelper.guessLanguage(description);            
+            _language = StringHelper.guessLanguage(description);
         }
-        
+
         return _language;
     }
 
     private Optional<String> extractErrorMessage() {
-        
+
         final Pattern p = Pattern.compile("\"alerts\":\\[\\{\"alertRenderer\":\\{\"type\":\"ERROR\",\"text\":\\{\"simpleText\":\"([^\\\"]*)\"\\}\\}\\}\\]");
         final Matcher m = p.matcher(_data);
         if (m.find()) {
@@ -46,7 +46,7 @@ public class YoutubeChannelUserLinkContentParser {
     }
 
     private String extractDescription() {
-        
+
         final Pattern p = Pattern.compile("<meta name=\"description\" content=\"([^\"]*)\">");
         final Matcher m = p.matcher(_data);
         if (m.find()) {

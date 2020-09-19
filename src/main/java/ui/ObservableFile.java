@@ -33,7 +33,7 @@ public class ObservableFile { // TODO this class must be split, it currently kno
     public ObservableFile(final Path path,
                           final FileTime modificationDateTime,
                           final long size) {
-        
+
         _name = new SimpleStringProperty(path.toString());
         _modificationDateTime = new SimpleStringProperty(formatFileTime(modificationDateTime));
         _size = new SimpleLongProperty(size);
@@ -101,7 +101,7 @@ public class ObservableFile { // TODO this class must be split, it currently kno
     }
 
     // --- file check ---
-    
+
     public SimpleStringProperty getFileCheckProperty() {
         return _fileCheckStatus;
     }
@@ -125,7 +125,7 @@ public class ObservableFile { // TODO this class must be split, it currently kno
     public Path getFileCheckReportFile() {
         return _fileCheckReportFile;
     }
-    
+
     // --- node value check ---
 
     public SimpleStringProperty getNodeValueCheckProperty() {
@@ -177,9 +177,9 @@ public class ObservableFile { // TODO this class must be split, it currently kno
     public Path getLinkCheckReportFile() {
         return _linkCheckReportFile;
     }
-    
+
     // --- helpers ---
-    
+
     private static String formatFileTime(final FileTime fileTime) {
         return s_formatter.format(fileTime.toInstant()
                                           .atZone(ZoneId.systemDefault())

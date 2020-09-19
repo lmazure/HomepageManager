@@ -16,8 +16,8 @@ import utils.FileHelper;
 
 public class MediumLinkContentParserTest {
 
-	@Test
-	void testShortTitle() {
+    @Test
+    void testShortTitle() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://medium.com/@kentbeck_7670/bs-changes-e574bc396aaa"),
@@ -29,10 +29,10 @@ public class MediumLinkContentParserTest {
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
-	}
+    }
 
-	@Test
-	void testLongTitle() {
+    @Test
+    void testLongTitle() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://medium.com/@kentbeck_7670/productive-compliments-giving-receiving-connecting-dda58570d96b"),
@@ -44,10 +44,10 @@ public class MediumLinkContentParserTest {
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
-	}
+    }
 
-	@Test
-	void testTitleWithAmpersand() {
+    @Test
+    void testTitleWithAmpersand() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://medium.com/@tdeniffel/tcr-test-commit-revert-a-test-alternative-to-tdd-6e6b03c22bec"),
@@ -59,10 +59,10 @@ public class MediumLinkContentParserTest {
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
-	}
+    }
 
-	@Test
-	void testTitleWithSlash() {
+    @Test
+    void testTitleWithSlash() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://medium.com/@kentbeck_7670/fast-slow-in-3x-explore-expand-extract-6d4c94a7539"),
@@ -74,7 +74,7 @@ public class MediumLinkContentParserTest {
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
-	}
+    }
 
     private SynchronousSiteDataRetriever buildDataSiteRetriever() {
         final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\test\\MediumLinkContentParserTest");
@@ -82,8 +82,8 @@ public class MediumLinkContentParserTest {
         return new SynchronousSiteDataRetriever(new SiteDataPersister(cachePath));
     }
 
-	@Test
-	void testUnmodifiedBlogDate() {
+    @Test
+    void testUnmodifiedBlogDate() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://medium.com/@kentbeck_7670/bs-changes-e574bc396aaa"),
@@ -95,11 +95,11 @@ public class MediumLinkContentParserTest {
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
-	}
+    }
 
 
-	@Test
-	void testModifiedBlogDate() {
+    @Test
+    void testModifiedBlogDate() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://medium.com/97-things/optional-is-a-law-breaking-monad-but-a-good-type-7667eb821081"),
@@ -111,5 +111,5 @@ public class MediumLinkContentParserTest {
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
-	}
+    }
 }

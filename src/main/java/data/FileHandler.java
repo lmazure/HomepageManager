@@ -17,7 +17,7 @@ public interface FileHandler {
          */
         HANDLED_WITH_SUCCESS,
         /**
-         * the file handling was done with error(s) 
+         * the file handling was done with error(s)
          */
         HANDLED_WITH_ERROR,
         /**
@@ -31,8 +31,8 @@ public interface FileHandler {
     public void handleDeletion(final Path file);
 
     public Path getOutputFile(final Path file);
-    
+
     public Path getReportFile(final Path file);
-    
+
     public boolean outputFileMustBeRegenerated(final Path file);
 }

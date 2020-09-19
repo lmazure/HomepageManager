@@ -43,7 +43,7 @@ public class SiteDataPersister {
                         final Optional<Map<String, List<String>>> headers,
                         final Optional<InputStream> dataStream,
                         final Optional<String> error) {
-        
+
         getOutputDirectory(url, timestamp).toFile().mkdirs();
 
         try (final PrintStream stream = new PrintStream(getStatusFile(url, timestamp).toFile())) {
@@ -57,7 +57,7 @@ public class SiteDataPersister {
                     stream.println("present");
                     stream.println(httpCode.get());
                 } else {
-                    stream.println("empty");                      
+                    stream.println("empty");
                 }
             }
 
@@ -73,29 +73,29 @@ public class SiteDataPersister {
                             stream.print(value);
                         }
                         stream.println();
-                    }                
+                    }
                 } else {
-                    stream.println("empty");                      
+                    stream.println("empty");
                 }
             }
 
             {
                 if (error.isPresent()) {
-                    stream.println("present");      
+                    stream.println("present");
                     stream.println(error.get().lines().count());
                     error.get().lines().forEach(l -> stream.println(l));
                 } else {
-                    stream.println("empty");                      
+                    stream.println("empty");
                 }
             }
 
         } catch (final FileNotFoundException e) {
             ExitHelper.exit(e);
         }
-                
+
         if (dataStream.isPresent()) {
-    		try (final InputStream inputStream = isEncodedWithGzip(headers) ? new GZIPInputStream(dataStream.get()) : dataStream.get();
-    		     final PrintStream outputStream = new PrintStream(getDataFile(url, timestamp).toFile(), StandardCharsets.UTF_8)) {
+            try (final InputStream inputStream = isEncodedWithGzip(headers) ? new GZIPInputStream(dataStream.get()) : dataStream.get();
+                 final PrintStream outputStream = new PrintStream(getDataFile(url, timestamp).toFile(), StandardCharsets.UTF_8)) {
                 long size = 0L;
                 final byte[] buffer = new byte[s_file_buffer_size];
                 int length;
@@ -104,21 +104,21 @@ public class SiteDataPersister {
                     size += length;
                 }
                 if (size > s_max_content_size) {
-                	Logger.log(Logger.Level.WARN)
-          	              .append("retrieved content of ")
+                    Logger.log(Logger.Level.WARN)
+                            .append("retrieved content of ")
                           .append(url)
                           .append(" is truncated")
                           .submit();
                 }
             } catch (final IOException e) {
-            	Logger.log(Logger.Level.ERROR)
-            	      .append("Error (")
+                Logger.log(Logger.Level.ERROR)
+                      .append("Error (")
                       .append(e.toString())
                       .append(") while getting data from ")
                       .append(url.toString())
                       .submit();
-            }            
-        }        
+            }
+        }
     }
 
     /**
@@ -126,11 +126,11 @@ public class SiteDataPersister {
      * @return the timestamps of the cached values (in reverse order, the first in the younger one)
      */
     public List<Instant> getTimestampList(final URL url) {
-        
+
         if (!Files.exists(getOutputDirectory(url))) {
             return new ArrayList<Instant>(0);
         }
-        
+
         try {
             return Files.list(getOutputDirectory(url))
                         .filter(p -> p.toFile().isDirectory())
@@ -142,10 +142,10 @@ public class SiteDataPersister {
             return null;
         }
     }
- 
+
     public SiteData retrieve(final URL url,
                              final Instant timestamp) {
-        
+
         if (!Files.exists(getStatusFile(url, timestamp))) {
             ExitHelper.exit("status file " + getStatusFile(url, timestamp) + " does not exist");
         }
@@ -160,7 +160,7 @@ public class SiteDataPersister {
             {
                 status = Status.valueOf(reader.readLine());
             }
-            
+
             {
                 final String httpCodePresence = reader.readLine();
                 if (httpCodePresence.equals("present")) {
@@ -218,7 +218,7 @@ public class SiteDataPersister {
 
         return new SiteData(url, status, httpCode, headers, dataFile, error);
     }
-    
+
     private Path getStatusFile(final URL url,
                                final Instant timestamp) {
         return getOutputDirectory(url, timestamp).resolve("status");
@@ -238,22 +238,22 @@ public class SiteDataPersister {
         return _path.resolve(url.getHost())
                     .resolve(FileHelper.generateFileNameFromURL(url));
     }
-    
+
     private static boolean isEncodedWithGzip(final Optional<Map<String, List<String>>> headers) {
-    	
+
         if (!headers.isPresent()) {
-        	return false;
-        }
-        
-        if (headers.get().containsKey("Content-Encoding")) {
-        	return headers.get().get("Content-Encoding").get(0).equals("gzip");
+            return false;
         }
 
-        
-        if (headers.get().containsKey("content-encoding")) {
-        	return headers.get().get("content-encoding").get(0).equals("gzip");
+        if (headers.get().containsKey("Content-Encoding")) {
+            return headers.get().get("Content-Encoding").get(0).equals("gzip");
         }
-        
+
+
+        if (headers.get().containsKey("content-encoding")) {
+            return headers.get().get("content-encoding").get(0).equals("gzip");
+        }
+
         return false;
     }
 }

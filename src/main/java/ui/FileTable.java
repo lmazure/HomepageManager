@@ -68,7 +68,7 @@ public class FileTable extends Application {
         border.setCenter(buildTable(uiControllers));
         border.setBottom(builtButtons());
         final Scene scene = new Scene(border);
-        
+
         final Service<Void> calculateService = new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
@@ -142,7 +142,7 @@ public class FileTable extends Application {
         launch();
     }
 
-    private void generateGlobalFiles() {        
+    private void generateGlobalFiles() {
         SiteFilesGenerator.generate(_homepagePath, _list.getFileList());
         JsonGenerator.generate(_homepagePath, _list.getFileList());
         MetricsExtractor.generate(_homepagePath);

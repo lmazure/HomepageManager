@@ -14,10 +14,10 @@ public class LinkChecker implements FileHandler {
     private final Path _tmpPath;
     private final BackgroundDataController _controller;
     private final Map<Path, LinkCheckRunner> _handlers;
-    
+
     /**
      * This class checks the appearing in XML files.
-     * 
+     *
      * @param homepagePath
      * @param tmpPath
      */
@@ -29,7 +29,7 @@ public class LinkChecker implements FileHandler {
         _controller = controller;
         _handlers = new HashMap<Path, LinkCheckRunner>();
     }
-    
+
     @Override
     public void handleCreation(final Path file) {
 
@@ -44,7 +44,7 @@ public class LinkChecker implements FileHandler {
 
     @Override
     public void handleDeletion(final Path file) {
-        
+
         final LinkCheckRunner handler = _handlers.get(file);
         if (handler != null) {
             handler.cancel();
@@ -56,14 +56,14 @@ public class LinkChecker implements FileHandler {
     public Path getOutputFile(final Path file) {
         return FileHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_linkcheck", "txt");
     }
-    
+
     @Override
     public Path getReportFile(final Path file) {
          return FileHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_report_linkcheck", "txt");
     }
 
     @Override
-    public boolean outputFileMustBeRegenerated(final Path file) {        
+    public boolean outputFileMustBeRegenerated(final Path file) {
         return !getOutputFile(file).toFile().isFile()
                || (getOutputFile(file).toFile().lastModified() <= file.toFile().lastModified());
     }
