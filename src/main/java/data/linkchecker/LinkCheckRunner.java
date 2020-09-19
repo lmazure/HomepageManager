@@ -26,7 +26,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import data.BackgroundDataController;
 import data.FileHandler.Status;
@@ -45,7 +44,7 @@ import utils.xmlparsing.NodeType;
 import utils.xmlparsing.XmlParser;
 
 public class LinkCheckRunner {
-    
+
     private static final int MAX_CACHE_AGE = 30*24*60*60;
     private static final int REPORT_THROTTLING_PERIOD = 90;
     private final Path _file;
@@ -61,7 +60,7 @@ public class LinkCheckRunner {
     private final Path _outputFile;
     private final Path _reportFile;
     private Instant _lastFileWriteTimestamp; 
-    
+
     public LinkCheckRunner(final Path file,
                            final Path tmpPath,
                            final BackgroundDataController controller,
@@ -85,38 +84,37 @@ public class LinkCheckRunner {
         _reportFile = reportFile;
         _lastFileWriteTimestamp = Instant.MIN;
     }
-    
+
     public synchronized void launch() {
 
-        FileHelper.createParentDirectory(_outputFile);
+        createOutputfile();
 
         final List<LinkData> links;
         final List<ArticleData> articles;
 
         Document document;
-		try {
-			document = _builder.parse(_file.toFile());
+        try {
+            document = _builder.parse(_file.toFile());
             links =  extractLinks(document.getDocumentElement());
             articles =  extractArticles(document.getDocumentElement());
-		} catch (final SAXException | IOException e) {
+        } catch (final Exception e) {
             FileHelper.createParentDirectory(_reportFile);
             try (final PrintStream reportWriter = new PrintStream(_reportFile.toFile())) {
                 e.printStackTrace(reportWriter);
             } catch (final IOException e2) {
                 ExitHelper.exit(e2);
             }
+            _controller.handleUpdate(_file, Status.FAILED_TO_HANDLED, _outputFile, _reportFile);
             return;
-		}
+        }
 
-        createOutputfile();
-        
         for (final ArticleData article : articles) {
-        	for (final LinkData link : article.getLinks()) {
+            for (final LinkData link : article.getLinks()) {
                 final URL url = convertStringToUrl(link.getUrl());
-                if (url != null) {       		
-                	_articles.put(url, article);
+                if (url != null) {               
+                    _articles.put(url, article);
                 }
-        	}
+            }
         }
 
         final List<URL> list = buildListOfLinksToBeChecked(links);
@@ -125,7 +123,7 @@ public class LinkCheckRunner {
             _retriever.retrieve(url, this::handleLinkData, MAX_CACHE_AGE);
         }
     }
-    
+
     private List<LinkData> extractLinks(final Element e) {
 
         final List<LinkData> list = new ArrayList<LinkData>();
@@ -156,33 +154,33 @@ public class LinkCheckRunner {
         }
 
         if (XMLHelper.isOfType(e, NodeType.ARTICLE)) {
-        	try {
+            try {
                 list.add(XmlParser.parseArticleNode(e));
-        	} catch (final UnsupportedOperationException ex) {
-        		Logger.log(Level.ERROR)
-        		      .append("Failed to parse Element ")
-        		      .append(ex)
-        		      .submit();
-        	}
+            } catch (final UnsupportedOperationException ex) {
+                Logger.log(Level.ERROR)
+                      .append("Failed to parse Element ")
+                      .append(ex)
+                      .submit();
+            }
         }
 
         return list;
     }
-    
+
     private List<URL> buildListOfLinksToBeChecked(final List<LinkData> linkDatas) {
-    
+
         final List<URL> list = new ArrayList<URL>();
 
         for (final LinkData linkData: linkDatas) {
-            
+
             final String urlStr = linkData.getUrl(); 
             if (urlStr.startsWith("javascript:")) {
                 continue;
             }
             if (urlStr.indexOf(":") < 0) {
                 // TODO implement check of local links
-            	Logger.log(Logger.Level.INFO)
-            	      .append("TBD: local link ")
+                Logger.log(Logger.Level.INFO)
+                      .append("TBD: local link ")
                       .append(urlStr)
                       .append(" is not checked")
                       .submit();
@@ -190,8 +188,8 @@ public class LinkCheckRunner {
             }
             if (urlStr.startsWith("ftp:")) {
                 // TODO implement check of FTP links
-            	Logger.log(Logger.Level.INFO)
-            	      .append("TBD: FTP URL ")
+                Logger.log(Logger.Level.INFO)
+                      .append("TBD: FTP URL ")
                       .append(urlStr)
                       .append(" is not checked")
                       .submit();
@@ -199,8 +197,8 @@ public class LinkCheckRunner {
             }
             if (urlStr.startsWith("mailto:")) {
                 // TODO implement check of mail links
-            	Logger.log(Logger.Level.INFO)
-            	      .append("TBD: mailto URL ")
+                Logger.log(Logger.Level.INFO)
+                      .append("TBD: mailto URL ")
                       .append(urlStr)
                       .append(" is not checked")
                       .submit();
@@ -210,21 +208,23 @@ public class LinkCheckRunner {
             final URL url = convertStringToUrl(urlStr);
             if (url != null) {
                 list.add(url);
-                _expectedData.put(url, linkData);            	
+                _expectedData.put(url, linkData);                
             }
         }
-        
+
         return list;
     }
-    
+
     public synchronized void cancel() {
         _isCancelled = true;
         FileHelper.deleteFile(_outputFile);
         FileHelper.deleteFile(_reportFile);
         _controller.handleDeletion(_file, Status.HANDLED_WITH_SUCCESS, _outputFile, _reportFile); // TODO the two last arguments cannot be correct
     }
-    
+
     private void createOutputfile() {
+        FileHelper.createParentDirectory(_outputFile);
+
         try (final FileOutputStream os = new FileOutputStream(_outputFile.toFile());
              final PrintWriter pw = new PrintWriter(os)) {
                pw.println("Analysis of links is started");
@@ -236,7 +236,7 @@ public class LinkCheckRunner {
             ExitHelper.exit(e);
         }
     }
-    
+
     /**
      * Callback when a the data of a link has been retrieved
      * @param isDataFresh
@@ -244,21 +244,21 @@ public class LinkCheckRunner {
      */
     private synchronized void handleLinkData(final Boolean isDataFresh,
                                              final SiteData siteData) {
-    
+
         if (_isCancelled) {
             return;
         }
-        
+
         _effectiveData.put(siteData.getUrl(), siteData);
         if ((siteData.getStatus() == SiteData.Status.SUCCESS) &&
             _expectedData.get(siteData.getUrl()).getStatus().isEmpty()) {
-	        final LinkContentChecker contentChecker = LinkContentCheckerFactory.build(siteData.getUrl(),
-	        		                                                                  _expectedData.get(siteData.getUrl()),
-	        		                                                                  Optional.ofNullable(_articles.get(siteData.getUrl())),
-	        		                                                                  siteData.getDataFile().get());
-	        _checks.put(siteData.getUrl(), contentChecker.check());
+            final LinkContentChecker contentChecker = LinkContentCheckerFactory.build(siteData.getUrl(),
+                                                                                      _expectedData.get(siteData.getUrl()),
+                                                                                      Optional.ofNullable(_articles.get(siteData.getUrl())),
+                                                                                      siteData.getDataFile().get());
+            _checks.put(siteData.getUrl(), contentChecker.check());
         }
-        
+
         if (isDataFresh) {
             _nbSitesRemainingToBeChecked--;
         }
@@ -271,7 +271,7 @@ public class LinkCheckRunner {
                                                 (Duration.between(_lastFileWriteTimestamp, now).getSeconds() > REPORT_THROTTLING_PERIOD);
         if (shouldUpdateBePublished) {
            try {
-                writeOutputFile();
+               writeOutputFile();
            } catch (final Exception e) {
               FileHelper.createParentDirectory(_reportFile);
               try (final PrintStream reportWriter = new PrintStream(_reportFile.toFile())) {
@@ -281,7 +281,7 @@ public class LinkCheckRunner {
               }
               _controller.handleUpdate(_file, Status.FAILED_TO_HANDLED, _outputFile, _reportFile);
               return;
-           }            
+           }
            _controller.handleUpdate(_file, status, _outputFile, _reportFile);
            _lastFileWriteTimestamp = now;
         }
@@ -289,7 +289,7 @@ public class LinkCheckRunner {
         Logger.log(Logger.Level.INFO)
               .append("URL ")
               .append(siteData.getUrl())
-        	  .append(" ")
+              .append(" ")
               .append(_nbSitesRemainingToBeChecked)
               .append(" status=")
               .append(status.toString())
@@ -297,7 +297,7 @@ public class LinkCheckRunner {
               .append(shouldUpdateBePublished)
               .submit();
     }
-    
+
     private void writeOutputFile() throws FileNotFoundException, IOException {
 
         final StringBuilder ok = new StringBuilder();
@@ -306,7 +306,7 @@ public class LinkCheckRunner {
 
         int numberOfBrokenLinks = 0;
         int numberOfBadLinkData = 0;
-        
+
         for (final URL url : _effectiveData.keySet()) {
             final LinkData expectedData = _expectedData.get(url);
             final SiteData effectiveData = _effectiveData.get(url);
@@ -340,44 +340,44 @@ public class LinkCheckRunner {
         }
     }
 
-	/**
-	 * append (at the end of builder) the result of the liveness check of url 
-	 * 
-	 * @param url
-	 * @param expectedData
-	 * @param effectiveData
-	 * @param builder
-	 */
-	private void appendLivenessCheckResult(final URL url,
-			                               final LinkData expectedData,
-			                               final SiteData effectiveData,
-			                               final StringBuilder builder) {
-		
-		builder.append("Title = \"" + expectedData.getTitle() + "\"\n");
-		if (expectedData.getSubtitles().length > 0) {
-		    builder.append("Subtitle = \"" + String.join("\" \"",  expectedData.getSubtitles()) + "\"\n");
-		}
-		builder.append("URL = " + url + "\n");
-		builder.append("Expected status = " + expectedData.getStatus().orElse("") + "\n");
-		builder.append("Effective status = " + effectiveData.getStatus() + "\n");
-		final String httpCode = effectiveData.getHttpCode().map(i -> {
-		    try {
-		        return i.toString() + " " + HttpHelper.getStringOfCode(i);
-		    } catch (@SuppressWarnings("unused") final InvalidHttpCodeException e) {
-		        return " invalid code! (" + i.toString() + ")";
-		    }
-		}).orElse("---");
-		builder.append("Effective HTTP code = " + httpCode + "\n");
-		if (effectiveData.getHeaders().isPresent() && effectiveData.getHeaders().get().containsKey("Location")) {
-		    final String redirection = effectiveData.getHeaders().get().get("Location").get(0);
-		    builder.append("Redirection = " + redirection + "\n");
-		}
-		if (effectiveData.getError().isPresent()) {
-		    builder.append("Effective error = \"" + effectiveData.getError().get() + "\"\n");
-		}
-		builder.append("Look for article = https://www.google.com/search?q=%22" + URLEncoder.encode(expectedData.getTitle(), StandardCharsets.UTF_8) + "%22\n");
-		builder.append("\n");
-	}
+    /**
+     * append (at the end of builder) the result of the liveness check of url
+     * 
+     * @param url
+     * @param expectedData
+     * @param effectiveData
+     * @param builder
+     */
+    private void appendLivenessCheckResult(final URL url,
+                                           final LinkData expectedData,
+                                           final SiteData effectiveData,
+                                           final StringBuilder builder) {
+        
+        builder.append("Title = \"" + expectedData.getTitle() + "\"\n");
+        if (expectedData.getSubtitles().length > 0) {
+            builder.append("Subtitle = \"" + String.join("\" \"",  expectedData.getSubtitles()) + "\"\n");
+        }
+        builder.append("URL = " + url + "\n");
+        builder.append("Expected status = " + expectedData.getStatus().orElse("") + "\n");
+        builder.append("Effective status = " + effectiveData.getStatus() + "\n");
+        final String httpCode = effectiveData.getHttpCode().map(i -> {
+            try {
+                return i.toString() + " " + HttpHelper.getStringOfCode(i);
+            } catch (@SuppressWarnings("unused") final InvalidHttpCodeException e) {
+                return " invalid code! (" + i.toString() + ")";
+            }
+        }).orElse("---");
+        builder.append("Effective HTTP code = " + httpCode + "\n");
+        if (effectiveData.getHeaders().isPresent() && effectiveData.getHeaders().get().containsKey("Location")) {
+            final String redirection = effectiveData.getHeaders().get().get("Location").get(0);
+            builder.append("Redirection = " + redirection + "\n");
+        }
+        if (effectiveData.getError().isPresent()) {
+            builder.append("Effective error = \"" + effectiveData.getError().get() + "\"\n");
+        }
+        builder.append("Look for article = https://www.google.com/search?q=%22" + URLEncoder.encode(expectedData.getTitle(), StandardCharsets.UTF_8) + "%22\n");
+        builder.append("\n");
+    }
     
     private boolean isDataExpected() { //TBD this method is very stupid, we should used a flag instead of computing the status every time 
 
@@ -386,36 +386,36 @@ public class LinkCheckRunner {
                 return false;
             }
             if (_checks.containsKey(url) && !_checks.get(url).isEmpty()) {
-            	return false;
+                return false;
             }
         }
-        
+
         return true;
     }
-    
+
     private static boolean isOneDataExpected(final LinkData expectedData,
                                              final SiteData effectiveData) {
-        
+
         if (expectedData.getStatus().isPresent() && expectedData.getStatus().get().equals("dead")) {
             if (effectiveData.getStatus() == SiteData.Status.FAILURE) return true;
             if (effectiveData.getHttpCode().isEmpty()) return true;
             if (effectiveData.getHttpCode().isPresent() && effectiveData.getHttpCode().get() != 200) return true;
             return false;
         }
-        
+
         return (effectiveData.getHttpCode().isPresent() && effectiveData.getHttpCode().get() == 200);
     }
 
-	private static URL convertStringToUrl(final String str) {
-		try {
-		    return new URL(str);
-		} catch (@SuppressWarnings("unused") final MalformedURLException e) {
-			Logger.log(Logger.Level.ERROR)
-			      .append("URL ")
-		          .append(str)
-		          .append(" is not checked because the URL is malformed")
-		          .submit();
-			return null;
-		}
-	}
+    private static URL convertStringToUrl(final String str) {
+        try {
+            return new URL(str);
+        } catch (@SuppressWarnings("unused") final MalformedURLException e) {
+            Logger.log(Logger.Level.ERROR)
+                  .append("URL ")
+                  .append(str)
+                  .append(" is not checked because the URL is malformed")
+                  .submit();
+            return null;
+        }
+    }
 }

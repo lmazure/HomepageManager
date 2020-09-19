@@ -1,5 +1,4 @@
-- éviter le crash sur <DAY></DAY>
-- corriger crash si on met <DAY>1258</DAY>
+- mauvaise détection de langue : http://wiki.c2.com/?AbcMetric
 
 - problème avec la date de publiction de https://medium.com/@kentbeck_7670/a-years-worth-c1cbc3085e9d
 
@@ -32,8 +31,6 @@ il est normal de pouvoir avoir uniquement une date de publication ?
 - remettre en place la détection des ordres alphabétiques incorrects
 
 - nettoyage des fichiers
-space.xml
-links/c.xml
 links/perl.xml
 links/xml.xml
 Nettoyer companies.xml
@@ -45,7 +42,6 @@ Nettoyer javascr.xml
 physics.xml
 coding.xml
 bbst.xml
-autotest.xml
 
 - comprendre pourquoi certaines vidéos sont marquées non playable
 https://www.youtube.com/watch?v=qMyMCDPaV60

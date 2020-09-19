@@ -18,7 +18,6 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.w3c.dom.Document;
-import org.xml.sax.SAXParseException;
 
 import utils.ExitHelper;
 import utils.FileHelper;
@@ -36,7 +35,7 @@ public class HTMLGenerator implements FileHandler {
 
     final private DocumentBuilder _builder;
     final private Transformer _transformer;
-    
+
     /**
      * This class generates the HTML files from the XML files.
      * 
@@ -52,7 +51,7 @@ public class HTMLGenerator implements FileHandler {
         _builder = newDocumentBuilder();
         _transformer = newTransformer(_homepagePath);
     }
-    
+
     @Override
     public void handleCreation(final Path file) {
 
@@ -79,7 +78,7 @@ public class HTMLGenerator implements FileHandler {
             } catch (final IOException e2) {
                 ExitHelper.exit(e2);
             }
-            status = (e instanceof SAXParseException) ? Status.HANDLED_WITH_ERROR : Status.FAILED_TO_HANDLED;                
+            status = Status.FAILED_TO_HANDLED;                
         }
 
         _controller.handleDeletion(file, status, getOutputFile(file), getReportFile(file));
@@ -103,7 +102,7 @@ public class HTMLGenerator implements FileHandler {
             return null;
         }
     }
-    
+
     private Transformer newTransformer(final Path homepagePath) {
         final TransformerFactory transformerFactory = TransformerFactory.newInstance();
         final StreamSource stylesource = new StreamSource(getSylesheetFile().toFile());
@@ -119,7 +118,7 @@ public class HTMLGenerator implements FileHandler {
     public Path getOutputFile(final Path file) {
         return FileHelper.computeTargetFile(_homepagePath, _homepagePath, file, "", "html");
     }
-    
+
     @Override
     public Path getReportFile(final Path file) {
         return FileHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_report_html", "txt");
