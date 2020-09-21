@@ -6,6 +6,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import data.internet.SiteData;
 import data.internet.SiteDataPersister;
@@ -82,32 +84,42 @@ public class MediumLinkContentParserTest {
         return new SynchronousSiteDataRetriever(new SiteDataPersister(cachePath));
     }
 
-    @Test
-    void testUnmodifiedBlogDate() {
+    @ParameterizedTest
+    @CsvSource({
+        "https://medium.com/@kentbeck_7670/a-years-worth-c1cbc3085e9d,2019-06-07",
+        "https://medium.com/@kentbeck_7670/software-design-is-human-relationships-part-3-of-3-changers-changers-20eeac7846e0,2019-07-17"
+        })
+    void testUnmodifiedBlogPublishDate(final String url,
+                                       final String expectedDate) {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL("https://medium.com/@kentbeck_7670/bs-changes-e574bc396aaa"),
+        retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
                                final MediumLinkContentParser parser = new MediumLinkContentParser(data);
-                               Assertions.assertEquals("2019-05-21", parser.getPublishDate().toString());
+                               Assertions.assertEquals(expectedDate, parser.getPublishDate().toString());
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
-
-    @Test
-    void testModifiedBlogDate() {
+    @ParameterizedTest
+    @CsvSource({
+        "https://medium.com/@kentbeck_7670/bs-changes-e574bc396aaa,2019-05-21",
+        "https://medium.com/@kentbeck_7670/sipping-the-big-gulp-a7c50549c393,2019-05-10",
+        "https://medium.com/97-things/optional-is-a-law-breaking-monad-but-a-good-type-7667eb821081,2019-07-18"
+        })
+    void testModifiedBlogPublishDate(final String url,
+                                     final String expectedDate) {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL("https://medium.com/97-things/optional-is-a-law-breaking-monad-but-a-good-type-7667eb821081"),
+        retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
                                final MediumLinkContentParser parser = new MediumLinkContentParser(data);
-                               Assertions.assertEquals("2019-07-18", parser.getPublishDate().toString());
+                               Assertions.assertEquals(expectedDate, parser.getPublishDate().toString());
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());

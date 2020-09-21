@@ -60,8 +60,8 @@ public class TableSortChecker extends NodeChecker {
                             lastTerm = textContent;
                             lastNormalizedTerm = normalize(lastTerm);
                         } else {
-                            String currentTerm = textContent;
-                            String currentNormalizedTerm = normalize(currentTerm);
+                            final String currentTerm = textContent;
+                            final String currentNormalizedTerm = normalize(currentTerm);
                             if (currentNormalizedTerm.compareTo(lastNormalizedTerm) < 0) {
                                 numberOfUnsortedTerms++;
                                 if (summary.length() > 0) {

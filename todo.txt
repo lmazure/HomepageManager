@@ -1,6 +1,6 @@
-- mauvaise détection de langue : http://wiki.c2.com/?AbcMetric
+- détecter les articles non classés par date
 
-- problème avec la date de publiction de https://medium.com/@kentbeck_7670/a-years-worth-c1cbc3085e9d
+- mauvaise détection de langue : http://wiki.c2.com/?AbcMetric
 
 - faire un prefetch de la map quand on affiche la page d'accueil
 
@@ -12,9 +12,6 @@ https://www.youtube.com/watch?v=hGbrH8DGzRg
 liens sur management.xml
 
 - content/adbook.json semble encore présent dans SVN
-
-- voir problème de 
-- corriger tous les crashs intempestifs...
 
 - corriger le CSS qui pose problème dans notes/git.html
 
@@ -32,15 +29,12 @@ il est normal de pouvoir avoir uniquement une date de publication ?
 
 - nettoyage des fichiers
 links/perl.xml
-links/xml.xml
 Nettoyer companies.xml
 Nettoyer cracking.xml
 Nettoyer jobs.xml
 Nettoyer news.xml
 Nettoyer quality.xml
 Nettoyer javascr.xml
-physics.xml
-coding.xml
 bbst.xml
 
 - comprendre pourquoi certaines vidéos sont marquées non playable
