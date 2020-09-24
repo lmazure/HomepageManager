@@ -1,10 +1,27 @@
+- détecter les articles qui ont une date postérieure à la date de la page
+
+- trier par défaut sur la date de dernière modification
+
+- mettre la KEYIB comme titre du keyword popup
+
+- mauvais titre pour medium
+https://medium.com/netflix-techblog/a-microscope-on-microservices-923b906103f4
+https://medium.com/netflix-techblog/making-the-netflix-api-more-resilient-a8ec62159c2d
+https://medium.com/netflix-techblog/netflixoss-announcing-hollow-5f710eefca4b
+
+- https://www.orbitmicro.com/company/blog/334 retour un code 522 (problème cloudfare)
+
+- modifier règles pour que typescript.xml soit propre
+
 - détecter les articles non classés par date
 
-- mauvaise détection de langue : http://wiki.c2.com/?AbcMetric
+- mauvaise détection de langue : 
+http://wiki.c2.com/?AbcMetric
+-- fr au lieu de en
+https://groups.google.com/forum/#!forum/clean-code-discussion
+https://root.cern.ch/TaligentDocs/TaligentOnline/DocumentRoot/1.0/Home/index.html
 
 - faire un prefetch de la map quand on affiche la page d'accueil
-
-- nettoyer design.xml
 
 - problème de reconnaissance de langue
 https://www.youtube.com/watch?v=ccB09XRdGjo
@@ -28,7 +45,6 @@ il est normal de pouvoir avoir uniquement une date de publication ?
 - remettre en place la détection des ordres alphabétiques incorrects
 
 - nettoyage des fichiers
-links/perl.xml
 Nettoyer companies.xml
 Nettoyer cracking.xml
 Nettoyer jobs.xml

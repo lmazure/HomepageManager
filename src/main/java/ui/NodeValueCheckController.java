@@ -18,6 +18,7 @@ public class NodeValueCheckController extends GenericUiController {
 
         final TableColumn<ObservableFile, String> displayColumn = new TableColumn<>("Display");
         displayColumn.setPrefWidth(59);
+        displayColumn.setSortable(false);
         displayColumn.setCellFactory(p -> { return new FixedButtonCell<ObservableFile>("display", f -> ActionHelper.displayFile(f.getNodeValueCheckOuputFile()));});
         allColumns.getColumns().add(displayColumn);
 

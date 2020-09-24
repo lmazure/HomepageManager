@@ -18,6 +18,7 @@ public class FileCheckController extends GenericUiController {
 
         final TableColumn<ObservableFile, String> displayColumn = new TableColumn<>("Display");
         displayColumn.setPrefWidth(59);
+        displayColumn.setSortable(false);
         displayColumn.setCellFactory(p -> { return new FixedButtonCell<ObservableFile>("display", f -> ActionHelper.displayFile(f.getFileCheckOuputFile()));});
         allColumns.getColumns().add(displayColumn);
 

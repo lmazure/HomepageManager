@@ -18,6 +18,7 @@ public class LinkCheckController extends GenericBackgroundUiController {
 
         final TableColumn<ObservableFile, String> displayColumn = new TableColumn<>("Display");
         displayColumn.setPrefWidth(59);
+        displayColumn.setSortable(false);
         displayColumn.setCellFactory(p -> { return new FixedButtonCell<ObservableFile>("display", f -> ActionHelper.displayFile(f.getLinkCheckOuputFile()));});
         allColumns.getColumns().add(displayColumn);
 

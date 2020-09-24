@@ -112,7 +112,17 @@ public class FileTable extends Application {
             table.getColumns().add(uiController.getColumns());
         }
 
+        // solution 1
         table.setItems(_list.getObservableFileList());
+
+        // solution 2 (same hehaviour, but I am still not able to make a defaut sorting working at initial display)
+        /*
+        final SortedList<ObservableFile> sortedData = new SortedList<ObservableFile>(_list.getObservableFileList());
+        sortedData.comparatorProperty().bind(table.comparatorProperty());
+        table.setItems(sortedData);
+
+        table.getSortOrder().add(modificationDateTimeColumn);
+        */
 
         return table;
     }
