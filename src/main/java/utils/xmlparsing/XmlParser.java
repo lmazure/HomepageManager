@@ -217,7 +217,7 @@ public class XmlParser {
         return new AuthorData(namePrefix, firstName, middleName, lastName, nameSuffix, givenName);
     }
 
-    private static TemporalAccessor parseDateNode(final Element dateNode) {
+    public static TemporalAccessor parseDateNode(final Element dateNode) {
 
         if (!XMLHelper.isOfType(dateNode, NodeType.DATE)) {
             throw new UnsupportedOperationException("parseDateNode called with wrong node (" + dateNode.getTagName() + ")");

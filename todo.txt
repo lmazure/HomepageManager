@@ -1,4 +1,4 @@
-- détecter les articles qui ont une date postérieure à la date de la page
+_ détection de l'ordre des Shift/Alt/Ctrl
 
 - trier par défaut sur la date de dernière modification
 
@@ -8,8 +8,6 @@
 https://medium.com/netflix-techblog/a-microscope-on-microservices-923b906103f4
 https://medium.com/netflix-techblog/making-the-netflix-api-more-resilient-a8ec62159c2d
 https://medium.com/netflix-techblog/netflixoss-announcing-hollow-5f710eefca4b
-
-- https://www.orbitmicro.com/company/blog/334 retour un code 522 (problème cloudfare)
 
 - modifier règles pour que typescript.xml soit propre
 

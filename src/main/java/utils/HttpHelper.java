@@ -47,6 +47,7 @@ public class HttpHelper {
             case 503: return "Service Unavailable";
             case 504: return "Gateway Timeout";
             case 505: return "HTTP Version Not Supported";
+            case 522: return "Cloudflare - Connection Timed Out";
             default: throw new InvalidHttpCodeException("Invalid HTTP code (" + code + ")");
         }
     }

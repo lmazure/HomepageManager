@@ -120,7 +120,7 @@ public class DateChecker extends NodeChecker {
             if ( day>31 ) {
                 return new CheckStatus("DAY is greater than 31");
             }
-            if ( (year == s_now_year) && (month == s_now_month) && (day > s_now_day))
+            if ((year == s_now_year) && (month == s_now_month) && (day > s_now_day))
                 return new CheckStatus("YEAR/MONTH/DAY is in the future");
         } catch (@SuppressWarnings("unused") final NumberFormatException ex) {
             return new CheckStatus("DAY (" + dayStr + ") is not an integer");

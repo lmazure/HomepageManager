@@ -58,6 +58,22 @@ public class XMLHelper {
         return schema.newValidator();
     }
 
+    public static List<Element> getChildrenByNodeType(final Element element,
+                                                      final NodeType type) {
+        final NodeList list = element.getChildNodes();
+        final List<Element> children = new ArrayList<Element>(); 
+        for (int i = 0; i < list.getLength(); i++) {
+            final Node child = list.item(i);
+            if (child.getNodeType() == Node.ELEMENT_NODE) {
+                final Element e = (Element)child;
+                if (isOfType(e, type)) {
+                    children.add(e);
+                }
+            }
+        }
+        return children;
+    }
+
     public static NodeList getElementsByNodeType(final Element element,
                                                  final NodeType type) {
         return element.getElementsByTagName(type.toString());
