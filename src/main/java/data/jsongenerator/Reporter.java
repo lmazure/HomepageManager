@@ -221,7 +221,7 @@ public class Reporter {
                 if (!keyword.getArticles().isEmpty()) {
                     out.write(",\n    \"articleIndexes\" : [");
                     boolean first = true;
-                    for (Article article: keyword.getArticles()) {
+                    for (final Article article: keyword.getArticles()) {
                         if (!first) {
                             out.write(", ");
                         }

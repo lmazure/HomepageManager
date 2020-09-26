@@ -96,13 +96,13 @@ public class XmlParser {
             throw new UnsupportedOperationException("parseXNode called with wrong node (" + xNode.getTagName() + ")");
         }
 
-        final NodeList titleNodes = XMLHelper.getElementsByNodeType(xNode, NodeType.T);
+        final NodeList titleNodes = XMLHelper.getDescendantsByNodeType(xNode, NodeType.T);
         if (titleNodes.getLength() != 1) {
             throw new UnsupportedOperationException("Wrong number of T nodes (" + titleNodes.getLength() + ") in \"" + xNode.getTextContent() + "\"");
         }
         final String title = ((Element)titleNodes.item(0)).getTextContent();
 
-        final NodeList subtitleNodes = XMLHelper.getElementsByNodeType(xNode,NodeType.ST);
+        final NodeList subtitleNodes = XMLHelper.getDescendantsByNodeType(xNode,NodeType.ST);
         final String subtitles[] = new String[subtitleNodes.getLength()];
         for (int k = 0; k < subtitleNodes.getLength(); k++) {
             subtitles[k] = ((Element)subtitleNodes.item(k)).getTextContent();
@@ -114,7 +114,7 @@ public class XmlParser {
         }
         final String url = urlNodes.get(0).getTextContent();
 
-        final NodeList languageNodes = XMLHelper.getElementsByNodeType(xNode, NodeType.L);
+        final NodeList languageNodes = XMLHelper.getDescendantsByNodeType(xNode, NodeType.L);
         if (languageNodes.getLength() == 0) {
             throw new UnsupportedOperationException("Wrong number of L nodes (" + languageNodes.getLength() + ") in \"" + title + "\"");
         }
@@ -123,7 +123,7 @@ public class XmlParser {
             languages[k] = ((Element)languageNodes.item(k)).getTextContent();
         }
 
-        final NodeList formatNodes = XMLHelper.getElementsByNodeType(xNode, NodeType.F);
+        final NodeList formatNodes = XMLHelper.getDescendantsByNodeType(xNode, NodeType.F);
         if (formatNodes.getLength() == 0) {
             throw new UnsupportedOperationException("Wrong number of F nodes (" + formatNodes.getLength() + ") in \"" + title + "\"");
         }
@@ -132,7 +132,7 @@ public class XmlParser {
             formats[k] = ((Element)formatNodes.item(k)).getTextContent();
         }
 
-        final NodeList durationNodes =  XMLHelper.getElementsByNodeType(xNode, NodeType.DURATION);
+        final NodeList durationNodes =  XMLHelper.getDescendantsByNodeType(xNode, NodeType.DURATION);
         Optional<Duration> duration = Optional.empty();
         if (durationNodes.getLength() == 1) {
             duration = Optional.of(parseDurationNode((Element)durationNodes.item(0)));
@@ -167,7 +167,7 @@ public class XmlParser {
         }
 
         Optional<String> namePrefix = Optional.empty();
-        final NodeList namePrefixList = XMLHelper.getElementsByNodeType(authorNode, NodeType.NAMEPREFIX);
+        final NodeList namePrefixList = XMLHelper.getDescendantsByNodeType(authorNode, NodeType.NAMEPREFIX);
         if (namePrefixList.getLength() == 1) {
             namePrefix = Optional.of(namePrefixList.item(0).getTextContent());
         } else if (namePrefixList.getLength() > 1) {
@@ -175,7 +175,7 @@ public class XmlParser {
         }
 
         Optional<String> firstName = Optional.empty();
-        final NodeList firstNameList = XMLHelper.getElementsByNodeType(authorNode, NodeType.FIRSTNAME);
+        final NodeList firstNameList = XMLHelper.getDescendantsByNodeType(authorNode, NodeType.FIRSTNAME);
         if (firstNameList.getLength() == 1) {
             firstName = Optional.of(firstNameList.item(0).getTextContent());
         } else if (firstNameList.getLength() > 1) {
@@ -183,7 +183,7 @@ public class XmlParser {
         }
 
         Optional<String> middleName = Optional.empty();
-        final NodeList middleNameList = XMLHelper.getElementsByNodeType(authorNode, NodeType.MIDDLENAME);
+        final NodeList middleNameList = XMLHelper.getDescendantsByNodeType(authorNode, NodeType.MIDDLENAME);
         if (middleNameList.getLength() == 1) {
             middleName = Optional.of(middleNameList.item(0).getTextContent());
         } else if (middleNameList.getLength() > 1) {
@@ -191,7 +191,7 @@ public class XmlParser {
         }
 
         Optional<String> lastName = Optional.empty();
-        final NodeList lastNameList = XMLHelper.getElementsByNodeType(authorNode, NodeType.LASTNAME);
+        final NodeList lastNameList = XMLHelper.getDescendantsByNodeType(authorNode, NodeType.LASTNAME);
         if (lastNameList.getLength() == 1) {
             lastName = Optional.of(lastNameList.item(0).getTextContent());
         } else if (lastNameList.getLength() > 1) {
@@ -199,7 +199,7 @@ public class XmlParser {
         }
 
         Optional<String> nameSuffix = Optional.empty();
-        final NodeList nameSuffixList = XMLHelper.getElementsByNodeType(authorNode, NodeType.NAMESUFFIX);
+        final NodeList nameSuffixList = XMLHelper.getDescendantsByNodeType(authorNode, NodeType.NAMESUFFIX);
         if (nameSuffixList.getLength() == 1) {
             nameSuffix = Optional.of(nameSuffixList.item(0).getTextContent());
         } else if (nameSuffixList.getLength() > 1) {
@@ -207,11 +207,11 @@ public class XmlParser {
         }
 
         Optional<String> givenName = Optional.empty();
-        final NodeList givenNameList = XMLHelper.getElementsByNodeType(authorNode, NodeType.GIVENNAME);
+        final NodeList givenNameList = XMLHelper.getDescendantsByNodeType(authorNode, NodeType.GIVENNAME);
         if (givenNameList.getLength() == 1) {
             givenName = Optional.of(givenNameList.item(0).getTextContent());
         } else if (givenNameList.getLength() > 1) {
-            throw new UnsupportedOperationException("Wrong number of GIVENNAME nodes( (" + givenNameList.getLength() + ") in string \"" + authorNode.getTextContent() + "\"");
+            throw new UnsupportedOperationException("Wrong number of GIVENNAME nodes (" + givenNameList.getLength() + ") in string \"" + authorNode.getTextContent() + "\"");
         }
 
         return new AuthorData(namePrefix, firstName, middleName, lastName, nameSuffix, givenName);
@@ -223,13 +223,13 @@ public class XmlParser {
             throw new UnsupportedOperationException("parseDateNode called with wrong node (" + dateNode.getTagName() + ")");
         }
 
-        final NodeList yearNodes = XMLHelper.getElementsByNodeType(dateNode, NodeType.YEAR);
+        final NodeList yearNodes = XMLHelper.getDescendantsByNodeType(dateNode, NodeType.YEAR);
         if (yearNodes.getLength() == 1) {
             final int year = Integer.parseInt(yearNodes.item(0).getTextContent());
-            final NodeList monthNodes = XMLHelper.getElementsByNodeType(dateNode, NodeType.MONTH);
+            final NodeList monthNodes = XMLHelper.getDescendantsByNodeType(dateNode, NodeType.MONTH);
             if (monthNodes.getLength() == 1) {
                 final int month = Integer.parseInt(monthNodes.item(0).getTextContent());
-                final NodeList dayNodes = XMLHelper.getElementsByNodeType(dateNode, NodeType.DAY);
+                final NodeList dayNodes = XMLHelper.getDescendantsByNodeType(dateNode, NodeType.DAY);
                 if (dayNodes.getLength() == 1) {
                     final int day = Integer.parseInt(dayNodes.item(0).getTextContent());
                     return LocalDate.of(year, month, day);
@@ -253,7 +253,7 @@ public class XmlParser {
 
         Duration duration;
 
-        final NodeList secondsNodes = XMLHelper.getElementsByNodeType(durationNode, NodeType.SECOND);
+        final NodeList secondsNodes = XMLHelper.getDescendantsByNodeType(durationNode, NodeType.SECOND);
         if (secondsNodes.getLength() == 1) {
             final long seconds = Long.parseLong(secondsNodes.item(0).getTextContent());
             duration = Duration.ofSeconds(seconds);
@@ -261,7 +261,7 @@ public class XmlParser {
             throw new UnsupportedOperationException("Wrong number of SECOND nodes (" + secondsNodes.getLength() + ") in string \"" + durationNode.getTextContent() + "\"");
         }
 
-        final NodeList minutesNodes = XMLHelper.getElementsByNodeType(durationNode, NodeType.MINUTE);
+        final NodeList minutesNodes = XMLHelper.getDescendantsByNodeType(durationNode, NodeType.MINUTE);
         if (minutesNodes.getLength() == 1) {
             final long minutes = Long.parseLong(minutesNodes.item(0).getTextContent());
             duration = duration.plusMinutes(minutes);
@@ -269,7 +269,7 @@ public class XmlParser {
             throw new UnsupportedOperationException("Wrong number of MINUTE nodes (" + minutesNodes.getLength() + ") in string \"" + durationNode.getTextContent() + "\"");
         }
 
-        final NodeList hoursNodes = XMLHelper.getElementsByNodeType(durationNode, NodeType.HOUR);
+        final NodeList hoursNodes = XMLHelper.getDescendantsByNodeType(durationNode, NodeType.HOUR);
         if (hoursNodes.getLength() == 1) {
             final long  hours = Long.parseLong(hoursNodes.item(0).getTextContent());
             duration = duration.plusHours(hours);

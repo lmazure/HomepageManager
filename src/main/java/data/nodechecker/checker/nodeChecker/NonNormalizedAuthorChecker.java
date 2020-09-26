@@ -9,9 +9,9 @@ import utils.xmlparsing.NodeType;
 
 public class NonNormalizedAuthorChecker extends NodeChecker {
 
-    final static InclusionTagSelector s_selector = new InclusionTagSelector( new NodeType[] {
+    final static InclusionTagSelector s_selector = new InclusionTagSelector(new NodeType[] {
             NodeType.AUTHOR
-            } );
+            });
 
     @Override
     public TagSelector getTagSelector() {

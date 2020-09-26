@@ -25,7 +25,7 @@ public class ArticleFactory {
 
     public Optional<Article> getArticle(final String url) {
 
-        for (Article a: _articles) { // TODO this is completely stupid, use a HashMap indexed on the URL to be much faster
+        for (final Article a: _articles) { // TODO this is completely stupid, use a HashMap indexed on the URL to be much faster
             if (a.getLinks()[0].getUrl().equals(url)) {
                 return Optional.of(a);
             }

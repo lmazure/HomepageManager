@@ -58,8 +58,8 @@ public class SynchronousSiteDataRetriever {
          try {
              final URLConnection connection = url.openConnection();
              final HttpURLConnection httpConnection = (HttpURLConnection)connection;
-             if ( url.getProtocol().equals("https") ) {
-                 ((HttpsURLConnection)connection).setSSLSocketFactory( _sslSocketFactory );
+             if (url.getProtocol().equals("https")) {
+                 ((HttpsURLConnection)connection).setSSLSocketFactory(_sslSocketFactory);
              }
              connection.setConnectTimeout(s_connectTimeout);
              connection.setReadTimeout(s_readTimeout);
@@ -92,10 +92,10 @@ public class SynchronousSiteDataRetriever {
         // Create a trust manager that does not validate certificate chains
         final TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
             @Override
-            public void checkClientTrusted(final X509Certificate[] chain, final String authType ) {
+            public void checkClientTrusted(final X509Certificate[] chain, final String authType) {
             }
             @Override
-            public void checkServerTrusted(final X509Certificate[] chain, final String authType ) {
+            public void checkServerTrusted(final X509Certificate[] chain, final String authType) {
             }
             @Override
             public X509Certificate[] getAcceptedIssuers() {
@@ -106,8 +106,8 @@ public class SynchronousSiteDataRetriever {
         // Install the all-trusting trust manager
         SSLContext sslContext = null;
         try {
-            sslContext = SSLContext.getInstance( "SSL" );
-            sslContext.init( null, trustAllCerts, new java.security.SecureRandom() );
+            sslContext = SSLContext.getInstance("SSL");
+            sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
         } catch (final NoSuchAlgorithmException | KeyManagementException e) {
             ExitHelper.exit(e);
         }

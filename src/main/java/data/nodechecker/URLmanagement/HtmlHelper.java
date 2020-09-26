@@ -35,9 +35,9 @@ public class HtmlHelper {
 
         final String defaultEncoding = getDefaultEncoding(s);
         final String specifiedEncoding = getSpecifiedEncoding(s);
-        final String encoding = ( specifiedEncoding == null ) ? defaultEncoding : specifiedEncoding;
+        final String encoding = (specifiedEncoding == null) ? defaultEncoding : specifiedEncoding;
 
-        if ( encoding != s_encodingIso88591 ) {
+        if (encoding != s_encodingIso88591) {
             try {
                 s = new String(input, encoding);
             } catch (final UnsupportedEncodingException e) {
@@ -90,7 +90,7 @@ public class HtmlHelper {
 
     static private String getDefaultEncoding(final String contentDecodedAsIso8859)
     {
-        if ( contentDecodedAsIso8859.toUpperCase().startsWith("<!DOCTYPE HTML>")) {
+        if (contentDecodedAsIso8859.toUpperCase().startsWith("<!DOCTYPE HTML>")) {
             // HTML5
             return s_encodingUtf8;
         }
@@ -107,7 +107,7 @@ public class HtmlHelper {
         }
 
         final String specifiedEncoding = matcher.group(1);
-        switch ( specifiedEncoding )
+        switch (specifiedEncoding)
         {
             case "us-ascii":     return s_encodingUsAscii;
             case "utf-8":        return s_encodingUtf8;
@@ -117,7 +117,7 @@ public class HtmlHelper {
             case "windows-1252": return s_encodingWindows1252;
             case "Windows-1252": return s_encodingWindows1252;
             case "gbk":          return s_encodingGbk;
-            default: throw new IllegalArgumentException("\"" + specifiedEncoding + "\" is an unknown encoding" );
+            default: throw new IllegalArgumentException("\"" + specifiedEncoding + "\" is an unknown encoding");
         }
     }
 }

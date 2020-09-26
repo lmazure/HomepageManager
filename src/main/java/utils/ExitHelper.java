@@ -22,7 +22,7 @@ public class ExitHelper {
            log.append(exception);
         } else {
             final StackTraceElement[] stack = Thread.currentThread().getStackTrace();
-            for (StackTraceElement elem: stack) {
+            for (final StackTraceElement elem: stack) {
                 log.append("\n" + elem.toString());
             }
         }

@@ -24,16 +24,16 @@ public class StringHelper {
         int startIndex = -1;
         int endIndex = -1;
 
-        for (int i=0; i<str.length(); i++) {
+        for (int i = 0; i < str.length(); i++) {
             int c = str.codePointAt(i);
             if (Character.isLetterOrDigit(c)) {
                 startIndex = i;
                 break;
             }
         }
-        if ( startIndex == -1 ) return "";
+        if (startIndex == -1) return "";
 
-        for (int i=str.length()-1; i>=0; i--) {
+        for (int i = str.length()-1; i >= 0; i--) {
             int c = str.codePointAt(i);
             if (Character.isLetterOrDigit(c)) {
                 endIndex = i;
@@ -43,7 +43,7 @@ public class StringHelper {
 
         String result = "";
         boolean lastCharacterWasSpace = false;
-        for (int i=startIndex; i<=endIndex; i++) {
+        for (int i = startIndex; i <= endIndex; i++) {
             int c = str.codePointAt(i);
             if (Character.isLetterOrDigit(c)) {
                 result += new String(Character.toChars(Character.toUpperCase(c)));

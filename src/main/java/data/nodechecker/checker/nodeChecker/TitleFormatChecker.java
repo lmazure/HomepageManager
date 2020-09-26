@@ -53,9 +53,9 @@ public class TitleFormatChecker extends NodeChecker {
                                                                                   "zsh",
                                                                                   "π"));
 
-    static final InclusionTagSelector s_selector = new InclusionTagSelector( new NodeType[] {
+    static final InclusionTagSelector s_selector = new InclusionTagSelector(new NodeType[] {
             NodeType.TITLE
-            } );
+            });
 
     @Override
     public TagSelector getTagSelector() {

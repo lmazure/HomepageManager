@@ -191,7 +191,7 @@ public class FileChecker implements FileHandler {
 
         final List<Error> errors = new ArrayList<Error>();
 
-        int n=0;
+        int n = 0;
         for (final String line : content.lines().toArray(String[]::new)) {
             n++;
             if (numberOfWhiteCharactersAtBeginning(line) % 2 == 1) {

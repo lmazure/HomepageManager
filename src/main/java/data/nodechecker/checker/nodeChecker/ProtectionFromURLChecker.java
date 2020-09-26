@@ -16,9 +16,9 @@ import org.w3c.dom.NodeList;
  */
 public class ProtectionFromURLChecker extends NodeChecker {
 
-    final static InclusionTagSelector s_selector = new InclusionTagSelector( new NodeType[] {
+    final static InclusionTagSelector s_selector = new InclusionTagSelector(new NodeType[] {
             NodeType.X
-            } );
+            });
 
     @Override
     public TagSelector getTagSelector() {
@@ -37,26 +37,26 @@ public class ProtectionFromURLChecker extends NodeChecker {
 
     private CheckStatus checkProtection(final Element e) {
 
-        String url="";
-        String protection="";
+        String url = "";
+        String protection = "";
 
         final NodeList children = e.getChildNodes();
-        for (int j=0; j<children.getLength(); j++) {
+        for (int j = 0; j < children.getLength(); j++) {
             final Node child = children.item(j);
             if (child.getNodeType() == Node.ELEMENT_NODE) {
                 if (XMLHelper.isOfType(child, NodeType.A)) {
-                    url=child.getTextContent();
+                    url = child.getTextContent();
                 }
             }
         }
 
         final Node statusAttribute = e.getAttributeNode("protection");
-        if ( statusAttribute != null ) {
+        if (statusAttribute != null) {
             protection = statusAttribute.getTextContent();
         }
 
         if (url.contains("auntminnie.com/") && !protection.equals("free_registration"))
-           return new CheckStatus("\""+url+"\" should be flagged as 'free_registration'");
+           return new CheckStatus("\"" + url + "\" should be flagged as 'free_registration'");
 
         return null;
     }

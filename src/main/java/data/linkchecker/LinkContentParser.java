@@ -14,7 +14,7 @@ public class LinkContentParser {
     public String getLanguage() {
 
         if (_language == null) {
-            _language= extractLanguage();
+            _language = extractLanguage();
         }
 
         return _language;

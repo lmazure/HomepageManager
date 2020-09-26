@@ -13,9 +13,9 @@ import utils.xmlparsing.NodeType;
 
 public class KeyChecker extends NodeChecker {
 
-    final static InclusionTagSelector s_selector = new InclusionTagSelector( new NodeType[] {
+    final static InclusionTagSelector s_selector = new InclusionTagSelector(new NodeType[] {
             NodeType.KEY
-            } );
+            });
 
     @Override
     public TagSelector getTagSelector() {
@@ -42,6 +42,6 @@ public class KeyChecker extends NodeChecker {
 
         if (matcher.find()) return null;
 
-        return new CheckStatus("Illegal KEY ("+ str + ")");
+        return new CheckStatus("Illegal KEY (" + str + ")");
     }
 }

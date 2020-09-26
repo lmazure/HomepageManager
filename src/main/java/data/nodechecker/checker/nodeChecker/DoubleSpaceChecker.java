@@ -39,7 +39,7 @@ public class DoubleSpaceChecker extends NodeChecker {
 
     @Override
     public NodeRule[] getRules() {
-        final NodeRule a[]= new NodeRule[1];
+        final NodeRule a[] = new NodeRule[1];
         a[0] = new NodeRule() { @Override
         public CheckStatus checkElement(final Element e) { return checkDoubleSpace(e);}
                             @Override

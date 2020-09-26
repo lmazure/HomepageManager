@@ -319,7 +319,7 @@ public class LinkCheckRunner {
                 checks.append('\n');
                 checks.append(url);
                 checks.append('\n');
-                for (LinkContentCheck c: _checks.get(url)) {
+                for (final LinkContentCheck c: _checks.get(url)) {
                     checks.append(c.getDescription());
                     checks.append('\n');
                     numberOfBadLinkData++;

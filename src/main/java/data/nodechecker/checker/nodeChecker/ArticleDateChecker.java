@@ -18,9 +18,9 @@ import utils.xmlparsing.XmlParser;
 
 public class ArticleDateChecker extends NodeChecker {
 
-    final static InclusionTagSelector s_selector = new InclusionTagSelector( new NodeType[] {
+    final static InclusionTagSelector s_selector = new InclusionTagSelector(new NodeType[] {
             NodeType.ARTICLE
-            } );
+            });
 
     @Override
     public TagSelector getTagSelector() {
@@ -29,11 +29,15 @@ public class ArticleDateChecker extends NodeChecker {
 
     @Override
     public NodeRule[] getRules() {
-        final NodeRule a[]= new NodeRule[1];
+        final NodeRule a[]= new NodeRule[2];
         a[0] = new NodeRule() { @Override
-        public CheckStatus checkElement(final Element e) { return checkArticleDatesToPageDate(e);}
+            public CheckStatus checkElement(final Element e) { return checkArticleDatesToPageDate(e);}
                             @Override
-                            public String getDescription() { return "incorrect article date compared to page date"; } };
+                            public String getDescription() { return "incorrect article creation/publication date compared to page date"; } };
+        a[1] = new NodeRule() { @Override
+            public CheckStatus checkElement(final Element e) { return checkArticleDateToPreviousArticleDate(e);}
+            @Override
+            public String getDescription() { return "article not properly sorter according to date"; } };
         return a;
     }
 
@@ -53,7 +57,7 @@ public class ArticleDateChecker extends NodeChecker {
             }
         }
 
-        for (LinkData l: articleData.getLinks()) {
+        for (final LinkData l: articleData.getLinks()) {
             final Optional<TemporalAccessor> publicationDate = l.getPublicationDate();
             if (publicationDate.isPresent()) {
                 if (compareTemporalAccesssor(publicationDate.get(), pageDate.get()) > 0) {
@@ -65,6 +69,19 @@ public class ArticleDateChecker extends NodeChecker {
             }
         }
 
+        return null;
+    }
+
+    private CheckStatus checkArticleDateToPreviousArticleDate(final Element e) {
+
+        final ArticleData articleData = XmlParser.parseArticleNode(e);
+        final Optional<TemporalAccessor> creationDate = articleData.getDate();
+        if (creationDate.isEmpty()) {
+            return null;
+        }
+
+        // TBD
+        
         return null;
     }
 

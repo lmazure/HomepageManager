@@ -35,7 +35,7 @@ public class FileTable extends Application {
     public void start(final Stage stage) {
 
         final List<GenericUiController> uiControllers = new ArrayList<GenericUiController>();
-        final List<FileHandler> fileHandlers= new ArrayList<FileHandler>();
+        final List<FileHandler> fileHandlers = new ArrayList<FileHandler>();
 
         final HtmlGenerationController htmlFileController = new HtmlGenerationController(_list, _homepagePath);
         final HTMLGenerator htmlFileGenerator = new HTMLGenerator(_homepagePath, _tmpPath, htmlFileController);

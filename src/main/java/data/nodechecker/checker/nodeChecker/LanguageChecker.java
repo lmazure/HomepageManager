@@ -9,9 +9,9 @@ import org.w3c.dom.Element;
 
 public class LanguageChecker extends NodeChecker {
 
-    final static InclusionTagSelector s_selector = new InclusionTagSelector( new NodeType[] {
+    final static InclusionTagSelector s_selector = new InclusionTagSelector(new NodeType[] {
             NodeType.L
-            } );
+            });
 
     @Override
     public TagSelector getTagSelector() {

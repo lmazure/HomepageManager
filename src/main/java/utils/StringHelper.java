@@ -57,12 +57,12 @@ public class StringHelper {
         int french = 0;
         int english = 0;
 
-        for (String word: words) {
-            word = word.toLowerCase();
-            if (englishWords.contains(word))  {
+        for (final String word: words) {
+            final String w = word.toLowerCase();
+            if (englishWords.contains(w))  {
                 //System.out.println("en " + english + " " + word);
                 english++;
-            } else if (frenchWords.contains(word))  {
+            } else if (frenchWords.contains(w))  {
                 //System.out.println("fr " + french + " " + word);
                 french++;
             }

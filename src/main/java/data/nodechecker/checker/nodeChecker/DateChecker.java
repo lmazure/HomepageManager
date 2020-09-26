@@ -18,9 +18,9 @@ public class DateChecker extends NodeChecker {
     final static int s_now_month = s_now.get(Calendar.MONTH)+1;
     final static int s_now_day = s_now.get(Calendar.DAY_OF_MONTH);
 
-    final static InclusionTagSelector s_selector = new InclusionTagSelector( new NodeType[] {
+    final static InclusionTagSelector s_selector = new InclusionTagSelector(new NodeType[] {
             NodeType.DATE
-            } );
+            });
 
     @Override
     public TagSelector getTagSelector() {
@@ -44,9 +44,9 @@ public class DateChecker extends NodeChecker {
 
     private CheckStatus checkDateHierarchy(final Element e) {
 
-        final int numberOfYears = XMLHelper.getElementsByNodeType(e, NodeType.YEAR).getLength();
-        final int numberOfMonths = XMLHelper.getElementsByNodeType(e, NodeType.MONTH).getLength();
-        final int numberOfDays = XMLHelper.getElementsByNodeType(e, NodeType.DAY).getLength();
+        final int numberOfYears = XMLHelper.getDescendantsByNodeType(e, NodeType.YEAR).getLength();
+        final int numberOfMonths = XMLHelper.getDescendantsByNodeType(e, NodeType.MONTH).getLength();
+        final int numberOfDays = XMLHelper.getDescendantsByNodeType(e, NodeType.DAY).getLength();
 
         if (numberOfYears > 1) return new CheckStatus("more than one YEAR");
         if (numberOfMonths > 1) return new CheckStatus("more than one MONTH");
@@ -61,9 +61,9 @@ public class DateChecker extends NodeChecker {
 
     private CheckStatus checkDateValue(final Element e) {
 
-        final NodeList years = XMLHelper.getElementsByNodeType(e, NodeType.YEAR);
-        final NodeList months = XMLHelper.getElementsByNodeType(e, NodeType.MONTH);
-        final NodeList days = XMLHelper.getElementsByNodeType(e, NodeType.DAY);
+        final NodeList years = XMLHelper.getDescendantsByNodeType(e, NodeType.YEAR);
+        final NodeList months = XMLHelper.getDescendantsByNodeType(e, NodeType.MONTH);
+        final NodeList days = XMLHelper.getDescendantsByNodeType(e, NodeType.DAY);
 
         final int numberOfYears = years.getLength();
         final int numberOfMonths = months.getLength();
@@ -76,7 +76,7 @@ public class DateChecker extends NodeChecker {
             year = Long.parseLong(yearStr);
             if (year < 1900) {
                 // we check this only for articles
-                if ( XMLHelper.isOfType(e.getParentNode(), NodeType.X) ) {
+                if (XMLHelper.isOfType(e.getParentNode(), NodeType.X)) {
                     return new CheckStatus("YEAR is less than 1900");
                 }
             }
@@ -84,7 +84,7 @@ public class DateChecker extends NodeChecker {
                 return new CheckStatus("YEAR is in the future");
             }
         } catch (@SuppressWarnings("unused") final NumberFormatException ex) {
-            return new CheckStatus("YEAR ("+ yearStr + ") is not an integer");
+            return new CheckStatus("YEAR (" + yearStr + ") is not an integer");
         }
 
         if (numberOfMonths == 0) {
@@ -100,11 +100,11 @@ public class DateChecker extends NodeChecker {
             if (month > 12) {
                 return new CheckStatus("MONTH is greater than 12");
             }
-            if ( (year == s_now_year) && (month > s_now_month) ) {
+            if ((year == s_now_year) && (month > s_now_month)) {
                 return new CheckStatus("YEAR/MONTH is in the future");
             }
         } catch (@SuppressWarnings("unused") final NumberFormatException ex) {
-            return new CheckStatus("MONTH ("+ monthStr + ") is not an integer");
+            return new CheckStatus("MONTH (" + monthStr + ") is not an integer");
         }
 
         if (numberOfDays == 0) {
@@ -114,10 +114,10 @@ public class DateChecker extends NodeChecker {
         final String dayStr = days.item(0).getTextContent();
         try {
             day = Integer.parseInt(dayStr);
-            if ( day<0 ) {
+            if (day < 0) {
                 return new CheckStatus("DAY is negative");
             }
-            if ( day>31 ) {
+            if (day > 31) {
                 return new CheckStatus("DAY is greater than 31");
             }
             if ((year == s_now_year) && (month == s_now_month) && (day > s_now_day))

@@ -15,10 +15,10 @@ import utils.xmlparsing.NodeType;
 
 public class TableSortChecker extends NodeChecker {
 
-    final static InclusionTagSelector s_selector = new InclusionTagSelector( new NodeType[] {
+    final static InclusionTagSelector s_selector = new InclusionTagSelector(new NodeType[] {
             NodeType.DEFINITION2TABLE,
             NodeType.DEFINITIONTABLE
-            } );
+            });
 
     @Override
     public TagSelector getTagSelector() {

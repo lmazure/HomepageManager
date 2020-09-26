@@ -9,9 +9,9 @@ import org.w3c.dom.Element;
 
 public class FormatChecker extends NodeChecker {
 
-    final static InclusionTagSelector s_selector = new InclusionTagSelector( new NodeType[] {
+    final static InclusionTagSelector s_selector = new InclusionTagSelector(new NodeType[] {
             NodeType.F
-            } );
+            });
 
     @Override
     public TagSelector getTagSelector() {
@@ -53,6 +53,6 @@ public class FormatChecker extends NodeChecker {
         if (s.equals("Atom")) return null;
         if (s.equals("txt")) return null;
 
-        return new CheckStatus("\""+s+"\" is a unknown format");
+        return new CheckStatus("\"" + s + "\" is a unknown format");
     }
 }

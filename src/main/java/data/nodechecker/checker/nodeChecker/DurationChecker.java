@@ -11,9 +11,9 @@ import utils.xmlparsing.NodeType;
 
 public class DurationChecker extends NodeChecker {
 
-    final static InclusionTagSelector s_selector = new InclusionTagSelector( new NodeType[] {
+    final static InclusionTagSelector s_selector = new InclusionTagSelector(new NodeType[] {
             NodeType.DURATION
-            } );
+            });
 
     @Override
     public TagSelector getTagSelector() {
@@ -36,9 +36,9 @@ public class DurationChecker extends NodeChecker {
 
     private CheckStatus checkDurationHierarchy(final Element e) {
 
-        final int numberOfSeconds = XMLHelper.getElementsByNodeType(e, NodeType.SECOND).getLength();
-        final int numberOfMinutes = XMLHelper.getElementsByNodeType(e, NodeType.MINUTE).getLength();
-        final int numberOfHours = XMLHelper.getElementsByNodeType(e, NodeType.HOUR).getLength();
+        final int numberOfSeconds = XMLHelper.getDescendantsByNodeType(e, NodeType.SECOND).getLength();
+        final int numberOfMinutes = XMLHelper.getDescendantsByNodeType(e, NodeType.MINUTE).getLength();
+        final int numberOfHours = XMLHelper.getDescendantsByNodeType(e, NodeType.HOUR).getLength();
 
         if (numberOfSeconds > 1) return new CheckStatus("more than one SECOND");
         if (numberOfMinutes > 1) return new CheckStatus("more than one MINUTE");
@@ -53,9 +53,9 @@ public class DurationChecker extends NodeChecker {
 
     private CheckStatus checkDurationValue(final Element e) {
 
-        final NodeList seconds = XMLHelper.getElementsByNodeType(e, NodeType.SECOND);
-        final NodeList minutes = XMLHelper.getElementsByNodeType(e, NodeType.MINUTE);
-        final NodeList hours = XMLHelper.getElementsByNodeType(e, NodeType.HOUR);
+        final NodeList seconds = XMLHelper.getDescendantsByNodeType(e, NodeType.SECOND);
+        final NodeList minutes = XMLHelper.getDescendantsByNodeType(e, NodeType.MINUTE);
+        final NodeList hours = XMLHelper.getDescendantsByNodeType(e, NodeType.HOUR);
 
         final int numberOfSeconds = seconds.getLength();
         final int numberOfMinutes = minutes.getLength();
@@ -72,7 +72,7 @@ public class DurationChecker extends NodeChecker {
             return new CheckStatus("SECOND is not an integer");
         }
 
-        if ( numberOfMinutes==0 ) return null;
+        if (numberOfMinutes == 0) return null;
 
         final String minuteStr = minutes.item(0).getTextContent();
         try {
@@ -83,7 +83,7 @@ public class DurationChecker extends NodeChecker {
             return new CheckStatus("MINUTE is not an integer");
         }
 
-        if ( numberOfHours==0 ) return null;
+        if (numberOfHours == 0) return null;
 
         final String hourStr = hours.item(0).getTextContent();
         try {

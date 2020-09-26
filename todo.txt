@@ -1,8 +1,8 @@
-_ détection de l'ordre des Shift/Alt/Ctrl
+- réparer tests unitaires
 
 - trier par défaut sur la date de dernière modification
 
-- mettre la KEYIB comme titre du keyword popup
+- mettre la KEYID comme titre du keyword popup
 
 - mauvais titre pour medium
 https://medium.com/netflix-techblog/a-microscope-on-microservices-923b906103f4
@@ -43,10 +43,6 @@ il est normal de pouvoir avoir uniquement une date de publication ?
 - remettre en place la détection des ordres alphabétiques incorrects
 
 - nettoyage des fichiers
-Nettoyer companies.xml
-Nettoyer cracking.xml
-Nettoyer jobs.xml
-Nettoyer news.xml
 Nettoyer quality.xml
 Nettoyer javascr.xml
 bbst.xml
@@ -58,8 +54,6 @@ https://www.youtube.com/watch?v=qMyMCDPaV60
 * pas de langue pour http://download.eclipse.org/efxclipse/updates-released/3.0.0/site/
 
 - vérification des liens internes
-
-- ajouter une règle : la date de publication doit être après la date de création
 
 s- corriger le fait que les liens soient chargés deux fois
 

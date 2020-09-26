@@ -37,7 +37,7 @@ public class LinkContentChecker {
 
         {
             final LinkContentCheck check = checkGlobalData(data);
-            if ( check != null) {
+            if (check != null) {
                 checks.add(check);
                 return checks;
             }
@@ -45,14 +45,14 @@ public class LinkContentChecker {
 
         {
             final LinkContentCheck check = checkLinkTitle(data, _linkData.getTitle());
-            if ( check != null) {
+            if (check != null) {
                 checks.add(check);
             }
         }
 
         if (_linkData.getDuration().isPresent()) {
             final LinkContentCheck check = checkLinkDuration(data, _linkData.getDuration().get());
-            if ( check != null) {
+            if (check != null) {
                 checks.add(check);
             }
         }
@@ -60,7 +60,7 @@ public class LinkContentChecker {
         if (!Arrays.asList(_linkData.getFormats()).contains("PDF"))
         {
             final LinkContentCheck check = checkLinkLanguages(data, _linkData.getLanguages());
-            if ( check != null) {
+            if (check != null) {
                 checks.add(check);
             }
 
@@ -69,7 +69,7 @@ public class LinkContentChecker {
         if (_articleData.isPresent() &&
             (_articleData.get().getDate().isPresent() || _linkData.getPublicationDate().isPresent())) {
             final LinkContentCheck check = checkArticleDate(data, _linkData.getPublicationDate(), _articleData.get().getDate());
-            if ( check != null) {
+            if (check != null) {
                 checks.add(check);
             }
         }
@@ -97,7 +97,7 @@ public class LinkContentChecker {
     protected LinkContentCheck checkLinkLanguages(final String data,
                                                   final String[] languages)
     {
-        if ( _parser == null) {
+        if (_parser == null) {
             _parser = new LinkContentParser(data);
         }
 

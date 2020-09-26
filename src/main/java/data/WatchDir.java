@@ -161,7 +161,7 @@ public class WatchDir {
                 final Path child = path.resolve(name);
 
                 // dispatch event
-                if (event.kind().equals(StandardWatchEventKinds.ENTRY_CREATE) ) {
+                if (event.kind().equals(StandardWatchEventKinds.ENTRY_CREATE)) {
                     Logger.log(Logger.Level.TRACE)
                           .append("DBGWATCHDIR -- path = ")
                           .append(child)
@@ -170,7 +170,7 @@ public class WatchDir {
                     for (FileWatcher w: _watchers) {
                         w.consume(child, Event.CREATE);
                     }
-                } else if (event.kind().equals(StandardWatchEventKinds.ENTRY_DELETE) ) {
+                } else if (event.kind().equals(StandardWatchEventKinds.ENTRY_DELETE)) {
                     Logger.log(Logger.Level.TRACE)
                           .append("DBGWATCHDIR -- path = ")
                           .append(child)
@@ -179,7 +179,7 @@ public class WatchDir {
                     for (FileWatcher w: _watchers) {
                         w.consume(child, Event.DELETE);
                     }
-                } else if (event.kind().equals(StandardWatchEventKinds.ENTRY_MODIFY) ) {
+                } else if (event.kind().equals(StandardWatchEventKinds.ENTRY_MODIFY)) {
                     Logger.log(Logger.Level.TRACE)
                           .append("DBGWATCHDIR -- path = ")
                           .append(child)

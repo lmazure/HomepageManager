@@ -12,9 +12,9 @@ import utils.xmlparsing.NodeType;
 
 public class DurationPresenceChecker extends NodeChecker {
 
-    final static InclusionTagSelector s_selector = new InclusionTagSelector( new NodeType[] {
+    final static InclusionTagSelector s_selector = new InclusionTagSelector(new NodeType[] {
             NodeType.X
-            } );
+            });
 
     @Override
     public TagSelector getTagSelector() {
@@ -37,9 +37,9 @@ public class DurationPresenceChecker extends NodeChecker {
         String format = "";
 
         final NodeList children = e.getChildNodes();
-        for (int j=0; j<children.getLength(); j++) {
+        for (int j = 0; j < children.getLength(); j++) {
             final Node child = children.item(j);
-            if ( child.getNodeType() == Node.ELEMENT_NODE ) {
+            if (child.getNodeType() == Node.ELEMENT_NODE) {
                 if (XMLHelper.isOfType(child, NodeType.DURATION)) {
                     hasDuration = true;
                 }
@@ -112,6 +112,6 @@ public class DurationPresenceChecker extends NodeChecker {
             return null;
         }
 
-        return new CheckStatus("\""+format+"\" is a unknown format to get duration presence");
+        return new CheckStatus("\"" + format + "\" is a unknown format to get duration presence");
     }
 }

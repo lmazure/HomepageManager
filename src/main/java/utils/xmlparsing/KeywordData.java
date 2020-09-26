@@ -16,7 +16,7 @@ public class KeywordData {
                        final List<LinkData> links) {
         _keyId = keyId;
         _keyText = keyText;
-        _article= article;
+        _article = article;
         _links = links;
     }
 

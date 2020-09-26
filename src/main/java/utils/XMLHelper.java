@@ -58,6 +58,12 @@ public class XMLHelper {
         return schema.newValidator();
     }
 
+    /**
+     * Return the child elements having a given node type
+     * @param element
+     * @param type
+     * @return
+     */
     public static List<Element> getChildrenByNodeType(final Element element,
                                                       final NodeType type) {
         final NodeList list = element.getChildNodes();
@@ -74,8 +80,14 @@ public class XMLHelper {
         return children;
     }
 
-    public static NodeList getElementsByNodeType(final Element element,
-                                                 final NodeType type) {
+    /**
+     * Return the descendant elements having a given node type
+     * @param element
+     * @param type
+     * @return
+     */
+    public static NodeList getDescendantsByNodeType(final Element element,
+                                                    final NodeType type) {
         return element.getElementsByTagName(type.toString());
     }
 

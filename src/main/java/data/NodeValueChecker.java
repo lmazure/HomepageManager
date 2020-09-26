@@ -104,7 +104,7 @@ public class NodeValueChecker implements FileHandler {
              final PrintWriter pw = new PrintWriter(os)) {
             final List<Error> errors = check(file);
             if (errors.size() > 0) {
-                for (Error error : errors ) {
+                for (final Error error : errors) {
                     pw.println(" tag = \""       + error.getTag()       + "\"" +
                                " value = \""     + error.getValue()     + "\"" +
                                " violation = \"" + error.getViolation() + "\"" +
@@ -180,7 +180,7 @@ public class NodeValueChecker implements FileHandler {
         final NodeList children = e.getChildNodes();
 
         for (int j = 0; j < children.getLength(); j++) {
-            if ( children.item(j).getNodeType() == Node.ELEMENT_NODE ) {
+            if (children.item(j).getNodeType() == Node.ELEMENT_NODE) {
                 errors.addAll(checkNode(file, (Element)children.item(j)));
             }
         }
@@ -189,7 +189,7 @@ public class NodeValueChecker implements FileHandler {
             if (checker.getTagSelector().isTagCheckable(e.getTagName())) {
                 for (final NodeChecker.NodeRule rule : checker.getRules()) {
                     final CheckStatus status = rule.checkElement(e);
-                    if ( status != null ) {
+                    if (status != null) {
                         errors.add(new Error(e.getTagName(), e.getTextContent(), rule.getDescription(), status.getDetail()));
                     }
                 }

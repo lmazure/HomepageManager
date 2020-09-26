@@ -12,9 +12,9 @@ import utils.xmlparsing.NodeType;
 
 public class FormatFromURLChecker extends NodeChecker {
 
-    final static InclusionTagSelector s_selector = new InclusionTagSelector( new NodeType[] {
+    final static InclusionTagSelector s_selector = new InclusionTagSelector(new NodeType[] {
             NodeType.X
-            } );
+            });
 
     @Override
     public TagSelector getTagSelector() {
@@ -33,33 +33,33 @@ public class FormatFromURLChecker extends NodeChecker {
 
     private CheckStatus checkFormat(final Element e) {
 
-        String url="";
-        String format="";
+        String url = "";
+        String format = "";
 
         final NodeList children = e.getChildNodes();
-        for (int j=0; j<children.getLength(); j++) {
+        for (int j = 0; j < children.getLength(); j++) {
             final Node child = children.item(j);
-            if ( child.getNodeType() == Node.ELEMENT_NODE ) {
+            if (child.getNodeType() == Node.ELEMENT_NODE) {
                 if (XMLHelper.isOfType(child, NodeType.A)) {
-                    url=child.getTextContent();
+                    url = child.getTextContent();
                 }
                 if (XMLHelper.isOfType(child, NodeType.F)) {
-                    format=child.getTextContent();
+                    format = child.getTextContent();
                 }
             }
         }
 
         if (url.toUpperCase().endsWith("PDF") && !format.equals("PDF"))
-           return new CheckStatus("\""+url+"\" is not indicated as being a PDF format");
+           return new CheckStatus("\"" + url + "\" is not indicated as being a PDF format");
 
         if (url.toUpperCase().endsWith("WMV") && !format.equals("Windows Media Player"))
-               return new CheckStatus("\""+url+"\" is not indicated as being a Windows Media Player format");
+               return new CheckStatus("\"" + url + "\" is not indicated as being a Windows Media Player format");
 
         if (url.contains("youtube.com/watch") && !format.equals("MP4"))
-               return new CheckStatus("\""+url+"\" is not indicated as being a MP4 format");
+               return new CheckStatus("\"" + url + "\" is not indicated as being a MP4 format");
 
         if (url.contains("video.google.com/videoplay") && !format.equals("Flash Video"))
-               return new CheckStatus("\""+url+"\" is not indicated as being a Flash Video format");
+               return new CheckStatus("\"" + url + "\" is not indicated as being a Flash Video format");
 
         return null;
     }
