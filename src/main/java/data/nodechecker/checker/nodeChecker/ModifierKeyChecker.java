@@ -8,7 +8,7 @@ import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
 import utils.XMLHelper;
-import utils.xmlparsing.NodeType;
+import utils.xmlparsing.ElementType;
 
 public class ModifierKeyChecker extends NodeChecker {
 
@@ -18,8 +18,8 @@ public class ModifierKeyChecker extends NodeChecker {
     private static final String s_ALT = "Alt";
     private static final String s_CTRL = "Ctrl";
 
-    final static InclusionTagSelector s_selector = new InclusionTagSelector(new NodeType[] {
-            NodeType.MODIFIERKEY
+    final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
+            ElementType.MODIFIERKEY
             });
 
     @Override
@@ -58,7 +58,7 @@ public class ModifierKeyChecker extends NodeChecker {
     private CheckStatus checkModifierKeyOrder(final Element e) {
 
         final Node next = e.getNextSibling();
-        if (!XMLHelper.isOfType(next, NodeType.MODIFIERKEY)) return null;
+        if (!XMLHelper.isOfType(next, ElementType.MODIFIERKEY)) return null;
 
         final String str = e.getAttribute("ID");
         final String strNext = ((Element)next).getAttribute("ID");

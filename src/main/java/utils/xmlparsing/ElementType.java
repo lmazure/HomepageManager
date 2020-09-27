@@ -1,6 +1,6 @@
 package utils.xmlparsing;
 
-public enum NodeType {
+public enum ElementType {
 
     A,
     ARTICLE,

@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import utils.xmlparsing.NodeType;
+import utils.xmlparsing.ElementType;
 
 /**
  * @author Laurent
@@ -17,9 +17,9 @@ public class ExclusionTagSelector implements TagSelector {
     /**
      * @param tagsToIgnore
      */
-    public ExclusionTagSelector(final NodeType tagsToIgnore[]) {
+    public ExclusionTagSelector(final ElementType tagsToIgnore[]) {
         _tags = Stream.of(tagsToIgnore)
-                          .map(NodeType::toString)
+                          .map(ElementType::toString)
                        .collect(Collectors.toSet());
     }
 

@@ -11,7 +11,7 @@ import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
 import utils.XMLHelper;
-import utils.xmlparsing.NodeType;
+import utils.xmlparsing.ElementType;
 
 public class MissingSpaceChecker extends NodeChecker {
 
@@ -54,9 +54,9 @@ public class MissingSpaceChecker extends NodeChecker {
                                                                                   "X.org",
                                                                                   "xsl:key"));
 
-    static final InclusionTagSelector s_selector = new InclusionTagSelector(new NodeType[] {
-            NodeType.COMMENT,
-            NodeType.TITLE,
+    static final InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
+            ElementType.COMMENT,
+            ElementType.TITLE,
             });
 
     @Override

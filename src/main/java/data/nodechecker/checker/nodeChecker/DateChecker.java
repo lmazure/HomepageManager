@@ -9,7 +9,7 @@ import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
 import utils.XMLHelper;
-import utils.xmlparsing.NodeType;
+import utils.xmlparsing.ElementType;
 
 public class DateChecker extends NodeChecker {
 
@@ -18,8 +18,8 @@ public class DateChecker extends NodeChecker {
     final static int s_now_month = s_now.get(Calendar.MONTH)+1;
     final static int s_now_day = s_now.get(Calendar.DAY_OF_MONTH);
 
-    final static InclusionTagSelector s_selector = new InclusionTagSelector(new NodeType[] {
-            NodeType.DATE
+    final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
+            ElementType.DATE
             });
 
     @Override
@@ -44,9 +44,9 @@ public class DateChecker extends NodeChecker {
 
     private CheckStatus checkDateHierarchy(final Element e) {
 
-        final int numberOfYears = XMLHelper.getDescendantsByNodeType(e, NodeType.YEAR).getLength();
-        final int numberOfMonths = XMLHelper.getDescendantsByNodeType(e, NodeType.MONTH).getLength();
-        final int numberOfDays = XMLHelper.getDescendantsByNodeType(e, NodeType.DAY).getLength();
+        final int numberOfYears = XMLHelper.getDescendantsByNodeType(e, ElementType.YEAR).getLength();
+        final int numberOfMonths = XMLHelper.getDescendantsByNodeType(e, ElementType.MONTH).getLength();
+        final int numberOfDays = XMLHelper.getDescendantsByNodeType(e, ElementType.DAY).getLength();
 
         if (numberOfYears > 1) return new CheckStatus("more than one YEAR");
         if (numberOfMonths > 1) return new CheckStatus("more than one MONTH");
@@ -61,9 +61,9 @@ public class DateChecker extends NodeChecker {
 
     private CheckStatus checkDateValue(final Element e) {
 
-        final NodeList years = XMLHelper.getDescendantsByNodeType(e, NodeType.YEAR);
-        final NodeList months = XMLHelper.getDescendantsByNodeType(e, NodeType.MONTH);
-        final NodeList days = XMLHelper.getDescendantsByNodeType(e, NodeType.DAY);
+        final NodeList years = XMLHelper.getDescendantsByNodeType(e, ElementType.YEAR);
+        final NodeList months = XMLHelper.getDescendantsByNodeType(e, ElementType.MONTH);
+        final NodeList days = XMLHelper.getDescendantsByNodeType(e, ElementType.DAY);
 
         final int numberOfYears = years.getLength();
         final int numberOfMonths = months.getLength();
@@ -76,7 +76,7 @@ public class DateChecker extends NodeChecker {
             year = Long.parseLong(yearStr);
             if (year < 1900) {
                 // we check this only for articles
-                if (XMLHelper.isOfType(e.getParentNode(), NodeType.X)) {
+                if (XMLHelper.isOfType(e.getParentNode(), ElementType.X)) {
                     return new CheckStatus("YEAR is less than 1900");
                 }
             }

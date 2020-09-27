@@ -13,13 +13,13 @@ import data.nodechecker.tagSelection.TagSelector;
 import utils.XMLHelper;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkData;
-import utils.xmlparsing.NodeType;
+import utils.xmlparsing.ElementType;
 import utils.xmlparsing.XmlParser;
 
 public class ArticleDateChecker extends NodeChecker {
 
-    final static InclusionTagSelector s_selector = new InclusionTagSelector(new NodeType[] {
-            NodeType.ARTICLE
+    final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
+            ElementType.ARTICLE
             });
 
     @Override
@@ -49,11 +49,17 @@ public class ArticleDateChecker extends NodeChecker {
             return null;
         }
 
-        final ArticleData articleData = XmlParser.parseArticleNode(e);
+        final ArticleData articleData = XmlParser.parseArticleElement(e);
         final Optional<TemporalAccessor> creationDate = articleData.getDate();
         if (creationDate.isPresent()) {
             if (compareTemporalAccesssor(creationDate.get(), pageDate.get()) > 0) {
-                return new CheckStatus("Creation date of article \"" + articleData.getLinks().get(0).getUrl() + "\" (" + creationDate.get() + ") is after page date (" + pageDate.get() + ")");
+                return new CheckStatus("Creation date of article \"" +
+                                       articleData.getLinks().get(0).getUrl() +
+                                       "\" (" +
+                                       creationDate.get() +
+                                       ") is after page date (" +
+                                       pageDate.get() +
+                                       ")");
             }
         }
 
@@ -61,10 +67,22 @@ public class ArticleDateChecker extends NodeChecker {
             final Optional<TemporalAccessor> publicationDate = l.getPublicationDate();
             if (publicationDate.isPresent()) {
                 if (compareTemporalAccesssor(publicationDate.get(), pageDate.get()) > 0) {
-                    return new CheckStatus("Publication date of article \"" + l.getUrl() + "\" (" + publicationDate.get() + ") is after page date (" + pageDate.get() + ")");
+                    return new CheckStatus("Publication date of article \"" +
+                                           l.getUrl() +
+                                           "\" (" +
+                                           publicationDate.get() +
+                                           ") is after page date (" +
+                                           pageDate.get() +
+                                           ")");
                 }
                 if (compareTemporalAccesssor(publicationDate.get(), creationDate.get()) < 0) {
-                    return new CheckStatus("Publication date of article \"" + l.getUrl() + "\" (" + publicationDate.get() + ") is before creation date (" + creationDate.get() + ")");
+                    return new CheckStatus("Publication date of article \"" +
+                                           l.getUrl() +
+                                           "\" (" +
+                                           publicationDate.get() +
+                                           ") is before creation date (" +
+                                           creationDate.get() +
+                                           ")");
                 }
             }
         }
@@ -74,23 +92,49 @@ public class ArticleDateChecker extends NodeChecker {
 
     private CheckStatus checkArticleDateToPreviousArticleDate(final Element e) {
 
-        final ArticleData articleData = XmlParser.parseArticleNode(e);
+        final ArticleData articleData = XmlParser.parseArticleElement(e);
         final Optional<TemporalAccessor> creationDate = articleData.getDate();
-        if (creationDate.isEmpty()) {
-            return null;
+
+        if (!XMLHelper.isOfType(e.getParentNode(), ElementType.ITEM)) return null;
+        if (e.getParentNode().getPreviousSibling() == null) return null;
+        if (!XMLHelper.isOfType(e.getParentNode().getPreviousSibling(), ElementType.ITEM)) return null;
+        if (!XMLHelper.isOfType(e.getParentNode().getPreviousSibling().getFirstChild(), ElementType.ARTICLE)) return null;
+
+        
+        final ArticleData previousArticleData = XmlParser.parseArticleElement((Element)e.getParentNode().getPreviousSibling().getFirstChild());
+        final Optional<TemporalAccessor> previousCreationDate = previousArticleData.getDate();
+
+        if (previousCreationDate.isPresent() && creationDate.isEmpty()) {
+            return new CheckStatus("Article \"" +
+                                   articleData.getLinks().get(0).getUrl() +
+                                   "\" has no date while being after article \"" +
+                                   previousArticleData.getLinks().get(0).getUrl() +
+                                   "\" which has a date");
         }
 
-        // TBD
-        
+        if (previousCreationDate.isEmpty()) return null;
+
+        if (compareTemporalAccesssor(previousCreationDate.get(), creationDate.get()) > 0) {
+            return new CheckStatus("Creation date of article \"" +
+                                   articleData.getLinks().get(0).getUrl() +
+                                   "\" (" +
+                                   creationDate.get() +
+                                   ") is before creation date (" +
+                                   previousCreationDate.get() +
+                                   ") of previous article \"" +
+                                   previousArticleData.getLinks().get(0).getUrl() +
+                                   "\"");
+        }
+
         return null;
     }
 
     private Optional<TemporalAccessor> getPageDate(final Element e) {
-        final List<Element> date = XMLHelper.getChildrenByNodeType(e.getOwnerDocument().getDocumentElement(), NodeType.DATE);
+        final List<Element> date = XMLHelper.getChildrenByNodeType(e.getOwnerDocument().getDocumentElement(), ElementType.DATE);
         if (date.size() == 0) {
             return Optional.empty();
         }
-        return Optional.of(XmlParser.parseDateNode(date.get(0)));
+        return Optional.of(XmlParser.parseDateElement(date.get(0)));
     }
     
     private int compareTemporalAccesssor(final TemporalAccessor accessor1,

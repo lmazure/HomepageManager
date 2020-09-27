@@ -3,14 +3,14 @@ package data.nodechecker.checker.nodeChecker;
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
-import utils.xmlparsing.NodeType;
+import utils.xmlparsing.ElementType;
 
 import org.w3c.dom.Element;
 
 public class URLProtocolChecker extends NodeChecker {
 
-    final static InclusionTagSelector s_selector = new InclusionTagSelector(new NodeType[] {
-            NodeType.A
+    final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
+            ElementType.A
             });
 
     @Override

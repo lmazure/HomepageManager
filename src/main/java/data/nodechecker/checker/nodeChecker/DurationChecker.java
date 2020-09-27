@@ -7,12 +7,12 @@ import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
 import utils.XMLHelper;
-import utils.xmlparsing.NodeType;
+import utils.xmlparsing.ElementType;
 
 public class DurationChecker extends NodeChecker {
 
-    final static InclusionTagSelector s_selector = new InclusionTagSelector(new NodeType[] {
-            NodeType.DURATION
+    final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
+            ElementType.DURATION
             });
 
     @Override
@@ -36,9 +36,9 @@ public class DurationChecker extends NodeChecker {
 
     private CheckStatus checkDurationHierarchy(final Element e) {
 
-        final int numberOfSeconds = XMLHelper.getDescendantsByNodeType(e, NodeType.SECOND).getLength();
-        final int numberOfMinutes = XMLHelper.getDescendantsByNodeType(e, NodeType.MINUTE).getLength();
-        final int numberOfHours = XMLHelper.getDescendantsByNodeType(e, NodeType.HOUR).getLength();
+        final int numberOfSeconds = XMLHelper.getDescendantsByNodeType(e, ElementType.SECOND).getLength();
+        final int numberOfMinutes = XMLHelper.getDescendantsByNodeType(e, ElementType.MINUTE).getLength();
+        final int numberOfHours = XMLHelper.getDescendantsByNodeType(e, ElementType.HOUR).getLength();
 
         if (numberOfSeconds > 1) return new CheckStatus("more than one SECOND");
         if (numberOfMinutes > 1) return new CheckStatus("more than one MINUTE");
@@ -53,9 +53,9 @@ public class DurationChecker extends NodeChecker {
 
     private CheckStatus checkDurationValue(final Element e) {
 
-        final NodeList seconds = XMLHelper.getDescendantsByNodeType(e, NodeType.SECOND);
-        final NodeList minutes = XMLHelper.getDescendantsByNodeType(e, NodeType.MINUTE);
-        final NodeList hours = XMLHelper.getDescendantsByNodeType(e, NodeType.HOUR);
+        final NodeList seconds = XMLHelper.getDescendantsByNodeType(e, ElementType.SECOND);
+        final NodeList minutes = XMLHelper.getDescendantsByNodeType(e, ElementType.MINUTE);
+        final NodeList hours = XMLHelper.getDescendantsByNodeType(e, ElementType.HOUR);
 
         final int numberOfSeconds = seconds.getLength();
         final int numberOfMinutes = minutes.getLength();

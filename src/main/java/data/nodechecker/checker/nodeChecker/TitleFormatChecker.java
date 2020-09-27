@@ -4,7 +4,7 @@ import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
 import utils.XMLHelper;
-import utils.xmlparsing.NodeType;
+import utils.xmlparsing.ElementType;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -53,8 +53,8 @@ public class TitleFormatChecker extends NodeChecker {
                                                                                   "zsh",
                                                                                   "π"));
 
-    static final InclusionTagSelector s_selector = new InclusionTagSelector(new NodeType[] {
-            NodeType.TITLE
+    static final InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
+            ElementType.TITLE
             });
 
     @Override

@@ -10,14 +10,14 @@ import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
 import utils.XMLHelper;
-import utils.xmlparsing.NodeType;
+import utils.xmlparsing.ElementType;
 
 
 public class TableSortChecker extends NodeChecker {
 
-    final static InclusionTagSelector s_selector = new InclusionTagSelector(new NodeType[] {
-            NodeType.DEFINITION2TABLE,
-            NodeType.DEFINITIONTABLE
+    final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
+            ElementType.DEFINITION2TABLE,
+            ElementType.DEFINITIONTABLE
             });
 
     @Override
@@ -47,12 +47,12 @@ public class TableSortChecker extends NodeChecker {
         for (int i = 0; i < children.getLength(); i++) {
             final Node child = children.item(i);
             if ((child.getNodeType() == Node.ELEMENT_NODE) &&
-                (XMLHelper.isOfType(child, NodeType.ROW))) {
+                (XMLHelper.isOfType(child, ElementType.ROW))) {
                 final NodeList childrenOfChild = child.getChildNodes();
                 for (int j = 0; j < childrenOfChild.getLength(); j++) {
                     final Node childOfChild = childrenOfChild.item(j);
                     if ((childOfChild.getNodeType() == Node.ELEMENT_NODE) &&
-                        (XMLHelper.isOfType(childOfChild, NodeType.TERM))) {
+                        (XMLHelper.isOfType(childOfChild, ElementType.TERM))) {
                         numberOfTerms++;
                         final Element elementOfChild = (Element)childOfChild;
                         final String textContent = getTextOfElementWithoutChildren(elementOfChild);

@@ -8,12 +8,12 @@ import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
 import utils.XMLHelper;
-import utils.xmlparsing.NodeType;
+import utils.xmlparsing.ElementType;
 
 public class DurationPresenceChecker extends NodeChecker {
 
-    final static InclusionTagSelector s_selector = new InclusionTagSelector(new NodeType[] {
-            NodeType.X
+    final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
+            ElementType.X
             });
 
     @Override
@@ -40,10 +40,10 @@ public class DurationPresenceChecker extends NodeChecker {
         for (int j = 0; j < children.getLength(); j++) {
             final Node child = children.item(j);
             if (child.getNodeType() == Node.ELEMENT_NODE) {
-                if (XMLHelper.isOfType(child, NodeType.DURATION)) {
+                if (XMLHelper.isOfType(child, ElementType.DURATION)) {
                     hasDuration = true;
                 }
-                if (XMLHelper.isOfType(child, NodeType.F)) {
+                if (XMLHelper.isOfType(child, ElementType.F)) {
                     format = child.getTextContent();
                 }
             }

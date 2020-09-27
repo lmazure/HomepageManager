@@ -40,7 +40,7 @@ import utils.Logger.Level;
 import utils.XMLHelper;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkData;
-import utils.xmlparsing.NodeType;
+import utils.xmlparsing.ElementType;
 import utils.xmlparsing.XmlParser;
 
 public class LinkCheckRunner {
@@ -135,8 +135,8 @@ public class LinkCheckRunner {
             }
         }
 
-        if (XMLHelper.isOfType(e, NodeType.X)) {
-            list.add(XmlParser.parseXNode(e));
+        if (XMLHelper.isOfType(e, ElementType.X)) {
+            list.add(XmlParser.parseXElement(e));
         }
 
         return list;
@@ -153,9 +153,9 @@ public class LinkCheckRunner {
             }
         }
 
-        if (XMLHelper.isOfType(e, NodeType.ARTICLE)) {
+        if (XMLHelper.isOfType(e, ElementType.ARTICLE)) {
             try {
-                list.add(XmlParser.parseArticleNode(e));
+                list.add(XmlParser.parseArticleElement(e));
             } catch (final UnsupportedOperationException ex) {
                 Logger.log(Level.ERROR)
                       .append("Failed to parse Element ")

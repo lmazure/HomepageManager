@@ -4,7 +4,7 @@ import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.ExclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
 import utils.XMLHelper;
-import utils.xmlparsing.NodeType;
+import utils.xmlparsing.ElementType;
 
 import java.util.List;
 
@@ -12,24 +12,24 @@ import org.w3c.dom.Element;
 
 public class EllipsisChecker extends NodeChecker {
 
-    static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new NodeType[] {
-            NodeType.A,
-            NodeType.ARTICLE,
-            NodeType.BLIST,
-            NodeType.CELL,
-            NodeType.CLIST,
-            NodeType.CODESAMPLE,
-            NodeType.CONTENT,
-            NodeType.I,
-            NodeType.ITEM,
-            NodeType.LLIST,
-            NodeType.NLIST,
-            NodeType.PAGE,
-            NodeType.ROW,
-            NodeType.SCRIPT,
-            NodeType.ST,
-            NodeType.T,
-            NodeType.X
+    static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new ElementType[] {
+            ElementType.A,
+            ElementType.ARTICLE,
+            ElementType.BLIST,
+            ElementType.CELL,
+            ElementType.CLIST,
+            ElementType.CODESAMPLE,
+            ElementType.CONTENT,
+            ElementType.I,
+            ElementType.ITEM,
+            ElementType.LLIST,
+            ElementType.NLIST,
+            ElementType.PAGE,
+            ElementType.ROW,
+            ElementType.SCRIPT,
+            ElementType.ST,
+            ElementType.T,
+            ElementType.X
             });
 
     @Override

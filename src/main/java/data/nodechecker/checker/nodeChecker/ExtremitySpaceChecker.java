@@ -4,32 +4,32 @@ package data.nodechecker.checker.nodeChecker;
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.ExclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
-import utils.xmlparsing.NodeType;
+import utils.xmlparsing.ElementType;
 
 import org.w3c.dom.Element;
 
 public class ExtremitySpaceChecker extends NodeChecker {
 
-    static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new NodeType[] {
-            NodeType.BLIST,
-            NodeType.CELL,
-            NodeType.CLIST,
-            NodeType.CODEFILE,
-            NodeType.CODESAMPLE,
-            NodeType.CONTENT,
-            NodeType.DEFINITION2TABLE,
-            NodeType.DEFINITIONTABLE,
-            NodeType.DESC,
-            NodeType.ITEM,
-            NodeType.LLIST,
-            NodeType.NLIST,
-            NodeType.PAGE,
-            NodeType.ROW,
-            NodeType.SCRIPT,
-            NodeType.SLIST,
-            NodeType.TABLE,
-            NodeType.TERM,
-            NodeType.TEXTBLOCK
+    static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new ElementType[] {
+            ElementType.BLIST,
+            ElementType.CELL,
+            ElementType.CLIST,
+            ElementType.CODEFILE,
+            ElementType.CODESAMPLE,
+            ElementType.CONTENT,
+            ElementType.DEFINITION2TABLE,
+            ElementType.DEFINITIONTABLE,
+            ElementType.DESC,
+            ElementType.ITEM,
+            ElementType.LLIST,
+            ElementType.NLIST,
+            ElementType.PAGE,
+            ElementType.ROW,
+            ElementType.SCRIPT,
+            ElementType.SLIST,
+            ElementType.TABLE,
+            ElementType.TERM,
+            ElementType.TEXTBLOCK
             });
 
     @Override

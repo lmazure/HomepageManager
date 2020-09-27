@@ -17,7 +17,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import utils.xmlparsing.NodeType;
+import utils.xmlparsing.ElementType;
 
 public class XMLHelper {
 
@@ -65,7 +65,7 @@ public class XMLHelper {
      * @return
      */
     public static List<Element> getChildrenByNodeType(final Element element,
-                                                      final NodeType type) {
+                                                      final ElementType type) {
         final NodeList list = element.getChildNodes();
         final List<Element> children = new ArrayList<Element>(); 
         for (int i = 0; i < list.getLength(); i++) {
@@ -87,17 +87,29 @@ public class XMLHelper {
      * @return
      */
     public static NodeList getDescendantsByNodeType(final Element element,
-                                                    final NodeType type) {
+                                                    final ElementType type) {
         return element.getElementsByTagName(type.toString());
     }
 
+    /**
+     * Test if an element is of given type
+     * @param element
+     * @param type
+     * @return
+     */
     public static boolean isOfType(final Element element,
-                                   final NodeType type) {
+                                   final ElementType type) {
         return element.getTagName().equals(type.toString());
     }
 
-    public static boolean isOfType(final Node element,
-                                   final NodeType type) {
-        return element.getNodeName().equals(type.toString());
+    /**
+     * Test if a node is an element of given type
+     * @param node
+     * @param type
+     * @return
+     */
+    public static boolean isOfType(final Node node,
+                                   final ElementType type) {
+        return node.getNodeName().equals(type.toString());
     }
 }

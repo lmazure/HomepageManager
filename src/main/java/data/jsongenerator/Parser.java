@@ -18,7 +18,7 @@ import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.KeywordData;
 import utils.xmlparsing.LinkData;
-import utils.xmlparsing.NodeType;
+import utils.xmlparsing.ElementType;
 import utils.xmlparsing.XmlParser;
 
 public class Parser {
@@ -75,13 +75,13 @@ public class Parser {
                                  final File file) {
 
         final Element racine = document.getDocumentElement();
-        final NodeList list = XMLHelper.getDescendantsByNodeType(racine, NodeType.ARTICLE);
+        final NodeList list = XMLHelper.getDescendantsByNodeType(racine, ElementType.ARTICLE);
 
         for (int i = 0; i < list.getLength(); i++) {
 
             final Element articleNode = (Element)list.item(i);
 
-            final ArticleData articleData = XmlParser.parseArticleNode(articleNode);
+            final ArticleData articleData = XmlParser.parseArticleElement(articleNode);
 
             final Article article = _articleFactory.buildArticle(file, articleData.getDate());
 
@@ -106,13 +106,13 @@ public class Parser {
                                  final File file) {
 
         final Element racine = document.getDocumentElement();
-        final NodeList list = XMLHelper.getDescendantsByNodeType(racine, NodeType.KEYWORD);
+        final NodeList list = XMLHelper.getDescendantsByNodeType(racine, ElementType.KEYWORD);
 
         for (int i = 0; i < list.getLength(); i++) {
 
             final Element keywordNode = (Element)list.item(i);
 
-            final KeywordData keywordData = XmlParser.parseKeywordNode(keywordNode);
+            final KeywordData keywordData = XmlParser.parseKeywordElement(keywordNode);
 
             final Keyword keyword = _keywordFactory.newKeyword(keywordData.getKeyId());
 
@@ -161,38 +161,38 @@ public class Parser {
                                     final File file) {
 
         final Element racine = document.getDocumentElement();
-        final NodeList list = XMLHelper.getDescendantsByNodeType(racine, NodeType.CLIST);
+        final NodeList list = XMLHelper.getDescendantsByNodeType(racine, ElementType.CLIST);
 
         for (int i = 0; i < list.getLength(); i++) {
 
             final Element clistNode = (Element)list.item(i);
 
             final Node titleNode =  clistNode.getFirstChild();
-            if (!XMLHelper.isOfType(titleNode, NodeType.TITLE)) {
+            if (!XMLHelper.isOfType(titleNode, ElementType.TITLE)) {
                 throw new UnsupportedOperationException("Unexpected XML structure (the first child of a CLIST node is not a TITLE node)");
             }
 
             final Node authorNode =  titleNode.getFirstChild();
-            if (!XMLHelper.isOfType(authorNode, NodeType.AUTHOR)) {
+            if (!XMLHelper.isOfType(authorNode, ElementType.AUTHOR)) {
                 throw new UnsupportedOperationException("Unexpected XML structure (the first child of the first child of a CLIST node is not a AUTHOR node)");
             }
 
-            final AuthorData authorData = XmlParser.parseAuthorNode((Element)authorNode);
+            final AuthorData authorData = XmlParser.parseAuthorElement((Element)authorNode);
 
             final Author author = _authorFactory.peekAuthor(authorData);
 
             if (author == null) continue; // TODO ne devrait jamais arriver ?
 
-            for (int j = 0; j < XMLHelper.getDescendantsByNodeType(clistNode, NodeType.ITEM).getLength(); j++) {
+            for (int j = 0; j < XMLHelper.getDescendantsByNodeType(clistNode, ElementType.ITEM).getLength(); j++) {
 
-                final Element linkNode = (Element)XMLHelper.getDescendantsByNodeType(clistNode, NodeType.ITEM).item(j);
+                final Element linkNode = (Element)XMLHelper.getDescendantsByNodeType(clistNode, ElementType.ITEM).item(j);
                 if (linkNode.getChildNodes().getLength() != 1) {
                     throw new UnsupportedOperationException("Illegal number of children nodes");
                 }
-                if (!XMLHelper.isOfType((Element)linkNode.getChildNodes().item(0), NodeType.X)) {
+                if (!XMLHelper.isOfType((Element)linkNode.getChildNodes().item(0), ElementType.X)) {
                     throw new UnsupportedOperationException("Illegal child node");
                 }
-                final LinkData linkData = XmlParser.parseXNode((Element)linkNode.getChildNodes().item(0));
+                final LinkData linkData = XmlParser.parseXElement((Element)linkNode.getChildNodes().item(0));
                 final Link link = _linkFactory.newLink(null, linkData);
 
                 author.addLink(link);

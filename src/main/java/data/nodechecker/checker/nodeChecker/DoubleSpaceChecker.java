@@ -4,7 +4,7 @@ import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.ExclusionTagSelector;
 import data.nodechecker.tagSelection.TagSelector;
 import utils.XMLHelper;
-import utils.xmlparsing.NodeType;
+import utils.xmlparsing.ElementType;
 
 import java.util.List;
 
@@ -16,20 +16,20 @@ import org.w3c.dom.Element;
  */
 public class DoubleSpaceChecker extends NodeChecker {
 
-    static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new NodeType[] {
-            NodeType.BLIST,
-            NodeType.CLIST,
-            NodeType.CODESAMPLE,
-            NodeType.CONTENT,
-            NodeType.DEFINITIONTABLE,
-            NodeType.ITEM,
-            NodeType.LLIST,
-            NodeType.NLIST,
-            NodeType.PAGE,
-            NodeType.ROW,
-            NodeType.SCRIPT,
-            NodeType.SLIST,
-            NodeType.TEXTBLOCK
+    static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new ElementType[] {
+            ElementType.BLIST,
+            ElementType.CLIST,
+            ElementType.CODESAMPLE,
+            ElementType.CONTENT,
+            ElementType.DEFINITIONTABLE,
+            ElementType.ITEM,
+            ElementType.LLIST,
+            ElementType.NLIST,
+            ElementType.PAGE,
+            ElementType.ROW,
+            ElementType.SCRIPT,
+            ElementType.SLIST,
+            ElementType.TEXTBLOCK
             });
 
     @Override
@@ -50,9 +50,9 @@ public class DoubleSpaceChecker extends NodeChecker {
     private CheckStatus checkDoubleSpace(final Element e) {
 
         // ignore titles of articles
-        if (XMLHelper.isOfType(e, NodeType.T) &&
-            XMLHelper.isOfType(e.getParentNode(), NodeType.X) &&
-            XMLHelper.isOfType(e.getParentNode().getParentNode(), NodeType.ARTICLE)) {
+        if (XMLHelper.isOfType(e, ElementType.T) &&
+            XMLHelper.isOfType(e.getParentNode(), ElementType.X) &&
+            XMLHelper.isOfType(e.getParentNode().getParentNode(), ElementType.ARTICLE)) {
             return null;
         }
 

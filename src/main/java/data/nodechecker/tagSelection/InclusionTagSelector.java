@@ -4,7 +4,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import utils.xmlparsing.NodeType;
+import utils.xmlparsing.ElementType;
 
 /**
  * @author Laurent
@@ -17,9 +17,9 @@ public class InclusionTagSelector implements TagSelector {
     /**
      * @param tagsToCheck
      */
-    public InclusionTagSelector(final NodeType tagsToCheck[]) {
+    public InclusionTagSelector(final ElementType tagsToCheck[]) {
         _tags = Stream.of(tagsToCheck)
-                       .map(NodeType::toString)
+                       .map(ElementType::toString)
                        .collect(Collectors.toSet());
     }
 
