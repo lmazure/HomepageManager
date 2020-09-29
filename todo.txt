@@ -11,8 +11,6 @@ https://medium.com/netflix-techblog/netflixoss-announcing-hollow-5f710eefca4b
 
 - modifier règles pour que typescript.xml soit propre
 
-- détecter les articles non classés par date
-
 - mauvaise détection de langue : 
 http://wiki.c2.com/?AbcMetric
 -- fr au lieu de en
@@ -43,8 +41,7 @@ il est normal de pouvoir avoir uniquement une date de publication ?
 - remettre en place la détection des ordres alphabétiques incorrects
 
 - nettoyage des fichiers
-Nettoyer quality.xml
-Nettoyer javascr.xml
+build.xml
 bbst.xml
 
 - comprendre pourquoi certaines vidéos sont marquées non playable

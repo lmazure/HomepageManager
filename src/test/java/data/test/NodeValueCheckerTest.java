@@ -372,7 +372,7 @@ class NodeValueCheckerTest {
     }
 
     @Test
-    void correctDatesAreNotReported() {
+    void whenThereIsNoIndentationCorrectDatesAreNotReported() {
         
         final String content =
             "<?xml version=\"1.0\"?>" +
@@ -395,7 +395,7 @@ class NodeValueCheckerTest {
     }
 
     @Test
-    void detectArticleWithNoDateAfterArticleWithDate() {
+    void whenThereIsNoIndentationDetectArticleWithNoDateAfterArticleWithDate() {
         
         final String content =
             "<?xml version=\"1.0\"?>" +
@@ -420,7 +420,7 @@ class NodeValueCheckerTest {
 
 
     @Test
-    void detectArticleAfterArticleWithDateMorerReceent() {
+    void whenThereIsNoIndentationDetectArticleAfterArticleWithDateMoreReceent() {
         
         final String content =
             "<?xml version=\"1.0\"?>" +
@@ -433,6 +433,78 @@ class NodeValueCheckerTest {
             "<ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
             "<ITEM><ARTICLE><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
             "<ITEM><ARTICLE><X><T>title2</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
+            "</CONTENT>" +
+            "</PAGE>";
+        try {
+            test(content,
+                 "Creation date of article \"URL3\" (2010-09-02) is before creation date (2010-09-03) of previous article \"URL2\"");
+        } catch (@SuppressWarnings("unused") final SAXException e) {
+            Assertions.fail("SAXException");
+        }
+    }
+
+    @Test
+    void whenThereIsIndentationCorrectDatesAreNotReported() {
+        
+        final String content =
+            "<?xml version=\"1.0\"?>" +
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<TITLE>TypeScript</TITLE>" +
+            "<PATH>links/typescript.xml</PATH>" +
+            "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
+            "<CONTENT>" +
+            "  <ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title2</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title3</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
+            "</CONTENT>" +
+            "</PAGE>";
+        try {
+            test(content);
+        } catch (@SuppressWarnings("unused") final SAXException e) {
+            Assertions.fail("SAXException");
+        }
+    }
+
+    @Test
+    void whenThereIsIndentationDetectArticleWithNoDateAfterArticleWithDate() {
+        
+        final String content =
+            "<?xml version=\"1.0\"?>" +
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<TITLE>TypeScript</TITLE>" +
+            "<PATH>links/typescript.xml</PATH>" +
+            "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
+            "<CONTENT>" +
+            "  <ITEM><ARTICLE><X><T>title2</T><A>URL1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title1</T><A>URL2</A><L>en</L><F>HTML</F></X><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title3</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
+            "</CONTENT>" +
+            "</PAGE>";
+        try {
+            test(content,
+                 "Article \"URL2\" has no date while being after article \"URL1\" which has a date");
+        } catch (@SuppressWarnings("unused") final SAXException e) {
+            Assertions.fail("SAXException");
+        }
+    }
+
+
+    @Test
+    void whenThereIsIndentationDetectArticleAfterArticleWithDateMoreReceent() {
+        
+        final String content =
+            "<?xml version=\"1.0\"?>" +
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<TITLE>TypeScript</TITLE>" +
+            "<PATH>links/typescript.xml</PATH>" +
+            "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
+            "<CONTENT>" +
+            "  <ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title2</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
@@ -96,12 +97,18 @@ public class ArticleDateChecker extends NodeChecker {
         final Optional<TemporalAccessor> creationDate = articleData.getDate();
 
         if (!XMLHelper.isOfType(e.getParentNode(), ElementType.ITEM)) return null;
-        if (e.getParentNode().getPreviousSibling() == null) return null;
-        if (!XMLHelper.isOfType(e.getParentNode().getPreviousSibling(), ElementType.ITEM)) return null;
-        if (!XMLHelper.isOfType(e.getParentNode().getPreviousSibling().getFirstChild(), ElementType.ARTICLE)) return null;
+        Node previousSibling = e.getParentNode().getPreviousSibling();
+        if (previousSibling == null) return null;
+        if (previousSibling.getNodeType() == Node.TEXT_NODE) {
+            // skip indentation
+            previousSibling = previousSibling.getPreviousSibling();
+            if (previousSibling == null) return null;
+        }
+        if (!XMLHelper.isOfType(previousSibling, ElementType.ITEM)) return null;
+        if (!XMLHelper.isOfType(previousSibling.getFirstChild(), ElementType.ARTICLE)) return null;
 
         
-        final ArticleData previousArticleData = XmlParser.parseArticleElement((Element)e.getParentNode().getPreviousSibling().getFirstChild());
+        final ArticleData previousArticleData = XmlParser.parseArticleElement((Element)previousSibling.getFirstChild());
         final Optional<TemporalAccessor> previousCreationDate = previousArticleData.getDate();
 
         if (previousCreationDate.isPresent() && creationDate.isEmpty()) {

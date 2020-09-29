@@ -15,7 +15,9 @@ import utils.xmlparsing.ElementType;
 
 public class MissingSpaceChecker extends NodeChecker {
 
-    static final Set<String> s_authorizedList = new HashSet<String>(Arrays.asList("3.X",
+    static final Set<String> s_authorizedList = new HashSet<String>(Arrays.asList("2.X",
+                                                                                  "3.X",
+                                                                                  "4.X",
                                                                                   "a.k.a.",
                                                                                   "Ampersand.js",
                                                                                   "asm.js",
