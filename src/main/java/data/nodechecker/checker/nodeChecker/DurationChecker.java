@@ -36,9 +36,9 @@ public class DurationChecker extends NodeChecker {
 
     private CheckStatus checkDurationHierarchy(final Element e) {
 
-        final int numberOfSeconds = XMLHelper.getDescendantsByNodeType(e, ElementType.SECOND).getLength();
-        final int numberOfMinutes = XMLHelper.getDescendantsByNodeType(e, ElementType.MINUTE).getLength();
-        final int numberOfHours = XMLHelper.getDescendantsByNodeType(e, ElementType.HOUR).getLength();
+        final int numberOfSeconds = XMLHelper.getDescendantsByElementType(e, ElementType.SECOND).getLength();
+        final int numberOfMinutes = XMLHelper.getDescendantsByElementType(e, ElementType.MINUTE).getLength();
+        final int numberOfHours = XMLHelper.getDescendantsByElementType(e, ElementType.HOUR).getLength();
 
         if (numberOfSeconds > 1) return new CheckStatus("more than one SECOND");
         if (numberOfMinutes > 1) return new CheckStatus("more than one MINUTE");
@@ -53,9 +53,9 @@ public class DurationChecker extends NodeChecker {
 
     private CheckStatus checkDurationValue(final Element e) {
 
-        final NodeList seconds = XMLHelper.getDescendantsByNodeType(e, ElementType.SECOND);
-        final NodeList minutes = XMLHelper.getDescendantsByNodeType(e, ElementType.MINUTE);
-        final NodeList hours = XMLHelper.getDescendantsByNodeType(e, ElementType.HOUR);
+        final NodeList seconds = XMLHelper.getDescendantsByElementType(e, ElementType.SECOND);
+        final NodeList minutes = XMLHelper.getDescendantsByElementType(e, ElementType.MINUTE);
+        final NodeList hours = XMLHelper.getDescendantsByElementType(e, ElementType.HOUR);
 
         final int numberOfSeconds = seconds.getLength();
         final int numberOfMinutes = minutes.getLength();

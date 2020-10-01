@@ -44,9 +44,9 @@ public class DateChecker extends NodeChecker {
 
     private CheckStatus checkDateHierarchy(final Element e) {
 
-        final int numberOfYears = XMLHelper.getDescendantsByNodeType(e, ElementType.YEAR).getLength();
-        final int numberOfMonths = XMLHelper.getDescendantsByNodeType(e, ElementType.MONTH).getLength();
-        final int numberOfDays = XMLHelper.getDescendantsByNodeType(e, ElementType.DAY).getLength();
+        final int numberOfYears = XMLHelper.getDescendantsByElementType(e, ElementType.YEAR).getLength();
+        final int numberOfMonths = XMLHelper.getDescendantsByElementType(e, ElementType.MONTH).getLength();
+        final int numberOfDays = XMLHelper.getDescendantsByElementType(e, ElementType.DAY).getLength();
 
         if (numberOfYears > 1) return new CheckStatus("more than one YEAR");
         if (numberOfMonths > 1) return new CheckStatus("more than one MONTH");
@@ -61,9 +61,9 @@ public class DateChecker extends NodeChecker {
 
     private CheckStatus checkDateValue(final Element e) {
 
-        final NodeList years = XMLHelper.getDescendantsByNodeType(e, ElementType.YEAR);
-        final NodeList months = XMLHelper.getDescendantsByNodeType(e, ElementType.MONTH);
-        final NodeList days = XMLHelper.getDescendantsByNodeType(e, ElementType.DAY);
+        final NodeList years = XMLHelper.getDescendantsByElementType(e, ElementType.YEAR);
+        final NodeList months = XMLHelper.getDescendantsByElementType(e, ElementType.MONTH);
+        final NodeList days = XMLHelper.getDescendantsByElementType(e, ElementType.DAY);
 
         final int numberOfYears = years.getLength();
         final int numberOfMonths = months.getLength();

@@ -75,7 +75,7 @@ public class Parser {
                                  final File file) {
 
         final Element racine = document.getDocumentElement();
-        final NodeList list = XMLHelper.getDescendantsByNodeType(racine, ElementType.ARTICLE);
+        final NodeList list = XMLHelper.getDescendantsByElementType(racine, ElementType.ARTICLE);
 
         for (int i = 0; i < list.getLength(); i++) {
 
@@ -106,7 +106,7 @@ public class Parser {
                                  final File file) {
 
         final Element racine = document.getDocumentElement();
-        final NodeList list = XMLHelper.getDescendantsByNodeType(racine, ElementType.KEYWORD);
+        final NodeList list = XMLHelper.getDescendantsByElementType(racine, ElementType.KEYWORD);
 
         for (int i = 0; i < list.getLength(); i++) {
 
@@ -161,7 +161,7 @@ public class Parser {
                                     final File file) {
 
         final Element racine = document.getDocumentElement();
-        final NodeList list = XMLHelper.getDescendantsByNodeType(racine, ElementType.CLIST);
+        final NodeList list = XMLHelper.getDescendantsByElementType(racine, ElementType.CLIST);
 
         for (int i = 0; i < list.getLength(); i++) {
 
@@ -183,9 +183,9 @@ public class Parser {
 
             if (author == null) continue; // TODO ne devrait jamais arriver ?
 
-            for (int j = 0; j < XMLHelper.getDescendantsByNodeType(clistNode, ElementType.ITEM).getLength(); j++) {
+            for (int j = 0; j < XMLHelper.getDescendantsByElementType(clistNode, ElementType.ITEM).getLength(); j++) {
 
-                final Element linkNode = (Element)XMLHelper.getDescendantsByNodeType(clistNode, ElementType.ITEM).item(j);
+                final Element linkNode = (Element)XMLHelper.getDescendantsByElementType(clistNode, ElementType.ITEM).item(j);
                 if (linkNode.getChildNodes().getLength() != 1) {
                     throw new UnsupportedOperationException("Illegal number of children nodes");
                 }

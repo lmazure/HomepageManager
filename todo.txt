@@ -1,3 +1,7 @@
+- corriger le problème de CSS dans notes/java2.html
+
+- faire un profiling de la régénération intégrale des contrôle pour voir s'il y a une fuite de thread
+
 - réparer tests unitaires
 
 - trier par défaut sur la date de dernière modification
@@ -41,8 +45,10 @@ il est normal de pouvoir avoir uniquement une date de publication ?
 - remettre en place la détection des ordres alphabétiques incorrects
 
 - nettoyage des fichiers
-build.xml
+cpp.xml
 bbst.xml
+film.xml
+edc.xml
 
 - comprendre pourquoi certaines vidéos sont marquées non playable
 https://www.youtube.com/watch?v=qMyMCDPaV60

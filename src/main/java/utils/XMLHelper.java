@@ -3,6 +3,7 @@ package utils;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
@@ -59,13 +60,42 @@ public class XMLHelper {
     }
 
     /**
+     * return the previous sibling element, otherwise return null
+     * @param element
+     * @return
+     */
+    public static Element getPreviousSiblingElement(final Element element) {
+        return getSiblingElement(element, Node::getPreviousSibling);
+    }
+
+    /**
+     * return the next sibling element, otherwise return null
+     * @param element
+     * @return
+     */
+    public static Element getNextSiblingElement(final Element element) {
+        return getSiblingElement(element, Node::getNextSibling);
+    }
+
+    public static Element getSiblingElement(final Element element,
+                                            final Function<Node, Node> siblingFunction) {
+        Node sibling = element;
+        while ((sibling = siblingFunction.apply(sibling)) != null) {
+            if (sibling.getNodeType() == Node.ELEMENT_NODE) {
+                return (Element)sibling;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Return the child elements having a given node type
      * @param element
      * @param type
      * @return
      */
-    public static List<Element> getChildrenByNodeType(final Element element,
-                                                      final ElementType type) {
+    public static List<Element> getChildrenByElementType(final Element element,
+                                                         final ElementType type) {
         final NodeList list = element.getChildNodes();
         final List<Element> children = new ArrayList<Element>(); 
         for (int i = 0; i < list.getLength(); i++) {
@@ -86,8 +116,8 @@ public class XMLHelper {
      * @param type
      * @return
      */
-    public static NodeList getDescendantsByNodeType(final Element element,
-                                                    final ElementType type) {
+    public static NodeList getDescendantsByElementType(final Element element,
+                                                       final ElementType type) {
         return element.getElementsByTagName(type.toString());
     }
 
