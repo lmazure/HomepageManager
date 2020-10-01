@@ -62,9 +62,6 @@ s- corriger le fait que les liens soient chargés deux fois
 
 - si un lien n'est plus zombie, on ne le détecte pas car on ne vérifie pas les données des liens zombie
 
-- LinkData.getStatus() devrait être un enum
-  LinkData.getProtection() devrait être un enum
-
 - voir comment purger le cache navigateur après les mises à jour
 
 - la sauvegarde du rapport de liens toutes les 30 secondes ne marche plus

@@ -157,7 +157,7 @@ public class XmlParser {
         final Optional<String> protection = (protectionAttribute != null) ? Optional.of(protectionAttribute.getValue())
                                                                           : Optional.empty();
 
-        return new LinkData(title, subtitles, url, status, protection, formats, languages, duration, publicationDate);
+        return new LinkData(title, subtitles, url, status.map(LinkData::parseStatus), protection.map(LinkData::parseProtection), formats, languages, duration, publicationDate);
     }
 
     public static AuthorData parseAuthorElement(final Element authorElement) {

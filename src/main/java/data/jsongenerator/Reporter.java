@@ -264,10 +264,12 @@ public class Reporter {
                 out.write("          \"duration\" : " + link.getDuration().get().getSeconds() + ",\n");
             }
             if (link.getStatus().isPresent()) {
-                out.write("          \"status\" : \"" + link.getStatus().get() + "\",\n");
+                // TODO clean up link.getStatus().get().toString().toLowerCase()
+                out.write("          \"status\" : \"" + link.getStatus().get().toString().toLowerCase() + "\",\n");
             }
             if (link.getProtection().isPresent()) {
-                out.write("          \"protection\" : \"" + link.getProtection().get() + "\",\n");
+                // TODO cleanup link.getProtection().get().toString().toLowerCase()
+                out.write("          \"protection\" : \"" + link.getProtection().get().toString().toLowerCase() + "\",\n");
             }
             out.write("          \"formats\" : [");
             for (int k = 0; k < link.getFormats().length; k++) {
