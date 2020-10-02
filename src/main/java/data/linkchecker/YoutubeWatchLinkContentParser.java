@@ -129,10 +129,10 @@ public class YoutubeWatchLinkContentParser {
 
         assert(text != null);
         text = text.replaceAll("\\\\\\\\n", "\n")
-                    .replaceAll("\\\\\\\\u0026","&")
+                   .replaceAll("\\\\\\\\u0026","&")
                    .replaceAll("\\\\u0090","\u0090")
                    .replaceAll("\\\\/","/")
-                      .replaceAll("\\\\\\\\\\\\\"","\"");
+                   .replaceAll("\\\\\\\\\\\\\"","\"");
 
         return text;
     }

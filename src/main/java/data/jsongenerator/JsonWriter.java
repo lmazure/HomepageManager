@@ -11,16 +11,17 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 import utils.Logger;
+import utils.xmlparsing.LinkData;
 
-public class Reporter {
+public class JsonWriter {
 
     private final ArticleFactory _articleFactory;
     private final AuthorFactory _authorFactory;
     private final KeywordFactory _keywordFactory;
 
-    public Reporter(final ArticleFactory articleFactory,
-                    final AuthorFactory authorFactory,
-                    final KeywordFactory keywordFactory) {
+    public JsonWriter(final ArticleFactory articleFactory,
+                      final AuthorFactory authorFactory,
+                      final KeywordFactory keywordFactory) {
 
         _articleFactory = articleFactory;
         _authorFactory = authorFactory;
@@ -219,7 +220,7 @@ public class Reporter {
                     printLinks(out, keyword.getLinks());
                 }
                 if (!keyword.getArticles().isEmpty()) {
-                    out.write(",\n    \"articleIndexes\" : [");
+                    out.write(",\n      \"articleIndexes\" : [");
                     boolean first = true;
                     for (final Article article: keyword.getArticles()) {
                         if (!first) {
@@ -264,19 +265,17 @@ public class Reporter {
                 out.write("          \"duration\" : " + link.getDuration().get().getSeconds() + ",\n");
             }
             if (link.getStatus().isPresent()) {
-                // TODO clean up link.getStatus().get().toString().toLowerCase()
-                out.write("          \"status\" : \"" + link.getStatus().get().toString().toLowerCase() + "\",\n");
+                out.write("          \"status\" : \"" + formatStatus(link.getStatus().get()) + "\",\n");
             }
             if (link.getProtection().isPresent()) {
-                // TODO cleanup link.getProtection().get().toString().toLowerCase()
-                out.write("          \"protection\" : \"" + link.getProtection().get().toString().toLowerCase() + "\",\n");
+                out.write("          \"protection\" : \"" + formatProtection(link.getProtection().get()) + "\",\n");
             }
             out.write("          \"formats\" : [");
             for (int k = 0; k < link.getFormats().length; k++) {
                 if (k != 0) {
                     out.write(", ");
                 }
-                out.write("\"" + link.getFormats()[k] + "\"");
+                out.write("\"" + formatFormat(link.getFormats()[k]) + "\"");
             }
             out.write("],\n");
             out.write("          \"languages\" : [");
@@ -294,5 +293,60 @@ public class Reporter {
     static private String jsonEscape(final String str) {
         return str.replace("\\", "\\\\")
                   .replace("\"", "\\\"");
+    }
+
+    static private String formatStatus(final LinkData.Status status) {
+        switch (status) {
+            case DEAD:
+                return "dead";
+            case OBSOLETE:
+                return "obsolete";
+            case ZOMBIE:
+                return "zombie";
+            default:
+                throw new UnsupportedOperationException("Illegal status value (" + status + ")");
+        }
+    }
+
+    static private String formatProtection(final LinkData.Protection protection) {
+        switch (protection) {
+            case FREE_REGISTRATION:
+                return "free_registration";
+            case PAYED_REGISTRATION:
+                return "payed_registration";
+            default:
+                throw new UnsupportedOperationException("Illegal protection value (" + protection + ")");
+        }
+    }
+    
+    static private String formatFormat(final LinkData.Format format) {
+        switch (format) {
+        case FLASH:
+            return "Flash";
+        case FLASH_VIDEO:
+            return "Flash Video";
+        case HTML:
+            return "HTML";
+        case MP3:
+            return "MP3";
+        case MP4:
+            return "MP4";
+        case PDF:
+            return "PDF";
+        case POSTSCRIPT:
+            return "PostScript";
+        case POWERPOINT:
+            return "PowerPoint";
+        case REALMEDIA:
+            return "RealMedia";
+        case TXT:
+            return "txt";
+        case WINDOWS_MEDIA_PLAYER:
+            return "Windows Media Player";
+        case WORD:
+            return "Word";
+        default:
+            throw new UnsupportedOperationException("Illegal format value (" + format + ")");
+        }
     }
 }

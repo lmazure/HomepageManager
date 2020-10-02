@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import data.jsongenerator.Article;
 import data.jsongenerator.ArticleComparator;
 import data.jsongenerator.Link;
+import utils.xmlparsing.LinkData;
 
 public class ArticleComparatorTest {
 
@@ -19,8 +20,8 @@ public class ArticleComparatorTest {
     void compareSimpleStrings() {
 
         // --- arrange ---
-        final String[] formats = { "HTML" };
-        final String[] languages = { "HTML" };
+        final LinkData.Format[] formats = { LinkData.Format.HTML };
+        final String[] languages = { "en" };
         final Article data1 = new Article(new File(""), Optional.of(LocalDate.of(2000, 1, 1)));
         data1.addLink(new Link(data1, "aa", null, "url", null, null, formats, languages, Optional.empty(), Optional.empty()));
         final Article data2 = new Article(new File(""), Optional.of(LocalDate.of(2000, 1, 1)));
@@ -38,8 +39,8 @@ public class ArticleComparatorTest {
     void compareStringsWithSpace() {
 
         // --- arrange ---
-        final String[] formats = { "HTML" };
-        final String[] languages = { "HTML" };
+        final LinkData.Format[] formats = { LinkData.Format.HTML };
+        final String[] languages = { "en" };
         final Article data1 = new Article(new File(""), Optional.of(LocalDate.of(2000, 1, 1)));
         data1.addLink(new Link(data1, "a a", null, "url", null, null, formats, languages, Optional.empty(), Optional.empty()));
         final Article data2 = new Article(new File(""), Optional.of(LocalDate.of(2000, 1, 1)));
@@ -57,7 +58,7 @@ public class ArticleComparatorTest {
     void compareStringsWithSpaceAndSpecialLetter() {
 
         // --- arrange ---
-        final String[] formats = { "HTML" };
+        final LinkData.Format[] formats = { LinkData.Format.HTML };
         final String[] languages = { "HTML" };
         final Article data1 = new Article(new File(""), Optional.of(LocalDate.of(2000, 1, 1)));
         data1.addLink(new Link(data1, "a a", null, "url", null, null, formats, languages, Optional.empty(), Optional.empty()));

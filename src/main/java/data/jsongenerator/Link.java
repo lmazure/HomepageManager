@@ -16,7 +16,7 @@ public class Link extends LinkData implements Comparable<Link> {
                 final String url,
                 final Optional<Status> status,
                 final Optional<Protection> protection,
-                final String[] formats,
+                final Format[] formats,
                 final String[] languages,
                 final Optional<Duration> duration,
                 final Optional<TemporalAccessor> publicationDate) {

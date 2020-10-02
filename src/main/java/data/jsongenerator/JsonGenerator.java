@@ -9,7 +9,7 @@ import utils.Logger;
 public class JsonGenerator {
 
     private final Parser parser;
-    private final Reporter reporter;
+    private final JsonWriter reporter;
 
     final static private String s_linksDirectoryFileName = "links";
     final static private String s_tableDirectoryFileName = "content";
@@ -27,7 +27,7 @@ public class JsonGenerator {
         final LinkFactory linkFactory = new LinkFactory();
         final KeywordFactory keywordFactory = new KeywordFactory();
         parser = new Parser(articleFactory, linkFactory, authorFactory, keywordFactory);
-        reporter = new Reporter(articleFactory, authorFactory, keywordFactory);
+        reporter = new JsonWriter(articleFactory, authorFactory, keywordFactory);
     }
 
     /**

@@ -11,7 +11,7 @@ public class LinkData {
     private final String _url;
     private final Optional<Status> _status;
     private final Optional<Protection> _protection;
-    private final String _formats[];
+    private final Format _formats[];
     private final String _languages[];
     private final Optional<Duration> _duration;
     private final Optional<TemporalAccessor> _publicationDate;
@@ -27,12 +27,26 @@ public class LinkData {
         PAYED_REGISTRATION
     }
 
+    public enum Format {
+        HTML,
+        FLASH,
+        FLASH_VIDEO,
+        MP3,
+        MP4,
+        PDF,
+        POSTSCRIPT,
+        POWERPOINT,
+        REALMEDIA,
+        TXT,
+        WINDOWS_MEDIA_PLAYER,
+        WORD
+    }
     public LinkData(final String title,
                     final String subtitles[],
                     final String url,
                     final Optional<Status> status,
                     final Optional<Protection> protection,
-                    final String formats[],
+                    final Format formats[],
                     final String languages[],
                     final Optional<Duration> duration,
                     final Optional<TemporalAccessor> publicationDate) {
@@ -67,7 +81,7 @@ public class LinkData {
         return _protection;
     }
 
-    public String[] getFormats() {
+    public Format[] getFormats() {
         return _formats;
     }
 
@@ -94,5 +108,21 @@ public class LinkData {
         if (protection.equals("free_registration")) return Protection.FREE_REGISTRATION;
         if (protection.equals("payed_registration")) return Protection.PAYED_REGISTRATION;
         throw new UnsupportedOperationException("Illegal protection value (" + protection + ")");
+    }
+
+    public static Format parseFormat(final String format) {
+        if (format.equals("HTML")) return Format.HTML;
+        if (format.equals("Flash")) return Format.FLASH;
+        if (format.equals("Flash Video")) return Format.FLASH_VIDEO;
+        if (format.equals("MP3")) return Format.MP3;
+        if (format.equals("MP4")) return Format.MP4;
+        if (format.equals("PDF")) return Format.PDF;
+        if (format.equals("PostScript")) return Format.POSTSCRIPT;
+        if (format.equals("PowerPoint")) return Format.POWERPOINT;
+        if (format.equals("RealMedia")) return Format.REALMEDIA;
+        if (format.equals("txt")) return Format.TXT;
+        if (format.equals("Windows Media Player")) return Format.WINDOWS_MEDIA_PLAYER;
+        if (format.equals("Word")) return Format.WORD;
+        throw new UnsupportedOperationException("Illegal format value (" + format + ")");
     }
 }
