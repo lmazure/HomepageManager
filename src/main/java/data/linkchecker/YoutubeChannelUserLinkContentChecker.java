@@ -2,6 +2,7 @@ package data.linkchecker;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Optional;
 
 import utils.xmlparsing.ArticleData;
@@ -31,9 +32,9 @@ public class YoutubeChannelUserLinkContentChecker extends LinkContentChecker {
 
     @Override
     protected LinkContentCheck checkLinkLanguages(final String data,
-                                                  final String[] languages)
+                                                  Locale[] languages)
     {
-        final String language = _parser.getLanguage();
+        final Locale language = _parser.getLanguage();
 
         if (!Arrays.asList(languages).contains(language)) {
             return new LinkContentCheck("language is \"" + language + "\" but this one is unexpected");

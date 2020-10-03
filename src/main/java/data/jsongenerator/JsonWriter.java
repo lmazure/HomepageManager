@@ -9,6 +9,7 @@ import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Locale;
 
 import utils.Logger;
 import utils.xmlparsing.LinkData;
@@ -283,7 +284,7 @@ public class JsonWriter {
                 if (k != 0) {
                     out.write(", ");
                 }
-                out.write("\"" + link.getLanguages()[k] + "\"");
+                out.write("\"" + formatLanguage(link.getLanguages()[k]) + "\"");
             }
             out.write("]\n        }");
         }
@@ -318,7 +319,7 @@ public class JsonWriter {
                 throw new UnsupportedOperationException("Illegal protection value (" + protection + ")");
         }
     }
-    
+
     static private String formatFormat(final LinkData.Format format) {
         switch (format) {
         case FLASH:
@@ -349,4 +350,11 @@ public class JsonWriter {
             throw new UnsupportedOperationException("Illegal format value (" + format + ")");
         }
     }
+
+    static private String formatLanguage(final Locale langage) {
+        if (langage == Locale.FRENCH) return "fr";
+        if (langage == Locale.ENGLISH) return "en";
+        throw new UnsupportedOperationException("Illegal protection value (" + langage + ")");
+    }
+
 }

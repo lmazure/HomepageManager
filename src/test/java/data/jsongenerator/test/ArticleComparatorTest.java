@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 
 import java.io.File;
 import java.time.LocalDate;
+import java.util.Locale;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,7 @@ public class ArticleComparatorTest {
 
         // --- arrange ---
         final LinkData.Format[] formats = { LinkData.Format.HTML };
-        final String[] languages = { "en" };
+        final Locale[] languages = { Locale.FRENCH };
         final Article data1 = new Article(new File(""), Optional.of(LocalDate.of(2000, 1, 1)));
         data1.addLink(new Link(data1, "aa", null, "url", null, null, formats, languages, Optional.empty(), Optional.empty()));
         final Article data2 = new Article(new File(""), Optional.of(LocalDate.of(2000, 1, 1)));
@@ -40,7 +41,7 @@ public class ArticleComparatorTest {
 
         // --- arrange ---
         final LinkData.Format[] formats = { LinkData.Format.HTML };
-        final String[] languages = { "en" };
+        final Locale[] languages = { Locale.FRENCH };
         final Article data1 = new Article(new File(""), Optional.of(LocalDate.of(2000, 1, 1)));
         data1.addLink(new Link(data1, "a a", null, "url", null, null, formats, languages, Optional.empty(), Optional.empty()));
         final Article data2 = new Article(new File(""), Optional.of(LocalDate.of(2000, 1, 1)));
@@ -59,7 +60,7 @@ public class ArticleComparatorTest {
 
         // --- arrange ---
         final LinkData.Format[] formats = { LinkData.Format.HTML };
-        final String[] languages = { "HTML" };
+        final Locale[] languages = { Locale.FRENCH };
         final Article data1 = new Article(new File(""), Optional.of(LocalDate.of(2000, 1, 1)));
         data1.addLink(new Link(data1, "a a", null, "url", null, null, formats, languages, Optional.empty(), Optional.empty()));
         final Article data2 = new Article(new File(""), Optional.of(LocalDate.of(2000, 1, 1)));

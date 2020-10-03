@@ -6,6 +6,7 @@ import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import utils.FileHelper;
@@ -57,7 +58,7 @@ public class LinkContentChecker {
             }
         }
 
-        if (!Arrays.asList(_linkData.getFormats()).contains("PDF"))
+        if (!Arrays.asList(_linkData.getFormats()).contains(LinkData.Format.PDF))
         {
             final LinkContentCheck check = checkLinkLanguages(data, _linkData.getLanguages());
             if (check != null) {
@@ -95,13 +96,13 @@ public class LinkContentChecker {
     }
 
     protected LinkContentCheck checkLinkLanguages(final String data,
-                                                  final String[] languages)
+                                                  final Locale[] languages)
     {
         if (_parser == null) {
             _parser = new LinkContentParser(data);
         }
 
-        final String language = _parser.getLanguage();
+        final Locale language = _parser.getLanguage();
 
         if (!Arrays.asList(languages).contains(language)) {
             return new LinkContentCheck("language is \"" + language + "\" but this one is unexpected");

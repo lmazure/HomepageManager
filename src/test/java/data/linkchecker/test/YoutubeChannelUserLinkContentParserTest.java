@@ -2,6 +2,7 @@ package data.linkchecker.test;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.jupiter.api.Assertions;
@@ -65,7 +66,7 @@ class YoutubeChannelUserLinkContentParserTest {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
                                final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
-                               Assertions.assertEquals("en", parser.getLanguage());
+                               Assertions.assertEquals(Locale.ENGLISH, parser.getLanguage());
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -84,7 +85,7 @@ class YoutubeChannelUserLinkContentParserTest {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
                                final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
-                               Assertions.assertEquals("fr", parser.getLanguage());
+                               Assertions.assertEquals(Locale.FRENCH, parser.getLanguage());
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());

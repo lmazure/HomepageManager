@@ -7,6 +7,7 @@ import java.time.YearMonth;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import org.w3c.dom.Attr;
@@ -118,9 +119,9 @@ public class XmlParser {
         if (languageNodes.getLength() == 0) {
             throw new UnsupportedOperationException("Wrong number of L nodes (" + languageNodes.getLength() + ") in \"" + title + "\"");
         }
-        final String languages[] = new String[languageNodes.getLength()];
+        final Locale languages[] = new Locale[languageNodes.getLength()];
         for (int k = 0; k < languageNodes.getLength(); k++) {
-            languages[k] = ((Element)languageNodes.item(k)).getTextContent();
+            languages[k] = LinkData.parseLangage(((Element)languageNodes.item(k)).getTextContent());
         }
 
         final NodeList formatNodes = XMLHelper.getDescendantsByElementType(xElement, ElementType.F);

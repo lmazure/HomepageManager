@@ -1,17 +1,19 @@
 package data.linkchecker;
 
+import java.util.Locale;
+
 import utils.StringHelper;
 
 public class LinkContentParser {
 
     private final String _data;
-    private String _language;
+    private Locale _language;
 
     public LinkContentParser(final String data) {
         _data = data;
     }
 
-    public String getLanguage() {
+    public Locale getLanguage() {
 
         if (_language == null) {
             _language = extractLanguage();
@@ -20,7 +22,7 @@ public class LinkContentParser {
         return _language;
     }
 
-    private String extractLanguage() {
+    private Locale extractLanguage() {
 
         final String data = _data.replaceAll("(?i)<SCRIPT[^>]*>.*?</SCRIPT *>", "")
                                   .replaceAll("(?i)<SVG[^>]*.*?</SVG *>", "")

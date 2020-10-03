@@ -2,6 +2,7 @@ package utils;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 public class StringHelper {
@@ -48,7 +49,7 @@ public class StringHelper {
             "japon"
         ));
 
-    public static String guessLanguage(final String text) {
+    public static Locale guessLanguage(final String text) {
 
         //System.out.println(text);
 
@@ -69,9 +70,9 @@ public class StringHelper {
         }
 
         if (english > french) {
-            return "en";
+            return Locale.ENGLISH;
         }
 
-        return "fr";
+        return Locale.FRENCH;
     }
 }

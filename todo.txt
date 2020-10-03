@@ -1,4 +1,4 @@
-- format et language devraient être des enums
+- language devraient être des enums
 
 - corriger le problème de CSS dans notes/java2.html
 

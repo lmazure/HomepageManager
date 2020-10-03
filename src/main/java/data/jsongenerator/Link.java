@@ -2,6 +2,7 @@ package data.jsongenerator;
 
 import java.time.Duration;
 import java.time.temporal.TemporalAccessor;
+import java.util.Locale;
 import java.util.Optional;
 
 import utils.xmlparsing.LinkData;
@@ -17,7 +18,7 @@ public class Link extends LinkData implements Comparable<Link> {
                 final Optional<Status> status,
                 final Optional<Protection> protection,
                 final Format[] formats,
-                final String[] languages,
+                final Locale[] languages,
                 final Optional<Duration> duration,
                 final Optional<TemporalAccessor> publicationDate) {
         super(title, subtitles, url, status, protection, formats, languages, duration, publicationDate);

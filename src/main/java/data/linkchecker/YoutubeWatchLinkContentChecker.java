@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAccessor;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Optional;
 
 import utils.xmlparsing.ArticleData;
@@ -109,9 +110,9 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
 
     @Override
     protected LinkContentCheck checkLinkLanguages(final String data,
-                                                  final String[] languages)
+                                                  final Locale[] languages)
     {
-        final String language = _parser.getLanguage();
+        final Locale language = _parser.getLanguage();
 
         if (!Arrays.asList(languages).contains(language)) {
             return new LinkContentCheck("language is \"" + language + "\" but this one is unexpected");

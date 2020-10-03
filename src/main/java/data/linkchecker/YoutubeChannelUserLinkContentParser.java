@@ -1,5 +1,6 @@
 package data.linkchecker;
 
+import java.util.Locale;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -10,7 +11,7 @@ import utils.StringHelper;
 public class YoutubeChannelUserLinkContentParser {
 
     private final String _data;
-    private String _language;
+    private Locale _language;
     private Optional<String> _errorMessage;
 
     public YoutubeChannelUserLinkContentParser(final String data) {
@@ -25,7 +26,7 @@ public class YoutubeChannelUserLinkContentParser {
         return _errorMessage;
     }
 
-    public String getLanguage() {
+    public Locale getLanguage() {
         if (_language == null) {
             final String description = extractDescription();
             _language = StringHelper.guessLanguage(description);

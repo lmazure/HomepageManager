@@ -2,6 +2,7 @@ package data.linkchecker;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,7 +15,7 @@ public class YoutubeWatchLinkContentParser {
     private Boolean _isPlayable;
     private String _title;
     private String _description;
-    private String _language;
+    private Locale _language;
     private LocalDate _uploadDate;
     private LocalDate _publishDate;
     private Duration _minDuration;
@@ -91,13 +92,13 @@ public class YoutubeWatchLinkContentParser {
         return _data.contains("\\\"playabilityStatus\\\":{\\\"status\\\":\\\"OK\\\"");
     }
 
-    public String getLanguage() {
+    public Locale getLanguage() {
 
         if (_language == null) {
             if (_data.contains("\\\"name\\\":{\\\"simpleText\\\":\\\"French (auto-generated)\\\"}")) {
-                _language = "fr";
+                _language = Locale.FRENCH;
             } else if (_data.contains("\\\"name\\\":{\\\"simpleText\\\":\\\"English (auto-generated)\\\"}")) {
-                _language = "en";
+                _language = Locale.ENGLISH;
             } else {
                 _language = StringHelper.guessLanguage(getDescription());
             }

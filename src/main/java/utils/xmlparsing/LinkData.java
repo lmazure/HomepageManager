@@ -2,6 +2,7 @@ package utils.xmlparsing;
 
 import java.time.Duration;
 import java.time.temporal.TemporalAccessor;
+import java.util.Locale;
 import java.util.Optional;
 
 public class LinkData {
@@ -12,7 +13,7 @@ public class LinkData {
     private final Optional<Status> _status;
     private final Optional<Protection> _protection;
     private final Format _formats[];
-    private final String _languages[];
+    private final Locale _languages[];
     private final Optional<Duration> _duration;
     private final Optional<TemporalAccessor> _publicationDate;
 
@@ -47,7 +48,7 @@ public class LinkData {
                     final Optional<Status> status,
                     final Optional<Protection> protection,
                     final Format formats[],
-                    final String languages[],
+                    final Locale languages[],
                     final Optional<Duration> duration,
                     final Optional<TemporalAccessor> publicationDate) {
         _title = title;
@@ -85,7 +86,7 @@ public class LinkData {
         return _formats;
     }
 
-    public String[] getLanguages() {
+    public Locale[] getLanguages() {
         return _languages;
     }
 
@@ -124,5 +125,11 @@ public class LinkData {
         if (format.equals("Windows Media Player")) return Format.WINDOWS_MEDIA_PLAYER;
         if (format.equals("Word")) return Format.WORD;
         throw new UnsupportedOperationException("Illegal format value (" + format + ")");
+    }
+
+    public static Locale parseLangage(final String langage) {
+        if (langage.equals("en")) return Locale.ENGLISH;
+        if (langage.equals("fr")) return Locale.FRENCH;
+        throw new UnsupportedOperationException("Illegal langage value (" + langage + ")");
     }
 }
