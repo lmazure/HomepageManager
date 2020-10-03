@@ -5,10 +5,10 @@ import java.time.temporal.TemporalAccessor;
 import java.util.Locale;
 import java.util.Optional;
 
-import utils.xmlparsing.Format;
+import utils.xmlparsing.LinkFormat;
 import utils.xmlparsing.LinkData;
-import utils.xmlparsing.Protection;
-import utils.xmlparsing.Status;
+import utils.xmlparsing.LinkProtection;
+import utils.xmlparsing.LinkStatus;
 
 public class Link extends LinkData implements Comparable<Link> {
 
@@ -18,9 +18,9 @@ public class Link extends LinkData implements Comparable<Link> {
                 final String title,
                 final String[] subtitles,
                 final String url,
-                final Optional<Status> status,
-                final Optional<Protection> protection,
-                final Format[] formats,
+                final Optional<LinkStatus> status,
+                final Optional<LinkProtection> protection,
+                final LinkFormat[] formats,
                 final Locale[] languages,
                 final Optional<Duration> duration,
                 final Optional<TemporalAccessor> publicationDate) {

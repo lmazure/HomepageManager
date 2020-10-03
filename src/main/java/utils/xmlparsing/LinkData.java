@@ -10,9 +10,9 @@ public class LinkData {
     private final String _title;
     private final String _subtitles[];
     private final String _url;
-    private final Optional<Status> _status;
-    private final Optional<Protection> _protection;
-    private final Format _formats[];
+    private final Optional<LinkStatus> _status;
+    private final Optional<LinkProtection> _protection;
+    private final LinkFormat _formats[];
     private final Locale _languages[];
     private final Optional<Duration> _duration;
     private final Optional<TemporalAccessor> _publicationDate;
@@ -20,9 +20,9 @@ public class LinkData {
     public LinkData(final String title,
                     final String subtitles[],
                     final String url,
-                    final Optional<Status> status,
-                    final Optional<Protection> protection,
-                    final Format formats[],
+                    final Optional<LinkStatus> status,
+                    final Optional<LinkProtection> protection,
+                    final LinkFormat formats[],
                     final Locale languages[],
                     final Optional<Duration> duration,
                     final Optional<TemporalAccessor> publicationDate) {
@@ -49,15 +49,15 @@ public class LinkData {
         return _url;
     }
 
-    public Optional<Status> getStatus() {
+    public Optional<LinkStatus> getStatus() {
         return _status;
     }
 
-    public Optional<Protection> getProtection() {
+    public Optional<LinkProtection> getProtection() {
         return _protection;
     }
 
-    public Format[] getFormats() {
+    public LinkFormat[] getFormats() {
         return _formats;
     }
 
@@ -73,32 +73,32 @@ public class LinkData {
         return _publicationDate;
     }
 
-    public static Status parseStatus(final String status) {
-        if (status.equals("dead")) return Status.DEAD;
-        if (status.equals("obsolete")) return Status.OBSOLETE;
-        if (status.equals("zombie")) return Status.ZOMBIE;
+    public static LinkStatus parseStatus(final String status) {
+        if (status.equals("dead")) return LinkStatus.DEAD;
+        if (status.equals("obsolete")) return LinkStatus.OBSOLETE;
+        if (status.equals("zombie")) return LinkStatus.ZOMBIE;
         throw new UnsupportedOperationException("Illegal status value (" + status + ")");
     }
 
-    public static Protection parseProtection(final String protection) {
-        if (protection.equals("free_registration")) return Protection.FREE_REGISTRATION;
-        if (protection.equals("payed_registration")) return Protection.PAYED_REGISTRATION;
+    public static LinkProtection parseProtection(final String protection) {
+        if (protection.equals("free_registration")) return LinkProtection.FREE_REGISTRATION;
+        if (protection.equals("payed_registration")) return LinkProtection.PAYED_REGISTRATION;
         throw new UnsupportedOperationException("Illegal protection value (" + protection + ")");
     }
 
-    public static Format parseFormat(final String format) {
-        if (format.equals("HTML")) return Format.HTML;
-        if (format.equals("Flash")) return Format.FLASH;
-        if (format.equals("Flash Video")) return Format.FLASH_VIDEO;
-        if (format.equals("MP3")) return Format.MP3;
-        if (format.equals("MP4")) return Format.MP4;
-        if (format.equals("PDF")) return Format.PDF;
-        if (format.equals("PostScript")) return Format.POSTSCRIPT;
-        if (format.equals("PowerPoint")) return Format.POWERPOINT;
-        if (format.equals("RealMedia")) return Format.REALMEDIA;
-        if (format.equals("txt")) return Format.TXT;
-        if (format.equals("Windows Media Player")) return Format.WINDOWS_MEDIA_PLAYER;
-        if (format.equals("Word")) return Format.WORD;
+    public static LinkFormat parseFormat(final String format) {
+        if (format.equals("HTML")) return LinkFormat.HTML;
+        if (format.equals("Flash")) return LinkFormat.FLASH;
+        if (format.equals("Flash Video")) return LinkFormat.FLASH_VIDEO;
+        if (format.equals("MP3")) return LinkFormat.MP3;
+        if (format.equals("MP4")) return LinkFormat.MP4;
+        if (format.equals("PDF")) return LinkFormat.PDF;
+        if (format.equals("PostScript")) return LinkFormat.POSTSCRIPT;
+        if (format.equals("PowerPoint")) return LinkFormat.POWERPOINT;
+        if (format.equals("RealMedia")) return LinkFormat.REALMEDIA;
+        if (format.equals("txt")) return LinkFormat.TXT;
+        if (format.equals("Windows Media Player")) return LinkFormat.WINDOWS_MEDIA_PLAYER;
+        if (format.equals("Word")) return LinkFormat.WORD;
         throw new UnsupportedOperationException("Illegal format value (" + format + ")");
     }
 

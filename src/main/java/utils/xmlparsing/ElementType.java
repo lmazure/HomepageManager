@@ -1,7 +1,6 @@
 package utils.xmlparsing;
 
 public enum ElementType {
-
     A,
     ARTICLE,
     AUTHOR,
@@ -32,13 +31,13 @@ public enum ElementType {
     KEYEDTEXT,
     KEYID,
     KEYWORD,
-    MIDDLENAME,
-    MINUTE,
     L,
     LASTNAME,
     LINE,
     LLIST,
     MATH,
+    MIDDLENAME,
+    MINUTE,
     MODIFIERKEY,
     MONTH,
     NAMEPREFIX,

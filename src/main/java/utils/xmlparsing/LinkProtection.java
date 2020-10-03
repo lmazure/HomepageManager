@@ -1,6 +1,6 @@
 package utils.xmlparsing;
 
-public enum Protection {
+public enum LinkProtection {
     FREE_REGISTRATION,
     PAYED_REGISTRATION
 }

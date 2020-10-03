@@ -1,6 +1,6 @@
 package utils.xmlparsing;
 
-public enum Status {
+public enum LinkStatus {
     DEAD,
     OBSOLETE,
     ZOMBIE

@@ -1,9 +1,9 @@
 package utils.xmlparsing;
 
-public enum Format {
-    HTML,
+public enum LinkFormat {
     FLASH,
     FLASH_VIDEO,
+    HTML,
     MP3,
     MP4,
     PDF,

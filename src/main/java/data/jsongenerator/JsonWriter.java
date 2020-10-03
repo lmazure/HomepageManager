@@ -12,9 +12,9 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import utils.Logger;
-import utils.xmlparsing.Format;
-import utils.xmlparsing.Protection;
-import utils.xmlparsing.Status;
+import utils.xmlparsing.LinkFormat;
+import utils.xmlparsing.LinkProtection;
+import utils.xmlparsing.LinkStatus;
 
 public class JsonWriter {
 
@@ -298,7 +298,7 @@ public class JsonWriter {
                   .replace("\"", "\\\"");
     }
 
-    static private String formatStatus(final Status status) {
+    static private String formatStatus(final LinkStatus status) {
         switch (status) {
             case DEAD:
                 return "dead";
@@ -311,7 +311,7 @@ public class JsonWriter {
         }
     }
 
-    static private String formatProtection(final Protection protection) {
+    static private String formatProtection(final LinkProtection protection) {
         switch (protection) {
             case FREE_REGISTRATION:
                 return "free_registration";
@@ -322,7 +322,7 @@ public class JsonWriter {
         }
     }
 
-    static private String formatFormat(final Format format) {
+    static private String formatFormat(final LinkFormat format) {
         switch (format) {
         case FLASH:
             return "Flash";
