@@ -128,7 +128,7 @@ public class XmlParser {
         if (formatNodes.getLength() == 0) {
             throw new UnsupportedOperationException("Wrong number of F nodes (" + formatNodes.getLength() + ") in \"" + title + "\"");
         }
-        final LinkData.Format formats[] = new LinkData.Format[formatNodes.getLength()];
+        final Format formats[] = new Format[formatNodes.getLength()];
         for (int k = 0; k < formatNodes.getLength(); k++) {
             formats[k] = LinkData.parseFormat(((Element)formatNodes.item(k)).getTextContent());
         }

@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import data.jsongenerator.Article;
 import data.jsongenerator.ArticleComparator;
 import data.jsongenerator.Link;
-import utils.xmlparsing.LinkData;
+import utils.xmlparsing.Format;
 
 public class ArticleComparatorTest {
 
@@ -21,7 +21,7 @@ public class ArticleComparatorTest {
     void compareSimpleStrings() {
 
         // --- arrange ---
-        final LinkData.Format[] formats = { LinkData.Format.HTML };
+        final Format[] formats = { Format.HTML };
         final Locale[] languages = { Locale.FRENCH };
         final Article data1 = new Article(new File(""), Optional.of(LocalDate.of(2000, 1, 1)));
         data1.addLink(new Link(data1, "aa", null, "url", null, null, formats, languages, Optional.empty(), Optional.empty()));
@@ -40,7 +40,7 @@ public class ArticleComparatorTest {
     void compareStringsWithSpace() {
 
         // --- arrange ---
-        final LinkData.Format[] formats = { LinkData.Format.HTML };
+        final Format[] formats = { Format.HTML };
         final Locale[] languages = { Locale.FRENCH };
         final Article data1 = new Article(new File(""), Optional.of(LocalDate.of(2000, 1, 1)));
         data1.addLink(new Link(data1, "a a", null, "url", null, null, formats, languages, Optional.empty(), Optional.empty()));
@@ -59,7 +59,7 @@ public class ArticleComparatorTest {
     void compareStringsWithSpaceAndSpecialLetter() {
 
         // --- arrange ---
-        final LinkData.Format[] formats = { LinkData.Format.HTML };
+        final Format[] formats = { Format.HTML };
         final Locale[] languages = { Locale.FRENCH };
         final Article data1 = new Article(new File(""), Optional.of(LocalDate.of(2000, 1, 1)));
         data1.addLink(new Link(data1, "a a", null, "url", null, null, formats, languages, Optional.empty(), Optional.empty()));

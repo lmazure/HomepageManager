@@ -11,6 +11,7 @@ import java.util.Optional;
 
 import utils.FileHelper;
 import utils.xmlparsing.ArticleData;
+import utils.xmlparsing.Format;
 import utils.xmlparsing.LinkData;
 
 public class LinkContentChecker {
@@ -58,7 +59,7 @@ public class LinkContentChecker {
             }
         }
 
-        if (!Arrays.asList(_linkData.getFormats()).contains(LinkData.Format.PDF))
+        if (!Arrays.asList(_linkData.getFormats()).contains(Format.PDF))
         {
             final LinkContentCheck check = checkLinkLanguages(data, _linkData.getLanguages());
             if (check != null) {

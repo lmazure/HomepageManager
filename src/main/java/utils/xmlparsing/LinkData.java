@@ -17,31 +17,6 @@ public class LinkData {
     private final Optional<Duration> _duration;
     private final Optional<TemporalAccessor> _publicationDate;
 
-    public enum Status {
-        DEAD,
-        OBSOLETE,
-        ZOMBIE
-    }
-
-    public enum Protection {
-        FREE_REGISTRATION,
-        PAYED_REGISTRATION
-    }
-
-    public enum Format {
-        HTML,
-        FLASH,
-        FLASH_VIDEO,
-        MP3,
-        MP4,
-        PDF,
-        POSTSCRIPT,
-        POWERPOINT,
-        REALMEDIA,
-        TXT,
-        WINDOWS_MEDIA_PLAYER,
-        WORD
-    }
     public LinkData(final String title,
                     final String subtitles[],
                     final String url,

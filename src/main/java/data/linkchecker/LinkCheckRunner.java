@@ -358,7 +358,7 @@ public class LinkCheckRunner {
             builder.append("Subtitle = \"" + String.join("\" \"",  expectedData.getSubtitles()) + "\"\n");
         }
         builder.append("URL = " + url + "\n");
-        builder.append("Expected status = " + expectedData.getStatus().map(LinkData.Status::toString).orElse("") + "\n");
+        builder.append("Expected status = " + expectedData.getStatus().map(utils.xmlparsing.Status::toString).orElse("") + "\n");
         builder.append("Effective status = " + effectiveData.getStatus() + "\n");
         final String httpCode = effectiveData.getHttpCode().map(i -> {
             try {
@@ -396,7 +396,7 @@ public class LinkCheckRunner {
     private static boolean isOneDataExpected(final LinkData expectedData,
                                              final SiteData effectiveData) {
 
-        if (expectedData.getStatus().isPresent() && expectedData.getStatus().get().equals(LinkData.Status.DEAD)) {
+        if (expectedData.getStatus().isPresent() && expectedData.getStatus().get().equals(utils.xmlparsing.Status.DEAD)) {
             if (effectiveData.getStatus() == SiteData.Status.FAILURE) return true;
             if (effectiveData.getHttpCode().isEmpty()) return true;
             if (effectiveData.getHttpCode().isPresent() && effectiveData.getHttpCode().get() != 200) return true;

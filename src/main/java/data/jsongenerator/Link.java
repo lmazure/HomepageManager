@@ -5,7 +5,10 @@ import java.time.temporal.TemporalAccessor;
 import java.util.Locale;
 import java.util.Optional;
 
+import utils.xmlparsing.Format;
 import utils.xmlparsing.LinkData;
+import utils.xmlparsing.Protection;
+import utils.xmlparsing.Status;
 
 public class Link extends LinkData implements Comparable<Link> {
 

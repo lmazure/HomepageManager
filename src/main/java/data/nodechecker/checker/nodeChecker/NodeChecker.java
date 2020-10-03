@@ -30,6 +30,7 @@ public class NodeChecker {
         public String getDescription();
     }
 
+    @SuppressWarnings("unchecked")
     protected NodeChecker(final TagSelector tagSelector,
                           final Function<Element, CheckStatus> rule1,
                           final String description1) {
@@ -40,6 +41,7 @@ public class NodeChecker {
         _descriptions[0] = description1;
     }
 
+    @SuppressWarnings("unchecked")
     protected NodeChecker(final TagSelector tagSelector,
                           final Function<Element, CheckStatus> rule1,
                           final String description1,
