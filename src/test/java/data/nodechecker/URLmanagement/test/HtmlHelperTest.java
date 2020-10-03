@@ -20,7 +20,7 @@ public class HtmlHelperTest extends HtmlHelper {
     public void decode_allCharacters_correctlyConverted() throws UnsupportedEncodingException
     {
 
-        String s="", e="";
+        String s = "", e = "";
 
         s += "&#039;";   e+= "'";
         s += "&#146;";   e+= "’";

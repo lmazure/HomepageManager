@@ -518,14 +518,14 @@ class NodeValueCheckerTest {
 
     static private void test(final String content) throws SAXException {
 
-        final List<NodeCheckError> expected= new ArrayList<NodeCheckError>();
+        final List<NodeCheckError> expected = new ArrayList<NodeCheckError>();
         test(content, expected);
     }
 
     static private void test(final String content,
                              final String detail0) throws SAXException {
 
-        final List<NodeCheckError> expected= new ArrayList<NodeCheckError>();
+        final List<NodeCheckError> expected = new ArrayList<NodeCheckError>();
         expected.add(new NodeCheckError("tag", "value", "violation", detail0));
         test(content, expected);
     }
@@ -534,7 +534,7 @@ class NodeValueCheckerTest {
                              final String detail0,
                              final String detail1) throws SAXException {
 
-        final List<NodeValueChecker.Error> expected= new ArrayList<NodeValueChecker.Error>();
+        final List<NodeValueChecker.Error> expected = new ArrayList<NodeValueChecker.Error>();
         expected.add(new NodeValueChecker.Error("tag", "value", "violation", detail0));
         expected.add(new NodeValueChecker.Error("tag", "value", "violation", detail1));
         test(content, expected);
@@ -545,7 +545,7 @@ class NodeValueCheckerTest {
                              final String detail1,
                              final String detail2) throws SAXException {
 
-        final List<NodeCheckError> expected= new ArrayList<NodeCheckError>();
+        final List<NodeCheckError> expected = new ArrayList<NodeCheckError>();
         expected.add(new NodeCheckError("tag", "value", "violation", detail0));
         expected.add(new NodeCheckError("tag", "value", "violation", detail1));
         expected.add(new NodeCheckError("tag", "value", "violation", detail2));
