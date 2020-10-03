@@ -3,7 +3,6 @@ package data.nodechecker.checker.nodeChecker;
 
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.ExclusionTagSelector;
-import data.nodechecker.tagSelection.TagSelector;
 import utils.xmlparsing.ElementType;
 
 import org.w3c.dom.Element;
@@ -32,26 +31,13 @@ public class ExtremitySpaceChecker extends NodeChecker {
             ElementType.TEXTBLOCK
             });
 
-    @Override
-    public TagSelector getTagSelector() {
-        return s_selector;
+    public ExtremitySpaceChecker() {
+        super(s_selector,
+              ExtremitySpaceChecker::checkSpaceAtBeginning, "space present at the beginning",
+              ExtremitySpaceChecker::checkSpaceAtEnd, "space present at the end");
     }
 
-    @Override
-    public NodeRule[] getRules() {
-        final NodeRule a[]= new NodeRule[2];
-        a[0] = new NodeRule() { @Override
-                                public CheckStatus checkElement(final Element e) { return checkSpaceAtBeginning(e);}
-                                @Override
-                                public String getDescription() { return "space at the beginning"; } };
-        a[1] = new NodeRule() { @Override
-                                public CheckStatus checkElement(final Element e) { return checkSpaceAtEnd(e);}
-                                @Override
-                                public String getDescription() { return "space at the end"; } };
-        return a;
-    }
-
-    private CheckStatus checkSpaceAtBeginning(final Element e) {
+    private static CheckStatus checkSpaceAtBeginning(final Element e) {
         final String s = e.getTextContent();
         if (s.length() == 0) {
             return null;
@@ -63,7 +49,7 @@ public class ExtremitySpaceChecker extends NodeChecker {
         return new CheckStatus("\"" + s + "\" should not begin with a space");
     }
 
-    private CheckStatus checkSpaceAtEnd(final Element e) {
+    private static CheckStatus checkSpaceAtEnd(final Element e) {
         final String s = e.getTextContent();
         if (s.length() == 0) {
             return null;

@@ -2,7 +2,6 @@ package data.nodechecker.checker.nodeChecker;
 
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
-import data.nodechecker.tagSelection.TagSelector;
 import utils.xmlparsing.ElementType;
 
 import org.w3c.dom.Element;
@@ -13,23 +12,12 @@ public class URLProtocolChecker extends NodeChecker {
             ElementType.A
             });
 
-    @Override
-    public TagSelector getTagSelector() {
-        return s_selector;
+    public URLProtocolChecker() {
+        super(s_selector,
+              URLProtocolChecker::checkUrl, "uses a non-normalized URL");
     }
 
-
-    @Override
-    public NodeRule[] getRules() {
-        final NodeRule a[]= new NodeRule[1];
-        a[0] = new NodeRule() { @Override
-        public CheckStatus checkElement(final Element e) { return checkFormat(e);}
-                            @Override
-                            public String getDescription() { return "uses a non-normalized URL"; } };
-        return a;
-    }
-
-    private CheckStatus checkFormat(final Element e) {
+    private static CheckStatus checkUrl(final Element e) {
 
         final String s = e.getTextContent();
 

@@ -6,7 +6,6 @@ import org.w3c.dom.NodeList;
 
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
-import data.nodechecker.tagSelection.TagSelector;
 import utils.XMLHelper;
 import utils.xmlparsing.ElementType;
 
@@ -16,22 +15,12 @@ public class FormatFromURLChecker extends NodeChecker {
             ElementType.X
             });
 
-    @Override
-    public TagSelector getTagSelector() {
-        return s_selector;
+    public FormatFromURLChecker() {
+        super(s_selector,
+              FormatFromURLChecker::checkFormat, "given the URL, the format is incorrect");
     }
 
-    @Override
-    public NodeRule[] getRules() {
-        final NodeRule a[]= new NodeRule[1];
-        a[0] = new NodeRule() { @Override
-        public CheckStatus checkElement(final Element e) { return checkFormat(e);}
-                            @Override
-                            public String getDescription() { return "given the URL, the format is incorrect"; } };
-        return a;
-    }
-
-    private CheckStatus checkFormat(final Element e) {
+    private static CheckStatus checkFormat(final Element e) {
 
         String url = "";
         String format = "";

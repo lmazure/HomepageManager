@@ -8,7 +8,6 @@ import org.w3c.dom.NodeList;
 
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
-import data.nodechecker.tagSelection.TagSelector;
 import utils.XMLHelper;
 import utils.xmlparsing.ElementType;
 
@@ -20,22 +19,12 @@ public class TableSortChecker extends NodeChecker {
             ElementType.DEFINITIONTABLE
             });
 
-    @Override
-    public TagSelector getTagSelector() {
-        return s_selector;
+    public TableSortChecker() {
+        super(s_selector,
+              TableSortChecker::checkTableSorting, "incorrect table sorting");
     }
 
-    @Override
-    public NodeRule[] getRules() {
-        final NodeRule a[]= new NodeRule[1];
-        a[0] = new NodeRule() { @Override
-                               public CheckStatus checkElement(final Element e) { return checkTableSorting(e);}
-                               @Override
-                                  public String getDescription() { return "incorrect table sorting"; } };
-        return a;
-    }
-
-    private CheckStatus checkTableSorting(final Element e) {
+    private static CheckStatus checkTableSorting(final Element e) {
 
         String lastTerm = "";
         String lastNormalizedTerm = "";

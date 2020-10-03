@@ -5,7 +5,6 @@ import org.w3c.dom.NodeList;
 
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
-import data.nodechecker.tagSelection.TagSelector;
 import utils.XMLHelper;
 import utils.xmlparsing.ElementType;
 
@@ -15,26 +14,13 @@ public class DurationChecker extends NodeChecker {
             ElementType.DURATION
             });
 
-    @Override
-    public TagSelector getTagSelector() {
-        return s_selector;
+    public DurationChecker() {
+        super(s_selector,
+              DurationChecker::checkDurationHierarchy, "the DURATION components are incorrectly structured",
+              DurationChecker::checkDurationValue, "the DURATION components have an incorrect value");
     }
 
-    @Override
-    public NodeRule[] getRules() {
-        final NodeRule a[]= new NodeRule[2];
-        a[0] = new NodeRule() { @Override
-        public CheckStatus checkElement(final Element e) { return checkDurationHierarchy(e);}
-                            @Override
-                            public String getDescription() { return "the DURATION components are incorrectly structured"; } };
-        a[1] = new NodeRule() { @Override
-        public CheckStatus checkElement(final Element e) { return checkDurationValue(e);}
-                            @Override
-                            public String getDescription() { return "the DURATION components have an incorrect value"; } };
-        return a;
-    }
-
-    private CheckStatus checkDurationHierarchy(final Element e) {
+    private static CheckStatus checkDurationHierarchy(final Element e) {
 
         final int numberOfSeconds = XMLHelper.getDescendantsByElementType(e, ElementType.SECOND).getLength();
         final int numberOfMinutes = XMLHelper.getDescendantsByElementType(e, ElementType.MINUTE).getLength();
@@ -51,7 +37,7 @@ public class DurationChecker extends NodeChecker {
         return null;
     }
 
-    private CheckStatus checkDurationValue(final Element e) {
+    private static CheckStatus checkDurationValue(final Element e) {
 
         final NodeList seconds = XMLHelper.getDescendantsByElementType(e, ElementType.SECOND);
         final NodeList minutes = XMLHelper.getDescendantsByElementType(e, ElementType.MINUTE);

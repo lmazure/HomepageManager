@@ -6,7 +6,6 @@ import org.w3c.dom.Node;
 
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
-import data.nodechecker.tagSelection.TagSelector;
 import utils.XMLHelper;
 import utils.xmlparsing.ElementType;
 
@@ -22,27 +21,13 @@ public class ModifierKeyChecker extends NodeChecker {
             ElementType.MODIFIERKEY
             });
 
-    @Override
-    public TagSelector getTagSelector() {
-        return s_selector;
+    public ModifierKeyChecker() {
+        super(s_selector,
+                ModifierKeyChecker::checkModifierKeyString, "the MODIFIERKEY is incorrect",
+                ModifierKeyChecker::checkModifierKeyOrder, "MODIFIERKEYs are not in the correct order");
     }
 
-    @Override
-    public NodeRule[] getRules() {
-        final NodeRule a[]= new NodeRule[2];
-        a[0] = new NodeRule() { @Override
-        public CheckStatus checkElement(final Element e) { return checkModifierKeyString(e);}
-                            @Override
-                            public String getDescription() { return "the MODIFIERKEY is correct"; } };
-        a[1] = new NodeRule() { @Override
-        public CheckStatus checkElement(final Element e) { return checkModifierKeyOrder(e);}
-                            @Override
-                            public String getDescription() { return "MODIFIERKEYs are in the correct order"; } };
-
-        return a;
-    }
-
-    private CheckStatus checkModifierKeyString(final Element e) {
+    private static CheckStatus checkModifierKeyString(final Element e) {
 
         final String str = e.getAttribute("ID");
 
@@ -55,7 +40,7 @@ public class ModifierKeyChecker extends NodeChecker {
         return new CheckStatus("Illegal MODIFIERKEY (" + str + ")");
     }
 
-    private CheckStatus checkModifierKeyOrder(final Element e) {
+    private static CheckStatus checkModifierKeyOrder(final Element e) {
 
         final Node next = e.getNextSibling();
         if (!XMLHelper.isOfType(next, ElementType.MODIFIERKEY)) return null;

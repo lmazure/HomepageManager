@@ -19,7 +19,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.checker.nodeChecker.ArticleDateChecker;
 import data.nodechecker.checker.nodeChecker.DateChecker;
 import data.nodechecker.checker.nodeChecker.DoubleSpaceChecker;
@@ -32,6 +31,7 @@ import data.nodechecker.checker.nodeChecker.KeyChecker;
 import data.nodechecker.checker.nodeChecker.MiddleNewlineChecker;
 import data.nodechecker.checker.nodeChecker.MissingSpaceChecker;
 import data.nodechecker.checker.nodeChecker.ModifierKeyChecker;
+import data.nodechecker.checker.nodeChecker.NodeCheckError;
 import data.nodechecker.checker.nodeChecker.NodeChecker;
 import data.nodechecker.checker.nodeChecker.NonEmptyChecker;
 import data.nodechecker.checker.nodeChecker.NonNormalizedAuthorChecker;
@@ -98,9 +98,9 @@ public class NodeValueChecker implements FileHandler {
 
         try (final FileOutputStream os = new FileOutputStream(getOutputFile(file).toFile());
              final PrintWriter pw = new PrintWriter(os)) {
-            final List<Error> errors = check(file);
+            final List<NodeCheckError> errors = check(file);
             if (errors.size() > 0) {
-                for (final Error error : errors) {
+                for (final NodeCheckError error : errors) {
                     pw.println(" tag = \""       + error.getTag()       + "\"" +
                                " value = \""     + error.getValue()     + "\"" +
                                " violation = \"" + error.getViolation() + "\"" +
@@ -130,7 +130,7 @@ public class NodeValueChecker implements FileHandler {
         _controller.handleCreation(file, status, getOutputFile(file), getReportFile(file));
     }
 
-    public List<Error> check(final Path file) throws SAXException {
+    public List<NodeCheckError> check(final Path file) throws SAXException {
 
         try {
             final Document document = _builder.parse(file.toFile());
@@ -169,10 +169,10 @@ public class NodeValueChecker implements FileHandler {
                || (getOutputFile(file).toFile().lastModified() <= file.toFile().lastModified());
     }
 
-    private List<Error> checkNode(final File file,
-                                  final Element e) {
+    private List<NodeCheckError> checkNode(final File file,
+                                           final Element e) {
 
-        final List<Error> errors = new ArrayList<Error>();
+        final List<NodeCheckError> errors = new ArrayList<NodeCheckError>();
         final NodeList children = e.getChildNodes();
 
         for (int j = 0; j < children.getLength(); j++) {
@@ -182,50 +182,11 @@ public class NodeValueChecker implements FileHandler {
         }
 
         for (final NodeChecker checker: _nodeCheckers) {
-            if (checker.getTagSelector().isTagCheckable(e.getTagName())) {
-                for (final NodeChecker.NodeRule rule : checker.getRules()) {
-                    final CheckStatus status = rule.checkElement(e);
-                    if (status != null) {
-                        errors.add(new Error(e.getTagName(), e.getTextContent(), rule.getDescription(), status.getDetail()));
-                    }
-                }
+            if (checker.isElementCheckable(e)) {
+                errors.addAll(checker.check(e));
             }
         }
 
         return errors;
-    }
-
-    static public class Error {
-
-        final private String _tag;
-        final private String _value;
-        final private String _violation;
-        final private String _detail;
-
-        public Error(final String tag,
-                     final String value,
-                     final String violation,
-                     final String detail) {
-            _tag = tag;
-            _value = value;
-            _violation = violation;
-            _detail = detail;
-        }
-
-        public String getTag() {
-            return _tag;
-        }
-
-        public String getValue() {
-            return _value;
-        }
-
-        public String getViolation() {
-            return _violation;
-        }
-
-        public String getDetail() {
-            return _detail;
-        }
     }
 }

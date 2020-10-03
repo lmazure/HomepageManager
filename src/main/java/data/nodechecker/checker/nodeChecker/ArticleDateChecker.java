@@ -9,7 +9,6 @@ import org.w3c.dom.Element;
 
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
-import data.nodechecker.tagSelection.TagSelector;
 import utils.XMLHelper;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkData;
@@ -22,26 +21,13 @@ public class ArticleDateChecker extends NodeChecker {
             ElementType.ARTICLE
             });
 
-    @Override
-    public TagSelector getTagSelector() {
-        return s_selector;
+    public ArticleDateChecker() {
+        super(s_selector,
+              ArticleDateChecker::checkArticleDatesToPageDate, "incorrect article creation/publication date compared to page date",
+              ArticleDateChecker::checkArticleDateToPreviousArticleDate, "article not properly sorted according to date");
     }
 
-    @Override
-    public NodeRule[] getRules() {
-        final NodeRule a[]= new NodeRule[2];
-        a[0] = new NodeRule() { @Override
-            public CheckStatus checkElement(final Element e) { return checkArticleDatesToPageDate(e);}
-                            @Override
-                            public String getDescription() { return "incorrect article creation/publication date compared to page date"; } };
-        a[1] = new NodeRule() { @Override
-            public CheckStatus checkElement(final Element e) { return checkArticleDateToPreviousArticleDate(e);}
-            @Override
-            public String getDescription() { return "article not properly sorted according to date"; } };
-        return a;
-    }
-
-    private CheckStatus checkArticleDatesToPageDate(final Element e) {
+    private static CheckStatus checkArticleDatesToPageDate(final Element e) {
 
         final Optional<TemporalAccessor> pageDate = getPageDate(e);
         if (pageDate.isEmpty()) {
@@ -90,7 +76,7 @@ public class ArticleDateChecker extends NodeChecker {
         return null;
     }
 
-    private CheckStatus checkArticleDateToPreviousArticleDate(final Element e) {
+    private static CheckStatus checkArticleDateToPreviousArticleDate(final Element e) {
 
         final ArticleData articleData = XmlParser.parseArticleElement(e);
         final Optional<TemporalAccessor> creationDate = articleData.getDate();
@@ -129,7 +115,7 @@ public class ArticleDateChecker extends NodeChecker {
         return null;
     }
 
-    private Optional<TemporalAccessor> getPageDate(final Element e) {
+    private static Optional<TemporalAccessor> getPageDate(final Element e) {
         final List<Element> date = XMLHelper.getChildrenByElementType(e.getOwnerDocument().getDocumentElement(), ElementType.DATE);
         if (date.size() == 0) {
             return Optional.empty();
@@ -137,8 +123,8 @@ public class ArticleDateChecker extends NodeChecker {
         return Optional.of(XmlParser.parseDateElement(date.get(0)));
     }
 
-    private int compareTemporalAccesssor(final TemporalAccessor accessor1,
-                                         final TemporalAccessor accessor2) {
+    private static int compareTemporalAccesssor(final TemporalAccessor accessor1,
+                                                final TemporalAccessor accessor2) {
         final int year1 = accessor1.get(ChronoField.YEAR);
         final int year2 = accessor2.get(ChronoField.YEAR);
         final int month1 = accessor1.isSupported(ChronoField.MONTH_OF_YEAR) ? accessor1.get(ChronoField.MONTH_OF_YEAR) : 0;

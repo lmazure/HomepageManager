@@ -2,7 +2,6 @@ package data.nodechecker.checker.nodeChecker;
 
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
-import data.nodechecker.tagSelection.TagSelector;
 import utils.XMLHelper;
 import utils.xmlparsing.ElementType;
 
@@ -57,27 +56,13 @@ public class TitleFormatChecker extends NodeChecker {
             ElementType.TITLE
             });
 
-    @Override
-    public TagSelector getTagSelector() {
-        return s_selector;
+    public TitleFormatChecker() {
+        super(s_selector,
+              TitleFormatChecker::titleDoesNotFinishWithColon, "a TITLE must not finish with a colon",
+              TitleFormatChecker::titleStartsWithUppercase,"a TITLE must start with an uppercase letter");
     }
 
-    @Override
-    public NodeRule[] getRules() {
-        final NodeRule a[]= new NodeRule[2];
-        a[0] = new NodeRule() { @Override
-        public CheckStatus checkElement(final Element e) { return titleDoesNotFinishWithColon(e);}
-                            @Override
-                            public String getDescription() { return "a TITLE must not finish with a colon"; } };
-        a[1] = new NodeRule() { @Override
-        public CheckStatus checkElement(final Element e) { return titleStartsWithUppercase(e);}
-                            @Override
-                            public String getDescription() { return "a TITLE must start with an uppercase letter"; } };
-
-        return a;
-    }
-
-    private CheckStatus titleDoesNotFinishWithColon(final Element e) {
+    private static CheckStatus titleDoesNotFinishWithColon(final Element e) {
 
         /* TODO temporary disabled
         final List<String> list = XMLHelper.getFirstLevelTextContent(e);
@@ -89,7 +74,7 @@ public class TitleFormatChecker extends NodeChecker {
         return null;
     }
 
-    private CheckStatus titleStartsWithUppercase(final Element e) {
+    private static CheckStatus titleStartsWithUppercase(final Element e) {
 
         final List<String> list = XMLHelper.getFirstLevelTextContent(e);
         if (list.size() == 0) {

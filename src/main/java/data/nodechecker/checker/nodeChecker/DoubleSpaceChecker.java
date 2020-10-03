@@ -2,7 +2,6 @@ package data.nodechecker.checker.nodeChecker;
 
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.ExclusionTagSelector;
-import data.nodechecker.tagSelection.TagSelector;
 import utils.XMLHelper;
 import utils.xmlparsing.ElementType;
 
@@ -10,10 +9,6 @@ import java.util.List;
 
 import org.w3c.dom.Element;
 
-/**
- * @author Laurent
- *
- */
 public class DoubleSpaceChecker extends NodeChecker {
 
     static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new ElementType[] {
@@ -32,22 +27,12 @@ public class DoubleSpaceChecker extends NodeChecker {
             ElementType.TEXTBLOCK
             });
 
-    @Override
-    public TagSelector getTagSelector() {
-        return s_selector;
+    public DoubleSpaceChecker() {
+        super(s_selector,
+              DoubleSpaceChecker::checkDoubleSpace, "double space is present");
     }
 
-    @Override
-    public NodeRule[] getRules() {
-        final NodeRule a[] = new NodeRule[1];
-        a[0] = new NodeRule() { @Override
-        public CheckStatus checkElement(final Element e) { return checkDoubleSpace(e);}
-                            @Override
-                            public String getDescription() { return "double space is present"; } };
-        return a;
-    }
-
-    private CheckStatus checkDoubleSpace(final Element e) {
+    private static CheckStatus checkDoubleSpace(final Element e) {
 
         // ignore titles of articles
         if (XMLHelper.isOfType(e, ElementType.T) &&

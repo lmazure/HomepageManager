@@ -6,7 +6,6 @@ import org.w3c.dom.NodeList;
 
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
-import data.nodechecker.tagSelection.TagSelector;
 import utils.XMLHelper;
 import utils.xmlparsing.ElementType;
 
@@ -16,22 +15,11 @@ public class DurationPresenceChecker extends NodeChecker {
             ElementType.X
             });
 
-    @Override
-    public TagSelector getTagSelector() {
-        return s_selector;
+    public DurationPresenceChecker() {
+        super(s_selector,
+              DurationPresenceChecker::checkDuration, "given the format, the duration is missing");
     }
-
-    @Override
-    public NodeRule[] getRules() {
-        final NodeRule a[]= new NodeRule[1];
-        a[0] = new NodeRule() { @Override
-        public CheckStatus checkElement(final Element e) { return checkFormat(e);}
-                            @Override
-                            public String getDescription() { return "given the format, should / should not have a duration"; } };
-        return a;
-    }
-
-    private CheckStatus checkFormat(final Element e) { //TODO record the format in a Set
+    private static CheckStatus checkDuration(final Element e) { //TODO the presence of a duration should be attached to each value of the enul
 
         boolean hasDuration = false;
         String format = "";

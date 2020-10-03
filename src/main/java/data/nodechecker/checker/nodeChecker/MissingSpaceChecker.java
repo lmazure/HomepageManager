@@ -9,7 +9,6 @@ import org.w3c.dom.Element;
 
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
-import data.nodechecker.tagSelection.TagSelector;
 import utils.XMLHelper;
 import utils.xmlparsing.ElementType;
 
@@ -61,22 +60,12 @@ public class MissingSpaceChecker extends NodeChecker {
             ElementType.TITLE,
             });
 
-    @Override
-    public TagSelector getTagSelector() {
-        return s_selector;
+    public MissingSpaceChecker() {
+        super(s_selector,
+              MissingSpaceChecker::checkMissingSpace, "space is missing");
     }
 
-    @Override
-    public NodeRule[] getRules() {
-        final NodeRule a[]= new NodeRule[1];
-        a[0] = new NodeRule() { @Override
-        public CheckStatus checkElement(final Element e) { return checkMissingSpace(e);}
-                            @Override
-                            public String getDescription() { return "space is missing"; } };
-        return a;
-    }
-
-    private CheckStatus checkMissingSpace(final Element e) {
+    private static CheckStatus checkMissingSpace(final Element e) {
 
         final List<String> list = XMLHelper.getFirstLevelTextContent(e);
         if (list.size() == 0) return null;

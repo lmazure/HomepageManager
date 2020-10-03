@@ -60,6 +60,20 @@ public class XMLHelper {
     }
 
     /**
+     * return the type of an element Node
+     * @param element
+     * @return
+     * @throws UnsupportedOperationException if not an element node
+     */
+    public static ElementType getElementType(final Element element) {
+        if (element.getNodeType() != Node.ELEMENT_NODE) {
+            throw new UnsupportedOperationException("XML node is not an element");
+        }
+        
+        return ElementType.valueOf(element.getTagName());
+    }
+
+    /**
      * return the previous sibling element, otherwise return null
      * @param element
      * @return

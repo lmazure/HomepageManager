@@ -19,6 +19,7 @@ import data.DataController;
 import data.FileHandler.Status;
 import utils.ExitHelper;
 import data.NodeValueChecker;
+import data.nodechecker.checker.nodeChecker.NodeCheckError;
 
 class NodeValueCheckerTest {
 
@@ -517,15 +518,15 @@ class NodeValueCheckerTest {
 
     static private void test(final String content) throws SAXException {
 
-        final List<NodeValueChecker.Error> expected= new ArrayList<NodeValueChecker.Error>();
+        final List<NodeCheckError> expected= new ArrayList<NodeCheckError>();
         test(content, expected);
     }
 
     static private void test(final String content,
                              final String detail0) throws SAXException {
 
-        final List<NodeValueChecker.Error> expected= new ArrayList<NodeValueChecker.Error>();
-        expected.add(new NodeValueChecker.Error("tag", "value", "violation", detail0));
+        final List<NodeCheckError> expected= new ArrayList<NodeCheckError>();
+        expected.add(new NodeCheckError("tag", "value", "violation", detail0));
         test(content, expected);
     }
 
@@ -544,17 +545,17 @@ class NodeValueCheckerTest {
                              final String detail1,
                              final String detail2) throws SAXException {
 
-        final List<NodeValueChecker.Error> expected= new ArrayList<NodeValueChecker.Error>();
-        expected.add(new NodeValueChecker.Error("tag", "value", "violation", detail0));
-        expected.add(new NodeValueChecker.Error("tag", "value", "violation", detail1));
-        expected.add(new NodeValueChecker.Error("tag", "value", "violation", detail2));
+        final List<NodeCheckError> expected= new ArrayList<NodeCheckError>();
+        expected.add(new NodeCheckError("tag", "value", "violation", detail0));
+        expected.add(new NodeCheckError("tag", "value", "violation", detail1));
+        expected.add(new NodeCheckError("tag", "value", "violation", detail2));
         test(content, expected);
     }
 
     static private void test(final String content,
-                             final List<NodeValueChecker.Error> expected) throws SAXException {
+                             final List<NodeCheckError> expected) throws SAXException {
 
-        List<NodeValueChecker.Error> effective = null;
+        List<NodeCheckError> effective = null;
 
         final NodeValueChecker checker = new NodeValueChecker(Paths.get("home"), Paths.get("tmp"), new DummyDataController());
         try {
@@ -568,7 +569,7 @@ class NodeValueCheckerTest {
         Assertions.assertEquals(normalize(expected), normalize(effective));
     }
 
-    static private String normalize(final List<NodeValueChecker.Error> errors) {
+    static private String normalize(final List<NodeCheckError> errors) {
         return errors.stream()
                      .map(e -> e.getDetail())
                      .sorted()

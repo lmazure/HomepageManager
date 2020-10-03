@@ -3,10 +3,6 @@ package data.jsongenerator;
 import java.text.Collator;
 import java.util.Locale;
 
-/**
- * @author Laurent
- *
- */
 public class StringHelper {
 
     static private final Collator s_collator = Collator.getInstance(Locale.UK);

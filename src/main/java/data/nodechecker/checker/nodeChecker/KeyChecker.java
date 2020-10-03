@@ -8,32 +8,21 @@ import org.w3c.dom.Element;
 
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
-import data.nodechecker.tagSelection.TagSelector;
 import utils.xmlparsing.ElementType;
 
 public class KeyChecker extends NodeChecker {
+    // TODO do we really need this checker? this should be verified by the schema
 
     final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.KEY
             });
 
-    @Override
-    public TagSelector getTagSelector() {
-        return s_selector;
+    public KeyChecker() {
+        super(s_selector,
+              KeyChecker::checkKeyString, "the KEY is incorrect");
     }
 
-    @Override
-    public NodeRule[] getRules() {
-        final NodeRule a[]= new NodeRule[1];
-        a[0] = new NodeRule() { @Override
-        public CheckStatus checkElement(final Element e) { return checkKeyString(e);}
-                            @Override
-                            public String getDescription() { return "the KEY is correct"; } };
-
-        return a;
-    }
-
-    private CheckStatus checkKeyString(final Element e) {
+    private static CheckStatus checkKeyString(final Element e) {
 
         final String str = e.getAttribute("ID");
 

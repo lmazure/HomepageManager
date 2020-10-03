@@ -2,7 +2,6 @@ package data.nodechecker.checker.nodeChecker;
 
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.ExclusionTagSelector;
-import data.nodechecker.tagSelection.TagSelector;
 import utils.XMLHelper;
 import utils.xmlparsing.ElementType;
 
@@ -32,26 +31,13 @@ public class EllipsisChecker extends NodeChecker {
             ElementType.X
             });
 
-    @Override
-    public TagSelector getTagSelector() {
-        return s_selector;
+    public EllipsisChecker() {
+        super(s_selector,
+             EllipsisChecker::checkEllipsis, "ellipsis is improperly encoded",
+             EllipsisChecker::checkDoubleDot, "double dot is present");
     }
 
-    @Override
-    public NodeRule[] getRules() {
-        final NodeRule a[]= new NodeRule[2];
-        a[0] = new NodeRule() { @Override
-                                public CheckStatus checkElement(final Element e) { return checkEllipsis(e);}
-                                @Override
-                                public String getDescription() { return "ellipsis is properly encoded"; } };
-        a[1] = new NodeRule() { @Override
-                                public CheckStatus checkElement(final Element e) { return checkDoubleDot(e);}
-                                @Override
-                                public String getDescription() { return "double dot"; } };
-        return a;
-    }
-
-    private CheckStatus checkEllipsis(final Element e) {
+    private static CheckStatus checkEllipsis(final Element e) {
 
         final String s = e.getTextContent();
         if (s.indexOf("...") == -1) {
@@ -61,7 +47,7 @@ public class EllipsisChecker extends NodeChecker {
         return new CheckStatus("\"" + s + "\" should not contain \"...\"");
     }
 
-    private CheckStatus checkDoubleDot(final Element e) {
+    private static CheckStatus checkDoubleDot(final Element e) {
 
         final List<String> content = XMLHelper.getFirstLevelTextContent(e);
         for (final String s: content) {

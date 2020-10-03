@@ -1,14 +1,12 @@
 package data.nodechecker.tagSelection;
 
-/**
- * @author Laurent
- *
- */
+import utils.xmlparsing.ElementType;
+
 public interface TagSelector {
 
     /**
      * @param tag
      * @return is this tag verifiable by the checker?
      */
-    boolean isTagCheckable(final String tag);
+    boolean isTagCheckable(final ElementType tag);
 }

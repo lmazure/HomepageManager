@@ -4,10 +4,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * @author Laurent
- *
- */
 public class HtmlHelper {
 
     static final private String s_encodingUsAscii = "US-ASCII";

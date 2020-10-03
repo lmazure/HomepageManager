@@ -1,30 +1,24 @@
 package data.nodechecker.tagSelection;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import utils.xmlparsing.ElementType;
 
-/**
- * @author Laurent
- *
- */
 public class ExclusionTagSelector implements TagSelector {
 
-    final private Set<String> _tags;
+    final private Set<ElementType> _types;
 
     /**
-     * @param tagsToIgnore
+     * @param typesToIgnore
      */
-    public ExclusionTagSelector(final ElementType tagsToIgnore[]) {
-        _tags = Stream.of(tagsToIgnore)
-                          .map(ElementType::toString)
-                       .collect(Collectors.toSet());
+    public ExclusionTagSelector(final ElementType typesToIgnore[]) {
+        _types = new HashSet<ElementType>(Arrays.asList(typesToIgnore));
     }
 
     @Override
-    public boolean isTagCheckable(final String tag) {
-        return !_tags.contains(tag);
+    public boolean isTagCheckable(final ElementType type) {
+        return !_types.contains(type);
     }
 }

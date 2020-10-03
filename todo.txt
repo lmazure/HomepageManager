@@ -1,3 +1,5 @@
+- mettre in test unitaire pour vérifier que tous les ElementTyps apparaissent quelque part
+
 - - corriger le problème de CSS dans notes/java2.html
 
 - faire un profiling de la régénération intégrale des contrôle pour voir s'il y a une fuite de thread

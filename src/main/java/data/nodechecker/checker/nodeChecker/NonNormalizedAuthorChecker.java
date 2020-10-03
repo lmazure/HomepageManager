@@ -4,7 +4,6 @@ import org.w3c.dom.Element;
 
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
-import data.nodechecker.tagSelection.TagSelector;
 import utils.xmlparsing.ElementType;
 
 public class NonNormalizedAuthorChecker extends NodeChecker {
@@ -13,23 +12,12 @@ public class NonNormalizedAuthorChecker extends NodeChecker {
             ElementType.AUTHOR
             });
 
-    @Override
-    public TagSelector getTagSelector() {
-        return s_selector;
+    public NonNormalizedAuthorChecker() {
+        super(s_selector,
+              NonNormalizedAuthorChecker::checkAuthorNamet, "uses a non-normalized author name");
     }
 
-
-    @Override
-    public NodeRule[] getRules() {
-        final NodeRule a[]= new NodeRule[1];
-        a[0] = new NodeRule() { @Override
-        public CheckStatus checkElement(final Element e) { return checkFormat(e);}
-                            @Override
-                            public String getDescription() { return "uses a non-normalized author name"; } };
-        return a;
-    }
-
-    private CheckStatus checkFormat(final Element e) {
+    private static CheckStatus checkAuthorNamet(final Element e) {
 
         final String s = e.getTextContent();
 

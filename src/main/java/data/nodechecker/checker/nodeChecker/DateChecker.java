@@ -7,7 +7,6 @@ import org.w3c.dom.NodeList;
 
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
-import data.nodechecker.tagSelection.TagSelector;
 import utils.XMLHelper;
 import utils.xmlparsing.ElementType;
 
@@ -22,27 +21,13 @@ public class DateChecker extends NodeChecker {
             ElementType.DATE
             });
 
-    @Override
-    public TagSelector getTagSelector() {
-        return s_selector;
+    public DateChecker() {
+        super(s_selector,
+              DateChecker::checkDateHierarchy, "the DATE components are incorrectly structured",
+              DateChecker::checkDateValue, "the DATE components have an incorrect value");
     }
 
-    @Override
-    public NodeRule[] getRules() {
-        final NodeRule a[]= new NodeRule[2];
-        a[0] = new NodeRule() { @Override
-        public CheckStatus checkElement(final Element e) { return checkDateHierarchy(e);}
-                            @Override
-                            public String getDescription() { return "the DATE components are incorrectly structured"; } };
-        a[1] = new NodeRule() { @Override
-        public CheckStatus checkElement(final Element e) { return checkDateValue(e);}
-                            @Override
-                            public String getDescription() { return "the DATE components have an incorrect value"; } };
-
-        return a;
-    }
-
-    private CheckStatus checkDateHierarchy(final Element e) {
+    private static CheckStatus checkDateHierarchy(final Element e) {
 
         final int numberOfYears = XMLHelper.getDescendantsByElementType(e, ElementType.YEAR).getLength();
         final int numberOfMonths = XMLHelper.getDescendantsByElementType(e, ElementType.MONTH).getLength();
@@ -59,7 +44,7 @@ public class DateChecker extends NodeChecker {
         return null;
     }
 
-    private CheckStatus checkDateValue(final Element e) {
+    private static CheckStatus checkDateValue(final Element e) {
 
         final NodeList years = XMLHelper.getDescendantsByElementType(e, ElementType.YEAR);
         final NodeList months = XMLHelper.getDescendantsByElementType(e, ElementType.MONTH);

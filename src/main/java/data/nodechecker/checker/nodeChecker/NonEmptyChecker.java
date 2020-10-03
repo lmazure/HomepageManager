@@ -2,7 +2,6 @@ package data.nodechecker.checker.nodeChecker;
 
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.ExclusionTagSelector;
-import data.nodechecker.tagSelection.TagSelector;
 import utils.xmlparsing.ElementType;
 
 import org.w3c.dom.Element;
@@ -22,22 +21,12 @@ public class NonEmptyChecker extends NodeChecker {
             ElementType.TABCHAR
             });
 
-    @Override
-    public TagSelector getTagSelector() {
-        return s_selector;
+    public NonEmptyChecker() {
+        super(s_selector,
+              NonEmptyChecker::checkNonEmpty, "element should not be empty");
     }
 
-    @Override
-    public NodeRule[] getRules() {
-        final NodeRule a[]= new NodeRule[1];
-        a[0] = new NodeRule() { @Override
-        public CheckStatus checkElement(final Element e) { return checkNonEmpty(e);}
-                            @Override
-                            public String getDescription() { return "empty element"; } };
-        return a;
-    }
-
-    private CheckStatus checkNonEmpty(final Element e) {
+    private static CheckStatus checkNonEmpty(final Element e) {
 
         final String s = e.getTextContent();
 
