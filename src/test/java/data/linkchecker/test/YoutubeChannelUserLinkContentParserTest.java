@@ -25,12 +25,12 @@ class YoutubeChannelUserLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/channel/UCwBn4dgV3kxzvcCKN3TbQOQ"),
                            (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
-                               Assertions.assertTrue(parser.getErrorMessage().isPresent());
-                               Assertions.assertEquals("This channel does not exist.", parser.getErrorMessage().get());
-                               consumerHasBeenCalled.set(true);
+                            Assertions.assertTrue(d.getDataFile().isPresent());
+                            final String data = FileHelper.slurpFile(d.getDataFile().get());
+                            final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
+                            Assertions.assertTrue(parser.getErrorMessage().isPresent());
+                            Assertions.assertEquals("This channel does not exist.", parser.getErrorMessage().get());
+                            consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
@@ -41,11 +41,11 @@ class YoutubeChannelUserLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/channel/UC6nSFpj9HTCZ5t-N3Rm3-HA"),
                            (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
-                               Assertions.assertTrue(parser.getErrorMessage().isEmpty());
-                               consumerHasBeenCalled.set(true);
+                            Assertions.assertTrue(d.getDataFile().isPresent());
+                            final String data = FileHelper.slurpFile(d.getDataFile().get());
+                            final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
+                            Assertions.assertTrue(parser.getErrorMessage().isEmpty());
+                            consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
@@ -63,11 +63,11 @@ class YoutubeChannelUserLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
-                               Assertions.assertEquals(Locale.ENGLISH, parser.getLanguage());
-                               consumerHasBeenCalled.set(true);
+                            Assertions.assertTrue(d.getDataFile().isPresent());
+                            final String data = FileHelper.slurpFile(d.getDataFile().get());
+                            final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
+                            Assertions.assertEquals(Locale.ENGLISH, parser.getLanguage());
+                            consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
@@ -82,11 +82,11 @@ class YoutubeChannelUserLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
-                               Assertions.assertEquals(Locale.FRENCH, parser.getLanguage());
-                               consumerHasBeenCalled.set(true);
+                            Assertions.assertTrue(d.getDataFile().isPresent());
+                            final String data = FileHelper.slurpFile(d.getDataFile().get());
+                            final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
+                            Assertions.assertEquals(Locale.FRENCH, parser.getLanguage());
+                            consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }

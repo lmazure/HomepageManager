@@ -351,10 +351,10 @@ public class JsonWriter {
         }
     }
 
-    static private String formatLanguage(final Locale langage) {
-        if (langage == Locale.FRENCH) return "fr";
-        if (langage == Locale.ENGLISH) return "en";
-        throw new UnsupportedOperationException("Illegal protection value (" + langage + ")");
+    static private String formatLanguage(final Locale language) {
+        if (language == Locale.FRENCH) return "fr";
+        if (language == Locale.ENGLISH) return "en";
+        throw new UnsupportedOperationException("Illegal language value (" + language + ")");
     }
 
 }

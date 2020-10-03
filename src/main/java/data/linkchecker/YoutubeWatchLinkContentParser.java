@@ -28,7 +28,7 @@ public class YoutubeWatchLinkContentParser {
     public boolean isPlayable() {
 
         if (_isPlayable == null) {
-                _isPlayable = getPlayable();
+            _isPlayable = getPlayable();
         }
 
         return _isPlayable;

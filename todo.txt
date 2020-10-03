@@ -1,6 +1,4 @@
-- language devraient être des enums
-
-- corriger le problème de CSS dans notes/java2.html
+- - corriger le problème de CSS dans notes/java2.html
 
 - faire un profiling de la régénération intégrale des contrôle pour voir s'il y a une fuite de thread
 
