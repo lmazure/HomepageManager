@@ -117,20 +117,20 @@ public class XmlParser {
 
         final NodeList languageNodes = XMLHelper.getDescendantsByElementType(xElement, ElementType.L);
         if (languageNodes.getLength() == 0) {
-            throw new UnsupportedOperationException("Wrong number of L nodes (" + languageNodes.getLength() + ") in \"" + title + "\"");
+            throw new UnsupportedOperationException("Wrong number of L nodes (0) in \"" + title + "\"");
         }
         final Locale languages[] = new Locale[languageNodes.getLength()];
         for (int k = 0; k < languageNodes.getLength(); k++) {
             languages[k] = LinkData.parseLangage(((Element)languageNodes.item(k)).getTextContent());
         }
 
-        final NodeList formatNodes = XMLHelper.getDescendantsByElementType(xElement, ElementType.F);
-        if (formatNodes.getLength() == 0) {
-            throw new UnsupportedOperationException("Wrong number of F nodes (" + formatNodes.getLength() + ") in \"" + title + "\"");
+        final List<Element> formatNodes = XMLHelper.getChildrenByElementType(xElement, ElementType.F);
+        if (formatNodes.isEmpty()) {
+            throw new UnsupportedOperationException("Wrong number of F nodes (0) in \"" + title + "\"");
         }
-        final LinkFormat formats[] = new LinkFormat[formatNodes.getLength()];
-        for (int k = 0; k < formatNodes.getLength(); k++) {
-            formats[k] = LinkData.parseFormat(((Element)formatNodes.item(k)).getTextContent());
+        final LinkFormat formats[] = new LinkFormat[formatNodes.size()];
+        for (int k = 0; k < formatNodes.size(); k++) {
+            formats[k] = LinkData.parseFormat((formatNodes.get(k)).getTextContent());
         }
 
         final NodeList durationNodes =  XMLHelper.getDescendantsByElementType(xElement, ElementType.DURATION);

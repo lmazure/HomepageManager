@@ -70,5 +70,4 @@ public class NodeChecker {
         }
         return errors;
     }
-
 }

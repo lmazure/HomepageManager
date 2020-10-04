@@ -94,7 +94,8 @@ public class SiteDataPersister {
         }
 
         if (dataStream.isPresent()) {
-            try (final InputStream inputStream = isEncodedWithGzip(headers) ? new GZIPInputStream(dataStream.get()) : dataStream.get();
+            try (@SuppressWarnings("resource")
+                final InputStream inputStream = isEncodedWithGzip(headers) ? new GZIPInputStream(dataStream.get()) : dataStream.get();
                  final PrintStream outputStream = new PrintStream(getDataFile(url, timestamp).toFile(), StandardCharsets.UTF_8)) {
                 long size = 0L;
                 final byte[] buffer = new byte[s_file_buffer_size];

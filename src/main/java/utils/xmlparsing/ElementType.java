@@ -2,6 +2,7 @@ package utils.xmlparsing;
 
 public enum ElementType {
     A,
+    ANCHOR,
     ARTICLE,
     AUTHOR,
     BLIST,
@@ -10,6 +11,8 @@ public enum ElementType {
     CELL,
     CLIST,
     CODEFILE,
+    CODEFILENAME,
+    CODEMENU,
     CODEROUTINE,
     CODESAMPLE,
     COMMENT,
@@ -62,6 +65,7 @@ public enum ElementType {
     TERM1,
     TEXTBLOCK,
     TITLE,
+    U,
     X,
     YEAR
 }
