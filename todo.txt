@@ -1,6 +1,12 @@
-- mettre in test unitaire pour vérifier que tous les ElementTyps apparaissent quelque part
+- corriger tous les fichiers de math et en profiter pour gérer les continuations
 
-- - corriger le problème de CSS dans notes/java2.html
+- créer garden.xml sous day.xml
+
+- corriger les problèmes avec les video de continuation
+-- parfois la seconde vidéo est publier la première
+-- parfois une vido d'insère entre les deux
+
+- mettre in test unitaire pour vérifier que tous les ElementTypes apparaissent quelque part
 
 - faire un profiling de la régénération intégrale des contrôle pour voir s'il y a une fuite de thread
 
@@ -32,8 +38,6 @@ liens sur management.xml
 
 - content/adbook.json semble encore présent dans SVN
 
-- corriger le CSS qui pose problème dans notes/git.html
-
 - le contrôle
 https://www.youtube.com/watch?v=TSnsHW6DS6s
 YouTube link with no creation date
@@ -42,9 +46,7 @@ il est normal de pouvoir avoir uniquement une date de publication ?
 
 - ajouter les liens vers les podcats Numberphile2 https://podcastaddict.com/episode/109050317 
 
-- forcer la mise à jour des caches avant  de modifier les fichiers JS de nouveau
-
-- remettre en place la détection des ordres alphabétiques incorrects
+- forcer la mise à jour des caches avant de modifier les fichiers JS de nouveau
 
 - nettoyage des fichiers
 cpp.xml
@@ -107,4 +109,56 @@ de plus cela génère des erreurs
 
 - ajouter support des <MIDDLENAME> multiples
 
+
+------------------------------------------------------------
+
+- le tri de https://mazure.fr/content/content.html?sort=author n'est pas correct, Jakob Østergaard ne devrait pas être à la fin
+
+- mettre un tooltip sur les expand/contract
+
+
+- remplacer les
+<script language="JavaScript" src="../scripts/common.js"></script>
+par
+<script src="../scripts/common.js"  type="module"></script>
+
+
+- corriger le support des MIDDLENAMEs multiples (Boyter dans links/humor.xml)
+
+- persons.xml :
+corrigers les liens cassés
+restructurer la page pour séparer
+* homepage
+* twitter
+* LinkedIn
+* Wikipedia
+* Wikipédia
+
+- ajouter une règle pour vérifier que <PATH> est correct
+
+- tronquer les URLs trop longs dans les tables de contenu
+
+- vérifier
+Big Risks Come in Small Packages
+Decorator Pattern
+Developing with Apache Derby -- Hitting the Trifecta: Database development with Apache Derby, Part 1
+What is RDF?
+Where Wizards Fear To Tread
+Why the future doesn't need us / Why the Future Doesn't Need Us
+
+- rendre le tri des articles complétement défini et mettre une assertion pour crasher s'il ne l'est pas
+* titre
+* sous-titre
+* date
+* premier auteur
+
+- ajouter une règle pour detecter toutes les lignes vides
+
+- ajouter une règle pour détecter les indendations incorrectes
+
+- implémenter KEYWORDS
+
+- afficher les articles, twitter, homepage, linkedin... d'un author quand on clique sur son nom
+
+- mettre un attribut lang sur les pages
 

@@ -17,6 +17,8 @@ import utils.xmlparsing.XmlParser;
 
 public class ArticleDateChecker extends NodeChecker {
 
+    private static final String s_linkedArticleMarker = "The continuation of the previous ";
+
     final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.ARTICLE
             });
@@ -86,8 +88,9 @@ public class ArticleDateChecker extends NodeChecker {
         if (previousSibling == null) return null;
         if (!XMLHelper.isOfType(previousSibling, ElementType.ITEM)) return null;
         if (!XMLHelper.isOfType(previousSibling.getFirstChild(), ElementType.ARTICLE)) return null;
+        final Element previousArticle = (Element)previousSibling.getFirstChild();
 
-        final ArticleData previousArticleData = XmlParser.parseArticleElement((Element)previousSibling.getFirstChild());
+        final ArticleData previousArticleData = XmlParser.parseArticleElement(previousArticle);
         final Optional<TemporalAccessor> previousCreationDate = previousArticleData.getDate();
 
         if (previousCreationDate.isPresent() && creationDate.isEmpty()) {
@@ -101,15 +104,21 @@ public class ArticleDateChecker extends NodeChecker {
         if (previousCreationDate.isEmpty()) return null;
 
         if (compareTemporalAccesssor(previousCreationDate.get(), creationDate.get()) > 0) {
-            return new CheckStatus("Creation date of article \"" +
-                                   articleData.getLinks().get(0).getUrl() +
-                                   "\" (" +
-                                   creationDate.get() +
-                                   ") is before creation date (" +
-                                   previousCreationDate.get() +
-                                   ") of previous article \"" +
-                                   previousArticleData.getLinks().get(0).getUrl() +
-                                   "\"");
+            final List<Element> comment = XMLHelper.getChildrenByElementType(previousArticle, ElementType.COMMENT);
+            if (comment.size() != 1) {
+                throw new UnsupportedOperationException("Wrong number of COMMENT nodes (" + comment.size() + ") for article \"" + previousArticleData.getLinks().get(0).getUrl() + "\"");
+            }
+            if (!comment.get(0).getTextContent().startsWith(s_linkedArticleMarker)) {
+                return new CheckStatus("Creation date of article \"" +
+                        articleData.getLinks().get(0).getUrl() +
+                        "\" (" +
+                        creationDate.get() +
+                        ") is before creation date (" +
+                        previousCreationDate.get() +
+                        ") of previous article \"" +
+                        previousArticleData.getLinks().get(0).getUrl() +
+                        "\"");                
+            }
         }
 
         return null;
