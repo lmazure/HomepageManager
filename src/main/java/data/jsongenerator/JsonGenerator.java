@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 import utils.Logger;
+import utils.XmlParsingException;
 
 public class JsonGenerator {
 
@@ -32,6 +33,7 @@ public class JsonGenerator {
 
     /**
      * @param args
+     * @throws XmlParsingException 
      */
     public static void generate(final Path homepage,
                                 final List<Path> files) {
@@ -41,10 +43,17 @@ public class JsonGenerator {
         final String homepagePath = homepage.toString();
 
         // parse the XML files
-        for (final Path file: files) {
-            main.scanFile(file.toFile());
+        try {
+            for (final Path file: files) {
+                main.scanFile(file.toFile());
+            }
+            main.scanPersonFile(new File(homepagePath + File.separator + s_linksDirectoryFileName + File.separator + s_personFileName));
+        } catch (final XmlParsingException e) {
+            Logger.log(Logger.Level.ERROR)
+            .append("Failed to parse the XML files")
+            .append(e)
+            .submit();
         }
-        main.scanPersonFile(new File(homepagePath + File.separator + s_linksDirectoryFileName + File.separator + s_personFileName));
 
         // generate content files
         main.generateReports(homepagePath);
@@ -56,12 +65,13 @@ public class JsonGenerator {
 
     /**
      * @param f
+     * @throws XmlParsingException 
      */
-    private void scanFile(final File f) {
+    private void scanFile(final File f) throws XmlParsingException {
         parser.parse(f);
     }
 
-    private void scanPersonFile(final File f) {
+    private void scanPersonFile(final File f) throws XmlParsingException {
         parser.parsePersonFile(f);
     }
 

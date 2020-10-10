@@ -10,6 +10,7 @@ import org.w3c.dom.Element;
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
 import utils.XMLHelper;
+import utils.XmlParsingException;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkData;
 import utils.xmlparsing.ElementType;
@@ -31,13 +32,23 @@ public class ArticleDateChecker extends NodeChecker {
 
     private static CheckStatus checkArticleDatesToPageDate(final Element e) {
 
-        final Optional<TemporalAccessor> pageDate = getPageDate(e);
+        Optional<TemporalAccessor> pageDate;
+        try {
+            pageDate = getPageDate(e);
+        } catch (@SuppressWarnings("unused") final XmlParsingException ex) {
+            return new CheckStatus("Failed to parse page date");
+        }
         if (pageDate.isEmpty()) {
             // should not happen
             return null;
         }
 
-        final ArticleData articleData = XmlParser.parseArticleElement(e);
+        ArticleData articleData;
+        try {
+            articleData = XmlParser.parseArticleElement(e);
+        } catch (@SuppressWarnings("unused") final XmlParsingException ex) {
+            return new CheckStatus("Failed to parse article");
+        }
         final Optional<TemporalAccessor> creationDate = articleData.getDate();
         if (creationDate.isPresent()) {
             if (compareTemporalAccesssor(creationDate.get(), pageDate.get()) > 0) {
@@ -80,7 +91,12 @@ public class ArticleDateChecker extends NodeChecker {
 
     private static CheckStatus checkArticleDateToPreviousArticleDate(final Element e) {
 
-        final ArticleData articleData = XmlParser.parseArticleElement(e);
+        ArticleData articleData;
+        try {
+            articleData = XmlParser.parseArticleElement(e);
+        } catch (@SuppressWarnings("unused") final XmlParsingException e1x) {
+            return new CheckStatus("Failed to parse article");
+        }
         final Optional<TemporalAccessor> creationDate = articleData.getDate();
 
         if (!XMLHelper.isOfType(e.getParentNode(), ElementType.ITEM)) return null;
@@ -90,7 +106,12 @@ public class ArticleDateChecker extends NodeChecker {
         if (!XMLHelper.isOfType(previousSibling.getFirstChild(), ElementType.ARTICLE)) return null;
         final Element previousArticle = (Element)previousSibling.getFirstChild();
 
-        final ArticleData previousArticleData = XmlParser.parseArticleElement(previousArticle);
+        ArticleData previousArticleData;
+        try {
+            previousArticleData = XmlParser.parseArticleElement(previousArticle);
+        } catch (@SuppressWarnings("unused") final XmlParsingException ex) {
+            return new CheckStatus("Failed to parse article");
+        }
         final Optional<TemporalAccessor> previousCreationDate = previousArticleData.getDate();
 
         if (previousCreationDate.isPresent() && creationDate.isEmpty()) {
@@ -106,7 +127,11 @@ public class ArticleDateChecker extends NodeChecker {
         if (compareTemporalAccesssor(previousCreationDate.get(), creationDate.get()) > 0) {
             final List<Element> comment = XMLHelper.getChildrenByElementType(previousArticle, ElementType.COMMENT);
             if (comment.size() != 1) {
-                throw new UnsupportedOperationException("Wrong number of COMMENT nodes (" + comment.size() + ") for article \"" + previousArticleData.getLinks().get(0).getUrl() + "\"");
+                return new CheckStatus("Article \"" +
+                        articleData.getLinks().get(0).getUrl() +
+                        "\" has a wrong number of COMMENT nodes (" +
+                        comment.size() +
+                        ")");
             }
             if (!comment.get(0).getTextContent().startsWith(s_linkedArticleMarker)) {
                 return new CheckStatus("Creation date of article \"" +
@@ -124,7 +149,7 @@ public class ArticleDateChecker extends NodeChecker {
         return null;
     }
 
-    private static Optional<TemporalAccessor> getPageDate(final Element e) {
+    private static Optional<TemporalAccessor> getPageDate(final Element e) throws XmlParsingException {
         final List<Element> date = XMLHelper.getChildrenByElementType(e.getOwnerDocument().getDocumentElement(), ElementType.DATE);
         if (date.size() == 0) {
             return Optional.empty();

@@ -14,6 +14,7 @@ import org.xml.sax.SAXException;
 
 import utils.Logger;
 import utils.XMLHelper;
+import utils.XmlParsingException;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.KeywordData;
@@ -47,8 +48,9 @@ public class Parser {
 
     /**
      * @param file
+     * @throws XmlParsingException 
      */
-    public void parse(final File file) {
+    public void parse(final File file) throws XmlParsingException {
 
         try {
             final Document document = _builder.parse(file);
@@ -70,9 +72,10 @@ public class Parser {
     /**
      * @param document
      * @param file
+     * @throws XmlParsingException 
      */
     private void extractArticles(final Document document,
-                                 final File file) {
+                                 final File file) throws XmlParsingException {
 
         final Element racine = document.getDocumentElement();
         final NodeList list = XMLHelper.getDescendantsByElementType(racine, ElementType.ARTICLE);
@@ -101,9 +104,10 @@ public class Parser {
     /**
      * @param document
      * @param file
+     * @throws XmlParsingException 
      */
     private void extractKeywords(final Document document,
-                                 final File file) {
+                                 final File file) throws XmlParsingException {
 
         final Element racine = document.getDocumentElement();
         final NodeList list = XMLHelper.getDescendantsByElementType(racine, ElementType.KEYWORD);
@@ -119,7 +123,7 @@ public class Parser {
             if (keywordData.getArticle().isPresent()) {
                 final Optional<Article> article =  _articleFactory.getArticle(keywordData.getArticle().get().getLinks().get(0).getUrl());
                 if (article.isEmpty()) {
-                    throw new UnsupportedOperationException("Cannot retrieve article of KEYWORD");
+                    throw new XmlParsingException("Cannot retrieve article of KEYWORD");
                 }
                 keyword.addArticle(article.get());
             }
@@ -134,8 +138,9 @@ public class Parser {
 
        /**
      * @param file
+     * @throws XmlParsingException 
      */
-    public void parsePersonFile(final File file) {
+    public void parsePersonFile(final File file) throws XmlParsingException {
 
         try {
             final Document document = _builder.parse(file);
@@ -156,9 +161,10 @@ public class Parser {
     /**
      * @param document
      * @param file
+     * @throws XmlParsingException 
      */
     private void extractPersonLinks(final Document document,
-                                    final File file) {
+                                    final File file) throws XmlParsingException {
 
         final Element racine = document.getDocumentElement();
         final NodeList list = XMLHelper.getDescendantsByElementType(racine, ElementType.CLIST);
@@ -169,12 +175,12 @@ public class Parser {
 
             final Node titleNode =  clistNode.getFirstChild();
             if (!XMLHelper.isOfType(titleNode, ElementType.TITLE)) {
-                throw new UnsupportedOperationException("Unexpected XML structure (the first child of a CLIST node is not a TITLE node)");
+                throw new XmlParsingException("Unexpected XML structure (the first child of a CLIST node is not a TITLE node)");
             }
 
             final Node authorNode =  titleNode.getFirstChild();
             if (!XMLHelper.isOfType(authorNode, ElementType.AUTHOR)) {
-                throw new UnsupportedOperationException("Unexpected XML structure (the first child of the first child of a CLIST node is not a AUTHOR node)");
+                throw new XmlParsingException("Unexpected XML structure (the first child of the first child of a CLIST node is not a AUTHOR node)");
             }
 
             final AuthorData authorData = XmlParser.parseAuthorElement((Element)authorNode);
@@ -187,10 +193,10 @@ public class Parser {
 
                 final Element linkNode = (Element)XMLHelper.getDescendantsByElementType(clistNode, ElementType.ITEM).item(j);
                 if (linkNode.getChildNodes().getLength() != 1) {
-                    throw new UnsupportedOperationException("Illegal number of children nodes");
+                    throw new XmlParsingException("Illegal number of children nodes");
                 }
                 if (!XMLHelper.isOfType((Element)linkNode.getChildNodes().item(0), ElementType.X)) {
-                    throw new UnsupportedOperationException("Illegal child node");
+                    throw new XmlParsingException("Illegal child node");
                 }
                 final LinkData linkData = XmlParser.parseXElement((Element)linkNode.getChildNodes().item(0));
                 final Link link = _linkFactory.newLink(null, linkData);

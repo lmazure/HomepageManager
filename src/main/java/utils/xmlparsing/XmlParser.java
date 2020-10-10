@@ -16,13 +16,14 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import utils.XMLHelper;
+import utils.XmlParsingException;
 
 public class XmlParser {
 
-    public static ArticleData parseArticleElement(final Element articleElement) {
+    public static ArticleData parseArticleElement(final Element articleElement) throws XmlParsingException {
 
         if (!XMLHelper.isOfType(articleElement, ElementType.ARTICLE)) {
-            throw new UnsupportedOperationException("parseArticleNode called with wrong node (" + articleElement.getTagName() + ")");
+            throw new XmlParsingException("parseArticleNode called with wrong node (" + articleElement.getTagName() + ")");
         }
 
         final List<Element> dateNodes =  getChildElements(articleElement, ElementType.DATE);
@@ -31,7 +32,7 @@ public class XmlParser {
             final TemporalAccessor dt = XmlParser.parseDateElement(dateNodes.get(0));
             date = Optional.of(dt);
         } else if (dateNodes.size() > 1) {
-            throw new UnsupportedOperationException("Wrong number of DATE nodes (" + dateNodes.size() + ")");
+            throw new XmlParsingException("Wrong number of DATE nodes (" + dateNodes.size() + ")");
         }
 
         final List<LinkData> links = new ArrayList<LinkData>();
@@ -48,22 +49,22 @@ public class XmlParser {
     }
 
 
-    public static KeywordData parseKeywordElement(final Element keywordElement) {
+    public static KeywordData parseKeywordElement(final Element keywordElement) throws XmlParsingException {
 
         if (!XMLHelper.isOfType(keywordElement, ElementType.KEYWORD)) {
-            throw new UnsupportedOperationException("parseKeywordNode called with wrong node (" + keywordElement.getTagName() + ")");
+            throw new XmlParsingException("parseKeywordNode called with wrong node (" + keywordElement.getTagName() + ")");
         }
 
         final NodeList children =  keywordElement.getChildNodes();
 
         if (children.getLength() != 2) {
-            throw new UnsupportedOperationException("KEYWORD node should have two children");
+            throw new XmlParsingException("KEYWORD node should have two children");
         }
         if (!XMLHelper.isOfType(children.item(0), ElementType.KEYID)) {
-            throw new UnsupportedOperationException("first child of KEYWORD node must be a KEYID node");
+            throw new XmlParsingException("first child of KEYWORD node must be a KEYID node");
         }
         if (!XMLHelper.isOfType(children.item(1), ElementType.KEYEDTEXT)) {
-            throw new UnsupportedOperationException("second child of KEYWORD node must be a KEYEDTEXT node");
+            throw new XmlParsingException("second child of KEYWORD node must be a KEYEDTEXT node");
         }
         final String keyId = children.item(0).getTextContent();
         final String keyText = children.item(1).getTextContent();
@@ -77,29 +78,29 @@ public class XmlParser {
             for (final Element itemNode: getChildElements(grandParent, ElementType.ITEM)) {
                 final NodeList child =  itemNode.getChildNodes();
                 if (child.getLength() != 1) {
-                    throw new UnsupportedOperationException("ITEM should have single child node");
+                    throw new XmlParsingException("ITEM should have single child node");
                 }
                 if ((child.item(0).getNodeType() != Node.ELEMENT_NODE) || !XMLHelper.isOfType(child.item(0), ElementType.X)) {
-                    throw new UnsupportedOperationException("ITEM should have an X child node");
+                    throw new XmlParsingException("ITEM should have an X child node");
                 }
                 links.add(XmlParser.parseXElement((Element)child.item(0)));
             }
         } else {
-            throw new UnsupportedOperationException("grandparent of KEYWORD node must be a CLIST or ARTICLE node");
+            throw new XmlParsingException("grandparent of KEYWORD node must be a CLIST or ARTICLE node");
         }
 
         return new KeywordData(keyId, keyText, article, links);
     }
 
-    public static LinkData parseXElement(final Element xElement) {
+    public static LinkData parseXElement(final Element xElement) throws XmlParsingException {
 
         if (!XMLHelper.isOfType(xElement, ElementType.X)) {
-            throw new UnsupportedOperationException("parseXNode called with wrong node (" + xElement.getTagName() + ")");
+            throw new XmlParsingException("parseXNode called with wrong node (" + xElement.getTagName() + ")");
         }
 
         final NodeList titleNodes = XMLHelper.getDescendantsByElementType(xElement, ElementType.T);
         if (titleNodes.getLength() != 1) {
-            throw new UnsupportedOperationException("Wrong number of T nodes (" + titleNodes.getLength() + ") in \"" + xElement.getTextContent() + "\"");
+            throw new XmlParsingException("Wrong number of T nodes (" + titleNodes.getLength() + ") in \"" + xElement.getTextContent() + "\"");
         }
         final String title = ((Element)titleNodes.item(0)).getTextContent();
 
@@ -111,13 +112,13 @@ public class XmlParser {
 
         final List<Element> urlNodes = getChildElements(xElement, ElementType.A);
         if (urlNodes.size() != 1) {
-            throw new UnsupportedOperationException("Wrong number of A nodes (" + urlNodes.size() + ") in \"" + title + "\"");
+            throw new XmlParsingException("Wrong number of A nodes (" + urlNodes.size() + ") in \"" + title + "\"");
         }
         final String url = urlNodes.get(0).getTextContent();
 
         final NodeList languageNodes = XMLHelper.getDescendantsByElementType(xElement, ElementType.L);
         if (languageNodes.getLength() == 0) {
-            throw new UnsupportedOperationException("Wrong number of L nodes (0) in \"" + title + "\"");
+            throw new XmlParsingException("Wrong number of L nodes (0) in \"" + title + "\"");
         }
         final Locale languages[] = new Locale[languageNodes.getLength()];
         for (int k = 0; k < languageNodes.getLength(); k++) {
@@ -126,7 +127,7 @@ public class XmlParser {
 
         final List<Element> formatNodes = XMLHelper.getChildrenByElementType(xElement, ElementType.F);
         if (formatNodes.isEmpty()) {
-            throw new UnsupportedOperationException("Wrong number of F nodes (0) in \"" + title + "\"");
+            throw new XmlParsingException("Wrong number of F nodes (0) in \"" + title + "\"");
         }
         final LinkFormat formats[] = new LinkFormat[formatNodes.size()];
         for (int k = 0; k < formatNodes.size(); k++) {
@@ -138,7 +139,7 @@ public class XmlParser {
         if (durationNodes.getLength() == 1) {
             duration = Optional.of(parseDurationElement((Element)durationNodes.item(0)));
         }  else if (durationNodes.getLength() > 1) {
-            throw new UnsupportedOperationException("Wrong number of DURATION nodes (" + durationNodes.getLength() + ") in \"" + title + "\"");
+            throw new XmlParsingException("Wrong number of DURATION nodes (" + durationNodes.getLength() + ") in \"" + title + "\"");
         }
 
         final List<Element> dateNodes =  getChildElements(xElement, ElementType.DATE);
@@ -147,7 +148,7 @@ public class XmlParser {
             final TemporalAccessor dt = XmlParser.parseDateElement(dateNodes.get(0));
             publicationDate = Optional.of(dt);
         } else if (dateNodes.size() > 1) {
-            throw new UnsupportedOperationException("Wrong number of DATE nodes (" + dateNodes.size() + ") in \"" + title + "\"");
+            throw new XmlParsingException("Wrong number of DATE nodes (" + dateNodes.size() + ") in \"" + title + "\"");
         }
 
         final Attr statusAttribute = xElement.getAttributeNode("status");
@@ -161,10 +162,10 @@ public class XmlParser {
         return new LinkData(title, subtitles, url, status.map(LinkData::parseStatus), protection.map(LinkData::parseProtection), formats, languages, duration, publicationDate);
     }
 
-    public static AuthorData parseAuthorElement(final Element authorElement) {
+    public static AuthorData parseAuthorElement(final Element authorElement) throws XmlParsingException {
 
         if (!XMLHelper.isOfType(authorElement, ElementType.AUTHOR)) {
-            throw new UnsupportedOperationException("parseAuthorNode called with wrong node (" + authorElement.getTagName() + ")");
+            throw new XmlParsingException("parseAuthorNode called with wrong node (" + authorElement.getTagName() + ")");
         }
 
         Optional<String> namePrefix = Optional.empty();
@@ -172,7 +173,7 @@ public class XmlParser {
         if (namePrefixList.getLength() == 1) {
             namePrefix = Optional.of(namePrefixList.item(0).getTextContent());
         } else if (namePrefixList.getLength() > 1) {
-            throw new UnsupportedOperationException("Wrong number of NAMEPREFIX nodes (" + namePrefixList.getLength() + ") in string \"" + authorElement.getTextContent() + "\"");
+            throw new XmlParsingException("Wrong number of NAMEPREFIX nodes (" + namePrefixList.getLength() + ") in string \"" + authorElement.getTextContent() + "\"");
         }
 
         Optional<String> firstName = Optional.empty();
@@ -180,7 +181,7 @@ public class XmlParser {
         if (firstNameList.getLength() == 1) {
             firstName = Optional.of(firstNameList.item(0).getTextContent());
         } else if (firstNameList.getLength() > 1) {
-            throw new UnsupportedOperationException("Wrong number of FIRSTNAME nodes (" + firstNameList.getLength() + ") in string \"" + authorElement.getTextContent() + "\"");
+            throw new XmlParsingException("Wrong number of FIRSTNAME nodes (" + firstNameList.getLength() + ") in string \"" + authorElement.getTextContent() + "\"");
         }
 
         Optional<String> middleName = Optional.empty();
@@ -188,7 +189,7 @@ public class XmlParser {
         if (middleNameList.getLength() == 1) {
             middleName = Optional.of(middleNameList.item(0).getTextContent());
         } else if (middleNameList.getLength() > 1) {
-            throw new UnsupportedOperationException("Wrong number of MIDDLENAME nodes (" + middleNameList.getLength() + ") in string \"" + authorElement.getTextContent() + "\"");
+            throw new XmlParsingException("Wrong number of MIDDLENAME nodes (" + middleNameList.getLength() + ") in string \"" + authorElement.getTextContent() + "\"");
         }
 
         Optional<String> lastName = Optional.empty();
@@ -196,7 +197,7 @@ public class XmlParser {
         if (lastNameList.getLength() == 1) {
             lastName = Optional.of(lastNameList.item(0).getTextContent());
         } else if (lastNameList.getLength() > 1) {
-            throw new UnsupportedOperationException("Wrong number of LASTNAME nodes (" + lastNameList.getLength() + ") in string \"" + authorElement.getTextContent() + "\"");
+            throw new XmlParsingException("Wrong number of LASTNAME nodes (" + lastNameList.getLength() + ") in string \"" + authorElement.getTextContent() + "\"");
         }
 
         Optional<String> nameSuffix = Optional.empty();
@@ -204,7 +205,7 @@ public class XmlParser {
         if (nameSuffixList.getLength() == 1) {
             nameSuffix = Optional.of(nameSuffixList.item(0).getTextContent());
         } else if (nameSuffixList.getLength() > 1) {
-            throw new UnsupportedOperationException("Wrong number of NAMESUFFIX nodes (" + nameSuffixList.getLength() + ") in string \"" + authorElement.getTextContent() + "\"");
+            throw new XmlParsingException("Wrong number of NAMESUFFIX nodes (" + nameSuffixList.getLength() + ") in string \"" + authorElement.getTextContent() + "\"");
         }
 
         Optional<String> givenName = Optional.empty();
@@ -212,16 +213,16 @@ public class XmlParser {
         if (givenNameList.getLength() == 1) {
             givenName = Optional.of(givenNameList.item(0).getTextContent());
         } else if (givenNameList.getLength() > 1) {
-            throw new UnsupportedOperationException("Wrong number of GIVENNAME nodes (" + givenNameList.getLength() + ") in string \"" + authorElement.getTextContent() + "\"");
+            throw new XmlParsingException("Wrong number of GIVENNAME nodes (" + givenNameList.getLength() + ") in string \"" + authorElement.getTextContent() + "\"");
         }
 
         return new AuthorData(namePrefix, firstName, middleName, lastName, nameSuffix, givenName);
     }
 
-    public static TemporalAccessor parseDateElement(final Element dateElement) {
+    public static TemporalAccessor parseDateElement(final Element dateElement) throws XmlParsingException {
 
         if (!XMLHelper.isOfType(dateElement, ElementType.DATE)) {
-            throw new UnsupportedOperationException("parseDateNode called with wrong node (" + dateElement.getTagName() + ")");
+            throw new XmlParsingException("parseDateNode called with wrong node (" + dateElement.getTagName() + ")");
         }
 
         final NodeList yearNodes = XMLHelper.getDescendantsByElementType(dateElement, ElementType.YEAR);
@@ -235,21 +236,21 @@ public class XmlParser {
                     final int day = Integer.parseInt(dayNodes.item(0).getTextContent());
                     return LocalDate.of(year, month, day);
                 } else if (dayNodes.getLength() > 1) {
-                    throw new UnsupportedOperationException("Wrong number of DAY nodes (" + dayNodes.getLength() + ") in string \"" + dateElement.getTextContent() + "\"");
+                    throw new XmlParsingException("Wrong number of DAY nodes (" + dayNodes.getLength() + ") in string \"" + dateElement.getTextContent() + "\"");
                 }
                 return YearMonth.of(year, month);
             } else if (monthNodes.getLength() > 1) {
-                throw new UnsupportedOperationException("Wrong number of MONTH nodes (" + monthNodes.getLength() + ") in string \"" + dateElement.getTextContent() + "\"");
+                throw new XmlParsingException("Wrong number of MONTH nodes (" + monthNodes.getLength() + ") in string \"" + dateElement.getTextContent() + "\"");
             }
             return Year.of(year);
         }
-        throw new UnsupportedOperationException("Wrong number of YEAR nodes (" + yearNodes.getLength() + ") in string \"" + dateElement.getTextContent() + "\"");
+        throw new XmlParsingException("Wrong number of YEAR nodes (" + yearNodes.getLength() + ") in string \"" + dateElement.getTextContent() + "\"");
     }
 
-    private static Duration parseDurationElement(final Element durationElement) {
+    private static Duration parseDurationElement(final Element durationElement) throws XmlParsingException {
 
         if (!XMLHelper.isOfType(durationElement, ElementType.DURATION)) {
-            throw new UnsupportedOperationException("parseDurationNode called with wrong node (" + durationElement.getTagName() + ")");
+            throw new XmlParsingException("parseDurationNode called with wrong node (" + durationElement.getTagName() + ")");
         }
 
         Duration duration;
@@ -259,7 +260,7 @@ public class XmlParser {
             final long seconds = Long.parseLong(secondsNodes.item(0).getTextContent());
             duration = Duration.ofSeconds(seconds);
         } else {
-            throw new UnsupportedOperationException("Wrong number of SECOND nodes (" + secondsNodes.getLength() + ") in string \"" + durationElement.getTextContent() + "\"");
+            throw new XmlParsingException("Wrong number of SECOND nodes (" + secondsNodes.getLength() + ") in string \"" + durationElement.getTextContent() + "\"");
         }
 
         final NodeList minutesNodes = XMLHelper.getDescendantsByElementType(durationElement, ElementType.MINUTE);
@@ -267,7 +268,7 @@ public class XmlParser {
             final long minutes = Long.parseLong(minutesNodes.item(0).getTextContent());
             duration = duration.plusMinutes(minutes);
         } else if (minutesNodes.getLength() > 1) {
-            throw new UnsupportedOperationException("Wrong number of MINUTE nodes (" + minutesNodes.getLength() + ") in string \"" + durationElement.getTextContent() + "\"");
+            throw new XmlParsingException("Wrong number of MINUTE nodes (" + minutesNodes.getLength() + ") in string \"" + durationElement.getTextContent() + "\"");
         }
 
         final NodeList hoursNodes = XMLHelper.getDescendantsByElementType(durationElement, ElementType.HOUR);
@@ -275,7 +276,7 @@ public class XmlParser {
             final long  hours = Long.parseLong(hoursNodes.item(0).getTextContent());
             duration = duration.plusHours(hours);
         } else if (hoursNodes.getLength() > 1) {
-            throw new UnsupportedOperationException("Wrong number of HOUR nodes (" + hoursNodes.getLength() + ") in string \"" + durationElement.getTextContent() + "\"");
+            throw new XmlParsingException("Wrong number of HOUR nodes (" + hoursNodes.getLength() + ") in string \"" + durationElement.getTextContent() + "\"");
         }
 
         return duration;

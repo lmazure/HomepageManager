@@ -38,6 +38,7 @@ import utils.InvalidHttpCodeException;
 import utils.Logger;
 import utils.Logger.Level;
 import utils.XMLHelper;
+import utils.XmlParsingException;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkData;
 import utils.xmlparsing.ElementType;
@@ -136,7 +137,14 @@ public class LinkCheckRunner {
         }
 
         if (XMLHelper.isOfType(e, ElementType.X)) {
-            list.add(XmlParser.parseXElement(e));
+            try {
+                list.add(XmlParser.parseXElement(e));
+            } catch (final XmlParsingException ex) {
+                Logger.log(Level.ERROR)
+                      .append("Failed to parse Element ")
+                      .append(ex)
+                      .submit();
+            }
         }
 
         return list;
@@ -156,7 +164,7 @@ public class LinkCheckRunner {
         if (XMLHelper.isOfType(e, ElementType.ARTICLE)) {
             try {
                 list.add(XmlParser.parseArticleElement(e));
-            } catch (final UnsupportedOperationException ex) {
+            } catch (final XmlParsingException ex) {
                 Logger.log(Level.ERROR)
                       .append("Failed to parse Element ")
                       .append(ex)

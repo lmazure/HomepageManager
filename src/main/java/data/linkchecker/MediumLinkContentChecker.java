@@ -52,10 +52,6 @@ public class MediumLinkContentChecker extends LinkContentChecker {
             return new LinkContentCheck("Medium link with no creation date");
         }
 
-        if (publicationDate.isPresent()) {
-            return new LinkContentCheck("Medium link with publication date");
-        }
-
         if (!(creationDate.get() instanceof LocalDate)) {
             return new LinkContentCheck("Date without month or day");
        }
