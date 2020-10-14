@@ -23,7 +23,7 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
     }
 
     @Override
-    protected LinkContentCheck checkGlobalData(String data) {
+    protected LinkContentCheck checkGlobalData(final String data) {
         _parser = new YoutubeWatchLinkContentParser(data);
 
         if (!_parser.isPlayable()) {
@@ -42,7 +42,7 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
         if (!title.equals(effectiveTitle)) {
             return new LinkContentCheck("title \"" +
                                         title +
-                                        "\"  is not equal to the real title \"" +
+                                        "\" is not equal to the real title \"" +
                                         effectiveTitle +
                                           "\"");
         }

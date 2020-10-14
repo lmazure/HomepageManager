@@ -18,8 +18,6 @@ import utils.xmlparsing.XmlParser;
 
 public class ArticleDateChecker extends NodeChecker {
 
-    private static final String s_linkedArticleMarker = "The continuation of the previous ";
-
     final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.ARTICLE
             });
@@ -91,6 +89,15 @@ public class ArticleDateChecker extends NodeChecker {
 
     private static CheckStatus checkArticleDateToPreviousArticleDate(final Element e) {
 
+        final Element firstArticleOfChain = getFirstArticleOfArticleChain(e);
+        if (firstArticleOfChain == null) {
+            return new CheckStatus("Incorrect chain or articles");
+        }
+        if (firstArticleOfChain != e) {
+            // we only verify the first article of the chain
+            return null;
+        }
+
         ArticleData articleData;
         try {
             articleData = XmlParser.parseArticleElement(e);
@@ -105,10 +112,14 @@ public class ArticleDateChecker extends NodeChecker {
         if (!XMLHelper.isOfType(previousSibling, ElementType.ITEM)) return null;
         if (!XMLHelper.isOfType(previousSibling.getFirstChild(), ElementType.ARTICLE)) return null;
         final Element previousArticle = (Element)previousSibling.getFirstChild();
+        final Element firstArticleOfPreviousChain = getFirstArticleOfArticleChain(previousArticle);
+        if (firstArticleOfPreviousChain == null) {
+            return new CheckStatus("Incorrect chain or articles");
+        }
 
         ArticleData previousArticleData;
         try {
-            previousArticleData = XmlParser.parseArticleElement(previousArticle);
+            previousArticleData = XmlParser.parseArticleElement(firstArticleOfPreviousChain);
         } catch (@SuppressWarnings("unused") final XmlParsingException ex) {
             return new CheckStatus("Failed to parse article");
         }
@@ -125,28 +136,40 @@ public class ArticleDateChecker extends NodeChecker {
         if (previousCreationDate.isEmpty()) return null;
 
         if (compareTemporalAccesssor(previousCreationDate.get(), creationDate.get()) > 0) {
-            final List<Element> comment = XMLHelper.getChildrenByElementType(previousArticle, ElementType.COMMENT);
-            if (comment.size() != 1) {
-                return new CheckStatus("Article \"" +
-                        articleData.getLinks().get(0).getUrl() +
-                        "\" has a wrong number of COMMENT nodes (" +
-                        comment.size() +
-                        ")");
-            }
-            if (!comment.get(0).getTextContent().startsWith(s_linkedArticleMarker)) {
-                return new CheckStatus("Creation date of article \"" +
-                        articleData.getLinks().get(0).getUrl() +
-                        "\" (" +
-                        creationDate.get() +
-                        ") is before creation date (" +
-                        previousCreationDate.get() +
-                        ") of previous article \"" +
-                        previousArticleData.getLinks().get(0).getUrl() +
-                        "\"");                
-            }
+            return new CheckStatus("Creation date of article \"" +
+                    articleData.getLinks().get(0).getUrl() +
+                    "\" (" +
+                    creationDate.get() +
+                    ") is before creation date (" +
+                    previousCreationDate.get() +
+                    ") of previous article \"" +
+                    previousArticleData.getLinks().get(0).getUrl() +
+                    "\"");                
         }
 
         return null;
+    }
+
+    /**
+     * return the first article of a list of articles linked by 'pred'
+     * if the 'pred' chain is incorrect, return null
+     * 
+     * @param e
+     * @return
+     */
+    private static Element getFirstArticleOfArticleChain(final Element e) {
+        
+        final String pred = e.getAttribute("pred");
+        if (pred.isEmpty()) return e;
+
+        if (!XMLHelper.isOfType(e.getParentNode(), ElementType.ITEM)) return null;
+        final Element previousSibling = XMLHelper.getPreviousSiblingElement((Element)e.getParentNode());
+        if (previousSibling == null) return null;
+        if (!XMLHelper.isOfType(previousSibling, ElementType.ITEM)) return null;
+        if (!XMLHelper.isOfType(previousSibling.getFirstChild(), ElementType.ARTICLE)) return null;
+        final Element previousArticle = (Element)previousSibling.getFirstChild();
+
+        return getFirstArticleOfArticleChain(previousArticle);
     }
 
     private static Optional<TemporalAccessor> getPageDate(final Element e) throws XmlParsingException {

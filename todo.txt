@@ -1,10 +1,15 @@
-- corriger tous les fichiers de math et en profiter pour gérer les continuations
+- faire une modification en masse des articles de continuation pour leur mettre l'attribut 'pred'
 
-- créer garden.xml sous day.xml
+- ajouter un ckec que l'article précédent est bien celui défini par 'pred'
+
+- l'attribut "ID" de <KEY> et <MODIFIERKEY> devrait être "id"
+
+- ranger les fichiers
+design.xml
+coding.xml
 
 - corriger les problèmes avec les video de continuation
--- parfois la seconde vidéo est publier la première
--- parfois une vido d'insère entre les deux
+-- parfois la seconde vidéo est publieée avant la première
 
 - mettre in test unitaire pour vérifier que tous les ElementTypes apparaissent quelque part
 
@@ -17,10 +22,15 @@
 - mettre la KEYID comme titre du keyword popup
 
 - mauvais titre pour medium
-https://medium.com/netflix-techblog/a-microscope-on-microservices-923b906103f4
+-- https://medium.com/netflix-techblog/a-microscope-on-microservices-923b906103f4
+https://medium.com/netflix-techblog/making-the-netflix-api-more-resilient-a8ec62159c2d
+https://medium.com/netflix-techblog/netflixoss-announcing-hollow-5f710eefca4b
+-- https://medium.com/@kentbeck_7670/monolith-services-theory-practice-617e4546a879
+-- https://medium.com/netflix-techblog/a-microscope-on-microservices-923b906103f4
 https://medium.com/netflix-techblog/making-the-netflix-api-more-resilient-a8ec62159c2d
 https://medium.com/netflix-techblog/netflixoss-announcing-hollow-5f710eefca4b
 
+http
 - modifier règles pour que typescript.xml soit propre
 
 - mauvaise détection de langue : 
@@ -49,6 +59,7 @@ il est normal de pouvoir avoir uniquement une date de publication ?
 - forcer la mise à jour des caches avant de modifier les fichiers JS de nouveau
 
 - nettoyage des fichiers
+cracking.xml
 cpp.xml
 bbst.xml
 film.xml
