@@ -29,7 +29,7 @@ public class ModifierKeyChecker extends NodeChecker {
 
     private static CheckStatus checkModifierKeyString(final Element e) {
 
-        final String str = e.getAttribute("ID");
+        final String str = e.getAttribute("id");
 
         if (str.equals(s_CTRL)) return null;
         if (str.equals(s_ALT)) return null;
@@ -45,8 +45,8 @@ public class ModifierKeyChecker extends NodeChecker {
         final Node next = e.getNextSibling();
         if (!XMLHelper.isOfType(next, ElementType.MODIFIERKEY)) return null;
 
-        final String str = e.getAttribute("ID");
-        final String strNext = ((Element)next).getAttribute("ID");
+        final String str = e.getAttribute("id");
+        final String strNext = ((Element)next).getAttribute("id");
 
         if (modifier1CanPreceedModifier2(str, strNext)) return null;
 

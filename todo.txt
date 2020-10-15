@@ -1,17 +1,12 @@
-- faire une modification en masse des articles de continuation pour leur mettre l'attribut 'pred'
+- ajouter un symbole pour les articles qui ont un attribut 'pred'
 
-- ajouter un ckec que l'article précédent est bien celui défini par 'pred'
-
-- l'attribut "ID" de <KEY> et <MODIFIERKEY> devrait être "id"
+- ajouter un check que l'article précédent est bien celui défini par 'pred'
 
 - ranger les fichiers
 design.xml
 coding.xml
 
-- corriger les problèmes avec les video de continuation
--- parfois la seconde vidéo est publieée avant la première
-
-- mettre in test unitaire pour vérifier que tous les ElementTypes apparaissent quelque part
+- mettre un test unitaire pour vérifier que tous les ElementTypes apparaissent quelque part
 
 - faire un profiling de la régénération intégrale des contrôle pour voir s'il y a une fuite de thread
 
