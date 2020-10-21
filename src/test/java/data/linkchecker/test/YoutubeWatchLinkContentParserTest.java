@@ -99,6 +99,21 @@ class YoutubeWatchLinkContentParserTest {
     }
 
     @Test
+    void testTitleWithBackslashQuote() {
+        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=aeF-0y9HP9A"),
+                           (final Boolean b, final SiteData d) -> {
+                            Assertions.assertTrue(d.getDataFile().isPresent());
+                            final String data = FileHelper.slurpFile(d.getDataFile().get());
+                            final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
+                            Assertions.assertEquals("Googling the Googlers\\' DNA: A Demonstration of the 23andMe Personal Genome S...", parser.getTitle());
+                            consumerHasBeenCalled.set(true);
+                           });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    @Test
     void testDescription() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);

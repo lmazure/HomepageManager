@@ -1,7 +1,3 @@
-- nettoyer les violations nodes de notes/vscode.xml
-
-- le titre de https://www.youtube.com/watch?v=aeF-0y9HP9A est mal extrait
-
 - colorer les boutons
 
 - grossir la fonte sur Chrome et Android

@@ -129,11 +129,12 @@ public class YoutubeWatchLinkContentParser {
         }
 
         assert(text != null);
-        text = text.replaceAll("\\\\\\\\n", "\n")
-                   .replaceAll("\\\\\\\\u0026","&")
-                   .replaceAll("\\\\u0090","\u0090")
-                   .replaceAll("\\\\/","/")
-                   .replaceAll("\\\\\\\\\\\\\"","\"");
+        text = text.replaceAll(Pattern.quote("\\\\n"), "\n")
+                   .replaceAll(Pattern.quote("\\\\u0026"),"&")
+                   .replaceAll(Pattern.quote("\\\\u0090"),"\u0090")
+                   .replaceAll(Pattern.quote("\\/"),"/")
+                   .replaceAll(Pattern.quote("\\\\\\\""),"\"")
+                   .replaceAll(Pattern.quote("\\\\\\'"),"'");
 
         return text;
     }
