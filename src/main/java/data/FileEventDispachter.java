@@ -13,6 +13,7 @@ import java.util.List;
 
 import utils.ExitHelper;
 import utils.Logger;
+import utils.WatchDir;
 
 public class FileEventDispachter {
 

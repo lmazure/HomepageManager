@@ -1,4 +1,10 @@
-- ajouter un symbole pour les articles qui ont un attribut 'pred'
+- nettoyer les violations nodes de notes/vscode.xml
+
+- le titre de https://www.youtube.com/watch?v=aeF-0y9HP9A est mal extrait
+
+- colorer les boutons
+
+- grossir la fonte sur Chrome et Android
 
 - ajouter un check que l'article précédent est bien celui défini par 'pred'
 
@@ -54,11 +60,8 @@ il est normal de pouvoir avoir uniquement une date de publication ?
 - forcer la mise à jour des caches avant de modifier les fichiers JS de nouveau
 
 - nettoyage des fichiers
-cracking.xml
-cpp.xml
+kika
 bbst.xml
-film.xml
-edc.xml
 
 - comprendre pourquoi certaines vidéos sont marquées non playable
 https://www.youtube.com/watch?v=qMyMCDPaV60
@@ -68,7 +71,7 @@ https://www.youtube.com/watch?v=qMyMCDPaV60
 
 - vérification des liens internes
 
-s- corriger le fait que les liens soient chargés deux fois
+- corriger le fait que les liens soient chargés deux fois
 
 - si un lien n'est plus zombie, on ne le détecte pas car on ne vérifie pas les données des liens zombie
 

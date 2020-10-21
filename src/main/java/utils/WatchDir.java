@@ -1,4 +1,5 @@
-package data;
+package utils;
+
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.FileVisitResult;
@@ -20,9 +21,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
-import utils.ExitHelper;
-import utils.Logger;
-
 /**
  * Watch a directory (and its sub-directories) for changes to files
  */
@@ -33,6 +31,7 @@ public class WatchDir {
         CREATE,
         DELETE
     }
+
     private final Path _path;
     private final WatchService _watcher;
     private final Map<WatchKey,Path> _keys;

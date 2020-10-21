@@ -26,7 +26,7 @@ public class KeyChecker extends NodeChecker {
 
         final String str = e.getAttribute("id");
 
-        final Pattern pattern = Pattern.compile("^([-+*/=A-Z0-9;:.,&\"'%#!?_)(]|F[1-9]|F10|F11|F12|Left|Up|Right|Down|Beginning|PageUp|PageDown|Space|Tab|Enter|Del|Backspace|Esc|Break|Ins|End|Return|Num [-+*/0-9])$");
+        final Pattern pattern = Pattern.compile("^([-+*/=A-Z0-9à^;:.,&\"'%#!?_)(]|F[1-9]|F10|F11|F12|Left|Up|Right|Down|Beginning|PageUp|PageDown|Space|Tab|Enter|Del|Backspace|Esc|Break|Ins|End|Return|Num [-+*/0-9])$");
         final Matcher matcher = pattern.matcher(str);
 
         if (matcher.find()) return null;
