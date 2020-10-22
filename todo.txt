@@ -1,3 +1,5 @@
+- extraire les langues de Twitter
+
 - colorer les boutons
 
 - grossir la fonte sur Chrome et Android
@@ -10,7 +12,7 @@ coding.xml
 
 - mettre un test unitaire pour vérifier que tous les ElementTypes apparaissent quelque part
 
-- faire un profiling de la régénération intégrale des contrôle pour voir s'il y a une fuite de thread
+- faire un profiling de la régénération intégrale des contrôles pour voir s'il y a une fuite de thread
 
 - réparer tests unitaires
 
@@ -18,14 +20,6 @@ coding.xml
 
 - mettre la KEYID comme titre du keyword popup
 
-- mauvais titre pour medium
--- https://medium.com/netflix-techblog/a-microscope-on-microservices-923b906103f4
-https://medium.com/netflix-techblog/making-the-netflix-api-more-resilient-a8ec62159c2d
-https://medium.com/netflix-techblog/netflixoss-announcing-hollow-5f710eefca4b
--- https://medium.com/@kentbeck_7670/monolith-services-theory-practice-617e4546a879
--- https://medium.com/netflix-techblog/a-microscope-on-microservices-923b906103f4
-https://medium.com/netflix-techblog/making-the-netflix-api-more-resilient-a8ec62159c2d
-https://medium.com/netflix-techblog/netflixoss-announcing-hollow-5f710eefca4b
 
 http
 - modifier règles pour que typescript.xml soit propre

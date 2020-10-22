@@ -49,7 +49,7 @@ public class MediumLinkContentParserTest {
     }
 
     @Test
-    void testTitleWithAmpersand() {
+    void testTitleWithAmpersandAndLink() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://medium.com/@tdeniffel/tcr-test-commit-revert-a-test-alternative-to-tdd-6e6b03c22bec"),
@@ -58,6 +58,21 @@ public class MediumLinkContentParserTest {
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
                                final MediumLinkContentParser parser = new MediumLinkContentParser(data);
                                Assertions.assertEquals("TCR (test && commit || revert). How to use? Alternative to TDD?", parser.getTitle());
+                               consumerHasBeenCalled.set(true);
+                           });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    @Test
+    void testTitleWithGreater() {
+        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(TestHelper.buildURL("https://medium.com/@kentbeck_7670/monolith-services-theory-practice-617e4546a879"),
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final MediumLinkContentParser parser = new MediumLinkContentParser(data);
+                               Assertions.assertEquals("Monolith -> Services: Theory & Practice", parser.getTitle());
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -78,10 +93,19 @@ public class MediumLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
-    private SynchronousSiteDataRetriever buildDataSiteRetriever() {
-        final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\test\\MediumLinkContentParserTest");
-        FileHelper.deleteDirectory(cachePath.toFile());
-        return new SynchronousSiteDataRetriever(new SiteDataPersister(cachePath));
+    @Test
+    void testTitleForNetflix() {
+        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(TestHelper.buildURL("https://medium.com/netflix-techblog/a-microscope-on-microservices-923b906103f4"),
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final MediumLinkContentParser parser = new MediumLinkContentParser(data);
+                               Assertions.assertEquals("A Microscope on Microservices", parser.getTitle());
+                               consumerHasBeenCalled.set(true);
+                           });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
     @ParameterizedTest
@@ -123,5 +147,11 @@ public class MediumLinkContentParserTest {
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    private SynchronousSiteDataRetriever buildDataSiteRetriever() {
+        final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\test\\MediumLinkContentParserTest");
+        FileHelper.deleteDirectory(cachePath.toFile());
+        return new SynchronousSiteDataRetriever(new SiteDataPersister(cachePath));
     }
 }

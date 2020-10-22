@@ -38,13 +38,15 @@ public class MediumLinkContentParser {
 
     private String extractTitle() {
 
-        final Pattern p = Pattern.compile("\"datePublished\":\"[^\"]*\",\"dateModified\":\"[^\"]*\",\"headline\":\"([^\"]*)\"");
-        final Matcher m = p.matcher(_data);
+        final Pattern p = Pattern.compile("<h1[^>]+>(.+?)</h1>");
+        final Matcher m = p.matcher(_data);        
         if (m.find()) {
             return m.group(1)
-                    .replaceFirst(" - (.*) - Medium", "")
-                    .replace("\\u002F", "/");
-        }
+                    .replaceAll("<.+?>","") // remove HTML that may be in the title
+                    .replace("&amp;","&")
+                    .replace("&lt;","<")
+                    .replace("&gt;",">");
+         }
 
         ExitHelper.exit("Failed to find title in Medium page");
 
