@@ -33,8 +33,6 @@ https://root.cern.ch/TaligentDocs/TaligentOnline/DocumentRoot/1.0/Home/index.htm
 - faire un prefetch de la map quand on affiche la page d'accueil
 
 - problème de reconnaissance de langue
-https://www.youtube.com/watch?v=ccB09XRdGjo
-https://www.youtube.com/watch?v=hGbrH8DGzRg
 liens sur management.xml
 
 - content/adbook.json semble encore présent dans SVN
