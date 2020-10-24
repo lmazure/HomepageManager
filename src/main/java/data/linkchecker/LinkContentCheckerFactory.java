@@ -30,6 +30,10 @@ public class LinkContentCheckerFactory {
             return new YoutubeWatchLinkContentChecker(linkData, articleData, file);
         }
 
+        if (url.toString().startsWith("https://twitter.com/")) {
+            return new TwitterLinkContentChecker(linkData, articleData, file);
+        }
+
         return new LinkContentChecker(linkData, articleData, file);
     }
 }
