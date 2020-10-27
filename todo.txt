@@ -1,10 +1,17 @@
+- nettoyer info.xml
+
+- corriger les problèmes récurrents avec Youtube
+utiliser l'API ?
+
+- ajouter les pred qui manquent à "<ARTICLE>.*the previous"
+
+- nettoyer links.tdd.xml
+
 - extraire les langues de Twitter
 
 - colorer les boutons
 
 - grossir la fonte sur Chrome et Android
-
-- ajouter un check que l'article précédent est bien celui défini par 'pred'
 
 - ranger les fichiers
 design.xml

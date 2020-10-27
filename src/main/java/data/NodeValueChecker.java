@@ -36,6 +36,7 @@ import data.nodechecker.checker.nodeChecker.NodeChecker;
 import data.nodechecker.checker.nodeChecker.NonEmptyChecker;
 import data.nodechecker.checker.nodeChecker.NonNormalizedAuthorChecker;
 import data.nodechecker.checker.nodeChecker.NonNormalizedURLChecker;
+import data.nodechecker.checker.nodeChecker.PredArticleChecker;
 import data.nodechecker.checker.nodeChecker.ProtectionFromURLChecker;
 import data.nodechecker.checker.nodeChecker.TableSortChecker;
 import data.nodechecker.checker.nodeChecker.TitleFormatChecker;
@@ -73,6 +74,7 @@ public class NodeValueChecker implements FileHandler {
         _nodeCheckers.add(new EllipsisChecker());
         _nodeCheckers.add(new DoubleSpaceChecker());
         _nodeCheckers.add(new ArticleDateChecker());
+        _nodeCheckers.add(new PredArticleChecker());
         _nodeCheckers.add(new MissingSpaceChecker());
         _nodeCheckers.add(new TitleFormatChecker());
         _nodeCheckers.add(new NonEmptyChecker());

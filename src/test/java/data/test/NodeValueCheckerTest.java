@@ -562,6 +562,53 @@ class NodeValueCheckerTest {
         }
     }
 
+    @Test
+    void ignoreCorrectPredAttribute() {
+        
+        final String content =
+            "<?xml version=\"1.0\"?>" +
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<TITLE>TypeScript</TITLE>" +
+            "<PATH>links/typescript.xml</PATH>" +
+            "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
+            "<CONTENT>" +
+            "  <ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>1</DAY></DATE><COMMENT>comment 1</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE pred='URL1'><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>comment 2</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title2</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>comment 3</COMMENT></ARTICLE></ITEM>" +
+            "</CONTENT>" +
+            "</PAGE>";
+        try {
+            test(content);
+        } catch (@SuppressWarnings("unused") final SAXException e) {
+            Assertions.fail("SAXException");
+        }
+    }
+
+    @Test
+    void reportIncorrectPredAttribute() {
+        
+        final String content =
+            "<?xml version=\"1.0\"?>" +
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<TITLE>TypeScript</TITLE>" +
+            "<PATH>links/typescript.xml</PATH>" +
+            "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
+            "<CONTENT>" +
+            "  <ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>1</DAY></DATE><COMMENT>comment 1</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE pred='badURL'><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>comment 2</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title2</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>comment 3</COMMENT></ARTICLE></ITEM>" +
+            "</CONTENT>" +
+            "</PAGE>";
+        try {
+            test(content,
+                 "Article has 'pred' article equal to \"badURL\" while previous article has URL \"URL1\"");
+        } catch (@SuppressWarnings("unused") final SAXException e) {
+            Assertions.fail("SAXException");
+        }
+    }
+
     static private void test(final String content) throws SAXException {
 
         final List<NodeCheckError> expected = new ArrayList<NodeCheckError>();
