@@ -1,7 +1,30 @@
-- nettoyer info.xml
+- déplacer les databases de compo.xml dans sql.xml
+
+- nettoyer ordre de
+links/jslib.xml
+links/linux.xml
+links/medimag.xml
+links/medimagmarket.xml
+links/minecraft.xml
+links/news.xml
+links/perl.xml
+links/photo.xml
+links/solaris.xml
+links/unix.xml
+links/weird.xml
+links/windows.xml
+links/x11.xml
+links/xml.xml
+links/javascrp.xml
+links/test.xml
+links/quality.xml
 
 - corriger les problèmes récurrents avec Youtube
 utiliser l'API ?
+https://developers.google.com/youtube/v3/getting-started
+https://github.com/googleapis/google-api-java-client-services/tree/master/clients/google-api-services-youtube/v3
+https://googleapis.dev/java/google-api-services-youtube/latest/index.html
+https://developers.google.com/youtube/v3/docs/videos/list
 
 - ajouter les pred qui manquent à "<ARTICLE>.*the previous"
 
