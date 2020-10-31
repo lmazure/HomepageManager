@@ -1,4 +1,3 @@
-
 package data.nodechecker.checker.nodeChecker;
 
 import data.nodechecker.checker.CheckStatus;

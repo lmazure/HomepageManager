@@ -1,14 +1,6 @@
 - déplacer les databases de compo.xml dans sql.xml
 
 - nettoyer ordre de
-links/jslib.xml
-links/linux.xml
-links/medimag.xml
-links/medimagmarket.xml
-links/minecraft.xml
-links/news.xml
-links/perl.xml
-links/photo.xml
 links/solaris.xml
 links/unix.xml
 links/weird.xml

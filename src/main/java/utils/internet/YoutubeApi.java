@@ -1,7 +1,6 @@
 package utils.internet;
 
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -11,46 +10,118 @@ import com.google.api.services.youtube.YouTubeRequestInitializer;
 import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoListResponse;
 
+import utils.ExitHelper;
+
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 
 public class YoutubeApi {
-    private static final String APPLICATION_NAME = "HomepageManager";
-    private static final String API_KEY = "XXX";
+
+    private final String _applicationName;
+    private final String _apiKey;
+    private final String _referenceRegion;
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
 
-    /**
-     * Call function to create API service object. Define and
-     * execute API request. Print API response.
-     *
-     * @throws GeneralSecurityException, IOException, GoogleJsonResponseException
-     */
-    public static void main(String[] args) throws GeneralSecurityException, IOException, GoogleJsonResponseException {
-        final NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
-        final YouTube youtubeService = new YouTube.Builder(httpTransport, JSON_FACTORY, null)
-                                                  .setApplicationName(APPLICATION_NAME)
-                                                  .setYouTubeRequestInitializer(new YouTubeRequestInitializer(API_KEY))
-                                                  .build();
-        // see https://developers.google.com/youtube/v3/docs/videos
-        final YouTube.Videos.List request = youtubeService.videos()
-                                                          .list(Arrays.asList("snippet","contentDetails","statistics", "status", "recordingDetails"));
-        final VideoListResponse response = request.setId(Arrays.asList("aQo8tYQuWQw","lFEgohhfxOA", "dM_JivN3HvI"))
-                                                  .execute();
-        for (Video video: response.getItems()) {
-            System.out.println("title = " + video.getSnippet().getTitle());
-            System.out.println("description = " + video.getSnippet().getDescription());
-            System.out.println("publication date = " + video.getSnippet().getPublishedAt());
-            System.out.println("recording date = " + video.getRecordingDetails().getRecordingDate());
-            System.out.println("duration = " + video.getContentDetails().getDuration());
-            /*
-             * contentDetails.regionRestriction.allowed[]   list
-               A list of region codes that identify countries where the video is viewable. If this property is present and a country is not listed in its value, then the video is blocked from appearing in that country. If this property is present and contains an empty list, the video is blocked in all countries.
-               contentDetails.regionRestriction.blocked[]  list
-               A list of region codes that identify countries where the video is blocked. If this property is present and a country is not listed in its value, then the video is viewable in that country. If this property is present and contains an empty list, the video is viewable in all countries.
-             */
-            System.out.println("---------------------------------------------");
+    public YoutubeApi(final String applicationName,
+                      final String apiKey,
+                      final String referenceRegion) {
+        _applicationName = applicationName;
+        _apiKey = apiKey;
+        _referenceRegion = referenceRegion;
+    }
+
+    public YoutubeVideoDto getData(final String id) {
+        return getData(Arrays.asList(id)).get(0);
+    }
+
+    public List<YoutubeVideoDto> getData(final List<String> ids) {
+        final VideoListResponse responses  = getVideoInfo(ids);
+        // System.out.println(responses);
+
+        final List<YoutubeVideoDto> dtos = new ArrayList<YoutubeVideoDto>();
+        for (final Video video: responses.getItems()) {
+            dtos.add(buildDto(video));
         }
-        System.out.println(response);
+        return dtos;
+    }
+
+    private YoutubeVideoDto buildDto(final Video video) { 
+
+        // see https://developers.google.com/youtube/v3/docs/videos
+
+        final String title = video.getSnippet().getTitle();
+
+        final String description = video.getSnippet().getDescription();
+
+        final String rec = video.getRecordingDetails().getRecordingDate();
+        final Optional<LocalDate> recordingDate = (rec == null) ? Optional.empty()
+                                                                : Optional.of(ZonedDateTime.parse(rec).toLocalDate());
+
+        final LocalDate publicationDate = ZonedDateTime.parse(video.getSnippet().getPublishedAt()).toLocalDate();
+
+        final Duration duration = Duration.parse(video.getContentDetails().getDuration());
+
+        final Optional<Locale> textLanguage = parseLanguage(video.getSnippet().getDefaultLanguage());
+
+        final Optional<Locale> audioLanguage = parseLanguage(video.getSnippet().getDefaultAudioLanguage());
+
+        boolean isAllowed = true;
+        if (video.getContentDetails().getRegionRestriction() != null) {
+            if (video.getContentDetails().getRegionRestriction().getAllowed() != null) {
+                ExitHelper.exit("region restrictions to be implemented");
+            }
+            if (video.getContentDetails().getRegionRestriction().getBlocked() == null) {
+                ExitHelper.exit("unexpected situation");
+            }
+            isAllowed = !video.getContentDetails().getRegionRestriction().getBlocked().contains(_referenceRegion);
+        }
+
+        return new YoutubeVideoDto(title,
+                                   description,
+                                   recordingDate,
+                                   publicationDate,
+                                   duration,
+                                   textLanguage,
+                                   audioLanguage,
+                                   isAllowed);
+    }
+
+    private VideoListResponse getVideoInfo(final List<String> ids) {
+        try {
+            final NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
+            final YouTube youtubeService = new YouTube.Builder(httpTransport, JSON_FACTORY, null)
+                                                      .setApplicationName(_applicationName)
+                                                      .setYouTubeRequestInitializer(new YouTubeRequestInitializer(_apiKey))
+                                                      .build();
+            final YouTube.Videos.List request = youtubeService.videos()
+                    .list(Arrays.asList("snippet","contentDetails", "recordingDetails"));
+            return request.setId(ids)
+                          .execute();
+        } catch (final GeneralSecurityException | IOException e) {
+            ExitHelper.exit(e);
+            // NOT REACHED
+            return null;
+        }
+    }
+
+    private Optional<Locale> parseLanguage(final String lang) {
+        if (lang == null) {
+            return Optional.empty();
+        } else if (lang.equals("fr")) {
+            return Optional.of(Locale.FRENCH); 
+        } else {
+            ExitHelper.exit("language to be implemented");
+        }
+
+        // NOTREACHED
+        return null;
     }
 }
