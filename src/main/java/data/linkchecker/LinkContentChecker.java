@@ -8,8 +8,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import utils.ExitHelper;
 import utils.FileHelper;
+import utils.Log;
+import utils.Logger;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkFormat;
 import utils.xmlparsing.LinkData;
@@ -30,7 +35,14 @@ public class LinkContentChecker {
     }
 
     public final List<LinkContentCheck> check() {
-        return check(FileHelper.slurpFile(_file));
+        final String content = FileHelper.slurpFile(_file);
+        final Pattern p = Pattern.compile("</HTML>\\p{Space}*$", Pattern.CASE_INSENSITIVE);
+        final Matcher m = p.matcher(content);
+
+        if (!m.find()) {
+            Logger.log(Logger.Level.WARN).append("File " + _file + " does not end with </HTML>");
+        }
+        return check(content);
     }
 
     public final List<LinkContentCheck> check(final String data) {

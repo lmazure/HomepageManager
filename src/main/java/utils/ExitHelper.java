@@ -21,10 +21,7 @@ public class ExitHelper {
         if (exception != null) {
            log.append(exception);
         } else {
-            final StackTraceElement[] stack = Thread.currentThread().getStackTrace();
-            for (final StackTraceElement elem: stack) {
-                log.append("\n" + elem.toString());
-            }
+            log.append(Thread.currentThread().getStackTrace());
         }
 
         log.submit();

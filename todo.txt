@@ -1,15 +1,10 @@
+- retirer la syntaxe qui permet d'ouvrir des fichier en local
+
+- gérer le problème des encodings
+(je pense que cela doit toujours être mis en binaire)
+
 - déplacer les databases de compo.xml dans sql.xml
 
-- nettoyer ordre de
-links/solaris.xml
-links/unix.xml
-links/weird.xml
-links/windows.xml
-links/x11.xml
-links/xml.xml
-links/javascrp.xml
-links/test.xml
-links/quality.xml
 
 - corriger les problèmes récurrents avec Youtube
 utiliser l'API ?
@@ -19,8 +14,6 @@ https://googleapis.dev/java/google-api-services-youtube/latest/index.html
 https://developers.google.com/youtube/v3/docs/videos/list
 
 - ajouter les pred qui manquent à "<ARTICLE>.*the previous"
-
-- nettoyer links.tdd.xml
 
 - extraire les langues de Twitter
 

@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CodingErrorAction;
+import java.nio.charset.MalformedInputException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,6 +21,18 @@ public class FileHelper {
 
     public static String slurpFile(final File file) {
 
+        /*try {
+            return Files.readString(file.toPath());
+        } catch (final MalformedInputException e) {
+            ExitHelper.exit("Failed to parse " + file.toString(),e );
+            // NOT REACHED
+            return null;
+        } catch (final IOException e) {
+            ExitHelper.exit("Failed to read " + file.toString(), e);
+            // NOT REACHED
+            return null;
+        }*/
+
         final CharsetDecoder decoder = StandardCharsets.UTF_8.newDecoder();
         decoder.onMalformedInput(CodingErrorAction.REPLACE);
 
@@ -28,7 +41,7 @@ public class FileHelper {
              final BufferedReader bufferedReader = new BufferedReader(reader)) {
             final StringBuilder sb = new StringBuilder();
             String line = bufferedReader.readLine();
-            while(line != null) {
+            while (line != null) {
                 sb.append(line);
                 line = bufferedReader.readLine();
             }

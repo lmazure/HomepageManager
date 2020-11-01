@@ -16,12 +16,12 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-import java.util.Optional;
 
 public class YoutubeApi {
 
@@ -38,13 +38,17 @@ public class YoutubeApi {
         _referenceRegion = referenceRegion;
     }
 
-    public YoutubeVideoDto getData(final String id) {
-        return getData(Arrays.asList(id)).get(0);
+    public YoutubeVideoDto getData(final String videoId) {
+        return getData(Arrays.asList(videoId)).get(0);
     }
 
-    public List<YoutubeVideoDto> getData(final List<String> ids) {
-        final VideoListResponse responses  = getVideoInfo(ids);
-        // System.out.println(responses);
+    public List<YoutubeVideoDto> getData(final List<String> videoIds) {
+        final VideoListResponse responses  = getVideoInfo(videoIds);
+        /*try {
+            System.out.println(JSON_FACTORY.toPrettyString(responses));
+        } catch (final IOException e) {
+            e.printStackTrace();
+        }*/
 
         final List<YoutubeVideoDto> dtos = new ArrayList<YoutubeVideoDto>();
         for (final Video video: responses.getItems()) {
@@ -56,22 +60,23 @@ public class YoutubeApi {
     private YoutubeVideoDto buildDto(final Video video) { 
 
         // see https://developers.google.com/youtube/v3/docs/videos
+        // duration is incorrect : https://issuetracker.google.com/issues/35178038
 
         final String title = video.getSnippet().getTitle();
 
         final String description = video.getSnippet().getDescription();
 
         final String rec = video.getRecordingDetails().getRecordingDate();
-        final Optional<LocalDate> recordingDate = (rec == null) ? Optional.empty()
-                                                                : Optional.of(ZonedDateTime.parse(rec).toLocalDate());
+        final LocalDate recordingDate = (rec == null) ? null
+                                                      : localizeDate(rec);
 
-        final LocalDate publicationDate = ZonedDateTime.parse(video.getSnippet().getPublishedAt()).toLocalDate();
+        final LocalDate publicationDate = localizeDate(video.getSnippet().getPublishedAt());
 
         final Duration duration = Duration.parse(video.getContentDetails().getDuration());
 
-        final Optional<Locale> textLanguage = parseLanguage(video.getSnippet().getDefaultLanguage());
+        final Locale textLanguage = parseLanguage(video.getSnippet().getDefaultLanguage());
 
-        final Optional<Locale> audioLanguage = parseLanguage(video.getSnippet().getDefaultAudioLanguage());
+        final Locale audioLanguage = parseLanguage(video.getSnippet().getDefaultAudioLanguage());
 
         boolean isAllowed = true;
         if (video.getContentDetails().getRegionRestriction() != null) {
@@ -94,7 +99,7 @@ public class YoutubeApi {
                                    isAllowed);
     }
 
-    private VideoListResponse getVideoInfo(final List<String> ids) {
+    private VideoListResponse getVideoInfo(final List<String> videoIds) {
         try {
             final NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
             final YouTube youtubeService = new YouTube.Builder(httpTransport, JSON_FACTORY, null)
@@ -102,8 +107,8 @@ public class YoutubeApi {
                                                       .setYouTubeRequestInitializer(new YouTubeRequestInitializer(_apiKey))
                                                       .build();
             final YouTube.Videos.List request = youtubeService.videos()
-                    .list(Arrays.asList("snippet","contentDetails", "recordingDetails"));
-            return request.setId(ids)
+                                                              .list(Arrays.asList("snippet","contentDetails", "recordingDetails"));
+            return request.setId(videoIds)
                           .execute();
         } catch (final GeneralSecurityException | IOException e) {
             ExitHelper.exit(e);
@@ -112,16 +117,29 @@ public class YoutubeApi {
         }
     }
 
-    private Optional<Locale> parseLanguage(final String lang) {
+    private Locale parseLanguage(final String lang) {
         if (lang == null) {
-            return Optional.empty();
+            return null;
         } else if (lang.equals("fr")) {
-            return Optional.of(Locale.FRENCH); 
+            return Locale.FRENCH; 
+        } else if (lang.equals("en")) {
+            return Locale.ENGLISH; 
+        } else if (lang.equals("en-GB")) {
+            return Locale.ENGLISH; 
+        } else if (lang.equals("en-US")) {
+            return Locale.ENGLISH; 
         } else {
-            ExitHelper.exit("language to be implemented");
+            ExitHelper.exit("language to be implemented (" + lang + ")");
         }
 
         // NOTREACHED
         return null;
+    }
+
+    private static LocalDate localizeDate(final String value) {
+        ZonedDateTime zdt = ZonedDateTime.parse(value);
+        ZonedDateTime zdttz = zdt.withZoneSameInstant(ZoneId.of(/*"Europe/Paris"*/"America/Los_Angeles"));
+        LocalDate localDate = zdttz.toLocalDate();
+        return localDate;
     }
 }

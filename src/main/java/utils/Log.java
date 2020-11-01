@@ -35,7 +35,7 @@ public class Log {
     }
 
     public Log append(final String string) {
-        _stringBuilder.append(string);
+        _stringBuilder.append(string.replaceAll("\0", "[0]").replaceAll("\r", "[returnline]").replaceAll("\n", "[newline]"));
         return this;
     }
 
@@ -59,11 +59,19 @@ public class Log {
         return append(url.toString());
     }
 
+    public Log append(final StackTraceElement[] stack) {
+        for (final StackTraceElement elem: stack) {
+            _stringBuilder.append("\n" + elem.toString());
+        }
+        return this;
+    }
+
     public Log append(final Exception exception) {
         final StringWriter sw = new StringWriter();
         final PrintWriter pw = new PrintWriter(sw);
         exception.printStackTrace(pw);
-        return append(sw.toString());
+        _stringBuilder.append(sw.toString());
+        return this;
     }
 
     public void submit() {

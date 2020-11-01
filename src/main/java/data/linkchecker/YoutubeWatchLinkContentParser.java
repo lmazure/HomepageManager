@@ -125,7 +125,7 @@ public class YoutubeWatchLinkContentParser {
         }
 
         if (text == null) {
-            ExitHelper.exit("Failed to extract " + str + " text from YouTube watch page");
+            ExitHelper.exit("Failed to extract " + str + " text from YouTube watch page " + _data);
         }
 
         assert(text != null);
