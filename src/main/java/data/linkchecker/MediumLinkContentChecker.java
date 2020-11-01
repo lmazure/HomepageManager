@@ -19,7 +19,7 @@ public class MediumLinkContentChecker extends LinkContentChecker {
     }
 
     @Override
-    protected LinkContentCheck checkGlobalData(String data) {
+    protected LinkContentCheck checkGlobalData(final String data) {
         _parser = new MediumLinkContentParser(data);
 
         return null;

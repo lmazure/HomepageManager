@@ -13,13 +13,13 @@ public class YoutubeChannelUserLinkContentChecker extends LinkContentChecker {
     private YoutubeChannelUserLinkContentParser _parser;
 
     public YoutubeChannelUserLinkContentChecker(final LinkData linkData,
-                                            final Optional<ArticleData> articleData,
-                                            final File file) {
+                                                final Optional<ArticleData> articleData,
+                                                final File file) {
         super(linkData, articleData, file);
     }
 
     @Override
-    protected LinkContentCheck checkGlobalData(String data) {
+    protected LinkContentCheck checkGlobalData(final String data) {
         _parser = new YoutubeChannelUserLinkContentParser(data);
 
         if (_parser.getErrorMessage().isPresent()) {

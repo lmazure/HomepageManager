@@ -19,7 +19,7 @@ public class TwitterLinkContentChecker extends LinkContentChecker {
     }
 
     @Override
-    protected LinkContentCheck checkGlobalData(String data) {
+    protected LinkContentCheck checkGlobalData(final String data) {
         _parser = new TwitterLinkContentParser(data);
 
         return null;

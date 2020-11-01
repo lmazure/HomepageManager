@@ -96,7 +96,7 @@ public class SiteDataPersister {
         if (dataStream.isPresent()) {
             try (@SuppressWarnings("resource")
                 final InputStream inputStream = isEncodedWithGzip(headers) ? new GZIPInputStream(dataStream.get()) : dataStream.get();
-                 final PrintStream outputStream = new PrintStream(getDataFile(url, timestamp).toFile(), StandardCharsets.UTF_8)) {
+                final PrintStream outputStream = new PrintStream(getDataFile(url, timestamp).toFile(), StandardCharsets.UTF_8)) {
                 long size = 0L;
                 final byte[] buffer = new byte[s_file_buffer_size];
                 int length;
@@ -106,7 +106,7 @@ public class SiteDataPersister {
                 }
                 if (size > s_max_content_size) {
                     Logger.log(Logger.Level.WARN)
-                            .append("retrieved content of ")
+                          .append("retrieved content of ")
                           .append(url)
                           .append(" is truncated")
                           .submit();
@@ -232,7 +232,8 @@ public class SiteDataPersister {
 
     private Path getOutputDirectory(final URL url,
                                     final Instant timestamp) {
-        return getOutputDirectory(url).resolve(timestamp.toString().replaceAll(":", ";"));
+        return getOutputDirectory(url).resolve(timestamp.toString()
+                                      .replaceAll(":", ";"));
     }
 
     private Path getOutputDirectory(final URL url) {
