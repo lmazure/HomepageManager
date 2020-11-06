@@ -7,6 +7,7 @@ import java.util.Locale;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import data.ParameterRepository;
 import utils.internet.YoutubeApi;
 import utils.internet.YoutubeVideoDto;
 
@@ -85,13 +86,13 @@ class YoutubeApiTest {
                 + "Un quiz mathématique qui brasse culture, connaissance, logique et énigmes ! Bref, du divertissement intelligent... Alors ? Seul, en duo ou en famille, prêts à relever le défi ?", dto.getDescription());
         Assertions.assertNull(dto.getRecordingDate());
         Assertions.assertEquals(LocalDate.of(2020, 5, 14), dto.getPublicationDate());
-        Assertions.assertEquals(Duration.ofSeconds(1 * 3600 + 19 * 60 + 23), dto.getDuration());
-        Assertions.assertEquals(Locale.FRENCH, dto.getTextLanguage());
-        Assertions.assertEquals(Locale.FRENCH, dto.getAudioLanguage());
+        Assertions.assertEquals(Duration.ofSeconds(1 * 3600 + 19 * 60 + 36), dto.getDuration());
+        Assertions.assertNull(dto.getTextLanguage());
+        Assertions.assertNull(dto.getAudioLanguage());
         Assertions.assertTrue(dto.isAllowed());
     }
 
     private YoutubeApi buildApi() {
-        return new YoutubeApi("HomepageManager", "XXX", "FR");
+        return new YoutubeApi("HomepageManager", ParameterRepository.getYoutubeApiKey() , "FR");
     }
 }

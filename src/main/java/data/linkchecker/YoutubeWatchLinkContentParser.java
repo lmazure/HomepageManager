@@ -37,7 +37,7 @@ public class YoutubeWatchLinkContentParser {
     public String getTitle() {
 
         if (_title == null) {
-            _title = extractText("title");
+            _title = extractField("title");
         }
 
         return _title;
@@ -46,7 +46,7 @@ public class YoutubeWatchLinkContentParser {
     public String getDescription() {
 
         if (_description == null) {
-            _description = extractText("shortDescription");
+            _description = extractField("shortDescription");
         }
 
         return _description;
@@ -107,11 +107,11 @@ public class YoutubeWatchLinkContentParser {
         return _language;
     }
 
-    private String extractText(final String str) {
+    private String extractField(final String str) {
 
         String text = null;
 
-        final Pattern p = Pattern.compile("\\\\\"" + str + "\\\\\":\\\\\"(.+?)(?<!\\\\\\\\)\\\\\"");
+        final Pattern p = Pattern.compile(",\"" + str + "\":\"(.+?)(?<!\\\\)\"");
         final Matcher m = p.matcher(_data);
         while (m.find()) {
             final String t = m.group(1);
@@ -125,22 +125,21 @@ public class YoutubeWatchLinkContentParser {
         }
 
         if (text == null) {
-            ExitHelper.exit("Failed to extract " + str + " text from YouTube watch page " + _data);
+            ExitHelper.exit("Failed to extract " + str + " text from YouTube watch page ");
         }
 
         assert(text != null);
-        text = text.replaceAll(Pattern.quote("\\\\n"), "\n")
-                   .replaceAll(Pattern.quote("\\\\u0026"),"&")
-                   .replaceAll(Pattern.quote("\\\\u0090"),"\u0090")
+        text = text.replaceAll(Pattern.quote("\\n"), "\n")
+                   .replaceAll(Pattern.quote("\\u0026"),"&")
                    .replaceAll(Pattern.quote("\\/"),"/")
-                   .replaceAll(Pattern.quote("\\\\\\\""),"\"")
-                   .replaceAll(Pattern.quote("\\\\\\'"),"'");
+                   .replaceAll(Pattern.quote("\\\""),"\"")
+                   .replaceAll(Pattern.quote("\\\'"),"'");
 
         return text;
     }
 
     private LocalDate extractDate(final String str) {
-        return LocalDate.parse(extractText(str));
+        return LocalDate.parse(extractField(str));
     }
 
     private void extractDuration() {
