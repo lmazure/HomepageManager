@@ -3,6 +3,7 @@ package data.linkchecker;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -12,10 +13,12 @@ import utils.StringHelper;
 public class YoutubeWatchLinkContentParser {
 
     private final String _data;
+    private final boolean _isEscaped;
     private Boolean _isPlayable;
     private String _title;
     private String _description;
     private Locale _language;
+    private Optional<Locale> _subtitlesLanguage;
     private LocalDate _uploadDate;
     private LocalDate _publishDate;
     private Duration _minDuration;
@@ -23,10 +26,18 @@ public class YoutubeWatchLinkContentParser {
 
     public YoutubeWatchLinkContentParser(final String data) {
         _data = data;
+        if (data.contains("ytInitialPlayerResponse =")) {
+            _isEscaped = false;
+        } else if (data.contains("window[\"ytInitialPlayerResponse\"] =")) {
+            _isEscaped = true;
+        } else {
+            ExitHelper.exit("Failed to recognize the YouTube answer type");
+            // NOT REACHED
+            _isEscaped = false;
+        }
     }
 
     public boolean isPlayable() {
-
         if (_isPlayable == null) {
             _isPlayable = getPlayable();
         }
@@ -35,7 +46,6 @@ public class YoutubeWatchLinkContentParser {
     }
 
     public String getTitle() {
-
         if (_title == null) {
             _title = extractField("title");
         }
@@ -44,7 +54,6 @@ public class YoutubeWatchLinkContentParser {
     }
 
     public String getDescription() {
-
         if (_description == null) {
             _description = extractField("shortDescription");
         }
@@ -53,7 +62,6 @@ public class YoutubeWatchLinkContentParser {
     }
 
     public LocalDate getUploadDate() {
-
         if (_uploadDate == null) {
             _uploadDate = extractDate("uploadDate");
         }
@@ -62,7 +70,6 @@ public class YoutubeWatchLinkContentParser {
     }
 
     public LocalDate getPublishDate() {
-
         if (_publishDate == null) {
             _publishDate = extractDate("publishDate");
         }
@@ -71,7 +78,6 @@ public class YoutubeWatchLinkContentParser {
     }
 
     public Duration getMinDuration() {
-
         if (_minDuration == null) {
             extractDuration();
         }
@@ -80,7 +86,6 @@ public class YoutubeWatchLinkContentParser {
     }
 
     public Duration getMaxDuration() {
-
         if (_maxDuration == null) {
             extractDuration();
         }
@@ -88,17 +93,11 @@ public class YoutubeWatchLinkContentParser {
         return _maxDuration;
     }
 
-    private boolean getPlayable() {
-        return _data.contains("\\\"playabilityStatus\\\":{\\\"status\\\":\\\"OK\\\"");
-    }
-
     public Locale getLanguage() {
-
         if (_language == null) {
-            if (_data.contains("\\\"name\\\":{\\\"simpleText\\\":\\\"French (auto-generated)\\\"}")) {
-                _language = Locale.FRENCH;
-            } else if (_data.contains("\\\"name\\\":{\\\"simpleText\\\":\\\"English (auto-generated)\\\"}")) {
-                _language = Locale.ENGLISH;
+            final Locale lang = getSubtitlesLanguage();
+            if (lang != null) {
+                _language = lang;
             } else {
                 _language = StringHelper.guessLanguage(getDescription());
             }
@@ -107,11 +106,34 @@ public class YoutubeWatchLinkContentParser {
         return _language;
     }
 
-    private String extractField(final String str) {
+    public Locale getSubtitlesLanguage() {
+        final String prefix = _isEscaped ? "\\\"name\\\":{\\\"simpleText\\\":\\\""
+                                         : "\"name\":{\"simpleText\":\"";
+        final String postfix = _isEscaped ? " (auto-generated)\\\"}"
+                                          : " (auto-generated)\"}";
+        if (_subtitlesLanguage == null) {
+            if (_data.contains(prefix + "French" + postfix)) {
+                _subtitlesLanguage = Optional.of(Locale.FRENCH);
+            } else if (_data.contains(prefix + "English" + postfix)) {
+                _subtitlesLanguage = Optional.of(Locale.ENGLISH);
+            } else {
+                _subtitlesLanguage = Optional.empty();
+            }
+        }
 
+        return _subtitlesLanguage.orElse(null);
+    }
+
+    private boolean getPlayable() {
+        return _isEscaped ? _data.contains("\\\"playabilityStatus\\\":{\\\"status\\\":\\\"OK\\\"")
+                          : _data.contains("\"playabilityStatus\":{\"status\":\"OK\"");
+    }
+
+    private String extractField(final String str) {
         String text = null;
 
-        final Pattern p = Pattern.compile(",\"" + str + "\":\"(.+?)(?<!\\\\)\"");
+        final Pattern p = Pattern.compile(_isEscaped ? ("\\\\\"" + str + "\\\\\":\\\\\"(.+?)(?<!\\\\\\\\)\\\\\"")
+                                                     : (",\"" + str + "\":\"(.+?)(?<!\\\\)\""));
         final Matcher m = p.matcher(_data);
         while (m.find()) {
             final String t = m.group(1);
@@ -129,11 +151,21 @@ public class YoutubeWatchLinkContentParser {
         }
 
         assert(text != null);
-        text = text.replaceAll(Pattern.quote("\\n"), "\n")
-                   .replaceAll(Pattern.quote("\\u0026"),"&")
-                   .replaceAll(Pattern.quote("\\/"),"/")
-                   .replaceAll(Pattern.quote("\\\""),"\"")
-                   .replaceAll(Pattern.quote("\\\'"),"'");
+        
+        if (_isEscaped) {
+            text = text.replaceAll(Pattern.quote("\\\\n"), "\n")
+                       .replaceAll(Pattern.quote("\\\\u0026"),"&")
+                       .replaceAll(Pattern.quote("\\\\u0090"),"\u0090")
+                       .replaceAll(Pattern.quote("\\/"),"/")
+                       .replaceAll(Pattern.quote("\\\\\\\""),"\"")
+                       .replaceAll(Pattern.quote("\\\\\\'"),"'");
+        } else {
+            text = text.replaceAll(Pattern.quote("\\n"), "\n")
+                       .replaceAll(Pattern.quote("\\u0026"),"&")
+                       .replaceAll(Pattern.quote("\\/"),"/")
+                       .replaceAll(Pattern.quote("\\\""),"\"")
+                       .replaceAll(Pattern.quote("\\\'"),"'");
+        }
 
         return text;
     }
@@ -147,7 +179,8 @@ public class YoutubeWatchLinkContentParser {
         int minDuration = Integer.MAX_VALUE;
         int maxDuration = Integer.MIN_VALUE;
 
-        final Pattern p = Pattern.compile("\\\\\"approxDurationMs\\\\\":\\\\\"(\\d+)\\\\\"");
+        final Pattern p = _isEscaped ? Pattern.compile("\\\\\"approxDurationMs\\\\\":\\\\\"(\\d+)\\\\\"")
+                                     :  Pattern.compile("\"approxDurationMs\":\"(\\d+)\"");
         final Matcher m = p.matcher(_data);
         while (m.find()) {
             final int duration = Integer.parseInt(m.group(1));
