@@ -192,6 +192,51 @@ class NodeValueCheckerTest {
         }
     }
 
+
+    @Test
+    void ignoreMissingSpaceDueToCode() {
+
+        final String content =
+            "<?xml version=\"1.0\"?>\r\n" +
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<TITLE>Test</TITLE>\r\n" +
+            "<PATH>HomepageManager/test.xml</PATH>\r\n" +
+            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
+            "<CONTENT>\r\n" +
+            "<BLIST><TITLE>Explanation of the <CODEROUTINE>class.method</CODEROUTINE> method</TITLE></BLIST>\r\n" +
+            "</CONTENT>\r\n" +
+            "</PAGE>";
+
+        try {
+            test(content);
+        } catch (@SuppressWarnings("unused") final SAXException e) {
+            Assertions.fail("SAXException");
+        }
+    }
+
+    @Test
+    void ignoreMissingSpaceDueToSlash() {
+
+        final String content =
+            "<?xml version=\"1.0\"?>\r\n" +
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<TITLE>Test</TITLE>\r\n" +
+            "<PATH>HomepageManager/test.xml</PATH>\r\n" +
+            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
+            "<CONTENT>\r\n" +
+            "<BLIST><TITLE>XFree86/X.org</TITLE></BLIST>\r\n" +
+            "</CONTENT>\r\n" +
+            "</PAGE>";
+
+        try {
+            test(content);
+        } catch (@SuppressWarnings("unused") final SAXException e) {
+            Assertions.fail("SAXException");
+        }
+    }
+
     @Test
     void detectMissingSpace() {
 
@@ -219,28 +264,6 @@ class NodeValueCheckerTest {
                  "\"He is Bob.She is Alice\" is missing a space",
                  "\"The string .He is bright should be reported.\" is missing a space",
                  "\"The string \".He is bright\" should be reported.\" is missing a space");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
-            Assertions.fail("SAXException");
-        }
-    }
-
-    @Test
-    void ignoreMissingSpaceDueToCode() {
-
-        final String content =
-            "<?xml version=\"1.0\"?>\r\n" +
-            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-            "<TITLE>Test</TITLE>\r\n" +
-            "<PATH>HomepageManager/test.xml</PATH>\r\n" +
-            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
-            "<CONTENT>\r\n" +
-            "<BLIST><TITLE>Explanation of the <CODEROUTINE>class.method</CODEROUTINE> method</TITLE></BLIST>\r\n" +
-            "</CONTENT>\r\n" +
-            "</PAGE>";
-
-        try {
-            test(content);
         } catch (@SuppressWarnings("unused") final SAXException e) {
             Assertions.fail("SAXException");
         }

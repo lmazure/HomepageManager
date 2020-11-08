@@ -71,7 +71,7 @@ public class MissingSpaceChecker extends NodeChecker {
         if (list.size() == 0) return null;
 
         for (final String l: list) {
-            if (Arrays.stream(l.split(" ")).anyMatch(MissingSpaceChecker::isInvalid)) {
+            if (Arrays.stream(l.split("[ /]")).anyMatch(MissingSpaceChecker::isInvalid)) {
                 return new CheckStatus("\"" + e.getTextContent() + "\" is missing a space");
             }
         }
