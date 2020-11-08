@@ -1,4 +1,14 @@
-- retirer la syntaxe qui permet d'ouvrir des fichier en local
+- mauvaise détection de la langue sur
+https://www.govinfo.gov/app/collection/cfr
+https://www.govinfo.gov/app/details/CFR-2007-title21-vol1
+http://www.openafs.org/
+https://www.meteor.com/
+
+- tous les articles de http://www.bio-itworld.com ont disparu
+
+- scrapping incorrect du titre de https://medium.com/javascript-scene/how-to-build-a-high-velocity-development-team-4b2360d34021
+
+- retirer la syntaxe CODEFILENAME (?) qui permet d'ouvrir des fichiers en local
 
 - gérer le problème des encodings
 (je pense que cela doit toujours être mis en binaire)

@@ -94,9 +94,21 @@ public class SiteDataPersister {
         }
 
         if (dataStream.isPresent()) {
+            final File file = getDataFile(url, timestamp).toFile();
+            try {
+                // create an empty file so it exists even if the case of a failure while retrieving the data and writing it to disk
+                file.createNewFile();
+            } catch (final IOException e) {
+                Logger.log(Logger.Level.ERROR)
+                .append("Error (")
+                .append(e.toString())
+                .append(") while creating file ")
+                .append(file.toString())
+                .submit();
+            }
             try (@SuppressWarnings("resource")
                 final InputStream inputStream = isEncodedWithGzip(headers) ? new GZIPInputStream(dataStream.get()) : dataStream.get();
-                final PrintStream outputStream = new PrintStream(getDataFile(url, timestamp).toFile(), StandardCharsets.UTF_8)) {
+                final PrintStream outputStream = new PrintStream(file, StandardCharsets.UTF_8)) {
                 long size = 0L;
                 final byte[] buffer = new byte[s_file_buffer_size];
                 int length;
@@ -111,6 +123,7 @@ public class SiteDataPersister {
                           .append(" is truncated")
                           .submit();
                 }
+                outputStream.flush();
             } catch (final IOException e) {
                 Logger.log(Logger.Level.ERROR)
                       .append("Error (")
