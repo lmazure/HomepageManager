@@ -73,7 +73,7 @@ class YoutubeWatchLinkContentParserTest {
 
     @Test
     @Disabled // I need to find another video with a control character, this one has been fixed
-    void testTitleWithDeviceControlString() {
+    void testTitleWithControlCharacterString() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=y7FVLPvw1-I"),

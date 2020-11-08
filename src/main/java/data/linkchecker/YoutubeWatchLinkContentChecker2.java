@@ -30,7 +30,7 @@ public class YoutubeWatchLinkContentChecker2 extends LinkContentChecker {
         super(linkData, articleData, file);
 
         final Path tmpPath = Paths.get("D:\\tmp");
-        _api = new CachedYoutubeApi("HomepageChecker", ParameterRepository.getYoutubeApiKey(), "FR", tmpPath);
+        _api = new CachedYoutubeApi(ParameterRepository.getYoutubeApplicationName(), ParameterRepository.getYoutubeApiKey(), "FR", tmpPath);
         final String videoId = url.toString().substring(url.toString().length() - 11);
         _dto = _api.getData(videoId);
     }

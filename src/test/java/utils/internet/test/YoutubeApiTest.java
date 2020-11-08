@@ -93,6 +93,6 @@ class YoutubeApiTest {
     }
 
     private YoutubeApi buildApi() {
-        return new YoutubeApi("HomepageManager", ParameterRepository.getYoutubeApiKey() , "FR");
+        return new YoutubeApi(ParameterRepository.getYoutubeApplicationName(), ParameterRepository.getYoutubeApiKey() , "FR");
     }
 }
