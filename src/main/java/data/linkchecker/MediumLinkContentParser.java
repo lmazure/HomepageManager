@@ -42,7 +42,8 @@ public class MediumLinkContentParser {
         final Matcher m = p.matcher(_data);        
         if (m.find()) {
             return m.group(1)
-                    .replaceAll("<.+?>","") // remove HTML that may be in the title
+                    .replaceAll("<br/>"," ") // replace newline by space
+                    .replaceAll("<.+?>","") // remove other HTML that may be in the title
                     .replace("&amp;","&")
                     .replace("&lt;","<")
                     .replace("&gt;",">");

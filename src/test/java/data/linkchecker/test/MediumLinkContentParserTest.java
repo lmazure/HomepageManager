@@ -93,6 +93,22 @@ public class MediumLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+
+    @Test
+    void testTitleWithMultiline() {
+        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(TestHelper.buildURL("https://medium.com/javascript-scene/how-to-build-a-high-velocity-development-team-4b2360d34021"),
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final MediumLinkContentParser parser = new MediumLinkContentParser(data);
+                               Assertions.assertEquals("How to Build a High Velocity Development Team", parser.getTitle());
+                               consumerHasBeenCalled.set(true);
+                           });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
     @Test
     void testTitleForNetflix() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
