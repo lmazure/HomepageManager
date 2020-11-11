@@ -32,7 +32,7 @@ public class LinkContentCheckerFactory {
         }
 
         if (url.toString().startsWith("https://twitter.com/")) {
-            return new TwitterLinkContentChecker(linkData, articleData, file);
+            return new TwitterLinkContentChecker(url, linkData, articleData, file);
         }
 
         return new LinkContentChecker(linkData, articleData, file);

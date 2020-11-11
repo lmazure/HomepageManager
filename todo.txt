@@ -1,29 +1,26 @@
+- corriger ancien compte de Le
+
+- implémenter le cache pour Twitter
+
+- implémenter de ne pas retourner une lange quand aucun mot n'est reconnu
+
+- mauvaise gestion de la date de publication sur Medium
+https://medium.com/@docjamesw/the-anti-meeting-culture-c209bab5a16d
+
 - mauvaise détection de la langue sur
+pour cela renvoyer Optional.empty quand il n'y a aucun mot trouvé
 https://www.govinfo.gov/app/collection/cfr
 https://www.govinfo.gov/app/details/CFR-2007-title21-vol1
 http://www.openafs.org/
 https://www.meteor.com/
+https://usa.kaspersky.com/about/press-releases/2016_kaspersky-lab-study-proves-smartphones-distract-workers-and-decrease-productivity
 
 - tous les articles de http://www.bio-itworld.com ont disparu
-
-- scrapping incorrect du titre de https://medium.com/javascript-scene/how-to-build-a-high-velocity-development-team-4b2360d34021
 
 - retirer la syntaxe CODEFILENAME (?) qui permet d'ouvrir des fichiers en local
 
 - gérer le problème des encodings
 (je pense que cela doit toujours être mis en binaire)
-
-- déplacer les databases de compo.xml dans sql.xml
-
-
-- corriger les problèmes récurrents avec Youtube
-utiliser l'API ?
-https://developers.google.com/youtube/v3/getting-started
-https://github.com/googleapis/google-api-java-client-services/tree/master/clients/google-api-services-youtube/v3
-https://googleapis.dev/java/google-api-services-youtube/latest/index.html
-https://developers.google.com/youtube/v3/docs/videos/list
-
-- ajouter les pred qui manquent à "<ARTICLE>.*the previous"
 
 - extraire les langues de Twitter
 
@@ -45,8 +42,6 @@ coding.xml
 
 - mettre la KEYID comme titre du keyword popup
 
-
-http
 - modifier règles pour que typescript.xml soit propre
 
 - mauvaise détection de langue : 

@@ -20,7 +20,6 @@ import utils.xmlparsing.LinkData;
 
 public class YoutubeWatchLinkContentChecker2 extends LinkContentChecker {
 
-    private CachedYoutubeApi _api;
     private YoutubeVideoDto _dto;
 
     public YoutubeWatchLinkContentChecker2(final URL url,
@@ -30,9 +29,9 @@ public class YoutubeWatchLinkContentChecker2 extends LinkContentChecker {
         super(linkData, articleData, file);
 
         final Path tmpPath = Paths.get("D:\\tmp");
-        _api = new CachedYoutubeApi(ParameterRepository.getYoutubeApplicationName(), ParameterRepository.getYoutubeApiKey(), "FR", tmpPath);
+        final CachedYoutubeApi api = new CachedYoutubeApi(ParameterRepository.getYoutubeApplicationName(), ParameterRepository.getYoutubeApiKey(), "FR", tmpPath);
         final String videoId = url.toString().substring(url.toString().length() - 11);
-        _dto = _api.getData(videoId);
+        _dto = api.getData(videoId);
     }
 
     @Override

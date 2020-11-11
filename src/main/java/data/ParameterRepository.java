@@ -7,6 +7,14 @@ public class ParameterRepository {
     }
 
     public static String getYoutubeApiKey() {
-        return "XXX";
+        return "xxx";
+    }
+
+    public static String getTwitterApiKey() {
+        return "xxx";
+    }
+
+    public static String getTwitterApiSecretKey() {
+        return "xxx";
     }
 }

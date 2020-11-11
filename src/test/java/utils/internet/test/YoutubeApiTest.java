@@ -14,7 +14,7 @@ import utils.internet.YoutubeVideoDto;
 class YoutubeApiTest {
 
     @Test
-    void noCreationDateNoLanguags() {
+    void noCreationDateNoLanguages() {
         final YoutubeApi api = buildApi();
         final YoutubeVideoDto dto = api.getData("aQo8tYQuWQw");
         Assertions.assertEquals("Les hexaflexagones  - Micmaths", dto.getTitle());
