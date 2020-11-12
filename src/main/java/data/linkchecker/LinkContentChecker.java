@@ -11,9 +11,7 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import utils.ExitHelper;
 import utils.FileHelper;
-import utils.Log;
 import utils.Logger;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkFormat;
@@ -115,9 +113,9 @@ public class LinkContentChecker {
             _parser = new LinkContentParser(data);
         }
 
-        final Locale language = _parser.getLanguage();
+        final Optional<Locale> language = _parser.getLanguage();
 
-        if (!Arrays.asList(languages).contains(language)) {
+        if (language.isPresent() && !Arrays.asList(languages).contains(language.get())) {
             return new LinkContentCheck("language is \"" + language + "\" but this one is unexpected");
         }
 

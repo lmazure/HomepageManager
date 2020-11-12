@@ -66,7 +66,7 @@ class YoutubeChannelUserLinkContentParserTest {
                             Assertions.assertTrue(d.getDataFile().isPresent());
                             final String data = FileHelper.slurpFile(d.getDataFile().get());
                             final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
-                            Assertions.assertEquals(Locale.ENGLISH, parser.getLanguage());
+                            Assertions.assertEquals(Locale.ENGLISH, parser.getLanguage().get());
                             consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -85,7 +85,7 @@ class YoutubeChannelUserLinkContentParserTest {
                             Assertions.assertTrue(d.getDataFile().isPresent());
                             final String data = FileHelper.slurpFile(d.getDataFile().get());
                             final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
-                            Assertions.assertEquals(Locale.FRENCH, parser.getLanguage());
+                            Assertions.assertEquals(Locale.FRENCH, parser.getLanguage().get());
                             consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());

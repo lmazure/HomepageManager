@@ -3,6 +3,7 @@ package utils;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.Set;
 
 public class StringHelper {
@@ -18,14 +19,23 @@ public class StringHelper {
             "at",
             "of",
             "and", "or",
+            "before",
+            "after", "behind",
             "since",
             "by",
+            "where",
             "in",
+            "on",
+            "for",
+            "more",
+            "less",
             "small",
             "big",
             "new",
             "map",
             "sky",
+            "history", "story",
+            "iron",
             "japan"
         ));
 
@@ -40,18 +50,27 @@ public class StringHelper {
             "à",
             "de",
             "et", "ou",
+            "avant", "devant",
+            "après", "derrière",
             "depuis",
             "par",
-            "dans",
+            "où",
+            "sur",
+            "dans", "en",
+            "pour",
+            "plus",
+            "moins",
             "petit", "petite", "petits", "petites",
             "grand", "grande", "grands", "grandes",
             "nouveau", "nouveaux", "nouvelle", "nouvelles",
             "carte",
             "ciel",
+            "histoire",
+            "fer",
             "japon"
         ));
 
-    public static Locale guessLanguage(final String text) {
+    public static Optional<Locale> guessLanguage(final String text) {
 
         //System.out.println(text);
 
@@ -63,18 +82,22 @@ public class StringHelper {
         for (final String word: words) {
             final String w = word.toLowerCase();
             if (englishWords.contains(w))  {
-                //System.out.println("en " + english + " " + word);
                 english++;
+                // System.out.println("en " + english + " " + word);
             } else if (frenchWords.contains(w))  {
-                //System.out.println("fr " + french + " " + word);
                 french++;
+                // System.out.println("fr " + french + " " + word);
             }
         }
 
         if (english > french) {
-            return Locale.ENGLISH;
+            return Optional.of(Locale.ENGLISH);
         }
 
-        return Locale.FRENCH;
+        if (english < french) {
+            return Optional.of(Locale.FRENCH);
+        }
+
+        return Optional.empty();
     }
 }

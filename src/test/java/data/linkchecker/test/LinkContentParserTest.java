@@ -35,7 +35,7 @@ public class LinkContentParserTest {
                             Assertions.assertTrue(d.getDataFile().isPresent());
                             final String data = FileHelper.slurpFile(d.getDataFile().get());
                             final LinkContentParser parser = new LinkContentParser(data);
-                            Assertions.assertEquals(Locale.ENGLISH, parser.getLanguage());
+                            Assertions.assertEquals(Locale.ENGLISH, parser.getLanguage().get());
                             consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -60,7 +60,28 @@ public class LinkContentParserTest {
                             Assertions.assertTrue(d.getDataFile().isPresent());
                             final String data = FileHelper.slurpFile(d.getDataFile().get());
                             final LinkContentParser parser = new LinkContentParser(data);
-                            Assertions.assertEquals(Locale.FRENCH, parser.getLanguage());
+                            Assertions.assertEquals(Locale.FRENCH, parser.getLanguage().get());
+                            consumerHasBeenCalled.set(true);
+                           });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "https://usa.kaspersky.com/about/press-releases/2016_kaspersky-lab-study-proves-smartphones-distract-workers-and-decrease-productivity",
+            "https://www.govinfo.gov/app/collection/cfr",
+            "https://www.meteor.com/",
+             "http://www.openafs.org/"
+            })
+    void testArticleWithNoText(String url) {
+        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(TestHelper.buildURL(url),
+                           (final Boolean b, final SiteData d) -> {
+                            Assertions.assertTrue(d.getDataFile().isPresent());
+                            final String data = FileHelper.slurpFile(d.getDataFile().get());
+                            final LinkContentParser parser = new LinkContentParser(data);
+                            Assertions.assertTrue(parser.getLanguage().isEmpty());
                             consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -75,7 +96,7 @@ public class LinkContentParserTest {
                             Assertions.assertTrue(d.getDataFile().isPresent());
                             final String data = FileHelper.slurpFile(d.getDataFile().get());
                             final LinkContentParser parser = new LinkContentParser(data);
-                            Assertions.assertEquals(Locale.ENGLISH, parser.getLanguage());
+                            Assertions.assertEquals(Locale.ENGLISH, parser.getLanguage().get());
                             consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -90,39 +111,7 @@ public class LinkContentParserTest {
                             Assertions.assertTrue(d.getDataFile().isPresent());
                             final String data = FileHelper.slurpFile(d.getDataFile().get());
                             final LinkContentParser parser = new LinkContentParser(data);
-                            Assertions.assertEquals(Locale.FRENCH, parser.getLanguage());
-                            consumerHasBeenCalled.set(true);
-                           });
-        Assertions.assertTrue(consumerHasBeenCalled.get());
-    }
-
-    @Test
-    @Disabled
-    void testEnglishTwitter() {
-        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL("https://twitter.com/3blue1brown"),
-                           (final Boolean b, final SiteData d) -> {
-                            Assertions.assertTrue(d.getDataFile().isPresent());
-                            final String data = FileHelper.slurpFile(d.getDataFile().get());
-                            final LinkContentParser parser = new LinkContentParser(data);
-                            Assertions.assertEquals(Locale.ENGLISH, parser.getLanguage());
-                            consumerHasBeenCalled.set(true);
-                           });
-        Assertions.assertTrue(consumerHasBeenCalled.get());
-    }
-
-    @Test
-    @Disabled
-    void testFrenchTwitter() {
-        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL("https://twitter.com/mickaellaunay"),
-                           (final Boolean b, final SiteData d) -> {
-                            Assertions.assertTrue(d.getDataFile().isPresent());
-                            final String data = FileHelper.slurpFile(d.getDataFile().get());
-                            final LinkContentParser parser = new LinkContentParser(data);
-                            Assertions.assertEquals(Locale.FRENCH, parser.getLanguage());
+                            Assertions.assertEquals(Locale.FRENCH, parser.getLanguage().get());
                             consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());

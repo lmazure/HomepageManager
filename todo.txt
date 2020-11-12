@@ -1,3 +1,5 @@
+- parser le JSON au lieu de faire mes bidouilles
+
 - corriger ancien compte de Le
 
 - implémenter le cache pour Twitter
@@ -6,14 +8,6 @@
 
 - mauvaise gestion de la date de publication sur Medium
 https://medium.com/@docjamesw/the-anti-meeting-culture-c209bab5a16d
-
-- mauvaise détection de la langue sur
-pour cela renvoyer Optional.empty quand il n'y a aucun mot trouvé
-https://www.govinfo.gov/app/collection/cfr
-https://www.govinfo.gov/app/details/CFR-2007-title21-vol1
-http://www.openafs.org/
-https://www.meteor.com/
-https://usa.kaspersky.com/about/press-releases/2016_kaspersky-lab-study-proves-smartphones-distract-workers-and-decrease-productivity
 
 - tous les articles de http://www.bio-itworld.com ont disparu
 

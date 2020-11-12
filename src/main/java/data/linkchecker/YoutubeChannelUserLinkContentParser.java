@@ -11,7 +11,7 @@ import utils.StringHelper;
 public class YoutubeChannelUserLinkContentParser {
 
     private final String _data;
-    private Locale _language;
+    private Optional<Locale> _language;
     private Optional<String> _errorMessage;
 
     public YoutubeChannelUserLinkContentParser(final String data) {
@@ -26,7 +26,7 @@ public class YoutubeChannelUserLinkContentParser {
         return _errorMessage;
     }
 
-    public Locale getLanguage() {
+    public Optional<Locale> getLanguage() {
         if (_language == null) {
             final String description = extractDescription();
             _language = StringHelper.guessLanguage(description);

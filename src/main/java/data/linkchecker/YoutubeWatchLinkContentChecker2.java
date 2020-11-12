@@ -20,7 +20,7 @@ import utils.xmlparsing.LinkData;
 
 public class YoutubeWatchLinkContentChecker2 extends LinkContentChecker {
 
-    private YoutubeVideoDto _dto;
+    private final YoutubeVideoDto _dto;
 
     public YoutubeWatchLinkContentChecker2(final URL url,
                                            final LinkData linkData,

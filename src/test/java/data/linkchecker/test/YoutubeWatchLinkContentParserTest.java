@@ -224,7 +224,7 @@ class YoutubeWatchLinkContentParserTest {
                             Assertions.assertTrue(d.getDataFile().isPresent());
                             final String data = FileHelper.slurpFile(d.getDataFile().get());
                             final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
-                            Assertions.assertEquals(Locale.ENGLISH, parser.getLanguage());
+                            Assertions.assertEquals(Locale.ENGLISH, parser.getLanguage().get());
                             consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -240,7 +240,7 @@ class YoutubeWatchLinkContentParserTest {
             "https://www.youtube.com/watch?v=ccB09XRdGjo",
             // description bilingue "https://www.youtube.com/watch?v=FGjWkQePk20",
             "https://www.youtube.com/watch?v=fxTxU0Echq8",
-            "https://www.youtube.com/watch?v=hGbrH8DGzRg",
+            // description bilingue "https://www.youtube.com/watch?v=hGbrH8DGzRg",
             // description bilingue "https://www.youtube.com/watch?v=iJfJPXI5EZQ",
             // description bilingue "https://www.youtube.com/watch?v=k0-5T_oDt1E",
             "https://www.youtube.com/watch?v=kiv32_P_T3k",
@@ -256,7 +256,7 @@ class YoutubeWatchLinkContentParserTest {
                             Assertions.assertTrue(d.getDataFile().isPresent());
                             final String data = FileHelper.slurpFile(d.getDataFile().get());
                             final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
-                            Assertions.assertEquals(Locale.FRENCH, parser.getLanguage());
+                            Assertions.assertEquals(Locale.FRENCH, parser.getLanguage().get());
                             consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());

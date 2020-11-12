@@ -17,7 +17,7 @@ public class YoutubeWatchLinkContentParser {
     private Boolean _isPlayable;
     private String _title;
     private String _description;
-    private Locale _language;
+    private Optional<Locale> _language;
     private Optional<Locale> _subtitlesLanguage;
     private LocalDate _uploadDate;
     private LocalDate _publishDate;
@@ -93,11 +93,11 @@ public class YoutubeWatchLinkContentParser {
         return _maxDuration;
     }
 
-    public Locale getLanguage() {
+    public Optional<Locale> getLanguage() {
         if (_language == null) {
             final Locale lang = getSubtitlesLanguage();
             if (lang != null) {
-                _language = lang;
+                _language = Optional.of(lang);
             } else {
                 _language = StringHelper.guessLanguage(getDescription());
             }

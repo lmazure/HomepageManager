@@ -15,7 +15,7 @@ import utils.xmlparsing.LinkData;
 
 public class TwitterLinkContentChecker extends LinkContentChecker {
 
-    private TwitterUserDto _dto; 
+    private final TwitterUserDto _dto; 
 
     public TwitterLinkContentChecker(final URL url,
                                      final LinkData linkData,
@@ -32,9 +32,9 @@ public class TwitterLinkContentChecker extends LinkContentChecker {
                                                   final Locale[] languages)
     {
         final String description = _dto.getDescription();
-        final Locale language = StringHelper.guessLanguage(description);
+        final Optional<Locale> language = StringHelper.guessLanguage(description);
 
-        if (!Arrays.asList(languages).contains(language)) {
+        if (language.isPresent() && !Arrays.asList(languages).contains(language.get())) {
             return new LinkContentCheck("language is \"" + language + "\" but this one is unexpected");
         }
 
