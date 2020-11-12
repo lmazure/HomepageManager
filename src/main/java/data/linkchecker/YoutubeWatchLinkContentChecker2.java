@@ -158,7 +158,8 @@ public class YoutubeWatchLinkContentChecker2 extends LinkContentChecker {
                                             "\" but this one is unexpected (verified with API)");
             }            
         } else {
-            if (!Arrays.asList(languages).contains(StringHelper.guessLanguage(_dto.getDescription()))) {
+            final Optional<Locale> lang = StringHelper.guessLanguage(_dto.getDescription());
+            if (lang.isPresent() && !Arrays.asList(languages).contains(lang.get())) {
                 return new LinkContentCheck("language is \"" +
                                             language +
                                             "\" but this one is unexpected (verified with guessing)");

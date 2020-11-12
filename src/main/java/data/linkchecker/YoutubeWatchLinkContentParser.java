@@ -95,9 +95,9 @@ public class YoutubeWatchLinkContentParser {
 
     public Optional<Locale> getLanguage() {
         if (_language == null) {
-            final Locale lang = getSubtitlesLanguage();
-            if (lang != null) {
-                _language = Optional.of(lang);
+            final Optional<Locale> lang = getSubtitlesLanguage();
+            if (lang.isPresent()) {
+                _language = lang;
             } else {
                 _language = StringHelper.guessLanguage(getDescription());
             }
@@ -106,7 +106,7 @@ public class YoutubeWatchLinkContentParser {
         return _language;
     }
 
-    public Locale getSubtitlesLanguage() {
+    public Optional<Locale> getSubtitlesLanguage() {
         final String prefix = _isEscaped ? "\\\"name\\\":{\\\"simpleText\\\":\\\""
                                          : "\"name\":{\"simpleText\":\"";
         final String postfix = _isEscaped ? " (auto-generated)\\\"}"
@@ -121,7 +121,7 @@ public class YoutubeWatchLinkContentParser {
             }
         }
 
-        return _subtitlesLanguage.orElse(null);
+        return _subtitlesLanguage;
     }
 
     private boolean getPlayable() {
