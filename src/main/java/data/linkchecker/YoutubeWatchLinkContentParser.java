@@ -30,6 +30,8 @@ public class YoutubeWatchLinkContentParser {
             _isEscaped = false;
         } else if (data.contains("window[\"ytInitialPlayerResponse\"] =")) {
             _isEscaped = true;
+        } else if (data.contains("ytplayer.config = {")) {
+            _isEscaped = true;
         } else {
             ExitHelper.exit("Failed to recognize the YouTube answer type");
             // NOT REACHED

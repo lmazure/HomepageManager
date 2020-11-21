@@ -93,9 +93,8 @@ public class LinkCheckRunner {
         final List<LinkData> links;
         final List<ArticleData> articles;
 
-        Document document;
         try {
-            document = _builder.parse(_file.toFile());
+            final Document document = _builder.parse(_file.toFile());
             links =  extractLinks(document.getDocumentElement());
             articles =  extractArticles(document.getDocumentElement());
         } catch (final Exception e) {
@@ -383,7 +382,13 @@ public class LinkCheckRunner {
         if (effectiveData.getError().isPresent()) {
             builder.append("Effective error = \"" + effectiveData.getError().get() + "\"\n");
         }
-        builder.append("Look for article = https://www.google.com/search?q=%22" + URLEncoder.encode(expectedData.getTitle(), StandardCharsets.UTF_8) + "%22\n");
+        final StringBuilder googleUrl = new StringBuilder("https://www.google.com/search?q=%22" +
+                                                          URLEncoder.encode(expectedData.getTitle(), StandardCharsets.UTF_8) +
+                                                         "%22");
+        for (final String st: expectedData.getSubtitles()) {
+            googleUrl.append("+%22" + URLEncoder.encode(st, StandardCharsets.UTF_8) + "%22");
+        }
+        builder.append("Look for article = " + googleUrl.toString() + "\n");
         builder.append("\n");
     }
 

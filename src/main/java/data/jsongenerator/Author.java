@@ -2,6 +2,7 @@ package data.jsongenerator;
 
 import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Optional;
 
 import utils.xmlparsing.AuthorData;
@@ -11,10 +12,10 @@ public class Author extends AuthorData implements Comparable<Author> {
     private final SortingKey _sortingKey;
     private final ArrayList<Article> _articles;
     private final ArrayList<Link> _links;
-    static private final Collator s_collator = Collator.getInstance();
 
     static public class SortingKey implements Comparable<SortingKey> {
 
+        static private final Collator s_collator = Collator.getInstance(Locale.UK);
         private final String _normalizedName;
 
         SortingKey(final Optional<String> namePrefix,
@@ -24,15 +25,15 @@ public class Author extends AuthorData implements Comparable<Author> {
                    final Optional<String> nameSuffix,
                    final Optional<String> givenName) {
 
-            String normalizedName = "";
-            normalizedName = append(normalizedName, lastName);
-            normalizedName = append(normalizedName, givenName);
-            normalizedName = append(normalizedName, firstName);
-            normalizedName = append(normalizedName, middleName);
-            normalizedName = append(normalizedName, nameSuffix);
-            normalizedName = append(normalizedName, namePrefix);
+            final StringBuilder normalizedName = new StringBuilder(128);
+            append(normalizedName, lastName);
+            append(normalizedName, givenName);
+            append(normalizedName, firstName);
+            append(normalizedName, middleName);
+            append(normalizedName, nameSuffix);
+            append(normalizedName, namePrefix);
 
-            _normalizedName = normalizedName;
+            _normalizedName = normalizedName.toString();
         }
 
         @Override
@@ -45,19 +46,16 @@ public class Author extends AuthorData implements Comparable<Author> {
             return _normalizedName;
         }
 
-        private String append(final String str, final Optional<String> app) {
+        private void append(final StringBuilder builder,
+                            final Optional<String> app) {
 
-            String s = str;
-
-            if (s.length() > 0) {
-                s += '!'; // to not use '\n', the collator will ignore it when comparing strings
+            if (builder.length() > 0) {
+                builder.append('!'); // to not use '\n', the collator will ignore it when comparing strings
             }
 
             if (app.isPresent()) {
-                s += app.get();
+                builder.append(app.get());
             }
-
-            return s;
         }
     }
 

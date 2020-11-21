@@ -37,7 +37,7 @@ public class YoutubeChannelUserLinkContentChecker extends LinkContentChecker {
         final Optional<Locale> language = _parser.getLanguage();
 
         if (language.isPresent() && !Arrays.asList(languages).contains(language.get())) {
-            return new LinkContentCheck("language is \"" + language + "\" but this one is unexpected");
+            return new LinkContentCheck("language is \"" + language.get() + "\" but this one is unexpected");
         }
 
         return null;

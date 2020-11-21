@@ -1,26 +1,28 @@
+- mettre des tooltips sur les symboles de KEY
+
+- perso/weblog.htm n'est plus référencé
+
+- vérifier que tous mes fichiers (sauf *.html) sont référencés
+
+- regarder s'il y a moyen de récupérer le titre entier quand il est tronqué sur Youtube
+
+- implémenter un système générique de cache
+
+- compléter la recherche Google pour prendre en compte le sous-titre et les auteurs
+
 - parser le JSON au lieu de faire mes bidouilles
 
-- corriger ancien compte de Le
-
 - implémenter le cache pour Twitter
-
-- implémenter de ne pas retourner une lange quand aucun mot n'est reconnu
 
 - mauvaise gestion de la date de publication sur Medium
 https://medium.com/@docjamesw/the-anti-meeting-culture-c209bab5a16d
 
 - tous les articles de http://www.bio-itworld.com ont disparu
 
-- retirer la syntaxe CODEFILENAME (?) qui permet d'ouvrir des fichiers en local
-
 - gérer le problème des encodings
 (je pense que cela doit toujours être mis en binaire)
 
-- extraire les langues de Twitter
-
 - colorer les boutons
-
-- grossir la fonte sur Chrome et Android
 
 - ranger les fichiers
 design.xml
@@ -30,13 +32,9 @@ coding.xml
 
 - faire un profiling de la régénération intégrale des contrôles pour voir s'il y a une fuite de thread
 
-- réparer tests unitaires
-
 - trier par défaut sur la date de dernière modification
 
 - mettre la KEYID comme titre du keyword popup
-
-- modifier règles pour que typescript.xml soit propre
 
 - mauvaise détection de langue : 
 http://wiki.c2.com/?AbcMetric
@@ -45,11 +43,6 @@ https://groups.google.com/forum/#!forum/clean-code-discussion
 https://root.cern.ch/TaligentDocs/TaligentOnline/DocumentRoot/1.0/Home/index.html
 
 - faire un prefetch de la map quand on affiche la page d'accueil
-
-- problème de reconnaissance de langue
-liens sur management.xml
-
-- content/adbook.json semble encore présent dans SVN
 
 - le contrôle
 https://www.youtube.com/watch?v=TSnsHW6DS6s
@@ -61,12 +54,7 @@ il est normal de pouvoir avoir uniquement une date de publication ?
 
 - forcer la mise à jour des caches avant de modifier les fichiers JS de nouveau
 
-- nettoyage des fichiers
-kika
-bbst.xml
-
-- comprendre pourquoi certaines vidéos sont marquées non playable
-https://www.youtube.com/watch?v=qMyMCDPaV60
+- nettoyage de bbst.xml
 
 - problème des langues
 * pas de langue pour http://download.eclipse.org/efxclipse/updates-released/3.0.0/site/
@@ -77,8 +65,6 @@ https://www.youtube.com/watch?v=qMyMCDPaV60
 
 - si un lien n'est plus zombie, on ne le détecte pas car on ne vérifie pas les données des liens zombie
 
-- voir comment purger le cache navigateur après les mises à jour
-
 - la sauvegarde du rapport de liens toutes les 30 secondes ne marche plus
 
 - Chrome indique qu'il n'arrive pas à charger les sourcemaps
@@ -87,8 +73,6 @@ https://www.youtube.com/watch?v=qMyMCDPaV60
 de plus cela génère des erreurs
                    Thread-3 | 20200416T073001.802 | ERROR | URL ../attic/optimtut1.ps.gz is not checked because the URL is malformed
                    Thread-3 | 20200416T073001.993 | ERROR | URL ../attic/tgr_softwareremodeling.pdf is not checked because the URL is malformed
-
-- résoudre la vidéo morte de data.xml (i.e. ne pas vérifier les vidéos zombie)
 
 - ajouter une règle comme quoi il n'y a pas de <ST> pour youtube
 
@@ -118,21 +102,12 @@ de plus cela génère des erreurs
 
 - ajouter la vérification des <FEED>s
 
-- ajouter support des <MIDDLENAME> multiples
-
-
-------------------------------------------------------------
-
-- le tri de https://mazure.fr/content/content.html?sort=author n'est pas correct, Jakob Østergaard ne devrait pas être à la fin
-
 - mettre un tooltip sur les expand/contract
-
 
 - remplacer les
 <script language="JavaScript" src="../scripts/common.js"></script>
 par
 <script src="../scripts/common.js"  type="module"></script>
-
 
 - corriger le support des MIDDLENAMEs multiples (Boyter dans links/humor.xml)
 
@@ -149,27 +124,10 @@ restructurer la page pour séparer
 
 - tronquer les URLs trop longs dans les tables de contenu
 
-- vérifier
-Big Risks Come in Small Packages
-Decorator Pattern
-Developing with Apache Derby -- Hitting the Trifecta: Database development with Apache Derby, Part 1
-What is RDF?
-Where Wizards Fear To Tread
-Why the future doesn't need us / Why the Future Doesn't Need Us
-
 - rendre le tri des articles complétement défini et mettre une assertion pour crasher s'il ne l'est pas
 * titre
 * sous-titre
 * date
 * premier auteur
 
-- ajouter une règle pour detecter toutes les lignes vides
-
-- ajouter une règle pour détecter les indendations incorrectes
-
-- implémenter KEYWORDS
-
-- afficher les articles, twitter, homepage, linkedin... d'un author quand on clique sur son nom
-
 - mettre un attribut lang sur les pages
-
