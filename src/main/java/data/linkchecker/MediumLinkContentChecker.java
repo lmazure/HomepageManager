@@ -57,7 +57,7 @@ public class MediumLinkContentChecker extends LinkContentChecker {
        }
 
         final LocalDate expectedDate = (LocalDate)creationDate.get();
-        final LocalDate effectivePublishDate = _parser.getPublishDate();
+        final LocalDate effectivePublishDate = _parser.getPublicationDate();
 
         if (!expectedDate.equals(effectivePublishDate)) {
             return new LinkContentCheck("expected date " +

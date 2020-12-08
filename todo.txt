@@ -1,3 +1,11 @@
+- TODO 001 retrouver des exemples de vidéos sans sous-titre
+
+- supporter les KEYWORDs dans les titres (pex Goldbach's conjecture)
+
+- corriger la règle pour qu'il n'y est plus d'erreur sur notes/vscode.xml
+
+- mettre un message pendant la génération des global files
+
 - mettre des tooltips sur les symboles de KEY
 
 - perso/weblog.htm n'est plus référencé
@@ -32,9 +40,7 @@ coding.xml
 
 - faire un profiling de la régénération intégrale des contrôles pour voir s'il y a une fuite de thread
 
-- trier par défaut sur la date de dernière modification
-
-- mettre la KEYID comme titre du keyword popup
+- trier par défaut la liste des problèmes sur la date de dernière modification
 
 - mauvaise détection de langue : 
 http://wiki.c2.com/?AbcMetric
