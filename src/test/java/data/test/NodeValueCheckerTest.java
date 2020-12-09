@@ -160,7 +160,7 @@ class NodeValueCheckerTest {
 
 
     @Test
-    void ignoreDoubleSpaceDueToIndentation() {
+    void ignoreDoubleSpaceDueToIndentationBetweenNodes() {
 
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
@@ -192,6 +192,66 @@ class NodeValueCheckerTest {
         }
     }
 
+    @Test
+    void ignoreDoubleSpaceDueToIndentationInsideNode() {
+
+        final String content =
+            "<?xml version=\"1.0\"?>\r\n" +
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<TITLE>Test</TITLE>\r\n" +
+            "<PATH>HomepageManager/test.xml</PATH>\r\n" +
+            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
+            "<CONTENT>\r\n" +
+            "<DEFINITIONTABLE>\r\n" +
+            "  <ROW>\r\n" +
+            "    <TERM><MODIFIERKEY id='Ctrl'/><KEY id='N'/><BR/>\r\n" +
+            "      double left click on tab menubar<BR/>\r\n" +
+            "      <CODEROUTINE>New Untitled File</CODEROUTINE></TERM>\r\n" +
+            "    <DESC>open new empty editor</DESC>\r\n" +
+            "  </ROW>\r\n" +
+            "</DEFINITIONTABLE>\r\n" +
+            "</CONTENT>\r\n" +
+            "</PAGE>";
+
+        try {
+            test(content);
+        } catch (@SuppressWarnings("unused") final SAXException e) {
+            Assertions.fail("SAXException");
+        }
+    }
+
+    @Test
+    void detectDoubleSpaceInIndentation() {
+
+        final String content =
+            "<?xml version=\"1.0\"?>\r\n" +
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<TITLE>Test</TITLE>\r\n" +
+            "<PATH>HomepageManager/test.xml</PATH>\r\n" +
+            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
+            "<CONTENT>\r\n" +
+            "<DEFINITIONTABLE>\r\n" +
+            "  <ROW>\r\n" +
+            "    <TERM><MODIFIERKEY id='Ctrl'/><KEY id='N'/><BR/>\r\n" +
+            "      double left  click on tab menubar<BR/>\r\n" +
+            "      <CODEROUTINE>New Untitled File</CODEROUTINE></TERM>\r\n" +
+            "    <DESC>open new empty editor</DESC>\r\n" +
+            "  </ROW>\r\n" +
+            "</DEFINITIONTABLE>\r\n" +
+            "</CONTENT>\r\n" +
+            "</PAGE>";
+
+        try {
+            test(content,
+                 "\"\n" +
+                 "      double left  click on tab menubar\n" +
+                 "      New Untitled File\" should not contain a double space");
+        } catch (@SuppressWarnings("unused") final SAXException e) {
+            Assertions.fail("SAXException");
+        }
+    }
 
     @Test
     void ignoreMissingSpaceDueToCode() {

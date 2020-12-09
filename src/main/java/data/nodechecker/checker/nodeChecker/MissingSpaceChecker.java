@@ -33,6 +33,7 @@ public class MissingSpaceChecker extends NodeChecker {
                                                                                   "Intl.RelativeTimeFormat",
                                                                                   "Intro.js",
                                                                                   "Java.Next",
+                                                                                  "Kosmopoli:t",
                                                                                   "MANIFEST.MF",
                                                                                   "MSCTF.DLL",
                                                                                   "MVC.NET",

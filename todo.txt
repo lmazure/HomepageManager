@@ -1,3 +1,5 @@
+- crash s'il manque une lettre dans un lien youtube
+
 - TODO 001 retrouver des exemples de vidéos sans sous-titre
 
 - supporter les KEYWORDs dans les titres (pex Goldbach's conjecture)
@@ -24,8 +26,6 @@
 
 - mauvaise gestion de la date de publication sur Medium
 https://medium.com/@docjamesw/the-anti-meeting-culture-c209bab5a16d
-
-- tous les articles de http://www.bio-itworld.com ont disparu
 
 - gérer le problème des encodings
 (je pense que cela doit toujours être mis en binaire)

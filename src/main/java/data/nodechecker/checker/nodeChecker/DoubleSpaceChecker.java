@@ -6,6 +6,8 @@ import utils.XMLHelper;
 import utils.xmlparsing.ElementType;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.w3c.dom.Element;
 
@@ -27,6 +29,8 @@ public class DoubleSpaceChecker extends NodeChecker {
             ElementType.TEXTBLOCK
             });
 
+    static final Pattern s_indentationPattern = Pattern.compile("\\n +");
+    
     public DoubleSpaceChecker() {
         super(s_selector,
               DoubleSpaceChecker::checkDoubleSpace, "double space is present");
@@ -48,10 +52,10 @@ public class DoubleSpaceChecker extends NodeChecker {
         }
 
         for (final String l: list) {
-            if (l.indexOf("  ") >= 0) {
-                if (!l.matches("\\n +")) {
-                    return new CheckStatus("\"" + e.getTextContent() + "\" should not contain a double space");
-                }
+            final Matcher matcher = s_indentationPattern.matcher(l);
+            final String str = matcher.replaceFirst("");
+            if (str.indexOf("  ") >= 0) {
+                return new CheckStatus("\"" + e.getTextContent() + "\" should not contain a double space");
             }
         }
 
