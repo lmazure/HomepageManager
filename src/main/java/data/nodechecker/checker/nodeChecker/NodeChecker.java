@@ -2,7 +2,7 @@ package data.nodechecker.checker.nodeChecker;
 
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.TagSelector;
-import utils.XMLHelper;
+import utils.XmlHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +57,7 @@ public class NodeChecker {
     }
 
     public boolean isElementCheckable(final Element element) {
-        return _tagSelector.isTagCheckable(XMLHelper.getElementType(element));
+        return _tagSelector.isTagCheckable(XmlHelper.getElementType(element));
     }
 
     public List<NodeCheckError> check(final Element element) {

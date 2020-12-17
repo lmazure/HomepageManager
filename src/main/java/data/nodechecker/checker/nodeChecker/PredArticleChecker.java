@@ -4,7 +4,7 @@ import org.w3c.dom.Element;
 
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
-import utils.XMLHelper;
+import utils.XmlHelper;
 import utils.XmlParsingException;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.ElementType;
@@ -26,17 +26,17 @@ public class PredArticleChecker extends NodeChecker {
         final String pred = e.getAttribute("pred");
         if (pred.isEmpty()) return null;
 
-        if (!XMLHelper.isOfType(e.getParentNode(), ElementType.ITEM)) {
+        if (!XmlHelper.isOfType(e.getParentNode(), ElementType.ITEM)) {
             return new CheckStatus("Article has 'pred' attribute, but it is not in an <ITEM>");
         }
-        final Element previousSibling = XMLHelper.getPreviousSiblingElement((Element)e.getParentNode());
+        final Element previousSibling = XmlHelper.getPreviousSiblingElement((Element)e.getParentNode());
         if (previousSibling == null) {
             return new CheckStatus("Article has 'pred' attribute, but there is no previous element");
         }
-        if (!XMLHelper.isOfType(previousSibling, ElementType.ITEM)) {
+        if (!XmlHelper.isOfType(previousSibling, ElementType.ITEM)) {
             return new CheckStatus("Article has 'pred' attribute, but previous element is not an <ITEM>");
         }
-        if (!XMLHelper.isOfType(previousSibling.getFirstChild(), ElementType.ARTICLE)) {
+        if (!XmlHelper.isOfType(previousSibling.getFirstChild(), ElementType.ARTICLE)) {
             return new CheckStatus("Article has 'pred' attribute, but previous <ITEM> does not contain an <ARTICLE>");
         }
 

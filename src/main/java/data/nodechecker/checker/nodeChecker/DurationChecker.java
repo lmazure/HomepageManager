@@ -5,7 +5,7 @@ import org.w3c.dom.NodeList;
 
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
-import utils.XMLHelper;
+import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
 
 public class DurationChecker extends NodeChecker {
@@ -22,9 +22,9 @@ public class DurationChecker extends NodeChecker {
 
     private static CheckStatus checkDurationHierarchy(final Element e) {
 
-        final int numberOfSeconds = XMLHelper.getDescendantsByElementType(e, ElementType.SECOND).getLength();
-        final int numberOfMinutes = XMLHelper.getDescendantsByElementType(e, ElementType.MINUTE).getLength();
-        final int numberOfHours = XMLHelper.getDescendantsByElementType(e, ElementType.HOUR).getLength();
+        final int numberOfSeconds = XmlHelper.getDescendantsByElementType(e, ElementType.SECOND).getLength();
+        final int numberOfMinutes = XmlHelper.getDescendantsByElementType(e, ElementType.MINUTE).getLength();
+        final int numberOfHours = XmlHelper.getDescendantsByElementType(e, ElementType.HOUR).getLength();
 
         if (numberOfSeconds > 1) return new CheckStatus("more than one SECOND");
         if (numberOfMinutes > 1) return new CheckStatus("more than one MINUTE");
@@ -39,9 +39,9 @@ public class DurationChecker extends NodeChecker {
 
     private static CheckStatus checkDurationValue(final Element e) {
 
-        final NodeList seconds = XMLHelper.getDescendantsByElementType(e, ElementType.SECOND);
-        final NodeList minutes = XMLHelper.getDescendantsByElementType(e, ElementType.MINUTE);
-        final NodeList hours = XMLHelper.getDescendantsByElementType(e, ElementType.HOUR);
+        final NodeList seconds = XmlHelper.getDescendantsByElementType(e, ElementType.SECOND);
+        final NodeList minutes = XmlHelper.getDescendantsByElementType(e, ElementType.MINUTE);
+        final NodeList hours = XmlHelper.getDescendantsByElementType(e, ElementType.HOUR);
 
         final int numberOfSeconds = seconds.getLength();
         final int numberOfMinutes = minutes.getLength();

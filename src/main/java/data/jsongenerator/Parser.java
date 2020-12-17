@@ -13,7 +13,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import utils.Logger;
-import utils.XMLHelper;
+import utils.XmlHelper;
 import utils.XmlParsingException;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
@@ -43,7 +43,7 @@ public class Parser {
         _authorFactory = authorFactory;
         _linkFactory = linkFactory;
         _keywordFactory = keywordFactory;
-        _builder = XMLHelper.buildDocumentBuilder();
+        _builder = XmlHelper.buildDocumentBuilder();
     }
 
     /**
@@ -78,7 +78,7 @@ public class Parser {
                                  final File file) throws XmlParsingException {
 
         final Element racine = document.getDocumentElement();
-        final NodeList list = XMLHelper.getDescendantsByElementType(racine, ElementType.ARTICLE);
+        final NodeList list = XmlHelper.getDescendantsByElementType(racine, ElementType.ARTICLE);
 
         for (int i = 0; i < list.getLength(); i++) {
 
@@ -110,7 +110,7 @@ public class Parser {
                                  final File file) throws XmlParsingException {
 
         final Element racine = document.getDocumentElement();
-        final NodeList list = XMLHelper.getDescendantsByElementType(racine, ElementType.KEYWORD);
+        final NodeList list = XmlHelper.getDescendantsByElementType(racine, ElementType.KEYWORD);
 
         for (int i = 0; i < list.getLength(); i++) {
 
@@ -167,19 +167,19 @@ public class Parser {
                                     final File file) throws XmlParsingException {
 
         final Element racine = document.getDocumentElement();
-        final NodeList list = XMLHelper.getDescendantsByElementType(racine, ElementType.CLIST);
+        final NodeList list = XmlHelper.getDescendantsByElementType(racine, ElementType.CLIST);
 
         for (int i = 0; i < list.getLength(); i++) {
 
             final Element clistNode = (Element)list.item(i);
 
             final Node titleNode =  clistNode.getFirstChild();
-            if (!XMLHelper.isOfType(titleNode, ElementType.TITLE)) {
+            if (!XmlHelper.isOfType(titleNode, ElementType.TITLE)) {
                 throw new XmlParsingException("Unexpected XML structure (the first child of a CLIST node is not a TITLE node)");
             }
 
             final Node authorNode =  titleNode.getFirstChild();
-            if (!XMLHelper.isOfType(authorNode, ElementType.AUTHOR)) {
+            if (!XmlHelper.isOfType(authorNode, ElementType.AUTHOR)) {
                 throw new XmlParsingException("Unexpected XML structure (the first child of the first child of a CLIST node is not a AUTHOR node)");
             }
 
@@ -189,13 +189,13 @@ public class Parser {
 
             if (author == null) continue; // TODO ne devrait jamais arriver ?
 
-            for (int j = 0; j < XMLHelper.getDescendantsByElementType(clistNode, ElementType.ITEM).getLength(); j++) {
+            for (int j = 0; j < XmlHelper.getDescendantsByElementType(clistNode, ElementType.ITEM).getLength(); j++) {
 
-                final Element linkNode = (Element)XMLHelper.getDescendantsByElementType(clistNode, ElementType.ITEM).item(j);
+                final Element linkNode = (Element)XmlHelper.getDescendantsByElementType(clistNode, ElementType.ITEM).item(j);
                 if (linkNode.getChildNodes().getLength() != 1) {
                     throw new XmlParsingException("Illegal number of children nodes");
                 }
-                if (!XMLHelper.isOfType((Element)linkNode.getChildNodes().item(0), ElementType.X)) {
+                if (!XmlHelper.isOfType((Element)linkNode.getChildNodes().item(0), ElementType.X)) {
                     throw new XmlParsingException("Illegal child node");
                 }
                 final LinkData linkData = XmlParser.parseXElement((Element)linkNode.getChildNodes().item(0));

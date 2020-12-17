@@ -6,7 +6,7 @@ import org.w3c.dom.NodeList;
 
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
-import utils.XMLHelper;
+import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
 
 public class DurationPresenceChecker extends NodeChecker {
@@ -28,10 +28,10 @@ public class DurationPresenceChecker extends NodeChecker {
         for (int j = 0; j < children.getLength(); j++) {
             final Node child = children.item(j);
             if (child.getNodeType() == Node.ELEMENT_NODE) {
-                if (XMLHelper.isOfType(child, ElementType.DURATION)) {
+                if (XmlHelper.isOfType(child, ElementType.DURATION)) {
                     hasDuration = true;
                 }
-                if (XMLHelper.isOfType(child, ElementType.F)) {
+                if (XmlHelper.isOfType(child, ElementType.F)) {
                     format = child.getTextContent();
                 }
             }

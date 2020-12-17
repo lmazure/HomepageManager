@@ -15,14 +15,14 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import utils.XMLHelper;
+import utils.XmlHelper;
 import utils.XmlParsingException;
 
 public class XmlParser {
 
     public static ArticleData parseArticleElement(final Element articleElement) throws XmlParsingException {
 
-        if (!XMLHelper.isOfType(articleElement, ElementType.ARTICLE)) {
+        if (!XmlHelper.isOfType(articleElement, ElementType.ARTICLE)) {
             throw new XmlParsingException("parseArticleNode called with wrong node (" + articleElement.getTagName() + ")");
         }
 
@@ -51,7 +51,7 @@ public class XmlParser {
 
     public static KeywordData parseKeywordElement(final Element keywordElement) throws XmlParsingException {
 
-        if (!XMLHelper.isOfType(keywordElement, ElementType.KEYWORD)) {
+        if (!XmlHelper.isOfType(keywordElement, ElementType.KEYWORD)) {
             throw new XmlParsingException("parseKeywordNode called with wrong node (" + keywordElement.getTagName() + ")");
         }
 
@@ -60,10 +60,10 @@ public class XmlParser {
         if (children.getLength() != 2) {
             throw new XmlParsingException("KEYWORD node should have two children");
         }
-        if (!XMLHelper.isOfType(children.item(0), ElementType.KEYID)) {
+        if (!XmlHelper.isOfType(children.item(0), ElementType.KEYID)) {
             throw new XmlParsingException("first child of KEYWORD node must be a KEYID node");
         }
-        if (!XMLHelper.isOfType(children.item(1), ElementType.KEYEDTEXT)) {
+        if (!XmlHelper.isOfType(children.item(1), ElementType.KEYEDTEXT)) {
             throw new XmlParsingException("second child of KEYWORD node must be a KEYEDTEXT node");
         }
         final String keyId = children.item(0).getTextContent();
@@ -72,15 +72,15 @@ public class XmlParser {
         final Element grandParent = (Element)keywordElement.getParentNode().getParentNode();
         Optional<ArticleData> article = Optional.empty();
         final List<LinkData> links = new ArrayList<LinkData>();
-        if (XMLHelper.isOfType(grandParent, ElementType.ARTICLE)) {
+        if (XmlHelper.isOfType(grandParent, ElementType.ARTICLE)) {
             article = Optional.of(parseArticleElement(grandParent));
-        } else if (XMLHelper.isOfType(grandParent, ElementType.CLIST)) {
+        } else if (XmlHelper.isOfType(grandParent, ElementType.CLIST)) {
             for (final Element itemNode: getChildElements(grandParent, ElementType.ITEM)) {
                 final NodeList child =  itemNode.getChildNodes();
                 if (child.getLength() != 1) {
                     throw new XmlParsingException("ITEM should have single child node");
                 }
-                if ((child.item(0).getNodeType() != Node.ELEMENT_NODE) || !XMLHelper.isOfType(child.item(0), ElementType.X)) {
+                if ((child.item(0).getNodeType() != Node.ELEMENT_NODE) || !XmlHelper.isOfType(child.item(0), ElementType.X)) {
                     throw new XmlParsingException("ITEM should have an X child node");
                 }
                 links.add(XmlParser.parseXElement((Element)child.item(0)));
@@ -94,17 +94,17 @@ public class XmlParser {
 
     public static LinkData parseXElement(final Element xElement) throws XmlParsingException {
 
-        if (!XMLHelper.isOfType(xElement, ElementType.X)) {
+        if (!XmlHelper.isOfType(xElement, ElementType.X)) {
             throw new XmlParsingException("parseXNode called with wrong node (" + xElement.getTagName() + ")");
         }
 
-        final NodeList titleNodes = XMLHelper.getDescendantsByElementType(xElement, ElementType.T);
+        final NodeList titleNodes = XmlHelper.getDescendantsByElementType(xElement, ElementType.T);
         if (titleNodes.getLength() != 1) {
             throw new XmlParsingException("Wrong number of T nodes (" + titleNodes.getLength() + ") in \"" + xElement.getTextContent() + "\"");
         }
         final String title = ((Element)titleNodes.item(0)).getTextContent();
 
-        final NodeList subtitleNodes = XMLHelper.getDescendantsByElementType(xElement,ElementType.ST);
+        final NodeList subtitleNodes = XmlHelper.getDescendantsByElementType(xElement,ElementType.ST);
         final String subtitles[] = new String[subtitleNodes.getLength()];
         for (int k = 0; k < subtitleNodes.getLength(); k++) {
             subtitles[k] = ((Element)subtitleNodes.item(k)).getTextContent();
@@ -116,7 +116,7 @@ public class XmlParser {
         }
         final String url = urlNodes.get(0).getTextContent();
 
-        final NodeList languageNodes = XMLHelper.getDescendantsByElementType(xElement, ElementType.L);
+        final NodeList languageNodes = XmlHelper.getDescendantsByElementType(xElement, ElementType.L);
         if (languageNodes.getLength() == 0) {
             throw new XmlParsingException("Wrong number of L nodes (0) in \"" + title + "\"");
         }
@@ -125,7 +125,7 @@ public class XmlParser {
             languages[k] = LinkData.parseLangage(((Element)languageNodes.item(k)).getTextContent());
         }
 
-        final List<Element> formatNodes = XMLHelper.getChildrenByElementType(xElement, ElementType.F);
+        final List<Element> formatNodes = XmlHelper.getChildrenByElementType(xElement, ElementType.F);
         if (formatNodes.isEmpty()) {
             throw new XmlParsingException("Wrong number of F nodes (0) in \"" + title + "\"");
         }
@@ -134,7 +134,7 @@ public class XmlParser {
             formats[k] = LinkData.parseFormat((formatNodes.get(k)).getTextContent());
         }
 
-        final NodeList durationNodes =  XMLHelper.getDescendantsByElementType(xElement, ElementType.DURATION);
+        final NodeList durationNodes =  XmlHelper.getDescendantsByElementType(xElement, ElementType.DURATION);
         Optional<Duration> duration = Optional.empty();
         if (durationNodes.getLength() == 1) {
             duration = Optional.of(parseDurationElement((Element)durationNodes.item(0)));
@@ -164,12 +164,12 @@ public class XmlParser {
 
     public static AuthorData parseAuthorElement(final Element authorElement) throws XmlParsingException {
 
-        if (!XMLHelper.isOfType(authorElement, ElementType.AUTHOR)) {
+        if (!XmlHelper.isOfType(authorElement, ElementType.AUTHOR)) {
             throw new XmlParsingException("parseAuthorNode called with wrong node (" + authorElement.getTagName() + ")");
         }
 
         Optional<String> namePrefix = Optional.empty();
-        final NodeList namePrefixList = XMLHelper.getDescendantsByElementType(authorElement, ElementType.NAMEPREFIX);
+        final NodeList namePrefixList = XmlHelper.getDescendantsByElementType(authorElement, ElementType.NAMEPREFIX);
         if (namePrefixList.getLength() == 1) {
             namePrefix = Optional.of(namePrefixList.item(0).getTextContent());
         } else if (namePrefixList.getLength() > 1) {
@@ -177,7 +177,7 @@ public class XmlParser {
         }
 
         Optional<String> firstName = Optional.empty();
-        final NodeList firstNameList = XMLHelper.getDescendantsByElementType(authorElement, ElementType.FIRSTNAME);
+        final NodeList firstNameList = XmlHelper.getDescendantsByElementType(authorElement, ElementType.FIRSTNAME);
         if (firstNameList.getLength() == 1) {
             firstName = Optional.of(firstNameList.item(0).getTextContent());
         } else if (firstNameList.getLength() > 1) {
@@ -185,7 +185,7 @@ public class XmlParser {
         }
 
         Optional<String> middleName = Optional.empty();
-        final NodeList middleNameList = XMLHelper.getDescendantsByElementType(authorElement, ElementType.MIDDLENAME);
+        final NodeList middleNameList = XmlHelper.getDescendantsByElementType(authorElement, ElementType.MIDDLENAME);
         if (middleNameList.getLength() == 1) {
             middleName = Optional.of(middleNameList.item(0).getTextContent());
         } else if (middleNameList.getLength() > 1) {
@@ -193,7 +193,7 @@ public class XmlParser {
         }
 
         Optional<String> lastName = Optional.empty();
-        final NodeList lastNameList = XMLHelper.getDescendantsByElementType(authorElement, ElementType.LASTNAME);
+        final NodeList lastNameList = XmlHelper.getDescendantsByElementType(authorElement, ElementType.LASTNAME);
         if (lastNameList.getLength() == 1) {
             lastName = Optional.of(lastNameList.item(0).getTextContent());
         } else if (lastNameList.getLength() > 1) {
@@ -201,7 +201,7 @@ public class XmlParser {
         }
 
         Optional<String> nameSuffix = Optional.empty();
-        final NodeList nameSuffixList = XMLHelper.getDescendantsByElementType(authorElement, ElementType.NAMESUFFIX);
+        final NodeList nameSuffixList = XmlHelper.getDescendantsByElementType(authorElement, ElementType.NAMESUFFIX);
         if (nameSuffixList.getLength() == 1) {
             nameSuffix = Optional.of(nameSuffixList.item(0).getTextContent());
         } else if (nameSuffixList.getLength() > 1) {
@@ -209,7 +209,7 @@ public class XmlParser {
         }
 
         Optional<String> givenName = Optional.empty();
-        final NodeList givenNameList = XMLHelper.getDescendantsByElementType(authorElement, ElementType.GIVENNAME);
+        final NodeList givenNameList = XmlHelper.getDescendantsByElementType(authorElement, ElementType.GIVENNAME);
         if (givenNameList.getLength() == 1) {
             givenName = Optional.of(givenNameList.item(0).getTextContent());
         } else if (givenNameList.getLength() > 1) {
@@ -221,17 +221,17 @@ public class XmlParser {
 
     public static TemporalAccessor parseDateElement(final Element dateElement) throws XmlParsingException {
 
-        if (!XMLHelper.isOfType(dateElement, ElementType.DATE)) {
+        if (!XmlHelper.isOfType(dateElement, ElementType.DATE)) {
             throw new XmlParsingException("parseDateNode called with wrong node (" + dateElement.getTagName() + ")");
         }
 
-        final NodeList yearNodes = XMLHelper.getDescendantsByElementType(dateElement, ElementType.YEAR);
+        final NodeList yearNodes = XmlHelper.getDescendantsByElementType(dateElement, ElementType.YEAR);
         if (yearNodes.getLength() == 1) {
             final int year = Integer.parseInt(yearNodes.item(0).getTextContent());
-            final NodeList monthNodes = XMLHelper.getDescendantsByElementType(dateElement, ElementType.MONTH);
+            final NodeList monthNodes = XmlHelper.getDescendantsByElementType(dateElement, ElementType.MONTH);
             if (monthNodes.getLength() == 1) {
                 final int month = Integer.parseInt(monthNodes.item(0).getTextContent());
-                final NodeList dayNodes = XMLHelper.getDescendantsByElementType(dateElement, ElementType.DAY);
+                final NodeList dayNodes = XmlHelper.getDescendantsByElementType(dateElement, ElementType.DAY);
                 if (dayNodes.getLength() == 1) {
                     final int day = Integer.parseInt(dayNodes.item(0).getTextContent());
                     return LocalDate.of(year, month, day);
@@ -249,13 +249,13 @@ public class XmlParser {
 
     private static Duration parseDurationElement(final Element durationElement) throws XmlParsingException {
 
-        if (!XMLHelper.isOfType(durationElement, ElementType.DURATION)) {
+        if (!XmlHelper.isOfType(durationElement, ElementType.DURATION)) {
             throw new XmlParsingException("parseDurationNode called with wrong node (" + durationElement.getTagName() + ")");
         }
 
         Duration duration;
 
-        final NodeList secondsNodes = XMLHelper.getDescendantsByElementType(durationElement, ElementType.SECOND);
+        final NodeList secondsNodes = XmlHelper.getDescendantsByElementType(durationElement, ElementType.SECOND);
         if (secondsNodes.getLength() == 1) {
             final long seconds = Long.parseLong(secondsNodes.item(0).getTextContent());
             duration = Duration.ofSeconds(seconds);
@@ -263,7 +263,7 @@ public class XmlParser {
             throw new XmlParsingException("Wrong number of SECOND nodes (" + secondsNodes.getLength() + ") in string \"" + durationElement.getTextContent() + "\"");
         }
 
-        final NodeList minutesNodes = XMLHelper.getDescendantsByElementType(durationElement, ElementType.MINUTE);
+        final NodeList minutesNodes = XmlHelper.getDescendantsByElementType(durationElement, ElementType.MINUTE);
         if (minutesNodes.getLength() == 1) {
             final long minutes = Long.parseLong(minutesNodes.item(0).getTextContent());
             duration = duration.plusMinutes(minutes);
@@ -271,7 +271,7 @@ public class XmlParser {
             throw new XmlParsingException("Wrong number of MINUTE nodes (" + minutesNodes.getLength() + ") in string \"" + durationElement.getTextContent() + "\"");
         }
 
-        final NodeList hoursNodes = XMLHelper.getDescendantsByElementType(durationElement, ElementType.HOUR);
+        final NodeList hoursNodes = XmlHelper.getDescendantsByElementType(durationElement, ElementType.HOUR);
         if (hoursNodes.getLength() == 1) {
             final long  hours = Long.parseLong(hoursNodes.item(0).getTextContent());
             duration = duration.plusHours(hours);
@@ -291,7 +291,7 @@ public class XmlParser {
         for (int i = 0; i < children.getLength(); i++) {
             if (children.item(i).getNodeType() == Node.ELEMENT_NODE) {
                 final Element child = (Element)children.item(i);
-                if (XMLHelper.isOfType(child, type)) {
+                if (XmlHelper.isOfType(child, type)) {
                     list.add(child);
                 }
             }

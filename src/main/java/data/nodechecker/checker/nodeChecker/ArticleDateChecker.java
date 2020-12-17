@@ -9,7 +9,7 @@ import org.w3c.dom.Element;
 
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
-import utils.XMLHelper;
+import utils.XmlHelper;
 import utils.XmlParsingException;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkData;
@@ -106,11 +106,11 @@ public class ArticleDateChecker extends NodeChecker {
         }
         final Optional<TemporalAccessor> creationDate = articleData.getDate();
 
-        if (!XMLHelper.isOfType(e.getParentNode(), ElementType.ITEM)) return null;
-        final Element previousSibling = XMLHelper.getPreviousSiblingElement((Element)e.getParentNode());
+        if (!XmlHelper.isOfType(e.getParentNode(), ElementType.ITEM)) return null;
+        final Element previousSibling = XmlHelper.getPreviousSiblingElement((Element)e.getParentNode());
         if (previousSibling == null) return null;
-        if (!XMLHelper.isOfType(previousSibling, ElementType.ITEM)) return null;
-        if (!XMLHelper.isOfType(previousSibling.getFirstChild(), ElementType.ARTICLE)) return null;
+        if (!XmlHelper.isOfType(previousSibling, ElementType.ITEM)) return null;
+        if (!XmlHelper.isOfType(previousSibling.getFirstChild(), ElementType.ARTICLE)) return null;
         final Element previousArticle = (Element)previousSibling.getFirstChild();
         final Element firstArticleOfPreviousChain = getFirstArticleOfArticleChain(previousArticle);
         if (firstArticleOfPreviousChain == null) {
@@ -162,18 +162,18 @@ public class ArticleDateChecker extends NodeChecker {
         final String pred = e.getAttribute("pred");
         if (pred.isEmpty()) return e;
 
-        if (!XMLHelper.isOfType(e.getParentNode(), ElementType.ITEM)) return null;
-        final Element previousSibling = XMLHelper.getPreviousSiblingElement((Element)e.getParentNode());
+        if (!XmlHelper.isOfType(e.getParentNode(), ElementType.ITEM)) return null;
+        final Element previousSibling = XmlHelper.getPreviousSiblingElement((Element)e.getParentNode());
         if (previousSibling == null) return null;
-        if (!XMLHelper.isOfType(previousSibling, ElementType.ITEM)) return null;
-        if (!XMLHelper.isOfType(previousSibling.getFirstChild(), ElementType.ARTICLE)) return null;
+        if (!XmlHelper.isOfType(previousSibling, ElementType.ITEM)) return null;
+        if (!XmlHelper.isOfType(previousSibling.getFirstChild(), ElementType.ARTICLE)) return null;
         final Element previousArticle = (Element)previousSibling.getFirstChild();
 
         return getFirstArticleOfArticleChain(previousArticle);
     }
 
     private static Optional<TemporalAccessor> getPageDate(final Element e) throws XmlParsingException {
-        final List<Element> date = XMLHelper.getChildrenByElementType(e.getOwnerDocument().getDocumentElement(), ElementType.DATE);
+        final List<Element> date = XmlHelper.getChildrenByElementType(e.getOwnerDocument().getDocumentElement(), ElementType.DATE);
         if (date.size() == 0) {
             return Optional.empty();
         }

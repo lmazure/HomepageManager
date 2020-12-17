@@ -37,7 +37,7 @@ import utils.HttpHelper;
 import utils.InvalidHttpCodeException;
 import utils.Logger;
 import utils.Logger.Level;
-import utils.XMLHelper;
+import utils.XmlHelper;
 import utils.XmlParsingException;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkData;
@@ -78,7 +78,7 @@ public class LinkCheckRunner {
         _articles = new HashMap<URL, ArticleData>();
         _checks = new HashMap<URL, List<LinkContentCheck>>();
         _isCancelled = false;
-        _builder = XMLHelper.buildDocumentBuilder();
+        _builder = XmlHelper.buildDocumentBuilder();
         _retriever = new SiteDataRetriever(tmpPath.resolve("internet_cache"));
         _controller = controller;
         _outputFile = ouputFile;
@@ -135,7 +135,7 @@ public class LinkCheckRunner {
             }
         }
 
-        if (XMLHelper.isOfType(e, ElementType.X)) {
+        if (XmlHelper.isOfType(e, ElementType.X)) {
             try {
                 list.add(XmlParser.parseXElement(e));
             } catch (final XmlParsingException ex) {
@@ -160,7 +160,7 @@ public class LinkCheckRunner {
             }
         }
 
-        if (XMLHelper.isOfType(e, ElementType.ARTICLE)) {
+        if (XmlHelper.isOfType(e, ElementType.ARTICLE)) {
             try {
                 list.add(XmlParser.parseArticleElement(e));
             } catch (final XmlParsingException ex) {

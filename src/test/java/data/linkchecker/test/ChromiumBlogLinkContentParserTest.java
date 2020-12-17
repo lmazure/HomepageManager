@@ -41,8 +41,8 @@ public class ChromiumBlogLinkContentParserTest {
     @CsvSource({
         "https://blog.chromium.org/2019/05/improving-privacy-and-security-on-web.html,Improving privacy and security on the web"
         })
-    void testTitleIsTrimmed(final String url,
-                            final String expectedTitle) {
+    void testTrimmedTitle(final String url,
+                          final String expectedTitle) {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),

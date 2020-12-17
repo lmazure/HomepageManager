@@ -7,7 +7,7 @@ import org.w3c.dom.NodeList;
 
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
-import utils.XMLHelper;
+import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
 
 public class DateChecker extends NodeChecker {
@@ -29,9 +29,9 @@ public class DateChecker extends NodeChecker {
 
     private static CheckStatus checkDateHierarchy(final Element e) {
 
-        final int numberOfYears = XMLHelper.getDescendantsByElementType(e, ElementType.YEAR).getLength();
-        final int numberOfMonths = XMLHelper.getDescendantsByElementType(e, ElementType.MONTH).getLength();
-        final int numberOfDays = XMLHelper.getDescendantsByElementType(e, ElementType.DAY).getLength();
+        final int numberOfYears = XmlHelper.getDescendantsByElementType(e, ElementType.YEAR).getLength();
+        final int numberOfMonths = XmlHelper.getDescendantsByElementType(e, ElementType.MONTH).getLength();
+        final int numberOfDays = XmlHelper.getDescendantsByElementType(e, ElementType.DAY).getLength();
 
         if (numberOfYears > 1) return new CheckStatus("more than one YEAR");
         if (numberOfMonths > 1) return new CheckStatus("more than one MONTH");
@@ -46,9 +46,9 @@ public class DateChecker extends NodeChecker {
 
     private static CheckStatus checkDateValue(final Element e) {
 
-        final NodeList years = XMLHelper.getDescendantsByElementType(e, ElementType.YEAR);
-        final NodeList months = XMLHelper.getDescendantsByElementType(e, ElementType.MONTH);
-        final NodeList days = XMLHelper.getDescendantsByElementType(e, ElementType.DAY);
+        final NodeList years = XmlHelper.getDescendantsByElementType(e, ElementType.YEAR);
+        final NodeList months = XmlHelper.getDescendantsByElementType(e, ElementType.MONTH);
+        final NodeList days = XmlHelper.getDescendantsByElementType(e, ElementType.DAY);
 
         final int numberOfYears = years.getLength();
         final int numberOfMonths = months.getLength();
@@ -61,7 +61,7 @@ public class DateChecker extends NodeChecker {
             year = Long.parseLong(yearStr);
             if (year < 1900) {
                 // we check this only for articles
-                if (XMLHelper.isOfType(e.getParentNode(), ElementType.X)) {
+                if (XmlHelper.isOfType(e.getParentNode(), ElementType.X)) {
                     return new CheckStatus("YEAR is less than 1900");
                 }
             }

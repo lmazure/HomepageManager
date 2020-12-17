@@ -20,7 +20,7 @@ import org.xml.sax.SAXException;
 
 import utils.xmlparsing.ElementType;
 
-public class XMLHelper {
+public class XmlHelper {
 
     public static List<String> getFirstLevelTextContent(final Node node) {
         final NodeList list = node.getChildNodes();

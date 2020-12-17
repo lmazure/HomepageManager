@@ -2,7 +2,7 @@ package data.nodechecker.checker.nodeChecker;
 
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
-import utils.XMLHelper;
+import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
 
 import java.util.Arrays;
@@ -76,7 +76,7 @@ public class TitleFormatChecker extends NodeChecker {
 
     private static CheckStatus titleStartsWithUppercase(final Element e) {
 
-        final List<String> list = XMLHelper.getFirstLevelTextContent(e);
+        final List<String> list = XmlHelper.getFirstLevelTextContent(e);
         if (list.size() == 0) {
             return null;
         }

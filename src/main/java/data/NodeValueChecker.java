@@ -44,7 +44,7 @@ import data.nodechecker.checker.nodeChecker.URLProtocolChecker;
 import utils.ExitHelper;
 import utils.FileHelper;
 import utils.Logger;
-import utils.XMLHelper;
+import utils.XmlHelper;
 
 public class NodeValueChecker implements FileHandler {
 
@@ -66,7 +66,7 @@ public class NodeValueChecker implements FileHandler {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;
         _controller = controller;
-        _builder = XMLHelper.buildDocumentBuilder();
+        _builder = XmlHelper.buildDocumentBuilder();
 
         _nodeCheckers = new HashSet<NodeChecker>();
         _nodeCheckers.add(new ExtremitySpaceChecker());

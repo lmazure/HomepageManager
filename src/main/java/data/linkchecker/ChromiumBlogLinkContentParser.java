@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import utils.ExitHelper;
+import utils.HtmlHelper;
 
 public class ChromiumBlogLinkContentParser {
 
@@ -41,15 +42,7 @@ public class ChromiumBlogLinkContentParser {
         final Pattern p = Pattern.compile("<title>Chromium Blog: (.+?)</title>", Pattern.MULTILINE);
         final Matcher m = p.matcher(_data);        
         if (m.find()) {
-            return m.group(1)
-                    .trim()
-                    .replace("&amp;","&")
-                    .replace("&lt;","<")
-                    .replace("&gt;",">")
-                    .replace("&#8211;", "–")
-                    .replace("&#8212;", "—")
-                    .replace("&#8216;", "‘")
-                    .replace("&#8217;", "’");
+            return HtmlHelper.unescape(m.group(1).trim());
          }
 
         ExitHelper.exit("Failed to find title in Chromium Blog page");

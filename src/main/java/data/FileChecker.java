@@ -23,7 +23,7 @@ import org.xml.sax.SAXException;
 import utils.ExitHelper;
 import utils.FileHelper;
 import utils.Logger;
-import utils.XMLHelper;
+import utils.XmlHelper;
 
 /**
  * Manage the creation of the HTML files
@@ -50,7 +50,7 @@ public class FileChecker implements FileHandler {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;
         _controller = controller;
-        _validator = XMLHelper.buildValidator(homepagePath.resolve("css").resolve("schema.xsd"));
+        _validator = XmlHelper.buildValidator(homepagePath.resolve("css").resolve("schema.xsd"));
     }
 
     @Override

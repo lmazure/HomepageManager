@@ -8,7 +8,7 @@ import org.w3c.dom.NodeList;
 
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
-import utils.XMLHelper;
+import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
 
 
@@ -36,12 +36,12 @@ public class TableSortChecker extends NodeChecker {
         for (int i = 0; i < children.getLength(); i++) {
             final Node child = children.item(i);
             if ((child.getNodeType() == Node.ELEMENT_NODE) &&
-                (XMLHelper.isOfType(child, ElementType.ROW))) {
+                (XmlHelper.isOfType(child, ElementType.ROW))) {
                 final NodeList childrenOfChild = child.getChildNodes();
                 for (int j = 0; j < childrenOfChild.getLength(); j++) {
                     final Node childOfChild = childrenOfChild.item(j);
                     if ((childOfChild.getNodeType() == Node.ELEMENT_NODE) &&
-                        (XMLHelper.isOfType(childOfChild, ElementType.TERM))) {
+                        (XmlHelper.isOfType(childOfChild, ElementType.TERM))) {
                         numberOfTerms++;
                         final Element elementOfChild = (Element)childOfChild;
                         final String textContent = getTextOfElementWithoutChildren(elementOfChild);

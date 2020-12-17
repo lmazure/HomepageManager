@@ -9,7 +9,7 @@ import org.w3c.dom.Element;
 
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
-import utils.XMLHelper;
+import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
 
 public class MissingSpaceChecker extends NodeChecker {
@@ -68,7 +68,7 @@ public class MissingSpaceChecker extends NodeChecker {
 
     private static CheckStatus checkMissingSpace(final Element e) {
 
-        final List<String> list = XMLHelper.getFirstLevelTextContent(e);
+        final List<String> list = XmlHelper.getFirstLevelTextContent(e);
         if (list.size() == 0) return null;
 
         for (final String l: list) {

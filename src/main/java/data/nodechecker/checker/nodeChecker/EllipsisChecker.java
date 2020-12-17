@@ -2,7 +2,7 @@ package data.nodechecker.checker.nodeChecker;
 
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.ExclusionTagSelector;
-import utils.XMLHelper;
+import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
 
 import java.util.List;
@@ -49,7 +49,7 @@ public class EllipsisChecker extends NodeChecker {
 
     private static CheckStatus checkDoubleDot(final Element e) {
 
-        final List<String> content = XMLHelper.getFirstLevelTextContent(e);
+        final List<String> content = XmlHelper.getFirstLevelTextContent(e);
         for (final String s: content) {
             if (s.indexOf("..") >= 0) {
                 return new CheckStatus("\"" + s + "\" contains \"..\"");

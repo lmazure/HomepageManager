@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import utils.ExitHelper;
+import utils.HtmlHelper;
 
 public class MediumLinkContentParser {
 
@@ -51,12 +52,9 @@ public class MediumLinkContentParser {
         final Pattern p = Pattern.compile("<h1[^>]+>(.+?)</h1>");
         final Matcher m = p.matcher(_data);        
         if (m.find()) {
-            return m.group(1)
-                    .replaceAll("<br/>"," ") // replace newline by space
-                    .replaceAll("<.+?>","") // remove other HTML that may be in the title
-                    .replace("&amp;","&")
-                    .replace("&lt;","<")
-                    .replace("&gt;",">");
+            return HtmlHelper.unescape(m.group(1)
+                                        .replaceAll("<br/>"," ") // replace newline by space
+                                        .replaceAll("<.+?>","")); // remove other HTML that may be in the title
          }
 
         ExitHelper.exit("Failed to find title in Medium page");
