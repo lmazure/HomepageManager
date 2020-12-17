@@ -1,3 +1,6 @@
+- centraliser le unescaping des châine HTML
+(de lus, je suis sût qu'il y a une méthode Java qui fait cela)
+
 - crash s'il manque une lettre dans un lien youtube
 
 - TODO 001 retrouver des exemples de vidéos sans sous-titre

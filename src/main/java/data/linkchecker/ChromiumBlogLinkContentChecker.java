@@ -8,19 +8,19 @@ import java.util.Optional;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkData;
 
-public class MediumLinkContentChecker extends LinkContentChecker {
+public class ChromiumBlogLinkContentChecker extends LinkContentChecker {
 
-    private MediumLinkContentParser _parser;
+    private ChromiumBlogLinkContentParser _parser;
 
-    public MediumLinkContentChecker(final LinkData linkData,
-                                    final Optional<ArticleData> articleData,
-                                    final File file) {
+    public ChromiumBlogLinkContentChecker(final LinkData linkData,
+                                          final Optional<ArticleData> articleData,
+                                          final File file) {
         super(linkData, articleData, file);
     }
 
     @Override
     protected LinkContentCheck checkGlobalData(final String data) {
-        _parser = new MediumLinkContentParser(data);
+        _parser = new ChromiumBlogLinkContentParser(data);
 
         return null;
     }

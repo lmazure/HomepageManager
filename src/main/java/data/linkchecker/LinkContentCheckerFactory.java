@@ -35,6 +35,10 @@ public class LinkContentCheckerFactory {
             return new TwitterLinkContentChecker(url, linkData, articleData, file);
         }
 
+        if (url.toString().startsWith("https://blog.chromium.org/")) {
+            return new ChromiumBlogLinkContentChecker(linkData, articleData, file);
+        }
+
         return new LinkContentChecker(linkData, articleData, file);
     }
 }
