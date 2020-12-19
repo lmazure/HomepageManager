@@ -57,6 +57,7 @@ public enum ElementType {
     SMALL,
     ST,
     SUB,
+    SUBTITLE,
     SUP,
     T,
     TAB,

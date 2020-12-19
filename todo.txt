@@ -1,13 +1,6 @@
-- centraliser le unescaping des châine HTML
-(de lus, je suis sût qu'il y a une méthode Java qui fait cela)
-
-- crash s'il manque une lettre dans un lien youtube
-
 - TODO 001 retrouver des exemples de vidéos sans sous-titre
 
 - supporter les KEYWORDs dans les titres (pex Goldbach's conjecture)
-
-- corriger la règle pour qu'il n'y est plus d'erreur sur notes/vscode.xml
 
 - mettre un message pendant la génération des global files
 
@@ -17,11 +10,7 @@
 
 - vérifier que tous mes fichiers (sauf *.html) sont référencés
 
-- regarder s'il y a moyen de récupérer le titre entier quand il est tronqué sur Youtube
-
 - implémenter un système générique de cache
-
-- compléter la recherche Google pour prendre en compte le sous-titre et les auteurs
 
 - parser le JSON au lieu de faire mes bidouilles
 
