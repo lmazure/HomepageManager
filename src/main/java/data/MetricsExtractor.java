@@ -12,11 +12,11 @@ import utils.Logger;
 
 public class MetricsExtractor {
 
-    final static private String METRICS_DIRECTORY = "metrics";
-    final static private String METRICS_FILE = "metrics.csv";
-    final static private String SEPARATOR = ";";
+    private static final String METRICS_DIRECTORY = "metrics";
+    private static final String METRICS_FILE = "metrics.csv";
+    private static final String SEPARATOR = ";";
 
-    static public void generate(final Path homepage) {
+    public static void generate(final Path homepage) {
 
         final Path metricsDirectory = homepage.resolve(METRICS_DIRECTORY);
         final File metricsFile = metricsDirectory.resolve(METRICS_FILE).toFile();
@@ -36,7 +36,7 @@ public class MetricsExtractor {
               .submit();
     }
 
-    static private String extractMetrics(final Path metricsDirectory) {
+    private static String extractMetrics(final Path metricsDirectory) {
 
         final StringBuilder builder = new StringBuilder();
 
@@ -81,7 +81,7 @@ public class MetricsExtractor {
         return builder.toString();
     }
 
-    static private int extractNumberFromLine(final String line) {
+    private static int extractNumberFromLine(final String line) {
         final String numberAsString = line.replaceAll(".*<B>", "").replaceAll("</B>.*", "");
         return Integer.parseInt(numberAsString);
     }

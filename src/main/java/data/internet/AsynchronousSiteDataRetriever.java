@@ -10,7 +10,7 @@ import java.util.function.BiConsumer;
  */
 public class AsynchronousSiteDataRetriever {
 
-    final private SynchronousSiteDataRetriever _retriever;
+    private final SynchronousSiteDataRetriever _retriever;
     private final ExecutorService _threadPool;
 
     public AsynchronousSiteDataRetriever(final SiteDataPersister persister) {

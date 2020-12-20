@@ -5,9 +5,9 @@ import java.util.Locale;
 
 public class StringHelper {
 
-    static private final Collator s_collator = Collator.getInstance(Locale.UK);
+    private static final Collator s_collator = Collator.getInstance(Locale.UK);
 
-    static public int compare(final String str1, final String str2) {
+    public static int compare(final String str1, final String str2) {
 
         return s_collator.compare(StringHelper.cleanString(str1), StringHelper.cleanString(str2));
     }
@@ -16,7 +16,7 @@ public class StringHelper {
      * @param str
      * @return
      */
-    static private String cleanString(final String str) {
+    private static String cleanString(final String str) {
         int startIndex = -1;
         int endIndex = -1;
 

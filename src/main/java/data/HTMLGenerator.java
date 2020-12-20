@@ -29,12 +29,12 @@ import utils.Logger;
  */
 public class HTMLGenerator implements FileHandler {
 
-    final private Path _homepagePath;
-    final private Path _tmpPath;
-    final private DataController _controller;
+    private final Path _homepagePath;
+    private final Path _tmpPath;
+    private final DataController _controller;
 
-    final private DocumentBuilder _builder;
-    final private Transformer _transformer;
+    private final DocumentBuilder _builder;
+    private final Transformer _transformer;
 
     /**
      * This class generates the HTML files from the XML files.

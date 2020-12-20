@@ -7,7 +7,7 @@ import javafx.scene.control.TableColumn;
 
 public class HtmlGenerationController extends GenericUiController {
 
-    final private Path _homepagePath;
+    private final Path _homepagePath;
 
     public HtmlGenerationController(final ObservableFileList list,
                                     final Path homepagePath) {

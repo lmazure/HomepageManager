@@ -8,7 +8,7 @@ import utils.xmlparsing.ElementType;
 
 public class InclusionTagSelector implements TagSelector {
 
-    final private Set<ElementType> _types;
+    private final Set<ElementType> _types;
 
     /**
      * @param tagsToCheck

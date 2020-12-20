@@ -15,13 +15,13 @@ import data.FileHandler.Status;
 
 class FileCheckerTest {
 
-    static private String MESS_BOM  = "file should not have a UTF BOM";
-    static private String MESS_CTRL = "line contains a control character";
-    static private String MESS_WTSP = "line is finishing with a white space";
-    static private String MESS_PATH = "the name of the file does not appear in the <PATH> node (expected to see \"<PATH>HomepageManager/test.xml</PATH>\")";
-    static private String MESS_CRLF = "line should finish by \\r\\n instead of \\n";
-    static private String MESS_EMPT = "empty line";
-    static private String MESS_ODSP = "odd number of spaces at the beginning of the line";
+    private final String MESS_BOM  = "file should not have a UTF BOM";
+    private final String MESS_CTRL = "line contains a control character";
+    private final String MESS_WTSP = "line is finishing with a white space";
+    private final String MESS_PATH = "the name of the file does not appear in the <PATH> node (expected to see \"<PATH>HomepageManager/test.xml</PATH>\")";
+    private final String MESS_CRLF = "line should finish by \\r\\n instead of \\n";
+    private final String MESS_EMPT = "empty line";
+    private final String MESS_ODSP = "odd number of spaces at the beginning of the line";
 
     @Test
     void testNoError() {
@@ -348,13 +348,13 @@ class FileCheckerTest {
              5, MESS_ODSP);
     }
 
-    static private void test(final String content) {
+    private static void test(final String content) {
 
         final List<FileChecker.Error> expected = new ArrayList<FileChecker.Error>();
         test(content, expected);
     }
 
-    static private void test(final String content,
+    private static void test(final String content,
                              final int line0, final String message0) {
 
         final List<FileChecker.Error> expected = new ArrayList<FileChecker.Error>();
@@ -362,7 +362,7 @@ class FileCheckerTest {
         test(content, expected);
     }
 
-    static private void test(final String content,
+    private static void test(final String content,
                              final int line0, final String message0,
                              final int line1, final String message1) {
 
@@ -372,7 +372,7 @@ class FileCheckerTest {
         test(content, expected);
     }
 
-    static private void test(final String content,
+    private static void test(final String content,
                              final int line0, final String message0,
                              final int line1, final String message1,
                              final int line2, final String message2) {
@@ -384,7 +384,7 @@ class FileCheckerTest {
         test(content, expected);
     }
 
-    static private void test(final String content,
+    private static void test(final String content,
                              final int line0, final String message0,
                              final int line1, final String message1,
                              final int line2, final String message2,
@@ -399,7 +399,7 @@ class FileCheckerTest {
     }
 
 
-    static private void test(final String content,
+    private static void test(final String content,
                              final List<FileChecker.Error> expected) {
 
         final FileChecker checker = new FileChecker(Paths.get("testdata"), Paths.get("tmp"), new DummyDataController());
@@ -408,14 +408,14 @@ class FileCheckerTest {
         Assertions.assertEquals(normalize(expected), normalize(effective));
     }
 
-    static private String normalize(final List<FileChecker.Error> errors) {
+    private static String normalize(final List<FileChecker.Error> errors) {
         return errors.stream()
                      .map(e -> String.format("%02d %s", e.getLineNumber(), e.getErrorMessage()))
                      .sorted()
                      .collect(Collectors.joining("\n"));
     }
 
-    static private class DummyDataController implements DataController {
+    private static class DummyDataController implements DataController {
 
         @Override
         public void handleCreation(final Path file, final Status status, final Path outputFile, final Path reportFile) {

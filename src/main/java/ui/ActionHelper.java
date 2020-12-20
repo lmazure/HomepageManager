@@ -16,7 +16,7 @@ import utils.ExitHelper;
 
 public class ActionHelper {
 
-    static public void displayFile(final Path file) {
+    public static void displayFile(final Path file) {
 
         if (file == null) {
             final Alert alert = new Alert(AlertType.INFORMATION, "Undefined file");
@@ -33,7 +33,7 @@ public class ActionHelper {
         displayVerifiedFile(file);
     }
 
-    static public void displayHtmlFile(final Path file,
+    public static void displayHtmlFile(final Path file,
                                        final Path homepagePath) {
 
         if (file == null) {
@@ -66,7 +66,7 @@ public class ActionHelper {
 
     }
 
-    static private void displayVerifiedFile(final Path file) {
+    private static void displayVerifiedFile(final Path file) {
         try {
             Desktop.getDesktop().browse(file.toUri());
         } catch (final IOException e) {

@@ -11,18 +11,18 @@ import utils.Logger;
 
 public class SiteFilesGenerator {
 
-    final static private String DOMAIN = "mazure.fr"; // TODO this should not be hardcoded
-    final static private String ROBOTTXT = "robot.txt";
-    final static private String SITEMAPDIR = "sitemap"; // TODO this directory name also appears in DataOrchestrator
-    final static private String SITEMAP = "sitemap.xml";
+    private static final String DOMAIN = "mazure.fr"; // TODO this should not be hardcoded
+    private static final String ROBOTTXT = "robot.txt";
+    private static final String SITEMAPDIR = "sitemap"; // TODO this directory name also appears in DataOrchestrator
+    private static final String SITEMAP = "sitemap.xml";
 
-    static public void generate(final Path homepage,
+    public static void generate(final Path homepage,
                                 final List<Path> files) {
         generateRobottxt(homepage, files);
         generateSitemap(homepage, files);
     }
 
-    static private void generateRobottxt(final Path homepage,
+    private static void generateRobottxt(final Path homepage,
                                          final List<Path> files) {
 
         final File robottxt = homepage.resolve(ROBOTTXT).toFile();
@@ -46,7 +46,7 @@ public class SiteFilesGenerator {
     }
 
 
-    static private void generateSitemap(final Path homepage,
+    private static void generateSitemap(final Path homepage,
                                         final List<Path> files) {
 
         final Path sitemapDir = homepage.resolve(SITEMAPDIR);
@@ -74,12 +74,12 @@ public class SiteFilesGenerator {
               .submit();
     }
 
-    static private String getXmlUrlFromFile(final Path homepage,
+    private static String getXmlUrlFromFile(final Path homepage,
                                             final Path file) {
         return "/" + homepage.relativize(file).toString().replace(File.separatorChar, '/');
     }
 
-    static private String getHtmlUrlFromFile(final Path homepage,
+    private static String getHtmlUrlFromFile(final Path homepage,
                                              final Path file) {
         return getXmlUrlFromFile(homepage,file).replaceAll(".xml$", ".html");
     }

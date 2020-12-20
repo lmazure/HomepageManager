@@ -293,12 +293,12 @@ public class JsonWriter {
         out.write("\n      ]");
     }
 
-    static private String jsonEscape(final String str) {
+    private static String jsonEscape(final String str) {
         return str.replace("\\", "\\\\")
                   .replace("\"", "\\\"");
     }
 
-    static private String formatStatus(final LinkStatus status) {
+    private static String formatStatus(final LinkStatus status) {
         switch (status) {
             case DEAD:
                 return "dead";
@@ -311,7 +311,7 @@ public class JsonWriter {
         }
     }
 
-    static private String formatProtection(final LinkProtection protection) {
+    private static String formatProtection(final LinkProtection protection) {
         switch (protection) {
             case FREE_REGISTRATION:
                 return "free_registration";
@@ -322,7 +322,7 @@ public class JsonWriter {
         }
     }
 
-    static private String formatFormat(final LinkFormat format) {
+    private static String formatFormat(final LinkFormat format) {
         switch (format) {
         case FLASH:
             return "Flash";
@@ -353,7 +353,7 @@ public class JsonWriter {
         }
     }
 
-    static private String formatLanguage(final Locale language) {
+    private static String formatLanguage(final Locale language) {
         if (language == Locale.FRENCH) return "fr";
         if (language == Locale.ENGLISH) return "en";
         throw new UnsupportedOperationException("Illegal language value (" + language + ")");

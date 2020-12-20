@@ -13,9 +13,9 @@ public class Author extends AuthorData implements Comparable<Author> {
     private final ArrayList<Article> _articles;
     private final ArrayList<Link> _links;
 
-    static public class SortingKey implements Comparable<SortingKey> {
+    public static class SortingKey implements Comparable<SortingKey> {
 
-        static private final Collator s_collator = Collator.getInstance(Locale.UK);
+        private static final Collator s_collator = Collator.getInstance(Locale.UK);
         private final String _normalizedName;
 
         SortingKey(final Optional<String> namePrefix,

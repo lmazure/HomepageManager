@@ -4,12 +4,12 @@ import java.util.Optional;
 
 public class AuthorData {
 
-    final private Optional<String> _namePrefix;
-    final private Optional<String> _firstName;
-    final private Optional<String> _middleName;
-    final private Optional<String> _lastName;
-    final private Optional<String> _nameSuffix;
-    final private Optional<String> _givenName;
+    private final Optional<String> _namePrefix;
+    private final Optional<String> _firstName;
+    private final Optional<String> _middleName;
+    private final Optional<String> _lastName;
+    private final Optional<String> _nameSuffix;
+    private final Optional<String> _givenName;
 
     /**
      * @param namePrefix

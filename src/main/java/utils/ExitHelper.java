@@ -2,15 +2,15 @@ package utils;
 
 public class ExitHelper {
 
-    static public void exit(final String message) {
+    public static void exit(final String message) {
         exit(message, null);
     }
 
-    static public void exit(final Exception exception) {
+    public static void exit(final Exception exception) {
         exit(null, exception);
     }
 
-    static public void exit(final String message, final Exception exception) {
+    public static void exit(final String message, final Exception exception) {
 
         final Log log = Logger.log(Logger.Level.FATAL);
 

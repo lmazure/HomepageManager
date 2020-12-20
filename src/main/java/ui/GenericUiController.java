@@ -9,7 +9,7 @@ import utils.QuadriConsumer;
 
 public abstract class GenericUiController implements DataController {
 
-    final private QuadriConsumer<Path, Status, Path, Path> _callback;
+    private final QuadriConsumer<Path, Status, Path, Path> _callback;
 
     public GenericUiController(final QuadriConsumer<Path, Status, Path, Path> callback) {
         _callback = callback;

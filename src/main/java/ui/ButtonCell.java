@@ -7,7 +7,7 @@ import javafx.scene.control.TableCell;
 
 abstract class ButtonCell<S> extends TableCell<S, String> {
 
-    final private Button _cellButton;
+    private final Button _cellButton;
 
     public ButtonCell(final Consumer<S> callback) {
         _cellButton = new Button();

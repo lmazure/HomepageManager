@@ -31,12 +31,12 @@ import utils.XmlHelper;
  */
 public class FileChecker implements FileHandler {
 
-    static final private String UTF8_BOM = "\uFEFF";
+    private static final String UTF8_BOM = "\uFEFF";
 
-    final private Path _homepagePath;
-    final private Path _tmpPath;
-    final private DataController _controller;
-    final private Validator _validator;
+    private final Path _homepagePath;
+    private final Path _tmpPath;
+    private final DataController _controller;
+    private final Validator _validator;
 
     /**
      * This class checks the characters of the XML files.
@@ -252,10 +252,10 @@ public class FileChecker implements FileHandler {
         return n;
     }
 
-    static public class Error {
+    public static class Error {
 
-        final private int _lineNumber;
-        final private String _errorMessage;
+        private final int _lineNumber;
+        private final String _errorMessage;
 
         public Error(final int lineNumber, final String errorMessage) {
             _lineNumber = lineNumber;

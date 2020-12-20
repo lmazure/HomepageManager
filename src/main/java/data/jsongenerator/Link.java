@@ -39,7 +39,7 @@ public class Link extends LinkData implements Comparable<Link> {
      * @param name name to be normalized
      * @return normalized (i.e. usable for sorting) name
      */
-    static private String normalizeName(final String name) {
+    private static String normalizeName(final String name) {
         final int i = name.indexOf(':');
         String str = name.substring(i + 1);
         while (str.codePointAt(0) == "/".codePointAt(0)) {

@@ -11,7 +11,7 @@ import data.internet.SiteData;
 
 public class TestHelper {
 
-    static public void assertData(final SiteData data) {
+    public static void assertData(final SiteData data) {
         Assertions.assertTrue(data.getHttpCode().isPresent());
         Assertions.assertEquals(200, data.getHttpCode().get());
         Assertions.assertTrue(data.getHeaders().isPresent());
@@ -31,7 +31,7 @@ public class TestHelper {
         }
     }
 
-    static public URL buildURL(final String str) {
+    public static URL buildURL(final String str) {
         try {
             return new URL(str);
         } catch (@SuppressWarnings("unused") final MalformedURLException e) {

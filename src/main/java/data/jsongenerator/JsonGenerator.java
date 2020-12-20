@@ -12,12 +12,12 @@ public class JsonGenerator {
     private final Parser parser;
     private final JsonWriter reporter;
 
-    final static private String s_linksDirectoryFileName = "links";
-    final static private String s_tableDirectoryFileName = "content";
-    final static private String s_personFileName = "persons.xml";
-    final static private String s_shortArticleJsonFileName = "article.json";
-    final static private String s_shortAuthorJsonFileName = "author.json";
-    final static private String s_shortKeywordJsonFileName = "keyword.json";
+    private static final String s_linksDirectoryFileName = "links";
+    private static final String s_tableDirectoryFileName = "content";
+    private static final String s_personFileName = "persons.xml";
+    private static final String s_shortArticleJsonFileName = "article.json";
+    private static final String s_shortAuthorJsonFileName = "author.json";
+    private static final String s_shortKeywordJsonFileName = "keyword.json";
 
     /**
      *

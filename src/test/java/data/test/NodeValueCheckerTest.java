@@ -692,13 +692,13 @@ class NodeValueCheckerTest {
         }
     }
 
-    static private void test(final String content) throws SAXException {
+    private static void test(final String content) throws SAXException {
 
         final List<NodeCheckError> expected = new ArrayList<NodeCheckError>();
         test(content, expected);
     }
 
-    static private void test(final String content,
+    private static void test(final String content,
                              final String detail0) throws SAXException {
 
         final List<NodeCheckError> expected = new ArrayList<NodeCheckError>();
@@ -706,7 +706,7 @@ class NodeValueCheckerTest {
         test(content, expected);
     }
 
-    /*static private void test(final String content,
+    /*private static void test(final String content,
                              final String detail0,
                              final String detail1) throws SAXException {
 
@@ -716,7 +716,7 @@ class NodeValueCheckerTest {
         test(content, expected);
     }*/
 
-    static private void test(final String content,
+    private static void test(final String content,
                              final String detail0,
                              final String detail1,
                              final String detail2) throws SAXException {
@@ -728,7 +728,7 @@ class NodeValueCheckerTest {
         test(content, expected);
     }
 
-    static private void test(final String content,
+    private static void test(final String content,
                              final List<NodeCheckError> expected) throws SAXException {
 
         List<NodeCheckError> effective = null;
@@ -745,14 +745,14 @@ class NodeValueCheckerTest {
         Assertions.assertEquals(normalize(expected), normalize(effective));
     }
 
-    static private String normalize(final List<NodeCheckError> errors) {
+    private static String normalize(final List<NodeCheckError> errors) {
         return errors.stream()
                      .map(e -> e.getDetail())
                      .sorted()
                      .collect(Collectors.joining("\n"));
     }
 
-    static private class DummyDataController implements DataController {
+    private static class DummyDataController implements DataController {
 
         @Override
         public void handleCreation(final Path file, final Status status, final Path outputFile, final Path reportFile) {

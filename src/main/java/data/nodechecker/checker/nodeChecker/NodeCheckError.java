@@ -2,10 +2,10 @@ package data.nodechecker.checker.nodeChecker;
 
 public class NodeCheckError {
 
-    final private String _tag;
-    final private String _value;
-    final private String _violation;
-    final private String _detail;
+    private final String _tag;
+    private final String _value;
+    private final String _violation;
+    private final String _detail;
 
     public NodeCheckError(final String tag,
                           final String value,

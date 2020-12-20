@@ -48,11 +48,11 @@ import utils.XmlHelper;
 
 public class NodeValueChecker implements FileHandler {
 
-    final private Path _homepagePath;
-    final private Path _tmpPath;
-    final private DataController _controller;
+    private final Path _homepagePath;
+    private final Path _tmpPath;
+    private final DataController _controller;
     private final DocumentBuilder _builder;
-    final private Set<NodeChecker> _nodeCheckers;
+    private final Set<NodeChecker> _nodeCheckers;
 
     /**
      * This class checks the characters of the XML files.

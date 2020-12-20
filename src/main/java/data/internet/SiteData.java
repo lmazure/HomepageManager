@@ -13,12 +13,12 @@ public class SiteData {
         FAILURE
     }
 
-    final private URL _url;
-    final private Status _status;
-    final private Optional<Integer> _httpCode;
-    final private Optional<Map<String, List<String>>> _headers;
-    final private Optional<File> _dataFile;
-    final private Optional<String> _error;
+    private final URL _url;
+    private final Status _status;
+    private final Optional<Integer> _httpCode;
+    private final Optional<Map<String, List<String>>> _headers;
+    private final Optional<File> _dataFile;
+    private final Optional<String> _error;
 
     public SiteData(final URL url,
                     final Status status,

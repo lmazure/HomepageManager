@@ -78,7 +78,7 @@ public class TableSortChecker extends NodeChecker {
         return null;
     }
 
-    static private String normalize(final String str) {
+    private static String normalize(final String str) {
 
         final String s = Normalizer.normalize(str, Normalizer.Form.NFD); // remove the accents
 
@@ -101,7 +101,7 @@ public class TableSortChecker extends NodeChecker {
         return result;
     }
 
-    static private String getTextOfElementWithoutChildren(final Element element) {
+    private static String getTextOfElementWithoutChildren(final Element element) {
 
         final NodeList children = element.getChildNodes();
         String text = "";

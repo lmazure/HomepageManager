@@ -32,7 +32,7 @@ public class SynchronousSiteDataRetriever {
     private final static int s_connectTimeout = 30000;
     private final static int s_readTimeout = 60000;
 
-    final private static String s_userAgent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36";
+    private final static String s_userAgent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36";
 
 
     public SynchronousSiteDataRetriever(final SiteDataPersister persister) {
@@ -88,7 +88,7 @@ public class SynchronousSiteDataRetriever {
          }
     }
 
-    static private SSLSocketFactory getDisabledPKIXCheck() {
+    private static SSLSocketFactory getDisabledPKIXCheck() {
         // Create a trust manager that does not validate certificate chains
         final TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
             @Override

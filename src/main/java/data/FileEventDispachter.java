@@ -17,9 +17,9 @@ import utils.WatchDir;
 
 public class FileEventDispachter {
 
-    final static private String s_markerFile = "google1b78f05130a6dbb0.html"; // TODO this should not be hardcoded
-    final static private PathMatcher s_matcher = FileSystems.getDefault().getPathMatcher("glob:**/*.xml");
-    final static List<String> _ignoredDirectories = new ArrayList<>(List.of(".svn",
+    private static final String s_markerFile = "google1b78f05130a6dbb0.html"; // TODO this should not be hardcoded
+    private static final  PathMatcher s_matcher = FileSystems.getDefault().getPathMatcher("glob:**/*.xml");
+    static final List<String> _ignoredDirectories = new ArrayList<>(List.of(".svn",
                                                                             ".git",
                                                                             ".vscode",
                                                                             "sitemap",  // TODO this directory name also appears in SiteFilesGenerator

@@ -5,9 +5,9 @@ import java.util.Optional;
 
 public class KeywordData {
 
-    final private String _keyId;
-    final private String _keyText;
-    final private Optional<ArticleData> _article;
+    private final String _keyId;
+    private final String _keyText;
+    private final Optional<ArticleData> _article;
     private final List<LinkData> _links;
 
     public KeywordData(final String keyId,
