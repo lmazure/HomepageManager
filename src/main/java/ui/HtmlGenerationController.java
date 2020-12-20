@@ -21,15 +21,16 @@ public class HtmlGenerationController extends GenericUiController {
         final TableColumn<ObservableFile, String> allColumns = new TableColumn<ObservableFile, String>("HTML");
 
         final TableColumn<ObservableFile, String> displayColumn = new TableColumn<>("Display");
-        displayColumn.setPrefWidth(59);
+        displayColumn.setPrefWidth(61);
         displayColumn.setSortable(false);
         displayColumn.setCellFactory(p -> { return new FixedButtonCell<ObservableFile>("display", f -> ActionHelper.displayHtmlFile(f.getHtmlFileOuputFile(), _homepagePath));});
         allColumns.getColumns().add(displayColumn);
 
         final TableColumn<ObservableFile, String> statusColumn = new TableColumn<>("Status");
-        statusColumn.setPrefWidth(170);
+        statusColumn.setPrefWidth(172);
         statusColumn.setCellValueFactory(f -> f.getValue().getHtmlGenerationProperty());
-        statusColumn.setCellFactory(p -> { return new UpdatableButtonCell<ObservableFile>(f -> ActionHelper.displayFile(f.getHtmlFileReportFile()));});
+        statusColumn.setCellFactory(p -> { return new UpdatableButtonCell<ObservableFile>(f -> ActionHelper.displayFile(f.getHtmlFileReportFile()),
+                                                                                          StatusRepresentation.getColorMap());});
         allColumns.getColumns().add(statusColumn);
 
         return allColumns;

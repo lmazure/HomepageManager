@@ -22,8 +22,6 @@ https://medium.com/@docjamesw/the-anti-meeting-culture-c209bab5a16d
 - gérer le problème des encodings
 (je pense que cela doit toujours être mis en binaire)
 
-- colorer les boutons
-
 - ranger les fichiers
 design.xml
 coding.xml

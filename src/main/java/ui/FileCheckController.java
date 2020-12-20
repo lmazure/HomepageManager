@@ -17,15 +17,16 @@ public class FileCheckController extends GenericUiController {
         final TableColumn<ObservableFile, String> allColumns = new TableColumn<ObservableFile, String>("Check file");
 
         final TableColumn<ObservableFile, String> displayColumn = new TableColumn<>("Display");
-        displayColumn.setPrefWidth(59);
+        displayColumn.setPrefWidth(61);
         displayColumn.setSortable(false);
         displayColumn.setCellFactory(p -> { return new FixedButtonCell<ObservableFile>("display", f -> ActionHelper.displayFile(f.getFileCheckOuputFile()));});
         allColumns.getColumns().add(displayColumn);
 
         final TableColumn<ObservableFile, String> statusColumn = new TableColumn<>("Status");
-        statusColumn.setPrefWidth(170);
+        statusColumn.setPrefWidth(172);
         statusColumn.setCellValueFactory(f -> f.getValue().getFileCheckProperty());
-        statusColumn.setCellFactory(p -> { return new UpdatableButtonCell<ObservableFile>(f -> ActionHelper.displayFile(f.getFileCheckReportFile()));});
+        statusColumn.setCellFactory(p -> { return new UpdatableButtonCell<ObservableFile>(f -> ActionHelper.displayFile(f.getFileCheckReportFile()),
+                                                                                          StatusRepresentation.getColorMap());});
         allColumns.getColumns().add(statusColumn);
 
         return allColumns;

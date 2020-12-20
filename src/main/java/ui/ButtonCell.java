@@ -31,4 +31,11 @@ abstract class ButtonCell<S> extends TableCell<S, String> {
             setGraphic(_cellButton);
         }
     }
+    
+    protected void setColor(final String color) {
+        _cellButton.setStyle("-fx-text-fill: " +
+                             color +
+                             ";-fx-background-color: white;-fx-border-color: " +
+                             color);
+    }
 }

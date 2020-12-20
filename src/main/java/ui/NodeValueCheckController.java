@@ -17,15 +17,16 @@ public class NodeValueCheckController extends GenericUiController {
         final TableColumn<ObservableFile, String> allColumns = new TableColumn<ObservableFile, String>("Check node values");
 
         final TableColumn<ObservableFile, String> displayColumn = new TableColumn<>("Display");
-        displayColumn.setPrefWidth(59);
+        displayColumn.setPrefWidth(61);
         displayColumn.setSortable(false);
         displayColumn.setCellFactory(p -> { return new FixedButtonCell<ObservableFile>("display", f -> ActionHelper.displayFile(f.getNodeValueCheckOuputFile()));});
         allColumns.getColumns().add(displayColumn);
 
         final TableColumn<ObservableFile, String> statusColumn = new TableColumn<>("Status");
-        statusColumn.setPrefWidth(170);
+        statusColumn.setPrefWidth(172);
         statusColumn.setCellValueFactory(f -> f.getValue().getNodeValueCheckProperty());
-        statusColumn.setCellFactory(p -> { return new UpdatableButtonCell<ObservableFile>(f -> ActionHelper.displayFile(f.getNodeValueCheckReportFile()));});
+        statusColumn.setCellFactory(p -> { return new UpdatableButtonCell<ObservableFile>(f -> ActionHelper.displayFile(f.getNodeValueCheckReportFile()),
+                                                                                          StatusRepresentation.getColorMap());});
         allColumns.getColumns().add(statusColumn);
 
         return allColumns;
