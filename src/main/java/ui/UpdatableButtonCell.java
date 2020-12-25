@@ -15,11 +15,12 @@ public class UpdatableButtonCell<S> extends ButtonCell<S> {
     }
 
     @Override
-    protected void updateItem(final String t, final boolean empty) {
-        if ((t!=null) && _colorMap.containsKey(t)) {
-            setColor(_colorMap.get(t));
+    protected void updateItem(final String buttonLabel,
+                              final boolean empty) {
+        if ((buttonLabel != null) && _colorMap.containsKey(buttonLabel)) {
+            setColor(_colorMap.get(buttonLabel));
         } else {
             setColor("black");
         }
-        super.updateItem(t, empty);
+        super.updateItem(buttonLabel, empty);
     }}

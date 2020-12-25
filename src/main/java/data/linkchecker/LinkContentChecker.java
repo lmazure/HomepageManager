@@ -12,6 +12,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import utils.FileHelper;
+import utils.HtmlHelper;
 import utils.Logger;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkFormat;
@@ -62,6 +63,13 @@ public class LinkContentChecker {
             }
         }
 
+        {
+            final LinkContentCheck check = checkLinkSubtitles(data, _linkData.getSubtitles());
+            if (check != null) {
+                checks.add(check);
+            }
+        }
+
         if (_linkData.getDuration().isPresent()) {
             final LinkContentCheck check = checkLinkDuration(data, _linkData.getDuration().get());
             if (check != null) {
@@ -97,6 +105,30 @@ public class LinkContentChecker {
     protected LinkContentCheck checkLinkTitle(final String data,
                                               final String title)
     {
+        if (_articleData.isEmpty()) {
+            return null;
+        }
+
+        final String d = HtmlHelper.cleanContent(data);
+        if (!doesStringAppearInData(d, title)) {
+            return new LinkContentCheck("title \"" + title + "\" does not appear in the page");
+        }
+        return null;
+    }
+
+    protected LinkContentCheck checkLinkSubtitles(final String data,
+                                                  final String[] subtitles)
+    {
+        if (_articleData.isEmpty()) {
+            return null;
+        }
+
+        final String d = HtmlHelper.cleanContent(data);
+        for (final String subtitle: subtitles) {
+            if (!doesStringAppearInData(d, subtitle)) {
+                return new LinkContentCheck("subtitle \"" + subtitle + "\" does not appear in the page");
+            }
+        }
         return null;
     }
 
@@ -127,5 +159,10 @@ public class LinkContentChecker {
                                                 final Optional<TemporalAccessor> creationDate)
     {
         return null;
+    }
+    
+    private boolean doesStringAppearInData(final String data,
+                                           final String str) {
+        return (data.indexOf(str) >= 0);
     }
 }

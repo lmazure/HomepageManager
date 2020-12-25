@@ -125,7 +125,7 @@ public class FileChecker implements FileHandler {
         int lineNumber = 1;
 
         for (int i = 0; i < content.length(); i++) {
-            final char ch = content.charAt(i);
+            final int ch = content.codePointAt(i);
             if (ch == '\r') {
                 isPreviousCharacterCarriageReturn = true;
             } else if (ch == '\n') {
@@ -146,6 +146,10 @@ public class FileChecker implements FileHandler {
                 isPreviousCharacterCarriageReturn = false;
                 isPreviousCharacterWhiteSpace = Character.isWhitespace(ch);
                 errors.add(new Error(lineNumber, "line contains a control character"));
+            } else if (Character.isSpaceChar(ch) && (ch != ' ')) {
+                isPreviousCharacterCarriageReturn = false;
+                isPreviousCharacterWhiteSpace = true;
+                errors.add(new Error(lineNumber, "line contains a space character"));
             } else if (Character.isWhitespace(ch)) {
                 isPreviousCharacterCarriageReturn = false;
                 isPreviousCharacterWhiteSpace = true;

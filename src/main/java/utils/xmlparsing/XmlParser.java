@@ -138,7 +138,7 @@ public class XmlParser {
         Optional<Duration> duration = Optional.empty();
         if (durationNodes.getLength() == 1) {
             duration = Optional.of(parseDurationElement((Element)durationNodes.item(0)));
-        }  else if (durationNodes.getLength() > 1) {
+        } else if (durationNodes.getLength() > 1) {
             throw new XmlParsingException("Wrong number of DURATION nodes (" + durationNodes.getLength() + ") in \"" + title + "\"");
         }
 

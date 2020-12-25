@@ -22,6 +22,7 @@ class FileCheckerTest {
     private final String MESS_CRLF = "line should finish by \\r\\n instead of \\n";
     private final String MESS_EMPT = "empty line";
     private final String MESS_ODSP = "odd number of spaces at the beginning of the line";
+    private final String MESS_SPAC = "line contains a space character";
 
     @Test
     void testNoError() {
@@ -59,7 +60,6 @@ class FileCheckerTest {
              1, MESS_BOM);
     }
 
-
     @Test
     void testTabDetectionAtBeginning() {
 
@@ -77,6 +77,24 @@ class FileCheckerTest {
         test(content,
              0, "the file violates the schema (\"org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 7; The processing instruction target matching \"[xX][mM][lL]\" is not allowed.\")",
              1, MESS_CTRL);
+    }
+
+    @Test
+    void testNonBreakingSpaceDetection() {
+
+        final String content =
+            "<?xml version=\"1.0\"?>\r\n" +
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<TITLE>test</TITLE>\r\n" +
+            "<PATH>HomepageManager/test.xml</PATH>\r\n" +
+            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
+            "<CONTENT>foo\u00A0bar\r\n" +
+            "</CONTENT>\r\n" +
+            "</PAGE>";
+
+        test(content,
+             7, MESS_SPAC);
     }
 
     @Test

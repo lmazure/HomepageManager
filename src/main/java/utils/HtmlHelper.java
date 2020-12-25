@@ -5,6 +5,10 @@ import java.util.HashMap;
 
 public class HtmlHelper {
 
+    public static final String cleanContent(final String input) {
+        return unescape(removeHtmlTags(unduplicateSpace(input)));
+    }
+
     public static final String unescape(final String input) {
         // from https://stackoverflow.com/questions/994331/how-to-unescape-html-character-entities-in-java
         StringWriter writer = null;
@@ -58,8 +62,7 @@ public class HtmlHelper {
                     i++;
                     continue;
                 }
-            }
-            else {
+            } else {
                 // named escape
                 Character value = lookupMap.get(input.substring(i, j));
                 if (value == null) {
@@ -93,7 +96,54 @@ public class HtmlHelper {
     static {
         lookupMap = new HashMap<String, Character>();
         lookupMap.put("amp", '&');
+        lookupMap.put("Ecirc", 'Ê');
         lookupMap.put("gt", '>');
         lookupMap.put("lt", '<');
+        lookupMap.put("nbsp", ' ');
+        lookupMap.put("rsquo", '’');
+        lookupMap.put("quot", '"');
+    }
+
+    public static final String unduplicateSpace(final String input) {
+
+        final StringBuilder builder = new StringBuilder(input.length());
+        boolean previousWasSpace = false;
+
+        for (int i = 0; i < input.length(); i++) {
+            final int character = input.codePointAt(i);
+            if (Character.isWhitespace(character) || (character == '\u00A0')) {
+                if (!previousWasSpace) {
+                    builder.append(' ');
+                }
+                previousWasSpace = true;
+            } else {
+                builder.appendCodePoint(character);
+                previousWasSpace = false;
+            }
+        }
+
+        return builder.toString();
+    }
+    
+
+    public static final String removeHtmlTags(final String input) {
+
+        final StringBuilder builder = new StringBuilder(input.length());
+        boolean inTag = false;
+
+        for (int i = 0; i < input.length(); i++) {
+            final char character = input.charAt(i);
+            if (inTag) {
+                inTag = character != '>';
+            } else {
+                if (character == '<') {
+                    inTag = true;
+                } else {
+                    builder.append(character);
+                }
+            }
+        }
+
+        return builder.toString();
     }
 }

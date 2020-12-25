@@ -25,8 +25,9 @@ abstract class ButtonCell<S> extends TableCell<S, String> {
     }
 
     @Override
-    protected void updateItem(final String t, final boolean empty) {
-        super.updateItem(t, empty);
+    protected void updateItem(final String buttonLabel,
+                              final boolean empty) {
+        super.updateItem(buttonLabel, empty);
         if (!empty) {
             setGraphic(_cellButton);
         }
