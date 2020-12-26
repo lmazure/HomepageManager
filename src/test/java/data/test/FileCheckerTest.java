@@ -76,7 +76,7 @@ class FileCheckerTest {
 
         test(content,
              0, "the file violates the schema (\"org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 7; The processing instruction target matching \"[xX][mM][lL]\" is not allowed.\")",
-             1, MESS_CTRL);
+             1, MESS_CTRL + " (x9) at column 1");
     }
 
     @Test
@@ -94,7 +94,7 @@ class FileCheckerTest {
             "</PAGE>";
 
         test(content,
-             7, MESS_SPAC);
+             7, MESS_SPAC + " (xa0) at column 13");
     }
 
     @Test
@@ -112,8 +112,8 @@ class FileCheckerTest {
             "</PAGE>";
 
         test(content,
-             5, MESS_CTRL,
-             6, MESS_CTRL,
+             5, MESS_CTRL + " (x9) at column 1",
+             6, MESS_CTRL + " (x9) at column 60",
              6, MESS_WTSP);
     }
 
@@ -132,7 +132,7 @@ class FileCheckerTest {
             "</PAGE>\t";
 
         test(content,
-             9, MESS_CTRL,
+             9, MESS_CTRL + " (x9) at column 8",
              9, MESS_WTSP);
     }
 

@@ -123,6 +123,7 @@ public class FileChecker implements FileHandler {
         boolean isPreviousCharacterWhiteSpace = false;
         boolean isLineEmpty = true;
         int lineNumber = 1;
+        int columnNumber = 1;
 
         for (int i = 0; i < content.length(); i++) {
             final int ch = content.codePointAt(i);
@@ -139,24 +140,35 @@ public class FileChecker implements FileHandler {
                     errors.add(new Error(lineNumber, "empty line"));
                 }
                 lineNumber++;
+                columnNumber = 1;
                 isLineEmpty = true;
                 isPreviousCharacterCarriageReturn = false;
                 isPreviousCharacterWhiteSpace = false;
             } else if (Character.isISOControl(ch)) {
                 isPreviousCharacterCarriageReturn = false;
                 isPreviousCharacterWhiteSpace = Character.isWhitespace(ch);
-                errors.add(new Error(lineNumber, "line contains a control character"));
-            } else if (Character.isSpaceChar(ch) && (ch != ' ')) {
-                isPreviousCharacterCarriageReturn = false;
-                isPreviousCharacterWhiteSpace = true;
-                errors.add(new Error(lineNumber, "line contains a space character"));
+                errors.add(new Error(lineNumber, "line contains a control character (x" +
+                                                 Integer.toHexString(ch) +
+                                                 ") at column " +
+                                                 columnNumber));
+                columnNumber++;
+//            } else if (Character.isSpaceChar(ch) && (ch != ' ')) {
+//                isPreviousCharacterCarriageReturn = false;
+//                isPreviousCharacterWhiteSpace = true;
+//                errors.add(new Error(lineNumber, "line contains a space character (x" +
+//                                                 Integer.toHexString(ch) +
+//                                                 ") at column " +
+//                                                 columnNumber));
+//                columnNumber++;
             } else if (Character.isWhitespace(ch)) {
                 isPreviousCharacterCarriageReturn = false;
                 isPreviousCharacterWhiteSpace = true;
+                columnNumber++;
             } else {
                 isPreviousCharacterCarriageReturn = false;
                 isPreviousCharacterWhiteSpace = false;
                 isLineEmpty = false;
+                columnNumber++;
             }
         }
 

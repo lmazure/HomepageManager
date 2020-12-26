@@ -96,11 +96,13 @@ public class HtmlHelper {
     static {
         lookupMap = new HashMap<String, Character>();
         lookupMap.put("amp", '&');
+        lookupMap.put("eacute", 'é');
         lookupMap.put("Ecirc", 'Ê');
         lookupMap.put("gt", '>');
         lookupMap.put("lt", '<');
-        lookupMap.put("nbsp", ' ');
+        lookupMap.put("nbsp", '\u00A0');
         lookupMap.put("rsquo", '’');
+        lookupMap.put("thinsp", '\u2009');
         lookupMap.put("quot", '"');
     }
 
@@ -109,39 +111,40 @@ public class HtmlHelper {
         final StringBuilder builder = new StringBuilder(input.length());
         boolean previousWasSpace = false;
 
-        for (int i = 0; i < input.length(); i++) {
+        for (int i = 0; i < input.length();) {
             final int character = input.codePointAt(i);
-            if (Character.isWhitespace(character) || (character == '\u00A0')) {
+            if (character == ' ' /*Character.isWhitespace(character) || (character == '\u00A0')*/) {
                 if (!previousWasSpace) {
-                    builder.append(' ');
+                    builder.appendCodePoint(' ');
                 }
                 previousWasSpace = true;
             } else {
                 builder.appendCodePoint(character);
                 previousWasSpace = false;
             }
+            i += Character.charCount(character);
         }
 
         return builder.toString();
     }
-    
 
     public static final String removeHtmlTags(final String input) {
 
         final StringBuilder builder = new StringBuilder(input.length());
         boolean inTag = false;
 
-        for (int i = 0; i < input.length(); i++) {
-            final char character = input.charAt(i);
+        for (int i = 0; i < input.length();) {
+            final int character = input.codePointAt(i);
             if (inTag) {
                 inTag = character != '>';
             } else {
                 if (character == '<') {
                     inTag = true;
                 } else {
-                    builder.append(character);
+                    builder.appendCodePoint(character);
                 }
             }
+            i += Character.charCount(character);
         }
 
         return builder.toString();

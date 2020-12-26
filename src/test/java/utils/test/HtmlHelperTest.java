@@ -26,10 +26,18 @@ class HtmlHelperTest {
         Assertions.assertEquals(expected, HtmlHelper.unduplicateSpace(input));
     }
 
+//    @Test
+//    void NonBreakingSpacesAreReplaceBySpaces() {
+//        final String input = "Jean-Luc Mélenchon, président du groupe LFI a l'Assemblée Nationale, a remis en cause mercredi 14 octobre l'utilité d'instaurer d'un couvre-feu nocturne dans plusieurs grandes villes à partir de samedi car \"60 % des contaminations (de Covid-19) ont lieu au travail ou à l'école ou à l'université\". Environ la moitié des clusters en France du 9 mai au 5 octobre ont bien été détectés au travail ou dans les établissements scolaires, selon Santé Publique France, mais les cas issus des clusters ne sont qu'une partie minime du total des contaminations, expliquent des épidémiologistes.";
+//        final String expected = "Jean-Luc Mélenchon, président du groupe LFI a l'Assemblée Nationale, a remis en cause mercredi 14 octobre l'utilité d'instaurer d'un couvre-feu nocturne dans plusieurs grandes villes à partir de samedi car \"60 % des contaminations (de Covid-19) ont lieu au travail ou à l'école ou à l'université\". Environ la moitié des clusters en France du 9 mai au 5 octobre ont bien été détectés au travail ou dans les établissements scolaires, selon Santé Publique France, mais les cas issus des clusters ne sont qu'une partie minime du total des contaminations, expliquent des épidémiologistes.";
+//        Assertions.assertEquals(expected, HtmlHelper.unduplicateSpace(input));
+//    }
+
+
     @Test
-    void NonBreakingSpacesAreReplaceBySpaces() {
-        final String input = "Jean-Luc Mélenchon, président du groupe LFI a l'Assemblée Nationale, a remis en cause mercredi 14 octobre l'utilité d'instaurer d'un couvre-feu nocturne dans plusieurs grandes villes à partir de samedi car \"60 % des contaminations (de Covid-19) ont lieu au travail ou à l'école ou à l'université\". Environ la moitié des clusters en France du 9 mai au 5 octobre ont bien été détectés au travail ou dans les établissements scolaires, selon Santé Publique France, mais les cas issus des clusters ne sont qu'une partie minime du total des contaminations, expliquent des épidémiologistes.";
-        final String expected = "Jean-Luc Mélenchon, président du groupe LFI a l'Assemblée Nationale, a remis en cause mercredi 14 octobre l'utilité d'instaurer d'un couvre-feu nocturne dans plusieurs grandes villes à partir de samedi car \"60 % des contaminations (de Covid-19) ont lieu au travail ou à l'école ou à l'université\". Environ la moitié des clusters en France du 9 mai au 5 octobre ont bien été détectés au travail ou dans les établissements scolaires, selon Santé Publique France, mais les cas issus des clusters ne sont qu'une partie minime du total des contaminations, expliquent des épidémiologistes.";
+    void emojiAreLeftUnchanged() {
+        final String input = "PARCOURSUP 👩🏽‍🎓🏫 et les algorithmes de mariage stable ❤️";
+        final String expected = "PARCOURSUP 👩🏽‍🎓🏫 et les algorithmes de mariage stable ❤️";
         Assertions.assertEquals(expected, HtmlHelper.unduplicateSpace(input));
     }
 
