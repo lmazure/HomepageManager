@@ -11,7 +11,7 @@ class HtmlHelperTest {
 
     @ParameterizedTest
     @CsvSource({
-        "Smale&#039;s&nbsp;paradox,Smale's paradox",
+        "Smale&#039;s&nbsp;paradox,Smale's\u00A0paradox",
         "l&rsquo;addition,l’addition"
         })
     void stringIsProperlyDecoded(final String encodedString,

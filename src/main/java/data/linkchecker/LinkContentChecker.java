@@ -109,11 +109,7 @@ public class LinkContentChecker {
             return null;
         }
 
-        final String d = HtmlHelper.cleanContent(data);
-        if (!doesStringAppearInData(d, title)) {
-            return new LinkContentCheck("title \"" + title + "\" does not appear in the page");
-        }
-        return null;
+        return checkTitle(data, title, "title");
     }
 
     protected LinkContentCheck checkLinkSubtitles(final String data,
@@ -123,10 +119,10 @@ public class LinkContentChecker {
             return null;
         }
 
-        final String d = HtmlHelper.cleanContent(data);
         for (final String subtitle: subtitles) {
-            if (!doesStringAppearInData(d, subtitle)) {
-                return new LinkContentCheck("subtitle \"" + subtitle + "\" does not appear in the page");
+            final LinkContentCheck check = checkTitle(data, subtitle, "subtitle");
+            if (check != null) {
+                return check;
             }
         }
         return null;
@@ -160,9 +156,36 @@ public class LinkContentChecker {
     {
         return null;
     }
-    
+
+    private LinkContentCheck checkTitle(final String data,
+                                        final String expectedTitle,
+                                        final String description) {
+        final String d = HtmlHelper.cleanContent(data);
+        if (!doesStringAppearInData(d, expectedTitle)) {
+            String comment = "";
+            final String realTitle = extractEffectiveTitleByIgnoringNonBreakingSpaces(d, expectedTitle);
+            if (realTitle != null) {
+                comment = " (this is a problem of non breaking space, the real " + description + " is \"" + realTitle + "\")";
+            }
+            return new LinkContentCheck(description + " \"" + expectedTitle + "\" does not appear in the page" + comment);
+        }
+        return null;
+
+    }
+
     private boolean doesStringAppearInData(final String data,
                                            final String str) {
         return (data.indexOf(str) >= 0);
+    }
+
+    private String extractEffectiveTitleByIgnoringNonBreakingSpaces(final String data,
+                                                                    final String str) {
+        final String data2 = data.replaceAll("\u00A0", " ");
+        final String str2 = str.replaceAll("\u00A0", " ");
+        final int index = data2.indexOf(str2); 
+        if (index  >= 0) {
+            return data.substring(index, index + str.length()); 
+        }
+        return null;
     }
 }

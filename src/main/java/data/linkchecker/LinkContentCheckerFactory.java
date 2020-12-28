@@ -39,6 +39,10 @@ public class LinkContentCheckerFactory {
             return new ChromiumBlogLinkContentChecker(linkData, articleData, file);
         }
 
+        if (url.toString().startsWith("https://spectrum.ieee.org/")) {
+            return new NoCheckContentChecker(linkData, articleData, file);
+        }
+
         return new LinkContentChecker(linkData, articleData, file);
     }
 }
