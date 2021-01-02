@@ -1,3 +1,13 @@
+- ignorer les fichiers PDF
+
+- comprendre pourquoi certaines redirections ne sont pas détectées
+pex https://developers.google.com/web/updates/2018/03/clipboardapi
+
+- vérifier titre et sous-titres dans PDF
+à tester sur links/javascrp.xml
+
+- gérer les newlines dans les titre pex http://hesketh.com/publications/inclusive_web_design_for_the_future/
+
 - TODO 001 retrouver des exemples de vidéos sans sous-titre
 
 - supporter les KEYWORDs dans les titres (pex Goldbach's conjecture)
@@ -46,7 +56,7 @@ YouTube link with no creation date
 est incorrect ?
 il est normal de pouvoir avoir uniquement une date de publication ?
 
-- ajouter les liens vers les podcats Numberphile2 https://podcastaddict.com/episode/109050317 
+- ajouter les liens vers les podcats Numberphile2 en utilisant https://www.numberphile.com/podcast/
 
 - forcer la mise à jour des caches avant de modifier les fichiers JS de nouveau
 
@@ -69,8 +79,6 @@ il est normal de pouvoir avoir uniquement une date de publication ?
 de plus cela génère des erreurs
                    Thread-3 | 20200416T073001.802 | ERROR | URL ../attic/optimtut1.ps.gz is not checked because the URL is malformed
                    Thread-3 | 20200416T073001.993 | ERROR | URL ../attic/tgr_softwareremodeling.pdf is not checked because the URL is malformed
-
-- ajouter une règle comme quoi il n'y a pas de <ST> pour youtube
 
 - private boolean isDataExpected() { //TBD this method is very stupid, we should used a flag instead of computing the status every time
 

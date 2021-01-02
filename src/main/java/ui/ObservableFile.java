@@ -28,7 +28,7 @@ public class ObservableFile { // TODO this class must be split, it currently kno
     private Path _linkCheckOuputFile;
     private Path _linkCheckReportFile;
 
-    private static DateTimeFormatter s_formatter = DateTimeFormatter.ofPattern("YYYYMMdd'T'HHmmss");
+    private static DateTimeFormatter s_formatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss");
 
     public ObservableFile(final Path path,
                           final FileTime modificationDateTime,
