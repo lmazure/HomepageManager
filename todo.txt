@@ -1,4 +1,6 @@
-- ignorer les fichiers PDF
+- pourquoi la vérification du titre de https://thoughtworks.wistia.com/medias/jhdk2wa37j ne marche pas
+idem pour
+https://www.eiffel.com/values/design-by-contract/introduction/
 
 - comprendre pourquoi certaines redirections ne sont pas détectées
 pex https://developers.google.com/web/updates/2018/03/clipboardapi
@@ -6,7 +8,7 @@ pex https://developers.google.com/web/updates/2018/03/clipboardapi
 - vérifier titre et sous-titres dans PDF
 à tester sur links/javascrp.xml
 
-- gérer les newlines dans les titre pex http://hesketh.com/publications/inclusive_web_design_for_the_future/
+- gérer les newlines dans les titres pex http://hesketh.com/publications/inclusive_web_design_for_the_future/
 
 - TODO 001 retrouver des exemples de vidéos sans sous-titre
 

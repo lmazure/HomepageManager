@@ -379,6 +379,12 @@ public class LinkCheckRunner {
             final String redirection = effectiveData.getHeaders().get().get("Location").get(0);
             builder.append("Redirection = " + redirection + "\n");
         }
+        /*
+        final Optional<List<String>> redirection = getRedirection(effectiveData);
+        if (redirection.isPresent()) {
+            builder.append("Redirection = " + redirection.get().get(0) + "\n");
+        }
+         */
         if (effectiveData.getError().isPresent()) {
             builder.append("Effective error = \"" + effectiveData.getError().get() + "\"\n");
         }
@@ -431,4 +437,22 @@ public class LinkCheckRunner {
             return null;
         }
     }
+    
+    /*
+        private Optional<List<String>> getRedirection(final SiteData effectiveData) {
+
+        if (effectiveData.getHeaders().isEmpty()) {
+            return Optional.empty();
+        }
+
+        final Map<String, List<String>> headers = effectiveData.getHeaders().get();
+        for (final String key: headers.keySet()) {
+            if ((key != null) && key.equalsIgnoreCase("location")) {
+                return Optional.of(headers.get(key));
+            }
+        }
+
+        return Optional.empty();
+    }
+    */
 }

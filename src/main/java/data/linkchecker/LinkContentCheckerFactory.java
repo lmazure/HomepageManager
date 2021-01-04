@@ -14,6 +14,11 @@ public class LinkContentCheckerFactory {
                                            final Optional<ArticleData> articleData,
                                            final File file) {
 
+        if (url.toString().endsWith(".pdf")) {
+            // PDF files are ignored for the time being
+            return new NoCheckContentChecker(linkData, articleData, file);
+        }
+
         if (url.toString().startsWith("https://medium.com/")) {
             return new MediumLinkContentChecker(linkData, articleData, file);
         }
