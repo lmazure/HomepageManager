@@ -80,7 +80,7 @@ class FileCheckerTest {
     }
 
     @Test
-    void testNonBreakingSpaceDetection() {
+    void testNonBreakingSpaceAreNotReported() {
 
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
@@ -93,8 +93,7 @@ class FileCheckerTest {
             "</CONTENT>\r\n" +
             "</PAGE>";
 
-        test(content,
-             7, MESS_SPAC + " (xa0) at column 13");
+        test(content);
     }
 
     @Test

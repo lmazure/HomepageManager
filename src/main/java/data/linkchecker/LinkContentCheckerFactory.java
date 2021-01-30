@@ -19,6 +19,16 @@ public class LinkContentCheckerFactory {
             return new NoCheckContentChecker(linkData, articleData, file);
         }
 
+        if (url.toString().endsWith(".ps")) {
+            // PostScript files are ignored
+            return new NoCheckContentChecker(linkData, articleData, file);
+        }
+
+        if (url.toString().endsWith(".gz")) {
+            // GZIP files are ignored
+            return new NoCheckContentChecker(linkData, articleData, file);
+        }
+
         if (url.toString().startsWith("https://medium.com/")) {
             return new MediumLinkContentChecker(linkData, articleData, file);
         }

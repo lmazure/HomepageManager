@@ -152,14 +152,6 @@ public class FileChecker implements FileHandler {
                                                  ") at column " +
                                                  columnNumber));
                 columnNumber++;
-//            } else if (Character.isSpaceChar(ch) && (ch != ' ')) {
-//                isPreviousCharacterCarriageReturn = false;
-//                isPreviousCharacterWhiteSpace = true;
-//                errors.add(new Error(lineNumber, "line contains a space character (x" +
-//                                                 Integer.toHexString(ch) +
-//                                                 ") at column " +
-//                                                 columnNumber));
-//                columnNumber++;
             } else if (Character.isWhitespace(ch)) {
                 isPreviousCharacterCarriageReturn = false;
                 isPreviousCharacterWhiteSpace = true;

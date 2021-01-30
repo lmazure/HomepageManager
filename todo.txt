@@ -1,9 +1,10 @@
+- ne plus faire exit sur les erreurs "Failed to recognize the YouTube answer type"
+
+- nettoyer java.xml
+
 - pourquoi la vérification du titre de https://thoughtworks.wistia.com/medias/jhdk2wa37j ne marche pas
 idem pour
 https://www.eiffel.com/values/design-by-contract/introduction/
-
-- comprendre pourquoi certaines redirections ne sont pas détectées
-pex https://developers.google.com/web/updates/2018/03/clipboardapi
 
 - vérifier titre et sous-titres dans PDF
 à tester sur links/javascrp.xml
