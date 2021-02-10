@@ -32,7 +32,7 @@ public class YoutubeChannelUserLinkContentChecker extends LinkContentChecker {
 
     @Override
     protected LinkContentCheck checkLinkLanguages(final String data,
-                                                  Locale[] languages)
+                                                  Locale[] languages) throws ContentParserException
     {
         final Optional<Locale> language = _parser.getLanguage();
 

@@ -6,7 +6,6 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import utils.ExitHelper;
 import utils.HtmlHelper;
 
 public class ChromiumBlogLinkContentParser {
@@ -19,7 +18,7 @@ public class ChromiumBlogLinkContentParser {
         _data = data;
     }
 
-    public String getTitle() {
+    public String getTitle() throws ContentParserException {
 
         if (_title == null) {
             _title = extractTitle();
@@ -28,7 +27,7 @@ public class ChromiumBlogLinkContentParser {
         return _title;
     }
 
-    public LocalDate getPublicationDate() {
+    public LocalDate getPublicationDate() throws ContentParserException {
 
         if (_publicationDate == null) {
             _publicationDate = extractPublicationDate();
@@ -37,7 +36,7 @@ public class ChromiumBlogLinkContentParser {
         return _publicationDate;
     }
 
-    private String extractTitle() {
+    private String extractTitle() throws ContentParserException {
 
         final Pattern p = Pattern.compile("<title>Chromium Blog: (.+?)</title>", Pattern.MULTILINE);
         final Matcher m = p.matcher(_data);        
@@ -45,13 +44,10 @@ public class ChromiumBlogLinkContentParser {
             return HtmlHelper.unescape(m.group(1).trim());
          }
 
-        ExitHelper.exit("Failed to find title in Chromium Blog page");
-
-        // NOTREACHED
-        return null;
+        throw new ContentParserException("Failed to find title in Chromium Blog page");
     }
 
-    private LocalDate extractPublicationDate() {
+    private LocalDate extractPublicationDate() throws ContentParserException {
 
         final Pattern p = Pattern.compile("<span class='publishdate' itemprop='datePublished'>([^<]+)</span>", Pattern.MULTILINE);
         final Matcher m = p.matcher(_data);
@@ -61,9 +57,6 @@ public class ChromiumBlogLinkContentParser {
             return LocalDate.parse(formattedDate, formatter);
         }
 
-        ExitHelper.exit("Failed to find date in Chromium Blog page");
-
-        // NOTREACHED
-        return null;
+        throw new ContentParserException("Failed to find date in Chromium Blog page");
     }
 }

@@ -263,7 +263,18 @@ public class LinkCheckRunner {
                                                                                       _expectedData.get(siteData.getUrl()),
                                                                                       Optional.ofNullable(_articles.get(siteData.getUrl())),
                                                                                       siteData.getDataFile().get());
-            _checks.put(siteData.getUrl(), contentChecker.check());
+            try {
+                _checks.put(siteData.getUrl(), contentChecker.check());
+            } catch (final ContentParserException e) {
+                FileHelper.createParentDirectory(_reportFile);
+                try (final PrintStream reportWriter = new PrintStream(_reportFile.toFile())) {
+                    e.printStackTrace(reportWriter);
+                } catch (final IOException e2) {
+                    ExitHelper.exit(e2);
+                }
+                _controller.handleUpdate(_file, Status.FAILED_TO_HANDLED, _outputFile, _reportFile);
+                return;
+            }
         }
 
         if (isDataFresh) {

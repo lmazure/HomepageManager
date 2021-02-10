@@ -13,6 +13,7 @@ import data.internet.SiteData;
 import data.internet.SiteDataPersister;
 import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
+import data.linkchecker.ContentParserException;
 import data.linkchecker.MediumLinkContentParser;
 import utils.FileHelper;
 
@@ -27,7 +28,11 @@ public class MediumLinkContentParserTest {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
                                final MediumLinkContentParser parser = new MediumLinkContentParser(data);
-                               Assertions.assertEquals("SB Changes", parser.getTitle());
+                               try {
+                                   Assertions.assertEquals("SB Changes", parser.getTitle());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getTitle threw " + e.getMessage());
+                               }
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -42,7 +47,11 @@ public class MediumLinkContentParserTest {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
                                final MediumLinkContentParser parser = new MediumLinkContentParser(data);
-                               Assertions.assertEquals("Productive Compliments: Giving, Receiving, Connecting", parser.getTitle());
+                               try {
+                                   Assertions.assertEquals("Productive Compliments: Giving, Receiving, Connecting", parser.getTitle());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getTitle threw " + e.getMessage());
+                               }
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -57,7 +66,11 @@ public class MediumLinkContentParserTest {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
                                final MediumLinkContentParser parser = new MediumLinkContentParser(data);
-                               Assertions.assertEquals("TCR (test && commit || revert). How to use? Alternative to TDD?", parser.getTitle());
+                               try {
+                                   Assertions.assertEquals("TCR (test && commit || revert). How to use? Alternative to TDD?", parser.getTitle());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getTitle threw " + e.getMessage());
+                               }
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -72,7 +85,11 @@ public class MediumLinkContentParserTest {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
                                final MediumLinkContentParser parser = new MediumLinkContentParser(data);
-                               Assertions.assertEquals("Monolith -> Services: Theory & Practice", parser.getTitle());
+                               try {
+                                   Assertions.assertEquals("Monolith -> Services: Theory & Practice", parser.getTitle());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getTitle threw " + e.getMessage());
+                               }
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -87,7 +104,11 @@ public class MediumLinkContentParserTest {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
                                final MediumLinkContentParser parser = new MediumLinkContentParser(data);
-                               Assertions.assertEquals("Fast/Slow in 3X: Explore/Expand/Extract", parser.getTitle());
+                               try {
+                                   Assertions.assertEquals("Fast/Slow in 3X: Explore/Expand/Extract", parser.getTitle());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getTitle threw " + e.getMessage());
+                               }
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -103,7 +124,11 @@ public class MediumLinkContentParserTest {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
                                final MediumLinkContentParser parser = new MediumLinkContentParser(data);
-                               Assertions.assertEquals("How to Build a High Velocity Development Team", parser.getTitle());
+                               try {
+                                   Assertions.assertEquals("How to Build a High Velocity Development Team", parser.getTitle());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getTitle threw " + e.getMessage());
+                               }
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -118,7 +143,11 @@ public class MediumLinkContentParserTest {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
                                final MediumLinkContentParser parser = new MediumLinkContentParser(data);
-                               Assertions.assertEquals("A Microscope on Microservices", parser.getTitle());
+                               try {
+                                   Assertions.assertEquals("A Microscope on Microservices", parser.getTitle());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getTitle threw " + e.getMessage());
+                               }
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -142,8 +171,16 @@ public class MediumLinkContentParserTest {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
                                final MediumLinkContentParser parser = new MediumLinkContentParser(data);
-                               Assertions.assertEquals(expectedDate, parser.getPublicationDate().toString());
-                               Assertions.assertEquals(expectedDate, parser.getModificationDate().toString());
+                               try {
+                                   Assertions.assertEquals(expectedDate, parser.getPublicationDate().toString());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getPublicationDate threw " + e.getMessage());
+                               }
+                               try {
+                                   Assertions.assertEquals(expectedDate, parser.getModificationDate().toString());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getModificationDate threw " + e.getMessage());
+                               }
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -164,8 +201,16 @@ public class MediumLinkContentParserTest {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
                                final MediumLinkContentParser parser = new MediumLinkContentParser(data);
-                               Assertions.assertEquals(expectedPublicationDate, parser.getPublicationDate().toString());
-                               Assertions.assertEquals(expectedModificationDate, parser.getModificationDate().toString());
+                               try {
+                                   Assertions.assertEquals(expectedPublicationDate, parser.getPublicationDate().toString());
+                                } catch (final ContentParserException e) {
+                                    Assertions.fail("getPublicationDate threw " + e.getMessage());
+                                }
+                               try {
+                                   Assertions.assertEquals(expectedModificationDate, parser.getModificationDate().toString());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getModificationDate threw " + e.getMessage());
+                               }
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());

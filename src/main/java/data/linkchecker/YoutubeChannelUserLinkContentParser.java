@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import utils.ExitHelper;
 import utils.StringHelper;
 
 public class YoutubeChannelUserLinkContentParser {
@@ -26,7 +25,7 @@ public class YoutubeChannelUserLinkContentParser {
         return _errorMessage;
     }
 
-    public Optional<Locale> getLanguage() {
+    public Optional<Locale> getLanguage() throws ContentParserException {
         if (_language == null) {
             final String description = extractDescription();
             _language = StringHelper.guessLanguage(description);
@@ -46,7 +45,7 @@ public class YoutubeChannelUserLinkContentParser {
         return Optional.empty();
     }
 
-    private String extractDescription() {
+    private String extractDescription() throws ContentParserException {
 
         final Pattern p = Pattern.compile("<meta name=\"description\" content=\"([^\"]*)\">");
         final Matcher m = p.matcher(_data);
@@ -54,9 +53,6 @@ public class YoutubeChannelUserLinkContentParser {
             return m.group(1);
         }
 
-        ExitHelper.exit("Failed to find description in YouTube channel page");
-
-        // NOTREACHED
-        return null;
+        throw new ContentParserException("Failed to find description in YouTube channel page");
     }
 }

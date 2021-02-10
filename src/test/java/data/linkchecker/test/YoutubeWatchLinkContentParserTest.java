@@ -17,6 +17,7 @@ import data.internet.SiteData;
 import data.internet.SiteDataPersister;
 import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
+import data.linkchecker.ContentParserException;
 import data.linkchecker.YoutubeWatchLinkContentParser;
 import utils.FileHelper;
 
@@ -34,7 +35,7 @@ class YoutubeWatchLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
+                               final YoutubeWatchLinkContentParser parser = buildParser(data);
                                Assertions.assertTrue(parser.isPlayable());
                                consumerHasBeenCalled.set(true);
                            });
@@ -49,7 +50,7 @@ class YoutubeWatchLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
+                               final YoutubeWatchLinkContentParser parser = buildParser(data);
                                Assertions.assertFalse(parser.isPlayable());
                                consumerHasBeenCalled.set(true);
                            });
@@ -64,8 +65,12 @@ class YoutubeWatchLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
-                               Assertions.assertEquals("Alain Aspect - Le photon onde ou particule ? L’étrangeté quantique mise en lumière", parser.getTitle());
+                               final YoutubeWatchLinkContentParser parser = buildParser(data);
+                               try {
+                                   Assertions.assertEquals("Alain Aspect - Le photon onde ou particule ? L’étrangeté quantique mise en lumière", parser.getTitle());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getTitle threw " + e.getMessage());
+                               }
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -80,8 +85,12 @@ class YoutubeWatchLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
-                               Assertions.assertEquals("Spéciale \u0090Énigmes - Myriogon #7", parser.getTitle());
+                               final YoutubeWatchLinkContentParser parser = buildParser(data);
+                               try {
+                                   Assertions.assertEquals("Spéciale \u0090Énigmes - Myriogon #7", parser.getTitle());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getTitle threw " + e.getMessage());
+                               }
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -95,8 +104,12 @@ class YoutubeWatchLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                               Assertions.assertTrue(d.getDataFile().isPresent());
                               final String data = FileHelper.slurpFile(d.getDataFile().get());
-                              final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
-                              Assertions.assertEquals("Win a SMALL fortune with counting cards-the math of blackjack & Co.", parser.getTitle());
+                              final YoutubeWatchLinkContentParser parser = buildParser(data);
+                              try {
+                                  Assertions.assertEquals("Win a SMALL fortune with counting cards-the math of blackjack & Co.", parser.getTitle());
+                              } catch (final ContentParserException e) {
+                                  Assertions.fail("getTitle threw " + e.getMessage());
+                              }
                               consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -110,8 +123,12 @@ class YoutubeWatchLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
-                               Assertions.assertEquals("Googling the Googlers\\' DNA: A Demonstration of the 23andMe Personal Genome S...", parser.getTitle());
+                               final YoutubeWatchLinkContentParser parser = buildParser(data);
+                               try {
+                                   Assertions.assertEquals("Googling the Googlers\\' DNA: A Demonstration of the 23andMe Personal Genome S...", parser.getTitle());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getTitle threw " + e.getMessage());
+                               }
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -125,8 +142,12 @@ class YoutubeWatchLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
-                               Assertions.assertEquals("Conférence organisée par les Amis de l'IHES le 23 mai 2019", parser.getDescription());
+                               final YoutubeWatchLinkContentParser parser = buildParser(data);
+                               try {
+                                   Assertions.assertEquals("Conférence organisée par les Amis de l'IHES le 23 mai 2019", parser.getDescription());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getDescription threw " + e.getMessage());
+                               }
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -140,10 +161,14 @@ class YoutubeWatchLinkContentParserTest {
                               (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
-                               Assertions.assertEquals("Ce soir, on joue ensemble autour de quelques énigmes mathématiques.\n" +
-                                                       "\n" +
-                                                       "La chaîne Myriogon : https://www.youtube.com/channel/UCvYEpQbJ81n2pjrQrKUrRog/", parser.getDescription());
+                               final YoutubeWatchLinkContentParser parser = buildParser(data);
+                               try {
+                                   Assertions.assertEquals("Ce soir, on joue ensemble autour de quelques énigmes mathématiques.\n" +
+                                           "\n" +
+                                           "La chaîne Myriogon : https://www.youtube.com/channel/UCvYEpQbJ81n2pjrQrKUrRog/", parser.getDescription());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getDescription threw " + e.getMessage());
+                               }
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -157,20 +182,24 @@ class YoutubeWatchLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
-                               Assertions.assertEquals("Watch Metallica perform \"Master of Puppets\" live on the Howard Stern Show.\n" +
-                                                       "\n" +
-                                                       "Metallica's new album \"Hardwired… to Self-Destruct\" is available on Nov. 18.\n" +
-                                                       "\n" +
-                                                       "Want to know what's going on with Howard Stern in the future?\n" +
-                                                       "\n" +
-                                                       "Follow us on Twitter: http://bit.ly/1RzxGPD\n" +
-                                                       "On Facebook: http://on.fb.me/1JELtz3\n" +
-                                                       "On Instagram: https://goo.gl/VsWTND\n" +
-                                                       "\n" +
-                                                       "For more great content from the Howard Stern Show visit our official website: http://www.HowardStern.com\n" +
-                                                       "\n" +
-                                                       "Hear more Howard Stern by signing up for a free SiriusXM trial: https://goo.gl/uNL0Du", parser.getDescription());
+                               final YoutubeWatchLinkContentParser parser = buildParser(data);
+                               try {
+                                   Assertions.assertEquals("Watch Metallica perform \"Master of Puppets\" live on the Howard Stern Show.\n" +
+                                           "\n" +
+                                           "Metallica's new album \"Hardwired… to Self-Destruct\" is available on Nov. 18.\n" +
+                                           "\n" +
+                                           "Want to know what's going on with Howard Stern in the future?\n" +
+                                           "\n" +
+                                           "Follow us on Twitter: http://bit.ly/1RzxGPD\n" +
+                                           "On Facebook: http://on.fb.me/1JELtz3\n" +
+                                           "On Instagram: https://goo.gl/VsWTND\n" +
+                                           "\n" +
+                                           "For more great content from the Howard Stern Show visit our official website: http://www.HowardStern.com\n" +
+                                           "\n" +
+                                           "Hear more Howard Stern by signing up for a free SiriusXM trial: https://goo.gl/uNL0Du", parser.getDescription());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getDescription threw " + e.getMessage());
+                               }
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -184,9 +213,17 @@ class YoutubeWatchLinkContentParserTest {
                               (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
-                               Assertions.assertEquals(LocalDate.of(2019, 5, 27), parser.getUploadDate());
-                               Assertions.assertEquals(LocalDate.of(2019, 5, 27), parser.getPublishDate());
+                               final YoutubeWatchLinkContentParser parser = buildParser(data);
+                               try {
+                                   Assertions.assertEquals(LocalDate.of(2019, 5, 27), parser.getUploadDate());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getUploadDate threw " + e.getMessage());
+                               }
+                               try {
+                                   Assertions.assertEquals(LocalDate.of(2019, 5, 27), parser.getPublishDate());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getPublishDate threw " + e.getMessage());
+                               }
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -200,9 +237,17 @@ class YoutubeWatchLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
-                               Assertions.assertEquals(Duration.ofMillis(5602280), parser.getMinDuration());
-                               Assertions.assertEquals(Duration.ofMillis(5602348), parser.getMaxDuration());
+                               final YoutubeWatchLinkContentParser parser = buildParser(data);
+                               try {
+                                   Assertions.assertEquals(Duration.ofMillis(5602280), parser.getMinDuration());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getMinDuration threw " + e.getMessage());
+                               }
+                               try {
+                                   Assertions.assertEquals(Duration.ofMillis(5602348), parser.getMaxDuration());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getMaxDuration threw " + e.getMessage());
+                               }
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -223,8 +268,12 @@ class YoutubeWatchLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
-                               Assertions.assertEquals(Locale.ENGLISH, parser.getLanguage().get());
+                               final YoutubeWatchLinkContentParser parser = buildParser(data);
+                               try {
+                                   Assertions.assertEquals(Locale.ENGLISH, parser.getLanguage().get());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getLanguage threw " + e.getMessage());
+                               }
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -255,8 +304,12 @@ class YoutubeWatchLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
-                               Assertions.assertEquals(Locale.FRENCH, parser.getLanguage().get());
+                               final YoutubeWatchLinkContentParser parser = buildParser(data);
+                               try {
+                                   Assertions.assertEquals(Locale.FRENCH, parser.getLanguage().get());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getLanguage threw " + e.getMessage());
+                               }
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -276,7 +329,7 @@ class YoutubeWatchLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
+                               final YoutubeWatchLinkContentParser parser = buildParser(data);
                                Assertions.assertEquals(Locale.ENGLISH, parser.getSubtitlesLanguage().get());
                                consumerHasBeenCalled.set(true);
                            });
@@ -296,7 +349,7 @@ class YoutubeWatchLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
+                               final YoutubeWatchLinkContentParser parser = buildParser(data);
                                Assertions.assertEquals(Locale.FRENCH, parser.getSubtitlesLanguage().get());
                                consumerHasBeenCalled.set(true);
                            });
@@ -315,11 +368,42 @@ class YoutubeWatchLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
-                               final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
+                               final YoutubeWatchLinkContentParser parser = buildParser(data);
                                Assertions.assertTrue(parser.getSubtitlesLanguage().isEmpty());
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    @Test
+    void incorrectContentGeneratesException() {
+        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(TestHelper.buildURL("https://www.google.com"),
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               try {
+                                   @SuppressWarnings("unused")
+                                   final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
+                                   Assertions.fail("new YoutubeWatchLinkContentParser has not thrown an exception");
+                               } catch (@SuppressWarnings("unused") final ContentParserException e) {
+                               }
+                               consumerHasBeenCalled.set(true);
+                           });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    private YoutubeWatchLinkContentParser buildParser(final String data) {
+
+        try {
+            final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
+            return parser;
+        } catch (final ContentParserException e) {
+            Assertions.fail("new YoutubeWatchLinkContentParser threw " + e.getMessage());
+        }
+
+        return null;
     }
 
     private SynchronousSiteDataRetriever buildDataSiteRetriever() {

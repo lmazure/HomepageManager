@@ -23,7 +23,7 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
     }
 
     @Override
-    protected LinkContentCheck checkGlobalData(final String data) {
+    protected LinkContentCheck checkGlobalData(final String data) throws ContentParserException {
         _parser = new YoutubeWatchLinkContentParser(data);
 
         if (!_parser.isPlayable()) {
@@ -35,7 +35,7 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
 
     @Override
     public LinkContentCheck checkLinkTitle(final String data,
-                                           final String title) {
+                                           final String title) throws ContentParserException {
 
         final String effectiveTitle = _parser.getTitle();
 
@@ -52,7 +52,7 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
 
     @Override
     public LinkContentCheck checkLinkDuration(final String data,
-                                              final Duration expectedDuration) {
+                                              final Duration expectedDuration) throws ContentParserException {
 
         final Duration effectiveMinDuration = _parser.getMinDuration().truncatedTo(ChronoUnit.SECONDS);
         final Duration effectiveMaxDuration = _parser.getMaxDuration().truncatedTo(ChronoUnit.SECONDS).plusSeconds(1);
@@ -74,7 +74,7 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
     @Override
     protected LinkContentCheck checkArticleDate(final String data,
                                                 final Optional<TemporalAccessor> publicationDate,
-                                                final Optional<TemporalAccessor> creationDate)
+                                                final Optional<TemporalAccessor> creationDate) throws ContentParserException
     {
 
         if (creationDate.isEmpty()) {
@@ -110,7 +110,7 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
 
     @Override
     protected LinkContentCheck checkLinkLanguages(final String data,
-                                                  final Locale[] languages)
+                                                  final Locale[] languages) throws ContentParserException
     {
         final Optional<Locale> language = _parser.getLanguage();
 

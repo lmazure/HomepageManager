@@ -13,6 +13,7 @@ import data.internet.SiteDataPersister;
 import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
 import data.linkchecker.ChromiumBlogLinkContentParser;
+import data.linkchecker.ContentParserException;
 import utils.FileHelper;
 
 public class ChromiumBlogLinkContentParserTest {
@@ -31,7 +32,11 @@ public class ChromiumBlogLinkContentParserTest {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
                                final ChromiumBlogLinkContentParser parser = new ChromiumBlogLinkContentParser(data);
-                               Assertions.assertEquals(expectedTitle, parser.getTitle());
+                               try {
+                                   Assertions.assertEquals(expectedTitle, parser.getTitle());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getTitle threw " + e.getMessage());
+                               }
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -50,7 +55,11 @@ public class ChromiumBlogLinkContentParserTest {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
                                final ChromiumBlogLinkContentParser parser = new ChromiumBlogLinkContentParser(data);
-                               Assertions.assertEquals(expectedTitle, parser.getTitle());
+                               try {
+                                   Assertions.assertEquals(expectedTitle, parser.getTitle());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getTitle threw " + e.getMessage());
+                               }
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -73,7 +82,11 @@ public class ChromiumBlogLinkContentParserTest {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
                                final ChromiumBlogLinkContentParser parser = new ChromiumBlogLinkContentParser(data);
-                               Assertions.assertEquals(expectedTitle, parser.getTitle());
+                               try {
+                                   Assertions.assertEquals(expectedTitle, parser.getTitle());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getTitle threw " + e.getMessage());
+                               }
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -92,7 +105,11 @@ public class ChromiumBlogLinkContentParserTest {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
                                final ChromiumBlogLinkContentParser parser = new ChromiumBlogLinkContentParser(data);
-                               Assertions.assertEquals(expectedPublicationDate, parser.getPublicationDate().toString());
+                               try {
+                                   Assertions.assertEquals(expectedPublicationDate, parser.getPublicationDate().toString());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getPublicationDate threw " + e.getMessage());
+                               }
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());

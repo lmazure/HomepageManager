@@ -27,7 +27,7 @@ public class ChromiumBlogLinkContentChecker extends LinkContentChecker {
 
     @Override
     public LinkContentCheck checkLinkTitle(final String data,
-                                           final String title) {
+                                           final String title) throws ContentParserException {
 
         final String effectiveTitle = _parser.getTitle();
 
@@ -45,7 +45,7 @@ public class ChromiumBlogLinkContentChecker extends LinkContentChecker {
     @Override
     protected LinkContentCheck checkArticleDate(final String data,
                                                 final Optional<TemporalAccessor> publicationDate,
-                                                final Optional<TemporalAccessor> creationDate)
+                                                final Optional<TemporalAccessor> creationDate) throws ContentParserException
     {
 
         if (creationDate.isEmpty()) {

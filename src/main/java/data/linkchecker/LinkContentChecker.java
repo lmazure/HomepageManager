@@ -33,7 +33,7 @@ public class LinkContentChecker {
         _file = file;
     }
 
-    public final List<LinkContentCheck> check() {
+    public final List<LinkContentCheck> check() throws ContentParserException {
         final String content = FileHelper.slurpFile(_file);
         final Pattern p = Pattern.compile("</HTML>\\p{Space}*$", Pattern.CASE_INSENSITIVE);
         final Matcher m = p.matcher(content);
@@ -44,7 +44,7 @@ public class LinkContentChecker {
         return check(content);
     }
 
-    public final List<LinkContentCheck> check(final String data) {
+    public final List<LinkContentCheck> check(final String data) throws ContentParserException {
 
         final List<LinkContentCheck> checks = new ArrayList<LinkContentCheck>();
 
@@ -97,13 +97,19 @@ public class LinkContentChecker {
         return checks;
     }
 
-    protected LinkContentCheck checkGlobalData(final String data)
+    /**
+     * @throws ContentParserException  
+     */
+    protected LinkContentCheck checkGlobalData(final String data) throws ContentParserException
     {
         return null;
     }
 
+    /**
+     * @throws ContentParserException  
+     */
     protected LinkContentCheck checkLinkTitle(final String data,
-                                              final String title)
+                                              final String title) throws ContentParserException
     {
         if (_articleData.isEmpty()) {
             return null;
@@ -128,14 +134,20 @@ public class LinkContentChecker {
         return null;
     }
 
+    /**
+     * @throws ContentParserException  
+     */
     protected LinkContentCheck checkLinkDuration(final String data,
-                                                 final Duration duration)
+                                                 final Duration duration) throws ContentParserException
     {
         return null;
     }
 
+    /**
+     * @throws ContentParserException  
+     */
     protected LinkContentCheck checkLinkLanguages(final String data,
-                                                  final Locale[] languages)
+                                                  final Locale[] languages) throws ContentParserException
     {
         if (_parser == null) {
             _parser = new LinkContentParser(data);
@@ -150,9 +162,12 @@ public class LinkContentChecker {
         return null;
     }
 
+    /**
+     * @throws ContentParserException  
+     */
     protected LinkContentCheck checkArticleDate(final String data,
                                                 final Optional<TemporalAccessor> publicationDate,
-                                                final Optional<TemporalAccessor> creationDate)
+                                                final Optional<TemporalAccessor> creationDate) throws ContentParserException
     {
         return null;
     }

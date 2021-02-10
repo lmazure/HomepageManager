@@ -14,6 +14,7 @@ import data.internet.SiteData;
 import data.internet.SiteDataPersister;
 import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
+import data.linkchecker.ContentParserException;
 import data.linkchecker.YoutubeChannelUserLinkContentParser;
 import utils.FileHelper;
 
@@ -58,7 +59,7 @@ class YoutubeChannelUserLinkContentParserTest {
             "https://www.youtube.com/user/Vsauce2",
             "https://www.youtube.com/user/Vsauce3"
                            })
-    void testEnglish(String url) {
+    void testEnglish(final String url) {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
@@ -66,7 +67,11 @@ class YoutubeChannelUserLinkContentParserTest {
                             Assertions.assertTrue(d.getDataFile().isPresent());
                             final String data = FileHelper.slurpFile(d.getDataFile().get());
                             final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
-                            Assertions.assertEquals(Locale.ENGLISH, parser.getLanguage().get());
+                            try {
+                                Assertions.assertEquals(Locale.ENGLISH, parser.getLanguage().get());
+                            } catch (final ContentParserException e) {
+                                Assertions.fail("getLanguage threw " + e.getMessage());
+                            }
                             consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -77,7 +82,7 @@ class YoutubeChannelUserLinkContentParserTest {
             "https://www.youtube.com/channel/UCjsHDXUU3BjBCG7OaCbNDyQ",
             "https://www.youtube.com/user/TheWandida"
                            })
-    void testFrench(String url) {
+    void testFrench(final String url) {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
@@ -85,7 +90,11 @@ class YoutubeChannelUserLinkContentParserTest {
                             Assertions.assertTrue(d.getDataFile().isPresent());
                             final String data = FileHelper.slurpFile(d.getDataFile().get());
                             final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
-                            Assertions.assertEquals(Locale.FRENCH, parser.getLanguage().get());
+                            try {
+                                Assertions.assertEquals(Locale.FRENCH, parser.getLanguage().get());
+                            } catch (final ContentParserException e) {
+                                Assertions.fail("getLanguage threw " + e.getMessage());
+                            }
                             consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());

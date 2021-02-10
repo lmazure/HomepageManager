@@ -1,4 +1,4 @@
-- ne plus faire exit sur les erreurs "Failed to recognize the YouTube answer type"
+- regarder problème de date avec https://www.youtube.com/watch?v=cQUAwhhC8cU
 
 - nettoyer java.xml
 

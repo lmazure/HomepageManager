@@ -7,7 +7,6 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import utils.ExitHelper;
 import utils.StringHelper;
 
 public class YoutubeWatchLinkContentParser {
@@ -24,7 +23,7 @@ public class YoutubeWatchLinkContentParser {
     private Duration _minDuration;
     private Duration _maxDuration;
 
-    public YoutubeWatchLinkContentParser(final String data) {
+    public YoutubeWatchLinkContentParser(final String data) throws ContentParserException {
         _data = data;
         if (data.contains("ytInitialPlayerResponse =")) {
             _isEscaped = false;
@@ -33,9 +32,7 @@ public class YoutubeWatchLinkContentParser {
         } else if (data.contains("ytplayer.config = {")) {
             _isEscaped = true;
         } else {
-            ExitHelper.exit("Failed to recognize the YouTube answer type");
-            // NOT REACHED
-            _isEscaped = false;
+            throw new ContentParserException("Failed to recognize the YouTube answer type");
         }
     }
 
@@ -47,7 +44,7 @@ public class YoutubeWatchLinkContentParser {
         return _isPlayable;
     }
 
-    public String getTitle() {
+    public String getTitle() throws ContentParserException {
         if (_title == null) {
             _title = extractField("title");
         }
@@ -55,7 +52,7 @@ public class YoutubeWatchLinkContentParser {
         return _title;
     }
 
-    public String getDescription() {
+    public String getDescription() throws ContentParserException {
         if (_description == null) {
             _description = extractField("shortDescription");
         }
@@ -63,7 +60,7 @@ public class YoutubeWatchLinkContentParser {
         return _description;
     }
 
-    public LocalDate getUploadDate() {
+    public LocalDate getUploadDate() throws ContentParserException {
         if (_uploadDate == null) {
             _uploadDate = extractDate("uploadDate");
         }
@@ -71,7 +68,7 @@ public class YoutubeWatchLinkContentParser {
         return _uploadDate;
     }
 
-    public LocalDate getPublishDate() {
+    public LocalDate getPublishDate() throws ContentParserException {
         if (_publishDate == null) {
             _publishDate = extractDate("publishDate");
         }
@@ -79,7 +76,7 @@ public class YoutubeWatchLinkContentParser {
         return _publishDate;
     }
 
-    public Duration getMinDuration() {
+    public Duration getMinDuration() throws ContentParserException {
         if (_minDuration == null) {
             extractDuration();
         }
@@ -87,7 +84,7 @@ public class YoutubeWatchLinkContentParser {
         return _minDuration;
     }
 
-    public Duration getMaxDuration() {
+    public Duration getMaxDuration() throws ContentParserException {
         if (_maxDuration == null) {
             extractDuration();
         }
@@ -95,7 +92,7 @@ public class YoutubeWatchLinkContentParser {
         return _maxDuration;
     }
 
-    public Optional<Locale> getLanguage() {
+    public Optional<Locale> getLanguage() throws ContentParserException {
         if (_language == null) {
             final Optional<Locale> lang = getSubtitlesLanguage();
             if (lang.isPresent()) {
@@ -131,7 +128,7 @@ public class YoutubeWatchLinkContentParser {
                           : _data.contains("\"playabilityStatus\":{\"status\":\"OK\"");
     }
 
-    private String extractField(final String str) {
+    private String extractField(final String str) throws ContentParserException {
         String text = null;
 
         final Pattern p = Pattern.compile(_isEscaped ? ("\\\\\"" + str + "\\\\\":\\\\\"(.+?)(?<!\\\\\\\\)\\\\\"")
@@ -143,17 +140,15 @@ public class YoutubeWatchLinkContentParser {
                 text = t;
             } else {
                 if (!text.equals(t)) {
-                    ExitHelper.exit("Found different " + str + " texts in YouTube watch page");
+                    throw new ContentParserException("Found different " + str + " texts in YouTube watch page");
                 }
             }
         }
 
         if (text == null) {
-            ExitHelper.exit("Failed to extract " + str + " text from YouTube watch page ");
+            throw new ContentParserException("Failed to extract " + str + " text from YouTube watch page ");
         }
 
-        assert(text != null);
-        
         if (_isEscaped) {
             text = text.replaceAll(Pattern.quote("\\\\n"), "\n")
                        .replaceAll(Pattern.quote("\\\\u0026"),"&")
@@ -172,11 +167,11 @@ public class YoutubeWatchLinkContentParser {
         return text;
     }
 
-    private LocalDate extractDate(final String str) {
+    private LocalDate extractDate(final String str) throws ContentParserException {
         return LocalDate.parse(extractField(str));
     }
 
-    private void extractDuration() {
+    private void extractDuration() throws ContentParserException {
 
         int minDuration = Integer.MAX_VALUE;
         int maxDuration = Integer.MIN_VALUE;
@@ -195,7 +190,7 @@ public class YoutubeWatchLinkContentParser {
         }
 
         if (minDuration == Integer.MAX_VALUE) {
-            ExitHelper.exit("Failed to extract durations from YouTube watch page");
+            throw new ContentParserException("Failed to extract durations from YouTube watch page");
         }
 
         _minDuration = Duration.ofMillis(minDuration);
