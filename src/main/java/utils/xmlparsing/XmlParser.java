@@ -122,7 +122,7 @@ public class XmlParser {
         }
         final Locale languages[] = new Locale[languageNodes.getLength()];
         for (int k = 0; k < languageNodes.getLength(); k++) {
-            languages[k] = LinkData.parseLangage(((Element)languageNodes.item(k)).getTextContent());
+            languages[k] = LinkData.parseLanguage(((Element)languageNodes.item(k)).getTextContent());
         }
 
         final List<Element> formatNodes = XmlHelper.getChildrenByElementType(xElement, ElementType.F);

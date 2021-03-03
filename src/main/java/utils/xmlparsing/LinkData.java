@@ -102,9 +102,10 @@ public class LinkData {
         throw new UnsupportedOperationException("Illegal format value (" + format + ")");
     }
 
-    public static Locale parseLangage(final String langage) {
-        if (langage.equals("en")) return Locale.ENGLISH;
-        if (langage.equals("fr")) return Locale.FRENCH;
-        throw new UnsupportedOperationException("Illegal langage value (" + langage + ")");
+    public static Locale parseLanguage(final String language) {
+        if (language.equals("en")) return Locale.ENGLISH;
+        if (language.equals("fr")) return Locale.FRENCH;
+        if (language.equals("de")) return Locale.GERMAN;
+        throw new UnsupportedOperationException("Illegal language value (" + language + ")");
     }
 }
