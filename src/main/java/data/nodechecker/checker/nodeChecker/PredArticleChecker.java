@@ -18,26 +18,26 @@ public class PredArticleChecker extends NodeChecker {
 
     public PredArticleChecker() {
         super(s_selector,
-                PredArticleChecker::checkPredArticle, "the previous article is not the one defined by the 'pred' attribute");
+                PredArticleChecker::checkPredArticle, "the previous article is not the one defined by the 'predecessor' attribute");
     }
 
     private static CheckStatus checkPredArticle(final Element e) {
 
-        final String pred = e.getAttribute("pred");
-        if (pred.isEmpty()) return null;
+        final String predecessor = e.getAttribute("predecessor");
+        if (predecessor.isEmpty()) return null;
 
         if (!XmlHelper.isOfType(e.getParentNode(), ElementType.ITEM)) {
-            return new CheckStatus("Article has 'pred' attribute, but it is not in an <ITEM>");
+            return new CheckStatus("Article has 'predecessor' attribute, but it is not in an <ITEM>");
         }
         final Element previousSibling = XmlHelper.getPreviousSiblingElement((Element)e.getParentNode());
         if (previousSibling == null) {
-            return new CheckStatus("Article has 'pred' attribute, but there is no previous element");
+            return new CheckStatus("Article has 'predecessor' attribute, but there is no previous element");
         }
         if (!XmlHelper.isOfType(previousSibling, ElementType.ITEM)) {
-            return new CheckStatus("Article has 'pred' attribute, but previous element is not an <ITEM>");
+            return new CheckStatus("Article has 'predecessor' attribute, but previous element is not an <ITEM>");
         }
         if (!XmlHelper.isOfType(previousSibling.getFirstChild(), ElementType.ARTICLE)) {
-            return new CheckStatus("Article has 'pred' attribute, but previous <ITEM> does not contain an <ARTICLE>");
+            return new CheckStatus("Article has 'predecessor' attribute, but previous <ITEM> does not contain an <ARTICLE>");
         }
 
         final Element previousArticle = (Element)previousSibling.getFirstChild();
@@ -49,9 +49,9 @@ public class PredArticleChecker extends NodeChecker {
         }
         final String urlOfPreviousArticle = previousArticleData.getLinks().get(0).getUrl();
 
-        if (!pred.equals(urlOfPreviousArticle)) {
-            return new CheckStatus("Article has 'pred' article equal to \"" +
-                                   pred +
+        if (!predecessor.equals(urlOfPreviousArticle)) {
+            return new CheckStatus("Article has 'predecessor' article equal to \"" +
+                                   predecessor +
                                    "\" while previous article has URL \"" +
                                    previousArticleData.getLinks().get(0).getUrl() +
                                    "\"");

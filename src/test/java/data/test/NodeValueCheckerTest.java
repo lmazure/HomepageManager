@@ -610,7 +610,7 @@ class NodeValueCheckerTest {
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
             "  <ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><COMMENT>comment 1</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE pred='URL1'><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>comment 2</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE predecessor='URL1'><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>comment 2</COMMENT></ARTICLE></ITEM>" +
             "  <ITEM><ARTICLE><X><T>title2</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>comment 3</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
@@ -633,7 +633,7 @@ class NodeValueCheckerTest {
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
             "  <ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>4</DAY></DATE><COMMENT>comment 1</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE pred='URL1'><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>1</DAY></DATE><COMMENT>comment 2</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE predecessor='URL1'><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>1</DAY></DATE><COMMENT>comment 2</COMMENT></ARTICLE></ITEM>" +
             "  <ITEM><ARTICLE><X><T>title2</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>comment 3</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
@@ -657,7 +657,7 @@ class NodeValueCheckerTest {
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
             "  <ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>1</DAY></DATE><COMMENT>comment 1</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE pred='URL1'><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>comment 2</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE predecessor='URL1'><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>comment 2</COMMENT></ARTICLE></ITEM>" +
             "  <ITEM><ARTICLE><X><T>title2</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>comment 3</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
@@ -680,13 +680,13 @@ class NodeValueCheckerTest {
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
             "  <ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>1</DAY></DATE><COMMENT>comment 1</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE pred='badURL'><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>comment 2</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE predecessor='badURL'><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>comment 2</COMMENT></ARTICLE></ITEM>" +
             "  <ITEM><ARTICLE><X><T>title2</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>comment 3</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
             test(content,
-                 "Article has 'pred' article equal to \"badURL\" while previous article has URL \"URL1\"");
+                 "Article has 'predecessor' article equal to \"badURL\" while previous article has URL \"URL1\"");
         } catch (@SuppressWarnings("unused") final SAXException e) {
             Assertions.fail("SAXException");
         }

@@ -151,16 +151,16 @@ public class ArticleDateChecker extends NodeChecker {
     }
 
     /**
-     * return the first article of a list of articles linked by 'pred'
-     * if the 'pred' chain is incorrect, return null
+     * return the first article of a list of articles linked by 'predecessor'
+     * if the 'predecessor' chain is incorrect, return null
      * 
      * @param e
      * @return
      */
     private static Element getFirstArticleOfArticleChain(final Element e) {
         
-        final String pred = e.getAttribute("pred");
-        if (pred.isEmpty()) return e;
+        final String predecessor = e.getAttribute("predecessor");
+        if (predecessor.isEmpty()) return e;
 
         if (!XmlHelper.isOfType(e.getParentNode(), ElementType.ITEM)) return null;
         final Element previousSibling = XmlHelper.getPreviousSiblingElement((Element)e.getParentNode());
@@ -188,7 +188,7 @@ public class ArticleDateChecker extends NodeChecker {
         final int month2 = accessor2.isSupported(ChronoField.MONTH_OF_YEAR) ? accessor2.get(ChronoField.MONTH_OF_YEAR) : 0;
         final int day1 = accessor1.isSupported(ChronoField.DAY_OF_MONTH) ? accessor1.get(ChronoField.DAY_OF_MONTH) : 0;
         final int day2 = accessor2.isSupported(ChronoField.DAY_OF_MONTH) ? accessor2.get(ChronoField.DAY_OF_MONTH) : 0;
-        
+
         return (((year1 * 1000) + month1) * 100 + day1) - (((year2 * 1000) + month2) * 100 + day2);
     }
 }
