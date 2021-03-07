@@ -69,7 +69,7 @@ public class XmlHelper {
         if (element.getNodeType() != Node.ELEMENT_NODE) {
             throw new UnsupportedOperationException("XML node is not an element");
         }
-        
+
         return ElementType.valueOf(element.getTagName());
     }
 

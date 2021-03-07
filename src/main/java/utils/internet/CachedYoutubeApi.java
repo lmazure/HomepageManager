@@ -40,7 +40,7 @@ public class CachedYoutubeApi {
         }
         return dtos;
     }
-    
+
     private void serialiseVideoDto(final String videoId,
                                    final YoutubeVideoDto dto) {
         getVideoOutputDir().toFile().mkdirs();

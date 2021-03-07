@@ -158,7 +158,7 @@ public class ArticleDateChecker extends NodeChecker {
      * @return
      */
     private static Element getFirstArticleOfArticleChain(final Element e) {
-        
+
         final String predecessor = e.getAttribute("predecessor");
         if (predecessor.isEmpty()) return e;
 

@@ -30,7 +30,7 @@ public class DoubleSpaceChecker extends NodeChecker {
             });
 
     static final Pattern s_indentationPattern = Pattern.compile("\\n +");
-    
+
     public DoubleSpaceChecker() {
         super(s_selector,
               DoubleSpaceChecker::checkDoubleSpace, "double space is present");

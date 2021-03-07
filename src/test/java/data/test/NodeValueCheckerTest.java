@@ -331,7 +331,7 @@ class NodeValueCheckerTest {
 
     @Test
     void detectArticleMoreRecentThanPage() {
-        
+
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
@@ -405,7 +405,7 @@ class NodeValueCheckerTest {
 
     @Test
     void detectArticleWithPublicationLink1BeforeCreationDate() {
-        
+
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
@@ -431,7 +431,7 @@ class NodeValueCheckerTest {
 
     @Test
     void detectArticleWithPublicationLink3BeforeCreationDate() {
-        
+
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
@@ -457,7 +457,7 @@ class NodeValueCheckerTest {
 
     @Test
     void whenThereIsNoIndentationCorrectDatesAreNotReported() {
-        
+
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
@@ -480,7 +480,7 @@ class NodeValueCheckerTest {
 
     @Test
     void whenThereIsNoIndentationDetectArticleWithNoDateAfterArticleWithDate() {
-        
+
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
@@ -505,7 +505,7 @@ class NodeValueCheckerTest {
 
     @Test
     void whenThereIsNoIndentationDetectArticleAfterArticleWithDateMoreRecent() {
-        
+
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
@@ -529,7 +529,7 @@ class NodeValueCheckerTest {
 
     @Test
     void whenThereIsIndentationCorrectDatesAreNotReported() {
-        
+
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
@@ -552,7 +552,7 @@ class NodeValueCheckerTest {
 
     @Test
     void whenThereIsIndentationDetectArticleWithNoDateAfterArticleWithDate() {
-        
+
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
@@ -576,7 +576,7 @@ class NodeValueCheckerTest {
 
     @Test
     void whenThereIsIndentationDetectArticleAfterArticleWithDateMoreRecent() {
-        
+
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
@@ -600,7 +600,7 @@ class NodeValueCheckerTest {
 
     @Test
     void whenThereIsIndentationAndChainIgnoreArticleAfterArticleWithDateMoreRecent() {
-        
+
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
@@ -623,7 +623,7 @@ class NodeValueCheckerTest {
 
     @Test
     void whenThereIsIndentationAndChainDetectArticleAfterArticleChainWithDateMoreRecent() {
-        
+
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
@@ -647,7 +647,7 @@ class NodeValueCheckerTest {
 
     @Test
     void ignoreCorrectPredAttribute() {
-        
+
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
@@ -670,7 +670,7 @@ class NodeValueCheckerTest {
 
     @Test
     void reportIncorrectPredAttribute() {
-        
+
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +

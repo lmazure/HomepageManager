@@ -47,7 +47,7 @@ public class TwitterApi {
                "?" +
                ALL_USER_FIELDS;
       }
-    
+
     private static String getBearerToken(final String apiKey,
                                          final String apiSecretKey) {
         final String url = "https://api.twitter.com/oauth2/token";
