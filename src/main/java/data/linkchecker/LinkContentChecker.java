@@ -98,7 +98,7 @@ public class LinkContentChecker {
     }
 
     /**
-     * @throws ContentParserException  
+     * @throws ContentParserException
      */
     protected LinkContentCheck checkGlobalData(final String data) throws ContentParserException
     {
@@ -106,7 +106,7 @@ public class LinkContentChecker {
     }
 
     /**
-     * @throws ContentParserException  
+     * @throws ContentParserException
      */
     protected LinkContentCheck checkLinkTitle(final String data,
                                               final String title) throws ContentParserException
@@ -135,7 +135,7 @@ public class LinkContentChecker {
     }
 
     /**
-     * @throws ContentParserException  
+     * @throws ContentParserException
      */
     protected LinkContentCheck checkLinkDuration(final String data,
                                                  final Duration duration) throws ContentParserException
@@ -144,7 +144,7 @@ public class LinkContentChecker {
     }
 
     /**
-     * @throws ContentParserException  
+     * @throws ContentParserException
      */
     protected LinkContentCheck checkLinkLanguages(final String data,
                                                   final Locale[] languages) throws ContentParserException
@@ -163,7 +163,7 @@ public class LinkContentChecker {
     }
 
     /**
-     * @throws ContentParserException  
+     * @throws ContentParserException
      */
     protected LinkContentCheck checkArticleDate(final String data,
                                                 final Optional<TemporalAccessor> publicationDate,
@@ -197,9 +197,9 @@ public class LinkContentChecker {
                                                                     final String str) {
         final String data2 = data.replaceAll("\u00A0", " ");
         final String str2 = str.replaceAll("\u00A0", " ");
-        final int index = data2.indexOf(str2); 
+        final int index = data2.indexOf(str2);
         if (index  >= 0) {
-            return data.substring(index, index + str.length()); 
+            return data.substring(index, index + str.length());
         }
         return null;
     }

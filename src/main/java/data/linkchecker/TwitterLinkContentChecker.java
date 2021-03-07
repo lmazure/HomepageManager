@@ -15,7 +15,7 @@ import utils.xmlparsing.LinkData;
 
 public class TwitterLinkContentChecker extends LinkContentChecker {
 
-    private final TwitterUserDto _dto; 
+    private final TwitterUserDto _dto;
 
     public TwitterLinkContentChecker(final URL url,
                                      final LinkData linkData,

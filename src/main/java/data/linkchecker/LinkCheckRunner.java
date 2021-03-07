@@ -448,7 +448,7 @@ public class LinkCheckRunner {
             return null;
         }
     }
-    
+
     /*
         private Optional<List<String>> getRedirection(final SiteData effectiveData) {
 

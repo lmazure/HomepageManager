@@ -144,7 +144,7 @@ public class ArticleDateChecker extends NodeChecker {
                     previousCreationDate.get() +
                     ") of previous article \"" +
                     previousArticleData.getLinks().get(0).getUrl() +
-                    "\"");                
+                    "\"");
         }
 
         return null;
@@ -153,7 +153,7 @@ public class ArticleDateChecker extends NodeChecker {
     /**
      * return the first article of a list of articles linked by 'predecessor'
      * if the 'predecessor' chain is incorrect, return null
-     * 
+     *
      * @param e
      * @return
      */

@@ -33,7 +33,7 @@ public class JsonGenerator {
 
     /**
      * @param args
-     * @throws XmlParsingException 
+     * @throws XmlParsingException
      */
     public static void generate(final Path homepage,
                                 final List<Path> files) {
@@ -65,7 +65,7 @@ public class JsonGenerator {
 
     /**
      * @param f
-     * @throws XmlParsingException 
+     * @throws XmlParsingException
      */
     private void scanFile(final File f) throws XmlParsingException {
         parser.parse(f);

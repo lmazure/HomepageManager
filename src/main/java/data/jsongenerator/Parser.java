@@ -48,7 +48,7 @@ public class Parser {
 
     /**
      * @param file
-     * @throws XmlParsingException 
+     * @throws XmlParsingException
      */
     public void parse(final File file) throws XmlParsingException {
 
@@ -72,7 +72,7 @@ public class Parser {
     /**
      * @param document
      * @param file
-     * @throws XmlParsingException 
+     * @throws XmlParsingException
      */
     private void extractArticles(final Document document,
                                  final File file) throws XmlParsingException {
@@ -104,7 +104,7 @@ public class Parser {
     /**
      * @param document
      * @param file
-     * @throws XmlParsingException 
+     * @throws XmlParsingException
      */
     private void extractKeywords(final Document document,
                                  final File file) throws XmlParsingException {
@@ -138,7 +138,7 @@ public class Parser {
 
        /**
      * @param file
-     * @throws XmlParsingException 
+     * @throws XmlParsingException
      */
     public void parsePersonFile(final File file) throws XmlParsingException {
 
@@ -161,7 +161,7 @@ public class Parser {
     /**
      * @param document
      * @param file
-     * @throws XmlParsingException 
+     * @throws XmlParsingException
      */
     private void extractPersonLinks(final Document document,
                                     final File file) throws XmlParsingException {

@@ -57,7 +57,7 @@ public class YoutubeApi {
         return dtos;
     }
 
-    private YoutubeVideoDto buildDto(final Video video) { 
+    private YoutubeVideoDto buildDto(final Video video) {
 
         // see https://developers.google.com/youtube/v3/docs/videos
         // duration is incorrect : https://issuetracker.google.com/issues/35178038
@@ -121,13 +121,13 @@ public class YoutubeApi {
         if (lang == null) {
             return null;
         } else if (lang.equals("fr")) {
-            return Locale.FRENCH; 
+            return Locale.FRENCH;
         } else if (lang.equals("en")) {
-            return Locale.ENGLISH; 
+            return Locale.ENGLISH;
         } else if (lang.equals("en-GB")) {
-            return Locale.ENGLISH; 
+            return Locale.ENGLISH;
         } else if (lang.equals("en-US")) {
-            return Locale.ENGLISH; 
+            return Locale.ENGLISH;
         } else {
             ExitHelper.exit("language to be implemented (" + lang + ")");
         }

@@ -39,7 +39,7 @@ public class ChromiumBlogLinkContentParser {
     private String extractTitle() throws ContentParserException {
 
         final Pattern p = Pattern.compile("<title>Chromium Blog: (.+?)</title>", Pattern.MULTILINE);
-        final Matcher m = p.matcher(_data);        
+        final Matcher m = p.matcher(_data);
         if (m.find()) {
             return HtmlHelper.unescape(m.group(1).trim());
          }
@@ -53,7 +53,7 @@ public class ChromiumBlogLinkContentParser {
         final Matcher m = p.matcher(_data);
         if (m.find()) {
             final String formattedDate = m.group(1);
-            final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMMM d, u", Locale.ENGLISH); 
+            final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMMM d, u", Locale.ENGLISH);
             return LocalDate.parse(formattedDate, formatter);
         }
 

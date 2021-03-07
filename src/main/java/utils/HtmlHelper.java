@@ -31,7 +31,7 @@ public class HtmlHelper {
                 continue;
             }
 
-            // found escape 
+            // found escape
             if (input.charAt(i) == '#') {
                 // numeric escape
                 int k = i + 1;
@@ -46,7 +46,7 @@ public class HtmlHelper {
                 try {
                     int entityValue = Integer.parseInt(input.substring(k, j), radix);
 
-                    if (writer == null) 
+                    if (writer == null)
                         writer = new StringWriter(input.length());
                     writer.append(input.substring(st, i - 1));
 
@@ -58,7 +58,7 @@ public class HtmlHelper {
                         writer.write(entityValue);
                     }
 
-                } catch (@SuppressWarnings("unused") final NumberFormatException ex) { 
+                } catch (@SuppressWarnings("unused") final NumberFormatException ex) {
                     i++;
                     continue;
                 }
@@ -70,7 +70,7 @@ public class HtmlHelper {
                     continue;
                 }
 
-                if (writer == null) 
+                if (writer == null)
                     writer = new StringWriter(input.length());
                 writer.append(input.substring(st, i - 1));
 

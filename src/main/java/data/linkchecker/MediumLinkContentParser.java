@@ -49,7 +49,7 @@ public class MediumLinkContentParser {
     private String extractTitle() throws ContentParserException {
 
         final Pattern p = Pattern.compile("<h1[^>]+>(.+?)</h1>");
-        final Matcher m = p.matcher(_data);        
+        final Matcher m = p.matcher(_data);
         if (m.find()) {
             return HtmlHelper.unescape(m.group(1)
                                         .replaceAll("<br/>"," ") // replace newline by space
