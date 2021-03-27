@@ -72,7 +72,8 @@ public class ArticleDateChecker extends NodeChecker {
                                            pageDate.get() +
                                            ")");
                 }
-                if (compareTemporalAccesssor(publicationDate.get(), creationDate.get()) < 0) {
+                if (creationDate.isPresent() &&
+                    compareTemporalAccesssor(publicationDate.get(), creationDate.get()) < 0) {
                     return new CheckStatus("Publication date of article \"" +
                                            l.getUrl() +
                                            "\" (" +

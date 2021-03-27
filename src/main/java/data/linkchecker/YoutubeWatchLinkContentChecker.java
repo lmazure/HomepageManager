@@ -77,8 +77,8 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
                                                 final Optional<TemporalAccessor> creationDate) throws ContentParserException
     {
 
-        if (creationDate.isEmpty()) {
-            return new LinkContentCheck("YouTube link with no creation date");
+        if (creationDate.isEmpty() && publicationDate.isEmpty()) {
+            return new LinkContentCheck("YouTube link with neither creation date not publication date");
         }
 
         final TemporalAccessor date = publicationDate.isPresent() ? publicationDate.get() : creationDate.get();

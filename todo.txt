@@ -1,4 +1,14 @@
-- regarder problème de date avec https://www.youtube.com/watch?v=cQUAwhhC8cU
+- mettre tous les liens des podcasts Numberphile
+
+- regarder les problèmes de titres tels que
+https://martinfowler.com/articles/agileOffshore.html
+https://martinfowler.com/bliki/UseCasesAndStories.html
+
+- regarder problème de date avec
+https://www.youtube.com/watch?v=cQUAwhhC8cU
+https://www.youtube.com/watch?v=0vapeiEGrec
+https://www.youtube.com/watch?v=m43tExhak5A
+https://www.youtube.com/watch?v=nhU64u49RXE
 
 - nettoyer java.xml
 

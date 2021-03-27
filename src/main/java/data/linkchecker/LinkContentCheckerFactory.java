@@ -14,7 +14,7 @@ public class LinkContentCheckerFactory {
                                            final Optional<ArticleData> articleData,
                                            final File file) {
 
-        if (url.toString().endsWith(".pdf")) {
+        if (url.toString().matches(".*[\\.=]pdf")) {
             // PDF files are ignored for the time being
             return new NoCheckContentChecker(linkData, articleData, file);
         }

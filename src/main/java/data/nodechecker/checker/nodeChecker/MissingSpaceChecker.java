@@ -25,6 +25,7 @@ public class MissingSpaceChecker extends NodeChecker {
                                                                                   "Bubbl.us",
                                                                                   "clinicaltrials.gov",
                                                                                   "Clipboard.com",
+                                                                                  "Comma.ai",
                                                                                   "distributed.net",
                                                                                   "e.g.",
                                                                                   "Famo.us",

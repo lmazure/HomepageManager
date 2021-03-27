@@ -330,7 +330,28 @@ class NodeValueCheckerTest {
     }
 
     @Test
-    void detectArticleMoreRecentThanPage() {
+    void supportArticleWithPublicationDateButNoCreationDate() {
+
+        final String content =
+            "<?xml version=\"1.0\"?>" +
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<TITLE>TypeScript</TITLE>" +
+            "<PATH>links/typescript.xml</PATH>" +
+            "<DATE><YEAR>2018</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
+            "<CONTENT>" +
+            "<ITEM><ARTICLE><X><T>title</T><A>URL</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>23</DAY></DATE></X><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
+            "</CONTENT>" +
+            "</PAGE>";
+        try {
+            test(content);
+        } catch (@SuppressWarnings("unused") final SAXException e) {
+            Assertions.fail("SAXException");
+        }
+    }
+
+    @Test
+    void detectArticlWithCreationDateMoreRecentThanPage() {
 
         final String content =
             "<?xml version=\"1.0\"?>" +
@@ -346,6 +367,29 @@ class NodeValueCheckerTest {
         try {
             test(content,
                  "Creation date of article \"URL\" (2010-09-23) is after page date (2010-09-22)");
+        } catch (@SuppressWarnings("unused") final SAXException e) {
+            Assertions.fail("SAXException");
+        }
+    }
+
+
+    @Test
+    void detectArticleWithPublicationDateMoreRecentThanPage() {
+
+        final String content =
+            "<?xml version=\"1.0\"?>" +
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<TITLE>TypeScript</TITLE>" +
+            "<PATH>links/typescript.xml</PATH>" +
+            "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
+            "<CONTENT>" +
+            "<ITEM><ARTICLE><X><T>title</T><A>URL</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>23</DAY></DATE></X><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
+            "</CONTENT>" +
+            "</PAGE>";
+        try {
+            test(content,
+                 "Publication date of article \"URL\" (2010-09-23) is after page date (2010-09-22)");
         } catch (@SuppressWarnings("unused") final SAXException e) {
             Assertions.fail("SAXException");
         }
@@ -398,6 +442,32 @@ class NodeValueCheckerTest {
         try {
             test(content,
                  "Publication date of article \"URL3\" (2010-09-27) is after page date (2010-09-26)");
+        } catch (@SuppressWarnings("unused") final SAXException e) {
+            Assertions.fail("SAXException");
+        }
+    }
+
+    @Test
+    void detectArticleWithPublicationLink1ButNoCreationDateMoreRecentThanPage() {
+
+        final String content =
+            "<?xml version=\"1.0\"?>" +
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<TITLE>TypeScript</TITLE>" +
+            "<PATH>links/typescript.xml</PATH>" +
+            "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>26</DAY></DATE>" +
+            "<CONTENT>" +
+            "<ITEM><ARTICLE>" +
+            "<X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>27</DAY></DATE></X>" +
+            "<X><T>title2</T><A>URL2</A><L>en</L><F>HTML</F></X>" +
+            "<X><T>title3</T><A>URL3</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>24</DAY></DATE></X>" +
+            "<COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
+            "</CONTENT>" +
+            "</PAGE>";
+        try {
+            test(content,
+                 "Publication date of article \"URL1\" (2010-09-27) is after page date (2010-09-26)");
         } catch (@SuppressWarnings("unused") final SAXException e) {
             Assertions.fail("SAXException");
         }
@@ -705,16 +775,6 @@ class NodeValueCheckerTest {
         expected.add(new NodeCheckError("tag", "value", "violation", detail0));
         test(content, expected);
     }
-
-    /*private static void test(final String content,
-                             final String detail0,
-                             final String detail1) throws SAXException {
-
-        final List<NodeValueChecker.Error> expected = new ArrayList<NodeValueChecker.Error>();
-        expected.add(new NodeValueChecker.Error("tag", "value", "violation", detail0));
-        expected.add(new NodeValueChecker.Error("tag", "value", "violation", detail1));
-        test(content, expected);
-    }*/
 
     private static void test(final String content,
                              final String detail0,
