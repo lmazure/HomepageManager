@@ -34,7 +34,7 @@ public class ChromiumBlogLinkContentChecker extends LinkContentChecker {
         if (!title.equals(effectiveTitle)) {
             return new LinkContentCheck("title \"" +
                                         title +
-                                        "\"  is not equal to the real title \"" +
+                                        "\" is not equal to the real title \"" +
                                         effectiveTitle +
                                           "\"");
         }

@@ -33,6 +33,10 @@ public class LinkContentCheckerFactory {
             return new MediumLinkContentChecker(linkData, articleData, file);
         }
 
+        if (url.toString().startsWith("https://www.quantamagazine.org/")) {
+            return new QuantaMagazineLinkContentChecker(linkData, articleData, file);
+        }
+
         if (url.toString().startsWith("https://www.youtube.com/channel/")) {
             return new YoutubeChannelUserLinkContentChecker(linkData, articleData, file);
         }

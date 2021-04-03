@@ -118,8 +118,11 @@ public class LinkContentChecker {
         return checkTitle(data, title, "title");
     }
 
+    /**
+     * @throws ContentParserException  
+     */
     protected LinkContentCheck checkLinkSubtitles(final String data,
-                                                  final String[] subtitles)
+                                                  final String[] subtitles) throws ContentParserException
     {
         if (_articleData.isEmpty()) {
             return null;

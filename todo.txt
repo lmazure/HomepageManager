@@ -1,3 +1,7 @@
+- ajouter vérification des auteurs
+
+- Quanta Magazine : extraire l'auteur
+
 - mettre tous les liens des podcasts Numberphile
 
 - regarder les problèmes de titres tels que
