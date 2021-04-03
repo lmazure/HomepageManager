@@ -3,10 +3,12 @@ package data.linkchecker;
 import java.io.File;
 import java.time.Duration;
 import java.time.temporal.TemporalAccessor;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
 import utils.xmlparsing.ArticleData;
+import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkData;
 
 public class NoCheckContentChecker extends LinkContentChecker {
@@ -33,6 +35,13 @@ public class NoCheckContentChecker extends LinkContentChecker {
     @Override
     protected LinkContentCheck checkLinkSubtitles(final String data,
                                                   final String[] subtitles)
+    {
+        return null;
+    }
+
+    @Override
+    protected LinkContentCheck checkLinkAuthors(final String data,
+                                                final List<AuthorData> authors) throws ContentParserException
     {
         return null;
     }

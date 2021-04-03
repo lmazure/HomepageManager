@@ -6,10 +6,12 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAccessor;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
 import utils.xmlparsing.ArticleData;
+import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkData;
 
 public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
@@ -47,6 +49,13 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
                                           "\"");
         }
 
+        return null;
+    }
+
+    @Override
+    protected LinkContentCheck checkLinkAuthors(final String data,
+                                                final List<AuthorData> authors)
+    {
         return null;
     }
 

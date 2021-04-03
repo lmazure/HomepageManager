@@ -15,6 +15,7 @@ import utils.FileHelper;
 import utils.HtmlHelper;
 import utils.Logger;
 import utils.xmlparsing.ArticleData;
+import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkFormat;
 import utils.xmlparsing.LinkData;
 
@@ -56,15 +57,22 @@ public class LinkContentChecker {
             }
         }
 
-        {
+        if (_articleData.isPresent()) { // check title only for articles
             final LinkContentCheck check = checkLinkTitle(data, _linkData.getTitle());
             if (check != null) {
                 checks.add(check);
             }
         }
 
-        {
+        if (_articleData.isPresent()) { // check subtitles only for articles
             final LinkContentCheck check = checkLinkSubtitles(data, _linkData.getSubtitles());
+            if (check != null) {
+                checks.add(check);
+            }
+        }
+
+        if (_articleData.isPresent()) {
+            final LinkContentCheck check = checkLinkAuthors(data, _articleData.get().getAuthors());
             if (check != null) {
                 checks.add(check);
             }
@@ -86,8 +94,8 @@ public class LinkContentChecker {
 
         }
 
-        if (_articleData.isPresent() &&
-            (_articleData.get().getDate().isPresent() || _linkData.getPublicationDate().isPresent())) {
+        if ((_articleData.isPresent() && _articleData.get().getDate().isPresent()) ||
+            _linkData.getPublicationDate().isPresent()) {
             final LinkContentCheck check = checkArticleDate(data, _linkData.getPublicationDate(), _articleData.get().getDate());
             if (check != null) {
                 checks.add(check);
@@ -111,10 +119,6 @@ public class LinkContentChecker {
     protected LinkContentCheck checkLinkTitle(final String data,
                                               final String title) throws ContentParserException
     {
-        if (_articleData.isEmpty()) {
-            return null;
-        }
-
         return checkTitle(data, title, "title");
     }
 
@@ -124,12 +128,23 @@ public class LinkContentChecker {
     protected LinkContentCheck checkLinkSubtitles(final String data,
                                                   final String[] subtitles) throws ContentParserException
     {
-        if (_articleData.isEmpty()) {
-            return null;
-        }
-
         for (final String subtitle: subtitles) {
             final LinkContentCheck check = checkTitle(data, subtitle, "subtitle");
+            if (check != null) {
+                return check;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @throws ContentParserException  
+     */
+    protected LinkContentCheck checkLinkAuthors(final String data,
+                                                final List<AuthorData> authors) throws ContentParserException
+    {
+        for (final AuthorData author: authors) {
+            final LinkContentCheck check = checkAuthor(data, author);
             if (check != null) {
                 return check;
             }
@@ -189,6 +204,18 @@ public class LinkContentChecker {
         }
         return null;
 
+    }
+
+    private LinkContentCheck checkAuthor(final String data,
+                                         final AuthorData author) {
+        final String d = HtmlHelper.cleanContent(data);
+        final String authorStr = author.getLastName().isPresent() ? author.getLastName().get()
+                                                                  : author.getFirstName().isPresent() ? author.getFirstName().get()
+                                                                                                      : author.getGivenName().get();
+        if (!doesStringAppearInData(d, authorStr)) {
+            return new LinkContentCheck("author \"" + authorStr + "\" does not appear in the page");
+        }
+        return null;
     }
 
     private boolean doesStringAppearInData(final String data,
