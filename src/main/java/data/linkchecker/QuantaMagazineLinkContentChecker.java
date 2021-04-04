@@ -92,7 +92,7 @@ public class QuantaMagazineLinkContentChecker extends LinkContentChecker {
 
         if (!creationDate.get().equals(effectiveDate)) {
             return new LinkContentCheck("expected creation date " +
-                                        creationDate +
+                                        creationDate.get() +
                                         " is not equal to the effective date " +
                                         effectiveDate);
         }

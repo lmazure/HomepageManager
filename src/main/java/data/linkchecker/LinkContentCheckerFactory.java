@@ -62,6 +62,14 @@ public class LinkContentCheckerFactory {
             return new NoCheckContentChecker(linkData, articleData, file);
         }
 
+        if (url.toString().startsWith("https://www.facebook.com/")) {
+            return new NoCheckContentChecker(linkData, articleData, file);
+        }
+
+        if (url.toString().startsWith("https://www.linkedin.com/")) {
+            return new NoCheckContentChecker(linkData, articleData, file);
+        }
+
         return new LinkContentChecker(linkData, articleData, file);
     }
 }

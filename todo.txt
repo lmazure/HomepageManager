@@ -1,4 +1,5 @@
-- ajouter vérification des auteurs
+- ajouter vérification des auteurs en case independant
+https://www.canal-u.tv/video/universite_de_tous_les_savoirs/l_antimatiere_existe_je_l_ai_rencontree.1071
 
 - Quanta Magazine : extraire l'auteur
 

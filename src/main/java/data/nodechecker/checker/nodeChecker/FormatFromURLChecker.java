@@ -39,16 +39,28 @@ public class FormatFromURLChecker extends NodeChecker {
         }
 
         if (url.toUpperCase().endsWith("PDF") && !format.equals("PDF"))
-           return new CheckStatus("\"" + url + "\" is not indicated as being a PDF format");
+           return new CheckStatus("\"" + url + "\" is not indicated as being PDF format");
+
+        if (url.toUpperCase().endsWith("PS") && !format.equals("PS"))
+            return new CheckStatus("\"" + url + "\" is not indicated as being PostScript format");
 
         if (url.toUpperCase().endsWith("WMV") && !format.equals("Windows Media Player"))
-               return new CheckStatus("\"" + url + "\" is not indicated as being a Windows Media Player format");
+               return new CheckStatus("\"" + url + "\" is not indicated as being Windows Media Player format");
 
-        if (url.contains("youtube.com/watch") && !format.equals("MP4"))
-               return new CheckStatus("\"" + url + "\" is not indicated as being a MP4 format");
+        if (url.startsWith("https://www.youtube.com/watch?v=") && !format.equals("MP4"))
+               return new CheckStatus("\"" + url + "\" is not indicated as being MP4 format");
 
-        if (url.contains("video.google.com/videoplay") && !format.equals("Flash Video"))
-               return new CheckStatus("\"" + url + "\" is not indicated as being a Flash Video format");
+        if (url.startsWith("http://video.google.com/videoplay") && !format.equals("Flash Video"))
+               return new CheckStatus("\"" + url + "\" is not indicated as being Flash Video format");
+
+        if ((url.startsWith("https://medium.com/") ||
+             url.startsWith("https://www.ibm.com/")) && !format.equals("HTML"))
+            return new CheckStatus("\"" + url + "\" is not indicated as being HTML format");
+
+        if ((url.startsWith("https://www.numberphile.com/podcast/") ||
+             url.startsWith("https://play.acast.com") ||
+             url.startsWith("https://podcastaddict.com")) && !format.equals("MP3"))
+            return new CheckStatus("\"" + url + "\" is not indicated as being MP3 format");
 
         return null;
     }
