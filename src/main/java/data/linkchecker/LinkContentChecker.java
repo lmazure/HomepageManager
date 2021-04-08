@@ -212,10 +212,15 @@ public class LinkContentChecker {
         final String authorStr = author.getLastName().isPresent() ? author.getLastName().get()
                                                                   : author.getFirstName().isPresent() ? author.getFirstName().get()
                                                                                                       : author.getGivenName().get();
-        if (!doesStringAppearInData(d, authorStr)) {
+        if (!doesStringAppearInDataCaseIndependant(d, authorStr)) {
             return new LinkContentCheck("author \"" + authorStr + "\" does not appear in the page");
         }
         return null;
+    }
+
+    private boolean doesStringAppearInDataCaseIndependant(final String data,
+                                                          final String str) {
+        return doesStringAppearInData(data.toUpperCase(), str.toUpperCase());
     }
 
     private boolean doesStringAppearInData(final String data,

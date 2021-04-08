@@ -38,13 +38,13 @@ public class FormatFromURLChecker extends NodeChecker {
             }
         }
 
-        if (url.toUpperCase().endsWith("PDF") && !format.equals("PDF"))
+        if (url.toUpperCase().endsWith(".PDF") && !format.equals("PDF"))
            return new CheckStatus("\"" + url + "\" is not indicated as being PDF format");
 
-        if (url.toUpperCase().endsWith("PS") && !format.equals("PS"))
+        if (url.toUpperCase().endsWith(".PS") && !format.equals("PostScript"))
             return new CheckStatus("\"" + url + "\" is not indicated as being PostScript format");
 
-        if (url.toUpperCase().endsWith("WMV") && !format.equals("Windows Media Player"))
+        if (url.toUpperCase().endsWith(".WMV") && !format.equals("Windows Media Player"))
                return new CheckStatus("\"" + url + "\" is not indicated as being Windows Media Player format");
 
         if (url.startsWith("https://www.youtube.com/watch?v=") && !format.equals("MP4"))
