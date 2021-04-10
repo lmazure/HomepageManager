@@ -22,7 +22,6 @@ class FileCheckerTest {
     private final String MESS_CRLF = "line should finish by \\r\\n instead of \\n";
     private final String MESS_EMPT = "empty line";
     private final String MESS_ODSP = "odd number of spaces at the beginning of the line";
-    private final String MESS_SPAC = "line contains a space character";
 
     @Test
     void testNoError() {
@@ -436,12 +435,12 @@ class FileCheckerTest {
 
         @Override
         public void handleCreation(final Path file, final Status status, final Path outputFile, final Path reportFile) {
-            // do noting
+            // do nothing
         }
 
         @Override
         public void handleDeletion(final Path file, final Status status, final Path outputFile, final Path reportFile) {
-            // do noting
+            // do nothing
         }
     }
 }

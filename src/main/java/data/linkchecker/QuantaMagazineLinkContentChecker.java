@@ -1,6 +1,7 @@
 package data.linkchecker;
 
 import java.io.File;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.util.Locale;
@@ -13,10 +14,11 @@ public class QuantaMagazineLinkContentChecker extends LinkContentChecker {
 
     private QuantaMagazineLinkContentParser _parser;
 
-    public QuantaMagazineLinkContentChecker(final LinkData linkData,
-                                        final Optional<ArticleData> articleData,
-                                        final File file) {
-        super(linkData, articleData, file);
+    public QuantaMagazineLinkContentChecker(final URL url,
+                                            final LinkData linkData,
+                                            final Optional<ArticleData> articleData,
+                                            final File file) {
+        super(url, linkData, articleData, file);
     }
 
     @Override

@@ -20,6 +20,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import data.nodechecker.checker.nodeChecker.ArticleDateChecker;
+import data.nodechecker.checker.nodeChecker.AuthorsChecker;
 import data.nodechecker.checker.nodeChecker.DateChecker;
 import data.nodechecker.checker.nodeChecker.DoubleSpaceChecker;
 import data.nodechecker.checker.nodeChecker.DurationChecker;
@@ -73,6 +74,7 @@ public class NodeValueChecker implements FileHandler {
         _nodeCheckers.add(new MiddleNewlineChecker());
         _nodeCheckers.add(new EllipsisChecker());
         _nodeCheckers.add(new DoubleSpaceChecker());
+        _nodeCheckers.add(new AuthorsChecker());
         _nodeCheckers.add(new ArticleDateChecker());
         _nodeCheckers.add(new PredArticleChecker());
         _nodeCheckers.add(new MissingSpaceChecker());

@@ -16,37 +16,37 @@ public class LinkContentCheckerFactory {
 
         if (url.toString().matches(".*[\\.=]pdf")) {
             // PDF files are ignored for the time being
-            return new NoCheckContentChecker(linkData, articleData, file);
+            return new NoCheckContentChecker(url, linkData, articleData, file);
         }
 
         if (url.toString().endsWith(".ps")) {
             // PostScript files are ignored
-            return new NoCheckContentChecker(linkData, articleData, file);
+            return new NoCheckContentChecker(url, linkData, articleData, file);
         }
 
         if (url.toString().endsWith(".gz")) {
             // GZIP files are ignored
-            return new NoCheckContentChecker(linkData, articleData, file);
+            return new NoCheckContentChecker(url, linkData, articleData, file);
         }
 
         if (url.toString().startsWith("https://medium.com/")) {
-            return new MediumLinkContentChecker(linkData, articleData, file);
+            return new MediumLinkContentChecker(url, linkData, articleData, file);
         }
 
         if (url.toString().startsWith("https://www.quantamagazine.org/")) {
-            return new QuantaMagazineLinkContentChecker(linkData, articleData, file);
+            return new QuantaMagazineLinkContentChecker(url, linkData, articleData, file);
         }
 
         if (url.toString().startsWith("https://www.youtube.com/channel/")) {
-            return new YoutubeChannelUserLinkContentChecker(linkData, articleData, file);
+            return new YoutubeChannelUserLinkContentChecker(url, linkData, articleData, file);
         }
 
         if (url.toString().startsWith("https://www.youtube.com/user/")) {
-            return new YoutubeChannelUserLinkContentChecker(linkData, articleData, file);
+            return new YoutubeChannelUserLinkContentChecker(url, linkData, articleData, file);
         }
 
         if (url.toString().startsWith("https://www.youtube.com/watch?v=")) {
-            return new YoutubeWatchLinkContentChecker(linkData, articleData, file);
+            return new YoutubeWatchLinkContentChecker(url, linkData, articleData, file);
             //return new YoutubeWatchLinkContentChecker2(url, linkData, articleData, file);
         }
 
@@ -55,21 +55,21 @@ public class LinkContentCheckerFactory {
         }
 
         if (url.toString().startsWith("https://blog.chromium.org/")) {
-            return new ChromiumBlogLinkContentChecker(linkData, articleData, file);
+            return new ChromiumBlogLinkContentChecker(url, linkData, articleData, file);
         }
 
         if (url.toString().startsWith("https://spectrum.ieee.org/")) {
-            return new NoCheckContentChecker(linkData, articleData, file);
+            return new NoCheckContentChecker(url, linkData, articleData, file);
         }
 
         if (url.toString().startsWith("https://www.facebook.com/")) {
-            return new NoCheckContentChecker(linkData, articleData, file);
+            return new NoCheckContentChecker(url, linkData, articleData, file);
         }
 
         if (url.toString().startsWith("https://www.linkedin.com/")) {
-            return new NoCheckContentChecker(linkData, articleData, file);
+            return new NoCheckContentChecker(url, linkData, articleData, file);
         }
 
-        return new LinkContentChecker(linkData, articleData, file);
+        return new LinkContentChecker(url, linkData, articleData, file);
     }
 }

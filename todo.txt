@@ -1,11 +1,7 @@
 - faire base de connaissance des auteurs
 https://www.inspiredtester.com/
-
-
-- ajouter vérification des auteurs en case independant
-https://www.canal-u.tv/video/universite_de_tous_les_savoirs/l_antimatiere_existe_je_l_ai_rencontree.1071
-https://latavernedutesteur.fr/2021/03/08/riadh-abid-test-lead-manager/
-https://www.ausy.fr/fr/actualites-techniques/gerer-vos-tests-avec-Squash-TM
+mettre un NodeChecker pour vérifier les auteurs
+si la liste des auteurs est parfaitement définie, ne pas vérifier à partir des données
 
 - Quanta Magazine : extraire l'auteur
 

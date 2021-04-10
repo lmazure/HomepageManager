@@ -1,6 +1,7 @@
 package data.linkchecker;
 
 import java.io.File;
+import java.net.URL;
 import java.time.Duration;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
@@ -11,6 +12,8 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import data.knowledge.WellKnownAuthors;
+import data.knowledge.WellKnownAuthorsOfLink;
 import utils.FileHelper;
 import utils.HtmlHelper;
 import utils.Logger;
@@ -21,14 +24,17 @@ import utils.xmlparsing.LinkData;
 
 public class LinkContentChecker {
 
+    private final String _url;
     private final LinkData _linkData;
     private final Optional<ArticleData> _articleData;
     private final File _file;
     private LinkContentParser _parser;
 
-    public LinkContentChecker(final LinkData linkData,
+    public LinkContentChecker(final URL url,
+                              final LinkData linkData,
                               final Optional<ArticleData> articleData,
                               final File file) {
+        _url = url.toString();
         _linkData = linkData;
         _articleData = articleData;
         _file = file;
@@ -42,7 +48,11 @@ public class LinkContentChecker {
         if (!m.find()) {
             Logger.log(Logger.Level.WARN).append("File " + _file + " does not end with </HTML>");
         }
-        return check(content);
+        try {
+            return check(content);
+        } catch (final ContentParserException e) {
+            throw new ContentParserException("Failed to check data of \"" + _url + "\"", e);
+        }
     }
 
     public final List<LinkContentCheck> check(final String data) throws ContentParserException {
@@ -143,7 +153,14 @@ public class LinkContentChecker {
     protected LinkContentCheck checkLinkAuthors(final String data,
                                                 final List<AuthorData> authors) throws ContentParserException
     {
+        final Optional<WellKnownAuthors> wellKnownAuthors = WellKnownAuthorsOfLink.getWellKnownAuthors(_url);
+
         for (final AuthorData author: authors) {
+            if (wellKnownAuthors.isPresent() &&
+                wellKnownAuthors.get().getCompulsoryAuthors().contains(author)) {
+                // well known author does not appear most of the time so we ignore them
+                continue;
+            }
             final LinkContentCheck check = checkAuthor(data, author);
             if (check != null) {
                 return check;

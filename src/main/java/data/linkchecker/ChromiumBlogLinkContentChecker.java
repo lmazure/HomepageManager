@@ -1,6 +1,7 @@
 package data.linkchecker;
 
 import java.io.File;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.util.Optional;
@@ -12,10 +13,11 @@ public class ChromiumBlogLinkContentChecker extends LinkContentChecker {
 
     private ChromiumBlogLinkContentParser _parser;
 
-    public ChromiumBlogLinkContentChecker(final LinkData linkData,
+    public ChromiumBlogLinkContentChecker(final URL url,
+                                          final LinkData linkData,
                                           final Optional<ArticleData> articleData,
                                           final File file) {
-        super(linkData, articleData, file);
+        super(url, linkData, articleData, file);
     }
 
     @Override

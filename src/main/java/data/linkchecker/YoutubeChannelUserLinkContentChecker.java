@@ -1,6 +1,7 @@
 package data.linkchecker;
 
 import java.io.File;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Optional;
@@ -12,10 +13,11 @@ public class YoutubeChannelUserLinkContentChecker extends LinkContentChecker {
 
     private YoutubeChannelUserLinkContentParser _parser;
 
-    public YoutubeChannelUserLinkContentChecker(final LinkData linkData,
+    public YoutubeChannelUserLinkContentChecker(final URL url,
+                                                final LinkData linkData,
                                                 final Optional<ArticleData> articleData,
                                                 final File file) {
-        super(linkData, articleData, file);
+        super(url, linkData, articleData, file);
     }
 
     @Override

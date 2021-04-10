@@ -21,7 +21,7 @@ public class TwitterLinkContentChecker extends LinkContentChecker {
                                      final LinkData linkData,
                                      final Optional<ArticleData> articleData,
                                      final File file) {
-        super(linkData, articleData, file);
+        super(url, linkData, articleData, file);
         final TwitterApi api = new TwitterApi(ParameterRepository.getTwitterApiKey(), ParameterRepository.getTwitterApiSecretKey());
         final String userName = url.toString().replace("https://twitter.com/", "");
         _dto = api.getUser(userName);
