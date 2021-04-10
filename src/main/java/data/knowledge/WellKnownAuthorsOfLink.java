@@ -11,6 +11,7 @@ import utils.xmlparsing.AuthorData;
 public class WellKnownAuthorsOfLink {
 
     private static final Map<String, WellKnownAuthors> s_knownUrls = Map.of(
+        "automaths.blog", buildWellKnownAuthors("Jason", "Lapeyronnie", false),
         "eljjdx.canalblog.com", buildWellKnownAuthors("Jérôme", "Cottanceau", false),
         "lexfridman.com", buildWellKnownAuthors("Lex", "Fridman", true),
         "www.inspiredtester.com", buildWellKnownAuthors("Leah", "Stockley", false),

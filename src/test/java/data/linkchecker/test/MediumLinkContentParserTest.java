@@ -176,11 +176,6 @@ public class MediumLinkContentParserTest {
                                } catch (final ContentParserException e) {
                                    Assertions.fail("getPublicationDate threw " + e.getMessage());
                                }
-                               try {
-                                   Assertions.assertEquals(expectedDate, parser.getModificationDate().toString());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getModificationDate threw " + e.getMessage());
-                               }
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -206,11 +201,6 @@ public class MediumLinkContentParserTest {
                                 } catch (final ContentParserException e) {
                                     Assertions.fail("getPublicationDate threw " + e.getMessage());
                                 }
-                               try {
-                                   Assertions.assertEquals(expectedModificationDate, parser.getModificationDate().toString());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getModificationDate threw " + e.getMessage());
-                               }
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());

@@ -1,7 +1,4 @@
-- faire base de connaissance des auteurs
-https://www.inspiredtester.com/
-mettre un NodeChecker pour vérifier les auteurs
-si la liste des auteurs est parfaitement définie, ne pas vérifier à partir des données
+- implement for real the JSON helper and unit test it
 
 - Quanta Magazine : extraire l'auteur
 

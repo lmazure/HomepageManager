@@ -6,14 +6,13 @@ import java.time.ZoneId;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import utils.HtmlHelper;
+import utils.JsonHelper;
 
 public class MediumLinkContentParser {
 
     private final String _data;
     private String _title;
     private LocalDate _publicationDate;
-    private LocalDate _modificationDate;
 
     public MediumLinkContentParser(final String data) {
         _data = data;
@@ -37,17 +36,9 @@ public class MediumLinkContentParser {
         return _publicationDate;
     }
 
-    public LocalDate getModificationDate() throws ContentParserException {
-
-        if (_modificationDate == null) {
-            _modificationDate = extractModificationDate();
-        }
-
-        return _modificationDate;
-    }
-
     private String extractTitle() throws ContentParserException {
 
+        /*
         final Pattern p = Pattern.compile("<h1[^>]+>(.+?)</h1>");
         final Matcher m = p.matcher(_data);
         if (m.find()) {
@@ -55,12 +46,20 @@ public class MediumLinkContentParser {
                                         .replaceAll("<br/>"," ") // replace newline by space
                                         .replaceAll("<.+?>","")); // remove other HTML that may be in the title
          }
+         */
+
+        final Pattern p = Pattern.compile("\"primaryTopic\":(null|\\{[^}]+\\}),\"title\":\"([^\"]+)\"");
+        final Matcher m = p.matcher(_data);
+        if (m.find()) {
+            return JsonHelper.unescapeString(m.group(2)).replace("\n"," ");
+        }
 
         throw new ContentParserException("Failed to find title in Medium page");
     }
 
     private LocalDate extractPublicationDate() throws ContentParserException {
 
+        /*
         final Pattern p = Pattern.compile("\"datePublished\":\"([^\"]*)\",\"dateModified\":\"[^\"]*\",\"headline\":\"[^\"]*\"");
         final Matcher m = p.matcher(_data);
         if (m.find()) {
@@ -68,17 +67,13 @@ public class MediumLinkContentParser {
             final Instant instant = Instant.parse(formattedDate);
             return LocalDate.ofInstant(instant, ZoneId.of("Europe/Paris"));
         }
+        */
 
-        throw new ContentParserException("Failed to find date in Medium page");
-    }
-
-    private LocalDate extractModificationDate() throws ContentParserException {
-
-        final Pattern p = Pattern.compile("\"datePublished\":\"[^\"]*\",\"dateModified\":\"([^\"]*)\",\"headline\":\"[^\"]*\"");
+        final Pattern p = Pattern.compile("\"firstPublishedAt\":(\\d+),[^{]+\"primaryTopic\":");
         final Matcher m = p.matcher(_data);
         if (m.find()) {
-            final String formattedDate = m.group(1);
-            final Instant instant = Instant.parse(formattedDate);
+            final String i = m.group(1);
+            final Instant instant = Instant.ofEpochMilli(Long.parseLong(i));
             return LocalDate.ofInstant(instant, ZoneId.of("Europe/Paris"));
         }
 
