@@ -1,5 +1,6 @@
 package data.knowledge;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -10,15 +11,16 @@ import utils.xmlparsing.AuthorData;
 public class WellKnownAuthorsOfLink {
 
     private static final Map<String, WellKnownAuthors> s_knownUrls = Map.of(
-        "http://eljjdx.canalblog.com/", buildWellKnownAuthors("Jérôme", "Cottanceau", false),
-        "https://lexfridman.com/", buildWellKnownAuthors("Lex", "Fridman", true),
-        "https://www.inspiredtester.com/", buildWellKnownAuthors("Leah", "Stockley", false),
-        "https://www.jwz.org/", buildWellKnownAuthors("Jamie", "Zawinski", false),
-        "https://www.numberphile.com/", buildWellKnownAuthors("Brady", "Haran", true));
+        "eljjdx.canalblog.com", buildWellKnownAuthors("Jérôme", "Cottanceau", false),
+        "lexfridman.com", buildWellKnownAuthors("Lex", "Fridman", true),
+        "www.inspiredtester.com", buildWellKnownAuthors("Leah", "Stockley", false),
+        "www.jwz.org", buildWellKnownAuthors("Jamie", "Zawinski", false),
+        "www.numberphile.com", buildWellKnownAuthors("Brady", "Haran", true));
 
-    public static Optional<WellKnownAuthors> getWellKnownAuthors(final String url) {
-        return s_knownUrls.containsKey(url) ? Optional.of(s_knownUrls.get(url))
-                                            : Optional.empty();
+    public static Optional<WellKnownAuthors> getWellKnownAuthors(final URL url) {
+        final String host = url.getHost();
+        return s_knownUrls.containsKey(host) ? Optional.of(s_knownUrls.get(host))
+                                             : Optional.empty();
     }
 
     private static WellKnownAuthors buildWellKnownAuthors(final String firstName,

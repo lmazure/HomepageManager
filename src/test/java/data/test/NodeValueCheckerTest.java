@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -796,7 +796,7 @@ class NodeValueCheckerTest {
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2020</YEAR><MONTH>12</MONTH><DAY>31</DAY></DATE>" +
             "<CONTENT>" +
-            "<ITEM><ARTICLE><X><T>The Happy Twin - with Ben Sparks</T><A>https://www.numberphile.com/podcast/ben-sparks</A><L>en</L><F>MP3</F><DURATION><HOUR>1</HOUR><MINUTE>2</MINUTE><SECOND>21</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Ben</FIRSTNAME><LASTNAME>Sparks</LASTNAME></AUTHOR><DATE><YEAR>2020</YEAR><MONTH>5</MONTH><DAY>27</DAY></DATE><COMMENT><AUTHOR><FIRSTNAME>Ben</FIRSTNAME><LASTNAME>Sparks</LASTNAME></AUTHOR> describes his life.</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>The Happy Twin - with Ben Sparks</T><A>https://www.numberphile.com/podcast/ben-sparks</A><L>en</L><F>MP3</F><DURATION><HOUR>1</HOUR><MINUTE>2</MINUTE><SECOND>21</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Ben</FIRSTNAME><LASTNAME>Sparks</LASTNAME></AUTHOR><DATE><YEAR>2020</YEAR><MONTH>5</MONTH><DAY>27</DAY></DATE><COMMENT>Ben Sparks describes his life.</COMMENT></ARTICLE></ITEM>" +
             "<ITEM><ARTICLE><X><T>#118 – Grant Sanderson: Math, Manim, Neural Networks &amp; Teaching with 3Blue1Brown</T><A>https://lexfridman.com/grant-sanderson-2/</A><L>en</L><F>MP3</F><DURATION><HOUR>2</HOUR><MINUTE>8</MINUTE><SECOND>52</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Grant</FIRSTNAME><LASTNAME>Sanderson</LASTNAME></AUTHOR><DATE><YEAR>2020</YEAR><MONTH>8</MONTH><DAY>23</DAY></DATE><COMMENT>A long interview.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
@@ -831,47 +831,14 @@ class NodeValueCheckerTest {
         }
     }
 
-    private static void test(final String content) throws SAXException {
-
-        final List<NodeCheckError> expected = new ArrayList<NodeCheckError>();
-        test(content, expected);
-    }
-
     private static void test(final String content,
-                             final String detail0) throws SAXException {
+                             final String... details) throws SAXException {
 
-        final List<NodeCheckError> expected = new ArrayList<NodeCheckError>();
-        expected.add(new NodeCheckError("tag", "value", "violation", detail0));
-        test(content, expected);
-    }
-
-    private static void test(final String content,
-                             final String detail0,
-                             final String detail1) throws SAXException {
-
-        final List<NodeCheckError> expected = new ArrayList<NodeCheckError>();
-        expected.add(new NodeCheckError("tag", "value", "violation", detail0));
-        expected.add(new NodeCheckError("tag", "value", "violation", detail1));
-        test(content, expected);
-    }
-
-    private static void test(final String content,
-                             final String detail0,
-                             final String detail1,
-                             final String detail2) throws SAXException {
-
-        final List<NodeCheckError> expected = new ArrayList<NodeCheckError>();
-        expected.add(new NodeCheckError("tag", "value", "violation", detail0));
-        expected.add(new NodeCheckError("tag", "value", "violation", detail1));
-        expected.add(new NodeCheckError("tag", "value", "violation", detail2));
-        test(content, expected);
-    }
-
-    private static void test(final String content,
-                             final List<NodeCheckError> expected) throws SAXException {
+        final String expected = Arrays.stream(details)
+                                      .sorted()
+                                      .collect(Collectors.joining("\n"));
 
         List<NodeCheckError> effective = null;
-
         final NodeValueChecker checker = new NodeValueChecker(Paths.get("home"), Paths.get("tmp"), new DummyDataController());
         try {
             final Path tempFile = File.createTempFile("NodeValueCheckerTest", ".xml").toPath();
@@ -881,7 +848,7 @@ class NodeValueCheckerTest {
             ExitHelper.exit(e);
         }
 
-        Assertions.assertEquals(normalize(expected), normalize(effective));
+        Assertions.assertEquals(expected, normalize(effective));
     }
 
     private static String normalize(final List<NodeCheckError> errors) {

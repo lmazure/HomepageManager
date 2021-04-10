@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -37,6 +36,7 @@ import utils.HttpHelper;
 import utils.InvalidHttpCodeException;
 import utils.Logger;
 import utils.Logger.Level;
+import utils.StringHelper;
 import utils.XmlHelper;
 import utils.XmlParsingException;
 import utils.xmlparsing.ArticleData;
@@ -110,7 +110,7 @@ public class LinkCheckRunner {
 
         for (final ArticleData article : articles) {
             for (final LinkData link : article.getLinks()) {
-                final URL url = convertStringToUrl(link.getUrl());
+                final URL url = StringHelper.convertStringToUrl(link.getUrl());
                 if (url != null) {
                     _articles.put(url, article);
                 }
@@ -212,7 +212,7 @@ public class LinkCheckRunner {
                 continue;
             }
 
-            final URL url = convertStringToUrl(urlStr);
+            final URL url = StringHelper.convertStringToUrl(urlStr);
             if (url != null) {
                 list.add(url);
                 _expectedData.put(url, linkData);
@@ -434,19 +434,6 @@ public class LinkCheckRunner {
         }
 
         return (effectiveData.getHttpCode().isPresent() && effectiveData.getHttpCode().get() == 200);
-    }
-
-    private static URL convertStringToUrl(final String str) {
-        try {
-            return new URL(str);
-        } catch (@SuppressWarnings("unused") final MalformedURLException e) {
-            Logger.log(Logger.Level.ERROR)
-                  .append("URL ")
-                  .append(str)
-                  .append(" is not checked because the URL is malformed")
-                  .submit();
-            return null;
-        }
     }
 
     /*

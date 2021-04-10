@@ -1,5 +1,6 @@
 package data.nodechecker.checker.nodeChecker;
 
+import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -10,6 +11,7 @@ import data.knowledge.WellKnownAuthors;
 import data.knowledge.WellKnownAuthorsOfLink;
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
+import utils.StringHelper;
 import utils.XmlParsingException;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
@@ -38,7 +40,10 @@ public class AuthorsChecker extends NodeChecker {
         }
 
         for (LinkData link: articleData.getLinks()) {
-            final String url = link.getUrl();
+            final URL url = StringHelper.convertStringToUrl(link.getUrl());
+            if (url == null) {
+                continue;
+            }
             final Optional<WellKnownAuthors> expectedWellKnownAuthors = WellKnownAuthorsOfLink.getWellKnownAuthors(url);
             if (expectedWellKnownAuthors.isPresent()) {
                 if (expectedWellKnownAuthors.get().canHaveOtherAuthors()) {

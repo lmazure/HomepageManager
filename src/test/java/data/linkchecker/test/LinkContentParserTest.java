@@ -36,6 +36,7 @@ public class LinkContentParserTest {
                             Assertions.assertTrue(d.getDataFile().isPresent());
                             final String data = FileHelper.slurpFile(d.getDataFile().get());
                             final LinkContentParser parser = new LinkContentParser(data);
+                            Assertions.assertTrue(parser.getLanguage().isPresent());
                             Assertions.assertEquals(Locale.ENGLISH, parser.getLanguage().get());
                             consumerHasBeenCalled.set(true);
                            });
@@ -61,6 +62,7 @@ public class LinkContentParserTest {
                             Assertions.assertTrue(d.getDataFile().isPresent());
                             final String data = FileHelper.slurpFile(d.getDataFile().get());
                             final LinkContentParser parser = new LinkContentParser(data);
+                            Assertions.assertTrue(parser.getLanguage().isPresent());
                             Assertions.assertEquals(Locale.FRENCH, parser.getLanguage().get());
                             consumerHasBeenCalled.set(true);
                            });
@@ -95,6 +97,7 @@ public class LinkContentParserTest {
                             Assertions.assertTrue(d.getDataFile().isPresent());
                             final String data = FileHelper.slurpFile(d.getDataFile().get());
                             final LinkContentParser parser = new LinkContentParser(data);
+                            Assertions.assertTrue(parser.getLanguage().isPresent());
                             Assertions.assertEquals(Locale.ENGLISH, parser.getLanguage().get());
                             consumerHasBeenCalled.set(true);
                            });
@@ -110,6 +113,7 @@ public class LinkContentParserTest {
                             Assertions.assertTrue(d.getDataFile().isPresent());
                             final String data = FileHelper.slurpFile(d.getDataFile().get());
                             final LinkContentParser parser = new LinkContentParser(data);
+                            Assertions.assertTrue(parser.getLanguage().isPresent());
                             Assertions.assertEquals(Locale.FRENCH, parser.getLanguage().get());
                             consumerHasBeenCalled.set(true);
                            });

@@ -24,7 +24,7 @@ import utils.xmlparsing.LinkData;
 
 public class LinkContentChecker {
 
-    private final String _url;
+    private final URL _url;
     private final LinkData _linkData;
     private final Optional<ArticleData> _articleData;
     private final File _file;
@@ -34,7 +34,7 @@ public class LinkContentChecker {
                               final LinkData linkData,
                               final Optional<ArticleData> articleData,
                               final File file) {
-        _url = url.toString();
+        _url = url;
         _linkData = linkData;
         _articleData = articleData;
         _file = file;
@@ -48,6 +48,7 @@ public class LinkContentChecker {
         if (!m.find()) {
             Logger.log(Logger.Level.WARN).append("File " + _file + " does not end with </HTML>");
         }
+
         try {
             return check(content);
         } catch (final ContentParserException e) {
@@ -133,7 +134,7 @@ public class LinkContentChecker {
     }
 
     /**
-     * @throws ContentParserException  
+     * @throws ContentParserException
      */
     protected LinkContentCheck checkLinkSubtitles(final String data,
                                                   final String[] subtitles) throws ContentParserException
@@ -148,7 +149,7 @@ public class LinkContentChecker {
     }
 
     /**
-     * @throws ContentParserException  
+     * @throws ContentParserException
      */
     protected LinkContentCheck checkLinkAuthors(final String data,
                                                 final List<AuthorData> authors) throws ContentParserException

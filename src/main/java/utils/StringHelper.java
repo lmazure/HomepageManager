@@ -1,5 +1,7 @@
 package utils;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Locale;
@@ -99,5 +101,19 @@ public class StringHelper {
         }
 
         return Optional.empty();
+    }
+
+    /**
+     * Convert a string to URL, return null if the string is an invalid URL
+     * 
+     * @param str
+     * @return
+     */
+    public static URL convertStringToUrl(final String str) {
+        try {
+            return new URL(str);
+        } catch (@SuppressWarnings("unused") final MalformedURLException e) {
+            return null;
+        }
     }
 }

@@ -1,13 +1,13 @@
 package data.internet.test;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 
 import org.junit.jupiter.api.Assertions;
 
 import data.internet.SiteData;
+import utils.StringHelper;
 
 public class TestHelper {
 
@@ -32,11 +32,11 @@ public class TestHelper {
     }
 
     public static URL buildURL(final String str) {
-        try {
-            return new URL(str);
-        } catch (@SuppressWarnings("unused") final MalformedURLException e) {
+        final URL url = StringHelper.convertStringToUrl(str);
+        if (url == null) {
             Assertions.fail("failed to convert " + str + " to URL");
             return null;
         }
+        return url;
     }
 }
