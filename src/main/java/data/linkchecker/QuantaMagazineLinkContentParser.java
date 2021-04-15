@@ -1,10 +1,12 @@
 package data.linkchecker;
 
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import utils.HtmlHelper;
+import utils.xmlparsing.AuthorData;
 
 public class QuantaMagazineLinkContentParser {
 
@@ -12,6 +14,7 @@ public class QuantaMagazineLinkContentParser {
     private String _title;
     private String _subtitle;
     private LocalDate _date;
+    private AuthorData _author;
 
     public QuantaMagazineLinkContentParser(final String data) {
         _data = data;
@@ -44,6 +47,15 @@ public class QuantaMagazineLinkContentParser {
         return _date;
     }
 
+    public AuthorData getAuthor() throws ContentParserException {
+
+        if (_author == null) {
+            _author = extractAuthor();
+        }
+
+        return _author;
+    }
+ 
     private String extractTitle() throws ContentParserException {
 
         final Pattern p = Pattern.compile("<h1 class=\"post__title__title [^\"]+\" data-reactid=\"[0-9]+\">([^<]*)</h1>");
@@ -75,5 +87,21 @@ public class QuantaMagazineLinkContentParser {
         }
 
         throw new ContentParserException("Failed to find date in QuantaMagazine page");
+    }
+
+
+    private AuthorData extractAuthor() throws ContentParserException {
+
+        final Pattern p = Pattern.compile("<span class=\"byline__author [^\\\"]+\\\" data-reactid=\\\"[0-9]+\\\">(.*?)</span>");
+        final Matcher m = p.matcher(_data);
+        if (m.find()) {
+            final String[] nameParts = HtmlHelper.cleanContent(m.group(1)).split(" ");
+            if (nameParts.length != 2) {
+                throw new ContentParserException("Failed to parse author name in QuantaMagazine page");
+            }
+            return new AuthorData(Optional.empty(), Optional.of(nameParts[0]), Optional.empty(), Optional.of(nameParts[1]), Optional.empty(), Optional.empty());
+        }
+
+        throw new ContentParserException("Failed to find author in QuantaMagazine page");
     }
 }

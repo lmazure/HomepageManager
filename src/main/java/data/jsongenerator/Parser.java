@@ -120,8 +120,8 @@ public class Parser {
 
             final Keyword keyword = _keywordFactory.newKeyword(keywordData.getKeyId());
 
-            if (keywordData.getArticle().isPresent()) {
-                final Optional<Article> article =  _articleFactory.getArticle(keywordData.getArticle().get().getLinks().get(0).getUrl());
+            for (final ArticleData articleData : keywordData.getArticle()) {
+                final Optional<Article> article =  _articleFactory.getArticle(articleData.getLinks().get(0).getUrl());
                 if (article.isEmpty()) {
                     throw new XmlParsingException("Cannot retrieve article of KEYWORD");
                 }

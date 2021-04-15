@@ -2,6 +2,7 @@ package data.linkchecker.test;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.jupiter.api.Assertions;
@@ -16,6 +17,7 @@ import data.internet.test.TestHelper;
 import data.linkchecker.ContentParserException;
 import data.linkchecker.QuantaMagazineLinkContentParser;
 import utils.FileHelper;
+import utils.xmlparsing.AuthorData;
 
 public class QuantaMagazineLinkContentParserTest {
 
@@ -155,6 +157,66 @@ public class QuantaMagazineLinkContentParserTest {
               final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(data);
               try {
                   Assertions.assertEquals(expectedDate, parser.getDate().toString());
+               } catch (final ContentParserException e) {
+                   Assertions.fail("getDate threw " + e.getMessage());
+               }
+              consumerHasBeenCalled.set(true);
+          });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/,Kevin,Hartnett"
+        })
+    void testAuthor(final String url,
+                    final String expectedFirstName,
+                    final String expectedLastName) {
+        final AuthorData expectedAuthor = new AuthorData(Optional.empty(),
+                                                         Optional.of(expectedFirstName),
+                                                         Optional.empty(),
+                                                         Optional.of(expectedLastName),
+                                                         Optional.empty(),
+                                                         Optional.empty());
+        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(TestHelper.buildURL(url),
+          (final Boolean b, final SiteData d) -> {
+              Assertions.assertTrue(d.getDataFile().isPresent());
+              final String data = FileHelper.slurpFile(d.getDataFile().get());
+              final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(data);
+              try {
+                  Assertions.assertEquals(expectedAuthor, parser.getAuthor());
+               } catch (final ContentParserException e) {
+                   Assertions.fail("getDate threw " + e.getMessage());
+               }
+              consumerHasBeenCalled.set(true);
+          });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "https://www.quantamagazine.org/barbara-liskov-is-the-architect-of-modern-algorithms-20191120/,Susan,D'Agostino"
+        })
+    void testAuthorWithEncodedCharacter(final String url,
+                                        final String expectedFirstName,
+                                        final String expectedLastName) {
+        final AuthorData expectedAuthor = new AuthorData(Optional.empty(),
+                                                         Optional.of(expectedFirstName),
+                                                         Optional.empty(),
+                                                         Optional.of(expectedLastName),
+                                                         Optional.empty(),
+                                                         Optional.empty());
+        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(TestHelper.buildURL(url),
+          (final Boolean b, final SiteData d) -> {
+              Assertions.assertTrue(d.getDataFile().isPresent());
+              final String data = FileHelper.slurpFile(d.getDataFile().get());
+              final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(data);
+              try {
+                  Assertions.assertEquals(expectedAuthor, parser.getAuthor());
                } catch (final ContentParserException e) {
                    Assertions.fail("getDate threw " + e.getMessage());
                }

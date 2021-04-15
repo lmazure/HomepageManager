@@ -114,6 +114,29 @@ public class MediumLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @ParameterizedTest
+    @CsvSource({
+        "https://medium.com/@kentbeck_7670/curiosity-as-a-service-literally-1f4f6309fae5,Curiosity as a Service\u200A—\u200ALiterally",
+        "https://medium.com/@specktackle/selenium-and-webdriverio-a-historical-overview-6f8fbf94b418,Selenium and WebdriverIO\u200A—\u200AA Historical Overview"
+        })
+    void testTitleWithLongDash(final String url,
+                               final String expectedTitle) {
+        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(TestHelper.buildURL(url),
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final MediumLinkContentParser parser = new MediumLinkContentParser(data);
+                               try {
+                                   Assertions.assertEquals(expectedTitle, parser.getTitle());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getTitle threw " + e.getMessage());
+                               }
+                               consumerHasBeenCalled.set(true);
+                           });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
 
     @Test
     void testTitleWithMultiline() {

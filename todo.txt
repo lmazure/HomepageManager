@@ -1,3 +1,11 @@
+https://martinfowler.com/articles/agileOffshore.html
+title "Using an Agile Software Process with Offshore Development" does not appear in the page
+
+https://martinfowler.com/bliki/UseCasesAndStories.html
+subtitle "What is the difference between a UseCase and XP's UserStory?" does not appear in the page
+
+- lever une alerte si un lien est zombie mais que titre et sous-titre sont encore présents
+
 - implement for real the JSON helper and unit test it
 
 - Quanta Magazine : extraire l'auteur

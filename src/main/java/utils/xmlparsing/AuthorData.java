@@ -65,6 +65,7 @@ public class AuthorData {
 
         final AuthorData other = (AuthorData) obj;
         return _givenName.equals(other._givenName) &&
+               _firstName.equals(other._firstName) &&
                _lastName.equals(other._lastName) &&
                _middleName.equals(other._middleName) &&
                _namePrefix.equals(other._namePrefix) &&

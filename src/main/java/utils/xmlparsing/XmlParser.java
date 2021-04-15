@@ -70,11 +70,13 @@ public class XmlParser {
         final String keyText = children.item(1).getTextContent();
 
         final Element grandParent = (Element)keywordElement.getParentNode().getParentNode();
-        Optional<ArticleData> article = Optional.empty();
+        final List<ArticleData> articles = new ArrayList<ArticleData>();
         final List<LinkData> links = new ArrayList<LinkData>();
         if (XmlHelper.isOfType(grandParent, ElementType.ARTICLE)) {
-            article = Optional.of(parseArticleElement(grandParent));
+            // the KEYWORD is in an article
+            articles.add(parseArticleElement(grandParent));
         } else if (XmlHelper.isOfType(grandParent, ElementType.CLIST)) {
+            // the KEYWORD is in the title of a list of keywords
             for (final Element itemNode: getChildElements(grandParent, ElementType.ITEM)) {
                 final NodeList child =  itemNode.getChildNodes();
                 if (child.getLength() != 1) {
@@ -85,11 +87,23 @@ public class XmlParser {
                 }
                 links.add(XmlParser.parseXElement((Element)child.item(0)));
             }
+        } else if (XmlHelper.isOfType(grandParent, ElementType.BLIST)) {
+            // the KEYWORD is in the title of a list of articles
+            for (final Element itemNode: getChildElements(grandParent, ElementType.ITEM)) {
+                final NodeList child =  itemNode.getChildNodes();
+                if (child.getLength() != 1) {
+                    throw new XmlParsingException("ITEM should have single child node");
+                }
+                if ((child.item(0).getNodeType() != Node.ELEMENT_NODE) || !XmlHelper.isOfType(child.item(0), ElementType.ARTICLE)) {
+                    throw new XmlParsingException("ITEM should have an ARTICLE child node");
+                }
+                articles.add(XmlParser.parseArticleElement((Element)child.item(0)));
+            }
         } else {
-            throw new XmlParsingException("grandparent of KEYWORD node must be a CLIST or ARTICLE node");
+            throw new XmlParsingException("grandparent of KEYWORD node must be a BLIST, CLIST, or ARTICLE node (it is currently a " + grandParent.getTagName() + ")");
         }
 
-        return new KeywordData(keyId, keyText, article, links);
+        return new KeywordData(keyId, keyText, articles, links);
     }
 
     public static LinkData parseXElement(final Element xElement) throws XmlParsingException {

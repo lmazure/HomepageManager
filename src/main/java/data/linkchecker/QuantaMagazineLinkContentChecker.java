@@ -4,12 +4,18 @@ import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
 import utils.xmlparsing.ArticleData;
+import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkData;
 
+/**
+ * @author Laurent
+ *
+ */
 public class QuantaMagazineLinkContentChecker extends LinkContentChecker {
 
     private QuantaMagazineLinkContentParser _parser;
@@ -101,4 +107,21 @@ public class QuantaMagazineLinkContentChecker extends LinkContentChecker {
 
         return null;
     }
+
+    @Override
+    protected LinkContentCheck checkLinkAuthors(final String data,
+                                                final List<AuthorData> authors) throws ContentParserException
+    {
+        final AuthorData effectiveAuthor = _parser.getAuthor();
+        if (!authors.contains(effectiveAuthor)) {
+            return new LinkContentCheck("The expected authors (" +
+                                        authors +
+                                        ") do not contain the effective author (" +
+                                        effectiveAuthor +
+                                        ")");
+        }
+
+        return null;
+    }
+
 }

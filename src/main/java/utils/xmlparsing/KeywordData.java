@@ -1,18 +1,17 @@
 package utils.xmlparsing;
 
 import java.util.List;
-import java.util.Optional;
 
 public class KeywordData {
 
     private final String _keyId;
     private final String _keyText;
-    private final Optional<ArticleData> _article;
+    private final List<ArticleData> _article;
     private final List<LinkData> _links;
 
     public KeywordData(final String keyId,
                        final String keyText,
-                       final Optional<ArticleData> article,
+                       final List<ArticleData> article,
                        final List<LinkData> links) {
         _keyId = keyId;
         _keyText = keyText;
@@ -28,7 +27,7 @@ public class KeywordData {
         return _keyText;
     }
 
-    public Optional<ArticleData> getArticle() {
+    public List<ArticleData> getArticle() {
         return _article;
     }
 
