@@ -55,7 +55,7 @@ public class QuantaMagazineLinkContentParser {
 
         return _author;
     }
- 
+
     private String extractTitle() throws ContentParserException {
 
         final Pattern p = Pattern.compile("<h1 class=\"post__title__title [^\"]+\" data-reactid=\"[0-9]+\">([^<]*)</h1>");

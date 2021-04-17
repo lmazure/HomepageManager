@@ -12,10 +12,6 @@ import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkData;
 
-/**
- * @author Laurent
- *
- */
 public class QuantaMagazineLinkContentChecker extends LinkContentChecker {
 
     private QuantaMagazineLinkContentParser _parser;

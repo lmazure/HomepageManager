@@ -1,3 +1,34 @@
+reconnaissance du titre de https://www-archive.mozilla.org/docs/web-developer/xbdhtml/xbdhtml.html
+
+
+nettoyer
+- html.xml
+- x11.xml
+- tdd.xml
+- design.xml
+- data.xml
+- perl.xml
+' clintrials.xml
+- cpp.xml
+- medical.xml
+- medimag.xml
+- python.xml
+- ruby.xml
+- solaris.xml
+- vbasic.xml
+- clinicaltrial.xml
+- pharma.xml
+- c.xml
+- gems.xml
+- kika.xml
+- shell.xml
+- xevent.xml
+- sfbook.xml
+
+détecter US au lieu de GB
+behavior ->behaviour
+analyze ??
+
 https://martinfowler.com/articles/agileOffshore.html
 title "Using an Agile Software Process with Offshore Development" does not appear in the page
 

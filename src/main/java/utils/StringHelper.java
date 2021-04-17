@@ -105,7 +105,7 @@ public class StringHelper {
 
     /**
      * Convert a string to URL, return null if the string is an invalid URL
-     * 
+     *
      * @param str
      * @return
      */

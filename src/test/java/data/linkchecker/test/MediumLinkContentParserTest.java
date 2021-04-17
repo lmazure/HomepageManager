@@ -119,8 +119,8 @@ public class MediumLinkContentParserTest {
         "https://medium.com/@kentbeck_7670/curiosity-as-a-service-literally-1f4f6309fae5,Curiosity as a Service\u200A—\u200ALiterally",
         "https://medium.com/@specktackle/selenium-and-webdriverio-a-historical-overview-6f8fbf94b418,Selenium and WebdriverIO\u200A—\u200AA Historical Overview"
         })
-    void testTitleWithLongDash(final String url,
-                               final String expectedTitle) {
+    void testTitleWithHairSpace(final String url,
+                                final String expectedTitle) {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
