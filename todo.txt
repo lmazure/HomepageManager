@@ -1,14 +1,22 @@
-reconnaissance du titre de https://www-archive.mozilla.org/docs/web-developer/xbdhtml/xbdhtml.html
+titre de https://www.eiffel.com/values/design-by-contract/introduction/
 
+problème avec les titres de medium
+https://medium.com/@kentbeck_7670/sipping-the-big-gulp-a7c50549c393
+https://medium.com/@tdeniffel/tcr-test-commit-revert-a-test-alternative-to-tdd-6e6b03c22bec
+
+comment gérer les changements de nom Barb Palser -> Barb Smith
+
+reconnaissance du titre de
+https://www-archive.mozilla.org/docs/web-developer/xbdhtml/xbdhtml.html
+http://www.motifdeveloper.com/tips/tip13.html
 
 nettoyer
-- html.xml
 - x11.xml
 - tdd.xml
 - design.xml
 - data.xml
 - perl.xml
-' clintrials.xml
+- clintrials.xml
 - cpp.xml
 - medical.xml
 - medimag.xml
@@ -16,7 +24,6 @@ nettoyer
 - ruby.xml
 - solaris.xml
 - vbasic.xml
-- clinicaltrial.xml
 - pharma.xml
 - c.xml
 - gems.xml
@@ -24,6 +31,7 @@ nettoyer
 - shell.xml
 - xevent.xml
 - sfbook.xml
+- cracking.xml
 
 détecter US au lieu de GB
 behavior ->behaviour

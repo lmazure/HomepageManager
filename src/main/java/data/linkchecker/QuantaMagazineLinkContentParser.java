@@ -99,7 +99,12 @@ public class QuantaMagazineLinkContentParser {
             if (nameParts.length != 2) {
                 throw new ContentParserException("Failed to parse author name in QuantaMagazine page");
             }
-            return new AuthorData(Optional.empty(), Optional.of(nameParts[0]), Optional.empty(), Optional.of(nameParts[1]), Optional.empty(), Optional.empty());
+            return new AuthorData(Optional.empty(),
+                                  Optional.of(nameParts[0]),
+                                  Optional.empty(),
+                                  Optional.of(nameParts[1]),
+                                  Optional.empty(),
+                                  Optional.empty());
         }
 
         throw new ContentParserException("Failed to find author in QuantaMagazine page");

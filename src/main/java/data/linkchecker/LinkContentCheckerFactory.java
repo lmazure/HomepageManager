@@ -58,6 +58,10 @@ public class LinkContentCheckerFactory {
             return new ChromiumBlogLinkContentChecker(url, linkData, articleData, file);
         }
 
+        if (url.toString().startsWith("https://www.baeldung.com/")) {
+            return new BaeldungLinkContentChecker(url, linkData, articleData, file);
+        }
+
         if (url.toString().startsWith("https://spectrum.ieee.org/")) {
             return new NoCheckContentChecker(url, linkData, articleData, file);
         }

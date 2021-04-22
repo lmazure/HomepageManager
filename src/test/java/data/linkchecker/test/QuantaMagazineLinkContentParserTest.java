@@ -134,7 +134,7 @@ public class QuantaMagazineLinkContentParserTest {
                                try {
                                    Assertions.assertEquals(expectedSubtitle, parser.getSubtitle());
                                } catch (final ContentParserException e) {
-                                   Assertions.fail("getTitle threw " + e.getMessage());
+                                   Assertions.fail("getSubtitle threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
                            });
@@ -188,7 +188,7 @@ public class QuantaMagazineLinkContentParserTest {
               try {
                   Assertions.assertEquals(expectedAuthor, parser.getAuthor());
                } catch (final ContentParserException e) {
-                   Assertions.fail("getDate threw " + e.getMessage());
+                   Assertions.fail("getAuthor threw " + e.getMessage());
                }
               consumerHasBeenCalled.set(true);
           });
@@ -218,7 +218,7 @@ public class QuantaMagazineLinkContentParserTest {
               try {
                   Assertions.assertEquals(expectedAuthor, parser.getAuthor());
                } catch (final ContentParserException e) {
-                   Assertions.fail("getDate threw " + e.getMessage());
+                   Assertions.fail("getAuthor threw " + e.getMessage());
                }
               consumerHasBeenCalled.set(true);
           });
