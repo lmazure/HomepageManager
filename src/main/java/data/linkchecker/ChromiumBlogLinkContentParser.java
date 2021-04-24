@@ -2,61 +2,40 @@ package data.linkchecker;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import utils.HtmlHelper;
 
 public class ChromiumBlogLinkContentParser {
 
     private final String _data;
-    private String _title;
-    private LocalDate _publicationDate;
+    private static final TextParser s_titleParser
+        = new TextParser("<title>Chromium Blog: ",
+                         "</title>",
+                         "Chromium Blog",
+                         "title");
+    private static final TextParser s_dateParser
+        = new TextParser("<span class='publishdate' itemprop='datePublished'>",
+                         "</span>",
+                         "Chromium Blog",
+                         "date");
+    private static final DateTimeFormatter s_formatter = DateTimeFormatter.ofPattern("EEEE, MMMM d, u", Locale.ENGLISH);
 
     public ChromiumBlogLinkContentParser(final String data) {
         _data = data;
     }
 
     public String getTitle() throws ContentParserException {
-
-        if (_title == null) {
-            _title = extractTitle();
-        }
-
-        return _title;
+        return HtmlHelper.unescape(s_titleParser.extract(_data).trim());
     }
 
     public LocalDate getPublicationDate() throws ContentParserException {
-
-        if (_publicationDate == null) {
-            _publicationDate = extractPublicationDate();
+        final String date = s_dateParser.extract(_data);
+        try {
+            return LocalDate.parse(date, s_formatter);
+        } catch (final DateTimeParseException e) {
+            throw new ContentParserException("Failed to parse date (" + date + ") in Baeldung page", e);
         }
-
-        return _publicationDate;
-    }
-
-    private String extractTitle() throws ContentParserException {
-
-        final Pattern p = Pattern.compile("<title>Chromium Blog: (.+?)</title>", Pattern.MULTILINE);
-        final Matcher m = p.matcher(_data);
-        if (m.find()) {
-            return HtmlHelper.unescape(m.group(1).trim());
-         }
-
-        throw new ContentParserException("Failed to find title in Chromium Blog page");
-    }
-
-    private LocalDate extractPublicationDate() throws ContentParserException {
-
-        final Pattern p = Pattern.compile("<span class='publishdate' itemprop='datePublished'>([^<]+)</span>", Pattern.MULTILINE);
-        final Matcher m = p.matcher(_data);
-        if (m.find()) {
-            final String formattedDate = m.group(1);
-            final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMMM d, u", Locale.ENGLISH);
-            return LocalDate.parse(formattedDate, formatter);
-        }
-
-        throw new ContentParserException("Failed to find date in Chromium Blog page");
     }
 }
