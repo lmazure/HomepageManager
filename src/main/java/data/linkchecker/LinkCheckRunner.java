@@ -68,15 +68,15 @@ public class LinkCheckRunner {
                            final Path ouputFile,
                            final Path reportFile) {
         _file = file;
-        _effectiveData = new TreeMap<URL, SiteData>(
+        _effectiveData = new TreeMap<>(
                 new Comparator<URL>() {
                     @Override
                     public int compare(final URL a, final URL b) {
                         return a.toString().compareTo(b.toString());
                     }});
-        _expectedData = new HashMap<URL, LinkData>();
-        _articles = new HashMap<URL, ArticleData>();
-        _checks = new HashMap<URL, List<LinkContentCheck>>();
+        _expectedData = new HashMap<>();
+        _articles = new HashMap<>();
+        _checks = new HashMap<>();
         _isCancelled = false;
         _builder = XmlHelper.buildDocumentBuilder();
         _retriever = new SiteDataRetriever(tmpPath.resolve("internet_cache"));
@@ -126,7 +126,7 @@ public class LinkCheckRunner {
 
     private List<LinkData> extractLinks(final Element e) {
 
-        final List<LinkData> list = new ArrayList<LinkData>();
+        final List<LinkData> list = new ArrayList<>();
         final NodeList children = e.getChildNodes();
 
         for (int j = 0; j < children.getLength(); j++) {
@@ -151,7 +151,7 @@ public class LinkCheckRunner {
 
     private List<ArticleData> extractArticles(final Element e) {
 
-        final List<ArticleData> list = new ArrayList<ArticleData>();
+        final List<ArticleData> list = new ArrayList<>();
         final NodeList children = e.getChildNodes();
 
         for (int j = 0; j < children.getLength(); j++) {
@@ -176,7 +176,7 @@ public class LinkCheckRunner {
 
     private List<URL> buildListOfLinksToBeChecked(final List<LinkData> linkDatas) {
 
-        final List<URL> list = new ArrayList<URL>();
+        final List<URL> list = new ArrayList<>();
 
         for (final LinkData linkData: linkDatas) {
 
@@ -277,7 +277,7 @@ public class LinkCheckRunner {
             }
         }
 
-        if (isDataFresh) {
+        if (isDataFresh.booleanValue()) {
             _nbSitesRemainingToBeChecked--;
         }
 
@@ -366,10 +366,10 @@ public class LinkCheckRunner {
      * @param effectiveData
      * @param builder
      */
-    private void appendLivenessCheckResult(final URL url,
-                                           final LinkData expectedData,
-                                           final SiteData effectiveData,
-                                           final StringBuilder builder) {
+    private static void appendLivenessCheckResult(final URL url,
+                                                  final LinkData expectedData,
+                                                  final SiteData effectiveData,
+                                                  final StringBuilder builder) {
 
         builder.append("Title = \"" + expectedData.getTitle() + "\"\n");
         if (expectedData.getSubtitles().length > 0) {
@@ -380,7 +380,7 @@ public class LinkCheckRunner {
         builder.append("Effective status = " + effectiveData.getStatus() + "\n");
         final String httpCode = effectiveData.getHttpCode().map(i -> {
             try {
-                return i.toString() + " " + HttpHelper.getStringOfCode(i);
+                return i.toString() + " " + HttpHelper.getStringOfCode(i.intValue());
             } catch (@SuppressWarnings("unused") final InvalidHttpCodeException e) {
                 return " invalid code! (" + i.toString() + ")";
             }
@@ -429,11 +429,11 @@ public class LinkCheckRunner {
         if (expectedData.getStatus().isPresent() && expectedData.getStatus().get().equals(utils.xmlparsing.LinkStatus.DEAD)) {
             if (effectiveData.getStatus() == SiteData.Status.FAILURE) return true;
             if (effectiveData.getHttpCode().isEmpty()) return true;
-            if (effectiveData.getHttpCode().isPresent() && effectiveData.getHttpCode().get() != 200) return true;
+            if (effectiveData.getHttpCode().isPresent() && effectiveData.getHttpCode().get().intValue() != 200) return true;
             return false;
         }
 
-        return (effectiveData.getHttpCode().isPresent() && effectiveData.getHttpCode().get() == 200);
+        return (effectiveData.getHttpCode().isPresent() && effectiveData.getHttpCode().get().intValue() == 200);
     }
 
     /*

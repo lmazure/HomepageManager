@@ -5,9 +5,9 @@ import java.util.regex.Pattern;
 
 class TextParser {
 
-    final Pattern _pattern;
-    final String _source;
-    final String _field;
+    private final Pattern _pattern;
+    private final String _source;
+    private final String _field;
 
     public TextParser(final String prefix,
                       final String postfix,
