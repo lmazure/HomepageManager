@@ -13,6 +13,7 @@ import utils.internet.YoutubeVideoDto;
 
 class YoutubeApiTest {
 
+    @SuppressWarnings("static-method")
     @Test
     void noCreationDateNoLanguages() {
         final YoutubeApi api = buildApi();
@@ -30,6 +31,7 @@ class YoutubeApiTest {
         Assertions.assertTrue(dto.isAllowed());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void languagesDatesDisallowedVideo() {
         final YoutubeApi api = buildApi();
@@ -53,6 +55,7 @@ class YoutubeApiTest {
         Assertions.assertFalse(dto.isAllowed());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void timezoneIsProperlyHandled() {
         final YoutubeApi api = buildApi();
@@ -74,6 +77,7 @@ class YoutubeApiTest {
         Assertions.assertTrue(dto.isAllowed());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void durationIsProperlyHandled() {
         final YoutubeApi api = buildApi();
@@ -92,7 +96,7 @@ class YoutubeApiTest {
         Assertions.assertTrue(dto.isAllowed());
     }
 
-    private YoutubeApi buildApi() {
+    private static YoutubeApi buildApi() {
         return new YoutubeApi(ParameterRepository.getYoutubeApplicationName(), ParameterRepository.getYoutubeApiKey() , "FR");
     }
 }

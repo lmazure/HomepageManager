@@ -23,6 +23,7 @@ import data.nodechecker.checker.nodeChecker.NodeCheckError;
 
 class NodeValueCheckerTest {
 
+    @SuppressWarnings("static-method")
     @Test
     void noError() {
 
@@ -44,6 +45,7 @@ class NodeValueCheckerTest {
         }
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void detectLowercaseTitle() {
 
@@ -67,6 +69,7 @@ class NodeValueCheckerTest {
     }
 
 
+    @SuppressWarnings("static-method")
     @Test
     @Disabled
     void detectTitleEndingWithColon() {
@@ -90,6 +93,7 @@ class NodeValueCheckerTest {
         }
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void detectDoubleSpace() {
 
@@ -113,6 +117,7 @@ class NodeValueCheckerTest {
         }
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void ignoreDoubleSpaceInArticleTitles() {
 
@@ -136,6 +141,7 @@ class NodeValueCheckerTest {
         }
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void ignoreDoubleSpaceDueToNodes() {
 
@@ -159,6 +165,7 @@ class NodeValueCheckerTest {
     }
 
 
+    @SuppressWarnings("static-method")
     @Test
     void ignoreDoubleSpaceDueToIndentationBetweenNodes() {
 
@@ -192,6 +199,7 @@ class NodeValueCheckerTest {
         }
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void ignoreDoubleSpaceDueToIndentationInsideNode() {
 
@@ -221,6 +229,7 @@ class NodeValueCheckerTest {
         }
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void detectDoubleSpaceInIndentation() {
 
@@ -253,6 +262,7 @@ class NodeValueCheckerTest {
         }
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void ignoreMissingSpaceDueToCode() {
 
@@ -275,6 +285,7 @@ class NodeValueCheckerTest {
         }
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void ignoreMissingSpaceDueToSlash() {
 
@@ -297,6 +308,7 @@ class NodeValueCheckerTest {
         }
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void detectMissingSpace() {
 
@@ -329,6 +341,7 @@ class NodeValueCheckerTest {
         }
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void supportArticleWithPublicationDateButNoCreationDate() {
 
@@ -350,6 +363,7 @@ class NodeValueCheckerTest {
         }
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void detectArticlWithCreationDateMoreRecentThanPage() {
 
@@ -373,6 +387,7 @@ class NodeValueCheckerTest {
     }
 
 
+    @SuppressWarnings("static-method")
     @Test
     void detectArticleWithPublicationDateMoreRecentThanPage() {
 
@@ -395,6 +410,7 @@ class NodeValueCheckerTest {
         }
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void detectArticleWithPublicationLink1MoreRecentThanPage() {
 
@@ -421,6 +437,7 @@ class NodeValueCheckerTest {
         }
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void detectArticleWithPublicationLink2MoreRecentThanPage() {
 
@@ -447,6 +464,7 @@ class NodeValueCheckerTest {
         }
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void detectArticleWithPublicationLink1ButNoCreationDateMoreRecentThanPage() {
 
@@ -473,6 +491,7 @@ class NodeValueCheckerTest {
         }
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void detectArticleWithPublicationLink1BeforeCreationDate() {
 
@@ -499,6 +518,7 @@ class NodeValueCheckerTest {
         }
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void detectArticleWithPublicationLink3BeforeCreationDate() {
 
@@ -525,6 +545,7 @@ class NodeValueCheckerTest {
         }
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void whenThereIsNoIndentationCorrectDatesAreNotReported() {
 
@@ -548,6 +569,7 @@ class NodeValueCheckerTest {
         }
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void whenThereIsNoIndentationDetectArticleWithNoDateAfterArticleWithDate() {
 
@@ -573,6 +595,7 @@ class NodeValueCheckerTest {
     }
 
 
+    @SuppressWarnings("static-method")
     @Test
     void whenThereIsNoIndentationDetectArticleAfterArticleWithDateMoreRecent() {
 
@@ -597,6 +620,7 @@ class NodeValueCheckerTest {
         }
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void whenThereIsIndentationCorrectDatesAreNotReported() {
 
@@ -620,6 +644,7 @@ class NodeValueCheckerTest {
         }
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void whenThereIsIndentationDetectArticleWithNoDateAfterArticleWithDate() {
 
@@ -644,6 +669,7 @@ class NodeValueCheckerTest {
         }
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void whenThereIsIndentationDetectArticleAfterArticleWithDateMoreRecent() {
 
@@ -668,6 +694,7 @@ class NodeValueCheckerTest {
         }
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void whenThereIsIndentationAndChainIgnoreArticleAfterArticleWithDateMoreRecent() {
 
@@ -691,6 +718,7 @@ class NodeValueCheckerTest {
         }
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void whenThereIsIndentationAndChainDetectArticleAfterArticleChainWithDateMoreRecent() {
 
@@ -715,6 +743,7 @@ class NodeValueCheckerTest {
         }
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void ignoreCorrectPredAttribute() {
 
@@ -738,6 +767,7 @@ class NodeValueCheckerTest {
         }
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void reportIncorrectPredAttribute() {
 
@@ -762,6 +792,7 @@ class NodeValueCheckerTest {
         }
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void correctWellKnownAuthorsAreIgnored() {
 
@@ -785,6 +816,7 @@ class NodeValueCheckerTest {
         }
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void wellKnownAuthorIsMissing() {
 
@@ -809,6 +841,7 @@ class NodeValueCheckerTest {
         }
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void wellKnownAuthorIsNotAlone() {
 

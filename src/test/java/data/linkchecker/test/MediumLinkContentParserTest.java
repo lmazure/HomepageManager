@@ -19,6 +19,7 @@ import utils.FileHelper;
 
 public class MediumLinkContentParserTest {
 
+    @SuppressWarnings("static-method")
     @Test
     void testShortTitle() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
@@ -38,6 +39,7 @@ public class MediumLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testLongTitle() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
@@ -57,6 +59,7 @@ public class MediumLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testTitleWithAmpersandAndLink() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
@@ -76,6 +79,7 @@ public class MediumLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testTitleWithGreater() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
@@ -95,6 +99,7 @@ public class MediumLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testTitleWithSlash() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
@@ -114,6 +119,7 @@ public class MediumLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://medium.com/@kentbeck_7670/curiosity-as-a-service-literally-1f4f6309fae5,Curiosity as a Service\u200A—\u200ALiterally",
@@ -138,6 +144,7 @@ public class MediumLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testTitleWithMultiline() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
@@ -157,6 +164,7 @@ public class MediumLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testTitleForNetflix() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
@@ -176,6 +184,7 @@ public class MediumLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://medium.com/@kentbeck_7670/a-years-worth-c1cbc3085e9d,2019-06-08",
@@ -204,6 +213,7 @@ public class MediumLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://medium.com/@kentbeck_7670/sipping-the-big-gulp-a7c50549c393,2019-05-11,2019-05-21",
@@ -211,7 +221,7 @@ public class MediumLinkContentParserTest {
         })
     void testModifiedBlogPublishDate(final String url,
                                      final String expectedPublicationDate,
-                                     final String expectedModificationDate) {
+                                     @SuppressWarnings("unused") final String expectedModificationDate) {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
@@ -229,7 +239,7 @@ public class MediumLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
-    private SynchronousSiteDataRetriever buildDataSiteRetriever() {
+    private static SynchronousSiteDataRetriever buildDataSiteRetriever() {
         final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\test\\MediumLinkContentParserTest");
         FileHelper.deleteDirectory(cachePath.toFile());
         return new SynchronousSiteDataRetriever(new SiteDataPersister(cachePath));

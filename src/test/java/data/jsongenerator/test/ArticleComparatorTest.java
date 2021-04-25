@@ -17,6 +17,7 @@ import utils.xmlparsing.LinkFormat;
 
 public class ArticleComparatorTest {
 
+    @SuppressWarnings("static-method")
     @Test
     void compareSimpleStrings() {
 
@@ -36,6 +37,7 @@ public class ArticleComparatorTest {
         Assertions.assertTrue(result < 0);
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void compareStringsWithSpace() {
 
@@ -55,6 +57,7 @@ public class ArticleComparatorTest {
         Assertions.assertTrue(result < 0);
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void compareStringsWithSpaceAndSpecialLetter() {
 

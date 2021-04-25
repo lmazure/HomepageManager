@@ -20,6 +20,7 @@ import utils.FileHelper;
 
 class YoutubeChannelUserLinkContentParserTest {
 
+    @SuppressWarnings("static-method")
     @Test
     void testErrorMessagePresent() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
@@ -36,6 +37,7 @@ class YoutubeChannelUserLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testErrorMessageAbsent() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
@@ -51,6 +53,7 @@ class YoutubeChannelUserLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @ValueSource(strings = {
             "https://www.youtube.com/channel/UC6nSFpj9HTCZ5t-N3Rm3-HA",
@@ -77,6 +80,7 @@ class YoutubeChannelUserLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @ValueSource(strings = {
             "https://www.youtube.com/channel/UCjsHDXUU3BjBCG7OaCbNDyQ",
@@ -100,7 +104,7 @@ class YoutubeChannelUserLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
-    private SynchronousSiteDataRetriever buildDataSiteRetriever() {
+    private static SynchronousSiteDataRetriever buildDataSiteRetriever() {
         final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\test\\YoutubeChannelUserLinkContentParserTest");
         FileHelper.deleteDirectory(cachePath.toFile());
         return new SynchronousSiteDataRetriever(new SiteDataPersister(cachePath));

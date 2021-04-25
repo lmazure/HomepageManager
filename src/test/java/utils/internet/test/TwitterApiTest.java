@@ -9,6 +9,7 @@ import utils.internet.TwitterUserDto;
 
 public class TwitterApiTest {
 
+    @SuppressWarnings("static-method")
     @Test
     void descriptionIsRetrieved() {
         final TwitterApi api = buildApi();
@@ -17,7 +18,7 @@ public class TwitterApiTest {
     }
 
 
-    private TwitterApi buildApi() {
+    private static TwitterApi buildApi() {
         return new TwitterApi(ParameterRepository.getTwitterApiKey(), ParameterRepository.getTwitterApiSecretKey());
     }
 }

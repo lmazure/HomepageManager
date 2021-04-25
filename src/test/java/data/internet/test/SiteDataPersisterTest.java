@@ -22,7 +22,7 @@ public class SiteDataPersisterTest {
     private static URL url = TestHelper.buildURL("http://example.com");
     private static Instant now = Instant.now();
     private static Status status = Status.SUCCESS;
-    private static Optional<Integer> httpCode = Optional.of(200);
+    private static Optional<Integer> httpCode = Optional.of(Integer.valueOf(200));
     private static Optional<Map<String, List<String>>> headers = Optional.of(Map.of("header1", List.of("val11"),
                                                                                     "header2", List.of("val21", "val22"),
                                                                                     "header3", List.of(),
@@ -30,6 +30,7 @@ public class SiteDataPersisterTest {
                                                                                     "header5", List.of("val51")));
     private static Optional<String> error = Optional.of("error");
 
+    @SuppressWarnings("static-method")
     @Test
     void allPresent() {
 
@@ -43,6 +44,7 @@ public class SiteDataPersisterTest {
         Assertions.assertEquals(error, data.getError());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void allHttpCodeEmpty() {
 
@@ -56,6 +58,7 @@ public class SiteDataPersisterTest {
         Assertions.assertEquals(error, data.getError());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void allHeadersEmpty() {
 
@@ -69,6 +72,7 @@ public class SiteDataPersisterTest {
         Assertions.assertEquals(error, data.getError());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void allErrorEmpty() {
 
@@ -82,6 +86,7 @@ public class SiteDataPersisterTest {
         Assertions.assertEquals(Optional.empty(), data.getError());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void allEmpty() {
 
@@ -95,6 +100,7 @@ public class SiteDataPersisterTest {
         Assertions.assertEquals(Optional.empty(), data.getError());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void allPresentAndStatusFailure() {
 

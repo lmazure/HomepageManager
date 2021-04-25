@@ -21,6 +21,7 @@ import utils.xmlparsing.AuthorData;
 
 public class QuantaMagazineLinkContentParserTest {
 
+    @SuppressWarnings("static-method")
     @Test
     void testTitleWithPostfix() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
@@ -40,6 +41,7 @@ public class QuantaMagazineLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testTitleWithoutPostfix() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
@@ -59,6 +61,7 @@ public class QuantaMagazineLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testSubtitle() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
@@ -78,6 +81,7 @@ public class QuantaMagazineLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testSubtitleContainingQuotes() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
@@ -97,6 +101,7 @@ public class QuantaMagazineLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testSubtitleContainingHtml() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
@@ -116,6 +121,7 @@ public class QuantaMagazineLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
         "https://www.quantamagazine.org/a-proof-about-where-symmetries-cant-exist-20181023/|In a major mathematical achievement, a small team of researchers has proven Zimmer’s conjecture.",
@@ -141,6 +147,7 @@ public class QuantaMagazineLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://www.quantamagazine.org/new-algorithm-solves-cake-cutting-problem-20161006/,2016-10-06",
@@ -165,6 +172,7 @@ public class QuantaMagazineLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/,Kevin,Hartnett"
@@ -195,6 +203,7 @@ public class QuantaMagazineLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://www.quantamagazine.org/barbara-liskov-is-the-architect-of-modern-algorithms-20191120/,Susan,D'Agostino"
@@ -225,7 +234,7 @@ public class QuantaMagazineLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
-    private SynchronousSiteDataRetriever buildDataSiteRetriever() {
+    private static SynchronousSiteDataRetriever buildDataSiteRetriever() {
         final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\test\\QuantaMagazineContentParserTest");
         FileHelper.deleteDirectory(cachePath.toFile());
         return new SynchronousSiteDataRetriever(new SiteDataPersister(cachePath));

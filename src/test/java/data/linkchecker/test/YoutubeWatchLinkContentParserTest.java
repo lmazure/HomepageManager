@@ -23,6 +23,7 @@ import utils.FileHelper;
 
 class YoutubeWatchLinkContentParserTest {
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @ValueSource(strings = {
             "https://www.youtube.com/watch?v=_kGqkxQo-Tw",
@@ -42,6 +43,7 @@ class YoutubeWatchLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testPlayabilityStatusUnplayable() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
@@ -57,6 +59,7 @@ class YoutubeWatchLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testTitle() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
@@ -76,6 +79,7 @@ class YoutubeWatchLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     @Disabled // I need to find another video with a control character, this one has been fixed
     void testTitleWithControlCharacterString() {
@@ -96,6 +100,7 @@ class YoutubeWatchLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testTitleWithAmpersand() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
@@ -115,6 +120,7 @@ class YoutubeWatchLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testTitleWithBackslashQuote() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
@@ -134,6 +140,7 @@ class YoutubeWatchLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testDescription() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
@@ -153,6 +160,7 @@ class YoutubeWatchLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testDescriptionWithNewline() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
@@ -174,6 +182,7 @@ class YoutubeWatchLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testDescriptionWithDoubleQuote() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
@@ -205,6 +214,7 @@ class YoutubeWatchLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testDate() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
@@ -229,6 +239,7 @@ class YoutubeWatchLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testDuration() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
@@ -253,6 +264,7 @@ class YoutubeWatchLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @ValueSource(strings = {
             "https://www.youtube.com/watch?v=8idr1WZ1A7Q",
@@ -279,6 +291,7 @@ class YoutubeWatchLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @ValueSource(strings = {
             "https://www.youtube.com/watch?v=16GlrK-bxaI",
@@ -315,6 +328,7 @@ class YoutubeWatchLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @ValueSource(strings = {
             "https://www.youtube.com/watch?v=-0ErpE8tQbw",
@@ -336,6 +350,7 @@ class YoutubeWatchLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @ValueSource(strings = {
             "https://www.youtube.com/watch?v=_kGqkxQo-Tw",
@@ -357,6 +372,7 @@ class YoutubeWatchLinkContentParserTest {
     }
 
     @Disabled // TODO 001 I need to find such examples
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @ValueSource(strings = {
             "https://www.youtube.com/watch?v=CfRSVPhzN5M"
@@ -375,6 +391,7 @@ class YoutubeWatchLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void incorrectContentGeneratesException() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
@@ -388,13 +405,14 @@ class YoutubeWatchLinkContentParserTest {
                                    final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
                                    Assertions.fail("new YoutubeWatchLinkContentParser has not thrown an exception");
                                } catch (@SuppressWarnings("unused") final ContentParserException e) {
+                                   // do nothing
                                }
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
-    private YoutubeWatchLinkContentParser buildParser(final String data) {
+    private static YoutubeWatchLinkContentParser buildParser(final String data) {
 
         try {
             final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);
@@ -406,7 +424,7 @@ class YoutubeWatchLinkContentParserTest {
         return null;
     }
 
-    private SynchronousSiteDataRetriever buildDataSiteRetriever() {
+    private static SynchronousSiteDataRetriever buildDataSiteRetriever() {
         final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\test\\YoutubeWatchLinkContentParserTest");
         FileHelper.deleteDirectory(cachePath.toFile());
         return new SynchronousSiteDataRetriever(new SiteDataPersister(cachePath));

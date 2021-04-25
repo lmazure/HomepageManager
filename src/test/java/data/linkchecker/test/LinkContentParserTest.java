@@ -19,6 +19,7 @@ import utils.FileHelper;
 
 public class LinkContentParserTest {
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @ValueSource(strings = {
             "https://usa.kaspersky.com/about/press-releases/2016_kaspersky-lab-study-proves-smartphones-distract-workers-and-decrease-productivity",
@@ -43,6 +44,7 @@ public class LinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @ValueSource(strings = {
             "http://astronogeek.fr/",
@@ -69,6 +71,7 @@ public class LinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @ValueSource(strings = {
             "https://www.govinfo.gov/app/collection/cfr",
@@ -88,6 +91,7 @@ public class LinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testLanguageForEnglishMedium() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
@@ -104,6 +108,7 @@ public class LinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testLanguageForFrenchMedium() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
@@ -120,7 +125,7 @@ public class LinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
-    private SynchronousSiteDataRetriever buildDataSiteRetriever() {
+    private static SynchronousSiteDataRetriever buildDataSiteRetriever() {
         final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\test\\LinkContentParserTest");
         FileHelper.deleteDirectory(cachePath.toFile());
         return new SynchronousSiteDataRetriever(new SiteDataPersister(cachePath));

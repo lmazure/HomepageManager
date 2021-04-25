@@ -21,6 +21,7 @@ import utils.xmlparsing.AuthorData;
 
 public class BaeldungLinkContentParserTest {
 
+    @SuppressWarnings("static-method")
     @Test
     void testTitle() {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
@@ -40,6 +41,7 @@ public class BaeldungLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://www.baeldung.com/crawler4j,2019-09-06"
@@ -63,6 +65,7 @@ public class BaeldungLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://www.baeldung.com/crawler4j,Amy,DeGregorio"
@@ -94,6 +97,7 @@ public class BaeldungLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://www.baeldung.com/java-9-reactive-streams"
@@ -116,7 +120,7 @@ public class BaeldungLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
-    private SynchronousSiteDataRetriever buildDataSiteRetriever() {
+    private static SynchronousSiteDataRetriever buildDataSiteRetriever() {
         final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\test\\BaeldungLinkContentParserTest");
         FileHelper.deleteDirectory(cachePath.toFile());
         return new SynchronousSiteDataRetriever(new SiteDataPersister(cachePath));

@@ -14,6 +14,7 @@ import utils.FileHelper;
 
 public class AsynchronousSiteDataRetrieverTest {
 
+    @SuppressWarnings("static-method")
     @Test
     void basicHttpRequest() {
 
@@ -37,6 +38,7 @@ public class AsynchronousSiteDataRetrieverTest {
         }
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void basicHttpsRequest() {
 
@@ -60,7 +62,7 @@ public class AsynchronousSiteDataRetrieverTest {
         }
     }
 
-    private AsynchronousSiteDataRetriever buildDataSiteRetriever() {
+    private static AsynchronousSiteDataRetriever buildDataSiteRetriever() {
         final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\test\\AsynchronousSiteDataRetrieverTest");
         FileHelper.deleteDirectory(cachePath.toFile());
         return new AsynchronousSiteDataRetriever(new SiteDataPersister(cachePath));

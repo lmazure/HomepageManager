@@ -15,6 +15,7 @@ import utils.FileHelper;
 
 public class CachedSiteDataRetrieverTest {
 
+    @SuppressWarnings("static-method")
     @Test
     void properlyCached() {
 
@@ -82,7 +83,7 @@ public class CachedSiteDataRetrieverTest {
         }
     }
 
-    private CachedSiteDataRetriever buildDataSiteRetriever() {
+    private static CachedSiteDataRetriever buildDataSiteRetriever() {
         final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\test\\CachedSiteDataRetrieverTest");
         FileHelper.deleteDirectory(cachePath.toFile());
         return new CachedSiteDataRetriever(new SiteDataPersister(cachePath));

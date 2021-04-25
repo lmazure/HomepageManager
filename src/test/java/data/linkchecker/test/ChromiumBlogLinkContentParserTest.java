@@ -18,6 +18,7 @@ import utils.FileHelper;
 
 public class ChromiumBlogLinkContentParserTest {
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://blog.chromium.org/2009/01/tabbed-browsing-in-google-chrome.html,Tabbed Browsing in Google Chrome",
@@ -42,6 +43,7 @@ public class ChromiumBlogLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://blog.chromium.org/2019/05/improving-privacy-and-security-on-web.html,Improving privacy and security on the web"
@@ -66,6 +68,7 @@ public class ChromiumBlogLinkContentParserTest {
     }
 
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
         "https://blog.chromium.org/2010/05/security-in-depth-html5s-sandbox.html|Security in Depth: HTML5’s @sandbox",
@@ -91,6 +94,7 @@ public class ChromiumBlogLinkContentParserTest {
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://blog.chromium.org/2009/01/tabbed-browsing-in-google-chrome.html,2009-01-06",
@@ -115,7 +119,7 @@ public class ChromiumBlogLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
-    private SynchronousSiteDataRetriever buildDataSiteRetriever() {
+    private static SynchronousSiteDataRetriever buildDataSiteRetriever() {
         final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\test\\ChromiumBlogLinkContentParserTest");
         FileHelper.deleteDirectory(cachePath.toFile());
         return new SynchronousSiteDataRetriever(new SiteDataPersister(cachePath));

@@ -15,14 +15,15 @@ import data.FileHandler.Status;
 
 class FileCheckerTest {
 
-    private final String MESS_BOM  = "file should not have a UTF BOM";
-    private final String MESS_CTRL = "line contains a control character";
-    private final String MESS_WTSP = "line is finishing with a white space";
-    private final String MESS_PATH = "the name of the file does not appear in the <PATH> node (expected to see \"<PATH>HomepageManager/test.xml</PATH>\")";
-    private final String MESS_CRLF = "line should finish by \\r\\n instead of \\n";
-    private final String MESS_EMPT = "empty line";
-    private final String MESS_ODSP = "odd number of spaces at the beginning of the line";
+    private static final String MESS_BOM  = "file should not have a UTF BOM";
+    private static final String MESS_CTRL = "line contains a control character";
+    private static final String MESS_WTSP = "line is finishing with a white space";
+    private static final String MESS_PATH = "the name of the file does not appear in the <PATH> node (expected to see \"<PATH>HomepageManager/test.xml</PATH>\")";
+    private static final String MESS_CRLF = "line should finish by \\r\\n instead of \\n";
+    private static final String MESS_EMPT = "empty line";
+    private static final String MESS_ODSP = "odd number of spaces at the beginning of the line";
 
+    @SuppressWarnings("static-method")
     @Test
     void testNoError() {
 
@@ -40,6 +41,7 @@ class FileCheckerTest {
         test(content);
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testBomDetection() {
 
@@ -59,6 +61,7 @@ class FileCheckerTest {
              1, MESS_BOM);
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testTabDetectionAtBeginning() {
 
@@ -78,6 +81,7 @@ class FileCheckerTest {
              1, MESS_CTRL + " (x9) at column 1");
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testNonBreakingSpaceAreNotReported() {
 
@@ -95,6 +99,7 @@ class FileCheckerTest {
         test(content);
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testTabDetectionInMiddle() {
 
@@ -115,6 +120,7 @@ class FileCheckerTest {
              6, MESS_WTSP);
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testTabDetectionAtEnd() {
 
@@ -134,6 +140,7 @@ class FileCheckerTest {
              9, MESS_WTSP);
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testSpaceDetectionAtBeginning() {
 
@@ -152,6 +159,7 @@ class FileCheckerTest {
              1, MESS_WTSP);
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testSpaceDetectionInMiddle() {
 
@@ -171,6 +179,7 @@ class FileCheckerTest {
              6, MESS_WTSP);
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testSpaceDetectionAtEnd() {
 
@@ -189,6 +198,7 @@ class FileCheckerTest {
              9, MESS_WTSP);
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testIncorrectPath() {
 
@@ -207,6 +217,7 @@ class FileCheckerTest {
              5, MESS_PATH);
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testMissingCarriageReturn() {
 
@@ -225,6 +236,7 @@ class FileCheckerTest {
              4, MESS_CRLF);
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testEmptyLineDetectionAtBeginning() {
 
@@ -245,6 +257,7 @@ class FileCheckerTest {
              1, MESS_EMPT);
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testEmptyLineDetectionInMiddle() {
 
@@ -264,6 +277,7 @@ class FileCheckerTest {
              6, MESS_EMPT);
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testEmptyLineDetectionAtEnd() {
 
@@ -282,6 +296,7 @@ class FileCheckerTest {
              10, MESS_EMPT);
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testWhiteLineDetectionAtBeginning() {
 
@@ -304,6 +319,7 @@ class FileCheckerTest {
              1, MESS_ODSP);
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testWhiteLineDetectionInMiddle() {
 
@@ -324,6 +340,7 @@ class FileCheckerTest {
              6, MESS_WTSP);
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testWhiteLineDetectionAtEnd() {
 
@@ -345,6 +362,7 @@ class FileCheckerTest {
              10, MESS_ODSP);
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testOddNumberOfSpaces() {
 
@@ -366,14 +384,14 @@ class FileCheckerTest {
 
     private static void test(final String content) {
 
-        final List<FileChecker.Error> expected = new ArrayList<FileChecker.Error>();
+        final List<FileChecker.Error> expected = new ArrayList<>();
         test(content, expected);
     }
 
     private static void test(final String content,
                              final int line0, final String message0) {
 
-        final List<FileChecker.Error> expected = new ArrayList<FileChecker.Error>();
+        final List<FileChecker.Error> expected = new ArrayList<>();
         expected.add(new FileChecker.Error(line0, message0));
         test(content, expected);
     }
@@ -382,7 +400,7 @@ class FileCheckerTest {
                              final int line0, final String message0,
                              final int line1, final String message1) {
 
-        final List<FileChecker.Error> expected = new ArrayList<FileChecker.Error>();
+        final List<FileChecker.Error> expected = new ArrayList<>();
         expected.add(new FileChecker.Error(line0, message0));
         expected.add(new FileChecker.Error(line1, message1));
         test(content, expected);
@@ -393,7 +411,7 @@ class FileCheckerTest {
                              final int line1, final String message1,
                              final int line2, final String message2) {
 
-        final List<FileChecker.Error> expected = new ArrayList<FileChecker.Error>();
+        final List<FileChecker.Error> expected = new ArrayList<>();
         expected.add(new FileChecker.Error(line0, message0));
         expected.add(new FileChecker.Error(line1, message1));
         expected.add(new FileChecker.Error(line2, message2));
@@ -406,7 +424,7 @@ class FileCheckerTest {
                              final int line2, final String message2,
                              final int line3, final String message3) {
 
-        final List<FileChecker.Error> expected = new ArrayList<FileChecker.Error>();
+        final List<FileChecker.Error> expected = new ArrayList<>();
         expected.add(new FileChecker.Error(line0, message0));
         expected.add(new FileChecker.Error(line1, message1));
         expected.add(new FileChecker.Error(line2, message2));
@@ -426,7 +444,7 @@ class FileCheckerTest {
 
     private static String normalize(final List<FileChecker.Error> errors) {
         return errors.stream()
-                     .map(e -> String.format("%02d %s", e.getLineNumber(), e.getErrorMessage()))
+                     .map(e -> String.format("%02d %s", Integer.valueOf(e.getLineNumber()), e.getErrorMessage()))
                      .sorted()
                      .collect(Collectors.joining("\n"));
     }
