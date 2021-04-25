@@ -17,8 +17,8 @@ public class Article {
                    final Optional<TemporalAccessor> date) {
         _referringPage = page;
         _date = date;
-        _authors = new ArrayList<Author>();
-        _links = new ArrayList<Link>();
+        _authors = new ArrayList<>();
+        _links = new ArrayList<>();
     }
 
     /**

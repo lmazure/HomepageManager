@@ -142,7 +142,7 @@ public class SiteDataPersister {
     public List<Instant> getTimestampList(final URL url) {
 
         if (!Files.exists(getOutputDirectory(url))) {
-            return new ArrayList<Instant>(0);
+            return new ArrayList<>(0);
         }
 
         try {
@@ -178,7 +178,7 @@ public class SiteDataPersister {
             {
                 final String httpCodePresence = reader.readLine();
                 if (httpCodePresence.equals("present")) {
-                    httpCode = Optional.of(Integer.parseInt(reader.readLine()));
+                    httpCode = Optional.of(Integer.valueOf(Integer.parseInt(reader.readLine())));
                 } else if (httpCodePresence.equals("empty")) {
                     httpCode = Optional.empty();
                 } else {
@@ -190,11 +190,11 @@ public class SiteDataPersister {
                 final String headersPresence = reader.readLine();
                 if (headersPresence.equals("present")) {
                     final int nbHeaders = Integer.parseInt(reader.readLine());
-                    final Map<String, List<String>> map = new HashMap<String, List<String>>(nbHeaders);
+                    final Map<String, List<String>> map = new HashMap<>(nbHeaders);
                     for (int i = 0; i < nbHeaders; i++) {
                         final String[] lineParts = reader.readLine().split("\t");
                         final String header = lineParts[0];
-                        final List<String> list = new ArrayList<String>(lineParts.length - 1);
+                        final List<String> list = new ArrayList<>(lineParts.length - 1);
                         for (int j = 1; j < lineParts.length; j++) {
                             list.add(lineParts[j]);
                         }

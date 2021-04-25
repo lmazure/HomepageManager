@@ -38,10 +38,10 @@ public class YoutubeWatchLinkContentParser {
 
     public boolean isPlayable() {
         if (_isPlayable == null) {
-            _isPlayable = getPlayable();
+            _isPlayable = Boolean.valueOf(getPlayable());
         }
 
-        return _isPlayable;
+        return _isPlayable.booleanValue();
     }
 
     public String getTitle() throws ContentParserException {

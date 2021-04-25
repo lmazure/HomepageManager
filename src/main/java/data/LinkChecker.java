@@ -27,7 +27,7 @@ public class LinkChecker implements FileHandler {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;
         _controller = controller;
-        _handlers = new HashMap<Path, LinkCheckRunner>();
+        _handlers = new HashMap<>();
     }
 
     @Override

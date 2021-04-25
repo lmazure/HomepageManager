@@ -49,7 +49,7 @@ public class HTMLGenerator implements FileHandler {
         _tmpPath = tmpPath;
         _controller = controller;
         _builder = newDocumentBuilder();
-        _transformer = newTransformer(_homepagePath);
+        _transformer = newTransformer();
     }
 
     @Override
@@ -103,7 +103,7 @@ public class HTMLGenerator implements FileHandler {
         }
     }
 
-    private Transformer newTransformer(final Path homepagePath) {
+    private Transformer newTransformer() {
         final TransformerFactory transformerFactory = TransformerFactory.newInstance();
         final StreamSource stylesource = new StreamSource(getSylesheetFile().toFile());
         try {

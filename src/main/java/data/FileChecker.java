@@ -97,7 +97,7 @@ public class FileChecker implements FileHandler {
 
     public List<Error> check(final Path file,
                              final String content) {  //TODO see how to test this method while keeping it private
-        final List<Error> errors =  new ArrayList<Error>();
+        final List<Error> errors =  new ArrayList<>();
         errors.addAll(checkFileBom(content));
         errors.addAll(checkCharacters(content));
         errors.addAll(checkPath(file, content));
@@ -106,18 +106,18 @@ public class FileChecker implements FileHandler {
         return errors;
     }
 
-    private List<Error> checkFileBom(final String content) {
+    private static List<Error> checkFileBom(final String content) {
 
-        final List<Error> errors = new ArrayList<Error>();
+        final List<Error> errors = new ArrayList<>();
         if (content.startsWith(UTF8_BOM)) {
             errors.add(new Error(1, "file should not have a UTF BOM"));
         }
         return errors;
     }
 
-    private List<Error> checkCharacters(final String content) {
+    private static List<Error> checkCharacters(final String content) {
 
-        final List<Error> errors = new ArrayList<Error>();
+        final List<Error> errors = new ArrayList<>();
 
         boolean isPreviousCharacterCarriageReturn = false;
         boolean isPreviousCharacterWhiteSpace = false;
@@ -174,10 +174,10 @@ public class FileChecker implements FileHandler {
         return errors;
     }
 
-    private List<Error> checkPath(final Path file,
-                                  final String content) { // TODO really check that the 5th line is correct
+    private static List<Error> checkPath(final Path file,
+                                         final String content) { // TODO really check that the 5th line is correct
 
-        final List<Error> errors = new ArrayList<Error>();
+        final List<Error> errors = new ArrayList<>();
 
         try {
             final String filename = file.toFile().getCanonicalPath();
@@ -195,9 +195,9 @@ public class FileChecker implements FileHandler {
         return errors;
     }
 
-    private List<Error> checkEventNumberOfSpaces(final String content) {
+    private static List<Error> checkEventNumberOfSpaces(final String content) {
 
-        final List<Error> errors = new ArrayList<Error>();
+        final List<Error> errors = new ArrayList<>();
 
         int n = 0;
         for (final String line : content.lines().toArray(String[]::new)) {
@@ -212,7 +212,7 @@ public class FileChecker implements FileHandler {
 
     private List<Error> checkSchema(final String content) {
 
-        final List<Error> errors = new ArrayList<Error>();
+        final List<Error> errors = new ArrayList<>();
 
         final Source source = new StreamSource(new StringReader(content));
 
@@ -253,7 +253,7 @@ public class FileChecker implements FileHandler {
                || (getOutputFile(file).toFile().lastModified() <= file.toFile().lastModified());
     }
 
-    private int numberOfWhiteCharactersAtBeginning(final String str) {
+    private static int numberOfWhiteCharactersAtBeginning(final String str) {
 
         int n = 0;
         while ((n < str.length()) && (str.charAt(n) == ' ')) n++;

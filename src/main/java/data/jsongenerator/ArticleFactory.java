@@ -13,7 +13,7 @@ public class ArticleFactory {
      *
      */
     public ArticleFactory() {
-        _articles = new HashSet<Article>();
+        _articles = new HashSet<>();
     }
 
     public Article buildArticle(final File page,

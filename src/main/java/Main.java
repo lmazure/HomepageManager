@@ -30,8 +30,7 @@ public class Main {
 
         final Path homepagePath = Paths.get(args[args.length - 2]);
         final Path tmpPath = Paths.get(args[args.length - 1]);
-        final FileTable table = new FileTable();
-        table.display(homepagePath, tmpPath, internetAccessIsEnabled);
+        FileTable.display(homepagePath, tmpPath, internetAccessIsEnabled);
     }
 
     private static void exitOnErrorSyntax() {

@@ -14,8 +14,7 @@ public class Link extends LinkData implements Comparable<Link> {
 
     private final String _sortingKey;
 
-    public Link(final Article article,
-                final String title,
+    public Link(final String title,
                 final String[] subtitles,
                 final String url,
                 final Optional<LinkStatus> status,

@@ -34,7 +34,7 @@ public class CachedYoutubeApi {
     }
 
     public List<YoutubeVideoDto> getData(final List<String> videoIds) {
-        final List<YoutubeVideoDto> dtos = new ArrayList<YoutubeVideoDto>();
+        final List<YoutubeVideoDto> dtos = new ArrayList<>();
         for (String videoId: videoIds) {
             dtos.add(getData(videoId));
         }

@@ -14,19 +14,19 @@ public class FileCheckController extends GenericUiController {
     @Override
     public TableColumn<ObservableFile, ?> getColumns() {
 
-        final TableColumn<ObservableFile, String> allColumns = new TableColumn<ObservableFile, String>("Check file");
+        final TableColumn<ObservableFile, String> allColumns = new TableColumn<>("Check file");
 
         final TableColumn<ObservableFile, String> displayColumn = new TableColumn<>("Display");
         displayColumn.setPrefWidth(61);
         displayColumn.setSortable(false);
-        displayColumn.setCellFactory(p -> { return new FixedButtonCell<ObservableFile>("display", f -> ActionHelper.displayFile(f.getFileCheckOuputFile()));});
+        displayColumn.setCellFactory(p -> { return new FixedButtonCell<>("display", f -> ActionHelper.displayFile(f.getFileCheckOuputFile()));});
         allColumns.getColumns().add(displayColumn);
 
         final TableColumn<ObservableFile, String> statusColumn = new TableColumn<>("Status");
         statusColumn.setPrefWidth(172);
         statusColumn.setCellValueFactory(f -> f.getValue().getFileCheckProperty());
-        statusColumn.setCellFactory(p -> { return new UpdatableButtonCell<ObservableFile>(f -> ActionHelper.displayFile(f.getFileCheckReportFile()),
-                                                                                          StatusRepresentation.getColorMap());});
+        statusColumn.setCellFactory(p -> { return new UpdatableButtonCell<>(f -> ActionHelper.displayFile(f.getFileCheckReportFile()),
+                                                                            StatusRepresentation.getColorMap());});
         allColumns.getColumns().add(statusColumn);
 
         return allColumns;

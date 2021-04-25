@@ -10,13 +10,11 @@ public class LinkFactory {
     private final HashSet<Link> _links;
 
     public LinkFactory() {
-        _links = new HashSet<Link>();
+        _links = new HashSet<>();
     }
 
-    public Link newLink(final Article article,
-                        final LinkData linkData) {
-        final Link link = new Link(article,
-                                   linkData.getTitle(),
+    public Link newLink(final LinkData linkData) {
+        final Link link = new Link(linkData.getTitle(),
                                    linkData.getSubtitles(),
                                    linkData.getUrl(),
                                    linkData.getStatus(),

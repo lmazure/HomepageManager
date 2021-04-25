@@ -70,9 +70,10 @@ public class SynchronousSiteDataRetriever {
              httpConnection.setRequestProperty("Accept-Language", "en");
              httpConnection.connect();
              headers = Optional.of(connection.getHeaderFields());
-             httpCode = Optional.of(httpConnection.getResponseCode());
-             if (httpCode.get() != HttpURLConnection.HTTP_OK         /* 200 */ && // TODO this cannot be right
-                 httpCode.get() != HttpURLConnection.HTTP_CREATED    /* 201 */) {
+             final int responseCode = httpConnection.getResponseCode();
+             httpCode = Optional.of(Integer.valueOf(responseCode));
+             if (responseCode != HttpURLConnection.HTTP_OK         /* 200 */ && // TODO this cannot be right
+                 responseCode != HttpURLConnection.HTTP_CREATED    /* 201 */) {
                  error = Optional.of("page not found");
                  _persister.persist(url, timestamp, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error);
                  consumer.accept(Boolean.TRUE, new SiteData(url, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error));
@@ -93,9 +94,11 @@ public class SynchronousSiteDataRetriever {
         final TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
             @Override
             public void checkClientTrusted(final X509Certificate[] chain, final String authType) {
+                // to nothing
             }
             @Override
             public void checkServerTrusted(final X509Certificate[] chain, final String authType) {
+                // to nothing
             }
             @Override
             public X509Certificate[] getAcceptedIssuers() {

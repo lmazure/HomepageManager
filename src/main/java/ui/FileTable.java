@@ -34,8 +34,8 @@ public class FileTable extends Application {
     @Override
     public void start(final Stage stage) {
 
-        final List<GenericUiController> uiControllers = new ArrayList<GenericUiController>();
-        final List<FileHandler> fileHandlers = new ArrayList<FileHandler>();
+        final List<GenericUiController> uiControllers = new ArrayList<>();
+        final List<FileHandler> fileHandlers = new ArrayList<>();
 
         final HtmlGenerationController htmlFileController = new HtmlGenerationController(_list, _homepagePath);
         final HTMLGenerator htmlFileGenerator = new HTMLGenerator(_homepagePath, _tmpPath, htmlFileController);
@@ -69,10 +69,10 @@ public class FileTable extends Application {
         border.setBottom(builtButtons());
         final Scene scene = new Scene(border);
 
-        final Service<Void> calculateService = new Service<Void>() {
+        final Service<Void> calculateService = new Service<>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
 
                     @Override
                     protected Void call() throws Exception {
@@ -89,11 +89,11 @@ public class FileTable extends Application {
         stage.show();
     }
 
-    private TableView<ObservableFile> buildTable(final List<GenericUiController> uiControllers) {
+    private static TableView<ObservableFile> buildTable(final List<GenericUiController> uiControllers) {
 
-        final TableView<ObservableFile> table = new TableView<ObservableFile>();
+        final TableView<ObservableFile> table = new TableView<>();
 
-        final TableColumn<ObservableFile, String> fileColumn = new TableColumn<ObservableFile, String>("File");
+        final TableColumn<ObservableFile, String> fileColumn = new TableColumn<>("File");
         fileColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
         fileColumn.setPrefWidth(230);
         table.getColumns().add(fileColumn);
@@ -127,7 +127,7 @@ public class FileTable extends Application {
         return table;
     }
 
-    private HBox builtButtons() {
+    private static HBox builtButtons() {
 
         final HBox buttonPanel = new HBox();
 
@@ -142,9 +142,9 @@ public class FileTable extends Application {
         return buttonPanel;
     }
 
-    public void display(final Path homepagePath,
-                        final Path tmpPath,
-                        final boolean internetAccessiSEnabled) {
+    public static void display(final Path homepagePath,
+                               final Path tmpPath,
+                               final boolean internetAccessiSEnabled) {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;
         _internetAccessiSEnabled = internetAccessiSEnabled;
@@ -152,13 +152,13 @@ public class FileTable extends Application {
         launch();
     }
 
-    private void generateGlobalFiles() {
+    private static void generateGlobalFiles() {
         SiteFilesGenerator.generate(_homepagePath, _list.getFileList());
         JsonGenerator.generate(_homepagePath, _list.getFileList());
         MetricsExtractor.generate(_homepagePath);
     }
 
-    private void exit() {
+    private static void exit() {
         System.exit(0);
     }
 }

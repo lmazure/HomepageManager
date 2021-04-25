@@ -46,8 +46,8 @@ public class Author extends AuthorData implements Comparable<Author> {
             return _normalizedName;
         }
 
-        private void append(final StringBuilder builder,
-                            final Optional<String> app) {
+        private static void append(final StringBuilder builder,
+                                   final Optional<String> app) {
 
             if (builder.length() > 0) {
                 builder.append('!'); // to not use '\n', the collator will ignore it when comparing strings
@@ -75,8 +75,8 @@ public class Author extends AuthorData implements Comparable<Author> {
                   final Optional<String> givenName) {
         super(namePrefix, firstName, middleName, lastName, nameSuffix, givenName);
         _sortingKey = new SortingKey(namePrefix, firstName, middleName, lastName, nameSuffix, givenName);
-        _articles = new ArrayList<Article>();
-        _links = new ArrayList<Link>();
+        _articles = new ArrayList<>();
+        _links = new ArrayList<>();
     }
 
     /**

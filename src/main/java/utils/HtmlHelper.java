@@ -3,6 +3,7 @@ package utils;
 import java.io.StringWriter;
 import java.util.HashMap;
 
+@SuppressWarnings("boxing")
 public class HtmlHelper {
 
     public static final String cleanContent(final String input) {
@@ -94,7 +95,7 @@ public class HtmlHelper {
 
     private static final HashMap<String, Character> lookupMap;
     static {
-        lookupMap = new HashMap<String, Character>();
+        lookupMap = new HashMap<>();
         lookupMap.put("Aacute", '\u00C1');
         lookupMap.put("aacute", '\u00E1');
         lookupMap.put("Acirc", '\u00C2');

@@ -35,12 +35,12 @@ public class XmlParser {
             throw new XmlParsingException("Wrong number of DATE nodes (" + dateNodes.size() + ")");
         }
 
-        final List<LinkData> links = new ArrayList<LinkData>();
+        final List<LinkData> links = new ArrayList<>();
         for (final Element linkNode: getChildElements(articleElement, ElementType.X)) {
             links.add(XmlParser.parseXElement(linkNode));
         }
 
-        final List<AuthorData> authors = new ArrayList<AuthorData>();
+        final List<AuthorData> authors = new ArrayList<>();
         for (final Element authorNode: getChildElements(articleElement, ElementType.AUTHOR)) {
             authors.add(XmlParser.parseAuthorElement(authorNode));
         }
@@ -70,8 +70,8 @@ public class XmlParser {
         final String keyText = children.item(1).getTextContent();
 
         final Element grandParent = (Element)keywordElement.getParentNode().getParentNode();
-        final List<ArticleData> articles = new ArrayList<ArticleData>();
-        final List<LinkData> links = new ArrayList<LinkData>();
+        final List<ArticleData> articles = new ArrayList<>();
+        final List<LinkData> links = new ArrayList<>();
         if (XmlHelper.isOfType(grandParent, ElementType.ARTICLE)) {
             // the KEYWORD is in an article
             articles.add(parseArticleElement(grandParent));
@@ -299,7 +299,7 @@ public class XmlParser {
     private static List<Element> getChildElements(final Element element,
                                                   final ElementType type) {
 
-        final List<Element> list = new ArrayList<Element>();
+        final List<Element> list = new ArrayList<>();
 
         final NodeList children =  element.getChildNodes();
         for (int i = 0; i < children.getLength(); i++) {

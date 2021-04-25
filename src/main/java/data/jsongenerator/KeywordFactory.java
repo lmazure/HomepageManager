@@ -8,7 +8,7 @@ public class KeywordFactory {
     private final HashMap<String,Keyword> _keywords;
 
     public KeywordFactory() {
-        _keywords = new HashMap<String,Keyword>();
+        _keywords = new HashMap<>();
     }
 
     public Keyword newKeyword(final String keyId) {

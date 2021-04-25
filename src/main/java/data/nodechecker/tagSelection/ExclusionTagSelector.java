@@ -14,7 +14,7 @@ public class ExclusionTagSelector implements TagSelector {
      * @param typesToIgnore
      */
     public ExclusionTagSelector(final ElementType typesToIgnore[]) {
-        _types = new HashSet<ElementType>(Arrays.asList(typesToIgnore));
+        _types = new HashSet<>(Arrays.asList(typesToIgnore));
     }
 
     @Override

@@ -69,7 +69,7 @@ public class NodeValueChecker implements FileHandler {
         _controller = controller;
         _builder = XmlHelper.buildDocumentBuilder();
 
-        _nodeCheckers = new HashSet<NodeChecker>();
+        _nodeCheckers = new HashSet<>();
         _nodeCheckers.add(new ExtremitySpaceChecker());
         _nodeCheckers.add(new MiddleNewlineChecker());
         _nodeCheckers.add(new EllipsisChecker());
@@ -176,7 +176,7 @@ public class NodeValueChecker implements FileHandler {
     private List<NodeCheckError> checkNode(final File file,
                                            final Element e) {
 
-        final List<NodeCheckError> errors = new ArrayList<NodeCheckError>();
+        final List<NodeCheckError> errors = new ArrayList<>();
         final NodeList children = e.getChildNodes();
 
         for (int j = 0; j < children.getLength(); j++) {

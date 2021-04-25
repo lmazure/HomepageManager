@@ -129,7 +129,7 @@ public class JsonWriter {
          final Author authors[] = _authorFactory.getAuthors();
          final HashMap<Author, Integer> authorIndexes = new HashMap<>();
          for (int i = 0; i < authors.length; i++) {
-             authorIndexes.put(authors[i], i);
+             authorIndexes.put(authors[i], Integer.valueOf(i));
          }
 
          try (final OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(f), Charset.forName("UTF-8").newEncoder())) {
@@ -148,9 +148,9 @@ public class JsonWriter {
                      final TemporalAccessor date = article.getDateData().get();
                      out.write("\n      \"date\" : " + date.get(ChronoField.YEAR));
                      if (date.isSupported(ChronoField.MONTH_OF_YEAR)) {
-                         out.write(String.format("%02d",date.get(ChronoField.MONTH_OF_YEAR)));
+                         out.write(String.format("%02d", Integer.valueOf(date.get(ChronoField.MONTH_OF_YEAR))));
                          if (date.isSupported(ChronoField.DAY_OF_MONTH)) {
-                             out.write(String.format("%02d",date.get(ChronoField.DAY_OF_MONTH)));
+                             out.write(String.format("%02d", Integer.valueOf(date.get(ChronoField.DAY_OF_MONTH))));
                          }
                      }
                      out.write(",");
@@ -198,13 +198,13 @@ public class JsonWriter {
         final HashMap<Article, Integer> articleIndexes = new HashMap<>();
         Arrays.sort(articles, new ArticleComparator());
         for (int i = 0; i < articles.length; i++) {
-            articleIndexes.put(articles[i], i);
+            articleIndexes.put(articles[i], Integer.valueOf(i));
         }
 
         final Author authors[] = _authorFactory.getAuthors();
         final HashMap<Author, Integer> authorIndexes = new HashMap<>();
         for (int i = 0; i < authors.length; i++) {
-            authorIndexes.put(authors[i], i);
+            authorIndexes.put(authors[i], Integer.valueOf(i));
         }
 
         try (final OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(f), Charset.forName("UTF-8").newEncoder())) {
@@ -244,8 +244,8 @@ public class JsonWriter {
         Logger.log(Logger.Level.INFO).append(f).append(" is created").submit();
     }
 
-    private void printLinks(final OutputStreamWriter out,
-                            final Link[] links) throws IOException {
+    private static void printLinks(final OutputStreamWriter out,
+                                   final Link[] links) throws IOException {
         out.write("\n      \"links\" : [");
         for (int i = 0; i < links.length; i++) {
             final Link link = links[i];

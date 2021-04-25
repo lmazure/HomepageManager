@@ -47,9 +47,9 @@ public class WatchDir {
 
         _path = path;
         _watcher = FileSystems.getDefault().newWatchService();
-        _keys = new HashMap<WatchKey,Path>();
-        _ignoredDirectories = new HashSet<String>();
-        _watchers = new ArrayList<FileWatcher>();
+        _keys = new HashMap<>();
+        _ignoredDirectories = new HashSet<>();
+        _watchers = new ArrayList<>();
     }
 
     /**

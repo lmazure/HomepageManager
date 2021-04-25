@@ -89,7 +89,7 @@ public class Parser {
             final Article article = _articleFactory.buildArticle(file, articleData.getDate());
 
             for (int j = 0; j < articleData.getLinks().size(); j++) {
-                final Link link = _linkFactory.newLink(article, articleData.getLinks().get(j));
+                final Link link = _linkFactory.newLink(articleData.getLinks().get(j));
                 article.addLink(link);
             }
 
@@ -129,7 +129,7 @@ public class Parser {
             }
 
             for (final LinkData link : keywordData.getLinks()) {
-                final Link l = _linkFactory.newLink(null, link);
+                final Link l = _linkFactory.newLink(link);
                 keyword.addLink(l);
             }
         }
@@ -199,7 +199,7 @@ public class Parser {
                     throw new XmlParsingException("Illegal child node");
                 }
                 final LinkData linkData = XmlParser.parseXElement((Element)linkNode.getChildNodes().item(0));
-                final Link link = _linkFactory.newLink(null, linkData);
+                final Link link = _linkFactory.newLink(linkData);
 
                 author.addLink(link);
             }

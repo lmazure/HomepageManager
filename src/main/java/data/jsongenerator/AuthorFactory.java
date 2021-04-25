@@ -13,7 +13,7 @@ public class AuthorFactory {
      *
      */
     public AuthorFactory() {
-        _authors = new HashMap<String, Author>();
+        _authors = new HashMap<>();
     }
 
     /**
@@ -68,7 +68,7 @@ public class AuthorFactory {
         return a;
     }
 
-    private String computeEncodedName(final AuthorData authorData) {
+    private static String computeEncodedName(final AuthorData authorData) {
         final String encodedName =
             authorData.getLastName().orElse("") + '\n' +
             authorData.getGivenName().orElse("") + '\n' +

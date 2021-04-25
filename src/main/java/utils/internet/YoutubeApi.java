@@ -50,7 +50,7 @@ public class YoutubeApi {
             e.printStackTrace();
         }*/
 
-        final List<YoutubeVideoDto> dtos = new ArrayList<YoutubeVideoDto>();
+        final List<YoutubeVideoDto> dtos = new ArrayList<>();
         for (final Video video: responses.getItems()) {
             dtos.add(buildDto(video));
         }
@@ -117,7 +117,7 @@ public class YoutubeApi {
         }
     }
 
-    private Locale parseLanguage(final String lang) {
+    private static Locale parseLanguage(final String lang) {
         if (lang == null) {
             return null;
         } else if (lang.equals("fr")) {

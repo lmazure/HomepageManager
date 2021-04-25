@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class StringHelper {
 
-    public static final Set<String> englishWords = new HashSet<String>(Arrays.asList(
+    public static final Set<String> englishWords = new HashSet<>(Arrays.asList(
             "a", "an",
             "the",
             "this", "that", "these",
@@ -41,7 +41,7 @@ public class StringHelper {
             "japan"
         ));
 
-    public static final Set<String> frenchWords = new HashSet<String>(Arrays.asList(
+    public static final Set<String> frenchWords = new HashSet<>(Arrays.asList(
             "un", "une",
             "le", "la", "les",
             "ces", "cet", "cette",

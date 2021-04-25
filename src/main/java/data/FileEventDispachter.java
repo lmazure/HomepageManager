@@ -129,7 +129,7 @@ public class FileEventDispachter {
         }
     }
 
-    private BasicFileAttributes getBasicFileAttributes(final Path file) {
+    private static BasicFileAttributes getBasicFileAttributes(final Path file) {
         try {
             return Files.readAttributes(file, BasicFileAttributes.class);
         } catch (final IOException e) {

@@ -11,8 +11,8 @@ public class Keyword {
 
     public Keyword(final String id) {
         _id = id;
-        _links = new ArrayList<Link>();
-        _articles = new ArrayList<Article>();
+        _links = new ArrayList<>();
+        _articles = new ArrayList<>();
     }
 
     public String getId() {

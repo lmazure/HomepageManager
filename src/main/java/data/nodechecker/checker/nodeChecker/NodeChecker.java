@@ -61,7 +61,7 @@ public class NodeChecker {
     }
 
     public List<NodeCheckError> check(final Element element) {
-        final List<NodeCheckError> errors = new ArrayList<NodeCheckError>();
+        final List<NodeCheckError> errors = new ArrayList<>();
         for (int i = 0; i < _rules.length; i++) {
             final CheckStatus status = _rules[i].apply(element);
             if (status != null) {

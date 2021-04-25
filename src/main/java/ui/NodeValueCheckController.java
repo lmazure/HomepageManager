@@ -14,19 +14,19 @@ public class NodeValueCheckController extends GenericUiController {
     @Override
     public TableColumn<ObservableFile, ?> getColumns() {
 
-        final TableColumn<ObservableFile, String> allColumns = new TableColumn<ObservableFile, String>("Check node values");
+        final TableColumn<ObservableFile, String> allColumns = new TableColumn<>("Check node values");
 
         final TableColumn<ObservableFile, String> displayColumn = new TableColumn<>("Display");
         displayColumn.setPrefWidth(61);
         displayColumn.setSortable(false);
-        displayColumn.setCellFactory(p -> { return new FixedButtonCell<ObservableFile>("display", f -> ActionHelper.displayFile(f.getNodeValueCheckOuputFile()));});
+        displayColumn.setCellFactory(p -> { return new FixedButtonCell<>("display", f -> ActionHelper.displayFile(f.getNodeValueCheckOuputFile()));});
         allColumns.getColumns().add(displayColumn);
 
         final TableColumn<ObservableFile, String> statusColumn = new TableColumn<>("Status");
         statusColumn.setPrefWidth(172);
         statusColumn.setCellValueFactory(f -> f.getValue().getNodeValueCheckProperty());
-        statusColumn.setCellFactory(p -> { return new UpdatableButtonCell<ObservableFile>(f -> ActionHelper.displayFile(f.getNodeValueCheckReportFile()),
-                                                                                          StatusRepresentation.getColorMap());});
+        statusColumn.setCellFactory(p -> { return new UpdatableButtonCell<>(f -> ActionHelper.displayFile(f.getNodeValueCheckReportFile()),
+                                                                            StatusRepresentation.getColorMap());});
         allColumns.getColumns().add(statusColumn);
 
         return allColumns;

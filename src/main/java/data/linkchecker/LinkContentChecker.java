@@ -58,7 +58,7 @@ public class LinkContentChecker {
 
     public final List<LinkContentCheck> check(final String data) throws ContentParserException {
 
-        final List<LinkContentCheck> checks = new ArrayList<LinkContentCheck>();
+        final List<LinkContentCheck> checks = new ArrayList<>();
 
         {
             final LinkContentCheck check = checkGlobalData(data);
@@ -119,7 +119,8 @@ public class LinkContentChecker {
     /**
      * @throws ContentParserException
      */
-    protected LinkContentCheck checkGlobalData(final String data) throws ContentParserException
+    @SuppressWarnings("static-method")
+    protected LinkContentCheck checkGlobalData(@SuppressWarnings("unused") final String data) throws ContentParserException
     {
         return null;
     }
@@ -127,6 +128,7 @@ public class LinkContentChecker {
     /**
      * @throws ContentParserException
      */
+    @SuppressWarnings("static-method")
     protected LinkContentCheck checkLinkTitle(final String data,
                                               final String title) throws ContentParserException
     {
@@ -136,6 +138,7 @@ public class LinkContentChecker {
     /**
      * @throws ContentParserException
      */
+    @SuppressWarnings("static-method")
     protected LinkContentCheck checkLinkSubtitles(final String data,
                                                   final String[] subtitles) throws ContentParserException
     {
@@ -173,8 +176,9 @@ public class LinkContentChecker {
     /**
      * @throws ContentParserException
      */
-    protected LinkContentCheck checkLinkDuration(final String data,
-                                                 final Duration duration) throws ContentParserException
+    @SuppressWarnings("static-method")
+    protected LinkContentCheck checkLinkDuration(@SuppressWarnings("unused") final String data,
+                                                 @SuppressWarnings("unused") final Duration duration) throws ContentParserException
     {
         return null;
     }
@@ -201,16 +205,17 @@ public class LinkContentChecker {
     /**
      * @throws ContentParserException
      */
-    protected LinkContentCheck checkArticleDate(final String data,
-                                                final Optional<TemporalAccessor> publicationDate,
-                                                final Optional<TemporalAccessor> creationDate) throws ContentParserException
+    @SuppressWarnings("static-method")
+    protected LinkContentCheck checkArticleDate(@SuppressWarnings("unused") final String data,
+                                                @SuppressWarnings("unused") final Optional<TemporalAccessor> publicationDate,
+                                                @SuppressWarnings("unused") final Optional<TemporalAccessor> creationDate) throws ContentParserException
     {
         return null;
     }
 
-    private LinkContentCheck checkTitle(final String data,
-                                        final String expectedTitle,
-                                        final String description) {
+    private static LinkContentCheck checkTitle(final String data,
+                                               final String expectedTitle,
+                                               final String description) {
         final String d = HtmlHelper.cleanContent(data);
         if (!doesStringAppearInData(d, expectedTitle)) {
             String comment = "";
@@ -224,8 +229,8 @@ public class LinkContentChecker {
 
     }
 
-    private LinkContentCheck checkAuthor(final String data,
-                                         final AuthorData author) {
+    private static LinkContentCheck checkAuthor(final String data,
+                                                final AuthorData author) {
         final String d = HtmlHelper.cleanContent(data);
         final String authorStr = author.getLastName().isPresent() ? author.getLastName().get()
                                                                   : author.getFirstName().isPresent() ? author.getFirstName().get()
@@ -236,18 +241,18 @@ public class LinkContentChecker {
         return null;
     }
 
-    private boolean doesStringAppearInDataCaseIndependant(final String data,
-                                                          final String str) {
+    private static boolean doesStringAppearInDataCaseIndependant(final String data,
+                                                                 final String str) {
         return doesStringAppearInData(data.toUpperCase(), str.toUpperCase());
     }
 
-    private boolean doesStringAppearInData(final String data,
-                                           final String str) {
+    private static boolean doesStringAppearInData(final String data,
+                                                  final String str) {
         return (data.indexOf(str) >= 0);
     }
 
-    private String extractEffectiveTitleByIgnoringNonBreakingSpaces(final String data,
-                                                                    final String str) {
+    private static String extractEffectiveTitleByIgnoringNonBreakingSpaces(final String data,
+                                                                           final String str) {
         final String data2 = data.replaceAll("\u00A0", " ");
         final String str2 = str.replaceAll("\u00A0", " ");
         final int index = data2.indexOf(str2);

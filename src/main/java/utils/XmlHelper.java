@@ -24,7 +24,7 @@ public class XmlHelper {
 
     public static List<String> getFirstLevelTextContent(final Node node) {
         final NodeList list = node.getChildNodes();
-        final List<String> content = new ArrayList<String>();
+        final List<String> content = new ArrayList<>();
         for (int i = 0; i < list.getLength(); i++) {
             final Node child = list.item(i);
             if (child.getNodeType() == Node.TEXT_NODE)
@@ -111,7 +111,7 @@ public class XmlHelper {
     public static List<Element> getChildrenByElementType(final Element element,
                                                          final ElementType type) {
         final NodeList list = element.getChildNodes();
-        final List<Element> children = new ArrayList<Element>();
+        final List<Element> children = new ArrayList<>();
         for (int i = 0; i < list.getLength(); i++) {
             final Node child = list.item(i);
             if (child.getNodeType() == Node.ELEMENT_NODE) {

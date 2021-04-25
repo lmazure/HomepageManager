@@ -18,7 +18,7 @@ public class ObservableFileList implements FileExistenceHandler {
 
     public ObservableFileList() {
         _data = FXCollections.observableArrayList();
-        _files = new HashMap<Path, ObservableFile>();
+        _files = new HashMap<>();
     }
 
     @Override
