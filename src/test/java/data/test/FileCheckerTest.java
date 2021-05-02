@@ -254,7 +254,8 @@ class FileCheckerTest {
 
         test(content,
              0, "the file violates the schema (\"org.xml.sax.SAXParseException; lineNumber: 2; columnNumber: 6; The processing instruction target matching \"[xX][mM][lL]\" is not allowed.\")",
-             1, MESS_EMPT);
+             1, MESS_EMPT,
+             4, "the line contains the string \"\">\"");
     }
 
     @SuppressWarnings("static-method")
@@ -316,7 +317,8 @@ class FileCheckerTest {
              0, "the file violates the schema (\"org.xml.sax.SAXParseException; lineNumber: 2; columnNumber: 6; The processing instruction target matching \"[xX][mM][lL]\" is not allowed.\")",
              1, MESS_EMPT,
              1, MESS_WTSP,
-             1, MESS_ODSP);
+             1, MESS_ODSP,
+             4, "the line contains the string \"\">\"");
     }
 
     @SuppressWarnings("static-method")
@@ -382,6 +384,32 @@ class FileCheckerTest {
              5, MESS_ODSP);
     }
 
+    @SuppressWarnings("static-method")
+    @Test
+    void testBadGreaterThanCharacter() {
+
+        final String content =
+            "<?xml version=\"1.0\"?>\r\n" +
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<TITLE>test</TITLE>\r\n" +
+            "<PATH>HomepageManager/test.xml</PATH>\r\n" +
+            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY> </DATE>\r\n" +
+            "<CONTENT>\r\n" +
+            "  <BLIST><TITLE>My articles</TITLE>\r\n" +
+            "    <ITEM><ARTICLE><X status='dead'><T>>Antisocial Coding: My Year at GitHub</T><A>https://where.coraline.codes/blog/my-year-at-github/</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Coraline Ada</FIRSTNAME><LASTNAME>Ehmke</LASTNAME></AUTHOR><DATE><YEAR>2017</YEAR><MONTH>7</MONTH><DAY>5</DAY></DATE><COMMENT>The author, a transgender, described her life in and firing from GitHub.</COMMENT></ARTICLE></ITEM>\r\n" +
+            "    <ITEM><ARTICLE><X status='dead'><T>example</T><A>https://example.com</A><L>en</L><F>HTML</F></X><DATE><YEAR>2021</YEAR></DATE><COMMENT>blabla</COMMENT></ARTICLE></ITEM>\r\n" +
+            "  <!-- comment -->\r\n" +
+            "  </BLIST>\r\n" +
+            "</CONTENT >\r\n" +
+            "</PAGE>";
+
+        test(content,
+             6, "the line contains the string \"> <\"",
+             9, "the line contains the string \">>\"",
+             13, "the line contains the string \" >\"");
+    }
+
     private static void test(final String content) {
 
         final List<FileChecker.Error> expected = new ArrayList<>();
@@ -422,16 +450,17 @@ class FileCheckerTest {
                              final int line0, final String message0,
                              final int line1, final String message1,
                              final int line2, final String message2,
-                             final int line3, final String message3) {
+                             final int line3, final String message3,
+                             final int line4, final String message4) {
 
         final List<FileChecker.Error> expected = new ArrayList<>();
         expected.add(new FileChecker.Error(line0, message0));
         expected.add(new FileChecker.Error(line1, message1));
         expected.add(new FileChecker.Error(line2, message2));
         expected.add(new FileChecker.Error(line3, message3));
+        expected.add(new FileChecker.Error(line4, message4));
         test(content, expected);
     }
-
 
     private static void test(final String content,
                              final List<FileChecker.Error> expected) {

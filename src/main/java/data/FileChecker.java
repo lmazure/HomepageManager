@@ -13,6 +13,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
@@ -32,6 +34,8 @@ import utils.XmlHelper;
 public class FileChecker implements FileHandler {
 
     private static final String UTF8_BOM = "\uFEFF";
+    private static final Pattern s_badGreaterThan = Pattern.compile("[^-A-Z/']>");
+    private static final Pattern s_spaceBetweenTags = Pattern.compile(">\\s+<");
 
     private final Path _homepagePath;
     private final Path _tmpPath;
@@ -103,6 +107,7 @@ public class FileChecker implements FileHandler {
         errors.addAll(checkPath(file, content));
         errors.addAll(checkSchema(content));
         errors.addAll(checkEventNumberOfSpaces(content));
+        errors.addAll(checkBadGreaterThanCharacter(content));
         return errors;
     }
 
@@ -204,6 +209,28 @@ public class FileChecker implements FileHandler {
             n++;
             if (numberOfWhiteCharactersAtBeginning(line) % 2 == 1) {
                 errors.add(new Error(n, "odd number of spaces at the beginning of the line"));
+            }
+        }
+
+        return errors;
+    }
+
+    private static List<Error> checkBadGreaterThanCharacter(final String content) {
+
+        final List<Error> errors = new ArrayList<>();
+
+        int n = 0;
+        for (final String line : content.lines().toArray(String[]::new)) {
+            n++;
+            if (n > 3) {
+                final Matcher badGreaterThan = s_badGreaterThan.matcher(line);
+                if (badGreaterThan.find()) {
+                    errors.add(new Error(n, "the line contains the string \"" + badGreaterThan.group() + "\""));
+                }
+                final Matcher spaceBetweenTags = s_spaceBetweenTags.matcher(line);
+                if (spaceBetweenTags.find()) {
+                    errors.add(new Error(n, "the line contains the string \"" + spaceBetweenTags.group() + "\""));
+                }
             }
         }
 

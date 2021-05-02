@@ -36,7 +36,7 @@ public class YoutubeChannelUserLinkContentParser {
 
     private Optional<String> extractErrorMessage() {
 
-        final Pattern p = Pattern.compile("\"alerts\":\\[\\{\"alertRenderer\":\\{\"type\":\"ERROR\",\"text\":\\{\"simpleText\":\"([^\\\"]*)\"\\}\\}\\}\\]");
+        final Pattern p = Pattern.compile("\"alerts\":\\[\\{\"alertRenderer\":\\{\"type\":\"ERROR\",\"text\":\\{\"simpleText\":\"([^\\\"]*)\"\\}\\}\\}\\]"); // TODO should be static
         final Matcher m = p.matcher(_data);
         if (m.find()) {
             return Optional.of(m.group(1));
@@ -47,7 +47,7 @@ public class YoutubeChannelUserLinkContentParser {
 
     private String extractDescription() throws ContentParserException {
 
-        final Pattern p = Pattern.compile("<meta name=\"description\" content=\"([^\"]*)\">");
+        final Pattern p = Pattern.compile("<meta name=\"description\" content=\"([^\"]*)\">"); // TODO should be static
         final Matcher m = p.matcher(_data);
         if (m.find()) {
             return m.group(1);

@@ -105,9 +105,11 @@ public class LinkContentChecker {
 
         }
 
-        if ((_articleData.isPresent() && _articleData.get().getDate().isPresent()) ||
-            _linkData.getPublicationDate().isPresent()) {
-            final LinkContentCheck check = checkArticleDate(data, _linkData.getPublicationDate(), _articleData.get().getDate());
+        {
+            final LinkContentCheck check = checkArticleDate(data,
+                                                            _linkData.getPublicationDate(),
+                                                            _articleData.isPresent() ? _articleData.get().getDate()
+                                                                                     : Optional.empty());
             if (check != null) {
                 checks.add(check);
             }

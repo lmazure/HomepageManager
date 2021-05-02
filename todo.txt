@@ -1,4 +1,11 @@
+ajouter détection de ">>"
+ajouter détection de "> <"
+ajouter détection de " >"
 
+continuer de corrifer <COMMENT>[^<>]*[A-Z][a-z]+ [A-Z][a-z]+
+von neumman
+
+titre avec <BR/> https://blog.cleancoder.com/uncle-bob/2014/06/17/IsTddDeadFinalThoughts.html
 
 titre de https://www.eiffel.com/values/design-by-contract/introduction/
 
@@ -13,18 +20,14 @@ https://www-archive.mozilla.org/docs/web-developer/xbdhtml/xbdhtml.html
 http://www.motifdeveloper.com/tips/tip13.html
 
 nettoyer
-- ide.xml
+- notes/chrome.xml
 - x11.xml
-- tdd.xml
 - design.xml
 - data.xml
 - perl.xml
 - clintrials.xml
-- cpp.xml
 - medical.xml
 - medimag.xml
-- python.xml
-- ruby.xml
 - solaris.xml
 - vbasic.xml
 - pharma.xml
@@ -35,6 +38,10 @@ nettoyer
 - xevent.xml
 - sfbook.xml
 - cracking.xml
+- covid.xml
+- photo.xml
+- mathematicins.xml
+- jslib.xml
 
 détecter US au lieu de GB
 behavior ->behaviour
