@@ -13,6 +13,9 @@ import utils.xmlparsing.ElementType;
 public class KeyChecker extends NodeChecker {
     // TODO do we really need this checker? this should be verified by the schema
 
+    static final Pattern s_pattern =
+        Pattern.compile("^([-+*/=A-Z0-9àéèù^;:.,&\"'%#!?_)(]|F[1-9]|F10|F11|F12|Left|Up|Right|Down|Beginning|PageUp|PageDown|Space|Tab|Enter|Del|Backspace|Esc|Break|Ins|End|Return|Num [-+*/0-9])$");
+
     final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.KEY
             });
@@ -26,11 +29,9 @@ public class KeyChecker extends NodeChecker {
 
         final String key = e.getAttribute("id");
 
-        final Pattern pattern = Pattern.compile("^([-+*/=A-Z0-9àéèù^;:.,&\"'%#!?_)(]|F[1-9]|F10|F11|F12|Left|Up|Right|Down|Beginning|PageUp|PageDown|Space|Tab|Enter|Del|Backspace|Esc|Break|Ins|End|Return|Num [-+*/0-9])$");
-        final Matcher matcher = pattern.matcher(key);
-
+        final Matcher matcher = s_pattern.matcher(key);
         if (matcher.find()) return null;
 
-        return new CheckStatus("Illegal KEY (" + key + ")");
+        return new CheckStatus("Illegal KEY (\"" + key + "\")");
     }
 }

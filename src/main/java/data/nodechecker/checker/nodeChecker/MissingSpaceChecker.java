@@ -44,6 +44,7 @@ public class MissingSpaceChecker extends NodeChecker {
                                                                             "OpenOffice.org",
                                                                             "P.Anno",
                                                                             "quantum.country",
+                                                                            "Quokka.js",
                                                                             "redhat.com",
                                                                             "Sails.js",
                                                                             "Three.js",

@@ -1,8 +1,26 @@
-ajouter détection de ">>"
-ajouter détection de "> <"
-ajouter détection de " >"
+renommer javascrp.xml en javascript.xml
 
-continuer de corrifer <COMMENT>[^<>]*[A-Z][a-z]+ [A-Z][a-z]+
+appliquer https://www.quora.com/Where-does-a-nickname-go-when-writing-a-persons-full-name
+
+détecter les attributs qui utilisent un simple quote à la place d'un double quote
+
+modifier l'implémentation de la détections des > incorrects
+il suffit de supprimer tous les tags et chercher les > qui restent
+
+modifier l'implémentation de la détection des "> <"
+cela doit être une règle de nodecheck
+
+nettoyer
+- mathematicians.xml
+- number.xml
+- persons.xml
+- math.xml
+- functions.xml
+
+vérifier le bon type d'apostrophe pour person's object
+
+mettre GIVENNAME entre double quote côté JS
+
 von neumman
 
 titre avec <BR/> https://blog.cleancoder.com/uncle-bob/2014/06/17/IsTddDeadFinalThoughts.html

@@ -34,8 +34,10 @@ import utils.XmlHelper;
 public class FileChecker implements FileHandler {
 
     private static final String UTF8_BOM = "\uFEFF";
-    private static final Pattern s_badGreaterThan = Pattern.compile("[^-A-Z/']>");
+    private static final Pattern s_badGreaterThan = Pattern.compile("<[^>]*>");
+    private static final Pattern s_spaceInTags = Pattern.compile("(< [^>]*>|<[^>]* >)");
     private static final Pattern s_spaceBetweenTags = Pattern.compile(">\\s+<");
+    private static final Pattern s_attributeWithSingleQuote = Pattern.compile("<[^>]*'[^>]*>");
 
     private final Path _homepagePath;
     private final Path _tmpPath;
@@ -106,8 +108,7 @@ public class FileChecker implements FileHandler {
         errors.addAll(checkCharacters(content));
         errors.addAll(checkPath(file, content));
         errors.addAll(checkSchema(content));
-        errors.addAll(checkEventNumberOfSpaces(content));
-        errors.addAll(checkBadGreaterThanCharacter(content));
+        errors.addAll(checkLines(content));
         return errors;
     }
 
@@ -200,7 +201,7 @@ public class FileChecker implements FileHandler {
         return errors;
     }
 
-    private static List<Error> checkEventNumberOfSpaces(final String content) {
+    private static List<Error> checkLines(final String content) {
 
         final List<Error> errors = new ArrayList<>();
 
@@ -210,23 +211,19 @@ public class FileChecker implements FileHandler {
             if (numberOfWhiteCharactersAtBeginning(line) % 2 == 1) {
                 errors.add(new Error(n, "odd number of spaces at the beginning of the line"));
             }
-        }
-
-        return errors;
-    }
-
-    private static List<Error> checkBadGreaterThanCharacter(final String content) {
-
-        final List<Error> errors = new ArrayList<>();
-
-        int n = 0;
-        for (final String line : content.lines().toArray(String[]::new)) {
-            n++;
+            final Matcher badGreaterThan = s_badGreaterThan.matcher(line);
+            if (badGreaterThan.replaceAll("").indexOf('>') >= 0) {
+                errors.add(new Error(n, "the line contains a \">\""));
+            }
+            final Matcher attributeWithSingleQuote = s_attributeWithSingleQuote.matcher(line);
+            if (attributeWithSingleQuote.find()) {
+                errors.add(new Error(n, "the line contains an XML attribute between single quotes \"" + attributeWithSingleQuote.group() + "\""));
+            }
+            final Matcher spaceInTags = s_spaceInTags.matcher(line);
+            if (spaceInTags.find()) {
+                errors.add(new Error(n, "the line contains space in an XML tag \"" + spaceInTags.group() + "\""));
+            }
             if (n > 3) {
-                final Matcher badGreaterThan = s_badGreaterThan.matcher(line);
-                if (badGreaterThan.find()) {
-                    errors.add(new Error(n, "the line contains the string \"" + badGreaterThan.group() + "\""));
-                }
                 final Matcher spaceBetweenTags = s_spaceBetweenTags.matcher(line);
                 if (spaceBetweenTags.find()) {
                     errors.add(new Error(n, "the line contains the string \"" + spaceBetweenTags.group() + "\""));
