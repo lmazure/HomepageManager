@@ -399,13 +399,84 @@ class FileCheckerTest {
             "    <ITEM><ARTICLE><X status=\"dead\"><T>example</T><A>https://example.com</A><L>en</L><F>HTML</F></X><DATE><YEAR>2021</YEAR></DATE><COMMENT>blabla</COMMENT></ARTICLE></ITEM>\r\n" +
             "  <!-- comment -->\r\n" +
             "  </BLIST>\r\n" +
+            "</CONTENT>\r\n" +
+            "</PAGE>";
+
+        test(content,
+             9, "the line contains a \">\"");
+    }
+
+    @SuppressWarnings("static-method")
+    @Test
+    void testSpaceInTag() {
+
+        final String content =
+            "<?xml version=\"1.0\"?>\r\n" +
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<TITLE>test</TITLE>\r\n" +
+            "<PATH>HomepageManager/test.xml</PATH>\r\n" +
+            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
+            "<CONTENT>\r\n" +
+            "  <BLIST><TITLE>My articles</TITLE>\r\n" +
+            "    <ITEM><ARTICLE><X><T>Antisocial Coding: My Year at GitHub</T><A>https://where.coraline.codes/blog/my-year-at-github/</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Coraline Ada</FIRSTNAME><LASTNAME>Ehmke</LASTNAME></AUTHOR><DATE><YEAR>2017</YEAR><MONTH>7</MONTH><DAY>5</DAY></DATE><COMMENT>The author, a transgender, described her life in and firing from GitHub.</COMMENT></ARTICLE></ITEM>\r\n" +
+            "    <ITEM><ARTICLE><X status=\"dead\"><T>example</T><A>https://example.com</A><L>en</L><F>HTML</F></X><DATE><YEAR>2021</YEAR></DATE><COMMENT>blabla</COMMENT></ARTICLE></ITEM>\r\n" +
+            "  <!-- comment -->\r\n" +
+            "  </BLIST>\r\n" +
             "</CONTENT >\r\n" +
             "</PAGE>";
 
         test(content,
-             6, "the line contains the string \"> <\"",
-             9, "the line contains a \">\"",
              13, "the line contains space in an XML tag \"</CONTENT >\"");
+    }
+
+    @SuppressWarnings("static-method")
+    @Test
+    void testSpaceInAttribute() {
+
+        final String content =
+            "<?xml version=\"1.0\"?>\r\n" +
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<TITLE>test</TITLE>\r\n" +
+            "<PATH>HomepageManager/test.xml</PATH>\r\n" +
+            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
+            "<CONTENT>\r\n" +
+            "  <BLIST><TITLE>My articles</TITLE>\r\n" +
+            "    <ITEM><ARTICLE><X quality =\"1\"><T>Antisocial Coding: My Year at GitHub</T><A>https://where.coraline.codes/blog/my-year-at-github/</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Coraline Ada</FIRSTNAME><LASTNAME>Ehmke</LASTNAME></AUTHOR><DATE><YEAR>2017</YEAR><MONTH>7</MONTH><DAY>5</DAY></DATE><COMMENT>The author, a transgender, described her life in and firing from GitHub.</COMMENT></ARTICLE></ITEM>\r\n" +
+            "    <ITEM><ARTICLE><X quality= \"1\" status=\"dead\"><T>example</T><A>https://example.com</A><L>en</L><F>HTML</F></X><DATE><YEAR>2021</YEAR></DATE><COMMENT>blabla</COMMENT></ARTICLE></ITEM>\r\n" +
+            "  <!-- comment -->\r\n" +
+            "  </BLIST>\r\n" +
+            "</CONTENT>\r\n" +
+            "</PAGE>";
+
+        test(content,
+                9, "the line contains space near \"=\" in an XML attribute \"<X quality =\"1\">\"",
+                10, "the line contains space near \"=\" in an XML attribute \"<X quality= \"1\" status=\"dead\">\"");
+    }
+
+    @SuppressWarnings("static-method")
+    @Test
+    void testDoubleSpaceInAttribute() {
+
+        final String content =
+            "<?xml version=\"1.0\"?>\r\n" +
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<TITLE>test</TITLE>\r\n" +
+            "<PATH>HomepageManager/test.xml</PATH>\r\n" +
+            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
+            "<CONTENT>\r\n" +
+            "  <BLIST><TITLE>My articles</TITLE>\r\n" +
+            "    <ITEM><ARTICLE><X  quality=\"1\"><T>Antisocial Coding: My Year at GitHub</T><A>https://where.coraline.codes/blog/my-year-at-github/</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Coraline Ada</FIRSTNAME><LASTNAME>Ehmke</LASTNAME></AUTHOR><DATE><YEAR>2017</YEAR><MONTH>7</MONTH><DAY>5</DAY></DATE><COMMENT>The author, a transgender, described her life in and firing from GitHub.</COMMENT></ARTICLE></ITEM>\r\n" +
+            "    <ITEM><ARTICLE><X quality=\"1\" status=\"dead\"><T>example</T><A>https://example.com</A><L>en</L><F>HTML</F></X><DATE><YEAR>2021</YEAR></DATE><COMMENT>blabla</COMMENT></ARTICLE></ITEM>\r\n" +
+            "  <!-- comment -->\r\n" +
+            "  </BLIST>\r\n" +
+            "</CONTENT>\r\n" +
+            "</PAGE>";
+
+        test(content,
+             9, "the line contains double space in an XML attribute \"<X  quality=\"1\">\"");
     }
 
     @SuppressWarnings("static-method")

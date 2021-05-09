@@ -344,6 +344,29 @@ class NodeValueCheckerTest {
 
     @SuppressWarnings("static-method")
     @Test
+    void detectSpaceBetweenTags() {
+
+        final String content =
+            "<?xml version=\"1.0\"?>" +
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<TITLE>TypeScript</TITLE>" +
+            "<PATH>links/typescript.xml</PATH>" +
+            "<DATE><YEAR>2018</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
+            "<CONTENT>" +
+            "<ITEM><ARTICLE><X><T>title</T><A>URL</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR> <MONTH>9</MONTH><DAY>23</DAY></DATE></X><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
+            "</CONTENT>" +
+            "</PAGE>";
+        try {
+            test(content,
+                 "node DATE (2010 923) shall not be contain space between tags");
+        } catch (@SuppressWarnings("unused") final SAXException e) {
+            Assertions.fail("SAXException");
+        }
+    }
+
+    @SuppressWarnings("static-method")
+    @Test
     void supportArticleWithPublicationDateButNoCreationDate() {
 
         final String content =

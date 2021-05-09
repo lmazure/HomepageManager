@@ -35,8 +35,9 @@ public class FileChecker implements FileHandler {
 
     private static final String UTF8_BOM = "\uFEFF";
     private static final Pattern s_badGreaterThan = Pattern.compile("<[^>]*>");
-    private static final Pattern s_spaceInTags = Pattern.compile("(< [^>]*>|<[^>]* >)");
-    private static final Pattern s_spaceBetweenTags = Pattern.compile(">\\s+<");
+    private static final Pattern s_spaceInTags = Pattern.compile("(</? [^>]*/?>|</?[^>]* /?>)");
+    private static final Pattern s_spaceInAttributes = Pattern.compile("(</?[^>]*( =|= )[^>]*/?>)");
+    private static final Pattern s_doubleSpaceInAttributes = Pattern.compile("(</?[^>]*  [^>]*/?>)");
     private static final Pattern s_attributeWithSingleQuote = Pattern.compile("<[^>]*'[^>]*>");
 
     private final Path _homepagePath;
@@ -223,11 +224,13 @@ public class FileChecker implements FileHandler {
             if (spaceInTags.find()) {
                 errors.add(new Error(n, "the line contains space in an XML tag \"" + spaceInTags.group() + "\""));
             }
-            if (n > 3) {
-                final Matcher spaceBetweenTags = s_spaceBetweenTags.matcher(line);
-                if (spaceBetweenTags.find()) {
-                    errors.add(new Error(n, "the line contains the string \"" + spaceBetweenTags.group() + "\""));
-                }
+            final Matcher spaceInAttributes = s_spaceInAttributes.matcher(line);
+            if (spaceInAttributes.find()) {
+                errors.add(new Error(n, "the line contains space near \"=\" in an XML attribute \"" + spaceInAttributes.group() + "\""));
+            }
+            final Matcher doubleSpaceInAttributes = s_doubleSpaceInAttributes.matcher(line);
+            if (doubleSpaceInAttributes.find()) {
+                errors.add(new Error(n, "the line contains double space in an XML attribute \"" + doubleSpaceInAttributes.group() + "\""));
             }
         }
 

@@ -1,21 +1,11 @@
+vérifier l'ordre des attributs XML
+
 renommer javascrp.xml en javascript.xml
 
 appliquer https://www.quora.com/Where-does-a-nickname-go-when-writing-a-persons-full-name
 
-détecter les attributs qui utilisent un simple quote à la place d'un double quote
-
 modifier l'implémentation de la détections des > incorrects
 il suffit de supprimer tous les tags et chercher les > qui restent
-
-modifier l'implémentation de la détection des "> <"
-cela doit être une règle de nodecheck
-
-nettoyer
-- mathematicians.xml
-- number.xml
-- persons.xml
-- math.xml
-- functions.xml
 
 vérifier le bon type d'apostrophe pour person's object
 
@@ -55,10 +45,6 @@ nettoyer
 - shell.xml
 - xevent.xml
 - sfbook.xml
-- cracking.xml
-- covid.xml
-- photo.xml
-- mathematicins.xml
 - jslib.xml
 
 détecter US au lieu de GB
