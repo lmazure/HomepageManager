@@ -1,11 +1,31 @@
+indexer quadrivium
+
+détecter les <BR/> dans un comment
+Flaky tests must be fixed, some causes why tests are randomly failing
+The author suggests a five steps process to manage the technical debt:
+Some design patterns:<BR/>
+
+Rivest, Shamir and Adleman
+
+nettoyer
+- html.xml
+- javamt.xml
+- perl.xml
+- xml.xml
+- tcltk.xml
+- cracking.xml
+
+The title says everything
+
+Larry tells us the history of Perl.
+
+détecter les [^.?…!]</COMMENT>
+
 vérifier l'ordre des attributs XML
 
 renommer javascrp.xml en javascript.xml
 
 appliquer https://www.quora.com/Where-does-a-nickname-go-when-writing-a-persons-full-name
-
-modifier l'implémentation de la détections des > incorrects
-il suffit de supprimer tous les tags et chercher les > qui restent
 
 vérifier le bon type d'apostrophe pour person's object
 

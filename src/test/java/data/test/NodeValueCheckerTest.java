@@ -336,7 +336,38 @@ class NodeValueCheckerTest {
             test(content,
                  "\"He is Bob.She is Alice\" is missing a space",
                  "\"The string .He is bright should be reported.\" is missing a space",
+                 "\"The string .He is bright should be reported.\" has a space before a punctuation",
                  "\"The string \".He is bright\" should be reported.\" is missing a space");
+        } catch (@SuppressWarnings("unused") final SAXException e) {
+            Assertions.fail("SAXException");
+        }
+    }
+
+    @SuppressWarnings("static-method")
+    @Test
+    void detectSpaceBeforePunctuation() {
+
+        final String content =
+            "<?xml version=\"1.0\"?>\r\n" +
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<TITLE>Test</TITLE>\r\n" +
+            "<PATH>HomepageManager/test.xml</PATH>\r\n" +
+            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
+            "<CONTENT>\r\n" +
+            "<BLIST><TITLE>He is Bob. She is Alice.</TITLE></BLIST>\r\n" +
+            "<BLIST><TITLE>He is Boby . She is Alicy.</TITLE></BLIST>\r\n" +
+            "<BLIST><TITLE>There are three animals: sheep, pig, and cock.</TITLE></BLIST>\r\n" +
+            "<BLIST><TITLE>There are three animals : sheep, pig, and cock.</TITLE></BLIST>\r\n" +
+            "<BLIST><TITLE>There are three animals: sheep , pig, and cock.</TITLE></BLIST>\r\n" +
+            "</CONTENT>\r\n" +
+            "</PAGE>";
+
+        try {
+            test(content,
+                 "\"He is Boby . She is Alicy.\" has a space before a punctuation",
+                 "\"There are three animals : sheep, pig, and cock.\" has a space before a punctuation",
+                 "\"There are three animals: sheep , pig, and cock.\" has a space before a punctuation");
         } catch (@SuppressWarnings("unused") final SAXException e) {
             Assertions.fail("SAXException");
         }
