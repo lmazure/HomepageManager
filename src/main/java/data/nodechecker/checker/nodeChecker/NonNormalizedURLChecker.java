@@ -21,17 +21,21 @@ public class NonNormalizedURLChecker extends NodeChecker {
 
         final String s = e.getTextContent();
 
-        if (s.contains("youtube.fr"))
+        if (s.contains("youtube.fr")) {
             return new CheckStatus("\"youtube.fr\" should be \"youtube.com\"");
+        }
 
-        if (s.contains("fr.youtube"))
+        if (s.contains("fr.youtube")) {
             return new CheckStatus("\"fr.youtube\" should be \"youtube.com\"");
+        }
 
-        if (s.contains("google.fr"))
+        if (s.contains("google.fr")) {
             return new CheckStatus("\"google.fr\" should be \"google.com\"");
+        }
 
-        if (s.contains("www-128.ibm.com"))
+        if (s.contains("www-128.ibm.com")) {
             return new CheckStatus("\"www-128.ibm.com\" should be \"www.ibm.com\"");
+        }
 
         return null;
     }

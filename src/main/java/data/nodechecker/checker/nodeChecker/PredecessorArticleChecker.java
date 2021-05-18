@@ -10,15 +10,15 @@ import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.ElementType;
 import utils.xmlparsing.XmlParser;
 
-public class PredArticleChecker extends NodeChecker {
+public class PredecessorArticleChecker extends NodeChecker {
 
     final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.ARTICLE
             });
 
-    public PredArticleChecker() {
+    public PredecessorArticleChecker() {
         super(s_selector,
-                PredArticleChecker::checkPredArticle, "the previous article is not the one defined by the 'predecessor' attribute");
+                PredecessorArticleChecker::checkPredArticle, "the previous article is not the one defined by the 'predecessor' attribute");
     }
 
     private static CheckStatus checkPredArticle(final Element e) {

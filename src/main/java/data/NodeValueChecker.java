@@ -21,6 +21,7 @@ import org.xml.sax.SAXException;
 
 import data.nodechecker.checker.nodeChecker.ArticleDateChecker;
 import data.nodechecker.checker.nodeChecker.AuthorsChecker;
+import data.nodechecker.checker.nodeChecker.CommentChecker;
 import data.nodechecker.checker.nodeChecker.DateChecker;
 import data.nodechecker.checker.nodeChecker.DoubleSpaceChecker;
 import data.nodechecker.checker.nodeChecker.DurationChecker;
@@ -37,7 +38,7 @@ import data.nodechecker.checker.nodeChecker.NodeChecker;
 import data.nodechecker.checker.nodeChecker.NonEmptyChecker;
 import data.nodechecker.checker.nodeChecker.NonNormalizedAuthorChecker;
 import data.nodechecker.checker.nodeChecker.NonNormalizedURLChecker;
-import data.nodechecker.checker.nodeChecker.PredArticleChecker;
+import data.nodechecker.checker.nodeChecker.PredecessorArticleChecker;
 import data.nodechecker.checker.nodeChecker.ProtectionFromURLChecker;
 import data.nodechecker.checker.nodeChecker.SpaceBetweenTagsChecker;
 import data.nodechecker.checker.nodeChecker.TableSortChecker;
@@ -77,7 +78,7 @@ public class NodeValueChecker implements FileHandler {
         _nodeCheckers.add(new DoubleSpaceChecker());
         _nodeCheckers.add(new AuthorsChecker());
         _nodeCheckers.add(new ArticleDateChecker());
-        _nodeCheckers.add(new PredArticleChecker());
+        _nodeCheckers.add(new PredecessorArticleChecker());
         _nodeCheckers.add(new IncorrectSpaceChecker());
         _nodeCheckers.add(new TitleFormatChecker());
         _nodeCheckers.add(new NonEmptyChecker());
@@ -93,6 +94,7 @@ public class NodeValueChecker implements FileHandler {
         _nodeCheckers.add(new DurationChecker());
         _nodeCheckers.add(new ProtectionFromURLChecker());
         _nodeCheckers.add(new SpaceBetweenTagsChecker());
+        _nodeCheckers.add(new CommentChecker());
     }
 
     @Override

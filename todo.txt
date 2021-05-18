@@ -19,8 +19,6 @@ The title says everything
 
 Larry tells us the history of Perl.
 
-détecter les [^.?…!]</COMMENT>
-
 vérifier l'ordre des attributs XML
 
 renommer javascrp.xml en javascript.xml

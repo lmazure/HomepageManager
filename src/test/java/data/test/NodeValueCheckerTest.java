@@ -385,7 +385,7 @@ class NodeValueCheckerTest {
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2018</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
-            "<ITEM><ARTICLE><X><T>title</T><A>URL</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR> <MONTH>9</MONTH><DAY>23</DAY></DATE></X><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>title</T><A>URL</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR> <MONTH>9</MONTH><DAY>23</DAY></DATE></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
@@ -408,7 +408,7 @@ class NodeValueCheckerTest {
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2018</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
-            "<ITEM><ARTICLE><X><T>title</T><A>URL</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>23</DAY></DATE></X><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>title</T><A>URL</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>23</DAY></DATE></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
@@ -430,7 +430,7 @@ class NodeValueCheckerTest {
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
-            "<ITEM><ARTICLE><X><T>title</T><A>URL</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>23</DAY></DATE><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>title</T><A>URL</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>23</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
@@ -454,7 +454,7 @@ class NodeValueCheckerTest {
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
-            "<ITEM><ARTICLE><X><T>title</T><A>URL</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>23</DAY></DATE></X><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>title</T><A>URL</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>23</DAY></DATE></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
@@ -481,7 +481,7 @@ class NodeValueCheckerTest {
             "<X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>27</DAY></DATE></X>" +
             "<X><T>title2</T><A>URL2</A><L>en</L><F>HTML</F></X>" +
             "<X><T>title3</T><A>URL3</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>24</DAY></DATE></X>" +
-            "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>23</DAY></DATE><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
+            "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>23</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
@@ -508,7 +508,7 @@ class NodeValueCheckerTest {
             "<X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>24</DAY></DATE></X>" +
             "<X><T>title2</T><A>URL2</A><L>en</L><F>HTML</F></X>" +
             "<X><T>title3</T><A>URL3</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>27</DAY></DATE></X>" +
-            "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>23</DAY></DATE><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
+            "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>23</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
@@ -535,7 +535,7 @@ class NodeValueCheckerTest {
             "<X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>27</DAY></DATE></X>" +
             "<X><T>title2</T><A>URL2</A><L>en</L><F>HTML</F></X>" +
             "<X><T>title3</T><A>URL3</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>24</DAY></DATE></X>" +
-            "<COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
+            "<COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
@@ -562,7 +562,7 @@ class NodeValueCheckerTest {
             "<X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE></X>" +
             "<X><T>title2</T><A>URL2</A><L>en</L><F>HTML</F></X>" +
             "<X><T>title3</T><A>URL3</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>24</DAY></DATE></X>" +
-            "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>23</DAY></DATE><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
+            "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>23</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
@@ -589,7 +589,7 @@ class NodeValueCheckerTest {
             "<X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>24</DAY></DATE></X>" +
             "<X><T>title2</T><A>URL2</A><L>en</L><F>HTML</F></X>" +
             "<X><T>title3</T><A>URL3</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE></X>" +
-            "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>23</DAY></DATE><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
+            "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>23</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
@@ -612,9 +612,9 @@ class NodeValueCheckerTest {
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
-            "<ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
-            "<ITEM><ARTICLE><X><T>title2</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
-            "<ITEM><ARTICLE><X><T>title3</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>title2</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>title3</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
@@ -636,9 +636,9 @@ class NodeValueCheckerTest {
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
-            "<ITEM><ARTICLE><X><T>title2</T><A>URL1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
-            "<ITEM><ARTICLE><X><T>title1</T><A>URL2</A><L>en</L><F>HTML</F></X><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
-            "<ITEM><ARTICLE><X><T>title3</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>title2</T><A>URL1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>title1</T><A>URL2</A><L>en</L><F>HTML</F></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>title3</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
@@ -662,9 +662,9 @@ class NodeValueCheckerTest {
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
-            "<ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
-            "<ITEM><ARTICLE><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
-            "<ITEM><ARTICLE><X><T>title2</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>title2</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
@@ -687,9 +687,9 @@ class NodeValueCheckerTest {
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
-            "  <ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE><X><T>title2</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE><X><T>title3</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title2</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title3</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
@@ -711,9 +711,9 @@ class NodeValueCheckerTest {
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
-            "  <ITEM><ARTICLE><X><T>title2</T><A>URL1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE><X><T>title1</T><A>URL2</A><L>en</L><F>HTML</F></X><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE><X><T>title3</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title2</T><A>URL1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title1</T><A>URL2</A><L>en</L><F>HTML</F></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title3</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
@@ -736,9 +736,9 @@ class NodeValueCheckerTest {
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
-            "  <ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE><X><T>title2</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>comment</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title2</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
@@ -761,9 +761,9 @@ class NodeValueCheckerTest {
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
-            "  <ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><COMMENT>comment 1</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE predecessor='URL1'><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>comment 2</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE><X><T>title2</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>comment 3</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><COMMENT>This is comment 1.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE predecessor='URL1'><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is comment 2.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title2</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is comment 3.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
@@ -785,9 +785,9 @@ class NodeValueCheckerTest {
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
-            "  <ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>4</DAY></DATE><COMMENT>comment 1</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE predecessor='URL1'><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>1</DAY></DATE><COMMENT>comment 2</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE><X><T>title2</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>comment 3</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>4</DAY></DATE><COMMENT>This is a comment 1.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE predecessor='URL1'><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>1</DAY></DATE><COMMENT>This is a comment 2.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title2</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment 3.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
@@ -810,9 +810,9 @@ class NodeValueCheckerTest {
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
-            "  <ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>1</DAY></DATE><COMMENT>comment 1</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE predecessor='URL1'><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>comment 2</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE><X><T>title2</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>comment 3</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>1</DAY></DATE><COMMENT>This is a comment 1.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE predecessor='URL1'><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment 2.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title2</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment 3.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
@@ -834,9 +834,9 @@ class NodeValueCheckerTest {
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
-            "  <ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>1</DAY></DATE><COMMENT>comment 1</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE predecessor='badURL'><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>comment 2</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE><X><T>title2</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>comment 3</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>1</DAY></DATE><COMMENT>This is a comment 1.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE predecessor='badURL'><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment 2.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title2</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment 3.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
@@ -914,6 +914,33 @@ class NodeValueCheckerTest {
         try {
             test(content,
                  "The list of authors of article \"https://www.inspiredtester.com/inspired-tester-blog/embracing-change-testing-to-agile\" (▭ first=Leah ▭ last=Stockley ▭ ▭;▭ first=Grant ▭ last=Sanderson ▭ ▭) is not equal to the expected list for the site (▭ first=Leah ▭ last=Stockley ▭ ▭)");
+        } catch (@SuppressWarnings("unused") final SAXException e) {
+            Assertions.fail("SAXException");
+        }
+    }
+
+    @SuppressWarnings("static-method")
+    @Test
+    void missedPunctuationAtCommentEnd() {
+
+        final String content =
+            "<?xml version=\"1.0\"?>" +
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<TITLE>TypeScript</TITLE>" +
+            "<PATH>links/typescript.xml</PATH>" +
+            "<DATE><YEAR>2020</YEAR><MONTH>12</MONTH><DAY>31</DAY></DATE>" +
+            "<CONTENT>" +
+            "<ITEM><ARTICLE><X><T>embracing change - testing to agile</T><A>https://www.example.com/</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Leah</FIRSTNAME><LASTNAME>Stockley</LASTNAME></AUTHOR><AUTHOR><FIRSTNAME>Grant</FIRSTNAME><LASTNAME>Sanderson</LASTNAME></AUTHOR><DATE><YEAR>2019</YEAR><MONTH>3</MONTH><DAY>21</DAY></DATE><COMMENT>Context Driven Testing and Agile are a good match, but this blog is too polished.</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>embracing change - testing to agile</T><A>https://www.example.com/</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Leah</FIRSTNAME><LASTNAME>Stockley</LASTNAME></AUTHOR><AUTHOR><FIRSTNAME>Grant</FIRSTNAME><LASTNAME>Sanderson</LASTNAME></AUTHOR><DATE><YEAR>2019</YEAR><MONTH>3</MONTH><DAY>21</DAY></DATE><COMMENT>Context Driven Testing and Agile are a good match, but this blog is too polished</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>embracing change - testing to agile</T><A>https://www.example.com/</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Leah</FIRSTNAME><LASTNAME>Stockley</LASTNAME></AUTHOR><AUTHOR><FIRSTNAME>Grant</FIRSTNAME><LASTNAME>Sanderson</LASTNAME></AUTHOR><DATE><YEAR>2019</YEAR><MONTH>3</MONTH><DAY>21</DAY></DATE><COMMENT>Context Driven Testing and Agile are a good match. (But this blog is too polished.)</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>embracing change - testing to agile</T><A>https://www.example.com/</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Leah</FIRSTNAME><LASTNAME>Stockley</LASTNAME></AUTHOR><AUTHOR><FIRSTNAME>Grant</FIRSTNAME><LASTNAME>Sanderson</LASTNAME></AUTHOR><DATE><YEAR>2019</YEAR><MONTH>3</MONTH><DAY>21</DAY></DATE><COMMENT>Context Driven Testing and Agile are a good match. (But this blog is too polished)</COMMENT></ARTICLE></ITEM>" +
+            "</CONTENT>" +
+            "</PAGE>";
+        try {
+            test(content,
+                 "COMMENT \"Context Driven Testing and Agile are a good match, but this blog is too polished\" must end with a punctuation",
+                 "COMMENT \"Context Driven Testing and Agile are a good match. (But this blog is too polished)\" must end with a punctuation");
         } catch (@SuppressWarnings("unused") final SAXException e) {
             Assertions.fail("SAXException");
         }
