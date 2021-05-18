@@ -27,7 +27,9 @@ public class StringHelper {
                 break;
             }
         }
-        if (startIndex == -1) return "";
+        if (startIndex == -1) {
+            return "";
+        }
 
         for (int i = str.length()-1; i >= 0; i--) {
             int c = str.codePointAt(i);

@@ -33,13 +33,23 @@ public class DateChecker extends NodeChecker {
         final int numberOfMonths = XmlHelper.getDescendantsByElementType(e, ElementType.MONTH).getLength();
         final int numberOfDays = XmlHelper.getDescendantsByElementType(e, ElementType.DAY).getLength();
 
-        if (numberOfYears > 1) return new CheckStatus("more than one YEAR");
-        if (numberOfMonths > 1) return new CheckStatus("more than one MONTH");
-        if (numberOfDays > 1) return new CheckStatus("more than one DAY");
+        if (numberOfYears > 1) {
+            return new CheckStatus("more than one YEAR");
+        }
+        if (numberOfMonths > 1) {
+            return new CheckStatus("more than one MONTH");
+        }
+        if (numberOfDays > 1) {
+            return new CheckStatus("more than one DAY");
+        }
 
-        if (numberOfYears == 0) return new CheckStatus("no YEAR");
+        if (numberOfYears == 0) {
+            return new CheckStatus("no YEAR");
+        }
 
-        if ((numberOfMonths == 0) && (numberOfDays == 1)) return new CheckStatus("DAY without MONTH");
+        if ((numberOfMonths == 0) && (numberOfDays == 1)) {
+            return new CheckStatus("DAY without MONTH");
+        }
 
         return null;
     }
@@ -54,7 +64,9 @@ public class DateChecker extends NodeChecker {
         final int numberOfMonths = months.getLength();
         final int numberOfDays = days.getLength();
 
-        if (numberOfYears == 0) return null;
+        if (numberOfYears == 0) {
+            return null;
+        }
         long year;
         final String yearStr = years.item(0).getTextContent();
         try {

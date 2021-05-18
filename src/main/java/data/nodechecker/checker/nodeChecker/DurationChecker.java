@@ -26,13 +26,23 @@ public class DurationChecker extends NodeChecker {
         final int numberOfMinutes = XmlHelper.getDescendantsByElementType(e, ElementType.MINUTE).getLength();
         final int numberOfHours = XmlHelper.getDescendantsByElementType(e, ElementType.HOUR).getLength();
 
-        if (numberOfSeconds > 1) return new CheckStatus("more than one SECOND");
-        if (numberOfMinutes > 1) return new CheckStatus("more than one MINUTE");
-        if (numberOfHours > 1) return new CheckStatus("more than one HOUR");
+        if (numberOfSeconds > 1) {
+            return new CheckStatus("more than one SECOND");
+        }
+        if (numberOfMinutes > 1) {
+            return new CheckStatus("more than one MINUTE");
+        }
+        if (numberOfHours > 1) {
+            return new CheckStatus("more than one HOUR");
+        }
 
-        if (numberOfSeconds == 0) return new CheckStatus("no SECOND");
+        if (numberOfSeconds == 0) {
+            return new CheckStatus("no SECOND");
+        }
 
-        if ((numberOfMinutes == 0) && (numberOfHours == 1)) return new CheckStatus("HOUR without MINUTE");
+        if ((numberOfMinutes == 0) && (numberOfHours == 1)) {
+            return new CheckStatus("HOUR without MINUTE");
+        }
 
         return null;
     }
@@ -47,34 +57,50 @@ public class DurationChecker extends NodeChecker {
         final int numberOfMinutes = minutes.getLength();
         final int numberOfHours = hours.getLength();
 
-        if (numberOfSeconds == 0) return null;
+        if (numberOfSeconds == 0) {
+            return null;
+        }
 
         final String secondStr = seconds.item(0).getTextContent();
         try {
             final int second = Integer.parseInt(secondStr);
-            if (second < 0) return new CheckStatus("SECOND is negative");
-            if (second > 59) return new CheckStatus("SECOND is greater than 59");
+            if (second < 0) {
+                return new CheckStatus("SECOND is negative");
+            }
+            if (second > 59) {
+                return new CheckStatus("SECOND is greater than 59");
+            }
         } catch (@SuppressWarnings("unused") final NumberFormatException ex) {
             return new CheckStatus("SECOND is not an integer");
         }
 
-        if (numberOfMinutes == 0) return null;
+        if (numberOfMinutes == 0) {
+            return null;
+        }
 
         final String minuteStr = minutes.item(0).getTextContent();
         try {
             final int minute = Integer.parseInt(minuteStr);
-            if (minute < 0) return new CheckStatus("MINUTE is negative");
-            if (minute > 59) return new CheckStatus("MINUTE is greater than 59");
+            if (minute < 0) {
+                return new CheckStatus("MINUTE is negative");
+            }
+            if (minute > 59) {
+                return new CheckStatus("MINUTE is greater than 59");
+            }
         } catch (@SuppressWarnings("unused") final NumberFormatException ex) {
             return new CheckStatus("MINUTE is not an integer");
         }
 
-        if (numberOfHours == 0) return null;
+        if (numberOfHours == 0) {
+            return null;
+        }
 
         final String hourStr = hours.item(0).getTextContent();
         try {
             final int hour = Integer.parseInt(hourStr);
-            if (hour < 0) return new CheckStatus("HOUR is negative");
+            if (hour < 0) {
+                return new CheckStatus("HOUR is negative");
+            }
         } catch (@SuppressWarnings("unused") final NumberFormatException ex) {
             return new CheckStatus("HOUR is not an integer");
         }

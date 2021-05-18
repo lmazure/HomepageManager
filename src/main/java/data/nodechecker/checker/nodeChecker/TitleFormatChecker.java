@@ -66,9 +66,13 @@ public class TitleFormatChecker extends NodeChecker {
     private static CheckStatus titleDoesNotFinishWithColon(final Element e) {
 
         final List<String> list = XMLHelper.getFirstLevelTextContent(e);
-        if (list.size() == 0) return null;
+        if (list.size() == 0) {
+            return null;
+        }
 
-        if (list.get(list.size() - 1).endsWith(":")) return new CheckStatus("TITLE \"" + e.getTextContent() + "\" must not finish with colon");
+        if (list.get(list.size() - 1).endsWith(":")) {
+            return new CheckStatus("TITLE \"" + e.getTextContent() + "\" must not finish with colon");
+        }
 
         return null;
     }

@@ -427,9 +427,15 @@ public class LinkCheckRunner {
                                              final SiteData effectiveData) {
 
         if (expectedData.getStatus().isPresent() && expectedData.getStatus().get().equals(utils.xmlparsing.LinkStatus.DEAD)) {
-            if (effectiveData.getStatus() == SiteData.Status.FAILURE) return true;
-            if (effectiveData.getHttpCode().isEmpty()) return true;
-            if (effectiveData.getHttpCode().isPresent() && effectiveData.getHttpCode().get().intValue() != 200) return true;
+            if (effectiveData.getStatus() == SiteData.Status.FAILURE) {
+                return true;
+            }
+            if (effectiveData.getHttpCode().isEmpty()) {
+                return true;
+            }
+            if (effectiveData.getHttpCode().isPresent() && effectiveData.getHttpCode().get().intValue() != 200) {
+                return true;
+            }
             return false;
         }
 

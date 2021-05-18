@@ -18,13 +18,15 @@ public class PredecessorArticleChecker extends NodeChecker {
 
     public PredecessorArticleChecker() {
         super(s_selector,
-                PredecessorArticleChecker::checkPredArticle, "the previous article is not the one defined by the 'predecessor' attribute");
+              PredecessorArticleChecker::checkPredArticle, "the previous article is not the one defined by the 'predecessor' attribute");
     }
 
     private static CheckStatus checkPredArticle(final Element e) {
 
         final String predecessor = e.getAttribute("predecessor");
-        if (predecessor.isEmpty()) return null;
+        if (predecessor.isEmpty()) {
+            return null;
+        }
 
         if (!XmlHelper.isOfType(e.getParentNode(), ElementType.ITEM)) {
             return new CheckStatus("Article has 'predecessor' attribute, but it is not in an <ITEM>");

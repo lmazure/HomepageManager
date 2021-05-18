@@ -31,11 +31,21 @@ public class ModifierKeyChecker extends NodeChecker {
 
         final String str = e.getAttribute("id");
 
-        if (str.equals(s_CTRL)) return null;
-        if (str.equals(s_ALT)) return null;
-        if (str.equals(s_SHIFT)) return null;
-        if (str.equals(s_SYS_RQ)) return null;
-        if (str.equals(s_WINDOWS)) return null;
+        if (str.equals(s_CTRL)) {
+            return null;
+        }
+        if (str.equals(s_ALT)) {
+            return null;
+        }
+        if (str.equals(s_SHIFT)) {
+            return null;
+        }
+        if (str.equals(s_SYS_RQ)) {
+            return null;
+        }
+        if (str.equals(s_WINDOWS)) {
+            return null;
+        }
 
         return new CheckStatus("Illegal MODIFIERKEY (" + str + ")");
     }
@@ -43,12 +53,16 @@ public class ModifierKeyChecker extends NodeChecker {
     private static CheckStatus checkModifierKeyOrder(final Element e) {
 
         final Node next = e.getNextSibling();
-        if (!XmlHelper.isOfType(next, ElementType.MODIFIERKEY)) return null;
+        if (!XmlHelper.isOfType(next, ElementType.MODIFIERKEY)) {
+            return null;
+        }
 
         final String str = e.getAttribute("id");
         final String strNext = ((Element)next).getAttribute("id");
 
-        if (modifier1CanPreceedModifier2(str, strNext)) return null;
+        if (modifier1CanPreceedModifier2(str, strNext)) {
+            return null;
+        }
 
         return new CheckStatus("MODIFIERKEY " + strNext + " cannot follow MODIFIERKEY " + str);
     }
@@ -57,21 +71,35 @@ public class ModifierKeyChecker extends NodeChecker {
         final String modifier1,
         final String modifier2) {
 
-        if (modifier1.equals(s_CTRL)) return true;
+        if (modifier1.equals(s_CTRL)) {
+            return true;
+        }
 
         if (modifier1.equals(s_ALT)) {
-            if (modifier2.equals(s_CTRL)) return false;
+            if (modifier2.equals(s_CTRL)) {
+                return false;
+            }
             return true;
         }
         if (modifier1.equals(s_SHIFT)) {
-            if (modifier2.equals(s_CTRL)) return false;
-            if (modifier2.equals(s_ALT)) return false;
+            if (modifier2.equals(s_CTRL)) {
+                return false;
+            }
+            if (modifier2.equals(s_ALT)) {
+                return false;
+            }
             return true;
         }
         if (modifier1.equals(s_SYS_RQ) || modifier1.equals(s_WINDOWS)) {
-            if (modifier2.equals(s_CTRL)) return false;
-            if (modifier2.equals(s_ALT)) return false;
-            if (modifier2.equals(s_SHIFT)) return false;
+            if (modifier2.equals(s_CTRL)) {
+                return false;
+            }
+            if (modifier2.equals(s_ALT)) {
+                return false;
+            }
+            if (modifier2.equals(s_SHIFT)) {
+                return false;
+            }
             return true;
         }
 

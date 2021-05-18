@@ -63,7 +63,9 @@ public class FileHelper {
 
         final File parentDir = file.getParent().toFile();
 
-        if (parentDir.isDirectory()) return;
+        if (parentDir.isDirectory()) {
+            return;
+        }
 
         if (!parentDir.mkdirs()) {
             ExitHelper.exit("Failed to create directory " + parentDir);

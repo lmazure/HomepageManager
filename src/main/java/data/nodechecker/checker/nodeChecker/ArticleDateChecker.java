@@ -107,11 +107,19 @@ public class ArticleDateChecker extends NodeChecker {
         }
         final Optional<TemporalAccessor> creationDate = articleData.getDate();
 
-        if (!XmlHelper.isOfType(e.getParentNode(), ElementType.ITEM)) return null;
+        if (!XmlHelper.isOfType(e.getParentNode(), ElementType.ITEM)) {
+            return null;
+        }
         final Element previousSibling = XmlHelper.getPreviousSiblingElement((Element)e.getParentNode());
-        if (previousSibling == null) return null;
-        if (!XmlHelper.isOfType(previousSibling, ElementType.ITEM)) return null;
-        if (!XmlHelper.isOfType(previousSibling.getFirstChild(), ElementType.ARTICLE)) return null;
+        if (previousSibling == null) {
+            return null;
+        }
+        if (!XmlHelper.isOfType(previousSibling, ElementType.ITEM)) {
+            return null;
+        }
+        if (!XmlHelper.isOfType(previousSibling.getFirstChild(), ElementType.ARTICLE)) {
+            return null;
+        }
         final Element previousArticle = (Element)previousSibling.getFirstChild();
         final Element firstArticleOfPreviousChain = getFirstArticleOfArticleChain(previousArticle);
         if (firstArticleOfPreviousChain == null) {
@@ -134,7 +142,9 @@ public class ArticleDateChecker extends NodeChecker {
                                    "\" which has a date");
         }
 
-        if (previousCreationDate.isEmpty()) return null;
+        if (previousCreationDate.isEmpty()) {
+            return null;
+        }
 
         if (compareTemporalAccesssor(previousCreationDate.get(), creationDate.get()) > 0) {
             return new CheckStatus("Creation date of article \"" +
@@ -161,13 +171,23 @@ public class ArticleDateChecker extends NodeChecker {
     private static Element getFirstArticleOfArticleChain(final Element e) {
 
         final String predecessor = e.getAttribute("predecessor");
-        if (predecessor.isEmpty()) return e;
+        if (predecessor.isEmpty()) {
+            return e;
+        }
 
-        if (!XmlHelper.isOfType(e.getParentNode(), ElementType.ITEM)) return null;
+        if (!XmlHelper.isOfType(e.getParentNode(), ElementType.ITEM)) {
+            return null;
+        }
         final Element previousSibling = XmlHelper.getPreviousSiblingElement((Element)e.getParentNode());
-        if (previousSibling == null) return null;
-        if (!XmlHelper.isOfType(previousSibling, ElementType.ITEM)) return null;
-        if (!XmlHelper.isOfType(previousSibling.getFirstChild(), ElementType.ARTICLE)) return null;
+        if (previousSibling == null) {
+            return null;
+        }
+        if (!XmlHelper.isOfType(previousSibling, ElementType.ITEM)) {
+            return null;
+        }
+        if (!XmlHelper.isOfType(previousSibling.getFirstChild(), ElementType.ARTICLE)) {
+            return null;
+        }
         final Element previousArticle = (Element)previousSibling.getFirstChild();
 
         return getFirstArticleOfArticleChain(previousArticle);

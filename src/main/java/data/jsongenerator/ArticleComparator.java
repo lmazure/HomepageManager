@@ -12,7 +12,9 @@ public class ArticleComparator implements Comparator<Article>
         final String title0 = article0.getLinks()[0].getTitle();
         final String title1 = article1.getLinks()[0].getTitle();
         final int c1 = StringHelper.compare(title0, title1);
-        if (c1 != 0) return c1;
+        if (c1 != 0) {
+            return c1;
+        }
 
         final String subtitle0[] = article0.getLinks()[0].getSubtitles();
         final String subtitle1[] = article1.getLinks()[0].getSubtitles();

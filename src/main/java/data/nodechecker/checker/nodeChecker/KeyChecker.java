@@ -30,7 +30,9 @@ public class KeyChecker extends NodeChecker {
         final String key = e.getAttribute("id");
 
         final Matcher matcher = s_pattern.matcher(key);
-        if (matcher.find()) return null;
+        if (matcher.find()) {
+            return null;
+        }
 
         return new CheckStatus("Illegal KEY (\"" + key + "\")");
     }

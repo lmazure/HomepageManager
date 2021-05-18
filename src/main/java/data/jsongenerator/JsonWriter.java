@@ -354,8 +354,12 @@ public class JsonWriter {
     }
 
     private static String formatLanguage(final Locale language) {
-        if (language == Locale.FRENCH) return "fr";
-        if (language == Locale.ENGLISH) return "en";
+        if (language == Locale.FRENCH) {
+            return "fr";
+        }
+        if (language == Locale.ENGLISH) {
+            return "en";
+        }
         throw new UnsupportedOperationException("Illegal language value (" + language + ")");
     }
 

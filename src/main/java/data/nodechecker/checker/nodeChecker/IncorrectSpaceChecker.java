@@ -124,7 +124,9 @@ public class IncorrectSpaceChecker extends NodeChecker {
     private static boolean containsNoLetter(final String str) {
         final char[] chars = str.toCharArray();
         for (int i = 0; i < chars.length; i++) {
-            if (Character.isLetter(chars[i])) return false;
+            if (Character.isLetter(chars[i])) {
+                return false;
+            }
         }
         return true;
     }
