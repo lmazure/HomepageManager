@@ -116,4 +116,27 @@ public class StringHelper {
             return null;
         }
     }
+    
+    public static int generalizedIndex(final String string,
+                                       final String searchedString,
+                                       final boolean ignoreCase,
+                                       final boolean ignoreSpaceType) {
+        final String s1 = ignoreCase ? string.toUpperCase() : string;
+        final String ss1 = ignoreCase ? searchedString.toUpperCase() : searchedString;
+        final String s2 = ignoreSpaceType ? normalizeSpace(s1) : s1;
+        final String ss2 = ignoreSpaceType ? normalizeSpace(ss1) : ss1;
+        return s2.indexOf(ss2);
+    }
+    
+    private static String normalizeSpace(final String string) {
+        final int length = string.length();
+        final StringBuilder builder = new StringBuilder(length);
+        for (int offset = 0; offset < length; ) {
+            final int codepoint = string.codePointAt(offset);
+            final int normalizedCodepoint = Character.isSpaceChar(codepoint) ? ' ' : codepoint;
+            builder.append(normalizedCodepoint);
+            offset += Character.charCount(codepoint);
+        }
+        return builder.toString();
+    }
 }

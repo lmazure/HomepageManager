@@ -67,10 +67,10 @@ public class IncorrectSpaceChecker extends NodeChecker {
             ElementType.TITLE,
             });
 
-    public IncorrectSpaceChecker() {
+    public IncorrectSpaceChecker() { 
         super(s_selector,
               IncorrectSpaceChecker::checkMissingSpace, "space is missing",
-              IncorrectSpaceChecker::checkSpaceBeforePunctuation, "space is presentBeforePunctuation");
+              IncorrectSpaceChecker::checkSpaceBeforePunctuation, "space is present before punctuation");
     }
 
     private static CheckStatus checkMissingSpace(final Element e) {

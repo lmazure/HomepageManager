@@ -17,6 +17,7 @@ import data.knowledge.WellKnownAuthorsOfLink;
 import utils.FileHelper;
 import utils.HtmlHelper;
 import utils.Logger;
+import utils.StringHelper;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkFormat;
@@ -197,7 +198,8 @@ public class LinkContentChecker {
 
         final Optional<Locale> language = _parser.getLanguage();
 
-        if (language.isPresent() && !Arrays.asList(languages).contains(language.get())) {
+        if (language.isPresent() &&
+            !Arrays.asList(languages).contains(language.get())) {
             return new LinkContentCheck("language is \"" + language.get() + "\" but this one is unexpected");
         }
 
@@ -219,16 +221,40 @@ public class LinkContentChecker {
                                                final String expectedTitle,
                                                final String description) {
         final String d = HtmlHelper.cleanContent(data);
-        if (!doesStringAppearInData(d, expectedTitle)) {
-            String comment = "";
-            final String realTitle = extractEffectiveTitleByIgnoringNonBreakingSpaces(d, expectedTitle);
-            if (realTitle != null) {
-                comment = " (this is a problem of non breaking space, the real " + description + " is \"" + realTitle + "\")";
+        if (StringHelper.generalizedIndex(d, expectedTitle, false, false) < 0) {
+            final int i1 = StringHelper.generalizedIndex(d, expectedTitle, true, false);
+            if (i1 >= 0) {
+                return new LinkContentCheck(description +
+                                            " \"" +
+                                            expectedTitle +
+                                            "\" does not appear in the page, this is a problem of casing, the real title is \"" +
+                                            d.substring(i1, i1 + expectedTitle.length()) +
+                                            "\"");
             }
-            return new LinkContentCheck(description + " \"" + expectedTitle + "\" does not appear in the page" + comment);
+            final int i2 = StringHelper.generalizedIndex(d, expectedTitle, false, true);
+            if (i2 >= 0) {
+                return new LinkContentCheck(description +
+                                            " \"" +
+                                            expectedTitle +
+                                            "\" does not appear in the page, this is a problem of space, the real title is \"" +
+                                            d.substring(i2, i2 + expectedTitle.length()) +
+                                            "\"");
+            }
+            final int i3 = StringHelper.generalizedIndex(d, expectedTitle, false, true);
+            if (i3 >= 0) {
+                return new LinkContentCheck(description +
+                                            " \"" +
+                                            expectedTitle +
+                                            "\" does not appear in the page, this is a problem of casing and space, the real title is \"" +
+                                            d.substring(i3, i3 + expectedTitle.length()) +
+                                            "\"");
+            }
+            return new LinkContentCheck(description +
+                                        " \"" +
+                                        expectedTitle +
+                                        "\" does not appear in the page");
         }
         return null;
-
     }
 
     private static LinkContentCheck checkAuthor(final String data,
@@ -237,29 +263,8 @@ public class LinkContentChecker {
         final String authorStr = author.getLastName().isPresent() ? author.getLastName().get()
                                                                   : author.getFirstName().isPresent() ? author.getFirstName().get()
                                                                                                       : author.getGivenName().get();
-        if (!doesStringAppearInDataCaseIndependant(d, authorStr)) {
+        if (StringHelper.generalizedIndex(d, authorStr, true, false) < 0) {
             return new LinkContentCheck("author \"" + authorStr + "\" does not appear in the page");
-        }
-        return null;
-    }
-
-    private static boolean doesStringAppearInDataCaseIndependant(final String data,
-                                                                 final String str) {
-        return doesStringAppearInData(data.toUpperCase(), str.toUpperCase());
-    }
-
-    private static boolean doesStringAppearInData(final String data,
-                                                  final String str) {
-        return (data.indexOf(str) >= 0);
-    }
-
-    private static String extractEffectiveTitleByIgnoringNonBreakingSpaces(final String data,
-                                                                           final String str) {
-        final String data2 = data.replaceAll("\u00A0", " ");
-        final String str2 = str.replaceAll("\u00A0", " ");
-        final int index = data2.indexOf(str2);
-        if (index  >= 0) {
-            return data.substring(index, index + str.length());
         }
         return null;
     }
