@@ -30,15 +30,21 @@ class LinkContentCheckerTest {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://blog.chromium.org/2009/01/tabbed-browsing-in-google-chrome.html,Tabbed Browsing in Google Chrome"
-        })
+    @CsvSource(value = {
+            "https://blog.chromium.org/2009/01/tabbed-browsing-in-google-chrome.html|en|Tabbed Browsing in Google Chrome",
+            "https://www-archive.mozilla.org/docs/web-developer/xbdhtml/xbdhtml.html|en|Introduction to Cross-Browser, Cross-Platform, Backwardly Compatible JavaScript and Dynamic HTML",
+            "http://www.tcl.tk/doc/scripting.html|en|Scripting: Higher Level Programming for the 21st Century",
+            "http://www.business-esolutions.com/islm.htm|en|Project Lifecycle Models: How They Differ and When to Use Them",
+            "https://martinfowler.com/bliki/UseCasesAndStories.html|en|What is the difference between a UseCase and XP's UserStory?",
+            "http://hesketh.com/publications/inclusive_web_design_for_the_future/|en|Inclusive Web Design For the Future with Progressive Enhancement"
+            }, delimiter = '|')
     void testTitle(final String urlAsString,
+                   final String locale,
                    final String expectedTitle) {
         final URL url = TestHelper.buildURL(urlAsString);
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        final LinkData linkData = new LinkData(expectedTitle, new String[0], urlAsString, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.ENGLISH }, Optional.empty(), null);
+        final LinkData linkData = new LinkData(expectedTitle, new String[0], urlAsString, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null);
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<AuthorData>(), null);
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
@@ -58,7 +64,8 @@ class LinkContentCheckerTest {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
-        "https://blog.chromium.org/2009/01/tabbed-browsing-in-google-chrome.html,en,Tabbed browsing in Google Chrome,Tabbed Browsing in Google Chrome"
+        "https://blog.chromium.org/2009/01/tabbed-browsing-in-google-chrome.html,en,Tabbed browsing in Google Chrome,Tabbed Browsing in Google Chrome",
+        "https://www.eiffel.com/values/design-by-contract/introduction/,en,Building bug-free O-O software: An introduction to Design by Contract,Building bug-free O-O software: An Introduction to Design by Contract"
         })
     void detectBadlyCasedTitle(final String urlAsString,
                                final String locale,

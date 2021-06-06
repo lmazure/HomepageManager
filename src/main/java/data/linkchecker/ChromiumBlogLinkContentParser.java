@@ -11,7 +11,7 @@ public class ChromiumBlogLinkContentParser {
 
     private final String _data;
     private static final TextParser s_titleParser
-        = new TextParser("<title>Chromium Blog: ",
+        = new TextParser("<title>\\nChromium Blog: ",
                          "</title>",
                          "Chromium Blog",
                          "title");
@@ -27,15 +27,15 @@ public class ChromiumBlogLinkContentParser {
     }
 
     public String getTitle() throws ContentParserException {
-        return HtmlHelper.unescape(s_titleParser.extract(_data).trim());
+        return HtmlHelper.cleanContent(s_titleParser.extract(_data));
     }
 
     public LocalDate getPublicationDate() throws ContentParserException {
-        final String date = s_dateParser.extract(_data);
+        final String date = HtmlHelper.cleanContent(s_dateParser.extract(_data));
         try {
             return LocalDate.parse(date, s_formatter);
         } catch (final DateTimeParseException e) {
-            throw new ContentParserException("Failed to parse date (" + date + ") in Baeldung page", e);
+            throw new ContentParserException("Failed to parse date (" + date + ") in Chromium Blog page", e);
         }
     }
 }

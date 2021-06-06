@@ -7,7 +7,11 @@ import java.util.HashMap;
 public class HtmlHelper {
 
     public static final String cleanContent(final String input) {
-        return unescape(removeHtmlTags(unduplicateSpace(input)));
+        final String s1 = removeHtmlTags(input);
+        final String s2 = unescape(s1);
+        final String s3 = removeNewlines(s2);
+        final String s4 = cleanAndUnduplicateSpace(s3);
+        return s4;
     }
 
     public static final String unescape(final String input) {
@@ -350,14 +354,14 @@ public class HtmlHelper {
         lookupMap.put("zwnj", '\u200C');
     }
 
-    public static final String unduplicateSpace(final String input) {
+    public static final String cleanAndUnduplicateSpace(final String input) {
 
         final StringBuilder builder = new StringBuilder(input.length());
         boolean previousWasSpace = false;
 
         for (int i = 0; i < input.length();) {
             final int character = input.codePointAt(i);
-            if (character == ' ' /*Character.isWhitespace(character) || (character == '\u00A0')*/) {
+            if (Character.isWhitespace(character)) {
                 if (!previousWasSpace) {
                     builder.appendCodePoint(' ');
                 }
@@ -374,23 +378,14 @@ public class HtmlHelper {
 
     public static final String removeHtmlTags(final String input) {
 
-        final StringBuilder builder = new StringBuilder(input.length());
-        boolean inTag = false;
+        return input.replaceAll("< *[bB][rR] *>", "\n")
+                    .replaceAll("(?is)<SCRIPT[^>]*>.*?</SCRIPT *>", "")
+                    .replaceAll("(?is)<SVG[^>]*.*?</SVG *>", "")
+                    .replaceAll("(?is)<STYLE[^>]*.*?</STYLE *>", "")
+                    .replaceAll("<[^>]*>", "");
+    }
 
-        for (int i = 0; i < input.length();) {
-            final int character = input.codePointAt(i);
-            if (inTag) {
-                inTag = character != '>';
-            } else {
-                if (character == '<') {
-                    inTag = true;
-                } else {
-                    builder.appendCodePoint(character);
-                }
-            }
-            i += Character.charCount(character);
-        }
-
-        return builder.toString();
+    public static final String removeNewlines(final String input) {
+        return input.replace('\n', ' ').trim();
     }
 }

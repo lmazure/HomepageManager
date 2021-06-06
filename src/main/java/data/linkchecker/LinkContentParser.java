@@ -3,6 +3,7 @@ package data.linkchecker;
 import java.util.Locale;
 import java.util.Optional;
 
+import utils.HtmlHelper;
 import utils.StringHelper;
 
 public class LinkContentParser {
@@ -11,7 +12,7 @@ public class LinkContentParser {
     private Optional<Locale> _language;
 
     public LinkContentParser(final String data) {
-        _data = data;
+        _data = HtmlHelper.cleanContent(data);
     }
 
     public Optional<Locale> getLanguage() {
@@ -24,12 +25,6 @@ public class LinkContentParser {
     }
 
     private Optional<Locale> extractLanguage() {
-
-        final String data = _data.replaceAll("(?i)<SCRIPT[^>]*>.*?</SCRIPT *>", "")
-                                 .replaceAll("(?i)<SVG[^>]*.*?</SVG *>", "")
-                                 .replaceAll("(?i)<STYLE[^>]*.*?</STYLE *>", "")
-                                 .replaceAll("<[^>]*>", "");
-
-        return StringHelper.guessLanguage(data);
+        return StringHelper.guessLanguage(_data);
     }
 }

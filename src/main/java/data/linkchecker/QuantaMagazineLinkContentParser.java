@@ -36,7 +36,7 @@ public class QuantaMagazineLinkContentParser {
     }
 
     public String getTitle() throws ContentParserException {
-        return HtmlHelper.unescape(s_titleParser.extract(_data));
+        return HtmlHelper.cleanContent(s_titleParser.extract(_data));
     }
 
     public String getSubtitle() throws ContentParserException {
@@ -44,7 +44,7 @@ public class QuantaMagazineLinkContentParser {
     }
 
     public LocalDate getDate() throws ContentParserException {
-        return LocalDate.parse(s_dateParser.extract(_data));
+        return LocalDate.parse(HtmlHelper.cleanContent(s_dateParser.extract(_data)));
     }
 
     public AuthorData getAuthor() throws ContentParserException {

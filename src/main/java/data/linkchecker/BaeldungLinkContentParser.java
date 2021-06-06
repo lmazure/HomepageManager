@@ -35,11 +35,11 @@ public class BaeldungLinkContentParser {
     }
 
     public String getTitle() throws ContentParserException {
-        return HtmlHelper.unescape(s_titleParser.extract(_data));
+        return HtmlHelper.cleanContent(s_titleParser.extract(_data));
     }
 
     public LocalDate getDate() throws ContentParserException {
-        final String date = s_dateParser.extract(_data);
+        final String date = HtmlHelper.cleanContent(s_dateParser.extract(_data));
         try {
             return LocalDate.parse(date, s_formatter);
         } catch (final DateTimeParseException e) {
@@ -48,7 +48,7 @@ public class BaeldungLinkContentParser {
     }
 
     public Optional<AuthorData> getAuthor() throws ContentParserException {
-        final String author = s_authorParser.extract(_data);
+        final String author = HtmlHelper.cleanContent(s_authorParser.extract(_data));
         if (author.equals("baeldung")) {
             return Optional.empty();
         }

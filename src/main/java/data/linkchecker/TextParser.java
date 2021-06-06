@@ -9,19 +9,19 @@ class TextParser {
     private final String _source;
     private final String _field;
 
-    public TextParser(final String prefix,
-                      final String postfix,
-                      final String source,
-                      final String field) {
+    TextParser(final String prefix,
+               final String postfix,
+               final String source,
+               final String field) {
         this(prefix, ".+?", postfix, source, field);
     }
 
-    public TextParser(final String prefix,
-                      final String pattern,
-                      final String postfix,
-                      final String source,
-                      final String field) {
-        _pattern = Pattern.compile(prefix + "(" + pattern + ")" + postfix, Pattern.MULTILINE);
+    TextParser(final String prefix,
+               final String pattern,
+               final String postfix,
+               final String source,
+               final String field) {
+        _pattern = Pattern.compile(prefix + "(" + pattern + ")" + postfix, Pattern.DOTALL);
         _source = source;
         _field = field;
     }

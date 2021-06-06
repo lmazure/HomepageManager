@@ -43,7 +43,7 @@ public class FileHelper {
             final StringBuilder sb = new StringBuilder();
             String line = bufferedReader.readLine();
             while (line != null) {
-                sb.append(line);
+                sb.append(line).append('\n');
                 line = bufferedReader.readLine();
             }
             return sb.toString();

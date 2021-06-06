@@ -26,7 +26,7 @@ class HtmlHelperTest {
     void spacesAreProperlyUnduplicated() {
         final String input = " a b  d  efg  h i     j k l    mn   ";
         final String expected = " a b d efg h i j k l mn ";
-        Assertions.assertEquals(expected, HtmlHelper.unduplicateSpace(input));
+        Assertions.assertEquals(expected, HtmlHelper.cleanAndUnduplicateSpace(input));
     }
 
     @SuppressWarnings("static-method")
@@ -34,7 +34,7 @@ class HtmlHelperTest {
     void emojiAreLeftUnchanged() {
         final String input = "PARCOURSUP 👩🏽‍🎓🏫 et les algorithmes de mariage stable ❤️";
         final String expected = "PARCOURSUP 👩🏽‍🎓🏫 et les algorithmes de mariage stable ❤️";
-        Assertions.assertEquals(expected, HtmlHelper.unduplicateSpace(input));
+        Assertions.assertEquals(expected, HtmlHelper.cleanAndUnduplicateSpace(input));
     }
 
     @SuppressWarnings("static-method")
