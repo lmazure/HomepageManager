@@ -134,7 +134,7 @@ public class StringHelper {
         for (int offset = 0; offset < length; ) {
             final int codepoint = string.codePointAt(offset);
             final int normalizedCodepoint = Character.isSpaceChar(codepoint) ? ' ' : codepoint;
-            builder.append(normalizedCodepoint);
+            builder.appendCodePoint(normalizedCodepoint);
             offset += Character.charCount(codepoint);
         }
         return builder.toString();
