@@ -2,7 +2,6 @@ package data.internet.test;
 
 import java.net.URL;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.jupiter.api.Assertions;
@@ -15,7 +14,6 @@ import utils.FileHelper;
 
 public class CachedSiteDataRetrieverTest {
 
-    @SuppressWarnings("static-method")
     @Test
     void properlyCached() {
 
@@ -83,8 +81,8 @@ public class CachedSiteDataRetrieverTest {
         }
     }
 
-    private static CachedSiteDataRetriever buildDataSiteRetriever() {
-        final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\test\\CachedSiteDataRetrieverTest");
+    private CachedSiteDataRetriever buildDataSiteRetriever() {
+        final Path cachePath = TestHelper.getTestDatapath(this.getClass());
         FileHelper.deleteDirectory(cachePath.toFile());
         return new CachedSiteDataRetriever(new SiteDataPersister(cachePath));
     }

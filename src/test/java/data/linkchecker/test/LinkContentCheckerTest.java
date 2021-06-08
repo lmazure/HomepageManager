@@ -1,8 +1,6 @@
 package data.linkchecker.test;
 
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -14,21 +12,18 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import data.internet.SiteData;
-import data.internet.SiteDataPersister;
 import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
 import data.linkchecker.ContentParserException;
 import data.linkchecker.LinkContentCheck;
 import data.linkchecker.LinkContentChecker;
-import utils.FileHelper;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkData;
 import utils.xmlparsing.LinkFormat;
 
-class LinkContentCheckerTest {
+public class LinkContentCheckerTest {
 
-    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
             "https://blog.chromium.org/2009/01/tabbed-browsing-in-google-chrome.html|en|Tabbed Browsing in Google Chrome",
@@ -42,7 +37,7 @@ class LinkContentCheckerTest {
                    final String locale,
                    final String expectedTitle) {
         final URL url = TestHelper.buildURL(urlAsString);
-        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final LinkData linkData = new LinkData(expectedTitle, new String[0], urlAsString, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null);
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<AuthorData>(), null);
@@ -61,7 +56,6 @@ class LinkContentCheckerTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
-    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://blog.chromium.org/2009/01/tabbed-browsing-in-google-chrome.html,en,Tabbed browsing in Google Chrome,Tabbed Browsing in Google Chrome",
@@ -72,7 +66,7 @@ class LinkContentCheckerTest {
                                final String expectedTitle,
                                final String realTitle) {
         final URL url = TestHelper.buildURL(urlAsString);
-        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final LinkData linkData = new LinkData(expectedTitle, new String[0], urlAsString, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null);
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<AuthorData>(), null);
@@ -93,7 +87,6 @@ class LinkContentCheckerTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
-    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://www.liberation.fr/checknews/2020/04/16/covid-19-les-personnes-gueries-sont-elles-immunisees_1785420,fr,Covid-19 : les personnes guéries sont-elles immunisées ?,Covid-19 : les personnes guéries sont-elles immunisées ?"
@@ -103,7 +96,7 @@ class LinkContentCheckerTest {
                                 final String expectedTitle,
                                 final String realTitle) {
         final URL url = TestHelper.buildURL(urlAsString);
-        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final LinkData linkData = new LinkData(expectedTitle, new String[0], urlAsString, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null);
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<AuthorData>(), null);
@@ -122,11 +115,5 @@ class LinkContentCheckerTest {
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
-    }
-
-    private static SynchronousSiteDataRetriever buildDataSiteRetriever() {
-        final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\test\\LinkContentCheckerTest");
-        FileHelper.deleteDirectory(cachePath.toFile());
-        return new SynchronousSiteDataRetriever(new SiteDataPersister(cachePath));
     }
 }

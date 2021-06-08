@@ -21,7 +21,7 @@ import utils.ExitHelper;
 import data.NodeValueChecker;
 import data.nodechecker.checker.nodeChecker.NodeCheckError;
 
-class NodeValueCheckerTest {
+public class NodeValueCheckerTest {
 
     @SuppressWarnings("static-method")
     @Test

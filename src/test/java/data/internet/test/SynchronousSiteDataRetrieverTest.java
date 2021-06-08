@@ -1,7 +1,6 @@
 package data.internet.test;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.jupiter.api.Assertions;
@@ -15,7 +14,6 @@ import utils.FileHelper;
 
 public class SynchronousSiteDataRetrieverTest {
 
-    @SuppressWarnings("static-method")
     @Test
     void basicHttpRequest() {
 
@@ -31,7 +29,6 @@ public class SynchronousSiteDataRetrieverTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void basicHttpsRequest() {
 
@@ -48,7 +45,6 @@ public class SynchronousSiteDataRetrieverTest {
     }
 
     @Disabled("I have not found yet a workaround for LinkedIn protection")
-    @SuppressWarnings("static-method")
     @Test
     void linkedInRequest() {
 
@@ -59,8 +55,8 @@ public class SynchronousSiteDataRetrieverTest {
                            });
     }
 
-    private static SynchronousSiteDataRetriever buildDataSiteRetriever() {
-        final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\test\\SynchronousSiteDataRetrieverTest");
+    private SynchronousSiteDataRetriever buildDataSiteRetriever() {
+        final Path cachePath = TestHelper.getTestDatapath(this.getClass());
         FileHelper.deleteDirectory(cachePath.toFile());
         return new SynchronousSiteDataRetriever(new SiteDataPersister(cachePath));
     }

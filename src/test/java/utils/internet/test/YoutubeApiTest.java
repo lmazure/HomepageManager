@@ -11,7 +11,7 @@ import data.ParameterRepository;
 import utils.internet.YoutubeApi;
 import utils.internet.YoutubeVideoDto;
 
-class YoutubeApiTest {
+public class YoutubeApiTest {
 
     @SuppressWarnings("static-method")
     @Test

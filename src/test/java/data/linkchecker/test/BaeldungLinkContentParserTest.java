@@ -1,7 +1,5 @@
 package data.linkchecker.test;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -11,7 +9,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import data.internet.SiteData;
-import data.internet.SiteDataPersister;
 import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
 import data.linkchecker.BaeldungLinkContentParser;
@@ -21,10 +18,9 @@ import utils.xmlparsing.AuthorData;
 
 public class BaeldungLinkContentParserTest {
 
-    @SuppressWarnings("static-method")
     @Test
     void testTitle() {
-        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://www.baeldung.com/crawler4j"),
                            (final Boolean b, final SiteData d) -> {
@@ -41,14 +37,13 @@ public class BaeldungLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
-    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://www.baeldung.com/crawler4j,2019-09-06"
         })
     void testDate(final String url,
                   final String expectedDate) {
-        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
           (final Boolean b, final SiteData d) -> {
@@ -65,7 +60,6 @@ public class BaeldungLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
-    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://www.baeldung.com/crawler4j,Amy,DeGregorio"
@@ -79,7 +73,7 @@ public class BaeldungLinkContentParserTest {
                                                          Optional.of(expectedLastName),
                                                          Optional.empty(),
                                                          Optional.empty());
-        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
           (final Boolean b, final SiteData d) -> {
@@ -97,13 +91,12 @@ public class BaeldungLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
-    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://www.baeldung.com/java-9-reactive-streams"
         })
     void testNoAuthor(final String url) {
-        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
           (final Boolean b, final SiteData d) -> {
@@ -119,11 +112,4 @@ public class BaeldungLinkContentParserTest {
           });
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
-
-    private static SynchronousSiteDataRetriever buildDataSiteRetriever() {
-        final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\test\\BaeldungLinkContentParserTest");
-        FileHelper.deleteDirectory(cachePath.toFile());
-        return new SynchronousSiteDataRetriever(new SiteDataPersister(cachePath));
-    }
-
 }

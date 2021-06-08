@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkData;
@@ -101,7 +103,7 @@ public class BaeldungLinkContentChecker extends LinkContentChecker {
             return new LinkContentCheck("Baeldung article should have at most one author");
         }
 
-        final Optional<AuthorData> effectiveAuthor = _parser.getAuthor();
+        final Optional<@NonNull AuthorData> effectiveAuthor = _parser.getAuthor();
         if (effectiveAuthor.isPresent()) {
             if (authors.size() == 1) {
                 if (!effectiveAuthor.get().equals(authors.get(0))) {

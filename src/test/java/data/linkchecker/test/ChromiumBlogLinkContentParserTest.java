@@ -1,7 +1,5 @@
 package data.linkchecker.test;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.jupiter.api.Assertions;
@@ -9,7 +7,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import data.internet.SiteData;
-import data.internet.SiteDataPersister;
 import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
 import data.linkchecker.ChromiumBlogLinkContentParser;
@@ -18,7 +15,6 @@ import utils.FileHelper;
 
 public class ChromiumBlogLinkContentParserTest {
 
-    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://blog.chromium.org/2009/01/tabbed-browsing-in-google-chrome.html,Tabbed Browsing in Google Chrome",
@@ -26,7 +22,7 @@ public class ChromiumBlogLinkContentParserTest {
         })
     void testTitle(final String url,
                    final String expectedTitle) {
-        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
@@ -43,14 +39,13 @@ public class ChromiumBlogLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
-    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://blog.chromium.org/2019/05/improving-privacy-and-security-on-web.html,Improving privacy and security on the web"
         })
     void testTrimmedTitle(final String url,
                           final String expectedTitle) {
-        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
@@ -68,7 +63,6 @@ public class ChromiumBlogLinkContentParserTest {
     }
 
 
-    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
         "https://blog.chromium.org/2010/05/security-in-depth-html5s-sandbox.html|Security in Depth: HTML5’s @sandbox",
@@ -78,7 +72,7 @@ public class ChromiumBlogLinkContentParserTest {
         }, delimiter = '|')
     void testTitleWithSpecialCharacter(final String url,
                                        final String expectedTitle) {
-        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
@@ -94,7 +88,6 @@ public class ChromiumBlogLinkContentParserTest {
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
-    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://blog.chromium.org/2009/01/tabbed-browsing-in-google-chrome.html,2009-01-06",
@@ -102,7 +95,7 @@ public class ChromiumBlogLinkContentParserTest {
         })
     void testPublishDate(final String url,
                          final String expectedPublicationDate) {
-        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
@@ -117,11 +110,5 @@ public class ChromiumBlogLinkContentParserTest {
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
-    }
-
-    private static SynchronousSiteDataRetriever buildDataSiteRetriever() {
-        final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\test\\ChromiumBlogLinkContentParserTest");
-        FileHelper.deleteDirectory(cachePath.toFile());
-        return new SynchronousSiteDataRetriever(new SiteDataPersister(cachePath));
     }
 }

@@ -3,10 +3,15 @@ package data.internet.test;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Assertions;
 
 import data.internet.SiteData;
+import data.internet.SiteDataPersister;
+import data.internet.SynchronousSiteDataRetriever;
+import utils.FileHelper;
 import utils.StringHelper;
 
 public class TestHelper {
@@ -38,5 +43,15 @@ public class TestHelper {
             return null;
         }
         return url;
+    }
+
+    public static SynchronousSiteDataRetriever buildDataSiteRetriever(final Class<?> clazz) {
+        final Path cachePath = getTestDatapath(clazz);
+        FileHelper.deleteDirectory(cachePath.toFile());
+        return new SynchronousSiteDataRetriever(new SiteDataPersister(cachePath));
+    }
+
+    public static Path getTestDatapath(final Class<?> clazz) {
+        return Paths.get("H:\\Documents\\tmp\\hptmp\\test\\" + clazz.getSimpleName());
     }
 }

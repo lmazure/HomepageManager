@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import utils.HtmlHelper;
 
-class HtmlHelperTest {
+public class HtmlHelperTest {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest

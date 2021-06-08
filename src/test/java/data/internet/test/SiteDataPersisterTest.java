@@ -2,7 +2,6 @@ package data.internet.test;
 
 import java.net.URL;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +29,6 @@ public class SiteDataPersisterTest {
                                                                                     "header5", List.of("val51")));
     private static Optional<String> error = Optional.of("error");
 
-    @SuppressWarnings("static-method")
     @Test
     void allPresent() {
 
@@ -44,7 +42,6 @@ public class SiteDataPersisterTest {
         Assertions.assertEquals(error, data.getError());
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void allHttpCodeEmpty() {
 
@@ -58,7 +55,6 @@ public class SiteDataPersisterTest {
         Assertions.assertEquals(error, data.getError());
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void allHeadersEmpty() {
 
@@ -72,7 +68,6 @@ public class SiteDataPersisterTest {
         Assertions.assertEquals(error, data.getError());
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void allErrorEmpty() {
 
@@ -86,7 +81,6 @@ public class SiteDataPersisterTest {
         Assertions.assertEquals(Optional.empty(), data.getError());
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void allEmpty() {
 
@@ -100,7 +94,6 @@ public class SiteDataPersisterTest {
         Assertions.assertEquals(Optional.empty(), data.getError());
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void allPresentAndStatusFailure() {
 
@@ -114,8 +107,8 @@ public class SiteDataPersisterTest {
         Assertions.assertEquals(error, data.getError());
     }
 
-    private static SiteDataPersister buildSiteDataPersister() {
-        final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\test\\SiteDataPersisterTest");
+    private SiteDataPersister buildSiteDataPersister() {
+        final Path cachePath = TestHelper.getTestDatapath(this.getClass());
         FileHelper.deleteDirectory(cachePath.toFile());
         return new SiteDataPersister(cachePath);
     }

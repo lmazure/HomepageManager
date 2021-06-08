@@ -1,7 +1,6 @@
 package data.internet.test;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.jupiter.api.Assertions;
@@ -14,7 +13,6 @@ import utils.FileHelper;
 
 public class AsynchronousSiteDataRetrieverTest {
 
-    @SuppressWarnings("static-method")
     @Test
     void basicHttpRequest() {
 
@@ -38,7 +36,6 @@ public class AsynchronousSiteDataRetrieverTest {
         }
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void basicHttpsRequest() {
 
@@ -62,8 +59,8 @@ public class AsynchronousSiteDataRetrieverTest {
         }
     }
 
-    private static AsynchronousSiteDataRetriever buildDataSiteRetriever() {
-        final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\test\\AsynchronousSiteDataRetrieverTest");
+    private AsynchronousSiteDataRetriever buildDataSiteRetriever() {
+        final Path cachePath = TestHelper.getTestDatapath(this.getClass());
         FileHelper.deleteDirectory(cachePath.toFile());
         return new AsynchronousSiteDataRetriever(new SiteDataPersister(cachePath));
     }

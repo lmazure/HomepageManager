@@ -1,7 +1,5 @@
 package data.linkchecker.test;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -11,19 +9,17 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import data.internet.SiteData;
-import data.internet.SiteDataPersister;
 import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
 import data.linkchecker.ContentParserException;
 import data.linkchecker.YoutubeChannelUserLinkContentParser;
 import utils.FileHelper;
 
-class YoutubeChannelUserLinkContentParserTest {
+public class YoutubeChannelUserLinkContentParserTest {
 
-    @SuppressWarnings("static-method")
     @Test
     void testErrorMessagePresent() {
-        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/channel/UCwBn4dgV3kxzvcCKN3TbQOQ"),
                            (final Boolean b, final SiteData d) -> {
@@ -37,10 +33,9 @@ class YoutubeChannelUserLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void testErrorMessageAbsent() {
-        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/channel/UC6nSFpj9HTCZ5t-N3Rm3-HA"),
                            (final Boolean b, final SiteData d) -> {
@@ -53,7 +48,6 @@ class YoutubeChannelUserLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
-    @SuppressWarnings("static-method")
     @ParameterizedTest
     @ValueSource(strings = {
             "https://www.youtube.com/channel/UC6nSFpj9HTCZ5t-N3Rm3-HA",
@@ -63,7 +57,7 @@ class YoutubeChannelUserLinkContentParserTest {
             "https://www.youtube.com/user/Vsauce3"
                            })
     void testEnglish(final String url) {
-        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
@@ -80,14 +74,13 @@ class YoutubeChannelUserLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
-    @SuppressWarnings("static-method")
     @ParameterizedTest
     @ValueSource(strings = {
             "https://www.youtube.com/channel/UCjsHDXUU3BjBCG7OaCbNDyQ",
             "https://www.youtube.com/user/TheWandida"
                            })
     void testFrench(final String url) {
-        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
@@ -102,11 +95,5 @@ class YoutubeChannelUserLinkContentParserTest {
                             consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
-    }
-
-    private static SynchronousSiteDataRetriever buildDataSiteRetriever() {
-        final Path cachePath = Paths.get("H:\\Documents\\tmp\\hptmp\\test\\YoutubeChannelUserLinkContentParserTest");
-        FileHelper.deleteDirectory(cachePath.toFile());
-        return new SynchronousSiteDataRetriever(new SiteDataPersister(cachePath));
     }
 }

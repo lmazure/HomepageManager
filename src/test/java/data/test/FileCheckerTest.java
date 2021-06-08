@@ -13,7 +13,7 @@ import data.DataController;
 import data.FileChecker;
 import data.FileHandler.Status;
 
-class FileCheckerTest {
+public class FileCheckerTest {
 
     private static final String MESS_BOM  = "file should not have a UTF BOM";
     private static final String MESS_CTRL = "line contains a control character";

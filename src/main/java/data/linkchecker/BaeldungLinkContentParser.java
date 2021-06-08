@@ -6,6 +6,8 @@ import java.time.format.DateTimeParseException;
 import java.util.Locale;
 import java.util.Optional;
 
+import org.eclipse.jdt.annotation.NonNull;
+
 import utils.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 
@@ -47,7 +49,7 @@ public class BaeldungLinkContentParser {
         }
     }
 
-    public Optional<AuthorData> getAuthor() throws ContentParserException {
+    public Optional<@NonNull AuthorData> getAuthor() throws ContentParserException {
         final String author = HtmlHelper.cleanContent(s_authorParser.extract(_data));
         if (author.equals("baeldung")) {
             return Optional.empty();
