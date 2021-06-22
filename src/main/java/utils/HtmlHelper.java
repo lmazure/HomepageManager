@@ -378,7 +378,7 @@ public class HtmlHelper {
 
     public static final String removeHtmlTags(final String input) {
 
-        return input.replaceAll("< *[bB][rR] *>", "\n")
+        return input.replaceAll("< *[bB][rR] */?>", "\n")
                     .replaceAll("(?is)<SCRIPT[^>]*>.*?</SCRIPT *>", "")
                     .replaceAll("(?is)<SVG[^>]*.*?</SVG *>", "")
                     .replaceAll("(?is)<STYLE[^>]*.*?</STYLE *>", "")

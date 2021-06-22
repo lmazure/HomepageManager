@@ -31,7 +31,8 @@ public class LinkContentCheckerTest {
             "http://www.tcl.tk/doc/scripting.html|en|Scripting: Higher Level Programming for the 21st Century",
             "http://www.business-esolutions.com/islm.htm|en|Project Lifecycle Models: How They Differ and When to Use Them",
             "https://martinfowler.com/bliki/UseCasesAndStories.html|en|What is the difference between a UseCase and XP's UserStory?",
-            "http://hesketh.com/publications/inclusive_web_design_for_the_future/|en|Inclusive Web Design For the Future with Progressive Enhancement"
+            "http://hesketh.com/publications/inclusive_web_design_for_the_future/|en|Inclusive Web Design For the Future with Progressive Enhancement",
+            "https://blog.cleancoder.com/uncle-bob/2014/06/17/IsTddDeadFinalThoughts.html|en|Is TDD Dead? Final Thoughts about Teams."
             }, delimiter = '|')
     void testTitle(final String urlAsString,
                    final String locale,

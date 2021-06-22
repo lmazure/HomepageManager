@@ -1,8 +1,14 @@
-les résultats des contôles d'autotest.xml sont corrompus
+titre de http://www.kevinmarks.com/personality.html
+
+titres dans javahistory et cracking
+
+comprendre pourquoi baeldung ne marche plus
+
+nettoyer cracking.xml
+
+les résultats des contrôles d'autotest.xml sont corrompus
 
 titre de http://users.cs.cf.ac.uk/Dave.Marshall/C/CE.html
-
-bettoyer javabasics
 
 les tests ne devraient pas hardcoder H:
 
@@ -17,8 +23,6 @@ Some design patterns:<BR/>
 
 Rivest, Shamir and Adleman
 
-The title says everything
-
 Larry tells us the history of Perl.
 
 vérifier l'ordre des attributs XML
@@ -30,12 +34,6 @@ vérifier le bon type d'apostrophe pour person's object
 mettre GIVENNAME entre double quote côté JS
 
 von neumman
-
-titre avec <BR/> https://blog.cleancoder.com/uncle-bob/2014/06/17/IsTddDeadFinalThoughts.html
-
-titre de
-http://www.kevinmarks.com/personality.html
-https://blog.cleancoder.com/uncle-bob/2014/06/17/IsTddDeadFinalThoughts.html
 
 problème avec les titres de medium
 https://medium.com/@kentbeck_7670/sipping-the-big-gulp-a7c50549c393
