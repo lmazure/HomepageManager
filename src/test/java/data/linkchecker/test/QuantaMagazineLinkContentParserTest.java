@@ -164,14 +164,16 @@ public class QuantaMagazineLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/,Kevin,Hartnett"
+        "https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/,Kevin,,Hartnett",
+        "https://www.quantamagazine.org/long-covid-how-it-keeps-us-sick-20210701/,Tara,C.,Smith"
         })
     void testAuthor(final String url,
                     final String expectedFirstName,
+                    final String expectedMiddleName,
                     final String expectedLastName) {
         final AuthorData expectedAuthor = new AuthorData(Optional.empty(),
                                                          Optional.of(expectedFirstName),
-                                                         Optional.empty(),
+                                                         Optional.ofNullable(expectedMiddleName),
                                                          Optional.of(expectedLastName),
                                                          Optional.empty(),
                                                          Optional.empty());

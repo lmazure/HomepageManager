@@ -32,7 +32,7 @@ public class SynchronousSiteDataRetriever {
     private final static int s_connectTimeout = 30000;
     private final static int s_readTimeout = 60000;
 
-    private final static String s_userAgent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36";
+    private final static String s_userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0";
 
 
     public SynchronousSiteDataRetriever(final SiteDataPersister persister) {

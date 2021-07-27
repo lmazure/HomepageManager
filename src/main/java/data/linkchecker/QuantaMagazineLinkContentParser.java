@@ -49,14 +49,22 @@ public class QuantaMagazineLinkContentParser {
 
     public AuthorData getAuthor() throws ContentParserException {
         final String[] nameParts = HtmlHelper.cleanContent(s_authorParser.extract(_data)).split(" ");
-        if (nameParts.length != 2) {
-            throw new ContentParserException("Failed to parse author name in QuantaMagazine page");
+        if (nameParts.length == 2) {
+            return new AuthorData(Optional.empty(),
+                    Optional.of(nameParts[0]),
+                    Optional.empty(),
+                    Optional.of(nameParts[1]),
+                    Optional.empty(),
+                    Optional.empty());
         }
-        return new AuthorData(Optional.empty(),
-                              Optional.of(nameParts[0]),
-                              Optional.empty(),
-                              Optional.of(nameParts[1]),
-                              Optional.empty(),
-                              Optional.empty());
+        if (nameParts.length == 3) {
+            return new AuthorData(Optional.empty(),
+                                  Optional.of(nameParts[0]),
+                                  Optional.of(nameParts[1]),
+                                  Optional.of(nameParts[2]),
+                                  Optional.empty(),
+                                  Optional.empty());
+        }
+        throw new ContentParserException("Failed to parse author name in QuantaMagazine page (author name has " + nameParts.length + " parts)");
     }
 }

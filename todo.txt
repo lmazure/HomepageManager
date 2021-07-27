@@ -8,8 +8,6 @@ nettoyer cracking.xml
 
 les résultats des contrôles d'autotest.xml sont corrompus
 
-titre de http://users.cs.cf.ac.uk/Dave.Marshall/C/CE.html
-
 les tests ne devraient pas hardcoder H:
 
 détecter la présence du givenname sur une page
@@ -50,7 +48,6 @@ nettoyer
 - solaris.xml
 - vbasic.xml
 - pharma.xml
-- c.xml
 - gems.xml
 - kika.xml
 - sfbook.xml
