@@ -32,7 +32,7 @@ public class SynchronousSiteDataRetriever {
     private final static int s_connectTimeout = 30000;
     private final static int s_readTimeout = 60000;
 
-    private final static String s_userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0";
+    private final static String s_userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv\", \"0.0) Gecko/20100101 Firefox/90.0";
 
 
     public SynchronousSiteDataRetriever(final SiteDataPersister persister) {
@@ -64,10 +64,19 @@ public class SynchronousSiteDataRetriever {
              connection.setConnectTimeout(s_connectTimeout);
              connection.setReadTimeout(s_readTimeout);
              httpConnection.setRequestMethod("GET");
-             httpConnection.setRequestProperty("User-agent", s_userAgent);
-             httpConnection.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-             httpConnection.setRequestProperty("Accept-Encoding", "gzip");
+             httpConnection.setRequestProperty("User-Agent", s_userAgent);
+             httpConnection.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
              httpConnection.setRequestProperty("Accept-Language", "en");
+             httpConnection.setRequestProperty("Accept-Encoding", "gzip");
+             httpConnection.setRequestProperty("DNT", "1");
+             httpConnection.setRequestProperty("Connection", "keep-alive");
+             httpConnection.setRequestProperty("Upgrade-Insecure-Requests", "1");
+             httpConnection.setRequestProperty("Sec-Fetch-Dest", "document");
+             httpConnection.setRequestProperty("Sec-Fetch-Mode", "navigate");
+             httpConnection.setRequestProperty("Sec-Fetch-Site", "same-origin");
+             httpConnection.setRequestProperty("Pragma", "no-cache");
+             httpConnection.setRequestProperty("Cache-Control", "no-cache");
+             httpConnection.setRequestProperty("TE", "trailers");
              httpConnection.connect();
              headers = Optional.of(connection.getHeaderFields());
              final int responseCode = httpConnection.getResponseCode();

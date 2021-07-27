@@ -2,8 +2,6 @@ titre de http://www.kevinmarks.com/personality.html
 
 titres dans javahistory et cracking
 
-comprendre pourquoi baeldung ne marche plus
-
 nettoyer cracking.xml
 
 les résultats des contrôles d'autotest.xml sont corrompus
