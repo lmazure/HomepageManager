@@ -12,7 +12,7 @@ import data.internet.SiteData;
 import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
 import data.linkchecker.ContentParserException;
-import data.linkchecker.QuantaMagazineLinkContentParser;
+import data.linkchecker.quantamagazine.QuantaMagazineLinkContentParser;
 import utils.FileHelper;
 import utils.xmlparsing.AuthorData;
 

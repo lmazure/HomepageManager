@@ -4,6 +4,13 @@ import java.io.File;
 import java.net.URL;
 import java.util.Optional;
 
+import data.linkchecker.baeldung.BaeldungLinkContentChecker;
+import data.linkchecker.chromium.ChromiumBlogLinkContentChecker;
+import data.linkchecker.medium.MediumLinkContentChecker;
+import data.linkchecker.quantamagazine.QuantaMagazineLinkContentChecker;
+import data.linkchecker.twitter.TwitterLinkContentChecker;
+import data.linkchecker.youtubechanneluser.YoutubeChannelUserLinkContentChecker;
+import data.linkchecker.youtubewatch.YoutubeWatchLinkContentChecker;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkData;
 

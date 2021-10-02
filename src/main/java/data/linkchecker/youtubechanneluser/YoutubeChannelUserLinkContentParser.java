@@ -1,10 +1,11 @@
-package data.linkchecker;
+package data.linkchecker.youtubechanneluser;
 
 import java.util.Locale;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import data.linkchecker.ContentParserException;
 import utils.StringHelper;
 
 public class YoutubeChannelUserLinkContentParser {

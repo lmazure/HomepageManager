@@ -1,4 +1,4 @@
-package data.linkchecker;
+package data.linkchecker.baeldung;
 
 import java.io.File;
 import java.net.URL;
@@ -8,26 +8,31 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
+import org.eclipse.jdt.annotation.NonNull;
+
+import data.linkchecker.ContentParserException;
+import data.linkchecker.LinkContentCheck;
+import data.linkchecker.LinkContentChecker;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkData;
 
-public class QuantaMagazineLinkContentChecker extends LinkContentChecker {
+public class BaeldungLinkContentChecker extends LinkContentChecker {
 
-    private QuantaMagazineLinkContentParser _parser;
 
-    public QuantaMagazineLinkContentChecker(final URL url,
-                                            final LinkData linkData,
-                                            final Optional<ArticleData> articleData,
-                                            final File file) {
+    private BaeldungLinkContentParser _parser;
+
+    public BaeldungLinkContentChecker(final URL url,
+                                      final LinkData linkData,
+                                      final Optional<ArticleData> articleData,
+                                      final File file) {
         super(url, linkData, articleData, file);
     }
 
     @Override
     protected LinkContentCheck checkGlobalData(final String data)
     {
-        _parser = new QuantaMagazineLinkContentParser(data);
-
+        _parser = new BaeldungLinkContentParser(data);
         return null;
     }
 
@@ -52,20 +57,9 @@ public class QuantaMagazineLinkContentChecker extends LinkContentChecker {
     protected LinkContentCheck checkLinkSubtitles(final String data,
                                                   final String[] subtitles) throws ContentParserException
     {
-        if (subtitles.length != 1) {
-            return new LinkContentCheck("Quanta Magazine article should have one subtitle");
+        if (subtitles.length != 0) {
+            return new LinkContentCheck("Baeldung article should have one subtitle");
         }
-
-        final String effectiveSubtitle = _parser.getSubtitle();
-
-        if (!subtitles[0].equals(effectiveSubtitle)) {
-            return new LinkContentCheck("subtitle \"" +
-                                        subtitles[0] +
-                                        "\" is not equal to the real subtitle \"" +
-                                        effectiveSubtitle +
-                                          "\"");
-        }
-
         return null;
     }
 
@@ -74,7 +68,7 @@ public class QuantaMagazineLinkContentChecker extends LinkContentChecker {
                                                   final Locale[] languages)
     {
         if ((languages.length != 1) && (languages[0] != Locale.FRENCH)) {
-            return new LinkContentCheck("Quanta Magazine article should have the language set as English");
+            return new LinkContentCheck("Baeldung article should have the language set as English");
         }
 
         return null;
@@ -86,10 +80,10 @@ public class QuantaMagazineLinkContentChecker extends LinkContentChecker {
                                                 final Optional<TemporalAccessor> creationDate) throws ContentParserException
     {
         if (publicationDate.isPresent()) {
-            return new LinkContentCheck("Quanta Magazine article should have no publication date");
+            return new LinkContentCheck("Baeldung article should have no publication date");
         }
         if (creationDate.isEmpty()) {
-            return new LinkContentCheck("Quanta Magazine article should have a creation date");
+            return new LinkContentCheck("Baeldung article should have a creation date");
         }
 
         final LocalDate effectiveDate = _parser.getDate();
@@ -108,15 +102,31 @@ public class QuantaMagazineLinkContentChecker extends LinkContentChecker {
     protected LinkContentCheck checkLinkAuthors(final String data,
                                                 final List<AuthorData> authors) throws ContentParserException
     {
-        final AuthorData effectiveAuthor = _parser.getAuthor();
-        if (!authors.contains(effectiveAuthor)) {
-            return new LinkContentCheck("The expected authors (" +
-                                        authors +
-                                        ") do not contain the effective author (" +
-                                        effectiveAuthor +
-                                        ")");
+        if (authors.size() > 1) {
+            return new LinkContentCheck("Baeldung article should have at most one author");
         }
 
+        final Optional<@NonNull AuthorData> effectiveAuthor = _parser.getAuthor();
+        if (effectiveAuthor.isPresent()) {
+            if (authors.size() == 1) {
+                if (!effectiveAuthor.get().equals(authors.get(0))) {
+                    return new LinkContentCheck("The expected author (" +
+                                                authors.get(0) +
+                                                ") is not equal to the effective author (" +
+                                                effectiveAuthor.get() +
+                                                ")");
+                }
+                return null;
+            }
+            return new LinkContentCheck("No author is expected but there is one (" +
+                                        effectiveAuthor.get() +
+                                        ")");
+        }
+        if (authors.size() == 1) {
+            return new LinkContentCheck("An author is expected (" +
+                                        authors.get(0) +
+                                        ") but there is none");
+        }
         return null;
     }
 }

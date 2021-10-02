@@ -1,4 +1,4 @@
-package data.linkchecker;
+package data.linkchecker.baeldung;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -8,6 +8,8 @@ import java.util.Optional;
 
 import org.eclipse.jdt.annotation.NonNull;
 
+import data.linkchecker.ContentParserException;
+import data.linkchecker.TextParser;
 import utils.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 

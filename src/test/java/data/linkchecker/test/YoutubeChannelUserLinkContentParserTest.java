@@ -12,7 +12,7 @@ import data.internet.SiteData;
 import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
 import data.linkchecker.ContentParserException;
-import data.linkchecker.YoutubeChannelUserLinkContentParser;
+import data.linkchecker.youtubechanneluser.YoutubeChannelUserLinkContentParser;
 import utils.FileHelper;
 
 public class YoutubeChannelUserLinkContentParserTest {

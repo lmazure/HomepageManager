@@ -1,4 +1,4 @@
-package data.linkchecker;
+package data.linkchecker.youtubewatch;
 
 import java.io.File;
 import java.net.URL;
@@ -12,6 +12,8 @@ import java.util.Locale;
 import java.util.Optional;
 
 import data.ParameterRepository;
+import data.linkchecker.LinkContentCheck;
+import data.linkchecker.LinkContentChecker;
 import utils.StringHelper;
 import utils.internet.CachedYoutubeApi;
 import utils.internet.YoutubeVideoDto;

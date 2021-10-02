@@ -1,4 +1,4 @@
-package data.linkchecker;
+package data.linkchecker.youtubewatch;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import data.linkchecker.ContentParserException;
 import utils.StringHelper;
 
 public class YoutubeWatchLinkContentParser {

@@ -1,4 +1,4 @@
-package data.linkchecker;
+package data.linkchecker.medium;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -6,6 +6,7 @@ import java.time.ZoneId;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import data.linkchecker.ContentParserException;
 import utils.JsonHelper;
 
 public class MediumLinkContentParser {

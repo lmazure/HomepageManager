@@ -1,8 +1,10 @@
-package data.linkchecker;
+package data.linkchecker.quantamagazine;
 
 import java.time.LocalDate;
 import java.util.Optional;
 
+import data.linkchecker.ContentParserException;
+import data.linkchecker.TextParser;
 import utils.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 

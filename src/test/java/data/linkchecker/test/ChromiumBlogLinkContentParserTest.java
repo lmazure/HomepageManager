@@ -9,8 +9,8 @@ import org.junit.jupiter.params.provider.CsvSource;
 import data.internet.SiteData;
 import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
-import data.linkchecker.ChromiumBlogLinkContentParser;
 import data.linkchecker.ContentParserException;
+import data.linkchecker.chromium.ChromiumBlogLinkContentParser;
 import utils.FileHelper;
 
 public class ChromiumBlogLinkContentParserTest {

@@ -1,10 +1,12 @@
-package data.linkchecker;
+package data.linkchecker.chromium;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
+import data.linkchecker.ContentParserException;
+import data.linkchecker.TextParser;
 import utils.HtmlHelper;
 
 public class ChromiumBlogLinkContentParser {

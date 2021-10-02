@@ -11,8 +11,8 @@ import org.junit.jupiter.params.provider.CsvSource;
 import data.internet.SiteData;
 import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
-import data.linkchecker.BaeldungLinkContentParser;
 import data.linkchecker.ContentParserException;
+import data.linkchecker.baeldung.BaeldungLinkContentParser;
 import utils.FileHelper;
 import utils.xmlparsing.AuthorData;
 

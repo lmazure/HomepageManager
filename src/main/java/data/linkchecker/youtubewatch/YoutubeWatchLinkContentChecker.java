@@ -1,4 +1,4 @@
-package data.linkchecker;
+package data.linkchecker.youtubewatch;
 
 import java.io.File;
 import java.net.URL;
@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
+import data.linkchecker.ContentParserException;
+import data.linkchecker.LinkContentCheck;
+import data.linkchecker.LinkContentChecker;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkData;

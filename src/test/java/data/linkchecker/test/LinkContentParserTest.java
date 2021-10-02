@@ -48,8 +48,7 @@ public class LinkContentParserTest {
             "https://www.france24.com/fr/am%C3%A9riques/20200527-%C3%A9mission-sp%C3%A9ciale-le-br%C3%A9sil-%C3%A9picentre-du-covid-19-en-am%C3%A9rique-latine",
             "https://www.lavoixdunord.fr/752544/article/2020-05-13/coronavirus-les-foyers-de-morts-mysterieuses-se-multiplient-au-nigeria",
             "https://www.lemonde.fr/blog/vidberg/2013/07/20/une-banale-histoire-de-proces-sur-internet/",
-            "https://www.marmiton.org/",
-            "http://www.wazabi-online.com/"
+            "https://www.marmiton.org/"
             })
     void testLanguageForFrenchArticle(String url) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
