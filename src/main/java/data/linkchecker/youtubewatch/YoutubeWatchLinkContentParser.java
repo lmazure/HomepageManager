@@ -15,6 +15,7 @@ public class YoutubeWatchLinkContentParser {
     private final String _data;
     private final boolean _isEscaped;
     private Boolean _isPlayable;
+    private String _channel;
     private String _title;
     private String _description;
     private Optional<Locale> _language;
@@ -43,6 +44,14 @@ public class YoutubeWatchLinkContentParser {
         }
 
         return _isPlayable.booleanValue();
+    }
+
+    public String getChannel() throws ContentParserException {
+        if (_channel == null) {
+            _channel = extractField("ownerChannelName");
+        }
+
+        return _channel;
     }
 
     public String getTitle() throws ContentParserException {

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import data.internet.SiteData;
@@ -49,6 +50,33 @@ public class YoutubeWatchLinkContentParserTest {
                                final String data = FileHelper.slurpFile(d.getDataFile().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data);
                                Assertions.assertFalse(parser.isPlayable());
+                               consumerHasBeenCalled.set(true);
+                           });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "https://www.youtube.com/watch?v=4AuV93LOPcE,Mathologer",
+            "https://www.youtube.com/watch?v=zqTRdSUhgQw,Heu?reka",
+            "https://www.youtube.com/watch?v=KT18KJouHWg,Veritasium",
+            "https://www.youtube.com/watch?v=8JFyTubj30o,DeepSkyVideos",
+            "https://www.youtube.com/watch?v=LJ4W1g-6JiY,Sabine Hossenfelder",
+              })
+    void testChannel(final String url,
+                     final String expectedChannel) {
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(TestHelper.buildURL(url),
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final YoutubeWatchLinkContentParser parser = buildParser(data);
+                               try {
+                                   Assertions.assertEquals(expectedChannel, parser.getChannel());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getChannel threw " + e.getMessage());
+                               }
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
