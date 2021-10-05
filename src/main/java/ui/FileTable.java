@@ -17,11 +17,13 @@ import javafx.application.Application;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class FileTable extends Application {
@@ -64,10 +66,20 @@ public class FileTable extends Application {
         stage.setHeight(600);
         stage.setMaximized(true);
 
-        final BorderPane border = new BorderPane();
-        border.setCenter(buildTable(uiControllers));
-        border.setBottom(builtButtons());
-        final Scene scene = new Scene(border);
+        final MenuBar menuBar = new MenuBar();
+        final Menu menu = new Menu("Tools");
+        final MenuItem generateFiles = new MenuItem("Generate global files");
+        generateFiles.setOnAction(e -> generateGlobalFiles());
+        menu.getItems().add(generateFiles);
+        final MenuItem exit = new MenuItem("Exit");
+        exit.setOnAction(e ->  exit());
+        menu.getItems().add(exit);
+        menuBar.getMenus().add(menu);
+
+        final TableView<ObservableFile> table = buildTable(uiControllers);
+        final VBox vBox = new VBox(menuBar, table);
+        VBox.setVgrow(table, Priority.ALWAYS);
+        final Scene scene = new Scene(vBox);
 
         final Service<Void> calculateService = new Service<>() {
             @Override
@@ -125,21 +137,6 @@ public class FileTable extends Application {
         */
 
         return table;
-    }
-
-    private static HBox builtButtons() {
-
-        final HBox buttonPanel = new HBox();
-
-        final Button generateGlobalFileButton = new Button("Generate global files");
-        generateGlobalFileButton.setOnAction(event -> generateGlobalFiles());
-        buttonPanel.getChildren().add(generateGlobalFileButton);
-
-        final Button quitButton = new Button("Quit");
-        quitButton.setOnAction(event -> exit());
-        buttonPanel.getChildren().add(quitButton);
-
-        return buttonPanel;
     }
 
     public static void display(final Path homepagePath,
