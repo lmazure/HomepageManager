@@ -71,8 +71,11 @@ public class FileTable extends Application {
         final MenuItem generateFiles = new MenuItem("Generate global files");
         generateFiles.setOnAction(e -> generateGlobalFiles());
         menu.getItems().add(generateFiles);
+        final MenuItem generateXml = new MenuItem("Generate XML for link");
+        generateXml.setOnAction(e -> displayLinkXmlGenerator());
+        menu.getItems().add(generateXml);
         final MenuItem exit = new MenuItem("Exit");
-        exit.setOnAction(e ->  exit());
+        exit.setOnAction(e -> exit());
         menu.getItems().add(exit);
         menuBar.getMenus().add(menu);
 
@@ -153,6 +156,11 @@ public class FileTable extends Application {
         SiteFilesGenerator.generate(_homepagePath, _list.getFileList());
         JsonGenerator.generate(_homepagePath, _list.getFileList());
         MetricsExtractor.generate(_homepagePath);
+    }
+
+    private static void displayLinkXmlGenerator() {
+       final XmlGeneratorDialog dialog = new XmlGeneratorDialog();
+       dialog.showAndWait();
     }
 
     private static void exit() {
