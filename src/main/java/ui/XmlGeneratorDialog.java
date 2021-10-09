@@ -19,7 +19,7 @@ import javafx.scene.layout.VBox;
 import utils.StringHelper;
 
 public class XmlGeneratorDialog extends Dialog<String> {
-    
+
     private final TextField _urlField;
     private final TextField _xmlField;
     private final Path _cacheDirectory;

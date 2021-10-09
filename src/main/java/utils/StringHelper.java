@@ -116,7 +116,7 @@ public class StringHelper {
             return null;
         }
     }
-    
+
     public static int generalizedIndex(final String string,
                                        final String searchedString,
                                        final boolean ignoreCase,
@@ -127,7 +127,7 @@ public class StringHelper {
         final String ss2 = ignoreSpaceType ? normalizeSpace(ss1) : ss1;
         return s2.indexOf(ss2);
     }
-    
+
     private static String normalizeSpace(final String string) {
         final int length = string.length();
         final StringBuilder builder = new StringBuilder(length);

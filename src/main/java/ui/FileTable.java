@@ -30,7 +30,7 @@ public class FileTable extends Application {
 
     private static Path _homepagePath;
     private static Path _tmpPath;
-    private final static String _cacheFolderName = "internet_cache";
+    private static final String _cacheFolderName = "internet_cache";
     private static boolean _internetAccessiSEnabled;
     private static ObservableFileList _list;
 

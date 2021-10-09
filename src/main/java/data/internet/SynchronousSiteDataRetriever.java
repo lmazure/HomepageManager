@@ -29,10 +29,10 @@ public class SynchronousSiteDataRetriever {
 
     private final SiteDataPersister _persister;
     private final SSLSocketFactory _sslSocketFactory;
-    private final static int s_connectTimeout = 30000;
-    private final static int s_readTimeout = 60000;
+    private static final int s_connectTimeout = 30000;
+    private static final int s_readTimeout = 60000;
 
-    private final static String s_userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv\", \"0.0) Gecko/20100101 Firefox/90.0";
+    private static final String s_userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv\", \"0.0) Gecko/20100101 Firefox/90.0";
 
 
     public SynchronousSiteDataRetriever(final SiteDataPersister persister) {
