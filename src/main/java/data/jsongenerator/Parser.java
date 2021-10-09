@@ -14,13 +14,13 @@ import org.xml.sax.SAXException;
 
 import utils.Logger;
 import utils.XmlHelper;
-import utils.XmlParsingException;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.KeywordData;
 import utils.xmlparsing.LinkData;
 import utils.xmlparsing.ElementType;
 import utils.xmlparsing.XmlParser;
+import utils.xmlparsing.XmlParsingException;
 
 public class Parser {
 

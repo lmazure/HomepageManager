@@ -38,11 +38,11 @@ import utils.Logger;
 import utils.Logger.Level;
 import utils.StringHelper;
 import utils.XmlHelper;
-import utils.XmlParsingException;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkData;
 import utils.xmlparsing.ElementType;
 import utils.xmlparsing.XmlParser;
+import utils.xmlparsing.XmlParsingException;
 
 public class LinkCheckRunner {
 
@@ -63,7 +63,7 @@ public class LinkCheckRunner {
     private Instant _lastFileWriteTimestamp;
 
     public LinkCheckRunner(final Path file,
-                           final Path tmpPath,
+                           final Path cachePath,
                            final BackgroundDataController controller,
                            final Path ouputFile,
                            final Path reportFile) {
@@ -79,7 +79,7 @@ public class LinkCheckRunner {
         _checks = new HashMap<>();
         _isCancelled = false;
         _builder = XmlHelper.buildDocumentBuilder();
-        _retriever = new SiteDataRetriever(tmpPath.resolve("internet_cache"));
+        _retriever = new SiteDataRetriever(cachePath);
         _controller = controller;
         _outputFile = ouputFile;
         _reportFile = reportFile;
@@ -140,7 +140,7 @@ public class LinkCheckRunner {
                 list.add(XmlParser.parseXElement(e));
             } catch (final XmlParsingException ex) {
                 Logger.log(Level.ERROR)
-                      .append("Failed to parse Element ")
+                      .append("Failed to parse Element")
                       .append(ex)
                       .submit();
             }
@@ -165,7 +165,7 @@ public class LinkCheckRunner {
                 list.add(XmlParser.parseArticleElement(e));
             } catch (final XmlParsingException ex) {
                 Logger.log(Level.ERROR)
-                      .append("Failed to parse Element ")
+                      .append("Failed to parse Element")
                       .append(ex)
                       .submit();
             }

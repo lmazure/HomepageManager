@@ -5,10 +5,10 @@ import org.w3c.dom.Element;
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
 import utils.XmlHelper;
-import utils.XmlParsingException;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.ElementType;
 import utils.xmlparsing.XmlParser;
+import utils.xmlparsing.XmlParsingException;
 
 public class PredecessorArticleChecker extends NodeChecker {
 

@@ -30,6 +30,7 @@ public class FileTable extends Application {
 
     private static Path _homepagePath;
     private static Path _tmpPath;
+    private final static String _cacheFolderName = "internet_cache";
     private static boolean _internetAccessiSEnabled;
     private static ObservableFileList _list;
 
@@ -56,7 +57,7 @@ public class FileTable extends Application {
 
         if (_internetAccessiSEnabled) {
             final LinkCheckController linkCheckController = new LinkCheckController(_list);
-            final LinkChecker linkCheckGenerator = new LinkChecker(_homepagePath, _tmpPath, linkCheckController);
+            final LinkChecker linkCheckGenerator = new LinkChecker(_homepagePath, _tmpPath, _cacheFolderName, linkCheckController);
             uiControllers.add(linkCheckController);
             fileHandlers.add(linkCheckGenerator);
         }
@@ -159,7 +160,7 @@ public class FileTable extends Application {
     }
 
     private static void displayLinkXmlGenerator() {
-       final XmlGeneratorDialog dialog = new XmlGeneratorDialog();
+       final XmlGeneratorDialog dialog = new XmlGeneratorDialog(_tmpPath.resolve(_cacheFolderName));
        dialog.showAndWait();
     }
 

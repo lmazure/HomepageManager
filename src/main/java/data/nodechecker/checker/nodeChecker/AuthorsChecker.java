@@ -12,12 +12,12 @@ import data.knowledge.WellKnownAuthorsOfLink;
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
 import utils.StringHelper;
-import utils.XmlParsingException;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.ElementType;
 import utils.xmlparsing.LinkData;
 import utils.xmlparsing.XmlParser;
+import utils.xmlparsing.XmlParsingException;
 
 public class AuthorsChecker extends NodeChecker {
 

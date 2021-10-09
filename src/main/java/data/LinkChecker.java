@@ -12,6 +12,7 @@ public class LinkChecker implements FileHandler {
 
     private final Path _homepagePath;
     private final Path _tmpPath;
+    private final String _cacheFolderName;
     private final BackgroundDataController _controller;
     private final Map<Path, LinkCheckRunner> _handlers;
 
@@ -23,9 +24,11 @@ public class LinkChecker implements FileHandler {
      */
     public LinkChecker(final Path homepagePath,
                        final Path tmpPath,
+                       final String cacheFolderName,
                        final BackgroundDataController controller) {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;
+        _cacheFolderName = cacheFolderName;
         _controller = controller;
         _handlers = new HashMap<>();
     }
@@ -37,7 +40,7 @@ public class LinkChecker implements FileHandler {
             ExitHelper.exit("there is already a handler for file " + file);
         }
 
-        final LinkCheckRunner handler = new LinkCheckRunner(file, _tmpPath, _controller, getOutputFile(file), getReportFile(file));
+        final LinkCheckRunner handler = new LinkCheckRunner(file, _tmpPath.resolve(_cacheFolderName), _controller, getOutputFile(file), getReportFile(file));
         _handlers.put(file, handler);
         handler.launch();
     }

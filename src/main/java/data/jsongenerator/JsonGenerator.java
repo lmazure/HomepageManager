@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 import utils.Logger;
-import utils.XmlParsingException;
+import utils.xmlparsing.XmlParsingException;
 
 public class JsonGenerator {
 
