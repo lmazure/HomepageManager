@@ -40,14 +40,9 @@ public class QuantaMagazineLinkDataExtractor extends LinkDataExtractor {
     @Override
     public List<ExtractedLinkData> getLinks() throws ContentParserException {
         final ExtractedLinkData linkData = new ExtractedLinkData(_parser.getTitle(),
-                                                                 new String[] { _parser.getSubtitle() },
-                                                                 getUrl().toString(),
-                                                                 Optional.empty(),
-                                                                 Optional.empty(),
-                                                                 new LinkFormat[] { LinkFormat.HTML},
-                                                                 new Locale[] { Locale.ENGLISH },
-                                                                 Optional.empty(),
-                                                                 Optional.of(_parser.getDate()));
+                new String[] { _parser.getSubtitle() }, getUrl().toString(), Optional.empty(), Optional.empty(),
+                new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.ENGLISH }, Optional.empty(),
+                Optional.of(_parser.getDate()));
         final List<ExtractedLinkData> list = new ArrayList<>(1);
         list.add(linkData);
         return list;
