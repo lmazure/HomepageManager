@@ -50,7 +50,13 @@ public class XmlGeneratorDialog extends Dialog<String> {
             displayError("Cannot generate XML", "The URL is invalid");
             return;
         }
-        final LinkDataExtractor extractor = LinkDataExtractorFactory.build(_cacheDirectory, url);
+        LinkDataExtractor extractor;
+        try {
+            extractor = LinkDataExtractorFactory.build(_cacheDirectory, url);
+        } catch (final ContentParserException e) {
+            displayError("Cannot generate XML", "Failed to extract data from that URL:\n" + e.getMessage());
+            return;
+        }
         if (extractor == null) {
             displayError("Cannot generate XML", "Don't know how to extract data from that URL");
             return;

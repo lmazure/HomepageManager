@@ -210,13 +210,13 @@ public class XmlGenerator {
                 builder.append(duration.toHoursPart());
                 builder.append("</HOUR>");
             }
-            builder.append("<MINUTES>");
+            builder.append("<MINUTE>");
             builder.append(duration.toMinutesPart());
-            builder.append("</MINUTES>");
+            builder.append("</MINUTE>");
         }
-        builder.append("<SECONDS>");
+        builder.append("<SECOND>");
         builder.append(duration.toSecondsPart());
-        builder.append("</SECONDS>");
+        builder.append("</SECOND>");
         builder.append("</DURATION>");
         return builder.toString();
     }
