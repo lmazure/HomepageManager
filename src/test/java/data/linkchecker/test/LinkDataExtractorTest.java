@@ -32,6 +32,22 @@ class LinkDataExtractorTest {
     }
 
     @Test
+    void robertMilesMathsYoutubeWatchIsManaged() throws MalformedURLException, ContentParserException {
+        final String url =
+            "https://www.youtube.com/watch?v=zkbPdEHEyEI";
+        final String expectedXml = "<ARTICLE><X><T>We Were Right! Real Inner Misalignment</T><A>https://www.youtube.com/watch?v=zkbPdEHEyEI</A><L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>46</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Robert</FIRSTNAME><LASTNAME>Miles</LASTNAME></AUTHOR><DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>10</DAY></DATE><COMMENT>XXXXX</COMMENT></ARTICLE>";
+        Assertions.assertEquals(expectedXml, generateXml(url));
+    }
+
+    @Test
+    void monsieurBidouilleMathsYoutubeWatchIsManaged() throws MalformedURLException, ContentParserException {
+        final String url =
+            "https://www.youtube.com/watch?v=36WpRwY2DYw";
+        final String expectedXml = "<ARTICLE><X><T>☀️ ITER ET LA FUSION - Visite du chantier du plus gros tokamak du monde</T><A>https://www.youtube.com/watch?v=36WpRwY2DYw</A><L>fr</L><F>MP4</F><DURATION><MINUTE>51</MINUTE><SECOND>36</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Dimitri</FIRSTNAME><LASTNAME>Ferrière</LASTNAME></AUTHOR><DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>11</DAY></DATE><COMMENT>XXXXX</COMMENT></ARTICLE>";
+        Assertions.assertEquals(expectedXml, generateXml(url));
+    }
+
+    @Test
     void urlIsCleanedFromUtmParameters() throws MalformedURLException, ContentParserException {
         final String url =
             "https://www.quantamagazine.org/mathematical-analysis-of-fruit-fly-wings-hints-at-evolutions-limits-20210920/?utm_source=pocket-app&utm_medium=share";

@@ -32,28 +32,49 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
     public List<AuthorData> getAuthors() throws ContentParserException {
         final String channel = _parser.getChannel();
         if (channel.equals("Stand-up Maths")) {
-            final AuthorData authorData = new AuthorData(Optional.empty(), Optional.of("Matt"), Optional.empty(), Optional.of("Parker"), Optional.empty(), Optional.empty());
-            final List<AuthorData> list = new ArrayList<>(1);
-            list.add(authorData);
-            return list;
+            return buildListFromOneAuthor("Matt", "Parker");
         }
-        final List<AuthorData> list = new ArrayList<>(1);
+        if (channel.equals("Robert Miles")) {
+            return buildListFromOneAuthor("Robert", "Miles");
+        }
+        if (channel.equals("monsieur bidouille")) {
+            return buildListFromOneAuthor("Dimitri", "Ferrière");
+        }
+        final List<AuthorData> list = new ArrayList<>(0);
         return list;
     }
 
     @Override
     public List<ExtractedLinkData> getLinks() throws ContentParserException {
+        final String channel = _parser.getChannel();
+        Locale lang = Locale.ENGLISH;
+        if (channel.equals("monsieur bidouille")) {
+            lang = Locale.FRENCH;
+        }
         final ExtractedLinkData linkData = new ExtractedLinkData(_parser.getTitle(),
                                                                  new String[0],
                                                                  getUrl().toString(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
                                                                  new LinkFormat[] { LinkFormat.MP4 },
-                                                                 new Locale[] { Locale.ENGLISH },
+                                                                 new Locale[] { lang },
                                                                  Optional.of(_parser.getMinDuration()),
                                                                  Optional.empty());
         final List<ExtractedLinkData> list = new ArrayList<>(1);
         list.add(linkData);
+        return list;
+    }
+    
+    private static List<AuthorData> buildListFromOneAuthor(final String firstName,
+                                                           final String lastName) {
+        final AuthorData authorData = new AuthorData(Optional.empty(),
+                                                     Optional.of(firstName),
+                                                     Optional.empty(),
+                                                     Optional.of(lastName),
+                                                     Optional.empty(),
+                                                     Optional.empty());
+        final List<AuthorData> list = new ArrayList<>(1);
+        list.add(authorData);
         return list;
     }
 }
