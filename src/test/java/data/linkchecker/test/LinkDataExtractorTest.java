@@ -32,7 +32,7 @@ class LinkDataExtractorTest {
     }
 
     @Test
-    void robertMilesMathsYoutubeWatchIsManaged() throws MalformedURLException, ContentParserException {
+    void robertMilesYoutubeWatchIsManaged() throws MalformedURLException, ContentParserException {
         final String url =
             "https://www.youtube.com/watch?v=zkbPdEHEyEI";
         final String expectedXml = "<ARTICLE><X><T>We Were Right! Real Inner Misalignment</T><A>https://www.youtube.com/watch?v=zkbPdEHEyEI</A><L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>46</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Robert</FIRSTNAME><LASTNAME>Miles</LASTNAME></AUTHOR><DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>10</DAY></DATE><COMMENT>XXXXX</COMMENT></ARTICLE>";
@@ -40,10 +40,26 @@ class LinkDataExtractorTest {
     }
 
     @Test
-    void monsieurBidouilleMathsYoutubeWatchIsManaged() throws MalformedURLException, ContentParserException {
+    void sabineHossenfelderYoutubeWatchIsManaged() throws MalformedURLException, ContentParserException {
+        final String url =
+            "https://www.youtube.com/watch?v=3hApcpGJETA";
+        final String expectedXml = "<ARTICLE><X><T>Where Did the Big Bang Happen?</T><A>https://www.youtube.com/watch?v=3hApcpGJETA</A><L>en</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>16</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Sabine</FIRSTNAME><LASTNAME>Hossenfelder</LASTNAME></AUTHOR><DATE><YEAR>2021</YEAR><MONTH>9</MONTH><DAY>25</DAY></DATE><COMMENT>XXXXX</COMMENT></ARTICLE>";
+        Assertions.assertEquals(expectedXml, generateXml(url));
+    }
+
+    @Test
+    void monsieurBidouilleYoutubeWatchIsManaged() throws MalformedURLException, ContentParserException {
         final String url =
             "https://www.youtube.com/watch?v=36WpRwY2DYw";
         final String expectedXml = "<ARTICLE><X><T>☀️ ITER ET LA FUSION - Visite du chantier du plus gros tokamak du monde</T><A>https://www.youtube.com/watch?v=36WpRwY2DYw</A><L>fr</L><F>MP4</F><DURATION><MINUTE>51</MINUTE><SECOND>36</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Dimitri</FIRSTNAME><LASTNAME>Ferrière</LASTNAME></AUTHOR><DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>11</DAY></DATE><COMMENT>XXXXX</COMMENT></ARTICLE>";
+        Assertions.assertEquals(expectedXml, generateXml(url));
+    }
+
+    @Test
+    void tricTracYoutubeWatchIsManaged() throws MalformedURLException, ContentParserException {
+        final String url =
+            "https://www.youtube.com/watch?v=eJapfznmA4U";
+        final String expectedXml = "<ARTICLE><X><T>FLIP, L'émission quotidienne - Les lieux éphémères</T><A>https://www.youtube.com/watch?v=eJapfznmA4U</A><L>fr</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>0</MINUTE><SECOND>54</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Guillaume</FIRSTNAME><LASTNAME>Chifoumi</LASTNAME></AUTHOR><AUTHOR><FIRSTNAME>François</FIRSTNAME><LASTNAME>Décamp</LASTNAME></AUTHOR><DATE><YEAR>2021</YEAR><MONTH>7</MONTH><DAY>13</DAY></DATE><COMMENT>XXXXX</COMMENT></ARTICLE>";
         Assertions.assertEquals(expectedXml, generateXml(url));
     }
 

@@ -204,7 +204,7 @@ public class XmlGenerator {
     private static String generateDuration(final Duration duration) {
         final StringBuilder builder = new StringBuilder();
         builder.append("<DURATION>");
-        if (duration.toMinutesPart() > 0) {
+        if ((duration.toHoursPart() > 0) || (duration.toMinutesPart()) > 0) {
             if (duration.toHoursPart() > 0) {
                 builder.append("<HOUR>");
                 builder.append(duration.toHoursPart());
