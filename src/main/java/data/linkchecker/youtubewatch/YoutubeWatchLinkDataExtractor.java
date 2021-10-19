@@ -43,6 +43,12 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
         if (channel.equals("monsieur bidouille")) {
             return buildListFromOneAuthor("Dimitri", "Ferrière");
         }
+        if (channel.equals("3Blue1Brown")) {
+            return buildListFromOneAuthor("Grant", "Sanderson");
+        }
+        if (channel.equals("Web Dev Simplified")) {
+            return buildListFromOneAuthor("Kyle", "Cook");
+        }
         if (channel.equals("Tric Trac")) {
             return buildListFromTwoAuthors("Guillaume", "Chifoumi", "François", "Décamp");
         }
