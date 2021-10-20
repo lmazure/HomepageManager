@@ -3,9 +3,11 @@ package data.linkchecker.youtubewatch;
 import java.net.URL;
 import java.nio.file.Path;
 import java.time.temporal.TemporalAccessor;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
 
 import data.linkchecker.ContentParserException;
@@ -15,6 +17,15 @@ import utils.xmlparsing.LinkFormat;
 
 public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtractor {
 
+    private final static Map<String, ChannelData> _channelData = Map.ofEntries(
+            new AbstractMap.SimpleEntry<>("3Blue1Brown", new ChannelData(buildListFromOneAuthor("Grant", "Sanderson"), Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("monsieur bidouille", new ChannelData(buildListFromOneAuthor("Dimitri", "Ferrière"), Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("Robert Miles", new ChannelData(buildListFromOneAuthor("Robert", "Miles"), Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("Sabine Hossenfelder", new ChannelData(buildListFromOneAuthor("Sabine", "Hossenfelder"), Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("Stand-up Maths", new ChannelData(buildListFromOneAuthor("Matt", "Parker"), Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("Tric Trac", new ChannelData(buildListFromTwoAuthors("Guillaume", "Chifoumi", "François", "Décamp"), Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("Web Dev Simplified", new ChannelData(buildListFromOneAuthor("Kyle", "Cook"), Locale.ENGLISH))
+            );
     private final YoutubeWatchLinkContentParser _parser;
 
     public YoutubeWatchLinkDataExtractor(final URL url,
@@ -31,26 +42,8 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
     @Override
     public List<AuthorData> getAuthors() throws ContentParserException {
         final String channel = _parser.getChannel();
-        if (channel.equals("Stand-up Maths")) {
-            return buildListFromOneAuthor("Matt", "Parker");
-        }
-        if (channel.equals("Robert Miles")) {
-            return buildListFromOneAuthor("Robert", "Miles");
-        }
-        if (channel.equals("Sabine Hossenfelder")) {
-            return buildListFromOneAuthor("Sabine", "Hossenfelder");
-        }
-        if (channel.equals("monsieur bidouille")) {
-            return buildListFromOneAuthor("Dimitri", "Ferrière");
-        }
-        if (channel.equals("3Blue1Brown")) {
-            return buildListFromOneAuthor("Grant", "Sanderson");
-        }
-        if (channel.equals("Web Dev Simplified")) {
-            return buildListFromOneAuthor("Kyle", "Cook");
-        }
-        if (channel.equals("Tric Trac")) {
-            return buildListFromTwoAuthors("Guillaume", "Chifoumi", "François", "Décamp");
+        if (_channelData.containsKey(channel)) {
+            return _channelData.get(channel).authors();
         }
         return new ArrayList<>(0);
     }
@@ -58,11 +51,8 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
     @Override
     public List<ExtractedLinkData> getLinks() throws ContentParserException {
         final String channel = _parser.getChannel();
-        Locale lang = Locale.ENGLISH;
-        if (channel.equals("monsieur bidouille") ||
-            channel.equals("Tric Trac")) {
-            lang = Locale.FRENCH;
-        }
+        Locale lang = (_channelData.containsKey(channel)) ? _channelData.get(channel).language() 
+                                                          : Locale.ENGLISH;
         final ExtractedLinkData linkData = new ExtractedLinkData(_parser.getTitle(),
                                                                  new String[0],
                                                                  getUrl().toString(),
@@ -103,4 +93,8 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
                           Optional.empty(),
                           Optional.empty());
     }
+    
+   private record ChannelData(List<AuthorData> authors,
+                              Locale language) {
+   }
 }
