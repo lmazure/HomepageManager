@@ -17,10 +17,10 @@ public class TextParser {
     }
 
     public TextParser(final String prefix,
-                     final String pattern,
-                     final String postfix,
-                     final String source,
-                     final String field) {
+                      final String pattern,
+                      final String postfix,
+                      final String source,
+                      final String field) {
         _pattern = Pattern.compile(prefix + "(" + pattern + ")" + postfix, Pattern.DOTALL);
         _source = source;
         _field = field;

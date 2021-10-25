@@ -24,6 +24,14 @@ class LinkDataExtractorTest {
     }
 
     @Test
+    void leRéveilleurYoutubeWatchIsManaged() throws MalformedURLException, ContentParserException {
+        final String url =
+            "https://www.youtube.com/watch?v=OAyYSlMhgI4";
+        final String expectedXml = "<ARTICLE><X><T>Les terres rares.</T><A>https://www.youtube.com/watch?v=OAyYSlMhgI4</A><L>fr</L><F>MP4</F><DURATION><MINUTE>35</MINUTE><SECOND>38</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Rodolphe</FIRSTNAME><LASTNAME>Meyer</LASTNAME></AUTHOR><DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>12</DAY></DATE><COMMENT>XXXXX</COMMENT></ARTICLE>";
+        Assertions.assertEquals(expectedXml, generateXml(url));
+    }
+
+    @Test
     void monsieurBidouilleYoutubeWatchIsManaged() throws MalformedURLException, ContentParserException {
         final String url =
             "https://www.youtube.com/watch?v=36WpRwY2DYw";

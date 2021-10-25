@@ -19,6 +19,7 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
 
     private final static Map<String, ChannelData> _channelData = Map.ofEntries(
             new AbstractMap.SimpleEntry<>("3Blue1Brown", new ChannelData(buildListFromOneAuthor("Grant", "Sanderson"), Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("Le Réveilleur", new ChannelData(buildListFromOneAuthor("Rodolphe", "Meyer"), Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("monsieur bidouille", new ChannelData(buildListFromOneAuthor("Dimitri", "Ferrière"), Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("Robert Miles", new ChannelData(buildListFromOneAuthor("Robert", "Miles"), Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Sabine Hossenfelder", new ChannelData(buildListFromOneAuthor("Sabine", "Hossenfelder"), Locale.ENGLISH)),
@@ -29,7 +30,7 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
     private final YoutubeWatchLinkContentParser _parser;
 
     public YoutubeWatchLinkDataExtractor(final URL url,
-                                        final Path cacheDirectory) throws ContentParserException {
+                                         final Path cacheDirectory) throws ContentParserException {
         super(url, cacheDirectory);
         this._parser = new YoutubeWatchLinkContentParser(getContent());
     }
@@ -78,8 +79,7 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
                                                             final String lastName1,
                                                             final String firstName2,
                                                             final String lastName2) {
-        final List<AuthorData> list = new ArrayList<>(2);
-        list.add(buildAuthor(firstName1, lastName1));
+        final List<AuthorData> list = buildListFromOneAuthor(firstName1, lastName1);
         list.add(buildAuthor(firstName2, lastName2));
         return list;
     }
