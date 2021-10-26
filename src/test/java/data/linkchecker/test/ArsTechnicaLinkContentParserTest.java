@@ -11,7 +11,7 @@ import data.internet.SiteData;
 import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
 import data.linkchecker.ContentParserException;
-import data.linkchecker.arsTechnica.ArsTechnicaLinkContentParser;
+import data.linkchecker.ars_technica.ArsTechnicaLinkContentParser;
 import utils.FileHelper;
 import utils.xmlparsing.AuthorData;
 
@@ -109,8 +109,7 @@ public class ArsTechnicaLinkContentParserTest {
               final String data = FileHelper.slurpFile(d.getDataFile().get());
               final ArsTechnicaLinkContentParser parser = new ArsTechnicaLinkContentParser(data);
               try {
-                  Assertions.assertTrue(parser.getAuthor().isPresent());
-                  Assertions.assertEquals(expectedAuthor, parser.getAuthor().get());
+                  Assertions.assertEquals(expectedAuthor, parser.getAuthor());
                } catch (final ContentParserException e) {
                    Assertions.fail("getAuthor threw " + e.getMessage());
                }

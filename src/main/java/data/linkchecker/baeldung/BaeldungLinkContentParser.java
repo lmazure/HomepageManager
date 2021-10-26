@@ -9,6 +9,7 @@ import java.util.Optional;
 import org.eclipse.jdt.annotation.NonNull;
 
 import data.linkchecker.ContentParserException;
+import data.linkchecker.LinkContentParserUtils;
 import data.linkchecker.TextParser;
 import utils.HtmlHelper;
 import utils.xmlparsing.AuthorData;
@@ -52,19 +53,10 @@ public class BaeldungLinkContentParser {
     }
 
     public Optional<@NonNull AuthorData> getAuthor() throws ContentParserException {
-        final String author = HtmlHelper.cleanContent(s_authorParser.extract(_data));
+        final String author = s_authorParser.extract(_data);
         if (author.equals("baeldung")) {
             return Optional.empty();
         }
-        final String[] nameParts = HtmlHelper.cleanContent(author).split(" ");
-        if (nameParts.length != 2) {
-            throw new ContentParserException("Failed to parse author name (" + author + ")in Baeldung page");
-        }
-        return Optional.of(new AuthorData(Optional.empty(),
-                                          Optional.of(nameParts[0]),
-                                          Optional.empty(),
-                                          Optional.of(nameParts[1]),
-                                          Optional.empty(),
-                                          Optional.empty()));
+        return Optional.of(LinkContentParserUtils.getAuthor(author));
     }
 }

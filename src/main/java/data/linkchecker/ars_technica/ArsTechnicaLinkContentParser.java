@@ -1,13 +1,11 @@
-package data.linkchecker.arsTechnica;
+package data.linkchecker.ars_technica;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Optional;
-
-import org.eclipse.jdt.annotation.NonNull;
 
 import data.linkchecker.ContentParserException;
+import data.linkchecker.LinkContentParserUtils;
 import data.linkchecker.TextParser;
 import utils.HtmlHelper;
 import utils.xmlparsing.AuthorData;
@@ -59,28 +57,7 @@ public class ArsTechnicaLinkContentParser {
         }
     }
 
-    public Optional<@NonNull AuthorData> getAuthor() throws ContentParserException {
-        final String author = HtmlHelper.cleanContent(s_authorParser.extract(_data));
-        if (author.equals("baeldung")) {
-            return Optional.empty();
-        }
-        final String[] nameParts = HtmlHelper.cleanContent(author).split(" ");
-        if (nameParts.length == 2) {
-            return Optional.of(new AuthorData(Optional.empty(),
-                    Optional.of(nameParts[0]),
-                    Optional.empty(),
-                    Optional.of(nameParts[1]),
-                    Optional.empty(),
-                    Optional.empty()));
-        }
-        if (nameParts.length == 3) {
-            return Optional.of(new AuthorData(Optional.empty(),
-                    Optional.of(nameParts[0]),
-                    Optional.of(nameParts[1]),
-                    Optional.of(nameParts[2]),
-                    Optional.empty(),
-                    Optional.empty()));
-        }
-        throw new ContentParserException("Failed to parse author name (" + author + ")in Ars Technica page");
+    public AuthorData getAuthor() throws ContentParserException {
+        return LinkContentParserUtils.getAuthor(s_authorParser.extract(_data));
     }
 }
