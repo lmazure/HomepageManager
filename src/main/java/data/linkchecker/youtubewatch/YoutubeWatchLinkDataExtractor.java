@@ -52,7 +52,7 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
     @Override
     public List<ExtractedLinkData> getLinks() throws ContentParserException {
         final String channel = _parser.getChannel();
-        Locale lang = (_channelData.containsKey(channel)) ? _channelData.get(channel).language() 
+        Locale lang = (_channelData.containsKey(channel)) ? _channelData.get(channel).language()
                                                           : Locale.ENGLISH;
         final ExtractedLinkData linkData = new ExtractedLinkData(_parser.getTitle(),
                                                                  new String[0],
@@ -67,7 +67,7 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
         list.add(linkData);
         return list;
     }
-    
+
     private static List<AuthorData> buildListFromOneAuthor(final String firstName,
                                                            final String lastName) {
         final List<AuthorData> list = new ArrayList<>(1);
@@ -83,7 +83,7 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
         list.add(buildAuthor(firstName2, lastName2));
         return list;
     }
-    
+
     private static AuthorData buildAuthor(final String firstName,
                                           final String lastName) {
     return new AuthorData(Optional.empty(),
@@ -93,7 +93,7 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
                           Optional.empty(),
                           Optional.empty());
     }
-    
+
    private record ChannelData(List<AuthorData> authors,
                               Locale language) {
    }

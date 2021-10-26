@@ -27,11 +27,11 @@ public class LinkDataExtractorFactory {
     }
 
     private static URL cleanUrl(URL url) {
-        
+
         final String initialUrl = url.toString();
-        
+
         final String cleanedUrl = initialUrl.replaceAll("/?utm_[^/]+$", "");
-        
+
         try {
             return new URL(cleanedUrl);
         } catch (final MalformedURLException e) {

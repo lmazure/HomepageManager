@@ -11,7 +11,7 @@ import data.internet.SiteData;
 import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
 import data.linkchecker.ContentParserException;
-import data.linkchecker.ars_technica.ArsTechnicaLinkContentParser;
+import data.linkchecker.arstechnica.ArsTechnicaLinkContentParser;
 import utils.FileHelper;
 import utils.xmlparsing.AuthorData;
 
