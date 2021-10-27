@@ -26,7 +26,7 @@ public class LinkContentParserTest {
             "https://www.wired.com/1998/04/es-lists/"
             })
     void testLanguageForEnglishArticle(String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
@@ -51,7 +51,7 @@ public class LinkContentParserTest {
             "https://www.marmiton.org/"
             })
     void testLanguageForFrenchArticle(String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
@@ -71,7 +71,7 @@ public class LinkContentParserTest {
             "http://www.openafs.org/"
             })
     void testLanguageForArticleWithNoText(String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
@@ -86,7 +86,7 @@ public class LinkContentParserTest {
 
     @Test
     void testLanguageForEnglishMedium() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://medium.com/@kentbeck_7670/bs-changes-e574bc396aaa"),
                            (final Boolean b, final SiteData d) -> {
@@ -102,7 +102,7 @@ public class LinkContentParserTest {
 
     @Test
     void testLanguageForFrenchMedium() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://medium.com/france/praha-8e7086a6c1fe"),
                            (final Boolean b, final SiteData d) -> {

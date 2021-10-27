@@ -26,25 +26,25 @@ public class XmlGeneratorDialog extends Dialog<String> {
 
     public XmlGeneratorDialog(final Path cacheDirectory) {
         super();
-        this._cacheDirectory = cacheDirectory;
-        this._urlField = new TextField();
-        this._urlField.setMinWidth(640);
+        _cacheDirectory = cacheDirectory;
+        _urlField = new TextField();
+        _urlField.setMinWidth(640);
         initializeUrl();
         final Button pasteUrl = new Button("Paste URL");
         pasteUrl.setOnAction(e -> pasteUrl());
         final Button generateXml = new Button("Generate XML");
         generateXml.setOnAction(e -> generateXml());
-        this._xmlField = new TextField();
-        this._xmlField.setMinWidth(640);
+        _xmlField = new TextField();
+        _xmlField.setMinWidth(640);
         final Button copyXml = new Button("Copy XML");
         copyXml.setOnAction(e -> copyXml());
-        final VBox vbox = new VBox(this._urlField, pasteUrl, generateXml, this._xmlField, copyXml);
+        final VBox vbox = new VBox(_urlField, pasteUrl, generateXml, _xmlField, copyXml);
         getDialogPane().setContent(vbox);
         getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
     }
 
     private void generateXml() {
-        final String txt = this._urlField.getText();
+        final String txt = _urlField.getText();
         final URL url = StringHelper.convertStringToUrl(txt);
         if (url == null) {
             displayError("Cannot generate XML", "The URL is invalid");
@@ -69,7 +69,7 @@ public class XmlGeneratorDialog extends Dialog<String> {
             displayError("Cannot generate XML", "Failer to parse the URL data:\n" + e.getMessage());
             return;
         }
-        this._xmlField.setText(xml);
+        _xmlField.setText(xml);
     }
 
 
@@ -77,7 +77,7 @@ public class XmlGeneratorDialog extends Dialog<String> {
         final Clipboard clipboard = Clipboard.getSystemClipboard();
         if (clipboard.hasString()) {
             final String url = clipboard.getString();
-            this._urlField.setText(url);
+            _urlField.setText(url);
         }
     }
 
@@ -86,7 +86,7 @@ public class XmlGeneratorDialog extends Dialog<String> {
         if (clipboard.hasString()) {
             final String url = clipboard.getString();
             if (isValidUrl(url)) {
-                this._urlField.setText(url);
+                _urlField.setText(url);
             }
         }
     }
@@ -94,7 +94,7 @@ public class XmlGeneratorDialog extends Dialog<String> {
     private void copyXml() {
         final Clipboard clipboard = Clipboard.getSystemClipboard();
         final ClipboardContent content = new ClipboardContent();
-        content.putString(this._xmlField.getText());
+        content.putString(_xmlField.getText());
         clipboard.setContent(content);
     }
 

@@ -32,7 +32,7 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
     public YoutubeWatchLinkDataExtractor(final URL url,
                                          final Path cacheDirectory) throws ContentParserException {
         super(url, cacheDirectory);
-        this._parser = new YoutubeWatchLinkContentParser(getContent());
+        _parser = new YoutubeWatchLinkContentParser(getContent());
     }
 
     @Override

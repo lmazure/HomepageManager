@@ -27,7 +27,7 @@ public class YoutubeWatchLinkContentParserTest {
             "https://www.youtube.com/watch?v=z34XhE5oRwo"
                             })
     void testPlayabilityStatusOk(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
@@ -42,7 +42,7 @@ public class YoutubeWatchLinkContentParserTest {
 
     @Test
     void testPlayabilityStatusUnplayable() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=dM_JivN3HvI"),
                            (final Boolean b, final SiteData d) -> {
@@ -65,7 +65,7 @@ public class YoutubeWatchLinkContentParserTest {
               })
     void testChannel(final String url,
                      final String expectedChannel) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
@@ -84,7 +84,7 @@ public class YoutubeWatchLinkContentParserTest {
 
     @Test
     void testTitle() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=_kGqkxQo-Tw"),
                            (final Boolean b, final SiteData d) -> {
@@ -104,7 +104,7 @@ public class YoutubeWatchLinkContentParserTest {
     @Test
     @Disabled // I need to find another video with a control character, this one has been fixed
     void testTitleWithControlCharacterString() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=y7FVLPvw1-I"),
                            (final Boolean b, final SiteData d) -> {
@@ -123,7 +123,7 @@ public class YoutubeWatchLinkContentParserTest {
 
     @Test
     void testTitleWithAmpersand() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=ytuHV2e4c4Q"),
                            (final Boolean b, final SiteData d) -> {
@@ -142,7 +142,7 @@ public class YoutubeWatchLinkContentParserTest {
 
     @Test
     void testTitleWithBackslashQuote() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=aeF-0y9HP9A"),
                            (final Boolean b, final SiteData d) -> {
@@ -161,7 +161,7 @@ public class YoutubeWatchLinkContentParserTest {
 
     @Test
     void testDescription() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=_kGqkxQo-Tw"),
                            (final Boolean b, final SiteData d) -> {
@@ -180,7 +180,7 @@ public class YoutubeWatchLinkContentParserTest {
 
     @Test
     void testDescriptionWithNewline() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=y7FVLPvw1-I"),
                               (final Boolean b, final SiteData d) -> {
@@ -201,7 +201,7 @@ public class YoutubeWatchLinkContentParserTest {
 
     @Test
     void testDescriptionWithDoubleQuote() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=cJOSvvdy27I"),
                            (final Boolean b, final SiteData d) -> {
@@ -232,7 +232,7 @@ public class YoutubeWatchLinkContentParserTest {
 
     @Test
     void testDate() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=_kGqkxQo-Tw"),
                               (final Boolean b, final SiteData d) -> {
@@ -256,7 +256,7 @@ public class YoutubeWatchLinkContentParserTest {
 
     @Test
     void testDuration() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=_kGqkxQo-Tw"),
                            (final Boolean b, final SiteData d) -> {
@@ -287,7 +287,7 @@ public class YoutubeWatchLinkContentParserTest {
             "https://www.youtube.com/watch?v=X63MWZIN3gM"
                            })
     void testEnglish(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
@@ -323,7 +323,7 @@ public class YoutubeWatchLinkContentParserTest {
             "https://www.youtube.com/watch?v=ohU1tEwxOSE"
                            })
     void testFrench(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
@@ -348,7 +348,7 @@ public class YoutubeWatchLinkContentParserTest {
             "https://www.youtube.com/watch?v=ytuHV2e4c4Q"
                            })
     void testEnglishSubtitles(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
@@ -368,7 +368,7 @@ public class YoutubeWatchLinkContentParserTest {
             "https://www.youtube.com/watch?v=ohU1tEwxOSE"
                            })
     void testFrenchSubtitles(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
@@ -387,7 +387,7 @@ public class YoutubeWatchLinkContentParserTest {
             "https://www.youtube.com/watch?v=CfRSVPhzN5M"
                            })
     void testNoSubtitles(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
@@ -402,7 +402,7 @@ public class YoutubeWatchLinkContentParserTest {
 
     @Test
     void incorrectContentGeneratesException() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://www.google.com"),
                            (final Boolean b, final SiteData d) -> {

@@ -38,7 +38,7 @@ public class LinkContentCheckerTest {
                    final String locale,
                    final String expectedTitle) {
         final URL url = TestHelper.buildURL(urlAsString);
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final LinkData linkData = new LinkData(expectedTitle, new String[0], urlAsString, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null);
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<AuthorData>(), null);
@@ -67,7 +67,7 @@ public class LinkContentCheckerTest {
                                final String expectedTitle,
                                final String realTitle) {
         final URL url = TestHelper.buildURL(urlAsString);
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final LinkData linkData = new LinkData(expectedTitle, new String[0], urlAsString, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null);
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<AuthorData>(), null);
@@ -97,7 +97,7 @@ public class LinkContentCheckerTest {
                                 final String expectedTitle,
                                 final String realTitle) {
         final URL url = TestHelper.buildURL(urlAsString);
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final LinkData linkData = new LinkData(expectedTitle, new String[0], urlAsString, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null);
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<AuthorData>(), null);

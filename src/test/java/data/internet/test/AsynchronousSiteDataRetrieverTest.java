@@ -60,7 +60,7 @@ public class AsynchronousSiteDataRetrieverTest {
     }
 
     private AsynchronousSiteDataRetriever buildDataSiteRetriever() {
-        final Path cachePath = TestHelper.getTestDatapath(this.getClass());
+        final Path cachePath = TestHelper.getTestDatapath(getClass());
         FileHelper.deleteDirectory(cachePath.toFile());
         return new AsynchronousSiteDataRetriever(new SiteDataPersister(cachePath));
     }

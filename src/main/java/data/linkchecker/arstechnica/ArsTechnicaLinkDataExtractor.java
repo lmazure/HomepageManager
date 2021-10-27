@@ -1,4 +1,4 @@
-package data.linkchecker.quantamagazine;
+package data.linkchecker.arstechnica;
 
 import java.net.URL;
 import java.nio.file.Path;
@@ -14,14 +14,14 @@ import data.linkchecker.LinkDataExtractor;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkFormat;
 
-public class QuantaMagazineLinkDataExtractor extends LinkDataExtractor {
+public class ArsTechnicaLinkDataExtractor extends LinkDataExtractor {
 
-    private final QuantaMagazineLinkContentParser _parser;
+    private final ArsTechnicaLinkContentParser _parser;
 
-    public QuantaMagazineLinkDataExtractor(final URL url,
-                                           final Path cacheDirectory) {
+    public ArsTechnicaLinkDataExtractor(final URL url,
+                                        final Path cacheDirectory) {
         super(url, cacheDirectory);
-        _parser = new QuantaMagazineLinkContentParser(getContent());
+        _parser = new ArsTechnicaLinkContentParser(getContent());
     }
 
     @Override
@@ -40,14 +40,9 @@ public class QuantaMagazineLinkDataExtractor extends LinkDataExtractor {
     @Override
     public List<ExtractedLinkData> getLinks() throws ContentParserException {
         final ExtractedLinkData linkData = new ExtractedLinkData(_parser.getTitle(),
-                                                                 new String[] { _parser.getSubtitle() },
-                                                                 getUrl().toString(),
-                                                                 Optional.empty(),
-                                                                 Optional.empty(),
-                                                                 new LinkFormat[] { LinkFormat.HTML },
-                                                                 new Locale[] { Locale.ENGLISH },
-                                                                 Optional.empty(),
-                                                                 Optional.empty());
+                new String[] { _parser.getSubtitle() }, getUrl().toString(), Optional.empty(), Optional.empty(),
+                new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.ENGLISH }, Optional.empty(),
+                Optional.empty());
         final List<ExtractedLinkData> list = new ArrayList<>(1);
         list.add(linkData);
         return list;

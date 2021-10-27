@@ -18,7 +18,7 @@ public class MediumLinkContentParserTest {
 
     @Test
     void testShortTitle() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://medium.com/@kentbeck_7670/bs-changes-e574bc396aaa"),
                            (final Boolean b, final SiteData d) -> {
@@ -37,7 +37,7 @@ public class MediumLinkContentParserTest {
 
     @Test
     void testLongTitle() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://medium.com/@kentbeck_7670/productive-compliments-giving-receiving-connecting-dda58570d96b"),
                            (final Boolean b, final SiteData d) -> {
@@ -56,7 +56,7 @@ public class MediumLinkContentParserTest {
 
     @Test
     void testTitleWithAmpersandAndLink() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://medium.com/@tdeniffel/tcr-test-commit-revert-a-test-alternative-to-tdd-6e6b03c22bec"),
                            (final Boolean b, final SiteData d) -> {
@@ -75,7 +75,7 @@ public class MediumLinkContentParserTest {
 
     @Test
     void testTitleWithGreater() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://medium.com/@kentbeck_7670/monolith-services-theory-practice-617e4546a879"),
                            (final Boolean b, final SiteData d) -> {
@@ -94,7 +94,7 @@ public class MediumLinkContentParserTest {
 
     @Test
     void testTitleWithSlash() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://medium.com/@kentbeck_7670/fast-slow-in-3x-explore-expand-extract-6d4c94a7539"),
                            (final Boolean b, final SiteData d) -> {
@@ -118,7 +118,7 @@ public class MediumLinkContentParserTest {
         })
     void testTitleWithHairSpace(final String url,
                                 final String expectedTitle) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
@@ -137,7 +137,7 @@ public class MediumLinkContentParserTest {
 
     @Test
     void testTitleWithMultiline() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://medium.com/javascript-scene/how-to-build-a-high-velocity-development-team-4b2360d34021"),
                            (final Boolean b, final SiteData d) -> {
@@ -156,7 +156,7 @@ public class MediumLinkContentParserTest {
 
     @Test
     void testTitleForNetflix() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL("https://medium.com/netflix-techblog/a-microscope-on-microservices-923b906103f4"),
                            (final Boolean b, final SiteData d) -> {
@@ -184,7 +184,7 @@ public class MediumLinkContentParserTest {
         })
     void testUnmodifiedBlogPublishDate(final String url,
                                        final String expectedDate) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
@@ -209,7 +209,7 @@ public class MediumLinkContentParserTest {
     void testModifiedBlogPublishDate(final String url,
                                      final String expectedPublicationDate,
                                      @SuppressWarnings("unused") final String expectedModificationDate) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(this.getClass());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {

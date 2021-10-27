@@ -82,7 +82,7 @@ public class CachedSiteDataRetrieverTest {
     }
 
     private CachedSiteDataRetriever buildDataSiteRetriever() {
-        final Path cachePath = TestHelper.getTestDatapath(this.getClass());
+        final Path cachePath = TestHelper.getTestDatapath(getClass());
         FileHelper.deleteDirectory(cachePath.toFile());
         return new CachedSiteDataRetriever(new SiteDataPersister(cachePath));
     }

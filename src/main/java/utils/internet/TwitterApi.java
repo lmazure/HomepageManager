@@ -28,10 +28,9 @@ public class TwitterApi {
         final HttpClient client = HttpClient.newHttpClient();
         try {
             final HttpResponse<String>  response = client.send(request, BodyHandlers.ofString());
-            String tok = response.body();
-            tok = tok.replaceAll(".*description\":\"", "");
-            tok = tok.replaceAll("\".*", "");
-            return new TwitterUserDto(tok);
+            final String tok = response.body();
+            return new TwitterUserDto(tok.replaceAll(".*description\":\"", "")
+                                         .replaceAll("\".*", ""));
         } catch (final IOException | InterruptedException e) {
             ExitHelper.exit(e);
         }
@@ -46,7 +45,7 @@ public class TwitterApi {
                username +
                "?" +
                ALL_USER_FIELDS;
-      }
+    }
 
     private static String getBearerToken(final String apiKey,
                                          final String apiSecretKey) {
@@ -61,12 +60,10 @@ public class TwitterApi {
                                                .build();
         final HttpClient client = HttpClient.newHttpClient();
         try {
-            HttpResponse<String> response;
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            String tok = response.body();
-            tok = tok.replace("{\"token_type\":\"bearer\",\"access_token\":\"", "");
-            tok = tok.replace("\"}", "");
-            return tok;
+            final HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            final String tok = response.body();
+            return tok.replace("{\"token_type\":\"bearer\",\"access_token\":\"", "")
+                      .replace("\"}", "");
         } catch (final IOException | InterruptedException e) {
             ExitHelper.exit(e);
         }
