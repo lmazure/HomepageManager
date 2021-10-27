@@ -30,7 +30,7 @@ public class ArsTechnicaLinkContentParser {
                          "Ars Technica",
                          "date");
     private static final TextParser s_authorParser
-        = new TextParser("<p class=\"byline\" itemprop=\"author creator\" itemscope itemtype=\"http://schema.org/Person\">.      <a itemprop=\"url\" href=\"https://arstechnica.com/author/[a-z]+/\" rel=\"author\"><span itemprop=\"name\">",
+        = new TextParser("<p class=\"byline\" itemprop=\"author creator\" itemscope itemtype=\"http://schema.org/Person\">.      <a itemprop=\"url\" href=\"https://arstechnica.com/author/[a-z-]+/\" rel=\"author\"><span itemprop=\"name\">",
                          "</span></a>",
                          "Ars Technica",
                          "author");

@@ -1,4 +1,4 @@
-package data.linkchecker.baeldung;
+package data.linkchecker.arstechnica;
 
 import java.io.File;
 import java.net.URL;
@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-import org.eclipse.jdt.annotation.NonNull;
-
 import data.linkchecker.ContentParserException;
 import data.linkchecker.LinkContentCheck;
 import data.linkchecker.LinkContentChecker;
@@ -17,21 +15,21 @@ import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkData;
 
-public class BaeldungLinkContentChecker extends LinkContentChecker {
+public class ArsTechnicaLinkContentChecker extends LinkContentChecker {
 
-    private BaeldungLinkContentParser _parser;
+    private ArsTechnicaLinkContentParser _parser;
 
-    public BaeldungLinkContentChecker(final URL url,
-                                      final LinkData linkData,
-                                      final Optional<ArticleData> articleData,
-                                      final File file) {
+    public ArsTechnicaLinkContentChecker(final URL url,
+                                         final LinkData linkData,
+                                         final Optional<ArticleData> articleData,
+                                         final File file) {
         super(url, linkData, articleData, file);
     }
 
     @Override
     protected LinkContentCheck checkGlobalData(final String data)
     {
-        _parser = new BaeldungLinkContentParser(data);
+        _parser = new ArsTechnicaLinkContentParser(data);
         return null;
     }
 
@@ -56,9 +54,21 @@ public class BaeldungLinkContentChecker extends LinkContentChecker {
     protected LinkContentCheck checkLinkSubtitles(final String data,
                                                   final String[] subtitles) throws ContentParserException
     {
-        if (subtitles.length != 0) {
-            return new LinkContentCheck("Baeldung article should have no subtitle");
+        if (subtitles.length != 1) {
+            return new LinkContentCheck("Ars Technica article should have one subtitle");
         }
+
+
+        final String effectiveSubtitle = _parser.getSubtitle();
+
+        if (!subtitles[0].equals(effectiveSubtitle)) {
+            return new LinkContentCheck("subtitle \"" +
+                                        subtitles[0] +
+                                        "\" is not equal to the real subtitle \"" +
+                                        effectiveSubtitle +
+                                          "\"");
+        }
+
         return null;
     }
 
@@ -67,7 +77,7 @@ public class BaeldungLinkContentChecker extends LinkContentChecker {
                                                   final Locale[] languages)
     {
         if ((languages.length != 1) || (languages[0] != Locale.ENGLISH)) {
-            return new LinkContentCheck("Baeldung article should have the language set as English");
+            return new LinkContentCheck("Ars Technica article should have the language set as English");
         }
 
         return null;
@@ -79,10 +89,10 @@ public class BaeldungLinkContentChecker extends LinkContentChecker {
                                                 final Optional<TemporalAccessor> creationDate) throws ContentParserException
     {
         if (publicationDate.isPresent()) {
-            return new LinkContentCheck("Baeldung article should have no publication date");
+            return new LinkContentCheck("Ars Technica article should have no publication date");
         }
         if (creationDate.isEmpty()) {
-            return new LinkContentCheck("Baeldung article should have a creation date");
+            return new LinkContentCheck("Ars Technica article should have a creation date");
         }
 
         final LocalDate effectiveDate = _parser.getDate();
@@ -102,29 +112,16 @@ public class BaeldungLinkContentChecker extends LinkContentChecker {
                                                 final List<AuthorData> authors) throws ContentParserException
     {
         if (authors.size() > 1) {
-            return new LinkContentCheck("Baeldung article should have at most one author");
+            return new LinkContentCheck("Ars Technica article should have at most one author");
         }
 
-        final Optional<@NonNull AuthorData> effectiveAuthor = _parser.getAuthor();
-        if (effectiveAuthor.isPresent()) {
-            if (authors.size() == 1) {
-                if (!effectiveAuthor.get().equals(authors.get(0))) {
-                    return new LinkContentCheck("The expected author (" +
-                                                authors.get(0) +
-                                                ") is not equal to the effective author (" +
-                                                effectiveAuthor.get() +
-                                                ")");
-                }
-                return null;
-            }
-            return new LinkContentCheck("No author is expected but there is one (" +
-                                        effectiveAuthor.get() +
-                                        ")");
-        }
-        if (authors.size() == 1) {
-            return new LinkContentCheck("An author is expected (" +
+        final AuthorData effectiveAuthor = _parser.getAuthor();
+        if (!effectiveAuthor.equals(authors.get(0))) {
+            return new LinkContentCheck("The expected author (" +
                                         authors.get(0) +
-                                        ") but there is none");
+                                        ") is not equal to the effective author (" +
+                                        effectiveAuthor +
+                                        ")");
         }
         return null;
     }

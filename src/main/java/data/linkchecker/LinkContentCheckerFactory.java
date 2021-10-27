@@ -4,6 +4,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.Optional;
 
+import data.linkchecker.arstechnica.ArsTechnicaLinkContentChecker;
 import data.linkchecker.baeldung.BaeldungLinkContentChecker;
 import data.linkchecker.chromium.ChromiumBlogLinkContentChecker;
 import data.linkchecker.medium.MediumLinkContentChecker;
@@ -34,6 +35,10 @@ public class LinkContentCheckerFactory {
         if (url.toString().endsWith(".gz")) {
             // GZIP files are ignored
             return new NoCheckContentChecker(url, linkData, articleData, file);
+        }
+
+        if (url.toString().startsWith("https://arstechnica.com/")) {
+            return new ArsTechnicaLinkContentChecker(url, linkData, articleData, file);
         }
 
         if (url.toString().startsWith("https://medium.com/")) {
