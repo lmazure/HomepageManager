@@ -31,9 +31,11 @@ public class ArsTechnicaLinkDataExtractor extends LinkDataExtractor {
 
     @Override
     public List<AuthorData> getAuthors() throws ContentParserException {
-        final AuthorData authorData = _parser.getAuthor();
+        final Optional<AuthorData> authorData = _parser.getAuthor();
         final List<AuthorData> list = new ArrayList<>(1);
-        list.add(authorData);
+        if (authorData.isPresent()) {
+            list.add(authorData.get());
+        }
         return list;
     }
 

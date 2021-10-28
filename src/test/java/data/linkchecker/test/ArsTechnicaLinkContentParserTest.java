@@ -90,7 +90,7 @@ public class ArsTechnicaLinkContentParserTest {
     @CsvSource({
         "https://arstechnica.com/cars/2021/04/consumer-reports-shows-tesla-autopilot-works-with-no-one-in-the-drivers-seat/,Timothy,B.,Lee",
         "https://arstechnica.com/information-technology/2021/09/travis-ci-flaw-exposed-secrets-for-thousands-of-open-source-projects/,Ax,,Sharma",
-        "https://arstechnica.com/tech-policy/2021/10/uh-no-pfizer-scientist-denies-holmes-claim-that-pfizer-endorsed-theranos-tech/,Tom,de,Chant"  // contains "-" and digits in the person URL
+        "https://arstechnica.com/tech-policy/2021/10/uh-no-pfizer-scientist-denies-holmes-claim-that-pfizer-endorsed-theranos-tech/,Tim,De,Chant"  // contains "-" and digits in the person URL
         })
     void testAuthor(final String url,
                     final String expectedFirstName,
@@ -110,7 +110,31 @@ public class ArsTechnicaLinkContentParserTest {
               final String data = FileHelper.slurpFile(d.getDataFile().get());
               final ArsTechnicaLinkContentParser parser = new ArsTechnicaLinkContentParser(data);
               try {
-                  Assertions.assertEquals(expectedAuthor, parser.getAuthor());
+                  Assertions.assertTrue(parser.getAuthor().isPresent());
+                  Assertions.assertEquals(expectedAuthor, parser.getAuthor().get());
+               } catch (final ContentParserException e) {
+                   Assertions.fail("getAuthor threw " + e.getMessage());
+               }
+              consumerHasBeenCalled.set(true);
+          });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+    
+
+    @ParameterizedTest
+    @CsvSource({
+        "https://arstechnica.com/information-technology/2012/03/microsoft-announces-cloud-building-with-tfs-feature-packs-for-visual-studio/"
+        })
+    void testAuthorAbsence(final String url) {
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(TestHelper.buildURL(url),
+          (final Boolean b, final SiteData d) -> {
+              Assertions.assertTrue(d.getDataFile().isPresent());
+              final String data = FileHelper.slurpFile(d.getDataFile().get());
+              final ArsTechnicaLinkContentParser parser = new ArsTechnicaLinkContentParser(data);
+              try {
+                  Assertions.assertFalse(parser.getAuthor().isPresent());
                } catch (final ContentParserException e) {
                    Assertions.fail("getAuthor threw " + e.getMessage());
                }

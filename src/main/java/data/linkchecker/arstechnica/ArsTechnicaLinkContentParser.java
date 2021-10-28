@@ -3,6 +3,7 @@ package data.linkchecker.arstechnica;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Optional;
 
 import data.linkchecker.ContentParserException;
 import data.linkchecker.LinkContentParserUtils;
@@ -57,7 +58,11 @@ public class ArsTechnicaLinkContentParser {
         }
     }
 
-    public AuthorData getAuthor() throws ContentParserException {
-        return LinkContentParserUtils.getAuthor(s_authorParser.extract(_data));
+    public Optional<AuthorData> getAuthor() throws ContentParserException {
+        final String authorName = s_authorParser.extract(_data);
+        if (authorName.equals("Ars Staff")) {
+            return Optional.empty();
+        }
+        return Optional.of(LinkContentParserUtils.getAuthor(authorName));
     }
 }
