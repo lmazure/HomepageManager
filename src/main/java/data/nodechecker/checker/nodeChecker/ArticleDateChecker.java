@@ -33,8 +33,8 @@ public class ArticleDateChecker extends NodeChecker {
         Optional<TemporalAccessor> pageDate;
         try {
             pageDate = getPageDate(e);
-        } catch (@SuppressWarnings("unused") final XmlParsingException ex) {
-            return new CheckStatus("Failed to parse page date");
+        } catch (final XmlParsingException ex) {
+            return new CheckStatus("Failed to parse page date (" + ex.getMessage() + ")");
         }
         if (pageDate.isEmpty()) {
             // should not happen
@@ -44,8 +44,8 @@ public class ArticleDateChecker extends NodeChecker {
         ArticleData articleData;
         try {
             articleData = XmlParser.parseArticleElement(e);
-        } catch (@SuppressWarnings("unused") final XmlParsingException ex) {
-            return new CheckStatus("Failed to parse article");
+        } catch (final XmlParsingException ex) {
+            return new CheckStatus("Failed to parse article (" + ex.getMessage() + ")");
         }
         final Optional<TemporalAccessor> creationDate = articleData.getDate();
         if (creationDate.isPresent()) {
@@ -102,8 +102,8 @@ public class ArticleDateChecker extends NodeChecker {
         ArticleData articleData;
         try {
             articleData = XmlParser.parseArticleElement(e);
-        } catch (@SuppressWarnings("unused") final XmlParsingException e1x) {
-            return new CheckStatus("Failed to parse article");
+        } catch (final XmlParsingException ex) {
+            return new CheckStatus("Failed to parse article (" + ex.getMessage() + ")");
         }
         final Optional<TemporalAccessor> creationDate = articleData.getDate();
 
@@ -129,8 +129,8 @@ public class ArticleDateChecker extends NodeChecker {
         ArticleData previousArticleData;
         try {
             previousArticleData = XmlParser.parseArticleElement(firstArticleOfPreviousChain);
-        } catch (@SuppressWarnings("unused") final XmlParsingException ex) {
-            return new CheckStatus("Failed to parse article");
+        } catch (final XmlParsingException ex) {
+            return new CheckStatus("Failed to parse article (" + ex.getMessage() + ")");
         }
         final Optional<TemporalAccessor> previousCreationDate = previousArticleData.getDate();
 

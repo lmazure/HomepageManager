@@ -135,8 +135,8 @@ public class DateChecker extends NodeChecker {
             if ((year != normalizedYear) || (month != normalizedMonth) || (day != normalizedDay)) {
                 return new CheckStatus("incorrect DATE");
             }
-        } catch (@SuppressWarnings("unused") final IllegalArgumentException ex) {
-            return new CheckStatus("incorrect DATE");
+        } catch (final IllegalArgumentException ex) {
+            return new CheckStatus("incorrect DATE (" + ex.getMessage() + ")");
         }
 
         return null;

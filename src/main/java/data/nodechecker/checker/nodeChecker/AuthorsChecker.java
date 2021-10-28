@@ -35,8 +35,8 @@ public class AuthorsChecker extends NodeChecker {
         ArticleData articleData;
         try {
             articleData = XmlParser.parseArticleElement(e);
-        } catch (@SuppressWarnings("unused") final XmlParsingException ex) {
-            return new CheckStatus("Failed to parse article");
+        } catch (final XmlParsingException ex) {
+            return new CheckStatus("Failed to parse article (" + ex.getMessage() + ")");
         }
 
         for (LinkData link: articleData.getLinks()) {

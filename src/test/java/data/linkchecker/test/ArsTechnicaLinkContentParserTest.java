@@ -119,7 +119,6 @@ public class ArsTechnicaLinkContentParserTest {
           });
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
-    
 
     @ParameterizedTest
     @CsvSource({

@@ -46,8 +46,8 @@ public class PredecessorArticleChecker extends NodeChecker {
         ArticleData previousArticleData;
         try {
             previousArticleData = XmlParser.parseArticleElement(previousArticle);
-        } catch (@SuppressWarnings("unused") final XmlParsingException ex) {
-            return new CheckStatus("Failed to parse article");
+        } catch (final XmlParsingException ex) {
+            return new CheckStatus("Failed to parse article (" + ex.getMessage() + ")");
         }
         final String urlOfPreviousArticle = previousArticleData.getLinks().get(0).getUrl();
 
