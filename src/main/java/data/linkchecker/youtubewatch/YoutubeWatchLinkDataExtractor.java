@@ -25,6 +25,7 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
             new AbstractMap.SimpleEntry<>("Sabine Hossenfelder", new ChannelData(buildListFromOneAuthor("Sabine", "Hossenfelder"), Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Stand-up Maths", new ChannelData(buildListFromOneAuthor("Matt", "Parker"), Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Tric Trac", new ChannelData(buildListFromTwoAuthors("Guillaume", "Chifoumi", "François", "Décamp"), Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("Veritasium", new ChannelData(buildListFromOneAuthor("Derek", "Muller"), Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Web Dev Simplified", new ChannelData(buildListFromOneAuthor("Kyle", "Cook"), Locale.ENGLISH))
             );
     private final YoutubeWatchLinkContentParser _parser;

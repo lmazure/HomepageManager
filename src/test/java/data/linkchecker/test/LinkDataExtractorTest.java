@@ -145,6 +145,20 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchVeritasiumIsManaged() throws MalformedURLException, ContentParserException {
+        final String url =
+            "https://www.youtube.com/watch?v=cUzklzVXJwo";
+        final String expectedXml = """
+                <ARTICLE><X><T>This Problem Broke Math (and led to Quantum Physics)</T>\
+                <A>https://www.youtube.com/watch?v=cUzklzVXJwo</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>23</MINUTE><SECOND>28</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Derek</FIRSTNAME><LASTNAME>Muller</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>31</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        Assertions.assertEquals(expectedXml, generateXml(url));
+    }
+
+    @Test
     void  youtubeWatchWebDevSimplifiedIsManaged() throws MalformedURLException, ContentParserException {
         final String url =
             "https://www.youtube.com/watch?v=mnmYwRoSisg";
