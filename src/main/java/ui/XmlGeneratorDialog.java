@@ -26,6 +26,7 @@ public class XmlGeneratorDialog extends Dialog<String> {
 
     public XmlGeneratorDialog(final Path cacheDirectory) {
         super();
+        setTitle("XML Generation");
         _cacheDirectory = cacheDirectory;
         _urlField = new TextField();
         _urlField.setMinWidth(640);
@@ -66,18 +67,18 @@ public class XmlGeneratorDialog extends Dialog<String> {
         try {
             xml = XmlGenerator.generateXml(extractor);
         } catch (final ContentParserException e) {
-            displayError("Cannot generate XML", "Failer to parse the URL data:\n" + e.getMessage());
+            displayError("Cannot generate XML", "Failed to parse the URL data:\n" + e.getMessage());
             return;
         }
         _xmlField.setText(xml);
     }
-
 
     private void pasteUrl() {
         final Clipboard clipboard = Clipboard.getSystemClipboard();
         if (clipboard.hasString()) {
             final String url = clipboard.getString();
             _urlField.setText(url);
+            _xmlField.clear();
         }
     }
 
@@ -87,6 +88,7 @@ public class XmlGeneratorDialog extends Dialog<String> {
             final String url = clipboard.getString();
             if (isValidUrl(url)) {
                 _urlField.setText(url);
+                _xmlField.clear();
             }
         }
     }
