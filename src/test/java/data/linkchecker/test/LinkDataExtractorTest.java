@@ -149,7 +149,7 @@ public class LinkDataExtractorTest {
         final String url =
             "https://www.youtube.com/watch?v=cUzklzVXJwo";
         final String expectedXml = """
-                <ARTICLE><X><T>This Problem Broke Math (and led to Quantum Physics)</T>\
+                <ARTICLE><X><T>This Problem Broke Math (and led to quantum physics)</T>\
                 <A>https://www.youtube.com/watch?v=cUzklzVXJwo</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>23</MINUTE><SECOND>28</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Derek</FIRSTNAME><LASTNAME>Muller</LASTNAME></AUTHOR>\

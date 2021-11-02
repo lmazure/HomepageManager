@@ -9,10 +9,7 @@ import data.FileChecker;
 import data.FileHandler;
 import data.HTMLGenerator;
 import data.LinkChecker;
-import data.MetricsExtractor;
 import data.NodeValueChecker;
-import data.SiteFilesGenerator;
-import data.jsongenerator.JsonGenerator;
 import javafx.application.Application;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -153,14 +150,13 @@ public class FileTable extends Application {
         launch();
     }
 
+    @SuppressWarnings("unused")
     private static void generateGlobalFiles() {
-        SiteFilesGenerator.generate(_homepagePath, _list.getFileList());
-        JsonGenerator.generate(_homepagePath, _list.getFileList());
-        MetricsExtractor.generate(_homepagePath);
+        new GlobalFileCreationDialog(_homepagePath, _list.getFileList());
     }
 
     private static void displayLinkXmlGenerator() {
-       final XmlGeneratorDialog dialog = new XmlGeneratorDialog(_tmpPath.resolve(_cacheFolderName));
+       final XmlGenerationDialog dialog = new XmlGenerationDialog(_tmpPath.resolve(_cacheFolderName));
        dialog.showAndWait();
     }
 

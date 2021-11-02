@@ -18,13 +18,13 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.VBox;
 import utils.StringHelper;
 
-public class XmlGeneratorDialog extends Dialog<String> {
+public class XmlGenerationDialog extends Dialog<Void> {
 
     private final TextField _urlField;
     private final TextField _xmlField;
     private final Path _cacheDirectory;
 
-    public XmlGeneratorDialog(final Path cacheDirectory) {
+    public XmlGenerationDialog(final Path cacheDirectory) {
         super();
         setTitle("XML Generation");
         _cacheDirectory = cacheDirectory;
