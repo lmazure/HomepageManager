@@ -311,6 +311,29 @@ public class NodeValueCheckerTest {
 
     @SuppressWarnings("static-method")
     @Test
+    void ignoreMissingSpaceDueToUrl() {
+
+        final String content =
+            "<?xml version=\"1.0\"?>\r\n" +
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<TITLE>Test</TITLE>\r\n" +
+            "<PATH>HomepageManager/test.xml</PATH>\r\n" +
+            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
+            "<CONTENT>\r\n" +
+            "<BLIST><TITLE>What about analytics.katalon.com?</TITLE></BLIST>\r\n" +
+            "</CONTENT>\r\n" +
+            "</PAGE>";
+
+        try {
+            test(content);
+        } catch (@SuppressWarnings("unused") final SAXException e) {
+            Assertions.fail("SAXException");
+        }
+    }
+
+    @SuppressWarnings("static-method")
+    @Test
     void detectMissingSpace() {
 
         final String content =

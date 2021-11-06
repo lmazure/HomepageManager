@@ -35,6 +35,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "Intl.RelativeTimeFormat",
             "Intro.js",
             "Java.Next",
+            "analytics.katalon.com",
             "Kosmopoli:t",
             "MANIFEST.MF",
             "MSCTF.DLL",

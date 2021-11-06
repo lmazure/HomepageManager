@@ -52,7 +52,7 @@ public class BaeldungLinkContentParser {
         }
     }
 
-    public Optional<@NonNull AuthorData> getAuthor() throws ContentParserException {
+    public Optional<AuthorData> getAuthor() throws ContentParserException {
         final String author = s_authorParser.extract(_data);
         if (author.equals("baeldung")) {
             return Optional.empty();

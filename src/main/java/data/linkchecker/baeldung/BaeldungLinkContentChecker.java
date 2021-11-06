@@ -105,7 +105,7 @@ public class BaeldungLinkContentChecker extends LinkContentChecker {
             return new LinkContentCheck("Baeldung article should have at most one author");
         }
 
-        final Optional<@NonNull AuthorData> effectiveAuthor = _parser.getAuthor();
+        final Optional<AuthorData> effectiveAuthor = _parser.getAuthor();
         if (effectiveAuthor.isPresent()) {
             if (authors.size() == 1) {
                 if (!effectiveAuthor.get().equals(authors.get(0))) {

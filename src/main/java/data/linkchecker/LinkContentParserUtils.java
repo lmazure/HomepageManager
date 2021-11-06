@@ -2,14 +2,12 @@ package data.linkchecker;
 
 import java.util.Optional;
 
-import org.eclipse.jdt.annotation.NonNull;
-
 import utils.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 
 public class LinkContentParserUtils {
 
-    public static @NonNull AuthorData getAuthor(final String str) throws ContentParserException {
+    public static AuthorData getAuthor(final String str) throws ContentParserException {
         final String[] nameParts = HtmlHelper.cleanContent(str).split(" ");
         if (nameParts.length == 2) {
             return new AuthorData(Optional.empty(),

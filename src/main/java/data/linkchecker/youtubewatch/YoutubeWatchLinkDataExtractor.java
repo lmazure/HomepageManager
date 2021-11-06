@@ -21,6 +21,7 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
             new AbstractMap.SimpleEntry<>("3Blue1Brown", new ChannelData(buildListFromOneAuthor("Grant", "Sanderson"), Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Le Réveilleur", new ChannelData(buildListFromOneAuthor("Rodolphe", "Meyer"), Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("monsieur bidouille", new ChannelData(buildListFromOneAuthor("Dimitri", "Ferrière"), Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("Passe-Science", new ChannelData(buildListFromOneAuthor("Thomas", "Cabaret"), Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("Robert Miles", new ChannelData(buildListFromOneAuthor("Robert", "Miles"), Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Sabine Hossenfelder", new ChannelData(buildListFromOneAuthor("Sabine", "Hossenfelder"), Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Stand-up Maths", new ChannelData(buildListFromOneAuthor("Matt", "Parker"), Locale.ENGLISH)),
@@ -97,5 +98,6 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
 
    private record ChannelData(List<AuthorData> authors,
                               Locale language) {
+       // DO NOTHING
    }
 }

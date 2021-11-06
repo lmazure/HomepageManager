@@ -88,6 +88,20 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchPasseScienceIsManaged() throws MalformedURLException, ContentParserException {
+        final String url =
+            "https://www.youtube.com/watch?v=yfFck7EfptU";
+        final String expectedXml = """
+                <ARTICLE><X><T>Hacking et virus informatiques (dans le monde réel) bonus: Corewar! - Passe-science #43</T>\
+                <A>https://www.youtube.com/watch?v=yfFck7EfptU</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>26</MINUTE><SECOND>13</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Thomas</FIRSTNAME><LASTNAME>Cabaret</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2021</YEAR><MONTH>11</MONTH><DAY>5</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>>""";
+        Assertions.assertEquals(expectedXml, generateXml(url));
+    }
+
+    @Test
     void youtubeWatchRobertMilesIsManaged() throws MalformedURLException, ContentParserException {
         final String url =
             "https://www.youtube.com/watch?v=zkbPdEHEyEI";
@@ -149,7 +163,7 @@ public class LinkDataExtractorTest {
         final String url =
             "https://www.youtube.com/watch?v=cUzklzVXJwo";
         final String expectedXml = """
-                <ARTICLE><X><T>This Problem Broke Math (and led to quantum physics)</T>\
+                <ARTICLE><X><T>How Imaginary Numbers Were Invented</T>\
                 <A>https://www.youtube.com/watch?v=cUzklzVXJwo</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>23</MINUTE><SECOND>28</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Derek</FIRSTNAME><LASTNAME>Muller</LASTNAME></AUTHOR>\

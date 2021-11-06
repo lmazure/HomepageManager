@@ -26,11 +26,11 @@ public class XmlGenerationDialog extends Dialog<Void> {
 
     public XmlGenerationDialog(final Path cacheDirectory) {
         super();
+
         setTitle("XML Generation");
         _cacheDirectory = cacheDirectory;
         _urlField = new TextField();
         _urlField.setMinWidth(640);
-        initializeUrl();
         final Button pasteUrl = new Button("Paste URL");
         pasteUrl.setOnAction(e -> pasteUrl());
         final Button generateXml = new Button("Generate XML");
@@ -42,6 +42,8 @@ public class XmlGenerationDialog extends Dialog<Void> {
         final VBox vbox = new VBox(_urlField, pasteUrl, generateXml, _xmlField, copyXml);
         getDialogPane().setContent(vbox);
         getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
+
+        initializeUrl();
     }
 
     private void generateXml() {
@@ -88,7 +90,6 @@ public class XmlGenerationDialog extends Dialog<Void> {
             final String url = clipboard.getString();
             if (isValidUrl(url)) {
                 _urlField.setText(url);
-                _xmlField.clear();
             }
         }
     }
