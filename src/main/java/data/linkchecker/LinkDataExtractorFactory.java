@@ -8,6 +8,7 @@ import data.linkchecker.arstechnica.ArsTechnicaLinkDataExtractor;
 import data.linkchecker.quantamagazine.QuantaMagazineLinkDataExtractor;
 import data.linkchecker.youtubewatch.YoutubeWatchLinkDataExtractor;
 import utils.ExitHelper;
+import utils.StringHelper;
 
 public class LinkDataExtractorFactory {
 
@@ -37,12 +38,6 @@ public class LinkDataExtractorFactory {
 
         final String cleanedUrl = initialUrl.replaceAll("/?utm_[^/]+$", "");
 
-        try {
-            return new URL(cleanedUrl);
-        } catch (final MalformedURLException e) {
-            ExitHelper.exit(e);
-            // NOT REACHED
-            return null;
-        }
+        return StringHelper.convertStringToUrl(cleanedUrl);
     }
 }

@@ -6,8 +6,6 @@ import java.time.format.DateTimeParseException;
 import java.util.Locale;
 import java.util.Optional;
 
-import org.eclipse.jdt.annotation.NonNull;
-
 import data.linkchecker.ContentParserException;
 import data.linkchecker.LinkContentParserUtils;
 import data.linkchecker.TextParser;

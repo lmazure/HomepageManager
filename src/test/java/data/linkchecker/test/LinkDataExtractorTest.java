@@ -1,6 +1,5 @@
 package data.linkchecker.test;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
 
@@ -12,11 +11,12 @@ import data.linkchecker.ContentParserException;
 import data.linkchecker.LinkDataExtractor;
 import data.linkchecker.LinkDataExtractorFactory;
 import data.linkchecker.XmlGenerator;
+import utils.StringHelper;
 
 public class LinkDataExtractorTest {
 
     @Test
-    void  arsTechnicaIsManaged() throws MalformedURLException, ContentParserException {
+    void  arsTechnicaIsManaged() throws ContentParserException {
         final String url =
             "https://arstechnica.com/tech-policy/2021/10/uh-no-pfizer-scientist-denies-holmes-claim-that-pfizer-endorsed-theranos-tech/";
         final String expectedXml = """
@@ -31,7 +31,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void quantaMagazineIsManaged() throws MalformedURLException, ContentParserException {
+    void quantaMagazineIsManaged() throws ContentParserException {
         final String url =
             "https://www.quantamagazine.org/mathematician-answers-chess-problem-about-attacking-queens-20210921/";
         final String expectedXml = """
@@ -46,7 +46,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void  youtubeWatch3Blue1BrownIsManaged() throws MalformedURLException, ContentParserException {
+    void  youtubeWatch3Blue1BrownIsManaged() throws ContentParserException {
         final String url =
             "https://www.youtube.com/watch?v=-RdOwhmqP5s";
         final String expectedXml = """
@@ -60,7 +60,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchLeRéveilleurIsManaged() throws MalformedURLException, ContentParserException {
+    void youtubeWatchLeRéveilleurIsManaged() throws ContentParserException {
         final String url =
             "https://www.youtube.com/watch?v=OAyYSlMhgI4";
         final String expectedXml = """
@@ -74,7 +74,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchMonsieurBidouilleIsManaged() throws MalformedURLException, ContentParserException {
+    void youtubeWatchMonsieurBidouilleIsManaged() throws ContentParserException {
         final String url =
             "https://www.youtube.com/watch?v=36WpRwY2DYw";
         final String expectedXml = """
@@ -88,7 +88,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchPasseScienceIsManaged() throws MalformedURLException, ContentParserException {
+    void youtubeWatchPasseScienceIsManaged() throws ContentParserException {
         final String url =
             "https://www.youtube.com/watch?v=yfFck7EfptU";
         final String expectedXml = """
@@ -97,12 +97,12 @@ public class LinkDataExtractorTest {
                 <L>fr</L><F>MP4</F><DURATION><MINUTE>26</MINUTE><SECOND>13</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Thomas</FIRSTNAME><LASTNAME>Cabaret</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>11</MONTH><DAY>5</DAY></DATE>\
-                <COMMENT>XXXXX</COMMENT></ARTICLE>>""";
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         Assertions.assertEquals(expectedXml, generateXml(url));
     }
 
     @Test
-    void youtubeWatchRobertMilesIsManaged() throws MalformedURLException, ContentParserException {
+    void youtubeWatchRobertMilesIsManaged() throws ContentParserException {
         final String url =
             "https://www.youtube.com/watch?v=zkbPdEHEyEI";
         final String expectedXml = """
@@ -116,7 +116,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchSabineHossenfelderIsManaged() throws MalformedURLException, ContentParserException {
+    void youtubeWatchSabineHossenfelderIsManaged() throws ContentParserException {
         final String url =
             "https://www.youtube.com/watch?v=3hApcpGJETA";
         final String expectedXml = """
@@ -130,7 +130,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchStandupMathsIsManaged() throws MalformedURLException, ContentParserException {
+    void youtubeWatchStandupMathsIsManaged() throws ContentParserException {
         final String url =
             "https://www.youtube.com/watch?v=ueEOHk1UzrA";
         final String expectedXml = """
@@ -144,7 +144,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchTricTracIsManaged() throws MalformedURLException, ContentParserException {
+    void youtubeWatchTricTracIsManaged() throws ContentParserException {
         final String url =
             "https://www.youtube.com/watch?v=eJapfznmA4U";
         final String expectedXml = """
@@ -159,7 +159,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchVeritasiumIsManaged() throws MalformedURLException, ContentParserException {
+    void youtubeWatchVeritasiumIsManaged() throws ContentParserException {
         final String url =
             "https://www.youtube.com/watch?v=cUzklzVXJwo";
         final String expectedXml = """
@@ -173,7 +173,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void  youtubeWatchWebDevSimplifiedIsManaged() throws MalformedURLException, ContentParserException {
+    void  youtubeWatchWebDevSimplifiedIsManaged() throws ContentParserException {
         final String url =
             "https://www.youtube.com/watch?v=mnmYwRoSisg";
         final String expectedXml = """
@@ -187,7 +187,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void urlIsCleanedFromUtmParameters() throws MalformedURLException, ContentParserException {
+    void urlIsCleanedFromUtmParameters() throws ContentParserException {
         final String url =
             "https://www.quantamagazine.org/mathematical-analysis-of-fruit-fly-wings-hints-at-evolutions-limits-20210920/?utm_source=pocket-app&utm_medium=share";
         final String expectedXml = """
@@ -201,8 +201,8 @@ public class LinkDataExtractorTest {
         Assertions.assertEquals(expectedXml, generateXml(url));
     }
 
-    private String generateXml(final String txt) throws MalformedURLException, ContentParserException {
-        final URL url = new URL(txt);
+    private String generateXml(final String txt) throws ContentParserException {
+        final URL url = StringHelper.convertStringToUrl(txt);
         final Path path = TestHelper.getTestDatapath(getClass());
         final LinkDataExtractor extractor = LinkDataExtractorFactory.build(path, url);
         return XmlGenerator.generateXml(extractor);

@@ -321,7 +321,7 @@ public class NodeValueCheckerTest {
             "<PATH>HomepageManager/test.xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
             "<CONTENT>\r\n" +
-            "<BLIST><TITLE>What about analytics.katalon.com?</TITLE></BLIST>\r\n" +
+            "<BLIST><TITLE>What about analytics.katalon.com and NaturalNews.com?</TITLE></BLIST>\r\n" +
             "</CONTENT>\r\n" +
             "</PAGE>";
 

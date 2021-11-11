@@ -40,6 +40,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "MANIFEST.MF",
             "MSCTF.DLL",
             "MVC.NET",
+            "NaturalNews.com",
             ".NET",
             "Node.js",
             "Normalize.css",
