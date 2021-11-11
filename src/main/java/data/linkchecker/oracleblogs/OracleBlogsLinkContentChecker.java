@@ -105,18 +105,17 @@ public class OracleBlogsLinkContentChecker extends LinkContentChecker {
                                                 final Optional<TemporalAccessor> publicationDate,
                                                 final Optional<TemporalAccessor> creationDate) throws ContentParserException
     {
-        if (publicationDate.isPresent()) {
-            return new LinkContentCheck("Oracle Blogs article should have no publication date");
-        }
         if (creationDate.isEmpty()) {
             return new LinkContentCheck("Oracle Blogs article should have a creation date");
         }
+        TemporalAccessor pulicationDate =  publicationDate.isPresent() ? publicationDate.get()
+                                                                       : creationDate.get();
 
         final LocalDate effectiveDate = _parser.getDate();
 
-        if (!creationDate.get().equals(effectiveDate)) {
-            return new LinkContentCheck("expected creation date " +
-                                        creationDate.get() +
+        if (!pulicationDate.equals(effectiveDate)) {
+            return new LinkContentCheck("expected publication date " +
+                                        pulicationDate +
                                         " is not equal to the effective date " +
                                         effectiveDate);
         }

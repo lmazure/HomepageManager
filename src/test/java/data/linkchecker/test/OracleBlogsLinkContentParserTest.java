@@ -60,7 +60,9 @@ public class OracleBlogsLinkContentParserTest {
         "https://blogs.oracle.com/javamagazine/finance-quant-forex-java16|Java still rocks the finance industry. Here’s why Java 16 makes it even better.",
         "https://blogs.oracle.com/javamagazine/java-is-criminally-underhyped|Recent computer science graduate Jackson Roberts never took a single class in Java. That’s just wrong, he says.",
         // the following article has a newline in the substitle
-        "https://blogs.oracle.com/javamagazine/post/the-largest-survey-ever-of-java-developers|What 10,500 Java developers tell us about their projects, their tools, and themselves"
+        "https://blogs.oracle.com/javamagazine/the-largest-survey-ever-of-java-developers|What 10,500 Java developers tell us about their projects, their tools, and themselves",
+        // the following article contains <code> in the subtitle
+        "https://blogs.oracle.com/javamagazine/java-enhancedfor-loop-statement|The enhanced for statement operates at a higher level of abstraction than the traditional simple for statement."
         }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
@@ -85,7 +87,9 @@ public class OracleBlogsLinkContentParserTest {
     @ParameterizedTest
     @CsvSource({
         "https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update",
-        "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se"
+        "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se",
+        // the following article contains <h2> which is not a subtitle
+        "https://blogs.oracle.com/javamagazine/post/the-top-25-greatest-java-apps-ever-written"
         })
     void testNoSubtitle(final String url) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());

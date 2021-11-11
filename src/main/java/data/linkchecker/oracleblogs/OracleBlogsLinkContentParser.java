@@ -39,7 +39,7 @@ public class OracleBlogsLinkContentParser {
             """;
     private static final Pattern s_htmlPattern = Pattern.compile(s_htmlTemplate);
 
-    private static final Pattern s_subtitlePattern = Pattern.compile("<h2>([^<]*)</h2>");
+    private static final Pattern s_subtitlePattern = Pattern.compile("^(<!DOCTYPE html>)?<h2>(.*?)</h2>", Pattern.DOTALL);
     
     private final String _title;
     private final Optional<String> _subtitle;
@@ -128,7 +128,7 @@ public class OracleBlogsLinkContentParser {
             final String html = fields.getString("body");
             final Matcher m2 = s_subtitlePattern.matcher(html);
             if (m2.find()) {
-                subtitle = Optional.of(HtmlHelper.cleanContent(m2.group(1)));
+                subtitle = Optional.of(HtmlHelper.cleanContent(m2.group(2)));
             } else {
                 subtitle = Optional.empty();
             }
