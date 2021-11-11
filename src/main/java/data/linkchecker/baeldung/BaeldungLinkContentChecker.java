@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-import org.eclipse.jdt.annotation.NonNull;
-
 import data.linkchecker.ContentParserException;
 import data.linkchecker.LinkContentCheck;
 import data.linkchecker.LinkContentChecker;

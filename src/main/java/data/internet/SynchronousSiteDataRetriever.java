@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
+import java.util.zip.GZIPInputStream;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -56,29 +58,8 @@ public class SynchronousSiteDataRetriever {
         Optional<String> error = Optional.empty();
 
          try {
-             final URLConnection connection = url.openConnection();
-             final HttpURLConnection httpConnection = (HttpURLConnection)connection;
-             if (url.getProtocol().equals("https")) {
-                 ((HttpsURLConnection)connection).setSSLSocketFactory(_sslSocketFactory);
-             }
-             connection.setConnectTimeout(s_connectTimeout);
-             connection.setReadTimeout(s_readTimeout);
-             httpConnection.setRequestMethod("GET");
-             httpConnection.setRequestProperty("User-Agent", s_userAgent);
-             httpConnection.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
-             httpConnection.setRequestProperty("Accept-Language", "en");
-             httpConnection.setRequestProperty("Accept-Encoding", "gzip");
-             httpConnection.setRequestProperty("DNT", "1");
-             httpConnection.setRequestProperty("Connection", "keep-alive");
-             httpConnection.setRequestProperty("Upgrade-Insecure-Requests", "1");
-             httpConnection.setRequestProperty("Sec-Fetch-Dest", "document");
-             httpConnection.setRequestProperty("Sec-Fetch-Mode", "navigate");
-             httpConnection.setRequestProperty("Sec-Fetch-Site", "same-origin");
-             httpConnection.setRequestProperty("Pragma", "no-cache");
-             httpConnection.setRequestProperty("Cache-Control", "no-cache");
-             httpConnection.setRequestProperty("TE", "trailers");
-             httpConnection.connect();
-             headers = Optional.of(connection.getHeaderFields());
+             final HttpURLConnection httpConnection = httpConnect(url);
+             headers = Optional.of(httpConnection.getHeaderFields());
              final int responseCode = httpConnection.getResponseCode();
              httpCode = Optional.of(Integer.valueOf(responseCode));
              if (responseCode != HttpURLConnection.HTTP_OK         /* 200 */ && // TODO this cannot be right
@@ -88,7 +69,7 @@ public class SynchronousSiteDataRetriever {
                  consumer.accept(Boolean.TRUE, new SiteData(url, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error));
                  return;
              }
-             _persister.persist(url, timestamp, SiteData.Status.SUCCESS, httpCode, headers, Optional.of(connection.getInputStream()), error);
+             _persister.persist(url, timestamp, SiteData.Status.SUCCESS, httpCode, headers, Optional.of(httpConnection.getInputStream()), error);
              final File dataFile = _persister.getDataFile(url, timestamp).toFile();
              consumer.accept(Boolean.TRUE, new SiteData(url, SiteData.Status.SUCCESS, httpCode, headers, Optional.of(dataFile), error));
          } catch (final IOException e) {
@@ -96,6 +77,44 @@ public class SynchronousSiteDataRetriever {
              _persister.persist(url, timestamp, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error);
              consumer.accept(Boolean.TRUE, new SiteData(url, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error));
          }
+    }
+
+    public String getGzippedContent(final URL url) throws IOException {
+        try {
+            final HttpURLConnection httpConnection = httpConnect(url);
+            try (final GZIPInputStream gzipReader = new GZIPInputStream(httpConnection.getInputStream())) {
+                final byte[] bytes = gzipReader.readAllBytes();
+                return new String(bytes, StandardCharsets.UTF_8);
+            }
+        } catch (final IOException e) {
+            throw new IOException("Failed to get JSON payload from " + url, e);
+        }
+    }
+
+    private HttpURLConnection httpConnect(final URL url) throws IOException {
+        final URLConnection connection = url.openConnection();
+        final HttpURLConnection httpConnection = (HttpURLConnection)connection;
+        if (url.getProtocol().equals("https")) {
+            ((HttpsURLConnection)connection).setSSLSocketFactory(_sslSocketFactory);
+        }
+        connection.setConnectTimeout(s_connectTimeout);
+        connection.setReadTimeout(s_readTimeout);
+        httpConnection.setRequestMethod("GET");
+        httpConnection.setRequestProperty("User-Agent", s_userAgent);
+        httpConnection.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
+        httpConnection.setRequestProperty("Accept-Language", "en");
+        httpConnection.setRequestProperty("Accept-Encoding", "gzip");
+        httpConnection.setRequestProperty("DNT", "1");
+        httpConnection.setRequestProperty("Connection", "keep-alive");
+        httpConnection.setRequestProperty("Upgrade-Insecure-Requests", "1");
+        httpConnection.setRequestProperty("Sec-Fetch-Dest", "document");
+        httpConnection.setRequestProperty("Sec-Fetch-Mode", "navigate");
+        httpConnection.setRequestProperty("Sec-Fetch-Site", "same-origin");
+        httpConnection.setRequestProperty("Pragma", "no-cache");
+        httpConnection.setRequestProperty("Cache-Control", "no-cache");
+        httpConnection.setRequestProperty("TE", "trailers");
+        httpConnection.connect();
+        return httpConnection;
     }
 
     private static SSLSocketFactory getDisabledPKIXCheck() {
