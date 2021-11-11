@@ -19,6 +19,7 @@ import org.json.JSONObject;
 import data.internet.SynchronousSiteDataRetriever;
 import data.linkchecker.ContentParserException;
 import data.linkchecker.LinkContentParserUtils;
+import utils.HtmlHelper;
 import utils.StringHelper;
 import utils.xmlparsing.AuthorData;
 
@@ -127,7 +128,7 @@ public class OracleBlogsLinkContentParser {
             final String html = fields.getString("body");
             final Matcher m2 = s_subtitlePattern.matcher(html);
             if (m2.find()) {
-                subtitle = Optional.of(m2.group(1));
+                subtitle = Optional.of(HtmlHelper.cleanContent(m2.group(1)));
             } else {
                 subtitle = Optional.empty();
             }
