@@ -1,4 +1,4 @@
-package data.linkchecker.arstechnica;
+package data.linkchecker.oracleblogs;
 
 import java.net.URL;
 import java.nio.file.Path;
@@ -14,14 +14,14 @@ import data.linkchecker.LinkDataExtractor;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkFormat;
 
-public class ArsTechnicaLinkDataExtractor extends LinkDataExtractor {
+public class OracleBlogsLinkDataExtractor  extends LinkDataExtractor {
 
-    private final ArsTechnicaLinkContentParser _parser;
+    private final OracleBlogsLinkContentParser _parser;
 
-    public ArsTechnicaLinkDataExtractor(final URL url,
+    public OracleBlogsLinkDataExtractor(final URL url,
                                         final Path cacheDirectory) {
         super(url, cacheDirectory);
-        _parser = new ArsTechnicaLinkContentParser(getContent());
+        _parser = new OracleBlogsLinkContentParser(getContent(), url);
     }
 
     @Override
@@ -31,18 +31,13 @@ public class ArsTechnicaLinkDataExtractor extends LinkDataExtractor {
 
     @Override
     public List<AuthorData> getAuthors() throws ContentParserException {
-        final Optional<AuthorData> authorData = _parser.getAuthor();
-        final List<AuthorData> list = new ArrayList<>(1);
-        if (authorData.isPresent()) {
-            list.add(authorData.get());
-        }
-        return list;
+        return _parser.getAuthors();
     }
 
     @Override
     public List<ExtractedLinkData> getLinks() throws ContentParserException {
         final ExtractedLinkData linkData = new ExtractedLinkData(_parser.getTitle(),
-                                                                 new String[] { _parser.getSubtitle() },
+                                                                 getSubtitle(),
                                                                  getUrl().toString(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
@@ -53,5 +48,13 @@ public class ArsTechnicaLinkDataExtractor extends LinkDataExtractor {
         final List<ExtractedLinkData> list = new ArrayList<>(1);
         list.add(linkData);
         return list;
+    }
+    
+    private String[] getSubtitle() throws ContentParserException {
+        final Optional<String> subtitle = _parser.getSubtitle();
+        if (subtitle.isPresent()) {
+            return new String[] { subtitle.get() };
+        }
+        return new String[] { };
     }
 }

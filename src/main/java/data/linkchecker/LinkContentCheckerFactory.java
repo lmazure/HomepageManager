@@ -8,6 +8,7 @@ import data.linkchecker.arstechnica.ArsTechnicaLinkContentChecker;
 import data.linkchecker.baeldung.BaeldungLinkContentChecker;
 import data.linkchecker.chromium.ChromiumBlogLinkContentChecker;
 import data.linkchecker.medium.MediumLinkContentChecker;
+import data.linkchecker.oracleblogs.OracleBlogsLinkContentChecker;
 import data.linkchecker.quantamagazine.QuantaMagazineLinkContentChecker;
 import data.linkchecker.twitter.TwitterLinkContentChecker;
 import data.linkchecker.youtubechanneluser.YoutubeChannelUserLinkContentChecker;
@@ -39,6 +40,10 @@ public class LinkContentCheckerFactory {
 
         if (url.toString().startsWith("https://arstechnica.com/")) {
             return new ArsTechnicaLinkContentChecker(url, linkData, articleData, file);
+        }
+
+        if (url.toString().startsWith("https://blogs.oracle.com/")) {
+            return new OracleBlogsLinkContentChecker(url, linkData, articleData, file);
         }
 
         if (url.toString().startsWith("https://medium.com/")) {

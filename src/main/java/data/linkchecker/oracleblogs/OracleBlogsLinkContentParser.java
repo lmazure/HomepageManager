@@ -3,7 +3,9 @@ package data.linkchecker.oracleblogs;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import data.internet.SynchronousSiteDataRetriever;
@@ -79,12 +82,23 @@ public class OracleBlogsLinkContentParser {
             _authorException = null;
             return;
         }
-        final JSONObject structure = new JSONObject(stuctureJson);
-        final JSONObject siteInfo = structure.getJSONObject("siteInfo");
-        final JSONObject base = siteInfo.getJSONObject("base");
-        final JSONObject properties = base.getJSONObject("properties");
-        final JSONArray channelAccessTokens = properties.getJSONArray("channelAccessTokens");
-        final String channelAccessToken = channelAccessTokens.getJSONObject(0).getString("value");
+        String channelAccessToken = null;
+        try {
+            final JSONObject structure = new JSONObject(stuctureJson);
+            final JSONObject siteInfo = structure.getJSONObject("siteInfo");
+            final JSONObject base = siteInfo.getJSONObject("base");
+            final JSONObject properties = base.getJSONObject("properties");
+            final JSONArray channelAccessTokens = properties.getJSONArray("channelAccessTokens");
+            channelAccessToken = channelAccessTokens.getJSONObject(0).getString("value");
+        } catch (final JSONException e) {
+            _exception = new ContentParserException("failed to parse structure JSON data for " + url, e);
+            _title = null;
+            _subtitle = null;
+            _publicationDate = null;
+            _authors = null;
+            _authorException = null;
+            return;
+        }
         
         // retrieve article information
         String articleJson = null;
@@ -100,22 +114,39 @@ public class OracleBlogsLinkContentParser {
             return;
         }
 
-        _exception = null;
+        JSONObject fields = null;
+        String title;
+        Optional<String> subtitle;
+        LocalDate publicationDate;
 
-        final JSONObject article = new JSONObject(articleJson);
-        final JSONArray items = article.getJSONArray("items");
-        final JSONObject firstItem = items.getJSONObject(0);
-        final JSONObject fields = firstItem.getJSONObject("fields"); 
-        _title = fields.getString("title");
-        final String html = fields.getString("body");
-        final Matcher m2 = s_subtitlePattern.matcher(html);
-        if (m2.find()) {
-            _subtitle = Optional.of(m2.group(1));
-        } else {
-            _subtitle = Optional.empty();
+        try {
+            final JSONObject article = new JSONObject(articleJson);
+            final JSONArray items = article.getJSONArray("items");
+            final JSONObject firstItem = items.getJSONObject(0);
+            fields = firstItem.getJSONObject("fields"); 
+            title = fields.getString("title");
+            final String html = fields.getString("body");
+            final Matcher m2 = s_subtitlePattern.matcher(html);
+            if (m2.find()) {
+                subtitle = Optional.of(m2.group(1));
+            } else {
+                subtitle = Optional.empty();
+            }
+            final String pubDate = fields.getJSONObject("publish_date").getString("value");
+            publicationDate = Instant.parse(pubDate).atZone(ZoneId.of("Europe/Paris")).toLocalDate();
+        } catch (final JSONException e) {
+            _exception = new ContentParserException("failed to parse article JSON data for " + url, e);
+            _title = null;
+            _subtitle = null;
+            _publicationDate = null;
+            _authors = null;
+            _authorException = null;
+            return;
         }
-        final String publicationDate = fields.getJSONObject("publish_date").getString("value");
-        _publicationDate = LocalDate.parse(publicationDate, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+        _exception = null;
+        _title = title;
+        _subtitle = subtitle;
+        _publicationDate = publicationDate;
 
         // retrieve author data
         final JSONArray authors = fields.getJSONArray("author");
@@ -124,11 +155,8 @@ public class OracleBlogsLinkContentParser {
             final String authorUrl = authors.getJSONObject(i).getJSONArray("links").getJSONObject(0).getString("href");
             try {
                 _authors.add(getAuthor(StringHelper.convertStringToUrl(authorUrl)));
-            } catch (final IOException e) {
+            } catch (final IOException | ContentParserException | JSONException e) {
                 _authorException = new ContentParserException("failed to read author JSON data for " + url, e);
-                return;
-            } catch (final ContentParserException e) {
-                _authorException = e;
                 return;
             }
         }
@@ -156,7 +184,7 @@ public class OracleBlogsLinkContentParser {
         return _publicationDate;
     }
 
-    public List<AuthorData> getAuthor() throws ContentParserException {
+    public List<AuthorData> getAuthors() throws ContentParserException {
         if (_exception != null) {
             throw _exception;
         }
@@ -179,9 +207,9 @@ public class OracleBlogsLinkContentParser {
                                  final String channelAccessToken,
                                  final String caas) throws IOException {
         final String slug = Path.of(url.getPath()).getFileName().toString();
-        final String jsonUrl = "https://blogs.oracle.com/content/published/api/v1.1/items?fields=ALL&orderBy=name:asc&limit=1&q=((type%20eq%20\"Blog-Post\")%20and%20(language%20eq%20\"en-US\"%20or%20translatable%20eq%20\"false\")%20and%20(slug%20eq%20\""
+        final String jsonUrl = "https://blogs.oracle.com/content/published/api/v1.1/items?fields=ALL&orderBy=name%3Aasc&limit=1&q=((type%20eq%20%22Blog-Post%22)%20and%20(language%20eq%20%22en-US%22%20or%20translatable%20eq%20%22false%22)%20and%20(slug%20eq%20%22"
                                + slug
-                               + "\"))&channelToken="
+                               + "%22))&channelToken="
                                + channelAccessToken
                                + "&cb="
                                + caas;

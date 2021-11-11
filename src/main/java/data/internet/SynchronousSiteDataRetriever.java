@@ -87,7 +87,7 @@ public class SynchronousSiteDataRetriever {
                 return new String(bytes, StandardCharsets.UTF_8);
             }
         } catch (final IOException e) {
-            throw new IOException("Failed to get JSON payload from " + url, e);
+            throw new IOException("Failed to get gzipped payload from " + url, e);
         }
     }
 

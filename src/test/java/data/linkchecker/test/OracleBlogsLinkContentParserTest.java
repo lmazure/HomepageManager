@@ -19,12 +19,13 @@ import utils.xmlparsing.AuthorData;
 public class OracleBlogsLinkContentParserTest {
 
     @ParameterizedTest
-    @CsvSource({
-        "https://blogs.oracle.com/javamagazine/post/java-for-loop-break-continue,Quiz yourself: Break and continue in Java’s for loops",
-        "https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update,Opening Up Java EE - An Update",
-        "https://blogs.oracle.com/javamagazine/post/12-recipes-for-using-the-optional-class-as-its-meant-to-be-used,12 recipes for using the Optional class as it’s meant to be used",
-        "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se,Faster and Easier Use and Redistribution of Java SE"
-        })
+    @CsvSource(value = {
+        "https://blogs.oracle.com/javamagazine/post/java-for-loop-break-continue|Quiz yourself: Break and continue in Java’s for loops",
+        "https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update|Opening Up Java EE - An Update",
+        "https://blogs.oracle.com/javamagazine/post/12-recipes-for-using-the-optional-class-as-its-meant-to-be-used|12 recipes for using the Optional class as it’s meant to be used",
+        "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se|Faster and Easier Use and Redistribution of Java SE",
+        "https://blogs.oracle.com/javamagazine/post/everything-you-need-to-know-about-openjdks-move-to-git-and-github|Everything you need to know about OpenJDK’s move to Git and GitHub"
+        }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
@@ -48,6 +49,7 @@ public class OracleBlogsLinkContentParserTest {
     @CsvSource(value = {
         "https://blogs.oracle.com/javamagazine/post/java-for-loop-break-continue|Sometimes you have to simulate JVM behavior using pencil and paper.",
         "https://blogs.oracle.com/javamagazine/post/12-recipes-for-using-the-optional-class-as-its-meant-to-be-used|Follow these dozen best practices to protect your applications against ugly null pointer exceptions—and make your code more readable and concise.",
+        "https://blogs.oracle.com/javamagazine/post/everything-you-need-to-know-about-openjdks-move-to-git-and-github|The move from Mercurial to Git provided an opportunity to consolidate the source code repositories."
         }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
@@ -97,7 +99,8 @@ public class OracleBlogsLinkContentParserTest {
         "https://blogs.oracle.com/javamagazine/post/java-for-loop-break-continue,2021-10-05",
         "https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update,2017-09-12",
         "https://blogs.oracle.com/javamagazine/post/12-recipes-for-using-the-optional-class-as-its-meant-to-be-used,2020-06-22",
-        "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se,2017-09-06"
+        "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se,2017-09-06",
+        "https://blogs.oracle.com/javamagazine/post/everything-you-need-to-know-about-openjdks-move-to-git-and-github,2021-05-15"
         })
     void testDate(final String url,
                   final String expectedDate) {
@@ -122,7 +125,8 @@ public class OracleBlogsLinkContentParserTest {
     @CsvSource({
         "https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update,David,Delabassee",
         "https://blogs.oracle.com/javamagazine/post/12-recipes-for-using-the-optional-class-as-its-meant-to-be-used,Mohamed,Taman",
-        "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se,Donald,Smith"
+        "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se,Donald,Smith",
+        "https://blogs.oracle.com/javamagazine/post/everything-you-need-to-know-about-openjdks-move-to-git-and-github,Ian,Darwin"
         })
     void testAuthor(final String url,
                     final String expectedFirstName,
@@ -141,7 +145,7 @@ public class OracleBlogsLinkContentParserTest {
               final String data = FileHelper.slurpFile(d.getDataFile().get());
               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(data, StringHelper.convertStringToUrl(url));
               try {
-                  Assertions.assertEquals(expectedAuthor, parser.getAuthor().get(0));
+                  Assertions.assertEquals(expectedAuthor, parser.getAuthors().get(0));
                } catch (final ContentParserException e) {
                    Assertions.fail("getAuthor threw " + e.getMessage());
                }
@@ -179,8 +183,8 @@ public class OracleBlogsLinkContentParserTest {
               final String data = FileHelper.slurpFile(d.getDataFile().get());
               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(data, StringHelper.convertStringToUrl(url));
               try {
-                  Assertions.assertEquals(expectedAuthor1, parser.getAuthor().get(0));
-                  Assertions.assertEquals(expectedAuthor2, parser.getAuthor().get(1));
+                  Assertions.assertEquals(expectedAuthor1, parser.getAuthors().get(0));
+                  Assertions.assertEquals(expectedAuthor2, parser.getAuthors().get(1));
                } catch (final ContentParserException e) {
                    Assertions.fail("getAuthor threw " + e.getMessage());
                }
