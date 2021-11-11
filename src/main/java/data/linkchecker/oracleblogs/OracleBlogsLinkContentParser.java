@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -91,7 +90,7 @@ public class OracleBlogsLinkContentParser {
             final JSONArray channelAccessTokens = properties.getJSONArray("channelAccessTokens");
             channelAccessToken = channelAccessTokens.getJSONObject(0).getString("value");
         } catch (final JSONException e) {
-            _exception = new ContentParserException("failed to parse structure JSON data for " + url, e);
+            _exception = new ContentParserException("failed to parse structure JSON data for " + url + ". The JSON payload is \""+ stuctureJson + "\"", e);
             _title = null;
             _subtitle = null;
             _publicationDate = null;
@@ -135,7 +134,7 @@ public class OracleBlogsLinkContentParser {
             final String pubDate = fields.getJSONObject("publish_date").getString("value");
             publicationDate = Instant.parse(pubDate).atZone(ZoneId.of("Europe/Paris")).toLocalDate();
         } catch (final JSONException e) {
-            _exception = new ContentParserException("failed to parse article JSON data for " + url, e);
+            _exception = new ContentParserException("failed to parse date JSON data for " + url + ". The JSON payload is \""+ articleJson + "\"", e);
             _title = null;
             _subtitle = null;
             _publicationDate = null;
@@ -196,8 +195,9 @@ public class OracleBlogsLinkContentParser {
 
     public String getStructureJson(final URL url,
                                    final String site) throws IOException {
-        final String uu = url.toString();
-        final String urlJsonStructure =uu.replaceFirst("/post/.*", "/" + site + "/structure.json");
+        final String urlJsonStructure = url.toString()
+                                           .replaceFirst("/post/", "/")
+                                           .replaceFirst("/[^/]*$", "/" + site + "/structure.json");
         final URL u = StringHelper.convertStringToUrl(urlJsonStructure);
         return _retriever.getGzippedContent(u);
     }
