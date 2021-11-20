@@ -37,7 +37,7 @@ public class LinkDataExtractorFactory {
 
     private static URL cleanUrl(final URL url) {
         final String initialUrl = url.toString();
-        final String cleanedUrl = initialUrl.replaceAll("/?utm_[^/]+$", "");
+        final String cleanedUrl = initialUrl.replaceAll("/?utm_[^/]+$", "").replaceAll("\\?$", "");
         return StringHelper.convertStringToUrl(cleanedUrl);
     }
 }

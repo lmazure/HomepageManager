@@ -60,6 +60,20 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchJMEnervePasJExplique() throws ContentParserException {
+        final String url =
+            "https://www.youtube.com/watch?v=JjgcD2o7IME";
+        final String expectedXml = """
+                <ARTICLE><X><T>Du Soleil à ITER : une Histoire de la FUSION #11 Science</T>\
+                <A>https://www.youtube.com/watch?v=JjgcD2o7IME</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>35</MINUTE><SECOND>25</SECOND></DURATION>\
+                </X><AUTHOR><FIRSTNAME>Bertrand</FIRSTNAME><LASTNAME>Augustin</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2021</YEAR><MONTH>11</MONTH><DAY>18</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        Assertions.assertEquals(expectedXml, generateXml(url));
+    }
+
+    @Test
     void youtubeWatchLeRéveilleurIsManaged() throws ContentParserException {
         final String url =
             "https://www.youtube.com/watch?v=OAyYSlMhgI4";
@@ -143,6 +157,21 @@ public class LinkDataExtractorTest {
         Assertions.assertEquals(expectedXml, generateXml(url));
     }
 
+
+    @Test
+    void youtubeWatchThomaths() throws ContentParserException {
+        final String url =
+            "https://www.youtube.com/watch?v=G5nbqZnlvHo";
+        final String expectedXml = """
+                <ARTICLE><X><T>Thomaths 14 : Solides Réguliers</T>\
+                <A>https://www.youtube.com/watch?v=G5nbqZnlvHo</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>34</SECOND></DURATION>\
+                </X><AUTHOR><FIRSTNAME>Alexander</FIRSTNAME><LASTNAME>Thomas</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2021</YEAR><MONTH>11</MONTH><DAY>18</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        Assertions.assertEquals(expectedXml, generateXml(url));
+    }
+
     @Test
     void youtubeWatchTricTracIsManaged() throws ContentParserException {
         final String url =
@@ -193,7 +222,7 @@ public class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Mathematical Analysis of Fruit Fly Wings Hints at Evolution’s Limits</T>\
                 <ST>A painstaking study of wing morphology shows both the striking uniformity of individuals in a species and a subtle pattern of linked variations that evolution can exploit.</ST>\
-                <A>https://www.quantamagazine.org/mathematical-analysis-of-fruit-fly-wings-hints-at-evolutions-limits-20210920/?</A>\
+                <A>https://www.quantamagazine.org/mathematical-analysis-of-fruit-fly-wings-hints-at-evolutions-limits-20210920/</A>\
                 <L>en</L><F>HTML</F></X>\
                 <AUTHOR><FIRSTNAME>Elena</FIRSTNAME><LASTNAME>Renken</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>9</MONTH><DAY>20</DAY></DATE>\
