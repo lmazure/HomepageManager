@@ -1,6 +1,8 @@
 package data.linkchecker.arstechnica;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Optional;
@@ -26,8 +28,8 @@ public class ArsTechnicaLinkContentParser {
                      "Ars Technica",
                      "title");
     private static final TextParser s_dateParser
-        = new TextParser("<time class=\"date\" data-time=\"[0-9]{10}\" datetime=\"",
-                         "T.*\">",
+        = new TextParser("<time class=\"date\" data-time=\"",
+                         "\" datetime=\".*?\">",
                          "Ars Technica",
                          "date");
     private static final TextParser s_authorParser
@@ -35,7 +37,6 @@ public class ArsTechnicaLinkContentParser {
                          "</span></a>",
                          "Ars Technica",
                          "author");
-    private static DateTimeFormatter s_formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public ArsTechnicaLinkContentParser(final String data) {
         _data = data;
@@ -51,11 +52,8 @@ public class ArsTechnicaLinkContentParser {
 
     public LocalDate getDate() throws ContentParserException {
         final String date = HtmlHelper.cleanContent(s_dateParser.extract(_data));
-        try {
-            return LocalDate.parse(date, s_formatter);
-        } catch (final DateTimeParseException e) {
-            throw new ContentParserException("Failed to parse date (" + date + ") in Ars Technica page", e);
-        }
+        final Instant instant = Instant.ofEpochSecond(Long.parseLong(date));
+        return LocalDate.ofInstant(instant, ZoneId.of("Europe/Paris"));
     }
 
     public Optional<AuthorData> getAuthor() throws ContentParserException {

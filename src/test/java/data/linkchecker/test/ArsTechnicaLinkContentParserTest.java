@@ -65,7 +65,8 @@ public class ArsTechnicaLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://arstechnica.com/cars/2021/04/consumer-reports-shows-tesla-autopilot-works-with-no-one-in-the-drivers-seat/,2021-04-22"
+        "https://arstechnica.com/cars/2021/04/consumer-reports-shows-tesla-autopilot-works-with-no-one-in-the-drivers-seat/,2021-04-22",
+        "https://arstechnica.com/science/2021/08/with-covid-cases-and-deaths-rising-more-unvaccinated-are-lining-up-for-shots/,2021-08-21"
         })
     void testDate(final String url,
                   final String expectedDate) {
