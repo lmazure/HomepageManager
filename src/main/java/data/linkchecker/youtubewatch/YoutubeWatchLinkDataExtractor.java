@@ -50,6 +50,15 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
         if (_channelData.containsKey(channel)) {
             return _channelData.get(channel).authors();
         }
+        if (channel.equals("Java")) {
+            final String title = _parser.getTitle();
+            if (title.contains("Inside Java Newscast")) {
+                return buildListFromOneAuthor("Nicolai", "Parlog");
+            }
+            if (title.contains("JEP Café")) {
+                return buildListFromOneAuthor("José", "Paumard");
+            }
+        }
         return new ArrayList<>(0);
     }
 
