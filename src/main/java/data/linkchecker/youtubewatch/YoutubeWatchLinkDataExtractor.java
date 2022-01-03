@@ -19,12 +19,15 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
 
     private final static Map<String, ChannelData> _channelData = Map.ofEntries(
             new AbstractMap.SimpleEntry<>("3Blue1Brown", new ChannelData(buildListFromOneAuthor("Grant", "Sanderson"), Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("AstronoGeek", new ChannelData(buildListFromOneAuthor("Arnaud", "Thiry"), Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("J'm'énerve pas, j'explique", new ChannelData(buildListFromOneAuthor("Bertrand", "Augustin"), Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("Le Réveilleur", new ChannelData(buildListFromOneAuthor("Rodolphe", "Meyer"), Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("monsieur bidouille", new ChannelData(buildListFromOneAuthor("Dimitri", "Ferrière"), Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("Monsieur Phi", new ChannelData(buildListFromOneAuthor("Thibaut", "Giraud"), Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("Passe-Science", new ChannelData(buildListFromOneAuthor("Thomas", "Cabaret"), Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("Robert Miles", new ChannelData(buildListFromOneAuthor("Robert", "Miles"), Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Sabine Hossenfelder", new ChannelData(buildListFromOneAuthor("Sabine", "Hossenfelder"), Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("ScienceClic", new ChannelData(buildListFromOneAuthor("Alessandro", "Roussel"), Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("Stand-up Maths", new ChannelData(buildListFromOneAuthor("Matt", "Parker"), Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Thomaths", new ChannelData(buildListFromOneAuthor("Alexander", "Thomas"), Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("Tric Trac", new ChannelData(buildListFromTwoAuthors("Guillaume", "Chifoumi", "François", "Décamp"), Locale.FRENCH)),
@@ -65,8 +68,8 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
     @Override
     public List<ExtractedLinkData> getLinks() throws ContentParserException {
         final String channel = _parser.getChannel();
-        Locale lang = (_channelData.containsKey(channel)) ? _channelData.get(channel).language()
-                                                          : Locale.ENGLISH;
+        final Locale lang = (_channelData.containsKey(channel)) ? _channelData.get(channel).language()
+                                                                : Locale.ENGLISH;
         final ExtractedLinkData linkData = new ExtractedLinkData(_parser.getTitle(),
                                                                  new String[0],
                                                                  getUrl().toString(),

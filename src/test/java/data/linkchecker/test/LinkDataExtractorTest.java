@@ -91,7 +91,7 @@ public class LinkDataExtractorTest {
         final String url =
             "https://www.youtube.com/watch?v=JjgcD2o7IME";
         final String expectedXml = """
-                <ARTICLE><X><T>Du Soleil à ITER : une Histoire de la FUSION #11 Science</T>\
+                <ARTICLE><X><T>☀️Du Soleil à ITER : une Histoire de la FUSION #11 Science</T>\
                 <A>https://www.youtube.com/watch?v=JjgcD2o7IME</A>\
                 <L>fr</L><F>MP4</F><DURATION><MINUTE>35</MINUTE><SECOND>25</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Bertrand</FIRSTNAME><LASTNAME>Augustin</LASTNAME></AUTHOR>\
@@ -124,6 +124,34 @@ public class LinkDataExtractorTest {
                 <L>fr</L><F>MP4</F><DURATION><MINUTE>51</MINUTE><SECOND>36</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Dimitri</FIRSTNAME><LASTNAME>Ferrière</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>11</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        Assertions.assertEquals(expectedXml, generateXml(url));
+    }
+
+    @Test
+    void youtubeWatchMonsieurPhiIsManaged() throws ContentParserException {
+        final String url =
+            "https://www.youtube.com/watch?v=-VdXi2LMPyE";
+        final String expectedXml = """
+                <ARTICLE><X><T>☀️ ITER ET LA FUSION - Visite du chantier du plus gros tokamak du monde</T>\
+                <A>https://www.youtube.com/watch?v=36WpRwY2DYw</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>51</MINUTE><SECOND>36</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Dimitri</FIRSTNAME><LASTNAME>Ferrière</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>11</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        Assertions.assertEquals(expectedXml, generateXml(url));
+    }
+
+    @Test
+    void youtubeWatchAstronoGeekIsManaged() throws ContentParserException {
+        final String url =
+            "https://www.youtube.com/watch?v=7rTKxHoU_Rc";
+        final String expectedXml = """
+                <ARTICLE><X><T>🪐❔David Hahn, l'ado qui a fabriqué un réacteur nucléaire chez lui</T>\
+                <A>https://www.youtube.com/watch?v=7rTKxHoU_Rc</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>26</MINUTE><SECOND>29</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Arnaud</FIRSTNAME><LASTNAME>Thiry</LASTNAME></AUTHOR><DATE>\
+                <YEAR>2021</YEAR><MONTH>4</MONTH><DAY>23</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         Assertions.assertEquals(expectedXml, generateXml(url));
     }
@@ -166,6 +194,20 @@ public class LinkDataExtractorTest {
                 <L>en</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>16</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Sabine</FIRSTNAME><LASTNAME>Hossenfelder</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>9</MONTH><DAY>25</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        Assertions.assertEquals(expectedXml, generateXml(url));
+    }
+
+    @Test
+    void youtubeWatchScienceClicIsManaged() throws ContentParserException {
+        final String url =
+            "https://www.youtube.com/watch?v=EkE229ybABc";
+        final String expectedXml = """
+                <ARTICLE><X><T>Où va le temps dans un Trou noir ?</T>\
+                <A>https://www.youtube.com/watch?v=EkE229ybABc</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>10</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Alessandro</FIRSTNAME><LASTNAME>Roussel</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2021</YEAR><MONTH>12</MONTH><DAY>6</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         Assertions.assertEquals(expectedXml, generateXml(url));
     }
@@ -233,11 +275,11 @@ public class LinkDataExtractorTest {
         final String url =
             "https://www.youtube.com/watch?v=mnmYwRoSisg";
         final String expectedXml = """
-                <ARTICLE><X><T>10 Must Know Git Commands That Almost Nobody Knows</T>\
-                <A>https://www.youtube.com/watch?v=mnmYwRoSisg</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>15</MINUTE><SECOND>21</SECOND></DURATION></X>\
-                <AUTHOR><FIRSTNAME>Kyle</FIRSTNAME><LASTNAME>Cook</LASTNAME></AUTHOR>\
-                <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>19</DAY></DATE>\
+                <ARTICLE><X><T>2500 ans de philosophie (et on ne s'entend toujours pas sur ce que c'est)</T>\
+                <A>https://www.youtube.com/watch?v=-VdXi2LMPyE</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>13</MINUTE><SECOND>13</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Thibaut</FIRSTNAME><LASTNAME>Giraud</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2021</YEAR><MONTH>12</MONTH><DAY>19</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         Assertions.assertEquals(expectedXml, generateXml(url));
     }
