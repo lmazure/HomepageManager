@@ -28,7 +28,6 @@ public class LinkContentCheckerTest {
     @CsvSource(value = {
             "https://blog.chromium.org/2009/01/tabbed-browsing-in-google-chrome.html|en|Tabbed Browsing in Google Chrome",
             "https://www-archive.mozilla.org/docs/web-developer/xbdhtml/xbdhtml.html|en|Introduction to Cross-Browser, Cross-Platform, Backwardly Compatible JavaScript and Dynamic HTML",
-            "http://www.tcl.tk/doc/scripting.html|en|Scripting: Higher Level Programming for the 21st Century",
             "http://www.business-esolutions.com/islm.htm|en|Project Lifecycle Models: How They Differ and When to Use Them",
             "https://martinfowler.com/bliki/UseCasesAndStories.html|en|What is the difference between a UseCase and XP's UserStory?",
             "http://hesketh.com/publications/inclusive_web_design_for_the_future/|en|Inclusive Web Design For the Future with Progressive Enhancement",
