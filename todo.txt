@@ -1,3 +1,5 @@
+détecter les URLs qui finissent par un double slash
+
 gérer les auteurs optionnels (pex comptuterphile)
 pouvoir ajouter un auther à la main (pex numberphile)
 

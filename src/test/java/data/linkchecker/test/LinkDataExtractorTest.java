@@ -227,6 +227,19 @@ public class LinkDataExtractorTest {
         Assertions.assertEquals(expectedXml, generateXml(url));
     }
 
+    @Test
+    void youtubeWatchScience4All() throws ContentParserException {
+        final String url =
+            "https://www.youtube.com/watch?v=sAjm3-IaRtI";
+        final String expectedXml = """
+                <ARTICLE><X><T>Zuckerberg en prison ?</T>\
+                <A>https://www.youtube.com/watch?v=sAjm3-IaRtI</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>38</MINUTE><SECOND>52</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Lê</FIRSTNAME><LASTNAME>Nguyên Hoang</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2021</YEAR><MONTH>12</MONTH><DAY>6</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        Assertions.assertEquals(expectedXml, generateXml(url));
+    }
 
     @Test
     void youtubeWatchThomaths() throws ContentParserException {
