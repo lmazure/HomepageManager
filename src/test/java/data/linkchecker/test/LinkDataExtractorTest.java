@@ -60,6 +60,22 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchHistoryOfTheEarth() throws ContentParserException {
+        final String url =
+            "https://www.youtube.com/watch?v=0sbwUeTyDb0";
+        final String expectedXml = """
+                <ARTICLE><X><T>What Was The "Boring Billion" Really Like?</T>\
+                <A>https://www.youtube.com/watch?v=0sbwUeTyDb0</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>36</MINUTE><SECOND>9</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>David</FIRSTNAME><LASTNAME>Kelly</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Pete</FIRSTNAME><LASTNAME>Kelly</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Kelly</FIRSTNAME><LASTNAME>Battison</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>17</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        Assertions.assertEquals(expectedXml, generateXml(url));
+    }
+
+    @Test
     void youtubeWatchJavaInsideJavaNewscast() throws ContentParserException {
         final String url =
             "https://www.youtube.com/watch?v=eDgBnjOid-g";

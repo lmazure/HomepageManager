@@ -21,6 +21,7 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
             new AbstractMap.SimpleEntry<>("3Blue1Brown", new ChannelData(buildListFromOneAuthor("Grant", "Sanderson"), Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("AstronoGeek", new ChannelData(buildListFromOneAuthor("Arnaud", "Thiry"), Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("J'm'énerve pas, j'explique", new ChannelData(buildListFromOneAuthor("Bertrand", "Augustin"), Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("History of the Earth", new ChannelData(buildListFromThreeAuthors("David", "Kelly", "Pete", "Kelly", "Kelly", "Battison"), Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Le Réveilleur", new ChannelData(buildListFromOneAuthor("Rodolphe", "Meyer"), Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("monsieur bidouille", new ChannelData(buildListFromOneAuthor("Dimitri", "Ferrière"), Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("Monsieur Phi", new ChannelData(buildListFromOneAuthor("Thibaut", "Giraud"), Locale.FRENCH)),
@@ -98,6 +99,18 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
                                                             final String lastName2) {
         final List<AuthorData> list = buildListFromOneAuthor(firstName1, lastName1);
         list.add(buildAuthor(firstName2, lastName2));
+        return list;
+    }
+
+    private static List<AuthorData> buildListFromThreeAuthors(final String firstName1,
+                                                              final String lastName1,
+                                                              final String firstName2,
+                                                              final String lastName2,
+                                                              final String firstName3,
+                                                              final String lastName3) {
+        final List<AuthorData> list = buildListFromOneAuthor(firstName1, lastName1);
+        list.add(buildAuthor(firstName2, lastName2));
+        list.add(buildAuthor(firstName3, lastName3));
         return list;
     }
 
