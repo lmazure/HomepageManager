@@ -14,7 +14,8 @@ public class NonNormalizedURLChecker extends NodeChecker {
 
     public NonNormalizedURLChecker() {
         super(s_selector,
-              NonNormalizedURLChecker::checkUrl, "uses a non-normalized URL");
+              NonNormalizedURLChecker::checkUrl, "uses a non-normalized URL",
+              NonNormalizedURLChecker::checkNoDoubleSlash, "contains a double slash");
     }
 
     private static CheckStatus checkUrl(final Element e) {
@@ -39,6 +40,17 @@ public class NonNormalizedURLChecker extends NodeChecker {
 
         if (s.contains("blogs.oracle.com") && s.contains("/post/")) {
             return new CheckStatus("\"blogs.oracle.com\" should not contain \"/post/\"");
+        }
+
+        return null;
+    }
+
+    private static CheckStatus checkNoDoubleSlash(final Element e) {
+
+        final String s = e.getTextContent().replace("^[a-z]+:://", "");
+
+        if (s.replaceFirst("^[a-z]+://", "").contains("//")) {
+            return new CheckStatus("URL \"" + s + "\"contains \"//\"");
         }
 
         return null;

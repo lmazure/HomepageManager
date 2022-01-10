@@ -1,4 +1,4 @@
-détecter les URLs qui finissent par un double slash
+parser blog GitLab
 
 gérer les auteurs optionnels (pex comptuterphile)
 pouvoir ajouter un auther à la main (pex numberphile)
