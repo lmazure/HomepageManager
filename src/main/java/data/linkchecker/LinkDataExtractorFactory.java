@@ -14,21 +14,22 @@ public class LinkDataExtractorFactory {
     public static LinkDataExtractor build(final Path cacheDirectory,
                                           final URL url) throws ContentParserException {
 
+        final String urlString = url.toString();
         final URL u = cleanUrl(url);
 
-        if (url.toString().startsWith("https://arstechnica.com/")) {
+        if (urlString.startsWith("https://arstechnica.com/")) {
             return new ArsTechnicaLinkDataExtractor(u, cacheDirectory);
         }
 
-        if (url.toString().startsWith("https://blogs.oracle.com/")) {
+        if (urlString.startsWith("https://blogs.oracle.com/")) {
             return new OracleBlogsLinkDataExtractor(u, cacheDirectory);
         }
 
-        if (u.toString().startsWith("https://www.quantamagazine.org/")) {
+        if (urlString.startsWith("https://www.quantamagazine.org/")) {
             return new QuantaMagazineLinkDataExtractor(u, cacheDirectory);
         }
 
-        if (url.toString().startsWith("https://www.youtube.com/watch?v=")) {
+        if (urlString.startsWith("https://www.youtube.com/watch?v=")) {
             return new YoutubeWatchLinkDataExtractor(u, cacheDirectory);
         }
 

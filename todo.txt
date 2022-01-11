@@ -1,3 +1,5 @@
+nettoyer abbreven.xml
+
 parser blog GitLab
 
 gérer les auteurs optionnels (pex comptuterphile)
