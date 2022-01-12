@@ -4,6 +4,7 @@ import java.net.URL;
 import java.nio.file.Path;
 
 import data.linkchecker.arstechnica.ArsTechnicaLinkDataExtractor;
+import data.linkchecker.gitlabblog.GitlabBlogLinkDataExtractor;
 import data.linkchecker.oracleblogs.OracleBlogsLinkDataExtractor;
 import data.linkchecker.quantamagazine.QuantaMagazineLinkDataExtractor;
 import data.linkchecker.youtubewatch.YoutubeWatchLinkDataExtractor;
@@ -31,6 +32,10 @@ public class LinkDataExtractorFactory {
 
         if (urlString.startsWith("https://www.youtube.com/watch?v=")) {
             return new YoutubeWatchLinkDataExtractor(u, cacheDirectory);
+        }
+
+        if (urlString.startsWith("https://about.gitlab.com/blog/")) {
+            return new GitlabBlogLinkDataExtractor(u, cacheDirectory);
         }
 
         return null;

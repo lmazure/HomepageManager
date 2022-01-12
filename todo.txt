@@ -1,3 +1,10 @@
+ajouter la définition de la langue pour éviter les mauvaises détections d'espacemanquant ou en trop
+
+gérer les doubles slash dans les trucs du genre https://web.archive.org/web/20100327141611/http://th.informatik.uni-mannheim.de/people/lucks/HashCollisions/
+
+gérer http://static.googleusercontent.com/media/research.google.com/fr//pubs/archive/34913.pdf qui est vivant mais qui a un double slash
+idem http://static.googleusercontent.com/media/research.google.com/fr//pubs/archive/34913.pdf
+
 nettoyer abbreven.xml
 
 parser blog GitLab

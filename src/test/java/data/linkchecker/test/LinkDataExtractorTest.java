@@ -31,6 +31,21 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void gitlabBlogIsManaged() throws ContentParserException {
+        final String url =
+            "https://about.gitlab.com/blog/2021/11/10/a-special-farewell-from-gitlab-dmitriy-zaporozhets/";
+        final String expectedXml = """
+                <ARTICLE><X><T>A special farewell from GitLab’s Dmitriy Zaporozhets</T>\
+                <A>https://about.gitlab.com/blog/2021/11/10/a-special-farewell-from-gitlab-dmitriy-zaporozhets/</A>\
+                <L>en</L><F>HTML</F></X>\
+                <AUTHOR><FIRSTNAME>Sid</FIRSTNAME><LASTNAME>Sidbrandij</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Dmitriy</FIRSTNAME><LASTNAME>Zaporozhets</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2021</YEAR><MONTH>11</MONTH><DAY>10</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        Assertions.assertEquals(expectedXml, generateXml(url));
+    }
+
+    @Test
     void quantaMagazineIsManaged() throws ContentParserException {
         final String url =
             "https://www.quantamagazine.org/mathematician-answers-chess-problem-about-attacking-queens-20210921/";
