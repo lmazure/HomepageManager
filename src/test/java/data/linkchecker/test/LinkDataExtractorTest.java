@@ -24,7 +24,7 @@ public class LinkDataExtractorTest {
                 <ST>Pfizer diagnostic director said Theranos report was “not believable.”</ST>\
                 <A>https://arstechnica.com/tech-policy/2021/10/uh-no-pfizer-scientist-denies-holmes-claim-that-pfizer-endorsed-theranos-tech/</A>\
                 <L>en</L><F>HTML</F></X>\
-                <AUTHOR><FIRSTNAME>Tim</FIRSTNAME><MIDDLENAME>De</MIDDLENAME><LASTNAME>Chant</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Tim</FIRSTNAME><LASTNAME>De Chant</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>25</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         Assertions.assertEquals(expectedXml, generateXml(url));

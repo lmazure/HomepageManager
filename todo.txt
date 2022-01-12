@@ -7,17 +7,10 @@ idem http://static.googleusercontent.com/media/research.google.com/fr//pubs/arch
 
 nettoyer abbreven.xml
 
-parser blog GitLab
-
 gérer les auteurs optionnels (pex comptuterphile)
 pouvoir ajouter un auther à la main (pex numberphile)
 
 nettoyer cracking.xml
-
-le test qui vérifie
-<AUTHOR><FIRSTNAME>Tim</FIRSTNAME><MIDDLENAME>De</MIDDLENAME><LASTNAME>Chant</LASTNAME></AUTHOR>
-est en fait un résultat incorrect !
-(corriger aussi les liens correspondants !)
 
 les résultats des contrôles d'autotest.xml sont corrompus
 

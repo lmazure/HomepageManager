@@ -18,6 +18,14 @@ public class LinkContentParserUtils {
                     Optional.empty());
         }
         if (nameParts.length == 3) {
+            if (nameParts[1].toUpperCase().equals("DE")) {
+                return new AuthorData(Optional.empty(),
+                        Optional.of(nameParts[0]),
+                        Optional.empty(),
+                        Optional.of(nameParts[1] + " " + nameParts[2]),
+                        Optional.empty(),
+                        Optional.empty());
+            }
             return new AuthorData(Optional.empty(),
                                   Optional.of(nameParts[0]),
                                   Optional.of(nameParts[1]),
@@ -25,6 +33,7 @@ public class LinkContentParserUtils {
                                   Optional.empty(),
                                   Optional.empty());
         }
+
         throw new ContentParserException("Failed to parse author name (author name has " + nameParts.length + " parts)");
     }
 }

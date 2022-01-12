@@ -11,7 +11,6 @@ import java.util.Optional;
 import data.linkchecker.ContentParserException;
 import data.linkchecker.LinkContentCheck;
 import data.linkchecker.LinkContentChecker;
-import data.linkchecker.quantamagazine.QuantaMagazineLinkContentParser;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkData;
