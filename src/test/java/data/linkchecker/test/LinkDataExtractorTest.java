@@ -75,6 +75,20 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchAstronoGeekIsManaged() throws ContentParserException {
+        final String url =
+            "https://www.youtube.com/watch?v=7rTKxHoU_Rc";
+        final String expectedXml = """
+                <ARTICLE><X><T>🪐❔David Hahn, l'ado qui a fabriqué un réacteur nucléaire chez lui</T>\
+                <A>https://www.youtube.com/watch?v=7rTKxHoU_Rc</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>26</MINUTE><SECOND>29</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Arnaud</FIRSTNAME><LASTNAME>Thiry</LASTNAME></AUTHOR><DATE>\
+                <YEAR>2021</YEAR><MONTH>4</MONTH><DAY>23</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        Assertions.assertEquals(expectedXml, generateXml(url));
+    }
+
+    @Test
     void youtubeWatchHistoryOfTheEarth() throws ContentParserException {
         final String url =
             "https://www.youtube.com/watch?v=0sbwUeTyDb0";
@@ -175,20 +189,6 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchAstronoGeekIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=7rTKxHoU_Rc";
-        final String expectedXml = """
-                <ARTICLE><X><T>🪐❔David Hahn, l'ado qui a fabriqué un réacteur nucléaire chez lui</T>\
-                <A>https://www.youtube.com/watch?v=7rTKxHoU_Rc</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>26</MINUTE><SECOND>29</SECOND></DURATION></X>\
-                <AUTHOR><FIRSTNAME>Arnaud</FIRSTNAME><LASTNAME>Thiry</LASTNAME></AUTHOR><DATE>\
-                <YEAR>2021</YEAR><MONTH>4</MONTH><DAY>23</DAY></DATE>\
-                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        Assertions.assertEquals(expectedXml, generateXml(url));
-    }
-
-    @Test
     void youtubeWatchPasseScienceIsManaged() throws ContentParserException {
         final String url =
             "https://www.youtube.com/watch?v=yfFck7EfptU";
@@ -244,6 +244,20 @@ public class LinkDataExtractorTest {
         Assertions.assertEquals(expectedXml, generateXml(url));
     }
 
+
+    @Test
+    void youtubeWatchScienceEtonnanteIsManaged() throws ContentParserException {
+        final String url =
+            "https://www.youtube.com/watch?v=FGwmAEMabm4";
+        final String expectedXml = """
+                <ARTICLE><X><T>Comment Mesurer L'Univers ? 🔭🌕☀️✨🌌</T>\
+                <A>https://www.youtube.com/watch?v=FGwmAEMabm4</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>24</MINUTE><SECOND>48</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>David</FIRSTNAME><LASTNAME>Louapre</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>1</MONTH><DAY>14</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        Assertions.assertEquals(expectedXml, generateXml(url));
+    }
     @Test
     void youtubeWatchStandupMathsIsManaged() throws ContentParserException {
         final String url =

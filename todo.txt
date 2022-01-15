@@ -8,7 +8,7 @@ idem http://static.googleusercontent.com/media/research.google.com/fr//pubs/arch
 nettoyer abbreven.xml
 
 gérer les auteurs optionnels (pex comptuterphile)
-pouvoir ajouter un auther à la main (pex numberphile)
+pouvoir ajouter un author à la main (pex numberphile)
 
 nettoyer cracking.xml
 
