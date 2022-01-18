@@ -203,6 +203,21 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchQuadriviuumTremensIsManaged() throws ContentParserException {
+        final String url =
+            "https://www.youtube.com/watch?v=fiekVUXhvZE";
+        final String expectedXml = """
+                <ARTICLE><X><T>★★ Les Dyadiques et leurs liens avec l'écriture Binaire - La Classification des Nombres #4</T>\
+                <A>https://www.youtube.com/watch?v=fiekVUXhvZE</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>42</MINUTE><SECOND>26</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Tristan</FIRSTNAME><LASTNAME>Audam-Dabidin</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Keshika</FIRSTNAME><LASTNAME>Dabidin</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2020</YEAR><MONTH>3</MONTH><DAY>28</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        Assertions.assertEquals(expectedXml, generateXml(url));
+    }
+
+    @Test
     void youtubeWatchRobertMilesIsManaged() throws ContentParserException {
         final String url =
             "https://www.youtube.com/watch?v=zkbPdEHEyEI";
