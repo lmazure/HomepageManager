@@ -20,25 +20,25 @@ public class NonNormalizedURLChecker extends NodeChecker {
 
     private static CheckStatus checkUrl(final Element e) {
 
-        final String s = e.getTextContent();
+        final String url = e.getTextContent();
 
-        if (s.contains("youtube.fr")) {
+        if (url.contains("youtube.fr")) {
             return new CheckStatus("\"youtube.fr\" should be \"youtube.com\"");
         }
 
-        if (s.contains("fr.youtube")) {
+        if (url.contains("fr.youtube")) {
             return new CheckStatus("\"fr.youtube\" should be \"youtube.com\"");
         }
 
-        if (s.contains("google.fr")) {
+        if (url.contains("google.fr")) {
             return new CheckStatus("\"google.fr\" should be \"google.com\"");
         }
 
-        if (s.contains("www-128.ibm.com")) {
+        if (url.contains("www-128.ibm.com")) {
             return new CheckStatus("\"www-128.ibm.com\" should be \"www.ibm.com\"");
         }
 
-        if (s.contains("blogs.oracle.com") && s.contains("/post/")) {
+        if (url.contains("blogs.oracle.com") && url.contains("/post/")) {
             return new CheckStatus("\"blogs.oracle.com\" should not contain \"/post/\"");
         }
 
@@ -47,10 +47,14 @@ public class NonNormalizedURLChecker extends NodeChecker {
 
     private static CheckStatus checkNoDoubleSlash(final Element e) {
 
-        final String s = e.getTextContent().replace("^[a-z]+:://", "");
+        final String url = e.getTextContent();
+        if (url.startsWith("https://web.archive.org/web/")) {
+            return null;
+        }
 
-        if (s.replaceFirst("^[a-z]+://", "").contains("//")) {
-            return new CheckStatus("URL \"" + s + "\"contains \"//\"");
+        final String urlWithoutProtocol = url.replaceFirst("^[a-z]+://", "");
+        if (urlWithoutProtocol.contains("//")) {
+            return new CheckStatus("URL \"" + url + "\"contains \"//\"");
         }
 
         return null;

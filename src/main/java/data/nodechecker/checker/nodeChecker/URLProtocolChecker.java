@@ -19,22 +19,22 @@ public class URLProtocolChecker extends NodeChecker {
 
     private static CheckStatus checkUrl(final Element e) {
 
-        final String s = e.getTextContent();
+        final String url = e.getTextContent();
 
-        if(s.indexOf(':') < 0) {
+        if(url.indexOf(':') < 0) {
             // pointer to another of my pages
             return null;
         }
 
-        if (s.startsWith("http:") ||
-            s.startsWith("https:") ||
-            s.startsWith("ftp:") ||
-            s.startsWith("mailto:") ||
-            s.startsWith("javascript:") ||
-            s.startsWith("file:")) {
+        if (url.startsWith("http:") ||
+            url.startsWith("https:") ||
+            url.startsWith("ftp:") ||
+            url.startsWith("mailto:") ||
+            url.startsWith("javascript:") ||
+            url.startsWith("file:")) {
             return null;
         }
 
-        return new CheckStatus("unknown protocol for URL \"" + s + "\"");
+        return new CheckStatus("unknown protocol for URL \"" + url + "\"");
     }
 }

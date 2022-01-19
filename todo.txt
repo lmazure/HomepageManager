@@ -1,11 +1,14 @@
+corriger
+https://blogs.oracle.com/javamagazine/
+Oracle Blogs article should have a creation date
+
+gérer https://blogs.oracle.com/javamagazine/understanding-the-jdks-new-superfast-garbage-collectors dont le titre contient un espave à la fin
+
 comprendre pourquoi le sous-titre de https://www.lemondeinformatique.fr/actualites/lire-log4j-une-autre-vulnerabilite-corrigee-par-apache-85265.html n'est pas trouvé
 
 ajouter la définition de la langue pour éviter les mauvaises détections d'espacemanquant ou en trop
 
 gérer les doubles slash dans les trucs du genre https://web.archive.org/web/20100327141611/http://th.informatik.uni-mannheim.de/people/lucks/HashCollisions/
-
-gérer http://static.googleusercontent.com/media/research.google.com/fr//pubs/archive/34913.pdf qui est vivant mais qui a un double slash
-idem http://static.googleusercontent.com/media/research.google.com/fr//pubs/archive/34913.pdf
 
 nettoyer abbreven.xml
 
