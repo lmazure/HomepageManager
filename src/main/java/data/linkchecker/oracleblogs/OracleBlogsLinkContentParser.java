@@ -124,7 +124,7 @@ public class OracleBlogsLinkContentParser {
             final JSONArray items = article.getJSONArray("items");
             final JSONObject firstItem = items.getJSONObject(0);
             fields = firstItem.getJSONObject("fields"); 
-            title = fields.getString("title");
+            title = fields.getString("title").trim();
             final String html = fields.getString("body");
             final Matcher m2 = s_subtitlePattern.matcher(html);
             if (m2.find()) {

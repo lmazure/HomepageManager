@@ -22,7 +22,7 @@ public class LinkDataExtractorFactory {
             return new ArsTechnicaLinkDataExtractor(u, cacheDirectory);
         }
 
-        if (urlString.startsWith("https://blogs.oracle.com/")) {
+        if (urlString.matches("https://blogs.oracle.com/javamagazine/.+")) {
             return new OracleBlogsLinkDataExtractor(u, cacheDirectory);
         }
 

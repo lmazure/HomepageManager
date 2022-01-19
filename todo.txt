@@ -1,14 +1,6 @@
-corriger
-https://blogs.oracle.com/javamagazine/
-Oracle Blogs article should have a creation date
-
-gérer https://blogs.oracle.com/javamagazine/understanding-the-jdks-new-superfast-garbage-collectors dont le titre contient un espave à la fin
-
 comprendre pourquoi le sous-titre de https://www.lemondeinformatique.fr/actualites/lire-log4j-une-autre-vulnerabilite-corrigee-par-apache-85265.html n'est pas trouvé
 
 ajouter la définition de la langue pour éviter les mauvaises détections d'espacemanquant ou en trop
-
-gérer les doubles slash dans les trucs du genre https://web.archive.org/web/20100327141611/http://th.informatik.uni-mannheim.de/people/lucks/HashCollisions/
 
 nettoyer abbreven.xml
 
@@ -72,22 +64,10 @@ analyze ??
 https://martinfowler.com/articles/agileOffshore.html
 https://martinfowler.com/bliki/UseCasesAndStories.html
 
-- regarder problème de date avec
-https://www.youtube.com/watch?v=cQUAwhhC8cU
-https://www.youtube.com/watch?v=0vapeiEGrec
-https://www.youtube.com/watch?v=m43tExhak5A
-https://www.youtube.com/watch?v=nhU64u49RXE
-
 - vérifier titre et sous-titres dans PDF
 à tester sur links/javascrp.xml
 
 - gérer les newlines dans les titres pex http://hesketh.com/publications/inclusive_web_design_for_the_future/
-
-- TODO 001 retrouver des exemples de vidéos sans sous-titre
-
-- supporter les KEYWORDs dans les titres (pex Goldbach's conjecture)
-
-- mettre un message pendant la génération des global files
 
 - mettre des tooltips sur les symboles de KEY
 
@@ -101,9 +81,6 @@ https://www.youtube.com/watch?v=nhU64u49RXE
 
 - implémenter le cache pour Twitter
 
-- mauvaise gestion de la date de publication sur Medium
-https://medium.com/@docjamesw/the-anti-meeting-culture-c209bab5a16d
-
 - gérer le problème des encodings
 (je pense que cela doit toujours être mis en binaire)
 
@@ -112,8 +89,6 @@ design.xml
 coding.xml
 
 - mettre un test unitaire pour vérifier que tous les ElementTypes apparaissent quelque part
-
-- faire un profiling de la régénération intégrale des contrôles pour voir s'il y a une fuite de thread
 
 - trier par défaut la liste des problèmes sur la date de dernière modification
 
@@ -131,8 +106,6 @@ YouTube link with no creation date
 est incorrect ?
 il est normal de pouvoir avoir uniquement une date de publication ?
 
-- ajouter les liens vers les podcats Numberphile2 en utilisant https://www.numberphile.com/podcast/
-
 - forcer la mise à jour des caches avant de modifier les fichiers JS de nouveau
 
 - nettoyage de bbst.xml
@@ -143,8 +116,6 @@ il est normal de pouvoir avoir uniquement une date de publication ?
 - vérification des liens internes
 
 - corriger le fait que les liens soient chargés deux fois
-
-- si un lien n'est plus zombie, on ne le détecte pas car on ne vérifie pas les données des liens zombie
 
 - la sauvegarde du rapport de liens toutes les 30 secondes ne marche plus
 
@@ -164,8 +135,6 @@ de plus cela génère des erreurs
 - LinkedIn renvoie un HTTP code 999
 
 - fix incorrect status of running link checker
-
-- détecter les URL qui finissent par deux slashes
 
 - problème avec le lien http://marie.desplats.free.fr/diagora_home_page.html
 

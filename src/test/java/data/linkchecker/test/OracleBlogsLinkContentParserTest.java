@@ -26,6 +26,7 @@ public class OracleBlogsLinkContentParserTest {
         "https://blogs.oracle.com/javamagazine/post/12-recipes-for-using-the-optional-class-as-its-meant-to-be-used|12 recipes for using the Optional class as it’s meant to be used",
         "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se|Faster and Easier Use and Redistribution of Java SE",
         "https://blogs.oracle.com/javamagazine/post/everything-you-need-to-know-about-openjdks-move-to-git-and-github|Everything you need to know about OpenJDK’s move to Git and GitHub",
+        "https://blogs.oracle.com/javamagazine/understanding-the-jdks-new-superfast-garbage-collectors|Understanding the JDK’s New Superfast Garbage Collectors", // the title finishes with a space
         }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
@@ -59,7 +60,7 @@ public class OracleBlogsLinkContentParserTest {
         "https://blogs.oracle.com/javamagazine/post/java-project-amber-lambda-loom-panama-valhalla|Many JEPs are collected into named projects. Here’s the latest on the progress of these initiatives.",
         "https://blogs.oracle.com/javamagazine/finance-quant-forex-java16|Java still rocks the finance industry. Here’s why Java 16 makes it even better.",
         "https://blogs.oracle.com/javamagazine/java-is-criminally-underhyped|Recent computer science graduate Jackson Roberts never took a single class in Java. That’s just wrong, he says.",
-        // the following article has a newline in the substitle
+        // the following article has a newline in the subtitle
         "https://blogs.oracle.com/javamagazine/the-largest-survey-ever-of-java-developers|What 10,500 Java developers tell us about their projects, their tools, and themselves",
         // the following article contains <code> in the subtitle
         "https://blogs.oracle.com/javamagazine/java-enhancedfor-loop-statement|The enhanced for statement operates at a higher level of abstraction than the traditional simple for statement."

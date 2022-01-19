@@ -45,7 +45,7 @@ public class LinkContentCheckerFactory {
             return new ArsTechnicaLinkContentChecker(url, linkData, articleData, file);
         }
 
-        if (urlString.startsWith("https://blogs.oracle.com/")) {
+        if (urlString.matches("https://blogs.oracle.com/javamagazine/.+")) {
             return new OracleBlogsLinkContentChecker(url, linkData, articleData, file);
         }
 

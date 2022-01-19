@@ -46,6 +46,21 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void oracleBlogsIsManaged() throws ContentParserException {
+        final String url =
+            "https://blogs.oracle.com/javamagazine/unit-test-your-architecture-with-archunit";
+        final String expectedXml = """
+                <ARTICLE><X><T>Unit Test Your Architecture with ArchUnit</T>\
+                <ST>Discover architectural defects at build time.</ST>\
+                <A>https://blogs.oracle.com/javamagazine/unit-test-your-architecture-with-archunit</A>\
+                <L>en</L><F>HTML</F></X>\
+                <AUTHOR><FIRSTNAME>Jonas</FIRSTNAME><LASTNAME>Havers</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2019</YEAR><MONTH>8</MONTH><DAY>20</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        Assertions.assertEquals(expectedXml, generateXml(url));
+    }
+
+    @Test
     void quantaMagazineIsManaged() throws ContentParserException {
         final String url =
             "https://www.quantamagazine.org/mathematician-answers-chess-problem-about-attacking-queens-20210921/";
