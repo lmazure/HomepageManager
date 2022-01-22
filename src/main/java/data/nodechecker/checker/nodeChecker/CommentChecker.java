@@ -11,7 +11,7 @@ import utils.xmlparsing.ElementType;
 
 public class CommentChecker extends NodeChecker {
 
-    static final InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
+    private static final InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.COMMENT
             });
 

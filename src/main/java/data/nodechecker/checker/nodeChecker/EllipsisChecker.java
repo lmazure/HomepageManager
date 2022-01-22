@@ -11,7 +11,7 @@ import org.w3c.dom.Element;
 
 public class EllipsisChecker extends NodeChecker {
 
-    static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new ElementType[] {
+    private static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new ElementType[] {
             ElementType.A,
             ElementType.ARTICLE,
             ElementType.BLIST,

@@ -15,7 +15,8 @@ import org.w3c.dom.Element;
 
 public class TitleFormatChecker extends NodeChecker {
 
-    static final Set<String> s_authorizedList = new HashSet<>(Arrays.asList("abc",
+    private static final Set<String> s_authorizedList = new HashSet<>(Arrays.asList(
+                                                                            "abc",
                                                                             "apt",
                                                                             "autosrb.pl",
                                                                             "awk",
@@ -52,7 +53,7 @@ public class TitleFormatChecker extends NodeChecker {
                                                                             "zsh",
                                                                             "π"));
 
-    static final InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
+    private static final InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.TITLE
             });
 

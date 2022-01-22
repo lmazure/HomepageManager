@@ -2,26 +2,10 @@ package data.test;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
-import data.DataController;
-import data.FileHandler.Status;
-import utils.ExitHelper;
-import data.NodeValueChecker;
-import data.nodechecker.checker.nodeChecker.NodeCheckError;
-
-public class NodeValueCheckerTest {
+public class NodeValueCheckerTest extends NodeValueCheckerTestBase {
 
     @SuppressWarnings("static-method")
     @Test
@@ -30,7 +14,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>Test</TITLE>\r\n" +
             "<PATH>HomepageManager/test.xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -52,7 +36,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
             "<PATH>HomepageManager/test.xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -77,7 +61,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>Test:</TITLE>\r\n" +
             "<PATH>HomepageManager/test.xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -100,7 +84,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>Test</TITLE>\r\n" +
             "<PATH>HomepageManager/test.xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -124,7 +108,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>Test</TITLE>\r\n" +
             "<PATH>HomepageManager/test.xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -149,7 +133,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>Test</TITLE>\r\n" +
             "<PATH>HomepageManager/test.xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -173,7 +157,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>Test</TITLE>\r\n" +
             "<PATH>HomepageManager/test.xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -207,7 +191,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>Test</TITLE>\r\n" +
             "<PATH>HomepageManager/test.xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -237,7 +221,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>Test</TITLE>\r\n" +
             "<PATH>HomepageManager/test.xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -270,7 +254,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>Test</TITLE>\r\n" +
             "<PATH>HomepageManager/test.xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -293,7 +277,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>Test</TITLE>\r\n" +
             "<PATH>HomepageManager/test.xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -316,7 +300,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>Test</TITLE>\r\n" +
             "<PATH>HomepageManager/test.xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -334,76 +318,12 @@ public class NodeValueCheckerTest {
 
     @SuppressWarnings("static-method")
     @Test
-    void detectMissingSpace() {
-
-        final String content =
-            "<?xml version=\"1.0\"?>\r\n" +
-            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-            "<TITLE>Test</TITLE>\r\n" +
-            "<PATH>HomepageManager/test.xml</PATH>\r\n" +
-            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
-            "<CONTENT>\r\n" +
-            "<BLIST><TITLE>He is Bob.She is Alice</TITLE></BLIST>\r\n" +
-            "<BLIST><TITLE>The string e.g. .NET should not be reported.</TITLE></BLIST>\r\n" +
-            "<BLIST><TITLE>The string (e.g. Node.js) should not be reported.</TITLE></BLIST>\r\n" +
-            "<BLIST><TITLE>Take care to not report something before a comma or a dot MANIFEST.MF, P.Anno.</TITLE></BLIST>\r\n" +
-            "<BLIST><TITLE>The string 12.34 should not be reported.</TITLE></BLIST>\r\n" +
-            "<BLIST><TITLE>The string \".He is bright\" should be reported.</TITLE></BLIST>\r\n" +
-            "<BLIST><TITLE>The string .He is bright should be reported.</TITLE></BLIST>\r\n" +
-            "<BLIST><TITLE>The string (isn't it?) should not be reported.</TITLE></BLIST>\r\n" +
-            "</CONTENT>\r\n" +
-            "</PAGE>";
-
-        try {
-            test(content,
-                 "\"He is Bob.She is Alice\" is missing a space",
-                 "\"The string .He is bright should be reported.\" is missing a space",
-                 "\"The string .He is bright should be reported.\" has a space before a punctuation",
-                 "\"The string \".He is bright\" should be reported.\" is missing a space");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
-            Assertions.fail("SAXException");
-        }
-    }
-
-    @SuppressWarnings("static-method")
-    @Test
-    void detectSpaceBeforePunctuation() {
-
-        final String content =
-            "<?xml version=\"1.0\"?>\r\n" +
-            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-            "<TITLE>Test</TITLE>\r\n" +
-            "<PATH>HomepageManager/test.xml</PATH>\r\n" +
-            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
-            "<CONTENT>\r\n" +
-            "<BLIST><TITLE>He is Bob. She is Alice.</TITLE></BLIST>\r\n" +
-            "<BLIST><TITLE>He is Boby . She is Alicy.</TITLE></BLIST>\r\n" +
-            "<BLIST><TITLE>There are three animals: sheep, pig, and cock.</TITLE></BLIST>\r\n" +
-            "<BLIST><TITLE>There are three animals : sheep, pig, and cock.</TITLE></BLIST>\r\n" +
-            "<BLIST><TITLE>There are three animals: sheep , pig, and cock.</TITLE></BLIST>\r\n" +
-            "</CONTENT>\r\n" +
-            "</PAGE>";
-
-        try {
-            test(content,
-                 "\"He is Boby . She is Alicy.\" has a space before a punctuation",
-                 "\"There are three animals : sheep, pig, and cock.\" has a space before a punctuation",
-                 "\"There are three animals: sheep , pig, and cock.\" has a space before a punctuation");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
-            Assertions.fail("SAXException");
-        }
-    }
-
-    @SuppressWarnings("static-method")
-    @Test
     void detectSpaceBetweenTags() {
 
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">" +
             "<TITLE>TypeScript</TITLE>" +
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2018</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
@@ -426,7 +346,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">" +
             "<TITLE>TypeScript</TITLE>" +
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2018</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
@@ -448,7 +368,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">" +
             "<TITLE>TypeScript</TITLE>" +
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
@@ -472,7 +392,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">" +
             "<TITLE>TypeScript</TITLE>" +
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
@@ -495,7 +415,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">" +
             "<TITLE>TypeScript</TITLE>" +
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>26</DAY></DATE>" +
@@ -522,7 +442,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">" +
             "<TITLE>TypeScript</TITLE>" +
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>26</DAY></DATE>" +
@@ -549,7 +469,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">" +
             "<TITLE>TypeScript</TITLE>" +
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>26</DAY></DATE>" +
@@ -576,7 +496,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">" +
             "<TITLE>TypeScript</TITLE>" +
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>25</DAY></DATE>" +
@@ -603,7 +523,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">" +
             "<TITLE>TypeScript</TITLE>" +
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>25</DAY></DATE>" +
@@ -630,7 +550,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">" +
             "<TITLE>TypeScript</TITLE>" +
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
@@ -654,7 +574,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">" +
             "<TITLE>TypeScript</TITLE>" +
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
@@ -680,7 +600,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">" +
             "<TITLE>TypeScript</TITLE>" +
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
@@ -705,7 +625,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">" +
             "<TITLE>TypeScript</TITLE>" +
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
@@ -729,7 +649,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">" +
             "<TITLE>TypeScript</TITLE>" +
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
@@ -754,7 +674,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">" +
             "<TITLE>TypeScript</TITLE>" +
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
@@ -779,7 +699,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">" +
             "<TITLE>TypeScript</TITLE>" +
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
@@ -803,7 +723,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">" +
             "<TITLE>TypeScript</TITLE>" +
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
@@ -828,7 +748,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">" +
             "<TITLE>TypeScript</TITLE>" +
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
@@ -852,7 +772,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">" +
             "<TITLE>TypeScript</TITLE>" +
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
@@ -877,7 +797,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">" +
             "<TITLE>TypeScript</TITLE>" +
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2020</YEAR><MONTH>12</MONTH><DAY>31</DAY></DATE>" +
@@ -901,7 +821,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">" +
             "<TITLE>TypeScript</TITLE>" +
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2020</YEAR><MONTH>12</MONTH><DAY>31</DAY></DATE>" +
@@ -926,7 +846,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">" +
             "<TITLE>TypeScript</TITLE>" +
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2020</YEAR><MONTH>12</MONTH><DAY>31</DAY></DATE>" +
@@ -949,7 +869,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">" +
             "<TITLE>TypeScript</TITLE>" +
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2020</YEAR><MONTH>12</MONTH><DAY>31</DAY></DATE>" +
@@ -976,7 +896,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">" +
             "<TITLE>TypeScript</TITLE>" +
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2020</YEAR><MONTH>12</MONTH><DAY>31</DAY></DATE>" +
@@ -1002,7 +922,7 @@ public class NodeValueCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">" +
             "<TITLE>TypeScript</TITLE>" +
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2020</YEAR><MONTH>12</MONTH><DAY>31</DAY></DATE>" +
@@ -1014,46 +934,6 @@ public class NodeValueCheckerTest {
             test(content);
         } catch (@SuppressWarnings("unused") final SAXException e) {
             Assertions.fail("SAXException");
-        }
-    }
-
-    private static void test(final String content,
-                             final String... details) throws SAXException {
-
-        final String expected = Arrays.stream(details)
-                                      .sorted()
-                                      .collect(Collectors.joining("\n"));
-
-        List<NodeCheckError> effective = null;
-        final NodeValueChecker checker = new NodeValueChecker(Paths.get("home"), Paths.get("tmp"), new DummyDataController());
-        try {
-            final Path tempFile = File.createTempFile("NodeValueCheckerTest", ".xml").toPath();
-            Files.writeString(tempFile, content);
-            effective = checker.check(tempFile);
-        } catch (final IOException e) {
-            ExitHelper.exit(e);
-        }
-
-        Assertions.assertEquals(expected, normalize(effective));
-    }
-
-    private static String normalize(final List<NodeCheckError> errors) {
-        return errors.stream()
-                     .map(e -> e.getDetail())
-                     .sorted()
-                     .collect(Collectors.joining("\n"));
-    }
-
-    private static class DummyDataController implements DataController {
-
-        @Override
-        public void handleCreation(final Path file, final Status status, final Path outputFile, final Path reportFile) {
-            // do nothing
-        }
-
-        @Override
-        public void handleDeletion(final Path file, final Status status, final Path outputFile, final Path reportFile) {
-            // do nothing
         }
     }
 }

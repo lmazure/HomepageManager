@@ -8,7 +8,7 @@ import org.w3c.dom.Element;
 
 public class NonEmptyChecker extends NodeChecker {
 
-    static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new ElementType[] {
+    private static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new ElementType[] {
             ElementType.BR,
             ElementType.CELL,
             ElementType.CONTENT, // added to avoid an OutOfMemoryError

@@ -14,7 +14,7 @@ import utils.xmlparsing.ElementType;
 
 public class TableSortChecker extends NodeChecker {
 
-    final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
+    private final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.DEFINITION2TABLE,
             ElementType.DEFINITIONTABLE
             });

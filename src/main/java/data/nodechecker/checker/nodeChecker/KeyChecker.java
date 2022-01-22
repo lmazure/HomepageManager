@@ -13,10 +13,10 @@ import utils.xmlparsing.ElementType;
 public class KeyChecker extends NodeChecker {
     // TODO do we really need this checker? this should be verified by the schema
 
-    static final Pattern s_pattern =
+    private static final Pattern s_pattern =
         Pattern.compile("^([-+*/=A-Z0-9àéèù^;:.,&\"'%#!?_)(]|F[1-9]|F10|F11|F12|Left|Up|Right|Down|Beginning|PageUp|PageDown|Space|Tab|Enter|Del|Backspace|Esc|Break|Ins|End|Return|Num [-+*/0-9])$");
 
-    final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
+    private final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.KEY
             });
 

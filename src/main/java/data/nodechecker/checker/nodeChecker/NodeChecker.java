@@ -56,6 +56,26 @@ public class NodeChecker {
         _descriptions[1] = description2;
     }
 
+
+    @SuppressWarnings("unchecked")
+    protected NodeChecker(final TagSelector tagSelector,
+                          final Function<Element, CheckStatus> rule1,
+                          final String description1,
+                          final Function<Element, CheckStatus> rule2,
+                          final String description2,
+                          final Function<Element, CheckStatus> rule3,
+                          final String description3) {
+        _tagSelector = tagSelector;
+        _rules = new Function[3];
+        _rules[0] = rule1;
+        _rules[1] = rule2;
+        _rules[2] = rule3;
+        _descriptions = new String[3];
+        _descriptions[0] = description1;
+        _descriptions[1] = description2;
+        _descriptions[2] = description3;
+    }
+
     public boolean isElementCheckable(final Element element) {
         return _tagSelector.isTagCheckable(XmlHelper.getElementType(element));
     }

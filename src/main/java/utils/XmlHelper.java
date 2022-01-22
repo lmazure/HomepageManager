@@ -3,6 +3,8 @@ package utils;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 import java.util.function.Function;
 
 import javax.xml.XMLConstants;
@@ -13,6 +15,7 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -21,17 +24,6 @@ import org.xml.sax.SAXException;
 import utils.xmlparsing.ElementType;
 
 public class XmlHelper {
-
-    public static List<String> getFirstLevelTextContent(final Node node) {
-        final NodeList list = node.getChildNodes();
-        final List<String> content = new ArrayList<>();
-        for (int i = 0; i < list.getLength(); i++) {
-            final Node child = list.item(i);
-            if (child.getNodeType() == Node.TEXT_NODE)
-                content.add(child.getTextContent());
-        }
-        return content;
-    }
 
     public static DocumentBuilder buildDocumentBuilder() {
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -59,6 +51,17 @@ public class XmlHelper {
         return schema.newValidator();
     }
 
+    public static List<String> getFirstLevelTextContent(final Node node) {
+        final NodeList list = node.getChildNodes();
+        final List<String> content = new ArrayList<>();
+        for (int i = 0; i < list.getLength(); i++) {
+            final Node child = list.item(i);
+            if (child.getNodeType() == Node.TEXT_NODE)
+                content.add(child.getTextContent());
+        }
+        return content;
+    }
+
     /**
      * return the type of an element Node
      * @param element
@@ -73,6 +76,26 @@ public class XmlHelper {
         return ElementType.valueOf(element.getTagName());
     }
 
+    public static Optional<Locale> getElementLanguage(final Element element) {
+
+        if (element.hasAttribute("xml:lang")) {
+            final String lang = element.getAttribute("xml:lang");
+            if (lang.equals("en")) {
+                return Optional.of(Locale.ENGLISH);
+            }
+            if (lang.equals("fr")) {
+                return Optional.of(Locale.FRENCH);
+            }
+            throw new UnsupportedOperationException("Illegal language value (" + lang + ")"); 
+        }
+
+        Node parent = element.getParentNode();
+        if (parent instanceof Document) {
+            return Optional.empty();
+        }
+
+        return getElementLanguage((Element)parent);
+    }
     /**
      * return the previous sibling element, otherwise return null
      * @param element

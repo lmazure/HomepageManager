@@ -18,8 +18,6 @@ Flaky tests must be fixed, some causes why tests are randomly failing
 The author suggests a five steps process to manage the technical debt:
 Some design patterns:<BR/>
 
-Rivest, Shamir and Adleman
-
 Larry tells us the history of Perl.
 
 vérifier l'ordre des attributs XML

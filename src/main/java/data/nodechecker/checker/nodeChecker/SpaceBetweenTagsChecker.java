@@ -9,7 +9,7 @@ import utils.xmlparsing.ElementType;
 
 public class SpaceBetweenTagsChecker extends NodeChecker {
 
-    static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new ElementType[] {
+    private static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new ElementType[] {
             ElementType.BLIST,
             ElementType.CELL,
             ElementType.CLIST,

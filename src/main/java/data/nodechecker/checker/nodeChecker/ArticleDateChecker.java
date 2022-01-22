@@ -18,7 +18,7 @@ import utils.xmlparsing.XmlParsingException;
 
 public class ArticleDateChecker extends NodeChecker {
 
-    final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
+    private final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.ARTICLE
             });
 
