@@ -80,13 +80,7 @@ public class XmlHelper {
 
         if (element.hasAttribute("xml:lang")) {
             final String lang = element.getAttribute("xml:lang");
-            if (lang.equals("en")) {
-                return Optional.of(Locale.ENGLISH);
-            }
-            if (lang.equals("fr")) {
-                return Optional.of(Locale.FRENCH);
-            }
-            throw new UnsupportedOperationException("Illegal language value (" + lang + ")"); 
+            return Optional.of(Locale.forLanguageTag(lang));
         }
 
         Node parent = element.getParentNode();
