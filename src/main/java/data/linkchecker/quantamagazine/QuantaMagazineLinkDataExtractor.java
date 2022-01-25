@@ -30,11 +30,22 @@ public class QuantaMagazineLinkDataExtractor extends LinkDataExtractor {
     }
 
     @Override
-    public List<AuthorData> getAuthors() throws ContentParserException {
+    public List<AuthorData> getSureAuthors() throws ContentParserException {
         final AuthorData authorData = _parser.getAuthor();
         final List<AuthorData> list = new ArrayList<>(1);
         list.add(authorData);
         return list;
+    }
+
+
+    @Override
+    public List<AuthorData> getProbableAuthors() {
+        return new ArrayList<>(0);
+    }
+
+    @Override
+    public List<AuthorData> getPossibleAuthors()  {
+        return new ArrayList<>(0);
     }
 
     @Override

@@ -52,7 +52,7 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
     }
 
     @Override
-    public List<AuthorData> getAuthors() throws ContentParserException {
+    public List<AuthorData> getSureAuthors() throws ContentParserException {
         final String channel = _parser.getChannel();
         if (_channelData.containsKey(channel)) {
             return _channelData.get(channel).authors();
@@ -66,6 +66,16 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
                 return buildListFromOneAuthor("José", "Paumard");
             }
         }
+        return new ArrayList<>(0);
+    }
+
+    @Override
+    public List<AuthorData> getProbableAuthors() {
+        return new ArrayList<>(0);
+    }
+
+    @Override
+    public List<AuthorData> getPossibleAuthors()  {
         return new ArrayList<>(0);
     }
 

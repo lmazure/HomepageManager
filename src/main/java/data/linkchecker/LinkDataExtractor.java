@@ -42,7 +42,11 @@ public abstract class LinkDataExtractor {
 
     public abstract Optional<TemporalAccessor> getDate() throws ContentParserException;
 
-    public abstract List<AuthorData> getAuthors() throws ContentParserException;
+    public abstract List<AuthorData> getSureAuthors() throws ContentParserException;
+
+    public abstract List<AuthorData> getProbableAuthors() throws ContentParserException;
+
+    public abstract List<AuthorData> getPossibleAuthors() throws ContentParserException;
 
     public abstract List<ExtractedLinkData> getLinks() throws ContentParserException;
 }

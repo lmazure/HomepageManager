@@ -30,13 +30,23 @@ public class ArsTechnicaLinkDataExtractor extends LinkDataExtractor {
     }
 
     @Override
-    public List<AuthorData> getAuthors() throws ContentParserException {
+    public List<AuthorData> getSureAuthors() throws ContentParserException {
         final Optional<AuthorData> authorData = _parser.getAuthor();
         final List<AuthorData> list = new ArrayList<>(1);
         if (authorData.isPresent()) {
             list.add(authorData.get());
         }
         return list;
+    }
+
+    @Override
+    public List<AuthorData> getProbableAuthors() {
+        return new ArrayList<>(0);
+    }
+
+    @Override
+    public List<AuthorData> getPossibleAuthors()  {
+        return new ArrayList<>(0);
     }
 
     @Override

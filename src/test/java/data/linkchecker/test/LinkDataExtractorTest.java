@@ -27,7 +27,10 @@ public class LinkDataExtractorTest {
                 <AUTHOR><FIRSTNAME>Tim</FIRSTNAME><LASTNAME>De Chant</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>25</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        Assertions.assertEquals(expectedXml, generateXml(url));
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
     @Test
@@ -42,7 +45,10 @@ public class LinkDataExtractorTest {
                 <AUTHOR><FIRSTNAME>Dmitriy</FIRSTNAME><LASTNAME>Zaporozhets</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>11</MONTH><DAY>10</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        Assertions.assertEquals(expectedXml, generateXml(url));
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
     @Test
@@ -57,7 +63,10 @@ public class LinkDataExtractorTest {
                 <AUTHOR><FIRSTNAME>Jonas</FIRSTNAME><LASTNAME>Havers</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2019</YEAR><MONTH>8</MONTH><DAY>20</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        Assertions.assertEquals(expectedXml, generateXml(url));
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
     @Test
@@ -72,7 +81,10 @@ public class LinkDataExtractorTest {
                 <AUTHOR><FIRSTNAME>Leila</FIRSTNAME><LASTNAME>Sloman</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>9</MONTH><DAY>21</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        Assertions.assertEquals(expectedXml, generateXml(url));
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
     @Test
@@ -86,7 +98,10 @@ public class LinkDataExtractorTest {
                 <AUTHOR><FIRSTNAME>Grant</FIRSTNAME><LASTNAME>Sanderson</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>12</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        Assertions.assertEquals(expectedXml, generateXml(url));
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
     @Test
@@ -100,7 +115,10 @@ public class LinkDataExtractorTest {
                 <AUTHOR><FIRSTNAME>Arnaud</FIRSTNAME><LASTNAME>Thiry</LASTNAME></AUTHOR><DATE>\
                 <YEAR>2021</YEAR><MONTH>4</MONTH><DAY>23</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        Assertions.assertEquals(expectedXml, generateXml(url));
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
     @Test
@@ -116,7 +134,10 @@ public class LinkDataExtractorTest {
                 <AUTHOR><FIRSTNAME>Kelly</FIRSTNAME><LASTNAME>Battison</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>17</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        Assertions.assertEquals(expectedXml, generateXml(url));
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
     @Test
@@ -130,7 +151,10 @@ public class LinkDataExtractorTest {
                 <AUTHOR><FIRSTNAME>Nicolai</FIRSTNAME><LASTNAME>Parlog</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>11</MONTH><DAY>11</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        Assertions.assertEquals(expectedXml, generateXml(url));
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
     @Test
@@ -144,7 +168,10 @@ public class LinkDataExtractorTest {
                 <AUTHOR><FIRSTNAME>José</FIRSTNAME><LASTNAME>Paumard</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>21</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        Assertions.assertEquals(expectedXml, generateXml(url));
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
     @Test
@@ -158,7 +185,10 @@ public class LinkDataExtractorTest {
                 <AUTHOR><FIRSTNAME>Bertrand</FIRSTNAME><LASTNAME>Augustin</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>11</MONTH><DAY>18</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        Assertions.assertEquals(expectedXml, generateXml(url));
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
     @Test
@@ -172,7 +202,10 @@ public class LinkDataExtractorTest {
                 <AUTHOR><FIRSTNAME>Rodolphe</FIRSTNAME><LASTNAME>Meyer</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>12</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        Assertions.assertEquals(expectedXml, generateXml(url));
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
     @Test
@@ -186,7 +219,10 @@ public class LinkDataExtractorTest {
                 <AUTHOR><FIRSTNAME>Dimitri</FIRSTNAME><LASTNAME>Ferrière</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>11</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        Assertions.assertEquals(expectedXml, generateXml(url));
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
     @Test
@@ -200,7 +236,10 @@ public class LinkDataExtractorTest {
                 <AUTHOR><FIRSTNAME>Thibaut</FIRSTNAME><LASTNAME>Giraud</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>12</MONTH><DAY>19</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        Assertions.assertEquals(expectedXml, generateXml(url));
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
     @Test
@@ -214,7 +253,10 @@ public class LinkDataExtractorTest {
                 <AUTHOR><FIRSTNAME>Thomas</FIRSTNAME><LASTNAME>Cabaret</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>11</MONTH><DAY>5</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        Assertions.assertEquals(expectedXml, generateXml(url));
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
     @Test
@@ -229,7 +271,10 @@ public class LinkDataExtractorTest {
                 <AUTHOR><FIRSTNAME>Keshika</FIRSTNAME><LASTNAME>Dabidin</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2020</YEAR><MONTH>3</MONTH><DAY>28</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        Assertions.assertEquals(expectedXml, generateXml(url));
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
     @Test
@@ -243,7 +288,10 @@ public class LinkDataExtractorTest {
                 <AUTHOR><FIRSTNAME>Robert</FIRSTNAME><LASTNAME>Miles</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>10</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        Assertions.assertEquals(expectedXml, generateXml(url));
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
     @Test
@@ -257,7 +305,10 @@ public class LinkDataExtractorTest {
                 <AUTHOR><FIRSTNAME>Sabine</FIRSTNAME><LASTNAME>Hossenfelder</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>9</MONTH><DAY>25</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        Assertions.assertEquals(expectedXml, generateXml(url));
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
     @Test
@@ -271,7 +322,10 @@ public class LinkDataExtractorTest {
                 <AUTHOR><FIRSTNAME>Alessandro</FIRSTNAME><LASTNAME>Roussel</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>12</MONTH><DAY>6</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        Assertions.assertEquals(expectedXml, generateXml(url));
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
 
@@ -286,7 +340,10 @@ public class LinkDataExtractorTest {
                 <AUTHOR><FIRSTNAME>David</FIRSTNAME><LASTNAME>Louapre</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>1</MONTH><DAY>14</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        Assertions.assertEquals(expectedXml, generateXml(url));
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
     @Test
     void youtubeWatchStandupMathsIsManaged() throws ContentParserException {
@@ -299,7 +356,10 @@ public class LinkDataExtractorTest {
                 <AUTHOR><FIRSTNAME>Matt</FIRSTNAME><LASTNAME>Parker</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>8</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        Assertions.assertEquals(expectedXml, generateXml(url));
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
     @Test
@@ -313,7 +373,10 @@ public class LinkDataExtractorTest {
                 <AUTHOR><FIRSTNAME>Lê</FIRSTNAME><LASTNAME>Nguyên Hoang</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>12</MONTH><DAY>6</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        Assertions.assertEquals(expectedXml, generateXml(url));
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
     @Test
@@ -327,7 +390,10 @@ public class LinkDataExtractorTest {
                 </X><AUTHOR><FIRSTNAME>Alexander</FIRSTNAME><LASTNAME>Thomas</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>11</MONTH><DAY>18</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        Assertions.assertEquals(expectedXml, generateXml(url));
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
     @Test
@@ -342,7 +408,10 @@ public class LinkDataExtractorTest {
                 <AUTHOR><FIRSTNAME>François</FIRSTNAME><LASTNAME>Décamp</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>7</MONTH><DAY>13</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        Assertions.assertEquals(expectedXml, generateXml(url));
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
     @Test
@@ -356,7 +425,10 @@ public class LinkDataExtractorTest {
                 <AUTHOR><FIRSTNAME>Derek</FIRSTNAME><LASTNAME>Muller</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>31</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        Assertions.assertEquals(expectedXml, generateXml(url));
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
     @Test
@@ -370,7 +442,10 @@ public class LinkDataExtractorTest {
                 <AUTHOR><FIRSTNAME>Kyle</FIRSTNAME><LASTNAME>Cook</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>19</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        Assertions.assertEquals(expectedXml, generateXml(url));
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
     @Test
@@ -385,13 +460,15 @@ public class LinkDataExtractorTest {
                 <AUTHOR><FIRSTNAME>Elena</FIRSTNAME><LASTNAME>Renken</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>9</MONTH><DAY>20</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        Assertions.assertEquals(expectedXml, generateXml(url));
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
-    private String generateXml(final String txt) throws ContentParserException {
+    private LinkDataExtractor getExtractor(final String txt) throws ContentParserException {
         final URL url = StringHelper.convertStringToUrl(txt);
         final Path path = TestHelper.getTestDatapath(getClass());
-        final LinkDataExtractor extractor = LinkDataExtractorFactory.build(path, url);
-        return XmlGenerator.generateXml(extractor);
+        return LinkDataExtractorFactory.build(path, url);
     }
 }

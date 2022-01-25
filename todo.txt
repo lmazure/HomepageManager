@@ -1,3 +1,7 @@
+ajouter support de https://about.gitlab.com/releases/2022/01/22/gitlab-14-7-released/?utm_source=pocket_mylist
+
+éviter le warning à cause de "?." dans games.xml
+
 comprendre pourquoi le sous-titre de https://www.lemondeinformatique.fr/actualites/lire-log4j-une-autre-vulnerabilite-corrigee-par-apache-85265.html n'est pas trouvé
 
 ajouter la définition de la langue pour éviter les mauvaises détections d'espacemanquant ou en trop
@@ -18,14 +22,10 @@ Flaky tests must be fixed, some causes why tests are randomly failing
 The author suggests a five steps process to manage the technical debt:
 Some design patterns:<BR/>
 
-Larry tells us the history of Perl.
-
 vérifier l'ordre des attributs XML
 
 appliquer https://www.quora.com/Where-does-a-nickname-go-when-writing-a-persons-full-name
-
 vérifier le bon type d'apostrophe pour person's object
-
 mettre GIVENNAME entre double quote côté JS
 
 von neumman
@@ -42,7 +42,6 @@ nettoyer
 - clintrials.xml
 - medical.xml
 - medimag.xml
-- solaris.xml
 - vbasic.xml
 - pharma.xml
 - gems.xml

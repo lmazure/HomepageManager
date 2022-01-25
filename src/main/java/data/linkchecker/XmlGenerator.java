@@ -72,7 +72,7 @@ public class XmlGenerator {
             }
             builder.append("</X>");
         }
-        for (AuthorData authorData: extractor.getAuthors() ) {
+        for (AuthorData authorData: extractor.getSureAuthors() ) {
             builder.append(generateAuthor(authorData));
         }
         if (extractor.getDate().isPresent()) {
