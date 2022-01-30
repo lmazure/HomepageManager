@@ -449,6 +449,23 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void  youtubeWatchWonderWhyIsManaged() throws ContentParserException {
+        final String url =
+            "https://www.youtube.com/watch?v=DfdewkU3_Hg";
+        final String expectedXml = """
+                <ARTICLE><X><T>The Country That Didn't Want Independence</T>\
+                <A>https://www.youtube.com/watch?v=DfdewkU3_Hg</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>18</MINUTE><SECOND>58</SECOND></DURATION></X>\
+                <AUTHOR><GIVENNAME>WonderWhy</GIVENNAME></AUTHOR>\
+                <DATE><YEAR>2021</YEAR><MONTH>9</MONTH><DAY>30</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void urlIsCleanedFromUtmParameters() throws ContentParserException {
         final String url =
             "https://www.quantamagazine.org/mathematical-analysis-of-fruit-fly-wings-hints-at-evolutions-limits-20210920/?utm_source=pocket-app&utm_medium=share";

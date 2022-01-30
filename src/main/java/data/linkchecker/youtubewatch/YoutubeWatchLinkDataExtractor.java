@@ -36,7 +36,8 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
             new AbstractMap.SimpleEntry<>("Thomaths", new ChannelData(buildListFromOneAuthor("Alexander", "Thomas"), Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("Tric Trac", new ChannelData(buildListFromTwoAuthors("Guillaume", "Chifoumi", "François", "Décamp"), Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("Veritasium", new ChannelData(buildListFromOneAuthor("Derek", "Muller"), Locale.ENGLISH)),
-            new AbstractMap.SimpleEntry<>("Web Dev Simplified", new ChannelData(buildListFromOneAuthor("Kyle", "Cook"), Locale.ENGLISH))
+            new AbstractMap.SimpleEntry<>("Web Dev Simplified", new ChannelData(buildListFromOneAuthor("Kyle", "Cook"), Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("WonderWhy", new ChannelData(buildListFromOneAuthorFromGivenName("WonderWhy"), Locale.ENGLISH))
             );
     private final YoutubeWatchLinkContentParser _parser;
 
@@ -101,8 +102,14 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
     private static List<AuthorData> buildListFromOneAuthor(final String firstName,
                                                            final String lastName) {
         final List<AuthorData> list = new ArrayList<>(1);
-        list.add(buildAuthor(firstName, lastName));
+        list.add(buildAuthorFromFirstAndLastName(firstName, lastName));
         return list;
+    }
+
+    private static List<AuthorData> buildListFromOneAuthorFromGivenName(final String givenName) {
+            final List<AuthorData> list = new ArrayList<>(1);
+            list.add(buildAuthorFromGivenName(givenName));
+            return list;
     }
 
     private static List<AuthorData> buildListFromTwoAuthors(final String firstName1,
@@ -110,7 +117,7 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
                                                             final String firstName2,
                                                             final String lastName2) {
         final List<AuthorData> list = buildListFromOneAuthor(firstName1, lastName1);
-        list.add(buildAuthor(firstName2, lastName2));
+        list.add(buildAuthorFromFirstAndLastName(firstName2, lastName2));
         return list;
     }
 
@@ -121,13 +128,13 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
                                                               final String firstName3,
                                                               final String lastName3) {
         final List<AuthorData> list = buildListFromOneAuthor(firstName1, lastName1);
-        list.add(buildAuthor(firstName2, lastName2));
-        list.add(buildAuthor(firstName3, lastName3));
+        list.add(buildAuthorFromFirstAndLastName(firstName2, lastName2));
+        list.add(buildAuthorFromFirstAndLastName(firstName3, lastName3));
         return list;
     }
 
-    private static AuthorData buildAuthor(final String firstName,
-                                          final String lastName) {
+    private static AuthorData buildAuthorFromFirstAndLastName(final String firstName,
+                                                              final String lastName) {
     return new AuthorData(Optional.empty(),
                           Optional.of(firstName),
                           Optional.empty(),
@@ -135,6 +142,15 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
                           Optional.empty(),
                           Optional.empty());
     }
+
+    private static AuthorData buildAuthorFromGivenName(final String givenName) {
+        return new AuthorData(Optional.empty(),
+                              Optional.empty(),
+                              Optional.empty(),
+                              Optional.empty(),
+                              Optional.empty(),
+                              Optional.of(givenName));
+}
 
    private record ChannelData(List<AuthorData> authors,
                               Locale language) {
