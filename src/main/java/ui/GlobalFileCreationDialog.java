@@ -23,7 +23,7 @@ public class GlobalFileCreationDialog extends Dialog<Void> {
 
         setTitle("Global File Creation");
         final TextArea textArea = new TextArea();
-        textArea.setPrefHeight(100); 
+        textArea.setPrefHeight(100);
         textArea.setPrefWidth(400);
         textArea.textProperty().bind(task.messageProperty());
         final VBox vbox = new VBox(textArea);
@@ -40,7 +40,7 @@ public class GlobalFileCreationDialog extends Dialog<Void> {
     private static Task<Void> buildFileCreationTask(final Path homepagePath,
                                                     final List<Path> files) {
         return new Task<>() {
-            @Override 
+            @Override
             protected Void call() {
                 final StringBuilder status = new StringBuilder();
 

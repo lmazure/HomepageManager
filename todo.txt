@@ -1,4 +1,8 @@
-ajouter support de https://about.gitlab.com/releases/2022/01/22/gitlab-14-7-released/?utm_source=pocket_mylist
+nettoyer javahistory.xml
+
+retirer le /post dans les URLs https://blogs.oracle.com/javamagazine/post/curly-braces-java-git-monorepo
+
+ajouter support de https://about.gitlab.com/releases/2022/01/22/gitlab-14-7-released/
 
 éviter le warning à cause de "?." dans games.xml
 
@@ -44,9 +48,6 @@ nettoyer
 - medimag.xml
 - vbasic.xml
 - pharma.xml
-- gems.xml
-- kika.xml
-- sfbook.xml
 - jslib.xml
 
 détecter US au lieu de GB

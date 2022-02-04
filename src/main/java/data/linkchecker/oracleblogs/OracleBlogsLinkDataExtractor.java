@@ -59,7 +59,7 @@ public class OracleBlogsLinkDataExtractor  extends LinkDataExtractor {
         list.add(linkData);
         return list;
     }
-    
+
     private String[] getSubtitle() throws ContentParserException {
         final Optional<String> subtitle = _parser.getSubtitle();
         if (subtitle.isPresent()) {

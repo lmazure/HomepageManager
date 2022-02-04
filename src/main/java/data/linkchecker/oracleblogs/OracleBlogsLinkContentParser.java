@@ -40,14 +40,14 @@ public class OracleBlogsLinkContentParser {
     private static final Pattern s_htmlPattern = Pattern.compile(s_htmlTemplate);
 
     private static final Pattern s_subtitlePattern = Pattern.compile("^(<!DOCTYPE html>)?<h2>(.*?)</h2>", Pattern.DOTALL);
-    
+
     private final String _title;
     private final Optional<String> _subtitle;
     private final LocalDate _publicationDate;
     private final List<AuthorData> _authors;
     private final ContentParserException _exception;
     private final ContentParserException _authorException;
-    
+
     private SynchronousSiteDataRetriever _retriever;
 
     public OracleBlogsLinkContentParser(final String data,
@@ -99,7 +99,7 @@ public class OracleBlogsLinkContentParser {
             _authorException = null;
             return;
         }
-        
+ 
         // retrieve article information
         String articleJson = null;
         try {
@@ -123,7 +123,7 @@ public class OracleBlogsLinkContentParser {
             final JSONObject article = new JSONObject(articleJson);
             final JSONArray items = article.getJSONArray("items");
             final JSONObject firstItem = items.getJSONObject(0);
-            fields = firstItem.getJSONObject("fields"); 
+            fields = firstItem.getJSONObject("fields");
             title = fields.getString("title").trim();
             final String html = fields.getString("body");
             final Matcher m2 = s_subtitlePattern.matcher(html);
@@ -194,8 +194,8 @@ public class OracleBlogsLinkContentParser {
         return _authors;
     }
 
-    public String getStructureJson(final URL url,
-                                   final String site) throws IOException {
+    private String getStructureJson(final URL url,
+                                    final String site) throws IOException {
         final String urlJsonStructure = url.toString()
                                            .replaceFirst("/post/", "/")
                                            .replaceFirst("/[^/]*$", "/" + site + "/structure.json");

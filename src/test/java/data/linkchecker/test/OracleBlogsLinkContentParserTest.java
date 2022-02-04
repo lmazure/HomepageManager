@@ -109,7 +109,7 @@ public class OracleBlogsLinkContentParserTest {
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
-    
+
     @ParameterizedTest
     @CsvSource({
         "https://blogs.oracle.com/javamagazine/java-for-loop-break-continue,2021-10-05",

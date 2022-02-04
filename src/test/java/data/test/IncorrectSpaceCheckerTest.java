@@ -276,6 +276,4 @@ public class IncorrectSpaceCheckerTest extends NodeValueCheckerTestBase {
             Assertions.fail("SAXException");
         }
     }
-    
-
 }
