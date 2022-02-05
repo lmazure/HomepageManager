@@ -128,7 +128,7 @@ public class StringHelper {
         return s2.indexOf(ss2);
     }
 
-    private static String normalizeSpace(final String string) {
+    public static String normalizeSpace(final String string) {
         final int length = string.length();
         final StringBuilder builder = new StringBuilder(length);
         for (int offset = 0; offset < length; ) {
@@ -137,6 +137,38 @@ public class StringHelper {
             builder.appendCodePoint(normalizedCodepoint);
             offset += Character.charCount(codepoint);
         }
+        return builder.toString();
+    }
+    
+    public static String compareAndExplainDifference(final String str1,
+                                                     final String str2) {
+        if (str1.equals(str2)) {
+            return null;
+        }
+        final int length1 = str1.length();
+        final int length2 = str2.length();
+        final StringBuilder builder = new StringBuilder();
+        if (length1 != length2) {
+            builder.append("The two strings to not have the same length\n");
+        }
+        for (int offset = 0; offset < length1; ) {
+            final int codepoint1 = str1.codePointAt(offset);
+            builder.appendCodePoint(codepoint1);
+            builder.append('-');
+            builder.append(codepoint1);
+            builder.append(' ');
+            offset += Character.charCount(codepoint1);
+        }
+        builder.append('\n');
+        for (int offset = 0; offset < length2; ) {
+            final int codepoint2 = str2.codePointAt(offset);
+            builder.appendCodePoint(codepoint2);
+            builder.append('-');
+            builder.append(codepoint2);
+            builder.append(' ');
+            offset += Character.charCount(codepoint2);
+        }
+        builder.append('\n');
         return builder.toString();
     }
 }
