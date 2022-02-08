@@ -17,8 +17,21 @@ public class LinkContentParserUtils {
                     Optional.empty(),
                     Optional.empty());
         }
+        if (nameParts.length == 1) {
+            if (nameParts[0].equals("FibreTigre")) {
+                return new AuthorData(Optional.empty(),
+                        Optional.empty(),
+                        Optional.empty(),
+                        Optional.empty(),
+                        Optional.empty(),
+                        Optional.of(nameParts[0]));
+            }
+            throw new ContentParserException("Failed to parse author name \"" + nameParts[0] + "\"");
+        }
         if (nameParts.length == 3) {
-            if (nameParts[1].toUpperCase().equals("DE")) {
+            final String upperMiddleName = nameParts[1].toUpperCase();
+            if (upperMiddleName.equals("DE") ||
+                upperMiddleName.equals("VON")) {
                 return new AuthorData(Optional.empty(),
                         Optional.of(nameParts[0]),
                         Optional.empty(),

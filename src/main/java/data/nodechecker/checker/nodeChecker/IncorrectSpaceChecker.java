@@ -35,6 +35,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "distributed.net",
             "e.g.",
             "Famo.us",
+            "gitlab.com",
             "Heu?reka",
             "i.e.",
             "Intl.RelativeTimeFormat",

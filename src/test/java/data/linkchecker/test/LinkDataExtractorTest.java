@@ -52,6 +52,23 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void mediumIsManaged() throws ContentParserException {
+        final String url =
+            "https://medium.com/@kentbeck_7670/limbo-scaling-software-collaboration-afd4f00db4b";
+        final String expectedXml = """
+                <ARTICLE><X><T>Limbo: Scaling Software Collaboration</T>\
+                <A>https://medium.com/@kentbeck_7670/limbo-scaling-software-collaboration-afd4f00db4b</A>\
+                <L>en</L><F>HTML</F></X>\
+                <AUTHOR><FIRSTNAME>Kent</FIRSTNAME><LASTNAME>Beck</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2018</YEAR><MONTH>7</MONTH><DAY>11</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void oracleBlogsIsManaged() throws ContentParserException {
         final String url =
             "https://blogs.oracle.com/javamagazine/unit-test-your-architecture-with-archunit";

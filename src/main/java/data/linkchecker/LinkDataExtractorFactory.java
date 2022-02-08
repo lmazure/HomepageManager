@@ -5,6 +5,7 @@ import java.nio.file.Path;
 
 import data.linkchecker.arstechnica.ArsTechnicaLinkDataExtractor;
 import data.linkchecker.gitlabblog.GitlabBlogLinkDataExtractor;
+import data.linkchecker.medium.MediumLinkDataExtractor;
 import data.linkchecker.oracleblogs.OracleBlogsLinkDataExtractor;
 import data.linkchecker.quantamagazine.QuantaMagazineLinkDataExtractor;
 import data.linkchecker.youtubewatch.YoutubeWatchLinkDataExtractor;
@@ -20,6 +21,11 @@ public class LinkDataExtractorFactory {
 
         if (urlString.startsWith("https://arstechnica.com/")) {
             return new ArsTechnicaLinkDataExtractor(u, cacheDirectory);
+        }
+
+
+        if (urlString.startsWith("https://medium.com/")) {
+            return new MediumLinkDataExtractor(u, cacheDirectory);
         }
 
         if (urlString.matches("https://blogs.oracle.com/javamagazine/.+")) {

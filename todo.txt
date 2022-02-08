@@ -1,3 +1,13 @@
+corriger le crash sur le medium de FibreTigre dans management.xml
+
+implémenter extraction de medium.com
+
+nettoyer coding.xml
+
+nettoyer tourism.xml
+
+nettoyer build.xml
+
 comprendre pourquoi le sous-titre de https://www.lemondeinformatique.fr/actualites/lire-log4j-une-autre-vulnerabilite-corrigee-par-apache-85265.html n'est pas reconnu
 idem pour https://www.lemondeinformatique.fr/actualites/lire-le-document-d-ipo-de-gitlab-revele-un-avenir-ambitieux-84230.html
 
@@ -83,12 +93,7 @@ https://martinfowler.com/bliki/UseCasesAndStories.html
 
 - implémenter un système générique de cache
 
-- parser le JSON au lieu de faire mes bidouilles
-
 - implémenter le cache pour Twitter
-
-- gérer le problème des encodings
-(je pense que cela doit toujours être mis en binaire)
 
 - ranger les fichiers
 design.xml

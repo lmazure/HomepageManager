@@ -22,17 +22,19 @@ public class MediumLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://medium.com/@kentbeck_7670/sipping-the-big-gulp-a7c50549c393,Kent,Beck",
+        "https://medium.com/@kentbeck_7670/sipping-the-big-gulp-a7c50549c393,Kent,Beck,",
+        "https://medium.com/@FibreTigre/mon-emploi-du-temps-2019-b4a44c2efa46,,,FibreTigre",
         })
     void testAuthor(final String url,
                     final String expectedFirstName,
-                    final String expectedLastName) {
+                    final String expectedLastName,
+                    final String expectedGivenName) {
         final AuthorData expectedAuthor = new AuthorData(Optional.empty(),
-                                                         Optional.of(expectedFirstName),
+                                                         Optional.ofNullable(expectedFirstName),
                                                          Optional.empty(),
-                                                         Optional.of(expectedLastName),
+                                                         Optional.ofNullable(expectedLastName),
                                                          Optional.empty(),
-                                                         Optional.empty());
+                                                         Optional.ofNullable(expectedGivenName));
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
