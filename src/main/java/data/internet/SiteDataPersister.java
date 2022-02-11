@@ -170,7 +170,8 @@ public class SiteDataPersister {
         Optional<Map<String, List<String>>> headers = Optional.empty();
         Optional<String> error = Optional.empty();
 
-        try (final BufferedReader reader = new BufferedReader(new FileReader(getStatusFile(url, timestamp).toFile()))) {
+        final File statusFile = getStatusFile(url, timestamp).toFile();
+        try (final BufferedReader reader = new BufferedReader(new FileReader(statusFile))) {
 
             {
                 status = Status.valueOf(reader.readLine());
@@ -221,12 +222,12 @@ public class SiteDataPersister {
                 } else if (errorPresence.equals("empty")) {
                     error = Optional.empty();
                 } else {
-                    ExitHelper.exit("Corrupted file");
+                    ExitHelper.exit("File " + statusFile + " is corrupted");
                 }
             }
 
         } catch (final IOException e) {
-            ExitHelper.exit(e);
+            ExitHelper.exit("Failure while reading " + statusFile, e);
         }
 
         final Optional<File> dataFile = Optional.of(getDataFile(url, timestamp).toFile());

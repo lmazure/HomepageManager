@@ -20,6 +20,7 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
     private final static Map<String, ChannelData> _channelData = Map.ofEntries(
             new AbstractMap.SimpleEntry<>("3Blue1Brown", new ChannelData(buildListFromOneAuthor("Grant", "Sanderson"), Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("AstronoGeek", new ChannelData(buildListFromOneAuthor("Arnaud", "Thiry"), Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("Balade Mentale", new ChannelData(buildListFromOneAuthor("Théo", "Drieu"), Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("J'm'énerve pas, j'explique", new ChannelData(buildListFromOneAuthor("Bertrand", "Augustin"), Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("History of the Earth", new ChannelData(buildListFromThreeAuthors("David", "Kelly", "Pete", "Kelly", "Kelly", "Battison"), Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Le Réveilleur", new ChannelData(buildListFromOneAuthor("Rodolphe", "Meyer"), Locale.FRENCH)),

@@ -139,6 +139,23 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchBaladeMentaleIsManaged() throws ContentParserException {
+        final String url =
+            "https://www.youtube.com/watch?v=7KJbzgoBUX0";
+        final String expectedXml = """
+                <ARTICLE><X><T>La disparition de la mer Méditerranée</T>\
+                <A>https://www.youtube.com/watch?v=7KJbzgoBUX0</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>25</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Théo</FIRSTNAME><LASTNAME>Drieu</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>2</MONTH><DAY>6</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeWatchHistoryOfTheEarth() throws ContentParserException {
         final String url =
             "https://www.youtube.com/watch?v=0sbwUeTyDb0";

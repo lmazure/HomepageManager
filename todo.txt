@@ -1,7 +1,3 @@
-corriger le crash sur le medium de FibreTigre dans management.xml
-
-implémenter extraction de medium.com
-
 nettoyer coding.xml
 
 nettoyer tourism.xml
