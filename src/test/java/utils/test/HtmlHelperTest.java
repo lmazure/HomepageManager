@@ -14,7 +14,11 @@ public class HtmlHelperTest {
     @CsvSource({
         "Smale&#039;s&nbsp;paradox,Smale's\u00A0paradox",
         "l&rsquo;addition,l’addition",
-        "126 &#8211; James Gosling,126 – James Gosling"
+        "126 &#8211; James Gosling,126 – James Gosling",
+        "some name escape sequence can have no ';' for example &reg &AMP,some name escape sequence can have no ';' for example ® &",
+        "end of string &#8211;,end of string –",
+        "end of string &#xE0;,end of string à",
+        "end of string and multiple zeros &#x000E0;,end of string and multiple zeros à",
         })
     void stringIsProperlyDecoded(final String encodedString,
                                  final String expectedDecodedString) {

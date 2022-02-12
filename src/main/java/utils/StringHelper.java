@@ -74,8 +74,6 @@ public class StringHelper {
 
     public static Optional<Locale> guessLanguage(final String text) {
 
-        //System.out.println(text);
-
         final String[] words = text.split("\\W");
 
         int french = 0;
@@ -85,10 +83,8 @@ public class StringHelper {
             final String w = word.toLowerCase();
             if (englishWords.contains(w))  {
                 english++;
-                // System.out.println("en " + english + " " + word);
             } else if (frenchWords.contains(w))  {
                 french++;
-                // System.out.println("fr " + french + " " + word);
             }
         }
 

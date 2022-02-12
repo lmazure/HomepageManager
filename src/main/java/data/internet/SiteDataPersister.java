@@ -184,7 +184,7 @@ public class SiteDataPersister {
                 } else if (httpCodePresence.equals("empty")) {
                     httpCode = Optional.empty();
                 } else {
-                    ExitHelper.exit("Corrupted file");
+                    throw new IllegalStateException("File " + statusFile + " is corrupted (bad HTTP code presence)");
                 }
             }
 
@@ -206,7 +206,7 @@ public class SiteDataPersister {
                 } else if (headersPresence.equals("empty")) {
                     headers = Optional.empty();
                 } else {
-                    ExitHelper.exit("Corrupted file");
+                    throw new IllegalStateException("File " + statusFile + " is corrupted (bad HTTP headers)");
                 }
             }
 
@@ -222,12 +222,12 @@ public class SiteDataPersister {
                 } else if (errorPresence.equals("empty")) {
                     error = Optional.empty();
                 } else {
-                    ExitHelper.exit("File " + statusFile + " is corrupted");
+                    throw new IllegalStateException("File " + statusFile + " is corrupted (bad error presence)");
                 }
             }
 
         } catch (final IOException e) {
-            ExitHelper.exit("Failure while reading " + statusFile, e);
+            throw new IllegalStateException("Failure while reading " + statusFile, e);
         }
 
         final Optional<File> dataFile = Optional.of(getDataFile(url, timestamp).toFile());

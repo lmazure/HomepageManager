@@ -31,7 +31,9 @@ public class LinkContentCheckerTest {
             "http://www.business-esolutions.com/islm.htm|en|Project Lifecycle Models: How They Differ and When to Use Them",
             "https://martinfowler.com/bliki/UseCasesAndStories.html|en|What is the difference between a UseCase and XP's UserStory?",
             "http://hesketh.com/publications/inclusive_web_design_for_the_future/|en|Inclusive Web Design For the Future with Progressive Enhancement",
-            "https://blog.cleancoder.com/uncle-bob/2014/06/17/IsTddDeadFinalThoughts.html|en|Is TDD Dead? Final Thoughts about Teams."
+            "https://blog.cleancoder.com/uncle-bob/2014/06/17/IsTddDeadFinalThoughts.html|en|Is TDD Dead? Final Thoughts about Teams.",
+            // use of &reg (i.e. no semicolon at the end) this is allowed, see https://stackoverflow.com/questions/15532252/why-is-reg-being-rendered-as-without-the-bounding-semicolon
+            "https://www.rigacci.org/docs/biblio/online/CA-2000-02/CA-2000-02.html|en|CERT® Advisory CA-2000-02 Malicious HTML Tags Embedded in Client Web Requests"
             }, delimiter = '|')
     void testTitle(final String urlAsString,
                    final String locale,
@@ -79,6 +81,34 @@ public class LinkContentCheckerTest {
                                    Assertions.assertEquals(1, checks.size());
                                    Assertions.assertEquals("title \"" + expectedTitle +"\" does not appear in the page, this is a problem of casing, the real title is \"" + realTitle + "\"",
                                                            checks.get(0).getDescription());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getTitle threw " + e.getMessage());
+                               }
+                               consumerHasBeenCalled.set(true);
+                           });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+            "https://www.lemondeinformatique.fr/actualites/lire-log4j-une-autre-vulnerabilite-corrigee-par-apache-85265.html|fr|Plus d'une semaine après la publication de la mise à jour 2.17 de la bibliothèque de journalisation Log4j d'Apache Logging, une faille CVE-2021-44832 l'affectant est comblée. La montée de version vers la 2.17.1 est à effectuer dès que possible.",
+            "https://www.lemondeinformatique.fr/actualites/lire-le-document-d-ipo-de-gitlab-revele-un-avenir-ambitieux-84230.html|fr|La plateforme GitLab s'apprête à entrer en bourse, offrant ainsi aux équipes devops, sécurité, informatique dans les entreprises un moyen de collaborer au développement de logiciels."
+            }, delimiter = '|')
+    void testSubtitle(final String urlAsString,
+                      final String locale,
+                      final String expectedSubtitle) {
+        final URL url = TestHelper.buildURL(urlAsString);
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        final LinkData linkData = new LinkData(expectedSubtitle, new String[0], urlAsString, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null);
+        final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<AuthorData>(), null);
+        retriever.retrieve(url,
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.getDataFile().get());
+                               try {
+                                   final List<LinkContentCheck> checks = checker.check();
+                                   Assertions.assertTrue(checks.isEmpty());
                                } catch (final ContentParserException e) {
                                    Assertions.fail("getTitle threw " + e.getMessage());
                                }
