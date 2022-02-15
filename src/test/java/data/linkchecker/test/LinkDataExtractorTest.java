@@ -156,6 +156,23 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchDrBeckyIsManaged() throws ContentParserException {
+        final String url =
+            "https://www.youtube.com/watch?v=6v72L_1L4lQ";
+        final String expectedXml = """
+                <ARTICLE><X><T>LIVE | The first image from the James Webb Space Telescope! (and why it looks a bit naff)</T>\
+                <A>https://www.youtube.com/watch?v=6v72L_1L4lQ</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>4</MINUTE><SECOND>53</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Becky</FIRSTNAME><LASTNAME>Smethurst</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>2</MONTH><DAY>11</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeWatchHistoryOfTheEarth() throws ContentParserException {
         final String url =
             "https://www.youtube.com/watch?v=0sbwUeTyDb0";

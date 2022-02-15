@@ -1,3 +1,5 @@
+nettoyer jslib.xml
+
 nettoyer coding.xml
 
 nettoyer tourism.xml
@@ -16,8 +18,6 @@ retirer le /post dans les URLs https://blogs.oracle.com/javamagazine/post/curly-
 ajouter support de https://about.gitlab.com/releases/2022/01/22/gitlab-14-7-released/
 
 éviter le warning à cause de "?." dans games.xml
-
-comprendre pourquoi le sous-titre de https://www.lemondeinformatique.fr/actualites/lire-log4j-une-autre-vulnerabilite-corrigee-par-apache-85265.html n'est pas trouvé
 
 ajouter la définition de la langue pour éviter les mauvaises détections d'espacemanquant ou en trop
 
