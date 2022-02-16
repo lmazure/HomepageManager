@@ -13,7 +13,7 @@ import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
 import data.linkchecker.ContentParserException;
 import data.linkchecker.youtubechanneluser.YoutubeChannelUserLinkContentParser;
-import utils.FileHelper;
+import utils.HtmlHelper;
 
 public class YoutubeChannelUserLinkContentParserTest {
 
@@ -24,7 +24,7 @@ public class YoutubeChannelUserLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/channel/UCwBn4dgV3kxzvcCKN3TbQOQ"),
                            (final Boolean b, final SiteData d) -> {
                             Assertions.assertTrue(d.getDataFile().isPresent());
-                            final String data = FileHelper.slurpFile(d.getDataFile().get());
+                            final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                             final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
                             Assertions.assertTrue(parser.getErrorMessage().isPresent());
                             Assertions.assertEquals("This channel does not exist.", parser.getErrorMessage().get());
@@ -40,7 +40,7 @@ public class YoutubeChannelUserLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/channel/UC6nSFpj9HTCZ5t-N3Rm3-HA"),
                            (final Boolean b, final SiteData d) -> {
                             Assertions.assertTrue(d.getDataFile().isPresent());
-                            final String data = FileHelper.slurpFile(d.getDataFile().get());
+                            final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                             final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
                             Assertions.assertTrue(parser.getErrorMessage().isEmpty());
                             consumerHasBeenCalled.set(true);
@@ -62,7 +62,7 @@ public class YoutubeChannelUserLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
                             Assertions.assertTrue(d.getDataFile().isPresent());
-                            final String data = FileHelper.slurpFile(d.getDataFile().get());
+                            final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                             final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
                             try {
                                 Assertions.assertEquals(Locale.ENGLISH, parser.getLanguage().get());
@@ -85,7 +85,7 @@ public class YoutubeChannelUserLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
                             Assertions.assertTrue(d.getDataFile().isPresent());
-                            final String data = FileHelper.slurpFile(d.getDataFile().get());
+                            final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                             final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
                             try {
                                 Assertions.assertEquals(Locale.FRENCH, parser.getLanguage().get());

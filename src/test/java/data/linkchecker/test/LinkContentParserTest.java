@@ -12,7 +12,7 @@ import data.internet.SiteData;
 import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
 import data.linkchecker.LinkContentParser;
-import utils.FileHelper;
+import utils.HtmlHelper;
 
 public class LinkContentParserTest {
 
@@ -31,7 +31,7 @@ public class LinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
                             Assertions.assertTrue(d.getDataFile().isPresent());
-                            final String data = FileHelper.slurpFile(d.getDataFile().get());
+                            final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                             final LinkContentParser parser = new LinkContentParser(data);
                             Assertions.assertTrue(parser.getLanguage().isPresent());
                             Assertions.assertEquals(Locale.ENGLISH, parser.getLanguage().get());
@@ -56,7 +56,7 @@ public class LinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
                             Assertions.assertTrue(d.getDataFile().isPresent());
-                            final String data = FileHelper.slurpFile(d.getDataFile().get());
+                            final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                             final LinkContentParser parser = new LinkContentParser(data);
                             Assertions.assertTrue(parser.getLanguage().isPresent());
                             Assertions.assertEquals(Locale.FRENCH, parser.getLanguage().get());
@@ -76,7 +76,7 @@ public class LinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
                             Assertions.assertTrue(d.getDataFile().isPresent());
-                            final String data = FileHelper.slurpFile(d.getDataFile().get());
+                            final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                             final LinkContentParser parser = new LinkContentParser(data);
                             Assertions.assertTrue(parser.getLanguage().isEmpty());
                             consumerHasBeenCalled.set(true);
@@ -91,7 +91,7 @@ public class LinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL("https://medium.com/@kentbeck_7670/bs-changes-e574bc396aaa"),
                            (final Boolean b, final SiteData d) -> {
                             Assertions.assertTrue(d.getDataFile().isPresent());
-                            final String data = FileHelper.slurpFile(d.getDataFile().get());
+                            final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                             final LinkContentParser parser = new LinkContentParser(data);
                             Assertions.assertTrue(parser.getLanguage().isPresent());
                             Assertions.assertEquals(Locale.ENGLISH, parser.getLanguage().get());
@@ -107,7 +107,7 @@ public class LinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL("https://medium.com/france/praha-8e7086a6c1fe"),
                            (final Boolean b, final SiteData d) -> {
                             Assertions.assertTrue(d.getDataFile().isPresent());
-                            final String data = FileHelper.slurpFile(d.getDataFile().get());
+                            final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                             final LinkContentParser parser = new LinkContentParser(data);
                             Assertions.assertTrue(parser.getLanguage().isPresent());
                             Assertions.assertEquals(Locale.FRENCH, parser.getLanguage().get());

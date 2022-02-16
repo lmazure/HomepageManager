@@ -9,7 +9,7 @@ import java.util.Optional;
 import data.internet.SiteData;
 import data.internet.SiteDataPersister;
 import data.internet.SynchronousSiteDataRetriever;
-import utils.FileHelper;
+import utils.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 
 public abstract class LinkDataExtractor {
@@ -28,7 +28,7 @@ public abstract class LinkDataExtractor {
     private void handleLinkData(@SuppressWarnings("unused") final Boolean isDataFresh,
                                 final SiteData siteData) {
         if (siteData.getDataFile().isPresent()) {
-            _content = FileHelper.slurpFile(siteData.getDataFile().get());
+            _content = HtmlHelper.slurpFile(siteData.getDataFile().get());
         }
     }
 

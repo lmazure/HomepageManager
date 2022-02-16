@@ -3,12 +3,12 @@ package data.internet;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Instant;
@@ -109,7 +109,7 @@ public class SiteDataPersister {
             try (@SuppressWarnings("resource")
                 final InputStream inputStream = isEncodedWithGzip(headers) ? new GZIPInputStream(dataStream.get())
                                                                            : dataStream.get();
-                final PrintStream outputStream = new PrintStream(file, StandardCharsets.UTF_8)) {
+                final FileOutputStream outputStream = new FileOutputStream(file)) {
                 long size = 0L;
                 final byte[] buffer = new byte[s_file_buffer_size];
                 int length;

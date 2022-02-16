@@ -12,7 +12,7 @@ import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
 import data.linkchecker.ContentParserException;
 import data.linkchecker.oracleblogs.OracleBlogsLinkContentParser;
-import utils.FileHelper;
+import utils.HtmlHelper;
 import utils.StringHelper;
 import utils.xmlparsing.AuthorData;
 
@@ -35,7 +35,7 @@ public class OracleBlogsLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(data, StringHelper.convertStringToUrl(url));
                                try {
                                    Assertions.assertEquals(expectedTitle, parser.getTitle());
@@ -72,7 +72,7 @@ public class OracleBlogsLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(data, StringHelper.convertStringToUrl(url));
                                try {
                                    Assertions.assertTrue(parser.getSubtitle().isPresent());
@@ -98,7 +98,7 @@ public class OracleBlogsLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(data, StringHelper.convertStringToUrl(url));
                                try {
                                    Assertions.assertFalse(parser.getSubtitle().isPresent());
@@ -126,7 +126,7 @@ public class OracleBlogsLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
           (final Boolean b, final SiteData d) -> {
               Assertions.assertTrue(d.getDataFile().isPresent());
-              final String data = FileHelper.slurpFile(d.getDataFile().get());
+              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(data, StringHelper.convertStringToUrl(url));
               try {
                   Assertions.assertEquals(expectedDate, parser.getDate().toString());
@@ -159,7 +159,7 @@ public class OracleBlogsLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
           (final Boolean b, final SiteData d) -> {
               Assertions.assertTrue(d.getDataFile().isPresent());
-              final String data = FileHelper.slurpFile(d.getDataFile().get());
+              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(data, StringHelper.convertStringToUrl(url));
               try {
                   Assertions.assertEquals(expectedAuthor, parser.getAuthors().get(0));
@@ -198,7 +198,7 @@ public class OracleBlogsLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
           (final Boolean b, final SiteData d) -> {
               Assertions.assertTrue(d.getDataFile().isPresent());
-              final String data = FileHelper.slurpFile(d.getDataFile().get());
+              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(data, StringHelper.convertStringToUrl(url));
               try {
                   Assertions.assertEquals(expectedAuthor1, parser.getAuthors().get(0));

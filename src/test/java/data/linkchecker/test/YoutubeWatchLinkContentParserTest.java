@@ -17,7 +17,7 @@ import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
 import data.linkchecker.ContentParserException;
 import data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser;
-import utils.FileHelper;
+import utils.HtmlHelper;
 
 public class YoutubeWatchLinkContentParserTest {
 
@@ -32,7 +32,7 @@ public class YoutubeWatchLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data);
                                Assertions.assertTrue(parser.isPlayable());
                                consumerHasBeenCalled.set(true);
@@ -47,7 +47,7 @@ public class YoutubeWatchLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=dM_JivN3HvI"),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data);
                                Assertions.assertFalse(parser.isPlayable());
                                consumerHasBeenCalled.set(true);
@@ -70,7 +70,7 @@ public class YoutubeWatchLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data);
                                try {
                                    Assertions.assertEquals(expectedChannel, parser.getChannel());
@@ -89,7 +89,7 @@ public class YoutubeWatchLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=_kGqkxQo-Tw"),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data);
                                try {
                                    Assertions.assertEquals("Alain Aspect - Le photon onde ou particule ? L’étrangeté quantique mise en lumière", parser.getTitle());
@@ -109,7 +109,7 @@ public class YoutubeWatchLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=y7FVLPvw1-I"),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data);
                                try {
                                    Assertions.assertEquals("Spéciale \u0090Énigmes - Myriogon #7", parser.getTitle());
@@ -128,7 +128,7 @@ public class YoutubeWatchLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=ytuHV2e4c4Q"),
                            (final Boolean b, final SiteData d) -> {
                               Assertions.assertTrue(d.getDataFile().isPresent());
-                              final String data = FileHelper.slurpFile(d.getDataFile().get());
+                              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                               final YoutubeWatchLinkContentParser parser = buildParser(data);
                               try {
                                   Assertions.assertEquals("Win a SMALL fortune with counting cards-the math of blackjack & Co.", parser.getTitle());
@@ -147,7 +147,7 @@ public class YoutubeWatchLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=aeF-0y9HP9A"),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data);
                                try {
                                    Assertions.assertEquals("Googling the Googlers\\' DNA: A Demonstration of the 23andMe Personal Genome S...", parser.getTitle());
@@ -166,7 +166,7 @@ public class YoutubeWatchLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=_kGqkxQo-Tw"),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data);
                                try {
                                    Assertions.assertEquals("Conférence organisée par les Amis de l'IHES le 23 mai 2019", parser.getDescription());
@@ -185,7 +185,7 @@ public class YoutubeWatchLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=y7FVLPvw1-I"),
                               (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data);
                                try {
                                    Assertions.assertEquals("Ce soir, on joue ensemble autour de quelques énigmes mathématiques.\n" +
@@ -206,7 +206,7 @@ public class YoutubeWatchLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=cJOSvvdy27I"),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data);
                                try {
                                    Assertions.assertEquals("Watch Metallica perform \"Master of Puppets\" live on the Howard Stern Show.\n" +
@@ -237,7 +237,7 @@ public class YoutubeWatchLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=_kGqkxQo-Tw"),
                               (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data);
                                try {
                                    Assertions.assertEquals(LocalDate.of(2019, 5, 27), parser.getUploadDate());
@@ -261,7 +261,7 @@ public class YoutubeWatchLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL("https://www.youtube.com/watch?v=_kGqkxQo-Tw"),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data);
                                try {
                                    Assertions.assertEquals(Duration.ofMillis(5602280), parser.getMinDuration());
@@ -292,7 +292,7 @@ public class YoutubeWatchLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data);
                                try {
                                    Assertions.assertEquals(Locale.ENGLISH, parser.getLanguage().get());
@@ -328,7 +328,7 @@ public class YoutubeWatchLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data);
                                try {
                                    Assertions.assertEquals(Locale.FRENCH, parser.getLanguage().get());
@@ -353,7 +353,7 @@ public class YoutubeWatchLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data);
                                Assertions.assertEquals(Locale.ENGLISH, parser.getSubtitlesLanguage().get());
                                consumerHasBeenCalled.set(true);
@@ -373,7 +373,7 @@ public class YoutubeWatchLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data);
                                Assertions.assertEquals(Locale.FRENCH, parser.getSubtitlesLanguage().get());
                                consumerHasBeenCalled.set(true);
@@ -392,7 +392,7 @@ public class YoutubeWatchLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data);
                                Assertions.assertTrue(parser.getSubtitlesLanguage().isEmpty());
                                consumerHasBeenCalled.set(true);
@@ -407,7 +407,7 @@ public class YoutubeWatchLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL("https://www.google.com"),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                try {
                                    @SuppressWarnings("unused")
                                    final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data);

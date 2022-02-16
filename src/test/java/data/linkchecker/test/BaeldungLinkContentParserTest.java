@@ -13,7 +13,7 @@ import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
 import data.linkchecker.ContentParserException;
 import data.linkchecker.baeldung.BaeldungLinkContentParser;
-import utils.FileHelper;
+import utils.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 
 public class BaeldungLinkContentParserTest {
@@ -25,7 +25,7 @@ public class BaeldungLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL("https://www.baeldung.com/crawler4j"),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(data);
                                try {
                                    Assertions.assertEquals("A Guide to Crawler4j", parser.getTitle());
@@ -48,7 +48,7 @@ public class BaeldungLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
           (final Boolean b, final SiteData d) -> {
               Assertions.assertTrue(d.getDataFile().isPresent());
-              final String data = FileHelper.slurpFile(d.getDataFile().get());
+              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
               final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(data);
               try {
                   Assertions.assertEquals(expectedDate, parser.getDate().toString());
@@ -78,7 +78,7 @@ public class BaeldungLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
           (final Boolean b, final SiteData d) -> {
               Assertions.assertTrue(d.getDataFile().isPresent());
-              final String data = FileHelper.slurpFile(d.getDataFile().get());
+              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
               final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(data);
               try {
                   Assertions.assertTrue(parser.getAuthor().isPresent());
@@ -101,7 +101,7 @@ public class BaeldungLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
           (final Boolean b, final SiteData d) -> {
               Assertions.assertTrue(d.getDataFile().isPresent());
-              final String data = FileHelper.slurpFile(d.getDataFile().get());
+              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
               final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(data);
               try {
                   Assertions.assertTrue(parser.getAuthor().isEmpty());

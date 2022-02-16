@@ -12,7 +12,7 @@ import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
 import data.linkchecker.ContentParserException;
 import data.linkchecker.arstechnica.ArsTechnicaLinkContentParser;
-import utils.FileHelper;
+import utils.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 
 public class ArsTechnicaLinkContentParserTest {
@@ -28,7 +28,7 @@ public class ArsTechnicaLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final ArsTechnicaLinkContentParser parser = new ArsTechnicaLinkContentParser(data);
                                try {
                                    Assertions.assertEquals(expectedTitle, parser.getTitle());
@@ -51,7 +51,7 @@ public class ArsTechnicaLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final ArsTechnicaLinkContentParser parser = new ArsTechnicaLinkContentParser(data);
                                try {
                                    Assertions.assertEquals(expectedSubtitle, parser.getSubtitle());
@@ -75,7 +75,7 @@ public class ArsTechnicaLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
           (final Boolean b, final SiteData d) -> {
               Assertions.assertTrue(d.getDataFile().isPresent());
-              final String data = FileHelper.slurpFile(d.getDataFile().get());
+              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
               final ArsTechnicaLinkContentParser parser = new ArsTechnicaLinkContentParser(data);
               try {
                   Assertions.assertEquals(expectedDate, parser.getDate().toString());
@@ -108,7 +108,7 @@ public class ArsTechnicaLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
           (final Boolean b, final SiteData d) -> {
               Assertions.assertTrue(d.getDataFile().isPresent());
-              final String data = FileHelper.slurpFile(d.getDataFile().get());
+              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
               final ArsTechnicaLinkContentParser parser = new ArsTechnicaLinkContentParser(data);
               try {
                   Assertions.assertTrue(parser.getAuthor().isPresent());
@@ -131,7 +131,7 @@ public class ArsTechnicaLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
           (final Boolean b, final SiteData d) -> {
               Assertions.assertTrue(d.getDataFile().isPresent());
-              final String data = FileHelper.slurpFile(d.getDataFile().get());
+              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
               final ArsTechnicaLinkContentParser parser = new ArsTechnicaLinkContentParser(data);
               try {
                   Assertions.assertFalse(parser.getAuthor().isPresent());

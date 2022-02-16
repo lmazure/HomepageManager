@@ -14,14 +14,13 @@ import java.util.regex.Pattern;
 
 import data.knowledge.WellKnownAuthors;
 import data.knowledge.WellKnownAuthorsOfLink;
-import utils.FileHelper;
 import utils.HtmlHelper;
 import utils.Logger;
 import utils.StringHelper;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
-import utils.xmlparsing.LinkFormat;
 import utils.xmlparsing.LinkData;
+import utils.xmlparsing.LinkFormat;
 
 public class LinkContentChecker {
 
@@ -42,7 +41,7 @@ public class LinkContentChecker {
     }
 
     public final List<LinkContentCheck> check() throws ContentParserException {
-        final String content = FileHelper.slurpFile(_file);
+        final String content = HtmlHelper.slurpFile(_file);
         final Pattern p = Pattern.compile("</HTML>\\p{Space}*$", Pattern.CASE_INSENSITIVE);
         final Matcher m = p.matcher(content);
 

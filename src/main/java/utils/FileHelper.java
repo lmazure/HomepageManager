@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CodingErrorAction;
 import java.nio.charset.StandardCharsets;
@@ -19,10 +20,12 @@ import java.nio.file.Paths;
  */
 public class FileHelper {
 
-    public static String slurpFile(final File file) {
-
-        final CharsetDecoder decoder = StandardCharsets.UTF_8.newDecoder();
-        decoder.onMalformedInput(CodingErrorAction.REPLACE);
+    public static String slurpFile(final File file,
+                                   final Charset charset) {
+        final CharsetDecoder decoder = charset.newDecoder();
+        if (charset.equals(StandardCharsets.UTF_8)) {
+            decoder.onMalformedInput(CodingErrorAction.REPLACE);
+        }
 
         try (final FileInputStream input = new FileInputStream(file);
              final InputStreamReader reader = new InputStreamReader(input, decoder);

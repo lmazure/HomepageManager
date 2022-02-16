@@ -13,7 +13,7 @@ import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
 import data.linkchecker.ContentParserException;
 import data.linkchecker.quantamagazine.QuantaMagazineLinkContentParser;
-import utils.FileHelper;
+import utils.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 
 public class QuantaMagazineLinkContentParserTest {
@@ -25,7 +25,7 @@ public class QuantaMagazineLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL("https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/"),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(data);
                                try {
                                    Assertions.assertEquals("Universal Method to Sort Complex Information Found", parser.getTitle());
@@ -44,7 +44,7 @@ public class QuantaMagazineLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL("https://www.quantamagazine.org/mathematician-solves-computer-science-conjecture-in-two-pages-20190725/"),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(data);
                                try {
                                    Assertions.assertEquals("Decades-Old Computer Science Conjecture Solved in Two Pages", parser.getTitle());
@@ -63,7 +63,7 @@ public class QuantaMagazineLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL("https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/"),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(data);
                                try {
                                    Assertions.assertEquals("The nearest neighbor problem asks where a new point fits into an existing data set. A few researchers set out to prove that there was no universal way to solve it. Instead, they found such a way.", parser.getSubtitle());
@@ -82,7 +82,7 @@ public class QuantaMagazineLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL("https://www.quantamagazine.org/mathematician-solves-computer-science-conjecture-in-two-pages-20190725/"),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(data);
                                try {
                                    Assertions.assertEquals("The “sensitivity” conjecture stumped many top computer scientists, yet the new proof is so simple that one researcher summed it up in a single tweet.", parser.getSubtitle());
@@ -101,7 +101,7 @@ public class QuantaMagazineLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL("https://www.quantamagazine.org/yitang-zhang-proves-landmark-theorem-in-distribution-of-prime-numbers-20130519/"),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(data);
                                try {
                                    Assertions.assertEquals("A virtually unknown researcher has made a great advance in one of mathematics’ oldest problems, the twin primes conjecture.", parser.getSubtitle());
@@ -126,7 +126,7 @@ public class QuantaMagazineLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(data);
                                try {
                                    Assertions.assertEquals(expectedSubtitle, parser.getSubtitle());
@@ -150,7 +150,7 @@ public class QuantaMagazineLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
           (final Boolean b, final SiteData d) -> {
               Assertions.assertTrue(d.getDataFile().isPresent());
-              final String data = FileHelper.slurpFile(d.getDataFile().get());
+              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
               final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(data);
               try {
                   Assertions.assertEquals(expectedDate, parser.getDate().toString());
@@ -182,7 +182,7 @@ public class QuantaMagazineLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
           (final Boolean b, final SiteData d) -> {
               Assertions.assertTrue(d.getDataFile().isPresent());
-              final String data = FileHelper.slurpFile(d.getDataFile().get());
+              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
               final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(data);
               try {
                   Assertions.assertEquals(expectedAuthor, parser.getAuthor());
@@ -212,7 +212,7 @@ public class QuantaMagazineLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
           (final Boolean b, final SiteData d) -> {
               Assertions.assertTrue(d.getDataFile().isPresent());
-              final String data = FileHelper.slurpFile(d.getDataFile().get());
+              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
               final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(data);
               try {
                   Assertions.assertEquals(expectedAuthor, parser.getAuthor());

@@ -11,7 +11,7 @@ import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
 import data.linkchecker.ContentParserException;
 import data.linkchecker.chromium.ChromiumBlogLinkContentParser;
-import utils.FileHelper;
+import utils.HtmlHelper;
 
 public class ChromiumBlogLinkContentParserTest {
 
@@ -27,7 +27,7 @@ public class ChromiumBlogLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final ChromiumBlogLinkContentParser parser = new ChromiumBlogLinkContentParser(data);
                                try {
                                    Assertions.assertEquals(expectedTitle, parser.getTitle());
@@ -50,7 +50,7 @@ public class ChromiumBlogLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final ChromiumBlogLinkContentParser parser = new ChromiumBlogLinkContentParser(data);
                                try {
                                    Assertions.assertEquals(expectedTitle, parser.getTitle());
@@ -77,7 +77,7 @@ public class ChromiumBlogLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final ChromiumBlogLinkContentParser parser = new ChromiumBlogLinkContentParser(data);
                                try {
                                    Assertions.assertEquals(expectedTitle, parser.getTitle());
@@ -100,7 +100,7 @@ public class ChromiumBlogLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final ChromiumBlogLinkContentParser parser = new ChromiumBlogLinkContentParser(data);
                                try {
                                    Assertions.assertEquals(expectedPublicationDate, parser.getPublicationDate().toString());

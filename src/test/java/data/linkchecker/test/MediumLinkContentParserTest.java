@@ -14,7 +14,7 @@ import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
 import data.linkchecker.ContentParserException;
 import data.linkchecker.medium.MediumLinkContentParser;
-import utils.FileHelper;
+import utils.HtmlHelper;
 import utils.StringHelper;
 import utils.xmlparsing.AuthorData;
 
@@ -40,7 +40,7 @@ public class MediumLinkContentParserTest {
         retriever.retrieve(TestHelper.buildURL(url),
           (final Boolean b, final SiteData d) -> {
               Assertions.assertTrue(d.getDataFile().isPresent());
-              final String data = FileHelper.slurpFile(d.getDataFile().get());
+              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
               final MediumLinkContentParser parser = new MediumLinkContentParser(data, StringHelper.convertStringToUrl(url));
               try {
                   Assertions.assertEquals(expectedAuthor, parser.getAuthors().get(0));
@@ -60,7 +60,7 @@ public class MediumLinkContentParserTest {
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final MediumLinkContentParser parser = new MediumLinkContentParser(data, url);
                                try {
                                    Assertions.assertEquals("SB Changes", parser.getTitle());
@@ -85,7 +85,7 @@ public class MediumLinkContentParserTest {
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final MediumLinkContentParser parser = new MediumLinkContentParser(data, url);
                                try {
                                    Assertions.assertEquals(expectedTitle, parser.getTitle());
@@ -105,7 +105,7 @@ public class MediumLinkContentParserTest {
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final MediumLinkContentParser parser = new MediumLinkContentParser(data, url);
                                try {
                                    Assertions.assertEquals("TCR (test && commit || revert). How to use? Alternative to TDD?", parser.getTitle());
@@ -125,7 +125,7 @@ public class MediumLinkContentParserTest {
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final MediumLinkContentParser parser = new MediumLinkContentParser(data, url);
                                try {
                                    Assertions.assertEquals("Monolith -> Services: Theory & Practice", parser.getTitle());
@@ -145,7 +145,7 @@ public class MediumLinkContentParserTest {
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final MediumLinkContentParser parser = new MediumLinkContentParser(data, url);
                                try {
                                    Assertions.assertEquals("Fast/Slow in 3X: Explore/Expand/Extract", parser.getTitle());
@@ -170,7 +170,7 @@ public class MediumLinkContentParserTest {
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final MediumLinkContentParser parser = new MediumLinkContentParser(data, url);
                                try {
                                    Assertions.assertEquals(expectedTitle, parser.getTitle());
@@ -190,7 +190,7 @@ public class MediumLinkContentParserTest {
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final MediumLinkContentParser parser = new MediumLinkContentParser(data, url);
                                try {
                                    Assertions.assertEquals("How to Build a High Velocity Development Team", parser.getTitle());
@@ -210,7 +210,7 @@ public class MediumLinkContentParserTest {
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final MediumLinkContentParser parser = new MediumLinkContentParser(data, url);
                                try {
                                    Assertions.assertEquals("A Microscope on Microservices", parser.getTitle());
@@ -239,7 +239,7 @@ public class MediumLinkContentParserTest {
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final MediumLinkContentParser parser = new MediumLinkContentParser(data, url);
                                try {
                                    Assertions.assertEquals(expectedDate, parser.getPublicationDate().toString());
@@ -265,7 +265,7 @@ public class MediumLinkContentParserTest {
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = FileHelper.slurpFile(d.getDataFile().get());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final MediumLinkContentParser parser = new MediumLinkContentParser(data, url);
                                try {
                                    Assertions.assertEquals(expectedPublicationDate, parser.getPublicationDate().toString());
