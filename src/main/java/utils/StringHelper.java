@@ -135,7 +135,7 @@ public class StringHelper {
         }
         return builder.toString();
     }
-    
+
     public static String compareAndExplainDifference(final String str1,
                                                      final String str2) {
         if (str1.equals(str2)) {

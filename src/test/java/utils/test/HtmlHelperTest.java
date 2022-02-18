@@ -65,7 +65,6 @@ public class HtmlHelperTest {
         Assertions.assertEquals(expected, HtmlHelper.removeHtmlTags(input));
     }
 
-    
     @ParameterizedTest
     @CsvSource(value = {
         "https://www.lemondeinformatique.fr/actualites/lire-log4j-une-autre-vulnerabilite-corrigee-par-apache-85265.html|iso-8859-1",

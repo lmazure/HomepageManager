@@ -99,7 +99,7 @@ public class OracleBlogsLinkContentParser {
             _authorException = null;
             return;
         }
- 
+
         // retrieve article information
         String articleJson = null;
         try {

@@ -65,7 +65,9 @@ public class HtmlHelper {
             final Charset charset = Charset.forName(charsetName);
             return Optional.of(charset);
         } catch (final UnsupportedCharsetException e) {
-            Logger.log(Logger.Level.INFO).append("Invalid charset name").append(e);
+            Logger.log(Logger.Level.INFO)
+                  .append("Invalid charset name")
+                  .append(e);
             return Optional.empty();
         }
     }
