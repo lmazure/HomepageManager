@@ -1,14 +1,8 @@
 package utils;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.nio.charset.Charset;
-import java.nio.charset.CharsetDecoder;
-import java.nio.charset.CodingErrorAction;
 import java.nio.charset.StandardCharsets;
 import java.nio.charset.UnsupportedCharsetException;
 import java.util.HashMap;
@@ -23,41 +17,42 @@ public class HtmlHelper {
         return FileHelper.slurpFile(file, charset);
     }
 
+    public static Optional<Charset> getCharset(final File file) {
+        final String data = FileHelper.slurpFile(file, StandardCharsets.UTF_8);
+        final int length = data.length();
+        for (int i=0; i < length; i++) {
+            if (data.startsWith("<meta", i)) {
+                final int j = data.indexOf('>', i);
+                if (j < 0) {
+                    return Optional.empty();
+                }
+                final Optional<Charset> charset = extractCharsetFromString(data.substring(i, j + 1));
+                if (charset.isPresent()) {
+                    return charset;
+                }
+            }
+        }
+        return Optional.empty();
+    }
+
     private static final Pattern _pattern1 = Pattern.compile(".*<meta\\s+charset\\s*=\\s*['\"]([^'\"]+)['\"]\\s*/?>.*", Pattern.CASE_INSENSITIVE);
     private static final Pattern _pattern2 = Pattern.compile(".*<meta\\s+http-equiv\\s*=\\s*['\"]Content-Type['\"]\\s+content\\s*=\\s*['\"]text/html;\\s*charset=([^'\"]+)['\"]\\s*/?>.*", Pattern.CASE_INSENSITIVE);
     private static final Pattern _pattern3 = Pattern.compile(".*<meta\\s+content\\s*=\\s*['\"]text/html;\\s*charset=([^'\"]+)['\"]\\s+http-equiv\\s*=\\s*['\"]Content-Type([^\"]+)\\s*/?>.*", Pattern.CASE_INSENSITIVE);
-    
-    public static Optional<Charset> getCharset(final File file) {
 
-        final CharsetDecoder decoder = StandardCharsets.UTF_8.newDecoder();
-        decoder.onMalformedInput(CodingErrorAction.REPLACE);
-
-        try (final FileInputStream input = new FileInputStream(file);
-             final InputStreamReader reader = new InputStreamReader(input, decoder);
-             final BufferedReader bufferedReader = new BufferedReader(reader)) {
-               for (;;) {
-                   final String line = bufferedReader.readLine();
-                   if (line == null) {
-                       return Optional.empty();
-                   }
-                   final Matcher m1 = _pattern1.matcher(line);
-                   if (m1.find()) {
-                       return createCharsetFromName(m1.group(1));
-                   }
-                   final Matcher m2 = _pattern2.matcher(line);
-                   if (m2.find()) {
-                       return createCharsetFromName(m2.group(1));
-                   }
-                   final Matcher m3 = _pattern3.matcher(line);
-                   if (m3.find()) {
-                       return createCharsetFromName(m3.group(1));
-                   }
-               }
-           } catch (final IOException e) {
-               ExitHelper.exit(e);
-               // NOT REACHED
-               return null;
-           }
+    private static Optional<Charset> extractCharsetFromString(final String str) {
+        final Matcher m1 = _pattern1.matcher(str);
+        if (m1.find()) {
+            return createCharsetFromName(m1.group(1));
+        }
+        final Matcher m2 = _pattern2.matcher(str);
+        if (m2.find()) {
+            return createCharsetFromName(m2.group(1));
+        }
+        final Matcher m3 = _pattern3.matcher(str);
+        if (m3.find()) {
+            return createCharsetFromName(m3.group(1));
+        }
+        return Optional.empty();
     }
 
     private static Optional<Charset> createCharsetFromName(final String charsetName) {
