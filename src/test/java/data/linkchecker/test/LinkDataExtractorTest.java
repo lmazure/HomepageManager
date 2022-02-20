@@ -259,6 +259,23 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchMathologerIsManaged() throws ContentParserException {
+        final String url =
+            "https://www.youtube.com/watch?v=6ZrO90AI0c8";
+        final String expectedXml = """
+                <ARTICLE><X><T>Tesla’s 3-6-9 and Vortex Math: Is this really the key to the universe?</T>\
+                <A>https://www.youtube.com/watch?v=6ZrO90AI0c8</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>29</MINUTE><SECOND>58</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Burkard</FIRSTNAME><LASTNAME>Polster</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>2</MONTH><DAY>19</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeWatchLeRéveilleurIsManaged() throws ContentParserException {
         final String url =
             "https://www.youtube.com/watch?v=OAyYSlMhgI4";

@@ -25,6 +25,7 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
             new AbstractMap.SimpleEntry<>("J'm'énerve pas, j'explique", new ChannelData(buildListFromOneAuthor("Bertrand", "Augustin"), Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("History of the Earth", new ChannelData(buildListFromThreeAuthors("David", "Kelly", "Pete", "Kelly", "Kelly", "Battison"), Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Le Réveilleur", new ChannelData(buildListFromOneAuthor("Rodolphe", "Meyer"), Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("Mathologer", new ChannelData(buildListFromOneAuthor("Burkard", "Polster"), Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("monsieur bidouille", new ChannelData(buildListFromOneAuthor("Dimitri", "Ferrière"), Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("Monsieur Phi", new ChannelData(buildListFromOneAuthor("Thibaut", "Giraud"), Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("Passe-Science", new ChannelData(buildListFromOneAuthor("Thomas", "Cabaret"), Locale.FRENCH)),
