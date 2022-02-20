@@ -4,6 +4,7 @@ import java.net.URL;
 import java.nio.file.Path;
 
 import data.linkchecker.arstechnica.ArsTechnicaLinkDataExtractor;
+import data.linkchecker.baeldung.BaeldungLinkDataExtractor;
 import data.linkchecker.gitlabblog.GitlabBlogLinkDataExtractor;
 import data.linkchecker.medium.MediumLinkDataExtractor;
 import data.linkchecker.oracleblogs.OracleBlogsLinkDataExtractor;
@@ -21,6 +22,10 @@ public class LinkDataExtractorFactory {
 
         if (urlString.startsWith("https://arstechnica.com/")) {
             return new ArsTechnicaLinkDataExtractor(u, cacheDirectory);
+        }
+
+        if (urlString.startsWith("https://www.baeldung.com/") && !urlString.equals("https://www.baeldung.com/")) {
+            return new BaeldungLinkDataExtractor(u, cacheDirectory);
         }
 
 

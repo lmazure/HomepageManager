@@ -14,7 +14,7 @@ import utils.xmlparsing.AuthorData;
 
 public abstract class LinkDataExtractor {
 
-    private URL _url;
+    private final URL _url;
     private String _content;
 
     public LinkDataExtractor(final URL url,

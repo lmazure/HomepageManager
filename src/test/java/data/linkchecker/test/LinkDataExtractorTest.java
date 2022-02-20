@@ -34,6 +34,22 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void  baeldungIsManaged() throws ContentParserException {
+        final String url =
+            "https://www.baeldung.com/java-unit-testing-best-practices";
+        final String expectedXml = """
+                <ARTICLE><X><T>Best Practices For Unit Testing In Java</T>\
+                <A>https://www.baeldung.com/java-unit-testing-best-practices</A>\
+                <L>en</L><F>HTML</F></X>\
+                <AUTHOR><FIRSTNAME>Anshul</FIRSTNAME><LASTNAME>Bansal</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2021</YEAR><MONTH>11</MONTH><DAY>16</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, XmlGenerator.generateXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+    @Test
     void gitlabBlogIsManaged() throws ContentParserException {
         final String url =
             "https://about.gitlab.com/blog/2021/11/10/a-special-farewell-from-gitlab-dmitriy-zaporozhets/";
