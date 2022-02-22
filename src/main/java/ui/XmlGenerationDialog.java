@@ -67,7 +67,7 @@ public class XmlGenerationDialog extends Dialog<Void> {
 
         String xml;
         try {
-            xml = XmlGenerator.generateXml(extractor);
+            xml = XmlGenerator.generateXml(extractor.getLinks(), extractor.getDate(), extractor.getSureAuthors());
         } catch (final ContentParserException e) {
             displayError("Cannot generate XML", "Failed to parse the URL data:\n" + e.getMessage());
             return;

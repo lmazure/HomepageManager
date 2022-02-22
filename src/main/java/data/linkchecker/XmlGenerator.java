@@ -3,17 +3,21 @@ package data.linkchecker;
 import java.time.Duration;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
+import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkFormat;
 
 public class XmlGenerator {
 
-    public static String generateXml(final LinkDataExtractor extractor) throws ContentParserException {
+    public static String generateXml(final List<ExtractedLinkData> links,
+                                     final Optional<TemporalAccessor> date,
+                                     final List<AuthorData> authors) {
         final StringBuilder builder = new StringBuilder();
         builder.append("<ARTICLE>");
-        for (ExtractedLinkData linkData: extractor.getLinks()) {
+        for (ExtractedLinkData linkData: links) {
             builder.append("<X");
             if (linkData.getStatus().isPresent()) {
                 builder.append(" status=\"");
@@ -72,11 +76,11 @@ public class XmlGenerator {
             }
             builder.append("</X>");
         }
-        for (AuthorData authorData: extractor.getSureAuthors() ) {
+        for (AuthorData authorData: authors ) {
             builder.append(generateAuthor(authorData));
         }
-        if (extractor.getDate().isPresent()) {
-            builder.append(generateDate(extractor.getDate().get()));
+        if (date.isPresent()) {
+            builder.append(generateDate(date.get()));
         }
         builder.append("<COMMENT>XXXXX</COMMENT>");
         builder.append("</ARTICLE>");
