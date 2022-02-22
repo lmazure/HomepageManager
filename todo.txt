@@ -1,3 +1,5 @@
+nettoyer links/firefox.xml et autres pages de browser
+
 nettoyer
 - notes/chrome.xml
 - clintrials.xml

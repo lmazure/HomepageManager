@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.time.temporal.TemporalAccessor;
 import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -18,32 +19,84 @@ import utils.xmlparsing.LinkFormat;
 public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtractor {
 
     private final static Map<String, ChannelData> _channelData = Map.ofEntries(
-            new AbstractMap.SimpleEntry<>("3Blue1Brown", new ChannelData(buildListFromOneAuthor("Grant", "Sanderson"), Locale.ENGLISH)),
-            new AbstractMap.SimpleEntry<>("AstronoGeek", new ChannelData(buildListFromOneAuthor("Arnaud", "Thiry"), Locale.FRENCH)),
-            new AbstractMap.SimpleEntry<>("Balade Mentale", new ChannelData(buildListFromOneAuthor("Théo", "Drieu"), Locale.FRENCH)),
-            new AbstractMap.SimpleEntry<>("Chat Sceptique", new ChannelData(buildListFromOneAuthor("Nathan", "Uyttendaele"), Locale.FRENCH)),
-            new AbstractMap.SimpleEntry<>("Dr. Becky", new ChannelData(buildListFromOneAuthor("Becky", "Smethurst"), Locale.ENGLISH)),
-            new AbstractMap.SimpleEntry<>("Heu?reka", new ChannelData(buildListFromOneAuthor("Gilles", "Mitteau"), Locale.FRENCH)),
-            new AbstractMap.SimpleEntry<>("J'm'énerve pas, j'explique", new ChannelData(buildListFromOneAuthor("Bertrand", "Augustin"), Locale.FRENCH)),
-            new AbstractMap.SimpleEntry<>("History of the Earth", new ChannelData(buildListFromThreeAuthors("David", "Kelly", "Pete", "Kelly", "Kelly", "Battison"), Locale.ENGLISH)),
-            new AbstractMap.SimpleEntry<>("Le Réveilleur", new ChannelData(buildListFromOneAuthor("Rodolphe", "Meyer"), Locale.FRENCH)),
-            new AbstractMap.SimpleEntry<>("Mathologer", new ChannelData(buildListFromOneAuthor("Burkard", "Polster"), Locale.ENGLISH)),
-            new AbstractMap.SimpleEntry<>("monsieur bidouille", new ChannelData(buildListFromOneAuthor("Dimitri", "Ferrière"), Locale.FRENCH)),
-            new AbstractMap.SimpleEntry<>("Monsieur Phi", new ChannelData(buildListFromOneAuthor("Thibaut", "Giraud"), Locale.FRENCH)),
-            new AbstractMap.SimpleEntry<>("Passe-Science", new ChannelData(buildListFromOneAuthor("Thomas", "Cabaret"), Locale.FRENCH)),
-            new AbstractMap.SimpleEntry<>("Quadriviuum Tremens", new ChannelData(buildListFromTwoAuthors("Tristan", "Audam-Dabidin", "Keshika", "Dabidin"), Locale.FRENCH)),
-            new AbstractMap.SimpleEntry<>("Robert Miles", new ChannelData(buildListFromOneAuthor("Robert", "Miles"), Locale.ENGLISH)),
-            new AbstractMap.SimpleEntry<>("Sabine Hossenfelder", new ChannelData(buildListFromOneAuthor("Sabine", "Hossenfelder"), Locale.ENGLISH)),
-            new AbstractMap.SimpleEntry<>("ScienceClic", new ChannelData(buildListFromOneAuthor("Alessandro", "Roussel"), Locale.FRENCH)),
-            new AbstractMap.SimpleEntry<>("ScienceEtonnante", new ChannelData(buildListFromOneAuthor("David", "Louapre"), Locale.FRENCH)),
-            new AbstractMap.SimpleEntry<>("Stand-up Maths", new ChannelData(buildListFromOneAuthor("Matt", "Parker"), Locale.ENGLISH)),
-            new AbstractMap.SimpleEntry<>("Science4All", new ChannelData(buildListFromOneAuthor("Lê", "Nguyên Hoang"), Locale.FRENCH)),
-            new AbstractMap.SimpleEntry<>("Thomaths", new ChannelData(buildListFromOneAuthor("Alexander", "Thomas"), Locale.FRENCH)),
-            new AbstractMap.SimpleEntry<>("Tom Scott", new ChannelData(buildListFromOneAuthor("Tom", "Scott"), Locale.ENGLISH)),
-            new AbstractMap.SimpleEntry<>("Tric Trac", new ChannelData(buildListFromTwoAuthors("Guillaume", "Chifoumi", "François", "Décamp"), Locale.FRENCH)),
-            new AbstractMap.SimpleEntry<>("Veritasium", new ChannelData(buildListFromOneAuthor("Derek", "Muller"), Locale.ENGLISH)),
-            new AbstractMap.SimpleEntry<>("Web Dev Simplified", new ChannelData(buildListFromOneAuthor("Kyle", "Cook"), Locale.ENGLISH)),
-            new AbstractMap.SimpleEntry<>("WonderWhy", new ChannelData(buildListFromOneAuthorFromGivenName("WonderWhy"), Locale.ENGLISH))
+            new AbstractMap.SimpleEntry<>("3Blue1Brown",
+                                          new ChannelData(buildList(buildAuthor("Grant", "Sanderson")),
+                                                          Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("AstronoGeek",
+                                          new ChannelData(buildList(buildAuthor("Arnaud", "Thiry")),
+                                                          Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("Balade Mentale",
+                                          new ChannelData(buildList(buildAuthor("Théo", "Drieu")),
+                                                          Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("Chat Sceptique",
+                                          new ChannelData(buildList(buildAuthor("Nathan", "Uyttendaele")),
+                                                          Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("Dr. Becky",
+                                          new ChannelData(buildList(buildAuthor("Becky", "Smethurst")),
+                                                          Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("Heu?reka",
+                                          new ChannelData(buildList(buildAuthor("Gilles", "Mitteau")),
+                                                          Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("J'm'énerve pas, j'explique",
+                                          new ChannelData(buildList(buildAuthor("Bertrand", "Augustin")),
+                                                          Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("History of the Earth",
+                                          new ChannelData(buildList(buildAuthor("David", "Kelly"), buildAuthor("Pete", "Kelly"), buildAuthor("Kelly", "Battison")),
+                                                          Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("Le Réveilleur",
+                                          new ChannelData(buildList(buildAuthor("Rodolphe", "Meyer")),
+                                                          Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("Mathologer",
+                                          new ChannelData(buildList(buildAuthor("Burkard", "Polster")),
+                                                          Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("monsieur bidouille",
+                                          new ChannelData(buildList(buildAuthor("Dimitri", "Ferrière")),
+                                                          Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("Monsieur Phi",
+                                          new ChannelData(buildList(buildAuthor("Thibaut", "Giraud")),
+                                                          Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("Passe-Science",
+                                          new ChannelData(buildList(buildAuthor("Thomas", "Cabaret")),
+                                                          Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("Quadriviuum Tremens",
+                                          new ChannelData(buildList(buildAuthor("Tristan", "Audam-Dabidin"), buildAuthor("Keshika", "Dabidin")),
+                                                          Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("Robert Miles",
+                                          new ChannelData(buildList(buildAuthor("Robert", "Miles")),
+                                                          Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("Sabine Hossenfelder",
+                                          new ChannelData(buildList(buildAuthor("Sabine", "Hossenfelder")),
+                                                          Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("ScienceClic",
+                                          new ChannelData(buildList(buildAuthor("Alessandro", "Roussel")),
+                                                          Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("ScienceEtonnante",
+                                          new ChannelData(buildList(buildAuthor("David", "Louapre")),
+                                                          Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("Stand-up Maths",
+                                          new ChannelData(buildList(buildAuthor("Matt", "Parker")),
+                                                          Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("Science4All",
+                                          new ChannelData(buildList(buildAuthor("Lê", "Nguyên Hoang")),
+                                                          Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("Thomaths",
+                                          new ChannelData(buildList(buildAuthor("Alexander", "Thomas")),
+                                                          Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("Tom Scott",
+                                          new ChannelData(buildList(buildAuthor("Tom", "Scott")),
+                                                          Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("Tric Trac",
+                                          new ChannelData(buildList(buildAuthor("Guillaume", "Chifoumi"), buildAuthor("François", "Décamp")),
+                                                          Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("Veritasium",
+                                          new ChannelData(buildList(buildAuthor("Derek", "Muller")),
+                                                          Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("Web Dev Simplified",
+                                          new ChannelData(buildList(buildAuthor("Kyle", "Cook")),
+                                                          Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("WonderWhy",
+                                          new ChannelData(buildList(buildAuthorFromGivenName("WonderWhy")),
+                                                          Locale.ENGLISH))
             );
     private final YoutubeWatchLinkContentParser _parser;
 
@@ -62,15 +115,15 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
     public List<AuthorData> getSureAuthors() throws ContentParserException {
         final String channel = _parser.getChannel();
         if (_channelData.containsKey(channel)) {
-            return _channelData.get(channel).authors();
+            return _channelData.get(channel).getAuthors();
         }
         if (channel.equals("Java")) {
             final String title = _parser.getTitle();
             if (title.contains("Inside Java Newscast")) {
-                return buildListFromOneAuthor("Nicolai", "Parlog");
+                return buildList(buildAuthor("Nicolai", "Parlog"));
             }
             if (title.contains("JEP Café")) {
-                return buildListFromOneAuthor("José", "Paumard");
+                return buildList(buildAuthor("José", "Paumard"));
             }
         }
         return new ArrayList<>(0);
@@ -89,7 +142,7 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
     @Override
     public List<ExtractedLinkData> getLinks() throws ContentParserException {
         final String channel = _parser.getChannel();
-        final Locale lang = (_channelData.containsKey(channel)) ? _channelData.get(channel).language()
+        final Locale lang = (_channelData.containsKey(channel)) ? _channelData.get(channel).getLanguage()
                                                                 : Locale.ENGLISH;
         final ExtractedLinkData linkData = new ExtractedLinkData(_parser.getTitle(),
                                                                  new String[0],
@@ -105,42 +158,12 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
         return list;
     }
 
-    private static List<AuthorData> buildListFromOneAuthor(final String firstName,
-                                                           final String lastName) {
-        final List<AuthorData> list = new ArrayList<>(1);
-        list.add(buildAuthorFromFirstAndLastName(firstName, lastName));
-        return list;
+    private static List<AuthorData> buildList(final AuthorData ... authors) {
+        return Arrays.asList(authors);
     }
 
-    private static List<AuthorData> buildListFromOneAuthorFromGivenName(final String givenName) {
-            final List<AuthorData> list = new ArrayList<>(1);
-            list.add(buildAuthorFromGivenName(givenName));
-            return list;
-    }
-
-    private static List<AuthorData> buildListFromTwoAuthors(final String firstName1,
-                                                            final String lastName1,
-                                                            final String firstName2,
-                                                            final String lastName2) {
-        final List<AuthorData> list = buildListFromOneAuthor(firstName1, lastName1);
-        list.add(buildAuthorFromFirstAndLastName(firstName2, lastName2));
-        return list;
-    }
-
-    private static List<AuthorData> buildListFromThreeAuthors(final String firstName1,
-                                                              final String lastName1,
-                                                              final String firstName2,
-                                                              final String lastName2,
-                                                              final String firstName3,
-                                                              final String lastName3) {
-        final List<AuthorData> list = buildListFromOneAuthor(firstName1, lastName1);
-        list.add(buildAuthorFromFirstAndLastName(firstName2, lastName2));
-        list.add(buildAuthorFromFirstAndLastName(firstName3, lastName3));
-        return list;
-    }
-
-    private static AuthorData buildAuthorFromFirstAndLastName(final String firstName,
-                                                              final String lastName) {
+    private static AuthorData buildAuthor(final String firstName,
+                                          final String lastName) {
     return new AuthorData(Optional.empty(),
                           Optional.of(firstName),
                           Optional.empty(),
@@ -158,8 +181,22 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
                               Optional.of(givenName));
 }
 
-   private record ChannelData(List<AuthorData> authors,
-                              Locale language) {
-       // DO NOTHING
+   private static class ChannelData {
+       final List<AuthorData> _authors;
+       final Locale _language;
+
+       public ChannelData(final List<AuthorData> authors,
+                          final Locale language) {
+        _authors = authors;
+        _language = language;
+    }
+
+    private List<AuthorData> getAuthors() {
+        return _authors;
+    }
+
+    private Locale getLanguage() {
+        return _language;
+    }
    }
 }
