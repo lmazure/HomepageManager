@@ -1,3 +1,9 @@
+retirer le /post dans les URLs https://blogs.oracle.com/javamagazine/post/curly-braces-java-git-monorepo
+
+afficher le XMl généré dans u textfield de plusieurs lignes
+
+nettoyer companies.xml
+
 nettoyer links/firefox.xml et autres pages de browser
 
 nettoyer
@@ -12,8 +18,6 @@ nettoyer abbreven.xml
 nettoyer javahistory.xml
 
 gérer titre et sous-titre de https://medium.com/backchannel/has-deepmind-really-passed-go-adc85e256bec (ajouter les tests unitaires correspondants)
-
-retirer le /post dans les URLs https://blogs.oracle.com/javamagazine/post/curly-braces-java-git-monorepo
 
 ajouter support de https://about.gitlab.com/releases/2022/01/22/gitlab-14-7-released/
 

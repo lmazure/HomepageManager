@@ -253,6 +253,29 @@ public class LinkDataExtractorTest {
         Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
     }
 
+
+    @Test
+    void youtubeWatchDeepSkyVideosIsManaged3() throws ContentParserException {
+        final String url =
+            "https://www.youtube.com/watch?v=2d2YCUdt2gc";
+        final String expectedSureXml = """
+                <ARTICLE><X><T>M61 - Barred Spiral Galaxy - Deep Sky Videos</T>\
+                <A>https://www.youtube.com/watch?v=2d2YCUdt2gc</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>58</SECOND></DURATION></X>\
+                <DATE><YEAR>2022</YEAR><MONTH>2</MONTH><DAY>16</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final String expectedProbableXml = """
+                <ARTICLE><X><T>M61 - Barred Spiral Galaxy - Deep Sky Videos</T>\
+                <A>https://www.youtube.com/watch?v=2d2YCUdt2gc</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>58</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Michael</FIRSTNAME><LASTNAME>Merrifield</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>2</MONTH><DAY>16</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
+        Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
+    }
+
     @Test
     void youtubeWatchHistoryOfTheEarthIsManaged() throws ContentParserException {
         final String url =
