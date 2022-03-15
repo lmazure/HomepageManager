@@ -1,6 +1,4 @@
-retirer le /post dans les URLs https://blogs.oracle.com/javamagazine/post/curly-braces-java-git-monorepo
-
-afficher le XMl généré dans u textfield de plusieurs lignes
+retirer &t=3s à la fin des liens youtube 
 
 nettoyer companies.xml
 

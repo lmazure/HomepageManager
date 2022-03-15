@@ -107,6 +107,23 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void oracleBlogsWithPostinUrlIsManaged() throws ContentParserException {
+        final String url =
+            "https://blogs.oracle.com/javamagazine/post/java-nio-nio2-buffers-channels-async-future-callback";
+        final String expectedXml = """
+                <ARTICLE><X><T>Modern file input/output with Java: Going fast with NIO and NIO.2</T>\
+                <ST>Reach for these low-level Java APIs when you need to move a lot of file data or socket data quickly.</ST>\
+                <A>https://blogs.oracle.com/javamagazine/java-nio-nio2-buffers-channels-async-future-callback</A><L>en</L><F>HTML</F></X>\
+                <AUTHOR><FIRSTNAME>Ben</FIRSTNAME><LASTNAME>Evans</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>1</MONTH><DAY>7</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void quantaMagazineIsManaged() throws ContentParserException {
         final String url =
             "https://www.quantamagazine.org/mathematician-answers-chess-problem-about-attacking-queens-20210921/";
@@ -339,6 +356,23 @@ public class LinkDataExtractorTest {
                 <L>fr</L><F>MP4</F><DURATION><MINUTE>50</MINUTE><SECOND>14</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Gilles</FIRSTNAME><LASTNAME>Mitteau</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>2</MONTH><DAY>21</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
+    void youtubeHolgerVoormannIsManaged() throws ContentParserException {
+        final String url =
+            "https://www.youtube.com/watch?v=GnNnQY5ujFg";
+        final String expectedXml = """
+                <ARTICLE><X><T>+++Upcoming on March 16, 2022+++ Eclipse 2022-03 Java IDE Improvements</T>\
+                <A>https://www.youtube.com/watch?v=GnNnQY5ujFg</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>14</MINUTE><SECOND>58</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Holger</FIRSTNAME><LASTNAME>Voormann</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>3</MONTH><DAY>15</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
@@ -671,6 +705,23 @@ public class LinkDataExtractorTest {
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
+
+    @Test
+    void  youtubeWatchUrlInListIsManaged() throws ContentParserException {
+        final String url =
+            "https://www.youtube.com/watch?v=C926N9zMJkU&list=WL&index=11";
+        final String expectedXml = """
+                <ARTICLE><X><T>5 Must Know VSCode Shortcuts</T>\
+                <A>https://www.youtube.com/watch?v=C926N9zMJkU</A>\
+                <L>en</L><F>MP4</F><DURATION><SECOND>49</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Kyle</FIRSTNAME><LASTNAME>Cook</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>3</MONTH><DAY>3</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
     @Test
     void urlIsCleanedFromUtmParameters() throws ContentParserException {
         final String url =

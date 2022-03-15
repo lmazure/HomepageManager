@@ -34,7 +34,8 @@ public class LinkDataExtractorFactory {
         }
 
         if (urlString.matches("https://blogs.oracle.com/javamagazine/.+")) {
-            return new OracleBlogsLinkDataExtractor(u, cacheDirectory);
+            final URL u2 = StringHelper.convertStringToUrl(u.toString().replace("/post/", "/"));
+            return new OracleBlogsLinkDataExtractor(u2, cacheDirectory);
         }
 
         if (urlString.startsWith("https://www.quantamagazine.org/")) {
@@ -42,7 +43,8 @@ public class LinkDataExtractorFactory {
         }
 
         if (urlString.startsWith("https://www.youtube.com/watch?v=")) {
-            return new YoutubeWatchLinkDataExtractor(u, cacheDirectory);
+            final URL u2 = StringHelper.convertStringToUrl(u.toString().replaceAll("&.*$", ""));
+            return new YoutubeWatchLinkDataExtractor(u2, cacheDirectory);
         }
 
         if (urlString.startsWith("https://about.gitlab.com/blog/")) {

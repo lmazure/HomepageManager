@@ -12,6 +12,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
@@ -21,7 +22,7 @@ import utils.StringHelper;
 public class XmlGenerationDialog extends Dialog<Void> {
 
     private final TextField _urlField;
-    private final TextField _xmlField;
+    private final TextArea _xmlField;
     private final Path _cacheDirectory;
 
     public XmlGenerationDialog(final Path cacheDirectory) {
@@ -35,8 +36,10 @@ public class XmlGenerationDialog extends Dialog<Void> {
         pasteUrl.setOnAction(e -> pasteUrl());
         final Button generateXml = new Button("Generate XML");
         generateXml.setOnAction(e -> generateXml());
-        _xmlField = new TextField();
+        _xmlField = new TextArea();
         _xmlField.setMinWidth(640);
+        _xmlField.setPrefRowCount(6);
+        _xmlField.setWrapText(true);
         final Button copyXml = new Button("Copy XML");
         copyXml.setOnAction(e -> copyXml());
         final VBox vbox = new VBox(_urlField, pasteUrl, generateXml, _xmlField, copyXml);
