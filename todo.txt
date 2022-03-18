@@ -1,4 +1,4 @@
-retirer &t=3s à la fin des liens youtube 
+nettoyer chrome.xml
 
 nettoyer companies.xml
 

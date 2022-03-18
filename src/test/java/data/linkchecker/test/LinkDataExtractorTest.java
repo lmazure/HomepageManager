@@ -193,6 +193,23 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchBlackPenRedPenIsManaged() throws ContentParserException {
+        final String url =
+            "https://www.youtube.com/watch?v=eex9Gm_rOrQ";
+        final String expectedXml = """
+                <ARTICLE><X><T>homemade triple exponential equation</T>\
+                <A>https://www.youtube.com/watch?v=eex9Gm_rOrQ</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>7</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Steve</FIRSTNAME><LASTNAME>Chow</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>17</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeWatchChatSceptiqueIsManaged() throws ContentParserException {
         final String url =
             "https://www.youtube.com/watch?v=VubMw46DK0U";
@@ -368,7 +385,7 @@ public class LinkDataExtractorTest {
         final String url =
             "https://www.youtube.com/watch?v=GnNnQY5ujFg";
         final String expectedXml = """
-                <ARTICLE><X><T>+++Upcoming on March 16, 2022+++ Eclipse 2022-03 Java IDE Improvements</T>\
+                <ARTICLE><X><T>Eclipse 2022-03 Java IDE Improvements</T>\
                 <A>https://www.youtube.com/watch?v=GnNnQY5ujFg</A>\
                 <L>fr</L><F>MP4</F><DURATION><MINUTE>14</MINUTE><SECOND>58</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Holger</FIRSTNAME><LASTNAME>Voormann</LASTNAME></AUTHOR>\
@@ -398,6 +415,23 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchLeRéveilleurIsManaged() throws ContentParserException {
+        final String url =
+            "https://www.youtube.com/watch?v=OAyYSlMhgI4";
+        final String expectedXml = """
+                <ARTICLE><X><T>Les terres rares.</T>\
+                <A>https://www.youtube.com/watch?v=OAyYSlMhgI4</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>35</MINUTE><SECOND>38</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Rodolphe</FIRSTNAME><LASTNAME>Meyer</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>12</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeWatchMathologerIsManaged() throws ContentParserException {
         final String url =
             "https://www.youtube.com/watch?v=6ZrO90AI0c8";
@@ -415,15 +449,15 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchLeRéveilleurIsManaged() throws ContentParserException {
+    void youtubeWatchMinutePhysicsIsManaged() throws ContentParserException {
         final String url =
-            "https://www.youtube.com/watch?v=OAyYSlMhgI4";
+            "https://www.youtube.com/watch?v=vLIPUdru82c";
         final String expectedXml = """
-                <ARTICLE><X><T>Les terres rares.</T>\
-                <A>https://www.youtube.com/watch?v=OAyYSlMhgI4</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>35</MINUTE><SECOND>38</SECOND></DURATION></X>\
-                <AUTHOR><FIRSTNAME>Rodolphe</FIRSTNAME><LASTNAME>Meyer</LASTNAME></AUTHOR>\
-                <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>12</DAY></DATE>\
+                <ARTICLE><X><T>The Problem With The Butterfly Effect</T>\
+                <A>https://www.youtube.com/watch?v=vLIPUdru82c</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>16</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Henry</FIRSTNAME><LASTNAME>Reich</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>21</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
@@ -561,6 +595,23 @@ public class LinkDataExtractorTest {
                 <L>fr</L><F>MP4</F><DURATION><MINUTE>24</MINUTE><SECOND>48</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>David</FIRSTNAME><LASTNAME>Louapre</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>1</MONTH><DAY>14</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
+    void youtubeWatchScilabusIsManaged() throws ContentParserException {
+        final String url =
+            "https://www.youtube.com/watch?v=url1TFdHlSI";
+        final String expectedXml = """
+                <ARTICLE><X><T>L’écriture inclusive a-t-elle un intérêt ? Quelles preuves ?</T>\
+                <A>https://www.youtube.com/watch?v=url1TFdHlSI</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>23</MINUTE><SECOND>14</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Viviane</FIRSTNAME><LASTNAME>Lalande</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>3</MONTH><DAY>10</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
