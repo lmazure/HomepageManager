@@ -26,6 +26,7 @@ public class MetricsExtractor {
         try (final FileOutputStream os = new FileOutputStream(metricsFile);
              final PrintWriter pw = new PrintWriter(os)) {
             pw.print(metrics);
+            pw.flush();
         } catch (final Exception e) {
                 ExitHelper.exit(e);
         }

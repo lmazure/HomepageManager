@@ -35,6 +35,7 @@ public class SiteFilesGenerator {
                 pw.println("Disallow: " + getXmlUrlFromFile(homepage,file));
             }
             pw.println("Allow: /");
+            pw.flush();
         } catch (final Exception e) {
                 ExitHelper.exit(e);
         }
@@ -64,6 +65,7 @@ public class SiteFilesGenerator {
                 pw.println("  </url>");
             }
             pw.println("</urlset>");
+            pw.flush();
         } catch (final Exception e) {
                 ExitHelper.exit(e);
         }

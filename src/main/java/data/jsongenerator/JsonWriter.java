@@ -42,7 +42,7 @@ public class JsonWriter {
         final File f = new File(rootFileName + File.separator + pageName);
         f.delete();
 
-        try (final OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(f),Charset.forName("UTF-8").newEncoder())) {
+        try (final OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(f), Charset.forName("UTF-8").newEncoder())) {
             final Author authors[] = _authorFactory.getAuthors();
             out.write("{\n  \"authors\" : [");
             for (int i = 0; i < authors.length; i++) {
@@ -101,6 +101,7 @@ public class JsonWriter {
                 out.write("\n    }");
             }
             out.write("\n  ]\n}");
+            out.flush();
         } catch (final IOException e) {
             Logger.log(Logger.Level.ERROR)
                   .append("Failed to write file ")
@@ -173,6 +174,7 @@ public class JsonWriter {
                  out.write("\n      \"page\" : \"" + page +"\"\n    }");
              }
              out.write("\n  ]\n}");
+             out.flush();
          } catch (final IOException e) {
              Logger.log(Logger.Level.ERROR)
                    .append("Failed to write file ")
@@ -237,6 +239,7 @@ public class JsonWriter {
                 out.write("\n    }");
             }
             out.write("\n  ]\n}");
+            out.flush();
         } catch (final IOException e) {
             Logger.log(Logger.Level.ERROR).append("Failed to write file ").append(f).append(e).submit();
         }
@@ -362,5 +365,4 @@ public class JsonWriter {
         }
         throw new UnsupportedOperationException("Illegal language value (" + language + ")");
     }
-
 }
