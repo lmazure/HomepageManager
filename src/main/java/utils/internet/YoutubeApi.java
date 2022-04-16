@@ -137,9 +137,9 @@ public class YoutubeApi {
     }
 
     private static LocalDate localizeDate(final String value) {
-        ZonedDateTime zdt = ZonedDateTime.parse(value);
-        ZonedDateTime zdttz = zdt.withZoneSameInstant(ZoneId.of(/*"Europe/Paris"*/"America/Los_Angeles"));
-        LocalDate localDate = zdttz.toLocalDate();
+        final ZonedDateTime zdt = ZonedDateTime.parse(value);
+        final ZonedDateTime zdttz = zdt.withZoneSameInstant(ZoneId.of("America/Los_Angeles"));
+        final LocalDate localDate = zdttz.toLocalDate();
         return localDate;
     }
 }

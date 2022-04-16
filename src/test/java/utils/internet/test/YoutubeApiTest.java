@@ -59,20 +59,18 @@ public class YoutubeApiTest {
     @Test
     void timezoneIsProperlyHandled() {
         final YoutubeApi api = buildApi();
-        final YoutubeVideoDto dto = api.getData("wl6Re86QZxs");
-        Assertions.assertEquals("Harry Potter : l'énigme des potions - Micmaths", dto.getTitle());
-        Assertions.assertEquals("Dans le premier tome des aventures d'Harry Potter, Harry et Hermione se trouvent confrontés à une énigme de logique.\n"
+        final YoutubeVideoDto dto = api.getData("-X49VQgi86E");
+        Assertions.assertEquals("La face cachée des tables de multiplication - Micmaths", dto.getTitle());
+        Assertions.assertEquals("Élémentaire, les tables de multiplication ? Pas si sûr. Dans cette vidéo, vous allez les redécouvrir comme vous ne les avez encore jamais vues.\n"
                 + "\n"
-                + "Vous pouvez découvrir de nombreux autres vidéastes scientifiques sur Vidéosciences : http://videosciences.cafe-sciences.org/\n"
-                + "Et pour plus de vidéos culturelles allez faire un tour du côté de la Vidéothèque d'Alexandrie : https://videothequealexandrie.fr/\n"
+                + "L'appli pour explorer toutes ces images : http://micmaths.com/applis/tablesmulti.html\n"
                 + "\n"
-                + "Pour me suivre : \n"
-                + "Twitter : https://twitter.com/mickaellaunay\n"
-                + "Facebook : https://www.facebook.com/micmaths", dto.getDescription());
+                + "Merci à André Deledicq pour m'avoir inspiré l'idée de cette vidéo !\n"
+                + "André Deledicq est entre autre le créateur du concours Kangourou des mathématiques : http://www.mathkang.org", dto.getDescription());
         Assertions.assertNull(dto.getRecordingDate());
-        Assertions.assertEquals(LocalDate.of(2017, 6, 25), dto.getPublicationDate());
-        Assertions.assertEquals(Duration.ofSeconds(11 * 60 + 34), dto.getDuration());
-        Assertions.assertEquals(Locale.FRENCH, dto.getTextLanguage());
+        Assertions.assertEquals(LocalDate.of(2015, 6, 19), dto.getPublicationDate());
+        Assertions.assertEquals(Duration.ofSeconds(12 * 60 + 8), dto.getDuration());
+        //Assertions.assertEquals(Locale.FRENCH, dto.getTextLanguage()); YouTube API returns null for this video...
         Assertions.assertEquals(Locale.FRENCH, dto.getAudioLanguage());
         Assertions.assertTrue(dto.isAllowed());
     }
