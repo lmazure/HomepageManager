@@ -227,7 +227,7 @@ public class XmlGenerator {
 
     private static String escapeXml(final String str) {
         return str.replace("&", "&amp;")
-                  .replace("<","&lt")
-                  .replace(">","&gt");
+                  .replace("<","&lt;")
+                  .replace(">","&gt;");
     }
 }

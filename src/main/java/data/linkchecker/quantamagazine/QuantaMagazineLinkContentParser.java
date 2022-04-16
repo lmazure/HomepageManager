@@ -12,13 +12,13 @@ public class QuantaMagazineLinkContentParser {
 
     private final String _data;
     private static final TextParser s_titleParser
-        = new TextParser("<h1 class=\"post__title__title [^\"]+\" data-reactid=\"[0-9]+\">",
+        = new TextParser("<h1 class=\"ml025 h3 noe mv0\">",
                          "</h1>",
                          "QuantaMagazine",
                          "title");
     private static final TextParser s_subtitleParser
-        = new TextParser("<div class=\"post__title__excerpt [^\"]+\" data-reactid=\"[0-9]+\">",
-                         " *</div>",
+        = new TextParser("<div class=\"post__title__excerpt wysiwyg p italic mb1 mt025 pr2 o4 theme__text[- a-z]*\">",
+                         "</div>",
                          "QuantaMagazine",
                          "subtitle");
     private static final TextParser s_dateParser
@@ -28,7 +28,7 @@ public class QuantaMagazineLinkContentParser {
                          "QuantaMagazine",
                          "date");
     private static final TextParser s_authorParser
-        = new TextParser("<span class=\"byline__author [^\\\"]+\\\" data-reactid=\\\"[0-9]+\\\">",
+        = new TextParser("<span class=\"byline__author uppercase kern light small\">",
                          "</span>",
                          "QuantaMagazine",
                          "author");
