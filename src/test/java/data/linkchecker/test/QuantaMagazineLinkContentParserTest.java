@@ -185,9 +185,10 @@ public class QuantaMagazineLinkContentParserTest {
               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
               final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(data);
               try {
-                  Assertions.assertEquals(expectedAuthor, parser.getAuthor());
+                  Assertions.assertEquals(1, parser.getAuthors().size());
+                  Assertions.assertEquals(expectedAuthor, parser.getAuthors().get(0));
                } catch (final ContentParserException e) {
-                   Assertions.fail("getAuthor threw " + e.getMessage());
+                   Assertions.fail("getAuthors threw " + e.getMessage());
                }
               consumerHasBeenCalled.set(true);
           });
@@ -196,14 +197,15 @@ public class QuantaMagazineLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://www.quantamagazine.org/barbara-liskov-is-the-architect-of-modern-algorithms-20191120/,Susan,D'Agostino"
+        "https://www.quantamagazine.org/barbara-liskov-is-the-architect-of-modern-algorithms-20191120/,Susan,,D'Agostino"
         })
     void testAuthorWithEncodedCharacter(final String url,
                                         final String expectedFirstName,
+                                        final String expectedMiddleName,
                                         final String expectedLastName) {
         final AuthorData expectedAuthor = new AuthorData(Optional.empty(),
                                                          Optional.of(expectedFirstName),
-                                                         Optional.empty(),
+                                                         Optional.ofNullable(expectedMiddleName),
                                                          Optional.of(expectedLastName),
                                                          Optional.empty(),
                                                          Optional.empty());
@@ -215,9 +217,53 @@ public class QuantaMagazineLinkContentParserTest {
               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
               final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(data);
               try {
-                  Assertions.assertEquals(expectedAuthor, parser.getAuthor());
+                  Assertions.assertEquals(1, parser.getAuthors().size());
+                  Assertions.assertEquals(expectedAuthor, parser.getAuthors().get(0));
                } catch (final ContentParserException e) {
-                   Assertions.fail("getAuthor threw " + e.getMessage());
+                   Assertions.fail("getAuthors threw " + e.getMessage());
+               }
+              consumerHasBeenCalled.set(true);
+          });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+
+    @ParameterizedTest
+    @CsvSource({
+        "https://www.quantamagazine.org/the-multiverses-measure-problem-20141103/,Natalie,,Wolchover,Peter,,Byrne",
+        })
+    void testTwoAuthors(final String url,
+                        final String expectedFirstName1,
+                        final String expectedMiddleName1,
+                        final String expectedLastName1,
+                        final String expectedFirstName2,
+                        final String expectedMiddleName2,
+                        final String expectedLastName2) {
+        final AuthorData expectedAuthor1 = new AuthorData(Optional.empty(),
+                                                          Optional.of(expectedFirstName1),
+                                                          Optional.ofNullable(expectedMiddleName1),
+                                                          Optional.of(expectedLastName1),
+                                                          Optional.empty(),
+                                                          Optional.empty());
+        final AuthorData expectedAuthor2 = new AuthorData(Optional.empty(),
+                                                          Optional.of(expectedFirstName2),
+                                                          Optional.ofNullable(expectedMiddleName2),
+                                                          Optional.of(expectedLastName2),
+                                                          Optional.empty(),
+                                                          Optional.empty());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(TestHelper.buildURL(url),
+          (final Boolean b, final SiteData d) -> {
+              Assertions.assertTrue(d.getDataFile().isPresent());
+              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+              final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(data);
+              try {
+                  Assertions.assertEquals(2, parser.getAuthors().size());
+                  Assertions.assertEquals(expectedAuthor1, parser.getAuthors().get(0));
+                  Assertions.assertEquals(expectedAuthor2, parser.getAuthors().get(1));
+               } catch (final ContentParserException e) {
+                   Assertions.fail("getAuthors threw " + e.getMessage());
                }
               consumerHasBeenCalled.set(true);
           });

@@ -90,7 +90,7 @@ public class GitlabBlogLinkContentChecker extends LinkContentChecker {
     protected LinkContentCheck checkLinkAuthors(final String data,
                                                 final List<AuthorData> authors) throws ContentParserException
     {
-        if ((authors.size() < 0) || (authors.size() >2)) {
+        if ((authors.size() < 0) || (authors.size() > 2)) {
             return new LinkContentCheck("GitLab blog should have one or two authors");
         }
 
