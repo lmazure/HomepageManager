@@ -1,6 +1,10 @@
 package data.linkchecker.quantamagazine;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import data.linkchecker.ContentParserException;
 import data.linkchecker.LinkContentParserUtils;
@@ -27,11 +31,8 @@ public class QuantaMagazineLinkContentParser {
                          "T[0-9][0-9]:[0-9][0-9]:[0-9][0-9]\",\"featured_media_image\":",
                          "QuantaMagazine",
                          "date");
-    private static final TextParser s_authorParser
-        = new TextParser("<span class=\"byline__author uppercase kern light small\">",
-                         "</span>",
-                         "QuantaMagazine",
-                         "author");
+    private static final Pattern s_authorPattern
+        = Pattern.compile("<a (class=\"[^\"]+\" )?href=\"/authors/[^/]+/\"><span [^>]+>([^<]+)</span></a>");
 
     public QuantaMagazineLinkContentParser(final String data) {
         _data = data;
@@ -49,7 +50,15 @@ public class QuantaMagazineLinkContentParser {
         return LocalDate.parse(HtmlHelper.cleanContent(s_dateParser.extract(_data)));
     }
 
-    public AuthorData getAuthor() throws ContentParserException {
-        return LinkContentParserUtils.getAuthor(s_authorParser.extract(_data));
+    public List<AuthorData> getAuthors() throws ContentParserException {
+        final List<AuthorData> authors = new ArrayList<>();
+        final Matcher m = s_authorPattern.matcher(_data);
+        while (m.find()) {
+            authors.add(LinkContentParserUtils.getAuthor(m.group(2)));
+        }
+        if (authors.size() == 0) {
+            throw new ContentParserException("Failed to find author in QuantaMagazine");
+        }
+        return authors;
     }
 }
