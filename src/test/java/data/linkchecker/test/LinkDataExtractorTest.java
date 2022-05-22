@@ -311,6 +311,23 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchDirtyBiologyIsManaged() throws ContentParserException {
+        final String url =
+            "https://www.youtube.com/watch?v=_LxktNzm8ME";
+        final String expectedXml = """
+                <ARTICLE><X><T>Pourquoi certaines civilisations du Pacifique ont disparu et pas d'autres ?</T>\
+                <A>https://www.youtube.com/watch?v=_LxktNzm8ME</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>21</MINUTE><SECOND>7</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Léo</FIRSTNAME><LASTNAME>Grasset</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>5</MONTH><DAY>13</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeWatchHistoryOfTheEarthIsManaged() throws ContentParserException {
         final String url =
             "https://www.youtube.com/watch?v=0sbwUeTyDb0";
@@ -453,7 +470,7 @@ public class LinkDataExtractorTest {
         final String url =
             "https://www.youtube.com/watch?v=8D_ThIqoJL8";
         final String expectedXml = """
-                <ARTICLE><X><T>Paver avec le flocon de Koch</T>\
+                <ARTICLE><X><T>L'étonnant puzzle fractal de von Koch - Micmaths</T>\
                 <A>https://www.youtube.com/watch?v=8D_ThIqoJL8</A>\
                 <L>fr</L><F>MP4</F><DURATION><MINUTE>13</MINUTE><SECOND>51</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Mickaël</FIRSTNAME><LASTNAME>Launay</LASTNAME></AUTHOR>\

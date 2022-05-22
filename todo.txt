@@ -1,3 +1,9 @@
+éviter l'erreur sur openjdk.org
+
+implémenter le parsing d'IBM
+
+corriger medimag.xml
+
 nettoyer chrome.xml
 
 nettoyer companies.xml
@@ -56,7 +62,7 @@ détecter US au lieu de GB
 behavior ->behaviour
 analyze ??
 
-- lever une alerte si un lien est zombie mais que titre et sous-titre sont encore présents
+- lever une alerte si un lien est zombie mais que titre ou le sous-titre est encore présents
 
 - implement for real the JSON helper and unit test it
 
