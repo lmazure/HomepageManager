@@ -20,8 +20,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void  arsTechnicaIsManaged() throws ContentParserException {
-        final String url =
-            "https://arstechnica.com/tech-policy/2021/10/uh-no-pfizer-scientist-denies-holmes-claim-that-pfizer-endorsed-theranos-tech/";
+        final String url = "https://arstechnica.com/tech-policy/2021/10/uh-no-pfizer-scientist-denies-holmes-claim-that-pfizer-endorsed-theranos-tech/";
         final String expectedXml = """
                 <ARTICLE><X><T>“Uh, no”—Pfizer scientist denies Holmes’ claim that Pfizer endorsed Theranos tech</T>\
                 <ST>Pfizer diagnostic director said Theranos report was “not believable.”</ST>\
@@ -38,8 +37,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void  baeldungIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.baeldung.com/java-unit-testing-best-practices";
+        final String url = "https://www.baeldung.com/java-unit-testing-best-practices";
         final String expectedXml = """
                 <ARTICLE><X><T>Best Practices For Unit Testing In Java</T>\
                 <A>https://www.baeldung.com/java-unit-testing-best-practices</A>\
@@ -55,8 +53,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void gitlabBlogIsManaged() throws ContentParserException {
-        final String url =
-            "https://about.gitlab.com/blog/2021/11/10/a-special-farewell-from-gitlab-dmitriy-zaporozhets/";
+        final String url = "https://about.gitlab.com/blog/2021/11/10/a-special-farewell-from-gitlab-dmitriy-zaporozhets/";
         final String expectedXml = """
                 <ARTICLE><X><T>A special farewell from GitLab’s Dmitriy Zaporozhets</T>\
                 <A>https://about.gitlab.com/blog/2021/11/10/a-special-farewell-from-gitlab-dmitriy-zaporozhets/</A>\
@@ -73,8 +70,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void mediumIsManaged() throws ContentParserException {
-        final String url =
-            "https://medium.com/@kentbeck_7670/limbo-scaling-software-collaboration-afd4f00db4b";
+        final String url = "https://medium.com/@kentbeck_7670/limbo-scaling-software-collaboration-afd4f00db4b";
         final String expectedXml = """
                 <ARTICLE><X><T>Limbo: Scaling Software Collaboration</T>\
                 <A>https://medium.com/@kentbeck_7670/limbo-scaling-software-collaboration-afd4f00db4b</A>\
@@ -90,8 +86,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void oracleBlogsIsManaged() throws ContentParserException {
-        final String url =
-            "https://blogs.oracle.com/javamagazine/unit-test-your-architecture-with-archunit";
+        final String url = "https://blogs.oracle.com/javamagazine/unit-test-your-architecture-with-archunit";
         final String expectedXml = """
                 <ARTICLE><X><T>Unit Test Your Architecture with ArchUnit</T>\
                 <ST>Discover architectural defects at build time.</ST>\
@@ -108,8 +103,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void oracleBlogsWithPostinUrlIsManaged() throws ContentParserException {
-        final String url =
-            "https://blogs.oracle.com/javamagazine/post/java-nio-nio2-buffers-channels-async-future-callback";
+        final String url = "https://blogs.oracle.com/javamagazine/post/java-nio-nio2-buffers-channels-async-future-callback";
         final String expectedXml = """
                 <ARTICLE><X><T>Modern file input/output with Java: Going fast with NIO and NIO.2</T>\
                 <ST>Reach for these low-level Java APIs when you need to move a lot of file data or socket data quickly.</ST>\
@@ -125,8 +119,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void quantaMagazineIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.quantamagazine.org/mathematician-answers-chess-problem-about-attacking-queens-20210921/";
+        final String url = "https://www.quantamagazine.org/mathematician-answers-chess-problem-about-attacking-queens-20210921/";
         final String expectedXml = """
                 <ARTICLE><X><T>Mathematician Answers Chess Problem About Attacking Queens</T>\
                 <ST>The n-queens problem is about finding how many different ways queens can be placed on a chessboard so that none attack each other. A mathematician has now all but solved it.</ST>\
@@ -143,8 +136,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void  youtubeWatch3Blue1BrownIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=-RdOwhmqP5s";
+        final String url = "https://www.youtube.com/watch?v=-RdOwhmqP5s";
         final String expectedXml = """
                 <ARTICLE><X><T>Newton's Fractal (which Newton knew nothing about)</T>\
                 <A>https://www.youtube.com/watch?v=-RdOwhmqP5s</A>\
@@ -160,8 +152,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchAstronoGeekIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=7rTKxHoU_Rc";
+        final String url = "https://www.youtube.com/watch?v=7rTKxHoU_Rc";
         final String expectedXml = """
                 <ARTICLE><X><T>🪐❔David Hahn, l'ado qui a fabriqué un réacteur nucléaire chez lui</T>\
                 <A>https://www.youtube.com/watch?v=7rTKxHoU_Rc</A>\
@@ -177,8 +168,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchBaladeMentaleIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=7KJbzgoBUX0";
+        final String url = "https://www.youtube.com/watch?v=7KJbzgoBUX0";
         final String expectedXml = """
                 <ARTICLE><X><T>La disparition de la mer Méditerranée</T>\
                 <A>https://www.youtube.com/watch?v=7KJbzgoBUX0</A>\
@@ -194,8 +184,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchBlackPenRedPenIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=eex9Gm_rOrQ";
+        final String url = "https://www.youtube.com/watch?v=eex9Gm_rOrQ";
         final String expectedXml = """
                 <ARTICLE><X><T>homemade triple exponential equation</T>\
                 <A>https://www.youtube.com/watch?v=eex9Gm_rOrQ</A>\
@@ -211,8 +200,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchChatSceptiqueIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=VubMw46DK0U";
+        final String url = "https://www.youtube.com/watch?v=VubMw46DK0U";
         final String expectedXml = """
                 <ARTICLE><X><T>L'erreur Excel qui a coûté la vie à 1500 personnes 💀</T>\
                 <A>https://www.youtube.com/watch?v=VubMw46DK0U</A>\
@@ -228,8 +216,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchDrBeckyIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=6v72L_1L4lQ";
+        final String url = "https://www.youtube.com/watch?v=6v72L_1L4lQ";
         final String expectedXml = """
                 <ARTICLE><X><T>LIVE | The first image from the James Webb Space Telescope! (and why it looks a bit naff)</T>\
                 <A>https://www.youtube.com/watch?v=6v72L_1L4lQ</A>\
@@ -245,8 +232,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchDeepSkyVideosIsManaged1() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=MkzyMS_hNwU";
+        final String url = "https://www.youtube.com/watch?v=MkzyMS_hNwU";
         final String expectedSureXml = """
                 <ARTICLE><X><T>M28 - Millisecond Pulsar - Deep Sky Videos</T>\
                 <A>https://www.youtube.com/watch?v=MkzyMS_hNwU</A>\
@@ -267,8 +253,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchDeepSkyVideosIsManaged2() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=17LITLns-pk";
+        final String url = "https://www.youtube.com/watch?v=17LITLns-pk";
         final String expectedSureXml = """
                 <ARTICLE><X><T>M50 - Spinning Stars - Deep Sky Videos</T>\
                 <A>https://www.youtube.com/watch?v=17LITLns-pk</A>\
@@ -290,8 +275,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchDeepSkyVideosIsManaged3() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=2d2YCUdt2gc";
+        final String url = "https://www.youtube.com/watch?v=2d2YCUdt2gc";
         final String expectedSureXml = """
                 <ARTICLE><X><T>M61 - Barred Spiral Galaxy - Deep Sky Videos</T>\
                 <A>https://www.youtube.com/watch?v=2d2YCUdt2gc</A>\
@@ -312,8 +296,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchDirtyBiologyIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=_LxktNzm8ME";
+        final String url = "https://www.youtube.com/watch?v=_LxktNzm8ME";
         final String expectedXml = """
                 <ARTICLE><X><T>Pourquoi certaines civilisations du Pacifique ont disparu et pas d'autres ?</T>\
                 <A>https://www.youtube.com/watch?v=_LxktNzm8ME</A>\
@@ -329,8 +312,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchHistoryOfTheEarthIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=0sbwUeTyDb0";
+        final String url = "https://www.youtube.com/watch?v=0sbwUeTyDb0";
         final String expectedXml = """
                 <ARTICLE><X><T>What Was The "Boring Billion" Really Like?</T>\
                 <A>https://www.youtube.com/watch?v=0sbwUeTyDb0</A>\
@@ -348,8 +330,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchJavaInsideJavaNewscastIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=eDgBnjOid-g";
+        final String url = "https://www.youtube.com/watch?v=eDgBnjOid-g";
         final String expectedXml = """
                 <ARTICLE><X><T>What Happens to Finalization in JDK 18? - Inside Java Newscast #15</T>\
                 <A>https://www.youtube.com/watch?v=eDgBnjOid-g</A>\
@@ -365,8 +346,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchJavaJepCafeIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=NDaA9MrTLBM";
+        final String url = "https://www.youtube.com/watch?v=NDaA9MrTLBM";
         final String expectedXml = """
                 <ARTICLE><X><T>Text Blocks - JEP Café #5</T>\
                 <A>https://www.youtube.com/watch?v=NDaA9MrTLBM</A>\
@@ -382,8 +362,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchHeurekaIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=UuIt21q9gCY";
+        final String url = "https://www.youtube.com/watch?v=UuIt21q9gCY";
         final String expectedXml = """
                 <ARTICLE><X><T>Le monde du shadow banking</T>\
                 <A>https://www.youtube.com/watch?v=UuIt21q9gCY</A>\
@@ -398,9 +377,8 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeHolgerVoormannIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=GnNnQY5ujFg";
+    void youtubeWatchHolgerVoormannIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=GnNnQY5ujFg";
         final String expectedXml = """
                 <ARTICLE><X><T>Eclipse 2022-03 Java IDE Improvements</T>\
                 <A>https://www.youtube.com/watch?v=GnNnQY5ujFg</A>\
@@ -416,8 +394,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchJMEnervePasJExpliqueIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=JjgcD2o7IME";
+        final String url = "https://www.youtube.com/watch?v=JjgcD2o7IME";
         final String expectedXml = """
                 <ARTICLE><X><T>☀️ Du Soleil à ITER : une Histoire de la FUSION #11 Science</T>\
                 <A>https://www.youtube.com/watch?v=JjgcD2o7IME</A>\
@@ -432,9 +409,23 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchJonPerryIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=rLGam7Lx1Z4";
+        final String expectedXml = """
+                <ARTICLE><X><T>Do "Essential Genes" debunk evolution? Evolutionary Question #26</T>\
+                <A>https://www.youtube.com/watch?v=rLGam7Lx1Z4</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>58</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Jon</FIRSTNAME><LASTNAME>Perry</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>4</MONTH><DAY>7</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+    @Test
     void youtubeWatchLeRéveilleurIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=OAyYSlMhgI4";
+        final String url = "https://www.youtube.com/watch?v=OAyYSlMhgI4";
         final String expectedXml = """
                 <ARTICLE><X><T>Les terres rares.</T>\
                 <A>https://www.youtube.com/watch?v=OAyYSlMhgI4</A>\
@@ -450,8 +441,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchMathologerIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=6ZrO90AI0c8";
+        final String url = "https://www.youtube.com/watch?v=6ZrO90AI0c8";
         final String expectedXml = """
                 <ARTICLE><X><T>Tesla’s 3-6-9 and Vortex Math: Is this really the key to the universe?</T>\
                 <A>https://www.youtube.com/watch?v=6ZrO90AI0c8</A>\
@@ -467,8 +457,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchMichaelLaunayIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=8D_ThIqoJL8";
+        final String url = "https://www.youtube.com/watch?v=8D_ThIqoJL8";
         final String expectedXml = """
                 <ARTICLE><X><T>L'étonnant puzzle fractal de von Koch - Micmaths</T>\
                 <A>https://www.youtube.com/watch?v=8D_ThIqoJL8</A>\
@@ -484,8 +473,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchMinutePhysicsIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=vLIPUdru82c";
+        final String url = "https://www.youtube.com/watch?v=vLIPUdru82c";
         final String expectedXml = """
                 <ARTICLE><X><T>The Problem With The Butterfly Effect</T>\
                 <A>https://www.youtube.com/watch?v=vLIPUdru82c</A>\
@@ -501,8 +489,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchMonsieurBidouilleIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=36WpRwY2DYw";
+        final String url = "https://www.youtube.com/watch?v=36WpRwY2DYw";
         final String expectedXml = """
                 <ARTICLE><X><T>☀️ ITER ET LA FUSION - Visite du chantier du plus gros tokamak du monde</T>\
                 <A>https://www.youtube.com/watch?v=36WpRwY2DYw</A>\
@@ -518,8 +505,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchMonsieurPhiIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=-VdXi2LMPyE";
+        final String url = "https://www.youtube.com/watch?v=-VdXi2LMPyE";
         final String expectedXml = """
                 <ARTICLE><X><T>2500 ans de philosophie (et on ne s'entend toujours pas sur ce que c'est)</T>\
                 <A>https://www.youtube.com/watch?v=-VdXi2LMPyE</A>\
@@ -535,8 +521,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchMNotaBonusIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=QwLZ_i1qK8A";
+        final String url = "https://www.youtube.com/watch?v=QwLZ_i1qK8A";
         final String expectedXml = """
                 <ARTICLE><X><T>La bataille des nombres au Moyen Âge - Le jeu de la Rithmomachie</T>\
                 <A>https://www.youtube.com/watch?v=QwLZ_i1qK8A</A>\
@@ -552,8 +537,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchPasseScienceIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=yfFck7EfptU";
+        final String url = "https://www.youtube.com/watch?v=yfFck7EfptU";
         final String expectedXml = """
                 <ARTICLE><X><T>Hacking et virus informatiques (dans le monde réel) bonus: Corewar! - Passe-science #43</T>\
                 <A>https://www.youtube.com/watch?v=yfFck7EfptU</A>\
@@ -569,8 +553,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchQuadriviuumTremensIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=fiekVUXhvZE";
+        final String url = "https://www.youtube.com/watch?v=fiekVUXhvZE";
         final String expectedXml = """
                 <ARTICLE><X><T>★★ Les Dyadiques et leurs liens avec l'écriture Binaire - La Classification des Nombres #4</T>\
                 <A>https://www.youtube.com/watch?v=fiekVUXhvZE</A>\
@@ -587,8 +570,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchRobertMilesIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=zkbPdEHEyEI";
+        final String url = "https://www.youtube.com/watch?v=zkbPdEHEyEI";
         final String expectedXml = """
                 <ARTICLE><X><T>We Were Right! Real Inner Misalignment</T>\
                 <A>https://www.youtube.com/watch?v=zkbPdEHEyEI</A>\
@@ -604,8 +586,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchSabineHossenfelderIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=3hApcpGJETA";
+        final String url = "https://www.youtube.com/watch?v=3hApcpGJETA";
         final String expectedXml = """
                 <ARTICLE><X><T>Where Did the Big Bang Happen?</T>\
                 <A>https://www.youtube.com/watch?v=3hApcpGJETA</A>\
@@ -621,8 +602,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchScienceClicIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=EkE229ybABc";
+        final String url = "https://www.youtube.com/watch?v=EkE229ybABc";
         final String expectedXml = """
                 <ARTICLE><X><T>Où va le temps dans un Trou noir ?</T>\
                 <A>https://www.youtube.com/watch?v=EkE229ybABc</A>\
@@ -638,8 +618,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchScienceDeComptoirIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=Y4yeTTOTfO8";
+        final String url = "https://www.youtube.com/watch?v=Y4yeTTOTfO8";
         final String expectedXml = """
                 <ARTICLE><X><T>🌱La SOLUTION pour SAUVER LE CLIMAT🔥 (personne n'y avait pensé)</T>\
                 <A>https://www.youtube.com/watch?v=Y4yeTTOTfO8</A>\
@@ -655,8 +634,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchScienceEtonnanteIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=FGwmAEMabm4";
+        final String url = "https://www.youtube.com/watch?v=FGwmAEMabm4";
         final String expectedXml = """
                 <ARTICLE><X><T>Comment Mesurer L'Univers ? 🔭🌕☀️✨🌌</T>\
                 <A>https://www.youtube.com/watch?v=FGwmAEMabm4</A>\
@@ -672,8 +650,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchScilabusIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=url1TFdHlSI";
+        final String url = "https://www.youtube.com/watch?v=url1TFdHlSI";
         final String expectedXml = """
                 <ARTICLE><X><T>L’écriture inclusive a-t-elle un intérêt ? Quelles preuves ?</T>\
                 <A>https://www.youtube.com/watch?v=url1TFdHlSI</A>\
@@ -689,8 +666,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchSingingBananaIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=FR_71HyBytE";
+        final String url = "https://www.youtube.com/watch?v=FR_71HyBytE";
         final String expectedXml = """
                 <ARTICLE><X><T>Mastermind with Steve Mould</T>\
                 <A>https://www.youtube.com/watch?v=FR_71HyBytE</A>\
@@ -706,8 +682,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchStandupMathsIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=ueEOHk1UzrA";
+        final String url = "https://www.youtube.com/watch?v=ueEOHk1UzrA";
         final String expectedXml = """
                 <ARTICLE><X><T>Find your own ABC Conjecture Triple</T>\
                 <A>https://www.youtube.com/watch?v=ueEOHk1UzrA</A>\
@@ -723,8 +698,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchScience4AllIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=sAjm3-IaRtI";
+        final String url = "https://www.youtube.com/watch?v=sAjm3-IaRtI";
         final String expectedXml = """
                 <ARTICLE><X><T>Trafiquant d'humains et marchand de haine #FacebookFiles</T>\
                 <A>https://www.youtube.com/watch?v=sAjm3-IaRtI</A>\
@@ -740,8 +714,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchThomathsIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=G5nbqZnlvHo";
+        final String url = "https://www.youtube.com/watch?v=G5nbqZnlvHo";
         final String expectedXml = """
                 <ARTICLE><X><T>Thomaths 14 : Solides Réguliers</T>\
                 <A>https://www.youtube.com/watch?v=G5nbqZnlvHo</A>\
@@ -757,8 +730,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchTomScottIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=kBaLb1C4WAg";
+        final String url = "https://www.youtube.com/watch?v=kBaLb1C4WAg";
         final String expectedXml = """
                 <ARTICLE><X><T>This town forgot to be a city</T>\
                 <A>https://www.youtube.com/watch?v=kBaLb1C4WAg</A>\
@@ -774,8 +746,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchTricTracIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=eJapfznmA4U";
+        final String url = "https://www.youtube.com/watch?v=eJapfznmA4U";
         final String expectedXml = """
                 <ARTICLE><X><T>FLIP, L'émission quotidienne - Les lieux éphémères</T>\
                 <A>https://www.youtube.com/watch?v=eJapfznmA4U</A>\
@@ -792,8 +763,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchVeritasiumIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=cUzklzVXJwo";
+        final String url = "https://www.youtube.com/watch?v=cUzklzVXJwo";
         final String expectedXml = """
                 <ARTICLE><X><T>How Imaginary Numbers Were Invented</T>\
                 <A>https://www.youtube.com/watch?v=cUzklzVXJwo</A>\
@@ -809,8 +779,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void  youtubeWatchWebDevSimplifiedIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=mnmYwRoSisg";
+        final String url = "https://www.youtube.com/watch?v=mnmYwRoSisg";
         final String expectedXml = """
                 <ARTICLE><X><T>10 Must Know Git Commands That Almost Nobody Knows</T>\
                 <A>https://www.youtube.com/watch?v=mnmYwRoSisg</A>\
@@ -826,8 +795,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void  youtubeWatchWonderWhyIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=DfdewkU3_Hg";
+        final String url = "https://www.youtube.com/watch?v=DfdewkU3_Hg";
         final String expectedXml = """
                 <ARTICLE><X><T>The Country That Didn't Want Independence</T>\
                 <A>https://www.youtube.com/watch?v=DfdewkU3_Hg</A>\
@@ -844,8 +812,7 @@ public class LinkDataExtractorTest {
 
     @Test
     void  youtubeWatchUrlInListIsManaged() throws ContentParserException {
-        final String url =
-            "https://www.youtube.com/watch?v=C926N9zMJkU&list=WL&index=11";
+        final String url = "https://www.youtube.com/watch?v=C926N9zMJkU&list=WL&index=11";
         final String expectedXml = """
                 <ARTICLE><X><T>5 Must Know VSCode Shortcuts</T>\
                 <A>https://www.youtube.com/watch?v=C926N9zMJkU</A>\
@@ -860,8 +827,7 @@ public class LinkDataExtractorTest {
     }
     @Test
     void urlIsCleanedFromUtmParameters() throws ContentParserException {
-        final String url =
-            "https://www.quantamagazine.org/mathematical-analysis-of-fruit-fly-wings-hints-at-evolutions-limits-20210920/?utm_source=pocket-app&utm_medium=share";
+        final String url = "https://www.quantamagazine.org/mathematical-analysis-of-fruit-fly-wings-hints-at-evolutions-limits-20210920/?utm_source=pocket-app&utm_medium=share";
         final String expectedXml = """
                 <ARTICLE><X><T>Mathematical Analysis of Fruit Fly Wings Hints at Evolution’s Limits</T>\
                 <ST>A painstaking study of wing morphology shows both the striking uniformity of individuals in a species and a subtle pattern of linked variations that evolution can exploit.</ST>\

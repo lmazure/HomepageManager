@@ -1,3 +1,5 @@
+nettoyer life.xml
+
 éviter l'erreur sur openjdk.org
 
 implémenter le parsing d'IBM
