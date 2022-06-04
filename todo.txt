@@ -1,10 +1,17 @@
-nettoyer life.xml
+corriger scienceinfuse.cool/podcast/mycorhize-et-agriculture-avec-marc-andre-selosse/
+corriger m85CUfKPYas
+
+corriger
+https://www.youtube.com/watch?v=4dV5YXwb7zg
+Date without month or day
+https://www.youtube.com/watch?v=9GanmnPniO8
+Date without month or day
+https://www.youtube.com/watch?v=sGzVHQniIiE
+Date without month or day
 
 éviter l'erreur sur openjdk.org
 
 implémenter le parsing d'IBM
-
-corriger medimag.xml
 
 nettoyer chrome.xml
 
@@ -163,7 +170,7 @@ par
 - corriger le support des MIDDLENAMEs multiples (Boyter dans links/humor.xml)
 
 - persons.xml :
-corrigers les liens cassés
+corriger les liens cassés
 restructurer la page pour séparer
 * homepage
 * twitter

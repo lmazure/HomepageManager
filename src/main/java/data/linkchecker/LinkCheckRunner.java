@@ -12,7 +12,6 @@ import java.nio.file.Path;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,8 +38,8 @@ import utils.Logger.Level;
 import utils.StringHelper;
 import utils.XmlHelper;
 import utils.xmlparsing.ArticleData;
-import utils.xmlparsing.LinkData;
 import utils.xmlparsing.ElementType;
+import utils.xmlparsing.LinkData;
 import utils.xmlparsing.XmlParser;
 import utils.xmlparsing.XmlParsingException;
 
@@ -49,10 +48,10 @@ public class LinkCheckRunner {
     private static final int MAX_CACHE_AGE = 30*24*60*60;
     private static final int REPORT_THROTTLING_PERIOD = 90;
     private final Path _file;
-    private final Map<URL, SiteData> _effectiveData;
-    private final Map<URL, LinkData> _expectedData;
-    private final Map<URL, ArticleData> _articles;
-    private final Map<URL, List<LinkContentCheck>> _checks;
+    private final Map<String, SiteData> _effectiveData;
+    private final Map<String, LinkData> _expectedData;
+    private final Map<String, ArticleData> _articles;
+    private final Map<String, List<LinkContentCheck>> _checks;
     private int _nbSitesRemainingToBeChecked;
     private boolean _isCancelled;
     private final BackgroundDataController _controller;
@@ -68,12 +67,7 @@ public class LinkCheckRunner {
                            final Path ouputFile,
                            final Path reportFile) {
         _file = file;
-        _effectiveData = new TreeMap<>(
-                new Comparator<URL>() {
-                    @Override
-                    public int compare(final URL a, final URL b) {
-                        return a.toString().compareTo(b.toString());
-                    }});
+        _effectiveData = new TreeMap<>();
         _expectedData = new HashMap<>();
         _articles = new HashMap<>();
         _checks = new HashMap<>();
@@ -110,10 +104,7 @@ public class LinkCheckRunner {
 
         for (final ArticleData article : articles) {
             for (final LinkData link : article.getLinks()) {
-                final URL url = StringHelper.convertStringToUrl(link.getUrl());
-                if (url != null) {
-                    _articles.put(url, article);
-                }
+                _articles.put(link.getUrl(), article);
             }
         }
 
@@ -215,7 +206,7 @@ public class LinkCheckRunner {
             final URL url = StringHelper.convertStringToUrl(urlStr);
             if (url != null) {
                 list.add(url);
-                _expectedData.put(url, linkData);
+                _expectedData.put(urlStr, linkData);
             }
         }
 
@@ -256,15 +247,15 @@ public class LinkCheckRunner {
             return;
         }
 
-        _effectiveData.put(siteData.getUrl(), siteData);
+        _effectiveData.put(siteData.getUrl().toString(), siteData);
         if ((siteData.getStatus() == SiteData.Status.SUCCESS) &&
-            _expectedData.get(siteData.getUrl()).getStatus().isEmpty()) {
+            _expectedData.get(siteData.getUrl().toString()).getStatus().isEmpty()) {
             final LinkContentChecker contentChecker = LinkContentCheckerFactory.build(siteData.getUrl(),
-                                                                                      _expectedData.get(siteData.getUrl()),
-                                                                                      Optional.ofNullable(_articles.get(siteData.getUrl())),
+                                                                                      _expectedData.get(siteData.getUrl().toString()),
+                                                                                      Optional.ofNullable(_articles.get(siteData.getUrl().toString())),
                                                                                       siteData.getDataFile().get());
             try {
-                _checks.put(siteData.getUrl(), contentChecker.check());
+                _checks.put(siteData.getUrl().toString(), contentChecker.check());
             } catch (final ContentParserException e) {
                 FileHelper.createParentDirectory(_reportFile);
                 try (final PrintStream reportWriter = new PrintStream(_reportFile.toFile())) {
@@ -325,7 +316,7 @@ public class LinkCheckRunner {
         int numberOfBrokenLinks = 0;
         int numberOfBadLinkData = 0;
 
-        for (final URL url : _effectiveData.keySet()) {
+        for (final String url : _effectiveData.keySet()) {
             final LinkData expectedData = _expectedData.get(url);
             final SiteData effectiveData = _effectiveData.get(url);
             final StringBuilder builder = isOneDataExpected(expectedData, effectiveData) ? ok : ko;
@@ -333,11 +324,11 @@ public class LinkCheckRunner {
                 numberOfBrokenLinks++;
             }
             appendLivenessCheckResult(url, expectedData, effectiveData, builder);
-            if (_checks.containsKey(url) && !_checks.get(url).isEmpty()) {
+            if (_checks.containsKey(url.toString()) && !_checks.get(url.toString()).isEmpty()) {
                 checks.append('\n');
                 checks.append(url);
                 checks.append('\n');
-                for (final LinkContentCheck c: _checks.get(url)) {
+                for (final LinkContentCheck c: _checks.get(url.toString())) {
                     checks.append(c.getDescription());
                     checks.append('\n');
                     numberOfBadLinkData++;
@@ -366,7 +357,7 @@ public class LinkCheckRunner {
      * @param effectiveData
      * @param builder
      */
-    private static void appendLivenessCheckResult(final URL url,
+    private static void appendLivenessCheckResult(final String url,
                                                   final LinkData expectedData,
                                                   final SiteData effectiveData,
                                                   final StringBuilder builder) {
@@ -411,7 +402,7 @@ public class LinkCheckRunner {
 
     private boolean isDataExpected() { //TBD this method is very stupid, we should used a flag instead of computing the status every time
 
-        for (final URL url : _effectiveData.keySet()) {
+        for (final String url : _effectiveData.keySet()) {
             if (!isOneDataExpected(_expectedData.get(url), _effectiveData.get(url))) {
                 return false;
             }

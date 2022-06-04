@@ -11,6 +11,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import data.knowledge.WellKnownAuthors;
 import data.knowledge.WellKnownAuthorsOfLink;
@@ -199,7 +200,8 @@ public class LinkContentChecker {
 
         if (language.isPresent() &&
             !Arrays.asList(languages).contains(language.get())) {
-            return new LinkContentCheck("language is \"" + language.get() + "\" but this one is unexpected");
+            final String languagesAsString = Arrays.stream(languages).map(l -> l.toString()).collect(Collectors.joining(", "));
+            return new LinkContentCheck("language is \"" + language.get() + "\" but this one is unexpected, the expected languages are: " + languagesAsString);
         }
 
         return null;

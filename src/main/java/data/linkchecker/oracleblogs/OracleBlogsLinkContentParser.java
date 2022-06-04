@@ -91,7 +91,7 @@ public class OracleBlogsLinkContentParser {
             final JSONArray channelAccessTokens = properties.getJSONArray("channelAccessTokens");
             channelAccessToken = channelAccessTokens.getJSONObject(0).getString("value");
         } catch (final JSONException e) {
-            _exception = new ContentParserException("failed to parse structure JSON data for " + url + ". The JSON payload is \""+ stuctureJson + "\"", e);
+            _exception = new ContentParserException("failed to parse structure JSON data for " + url + ". The JSON payload is \"" + stuctureJson + "\"", e);
             _title = null;
             _subtitle = null;
             _publicationDate = null;
