@@ -10,7 +10,6 @@ import org.junit.jupiter.params.provider.CsvSource;
 import data.internet.SiteData;
 import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
-import data.linkchecker.ContentParserException;
 import data.linkchecker.oracleblogs.OracleBlogsLinkContentParser;
 import utils.HtmlHelper;
 import utils.StringHelper;
@@ -22,7 +21,8 @@ public class OracleBlogsLinkContentParserTest {
     @CsvSource(value = {
         "https://blogs.oracle.com/javamagazine/java-for-loop-break-continue|Quiz yourself: Break and continue in Java’s for loops",
         "https://blogs.oracle.com/javamagazine/post/java-for-loop-break-continue|Quiz yourself: Break and continue in Java’s for loops",
-        "https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update|Opening Up Java EE - An Update",
+        // the next article is broken
+        //"https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update|Opening Up Java EE - An Update",
         "https://blogs.oracle.com/javamagazine/post/12-recipes-for-using-the-optional-class-as-its-meant-to-be-used|12 recipes for using the Optional class as it’s meant to be used",
         "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se|Faster and Easier Use and Redistribution of Java SE",
         "https://blogs.oracle.com/javamagazine/post/everything-you-need-to-know-about-openjdks-move-to-git-and-github|Everything you need to know about OpenJDK’s move to Git and GitHub",
@@ -37,11 +37,7 @@ public class OracleBlogsLinkContentParserTest {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(data, StringHelper.convertStringToUrl(url));
-                               try {
-                                   Assertions.assertEquals(expectedTitle, parser.getTitle());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getTitle threw " + e.getMessage());
-                               }
+                               Assertions.assertEquals(expectedTitle, parser.getTitle());
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -74,12 +70,8 @@ public class OracleBlogsLinkContentParserTest {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(data, StringHelper.convertStringToUrl(url));
-                               try {
-                                   Assertions.assertTrue(parser.getSubtitle().isPresent());
-                                   Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getTitle threw " + e.getMessage());
-                               }
+                               Assertions.assertTrue(parser.getSubtitle().isPresent());
+                               Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -87,7 +79,8 @@ public class OracleBlogsLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update",
+        // the next article is broken
+        //"https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update",
         "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se",
         // the following article contains <h2> which is not a subtitle
         "https://blogs.oracle.com/javamagazine/post/the-top-25-greatest-java-apps-ever-written"
@@ -100,11 +93,7 @@ public class OracleBlogsLinkContentParserTest {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(data, StringHelper.convertStringToUrl(url));
-                               try {
-                                   Assertions.assertFalse(parser.getSubtitle().isPresent());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getSubtitle threw " + e.getMessage());
-                               }
+                               Assertions.assertFalse(parser.getSubtitle().isPresent());
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -114,7 +103,8 @@ public class OracleBlogsLinkContentParserTest {
     @CsvSource({
         "https://blogs.oracle.com/javamagazine/java-for-loop-break-continue,2021-10-05",
         "https://blogs.oracle.com/javamagazine/post/java-for-loop-break-continue,2021-10-05",
-        "https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update,2017-09-12",
+        // the next article is broken
+        //"https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update,2017-09-12",
         "https://blogs.oracle.com/javamagazine/post/12-recipes-for-using-the-optional-class-as-its-meant-to-be-used,2020-06-22",
         "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se,2017-09-06",
         "https://blogs.oracle.com/javamagazine/post/everything-you-need-to-know-about-openjdks-move-to-git-and-github,2021-05-15",
@@ -128,11 +118,7 @@ public class OracleBlogsLinkContentParserTest {
               Assertions.assertTrue(d.getDataFile().isPresent());
               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(data, StringHelper.convertStringToUrl(url));
-              try {
-                  Assertions.assertEquals(expectedDate, parser.getDate().toString());
-               } catch (final ContentParserException e) {
-                   Assertions.fail("getDate threw " + e.getMessage());
-               }
+              Assertions.assertEquals(expectedDate, parser.getDate().toString());
               consumerHasBeenCalled.set(true);
           });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -140,7 +126,8 @@ public class OracleBlogsLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update,David,Delabassee",
+        // the next article is broken
+        //"https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update,David,Delabassee",
         "https://blogs.oracle.com/javamagazine/post/12-recipes-for-using-the-optional-class-as-its-meant-to-be-used,Mohamed,Taman",
         "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se,Donald,Smith",
         "https://blogs.oracle.com/javamagazine/post/everything-you-need-to-know-about-openjdks-move-to-git-and-github,Ian,Darwin",
@@ -161,11 +148,7 @@ public class OracleBlogsLinkContentParserTest {
               Assertions.assertTrue(d.getDataFile().isPresent());
               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(data, StringHelper.convertStringToUrl(url));
-              try {
-                  Assertions.assertEquals(expectedAuthor, parser.getAuthors().get(0));
-               } catch (final ContentParserException e) {
-                   Assertions.fail("getAuthor threw " + e.getMessage());
-               }
+              Assertions.assertEquals(expectedAuthor, parser.getAuthors().get(0));
               consumerHasBeenCalled.set(true);
           });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -200,12 +183,30 @@ public class OracleBlogsLinkContentParserTest {
               Assertions.assertTrue(d.getDataFile().isPresent());
               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(data, StringHelper.convertStringToUrl(url));
-              try {
-                  Assertions.assertEquals(expectedAuthor1, parser.getAuthors().get(0));
-                  Assertions.assertEquals(expectedAuthor2, parser.getAuthors().get(1));
-               } catch (final ContentParserException e) {
-                   Assertions.fail("getAuthor threw " + e.getMessage());
-               }
+              Assertions.assertEquals(expectedAuthor1, parser.getAuthors().get(0));
+              Assertions.assertEquals(expectedAuthor2, parser.getAuthors().get(1));
+              consumerHasBeenCalled.set(true);
+          });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+
+    @ParameterizedTest
+    @CsvSource({
+        "https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update,David,Delabassee",
+        })
+    void doesNotCrashOnCorruptedArticle(final String url) {
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(TestHelper.buildURL(url),
+          (final Boolean b, final SiteData d) -> {
+              Assertions.assertTrue(d.getDataFile().isPresent());
+              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+              final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(data, StringHelper.convertStringToUrl(url));
+              Assertions.assertEquals("", parser.getTitle());
+              Assertions.assertTrue(parser.getSubtitle().isEmpty());
+              Assertions.assertEquals(0, parser.getAuthors().size());
+              Assertions.assertEquals("1970-01-01", parser.getDate().toString());
               consumerHasBeenCalled.set(true);
           });
         Assertions.assertTrue(consumerHasBeenCalled.get());

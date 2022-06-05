@@ -163,33 +163,33 @@ public class OracleBlogsLinkContentParser {
         _authorException = null;
     }
 
-    public String getTitle() throws ContentParserException {
+    public String getTitle() {
         if (_exception != null) {
-            throw _exception;
+            return "";
         }
         return _title;
     }
 
-    public Optional<String> getSubtitle() throws ContentParserException {
+    public Optional<String> getSubtitle() {
         if (_exception != null) {
-            throw _exception;
+            return Optional.empty();
         }
         return _subtitle;
     }
 
-    public LocalDate getDate() throws ContentParserException {
+    public LocalDate getDate() {
         if (_exception != null) {
-            throw _exception;
+            return LocalDate.of(1970, 1, 1);
         }
         return _publicationDate;
     }
 
-    public List<AuthorData> getAuthors() throws ContentParserException {
+    public List<AuthorData> getAuthors() {
         if (_exception != null) {
-            throw _exception;
+            return new ArrayList<>();
         }
         if (_authorException != null) {
-            throw _authorException;
+            return new ArrayList<>();
         }
         return _authors;
     }
@@ -204,9 +204,9 @@ public class OracleBlogsLinkContentParser {
     }
 
 
-    public String getJsonPayload(final URL url,
-                                 final String channelAccessToken,
-                                 final String caas) throws IOException {
+    private String getJsonPayload(final URL url,
+                                  final String channelAccessToken,
+                                  final String caas) throws IOException {
         final String slug = Path.of(url.getPath()).getFileName().toString();
         final String jsonUrl = "https://blogs.oracle.com/content/published/api/v1.1/items?fields=ALL&orderBy=name%3Aasc&limit=1&q=((type%20eq%20%22Blog-Post%22)%20and%20(language%20eq%20%22en-US%22%20or%20translatable%20eq%20%22false%22)%20and%20(slug%20eq%20%22"
                                + slug
@@ -218,7 +218,7 @@ public class OracleBlogsLinkContentParser {
         return _retriever.getGzippedContent(u);
     }
 
-    public AuthorData getAuthor(final URL url) throws IOException, ContentParserException {
+    private AuthorData getAuthor(final URL url) throws IOException, ContentParserException {
         final String jsonPayload = _retriever.getGzippedContent(url);
         final JSONObject obj = new JSONObject(jsonPayload);
         final String name = obj.getString("name");
