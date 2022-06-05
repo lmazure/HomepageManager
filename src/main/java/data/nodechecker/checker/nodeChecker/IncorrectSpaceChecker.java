@@ -22,7 +22,6 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "2.X",
             "3.X",
             "4.X",
-
             "a.k.a.",
             "Ampersand.js",
             "asm.js",
@@ -50,6 +49,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             ".NET",
             "Node.js",
             "Normalize.css",
+            "openjdk.org",
             "OpenOffice.org",
             "P.Anno",
             "quantum.country",

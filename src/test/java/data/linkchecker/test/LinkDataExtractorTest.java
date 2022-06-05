@@ -423,6 +423,23 @@ public class LinkDataExtractorTest {
         Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
+
+    @Test
+    void youtubeWatchLeDessousDesCartesIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=dz0dEzAHKUo";
+        final String expectedXml = """
+                <ARTICLE><X><T>Ukraine : la menace nucléaire, un tournant ? - Le Dessous des cartes | ARTE</T>\
+                <A>https://www.youtube.com/watch?v=dz0dEzAHKUo</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>48</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Émilie</FIRSTNAME><LASTNAME>Aubry</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>6</MONTH><DAY>4</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
     @Test
     void youtubeWatchLeRéveilleurIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=OAyYSlMhgI4";

@@ -18,7 +18,7 @@ public class WellKnownAuthorsOfLink {
         "www.jwz.org", buildWellKnownAuthors("Jamie", "Zawinski", null, false),
         "www.numberphile.com", buildWellKnownAuthors("Brady", "Haran", null, true));
 
-    public static Optional<WellKnownAuthors> getWellKnownAuthors(final URL url) {
+    public static Optional<WellKnownAuthors> getWellKnownAuthors(final URL url) { // TODO *** should return a set instead of an optional
         final String host = url.getHost();
         return s_knownUrls.containsKey(host) ? Optional.of(s_knownUrls.get(host))
                                              : Optional.empty();
