@@ -1,3 +1,7 @@
+éviter les erreurs sur les wellknown authors
+
+nettoyer dp.xml
+
 corriger
 https://www.youtube.com/watch?v=4dV5YXwb7zg
 Date without month or day

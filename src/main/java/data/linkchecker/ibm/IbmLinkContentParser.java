@@ -121,6 +121,7 @@ public class IbmLinkContentParser {
     private String getStructureJson(final URL url) throws IOException {
         final String urlJsonStructure = url.toString()
                                            .replaceFirst("//developer.ibm.com/articles/", "//developer.ibm.com/middleware/v1/contents/articles/")
+                                           .replaceFirst("//developer.ibm.com/tutorials/", "//developer.ibm.com/middleware/v1/contents/tutorials/")
                                            .replaceFirst("/$", "");
         final URL u = StringHelper.convertStringToUrl(urlJsonStructure);
         return _retriever.getGzippedContent(u);

@@ -50,7 +50,8 @@ public class LinkContentCheckerFactory {
             return new OracleBlogsLinkContentChecker(url, linkData, articleData, file);
         }
 
-        if (urlString.startsWith("https://developer.ibm.com/articles/")) {
+        if (urlString.startsWith("https://developer.ibm.com/articles/") ||
+            urlString.startsWith("https://developer.ibm.com/tutorials/")) {
             return new IbmLinkContentChecker(url, linkData, articleData, file);
         }
 

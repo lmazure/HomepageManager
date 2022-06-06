@@ -14,6 +14,7 @@ public class WellKnownAuthorsOfLink {
         "automaths.blog", buildWellKnownAuthors("Jason", "Lapeyronnie", null, false),
         "eljjdx.canalblog.com", buildWellKnownAuthors("Jérôme", "Cottanceau", "El Jj", false),
         "lexfridman.com", buildWellKnownAuthors("Lex", "Fridman", null, true),
+        "mkyong.com", buildWellKnownAuthors("Yong", "Mook Kim", null, true),
         "nipafx.dev", buildWellKnownAuthors("Nicolai", "Parlog", null, true),
         "www.inspiredtester.com", buildWellKnownAuthors("Leah", "Stockley", null, false),
         "www.jwz.org", buildWellKnownAuthors("Jamie", "Zawinski", null, false),
