@@ -1,4 +1,4 @@
-package data.linkchecker.test;
+package data.linkchecker.youtubewatch.test;
 
 import java.time.Duration;
 import java.time.LocalDate;

@@ -1,4 +1,4 @@
-package data.linkchecker.test;
+package data.linkchecker.oracleblogs.test;
 
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -148,6 +148,7 @@ public class OracleBlogsLinkContentParserTest {
               Assertions.assertTrue(d.getDataFile().isPresent());
               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(data, StringHelper.convertStringToUrl(url));
+              Assertions.assertEquals(1, parser.getAuthors().size());
               Assertions.assertEquals(expectedAuthor, parser.getAuthors().get(0));
               consumerHasBeenCalled.set(true);
           });
@@ -183,6 +184,7 @@ public class OracleBlogsLinkContentParserTest {
               Assertions.assertTrue(d.getDataFile().isPresent());
               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(data, StringHelper.convertStringToUrl(url));
+              Assertions.assertEquals(2, parser.getAuthors().size());
               Assertions.assertEquals(expectedAuthor1, parser.getAuthors().get(0));
               Assertions.assertEquals(expectedAuthor2, parser.getAuthors().get(1));
               consumerHasBeenCalled.set(true);

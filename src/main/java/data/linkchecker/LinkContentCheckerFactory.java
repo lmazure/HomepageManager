@@ -8,6 +8,7 @@ import data.linkchecker.arstechnica.ArsTechnicaLinkContentChecker;
 import data.linkchecker.baeldung.BaeldungLinkContentChecker;
 import data.linkchecker.chromium.ChromiumBlogLinkContentChecker;
 import data.linkchecker.gitlabblog.GitlabBlogLinkContentChecker;
+import data.linkchecker.ibm.IbmLinkContentChecker;
 import data.linkchecker.medium.MediumLinkContentChecker;
 import data.linkchecker.oracleblogs.OracleBlogsLinkContentChecker;
 import data.linkchecker.quantamagazine.QuantaMagazineLinkContentChecker;
@@ -49,6 +50,10 @@ public class LinkContentCheckerFactory {
             return new OracleBlogsLinkContentChecker(url, linkData, articleData, file);
         }
 
+        if (urlString.startsWith("https://developer.ibm.com/articles/")) {
+            return new IbmLinkContentChecker(url, linkData, articleData, file);
+        }
+
         if (urlString.startsWith("https://medium.com/")) {
             return new MediumLinkContentChecker(url, linkData, articleData, file);
         }
@@ -78,7 +83,7 @@ public class LinkContentCheckerFactory {
             return new ChromiumBlogLinkContentChecker(url, linkData, articleData, file);
         }
 
-        if (urlString.startsWith("https://www.baeldung.com/") && !urlString.equals("https://www.baeldung.com/")) {
+        if (urlString.matches("https://www.baeldung.com/.+")) {
             return new BaeldungLinkContentChecker(url, linkData, articleData, file);
         }
 

@@ -47,8 +47,7 @@ public class OracleBlogsLinkContentParser {
     private final List<AuthorData> _authors;
     private final ContentParserException _exception;
     private final ContentParserException _authorException;
-
-    private SynchronousSiteDataRetriever _retriever;
+    private final SynchronousSiteDataRetriever _retriever;
 
     public OracleBlogsLinkContentParser(final String data,
                                         final URL url) {
@@ -202,7 +201,6 @@ public class OracleBlogsLinkContentParser {
         final URL u = StringHelper.convertStringToUrl(urlJsonStructure);
         return _retriever.getGzippedContent(u);
     }
-
 
     private String getJsonPayload(final URL url,
                                   final String channelAccessToken,

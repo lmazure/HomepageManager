@@ -1,4 +1,4 @@
-package data.linkchecker.test;
+package data.linkchecker.gitlabblog.test;
 
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;

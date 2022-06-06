@@ -43,6 +43,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "analytics.katalon.com",
             "Kosmopoli:t",
             "MANIFEST.MF",
+            "M.A.R.I.",
             "MSCTF.DLL",
             "MVC.NET",
             "NaturalNews.com",

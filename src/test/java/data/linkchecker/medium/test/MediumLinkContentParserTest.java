@@ -1,4 +1,4 @@
-package data.linkchecker.test;
+package data.linkchecker.medium.test;
 
 import java.net.URL;
 import java.util.Optional;

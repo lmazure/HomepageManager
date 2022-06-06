@@ -1,4 +1,4 @@
-package data.linkchecker.oracleblogs;
+package data.linkchecker.ibm;
 
 import java.io.File;
 import java.net.URL;
@@ -15,15 +15,15 @@ import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkData;
 
-public class OracleBlogsLinkContentChecker extends LinkContentChecker {
+public class IbmLinkContentChecker extends LinkContentChecker {
 
-    private OracleBlogsLinkContentParser _parser;
+    private IbmLinkContentParser _parser;
     private final URL _url;
 
-    public OracleBlogsLinkContentChecker(final URL url,
-                                         final LinkData linkData,
-                                         final Optional<ArticleData> articleData,
-                                         final File file) {
+    public IbmLinkContentChecker(final URL url,
+                                 final LinkData linkData,
+                                 final Optional<ArticleData> articleData,
+                                 final File file) {
         super(url, linkData, articleData, file);
         _url = url;
     }
@@ -31,7 +31,7 @@ public class OracleBlogsLinkContentChecker extends LinkContentChecker {
     @Override
     protected LinkContentCheck checkGlobalData(final String data)
     {
-        _parser = new OracleBlogsLinkContentParser(data, _url);
+        _parser = new IbmLinkContentParser(data, _url);
         return null;
     }
 
@@ -56,33 +56,18 @@ public class OracleBlogsLinkContentChecker extends LinkContentChecker {
     protected LinkContentCheck checkLinkSubtitles(final String data,
                                                   final String[] subtitles) throws ContentParserException
     {
-        if (subtitles.length > 1) {
-            return new LinkContentCheck("Oracle Blogs article should have zero or one subtitle");
+        if (subtitles.length != 1) {
+            return new LinkContentCheck("IBM article should have one subtitle");
         }
 
 
-        final Optional<String> effectiveSubtitle = _parser.getSubtitle();
+        final String effectiveSubtitle = _parser.getSubtitle();
 
-        if (effectiveSubtitle.isEmpty()) {
-            if (subtitles.length != 0 ) {
-                return new LinkContentCheck("subtitle \"" +
-                                            subtitles[0] +
-                                            "\" should not be present");
-            }
-            return null;
-        }
-
-        if (subtitles.length == 0 ) {
-            return new LinkContentCheck("the subtitle \"" +
-                                        effectiveSubtitle.get() +
-                                        "\" is missing");
-        }
-
-        if (!subtitles[0].equals(effectiveSubtitle.get())) {
+        if (!subtitles[0].equals(effectiveSubtitle)) {
             return new LinkContentCheck("subtitle \"" +
                                         subtitles[0] +
                                         "\" is not equal to the real subtitle \"" +
-                                        effectiveSubtitle.get() +
+                                        effectiveSubtitle +
                                           "\"");
         }
 
@@ -94,7 +79,7 @@ public class OracleBlogsLinkContentChecker extends LinkContentChecker {
                                                   final Locale[] languages)
     {
         if ((languages.length != 1) || (languages[0] != Locale.ENGLISH)) {
-            return new LinkContentCheck("Oracle Blogs article should have the language set as English");
+            return new LinkContentCheck("IBM article should have the language set as English");
         }
 
         return null;
@@ -106,7 +91,7 @@ public class OracleBlogsLinkContentChecker extends LinkContentChecker {
                                                 final Optional<TemporalAccessor> creationDate) throws ContentParserException
     {
         if (creationDate.isEmpty()) {
-            return new LinkContentCheck("Oracle Blogs article should have a creation date");
+            return new LinkContentCheck("IBM article should have a creation date");
         }
         final TemporalAccessor date =  publicationDate.isPresent() ? publicationDate.get()
                                                                    : creationDate.get();

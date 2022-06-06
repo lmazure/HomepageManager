@@ -291,7 +291,7 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
                                         final AuthorData author) {
         return new MatchingAuthor(Pattern.compile(regexp), author);
     }
-    
+
     private static class ChannelData {
         private final List<AuthorData> _authors;
         private final List<MatchingAuthor> _matchingAuthors;
@@ -317,7 +317,7 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
             return _language;
         }
    }
-   
+
     private static class MatchingAuthor {
         private final Pattern _pattern;
         private final AuthorData _author;

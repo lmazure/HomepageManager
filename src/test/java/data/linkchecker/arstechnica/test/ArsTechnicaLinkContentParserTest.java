@@ -1,4 +1,4 @@
-package data.linkchecker.test;
+package data.linkchecker.arstechnica.test;
 
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;

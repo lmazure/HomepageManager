@@ -11,7 +11,6 @@ import data.nodechecker.tagSelection.InclusionTagSelector;
 import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
 
-
 public class TableSortChecker extends NodeChecker {
 
     private final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {

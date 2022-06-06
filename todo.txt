@@ -1,6 +1,3 @@
-corriger scienceinfuse.cool/podcast/mycorhize-et-agriculture-avec-marc-andre-selosse/
-corriger m85CUfKPYas
-
 corriger
 https://www.youtube.com/watch?v=4dV5YXwb7zg
 Date without month or day
@@ -36,8 +33,6 @@ ajouter support de https://about.gitlab.com/releases/2022/01/22/gitlab-14-7-rele
 
 éviter le warning à cause de "?." dans games.xml
 
-ajouter la définition de la langue pour éviter les mauvaises détections d'espacemanquant ou en trop
-
 gérer les auteurs optionnels (pex comptuterphile)
 pouvoir ajouter un author à la main (pex numberphile)
 
@@ -64,7 +59,7 @@ problème avec les titres de medium
 https://medium.com/@kentbeck_7670/sipping-the-big-gulp-a7c50549c393
 https://medium.com/@tdeniffel/tcr-test-commit-revert-a-test-alternative-to-tdd-6e6b03c22bec
 https://medium.com/backchannel/has-deepmind-really-passed-go-adc85e256bec
- 
+
 comment gérer les changements de nom Barb Palser -> Barb Smith
 
 détecter US au lieu de GB
@@ -102,7 +97,7 @@ coding.xml
 
 - trier par défaut la liste des problèmes sur la date de dernière modification
 
-- mauvaise détection de langue : 
+- mauvaise détection de langue :
 http://wiki.c2.com/?AbcMetric
 -- fr au lieu de en
 https://groups.google.com/forum/#!forum/clean-code-discussion
@@ -148,15 +143,15 @@ de plus cela génère des erreurs
 
 - problème avec le lien http://marie.desplats.free.fr/diagora_home_page.html
 
-- bug : s'il n'y a aucun lien dans une page, le texte du rapport reste "analyse en cours"  
-  
+- bug : s'il n'y a aucun lien dans une page, le texte du rapport reste "analyse en cours"
+ 
 - Tester robot.txt avec https://www.google.com/webmasters/tools/robots-testing-tool
 
 - Ajouter la détection des malwares
 
 - Ajouter la règle sur les URLs qui apparaissent plusieurs fois
 
-- Accelérer la création des fichier JSON (en extrayant les données de chaque fichier à la modification de celui-ci, en mettant cela dans un fichier de résumé et en ayant la création des JSON qui ne fasse que consolider ces fichiers) 
+- Accelérer la création des fichier JSON (en extrayant les données de chaque fichier à la modification de celui-ci, en mettant cela dans un fichier de résumé et en ayant la création des JSON qui ne fasse que consolider ces fichiers)
 
 - ajouter la vérification des <FEED>s
 

@@ -1,4 +1,4 @@
-package data.linkchecker.test;
+package data.linkchecker.youtubechanneluser.test;
 
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;

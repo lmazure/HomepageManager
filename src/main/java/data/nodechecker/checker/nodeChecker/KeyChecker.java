@@ -1,6 +1,5 @@
 package data.nodechecker.checker.nodeChecker;
 
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

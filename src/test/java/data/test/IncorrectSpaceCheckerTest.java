@@ -76,7 +76,6 @@ public class IncorrectSpaceCheckerTest extends NodeValueCheckerTestBase {
         }
     }
 
-
     @SuppressWarnings("static-method")
     @Test
     void checkAllBasicCasesInFrench() {

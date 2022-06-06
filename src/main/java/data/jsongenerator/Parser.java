@@ -135,7 +135,6 @@ public class Parser {
         }
     }
 
-
        /**
      * @param file
      * @throws XmlParsingException

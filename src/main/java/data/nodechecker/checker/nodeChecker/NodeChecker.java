@@ -56,7 +56,6 @@ public class NodeChecker {
         _descriptions[1] = description2;
     }
 
-
     @SuppressWarnings("unchecked")
     protected NodeChecker(final TagSelector tagSelector,
                           final Function<Element, CheckStatus> rule1,
