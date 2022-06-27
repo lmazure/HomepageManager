@@ -208,6 +208,23 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
                 return buildList(buildAuthor("José", "Paumard"));
             }
         }
+        if (channel.equals("Computerphile")) {
+            final String description = _parser.getDescription();
+            if (description.contains("Mike Pound")) {
+                return buildList(buildAuthor("Mike", "Pound"));
+            }
+        }
+        if (channel.equals("Periodic Videos")) {
+            final String description = _parser.getDescription();
+            final List<AuthorData> list = new ArrayList<>();
+            if (description.contains("Poliakoff")) {
+                list.add(buildAuthor("Martyn", "Poliakoff"));
+            }
+            if (description.contains("Barnes")) {
+                list.add(buildAuthor("Neil", "Barnes"));
+            }
+            return list;
+        }
         return new ArrayList<>(0);
     }
 

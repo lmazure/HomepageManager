@@ -43,7 +43,7 @@ public class LinkDataExtractorTest {
                 <A>https://www.baeldung.com/java-unit-testing-best-practices</A>\
                 <L>en</L><F>HTML</F></X>\
                 <AUTHOR><FIRSTNAME>Anshul</FIRSTNAME><LASTNAME>Bansal</LASTNAME></AUTHOR>\
-                <DATE><YEAR>2021</YEAR><MONTH>11</MONTH><DAY>16</DAY></DATE>\
+                <DATE><YEAR>2022</YEAR><MONTH>6</MONTH><DAY>9</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
@@ -207,6 +207,23 @@ public class LinkDataExtractorTest {
                 <L>fr</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>0</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Nathan</FIRSTNAME><LASTNAME>Uyttendaele</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>2</MONTH><DAY>17</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+
+    @Test
+    void youtubeWatchComputerfileIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=-ShwJqAalOk";
+        final String expectedXml = """
+                <ARTICLE><X><T>Breaking RSA - Computerphile</T>\
+                <A>https://www.youtube.com/watch?v=-ShwJqAalOk</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>14</MINUTE><SECOND>49</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Mike</FIRSTNAME><LASTNAME>Pound</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>5</MONTH><DAY>10</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
@@ -508,7 +525,7 @@ public class LinkDataExtractorTest {
     void youtubeWatchMonsieurBidouilleIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=36WpRwY2DYw";
         final String expectedXml = """
-                <ARTICLE><X><T>☀️ ITER ET LA FUSION - Visite du chantier du plus gros tokamak du monde</T>\
+                <ARTICLE><X><T>☀️À l'intérieur d'ITER - Visite du chantier du plus gros tokamak du monde</T>\
                 <A>https://www.youtube.com/watch?v=36WpRwY2DYw</A>\
                 <L>fr</L><F>MP4</F><DURATION><MINUTE>51</MINUTE><SECOND>36</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Dimitri</FIRSTNAME><LASTNAME>Ferrière</LASTNAME></AUTHOR>\
@@ -561,6 +578,23 @@ public class LinkDataExtractorTest {
                 <L>fr</L><F>MP4</F><DURATION><MINUTE>26</MINUTE><SECOND>13</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Thomas</FIRSTNAME><LASTNAME>Cabaret</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>11</MONTH><DAY>5</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
+    void youtubeWatchPeriodicTableIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=ykpTFw6r7Hw";
+        final String expectedXml = """
+                <ARTICLE><X><T>Poaching an Egg in Piranha Solution - Periodic Table of Videos</T>\
+                <A>https://www.youtube.com/watch?v=ykpTFw6r7Hw</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>4</MINUTE><SECOND>57</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Martyn</FIRSTNAME><LASTNAME>Poliakoff</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Neil</FIRSTNAME><LASTNAME>Barnes</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>6</MONTH><DAY>11</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
