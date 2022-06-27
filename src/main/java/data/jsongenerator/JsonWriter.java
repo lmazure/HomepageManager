@@ -224,27 +224,32 @@ public class JsonWriter {
                     out.write(",");
                     printLinks(out, keyword.getLinks());
                 }
-                if (!keyword.getArticles().isEmpty()) {
-                    out.write(",\n      \"articleIndexes\" : [");
-                    boolean first = true;
-                    for (final Article article: keyword.getArticles()) {
-                        if (!first) {
-                            out.write(", ");
-                        }
-                        out.write(articleIndexes.get(article).toString());
-                        first = false;
-                    }
-                    out.write("]");
+                if (keyword.getArticles().isEmpty()) {
+                    Logger.log(Logger.Level.WARN).append("No article for keyword \"" + keyword.getId() + "\"");
                 }
-                out.write("\n    }");
+                out.write(",\n      \"articleIndexes\" : [");
+                boolean first = true;
+                for (final Article article: keyword.getArticles()) {
+                    if (!first) {
+                        out.write(", ");
+                    }
+                    out.write(articleIndexes.get(article).toString());
+                    first = false;
+                }
+                out.write("]\n    }");
             }
             out.write("\n  ]\n}");
             out.flush();
         } catch (final IOException e) {
-            Logger.log(Logger.Level.ERROR).append("Failed to write file ").append(f).append(e).submit();
+            Logger.log(Logger.Level.ERROR).append("Failed to write file ")
+                                          .append(f)
+                                          .append(e)
+                                          .submit();
         }
 
-        Logger.log(Logger.Level.INFO).append(f).append(" is created").submit();
+        Logger.log(Logger.Level.INFO).append(f)
+                                     .append(" is created")
+                                     .submit();
     }
 
     private static void printLinks(final OutputStreamWriter out,

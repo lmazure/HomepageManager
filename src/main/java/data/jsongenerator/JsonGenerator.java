@@ -64,15 +64,15 @@ public class JsonGenerator {
     }
 
     /**
-     * @param f
+     * @param file
      * @throws XmlParsingException
      */
-    private void scanFile(final File f) throws XmlParsingException {
-        parser.parse(f);
+    private void scanFile(final File file) throws XmlParsingException {
+        parser.parse(file);
     }
 
-    private void scanPersonFile(final File f) throws XmlParsingException {
-        parser.parsePersonFile(f);
+    private void scanPersonFile(final File file) throws XmlParsingException {
+        parser.parsePersonFile(file);
     }
 
     /**
