@@ -126,8 +126,9 @@ public class IncorrectSpaceChecker extends NodeChecker {
         }
 
         for (final String l: list) {
-            if (containsPunctuationPrecededByInvalidSpace(l, locale.get())) {
-                return new CheckStatus("\"" + l + "\" has a space before a punctuation");
+            final int c = containsPunctuationPrecededByInvalidSpace(l, locale.get());
+            if (c > 0) {
+                return new CheckStatus("\"" + l + "\" has a space before a punctuation (at index " + c + ")");
             }
         }
 
@@ -259,35 +260,36 @@ public class IncorrectSpaceChecker extends NodeChecker {
     /**
      * @param str
      * @param locale
-     * @return return true if the string contains a space that should not be present before a punctuation
+     * @return return index of error if the string contains a space that should not be present before a punctuation
+     *                -1 if the string is correct
      */
-    private static boolean containsPunctuationPrecededByInvalidSpace(final String str,
-                                                                     final Locale locale) {
+    private static int containsPunctuationPrecededByInvalidSpace(final String str,
+                                                                 final Locale locale) {
         for (int i = 1; i < str.length(); i++) {
             final char previousChar = str.charAt(i - 1);
             final char currentChar = str.charAt(i);
             if (Character.isSpaceChar(previousChar)) {
                 if (startsWithAuthorizedMissingPrecedingSpaceList(str.substring(i))) {
-                    return false;
+                    return -1;
                 }
                 if (locale.equals(Locale.ENGLISH)) {
                     if (isEnglishPunctuationWithNoSpaceBefore(currentChar)) {
-                        return true;
+                        return i;
                     }
                 } else if (locale.equals(Locale.FRENCH)) {
                     if (isFrenchPunctuationWithNoSpaceBefore(currentChar)) {
-                        return true;
+                        return i;
                     }
                 } else if (locale.getLanguage().isEmpty()) {
                     if (isEnglishPunctuationWithNoSpaceBefore(currentChar) && isFrenchPunctuationWithNoSpaceBefore(currentChar)) {
-                        return true;
+                        return i;
                     }
                 } else {
                     throw new UnsupportedOperationException("Illegal locale value (" + locale + ")");
                 }
             }
         }
-        return false;
+        return -1;
     }
 
     /**
