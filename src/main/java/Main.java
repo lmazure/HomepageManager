@@ -13,7 +13,7 @@ public class Main {
     public static void main(final String[] args) {
 
         if ((args.length < 2) || (args.length > 3)) {
-            exitOnErrorSyntax();
+            exitOnSyntaxError();
         }
 
         boolean internetAccessIsEnabled = false;
@@ -24,7 +24,7 @@ public class Main {
             } else if (args[0].equals(disableInternetAccessOption)) {
                 internetAccessIsEnabled = false;
             } else {
-                exitOnErrorSyntax();
+                exitOnSyntaxError();
             }
         }
 
@@ -33,7 +33,7 @@ public class Main {
         FileTable.display(homepagePath, tmpPath, internetAccessIsEnabled);
     }
 
-    private static void exitOnErrorSyntax() {
+    private static void exitOnSyntaxError() {
         ExitHelper.exit("Syntax: HomepageManager [" +
                         enableInternetAccessOption +
                         "|" +
