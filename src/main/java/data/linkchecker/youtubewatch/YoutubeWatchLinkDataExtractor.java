@@ -62,6 +62,10 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
             new AbstractMap.SimpleEntry<>("Holger Voormann",
                                           new ChannelData(buildList(buildAuthor("Holger", "Voormann")),
                                                           buildMatchingList(),
+                                                          Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("Jamy - Epicurieux",
+                                          new ChannelData(buildList(buildAuthor("Jamy", "Gourmaud")),
+                                                          buildMatchingList(),
                                                           Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("J'm'énerve pas, j'explique",
                                           new ChannelData(buildList(buildAuthor("Bertrand", "Augustin")),
@@ -87,6 +91,10 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
                                                           Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("Mathologer",
                                           new ChannelData(buildList(buildAuthor("Burkard", "Polster")),
+                                                          buildMatchingList(),
+                                                          Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("Matt_Parker_2",
+                                          new ChannelData(buildList(buildAuthor("Matt", "Parker")),
                                                           buildMatchingList(),
                                                           Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Mickaël Launay",
@@ -117,6 +125,10 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
                                           new ChannelData(buildList(buildAuthorFromGivenName("Philoxime")),
                                                           buildMatchingList(),
                                                           Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("PRimer",
+                                          new ChannelData(buildList(buildAuthor("Justin", "Helps")),
+                                                          buildMatchingList(),
+                                                          Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Quadriviuum Tremens",
                                           new ChannelData(buildList(buildAuthor("Tristan", "Audam-Dabidin"),
                                                                     buildAuthor("Keshika", "Dabidin")),
@@ -291,12 +303,12 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
 
     private static AuthorData buildAuthor(final String firstName,
                                           final String lastName) {
-    return new AuthorData(Optional.empty(),
-                          Optional.of(firstName),
-                          Optional.empty(),
-                          Optional.of(lastName),
-                          Optional.empty(),
-                          Optional.empty());
+        return new AuthorData(Optional.empty(),
+                              Optional.of(firstName),
+                              Optional.empty(),
+                              Optional.of(lastName),
+                              Optional.empty(),
+                              Optional.empty());
     }
 
     private static AuthorData buildAuthorFromGivenName(final String givenName) {
