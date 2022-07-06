@@ -47,23 +47,23 @@ public class IncorrectSpaceCheckerTest extends NodeValueCheckerTestBase {
 
         try {
             test(content,
-                 "\"Aab ! xyz\" has a space before a punctuation",
-                 "\"Aab !xyz\" has a space before a punctuation",
+                 "\"Aab ! xyz\" has a space before a punctuation (at index 4)",
+                 "\"Aab !xyz\" has a space before a punctuation (at index 4)",
                  "\"Aab !xyz\" is missing a space after punctuation",
-                 "\"Aab , xyz\" has a space before a punctuation",
-                 "\"Aab ,xyz\" has a space before a punctuation",
+                 "\"Aab , xyz\" has a space before a punctuation (at index 4)",
+                 "\"Aab ,xyz\" has a space before a punctuation (at index 4)",
                  "\"Aab ,xyz\" is missing a space after punctuation",
-                 "\"Aab . xyz\" has a space before a punctuation",
-                 "\"Aab .xyz\" has a space before a punctuation",
+                 "\"Aab . xyz\" has a space before a punctuation (at index 4)",
+                 "\"Aab .xyz\" has a space before a punctuation (at index 4)",
                  "\"Aab .xyz\" is missing a space after punctuation",
-                 "\"Aab : xyz\" has a space before a punctuation",
-                 "\"Aab :xyz\" has a space before a punctuation",
+                 "\"Aab : xyz\" has a space before a punctuation (at index 4)",
+                 "\"Aab :xyz\" has a space before a punctuation (at index 4)",
                  "\"Aab :xyz\" is missing a space after punctuation",
-                 "\"Aab ; xyz\" has a space before a punctuation",
-                 "\"Aab ;xyz\" has a space before a punctuation",
+                 "\"Aab ; xyz\" has a space before a punctuation (at index 4)",
+                 "\"Aab ;xyz\" has a space before a punctuation (at index 4)",
                  "\"Aab ;xyz\" is missing a space after punctuation",
-                 "\"Aab ? xyz\" has a space before a punctuation",
-                 "\"Aab ?xyz\" has a space before a punctuation",
+                 "\"Aab ? xyz\" has a space before a punctuation (at index 4)",
+                 "\"Aab ?xyz\" has a space before a punctuation (at index 4)",
                  "\"Aab ?xyz\" is missing a space after punctuation",
                  "\"Aab!xyz\" is missing a space after punctuation",
                  "\"Aab,xyz\" is missing a space after punctuation",
@@ -118,11 +118,11 @@ public class IncorrectSpaceCheckerTest extends NodeValueCheckerTestBase {
         try {
             test(content,
                  "\"Aab !xyz\" is missing a space after punctuation",
-                 "\"Aab , xyz\" has a space before a punctuation",
-                 "\"Aab ,xyz\" has a space before a punctuation",
+                 "\"Aab , xyz\" has a space before a punctuation (at index 4)",
+                 "\"Aab ,xyz\" has a space before a punctuation (at index 4)",
                  "\"Aab ,xyz\" is missing a space after punctuation",
-                 "\"Aab . xyz\" has a space before a punctuation",
-                 "\"Aab .xyz\" has a space before a punctuation",
+                 "\"Aab . xyz\" has a space before a punctuation (at index 4)",
+                 "\"Aab .xyz\" has a space before a punctuation (at index 4)",
                  "\"Aab .xyz\" is missing a space after punctuation",
                  "\"Aab :xyz\" is missing a space after punctuation",
                  "\"Aab ;xyz\" is missing a space after punctuation",
@@ -171,7 +171,7 @@ public class IncorrectSpaceCheckerTest extends NodeValueCheckerTestBase {
             test(content,
                  "\"He is Bob.She is Alice\" is missing a space after punctuation",
                  "\"The string .He is bright should be reported.\" is missing a space after punctuation",
-                 "\"The string .He is bright should be reported.\" has a space before a punctuation",
+                 "\"The string .He is bright should be reported.\" has a space before a punctuation (at index 11)",
                  "\"The string \".He is bright\" should be reported.\" is missing a space after punctuation");
         } catch (@SuppressWarnings("unused") final SAXException e) {
             Assertions.fail("SAXException");
@@ -200,9 +200,9 @@ public class IncorrectSpaceCheckerTest extends NodeValueCheckerTestBase {
 
         try {
             test(content,
-                 "\"He is Boby . She is Alicy.\" has a space before a punctuation",
-                 "\"There are three animals : sheep, pig, and cock.\" has a space before a punctuation",
-                 "\"There are three animals: sheep , pig, and cock.\" has a space before a punctuation");
+                 "\"He is Boby . She is Alicy.\" has a space before a punctuation (at index 11)",
+                 "\"There are three animals : sheep, pig, and cock.\" has a space before a punctuation (at index 24)",
+                 "\"There are three animals: sheep , pig, and cock.\" has a space before a punctuation (at index 31)");
         } catch (@SuppressWarnings("unused") final SAXException e) {
             Assertions.fail("SAXException");
         }
@@ -237,7 +237,7 @@ public class IncorrectSpaceCheckerTest extends NodeValueCheckerTestBase {
             test(content,
                  "\"He is Bob.She is Alice\" is missing a space after punctuation",
                  "\"The string .He is bright should be reported.\" is missing a space after punctuation",
-                 "\"The string .He is bright should be reported.\" has a space before a punctuation",
+                 "\"The string .He is bright should be reported.\" has a space before a punctuation (at index 11)",
                  "\"The string \".He is bright\" should be reported.\" is missing a space after punctuation",
                  "\"Two things: a and b.\" is missing a space before punctuation");
         } catch (@SuppressWarnings("unused") final SAXException e) {
@@ -267,8 +267,8 @@ public class IncorrectSpaceCheckerTest extends NodeValueCheckerTestBase {
 
         try {
             test(content,
-                 "\"He is Boby . She is Alicy.\" has a space before a punctuation",
-                 "\"There are three animals: sheep , pig, and cock.\" has a space before a punctuation",
+                 "\"He is Boby . She is Alicy.\" has a space before a punctuation (at index 11)",
+                 "\"There are three animals: sheep , pig, and cock.\" has a space before a punctuation (at index 31)",
                  "\"There are three animals: sheep , pig, and cock.\" is missing a space before punctuation",
                  "\"There are three animals: sheep, pig, and cock.\" is missing a space before punctuation");
         } catch (@SuppressWarnings("unused") final SAXException e) {
