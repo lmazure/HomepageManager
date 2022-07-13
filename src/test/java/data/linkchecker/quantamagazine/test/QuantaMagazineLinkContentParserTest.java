@@ -148,17 +148,17 @@ public class QuantaMagazineLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
-          (final Boolean b, final SiteData d) -> {
-              Assertions.assertTrue(d.getDataFile().isPresent());
-              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-              final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(data);
-              try {
-                  Assertions.assertEquals(expectedDate, parser.getDate().toString());
-               } catch (final ContentParserException e) {
-                   Assertions.fail("getDate threw " + e.getMessage());
-               }
-              consumerHasBeenCalled.set(true);
-          });
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(data);
+                               try {
+                                   Assertions.assertEquals(expectedDate, parser.getDate().toString());
+                                } catch (final ContentParserException e) {
+                                    Assertions.fail("getDate threw " + e.getMessage());
+                                }
+                               consumerHasBeenCalled.set(true);
+                           });
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -180,18 +180,18 @@ public class QuantaMagazineLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
-          (final Boolean b, final SiteData d) -> {
-              Assertions.assertTrue(d.getDataFile().isPresent());
-              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-              final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(data);
-              try {
-                  Assertions.assertEquals(1, parser.getAuthors().size());
-                  Assertions.assertEquals(expectedAuthor, parser.getAuthors().get(0));
-               } catch (final ContentParserException e) {
-                   Assertions.fail("getAuthors threw " + e.getMessage());
-               }
-              consumerHasBeenCalled.set(true);
-          });
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(data);
+                               try {
+                                   Assertions.assertEquals(1, parser.getAuthors().size());
+                                   Assertions.assertEquals(expectedAuthor, parser.getAuthors().get(0));
+                                } catch (final ContentParserException e) {
+                                    Assertions.fail("getAuthors threw " + e.getMessage());
+                                }
+                               consumerHasBeenCalled.set(true);
+                           });
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -212,18 +212,18 @@ public class QuantaMagazineLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
-          (final Boolean b, final SiteData d) -> {
-              Assertions.assertTrue(d.getDataFile().isPresent());
-              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-              final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(data);
-              try {
-                  Assertions.assertEquals(1, parser.getAuthors().size());
-                  Assertions.assertEquals(expectedAuthor, parser.getAuthors().get(0));
-               } catch (final ContentParserException e) {
-                   Assertions.fail("getAuthors threw " + e.getMessage());
-               }
-              consumerHasBeenCalled.set(true);
-          });
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(data);
+                               try {
+                                   Assertions.assertEquals(1, parser.getAuthors().size());
+                                   Assertions.assertEquals(expectedAuthor, parser.getAuthors().get(0));
+                                } catch (final ContentParserException e) {
+                                    Assertions.fail("getAuthors threw " + e.getMessage());
+                                }
+                               consumerHasBeenCalled.set(true);
+                           });
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -254,19 +254,19 @@ public class QuantaMagazineLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
-          (final Boolean b, final SiteData d) -> {
-              Assertions.assertTrue(d.getDataFile().isPresent());
-              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-              final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(data);
-              try {
-                  Assertions.assertEquals(2, parser.getAuthors().size());
-                  Assertions.assertEquals(expectedAuthor1, parser.getAuthors().get(0));
-                  Assertions.assertEquals(expectedAuthor2, parser.getAuthors().get(1));
-               } catch (final ContentParserException e) {
-                   Assertions.fail("getAuthors threw " + e.getMessage());
-               }
-              consumerHasBeenCalled.set(true);
-          });
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(data);
+                               try {
+                                   Assertions.assertEquals(2, parser.getAuthors().size());
+                                   Assertions.assertEquals(expectedAuthor1, parser.getAuthors().get(0));
+                                   Assertions.assertEquals(expectedAuthor2, parser.getAuthors().get(1));
+                                } catch (final ContentParserException e) {
+                                    Assertions.fail("getAuthors threw " + e.getMessage());
+                                }
+                               consumerHasBeenCalled.set(true);
+                           });
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 }

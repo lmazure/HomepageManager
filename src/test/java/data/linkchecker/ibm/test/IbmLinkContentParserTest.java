@@ -33,7 +33,7 @@ public class IbmLinkContentParserTest {
                                final IbmLinkContentParser parser = new IbmLinkContentParser(data, StringHelper.convertStringToUrl(url));
                                try {
                                     Assertions.assertEquals(expectedTitle, parser.getTitle());
-                                } catch (final ContentParserException e) {
+                               } catch (final ContentParserException e) {
                                     Assertions.fail("getTitle threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);

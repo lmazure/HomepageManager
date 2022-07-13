@@ -13,6 +13,7 @@ import data.linkchecker.medium.MediumLinkContentChecker;
 import data.linkchecker.oracleblogs.OracleBlogsLinkContentChecker;
 import data.linkchecker.quantamagazine.QuantaMagazineLinkContentChecker;
 import data.linkchecker.twitter.TwitterLinkContentChecker;
+import data.linkchecker.wired.WiredLinkContentChecker;
 import data.linkchecker.youtubechanneluser.YoutubeChannelUserLinkContentChecker;
 import data.linkchecker.youtubewatch.YoutubeWatchLinkContentChecker;
 import utils.xmlparsing.ArticleData;
@@ -90,6 +91,10 @@ public class LinkContentCheckerFactory {
 
         if (urlString.startsWith("https://about.gitlab.com/blog/")) {
             return new GitlabBlogLinkContentChecker(url, linkData, articleData, file);
+        }
+
+        if (urlString.startsWith("https://www.wired.com/")) {
+            return new WiredLinkContentChecker(url, linkData, articleData, file);
         }
 
         if (urlString.startsWith("https://spectrum.ieee.org/")) {

@@ -641,7 +641,7 @@ public class LinkDataExtractorTest {
                 <ARTICLE><X><T>Climat : ce moment où ça a déraillé</T>\
                 <A>https://www.youtube.com/watch?v=YVtW5d94KN0</A>\
                 <L>fr</L><F>MP4</F><DURATION><MINUTE>28</MINUTE><SECOND>14</SECOND></DURATION></X>\
-                <AUTHOR><GIVENNAME>Philoxime</GIVENNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Maxime</FIRSTNAME><LASTNAME>Lambrecht</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>5</MONTH><DAY>26</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
@@ -949,6 +949,23 @@ public class LinkDataExtractorTest {
                 <L>en</L><F>HTML</F></X>\
                 <AUTHOR><FIRSTNAME>Elena</FIRSTNAME><LASTNAME>Renken</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>9</MONTH><DAY>20</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
+    void wiredIsManaged() throws ContentParserException {
+        final String url = "https://www.wired.com/2015/06/answer-150-year-old-math-conundrum-brings-mystery/";
+        final String expectedXml = """
+                <ARTICLE><X><T>Answer to a 150-Year-Old Math Conundrum Brings More Mystery</T>\
+                <ST>A 150-year-old conundrum about how to group people has been solved, but many puzzles remain.</ST>\
+                <A>https://www.wired.com/2015/06/answer-150-year-old-math-conundrum-brings-mystery/</A>\
+                <L>en</L><F>HTML</F></X>\
+                <AUTHOR><FIRSTNAME>Erica</FIRSTNAME><LASTNAME>Klarreich</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2015</YEAR><MONTH>6</MONTH><DAY>20</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));

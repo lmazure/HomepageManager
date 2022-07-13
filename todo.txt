@@ -8,14 +8,6 @@ modifier la gestion  de DeepSkyVideo
 
 nettoyer dp.xml
 
-corriger
-https://www.youtube.com/watch?v=4dV5YXwb7zg
-Date without month or day
-https://www.youtube.com/watch?v=9GanmnPniO8
-Date without month or day
-https://www.youtube.com/watch?v=sGzVHQniIiE
-Date without month or day
-
 éviter l'erreur sur openjdk.org
 
 implémenter le parsing d'IBM

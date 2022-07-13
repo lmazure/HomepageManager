@@ -9,6 +9,7 @@ import data.linkchecker.gitlabblog.GitlabBlogLinkDataExtractor;
 import data.linkchecker.medium.MediumLinkDataExtractor;
 import data.linkchecker.oracleblogs.OracleBlogsLinkDataExtractor;
 import data.linkchecker.quantamagazine.QuantaMagazineLinkDataExtractor;
+import data.linkchecker.wired.WiredLinkDataExtractor;
 import data.linkchecker.youtubewatch.YoutubeWatchLinkDataExtractor;
 import utils.StringHelper;
 
@@ -49,6 +50,10 @@ public class LinkDataExtractorFactory {
 
         if (urlString.startsWith("https://about.gitlab.com/blog/")) {
             return new GitlabBlogLinkDataExtractor(u, cacheDirectory);
+        }
+
+        if (urlString.startsWith("https://www.wired.com/")) {
+            return new WiredLinkDataExtractor(u, cacheDirectory);
         }
 
         return null;
