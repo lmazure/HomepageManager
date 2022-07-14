@@ -21,6 +21,8 @@ public class WiredLinkContentParserTest {
     @CsvSource(value = {
         "https://www.wired.com/story/india-deadly-combination-heat-humidity/|India Isn’t Ready for a Deadly Combination of Heat and Humidity",
         "https://www.wired.com/2015/06/answer-150-year-old-math-conundrum-brings-mystery/|Answer to a 150-Year-Old Math Conundrum Brings More Mystery",
+        // the next article has HTML in its title
+        "https://www.wired.com/story/mirai-botnet-minecraft-scam-brought-down-the-internet/|How a Dorm Room Minecraft Scam Brought Down the Internet",
         }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
@@ -45,6 +47,8 @@ public class WiredLinkContentParserTest {
     @CsvSource(value = {
             "https://www.wired.com/story/india-deadly-combination-heat-humidity/|The country’s recent heat wave has seen “wet-bulb” temperatures rise to potentially fatal levels—but plans to handle the crisis are still in their infancy.",
             "https://www.wired.com/2015/06/answer-150-year-old-math-conundrum-brings-mystery/|A 150-year-old conundrum about how to group people has been solved, but many puzzles remain.",
+            // the next article has a space at the end of the subtitle
+            "https://www.wired.com/story/trickbot-botnet-uefi-firmware/|The hackers behind TrickBot have begun probing victim PCs for vulnerable firmware, which would let them persist on devices undetected."
         }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
@@ -69,6 +73,8 @@ public class WiredLinkContentParserTest {
     @ParameterizedTest
     @CsvSource(value = {
             "https://www.wired.com/2005/10/a-real-remedy-for-phishers/",
+            // the next article has a subtitle equal to ""
+            "https://www.wired.com/2007/09/ff-allen/"
         })
     void testNoSubtitle(final String url) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
@@ -117,6 +123,8 @@ public class WiredLinkContentParserTest {
     @CsvSource({
         "https://www.wired.com/story/india-deadly-combination-heat-humidity/,Kamala,Thiagarajan",
         "https://www.wired.com/2015/06/answer-150-year-old-math-conundrum-brings-mystery/,Erica,Klarreich",
+        // in the next article, the author name is postfixed with ", Ars Technica"
+        "https://www.wired.com/story/new-facebook-bug-exposes-millions-of-email-addresses/,Dan,Goodin"
         })
     void testAuthor(final String url,
                     final String expectedFirstName,
@@ -135,7 +143,30 @@ public class WiredLinkContentParserTest {
                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                               final WiredLinkContentParser parser = new WiredLinkContentParser(data);
                               try {
+                                  Assertions.assertEquals(1, parser.getAuthors().size());
                                   Assertions.assertEquals(expectedAuthor, parser.getAuthors().get(0));
+                              } catch (final ContentParserException e) {
+                                  Assertions.fail("getAuthors threw " + e.getMessage());
+                              }
+                              consumerHasBeenCalled.set(true);
+                          });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "https://www.wired.com/2006/01/anonymity-wont-kill-the-internet/",
+        })
+    void testNoAuthor(final String url) {
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(TestHelper.buildURL(url),
+                          (final Boolean b, final SiteData d) -> {
+                              Assertions.assertTrue(d.getDataFile().isPresent());
+                              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                              final WiredLinkContentParser parser = new WiredLinkContentParser(data);
+                              try {
+                                  Assertions.assertEquals(0, parser.getAuthors().size());
                               } catch (final ContentParserException e) {
                                   Assertions.fail("getAuthors threw " + e.getMessage());
                               }

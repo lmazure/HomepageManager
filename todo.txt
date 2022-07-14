@@ -1,6 +1,6 @@
-résoudre le problème de https://www.quantamagazine.org/nathan-seiberg-on-how-math-might-reveal-quantum-gravity-20210624/
+Nettoyer links/firefox.xml
 
-gérer https://www.wired.com/story/india-deadly-combination-heat-humidity/
+résoudre le problème de https://www.quantamagazine.org/nathan-seiberg-on-how-math-might-reveal-quantum-gravity-20210624/
 
 modifier la gestion  de DeepSkyVideo
 

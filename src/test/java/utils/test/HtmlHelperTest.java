@@ -65,6 +65,27 @@ public class HtmlHelperTest {
         Assertions.assertEquals(expected, HtmlHelper.removeHtmlTags(input));
     }
 
+    @SuppressWarnings("static-method")
+    @ParameterizedTest
+    @CsvSource({
+        "abc edf,abc edf",
+        " \u00A0 abc edf,abc edf",
+        "abc edf \u00A0 ,abc edf",
+        " \u00A0 abc edf \u00A0 ,abc edf",
+        " \u00A0 x,x",
+        "x \u00A0 ,x",
+        " \u00A0 x \u00A0 ,x",
+        " \u00A0  \u00A0 ,",
+        "\u00A0\u00A0,",
+        ",",
+        })
+    void stringIsProperlyTrimmed(final String inputString,
+                                 final String expectedTrimmedString) {
+        final String input = (inputString == null) ? "" : inputString;
+        final String expected = (expectedTrimmedString == null) ? "" : expectedTrimmedString;
+        Assertions.assertEquals(expected, HtmlHelper.trim(input));
+    }
+
     @ParameterizedTest
     @CsvSource(value = {
         "https://www.lemondeinformatique.fr/actualites/lire-log4j-une-autre-vulnerabilite-corrigee-par-apache-85265.html|iso-8859-1",

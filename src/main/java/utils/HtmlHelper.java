@@ -72,7 +72,8 @@ public class HtmlHelper {
         final String s2 = unescape(s1);
         final String s3 = removeNewlines(s2);
         final String s4 = cleanAndUnduplicateSpace(s3);
-        return s4;
+        final String s5 = trim(s4);
+        return s5;
     }
 
     public static final String unescape(final String input) {
@@ -2418,6 +2419,32 @@ public class HtmlHelper {
         }
 
         return builder.toString();
+    }
+
+    public static final String trim(final String input) {
+
+        if (input.isBlank()) {
+            return "";
+        }
+
+        final String simplyTrimmed = input.trim();
+
+
+        int start = 0;
+        int end = simplyTrimmed.codePointCount(0, simplyTrimmed.length() - 1);
+
+        while (Character.isSpaceChar(simplyTrimmed.codePointAt(start))) {
+            start++;
+            if (start == end + 1) {
+                return "";
+            }
+        }
+
+        while (Character.isSpaceChar(simplyTrimmed.codePointAt(end))) {
+            end--;
+        }
+
+        return simplyTrimmed.substring(simplyTrimmed.offsetByCodePoints(0, start), simplyTrimmed.offsetByCodePoints(0, end + 1));
     }
 
     public static final String removeHtmlTags(final String input) {

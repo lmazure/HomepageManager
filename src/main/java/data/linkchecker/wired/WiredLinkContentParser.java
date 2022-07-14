@@ -39,15 +39,18 @@ public class WiredLinkContentParser {
         try {
             final String json = s_jsonParser.extract(data);
             final JSONObject payload = new JSONObject(json);
-            title = HtmlHelper.unescape(payload.getJSONObject("transformed").getJSONObject("article").getJSONObject("headerProps").getString("dangerousHed"));
-            subtitle = HtmlHelper.unescape(payload.getJSONObject("transformed").getJSONObject("article").getJSONObject("headerProps").getString("dangerousDek"));
+            title = HtmlHelper.cleanContent(payload.getJSONObject("transformed").getJSONObject("article").getJSONObject("headerProps").getString("dangerousHed"));
+            subtitle = HtmlHelper.cleanContent(payload.getJSONObject("transformed").getJSONObject("article").getJSONObject("headerProps").getString("dangerousDek"));
             final String pubDate = payload.getJSONObject("transformed").getString("head.firstPublishDate");
             publicationDate = ZonedDateTime.parse(pubDate, DateTimeFormatter.ISO_DATE_TIME).toLocalDate();
             final JSONArray authorArray = payload.getJSONObject("transformed").getJSONArray("head.jsonld").getJSONObject(0).getJSONArray("author");
             authors = new ArrayList<>(authorArray.length());
             for (int i = 0; i < authorArray.length(); i++) {
                 final String author = authorArray.getJSONObject(i).getString("name");
-                authors.add(LinkContentParserUtils.getAuthor(author));
+                if (!author.equals("WIRED Staff")) {
+                    final String cleanedAuthor = author.replaceAll(", Ars Technica$", "");
+                    authors.add(LinkContentParserUtils.getAuthor(cleanedAuthor));
+                }
             }
 
         } catch (final ContentParserException e) {
@@ -70,6 +73,9 @@ public class WiredLinkContentParser {
     public Optional<String> getSubtitle() throws ContentParserException {
         if (_exception != null) {
             throw _exception;
+        }
+        if (_subtitle.isEmpty()) {
+            return Optional.empty();
         }
         if (_subtitle.endsWith(" […]")) {
             return Optional.empty();
