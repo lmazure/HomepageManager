@@ -1,4 +1,4 @@
-Nettoyer links/firefox.xml
+les podcasts de quanta magazine devraient être considérés comme de MP3, pas comme des HTML
 
 résoudre le problème de https://www.quantamagazine.org/nathan-seiberg-on-how-math-might-reveal-quantum-gravity-20210624/
 
@@ -6,39 +6,21 @@ modifier la gestion  de DeepSkyVideo
 
 éviter les erreurs sur les wellknown authors
 
-nettoyer dp.xml
-
-éviter l'erreur sur openjdk.org
-
 implémenter le parsing d'IBM
 
-nettoyer chrome.xml
-
-nettoyer companies.xml
-
-nettoyer links/firefox.xml et autres pages de browser
-
 nettoyer
-- notes/chrome.xml
 - clintrials.xml
 - medical.xml
 - medimag.xml
-- pharma.xml
-
-nettoyer abbreven.xml
-
-nettoyer javahistory.xml
-
-gérer titre et sous-titre de https://medium.com/backchannel/has-deepmind-really-passed-go-adc85e256bec (ajouter les tests unitaires correspondants)
+- abbreven.xml
+- javahistory.xml
+- chrome.xml
+- links/firefox.xml et autres pages de browser
 
 ajouter support de https://about.gitlab.com/releases/2022/01/22/gitlab-14-7-released/
 
-éviter le warning à cause de "?." dans games.xml
-
 gérer les auteurs optionnels (pex comptuterphile)
 pouvoir ajouter un author à la main (pex numberphile)
-
-les résultats des contrôles d'autotest.xml sont corrompus
 
 les tests ne devraient pas hardcoder H:
 
@@ -69,8 +51,6 @@ behavior ->behaviour
 analyze ??
 
 - lever une alerte si un lien est zombie mais que titre ou le sous-titre est encore présents
-
-- implement for real the JSON helper and unit test it
 
 - regarder les problèmes de titres tels que
 https://martinfowler.com/articles/agileOffshore.html
@@ -184,5 +164,3 @@ restructurer la page pour séparer
 * sous-titre
 * date
 * premier auteur
-
-- mettre un attribut lang sur les pages

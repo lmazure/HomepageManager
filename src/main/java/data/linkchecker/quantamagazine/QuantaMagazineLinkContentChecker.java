@@ -111,8 +111,8 @@ public class QuantaMagazineLinkContentChecker extends LinkContentChecker {
     protected LinkContentCheck checkLinkAuthors(final String data,
                                                 final List<AuthorData> authors) throws ContentParserException
     {
-        if ((authors.size() < 0) || (authors.size() > 2)) {
-            return new LinkContentCheck("Quanta Magazine should have one or two authors");
+        if (authors.size() == 0) {
+            return new LinkContentCheck("Quanta Magazine should have at least one author");
         }
 
         final List<AuthorData> effectiveAuthor = _parser.getAuthors();

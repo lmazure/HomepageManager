@@ -18,9 +18,9 @@ public class NonNormalizedURLChecker extends NodeChecker {
               NonNormalizedURLChecker::checkNoDoubleSlash, "contains a double slash");
     }
 
-    private static CheckStatus checkUrl(final Element e) {
+    private static CheckStatus checkUrl(final Element element) {
 
-        final String url = e.getTextContent();
+        final String url = element.getTextContent();
 
         if (url.contains("youtube.fr")) {
             return new CheckStatus("\"youtube.fr\" should be \"youtube.com\"");
@@ -45,10 +45,11 @@ public class NonNormalizedURLChecker extends NodeChecker {
         return null;
     }
 
-    private static CheckStatus checkNoDoubleSlash(final Element e) {
+    private static CheckStatus checkNoDoubleSlash(final Element element) {
 
-        final String url = e.getTextContent();
-        if (url.startsWith("https://web.archive.org/web/")) {
+        final String url = element.getTextContent();
+        if (url.startsWith("https://web.archive.org/web/") ||
+            url.startsWith("http://static.googleusercontent.com/")) {
             return null;
         }
 

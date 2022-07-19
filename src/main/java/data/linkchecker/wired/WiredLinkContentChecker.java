@@ -122,12 +122,11 @@ public class WiredLinkContentChecker extends LinkContentChecker {
     protected LinkContentCheck checkLinkAuthors(final String data,
                                                 final List<AuthorData> authors) throws ContentParserException
     {
-        if ((authors.size() < 1) || (authors.size() > 2)) {
-            return new LinkContentCheck("Wired should have one or two authors");
-        }
-
         final List<AuthorData> effectiveAuthor = _parser.getAuthors();
         if (effectiveAuthor.size() == 0) {
+            if (authors.size() == 0) {
+                return null;
+            }
             return new LinkContentCheck(authors.size()  + " author(s) was(were) expected, but there is none");
         }
 
