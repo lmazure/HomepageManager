@@ -120,41 +120,10 @@ public class WiredLinkContentChecker extends LinkContentChecker {
 
     @Override
     protected LinkContentCheck checkLinkAuthors(final String data,
-                                                final List<AuthorData> authors) throws ContentParserException
+                                                final List<AuthorData> expectedAuthors) throws ContentParserException
     {
         final List<AuthorData> effectiveAuthor = _parser.getAuthors();
-        if (effectiveAuthor.size() == 0) {
-            if (authors.size() == 0) {
-                return null;
-            }
-            return new LinkContentCheck(authors.size()  + " author(s) was(were) expected, but there is none");
-        }
 
-        if (!authors.get(0).equals(effectiveAuthor.get(0))) {
-            return new LinkContentCheck("The first expected author (" +
-                                        authors.get(0) +
-                                        ") is not equal to the effective first author (" +
-                                        effectiveAuthor.get(0) +
-                                        ")");
-        }
-
-        if (authors.size() == 1) {
-            if (effectiveAuthor.size() == 2) {
-                return new LinkContentCheck("One author was expected, but there are effectively two authors");
-            }
-        } else { // authors.size() == 2
-            if (effectiveAuthor.size() == 1) {
-                return new LinkContentCheck("Two authors were expected, but there is effectively one author");
-            }
-            if (!authors.get(1).equals(effectiveAuthor.get(1))) {
-                return new LinkContentCheck("The second expected author (" +
-                                            authors.get(1) +
-                                            ") is not equal to the effective second author (" +
-                                            effectiveAuthor.get(1) +
-                                            ")");
-            }
-        }
-
-        return null;
+        return simpleCheckLinkAuthors(effectiveAuthor, expectedAuthors);
     }
 }

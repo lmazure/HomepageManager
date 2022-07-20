@@ -108,7 +108,7 @@ public class NodeValueChecker implements FileHandler {
              final PrintWriter pw = new PrintWriter(os)) {
             final List<NodeCheckError> errors = check(file);
             if (errors.size() > 0) {
-                for (final NodeCheckError error : errors) {
+                for (final NodeCheckError error: errors) {
                     pw.println(" tag = \""       + error.getTag()       + "\"" +
                                " value = \""     + error.getValue()     + "\"" +
                                " violation = \"" + error.getViolation() + "\"" +

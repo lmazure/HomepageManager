@@ -21,7 +21,7 @@ public interface FileHandler {
          */
         HANDLED_WITH_ERROR,
         /**
-         * the file count not be handled
+         * the file could not be handled
          */
         FAILED_TO_HANDLED
     }

@@ -1,6 +1,6 @@
-les podcasts de quanta magazine devraient être considérés comme de MP3, pas comme des HTML
+ajouter support de https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se
 
-résoudre le problème de https://www.quantamagazine.org/nathan-seiberg-on-how-math-might-reveal-quantum-gravity-20210624/
+les podcasts de quanta magazine devraient être considérés comme de MP3, pas comme des HTML
 
 modifier la gestion  de DeepSkyVideo
 
@@ -9,11 +9,10 @@ modifier la gestion  de DeepSkyVideo
 implémenter le parsing d'IBM
 
 nettoyer
-- clintrials.xml
 - medical.xml
 - medimag.xml
 - abbreven.xml
-- javahistory.xml
+- abbrevfr.xml
 - chrome.xml
 - links/firefox.xml et autres pages de browser
 

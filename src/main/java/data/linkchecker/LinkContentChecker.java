@@ -218,6 +218,43 @@ public class LinkContentChecker {
         return null;
     }
 
+    protected static LinkContentCheck simpleCheckLinkAuthors(final List<AuthorData> effectiveAuthors,
+                                                             final List<AuthorData> expectedAuthors)
+    {
+        final List<AuthorData> unexpectedAuthors = new ArrayList<>();
+        for (final AuthorData author: effectiveAuthors) {
+            if (!expectedAuthors.contains(author)) {
+                unexpectedAuthors.add(author);
+            }
+        }
+        
+        final List<AuthorData> missingAuthors = new ArrayList<>();
+        for (final AuthorData author: expectedAuthors) {
+            if (!effectiveAuthors.contains(author)) {
+                missingAuthors.add(author);
+            }
+        }
+        
+        if (!unexpectedAuthors.isEmpty() || !missingAuthors.isEmpty()) {
+            final String message = "The list of effective authors is not the effective one."
+                                   + "\nThe following authors are effectively present but are unexpected:" + unexpectedAuthors.stream().map(a-> a.toString()).collect(Collectors.joining(","))
+                                   + "\nThe following authors are expected but are effectively missing:" + missingAuthors.stream().map(a-> a.toString()).collect(Collectors.joining(","));
+            return new LinkContentCheck(message);
+                    
+        }
+        
+        for (int i = 0; i < expectedAuthors.size(); i++) {
+            if (!expectedAuthors.get(i).equals(effectiveAuthors.get(i))) {
+                final String message = "The list of effective authors is not ordered as the effective one."
+                        + "\nexpected authors:" + expectedAuthors.stream().map(a-> a.toString()).collect(Collectors.joining(","))
+                        + "\neffective authors:" + effectiveAuthors.stream().map(a-> a.toString()).collect(Collectors.joining(","));
+                return new LinkContentCheck(message);
+            }
+        }
+
+        return null;
+    }
+
     private static LinkContentCheck checkTitle(final String data,
                                                final String expectedTitle,
                                                final String description) {
