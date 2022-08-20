@@ -17,7 +17,7 @@ public class LinkChecker implements FileHandler {
     private final Map<Path, LinkCheckRunner> _handlers;
 
     /**
-     * This class checks the appearing in XML files.
+     * This class checks the links appearing in the XML files.
      *
      * @param homepagePath
      * @param tmpPath

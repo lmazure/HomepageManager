@@ -13,6 +13,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,6 +47,8 @@ public class FileChecker implements FileHandler {
     private final DataController _controller;
     private final Validator _validator;
 
+    private final static Lock _lock = new ReentrantLock();
+
     /**
      * This class checks the characters of the XML files.
      *
@@ -57,7 +61,12 @@ public class FileChecker implements FileHandler {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;
         _controller = controller;
-        _validator = XmlHelper.buildValidator(homepagePath.resolve("css").resolve("schema.xsd"));
+        _lock.lock();
+        try {
+            _validator = XmlHelper.buildValidator(homepagePath.resolve("css").resolve("schema.xsd"));
+        } finally {
+            _lock.unlock();
+        }
     }
 
     @Override
@@ -244,7 +253,9 @@ public class FileChecker implements FileHandler {
         final Source source = new StreamSource(new StringReader(content));
 
         try {
-            _validator.validate(source);
+            synchronized (_validator) {
+                _validator.validate(source);
+            }
         } catch (final SAXException e) {
             errors.add(new Error(0, "the file violates the schema (\"" + e.toString() + "\")"));
         } catch (final IOException e) {

@@ -29,7 +29,8 @@ public class WatchDir {
 
     public enum Event {
         CREATE,
-        DELETE
+        DELETE,
+        UPDATE
     }
 
     private final Path _path;
@@ -185,8 +186,7 @@ public class WatchDir {
                           .append(" modify")
                           .submit();
                     for (FileWatcher w: _watchers) {
-                        w.consume(child, Event.DELETE);
-                        w.consume(child, Event.CREATE);
+                        w.consume(child, Event.UPDATE);
                     }
                 } else {
                     ExitHelper.exit("Unexpected event type in WatchDir events");

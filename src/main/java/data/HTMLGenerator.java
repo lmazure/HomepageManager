@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -36,6 +38,8 @@ public class HTMLGenerator implements FileHandler {
 
     private final DocumentBuilder _builder;
     private final Transformer _transformer;
+    
+    private final static Lock _lock = new ReentrantLock();
 
     /**
      * This class generates the HTML files from the XML files.
@@ -49,8 +53,13 @@ public class HTMLGenerator implements FileHandler {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;
         _controller = controller;
-        _builder = newDocumentBuilder();
-        _transformer = newTransformer();
+        _lock.lock();
+        try {
+            _builder = newDocumentBuilder();
+            _transformer = newTransformer();
+        } finally {
+            _lock.unlock();
+        }
     }
 
     @Override
@@ -63,14 +72,17 @@ public class HTMLGenerator implements FileHandler {
         final File outputFile = getOutputFile(file).toFile();
 
         try (final InputStream is = new FileInputStream(file.toFile())) {
-            final Document document = _builder.parse(is);
-            final DOMSource source = new DOMSource(document);
-            final StreamResult result = new StreamResult(outputFile);
-            _transformer.transform(source, result);
-            Logger.log(Logger.Level.INFO)
-                  .append(outputFile)
-                  .append(" is generated")
-                  .submit();
+            Document document;
+            synchronized (_builder) {
+                document = _builder.parse(is);
+                final DOMSource source = new DOMSource(document);
+                final StreamResult result = new StreamResult(outputFile);
+                _transformer.transform(source, result);
+                Logger.log(Logger.Level.INFO)
+                      .append(outputFile)
+                      .append(" is generated")
+                      .submit();
+            }
         } catch (final Exception e) {
             final Path reportFile = getReportFile(file);
             FileHelper.createParentDirectory(reportFile);

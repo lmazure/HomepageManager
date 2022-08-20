@@ -91,7 +91,10 @@ public class ArsTechnicaLinkContentParserTest {
     @CsvSource({
         "https://arstechnica.com/cars/2021/04/consumer-reports-shows-tesla-autopilot-works-with-no-one-in-the-drivers-seat/,Timothy,B.,Lee",
         "https://arstechnica.com/information-technology/2021/09/travis-ci-flaw-exposed-secrets-for-thousands-of-open-source-projects/,Ax,,Sharma",
-        "https://arstechnica.com/tech-policy/2021/10/uh-no-pfizer-scientist-denies-holmes-claim-that-pfizer-endorsed-theranos-tech/,Tim,,De Chant"  // contains "-" and digits in the person URL
+        // the next article contains "-" and digits in the person URL
+        "https://arstechnica.com/tech-policy/2021/10/uh-no-pfizer-scientist-denies-holmes-claim-that-pfizer-endorsed-theranos-tech/,Tim,,De Chant",
+        // the next article contains "_" and digits in the person URL
+        "https://arstechnica.com/gaming/2022/08/crypto-driven-gpu-crash-makes-nvidia-miss-q2-projections-by-1-4-billion/,Andrew,,Cunningham"
         })
     void testAuthor(final String url,
                     final String expectedFirstName,

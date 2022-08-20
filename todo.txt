@@ -1,3 +1,5 @@
+détecter author dupliqué
+
 ajouter support de https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se
 
 les podcasts de quanta magazine devraient être considérés comme de MP3, pas comme des HTML

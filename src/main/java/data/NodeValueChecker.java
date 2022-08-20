@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.xml.parsers.DocumentBuilder;
 
@@ -56,7 +58,9 @@ public class NodeValueChecker implements FileHandler {
     private final DataController _controller;
     private final DocumentBuilder _builder;
     private final Set<NodeChecker> _nodeCheckers;
-
+    
+    private final static Lock _lock = new ReentrantLock();
+    
     /**
      * This class checks the characters of the XML files.
      *
@@ -69,8 +73,12 @@ public class NodeValueChecker implements FileHandler {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;
         _controller = controller;
-        _builder = XmlHelper.buildDocumentBuilder();
-
+        _lock.lock();
+        try {
+            _builder = XmlHelper.buildDocumentBuilder();
+        } finally {
+            _lock.unlock();
+        }
         _nodeCheckers = new HashSet<>();
         _nodeCheckers.add(new ExtremitySpaceChecker());
         _nodeCheckers.add(new MiddleNewlineChecker());
@@ -141,7 +149,10 @@ public class NodeValueChecker implements FileHandler {
     public List<NodeCheckError> check(final Path file) throws SAXException {
 
         try {
-            final Document document = _builder.parse(file.toFile());
+            Document document;
+            synchronized (_builder) {
+                document = _builder.parse(file.toFile());
+            }
             return checkNode(file.toFile(), document.getDocumentElement());
         } catch (final IOException e) {
             ExitHelper.exit(e);

@@ -30,6 +30,7 @@ public class FileEventDispachter {
     private final Path _homepagePath;
     private final List<FileHandler> _fileHandlers;
     private final FileExistenceHandler _handler;
+    private final FileEventQueue _fileEventQueue;
 
     public FileEventDispachter(final Path homepagePath,
                                final FileExistenceHandler handler,
@@ -37,6 +38,7 @@ public class FileEventDispachter {
         _homepagePath = homepagePath;
         _fileHandlers = fileHandlers;
         _handler = handler;
+        _fileEventQueue = new FileEventQueue(fileHandlers); 
     }
 
     public void start() {
@@ -90,8 +92,7 @@ public class FileEventDispachter {
 
         for (final FileHandler h: _fileHandlers) {
             if (h.outputFileMustBeRegenerated(file)) {
-                h.handleDeletion(file);
-                h.handleCreation(file);
+                _fileEventQueue.insertEvent(file, FileEventQueue.Type.UPDATE);
             }
         }
     }
@@ -101,31 +102,23 @@ public class FileEventDispachter {
 
         switch (event) {
             case CREATE:
-                handleFileCreation(path);
+                final BasicFileAttributes attr = getBasicFileAttributes(path);
+                _handler.handleCreation(path, attr.lastModifiedTime(), attr.size());
+                _fileEventQueue.insertEvent(path, FileEventQueue.Type.CREATE);
                 break;
             case DELETE:
-                handleFileDeletion(path);
+                _handler.handleDeletion(path);
+                _fileEventQueue.insertEvent(path, FileEventQueue.Type.DELETE);
+                break;
+            case UPDATE:
+                _handler.handleDeletion(path);
+                final BasicFileAttributes attr2 = getBasicFileAttributes(path);
+                _handler.handleCreation(path, attr2.lastModifiedTime(), attr2.size());
+                _fileEventQueue.insertEvent(path, FileEventQueue.Type.UPDATE);
                 break;
             default:
                 ExitHelper.exit("Unknwown event");
                 break;
-        }
-    }
-
-    private void handleFileCreation(final Path file) {
-
-        final BasicFileAttributes attr = getBasicFileAttributes(file);
-        _handler.handleCreation(file, attr.lastModifiedTime(), attr.size());
-
-        for (final FileHandler h: _fileHandlers) {
-            h.handleCreation(file);
-        }
-    }
-
-    private void handleFileDeletion(final Path file) {
-        _handler.handleDeletion(file);
-        for (final FileHandler h: _fileHandlers) {
-            h.handleDeletion(file);
         }
     }
 

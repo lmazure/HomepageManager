@@ -11,11 +11,11 @@ import java.util.function.BiConsumer;
 public class AsynchronousSiteDataRetriever {
 
     private final SynchronousSiteDataRetriever _retriever;
-    private final ExecutorService _threadPool;
+    private static int NB_THREADS = 32;
+    private static final ExecutorService _threadPool = Executors.newFixedThreadPool(NB_THREADS);
 
     public AsynchronousSiteDataRetriever(final SiteDataPersister persister) {
         _retriever = new SynchronousSiteDataRetriever(persister);
-        _threadPool = Executors.newFixedThreadPool(8);
     }
 
     /**
