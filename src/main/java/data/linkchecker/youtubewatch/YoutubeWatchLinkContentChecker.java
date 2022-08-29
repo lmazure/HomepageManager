@@ -1,6 +1,5 @@
 package data.linkchecker.youtubewatch;
 
-import java.io.File;
 import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -14,6 +13,7 @@ import java.util.Optional;
 import data.linkchecker.ContentParserException;
 import data.linkchecker.LinkContentCheck;
 import data.linkchecker.LinkContentChecker;
+import utils.FileSection;
 import utils.StringHelper;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
@@ -26,7 +26,7 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
     public YoutubeWatchLinkContentChecker(final URL url,
                                           final LinkData linkData,
                                           final Optional<ArticleData> articleData,
-                                          final File file) {
+                                          final FileSection file) {
         super(url, linkData, articleData, file);
     }
 

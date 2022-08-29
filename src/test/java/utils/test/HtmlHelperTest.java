@@ -1,6 +1,5 @@
 package utils.test;
 
-import java.io.File;
 import java.nio.charset.Charset;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -13,6 +12,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import data.internet.SiteData;
 import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
+import utils.FileSection;
 import utils.HtmlHelper;
 
 public class HtmlHelperTest {
@@ -78,11 +78,20 @@ public class HtmlHelperTest {
         " \u00A0  \u00A0 ,",
         "\u00A0\u00A0,",
         ",",
+        "𨱏,𨱏",
         })
     void stringIsProperlyTrimmed(final String inputString,
                                  final String expectedTrimmedString) {
         final String input = (inputString == null) ? "" : inputString;
         final String expected = (expectedTrimmedString == null) ? "" : expectedTrimmedString;
+        Assertions.assertEquals(expected, HtmlHelper.trim(input));
+    }
+
+    @Test
+    @SuppressWarnings("static-method")
+    void stringWithNewlineIsProperlyTrimmed() {
+        final String input = " foo \n bar ";
+        final String expected = "foo \n bar";
         Assertions.assertEquals(expected, HtmlHelper.trim(input));
     }
 
@@ -105,7 +114,7 @@ public class HtmlHelperTest {
         retriever.retrieve(TestHelper.buildURL(url),
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
-                               final File file = d.getDataFile().get();
+                               final FileSection file = d.getDataFile().get();
                                final Optional<Charset> effectiveCharset = HtmlHelper.getCharset(file);
                                if (expectedCharsetName == null) {
                                    Assertions.assertTrue(effectiveCharset.isEmpty());

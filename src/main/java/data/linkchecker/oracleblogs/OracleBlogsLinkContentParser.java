@@ -26,7 +26,7 @@ import utils.xmlparsing.AuthorData;
 public class OracleBlogsLinkContentParser {
 
     private static final String s_htmlTemplate = """
-            <html>
+            <html>\r
             <head>
             <script type="text/javascript">
             var SCSCacheKeys = \\{

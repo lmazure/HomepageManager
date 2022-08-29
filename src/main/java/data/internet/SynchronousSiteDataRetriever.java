@@ -1,6 +1,5 @@
 package data.internet;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -23,6 +22,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import utils.ExitHelper;
+import utils.FileSection;
 
 /**
  * Synchronous retrieving of site data
@@ -70,7 +70,7 @@ public class SynchronousSiteDataRetriever {
                  return;
              }
              _persister.persist(url, timestamp, SiteData.Status.SUCCESS, httpCode, headers, Optional.of(httpConnection.getInputStream()), error);
-             final File dataFile = _persister.getDataFile(url, timestamp).toFile();
+             final FileSection dataFile = _persister.getDataFileSection(url, timestamp);
              consumer.accept(Boolean.TRUE, new SiteData(url, SiteData.Status.SUCCESS, httpCode, headers, Optional.of(dataFile), error));
          } catch (final IOException e) {
              error = Optional.of(e.toString());

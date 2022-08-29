@@ -1,6 +1,5 @@
 package data.linkchecker.medium;
 
-import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
@@ -9,6 +8,7 @@ import java.util.Optional;
 import data.linkchecker.ContentParserException;
 import data.linkchecker.LinkContentCheck;
 import data.linkchecker.LinkContentChecker;
+import utils.FileSection;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkData;
 
@@ -20,7 +20,7 @@ public class MediumLinkContentChecker extends LinkContentChecker {
     public MediumLinkContentChecker(final URL url,
                                     final LinkData linkData,
                                     final Optional<ArticleData> articleData,
-                                    final File file) {
+                                    final FileSection file) {
         super(url, linkData, articleData, file);
         _url = url;
     }

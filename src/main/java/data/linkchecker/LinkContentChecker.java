@@ -1,6 +1,5 @@
 package data.linkchecker;
 
-import java.io.File;
 import java.net.URL;
 import java.time.Duration;
 import java.time.temporal.TemporalAccessor;
@@ -15,6 +14,7 @@ import java.util.stream.Collectors;
 
 import data.knowledge.WellKnownAuthors;
 import data.knowledge.WellKnownAuthorsOfLink;
+import utils.FileSection;
 import utils.HtmlHelper;
 import utils.Logger;
 import utils.StringHelper;
@@ -28,13 +28,13 @@ public class LinkContentChecker {
     private final URL _url;
     private final LinkData _linkData;
     private final Optional<ArticleData> _articleData;
-    private final File _file;
+    private final FileSection _file;
     private LinkContentParser _parser;
 
     public LinkContentChecker(final URL url,
                               final LinkData linkData,
                               final Optional<ArticleData> articleData,
-                              final File file) {
+                              final FileSection file) {
         _url = url;
         _linkData = linkData;
         _articleData = articleData;

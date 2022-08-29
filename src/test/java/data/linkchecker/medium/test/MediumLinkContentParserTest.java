@@ -39,17 +39,17 @@ public class MediumLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
-          (final Boolean b, final SiteData d) -> {
-              Assertions.assertTrue(d.getDataFile().isPresent());
-              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-              final MediumLinkContentParser parser = new MediumLinkContentParser(data, StringHelper.convertStringToUrl(url));
-              try {
-                  Assertions.assertEquals(expectedAuthor, parser.getAuthors().get(0));
-               } catch (final ContentParserException e) {
-                   Assertions.fail("getAuthor threw " + e.getMessage());
-               }
-              consumerHasBeenCalled.set(true);
-          });
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               final MediumLinkContentParser parser = new MediumLinkContentParser(data, StringHelper.convertStringToUrl(url));
+                               try {
+                                   Assertions.assertEquals(expectedAuthor, parser.getAuthors().get(0));
+                                } catch (final ContentParserException e) {
+                                    Assertions.fail("getAuthor threw " + e.getMessage());
+                                }
+                               consumerHasBeenCalled.set(true);
+                           });
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 

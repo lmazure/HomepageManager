@@ -1,3 +1,17 @@
+ajoputer le support de https://www.youtube.com/watch?v=sDPk-r18sb0
+
+mauvaise gestion des pages qui ne contiennent aucun lien
+
+comprendre pourquoi on a à chaque lancement
+   file-event-dispatche-002 | 20220829T135327.374 | INFO | deleted file: H:\xampp\htdocs\bouffe\0140.xml
+   file-event-dispatche-003 | 20220829T135327.374 | INFO | deleted file: H:\xampp\htdocs\bouffe\0115.xml
+   file-event-dispatche-002 | 20220829T135327.528 | INFO | created file: H:\xampp\htdocs\bouffe\0140.xml
+   file-event-dispatche-003 | 20220829T135327.528 | INFO | created file: H:\xampp\htdocs\bouffe\0115.xml
+   file-event-dispatche-002 | 20220829T135327.602 | INFO | H:\xampp\htdocs\bouffe\0140.html is generated
+   file-event-dispatche-003 | 20220829T135327.633 | INFO | H:\xampp\htdocs\bouffe\0115.html is generated
+   file-event-dispatche-002 | 20220829T135327.645 | INFO | G:\tmp\bouffe\0140_filecheck.txt is generated
+   file-event-dispatche-003 | 20220829T135327.648 | INFO | G:\tmp\bouffe\0115_filecheck.txt is generated
+
 détecter author dupliqué
 
 ajouter support de https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se

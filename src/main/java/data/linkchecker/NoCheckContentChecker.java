@@ -1,6 +1,5 @@
 package data.linkchecker;
 
-import java.io.File;
 import java.net.URL;
 import java.time.Duration;
 import java.time.temporal.TemporalAccessor;
@@ -8,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
+import utils.FileSection;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkData;
@@ -17,7 +17,7 @@ public class NoCheckContentChecker extends LinkContentChecker {
     public NoCheckContentChecker(final URL url,
                                  final LinkData linkData,
                                  final Optional<ArticleData> articleData,
-                                 final File file) {
+                                 final FileSection file) {
         super(url, linkData, articleData, file);
     }
 

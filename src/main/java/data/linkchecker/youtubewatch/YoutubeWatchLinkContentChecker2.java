@@ -1,6 +1,5 @@
 package data.linkchecker.youtubewatch;
 
-import java.io.File;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,6 +13,7 @@ import java.util.Optional;
 import data.ParameterRepository;
 import data.linkchecker.LinkContentCheck;
 import data.linkchecker.LinkContentChecker;
+import utils.FileSection;
 import utils.StringHelper;
 import utils.internet.CachedYoutubeApi;
 import utils.internet.YoutubeVideoDto;
@@ -27,7 +27,7 @@ public class YoutubeWatchLinkContentChecker2 extends LinkContentChecker {
     public YoutubeWatchLinkContentChecker2(final URL url,
                                            final LinkData linkData,
                                            final Optional<ArticleData> articleData,
-                                           final File file) {
+                                           final FileSection file) {
         super(url, linkData, articleData, file);
 
         final Path tmpPath = Paths.get("D:\\tmp");

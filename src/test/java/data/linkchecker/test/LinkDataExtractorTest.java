@@ -381,7 +381,7 @@ public class LinkDataExtractorTest {
     void youtubeWatchHeurekaIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=UuIt21q9gCY";
         final String expectedXml = """
-                <ARTICLE><X><T>Le monde du shadow banking</T>\
+                <ARTICLE><X><T>Les marchés financiers vous cachent beaucoup de choses</T>\
                 <A>https://www.youtube.com/watch?v=UuIt21q9gCY</A>\
                 <L>fr</L><F>MP4</F><DURATION><MINUTE>50</MINUTE><SECOND>14</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Gilles</FIRSTNAME><LASTNAME>Mitteau</LASTNAME></AUTHOR>\

@@ -1,6 +1,5 @@
 package data.linkchecker;
 
-import java.io.File;
 import java.net.URL;
 import java.util.Optional;
 
@@ -16,6 +15,7 @@ import data.linkchecker.twitter.TwitterLinkContentChecker;
 import data.linkchecker.wired.WiredLinkContentChecker;
 import data.linkchecker.youtubechanneluser.YoutubeChannelUserLinkContentChecker;
 import data.linkchecker.youtubewatch.YoutubeWatchLinkContentChecker;
+import utils.FileSection;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkData;
 
@@ -24,7 +24,7 @@ public class LinkContentCheckerFactory {
     public static LinkContentChecker build(final URL url,
                                            final LinkData linkData,
                                            final Optional<ArticleData> articleData,
-                                           final File file) {
+                                           final FileSection file) {
 
         final String urlString = url.toString();
 

@@ -2,13 +2,13 @@ package data.internet;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintStream;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Instant;
@@ -24,6 +24,7 @@ import java.util.zip.GZIPInputStream;
 import data.internet.SiteData.Status;
 import utils.ExitHelper;
 import utils.FileHelper;
+import utils.FileSection;
 import utils.Logger;
 
 public class SiteDataPersister {
@@ -31,6 +32,8 @@ public class SiteDataPersister {
     private final Path _path;
     private static final int s_file_buffer_size = 8192;
     private static final int s_max_content_size = 8 * 1024 * 1024;
+
+    private static final Charset UTF8_CHARSET = StandardCharsets.UTF_8;
 
     public SiteDataPersister(final Path path) {
         _path = path;
@@ -44,77 +47,58 @@ public class SiteDataPersister {
                         final Optional<InputStream> dataStream,
                         final Optional<String> error) {
 
-        getOutputDirectory(url, timestamp).toFile().mkdirs();
+        getOutputDirectory(url).toFile().mkdirs();
 
-        try (final PrintStream stream = new PrintStream(getStatusFile(url, timestamp).toFile())) {
+        final StringBuilder builder = new StringBuilder();
 
-            {
-                stream.println(status);
-            }
-
-            {
-                if (httpCode.isPresent()) {
-                    stream.println("present");
-                    stream.println(httpCode.get());
-                } else {
-                    stream.println("empty");
+        builder.append(status).append('\n');
+        if (httpCode.isPresent()) {
+            builder.append("present\n");
+            builder.append(httpCode.get()).append('\n');
+        } else {
+            builder.append("empty\n");
+        }
+        if (headers.isPresent()) {
+            builder.append("present\n");
+            final Map<String, List<String>> heads = headers.get();
+            builder.append(heads.size()).append('\n');
+            for (final String head : heads.keySet()) {
+                builder.append(head);
+                for (final String value : heads.get(head)) {
+                    builder.append('\t').append(value);
                 }
+                builder.append('\n');
             }
-
-            {
-                if (headers.isPresent()) {
-                    stream.println("present");
-                    final Map<String, List<String>> heads = headers.get();
-                    stream.println(heads.size());
-                    for (final String head : heads.keySet()) {
-                        stream.print(head);
-                        for (final String value : heads.get(head)) {
-                            stream.print('\t');
-                            stream.print(value);
-                        }
-                        stream.println();
-                    }
-                } else {
-                    stream.println("empty");
-                }
-            }
-
-            {
-                if (error.isPresent()) {
-                    stream.println("present");
-                    stream.println(error.get().lines().count());
-                    error.get().lines().forEach(l -> stream.println(l));
-                } else {
-                    stream.println("empty");
-                }
-            }
-
-        } catch (final FileNotFoundException e) {
-            ExitHelper.exit(e);
+        } else {
+            builder.append("empty\n");
         }
 
-        if (dataStream.isPresent()) {
-            final File file = getDataFile(url, timestamp).toFile();
-            try {
-                // create an empty file so it exists even if the case of a failure while retrieving the data and writing it to disk
-                file.createNewFile();
-            } catch (final IOException e) {
-                Logger.log(Logger.Level.ERROR)
-                .append("Error (")
-                .append(e.toString())
-                .append(") while creating file ")
-                .append(file.toString())
-                .submit();
-            }
-            try (@SuppressWarnings("resource")
+        if (error.isPresent()) {
+            builder.append("present\n");
+            builder.append(error.get().lines().count()).append('\n');
+            error.get().lines().forEach(l -> builder.append(l + "\n"));
+        } else {
+            builder.append("empty\n");
+        }
+
+        final String dataString = builder.toString();
+        byte[] byteArrray = dataString.getBytes(UTF8_CHARSET);
+
+        try (FileOutputStream fos = new FileOutputStream(getPersistedFile(url, timestamp))) {
+
+            final String sz = String.format("%9d\n", Integer.valueOf(byteArrray.length + 10));
+            fos.write(sz.getBytes(UTF8_CHARSET));
+            fos.write(byteArrray);
+
+            if (dataStream.isPresent()) {
+                @SuppressWarnings("resource")
                 final InputStream inputStream = isEncodedWithGzip(headers) ? new GZIPInputStream(dataStream.get())
                                                                            : dataStream.get();
-                final FileOutputStream outputStream = new FileOutputStream(file)) {
                 long size = 0L;
                 final byte[] buffer = new byte[s_file_buffer_size];
                 int length;
                 while ((size <= s_max_content_size) && (length = inputStream.read(buffer)) > 0) {
-                    outputStream.write(buffer, 0, length);
+                    fos.write(buffer, 0, length);
                     size += length;
                 }
                 if (size > s_max_content_size) {
@@ -124,15 +108,15 @@ public class SiteDataPersister {
                           .append(" is truncated")
                           .submit();
                 }
-                outputStream.flush();
-            } catch (final IOException e) {
-                Logger.log(Logger.Level.ERROR)
-                      .append("Error (")
-                      .append(e.toString())
-                      .append(") while getting data from ")
-                      .append(url.toString())
-                      .submit();
-            }
+        }
+        fos.flush();
+        } catch (final IOException e) {
+            Logger.log(Logger.Level.ERROR)
+                  .append("Error (")
+                  .append(e.toString())
+                  .append(") while getting data from ")
+                  .append(url.toString())
+                  .submit();
         }
     }
 
@@ -148,7 +132,6 @@ public class SiteDataPersister {
 
         try {
             return Files.list(getOutputDirectory(url))
-                        .filter(p -> p.toFile().isDirectory())
                         .map(p -> Instant.parse(p.getFileName().toString().replaceAll(";", ":")))
                         .sorted(Comparator.reverseOrder())
                         .collect(Collectors.toList());
@@ -161,94 +144,90 @@ public class SiteDataPersister {
     public SiteData retrieve(final URL url,
                              final Instant timestamp) {
 
-        if (!Files.exists(getStatusFile(url, timestamp))) {
-            ExitHelper.exit("status file " + getStatusFile(url, timestamp) + " does not exist");
+        if (!Files.exists(getPersistedFile(url, timestamp).toPath())) {
+            ExitHelper.exit("status file " + getPersistedFile(url, timestamp) + " does not exist");
         }
 
         Status status = Status.FAILURE;
         Optional<Integer> httpCode = Optional.empty();
         Optional<Map<String, List<String>>> headers = Optional.empty();
         Optional<String> error = Optional.empty();
+        int size;
 
-        final File statusFile = getStatusFile(url, timestamp).toFile();
+        final File statusFile = getPersistedFile(url, timestamp);
         try (final BufferedReader reader = new BufferedReader(new FileReader(statusFile))) {
 
-            {
-                status = Status.valueOf(reader.readLine());
+            size = Integer.parseInt(reader.readLine().trim());
+            
+            status = Status.valueOf(reader.readLine());
+
+            final String httpCodePresence = reader.readLine();
+            if (httpCodePresence.equals("present")) {
+                httpCode = Optional.of(Integer.valueOf(Integer.parseInt(reader.readLine())));
+            } else if (httpCodePresence.equals("empty")) {
+                httpCode = Optional.empty();
+            } else {
+                throw new IllegalStateException("File " + statusFile + " is corrupted (bad HTTP code presence)");
             }
 
-            {
-                final String httpCodePresence = reader.readLine();
-                if (httpCodePresence.equals("present")) {
-                    httpCode = Optional.of(Integer.valueOf(Integer.parseInt(reader.readLine())));
-                } else if (httpCodePresence.equals("empty")) {
-                    httpCode = Optional.empty();
-                } else {
-                    throw new IllegalStateException("File " + statusFile + " is corrupted (bad HTTP code presence)");
-                }
-            }
-
-            {
-                final String headersPresence = reader.readLine();
-                if (headersPresence.equals("present")) {
-                    final int nbHeaders = Integer.parseInt(reader.readLine());
-                    final Map<String, List<String>> map = new HashMap<>(nbHeaders);
-                    for (int i = 0; i < nbHeaders; i++) {
-                        final String[] lineParts = reader.readLine().split("\t");
-                        final String header = lineParts[0];
-                        final List<String> list = new ArrayList<>(lineParts.length - 1);
-                        for (int j = 1; j < lineParts.length; j++) {
-                            list.add(lineParts[j]);
-                        }
-                        map.put(header, list);
+            final String headersPresence = reader.readLine();
+            if (headersPresence.equals("present")) {
+                final int nbHeaders = Integer.parseInt(reader.readLine());
+                final Map<String, List<String>> map = new HashMap<>(nbHeaders);
+                for (int i = 0; i < nbHeaders; i++) {
+                    final String[] lineParts = reader.readLine().split("\t");
+                    final String header = lineParts[0];
+                    final List<String> list = new ArrayList<>(lineParts.length - 1);
+                    for (int j = 1; j < lineParts.length; j++) {
+                        list.add(lineParts[j]);
                     }
-                    headers = Optional.of(map);
-                } else if (headersPresence.equals("empty")) {
-                    headers = Optional.empty();
-                } else {
-                    throw new IllegalStateException("File " + statusFile + " is corrupted (bad HTTP headers)");
+                    map.put(header, list);
                 }
+                headers = Optional.of(map);
+            } else if (headersPresence.equals("empty")) {
+                headers = Optional.empty();
+            } else {
+                throw new IllegalStateException("File " + statusFile + " is corrupted (bad HTTP headers)");
             }
 
-            {
-                final String errorPresence = reader.readLine();
-                if (errorPresence.equals("present")) {
-                    final int nbErrorLines = Integer.parseInt(reader.readLine());
-                    final StringBuilder strBuilder = new StringBuilder();
-                    for (int i = 0; i < nbErrorLines; i++) {
-                        strBuilder.append(reader.readLine());
-                    }
-                    error = Optional.of(strBuilder.toString());
-                } else if (errorPresence.equals("empty")) {
-                    error = Optional.empty();
-                } else {
-                    throw new IllegalStateException("File " + statusFile + " is corrupted (bad error presence)");
+            final String errorPresence = reader.readLine();
+            if (errorPresence.equals("present")) {
+                final int nbErrorLines = Integer.parseInt(reader.readLine());
+                final StringBuilder strBuilder = new StringBuilder();
+                for (int i = 0; i < nbErrorLines; i++) {
+                    strBuilder.append(reader.readLine());
                 }
+                error = Optional.of(strBuilder.toString());
+            } else if (errorPresence.equals("empty")) {
+                error = Optional.empty();
+            } else {
+                throw new IllegalStateException("File " + statusFile + " is corrupted (bad error presence)");
             }
 
         } catch (final IOException e) {
             throw new IllegalStateException("Failure while reading " + statusFile, e);
         }
 
-        final Optional<File> dataFile = Optional.of(getDataFile(url, timestamp).toFile());
+        final File dataFile = getPersistedFile(url, timestamp);
+        final Optional<FileSection> dataFileSection = Optional.of(new FileSection(dataFile, size, dataFile.length() - size));
 
-        return new SiteData(url, status, httpCode, headers, dataFile, error);
+        return new SiteData(url, status, httpCode, headers, dataFileSection, error);
     }
 
-    private Path getStatusFile(final URL url,
-                               final Instant timestamp) {
-        return getOutputDirectory(url, timestamp).resolve("status");
+    public FileSection getDataFileSection(final URL url,
+                                          final Instant timestamp) {
+        final File statusFile = getPersistedFile(url, timestamp);
+        try (final BufferedReader reader = new BufferedReader(new FileReader(statusFile))) {
+            final int size = Integer.parseInt(reader.readLine().trim());
+            return new FileSection(statusFile, size, statusFile.length() - size);
+        } catch (IOException e) {
+            throw new IllegalStateException("Failure while reading " + statusFile, e);
+        }
     }
 
-    Path getDataFile(final URL url,
-                     final Instant timestamp) {
-        return getOutputDirectory(url, timestamp).resolve("data");
-    }
-
-    private Path getOutputDirectory(final URL url,
-                                    final Instant timestamp) {
-        return getOutputDirectory(url).resolve(timestamp.toString()
-                                      .replaceAll(":", ";"));
+    private File getPersistedFile(final URL url,
+                                  final Instant timestamp) {
+        return getOutputDirectory(url).resolve(timestamp.toString().replaceAll(":", ";")).toFile();
     }
 
     private Path getOutputDirectory(final URL url) {

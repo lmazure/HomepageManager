@@ -1,6 +1,5 @@
 package utils;
 
-import java.io.File;
 import java.io.StringWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -11,156 +10,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class HtmlHelper {
-
-    public static String slurpFile(final File file) {
-        final Charset charset = getCharset(file).orElse(StandardCharsets.UTF_8);
-        return FileHelper.slurpFile(file, charset);
-    }
-
-    public static Optional<Charset> getCharset(final File file) {
-        final String data = FileHelper.slurpFile(file, StandardCharsets.UTF_8);
-        final int length = data.length();
-        for (int i=0; i < length; i++) {
-            if (data.startsWith("<meta", i)) {
-                final int j = data.indexOf('>', i);
-                if (j < 0) {
-                    return Optional.empty();
-                }
-                final Optional<Charset> charset = extractCharsetFromString(data.substring(i, j + 1));
-                if (charset.isPresent()) {
-                    return charset;
-                }
-            }
-        }
-        return Optional.empty();
-    }
-
-    private static final Pattern _pattern1 = Pattern.compile(".*<meta\\s+charset\\s*=\\s*['\"]([^'\"]+)['\"]\\s*/?>.*", Pattern.CASE_INSENSITIVE);
-    private static final Pattern _pattern2 = Pattern.compile(".*<meta\\s+http-equiv\\s*=\\s*['\"]Content-Type['\"]\\s+content\\s*=\\s*['\"]text/html;\\s*charset=([^'\"]+)['\"]\\s*/?>.*", Pattern.CASE_INSENSITIVE);
-    private static final Pattern _pattern3 = Pattern.compile(".*<meta\\s+content\\s*=\\s*['\"]text/html;\\s*charset=([^'\"]+)['\"]\\s+http-equiv\\s*=\\s*['\"]Content-Type([^\"]+)\\s*/?>.*", Pattern.CASE_INSENSITIVE);
-
-    private static Optional<Charset> extractCharsetFromString(final String str) {
-        final Matcher m1 = _pattern1.matcher(str);
-        if (m1.find()) {
-            return createCharsetFromName(m1.group(1));
-        }
-        final Matcher m2 = _pattern2.matcher(str);
-        if (m2.find()) {
-            return createCharsetFromName(m2.group(1));
-        }
-        final Matcher m3 = _pattern3.matcher(str);
-        if (m3.find()) {
-            return createCharsetFromName(m3.group(1));
-        }
-        return Optional.empty();
-    }
-
-    private static Optional<Charset> createCharsetFromName(final String charsetName) {
-        try {
-            final Charset charset = Charset.forName(charsetName);
-            return Optional.of(charset);
-        } catch (final UnsupportedCharsetException e) {
-            Logger.log(Logger.Level.INFO)
-                  .append("Invalid charset name")
-                  .append(e);
-            return Optional.empty();
-        }
-    }
-
-    public static final String cleanContent(final String input) {
-        final String s1 = removeHtmlTags(input);
-        final String s2 = unescape(s1);
-        final String s3 = removeNewlines(s2);
-        final String s4 = cleanAndUnduplicateSpace(s3);
-        final String s5 = trim(s4);
-        return s5;
-    }
-
-    public static final String unescape(final String input) {
-        // from https://stackoverflow.com/questions/994331/how-to-unescape-html-character-entities-in-java
-        final int MIN_ESCAPE = 2;
-        final int MAX_ESCAPE = 32;
-        StringWriter writer = null;
-        final int totalLength = input.length();
-        int i = 1;
-        int st = 0;
-        while (true) {
-            // look for '&'
-            while (i < totalLength && input.charAt(i-1) != '&')
-                i++;
-            if (i >= totalLength)
-                break;
-
-            // found '&', look for end
-            int j = i;
-            while (j < totalLength && j < (i + MAX_ESCAPE + 1) && (Character.isLetterOrDigit(input.charAt(j)) || ((input.charAt(j) == '#') && (j == i))))
-                j++;
-            if (j < (i + MIN_ESCAPE) || j == (i + MAX_ESCAPE + 1)) {
-                i++;
-                continue;
-            }
-
-            // found escape
-            if (input.charAt(i) == '#') {
-                // numeric escape
-                int k = i + 1;
-                int radix = 10;
-
-                final char firstChar = input.charAt(k);
-                if (firstChar == 'x' || firstChar == 'X') {
-                    k++;
-                    radix = 16;
-                }
-
-                try {
-                    final int entityValue = Integer.parseInt(input.substring(k, j), radix);
-
-                    if (writer == null)
-                        writer = new StringWriter(input.length());
-                    writer.append(input.substring(st, i - 1));
-
-                    if (entityValue > 0xFFFF) {
-                        final char[] chrs = Character.toChars(entityValue);
-                        writer.write(chrs[0]);
-                        writer.write(chrs[1]);
-                    } else {
-                        writer.write(entityValue);
-                    }
-
-                } catch (@SuppressWarnings("unused") final NumberFormatException ex) {
-                    i++;
-                    continue;
-                }
-            } else {
-                // named escape
-                final int e = ((j < totalLength) && (input.charAt(j) == ';')) ? 1 : 0;
-                final String name = input.substring(i - 1, j + e);
-                final String value = lookupMap.get(name);
-                if (value == null) {
-                    i++;
-                    continue;
-                }
-
-                if (writer == null)
-                    writer = new StringWriter(input.length());
-                writer.append(input.substring(st, i - 1));
-                writer.append(value);
-            }
-
-            // skip escape
-            if ((j < totalLength) && (input.charAt(j) == ';'))
-                st = j + 1;
-            else
-                st = j;
-            i = st;
-        }
-
-        if (writer != null) {
-            writer.append(input.substring(st, totalLength));
-            return writer.toString();
-        }
-        return input;
-    }
 
     // from https://html.spec.whatwg.org/multipage/named-characters.html
     private static final HashMap<String, String> lookupMap;
@@ -2399,6 +2248,159 @@ public class HtmlHelper {
         lookupMap.put("&zwnj;", "\u200C");
     }
 
+    private static final Pattern CHARSET_EXTRACTION_1 = Pattern.compile(".*<meta\\s+charset\\s*=\\s*['\"]([^'\"]+)['\"]\\s*/?>.*", Pattern.CASE_INSENSITIVE);
+    private static final Pattern CHARSET_EXTRACTION_2 = Pattern.compile(".*<meta\\s+http-equiv\\s*=\\s*['\"]Content-Type['\"]\\s+content\\s*=\\s*['\"]text/html;\\s*charset=([^'\"]+)['\"]\\s*/?>.*", Pattern.CASE_INSENSITIVE);
+    private static final Pattern CHARSET_EXTRACTION_3 = Pattern.compile(".*<meta\\s+content\\s*=\\s*['\"]text/html;\\s*charset=([^'\"]+)['\"]\\s+http-equiv\\s*=\\s*['\"]Content-Type([^\"]+)\\s*/?>.*", Pattern.CASE_INSENSITIVE);
+
+    private static final Pattern CLEAN_TRAILING_WHITESPACES = Pattern.compile("\\p{Z}*$");
+    private static final Pattern CLEAN_LEADING_WHITESPACES = Pattern.compile("^\\p{Z}*");
+
+    public static String slurpFile(final FileSection file) {
+        final Charset charset = getCharset(file).orElse(StandardCharsets.UTF_8);
+        return FileHelper.slurpFile(file, charset);
+    }
+
+    public static Optional<Charset> getCharset(final FileSection file) {
+        final String data = FileHelper.slurpFile(file, StandardCharsets.UTF_8);
+        final int length = data.length();
+        for (int i = 0; i < length; i++) {
+            if (data.startsWith("<meta", i)) {
+                final int j = data.indexOf('>', i);
+                if (j < 0) {
+                    return Optional.empty();
+                }
+                final Optional<Charset> charset = extractCharsetFromString(data.substring(i, j + 1));
+                if (charset.isPresent()) {
+                    return charset;
+                }
+            }
+        }
+        return Optional.empty();
+    }
+
+    private static Optional<Charset> extractCharsetFromString(final String str) {
+        final Matcher m1 = CHARSET_EXTRACTION_1.matcher(str);
+        if (m1.find()) {
+            return createCharsetFromName(m1.group(1));
+        }
+        final Matcher m2 = CHARSET_EXTRACTION_2.matcher(str);
+        if (m2.find()) {
+            return createCharsetFromName(m2.group(1));
+        }
+        final Matcher m3 = CHARSET_EXTRACTION_3.matcher(str);
+        if (m3.find()) {
+            return createCharsetFromName(m3.group(1));
+        }
+        return Optional.empty();
+    }
+
+    private static Optional<Charset> createCharsetFromName(final String charsetName) {
+        try {
+            final Charset charset = Charset.forName(charsetName);
+            return Optional.of(charset);
+        } catch (final UnsupportedCharsetException e) {
+            Logger.log(Logger.Level.INFO)
+                  .append("Invalid charset name")
+                  .append(e);
+            return Optional.empty();
+        }
+    }
+
+    public static final String cleanContent(final String input) {
+        final String s1 = removeHtmlTags(input);
+        final String s2 = unescape(s1);
+        final String s3 = removeNewlines(s2);
+        final String s4 = cleanAndUnduplicateSpace(s3);
+        final String s5 = trim(s4);
+        return s5;
+    }
+
+    public static final String unescape(final String input) {
+        // from https://stackoverflow.com/questions/994331/how-to-unescape-html-character-entities-in-java
+        final int MIN_ESCAPE = 2;
+        final int MAX_ESCAPE = 32;
+        StringWriter writer = null;
+        final int totalLength = input.length();
+        int i = 1;
+        int st = 0;
+        while (true) {
+            // look for '&'
+            while (i < totalLength && input.charAt(i-1) != '&')
+                i++;
+            if (i >= totalLength)
+                break;
+
+            // found '&', look for end
+            int j = i;
+            while (j < totalLength && j < (i + MAX_ESCAPE + 1) && (Character.isLetterOrDigit(input.charAt(j)) || ((input.charAt(j) == '#') && (j == i))))
+                j++;
+            if (j < (i + MIN_ESCAPE) || j == (i + MAX_ESCAPE + 1)) {
+                i++;
+                continue;
+            }
+
+            // found escape
+            if (input.charAt(i) == '#') {
+                // numeric escape
+                int k = i + 1;
+                int radix = 10;
+
+                final char firstChar = input.charAt(k);
+                if (firstChar == 'x' || firstChar == 'X') {
+                    k++;
+                    radix = 16;
+                }
+
+                try {
+                    final int entityValue = Integer.parseInt(input.substring(k, j), radix);
+
+                    if (writer == null)
+                        writer = new StringWriter(input.length());
+                    writer.append(input.substring(st, i - 1));
+
+                    if (entityValue > 0xFFFF) {
+                        final char[] chrs = Character.toChars(entityValue);
+                        writer.write(chrs[0]);
+                        writer.write(chrs[1]);
+                    } else {
+                        writer.write(entityValue);
+                    }
+
+                } catch (@SuppressWarnings("unused") final NumberFormatException ex) {
+                    i++;
+                    continue;
+                }
+            } else {
+                // named escape
+                final int e = ((j < totalLength) && (input.charAt(j) == ';')) ? 1 : 0;
+                final String name = input.substring(i - 1, j + e);
+                final String value = lookupMap.get(name);
+                if (value == null) {
+                    i++;
+                    continue;
+                }
+
+                if (writer == null)
+                    writer = new StringWriter(input.length());
+                writer.append(input.substring(st, i - 1));
+                writer.append(value);
+            }
+
+            // skip escape
+            if ((j < totalLength) && (input.charAt(j) == ';'))
+                st = j + 1;
+            else
+                st = j;
+            i = st;
+        }
+
+        if (writer != null) {
+            writer.append(input.substring(st, totalLength));
+            return writer.toString();
+        }
+        return input;
+    }
+
     public static final String cleanAndUnduplicateSpace(final String input) {
 
         final StringBuilder builder = new StringBuilder(input.length());
@@ -2423,28 +2425,9 @@ public class HtmlHelper {
 
     public static final String trim(final String input) {
 
-        if (input.isBlank()) {
-            return "";
-        }
-
-        final String simplyTrimmed = input.trim();
-
-
-        int start = 0;
-        int end = simplyTrimmed.codePointCount(0, simplyTrimmed.length() - 1);
-
-        while (Character.isSpaceChar(simplyTrimmed.codePointAt(start))) {
-            start++;
-            if (start == end + 1) {
-                return "";
-            }
-        }
-
-        while (Character.isSpaceChar(simplyTrimmed.codePointAt(end))) {
-            end--;
-        }
-
-        return simplyTrimmed.substring(simplyTrimmed.offsetByCodePoints(0, start), simplyTrimmed.offsetByCodePoints(0, end + 1));
+        final String s1 = CLEAN_LEADING_WHITESPACES.matcher(input).replaceAll(""); 
+        final String s2 = CLEAN_TRAILING_WHITESPACES.matcher(s1).replaceAll(""); 
+        return s2;
     }
 
     public static final String removeHtmlTags(final String input) {

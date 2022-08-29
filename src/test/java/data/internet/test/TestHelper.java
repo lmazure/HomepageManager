@@ -29,7 +29,7 @@ public class TestHelper {
         Assertions.assertTrue(data.getDataFile().isPresent());
         Assertions.assertFalse(data.getError().isPresent());
         try {
-            final String d = Files.readString(data.getDataFile().get().toPath());
+            final String d = Files.readString(data.getDataFile().get().file().toPath());
             Assertions.assertNotEquals(-1, d.indexOf("This domain is for use in illustrative examples in documents."));
         } catch (final IOException e) {
             Assertions.fail("failure to read data file " + data.getDataFile().get() + " (" + e.getMessage() +")");

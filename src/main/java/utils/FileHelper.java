@@ -1,11 +1,11 @@
 package utils;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.RandomAccessFile;
 import java.net.URL;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CodingErrorAction;
@@ -20,23 +20,21 @@ import java.nio.file.Paths;
  */
 public class FileHelper {
 
-    public static String slurpFile(final File file,
+    public static String slurpFile(final FileSection file,
                                    final Charset charset) {
         final CharsetDecoder decoder = charset.newDecoder();
         if (charset.equals(StandardCharsets.UTF_8)) {
             decoder.onMalformedInput(CodingErrorAction.REPLACE);
         }
 
-        try (final FileInputStream input = new FileInputStream(file);
-             final InputStreamReader reader = new InputStreamReader(input, decoder);
-             final BufferedReader bufferedReader = new BufferedReader(reader)) {
-            final StringBuilder sb = new StringBuilder();
-            String line = bufferedReader.readLine();
-            while (line != null) {
-                sb.append(line).append('\n');
-                line = bufferedReader.readLine();
-            }
-            return sb.toString();
+        try (final RandomAccessFile reader = new RandomAccessFile(file.file(), "r");
+             final FileChannel channel = reader.getChannel()){
+            final ByteBuffer byteBuffer = ByteBuffer.allocate((int)file.length());
+            channel.position(file.offset());
+            channel.read(byteBuffer);
+            byteBuffer.flip();
+            final String string = decoder.decode(byteBuffer).toString();
+            return string;
         } catch (final IOException e) {
             ExitHelper.exit(e);
             // NOT REACHED

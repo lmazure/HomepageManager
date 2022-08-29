@@ -89,17 +89,17 @@ public class GitlabBlogLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(TestHelper.buildURL(url),
-                          (final Boolean b, final SiteData d) -> {
-                              Assertions.assertTrue(d.getDataFile().isPresent());
-                              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-                              final GitlabBlogLinkContentParser parser = new GitlabBlogLinkContentParser(data);
-                              try {
-                                  Assertions.assertEquals(1, parser.getAuthors().size());
-                                  Assertions.assertEquals(expectedAuthor, parser.getAuthors().get(0));
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getAuthor threw " + e.getMessage());
-                               }
-                              consumerHasBeenCalled.set(true);
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               final GitlabBlogLinkContentParser parser = new GitlabBlogLinkContentParser(data);
+                               try {
+                                   Assertions.assertEquals(1, parser.getAuthors().size());
+                                   Assertions.assertEquals(expectedAuthor, parser.getAuthors().get(0));
+                                } catch (final ContentParserException e) {
+                                    Assertions.fail("getAuthor threw " + e.getMessage());
+                                }
+                               consumerHasBeenCalled.set(true);
           });
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
