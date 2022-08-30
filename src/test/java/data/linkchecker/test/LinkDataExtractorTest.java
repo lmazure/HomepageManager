@@ -167,6 +167,38 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchAurelienSamaIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=LXh6262dZp0";
+        final String expectedXml = """
+                <ARTICLE><X><T>Samaventure 17 - La Richesse d'un Homme !</T>\
+                <A>https://www.youtube.com/watch?v=LXh6262dZp0</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>27</MINUTE><SECOND>13</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Aurélien</FIRSTNAME><LASTNAME>Sama</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>8</MONTH><DAY>27</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
+    void youtubeWatchAypierreIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=FH-A2Hq6pG4";
+        final String expectedXml = """
+                <ARTICLE><X><T>Lundi Pivipi -  RUSH à l'ancienne</T>\
+                <A>https://www.youtube.com/watch?v=FH-A2Hq6pG4</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>45</MINUTE><SECOND>24</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Aymeric</FIRSTNAME><LASTNAME>Pierre</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>8</MONTH><DAY>29</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeWatchBaladeMentaleIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=7KJbzgoBUX0";
         final String expectedXml = """
