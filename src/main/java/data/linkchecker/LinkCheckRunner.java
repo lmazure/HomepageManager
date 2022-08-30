@@ -105,6 +105,22 @@ public class LinkCheckRunner {
 
         final List<URL> list = buildListOfLinksToBeChecked(links);
         _nbSitesRemainingToBeChecked = list.size();
+        if (_nbSitesRemainingToBeChecked == 0) {
+            try {
+                writeOutputFile();
+            } catch (final Exception e) {
+               FileHelper.createParentDirectory(_reportFile);
+               try (final PrintStream reportWriter = new PrintStream(_reportFile.toFile())) {
+                   e.printStackTrace(reportWriter);
+               } catch (final IOException e2) {
+                   ExitHelper.exit(e2);
+               }
+               _controller.handleUpdate(_file, Status.FAILED_TO_HANDLED, _outputFile, _reportFile);
+               return;
+            }
+            _controller.handleUpdate(_file, Status.HANDLED_WITH_SUCCESS, _outputFile, _reportFile);
+            return;
+        }
         for (final URL url: list) {
             _retriever.retrieve(url, this::handleLinkData, MAX_CACHE_AGE);
         }
