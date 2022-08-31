@@ -95,6 +95,30 @@ public class WiredLinkContentParserTest {
     }
 
     @ParameterizedTest
+    @CsvSource(value = {
+            "https://www.wired.com/1997/12/science-2/",
+            "https://www.wired.com/1997/10/genome/",
+            "https://www.wired.com/1999/01/amish/"
+        })
+    void testSubtitleWhichIsAnExtractOfTheArticleIsIgnored(final String url) {
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(TestHelper.buildURL(url),
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               final WiredLinkContentParser parser = new WiredLinkContentParser(data);
+                               try {
+                                   Assertions.assertFalse(parser.getSubtitle().isPresent());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getSubtitle threw " + e.getMessage());
+                               }
+                               consumerHasBeenCalled.set(true);
+                           });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    @ParameterizedTest
     @CsvSource({
         "https://www.wired.com/story/india-deadly-combination-heat-humidity/,2022-06-09",
         "https://www.wired.com/2015/06/answer-150-year-old-math-conundrum-brings-mystery/,2015-06-20",

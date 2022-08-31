@@ -1,8 +1,3 @@
-ignorer les mauvais subtitle de Wired
-https://www.wired.com/1997/12/science-2/
-
-mauvaise gestion des pages qui ne contiennent aucun lien
-
 comprendre pourquoi on a à chaque lancement
    file-event-dispatche-002 | 20220829T135327.374 | INFO | deleted file: H:\xampp\htdocs\bouffe\0140.xml
    file-event-dispatche-003 | 20220829T135327.374 | INFO | deleted file: H:\xampp\htdocs\bouffe\0115.xml
@@ -118,8 +113,6 @@ il est normal de pouvoir avoir uniquement une date de publication ?
 
 - vérification des liens internes
 
-- corriger le fait que les liens soient chargés deux fois
-
 - la sauvegarde du rapport de liens toutes les 30 secondes ne marche plus
 
 - Chrome indique qu'il n'arrive pas à charger les sourcemaps
@@ -137,12 +130,8 @@ de plus cela génère des erreurs
 
 - LinkedIn renvoie un HTTP code 999
 
-- fix incorrect status of running link checker
-
 - problème avec le lien http://marie.desplats.free.fr/diagora_home_page.html
 
-- bug : s'il n'y a aucun lien dans une page, le texte du rapport reste "analyse en cours"
- 
 - Tester robot.txt avec https://www.google.com/webmasters/tools/robots-testing-tool
 
 - Ajouter la détection des malwares
@@ -170,8 +159,6 @@ restructurer la page pour séparer
 * LinkedIn
 * Wikipedia
 * Wikipédia
-
-- ajouter une règle pour vérifier que <PATH> est correct
 
 - tronquer les URLs trop longs dans les tables de contenu
 

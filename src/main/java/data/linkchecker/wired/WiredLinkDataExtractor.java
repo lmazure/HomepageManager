@@ -47,8 +47,15 @@ public class WiredLinkDataExtractor extends LinkDataExtractor {
 
     @Override
     public List<ExtractedLinkData> getLinks() throws ContentParserException {
-        final String[] subtitles = _parser.getSubtitle().isPresent() ? new String[]{ _parser.getSubtitle().get() }
-                                                                     : new String[0];
+        String subtitle = null;
+        if (_parser.getSubtitle().isPresent()) {
+            final String s = _parser.getSubtitle().get();
+            if (!s.endsWith("[…]")) { // we ignore subtitles which are an extract of the article
+                subtitle = s;
+            }
+        }
+        final String[] subtitles = (subtitle != null) ? new String[]{ subtitle }
+                                                      : new String[0];
         final ExtractedLinkData linkData = new ExtractedLinkData(_parser.getTitle(),
                                                                  subtitles,
                                                                  getUrl().toString(),
