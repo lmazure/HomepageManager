@@ -141,7 +141,7 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
                                           new ChannelData(buildList(buildAuthor("Maxime", "Lambrecht")),
                                                           buildMatchingList(),
                                                           Locale.FRENCH)),
-            new AbstractMap.SimpleEntry<>("PRimer",
+            new AbstractMap.SimpleEntry<>("Primer",
                                           new ChannelData(buildList(buildAuthor("Justin", "Helps")),
                                                           buildMatchingList(),
                                                           Locale.ENGLISH)),

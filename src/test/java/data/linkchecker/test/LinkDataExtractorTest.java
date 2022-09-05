@@ -218,7 +218,7 @@ public class LinkDataExtractorTest {
     void youtubeWatchBlackPenRedPenIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=eex9Gm_rOrQ";
         final String expectedXml = """
-                <ARTICLE><X><T>homemade triple exponential equation</T>\
+                <ARTICLE><X><T>homemade triple exponential equation with different bases</T>\
                 <A>https://www.youtube.com/watch?v=eex9Gm_rOrQ</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>7</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Steve</FIRSTNAME><LASTNAME>Chow</LASTNAME></AUTHOR>\
@@ -347,7 +347,7 @@ public class LinkDataExtractorTest {
     void youtubeWatchElJjIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=qZWbgBSfTUI";
         final String expectedXml = """
-                <ARTICLE><X><T>Du Tesseract aux t-shirts de Peter Parker : les maths chez Marvel - Chouxrom' Ciné Club #08</T>\
+                <ARTICLE><X><T>J'ai regardé 43 films et séries Marvel Studios et j'y ai trouvé... des maths ! - Ccc #08</T>\
                 <A>https://www.youtube.com/watch?v=qZWbgBSfTUI</A>\
                 <L>fr</L><F>MP4</F><DURATION><MINUTE>26</MINUTE><SECOND>42</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Jérôme</FIRSTNAME><LASTNAME>Cottanceau</LASTNAME></AUTHOR>\
@@ -721,6 +721,7 @@ public class LinkDataExtractorTest {
                 <ARTICLE><X><T>How To Catch A Cheater With Math</T>\
                 <A>https://www.youtube.com/watch?v=XTcP4oo4JI4</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>22</MINUTE><SECOND>37</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Justin</FIRSTNAME><LASTNAME>Helps</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>6</MONTH><DAY>25</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
