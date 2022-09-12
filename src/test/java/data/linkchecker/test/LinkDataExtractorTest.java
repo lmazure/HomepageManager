@@ -554,6 +554,22 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchMathadorIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=EcPPjZVB2vA";
+        final String expectedXml = """
+                <ARTICLE><X><T>L'INCROYABLE HISTOIRE DE LA CONJECTURE DE FERMAT</T>\
+                <A>https://www.youtube.com/watch?v=EcPPjZVB2vA</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>23</MINUTE><SECOND>59</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Franck</FIRSTNAME><LASTNAME>Dunas</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>9</MONTH><DAY>9</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeWatchMathologerIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=6ZrO90AI0c8";
         final String expectedXml = """
