@@ -214,7 +214,11 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
             new AbstractMap.SimpleEntry<>("WonderWhy",
                                           new ChannelData(buildList(buildAuthorFromGivenName("WonderWhy")),
                                                           buildMatchingList(),
-                                                          Locale.ENGLISH))
+                                                          Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("Yosha - Echecs",
+                                          new ChannelData(buildList(buildAuthor("Yosha", "Iglesias")),
+                                                          buildMatchingList(),
+                                                          Locale.FRENCH))
             );
     private final YoutubeWatchLinkContentParser _parser;
 

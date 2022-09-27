@@ -1004,6 +1004,22 @@ public class LinkDataExtractorTest {
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
+    @Test
+    void  youtubeWatchYoshaEchecsIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=_PqORG75Cr4";
+        final String expectedXml = """
+                <ARTICLE><X><T>Les indices les plus compromettants contre Hans Niemann</T>\
+                <A>https://www.youtube.com/watch?v=_PqORG75Cr4</A><L>fr</L><F>MP4</F>\
+                <DURATION><MINUTE>26</MINUTE><SECOND>20</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Yosha</FIRSTNAME><LASTNAME>Iglesias</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>9</MONTH><DAY>25</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
 
     @Test
     void  youtubeWatchUrlInListIsManaged() throws ContentParserException {
@@ -1020,6 +1036,7 @@ public class LinkDataExtractorTest {
         Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
+
     @Test
     void urlIsCleanedFromUtmParameters() throws ContentParserException {
         final String url = "https://www.quantamagazine.org/mathematical-analysis-of-fruit-fly-wings-hints-at-evolutions-limits-20210920/?utm_source=pocket-app&utm_medium=share";
