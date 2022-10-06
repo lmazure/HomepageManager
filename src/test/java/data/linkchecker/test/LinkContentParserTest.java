@@ -19,7 +19,7 @@ public class LinkContentParserTest {
     @ParameterizedTest
     @ValueSource(strings = {
             "https://usa.kaspersky.com/about/press-releases/2016_kaspersky-lab-study-proves-smartphones-distract-workers-and-decrease-productivity",
-            "http://safsdev.sourceforge.net/FRAMESDataDrivenTestAutomationFrameworks.htm",
+            "https://safsdev.sourceforge.net/FRAMESDataDrivenTestAutomationFrameworks.htm",
             "https://viterbi-web.usc.edu/~meshkati/tefall99/toki.html",
             "https://www.cultdeadcow.com",
             "https://www.meteor.com/",

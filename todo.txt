@@ -1,18 +1,15 @@
-comprendre pourquoi on a à chaque lancement
-   file-event-dispatche-002 | 20220829T135327.374 | INFO | deleted file: H:\xampp\htdocs\bouffe\0140.xml
-   file-event-dispatche-003 | 20220829T135327.374 | INFO | deleted file: H:\xampp\htdocs\bouffe\0115.xml
-   file-event-dispatche-002 | 20220829T135327.528 | INFO | created file: H:\xampp\htdocs\bouffe\0140.xml
-   file-event-dispatche-003 | 20220829T135327.528 | INFO | created file: H:\xampp\htdocs\bouffe\0115.xml
-   file-event-dispatche-002 | 20220829T135327.602 | INFO | H:\xampp\htdocs\bouffe\0140.html is generated
-   file-event-dispatche-003 | 20220829T135327.633 | INFO | H:\xampp\htdocs\bouffe\0115.html is generated
-   file-event-dispatche-002 | 20220829T135327.645 | INFO | G:\tmp\bouffe\0140_filecheck.txt is generated
-   file-event-dispatche-003 | 20220829T135327.648 | INFO | G:\tmp\bouffe\0115_filecheck.txt is generated
+ajouter support de https://github.blog/2022-10-03-highlights-from-git-2-38/?utm_source=pocket_mylist
+
+gérer https://arstechnica.com/tech-policy/2022/09/texts-show-roll-call-of-tech-figures-tried-to-help-elon-musk-in-twitter-deal/
+Ars Technica article should have at most one author
+
+voir comment gérer https://www.youtube.com/watch?app=desktop&v=3bTntGMnzfw&list=WL&index=7
 
 détecter author dupliqué
 
 ajouter support de https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se
 
-les podcasts de quanta magazine devraient être considérés comme de MP3, pas comme des HTML
+les podcasts de quanta magazine devraient être considérés comme des MP3, pas comme des HTML
 
 modifier la gestion  de DeepSkyVideo
 
