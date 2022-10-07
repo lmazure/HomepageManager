@@ -1,6 +1,5 @@
 package data.linkchecker.gitlabblog;
 
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.util.List;
@@ -19,7 +18,7 @@ public class GitlabBlogLinkContentChecker extends LinkContentChecker {
 
     private GitlabBlogLinkContentParser _parser;
 
-    public GitlabBlogLinkContentChecker(final URL url,
+    public GitlabBlogLinkContentChecker(final String url,
                                         final LinkData linkData,
                                         final Optional<ArticleData> articleData,
                                         final FileSection file) {

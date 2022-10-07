@@ -20,7 +20,7 @@ import data.internet.SynchronousSiteDataRetriever;
 import data.linkchecker.ContentParserException;
 import data.linkchecker.LinkContentParserUtils;
 import utils.HtmlHelper;
-import utils.StringHelper;
+import utils.UrlHelper;
 import utils.xmlparsing.AuthorData;
 
 public class OracleBlogsLinkContentParser {
@@ -50,7 +50,7 @@ public class OracleBlogsLinkContentParser {
     private final SynchronousSiteDataRetriever _retriever;
 
     public OracleBlogsLinkContentParser(final String data,
-                                        final URL url) {
+                                        final String url) {
 
         _retriever = new SynchronousSiteDataRetriever(null);
 
@@ -153,7 +153,7 @@ public class OracleBlogsLinkContentParser {
         for (int i = 0; i < authors.length(); i++) {
             final String authorUrl = authors.getJSONObject(i).getJSONArray("links").getJSONObject(0).getString("href");
             try {
-                _authors.add(getAuthor(StringHelper.convertStringToUrl(authorUrl)));
+                _authors.add(getAuthor(authorUrl));
             } catch (final IOException | ContentParserException | JSONException e) {
                 _authorException = new ContentParserException("failed to read author JSON data for " + url, e);
                 return;
@@ -193,30 +193,28 @@ public class OracleBlogsLinkContentParser {
         return _authors;
     }
 
-    private String getStructureJson(final URL url,
+    private String getStructureJson(final String url,
                                     final String site) throws IOException {
-        final String urlJsonStructure = url.toString()
-                                           .replaceFirst("/post/", "/")
+        final String urlJsonStructure = url.replaceFirst("/post/", "/")
                                            .replaceFirst("/[^/]*$", "/" + site + "/structure.json");
-        final URL u = StringHelper.convertStringToUrl(urlJsonStructure);
-        return _retriever.getGzippedContent(u);
+        return _retriever.getGzippedContent(urlJsonStructure);
     }
 
-    private String getJsonPayload(final URL url,
+    private String getJsonPayload(final String url,
                                   final String channelAccessToken,
                                   final String caas) throws IOException {
-        final String slug = Path.of(url.getPath()).getFileName().toString();
+        final URL u = UrlHelper.convertStringToUrl(url);
+        final String slug = Path.of(u.getPath()).getFileName().toString();
         final String jsonUrl = "https://blogs.oracle.com/content/published/api/v1.1/items?fields=ALL&orderBy=name%3Aasc&limit=1&q=((type%20eq%20%22Blog-Post%22)%20and%20(language%20eq%20%22en-US%22%20or%20translatable%20eq%20%22false%22)%20and%20(slug%20eq%20%22"
                                + slug
                                + "%22))&channelToken="
                                + channelAccessToken
                                + "&cb="
                                + caas;
-        final URL u = StringHelper.convertStringToUrl(jsonUrl);
-        return _retriever.getGzippedContent(u);
+        return _retriever.getGzippedContent(jsonUrl);
     }
 
-    private AuthorData getAuthor(final URL url) throws IOException, ContentParserException {
+    private AuthorData getAuthor(final String url) throws IOException, ContentParserException {
         final String jsonPayload = _retriever.getGzippedContent(url);
         final JSONObject obj = new JSONObject(jsonPayload);
         final String name = obj.getString("name");

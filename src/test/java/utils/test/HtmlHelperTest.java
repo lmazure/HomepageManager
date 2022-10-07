@@ -111,7 +111,7 @@ public class HtmlHelperTest {
                                final String expectedCharsetName) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL(url),
+        retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final FileSection file = d.getDataFile().get();

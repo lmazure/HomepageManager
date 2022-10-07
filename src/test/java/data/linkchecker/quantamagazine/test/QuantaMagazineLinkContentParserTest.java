@@ -22,7 +22,7 @@ public class QuantaMagazineLinkContentParserTest {
     void testTitleWithPostfix() {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL("https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/"),
+        retriever.retrieve("https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/",
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
@@ -41,7 +41,7 @@ public class QuantaMagazineLinkContentParserTest {
     void testTitleWithoutPostfix() {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL("https://www.quantamagazine.org/mathematician-solves-computer-science-conjecture-in-two-pages-20190725/"),
+        retriever.retrieve("https://www.quantamagazine.org/mathematician-solves-computer-science-conjecture-in-two-pages-20190725/",
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
@@ -60,7 +60,7 @@ public class QuantaMagazineLinkContentParserTest {
     void testSubtitle() {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL("https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/"),
+        retriever.retrieve("https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/",
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
@@ -79,7 +79,7 @@ public class QuantaMagazineLinkContentParserTest {
     void testSubtitleContainingQuotes() {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL("https://www.quantamagazine.org/mathematician-solves-computer-science-conjecture-in-two-pages-20190725/"),
+        retriever.retrieve("https://www.quantamagazine.org/mathematician-solves-computer-science-conjecture-in-two-pages-20190725/",
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
@@ -98,7 +98,7 @@ public class QuantaMagazineLinkContentParserTest {
     void testSubtitleContainingHtml() {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL("https://www.quantamagazine.org/yitang-zhang-proves-landmark-theorem-in-distribution-of-prime-numbers-20130519/"),
+        retriever.retrieve("https://www.quantamagazine.org/yitang-zhang-proves-landmark-theorem-in-distribution-of-prime-numbers-20130519/",
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
@@ -123,7 +123,7 @@ public class QuantaMagazineLinkContentParserTest {
                                         final String expectedSubtitle) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL(url),
+        retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
@@ -147,7 +147,7 @@ public class QuantaMagazineLinkContentParserTest {
                   final String expectedDate) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL(url),
+        retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
@@ -179,7 +179,7 @@ public class QuantaMagazineLinkContentParserTest {
                                                          Optional.empty());
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL(url),
+        retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
@@ -211,7 +211,7 @@ public class QuantaMagazineLinkContentParserTest {
                                                          Optional.empty());
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL(url),
+        retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
@@ -226,7 +226,6 @@ public class QuantaMagazineLinkContentParserTest {
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
-
 
     @ParameterizedTest
     @CsvSource({
@@ -253,7 +252,7 @@ public class QuantaMagazineLinkContentParserTest {
                                                           Optional.empty());
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL(url),
+        retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());

@@ -1,6 +1,5 @@
 package data.linkchecker.test;
 
-import java.net.URL;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +12,6 @@ import data.linkchecker.ContentParserException;
 import data.linkchecker.LinkDataExtractor;
 import data.linkchecker.LinkDataExtractorFactory;
 import data.linkchecker.XmlGenerator;
-import utils.StringHelper;
 import utils.xmlparsing.AuthorData;
 
 public class LinkDataExtractorTest {
@@ -246,7 +244,6 @@ public class LinkDataExtractorTest {
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
-
     @Test
     void youtubeWatchComputerfileIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=-ShwJqAalOk";
@@ -320,7 +317,6 @@ public class LinkDataExtractorTest {
         Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
         Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
     }
-
 
     @Test
     void youtubeWatchDeepSkyVideosIsManaged3() throws ContentParserException {
@@ -1020,7 +1016,6 @@ public class LinkDataExtractorTest {
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
-
     @Test
     void  youtubeWatchUrlInListIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=C926N9zMJkU&list=WL&index=11";
@@ -1071,8 +1066,7 @@ public class LinkDataExtractorTest {
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
-    private LinkDataExtractor getExtractor(final String txt) throws ContentParserException {
-        final URL url = StringHelper.convertStringToUrl(txt);
+    private LinkDataExtractor getExtractor(final String url) throws ContentParserException {
         final Path path = TestHelper.getTestDatapath(getClass());
         return LinkDataExtractorFactory.build(path, url);
     }

@@ -1,6 +1,5 @@
 package data.linkchecker.baeldung;
 
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.util.List;
@@ -19,7 +18,7 @@ public class BaeldungLinkContentChecker extends LinkContentChecker {
 
     private BaeldungLinkContentParser _parser;
 
-    public BaeldungLinkContentChecker(final URL url,
+    public BaeldungLinkContentChecker(final String url,
                                       final LinkData linkData,
                                       final Optional<ArticleData> articleData,
                                       final FileSection file) {

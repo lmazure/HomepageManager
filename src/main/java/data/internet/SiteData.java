@@ -1,6 +1,5 @@
 package data.internet;
 
-import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -14,14 +13,14 @@ public class SiteData {
         FAILURE
     }
 
-    private final URL _url;
+    private final String _url;
     private final Status _status;
     private final Optional<Integer> _httpCode;
     private final Optional<Map<String, List<String>>> _headers;
     private final Optional<FileSection> _dataFile;
     private final Optional<String> _error;
 
-    public SiteData(final URL url,
+    public SiteData(final String url,
                     final Status status,
                     final Optional<Integer> httpCode,
                     final Optional<Map<String, List<String>>> headers,
@@ -35,7 +34,7 @@ public class SiteData {
         _error = error;
     }
 
-    public URL getUrl() {
+    public String getUrl() {
         return _url;
     }
 

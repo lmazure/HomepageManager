@@ -1,6 +1,5 @@
 package data.internet;
 
-import java.net.URL;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.BiConsumer;
@@ -25,7 +24,7 @@ public class AsynchronousSiteDataRetriever {
      * its second argument is the site data
      * @param maxAge maximum age in seconds
      */
-    public void retrieve(final URL url,
+    public void retrieve(final String url,
                          final BiConsumer<Boolean, SiteData> consumer) {
 
         _threadPool.execute(() -> {

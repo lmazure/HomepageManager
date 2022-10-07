@@ -25,7 +25,7 @@ public class ArsTechnicaLinkContentParserTest {
                    final String expectedTitle) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL(url),
+        retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
@@ -48,7 +48,7 @@ public class ArsTechnicaLinkContentParserTest {
                       final String expectedSubtitle) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL(url),
+        retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
@@ -72,7 +72,7 @@ public class ArsTechnicaLinkContentParserTest {
                   final String expectedDate) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL(url),
+        retriever.retrieve(url,
           (final Boolean b, final SiteData d) -> {
               Assertions.assertTrue(d.getDataFile().isPresent());
               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
@@ -108,7 +108,7 @@ public class ArsTechnicaLinkContentParserTest {
                                                          Optional.empty());
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL(url),
+        retriever.retrieve(url,
           (final Boolean b, final SiteData d) -> {
               Assertions.assertTrue(d.getDataFile().isPresent());
               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
@@ -131,7 +131,7 @@ public class ArsTechnicaLinkContentParserTest {
     void testAuthorAbsence(final String url) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL(url),
+        retriever.retrieve(url,
           (final Boolean b, final SiteData d) -> {
               Assertions.assertTrue(d.getDataFile().isPresent());
               final String data = HtmlHelper.slurpFile(d.getDataFile().get());

@@ -1,6 +1,5 @@
 package data.linkchecker;
 
-
 @SuppressWarnings("serial")
 public class ContentParserException extends Exception {
 

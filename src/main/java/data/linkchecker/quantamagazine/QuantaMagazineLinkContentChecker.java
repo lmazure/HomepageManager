@@ -1,6 +1,5 @@
 package data.linkchecker.quantamagazine;
 
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.util.List;
@@ -19,7 +18,7 @@ public class QuantaMagazineLinkContentChecker extends LinkContentChecker {
 
     private QuantaMagazineLinkContentParser _parser;
 
-    public QuantaMagazineLinkContentChecker(final URL url,
+    public QuantaMagazineLinkContentChecker(final String url,
                                             final LinkData linkData,
                                             final Optional<ArticleData> articleData,
                                             final FileSection file) {

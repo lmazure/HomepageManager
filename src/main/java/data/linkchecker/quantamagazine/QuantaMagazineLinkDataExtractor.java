@@ -1,6 +1,5 @@
 package data.linkchecker.quantamagazine;
 
-import java.net.URL;
 import java.nio.file.Path;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ public class QuantaMagazineLinkDataExtractor extends LinkDataExtractor {
 
     private final QuantaMagazineLinkContentParser _parser;
 
-    public QuantaMagazineLinkDataExtractor(final URL url,
+    public QuantaMagazineLinkDataExtractor(final String url,
                                            final Path cacheDirectory) {
         super(url, cacheDirectory);
         _parser = new QuantaMagazineLinkContentParser(getContent());
@@ -33,7 +32,6 @@ public class QuantaMagazineLinkDataExtractor extends LinkDataExtractor {
     public List<AuthorData> getSureAuthors() throws ContentParserException {
         return _parser.getAuthors();
     }
-
 
     @Override
     public List<AuthorData> getProbableAuthors() {

@@ -17,7 +17,6 @@ public class TwitterApiTest {
         Assertions.assertEquals("Mais si, c'est le mec qui fait des vidéos de maths ! Une fois, j'ai regardé, j'ai pas tout compris mais c'était sympa.", dto.getDescription());
     }
 
-
     private static TwitterApi buildApi() {
         return new TwitterApi(ParameterRepository.getTwitterApiKey(), ParameterRepository.getTwitterApiSecretKey());
     }

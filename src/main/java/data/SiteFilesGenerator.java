@@ -46,7 +46,6 @@ public class SiteFilesGenerator {
               .submit();
     }
 
-
     private static void generateSitemap(final Path homepage,
                                         final List<Path> files) {
 

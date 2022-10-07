@@ -1,6 +1,5 @@
 package data.internet.test;
 
-import java.net.URL;
 import java.nio.file.Path;
 import java.time.Instant;
 import java.util.List;
@@ -8,7 +7,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
-
 import org.junit.jupiter.api.Test;
 
 import data.internet.SiteData;
@@ -18,7 +16,7 @@ import utils.FileHelper;
 
 public class SiteDataPersisterTest {
 
-    private static URL url = TestHelper.buildURL("http://example.com");
+    private static String url = "http://example.com";
     private static Instant now = Instant.now();
     private static Status status = Status.SUCCESS;
     private static Optional<Integer> httpCode = Optional.of(Integer.valueOf(200));

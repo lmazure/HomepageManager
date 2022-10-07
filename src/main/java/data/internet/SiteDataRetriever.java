@@ -1,6 +1,5 @@
 package data.internet;
 
-import java.net.URL;
 import java.nio.file.Path;
 import java.util.function.BiConsumer;
 
@@ -25,7 +24,7 @@ public class SiteDataRetriever {
      * @param consumer
      * @param maxAge maximum age in seconds
      */
-    public void retrieve(final URL url,
+    public void retrieve(final String url,
                          final BiConsumer<Boolean, SiteData> consumer,
                          final long maxAge) {
 

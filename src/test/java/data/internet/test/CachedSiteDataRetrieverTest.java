@@ -1,6 +1,5 @@
 package data.internet.test;
 
-import java.net.URL;
 import java.nio.file.Path;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -18,7 +17,7 @@ public class CachedSiteDataRetrieverTest {
     void properlyCached() {
 
         final CachedSiteDataRetriever retriever = buildDataSiteRetriever();
-        final URL url = TestHelper.buildURL("http://example.com");
+        final String url = "http://example.com";
 
         // the first retrieval must not use the cache
         final AtomicBoolean firstConsumerHasBeenCalled = new AtomicBoolean(false);
@@ -51,7 +50,6 @@ public class CachedSiteDataRetrieverTest {
                            },
                            3600);
         Assertions.assertTrue(secondConsumerHasBeenCalled.get());
-
 
         // the third retrieval must use the cache and call twice
         final AtomicBoolean thirdConsumerHasBeenCalledOnce = new AtomicBoolean(false);

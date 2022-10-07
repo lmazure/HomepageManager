@@ -58,9 +58,9 @@ public class NodeValueChecker implements FileHandler {
     private final DataController _controller;
     private final DocumentBuilder _builder;
     private final Set<NodeChecker> _nodeCheckers;
-    
+
     private final static Lock _lock = new ReentrantLock();
-    
+
     /**
      * This class checks the characters of the XML files.
      *

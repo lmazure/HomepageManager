@@ -1,6 +1,5 @@
 package data.linkchecker.ibm;
 
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.util.List;
@@ -18,9 +17,9 @@ import utils.xmlparsing.LinkData;
 public class IbmLinkContentChecker extends LinkContentChecker {
 
     private IbmLinkContentParser _parser;
-    private final URL _url;
+    private final String _url;
 
-    public IbmLinkContentChecker(final URL url,
+    public IbmLinkContentChecker(final String url,
                                  final LinkData linkData,
                                  final Optional<ArticleData> articleData,
                                  final FileSection file) {

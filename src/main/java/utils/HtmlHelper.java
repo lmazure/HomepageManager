@@ -2425,8 +2425,8 @@ public class HtmlHelper {
 
     public static final String trim(final String input) {
 
-        final String s1 = CLEAN_LEADING_WHITESPACES.matcher(input).replaceAll(""); 
-        final String s2 = CLEAN_TRAILING_WHITESPACES.matcher(s1).replaceAll(""); 
+        final String s1 = CLEAN_LEADING_WHITESPACES.matcher(input).replaceAll("");
+        final String s2 = CLEAN_TRAILING_WHITESPACES.matcher(s1).replaceAll("");
         return s2;
     }
 

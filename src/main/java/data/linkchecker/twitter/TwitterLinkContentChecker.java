@@ -1,6 +1,5 @@
 package data.linkchecker.twitter;
 
-import java.net.URL;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Optional;
@@ -19,7 +18,7 @@ public class TwitterLinkContentChecker extends LinkContentChecker {
 
     private final TwitterUserDto _dto;
 
-    public TwitterLinkContentChecker(final URL url,
+    public TwitterLinkContentChecker(final String url,
                                      final LinkData linkData,
                                      final Optional<ArticleData> articleData,
                                      final FileSection file) {

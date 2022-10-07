@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -26,6 +25,7 @@ import utils.ExitHelper;
 import utils.FileHelper;
 import utils.FileSection;
 import utils.Logger;
+import utils.UrlHelper;
 
 public class SiteDataPersister {
 
@@ -39,7 +39,7 @@ public class SiteDataPersister {
         _path = path;
     }
 
-    public void persist(final URL url,
+    public void persist(final String url,
                         final Instant timestamp,
                         final Status status,
                         final Optional<Integer> httpCode,
@@ -124,7 +124,7 @@ public class SiteDataPersister {
      * @param url
      * @return the timestamps of the cached values (in reverse order, the first in the younger one)
      */
-    public List<Instant> getTimestampList(final URL url) {
+    public List<Instant> getTimestampList(final String url) {
 
         if (!Files.exists(getOutputDirectory(url))) {
             return new ArrayList<>(0);
@@ -141,7 +141,7 @@ public class SiteDataPersister {
         }
     }
 
-    public SiteData retrieve(final URL url,
+    public SiteData retrieve(final String url,
                              final Instant timestamp) {
 
         if (!Files.exists(getPersistedFile(url, timestamp).toPath())) {
@@ -158,7 +158,7 @@ public class SiteDataPersister {
         try (final BufferedReader reader = new BufferedReader(new FileReader(statusFile))) {
 
             size = Integer.parseInt(reader.readLine().trim());
-            
+
             status = Status.valueOf(reader.readLine());
 
             final String httpCodePresence = reader.readLine();
@@ -214,7 +214,7 @@ public class SiteDataPersister {
         return new SiteData(url, status, httpCode, headers, dataFileSection, error);
     }
 
-    public FileSection getDataFileSection(final URL url,
+    public FileSection getDataFileSection(final String url,
                                           final Instant timestamp) {
         final File statusFile = getPersistedFile(url, timestamp);
         try (final BufferedReader reader = new BufferedReader(new FileReader(statusFile))) {
@@ -225,13 +225,13 @@ public class SiteDataPersister {
         }
     }
 
-    private File getPersistedFile(final URL url,
+    private File getPersistedFile(final String url,
                                   final Instant timestamp) {
         return getOutputDirectory(url).resolve(timestamp.toString().replaceAll(":", ";")).toFile();
     }
 
-    private Path getOutputDirectory(final URL url) {
-        return _path.resolve(url.getHost())
+    private Path getOutputDirectory(final String url) {
+        return _path.resolve(UrlHelper.getHost(url))
                     .resolve(FileHelper.generateFileNameFromURL(url));
     }
 
@@ -244,7 +244,6 @@ public class SiteDataPersister {
         if (headers.get().containsKey("Content-Encoding")) {
             return headers.get().get("Content-Encoding").get(0).equals("gzip");
         }
-
 
         if (headers.get().containsKey("content-encoding")) {
             return headers.get().get("content-encoding").get(0).equals("gzip");

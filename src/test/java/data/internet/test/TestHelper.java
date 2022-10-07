@@ -1,7 +1,6 @@
 package data.internet.test;
 
 import java.io.IOException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,7 +11,6 @@ import data.internet.SiteData;
 import data.internet.SiteDataPersister;
 import data.internet.SynchronousSiteDataRetriever;
 import utils.FileHelper;
-import utils.StringHelper;
 
 public class TestHelper {
 
@@ -34,15 +32,6 @@ public class TestHelper {
         } catch (final IOException e) {
             Assertions.fail("failure to read data file " + data.getDataFile().get() + " (" + e.getMessage() +")");
         }
-    }
-
-    public static URL buildURL(final String str) {
-        final URL url = StringHelper.convertStringToUrl(str);
-        if (url == null) {
-            Assertions.fail("failed to convert " + str + " to URL");
-            return null;
-        }
-        return url;
     }
 
     public static SynchronousSiteDataRetriever buildDataSiteRetriever(final Class<?> clazz) {

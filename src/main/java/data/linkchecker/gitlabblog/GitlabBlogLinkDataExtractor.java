@@ -1,6 +1,5 @@
 package data.linkchecker.gitlabblog;
 
-import java.net.URL;
 import java.nio.file.Path;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ public class GitlabBlogLinkDataExtractor extends LinkDataExtractor {
 
     private final GitlabBlogLinkContentParser _parser;
 
-    public GitlabBlogLinkDataExtractor(final URL url,
+    public GitlabBlogLinkDataExtractor(final String url,
                                        final Path cacheDirectory) {
         super(url, cacheDirectory);
         _parser = new GitlabBlogLinkContentParser(getContent());

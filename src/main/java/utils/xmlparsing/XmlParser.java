@@ -47,7 +47,6 @@ public class XmlParser {
         return new ArticleData(date, authors, links);
     }
 
-
     public static KeywordData parseKeywordElement(final Element keywordElement) throws XmlParsingException {
 
         if (!XmlHelper.isOfType(keywordElement, ElementType.KEYWORD)) {

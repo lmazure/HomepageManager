@@ -52,7 +52,6 @@ public class NodeValueCheckerTest extends NodeValueCheckerTestBase {
         }
     }
 
-
     @SuppressWarnings("static-method")
     @Test
     @Disabled
@@ -114,7 +113,7 @@ public class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
             "<CONTENT>\r\n" +
             "<BLIST><TITLE>My articles</TITLE>\r\n" +
-            "<ITEM><ARTICLE><X><T>Fuz  baz</T><A>url</A><L>en</L><F>HTML</F></X></ARTICLE></ITEM>\r\n" +
+            "<ITEM><ARTICLE><X><T>Fuz  baz</T><A>https://example.com/page</A><L>en</L><F>HTML</F></X></ARTICLE></ITEM>\r\n" +
             "</BLIST>\r\n" +
             "</CONTENT>\r\n" +
             "</PAGE>";
@@ -148,7 +147,6 @@ public class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             Assertions.fail("SAXException");
         }
     }
-
 
     @SuppressWarnings("static-method")
     @Test
@@ -328,7 +326,7 @@ public class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2018</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
-            "<ITEM><ARTICLE><X><T>title</T><A>URL</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR> <MONTH>9</MONTH><DAY>23</DAY></DATE></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>title</T><A>https://example.com/page</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR> <MONTH>9</MONTH><DAY>23</DAY></DATE></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
@@ -351,7 +349,7 @@ public class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2018</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
-            "<ITEM><ARTICLE><X><T>title</T><A>URL</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>23</DAY></DATE></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>title</T><A>https://example.com/page</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>23</DAY></DATE></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
@@ -373,17 +371,16 @@ public class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
-            "<ITEM><ARTICLE><X><T>title</T><A>URL</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>23</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>title</T><A>https://example.com/page</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>23</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
             test(content,
-                 "Creation date of article \"URL\" (2010-09-23) is after page date (2010-09-22)");
+                 "Creation date of article \"https://example.com/page\" (2010-09-23) is after page date (2010-09-22)");
         } catch (@SuppressWarnings("unused") final SAXException e) {
             Assertions.fail("SAXException");
         }
     }
-
 
     @SuppressWarnings("static-method")
     @Test
@@ -397,12 +394,12 @@ public class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
-            "<ITEM><ARTICLE><X><T>title</T><A>URL</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>23</DAY></DATE></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>title</T><A>https://example.com/page</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>23</DAY></DATE></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
             test(content,
-                 "Publication date of article \"URL\" (2010-09-23) is after page date (2010-09-22)");
+                 "Publication date of article \"https://example.com/page\" (2010-09-23) is after page date (2010-09-22)");
         } catch (@SuppressWarnings("unused") final SAXException e) {
             Assertions.fail("SAXException");
         }
@@ -421,15 +418,15 @@ public class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>26</DAY></DATE>" +
             "<CONTENT>" +
             "<ITEM><ARTICLE>" +
-            "<X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>27</DAY></DATE></X>" +
-            "<X><T>title2</T><A>URL2</A><L>en</L><F>HTML</F></X>" +
-            "<X><T>title3</T><A>URL3</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>24</DAY></DATE></X>" +
+            "<X><T>title1</T><A>https://example.com/page1</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>27</DAY></DATE></X>" +
+            "<X><T>title2</T><A>https://example.com/page2</A><L>en</L><F>HTML</F></X>" +
+            "<X><T>title3</T><A>https://example.com/page3</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>24</DAY></DATE></X>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>23</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
             test(content,
-                 "Publication date of article \"URL1\" (2010-09-27) is after page date (2010-09-26)");
+                 "Publication date of article \"https://example.com/page1\" (2010-09-27) is after page date (2010-09-26)");
         } catch (@SuppressWarnings("unused") final SAXException e) {
             Assertions.fail("SAXException");
         }
@@ -448,15 +445,15 @@ public class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>26</DAY></DATE>" +
             "<CONTENT>" +
             "<ITEM><ARTICLE>" +
-            "<X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>24</DAY></DATE></X>" +
-            "<X><T>title2</T><A>URL2</A><L>en</L><F>HTML</F></X>" +
-            "<X><T>title3</T><A>URL3</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>27</DAY></DATE></X>" +
+            "<X><T>title1</T><A>https://example.com/page1</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>24</DAY></DATE></X>" +
+            "<X><T>title2</T><A>https://example.com/page2</A><L>en</L><F>HTML</F></X>" +
+            "<X><T>title3</T><A>https://example.com/page3</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>27</DAY></DATE></X>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>23</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
             test(content,
-                 "Publication date of article \"URL3\" (2010-09-27) is after page date (2010-09-26)");
+                 "Publication date of article \"https://example.com/page3\" (2010-09-27) is after page date (2010-09-26)");
         } catch (@SuppressWarnings("unused") final SAXException e) {
             Assertions.fail("SAXException");
         }
@@ -475,15 +472,15 @@ public class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>26</DAY></DATE>" +
             "<CONTENT>" +
             "<ITEM><ARTICLE>" +
-            "<X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>27</DAY></DATE></X>" +
-            "<X><T>title2</T><A>URL2</A><L>en</L><F>HTML</F></X>" +
-            "<X><T>title3</T><A>URL3</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>24</DAY></DATE></X>" +
+            "<X><T>title1</T><A>https://example.com/page1</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>27</DAY></DATE></X>" +
+            "<X><T>title2</T><A>https://example.com/page2</A><L>en</L><F>HTML</F></X>" +
+            "<X><T>title3</T><A>https://example.com/page3</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>24</DAY></DATE></X>" +
             "<COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
             test(content,
-                 "Publication date of article \"URL1\" (2010-09-27) is after page date (2010-09-26)");
+                 "Publication date of article \"https://example.com/page1\" (2010-09-27) is after page date (2010-09-26)");
         } catch (@SuppressWarnings("unused") final SAXException e) {
             Assertions.fail("SAXException");
         }
@@ -502,15 +499,15 @@ public class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>25</DAY></DATE>" +
             "<CONTENT>" +
             "<ITEM><ARTICLE>" +
-            "<X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE></X>" +
-            "<X><T>title2</T><A>URL2</A><L>en</L><F>HTML</F></X>" +
-            "<X><T>title3</T><A>URL3</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>24</DAY></DATE></X>" +
+            "<X><T>title1</T><A>https://example.com/page1</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE></X>" +
+            "<X><T>title2</T><A>https://example.com/page2</A><L>en</L><F>HTML</F></X>" +
+            "<X><T>title3</T><A>https://example.com/page3</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>24</DAY></DATE></X>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>23</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
             test(content,
-                 "Publication date of article \"URL1\" (2010-09-22) is before creation date (2010-09-23)");
+                 "Publication date of article \"https://example.com/page1\" (2010-09-22) is before creation date (2010-09-23)");
         } catch (@SuppressWarnings("unused") final SAXException e) {
             Assertions.fail("SAXException");
         }
@@ -529,15 +526,15 @@ public class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>25</DAY></DATE>" +
             "<CONTENT>" +
             "<ITEM><ARTICLE>" +
-            "<X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>24</DAY></DATE></X>" +
-            "<X><T>title2</T><A>URL2</A><L>en</L><F>HTML</F></X>" +
-            "<X><T>title3</T><A>URL3</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE></X>" +
+            "<X><T>title1</T><A>https://example.com/page1</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>24</DAY></DATE></X>" +
+            "<X><T>title2</T><A>https://example.com/page2</A><L>en</L><F>HTML</F></X>" +
+            "<X><T>title3</T><A>https://example.com/page3</A><L>en</L><F>HTML</F><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE></X>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>23</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
             test(content,
-                 "Publication date of article \"URL3\" (2010-09-22) is before creation date (2010-09-23)");
+                 "Publication date of article \"https://example.com/page3\" (2010-09-22) is before creation date (2010-09-23)");
         } catch (@SuppressWarnings("unused") final SAXException e) {
             Assertions.fail("SAXException");
         }
@@ -555,9 +552,9 @@ public class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
-            "<ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
-            "<ITEM><ARTICLE><X><T>title2</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
-            "<ITEM><ARTICLE><X><T>title3</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>title1</T><A>http://example.com/page1</A><L>en</L><F>HTML</F></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>title2</T><A>http://example.com/page2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>title3</T><A>http://example.com/page3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
@@ -579,19 +576,18 @@ public class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
-            "<ITEM><ARTICLE><X><T>title2</T><A>URL1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
-            "<ITEM><ARTICLE><X><T>title1</T><A>URL2</A><L>en</L><F>HTML</F></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
-            "<ITEM><ARTICLE><X><T>title3</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>title2</T><A>https://example.com/page1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>title1</T><A>https://example.com/page2</A><L>en</L><F>HTML</F></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>title3</T><A>https://example.com/page3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
             test(content,
-                 "Article \"URL2\" has no date while being after article \"URL1\" which has a date");
+                 "Article \"https://example.com/page2\" has no date while being after article \"https://example.com/page1\" which has a date");
         } catch (@SuppressWarnings("unused") final SAXException e) {
             Assertions.fail("SAXException");
         }
     }
-
 
     @SuppressWarnings("static-method")
     @Test
@@ -605,14 +601,14 @@ public class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
-            "<ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
-            "<ITEM><ARTICLE><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
-            "<ITEM><ARTICLE><X><T>title2</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>title1</T><A>https://example.com/page1</A><L>en</L><F>HTML</F></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>title3</T><A>https://example.com/page2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "<ITEM><ARTICLE><X><T>title2</T><A>https://example.com/page3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
             test(content,
-                 "Creation date of article \"URL3\" (2010-09-02) is before creation date (2010-09-03) of previous article \"URL2\"");
+                 "Creation date of article \"https://example.com/page3\" (2010-09-02) is before creation date (2010-09-03) of previous article \"https://example.com/page2\"");
         } catch (@SuppressWarnings("unused") final SAXException e) {
             Assertions.fail("SAXException");
         }
@@ -630,9 +626,9 @@ public class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
-            "  <ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE><X><T>title2</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE><X><T>title3</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title1</T><A>https://example.com/page1</A><L>en</L><F>HTML</F></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title2</T><A>https://example.com/page2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title3</T><A>https://example.com/page3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
@@ -654,14 +650,14 @@ public class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
-            "  <ITEM><ARTICLE><X><T>title2</T><A>URL1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE><X><T>title1</T><A>URL2</A><L>en</L><F>HTML</F></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE><X><T>title3</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title2</T><A>https://example.com/page1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title1</T><A>https://example.com/page2</A><L>en</L><F>HTML</F></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title3</T><A>https://example.com/page3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
             test(content,
-                 "Article \"URL2\" has no date while being after article \"URL1\" which has a date");
+                 "Article \"https://example.com/page2\" has no date while being after article \"https://example.com/page1\" which has a date");
         } catch (@SuppressWarnings("unused") final SAXException e) {
             Assertions.fail("SAXException");
         }
@@ -679,14 +675,14 @@ public class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
-            "  <ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE><X><T>title2</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title1</T><A>https://example.com/page1</A><L>en</L><F>HTML</F></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title3</T><A>https://example.com/page2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title2</T><A>https://example.com/page3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
             test(content,
-                 "Creation date of article \"URL3\" (2010-09-02) is before creation date (2010-09-03) of previous article \"URL2\"");
+                 "Creation date of article \"https://example.com/page3\" (2010-09-02) is before creation date (2010-09-03) of previous article \"https://example.com/page2\"");
         } catch (@SuppressWarnings("unused") final SAXException e) {
             Assertions.fail("SAXException");
         }
@@ -704,9 +700,9 @@ public class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
-            "  <ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><COMMENT>This is comment 1.</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE predecessor='URL1'><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is comment 2.</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE><X><T>title2</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is comment 3.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title1</T><A>https://example.com/page1</A><L>en</L><F>HTML</F></X><COMMENT>This is comment 1.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE predecessor='https://example.com/page1'><X><T>title3</T><A>https://example.com/page2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is comment 2.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title2</T><A>https://example.com/page3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is comment 3.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
@@ -728,14 +724,14 @@ public class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
-            "  <ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>4</DAY></DATE><COMMENT>This is a comment 1.</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE predecessor='URL1'><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>1</DAY></DATE><COMMENT>This is a comment 2.</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE><X><T>title2</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment 3.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title1</T><A>https://example.com/page1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>4</DAY></DATE><COMMENT>This is a comment 1.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE predecessor='https://example.com/page1'><X><T>title3</T><A>https://example.com/page2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>1</DAY></DATE><COMMENT>This is a comment 2.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title2</T><A>https://example.com/page3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment 3.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
             test(content,
-                 "Creation date of article \"URL3\" (2010-09-02) is before creation date (2010-09-04) of previous article \"URL1\"");
+                 "Creation date of article \"https://example.com/page3\" (2010-09-02) is before creation date (2010-09-04) of previous article \"https://example.com/page1\"");
         } catch (@SuppressWarnings("unused") final SAXException e) {
             Assertions.fail("SAXException");
         }
@@ -753,9 +749,9 @@ public class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
-            "  <ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>1</DAY></DATE><COMMENT>This is a comment 1.</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE predecessor='URL1'><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment 2.</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE><X><T>title2</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment 3.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title1</T><A>https://example.com/page1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>1</DAY></DATE><COMMENT>This is a comment 1.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE predecessor='https://example.com/page1'><X><T>title3</T><A>https://example.com/page2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment 2.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title2</T><A>https://example.com/page3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment 3.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
@@ -777,14 +773,14 @@ public class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             "<PATH>links/typescript.xml</PATH>" +
             "<DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>" +
             "<CONTENT>" +
-            "  <ITEM><ARTICLE><X><T>title1</T><A>URL1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>1</DAY></DATE><COMMENT>This is a comment 1.</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE predecessor='badURL'><X><T>title3</T><A>URL2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment 2.</COMMENT></ARTICLE></ITEM>" +
-            "  <ITEM><ARTICLE><X><T>title2</T><A>URL3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment 3.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title1</T><A>https://example.com/page1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>1</DAY></DATE><COMMENT>This is a comment 1.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE predecessor='https://example.com/badpage'><X><T>title3</T><A>https://example.com/page2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment 2.</COMMENT></ARTICLE></ITEM>" +
+            "  <ITEM><ARTICLE><X><T>title2</T><A>https://example.com/page3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment 3.</COMMENT></ARTICLE></ITEM>" +
             "</CONTENT>" +
             "</PAGE>";
         try {
             test(content,
-                 "Article has 'predecessor' article equal to \"badURL\" while previous article has URL \"URL1\"");
+                 "Article has 'predecessor' article equal to \"https://example.com/badpage\" while previous article has URL \"https://example.com/page1\"");
         } catch (@SuppressWarnings("unused") final SAXException e) {
             Assertions.fail("SAXException");
         }
@@ -913,7 +909,6 @@ public class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             Assertions.fail("SAXException");
         }
     }
-
 
     @SuppressWarnings("static-method")
     @Test

@@ -1,6 +1,5 @@
 package data.linkchecker.medium;
 
-import java.net.URL;
 import java.nio.file.Path;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ public class MediumLinkDataExtractor extends LinkDataExtractor {
 
     private final MediumLinkContentParser _parser;
 
-    public MediumLinkDataExtractor(final URL url,
+    public MediumLinkDataExtractor(final String url,
                                    final Path cacheDirectory) {
         super(url, cacheDirectory);
         _parser = new MediumLinkContentParser(getContent(), url);

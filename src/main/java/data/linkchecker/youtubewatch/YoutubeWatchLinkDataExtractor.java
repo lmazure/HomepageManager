@@ -1,6 +1,5 @@
 package data.linkchecker.youtubewatch;
 
-import java.net.URL;
 import java.nio.file.Path;
 import java.time.temporal.TemporalAccessor;
 import java.util.AbstractMap;
@@ -15,10 +14,11 @@ import java.util.regex.Pattern;
 
 import data.linkchecker.ContentParserException;
 import data.linkchecker.ExtractedLinkData;
+import data.linkchecker.LinkDataExtractor;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkFormat;
 
-public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtractor {
+public class YoutubeWatchLinkDataExtractor extends LinkDataExtractor {
 
     private final static Map<String, ChannelData> _channelData = Map.ofEntries(
             new AbstractMap.SimpleEntry<>("3Blue1Brown",
@@ -222,7 +222,7 @@ public class YoutubeWatchLinkDataExtractor extends data.linkchecker.LinkDataExtr
             );
     private final YoutubeWatchLinkContentParser _parser;
 
-    public YoutubeWatchLinkDataExtractor(final URL url,
+    public YoutubeWatchLinkDataExtractor(final String url,
                                          final Path cacheDirectory) throws ContentParserException {
         super(url, cacheDirectory);
         _parser = new YoutubeWatchLinkContentParser(getContent());

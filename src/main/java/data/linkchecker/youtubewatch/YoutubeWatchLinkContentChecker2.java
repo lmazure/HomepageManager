@@ -1,6 +1,5 @@
 package data.linkchecker.youtubewatch;
 
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
@@ -24,7 +23,7 @@ public class YoutubeWatchLinkContentChecker2 extends LinkContentChecker {
 
     private final YoutubeVideoDto _dto;
 
-    public YoutubeWatchLinkContentChecker2(final URL url,
+    public YoutubeWatchLinkContentChecker2(final String url,
                                            final LinkData linkData,
                                            final Optional<ArticleData> articleData,
                                            final FileSection file) {
@@ -103,7 +102,7 @@ public class YoutubeWatchLinkContentChecker2 extends LinkContentChecker {
             if (publicationDate.isEmpty()) {
                 errorRecordingDate = "video should have the creation date " +
                                       effectiveRecordingDate;
-            } else if (!effectiveRecordingDate.equals(creationDate.get()) ) {
+            } else if (!effectiveRecordingDate.equals(creationDate.get())) {
                 errorRecordingDate = "video should have the creation date " +
                                      effectiveRecordingDate +
                                      " instead of the indicated " +

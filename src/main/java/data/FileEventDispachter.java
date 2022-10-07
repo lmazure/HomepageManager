@@ -38,7 +38,7 @@ public class FileEventDispachter {
         _homepagePath = homepagePath;
         _fileHandlers = fileHandlers;
         _handler = handler;
-        _fileEventQueue = new FileEventQueue(fileHandlers); 
+        _fileEventQueue = new FileEventQueue(fileHandlers);
     }
 
     public void start() {

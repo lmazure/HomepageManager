@@ -1,6 +1,5 @@
 package data.linkchecker.wired;
 
-import java.net.URL;
 import java.nio.file.Path;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ public class WiredLinkDataExtractor extends LinkDataExtractor {
 
     private final WiredLinkContentParser _parser;
 
-    public WiredLinkDataExtractor(final URL url,
+    public WiredLinkDataExtractor(final String url,
                                   final Path cacheDirectory) {
         super(url, cacheDirectory);
         _parser = new WiredLinkContentParser(getContent());

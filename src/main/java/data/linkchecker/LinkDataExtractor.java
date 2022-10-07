@@ -1,6 +1,5 @@
 package data.linkchecker;
 
-import java.net.URL;
 import java.nio.file.Path;
 import java.time.temporal.TemporalAccessor;
 import java.util.List;
@@ -14,10 +13,10 @@ import utils.xmlparsing.AuthorData;
 
 public abstract class LinkDataExtractor {
 
-    private final URL _url;
+    private final String _url;
     private String _content;
 
-    public LinkDataExtractor(final URL url,
+    public LinkDataExtractor(final String url,
                              final Path cacheDirectory) {
         _url = url;
         final SiteDataPersister persister = new SiteDataPersister(cacheDirectory);
@@ -32,7 +31,7 @@ public abstract class LinkDataExtractor {
         }
     }
 
-    protected URL getUrl() {
+    protected String getUrl() {
         return _url;
     }
 

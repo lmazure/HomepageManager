@@ -1,7 +1,5 @@
 package utils;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Locale;
@@ -99,20 +97,6 @@ public class StringHelper {
         return Optional.empty();
     }
 
-    /**
-     * Convert a string to URL, return null if the string is an invalid URL
-     *
-     * @param str
-     * @return
-     */
-    public static URL convertStringToUrl(final String str) {
-        try {
-            return new URL(str);
-        } catch (@SuppressWarnings("unused") final MalformedURLException e) {
-            return null;
-        }
-    }
-
     public static int generalizedIndex(final String string,
                                        final String searchedString,
                                        final boolean ignoreCase,
@@ -127,7 +111,7 @@ public class StringHelper {
     public static String normalizeSpace(final String string) {
         final int length = string.length();
         final StringBuilder builder = new StringBuilder(length);
-        for (int offset = 0; offset < length; ) {
+        for (int offset = 0; offset < length;) {
             final int codepoint = string.codePointAt(offset);
             final int normalizedCodepoint = Character.isSpaceChar(codepoint) ? ' ' : codepoint;
             builder.appendCodePoint(normalizedCodepoint);
@@ -147,7 +131,7 @@ public class StringHelper {
         if (length1 != length2) {
             builder.append("The two strings to not have the same length\n");
         }
-        for (int offset = 0; offset < length1; ) {
+        for (int offset = 0; offset < length1;) {
             final int codepoint1 = str1.codePointAt(offset);
             builder.appendCodePoint(codepoint1);
             builder.append('-');
@@ -156,7 +140,7 @@ public class StringHelper {
             offset += Character.charCount(codepoint1);
         }
         builder.append('\n');
-        for (int offset = 0; offset < length2; ) {
+        for (int offset = 0; offset < length2;) {
             final int codepoint2 = str2.codePointAt(offset);
             builder.appendCodePoint(codepoint2);
             builder.append('-');

@@ -38,7 +38,7 @@ public class HTMLGenerator implements FileHandler {
 
     private final DocumentBuilder _builder;
     private final Transformer _transformer;
-    
+
     private final static Lock _lock = new ReentrantLock();
 
     /**

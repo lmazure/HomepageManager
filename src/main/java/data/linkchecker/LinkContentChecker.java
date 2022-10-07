@@ -1,6 +1,5 @@
 package data.linkchecker;
 
-import java.net.URL;
 import java.time.Duration;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
@@ -25,13 +24,13 @@ import utils.xmlparsing.LinkFormat;
 
 public class LinkContentChecker {
 
-    private final URL _url;
+    private final String _url;
     private final LinkData _linkData;
     private final Optional<ArticleData> _articleData;
     private final FileSection _file;
     private LinkContentParser _parser;
 
-    public LinkContentChecker(final URL url,
+    public LinkContentChecker(final String url,
                               final LinkData linkData,
                               final Optional<ArticleData> articleData,
                               final FileSection file) {
@@ -227,22 +226,22 @@ public class LinkContentChecker {
                 unexpectedAuthors.add(author);
             }
         }
-        
+
         final List<AuthorData> missingAuthors = new ArrayList<>();
         for (final AuthorData author: expectedAuthors) {
             if (!effectiveAuthors.contains(author)) {
                 missingAuthors.add(author);
             }
         }
-        
+
         if (!unexpectedAuthors.isEmpty() || !missingAuthors.isEmpty()) {
             final String message = "The list of effective authors is not the effective one."
                                    + "\nThe following authors are effectively present but are unexpected:" + unexpectedAuthors.stream().map(a-> a.toString()).collect(Collectors.joining(","))
                                    + "\nThe following authors are expected but are effectively missing:" + missingAuthors.stream().map(a-> a.toString()).collect(Collectors.joining(","));
             return new LinkContentCheck(message);
-                    
+
         }
-        
+
         for (int i = 0; i < expectedAuthors.size(); i++) {
             if (!expectedAuthors.get(i).equals(effectiveAuthors.get(i))) {
                 final String message = "The list of effective authors is not ordered as the effective one."

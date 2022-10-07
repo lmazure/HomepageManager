@@ -1,6 +1,5 @@
 package data.linkchecker.test;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -35,13 +34,12 @@ public class LinkContentCheckerTest {
             // use of &reg (i.e. no semicolon at the end) this is allowed, see https://stackoverflow.com/questions/15532252/why-is-reg-being-rendered-as-without-the-bounding-semicolon
             "https://www.rigacci.org/docs/biblio/online/CA-2000-02/CA-2000-02.html|en|CERT® Advisory CA-2000-02 Malicious HTML Tags Embedded in Client Web Requests"
             }, delimiter = '|')
-    void testTitle(final String urlAsString,
+    void testTitle(final String url,
                    final String locale,
                    final String expectedTitle) {
-        final URL url = TestHelper.buildURL(urlAsString);
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        final LinkData linkData = new LinkData(expectedTitle, new String[0], urlAsString, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null);
+        final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null);
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<AuthorData>(), null);
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
@@ -63,14 +61,13 @@ public class LinkContentCheckerTest {
         "https://blog.chromium.org/2009/01/tabbed-browsing-in-google-chrome.html,en,Tabbed browsing in Google Chrome,Tabbed Browsing in Google Chrome",
         "https://www.eiffel.com/values/design-by-contract/introduction/,en,Building bug-free O-O software: An introduction to Design by Contract,Building bug-free O-O software: An Introduction to Design by Contract"
         })
-    void detectBadlyCasedTitle(final String urlAsString,
+    void detectBadlyCasedTitle(final String url,
                                final String locale,
                                final String expectedTitle,
                                final String realTitle) {
-        final URL url = TestHelper.buildURL(urlAsString);
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        final LinkData linkData = new LinkData(expectedTitle, new String[0], urlAsString, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null);
+        final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null);
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<AuthorData>(), null);
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
@@ -94,13 +91,12 @@ public class LinkContentCheckerTest {
             "https://www.lemondeinformatique.fr/actualites/lire-log4j-une-autre-vulnerabilite-corrigee-par-apache-85265.html|fr|Plus d'une semaine après la publication de la mise à jour 2.17 de la bibliothèque de journalisation Log4j d'Apache Logging, une faille CVE-2021-44832 l'affectant est comblée. La montée de version vers la 2.17.1 est à effectuer dès que possible.",
             "https://www.lemondeinformatique.fr/actualites/lire-le-document-d-ipo-de-gitlab-revele-un-avenir-ambitieux-84230.html|fr|La plateforme GitLab s'apprête à entrer en bourse, offrant ainsi aux équipes devops, sécurité, informatique dans les entreprises un moyen de collaborer au développement de logiciels."
             }, delimiter = '|')
-    void testSubtitle(final String urlAsString,
+    void testSubtitle(final String url,
                       final String locale,
                       final String expectedSubtitle) {
-        final URL url = TestHelper.buildURL(urlAsString);
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        final LinkData linkData = new LinkData(expectedSubtitle, new String[0], urlAsString, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null);
+        final LinkData linkData = new LinkData(expectedSubtitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null);
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<AuthorData>(), null);
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
@@ -121,14 +117,13 @@ public class LinkContentCheckerTest {
     @CsvSource({
         "https://www.liberation.fr/checknews/2020/04/16/covid-19-les-personnes-gueries-sont-elles-immunisees_1785420,fr,Covid-19 : les personnes guéries sont-elles immunisées ?,Covid-19 : les personnes guéries sont-elles immunisées ?"
         })
-    void detectBadlySpacedTitle(final String urlAsString,
+    void detectBadlySpacedTitle(final String url,
                                 final String locale,
                                 final String expectedTitle,
                                 final String realTitle) {
-        final URL url = TestHelper.buildURL(urlAsString);
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        final LinkData linkData = new LinkData(expectedTitle, new String[0], urlAsString, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null);
+        final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null);
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<AuthorData>(), null);
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {

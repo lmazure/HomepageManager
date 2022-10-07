@@ -18,7 +18,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import utils.ExitHelper;
-import utils.StringHelper;
+import utils.UrlHelper;
 
 public class ActionHelper {
 
@@ -55,16 +55,11 @@ public class ActionHelper {
         }
 
         final Path relativePath = homepagePath.relativize(file);
-        final String urlAsString = "https://localhost/" + relativePath.toString().replace(java.io.File.separatorChar, '/');
-        final URL url = StringHelper.convertStringToUrl(urlAsString);
-        if (url == null) {
-            // this should never happen
-            ExitHelper.exit("bad generated URL (" + urlAsString + ")");
-        }
-        assert url != null;
-        if (isUrlAlive(url)) {
+        final String url = "https://localhost/" + relativePath.toString().replace(java.io.File.separatorChar, '/');
+        final URL u = UrlHelper.convertStringToUrl(url);
+        if (isUrlAlive(u)) {
             try {
-                Desktop.getDesktop().browse(url.toURI());
+                Desktop.getDesktop().browse(u.toURI());
             } catch (final IOException | URISyntaxException e) {
                 ExitHelper.exit(e);
             }

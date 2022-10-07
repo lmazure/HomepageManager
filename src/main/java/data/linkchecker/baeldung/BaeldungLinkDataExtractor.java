@@ -1,6 +1,5 @@
 package data.linkchecker.baeldung;
 
-import java.net.URL;
 import java.nio.file.Path;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ public class BaeldungLinkDataExtractor extends LinkDataExtractor {
 
     private final BaeldungLinkContentParser _parser;
 
-    public BaeldungLinkDataExtractor(final URL url,
+    public BaeldungLinkDataExtractor(final String url,
                                      final Path cacheDirectory) {
         super(url, cacheDirectory);
         _parser = new BaeldungLinkContentParser(getContent());

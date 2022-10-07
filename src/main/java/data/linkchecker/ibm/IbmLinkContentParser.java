@@ -1,7 +1,6 @@
 package data.linkchecker.ibm;
 
 import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,7 +13,6 @@ import org.json.JSONObject;
 import data.internet.SynchronousSiteDataRetriever;
 import data.linkchecker.ContentParserException;
 import data.linkchecker.LinkContentParserUtils;
-import utils.StringHelper;
 import utils.xmlparsing.AuthorData;
 
 public class IbmLinkContentParser {
@@ -28,7 +26,7 @@ public class IbmLinkContentParser {
     private final SynchronousSiteDataRetriever _retriever;
 
     public IbmLinkContentParser(@SuppressWarnings("unused") final String data,
-                                final URL url) {
+                                final String url) {
 
         _retriever = new SynchronousSiteDataRetriever(null);
 
@@ -118,12 +116,10 @@ public class IbmLinkContentParser {
         return _authors;
     }
 
-    private String getStructureJson(final URL url) throws IOException {
-        final String urlJsonStructure = url.toString()
-                                           .replaceFirst("//developer.ibm.com/articles/", "//developer.ibm.com/middleware/v1/contents/articles/")
+    private String getStructureJson(final String url) throws IOException {
+        final String urlJsonStructure = url.replaceFirst("//developer.ibm.com/articles/", "//developer.ibm.com/middleware/v1/contents/articles/")
                                            .replaceFirst("//developer.ibm.com/tutorials/", "//developer.ibm.com/middleware/v1/contents/tutorials/")
                                            .replaceFirst("/$", "");
-        final URL u = StringHelper.convertStringToUrl(urlJsonStructure);
-        return _retriever.getGzippedContent(u);
+        return _retriever.getGzippedContent(urlJsonStructure);
     }
 }

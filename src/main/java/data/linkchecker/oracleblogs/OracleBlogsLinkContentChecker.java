@@ -1,6 +1,5 @@
 package data.linkchecker.oracleblogs;
 
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.util.List;
@@ -18,9 +17,9 @@ import utils.xmlparsing.LinkData;
 public class OracleBlogsLinkContentChecker extends LinkContentChecker {
 
     private OracleBlogsLinkContentParser _parser;
-    private final URL _url;
+    private final String _url;
 
-    public OracleBlogsLinkContentChecker(final URL url,
+    public OracleBlogsLinkContentChecker(final String url,
                                          final LinkData linkData,
                                          final Optional<ArticleData> articleData,
                                          final FileSection file) {
@@ -60,7 +59,6 @@ public class OracleBlogsLinkContentChecker extends LinkContentChecker {
             return new LinkContentCheck("Oracle Blogs article should have zero or one subtitle");
         }
 
-
         final Optional<String> effectiveSubtitle = _parser.getSubtitle();
 
         if (effectiveSubtitle.isEmpty()) {
@@ -72,7 +70,7 @@ public class OracleBlogsLinkContentChecker extends LinkContentChecker {
             return null;
         }
 
-        if (subtitles.length == 0 ) {
+        if (subtitles.length == 0) {
             return new LinkContentCheck("the subtitle \"" +
                                         effectiveSubtitle.get() +
                                         "\" is missing");

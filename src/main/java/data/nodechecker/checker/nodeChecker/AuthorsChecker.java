@@ -1,6 +1,5 @@
 package data.nodechecker.checker.nodeChecker;
 
-import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -11,7 +10,6 @@ import data.knowledge.WellKnownAuthors;
 import data.knowledge.WellKnownAuthorsOfLink;
 import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagSelection.InclusionTagSelector;
-import utils.StringHelper;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.ElementType;
@@ -40,16 +38,12 @@ public class AuthorsChecker extends NodeChecker {
         }
 
         for (LinkData link: articleData.getLinks()) {
-            final URL url = StringHelper.convertStringToUrl(link.getUrl());
-            if (url == null) {
-                continue;
-            }
-            final Optional<WellKnownAuthors> expectedWellKnownAuthors = WellKnownAuthorsOfLink.getWellKnownAuthors(url);
+            final Optional<WellKnownAuthors> expectedWellKnownAuthors = WellKnownAuthorsOfLink.getWellKnownAuthors(link.getUrl());
             if (expectedWellKnownAuthors.isPresent()) {
                 if (expectedWellKnownAuthors.get().canHaveOtherAuthors()) {
                     if (!articleData.getAuthors().containsAll(expectedWellKnownAuthors.get().getCompulsoryAuthors())) {
                         return new CheckStatus("The list of authors of article \"" +
-                                url +
+                                link.getUrl() +
                                 "\" (" +
                                 formatAuthorList(articleData.getAuthors()) +
                                 ") does not contain the expected list for the site (" +
@@ -59,7 +53,7 @@ public class AuthorsChecker extends NodeChecker {
                 } else if (!articleData.getAuthors().containsAll(expectedWellKnownAuthors.get().getCompulsoryAuthors()) ||
                            !expectedWellKnownAuthors.get().getCompulsoryAuthors().containsAll(articleData.getAuthors())) {
                     return new CheckStatus("The list of authors of article \"" +
-                            url +
+                            link.getUrl() +
                             "\" (" +
                             formatAuthorList(articleData.getAuthors()) +
                             ") is not equal to the expected list for the site (" +

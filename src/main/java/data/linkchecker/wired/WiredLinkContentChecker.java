@@ -1,6 +1,5 @@
 package data.linkchecker.wired;
 
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.util.List;
@@ -19,7 +18,7 @@ public class WiredLinkContentChecker extends LinkContentChecker {
 
     private WiredLinkContentParser _parser;
 
-    public WiredLinkContentChecker(final URL url,
+    public WiredLinkContentChecker(final String url,
                                    final LinkData linkData,
                                    final Optional<ArticleData> articleData,
                                    final FileSection file) {

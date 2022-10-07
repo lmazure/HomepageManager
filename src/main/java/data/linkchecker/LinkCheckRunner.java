@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
@@ -33,7 +32,6 @@ import utils.HttpHelper;
 import utils.InvalidHttpCodeException;
 import utils.Logger;
 import utils.Logger.Level;
-import utils.StringHelper;
 import utils.XmlHelper;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.ElementType;
@@ -103,7 +101,7 @@ public class LinkCheckRunner {
             }
         }
 
-        final List<URL> list = buildListOfLinksToBeChecked(links);
+        final List<String> list = buildListOfLinksToBeChecked(links);
         _nbSitesRemainingToBeChecked = list.size();
         if (_nbSitesRemainingToBeChecked == 0) {
             try {
@@ -121,7 +119,7 @@ public class LinkCheckRunner {
             _controller.handleUpdate(_file, Status.HANDLED_WITH_SUCCESS, _outputFile, _reportFile);
             return;
         }
-        for (final URL url: list) {
+        for (final String url: list) {
             _retriever.retrieve(url, this::handleLinkData, MAX_CACHE_AGE);
         }
     }
@@ -176,49 +174,45 @@ public class LinkCheckRunner {
         return list;
     }
 
-    private List<URL> buildListOfLinksToBeChecked(final List<LinkData> linkDatas) {
+    private List<String> buildListOfLinksToBeChecked(final List<LinkData> linkDatas) {
 
-        final List<URL> list = new ArrayList<>();
+        final List<String> list = new ArrayList<>();
 
         for (final LinkData linkData: linkDatas) {
 
-            final String urlStr = linkData.getUrl();
-            if (urlStr.startsWith("javascript:")) {
+            final String url = linkData.getUrl();
+            if (url.startsWith("javascript:")) {
                 continue;
             }
-            if (urlStr.indexOf(":") < 0) {
+            if (url.indexOf(":") < 0) {
                 // TODO implement check of local links
                 Logger.log(Logger.Level.INFO)
                       .append("TBD: local link ")
-                      .append(urlStr)
+                      .append(url)
                       .append(" is not checked")
                       .submit();
                 continue;
             }
-            if (urlStr.startsWith("ftp:")) {
+            if (url.startsWith("ftp:")) {
                 // TODO implement check of FTP links
                 Logger.log(Logger.Level.INFO)
                       .append("TBD: FTP URL ")
-                      .append(urlStr)
+                      .append(url)
                       .append(" is not checked")
                       .submit();
                 continue;
             }
-            if (urlStr.startsWith("mailto:")) {
+            if (url.startsWith("mailto:")) {
                 // TODO implement check of mail links
                 Logger.log(Logger.Level.INFO)
                       .append("TBD: mailto URL ")
-                      .append(urlStr)
+                      .append(url)
                       .append(" is not checked")
                       .submit();
                 continue;
             }
 
-            final URL url = StringHelper.convertStringToUrl(urlStr);
-            if (url != null) {
-                list.add(url);
-                _expectedData.put(urlStr, linkData);
-            }
+            _expectedData.put(url, linkData);
         }
 
         return list;

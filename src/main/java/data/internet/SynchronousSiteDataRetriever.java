@@ -23,6 +23,7 @@ import javax.net.ssl.X509TrustManager;
 
 import utils.ExitHelper;
 import utils.FileSection;
+import utils.UrlHelper;
 
 /**
  * Synchronous retrieving of site data
@@ -36,7 +37,6 @@ public class SynchronousSiteDataRetriever {
 
     private static final String s_userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv\", \"0.0) Gecko/20100101 Firefox/90.0";
 
-
     public SynchronousSiteDataRetriever(final SiteDataPersister persister) {
         _persister = persister;
         _sslSocketFactory = getDisabledPKIXCheck();
@@ -49,7 +49,7 @@ public class SynchronousSiteDataRetriever {
      * its second argument is the site data
      * @param maxAge maximum age in seconds
      */
-    public void retrieve(final URL url,
+    public void retrieve(final String url,
                          final BiConsumer<Boolean, SiteData> consumer) {
 
         final Instant timestamp = Instant.now();
@@ -79,7 +79,7 @@ public class SynchronousSiteDataRetriever {
          }
     }
 
-    public String getGzippedContent(final URL url) throws IOException {
+    public String getGzippedContent(final String url) throws IOException {
         try {
             final HttpURLConnection httpConnection = httpConnect(url);
             try (final GZIPInputStream gzipReader = new GZIPInputStream(httpConnection.getInputStream())) {
@@ -91,7 +91,8 @@ public class SynchronousSiteDataRetriever {
         }
     }
 
-    private HttpURLConnection httpConnect(final URL url) throws IOException {
+    private HttpURLConnection httpConnect(final String urlString) throws IOException {
+        final URL url = UrlHelper.convertStringToUrl(urlString);
         final URLConnection connection = url.openConnection();
         final HttpURLConnection httpConnection = (HttpURLConnection)connection;
         if (url.getProtocol().equals("https")) {

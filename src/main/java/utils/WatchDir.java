@@ -75,7 +75,6 @@ public class WatchDir {
         return this;
     }
 
-
     /**
      * @param matcher
      * @param consummer

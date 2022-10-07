@@ -17,7 +17,7 @@ public class FileEventQueue {
     private final List<FileHandler> _fileHandlers;
     private final Set<Path> _filesBeingProcessed;
     private final int NB_THREADS = 4;
-    
+
     public enum Type {
         CREATE,
         DELETE,
@@ -35,18 +35,18 @@ public class FileEventQueue {
             thread.start();
         }
     }
-    
+
     public void insertEvent(final Path file,
                             final Type type) {
         synchronized (_queue) {
-            
+
             final Type presentType = _queue.get(file);
-            
+
             if (presentType == null) {
                 _queue.put(file, type);
                 return;
             }
-            
+
             switch (type) {
             case CREATE:
                 if (presentType != Type.DELETE) {
@@ -72,14 +72,14 @@ public class FileEventQueue {
             }
         }
     }
-    
+
     public Event popEvent() {
         synchronized (_queue) {
            final Optional<Path> path = _queue.keySet().stream().filter(p -> !_filesBeingProcessed.contains(p)).findFirst();
            if (path.isEmpty()) {
                return null;
            }
-           
+
            final Event event = new Event(path.get(), _queue.get(path.get()));
            _queue.remove(path.get());
            _filesBeingProcessed.add(event.getFile());
@@ -114,9 +114,8 @@ public class FileEventQueue {
         }
     }
 
-
     private class Event {
-        
+
         private Path _file;
         private Type _type;
 
@@ -132,17 +131,17 @@ public class FileEventQueue {
 
         public Type getType() {
             return _type;
-        }   
+        }
     }
-    
+
     private class Consumer implements Runnable {
-        
+
         private final FileEventQueue _fileQueue;
-        
+
         public Consumer(final FileEventQueue queue) {
             _fileQueue = queue;
         }
-        
+
         @Override
         public void run() {
             while (true) {

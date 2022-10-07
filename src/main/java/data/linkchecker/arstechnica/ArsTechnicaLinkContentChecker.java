@@ -1,6 +1,5 @@
 package data.linkchecker.arstechnica;
 
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.util.List;
@@ -19,7 +18,7 @@ public class ArsTechnicaLinkContentChecker extends LinkContentChecker {
 
     private ArsTechnicaLinkContentParser _parser;
 
-    public ArsTechnicaLinkContentChecker(final URL url,
+    public ArsTechnicaLinkContentChecker(final String url,
                                          final LinkData linkData,
                                          final Optional<ArticleData> articleData,
                                          final FileSection file) {
@@ -57,7 +56,6 @@ public class ArsTechnicaLinkContentChecker extends LinkContentChecker {
         if (subtitles.length != 1) {
             return new LinkContentCheck("Ars Technica article should have one subtitle");
         }
-
 
         final String effectiveSubtitle = _parser.getSubtitle();
 

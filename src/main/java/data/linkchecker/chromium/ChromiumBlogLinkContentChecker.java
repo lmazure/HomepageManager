@@ -1,6 +1,5 @@
 package data.linkchecker.chromium;
 
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.util.Optional;
@@ -16,7 +15,7 @@ public class ChromiumBlogLinkContentChecker extends LinkContentChecker {
 
     private ChromiumBlogLinkContentParser _parser;
 
-    public ChromiumBlogLinkContentChecker(final URL url,
+    public ChromiumBlogLinkContentChecker(final String url,
                                           final LinkData linkData,
                                           final Optional<ArticleData> articleData,
                                           final FileSection file) {

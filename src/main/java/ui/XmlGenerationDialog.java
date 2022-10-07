@@ -1,6 +1,5 @@
 package ui;
 
-import java.net.URL;
 import java.nio.file.Path;
 
 import data.linkchecker.ContentParserException;
@@ -17,7 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.VBox;
-import utils.StringHelper;
+import utils.UrlHelper;
 
 public class XmlGenerationDialog extends Dialog<Void> {
 
@@ -50,12 +49,7 @@ public class XmlGenerationDialog extends Dialog<Void> {
     }
 
     private void generateXml() {
-        final String txt = _urlField.getText();
-        final URL url = StringHelper.convertStringToUrl(txt);
-        if (url == null) {
-            displayError("Cannot generate XML", "The URL is invalid");
-            return;
-        }
+        final String url = _urlField.getText();
         LinkDataExtractor extractor;
         try {
             extractor = LinkDataExtractorFactory.build(_cacheDirectory, url);
@@ -91,7 +85,7 @@ public class XmlGenerationDialog extends Dialog<Void> {
         final Clipboard clipboard = Clipboard.getSystemClipboard();
         if (clipboard.hasString()) {
             final String url = clipboard.getString();
-            if (isValidUrl(url)) {
+            if (UrlHelper.isValidUrl(url)) {
                 _urlField.setText(url);
             }
         }
@@ -102,10 +96,6 @@ public class XmlGenerationDialog extends Dialog<Void> {
         final ClipboardContent content = new ClipboardContent();
         content.putString(_xmlField.getText());
         clipboard.setContent(content);
-    }
-
-    private static boolean isValidUrl(final String str) {
-        return StringHelper.convertStringToUrl(str) != null;
     }
 
     private static void displayError(final String header,

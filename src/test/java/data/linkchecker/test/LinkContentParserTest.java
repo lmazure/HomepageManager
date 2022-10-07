@@ -28,7 +28,7 @@ public class LinkContentParserTest {
     void testLanguageForEnglishArticle(String url) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL(url),
+        retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
                             Assertions.assertTrue(d.getDataFile().isPresent());
                             final String data = HtmlHelper.slurpFile(d.getDataFile().get());
@@ -53,7 +53,7 @@ public class LinkContentParserTest {
     void testLanguageForFrenchArticle(String url) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL(url),
+        retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
                             Assertions.assertTrue(d.getDataFile().isPresent());
                             final String data = HtmlHelper.slurpFile(d.getDataFile().get());
@@ -73,7 +73,7 @@ public class LinkContentParserTest {
     void testLanguageForArticleWithNoText(String url) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL(url),
+        retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
                             Assertions.assertTrue(d.getDataFile().isPresent());
                             final String data = HtmlHelper.slurpFile(d.getDataFile().get());
@@ -88,7 +88,7 @@ public class LinkContentParserTest {
     void testLanguageForEnglishMedium() {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL("https://medium.com/@kentbeck_7670/bs-changes-e574bc396aaa"),
+        retriever.retrieve("https://medium.com/@kentbeck_7670/bs-changes-e574bc396aaa",
                            (final Boolean b, final SiteData d) -> {
                             Assertions.assertTrue(d.getDataFile().isPresent());
                             final String data = HtmlHelper.slurpFile(d.getDataFile().get());
@@ -104,7 +104,7 @@ public class LinkContentParserTest {
     void testLanguageForFrenchMedium() {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL("https://medium.com/france/praha-8e7086a6c1fe"),
+        retriever.retrieve("https://medium.com/france/praha-8e7086a6c1fe",
                            (final Boolean b, final SiteData d) -> {
                             Assertions.assertTrue(d.getDataFile().isPresent());
                             final String data = HtmlHelper.slurpFile(d.getDataFile().get());

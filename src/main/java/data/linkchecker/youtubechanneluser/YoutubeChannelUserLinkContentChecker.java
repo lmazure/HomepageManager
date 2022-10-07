@@ -1,6 +1,5 @@
 package data.linkchecker.youtubechanneluser;
 
-import java.net.URL;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Optional;
@@ -16,7 +15,7 @@ public class YoutubeChannelUserLinkContentChecker extends LinkContentChecker {
 
     private YoutubeChannelUserLinkContentParser _parser;
 
-    public YoutubeChannelUserLinkContentChecker(final URL url,
+    public YoutubeChannelUserLinkContentChecker(final String url,
                                                 final LinkData linkData,
                                                 final Optional<ArticleData> articleData,
                                                 final FileSection file) {
@@ -33,7 +32,6 @@ public class YoutubeChannelUserLinkContentChecker extends LinkContentChecker {
 
         return null;
     }
-
 
     @Override
     protected LinkContentCheck checkLinkLanguages(final String data,

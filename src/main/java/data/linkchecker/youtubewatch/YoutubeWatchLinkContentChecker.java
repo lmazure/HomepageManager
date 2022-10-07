@@ -1,6 +1,5 @@
 package data.linkchecker.youtubewatch;
 
-import java.net.URL;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -23,7 +22,7 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
 
     private YoutubeWatchLinkContentParser _parser;
 
-    public YoutubeWatchLinkContentChecker(final URL url,
+    public YoutubeWatchLinkContentChecker(final String url,
                                           final LinkData linkData,
                                           final Optional<ArticleData> articleData,
                                           final FileSection file) {

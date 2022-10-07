@@ -1,6 +1,5 @@
 package utils;
 
-
 @FunctionalInterface
 public interface QuadriConsumer<T,U, V, W> {
 

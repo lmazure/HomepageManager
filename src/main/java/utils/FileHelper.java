@@ -3,7 +3,6 @@ package utils;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
@@ -106,12 +105,11 @@ public class FileHelper {
         return Paths.get(s.substring(0, s.lastIndexOf('.')).concat(suffix + "." + extension));
    }
 
-    public static String generateFileNameFromURL(final URL url) {
+    public static String generateFileNameFromURL(final String url) {
 
         final int MAX_FILENAME_LENGTH = 245;
 
-        String s = url.toString()
-                      .replaceFirst("://", "→")
+        String s = url.replaceFirst("://", "→")
                       .replaceAll(" ", "%20")
                       .replaceAll("/", "%2F")
                       .replaceAll(":", "%3A")

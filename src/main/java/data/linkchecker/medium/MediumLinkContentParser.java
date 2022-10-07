@@ -1,7 +1,6 @@
 package data.linkchecker.medium;
 
 import java.math.BigInteger;
-import java.net.URL;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -32,10 +31,9 @@ public class MediumLinkContentParser {
                          "JSON preloaded state");
 
     public MediumLinkContentParser(final String data,
-                                   final URL url) {
+                                   final String url) {
         _data = data;
-        final String u = url.toString();
-        _code = u.substring(u.lastIndexOf("-") + 1);
+        _code = url.substring(url.lastIndexOf("-") + 1);
     }
 
     public String getTitle() throws ContentParserException {

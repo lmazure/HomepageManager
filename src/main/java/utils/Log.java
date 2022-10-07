@@ -23,7 +23,6 @@ public class Log {
         final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss.SSS")
                                                              .withZone(ZoneId.systemDefault()); // TODO voir comment le créer une seule fois de façon thread safe
 
-
         _level = level;
         _stringBuilder = new StringBuilder();
         _stringBuilder.append(padString(thread.getName(), THREAD_NAME_MAX_LENGTH));

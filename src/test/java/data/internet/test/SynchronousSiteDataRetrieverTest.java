@@ -19,7 +19,7 @@ public class SynchronousSiteDataRetrieverTest {
 
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL("http://example.com"),
+        retriever.retrieve("http://example.com",
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertFalse(consumerHasBeenCalled.get());
                                consumerHasBeenCalled.set(true);
@@ -34,7 +34,7 @@ public class SynchronousSiteDataRetrieverTest {
 
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(TestHelper.buildURL("https://example.com"),
+        retriever.retrieve("https://example.com",
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertFalse(consumerHasBeenCalled.get());
                                consumerHasBeenCalled.set(true);
@@ -49,7 +49,7 @@ public class SynchronousSiteDataRetrieverTest {
     void linkedInRequest() {
 
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
-        retriever.retrieve(TestHelper.buildURL("https://www.linkedin.com/in/thomas-cabaret-36766674/"),
+        retriever.retrieve("https://www.linkedin.com/in/thomas-cabaret-36766674/",
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertEquals(200, d.getHttpCode().get().intValue());
                            });
