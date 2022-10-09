@@ -304,7 +304,7 @@ public class YoutubeWatchLinkDataExtractor extends LinkDataExtractor {
     public List<ExtractedLinkData> getLinks() throws ContentParserException {
         final String channel = _parser.getChannel();
         final Locale lang = (_channelData.containsKey(channel)) ? _channelData.get(channel).getLanguage()
-                                                                : Locale.ENGLISH;
+                                                                : _parser.getLanguage().get();
         final ExtractedLinkData linkData = new ExtractedLinkData(_parser.getTitle(),
                                                                  new String[0],
                                                                  getUrl().toString(),
