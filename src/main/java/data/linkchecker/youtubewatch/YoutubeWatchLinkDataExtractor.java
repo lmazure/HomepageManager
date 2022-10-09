@@ -265,7 +265,9 @@ public class YoutubeWatchLinkDataExtractor extends LinkDataExtractor {
             }
             return list;
         }
-        return new ArrayList<>(0);
+        final List<AuthorData> list = new ArrayList<>();
+        list.add(buildAuthorFromGivenName(channel));
+        return list;
     }
 
     @Override

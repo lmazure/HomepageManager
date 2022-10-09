@@ -212,6 +212,7 @@ public class LinkCheckRunner {
                 continue;
             }
 
+            list.add(url);
             _expectedData.put(url, linkData);
         }
 
