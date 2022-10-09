@@ -1,9 +1,11 @@
+regarder problème de Baeldung
+
+regarder bug de sudouest
+
 ajouter support de https://github.blog/2022-10-03-highlights-from-git-2-38/?utm_source=pocket_mylist
 
 gérer https://arstechnica.com/tech-policy/2022/09/texts-show-roll-call-of-tech-figures-tried-to-help-elon-musk-in-twitter-deal/
 Ars Technica article should have at most one author
-
-voir comment gérer https://www.youtube.com/watch?app=desktop&v=3bTntGMnzfw&list=WL&index=7
 
 détecter author dupliqué
 
