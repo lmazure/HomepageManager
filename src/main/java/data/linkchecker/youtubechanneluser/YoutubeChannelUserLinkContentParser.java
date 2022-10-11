@@ -10,6 +10,8 @@ import utils.StringHelper;
 
 public class YoutubeChannelUserLinkContentParser {
 
+    final static Pattern PATTERN = Pattern.compile("\"alerts\":\\[\\{\"alertRenderer\":\\{\"type\":\"ERROR\",\"text\":\\{\"simpleText\":\"([^\\\"]*)\"\\}\\}\\}\\]");
+
     private final String _data;
     private Optional<Locale> _language;
     private Optional<String> _errorMessage;
@@ -37,8 +39,7 @@ public class YoutubeChannelUserLinkContentParser {
 
     private Optional<String> extractErrorMessage() {
 
-        final Pattern p = Pattern.compile("\"alerts\":\\[\\{\"alertRenderer\":\\{\"type\":\"ERROR\",\"text\":\\{\"simpleText\":\"([^\\\"]*)\"\\}\\}\\}\\]"); // TODO should be static
-        final Matcher m = p.matcher(_data);
+        final Matcher m = PATTERN.matcher(_data);
         if (m.find()) {
             return Optional.of(m.group(1));
         }

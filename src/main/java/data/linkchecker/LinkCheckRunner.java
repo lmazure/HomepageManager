@@ -101,8 +101,8 @@ public class LinkCheckRunner {
             }
         }
 
-        final List<String> list = buildListOfLinksToBeChecked(links);
-        _nbSitesRemainingToBeChecked = list.size();
+        final List<String> linksToBeChecked = buildListOfLinksToBeChecked(links);
+        _nbSitesRemainingToBeChecked = linksToBeChecked.size();
         if (_nbSitesRemainingToBeChecked == 0) {
             try {
                 writeOutputFile();
@@ -119,7 +119,7 @@ public class LinkCheckRunner {
             _controller.handleUpdate(_file, Status.HANDLED_WITH_SUCCESS, _outputFile, _reportFile);
             return;
         }
-        for (final String url: list) {
+        for (final String url: linksToBeChecked) {
             _retriever.retrieve(url, this::handleLinkData, MAX_CACHE_AGE);
         }
     }
@@ -212,6 +212,7 @@ public class LinkCheckRunner {
                 continue;
             }
 
+            list.add(url);
             _expectedData.put(url, linkData);
         }
 

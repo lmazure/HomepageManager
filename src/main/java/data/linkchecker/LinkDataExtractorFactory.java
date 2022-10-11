@@ -41,8 +41,9 @@ public class LinkDataExtractorFactory {
             return new QuantaMagazineLinkDataExtractor(u, cacheDirectory);
         }
 
-        if (u.startsWith("https://www.youtube.com/watch?v=")) {
+        if (u.startsWith("https://www.youtube.com/watch?")) {
             final String u2 = UrlHelper.removeQueryParameters(u, "app",
+                                                                 "feature",
                                                                  "list",
                                                                  "index");
             return new YoutubeWatchLinkDataExtractor(u2, cacheDirectory);

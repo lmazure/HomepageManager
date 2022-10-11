@@ -49,6 +49,10 @@ public class YoutubeWatchLinkDataExtractor extends LinkDataExtractor {
                                           new ChannelData(buildList(buildAuthor("Nathan", "Uyttendaele")),
                                                           buildMatchingList(),
                                                           Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("Clément Freze - Mentaliste",
+                                          new ChannelData(buildList(buildAuthor("Clément", "Freze")),
+                                                          buildMatchingList(),
+                                                          Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("Dr. Becky",
                                           new ChannelData(buildList(buildAuthor("Becky", "Smethurst")),
                                                           buildMatchingList(),
@@ -141,6 +145,10 @@ public class YoutubeWatchLinkDataExtractor extends LinkDataExtractor {
                                           new ChannelData(buildList(buildAuthor("Thomas", "Cabaret")),
                                                           buildMatchingList(),
                                                           Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("PBS Eons",
+                                          new ChannelData(buildList(buildAuthor("Michelle", "Barboza-Ramirez")),
+                                                          buildMatchingList(),
+                                                          Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Philoxime",
                                           new ChannelData(buildList(buildAuthor("Maxime", "Lambrecht")),
                                                           buildMatchingList(),
@@ -265,7 +273,9 @@ public class YoutubeWatchLinkDataExtractor extends LinkDataExtractor {
             }
             return list;
         }
-        return new ArrayList<>(0);
+        final List<AuthorData> list = new ArrayList<>();
+        list.add(buildAuthorFromGivenName(channel));
+        return list;
     }
 
     @Override
@@ -302,7 +312,7 @@ public class YoutubeWatchLinkDataExtractor extends LinkDataExtractor {
     public List<ExtractedLinkData> getLinks() throws ContentParserException {
         final String channel = _parser.getChannel();
         final Locale lang = (_channelData.containsKey(channel)) ? _channelData.get(channel).getLanguage()
-                                                                : Locale.ENGLISH;
+                                                                : _parser.getLanguage().get();
         final ExtractedLinkData linkData = new ExtractedLinkData(_parser.getTitle(),
                                                                  new String[0],
                                                                  getUrl().toString(),
