@@ -43,6 +43,7 @@ public class LinkDataExtractorFactory {
 
         if (u.startsWith("https://www.youtube.com/watch?")) {
             final String u2 = UrlHelper.removeQueryParameters(u, "app",
+                                                                 "feature",
                                                                  "list",
                                                                  "index");
             return new YoutubeWatchLinkDataExtractor(u2, cacheDirectory);
