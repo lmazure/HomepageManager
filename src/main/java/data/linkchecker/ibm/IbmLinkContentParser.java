@@ -78,8 +78,8 @@ public class IbmLinkContentParser {
         for (final String name: authorNames) {
             try {
                 _authors.add(LinkContentParserUtils.getAuthor(name));
-            } catch (ContentParserException e) {
-                authorException = new ContentParserException("failed ot parse author name", e);
+            } catch (final ContentParserException e) {
+                authorException = new ContentParserException("failed to parse author name", e);
             }
         }
         _authorException = authorException;
