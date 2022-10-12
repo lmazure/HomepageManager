@@ -1,3 +1,34 @@
+corriger java.lang.IllegalArgumentException: Cannot convert string to URL: '../attic/optimtut1.ps.gz'
+
+
+
+
+corriger
+
+https://github.blog/2022-08-15-the-next-step-for-lgtm-com-github-code-scanning/
+The expected author (▭ first=Bas ▭ last=van Schaik ▭ ▭) is not equal to the effective author (▭ first=Bas middle=van last=Schaik ▭ ▭)
+
+https://github.blog/2022-08-29-gits-database-internals-i-packed-object-store/
+title "Git’s database internals I: packed object store" is not equal to the real title "Git&#8217;s database internals I: packed object store"
+
+https://github.blog/2022-08-30-gits-database-internals-ii-commit-history-queries/
+title "Git’s database internals II: commit history queries" is not equal to the real title "Git&#8217;s database internals II: commit history queries"
+
+https://github.blog/2022-08-31-gits-database-internals-iii-file-history-queries/
+title "Git’s database internals III: file history queries" is not equal to the real title "Git&#8217;s database internals III: file history queries"
+
+https://github.blog/2022-09-01-gits-database-internals-iv-distributed-synchronization/
+title "Git’s database internals IV: distributed synchronization" is not equal to the real title "Git&#8217;s database internals IV: distributed synchronization"
+
+https://github.blog/2022-09-02-gits-database-internals-v-scalability/
+title "Git’s database internals V: scalability" is not equal to the real title "Git&#8217;s database internals V: scalability"
+
+
+
+
+
+
+
 ajouter support de https://github.blog/2022-10-03-highlights-from-git-2-38/?utm_source=pocket_mylist
 
 gérer https://arstechnica.com/tech-policy/2022/09/texts-show-roll-call-of-tech-figures-tried-to-help-elon-musk-in-twitter-deal/

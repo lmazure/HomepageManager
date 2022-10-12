@@ -50,7 +50,24 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void gitlabBlogIsManaged() throws ContentParserException {
+    void gitHubBlogIsManaged() throws ContentParserException {
+        final String url = "https://github.blog/2022-10-03-highlights-from-git-2-38/";
+        final String expectedXml = """
+                <ARTICLE><X><T>Highlights from Git 2.38</T>\
+                <ST>Another new release of Git is here! Take a look at some of our highlights on what's new in Git 2.38.</ST>\
+                <A>https://github.blog/2022-10-03-highlights-from-git-2-38/</A>\
+                <L>en</L><F>HTML</F></X>\
+                <AUTHOR><FIRSTNAME>Taylor</FIRSTNAME><LASTNAME>Blau</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>10</MONTH><DAY>3</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
+    void gitLabBlogIsManaged() throws ContentParserException {
         final String url = "https://about.gitlab.com/blog/2021/11/10/a-special-farewell-from-gitlab-dmitriy-zaporozhets/";
         final String expectedXml = """
                 <ARTICLE><X><T>A special farewell from GitLab’s Dmitriy Zaporozhets</T>\

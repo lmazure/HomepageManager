@@ -25,7 +25,7 @@ public class GithubBlogLinkContentParser {
     private static final TextParser s_jsonParser
         = new TextParser("<script type=\"application/ld\\+json\" class=\"yoast-schema-graph\">",
                          "</script>",
-                         "GitHub Blog",
+                         "GitHub blog",
                          "JSON");
 
     public GithubBlogLinkContentParser(final String data) {
