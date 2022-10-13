@@ -29,6 +29,12 @@ public class GithubBlogLinkContentParser {
                          "GitHub blog",
                          "JSON");
 
+    private static final TextParser s_subtitleParser
+    = new TextParser("<p class=\"f4-mktg\">",
+                     "</p>",
+                     "GitHub blog",
+                     "subtitle");
+
     public GithubBlogLinkContentParser(final String data) {
         _data = data;
     }
@@ -89,11 +95,14 @@ public class GithubBlogLinkContentParser {
             throw new ContentParserException("Failed to find \"headline\" JSON object in GitHub Blog page");
         }
         _title = HtmlHelper.unescape(title);
+        /* this does not work, the subtitle in the JSON payload is sometimes incorrect
         final String subtitle = webPage.getString("description");
         if (subtitle == null) {
             throw new ContentParserException("Failed to find \"description\" JSON object in GitHub Blog page");
         }
         _subtitle = HtmlHelper.unescape(subtitle);
+        */
+        _subtitle = HtmlHelper.cleanContent(s_subtitleParser.extract(_data));
         final JSONObject author = article.getJSONObject("author");
         if (author == null) {
             throw new ContentParserException("Failed to find \"author\" JSON object in GitHub Blog page");
