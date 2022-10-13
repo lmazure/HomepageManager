@@ -19,7 +19,10 @@ public class GithubBlogLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://github.blog/2022-10-03-highlights-from-git-2-38/,Highlights from Git 2.38"
+        "https://github.blog/2022-10-03-highlights-from-git-2-38/,Highlights from Git 2.38",
+        // the next articles have a title with an ecoded character
+        "https://github.blog/2022-08-29-gits-database-internals-i-packed-object-store/,Git’s database internals I: packed object store",
+        "https://github.blog/2022-09-02-gits-database-internals-v-scalability/,Git’s database internals V: scalability"
         })
     void testTitle(final String url,
                    final String expectedTitle) {
@@ -89,7 +92,9 @@ public class GithubBlogLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://github.blog/2022-10-03-highlights-from-git-2-38/,Taylor,,Blau "
+        "https://github.blog/2022-10-03-highlights-from-git-2-38/,Taylor,,Blau ",
+        // the next article has an authot name with a particle
+        "https://github.blog/2022-08-15-the-next-step-for-lgtm-com-github-code-scanning/,Bas,,van Schaik"
         })
     void testAuthor(final String url,
                     final String expectedFirstName,

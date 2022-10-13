@@ -22,6 +22,9 @@ public class WellKnownAuthorsOfLink {
 
     public static Optional<WellKnownAuthors> getWellKnownAuthors(final String url) { // TODO *** should return a set instead of an optional
         final String host = UrlHelper.getHost(url);
+        if (host == null) {
+            return Optional.empty();
+        }
         return s_knownUrls.containsKey(host) ? Optional.of(s_knownUrls.get(host))
                                              : Optional.empty();
     }

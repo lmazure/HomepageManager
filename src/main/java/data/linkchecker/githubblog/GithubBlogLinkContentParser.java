@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import data.linkchecker.ContentParserException;
 import data.linkchecker.LinkContentParserUtils;
 import data.linkchecker.TextParser;
+import utils.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 
 public class GithubBlogLinkContentParser {
@@ -83,14 +84,16 @@ public class GithubBlogLinkContentParser {
         if (webPage == null) {
             throw new ContentParserException("Failed to find \"@WebPage\" JSON object in GitHub Blog page");
         }
-        _title = article.getString("headline");
-        if (_title == null) {
+        final String title = article.getString("headline");
+        if (title == null) {
             throw new ContentParserException("Failed to find \"headline\" JSON object in GitHub Blog page");
         }
-        _subtitle = webPage.getString("description");
-        if (_subtitle == null) {
+        _title = HtmlHelper.unescape(title);
+        final String subtitle = webPage.getString("description");
+        if (subtitle == null) {
             throw new ContentParserException("Failed to find \"description\" JSON object in GitHub Blog page");
         }
+        _subtitle = HtmlHelper.unescape(subtitle);
         final JSONObject author = article.getJSONObject("author");
         if (author == null) {
             throw new ContentParserException("Failed to find \"author\" JSON object in GitHub Blog page");

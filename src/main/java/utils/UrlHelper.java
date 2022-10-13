@@ -21,6 +21,9 @@ public class UrlHelper extends HttpHelper {
    }
 
     public static String getHost(final String url) {
+        if (url.startsWith("..")) {
+            return null;
+        }
         final URL u = convertStringToUrl(url);
         return u.getHost();
     }
