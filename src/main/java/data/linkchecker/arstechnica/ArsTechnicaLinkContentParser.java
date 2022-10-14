@@ -24,7 +24,7 @@ public class ArsTechnicaLinkContentParser {
     = new TextParser("<h2 itemprop=\"description\">",
                      "</h2>",
                      "Ars Technica",
-                     "title");
+                     "subtitle");
     private static final TextParser s_dateParser
         = new TextParser("<time class=\"date\" data-time=\"",
                          "\" datetime=\".*?\">",

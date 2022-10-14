@@ -4,6 +4,7 @@ import java.nio.file.Path;
 
 import data.linkchecker.arstechnica.ArsTechnicaLinkDataExtractor;
 import data.linkchecker.baeldung.BaeldungLinkDataExtractor;
+import data.linkchecker.githubblog.GithubBlogLinkDataExtractor;
 import data.linkchecker.gitlabblog.GitlabBlogLinkDataExtractor;
 import data.linkchecker.medium.MediumLinkDataExtractor;
 import data.linkchecker.oracleblogs.OracleBlogsLinkDataExtractor;
@@ -26,6 +27,11 @@ public class LinkDataExtractorFactory {
 
         if (u.startsWith("https://www.baeldung.com/") && !u.equals("https://www.baeldung.com/")) {
             return new BaeldungLinkDataExtractor(u, cacheDirectory);
+        }
+
+
+        if (url.startsWith("https://github.blog/")) {
+            return new GithubBlogLinkDataExtractor(url, cacheDirectory);
         }
 
         if (u.startsWith("https://medium.com/")) {

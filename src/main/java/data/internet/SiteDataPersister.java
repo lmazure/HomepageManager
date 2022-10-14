@@ -220,7 +220,7 @@ public class SiteDataPersister {
         try (final BufferedReader reader = new BufferedReader(new FileReader(statusFile))) {
             final int size = Integer.parseInt(reader.readLine().trim());
             return new FileSection(statusFile, size, statusFile.length() - size);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new IllegalStateException("Failure while reading " + statusFile, e);
         }
     }

@@ -73,17 +73,17 @@ public class ArsTechnicaLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-          (final Boolean b, final SiteData d) -> {
-              Assertions.assertTrue(d.getDataFile().isPresent());
-              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-              final ArsTechnicaLinkContentParser parser = new ArsTechnicaLinkContentParser(data);
-              try {
-                  Assertions.assertEquals(expectedDate, parser.getDate().toString());
-               } catch (final ContentParserException e) {
-                   Assertions.fail("getDate threw " + e.getMessage());
-               }
-              consumerHasBeenCalled.set(true);
-          });
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               final ArsTechnicaLinkContentParser parser = new ArsTechnicaLinkContentParser(data);
+                               try {
+                                   Assertions.assertEquals(expectedDate, parser.getDate().toString());
+                                } catch (final ContentParserException e) {
+                                    Assertions.fail("getDate threw " + e.getMessage());
+                                }
+                               consumerHasBeenCalled.set(true);
+                           });
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -109,18 +109,18 @@ public class ArsTechnicaLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-          (final Boolean b, final SiteData d) -> {
-              Assertions.assertTrue(d.getDataFile().isPresent());
-              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-              final ArsTechnicaLinkContentParser parser = new ArsTechnicaLinkContentParser(data);
-              try {
-                  Assertions.assertTrue(parser.getAuthor().isPresent());
-                  Assertions.assertEquals(expectedAuthor, parser.getAuthor().get());
-               } catch (final ContentParserException e) {
-                   Assertions.fail("getAuthor threw " + e.getMessage());
-               }
-              consumerHasBeenCalled.set(true);
-          });
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               final ArsTechnicaLinkContentParser parser = new ArsTechnicaLinkContentParser(data);
+                               try {
+                                   Assertions.assertTrue(parser.getAuthor().isPresent());
+                                   Assertions.assertEquals(expectedAuthor, parser.getAuthor().get());
+                                } catch (final ContentParserException e) {
+                                    Assertions.fail("getAuthor threw " + e.getMessage());
+                                }
+                               consumerHasBeenCalled.set(true);
+                           });
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -132,17 +132,17 @@ public class ArsTechnicaLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-          (final Boolean b, final SiteData d) -> {
-              Assertions.assertTrue(d.getDataFile().isPresent());
-              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-              final ArsTechnicaLinkContentParser parser = new ArsTechnicaLinkContentParser(data);
-              try {
-                  Assertions.assertFalse(parser.getAuthor().isPresent());
-               } catch (final ContentParserException e) {
-                   Assertions.fail("getAuthor threw " + e.getMessage());
-               }
-              consumerHasBeenCalled.set(true);
-          });
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               final ArsTechnicaLinkContentParser parser = new ArsTechnicaLinkContentParser(data);
+                               try {
+                                   Assertions.assertFalse(parser.getAuthor().isPresent());
+                                } catch (final ContentParserException e) {
+                                    Assertions.fail("getAuthor threw " + e.getMessage());
+                                }
+                               consumerHasBeenCalled.set(true);
+                           });
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 }

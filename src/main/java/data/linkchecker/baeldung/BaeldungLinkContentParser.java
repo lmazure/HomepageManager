@@ -27,7 +27,7 @@ public class BaeldungLinkContentParser {
                          "Baeldung",
                          "date");
     private static final TextParser s_authorParser
-        = new TextParser("<a href=\"https://www.baeldung.com/author/[^/]*/\" title=\"Posts by [^\"]*\" rel=\"author\">",
+        = new TextParser("<a href=\"https://www.baeldung.com/author/[^/]*\" title=\"Posts by [^\"]*\" rel=\"author\">",
                          "</a>",
                          "Baeldung",
                          "author");

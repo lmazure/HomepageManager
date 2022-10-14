@@ -1,6 +1,6 @@
-regarder problème de Baeldung
 
-ajouter support de https://github.blog/2022-10-03-highlights-from-git-2-38/?utm_source=pocket_mylist
+
+==== merge =====
 
 gérer https://arstechnica.com/tech-policy/2022/09/texts-show-roll-call-of-tech-figures-tried-to-help-elon-musk-in-twitter-deal/
 Ars Technica article should have at most one author
@@ -14,8 +14,6 @@ les podcasts de quanta magazine devraient être considérés comme des MP3, pas 
 modifier la gestion  de DeepSkyVideo
 
 éviter les erreurs sur les wellknown authors
-
-implémenter le parsing d'IBM
 
 nettoyer
 - medical.xml

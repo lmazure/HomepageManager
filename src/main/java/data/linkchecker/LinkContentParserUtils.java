@@ -28,7 +28,8 @@ public class LinkContentParserUtils {
         if (nameParts.length == 3) {
             final String upperMiddleName = nameParts[1].toUpperCase();
             if (upperMiddleName.equals("DE") ||
-                upperMiddleName.equals("VON")) {
+                upperMiddleName.equals("VON") ||
+                upperMiddleName.equals("VAN")) {
                 return new AuthorData(Optional.empty(),
                                       Optional.of(nameParts[0]),
                                       Optional.empty(),
