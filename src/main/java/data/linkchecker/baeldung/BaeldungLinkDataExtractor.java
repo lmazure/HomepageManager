@@ -19,7 +19,7 @@ public class BaeldungLinkDataExtractor extends LinkDataExtractor {
     public BaeldungLinkDataExtractor(final String url,
                                      final String data) {
         super(url);
-        _parser = new BaeldungLinkContentParser(data);
+        _parser = new BaeldungLinkContentParser(data, url);
     }
 
     @Override

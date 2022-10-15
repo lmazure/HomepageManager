@@ -35,7 +35,8 @@ public class GithubBlogLinkContentParser {
                      "GitHub blog",
                      "subtitle");
 
-    public GithubBlogLinkContentParser(final String data) {
+    public GithubBlogLinkContentParser(final String data,
+                                       final String url) {
         _data = data;
     }
 

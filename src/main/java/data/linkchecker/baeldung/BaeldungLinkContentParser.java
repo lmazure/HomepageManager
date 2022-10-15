@@ -33,7 +33,8 @@ public class BaeldungLinkContentParser {
                          "author");
     private static DateTimeFormatter s_formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.US);
 
-    public BaeldungLinkContentParser(final String data) {
+    public BaeldungLinkContentParser(final String data,
+                                     final String url) {
         _data = data;
     }
 

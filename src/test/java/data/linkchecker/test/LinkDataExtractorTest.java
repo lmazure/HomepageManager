@@ -586,7 +586,7 @@ public class LinkDataExtractorTest {
     void youtubeWatchMathadorIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=EcPPjZVB2vA";
         final String expectedXml = """
-                <ARTICLE><X><T>L'INCROYABLE HISTOIRE DE LA CONJECTURE DE FERMAT</T>\
+                <ARTICLE><X><T>L'INCROYABLE HISTOIRE DE LA CONJECTURE DE FERMAT CMH#14</T>\
                 <A>https://www.youtube.com/watch?v=EcPPjZVB2vA</A>\
                 <L>fr</L><F>MP4</F><DURATION><MINUTE>23</MINUTE><SECOND>59</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Franck</FIRSTNAME><LASTNAME>Dunas</LASTNAME></AUTHOR>\

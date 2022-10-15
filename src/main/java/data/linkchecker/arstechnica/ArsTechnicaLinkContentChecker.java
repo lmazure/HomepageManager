@@ -28,7 +28,7 @@ public class ArsTechnicaLinkContentChecker extends LinkContentChecker {
     @Override
     protected LinkContentCheck checkGlobalData(final String data)
     {
-        _parser = new ArsTechnicaLinkContentParser(data);
+        _parser = new ArsTechnicaLinkContentParser(data, getUrl());
         return null;
     }
 

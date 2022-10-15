@@ -19,7 +19,7 @@ public class WiredLinkDataExtractor extends LinkDataExtractor {
     public WiredLinkDataExtractor(final String url,
                                   final String data) {
         super(url);
-        _parser = new WiredLinkContentParser(data);
+        _parser = new WiredLinkContentParser(data, getUrl());
     }
 
     @Override

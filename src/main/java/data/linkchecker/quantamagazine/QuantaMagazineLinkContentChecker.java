@@ -28,7 +28,7 @@ public class QuantaMagazineLinkContentChecker extends LinkContentChecker {
     @Override
     protected LinkContentCheck checkGlobalData(final String data)
     {
-        _parser = new QuantaMagazineLinkContentParser(data);
+        _parser = new QuantaMagazineLinkContentParser(data, getUrl());
 
         return null;
     }

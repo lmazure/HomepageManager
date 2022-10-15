@@ -28,7 +28,7 @@ public class BaeldungLinkContentChecker extends LinkContentChecker {
     @Override
     protected LinkContentCheck checkGlobalData(final String data)
     {
-        _parser = new BaeldungLinkContentParser(data);
+        _parser = new BaeldungLinkContentParser(data, getUrl());
         return null;
     }
 

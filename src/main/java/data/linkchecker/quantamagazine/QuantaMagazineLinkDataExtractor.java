@@ -19,7 +19,7 @@ public class QuantaMagazineLinkDataExtractor extends LinkDataExtractor {
     public QuantaMagazineLinkDataExtractor(final String url,
                                            final String data) {
         super(url);
-        _parser = new QuantaMagazineLinkContentParser(data);
+        _parser = new QuantaMagazineLinkContentParser(data, getUrl());
     }
 
     @Override

@@ -28,7 +28,8 @@ public class GitlabBlogLinkContentParser {
                                                                     "GitLab blog",
                                                                     "author");
 
-    public GitlabBlogLinkContentParser(final String data) {
+    public GitlabBlogLinkContentParser(final String data,
+                                       final String url) {
         _data = data;
     }
 

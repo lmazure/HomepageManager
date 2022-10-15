@@ -32,7 +32,7 @@ public class GithubBlogLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(data);
+                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(data, url);
                                try {
                                    Assertions.assertEquals(expectedTitle, parser.getTitle());
                                } catch (final ContentParserException e) {
@@ -59,7 +59,7 @@ public class GithubBlogLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(data);
+                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(data, url);
                                try {
                                    Assertions.assertEquals(expectedSubtitle, parser.getSubtitle());
                                } catch (final ContentParserException e) {
@@ -82,7 +82,7 @@ public class GithubBlogLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(data);
+                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(data, url);
                                try {
                                    Assertions.assertEquals(expectedDate, parser.getPublicationDate().toString());
                                 } catch (final ContentParserException e) {
@@ -115,7 +115,7 @@ public class GithubBlogLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(data);
+                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(data, url);
                                try {
                                    Assertions.assertEquals(expectedAuthor, parser.getAuthor());
                                 } catch (final ContentParserException e) {

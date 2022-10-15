@@ -28,7 +28,7 @@ public class GitlabBlogLinkContentChecker extends LinkContentChecker {
     @Override
     protected LinkContentCheck checkGlobalData(final String data)
     {
-        _parser = new GitlabBlogLinkContentParser(data);
+        _parser = new GitlabBlogLinkContentParser(data, getUrl());
 
         return null;
     }

@@ -28,7 +28,7 @@ public class WiredLinkContentChecker extends LinkContentChecker {
     @Override
     protected LinkContentCheck checkGlobalData(final String data)
     {
-        _parser = new WiredLinkContentParser(data);
+        _parser = new WiredLinkContentParser(data, getUrl());
 
         return null;
     }

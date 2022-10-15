@@ -232,7 +232,7 @@ public class YoutubeWatchLinkDataExtractor extends LinkDataExtractor {
     public YoutubeWatchLinkDataExtractor(final String url,
                                          final String data) throws ContentParserException {
         super(url);
-        _parser = new YoutubeWatchLinkContentParser(data);
+        _parser = new YoutubeWatchLinkContentParser(data, getUrl());
     }
 
     @Override

@@ -36,7 +36,8 @@ public class ArsTechnicaLinkContentParser {
                          "Ars Technica",
                          "author");
 
-    public ArsTechnicaLinkContentParser(final String data) {
+    public ArsTechnicaLinkContentParser(final String data,
+                                        final String url) {
         _data = data;
     }
 

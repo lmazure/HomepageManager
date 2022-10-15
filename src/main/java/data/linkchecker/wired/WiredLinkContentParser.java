@@ -30,7 +30,8 @@ public class WiredLinkContentParser {
     private final LocalDate _publicationDate;
     private final List<AuthorData> _authors;
 
-    public WiredLinkContentParser(final String data) {
+    public WiredLinkContentParser(final String data,
+                                  final String url) {
         ContentParserException exception = null;
         String title = null;
         String subtitle = null;

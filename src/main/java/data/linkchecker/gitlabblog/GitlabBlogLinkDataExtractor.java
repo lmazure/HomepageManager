@@ -19,7 +19,7 @@ public class GitlabBlogLinkDataExtractor extends LinkDataExtractor {
     public GitlabBlogLinkDataExtractor(final String url,
                                        final String data) {
         super(url);
-        _parser = new GitlabBlogLinkContentParser(data);
+        _parser = new GitlabBlogLinkContentParser(data, getUrl());
     }
 
     @Override

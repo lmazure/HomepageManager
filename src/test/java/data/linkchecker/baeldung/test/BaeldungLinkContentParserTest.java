@@ -22,11 +22,12 @@ public class BaeldungLinkContentParserTest {
     void testTitle() {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve("https://www.baeldung.com/crawler4j",
+        final String url = "https://www.baeldung.com/crawler4j";
+        retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-                               final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(data);
+                               final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(data, url);
                                try {
                                    Assertions.assertEquals("A Guide to Crawler4j", parser.getTitle());
                                } catch (final ContentParserException e) {
@@ -46,17 +47,17 @@ public class BaeldungLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-          (final Boolean b, final SiteData d) -> {
-              Assertions.assertTrue(d.getDataFile().isPresent());
-              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-              final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(data);
-              try {
-                  Assertions.assertEquals(expectedDate, parser.getDate().toString());
-               } catch (final ContentParserException e) {
-                   Assertions.fail("getDate threw " + e.getMessage());
-               }
-              consumerHasBeenCalled.set(true);
-          });
+                          (final Boolean b, final SiteData d) -> {
+                              Assertions.assertTrue(d.getDataFile().isPresent());
+                              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                              final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(data, url);
+                              try {
+                                  Assertions.assertEquals(expectedDate, parser.getDate().toString());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getDate threw " + e.getMessage());
+                               }
+                              consumerHasBeenCalled.set(true);
+                          });
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -76,18 +77,18 @@ public class BaeldungLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-          (final Boolean b, final SiteData d) -> {
-              Assertions.assertTrue(d.getDataFile().isPresent());
-              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-              final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(data);
-              try {
-                  Assertions.assertTrue(parser.getAuthor().isPresent());
-                  Assertions.assertEquals(expectedAuthor, parser.getAuthor().get());
-               } catch (final ContentParserException e) {
-                   Assertions.fail("getAuthor threw " + e.getMessage());
-               }
-              consumerHasBeenCalled.set(true);
-          });
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(data, url);
+                               try {
+                                   Assertions.assertTrue(parser.getAuthor().isPresent());
+                                   Assertions.assertEquals(expectedAuthor, parser.getAuthor().get());
+                                } catch (final ContentParserException e) {
+                                    Assertions.fail("getAuthor threw " + e.getMessage());
+                                }
+                               consumerHasBeenCalled.set(true);
+                           });
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -99,17 +100,17 @@ public class BaeldungLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-          (final Boolean b, final SiteData d) -> {
-              Assertions.assertTrue(d.getDataFile().isPresent());
-              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-              final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(data);
-              try {
-                  Assertions.assertTrue(parser.getAuthor().isEmpty());
-               } catch (final ContentParserException e) {
-                   Assertions.fail("getAuthor threw " + e.getMessage());
-               }
-              consumerHasBeenCalled.set(true);
-          });
+                          (final Boolean b, final SiteData d) -> {
+                              Assertions.assertTrue(d.getDataFile().isPresent());
+                              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                              final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(data, url);
+                              try {
+                                  Assertions.assertTrue(parser.getAuthor().isEmpty());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getAuthor threw " + e.getMessage());
+                               }
+                              consumerHasBeenCalled.set(true);
+                          });
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 }

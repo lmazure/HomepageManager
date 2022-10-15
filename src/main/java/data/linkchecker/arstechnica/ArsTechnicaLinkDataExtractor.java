@@ -19,7 +19,7 @@ public class ArsTechnicaLinkDataExtractor extends LinkDataExtractor {
     public ArsTechnicaLinkDataExtractor(final String url,
                                         final String data) {
         super(url);
-        _parser = new ArsTechnicaLinkContentParser(data);
+        _parser = new ArsTechnicaLinkContentParser(data, getUrl());
     }
 
     @Override
