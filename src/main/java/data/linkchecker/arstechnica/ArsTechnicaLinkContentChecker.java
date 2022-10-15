@@ -28,7 +28,7 @@ public class ArsTechnicaLinkContentChecker extends LinkContentChecker {
     @Override
     protected LinkContentCheck checkGlobalData(final String data)
     {
-        _parser = new ArsTechnicaLinkContentParser(data, getUrl());
+        _parser = new ArsTechnicaLinkContentParser(getUrl(), data);
         return null;
     }
 
@@ -93,7 +93,7 @@ public class ArsTechnicaLinkContentChecker extends LinkContentChecker {
             return new LinkContentCheck("Ars Technica article should have a creation date");
         }
 
-        final LocalDate effectiveDate = _parser.getDate();
+        final LocalDate effectiveDate = _parser.getDateInternal();
 
         if (!creationDate.get().equals(effectiveDate)) {
             return new LinkContentCheck("expected creation date " +

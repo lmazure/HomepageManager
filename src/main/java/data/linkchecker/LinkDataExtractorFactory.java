@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import data.internet.SiteData;
 import data.internet.SiteDataPersister;
 import data.internet.SynchronousSiteDataRetriever;
-import data.linkchecker.arstechnica.ArsTechnicaLinkDataExtractor;
+import data.linkchecker.arstechnica.ArsTechnicaLinkContentParser;
 import data.linkchecker.baeldung.BaeldungLinkDataExtractor;
 import data.linkchecker.githubblog.GithubBlogLinkContentParser;
 import data.linkchecker.gitlabblog.GitlabBlogLinkDataExtractor;
@@ -36,7 +36,7 @@ public class LinkDataExtractorFactory {
         ThrowingLinkDataExtractor constructor = null;
                 
         if (u.startsWith("https://arstechnica.com/")) {
-            constructor = ArsTechnicaLinkDataExtractor::new;
+            constructor = ArsTechnicaLinkContentParser::new;
         }
 
         if (u.startsWith("https://www.baeldung.com/") && !u.equals("https://www.baeldung.com/")) {
