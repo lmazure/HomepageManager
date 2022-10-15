@@ -26,7 +26,7 @@ public class YoutubeWatchLinkContentParser {
     private Duration _maxDuration;
 
     public YoutubeWatchLinkContentParser(final String data,
-                                         final String url) throws ContentParserException {
+                                         @SuppressWarnings("unused") final String url) throws ContentParserException {
         _data = data;
         if (data.contains("ytInitialPlayerResponse =")) {
             _isEscaped = false;

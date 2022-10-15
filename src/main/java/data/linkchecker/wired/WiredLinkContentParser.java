@@ -31,7 +31,7 @@ public class WiredLinkContentParser {
     private final List<AuthorData> _authors;
 
     public WiredLinkContentParser(final String data,
-                                  final String url) {
+                                  @SuppressWarnings("unused") final String url) {
         ContentParserException exception = null;
         String title = null;
         String subtitle = null;

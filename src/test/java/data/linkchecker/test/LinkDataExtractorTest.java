@@ -695,7 +695,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchMNotaBonusIsManaged() throws ContentParserException {
+    void youtubeWatchNotaBonusIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=QwLZ_i1qK8A";
         final String expectedXml = """
                 <ARTICLE><X><T>La bataille des nombres au Moyen Âge - Le jeu de la Rithmomachie</T>\

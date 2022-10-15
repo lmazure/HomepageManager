@@ -3,18 +3,26 @@ package data.linkchecker.githubblog;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import data.linkchecker.ContentParserException;
+import data.linkchecker.ExtractedLinkData;
 import data.linkchecker.LinkContentParserUtils;
+import data.linkchecker.LinkDataExtractor;
 import data.linkchecker.TextParser;
 import utils.HtmlHelper;
 import utils.xmlparsing.AuthorData;
+import utils.xmlparsing.LinkFormat;
 
-public class GithubBlogLinkContentParser {
+public class GithubBlogLinkContentParser extends LinkDataExtractor {
 
     private final String _data;
     private boolean _dataIsLoaded;
@@ -35,8 +43,9 @@ public class GithubBlogLinkContentParser {
                      "GitHub blog",
                      "subtitle");
 
-    public GithubBlogLinkContentParser(final String data,
-                                       final String url) {
+    public GithubBlogLinkContentParser(final String url,
+                                       final String data) {
+        super(url);
         _data = data;
     }
 
@@ -122,5 +131,44 @@ public class GithubBlogLinkContentParser {
             throw new ContentParserException("Failed to find \"datePublished\" JSON object in GitHub Blog page");
         }
         _publicationDate = ZonedDateTime.parse(datePublished, DateTimeFormatter.ISO_DATE_TIME).toLocalDate();
+    }
+    
+    @Override
+    public Optional<TemporalAccessor> getDate() throws ContentParserException {
+        return Optional.of(getPublicationDate());
+    }
+
+    @Override
+    public List<AuthorData> getSureAuthors() throws ContentParserException {
+        final AuthorData authorData = getAuthor();
+        final List<AuthorData> list = new ArrayList<>(1);
+        list.add(authorData);
+        return list;
+    }
+
+    @Override
+    public List<AuthorData> getProbableAuthors() {
+        return new ArrayList<>(0);
+    }
+
+    @Override
+    public List<AuthorData> getPossibleAuthors()  {
+        return new ArrayList<>(0);
+    }
+
+    @Override
+    public List<ExtractedLinkData> getLinks() throws ContentParserException {
+        final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
+                                                                 new String[] { getSubtitle() },
+                                                                 getUrl().toString(),
+                                                                 Optional.empty(),
+                                                                 Optional.empty(),
+                                                                 new LinkFormat[] { LinkFormat.HTML },
+                                                                 new Locale[] { Locale.ENGLISH },
+                                                                 Optional.empty(),
+                                                                 Optional.empty());
+        final List<ExtractedLinkData> list = new ArrayList<>(1);
+        list.add(linkData);
+        return list;
     }
 }

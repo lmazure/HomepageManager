@@ -34,7 +34,7 @@ public class BaeldungLinkContentParser {
     private static DateTimeFormatter s_formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.US);
 
     public BaeldungLinkContentParser(final String data,
-                                     final String url) {
+                                     @SuppressWarnings("unused") final String url) {
         _data = data;
     }
 

@@ -7,7 +7,7 @@ import data.internet.SiteDataPersister;
 import data.internet.SynchronousSiteDataRetriever;
 import data.linkchecker.arstechnica.ArsTechnicaLinkDataExtractor;
 import data.linkchecker.baeldung.BaeldungLinkDataExtractor;
-import data.linkchecker.githubblog.GithubBlogLinkDataExtractor;
+import data.linkchecker.githubblog.GithubBlogLinkContentParser;
 import data.linkchecker.gitlabblog.GitlabBlogLinkDataExtractor;
 import data.linkchecker.medium.MediumLinkDataExtractor;
 import data.linkchecker.oracleblogs.OracleBlogsLinkDataExtractor;
@@ -45,7 +45,7 @@ public class LinkDataExtractorFactory {
 
 
         if (url.startsWith("https://github.blog/")) {
-            constructor = GithubBlogLinkDataExtractor::new;
+            constructor = GithubBlogLinkContentParser::new;
         }
 
         if (u.startsWith("https://medium.com/")) {
@@ -97,6 +97,6 @@ public class LinkDataExtractorFactory {
     
     @FunctionalInterface
     private interface ThrowingLinkDataExtractor<S, T, R> {
-       R apply(final S s, final T t) throws ContentParserException;
+       R apply(final S url, final T data) throws ContentParserException;
     }
 }

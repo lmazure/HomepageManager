@@ -29,7 +29,7 @@ public class GitlabBlogLinkContentParser {
                                                                     "author");
 
     public GitlabBlogLinkContentParser(final String data,
-                                       final String url) {
+                                       @SuppressWarnings("unused") final String url) {
         _data = data;
     }
 

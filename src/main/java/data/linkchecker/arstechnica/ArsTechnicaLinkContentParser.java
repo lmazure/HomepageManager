@@ -37,7 +37,7 @@ public class ArsTechnicaLinkContentParser {
                          "author");
 
     public ArsTechnicaLinkContentParser(final String data,
-                                        final String url) {
+                                        @SuppressWarnings("unused") final String url) {
         _data = data;
     }
 

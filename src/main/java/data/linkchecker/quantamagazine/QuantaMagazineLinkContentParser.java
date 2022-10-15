@@ -35,7 +35,7 @@ public class QuantaMagazineLinkContentParser {
         = Pattern.compile("<a (class=\"[^\"]+\" )?href=\"/authors/[^/]+/\"><span [^>]+>([^<]+)</span></a>");
 
     public QuantaMagazineLinkContentParser(final String data,
-                                           final String url) {
+                                           @SuppressWarnings("unused") final String url) {
         _data = data;
     }
 
