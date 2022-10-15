@@ -31,7 +31,7 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
 
     @Override
     protected LinkContentCheck checkGlobalData(final String data) throws ContentParserException {
-        _parser = new YoutubeWatchLinkContentParser(data, getUrl());
+        _parser = new YoutubeWatchLinkContentParser(getUrl(), data);
 
         if (!_parser.isPlayable()) {
             return new LinkContentCheck("video is not playable");

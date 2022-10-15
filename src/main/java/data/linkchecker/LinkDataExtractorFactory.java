@@ -13,7 +13,7 @@ import data.linkchecker.medium.MediumLinkDataExtractor;
 import data.linkchecker.oracleblogs.OracleBlogsLinkDataExtractor;
 import data.linkchecker.quantamagazine.QuantaMagazineLinkDataExtractor;
 import data.linkchecker.wired.WiredLinkDataExtractor;
-import data.linkchecker.youtubewatch.YoutubeWatchLinkDataExtractor;
+import data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser;
 import utils.HtmlHelper;
 import utils.UrlHelper;
 
@@ -33,7 +33,7 @@ public class LinkDataExtractorFactory {
         String u = UrlHelper.removeQueryParameters(url, "utm_source"
                                                       , "utm_medium");
 
-        ThrowingLinkDataExtractor<String, String, LinkDataExtractor> constructor = null;
+        ThrowingLinkDataExtractor constructor = null;
                 
         if (u.startsWith("https://arstechnica.com/")) {
             constructor = ArsTechnicaLinkDataExtractor::new;
@@ -66,7 +66,7 @@ public class LinkDataExtractorFactory {
                                                    "feature",
                                                    "list",
                                                    "index");
-            constructor = YoutubeWatchLinkDataExtractor::new;
+            constructor = YoutubeWatchLinkContentParser::new;
         }
 
         if (u.startsWith("https://about.gitlab.com/blog/")) {
@@ -96,7 +96,7 @@ public class LinkDataExtractorFactory {
     }
     
     @FunctionalInterface
-    private interface ThrowingLinkDataExtractor<S, T, R> {
-       R apply(final S url, final T data) throws ContentParserException;
+    private interface ThrowingLinkDataExtractor {
+        LinkDataExtractor apply(final String url, final String data) throws ContentParserException;
     }
 }

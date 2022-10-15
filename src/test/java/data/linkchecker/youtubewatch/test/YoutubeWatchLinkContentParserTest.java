@@ -421,7 +421,7 @@ public class YoutubeWatchLinkContentParserTest {
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                try {
                                    @SuppressWarnings("unused")
-                                   final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data, url);
+                                   final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(url, data);
                                    Assertions.fail("new YoutubeWatchLinkContentParser has not thrown an exception");
                                } catch (@SuppressWarnings("unused") final ContentParserException e) {
                                    // do nothing
@@ -435,7 +435,7 @@ public class YoutubeWatchLinkContentParserTest {
                                                              final String url) {
 
         try {
-            final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(data, url);
+            final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(url, data);
             return parser;
         } catch (final ContentParserException e) {
             Assertions.fail("new YoutubeWatchLinkContentParser threw " + e.getMessage());
