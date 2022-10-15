@@ -1,6 +1,5 @@
 package data.linkchecker.youtubewatch;
 
-import java.nio.file.Path;
 import java.time.temporal.TemporalAccessor;
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -231,9 +230,9 @@ public class YoutubeWatchLinkDataExtractor extends LinkDataExtractor {
     private final YoutubeWatchLinkContentParser _parser;
 
     public YoutubeWatchLinkDataExtractor(final String url,
-                                         final Path cacheDirectory) throws ContentParserException {
-        super(url, cacheDirectory);
-        _parser = new YoutubeWatchLinkContentParser(getContent());
+                                         final String data) throws ContentParserException {
+        super(url);
+        _parser = new YoutubeWatchLinkContentParser(data);
     }
 
     @Override

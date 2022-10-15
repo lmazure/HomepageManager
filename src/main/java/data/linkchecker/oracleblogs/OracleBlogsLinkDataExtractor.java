@@ -1,6 +1,5 @@
 package data.linkchecker.oracleblogs;
 
-import java.nio.file.Path;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +17,9 @@ public class OracleBlogsLinkDataExtractor  extends LinkDataExtractor {
     private final OracleBlogsLinkContentParser _parser;
 
     public OracleBlogsLinkDataExtractor(final String url,
-                                        final Path cacheDirectory) {
-        super(url, cacheDirectory);
-        _parser = new OracleBlogsLinkContentParser(getContent(), url);
+                                        final String data) {
+        super(url);
+        _parser = new OracleBlogsLinkContentParser(data, url);
     }
 
     @Override

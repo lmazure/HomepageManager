@@ -2,6 +2,9 @@ package data.linkchecker;
 
 import java.nio.file.Path;
 
+import data.internet.SiteData;
+import data.internet.SiteDataPersister;
+import data.internet.SynchronousSiteDataRetriever;
 import data.linkchecker.arstechnica.ArsTechnicaLinkDataExtractor;
 import data.linkchecker.baeldung.BaeldungLinkDataExtractor;
 import data.linkchecker.githubblog.GithubBlogLinkDataExtractor;
@@ -11,58 +14,89 @@ import data.linkchecker.oracleblogs.OracleBlogsLinkDataExtractor;
 import data.linkchecker.quantamagazine.QuantaMagazineLinkDataExtractor;
 import data.linkchecker.wired.WiredLinkDataExtractor;
 import data.linkchecker.youtubewatch.YoutubeWatchLinkDataExtractor;
+import utils.HtmlHelper;
 import utils.UrlHelper;
 
 public class LinkDataExtractorFactory {
 
+    private String _content;
+
     public static LinkDataExtractor build(final Path cacheDirectory,
-                                          final String url) throws ContentParserException { //TODO URGENT get rid of URL here
+                                          final String url) throws ContentParserException {
+        final LinkDataExtractorFactory factory = new LinkDataExtractorFactory();
+        return factory.create(cacheDirectory, url);
+    }
 
-        final String u = UrlHelper.removeQueryParameters(url, "utm_source"
-                                                            , "utm_medium");
+    private LinkDataExtractor create(final Path cacheDirectory,
+                                     final String url) throws ContentParserException {
 
+        String u = UrlHelper.removeQueryParameters(url, "utm_source"
+                                                      , "utm_medium");
+
+        ThrowingLinkDataExtractor<String, String, LinkDataExtractor> constructor = null;
+                
         if (u.startsWith("https://arstechnica.com/")) {
-            return new ArsTechnicaLinkDataExtractor(u, cacheDirectory);
+            constructor = ArsTechnicaLinkDataExtractor::new;
         }
 
         if (u.startsWith("https://www.baeldung.com/") && !u.equals("https://www.baeldung.com/")) {
-            return new BaeldungLinkDataExtractor(u, cacheDirectory);
+            constructor = BaeldungLinkDataExtractor::new;
         }
 
 
         if (url.startsWith("https://github.blog/")) {
-            return new GithubBlogLinkDataExtractor(url, cacheDirectory);
+            constructor = GithubBlogLinkDataExtractor::new;
         }
 
         if (u.startsWith("https://medium.com/")) {
-            return new MediumLinkDataExtractor(u, cacheDirectory);
+            constructor = MediumLinkDataExtractor::new;
         }
 
         if (u.matches("https://blogs.oracle.com/javamagazine/.+")) {
-            final String u2 = u.replace("/post/", "/");
-            return new OracleBlogsLinkDataExtractor(u2, cacheDirectory);
+            u = u.replace("/post/", "/");
+            constructor = OracleBlogsLinkDataExtractor::new;
         }
 
         if (u.startsWith("https://www.quantamagazine.org/")) {
-            return new QuantaMagazineLinkDataExtractor(u, cacheDirectory);
+            constructor = QuantaMagazineLinkDataExtractor::new;
         }
 
         if (u.startsWith("https://www.youtube.com/watch?")) {
-            final String u2 = UrlHelper.removeQueryParameters(u, "app",
-                                                                 "feature",
-                                                                 "list",
-                                                                 "index");
-            return new YoutubeWatchLinkDataExtractor(u2, cacheDirectory);
+            u = UrlHelper.removeQueryParameters(u, "app",
+                                                   "feature",
+                                                   "list",
+                                                   "index");
+            constructor = YoutubeWatchLinkDataExtractor::new;
         }
 
         if (u.startsWith("https://about.gitlab.com/blog/")) {
-            return new GitlabBlogLinkDataExtractor(u, cacheDirectory);
+            constructor = GitlabBlogLinkDataExtractor::new;
         }
 
         if (u.startsWith("https://www.wired.com/")) {
-            return new WiredLinkDataExtractor(u, cacheDirectory);
+            constructor = WiredLinkDataExtractor::new;
         }
 
-        return null;
+        if (constructor == null) {
+            return null;
+        }
+
+        final SiteDataPersister persister = new SiteDataPersister(cacheDirectory);
+        final SynchronousSiteDataRetriever retriever = new SynchronousSiteDataRetriever(persister);
+        retriever.retrieve(url, this::handleLinkData);
+
+        return constructor.apply(u, _content);
+    }
+
+    private void handleLinkData(@SuppressWarnings("unused") final Boolean isDataFresh,
+                                final SiteData siteData) {
+        if (siteData.getDataFile().isPresent()) {
+            _content = HtmlHelper.slurpFile(siteData.getDataFile().get());
+        }
+    }
+    
+    @FunctionalInterface
+    private interface ThrowingLinkDataExtractor<S, T, R> {
+       R apply(final S s, final T t) throws ContentParserException;
     }
 }

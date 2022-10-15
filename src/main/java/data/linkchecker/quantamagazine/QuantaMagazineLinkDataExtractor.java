@@ -1,6 +1,5 @@
 package data.linkchecker.quantamagazine;
 
-import java.nio.file.Path;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +17,9 @@ public class QuantaMagazineLinkDataExtractor extends LinkDataExtractor {
     private final QuantaMagazineLinkContentParser _parser;
 
     public QuantaMagazineLinkDataExtractor(final String url,
-                                           final Path cacheDirectory) {
-        super(url, cacheDirectory);
-        _parser = new QuantaMagazineLinkContentParser(getContent());
+                                           final String data) {
+        super(url);
+        _parser = new QuantaMagazineLinkContentParser(data);
     }
 
     @Override

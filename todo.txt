@@ -1,4 +1,17 @@
-
+- merge parser and extractor
+  - ars technica
+  - baeldung
+  - chromium
+  - githbug blog
+  - gitlab blog
+  - ibm
+  - medium
+  - oracle blogs
+  - quanta magazine
+  - twitter
+  - wired
+  - youtube channeluser
+  - youtube watch
 
 ==== merge =====
 

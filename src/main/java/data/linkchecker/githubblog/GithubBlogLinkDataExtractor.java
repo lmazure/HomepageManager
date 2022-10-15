@@ -1,6 +1,5 @@
 package data.linkchecker.githubblog;
 
-import java.nio.file.Path;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +17,9 @@ public class GithubBlogLinkDataExtractor extends LinkDataExtractor {
     private final GithubBlogLinkContentParser _parser;
 
     public GithubBlogLinkDataExtractor(final String url,
-                                       final Path cacheDirectory) {
-        super(url, cacheDirectory);
-        _parser = new GithubBlogLinkContentParser(getContent());
+                                       final String data) {
+        super(url);
+        _parser = new GithubBlogLinkContentParser(data);
     }
 
     @Override

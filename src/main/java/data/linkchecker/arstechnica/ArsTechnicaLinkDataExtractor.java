@@ -1,6 +1,5 @@
 package data.linkchecker.arstechnica;
 
-import java.nio.file.Path;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +17,9 @@ public class ArsTechnicaLinkDataExtractor extends LinkDataExtractor {
     private final ArsTechnicaLinkContentParser _parser;
 
     public ArsTechnicaLinkDataExtractor(final String url,
-                                        final Path cacheDirectory) {
-        super(url, cacheDirectory);
-        _parser = new ArsTechnicaLinkContentParser(getContent());
+                                        final String data) {
+        super(url);
+        _parser = new ArsTechnicaLinkContentParser(data);
     }
 
     @Override
