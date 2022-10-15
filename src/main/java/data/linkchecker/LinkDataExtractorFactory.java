@@ -6,13 +6,13 @@ import data.internet.SiteData;
 import data.internet.SiteDataPersister;
 import data.internet.SynchronousSiteDataRetriever;
 import data.linkchecker.arstechnica.ArsTechnicaLinkContentParser;
-import data.linkchecker.baeldung.BaeldungLinkDataExtractor;
+import data.linkchecker.baeldung.BaeldungLinkContentParser;
 import data.linkchecker.githubblog.GithubBlogLinkContentParser;
-import data.linkchecker.gitlabblog.GitlabBlogLinkDataExtractor;
-import data.linkchecker.medium.MediumLinkDataExtractor;
-import data.linkchecker.oracleblogs.OracleBlogsLinkDataExtractor;
-import data.linkchecker.quantamagazine.QuantaMagazineLinkDataExtractor;
-import data.linkchecker.wired.WiredLinkDataExtractor;
+import data.linkchecker.gitlabblog.GitlabBlogLinkContentParser;
+import data.linkchecker.medium.MediumLinkContentParser;
+import data.linkchecker.oracleblogs.OracleBlogsLinkContentParser;
+import data.linkchecker.quantamagazine.QuantaMagazineLinkContentParser;
+import data.linkchecker.wired.WiredLinkContentParser;
 import data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser;
 import utils.HtmlHelper;
 import utils.UrlHelper;
@@ -40,7 +40,7 @@ public class LinkDataExtractorFactory {
         }
 
         if (u.startsWith("https://www.baeldung.com/") && !u.equals("https://www.baeldung.com/")) {
-            constructor = BaeldungLinkDataExtractor::new;
+            constructor = BaeldungLinkContentParser::new;
         }
 
 
@@ -49,16 +49,16 @@ public class LinkDataExtractorFactory {
         }
 
         if (u.startsWith("https://medium.com/")) {
-            constructor = MediumLinkDataExtractor::new;
+            constructor = MediumLinkContentParser::new;
         }
 
         if (u.matches("https://blogs.oracle.com/javamagazine/.+")) {
             u = u.replace("/post/", "/");
-            constructor = OracleBlogsLinkDataExtractor::new;
+            constructor = OracleBlogsLinkContentParser::new;
         }
 
         if (u.startsWith("https://www.quantamagazine.org/")) {
-            constructor = QuantaMagazineLinkDataExtractor::new;
+            constructor = QuantaMagazineLinkContentParser::new;
         }
 
         if (u.startsWith("https://www.youtube.com/watch?")) {
@@ -70,11 +70,11 @@ public class LinkDataExtractorFactory {
         }
 
         if (u.startsWith("https://about.gitlab.com/blog/")) {
-            constructor = GitlabBlogLinkDataExtractor::new;
+            constructor = GitlabBlogLinkContentParser::new;
         }
 
         if (u.startsWith("https://www.wired.com/")) {
-            constructor = WiredLinkDataExtractor::new;
+            constructor = WiredLinkContentParser::new;
         }
 
         if (constructor == null) {

@@ -1,16 +1,22 @@
 package data.linkchecker.gitlabblog;
 
 import java.time.LocalDate;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 
 import data.linkchecker.ContentParserException;
+import data.linkchecker.ExtractedLinkData;
 import data.linkchecker.LinkContentParserUtils;
+import data.linkchecker.LinkDataExtractor;
 import data.linkchecker.TextParser;
 import utils.HtmlHelper;
 import utils.xmlparsing.AuthorData;
+import utils.xmlparsing.LinkFormat;
 
-public class GitlabBlogLinkContentParser {
+public class GitlabBlogLinkContentParser extends LinkDataExtractor {
 
     private final String _data;
     private static final TextParser s_titleParser = new TextParser("<meta content='",
@@ -28,8 +34,9 @@ public class GitlabBlogLinkContentParser {
                                                                     "GitLab blog",
                                                                     "author");
 
-    public GitlabBlogLinkContentParser(final String data,
-                                       @SuppressWarnings("unused") final String url) {
+    public GitlabBlogLinkContentParser(final String url,
+                                       final String data) {
+        super(url);
         _data = data;
     }
 
@@ -37,7 +44,7 @@ public class GitlabBlogLinkContentParser {
         return HtmlHelper.cleanContent(s_titleParser.extract(_data));
     }
 
-    public LocalDate getDate() throws ContentParserException {
+    public LocalDate getDateInternal() throws ContentParserException {
         return LocalDate.parse(HtmlHelper.cleanContent(s_dateParser.extract(_data)));
     }
 
@@ -53,5 +60,41 @@ public class GitlabBlogLinkContentParser {
             authorList.add(LinkContentParserUtils.getAuthor(authors));
         }
         return authorList;
+    }
+
+    @Override
+    public Optional<TemporalAccessor> getDate() throws ContentParserException {
+        return Optional.of(getDateInternal());
+    }
+
+    @Override
+    public List<AuthorData> getSureAuthors() throws ContentParserException {
+        return getAuthors();
+    }
+
+    @Override
+    public List<AuthorData> getProbableAuthors() {
+        return new ArrayList<>(0);
+    }
+
+    @Override
+    public List<AuthorData> getPossibleAuthors()  {
+        return new ArrayList<>(0);
+    }
+
+    @Override
+    public List<ExtractedLinkData> getLinks() throws ContentParserException {
+        final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
+                                                                 new String[] { },
+                                                                 getUrl().toString(),
+                                                                 Optional.empty(),
+                                                                 Optional.empty(),
+                                                                 new LinkFormat[] { LinkFormat.HTML },
+                                                                 new Locale[] { Locale.ENGLISH },
+                                                                 Optional.empty(),
+                                                                 Optional.empty());
+        final List<ExtractedLinkData> list = new ArrayList<>(1);
+        list.add(linkData);
+        return list;
     }
 }

@@ -4,18 +4,25 @@ import java.math.BigInteger;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.temporal.TemporalAccessor;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import data.linkchecker.ContentParserException;
+import data.linkchecker.ExtractedLinkData;
 import data.linkchecker.LinkContentParserUtils;
+import data.linkchecker.LinkDataExtractor;
 import data.linkchecker.TextParser;
 import utils.xmlparsing.AuthorData;
+import utils.xmlparsing.LinkFormat;
 
-public class MediumLinkContentParser {
+public class MediumLinkContentParser extends LinkDataExtractor {
 
     private final String _data;
     private final String _code;
@@ -30,8 +37,9 @@ public class MediumLinkContentParser {
                          "Medium",
                          "JSON preloaded state");
 
-    public MediumLinkContentParser(final String data,
-                                   final String url) {
+    public MediumLinkContentParser(final String url,
+                                   final String data) {
+        super(url);
         _data = data;
         _code = url.substring(url.lastIndexOf("-") + 1);
     }
@@ -106,5 +114,41 @@ public class MediumLinkContentParser {
             throw new ContentParserException("Failed to find \"" + creatorCode +"/name\" JSON field in Medium page", e);
         }
         _authors = Collections.singletonList(LinkContentParserUtils.getAuthor(name));
+    }
+
+    @Override
+    public Optional<TemporalAccessor> getDate() throws ContentParserException {
+        return Optional.of(getPublicationDate());
+    }
+
+    @Override
+    public List<AuthorData> getSureAuthors() throws ContentParserException {
+        return getAuthors();
+    }
+
+    @Override
+    public List<AuthorData> getProbableAuthors() {
+        return new ArrayList<>(0);
+    }
+
+    @Override
+    public List<AuthorData> getPossibleAuthors()  {
+        return new ArrayList<>(0);
+    }
+
+    @Override
+    public List<ExtractedLinkData> getLinks() throws ContentParserException {
+        final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
+                                                                 new String[] { },
+                                                                 getUrl().toString(),
+                                                                 Optional.empty(),
+                                                                 Optional.empty(),
+                                                                 new LinkFormat[] { LinkFormat.HTML },
+                                                                 new Locale[] { Locale.ENGLISH },
+                                                                 Optional.empty(),
+                                                                 Optional.empty());
+        final List<ExtractedLinkData> list = new ArrayList<>(1);
+        list.add(linkData);
+        return list;
     }
 }

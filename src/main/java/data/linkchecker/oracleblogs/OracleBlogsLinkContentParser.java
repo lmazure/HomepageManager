@@ -6,8 +6,10 @@ import java.nio.file.Path;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,12 +20,15 @@ import org.json.JSONObject;
 
 import data.internet.SynchronousSiteDataRetriever;
 import data.linkchecker.ContentParserException;
+import data.linkchecker.ExtractedLinkData;
 import data.linkchecker.LinkContentParserUtils;
+import data.linkchecker.LinkDataExtractor;
 import utils.HtmlHelper;
 import utils.UrlHelper;
 import utils.xmlparsing.AuthorData;
+import utils.xmlparsing.LinkFormat;
 
-public class OracleBlogsLinkContentParser {
+public class OracleBlogsLinkContentParser extends LinkDataExtractor {
 
     private static final String s_htmlTemplate = """
             <html>\r
@@ -49,9 +54,9 @@ public class OracleBlogsLinkContentParser {
     private final ContentParserException _authorException;
     private final SynchronousSiteDataRetriever _retriever;
 
-    public OracleBlogsLinkContentParser(final String data,
-                                        final String url) {
-
+    public OracleBlogsLinkContentParser(final String url,
+                                        final String data) {
+        super(url);
         _retriever = new SynchronousSiteDataRetriever(null);
 
         // retrieve site and caas from initial HTML
@@ -169,14 +174,14 @@ public class OracleBlogsLinkContentParser {
         return _title;
     }
 
-    public Optional<String> getSubtitle() {
+    public Optional<String> getSubtitleInternal() {
         if (_exception != null) {
             return Optional.empty();
         }
         return _subtitle;
     }
 
-    public LocalDate getDate() {
+    public LocalDate getDateInternal() {
         if (_exception != null) {
             return LocalDate.of(1970, 1, 1);
         }
@@ -219,5 +224,49 @@ public class OracleBlogsLinkContentParser {
         final JSONObject obj = new JSONObject(jsonPayload);
         final String name = obj.getString("name");
         return LinkContentParserUtils.getAuthor(name);
+    }
+
+    @Override
+    public Optional<TemporalAccessor> getDate() throws ContentParserException {
+        return Optional.of(getDateInternal());
+    }
+
+    @Override
+    public List<AuthorData> getSureAuthors() throws ContentParserException {
+        return getAuthors();
+    }
+
+    @Override
+    public List<AuthorData> getProbableAuthors() {
+        return new ArrayList<>(0);
+    }
+
+    @Override
+    public List<AuthorData> getPossibleAuthors()  {
+        return new ArrayList<>(0);
+    }
+
+    @Override
+    public List<ExtractedLinkData> getLinks() throws ContentParserException {
+        final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
+                                                                 getSubtitle(),
+                                                                 getUrl().toString(),
+                                                                 Optional.empty(),
+                                                                 Optional.empty(),
+                                                                 new LinkFormat[] { LinkFormat.HTML },
+                                                                 new Locale[] { Locale.ENGLISH },
+                                                                 Optional.empty(),
+                                                                 Optional.empty());
+        final List<ExtractedLinkData> list = new ArrayList<>(1);
+        list.add(linkData);
+        return list;
+    }
+
+    private String[] getSubtitle() {
+        final Optional<String> subtitle = getSubtitleInternal();
+        if (subtitle.isPresent()) {
+            return new String[] { subtitle.get() };
+        }
+        return new String[] { };
     }
 }

@@ -14,19 +14,17 @@ import utils.xmlparsing.LinkData;
 public class MediumLinkContentChecker extends LinkContentChecker {
 
     private MediumLinkContentParser _parser;
-    private final String _url;
 
     public MediumLinkContentChecker(final String url,
                                     final LinkData linkData,
                                     final Optional<ArticleData> articleData,
                                     final FileSection file) {
         super(url, linkData, articleData, file);
-        _url = url;
     }
 
     @Override
     protected LinkContentCheck checkGlobalData(final String data) {
-        _parser = new MediumLinkContentParser(data, _url);
+        _parser = new MediumLinkContentParser(getUrl(), data);
 
         return null;
     }

@@ -28,7 +28,7 @@ public class GitlabBlogLinkContentChecker extends LinkContentChecker {
     @Override
     protected LinkContentCheck checkGlobalData(final String data)
     {
-        _parser = new GitlabBlogLinkContentParser(data, getUrl());
+        _parser = new GitlabBlogLinkContentParser(getUrl(), data);
 
         return null;
     }
@@ -73,7 +73,7 @@ public class GitlabBlogLinkContentChecker extends LinkContentChecker {
             return new LinkContentCheck("GitLab blog should have a creation date");
         }
 
-        final LocalDate effectiveDate = _parser.getDate();
+        final LocalDate effectiveDate = _parser.getDateInternal();
 
         if (!creationDate.get().equals(effectiveDate)) {
             return new LinkContentCheck("expected creation date " +

@@ -17,20 +17,18 @@ import utils.xmlparsing.LinkData;
 public class OracleBlogsLinkContentChecker extends LinkContentChecker {
 
     private OracleBlogsLinkContentParser _parser;
-    private final String _url;
 
     public OracleBlogsLinkContentChecker(final String url,
                                          final LinkData linkData,
                                          final Optional<ArticleData> articleData,
                                          final FileSection file) {
         super(url, linkData, articleData, file);
-        _url = url;
     }
 
     @Override
     protected LinkContentCheck checkGlobalData(final String data)
     {
-        _parser = new OracleBlogsLinkContentParser(data, _url);
+        _parser = new OracleBlogsLinkContentParser(getUrl(), data);
         return null;
     }
 
@@ -59,7 +57,7 @@ public class OracleBlogsLinkContentChecker extends LinkContentChecker {
             return new LinkContentCheck("Oracle Blogs article should have zero or one subtitle");
         }
 
-        final Optional<String> effectiveSubtitle = _parser.getSubtitle();
+        final Optional<String> effectiveSubtitle = _parser.getSubtitleInternal();
 
         if (effectiveSubtitle.isEmpty()) {
             if (subtitles.length != 0 ) {
@@ -109,7 +107,7 @@ public class OracleBlogsLinkContentChecker extends LinkContentChecker {
         final TemporalAccessor date =  publicationDate.isPresent() ? publicationDate.get()
                                                                    : creationDate.get();
 
-        final LocalDate effectiveDate = _parser.getDate();
+        final LocalDate effectiveDate = _parser.getDateInternal();
 
         if (!date.equals(effectiveDate)) {
             return new LinkContentCheck("expected publication date " +

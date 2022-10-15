@@ -35,7 +35,7 @@ public class OracleBlogsLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-                               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(data, url);
+                               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data);
                                Assertions.assertEquals(expectedTitle, parser.getTitle());
                                consumerHasBeenCalled.set(true);
                            });
@@ -68,9 +68,9 @@ public class OracleBlogsLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-                               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(data, url);
-                               Assertions.assertTrue(parser.getSubtitle().isPresent());
-                               Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
+                               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data);
+                               Assertions.assertTrue(parser.getSubtitleInternal().isPresent());
+                               Assertions.assertEquals(expectedSubtitle, parser.getSubtitleInternal().get());
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -91,8 +91,8 @@ public class OracleBlogsLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-                               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(data, url);
-                               Assertions.assertFalse(parser.getSubtitle().isPresent());
+                               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data);
+                               Assertions.assertFalse(parser.getSubtitleInternal().isPresent());
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -116,8 +116,8 @@ public class OracleBlogsLinkContentParserTest {
           (final Boolean b, final SiteData d) -> {
               Assertions.assertTrue(d.getDataFile().isPresent());
               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-              final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(data, url);
-              Assertions.assertEquals(expectedDate, parser.getDate().toString());
+              final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data);
+              Assertions.assertEquals(expectedDate, parser.getDateInternal().toString());
               consumerHasBeenCalled.set(true);
           });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -146,7 +146,7 @@ public class OracleBlogsLinkContentParserTest {
           (final Boolean b, final SiteData d) -> {
               Assertions.assertTrue(d.getDataFile().isPresent());
               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-              final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(data, url);
+              final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data);
               Assertions.assertEquals(1, parser.getAuthors().size());
               Assertions.assertEquals(expectedAuthor, parser.getAuthors().get(0));
               consumerHasBeenCalled.set(true);
@@ -182,7 +182,7 @@ public class OracleBlogsLinkContentParserTest {
           (final Boolean b, final SiteData d) -> {
               Assertions.assertTrue(d.getDataFile().isPresent());
               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-              final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(data, url);
+              final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data);
               Assertions.assertEquals(2, parser.getAuthors().size());
               Assertions.assertEquals(expectedAuthor1, parser.getAuthors().get(0));
               Assertions.assertEquals(expectedAuthor2, parser.getAuthors().get(1));
@@ -202,11 +202,11 @@ public class OracleBlogsLinkContentParserTest {
           (final Boolean b, final SiteData d) -> {
               Assertions.assertTrue(d.getDataFile().isPresent());
               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-              final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(data, url);
+              final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data);
               Assertions.assertEquals("", parser.getTitle());
-              Assertions.assertTrue(parser.getSubtitle().isEmpty());
+              Assertions.assertTrue(parser.getSubtitleInternal().isEmpty());
               Assertions.assertEquals(0, parser.getAuthors().size());
-              Assertions.assertEquals("1970-01-01", parser.getDate().toString());
+              Assertions.assertEquals("1970-01-01", parser.getDateInternal().toString());
               consumerHasBeenCalled.set(true);
           });
         Assertions.assertTrue(consumerHasBeenCalled.get());

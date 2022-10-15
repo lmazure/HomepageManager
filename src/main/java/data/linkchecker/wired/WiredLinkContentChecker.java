@@ -28,7 +28,7 @@ public class WiredLinkContentChecker extends LinkContentChecker {
     @Override
     protected LinkContentCheck checkGlobalData(final String data)
     {
-        _parser = new WiredLinkContentParser(data, getUrl());
+        _parser = new WiredLinkContentParser(getUrl(), data);
 
         return null;
     }
@@ -105,7 +105,7 @@ public class WiredLinkContentChecker extends LinkContentChecker {
             return new LinkContentCheck("Wired article should have a creation date");
         }
 
-        final LocalDate effectiveDate = _parser.getDate();
+        final LocalDate effectiveDate = _parser.getDateInternal();
 
         if (!creationDate.get().equals(effectiveDate)) {
             return new LinkContentCheck("expected creation date " +

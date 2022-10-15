@@ -28,7 +28,7 @@ public class BaeldungLinkContentChecker extends LinkContentChecker {
     @Override
     protected LinkContentCheck checkGlobalData(final String data)
     {
-        _parser = new BaeldungLinkContentParser(data, getUrl());
+        _parser = new BaeldungLinkContentParser(getUrl(), data);
         return null;
     }
 
@@ -82,7 +82,7 @@ public class BaeldungLinkContentChecker extends LinkContentChecker {
             return new LinkContentCheck("Baeldung article should have a creation date");
         }
 
-        final LocalDate effectiveDate = _parser.getDate();
+        final LocalDate effectiveDate = _parser.getDateInternal();
 
         if (!creationDate.get().equals(effectiveDate)) {
             return new LinkContentCheck("expected creation date " +

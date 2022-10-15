@@ -3,16 +3,22 @@ package data.linkchecker.baeldung;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.TemporalAccessor;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
 import data.linkchecker.ContentParserException;
+import data.linkchecker.ExtractedLinkData;
 import data.linkchecker.LinkContentParserUtils;
+import data.linkchecker.LinkDataExtractor;
 import data.linkchecker.TextParser;
 import utils.HtmlHelper;
 import utils.xmlparsing.AuthorData;
+import utils.xmlparsing.LinkFormat;
 
-public class BaeldungLinkContentParser {
+public class BaeldungLinkContentParser extends LinkDataExtractor {
 
     private final String _data;
 
@@ -33,8 +39,9 @@ public class BaeldungLinkContentParser {
                          "author");
     private static DateTimeFormatter s_formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.US);
 
-    public BaeldungLinkContentParser(final String data,
-                                     @SuppressWarnings("unused") final String url) {
+    public BaeldungLinkContentParser(final String url,
+                                     final String data) {
+        super(url);
         _data = data;
     }
 
@@ -42,7 +49,7 @@ public class BaeldungLinkContentParser {
         return HtmlHelper.cleanContent(s_titleParser.extract(_data));
     }
 
-    public LocalDate getDate() throws ContentParserException {
+    public LocalDate getDateInternal() throws ContentParserException {
         final String date = HtmlHelper.cleanContent(s_dateParser.extract(_data));
         try {
             return LocalDate.parse(date, s_formatter);
@@ -58,4 +65,44 @@ public class BaeldungLinkContentParser {
         }
         return Optional.of(LinkContentParserUtils.getAuthor(author));
     }
-}
+
+    @Override
+    public Optional<TemporalAccessor> getDate() throws ContentParserException {
+        return Optional.of(getDateInternal());
+    }
+
+    @Override
+    public List<AuthorData> getSureAuthors() throws ContentParserException {
+        final Optional<AuthorData> authorData = getAuthor();
+        final List<AuthorData> list = new ArrayList<>(1);
+        if (authorData.isPresent()) {
+            list.add(authorData.get());
+        }
+        return list;
+    }
+
+    @Override
+    public List<AuthorData> getProbableAuthors() {
+        return new ArrayList<>(0);
+    }
+
+    @Override
+    public List<AuthorData> getPossibleAuthors()  {
+        return new ArrayList<>(0);
+    }
+
+    @Override
+    public List<ExtractedLinkData> getLinks() throws ContentParserException {
+        final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
+                                                                 new String[] { },
+                                                                 getUrl().toString(),
+                                                                 Optional.empty(),
+                                                                 Optional.empty(),
+                                                                 new LinkFormat[] { LinkFormat.HTML },
+                                                                 new Locale[] { Locale.ENGLISH },
+                                                                 Optional.empty(),
+                                                                 Optional.empty());
+        final List<ExtractedLinkData> list = new ArrayList<>(1);
+        list.add(linkData);
+        return list;
+    }}

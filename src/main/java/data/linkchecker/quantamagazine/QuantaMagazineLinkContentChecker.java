@@ -28,7 +28,7 @@ public class QuantaMagazineLinkContentChecker extends LinkContentChecker {
     @Override
     protected LinkContentCheck checkGlobalData(final String data)
     {
-        _parser = new QuantaMagazineLinkContentParser(data, getUrl());
+        _parser = new QuantaMagazineLinkContentParser(getUrl(), data);
 
         return null;
     }
@@ -94,7 +94,7 @@ public class QuantaMagazineLinkContentChecker extends LinkContentChecker {
             return new LinkContentCheck("Quanta Magazine article should have a creation date");
         }
 
-        final LocalDate effectiveDate = _parser.getDate();
+        final LocalDate effectiveDate = _parser.getDateInternal();
 
         if (!creationDate.get().equals(effectiveDate)) {
             return new LinkContentCheck("expected creation date " +
