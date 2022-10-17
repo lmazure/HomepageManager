@@ -1,6 +1,7 @@
 package data.linkchecker;
 
 import java.time.temporal.TemporalAccessor;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,9 +23,21 @@ public abstract class LinkDataExtractor {
 
     public abstract List<AuthorData> getSureAuthors() throws ContentParserException;
 
-    public abstract List<AuthorData> getProbableAuthors() throws ContentParserException;
+    /**
+     * @throws ContentParserException  
+     */
+    @SuppressWarnings("static-method")
+    public List<AuthorData> getProbableAuthors() throws ContentParserException {
+        return new ArrayList<>(0);
+    }
 
-    public abstract List<AuthorData> getPossibleAuthors() throws ContentParserException;
+    /**
+     * @throws ContentParserException  
+     */
+    @SuppressWarnings("static-method")
+    public List<AuthorData> getPossibleAuthors() throws ContentParserException {
+        return new ArrayList<>(0);
+    }
 
     public abstract List<ExtractedLinkData> getLinks() throws ContentParserException;
 }

@@ -181,7 +181,7 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
         return _subtitle;
     }
 
-    public LocalDate getDateInternal() {
+    private LocalDate getDateInternal() {
         if (_exception != null) {
             return LocalDate.of(1970, 1, 1);
         }
@@ -234,16 +234,6 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
     @Override
     public List<AuthorData> getSureAuthors() throws ContentParserException {
         return getAuthors();
-    }
-
-    @Override
-    public List<AuthorData> getProbableAuthors() {
-        return new ArrayList<>(0);
-    }
-
-    @Override
-    public List<AuthorData> getPossibleAuthors()  {
-        return new ArrayList<>(0);
     }
 
     @Override

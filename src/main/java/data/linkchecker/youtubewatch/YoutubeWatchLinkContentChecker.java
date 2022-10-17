@@ -104,8 +104,8 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
        }
 
         final LocalDate expectedDate = (LocalDate)date;
-        final LocalDate effectivePublishDate = _parser.getPublishDate();
-        final LocalDate effectiveUploadDate = _parser.getUploadDate();
+        final LocalDate effectivePublishDate = _parser.getPublishDateInternal();
+        final LocalDate effectiveUploadDate = _parser.getUploadDateInternal();
 
         if (!expectedDate.equals(effectivePublishDate)) {
             return new LinkContentCheck("expected date " +

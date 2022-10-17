@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalAccessor;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
 
@@ -32,6 +36,18 @@ public class TestHelper {
         } catch (final IOException e) {
             Assertions.fail("failure to read data file " + data.getDataFile().get() + " (" + e.getMessage() +")");
         }
+    }
+
+    public static void assertDate(final String expectedDateAsString,
+                                  final Optional<TemporalAccessor> date) {
+        Assertions.assertTrue(date.isPresent());
+        Assertions.assertTrue(date.get().isSupported(ChronoField.YEAR));
+        Assertions.assertTrue(date.get().isSupported(ChronoField.MONTH_OF_YEAR));
+        Assertions.assertTrue(date.get().isSupported(ChronoField.DAY_OF_MONTH));
+        final LocalDate d = LocalDate.of(date.get().get(ChronoField.YEAR),
+                                         date.get().get(ChronoField.MONTH_OF_YEAR),
+                                         date.get().get(ChronoField.DAY_OF_MONTH));
+        Assertions.assertEquals(expectedDateAsString, d.toString());
     }
 
     public static SynchronousSiteDataRetriever buildDataSiteRetriever(final Class<?> clazz) {

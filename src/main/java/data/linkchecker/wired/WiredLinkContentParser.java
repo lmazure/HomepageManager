@@ -90,7 +90,7 @@ public class WiredLinkContentParser extends LinkDataExtractor {
         return Optional.of(_subtitle);
     }
 
-    public LocalDate getDateInternal() throws ContentParserException {
+    private LocalDate getDateInternal() throws ContentParserException {
         if (_exception != null) {
             throw _exception;
         }
@@ -112,17 +112,6 @@ public class WiredLinkContentParser extends LinkDataExtractor {
     @Override
     public List<AuthorData> getSureAuthors() throws ContentParserException {
         return getAuthors();
-    }
-
-
-    @Override
-    public List<AuthorData> getProbableAuthors() {
-        return new ArrayList<>(0);
-    }
-
-    @Override
-    public List<AuthorData> getPossibleAuthors()  {
-        return new ArrayList<>(0);
     }
 
     @Override

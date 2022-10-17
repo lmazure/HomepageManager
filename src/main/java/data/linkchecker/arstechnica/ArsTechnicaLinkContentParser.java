@@ -57,7 +57,7 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
         return HtmlHelper.cleanContent(s_subtitleParser.extract(_data));
     }
 
-    public LocalDate getDateInternal() throws ContentParserException {
+    private LocalDate getDateInternal() throws ContentParserException {
         final String date = HtmlHelper.cleanContent(s_dateParser.extract(_data));
         final Instant instant = Instant.ofEpochSecond(Long.parseLong(date));
         return LocalDate.ofInstant(instant, ZoneId.of("Europe/Paris"));

@@ -1,6 +1,7 @@
 package data.linkchecker.arstechnica;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
 import java.util.List;
 import java.util.Locale;
@@ -93,8 +94,10 @@ public class ArsTechnicaLinkContentChecker extends LinkContentChecker {
             return new LinkContentCheck("Ars Technica article should have a creation date");
         }
 
-        final LocalDate effectiveDate = _parser.getDateInternal();
-
+        final TemporalAccessor d = _parser.getDate().get();
+        final LocalDate effectiveDate = LocalDate.of(d.get(ChronoField.YEAR),
+                                                     d.get(ChronoField.MONTH_OF_YEAR),
+                                                     d.get(ChronoField.DAY_OF_MONTH));
         if (!creationDate.get().equals(effectiveDate)) {
             return new LinkContentCheck("expected creation date " +
                                         creationDate.get() +

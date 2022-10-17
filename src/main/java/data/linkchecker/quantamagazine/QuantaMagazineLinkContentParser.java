@@ -54,7 +54,7 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
         return HtmlHelper.cleanContent(s_subtitleParser.extract(_data));
     }
 
-    public LocalDate getDateInternal() throws ContentParserException {
+    private LocalDate getDateInternal() throws ContentParserException {
         return LocalDate.parse(HtmlHelper.cleanContent(s_dateParser.extract(_data)));
     }
 
@@ -78,16 +78,6 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
     @Override
     public List<AuthorData> getSureAuthors() throws ContentParserException {
         return getAuthors();
-    }
-
-    @Override
-    public List<AuthorData> getProbableAuthors() {
-        return new ArrayList<>(0);
-    }
-
-    @Override
-    public List<AuthorData> getPossibleAuthors()  {
-        return new ArrayList<>(0);
     }
 
     @Override

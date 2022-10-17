@@ -1,6 +1,7 @@
 package data.linkchecker.oracleblogs;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
 import java.util.List;
 import java.util.Locale;
@@ -107,7 +108,10 @@ public class OracleBlogsLinkContentChecker extends LinkContentChecker {
         final TemporalAccessor date =  publicationDate.isPresent() ? publicationDate.get()
                                                                    : creationDate.get();
 
-        final LocalDate effectiveDate = _parser.getDateInternal();
+        final TemporalAccessor d = _parser.getDate().get();
+        final LocalDate effectiveDate = LocalDate.of(d.get(ChronoField.YEAR),
+                                                     d.get(ChronoField.MONTH_OF_YEAR),
+                                                     d.get(ChronoField.DAY_OF_MONTH));
 
         if (!date.equals(effectiveDate)) {
             return new LinkContentCheck("expected publication date " +

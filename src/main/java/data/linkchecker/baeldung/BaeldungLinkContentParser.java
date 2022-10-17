@@ -49,7 +49,7 @@ public class BaeldungLinkContentParser extends LinkDataExtractor {
         return HtmlHelper.cleanContent(s_titleParser.extract(_data));
     }
 
-    public LocalDate getDateInternal() throws ContentParserException {
+    private LocalDate getDateInternal() throws ContentParserException {
         final String date = HtmlHelper.cleanContent(s_dateParser.extract(_data));
         try {
             return LocalDate.parse(date, s_formatter);
@@ -79,16 +79,6 @@ public class BaeldungLinkContentParser extends LinkDataExtractor {
             list.add(authorData.get());
         }
         return list;
-    }
-
-    @Override
-    public List<AuthorData> getProbableAuthors() {
-        return new ArrayList<>(0);
-    }
-
-    @Override
-    public List<AuthorData> getPossibleAuthors()  {
-        return new ArrayList<>(0);
     }
 
     @Override

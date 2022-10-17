@@ -82,7 +82,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         return _description;
     }
 
-    public LocalDate getUploadDate() throws ContentParserException {
+    public LocalDate getUploadDateInternal() throws ContentParserException {
         if (_uploadDate == null) {
             _uploadDate = extractDate("uploadDate");
         }
@@ -90,7 +90,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         return _uploadDate;
     }
 
-    public LocalDate getPublishDate() throws ContentParserException {
+    public LocalDate getPublishDateInternal() throws ContentParserException {
         if (_publishDate == null) {
             _publishDate = extractDate("publishDate");
         }
@@ -430,7 +430,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
 
     @Override
     public Optional<TemporalAccessor> getDate() throws ContentParserException {
-        return Optional.of(getPublishDate());
+        return Optional.of(getPublishDateInternal());
     }
 
     @Override
@@ -486,7 +486,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public List<AuthorData> getPossibleAuthors() throws ContentParserException  {
+    public List<AuthorData> getPossibleAuthors() throws ContentParserException {
         final List<AuthorData> authors = new ArrayList<>();
         final String channel = getChannel();
         if (_channelData.containsKey(channel)) {

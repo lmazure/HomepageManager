@@ -249,12 +249,12 @@ public class YoutubeWatchLinkContentParserTest {
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
                                try {
-                                   Assertions.assertEquals(LocalDate.of(2019, 5, 27), parser.getUploadDate());
+                                   Assertions.assertEquals(LocalDate.of(2019, 5, 27), parser.getUploadDateInternal());
                                } catch (final ContentParserException e) {
                                    Assertions.fail("getUploadDate threw " + e.getMessage());
                                }
                                try {
-                                   Assertions.assertEquals(LocalDate.of(2019, 5, 27), parser.getPublishDate());
+                                   Assertions.assertEquals(LocalDate.of(2019, 5, 27), parser.getPublishDateInternal());
                                } catch (final ContentParserException e) {
                                    Assertions.fail("getPublishDate threw " + e.getMessage());
                                }

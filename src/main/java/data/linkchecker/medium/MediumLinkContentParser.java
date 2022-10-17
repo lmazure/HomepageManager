@@ -127,16 +127,6 @@ public class MediumLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public List<AuthorData> getProbableAuthors() {
-        return new ArrayList<>(0);
-    }
-
-    @Override
-    public List<AuthorData> getPossibleAuthors()  {
-        return new ArrayList<>(0);
-    }
-
-    @Override
     public List<ExtractedLinkData> getLinks() throws ContentParserException {
         final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
                                                                  new String[] { },

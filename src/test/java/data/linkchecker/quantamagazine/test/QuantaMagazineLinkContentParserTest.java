@@ -158,10 +158,10 @@ public class QuantaMagazineLinkContentParserTest {
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data);
                                try {
-                                   Assertions.assertEquals(expectedDate, parser.getDateInternal().toString());
-                                } catch (final ContentParserException e) {
-                                    Assertions.fail("getDate threw " + e.getMessage());
-                                }
+                                   TestHelper.assertDate(expectedDate, parser.getDate());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getDate threw " + e.getMessage());
+                               }
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());

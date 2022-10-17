@@ -134,7 +134,7 @@ public class WiredLinkContentParserTest {
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final WiredLinkContentParser parser = new WiredLinkContentParser(url, data);
                                try {
-                                   Assertions.assertEquals(expectedDate, parser.getDateInternal().toString());
+                                   TestHelper.assertDate(expectedDate, parser.getDate());
                                } catch (final ContentParserException e) {
                                    Assertions.fail("getDate threw " + e.getMessage());
                                }
