@@ -49,11 +49,6 @@ public class MediumLinkContentParser extends LinkDataExtractor {
         return _title;
     }
 
-    public List<AuthorData> getAuthors() throws ContentParserException {
-        loadData();
-        return _authors;
-    }
-
     public LocalDate getPublicationDate() throws ContentParserException {
         loadData();
         return _publicationDate;
@@ -123,7 +118,8 @@ public class MediumLinkContentParser extends LinkDataExtractor {
 
     @Override
     public List<AuthorData> getSureAuthors() throws ContentParserException {
-        return getAuthors();
+        loadData();
+        return _authors;
     }
 
     @Override

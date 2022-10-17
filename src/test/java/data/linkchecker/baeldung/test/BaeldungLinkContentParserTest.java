@@ -1,5 +1,6 @@
 package data.linkchecker.baeldung.test;
 
+import java.util.Collections;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -82,10 +83,9 @@ public class BaeldungLinkContentParserTest {
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(url, data);
                                try {
-                                   Assertions.assertTrue(parser.getAuthor().isPresent());
-                                   Assertions.assertEquals(expectedAuthor, parser.getAuthor().get());
+                                   Assertions.assertEquals(Collections.singletonList(expectedAuthor), parser.getSureAuthors());
                                 } catch (final ContentParserException e) {
-                                    Assertions.fail("getAuthor threw " + e.getMessage());
+                                    Assertions.fail("getSureAuthors threw " + e.getMessage());
                                 }
                                consumerHasBeenCalled.set(true);
                            });
@@ -105,9 +105,9 @@ public class BaeldungLinkContentParserTest {
                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                               final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(url, data);
                               try {
-                                  Assertions.assertTrue(parser.getAuthor().isEmpty());
+                                  Assertions.assertEquals(0, parser.getSureAuthors().size());
                                } catch (final ContentParserException e) {
-                                   Assertions.fail("getAuthor threw " + e.getMessage());
+                                   Assertions.fail("getSureAuthors threw " + e.getMessage());
                                }
                               consumerHasBeenCalled.set(true);
                           });

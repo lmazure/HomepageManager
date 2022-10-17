@@ -59,11 +59,6 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
         return _subtitle;
     }
 
-    public AuthorData getAuthor() throws ContentParserException {
-        loadData();
-        return _author;
-    }
-
     public LocalDate getPublicationDate() throws ContentParserException {
         loadData();
         return _publicationDate;
@@ -140,9 +135,9 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
 
     @Override
     public List<AuthorData> getSureAuthors() throws ContentParserException {
-        final AuthorData authorData = getAuthor();
+        loadData();
         final List<AuthorData> list = new ArrayList<>(1);
-        list.add(authorData);
+        list.add(_author);
         return list;
     }
 

@@ -97,13 +97,6 @@ public class WiredLinkContentParser extends LinkDataExtractor {
         return _publicationDate;
     }
 
-    public List<AuthorData> getAuthors() throws ContentParserException {
-        if (_exception != null) {
-            throw _exception;
-        }
-        return _authors;
-    }
-
     @Override
     public Optional<TemporalAccessor> getDate() throws ContentParserException {
         return Optional.of(getDateInternal());
@@ -111,7 +104,10 @@ public class WiredLinkContentParser extends LinkDataExtractor {
 
     @Override
     public List<AuthorData> getSureAuthors() throws ContentParserException {
-        return getAuthors();
+        if (_exception != null) {
+            throw _exception;
+        }
+        return _authors;
     }
 
     @Override

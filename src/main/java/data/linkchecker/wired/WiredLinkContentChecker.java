@@ -125,7 +125,7 @@ public class WiredLinkContentChecker extends LinkContentChecker {
     protected LinkContentCheck checkLinkAuthors(final String data,
                                                 final List<AuthorData> expectedAuthors) throws ContentParserException
     {
-        final List<AuthorData> effectiveAuthor = _parser.getAuthors();
+        final List<AuthorData> effectiveAuthor = _parser.getSureAuthors();
 
         return simpleCheckLinkAuthors(effectiveAuthor, expectedAuthors);
     }

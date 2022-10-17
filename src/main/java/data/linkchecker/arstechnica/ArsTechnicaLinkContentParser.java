@@ -63,14 +63,6 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
         return LocalDate.ofInstant(instant, ZoneId.of("Europe/Paris"));
     }
 
-    public Optional<AuthorData> getAuthor() throws ContentParserException {
-        final String authorName = s_authorParser.extract(_data);
-        if (authorName.equals("Ars Staff")) {
-            return Optional.empty();
-        }
-        return Optional.of(LinkContentParserUtils.getAuthor(authorName));
-    }
-
     @Override
     public Optional<TemporalAccessor> getDate() throws ContentParserException {
         return Optional.of(getDateInternal());
@@ -78,10 +70,10 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
 
     @Override
     public List<AuthorData> getSureAuthors() throws ContentParserException {
-        final Optional<AuthorData> authorData = getAuthor();
         final List<AuthorData> list = new ArrayList<>(1);
-        if (authorData.isPresent()) {
-            list.add(authorData.get());
+        final String authorName = s_authorParser.extract(_data);
+        if (!authorName.equals("Ars Staff")) {
+            list.add(LinkContentParserUtils.getAuthor(authorName));
         }
         return list;
     }

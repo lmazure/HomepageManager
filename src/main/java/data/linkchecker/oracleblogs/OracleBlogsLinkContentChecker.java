@@ -127,7 +127,7 @@ public class OracleBlogsLinkContentChecker extends LinkContentChecker {
     protected LinkContentCheck checkLinkAuthors(final String data,
                                                 final List<AuthorData> authors) throws ContentParserException
     {
-        final List<AuthorData> effectiveAuthor = _parser.getAuthors();
+        final List<AuthorData> effectiveAuthor = _parser.getSureAuthors();
 
         if (effectiveAuthor.size() != authors.size()) {
             return new LinkContentCheck("The number of authors (" +

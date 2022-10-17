@@ -107,25 +107,15 @@ public class GithubBlogLinkContentChecker extends LinkContentChecker {
 
     @Override
     protected LinkContentCheck checkLinkAuthors(final String data,
-                                                final List<AuthorData> authors) throws ContentParserException
+                                                final List<AuthorData> expectedAuthors) throws ContentParserException
     {
-        if (authors.size() > 1) {
+        if (expectedAuthors.size() > 1) {
             return new LinkContentCheck("GitHub blog article should have at most one author");
         }
 
-        final AuthorData effectiveAuthor = _parser.getAuthor();
-        if (authors.size() == 1) {
-            if (!effectiveAuthor.equals(authors.get(0))) {
-                return new LinkContentCheck("The expected author (" +
-                                            authors.get(0) +
-                                            ") is not equal to the effective author (" +
-                                            effectiveAuthor +
-                                            ")");
-            }
-            return null;
-        }
-        return new LinkContentCheck("No author is expected but there is one (" +
-                                    effectiveAuthor +
-                                    ")");
+
+        final List<AuthorData> effectiveAuthor = _parser.getSureAuthors();
+
+        return simpleCheckLinkAuthors(effectiveAuthor, expectedAuthors);
     }
 }

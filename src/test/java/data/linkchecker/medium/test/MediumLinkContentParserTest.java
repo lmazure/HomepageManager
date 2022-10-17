@@ -42,9 +42,10 @@ public class MediumLinkContentParserTest {
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final MediumLinkContentParser parser = new MediumLinkContentParser(url, data);
                                try {
-                                   Assertions.assertEquals(expectedAuthor, parser.getAuthors().get(0));
+                                   Assertions.assertEquals(1, parser.getSureAuthors().size());
+                                   Assertions.assertEquals(expectedAuthor, parser.getSureAuthors().get(0));
                                 } catch (final ContentParserException e) {
-                                    Assertions.fail("getAuthor threw " + e.getMessage());
+                                    Assertions.fail("getSureAuthors threw " + e.getMessage());
                                 }
                                consumerHasBeenCalled.set(true);
                            });

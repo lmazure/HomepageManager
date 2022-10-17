@@ -110,33 +110,14 @@ public class ArsTechnicaLinkContentChecker extends LinkContentChecker {
 
     @Override
     protected LinkContentCheck checkLinkAuthors(final String data,
-                                                final List<AuthorData> authors) throws ContentParserException
+                                                final List<AuthorData> expectedAuthors) throws ContentParserException
     {
-        if (authors.size() > 1) {
+        if (expectedAuthors.size() > 1) {
             return new LinkContentCheck("Ars Technica article should have at most one author");
         }
 
-        final Optional<AuthorData> effectiveAuthor = _parser.getAuthor();
-        if (effectiveAuthor.isPresent()) {
-            if (authors.size() == 1) {
-                if (!effectiveAuthor.get().equals(authors.get(0))) {
-                    return new LinkContentCheck("The expected author (" +
-                                                authors.get(0) +
-                                                ") is not equal to the effective author (" +
-                                                effectiveAuthor.get() +
-                                                ")");
-                }
-                return null;
-            }
-            return new LinkContentCheck("No author is expected but there is one (" +
-                                        effectiveAuthor.get() +
-                                        ")");
-        }
-        if (authors.size() == 1) {
-            return new LinkContentCheck("An author is expected (" +
-                                        authors.get(0) +
-                                        ") but there is none");
-        }
-        return null;
+        final List<AuthorData> effectiveAuthor = _parser.getSureAuthors();
+
+        return simpleCheckLinkAuthors(effectiveAuthor, expectedAuthors);
     }
 }

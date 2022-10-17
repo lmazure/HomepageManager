@@ -49,34 +49,22 @@ public class BaeldungLinkContentParser extends LinkDataExtractor {
         return HtmlHelper.cleanContent(s_titleParser.extract(_data));
     }
 
-    private LocalDate getDateInternal() throws ContentParserException {
+    @Override
+    public Optional<TemporalAccessor> getDate() throws ContentParserException {
         final String date = HtmlHelper.cleanContent(s_dateParser.extract(_data));
         try {
-            return LocalDate.parse(date, s_formatter);
+            return Optional.of(LocalDate.parse(date, s_formatter));
         } catch (final DateTimeParseException e) {
             throw new ContentParserException("Failed to parse date (" + date + ") in Baeldung page", e);
         }
     }
 
-    public Optional<AuthorData> getAuthor() throws ContentParserException {
-        final String author = s_authorParser.extract(_data);
-        if (author.equals("baeldung")) {
-            return Optional.empty();
-        }
-        return Optional.of(LinkContentParserUtils.getAuthor(author));
-    }
-
-    @Override
-    public Optional<TemporalAccessor> getDate() throws ContentParserException {
-        return Optional.of(getDateInternal());
-    }
-
     @Override
     public List<AuthorData> getSureAuthors() throws ContentParserException {
-        final Optional<AuthorData> authorData = getAuthor();
         final List<AuthorData> list = new ArrayList<>(1);
-        if (authorData.isPresent()) {
-            list.add(authorData.get());
+        final String author = s_authorParser.extract(_data);
+        if (!author.equals("baeldung")) {
+            list.add(LinkContentParserUtils.getAuthor(author));
         }
         return list;
     }

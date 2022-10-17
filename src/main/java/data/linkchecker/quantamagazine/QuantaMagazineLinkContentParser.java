@@ -58,7 +58,13 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
         return LocalDate.parse(HtmlHelper.cleanContent(s_dateParser.extract(_data)));
     }
 
-    public List<AuthorData> getAuthors() throws ContentParserException {
+    @Override
+    public Optional<TemporalAccessor> getDate() throws ContentParserException {
+        return Optional.of(getDateInternal());
+    }
+
+    @Override
+    public List<AuthorData> getSureAuthors() throws ContentParserException {
         final List<AuthorData> authors = new ArrayList<>();
         final Matcher m = s_authorPattern.matcher(_data);
         while (m.find()) {
@@ -68,16 +74,6 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
             throw new ContentParserException("Failed to find author in QuantaMagazine");
         }
         return authors;
-    }
-
-    @Override
-    public Optional<TemporalAccessor> getDate() throws ContentParserException {
-        return Optional.of(getDateInternal());
-    }
-
-    @Override
-    public List<AuthorData> getSureAuthors() throws ContentParserException {
-        return getAuthors();
     }
 
     @Override

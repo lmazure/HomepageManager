@@ -48,7 +48,13 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
         return LocalDate.parse(HtmlHelper.cleanContent(s_dateParser.extract(_data)));
     }
 
-    public List<AuthorData> getAuthors() throws ContentParserException {
+    @Override
+    public Optional<TemporalAccessor> getDate() throws ContentParserException {
+        return Optional.of(getDateInternal());
+    }
+
+    @Override
+    public List<AuthorData> getSureAuthors() throws ContentParserException {
         final String authors = s_authorParser.extract(_data);
         final List<AuthorData> authorList = new ArrayList<>();
         final String separator = " and ";
@@ -60,16 +66,6 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
             authorList.add(LinkContentParserUtils.getAuthor(authors));
         }
         return authorList;
-    }
-
-    @Override
-    public Optional<TemporalAccessor> getDate() throws ContentParserException {
-        return Optional.of(getDateInternal());
-    }
-
-    @Override
-    public List<AuthorData> getSureAuthors() throws ContentParserException {
-        return getAuthors();
     }
 
     @Override

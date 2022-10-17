@@ -190,10 +190,10 @@ public class QuantaMagazineLinkContentParserTest {
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data);
                                try {
-                                   Assertions.assertEquals(1, parser.getAuthors().size());
-                                   Assertions.assertEquals(expectedAuthor, parser.getAuthors().get(0));
+                                   Assertions.assertEquals(1, parser.getSureAuthors().size());
+                                   Assertions.assertEquals(expectedAuthor, parser.getSureAuthors().get(0));
                                 } catch (final ContentParserException e) {
-                                    Assertions.fail("getAuthors threw " + e.getMessage());
+                                    Assertions.fail("getSureAuthors threw " + e.getMessage());
                                 }
                                consumerHasBeenCalled.set(true);
                            });
@@ -222,10 +222,10 @@ public class QuantaMagazineLinkContentParserTest {
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data);
                                try {
-                                   Assertions.assertEquals(1, parser.getAuthors().size());
-                                   Assertions.assertEquals(expectedAuthor, parser.getAuthors().get(0));
+                                   Assertions.assertEquals(1, parser.getSureAuthors().size());
+                                   Assertions.assertEquals(expectedAuthor, parser.getSureAuthors().get(0));
                                 } catch (final ContentParserException e) {
-                                    Assertions.fail("getAuthors threw " + e.getMessage());
+                                    Assertions.fail("getSureAuthors threw " + e.getMessage());
                                 }
                                consumerHasBeenCalled.set(true);
                            });
@@ -263,11 +263,11 @@ public class QuantaMagazineLinkContentParserTest {
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data);
                                try {
-                                   Assertions.assertEquals(2, parser.getAuthors().size());
-                                   Assertions.assertEquals(expectedAuthor1, parser.getAuthors().get(0));
-                                   Assertions.assertEquals(expectedAuthor2, parser.getAuthors().get(1));
+                                   Assertions.assertEquals(2, parser.getSureAuthors().size());
+                                   Assertions.assertEquals(expectedAuthor1, parser.getSureAuthors().get(0));
+                                   Assertions.assertEquals(expectedAuthor2, parser.getSureAuthors().get(1));
                                 } catch (final ContentParserException e) {
-                                    Assertions.fail("getAuthors threw " + e.getMessage());
+                                    Assertions.fail("getSureAuthors threw " + e.getMessage());
                                 }
                                consumerHasBeenCalled.set(true);
                            });

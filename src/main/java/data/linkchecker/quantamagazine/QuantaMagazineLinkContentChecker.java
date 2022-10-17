@@ -117,7 +117,7 @@ public class QuantaMagazineLinkContentChecker extends LinkContentChecker {
             return new LinkContentCheck("Quanta Magazine should have at least one author");
         }
 
-        final List<AuthorData> effectiveAuthor = _parser.getAuthors();
+        final List<AuthorData> effectiveAuthor = _parser.getSureAuthors();
 
         return simpleCheckLinkAuthors(effectiveAuthor, expectedAuthors);
     }

@@ -97,7 +97,7 @@ public class GitlabBlogLinkContentChecker extends LinkContentChecker {
             return new LinkContentCheck("GitLab blog should have one or two authors");
         }
 
-        final List<AuthorData> effectiveAuthor = _parser.getAuthors();
+        final List<AuthorData> effectiveAuthor = _parser.getSureAuthors();
         if (!authors.get(0).equals(effectiveAuthor.get(0))) {
             return new LinkContentCheck("The first expected author (" +
                                         authors.get(0) +

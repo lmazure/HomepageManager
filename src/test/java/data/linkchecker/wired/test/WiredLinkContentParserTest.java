@@ -167,10 +167,10 @@ public class WiredLinkContentParserTest {
                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                               final WiredLinkContentParser parser = new WiredLinkContentParser(url, data);
                               try {
-                                  Assertions.assertEquals(1, parser.getAuthors().size());
-                                  Assertions.assertEquals(expectedAuthor, parser.getAuthors().get(0));
+                                  Assertions.assertEquals(1, parser.getSureAuthors().size());
+                                  Assertions.assertEquals(expectedAuthor, parser.getSureAuthors().get(0));
                               } catch (final ContentParserException e) {
-                                  Assertions.fail("getAuthors threw " + e.getMessage());
+                                  Assertions.fail("getSureAuthors threw " + e.getMessage());
                               }
                               consumerHasBeenCalled.set(true);
                           });
@@ -190,9 +190,9 @@ public class WiredLinkContentParserTest {
                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                               final WiredLinkContentParser parser = new WiredLinkContentParser(url, data);
                               try {
-                                  Assertions.assertEquals(0, parser.getAuthors().size());
+                                  Assertions.assertEquals(0, parser.getSureAuthors().size());
                               } catch (final ContentParserException e) {
-                                  Assertions.fail("getAuthors threw " + e.getMessage());
+                                  Assertions.fail("getSureAuthors threw " + e.getMessage());
                               }
                               consumerHasBeenCalled.set(true);
                           });

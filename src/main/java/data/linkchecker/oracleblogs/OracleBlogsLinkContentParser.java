@@ -188,16 +188,6 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
         return _publicationDate;
     }
 
-    public List<AuthorData> getAuthors() {
-        if (_exception != null) {
-            return new ArrayList<>();
-        }
-        if (_authorException != null) {
-            return new ArrayList<>();
-        }
-        return _authors;
-    }
-
     private String getStructureJson(final String url,
                                     final String site) throws IOException {
         final String urlJsonStructure = url.replaceFirst("/post/", "/")
@@ -233,7 +223,13 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
 
     @Override
     public List<AuthorData> getSureAuthors() throws ContentParserException {
-        return getAuthors();
+        if (_exception != null) {
+            return new ArrayList<>();
+        }
+        if (_authorException != null) {
+            return new ArrayList<>();
+        }
+        return _authors;
     }
 
     @Override
