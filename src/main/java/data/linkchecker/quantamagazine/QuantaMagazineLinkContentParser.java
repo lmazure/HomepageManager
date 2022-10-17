@@ -54,13 +54,9 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
         return HtmlHelper.cleanContent(s_subtitleParser.extract(_data));
     }
 
-    private LocalDate getDateInternal() throws ContentParserException {
-        return LocalDate.parse(HtmlHelper.cleanContent(s_dateParser.extract(_data)));
-    }
-
     @Override
     public Optional<TemporalAccessor> getDate() throws ContentParserException {
-        return Optional.of(getDateInternal());
+        return Optional.of(LocalDate.parse(HtmlHelper.cleanContent(s_dateParser.extract(_data))));
     }
 
     @Override

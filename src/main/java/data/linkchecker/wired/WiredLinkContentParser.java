@@ -90,16 +90,12 @@ public class WiredLinkContentParser extends LinkDataExtractor {
         return Optional.of(_subtitle);
     }
 
-    private LocalDate getDateInternal() throws ContentParserException {
+    @Override
+    public Optional<TemporalAccessor> getDate() throws ContentParserException {
         if (_exception != null) {
             throw _exception;
         }
-        return _publicationDate;
-    }
-
-    @Override
-    public Optional<TemporalAccessor> getDate() throws ContentParserException {
-        return Optional.of(getDateInternal());
+        return Optional.of(_publicationDate);
     }
 
     @Override

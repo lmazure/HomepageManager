@@ -181,13 +181,6 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
         return _subtitle;
     }
 
-    private LocalDate getDateInternal() {
-        if (_exception != null) {
-            return LocalDate.of(1970, 1, 1);
-        }
-        return _publicationDate;
-    }
-
     private String getStructureJson(final String url,
                                     final String site) throws IOException {
         final String urlJsonStructure = url.replaceFirst("/post/", "/")
@@ -218,7 +211,10 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
 
     @Override
     public Optional<TemporalAccessor> getDate() throws ContentParserException {
-        return Optional.of(getDateInternal());
+        if (_exception != null) {
+            return Optional.of(LocalDate.of(1970, 1, 1));
+        }
+        return Optional.of(_publicationDate);
     }
 
     @Override
