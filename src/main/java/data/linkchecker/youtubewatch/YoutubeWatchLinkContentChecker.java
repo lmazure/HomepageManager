@@ -4,18 +4,20 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAccessor;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import data.linkchecker.ContentParserException;
+import data.linkchecker.ExtractorBasedLinkContentChecker;
 import data.linkchecker.LinkContentCheck;
-import data.linkchecker.LinkContentChecker;
 import utils.FileSection;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkData;
 
-public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
+public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChecker {
 
     private YoutubeWatchLinkContentParser _parser;
 
@@ -23,13 +25,13 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
                                           final LinkData linkData,
                                           final Optional<ArticleData> articleData,
                                           final FileSection file) {
-        super(url, linkData, articleData, file);
+        super(url, linkData, articleData, file, (ThrowingLinkDataExtractor)YoutubeWatchLinkContentParser::new);
     }
 
     @Override
     protected LinkContentCheck checkGlobalData(final String data) throws ContentParserException {
-        _parser = new YoutubeWatchLinkContentParser(getUrl(), data);
-
+        super.checkGlobalData(data);
+        _parser = (YoutubeWatchLinkContentParser)(getParser()); // TODO cleanup this crap
         if (!_parser.isPlayable()) {
             return new LinkContentCheck("video is not playable");
         }
@@ -100,5 +102,16 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
        }
 
        return null;
+    }
+
+    @Override
+    protected LinkContentCheck checkLinkLanguages(final String data,
+                                                  final Locale[] languages) throws ContentParserException
+    {
+        if (!Arrays.asList(languages).contains(_parser.getLanguage())) {
+            return new LinkContentCheck("language is \"" + _parser.getLanguage() + "\" but this one is unexpected");
+        }
+
+        return null;
     }
 }

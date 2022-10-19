@@ -1,17 +1,12 @@
-- merge parser and extractor
-  - ars technica
-  - baeldung
-  - chromium
-  - githbug blog
-  - gitlab blog
-  - ibm
-  - medium
-  - oracle blogs
-  - quanta magazine
-  - twitter
-  - wired
-  - youtube channeluser
-  - youtube watch
+corriger toutes les régressions sur java.com
+
+- vérifier et committer HP
+- gérer les sous-titres medium
+- https://blogs.oracle.com/javamagazine/java-lists-view-unmodifiable-immutable
+The expected publication date 2022-06-27 is not equal to the effective date 2022-09-13
+- https://blogs.oracle.com/javamagazine/java-module-definition-export-packages
+subtitle "How do you provide access to a module’s classes to code outside that module?" should not be present
+
 
 ==== merge =====
 
@@ -23,6 +18,8 @@ the same for GitLab blog and probably other ones
 the best is probably to define a white list of the few having a publication date
 (and document this creation/publication date somewhere)
 on the other side, IBM must have a creation date
+
+cacher les requêtes à Oracle, elles sont trop lentes
 
 détecter author dupliqué
 

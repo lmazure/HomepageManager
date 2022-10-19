@@ -27,6 +27,10 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
         _extractorBuilder = extractorBuilder;
     }
 
+    protected LinkDataExtractor getParser() {
+        return _parser;
+    }
+
     @Override
     protected LinkContentCheck checkGlobalData(final String data) throws ContentParserException
     {
