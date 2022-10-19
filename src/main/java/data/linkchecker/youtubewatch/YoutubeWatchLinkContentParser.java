@@ -28,7 +28,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     private String _channel;
     private String _title;
     private String _description;
-    private Optional<Locale> _language;
+    private Locale _language;
     private Optional<Locale> _subtitlesLanguage;
     private LocalDate _uploadDate;
     private LocalDate _publishDate;
@@ -66,12 +66,18 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         return _channel;
     }
 
+    @Override
     public String getTitle() throws ContentParserException {
         if (_title == null) {
             _title = extractField("title");
         }
 
         return _title;
+    }
+
+    @Override
+    public Optional<String> getSubtitle() {
+        return Optional.empty();
     }
 
     public String getDescription() throws ContentParserException {
@@ -114,13 +120,15 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         return _maxDuration;
     }
 
-    public Optional<Locale> getLanguage() throws ContentParserException {
+    @Override
+    public Locale getLanguage() throws ContentParserException {
         if (_language == null) {
             final Optional<Locale> lang = getSubtitlesLanguage();
             if (lang.isPresent()) {
-                _language = lang;
+                _language = lang.get();
             } else {
-                _language = StringHelper.guessLanguage(getDescription());
+                final Optional<Locale> lang2 = StringHelper.guessLanguage(getDescription());
+                _language = lang2.isPresent() ? lang2.get() : Locale.ENGLISH;
             }
         }
 
@@ -504,7 +512,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     public List<ExtractedLinkData> getLinks() throws ContentParserException {
         final String channel = getChannel();
         final Locale lang = (_channelData.containsKey(channel)) ? _channelData.get(channel).getLanguage()
-                                                                : getLanguage().get();
+                                                                : getLanguage();
         final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
                                                                  new String[0],
                                                                  getUrl().toString(),
@@ -519,7 +527,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         return list;
     }
 
-    private static List<AuthorData> buildList(final AuthorData ... authors) {
+    private static List<AuthorData> buildList(final AuthorData ...authors) {
         return Arrays.asList(authors);
     }
 

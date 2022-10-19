@@ -70,8 +70,8 @@ public class OracleBlogsLinkContentParserTest {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data);
-                               Assertions.assertTrue(parser.getSubtitleInternal().isPresent());
-                               Assertions.assertEquals(expectedSubtitle, parser.getSubtitleInternal().get());
+                               Assertions.assertTrue(parser.getSubtitle().isPresent());
+                               Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -93,7 +93,7 @@ public class OracleBlogsLinkContentParserTest {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data);
-                               Assertions.assertFalse(parser.getSubtitleInternal().isPresent());
+                               Assertions.assertFalse(parser.getSubtitle().isPresent());
                                consumerHasBeenCalled.set(true);
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -218,7 +218,7 @@ public class OracleBlogsLinkContentParserTest {
                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data);
                               Assertions.assertEquals("", parser.getTitle());
-                              Assertions.assertTrue(parser.getSubtitleInternal().isEmpty());
+                              Assertions.assertTrue(parser.getSubtitle().isEmpty());
                               try {
                                   Assertions.assertEquals(0, parser.getSureAuthors().size());
                                } catch (final ContentParserException e) {

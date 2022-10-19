@@ -55,7 +55,7 @@ public class ArsTechnicaLinkContentParserTest {
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final ArsTechnicaLinkContentParser parser = new ArsTechnicaLinkContentParser(url, data);
                                try {
-                                   Assertions.assertEquals(expectedSubtitle, parser.getSubtitle());
+                                   Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
                                } catch (final ContentParserException e) {
                                    Assertions.fail("getSubtitle threw " + e.getMessage());
                                }

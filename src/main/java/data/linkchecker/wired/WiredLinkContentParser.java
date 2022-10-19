@@ -70,6 +70,7 @@ public class WiredLinkContentParser extends LinkDataExtractor {
         _exception = exception;
     }
 
+    @Override
     public String getTitle() throws ContentParserException {
         if (_exception != null) {
             throw _exception;
@@ -77,6 +78,7 @@ public class WiredLinkContentParser extends LinkDataExtractor {
         return _title;
     }
 
+    @Override
     public Optional<String> getSubtitle() throws ContentParserException {
         if (_exception != null) {
             throw _exception;
@@ -123,11 +125,16 @@ public class WiredLinkContentParser extends LinkDataExtractor {
                                                                  Optional.empty(),
                                                                  Optional.empty(),
                                                                  new LinkFormat[] { LinkFormat.HTML },
-                                                                 new Locale[] { Locale.ENGLISH },
+                                                                 new Locale[] { getLanguage() },
                                                                  Optional.empty(),
                                                                  Optional.empty());
         final List<ExtractedLinkData> list = new ArrayList<>(1);
         list.add(linkData);
         return list;
+    }
+
+    @Override
+    public Locale getLanguage() {
+        return Locale.ENGLISH;
     }
 }

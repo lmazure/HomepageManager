@@ -3,6 +3,7 @@ package data.linkchecker;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import utils.xmlparsing.AuthorData;
@@ -19,12 +20,18 @@ public abstract class LinkDataExtractor {
         return _url;
     }
 
+    public abstract String getTitle() throws ContentParserException;
+
+    public abstract Optional<String> getSubtitle() throws ContentParserException;
+
     public abstract Optional<TemporalAccessor> getDate() throws ContentParserException;
 
     public abstract List<AuthorData> getSureAuthors() throws ContentParserException;
 
+    public abstract Locale getLanguage() throws ContentParserException;
+
     /**
-     * @throws ContentParserException  
+     * @throws ContentParserException
      */
     @SuppressWarnings("static-method")
     public List<AuthorData> getProbableAuthors() throws ContentParserException {
@@ -32,7 +39,7 @@ public abstract class LinkDataExtractor {
     }
 
     /**
-     * @throws ContentParserException  
+     * @throws ContentParserException
      */
     @SuppressWarnings("static-method")
     public List<AuthorData> getPossibleAuthors() throws ContentParserException {

@@ -128,10 +128,8 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
     protected LinkContentCheck checkLinkLanguages(final String data,
                                                   final Locale[] languages) throws ContentParserException
     {
-        final Optional<Locale> language = _parser.getLanguage();
-
-        if (language.isPresent() && !Arrays.asList(languages).contains(language.get())) {
-            return new LinkContentCheck("language is \"" + language.get() + "\" but this one is unexpected");
+        if (!Arrays.asList(languages).contains(_parser.getLanguage())) {
+            return new LinkContentCheck("language is \"" + _parser.getLanguage() + "\" but this one is unexpected");
         }
 
         return null;

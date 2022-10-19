@@ -44,9 +44,15 @@ public class MediumLinkContentParser extends LinkDataExtractor {
         _code = url.substring(url.lastIndexOf("-") + 1);
     }
 
+    @Override
     public String getTitle() throws ContentParserException {
         loadData();
         return _title;
+    }
+
+    @Override
+    public Optional<String> getSubtitle() {
+        return Optional.empty();
     }
 
     public LocalDate getPublicationDate() throws ContentParserException {
@@ -130,11 +136,16 @@ public class MediumLinkContentParser extends LinkDataExtractor {
                                                                  Optional.empty(),
                                                                  Optional.empty(),
                                                                  new LinkFormat[] { LinkFormat.HTML },
-                                                                 new Locale[] { Locale.ENGLISH },
+                                                                 new Locale[] { getLanguage() },
                                                                  Optional.empty(),
                                                                  Optional.empty());
         final List<ExtractedLinkData> list = new ArrayList<>(1);
         list.add(linkData);
         return list;
+    }
+
+    @Override
+    public Locale getLanguage() {
+        return Locale.ENGLISH;
     }
 }

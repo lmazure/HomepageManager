@@ -49,14 +49,16 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
         _data = data;
     }
 
+    @Override
     public String getTitle() throws ContentParserException {
         loadData();
         return _title;
     }
 
-    public String getSubtitle() throws ContentParserException {
+    @Override
+    public Optional<String> getSubtitle() throws ContentParserException {
         loadData();
-        return _subtitle;
+        return Optional.of(_subtitle);
     }
 
     public LocalDate getPublicationDate() throws ContentParserException {
@@ -127,7 +129,7 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
         }
         _publicationDate = ZonedDateTime.parse(datePublished, DateTimeFormatter.ISO_DATE_TIME).toLocalDate();
     }
-    
+
     @Override
     public Optional<TemporalAccessor> getDate() throws ContentParserException {
         return Optional.of(getPublicationDate());
@@ -144,16 +146,21 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
     @Override
     public List<ExtractedLinkData> getLinks() throws ContentParserException {
         final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
-                                                                 new String[] { getSubtitle() },
+                                                                 new String[] { getSubtitle().get() },
                                                                  getUrl().toString(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
                                                                  new LinkFormat[] { LinkFormat.HTML },
-                                                                 new Locale[] { Locale.ENGLISH },
+                                                                 new Locale[] { getLanguage() },
                                                                  Optional.empty(),
                                                                  Optional.empty());
         final List<ExtractedLinkData> list = new ArrayList<>(1);
         list.add(linkData);
         return list;
+    }
+
+    @Override
+    public Locale getLanguage() {
+        return Locale.ENGLISH;
     }
 }

@@ -305,7 +305,7 @@ public class YoutubeWatchLinkContentParserTest {
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
                                try {
-                                   Assertions.assertEquals(Locale.ENGLISH, parser.getLanguage().get());
+                                   Assertions.assertEquals(Locale.ENGLISH, parser.getLanguage());
                                } catch (final ContentParserException e) {
                                    Assertions.fail("getLanguage threw " + e.getMessage());
                                }
@@ -341,7 +341,7 @@ public class YoutubeWatchLinkContentParserTest {
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
                                try {
-                                   Assertions.assertEquals(Locale.FRENCH, parser.getLanguage().get());
+                                   Assertions.assertEquals(Locale.FRENCH, parser.getLanguage());
                                } catch (final ContentParserException e) {
                                    Assertions.fail("getLanguage threw " + e.getMessage());
                                }

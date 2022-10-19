@@ -167,6 +167,7 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
         _authorException = null;
     }
 
+    @Override
     public String getTitle() {
         if (_exception != null) {
             return "";
@@ -174,7 +175,8 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
         return _title;
     }
 
-    public Optional<String> getSubtitleInternal() {
+    @Override
+    public Optional<String> getSubtitle() {
         if (_exception != null) {
             return Optional.empty();
         }
@@ -231,12 +233,13 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
     @Override
     public List<ExtractedLinkData> getLinks() throws ContentParserException {
         final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
-                                                                 getSubtitle(),
+                                                                 getSubtitle().isPresent() ? new String[] { getSubtitle().get() }
+                                                                                           : new String[] { },
                                                                  getUrl().toString(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
                                                                  new LinkFormat[] { LinkFormat.HTML },
-                                                                 new Locale[] { Locale.ENGLISH },
+                                                                 new Locale[] { getLanguage() },
                                                                  Optional.empty(),
                                                                  Optional.empty());
         final List<ExtractedLinkData> list = new ArrayList<>(1);
@@ -244,11 +247,9 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
         return list;
     }
 
-    private String[] getSubtitle() {
-        final Optional<String> subtitle = getSubtitleInternal();
-        if (subtitle.isPresent()) {
-            return new String[] { subtitle.get() };
-        }
-        return new String[] { };
+    @Override
+    public Locale getLanguage() {
+        return Locale.ENGLISH;
     }
+
 }

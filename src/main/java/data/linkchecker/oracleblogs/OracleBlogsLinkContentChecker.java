@@ -58,7 +58,7 @@ public class OracleBlogsLinkContentChecker extends LinkContentChecker {
             return new LinkContentCheck("Oracle Blogs article should have zero or one subtitle");
         }
 
-        final Optional<String> effectiveSubtitle = _parser.getSubtitleInternal();
+        final Optional<String> effectiveSubtitle = _parser.getSubtitle();
 
         if (effectiveSubtitle.isEmpty()) {
             if (subtitles.length != 0 ) {

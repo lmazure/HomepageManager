@@ -58,7 +58,7 @@ public class ArsTechnicaLinkContentChecker extends LinkContentChecker {
             return new LinkContentCheck("Ars Technica article should have one subtitle");
         }
 
-        final String effectiveSubtitle = _parser.getSubtitle();
+        final String effectiveSubtitle = _parser.getSubtitle().get();
 
         if (!subtitles[0].equals(effectiveSubtitle)) {
             return new LinkContentCheck("subtitle \"" +

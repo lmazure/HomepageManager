@@ -62,7 +62,7 @@ public class GithubBlogLinkContentParserTest {
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(url, data);
                                try {
-                                   Assertions.assertEquals(expectedSubtitle, parser.getSubtitle());
+                                   Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
                                } catch (final ContentParserException e) {
                                    Assertions.fail("getSubtitle threw " + e.getMessage());
                                }

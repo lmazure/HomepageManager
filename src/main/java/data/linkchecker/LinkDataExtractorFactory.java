@@ -34,7 +34,7 @@ public class LinkDataExtractorFactory {
                                                       , "utm_medium");
 
         ThrowingLinkDataExtractor constructor = null;
-                
+
         if (u.startsWith("https://arstechnica.com/")) {
             constructor = ArsTechnicaLinkContentParser::new;
         }
@@ -42,7 +42,6 @@ public class LinkDataExtractorFactory {
         if (u.startsWith("https://www.baeldung.com/") && !u.equals("https://www.baeldung.com/")) {
             constructor = BaeldungLinkContentParser::new;
         }
-
 
         if (url.startsWith("https://github.blog/")) {
             constructor = GithubBlogLinkContentParser::new;
@@ -94,7 +93,7 @@ public class LinkDataExtractorFactory {
             _content = HtmlHelper.slurpFile(siteData.getDataFile().get());
         }
     }
-    
+
     @FunctionalInterface
     private interface ThrowingLinkDataExtractor {
         LinkDataExtractor apply(final String url, final String data) throws ContentParserException;
