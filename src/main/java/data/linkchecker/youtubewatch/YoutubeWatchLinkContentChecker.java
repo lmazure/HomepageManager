@@ -4,16 +4,13 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAccessor;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 import data.linkchecker.ContentParserException;
 import data.linkchecker.LinkContentCheck;
 import data.linkchecker.LinkContentChecker;
 import utils.FileSection;
-import utils.StringHelper;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkData;
@@ -41,29 +38,10 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
     }
 
     @Override
-    public LinkContentCheck checkLinkTitle(final String data,
-                                           final String title) throws ContentParserException {
-
-        final String effectiveTitle = _parser.getTitle();
-
-        final String diff = StringHelper.compareAndExplainDifference(title, effectiveTitle);
-        if (diff != null) {
-            return new LinkContentCheck("title \"" +
-                                        title +
-                                        "\" is not equal to the real title \"" +
-                                        effectiveTitle +
-                                          "\"\n" +
-                                        diff);
-        }
-
-        return null;
-    }
-
-    @Override
     protected LinkContentCheck checkLinkAuthors(final String data,
                                                 final List<AuthorData> authors)
     {
-        return null;
+        return null; //TODO We will have to check YT authors somewhere in the future
     }
 
     @Override
@@ -122,16 +100,5 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
        }
 
        return null;
-    }
-
-    @Override
-    protected LinkContentCheck checkLinkLanguages(final String data,
-                                                  final Locale[] languages) throws ContentParserException
-    {
-        if (!Arrays.asList(languages).contains(_parser.getLanguage())) {
-            return new LinkContentCheck("language is \"" + _parser.getLanguage() + "\" but this one is unexpected");
-        }
-
-        return null;
     }
 }

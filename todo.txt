@@ -18,6 +18,12 @@
 gérer https://arstechnica.com/tech-policy/2022/09/texts-show-roll-call-of-tech-figures-tried-to-help-elon-musk-in-twitter-deal/
 Ars Technica article should have at most one author
 
+check that Baeldung article should have no publication date
+the same for GitLab blog and probably other ones
+the best is probably to define a white list of the few having a publication date
+(and document this creation/publication date somewhere)
+on the other side, IBM must have a creation date
+
 détecter author dupliqué
 
 ajouter support de https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se

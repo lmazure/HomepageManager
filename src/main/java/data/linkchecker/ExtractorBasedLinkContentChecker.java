@@ -8,6 +8,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 import utils.FileSection;
+import utils.StringHelper;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkData;
@@ -39,12 +40,14 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
     {
         final String effectiveTitle = _parser.getTitle();
 
-        if (!title.equals(effectiveTitle)) {
+        final String diff = StringHelper.compareAndExplainDifference(title, effectiveTitle);
+        if (diff != null) {
             return new LinkContentCheck("title \"" +
                                         title +
                                         "\" is not equal to the real title \"" +
                                         effectiveTitle +
-                                          "\"");
+                                          "\"\n" +
+                                        diff);
         }
 
         return null;
@@ -150,7 +153,7 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
     }
 
     @FunctionalInterface
-    private interface ThrowingLinkDataExtractor {
+    protected interface ThrowingLinkDataExtractor {
         LinkDataExtractor apply(final String url, final String data) throws ContentParserException;
     }
 }
