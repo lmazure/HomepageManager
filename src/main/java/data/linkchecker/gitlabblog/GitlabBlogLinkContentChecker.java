@@ -13,7 +13,7 @@ public class GitlabBlogLinkContentChecker extends ExtractorBasedLinkContentCheck
                                         final LinkData linkData,
                                         final Optional<ArticleData> articleData,
                                         final FileSection file) {
-        super(url, linkData, articleData, file, (ThrowingLinkDataExtractor)GitlabBlogLinkContentParser::new);
+        super(url, linkData, articleData, file, (LinkDataExtractorBuilder)GitlabBlogLinkContentParser::new);
     }
 
 }

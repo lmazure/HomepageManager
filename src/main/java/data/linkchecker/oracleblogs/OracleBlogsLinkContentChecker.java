@@ -13,6 +13,6 @@ public class OracleBlogsLinkContentChecker extends ExtractorBasedLinkContentChec
                                          final LinkData linkData,
                                          final Optional<ArticleData> articleData,
                                          final FileSection file) {
-        super(url, linkData, articleData, file, (ThrowingLinkDataExtractor)OracleBlogsLinkContentParser::new);
+        super(url, linkData, articleData, file, (LinkDataExtractorBuilder)OracleBlogsLinkContentParser::new);
     }
 }

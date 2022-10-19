@@ -13,6 +13,6 @@ public class BaeldungLinkContentChecker extends ExtractorBasedLinkContentChecker
                                       final LinkData linkData,
                                       final Optional<ArticleData> articleData,
                                       final FileSection file) {
-        super(url, linkData, articleData, file, (ThrowingLinkDataExtractor)BaeldungLinkContentParser::new);
+        super(url, linkData, articleData, file, (LinkDataExtractorBuilder)BaeldungLinkContentParser::new);
     }
 }

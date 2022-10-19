@@ -13,6 +13,6 @@ public class QuantaMagazineLinkContentChecker extends ExtractorBasedLinkContentC
                                             final LinkData linkData,
                                             final Optional<ArticleData> articleData,
                                             final FileSection file) {
-        super(url, linkData, articleData, file, (ThrowingLinkDataExtractor)QuantaMagazineLinkContentParser::new);
+        super(url, linkData, articleData, file, (LinkDataExtractorBuilder)QuantaMagazineLinkContentParser::new);
     }
 }

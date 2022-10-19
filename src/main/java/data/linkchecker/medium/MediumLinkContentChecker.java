@@ -13,6 +13,6 @@ public class MediumLinkContentChecker extends ExtractorBasedLinkContentChecker {
                                     final LinkData linkData,
                                     final Optional<ArticleData> articleData,
                                     final FileSection file) {
-        super(url, linkData, articleData, file, (ThrowingLinkDataExtractor)MediumLinkContentParser::new);
+        super(url, linkData, articleData, file, (LinkDataExtractorBuilder)MediumLinkContentParser::new);
     }
 }

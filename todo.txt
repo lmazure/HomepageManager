@@ -1,11 +1,11 @@
-corriger toutes les régressions sur java.com
-
-- vérifier et committer HP
-- gérer les sous-titres medium
 - https://blogs.oracle.com/javamagazine/java-lists-view-unmodifiable-immutable
 The expected publication date 2022-06-27 is not equal to the effective date 2022-09-13
 - https://blogs.oracle.com/javamagazine/java-module-definition-export-packages
 subtitle "How do you provide access to a module’s classes to code outside that module?" should not be present
+
+gérer
+https://medium.com/@kentbeck_7670/productive-compliments-giving-receiving-connecting-dda58570d96b
+subtitle "An early reviewer pointed out that what follows depends substantially on acting from a position of privilege. I’ll address that issue in a followup article." is not equal to the real subtitle "An early reviewer pointed out that what follows depends substantially on acting from a position of privilege. I’ll address that issue in a…"
 
 
 ==== merge =====

@@ -25,7 +25,7 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
                                           final LinkData linkData,
                                           final Optional<ArticleData> articleData,
                                           final FileSection file) {
-        super(url, linkData, articleData, file, (ThrowingLinkDataExtractor)YoutubeWatchLinkContentParser::new);
+        super(url, linkData, articleData, file, (LinkDataExtractorBuilder)YoutubeWatchLinkContentParser::new);
     }
 
     @Override

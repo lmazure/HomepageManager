@@ -52,33 +52,14 @@ public class MediumLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
-    @Test
-    void testShortTitle() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        final String url = "https://medium.com/@kentbeck_7670/bs-changes-e574bc396aaa";
-        retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-                               final MediumLinkContentParser parser = new MediumLinkContentParser(url, data);
-                               try {
-                                   Assertions.assertEquals("SB Changes", parser.getTitle());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getTitle threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           });
-        Assertions.assertTrue(consumerHasBeenCalled.get());
-    }
-
     @ParameterizedTest
     @CsvSource(value = {
+        "https://medium.com/@kentbeck_7670/bs-changes-e574bc396aaa|SB Changes",
         "https://medium.com/@kentbeck_7670/productive-compliments-giving-receiving-connecting-dda58570d96b|Productive Compliments: Giving, Receiving, Connecting",
         "https://medium.com/@kentbeck_7670/sipping-the-big-gulp-a7c50549c393|Sipping the Big Gulp: 2 Ways to Narrow an Interface"
         }, delimiter = '|')
-    void testLongTitle(final String url,
-                       final String expectedTitle) {
+    void testTitle(final String url,
+                   final String expectedTitle) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
@@ -96,6 +77,31 @@ public class MediumLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    
+    @ParameterizedTest
+    @CsvSource(value = {
+        "https://donraab.medium.com/nine-features-in-eclipse-collections-9-0-a2ca97dfdf74|CountBy, DistinctBy, Cartesian Product for primitive collections… and more."
+        }, delimiter = '|')
+    void testSubtitle(final String url,
+                      final String expectedSubtitle) {
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(url,
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               final MediumLinkContentParser parser = new MediumLinkContentParser(url, data);
+                               try {
+                                   Assertions.assertTrue(parser.getSubtitle().isPresent());
+                                   Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getSubtitle threw " + e.getMessage());
+                               }
+                               consumerHasBeenCalled.set(true);
+                           });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+    
     @Test
     void testTitleWithAmpersandAndLink() {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());

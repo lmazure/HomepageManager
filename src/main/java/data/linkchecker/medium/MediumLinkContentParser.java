@@ -28,6 +28,7 @@ public class MediumLinkContentParser extends LinkDataExtractor {
     private final String _code;
     private boolean _dataIsLoaded;
     private String _title;
+    private String _subtitle;
     private List<AuthorData> _authors;
     private LocalDate _publicationDate;
 
@@ -51,8 +52,9 @@ public class MediumLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public Optional<String> getSubtitle() {
-        return Optional.empty();
+    public Optional<String> getSubtitle() throws ContentParserException {
+        loadData();
+        return Optional.of(_subtitle);
     }
 
     public LocalDate getPublicationDate() throws ContentParserException {
@@ -101,7 +103,6 @@ public class MediumLinkContentParser extends LinkDataExtractor {
         } catch (final JSONException e) {
             throw new ContentParserException("Failed to find \"Post:" + _code +"/creator/__ref\" JSON field in Medium page", e);
         }
-
         JSONObject user;
         try {
             user = payload.getJSONObject(creatorCode);
@@ -115,6 +116,21 @@ public class MediumLinkContentParser extends LinkDataExtractor {
             throw new ContentParserException("Failed to find \"" + creatorCode +"/name\" JSON field in Medium page", e);
         }
         _authors = Collections.singletonList(LinkContentParserUtils.getAuthor(name));
+        
+
+        JSONObject previewContent;
+        try {
+            previewContent = post.getJSONObject("previewContent");
+        } catch (final JSONException e) {
+            throw new ContentParserException("Failed to find \"previewContent\" JSON object in Medium page", e);
+        }
+        String subtitle;
+        try {
+            subtitle = previewContent.getString("subtitle");
+        } catch (final JSONException e) {
+            throw new ContentParserException("Failed to find \"previewContent/subtitle\" JSON field in Medium page", e);
+        }
+        _subtitle = subtitle;
     }
 
     @Override

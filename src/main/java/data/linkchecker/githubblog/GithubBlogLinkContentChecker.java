@@ -13,6 +13,6 @@ public class GithubBlogLinkContentChecker extends ExtractorBasedLinkContentCheck
                                         final LinkData linkData,
                                         final Optional<ArticleData> articleData,
                                         final FileSection file) {
-        super(url, linkData, articleData, file, (ThrowingLinkDataExtractor)GithubBlogLinkContentParser::new);
+        super(url, linkData, articleData, file, (LinkDataExtractorBuilder)GithubBlogLinkContentParser::new);
     }
 }

@@ -13,6 +13,6 @@ public class WiredLinkContentChecker extends ExtractorBasedLinkContentChecker {
                                    final LinkData linkData,
                                    final Optional<ArticleData> articleData,
                                    final FileSection file) {
-        super(url, linkData, articleData, file, (ThrowingLinkDataExtractor)WiredLinkContentParser::new);
+        super(url, linkData, articleData, file, (LinkDataExtractorBuilder)WiredLinkContentParser::new);
     }
 }

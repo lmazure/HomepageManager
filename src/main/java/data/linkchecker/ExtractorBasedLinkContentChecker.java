@@ -15,14 +15,14 @@ import utils.xmlparsing.LinkData;
 
 public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
 
-    private final ThrowingLinkDataExtractor _extractorBuilder;
+    private final LinkDataExtractorBuilder _extractorBuilder;
     private LinkDataExtractor _parser;
 
     public ExtractorBasedLinkContentChecker(final String url,
                                             final LinkData linkData,
                                             final Optional<ArticleData> articleData,
                                             final FileSection file,
-                                            final ThrowingLinkDataExtractor extractorBuilder) {
+                                            final LinkDataExtractorBuilder extractorBuilder) {
         super(url, linkData, articleData, file);
         _extractorBuilder = extractorBuilder;
     }
@@ -34,7 +34,7 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
     @Override
     protected LinkContentCheck checkGlobalData(final String data) throws ContentParserException
     {
-        _parser = _extractorBuilder.apply(getUrl(), data);
+        _parser = _extractorBuilder.buildExtractor(getUrl(), data);
         return null;
     }
 
@@ -157,7 +157,7 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
     }
 
     @FunctionalInterface
-    protected interface ThrowingLinkDataExtractor {
-        LinkDataExtractor apply(final String url, final String data) throws ContentParserException;
+    protected interface LinkDataExtractorBuilder {
+        LinkDataExtractor buildExtractor(final String url, final String data) throws ContentParserException;
     }
 }
