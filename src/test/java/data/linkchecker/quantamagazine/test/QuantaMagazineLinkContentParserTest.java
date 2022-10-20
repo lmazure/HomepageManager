@@ -18,18 +18,21 @@ import utils.xmlparsing.AuthorData;
 
 public class QuantaMagazineLinkContentParserTest {
 
-    @Test
-    void testTitleWithPostfix() {
+    @ParameterizedTest
+    @CsvSource(value = {
+        "https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/|Universal Method to Sort Complex Information Found"
+        }, delimiter = '|')
+    void testTitleWithPostfix(final String url,
+                              final String expectedTitle) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        final String url = "https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/";
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data);
                                try {
-                                   Assertions.assertEquals("Universal Method to Sort Complex Information Found", parser.getTitle());
+                                   Assertions.assertEquals(expectedTitle, parser.getTitle());
                                } catch (final ContentParserException e) {
                                    Assertions.fail("getTitle threw " + e.getMessage());
                                }
@@ -38,18 +41,21 @@ public class QuantaMagazineLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
-    @Test
-    void testTitleWithoutPostfix() {
+    @ParameterizedTest
+    @CsvSource(value = {
+        "https://www.quantamagazine.org/mathematician-solves-computer-science-conjecture-in-two-pages-20190725/|Decades-Old Computer Science Conjecture Solved in Two Pages"
+        }, delimiter = '|')
+    void testTitleWithoutPostfix(final String url,
+                                 final String expectedTitle) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        final String url = "https://www.quantamagazine.org/mathematician-solves-computer-science-conjecture-in-two-pages-20190725/";
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data);
                                try {
-                                   Assertions.assertEquals("Decades-Old Computer Science Conjecture Solved in Two Pages", parser.getTitle());
+                                   Assertions.assertEquals(expectedTitle, parser.getTitle());
                                } catch (final ContentParserException e) {
                                    Assertions.fail("getTitle threw " + e.getMessage());
                                }

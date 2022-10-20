@@ -22,8 +22,8 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
 
     private final String _data;
     private static final TextParser s_titleParser
-        = new TextParser("<h1 class=\"ml025 h3 noe mv0\">",
-                         "</h1>",
+        = new TextParser("<div class=\"ml025 h3 noe mv0\">",
+                         "</div>",
                          "QuantaMagazine",
                          "title");
     private static final TextParser s_subtitleParser
