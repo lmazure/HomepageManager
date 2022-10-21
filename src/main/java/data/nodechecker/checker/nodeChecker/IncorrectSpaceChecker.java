@@ -31,6 +31,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "clinicaltrials.gov",
             "Clipboard.com",
             "Comma.ai",
+            "chess.com",
             "distributed.net",
             "e.g.",
             "Famo.us",
