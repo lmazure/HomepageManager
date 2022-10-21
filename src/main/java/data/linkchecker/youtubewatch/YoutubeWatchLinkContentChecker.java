@@ -10,15 +10,14 @@ import java.util.Locale;
 import java.util.Optional;
 
 import data.linkchecker.ContentParserException;
+import data.linkchecker.ExtractorBasedLinkContentChecker;
 import data.linkchecker.LinkContentCheck;
-import data.linkchecker.LinkContentChecker;
 import utils.FileSection;
-import utils.StringHelper;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkData;
 
-public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
+public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChecker {
 
     private YoutubeWatchLinkContentParser _parser;
 
@@ -26,34 +25,15 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
                                           final LinkData linkData,
                                           final Optional<ArticleData> articleData,
                                           final FileSection file) {
-        super(url, linkData, articleData, file);
+        super(url, linkData, articleData, file, (LinkDataExtractorBuilder)YoutubeWatchLinkContentParser::new);
     }
 
     @Override
     protected LinkContentCheck checkGlobalData(final String data) throws ContentParserException {
-        _parser = new YoutubeWatchLinkContentParser(data);
-
+        super.checkGlobalData(data);
+        _parser = (YoutubeWatchLinkContentParser)(getParser()); // TODO cleanup this crap
         if (!_parser.isPlayable()) {
             return new LinkContentCheck("video is not playable");
-        }
-
-        return null;
-    }
-
-    @Override
-    public LinkContentCheck checkLinkTitle(final String data,
-                                           final String title) throws ContentParserException {
-
-        final String effectiveTitle = _parser.getTitle();
-
-        final String diff = StringHelper.compareAndExplainDifference(title, effectiveTitle);
-        if (diff != null) {
-            return new LinkContentCheck("title \"" +
-                                        title +
-                                        "\" is not equal to the real title \"" +
-                                        effectiveTitle +
-                                          "\"\n" +
-                                        diff);
         }
 
         return null;
@@ -63,7 +43,7 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
     protected LinkContentCheck checkLinkAuthors(final String data,
                                                 final List<AuthorData> authors)
     {
-        return null;
+        return null; //TODO We will have to check YT authors somewhere in the future
     }
 
     @Override
@@ -104,8 +84,8 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
        }
 
         final LocalDate expectedDate = (LocalDate)date;
-        final LocalDate effectivePublishDate = _parser.getPublishDate();
-        final LocalDate effectiveUploadDate = _parser.getUploadDate();
+        final LocalDate effectivePublishDate = _parser.getPublishDateInternal();
+        final LocalDate effectiveUploadDate = _parser.getUploadDateInternal();
 
         if (!expectedDate.equals(effectivePublishDate)) {
             return new LinkContentCheck("expected date " +
@@ -128,10 +108,8 @@ public class YoutubeWatchLinkContentChecker extends LinkContentChecker {
     protected LinkContentCheck checkLinkLanguages(final String data,
                                                   final Locale[] languages) throws ContentParserException
     {
-        final Optional<Locale> language = _parser.getLanguage();
-
-        if (language.isPresent() && !Arrays.asList(languages).contains(language.get())) {
-            return new LinkContentCheck("language is \"" + language.get() + "\" but this one is unexpected");
+        if (!Arrays.asList(languages).contains(_parser.getLanguage())) {
+            return new LinkContentCheck("language is \"" + _parser.getLanguage() + "\" but this one is unexpected");
         }
 
         return null;

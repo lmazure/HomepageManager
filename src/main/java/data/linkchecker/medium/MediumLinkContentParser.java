@@ -4,23 +4,31 @@ import java.math.BigInteger;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.temporal.TemporalAccessor;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import data.linkchecker.ContentParserException;
+import data.linkchecker.ExtractedLinkData;
 import data.linkchecker.LinkContentParserUtils;
+import data.linkchecker.LinkDataExtractor;
 import data.linkchecker.TextParser;
 import utils.xmlparsing.AuthorData;
+import utils.xmlparsing.LinkFormat;
 
-public class MediumLinkContentParser {
+public class MediumLinkContentParser extends LinkDataExtractor {
 
     private final String _data;
     private final String _code;
     private boolean _dataIsLoaded;
     private String _title;
+    private String _subtitle;
     private List<AuthorData> _authors;
     private LocalDate _publicationDate;
 
@@ -30,20 +38,23 @@ public class MediumLinkContentParser {
                          "Medium",
                          "JSON preloaded state");
 
-    public MediumLinkContentParser(final String data,
-                                   final String url) {
+    public MediumLinkContentParser(final String url,
+                                   final String data) {
+        super(url);
         _data = data;
         _code = url.substring(url.lastIndexOf("-") + 1);
     }
 
+    @Override
     public String getTitle() throws ContentParserException {
         loadData();
         return _title;
     }
 
-    public List<AuthorData> getAuthors() throws ContentParserException {
+    @Override
+    public Optional<String> getSubtitle() throws ContentParserException {
         loadData();
-        return _authors;
+        return Optional.of(_subtitle);
     }
 
     public LocalDate getPublicationDate() throws ContentParserException {
@@ -92,7 +103,6 @@ public class MediumLinkContentParser {
         } catch (final JSONException e) {
             throw new ContentParserException("Failed to find \"Post:" + _code +"/creator/__ref\" JSON field in Medium page", e);
         }
-
         JSONObject user;
         try {
             user = payload.getJSONObject(creatorCode);
@@ -106,5 +116,52 @@ public class MediumLinkContentParser {
             throw new ContentParserException("Failed to find \"" + creatorCode +"/name\" JSON field in Medium page", e);
         }
         _authors = Collections.singletonList(LinkContentParserUtils.getAuthor(name));
+        
+
+        JSONObject previewContent;
+        try {
+            previewContent = post.getJSONObject("previewContent");
+        } catch (final JSONException e) {
+            throw new ContentParserException("Failed to find \"previewContent\" JSON object in Medium page", e);
+        }
+        String subtitle;
+        try {
+            subtitle = previewContent.getString("subtitle");
+        } catch (final JSONException e) {
+            throw new ContentParserException("Failed to find \"previewContent/subtitle\" JSON field in Medium page", e);
+        }
+        _subtitle = subtitle;
+    }
+
+    @Override
+    public Optional<TemporalAccessor> getDate() throws ContentParserException {
+        return Optional.of(getPublicationDate());
+    }
+
+    @Override
+    public List<AuthorData> getSureAuthors() throws ContentParserException {
+        loadData();
+        return _authors;
+    }
+
+    @Override
+    public List<ExtractedLinkData> getLinks() throws ContentParserException {
+        final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
+                                                                 new String[] { },
+                                                                 getUrl().toString(),
+                                                                 Optional.empty(),
+                                                                 Optional.empty(),
+                                                                 new LinkFormat[] { LinkFormat.HTML },
+                                                                 new Locale[] { getLanguage() },
+                                                                 Optional.empty(),
+                                                                 Optional.empty());
+        final List<ExtractedLinkData> list = new ArrayList<>(1);
+        list.add(linkData);
+        return list;
+    }
+
+    @Override
+    public Locale getLanguage() {
+        return Locale.ENGLISH;
     }
 }

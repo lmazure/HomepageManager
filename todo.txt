@@ -1,9 +1,25 @@
+- https://blogs.oracle.com/javamagazine/java-lists-view-unmodifiable-immutable
+The expected publication date 2022-06-27 is not equal to the effective date 2022-09-13
+- https://blogs.oracle.com/javamagazine/java-module-definition-export-packages
+subtitle "How do you provide access to a module’s classes to code outside that module?" should not be present
+
+gérer
+https://medium.com/@kentbeck_7670/productive-compliments-giving-receiving-connecting-dda58570d96b
+subtitle "An early reviewer pointed out that what follows depends substantially on acting from a position of privilege. I’ll address that issue in a followup article." is not equal to the real subtitle "An early reviewer pointed out that what follows depends substantially on acting from a position of privilege. I’ll address that issue in a…"
 
 
 ==== merge =====
 
 gérer https://arstechnica.com/tech-policy/2022/09/texts-show-roll-call-of-tech-figures-tried-to-help-elon-musk-in-twitter-deal/
 Ars Technica article should have at most one author
+
+check that Baeldung article should have no publication date
+the same for GitLab blog and probably other ones
+the best is probably to define a white list of the few having a publication date
+(and document this creation/publication date somewhere)
+on the other side, IBM must have a creation date
+
+cacher les requêtes à Oracle, elles sont trop lentes
 
 détecter author dupliqué
 

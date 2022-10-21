@@ -1,5 +1,6 @@
 package data.linkchecker.githubblog.test;
 
+import java.util.Collections;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -32,7 +33,7 @@ public class GithubBlogLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(data);
+                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(url, data);
                                try {
                                    Assertions.assertEquals(expectedTitle, parser.getTitle());
                                } catch (final ContentParserException e) {
@@ -59,9 +60,9 @@ public class GithubBlogLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(data);
+                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(url, data);
                                try {
-                                   Assertions.assertEquals(expectedSubtitle, parser.getSubtitle());
+                                   Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
                                } catch (final ContentParserException e) {
                                    Assertions.fail("getSubtitle threw " + e.getMessage());
                                }
@@ -82,7 +83,7 @@ public class GithubBlogLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(data);
+                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(url, data);
                                try {
                                    Assertions.assertEquals(expectedDate, parser.getPublicationDate().toString());
                                 } catch (final ContentParserException e) {
@@ -115,11 +116,11 @@ public class GithubBlogLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(data);
+                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(url, data);
                                try {
-                                   Assertions.assertEquals(expectedAuthor, parser.getAuthor());
+                                   Assertions.assertEquals(Collections.singletonList(expectedAuthor), parser.getSureAuthors());
                                 } catch (final ContentParserException e) {
-                                    Assertions.fail("getAuthor threw " + e.getMessage());
+                                    Assertions.fail("getSureAuthors threw " + e.getMessage());
                                 }
                                consumerHasBeenCalled.set(true);
                            });

@@ -32,7 +32,7 @@ public class WiredLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-                               final WiredLinkContentParser parser = new WiredLinkContentParser(data);
+                               final WiredLinkContentParser parser = new WiredLinkContentParser(url, data);
                                try {
                                    Assertions.assertEquals(expectedTitle, parser.getTitle());
                                } catch (final ContentParserException e) {
@@ -58,7 +58,7 @@ public class WiredLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-                               final WiredLinkContentParser parser = new WiredLinkContentParser(data);
+                               final WiredLinkContentParser parser = new WiredLinkContentParser(url, data);
                                try {
                                    Assertions.assertTrue(parser.getSubtitle().isPresent());
                                    Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
@@ -83,7 +83,7 @@ public class WiredLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-                               final WiredLinkContentParser parser = new WiredLinkContentParser(data);
+                               final WiredLinkContentParser parser = new WiredLinkContentParser(url, data);
                                try {
                                    Assertions.assertFalse(parser.getSubtitle().isPresent());
                                } catch (final ContentParserException e) {
@@ -107,7 +107,7 @@ public class WiredLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-                               final WiredLinkContentParser parser = new WiredLinkContentParser(data);
+                               final WiredLinkContentParser parser = new WiredLinkContentParser(url, data);
                                try {
                                    Assertions.assertFalse(parser.getSubtitle().isPresent());
                                } catch (final ContentParserException e) {
@@ -132,9 +132,9 @@ public class WiredLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-                               final WiredLinkContentParser parser = new WiredLinkContentParser(data);
+                               final WiredLinkContentParser parser = new WiredLinkContentParser(url, data);
                                try {
-                                   Assertions.assertEquals(expectedDate, parser.getDate().toString());
+                                   TestHelper.assertDate(expectedDate, parser.getDate());
                                } catch (final ContentParserException e) {
                                    Assertions.fail("getDate threw " + e.getMessage());
                                }
@@ -165,12 +165,12 @@ public class WiredLinkContentParserTest {
                           (final Boolean b, final SiteData d) -> {
                               Assertions.assertTrue(d.getDataFile().isPresent());
                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-                              final WiredLinkContentParser parser = new WiredLinkContentParser(data);
+                              final WiredLinkContentParser parser = new WiredLinkContentParser(url, data);
                               try {
-                                  Assertions.assertEquals(1, parser.getAuthors().size());
-                                  Assertions.assertEquals(expectedAuthor, parser.getAuthors().get(0));
+                                  Assertions.assertEquals(1, parser.getSureAuthors().size());
+                                  Assertions.assertEquals(expectedAuthor, parser.getSureAuthors().get(0));
                               } catch (final ContentParserException e) {
-                                  Assertions.fail("getAuthors threw " + e.getMessage());
+                                  Assertions.fail("getSureAuthors threw " + e.getMessage());
                               }
                               consumerHasBeenCalled.set(true);
                           });
@@ -188,11 +188,11 @@ public class WiredLinkContentParserTest {
                           (final Boolean b, final SiteData d) -> {
                               Assertions.assertTrue(d.getDataFile().isPresent());
                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-                              final WiredLinkContentParser parser = new WiredLinkContentParser(data);
+                              final WiredLinkContentParser parser = new WiredLinkContentParser(url, data);
                               try {
-                                  Assertions.assertEquals(0, parser.getAuthors().size());
+                                  Assertions.assertEquals(0, parser.getSureAuthors().size());
                               } catch (final ContentParserException e) {
-                                  Assertions.fail("getAuthors threw " + e.getMessage());
+                                  Assertions.fail("getSureAuthors threw " + e.getMessage());
                               }
                               consumerHasBeenCalled.set(true);
                           });

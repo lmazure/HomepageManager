@@ -1,5 +1,6 @@
 package data.linkchecker.arstechnica.test;
 
+import java.util.Collections;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -29,7 +30,7 @@ public class ArsTechnicaLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-                               final ArsTechnicaLinkContentParser parser = new ArsTechnicaLinkContentParser(data);
+                               final ArsTechnicaLinkContentParser parser = new ArsTechnicaLinkContentParser(url, data);
                                try {
                                    Assertions.assertEquals(expectedTitle, parser.getTitle());
                                } catch (final ContentParserException e) {
@@ -52,9 +53,9 @@ public class ArsTechnicaLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-                               final ArsTechnicaLinkContentParser parser = new ArsTechnicaLinkContentParser(data);
+                               final ArsTechnicaLinkContentParser parser = new ArsTechnicaLinkContentParser(url, data);
                                try {
-                                   Assertions.assertEquals(expectedSubtitle, parser.getSubtitle());
+                                   Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
                                } catch (final ContentParserException e) {
                                    Assertions.fail("getSubtitle threw " + e.getMessage());
                                }
@@ -76,9 +77,10 @@ public class ArsTechnicaLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-                               final ArsTechnicaLinkContentParser parser = new ArsTechnicaLinkContentParser(data);
+                               final ArsTechnicaLinkContentParser parser = new ArsTechnicaLinkContentParser(url, data);
                                try {
-                                   Assertions.assertEquals(expectedDate, parser.getDate().toString());
+                                   Assertions.assertTrue(parser.getDate().isPresent());
+                                   Assertions.assertEquals(expectedDate, parser.getDate().get().toString());
                                 } catch (final ContentParserException e) {
                                     Assertions.fail("getDate threw " + e.getMessage());
                                 }
@@ -112,12 +114,11 @@ public class ArsTechnicaLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-                               final ArsTechnicaLinkContentParser parser = new ArsTechnicaLinkContentParser(data);
+                               final ArsTechnicaLinkContentParser parser = new ArsTechnicaLinkContentParser(url, data);
                                try {
-                                   Assertions.assertTrue(parser.getAuthor().isPresent());
-                                   Assertions.assertEquals(expectedAuthor, parser.getAuthor().get());
+                                   Assertions.assertEquals(Collections.singletonList(expectedAuthor), parser.getSureAuthors());
                                 } catch (final ContentParserException e) {
-                                    Assertions.fail("getAuthor threw " + e.getMessage());
+                                    Assertions.fail("getSureAuthors threw " + e.getMessage());
                                 }
                                consumerHasBeenCalled.set(true);
                            });
@@ -135,11 +136,11 @@ public class ArsTechnicaLinkContentParserTest {
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
-                               final ArsTechnicaLinkContentParser parser = new ArsTechnicaLinkContentParser(data);
+                               final ArsTechnicaLinkContentParser parser = new ArsTechnicaLinkContentParser(url, data);
                                try {
-                                   Assertions.assertFalse(parser.getAuthor().isPresent());
+                                   Assertions.assertEquals(0, parser.getSureAuthors().size());
                                 } catch (final ContentParserException e) {
-                                    Assertions.fail("getAuthor threw " + e.getMessage());
+                                    Assertions.fail("getSureAuthors threw " + e.getMessage());
                                 }
                                consumerHasBeenCalled.set(true);
                            });

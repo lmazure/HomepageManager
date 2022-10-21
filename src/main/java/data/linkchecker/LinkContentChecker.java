@@ -305,4 +305,8 @@ public class LinkContentChecker {
         }
         return null;
     }
+
+    protected String getUrl() {
+        return _url;
+    }
 }

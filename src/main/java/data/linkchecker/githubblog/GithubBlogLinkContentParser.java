@@ -3,18 +3,26 @@ package data.linkchecker.githubblog;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import data.linkchecker.ContentParserException;
+import data.linkchecker.ExtractedLinkData;
 import data.linkchecker.LinkContentParserUtils;
+import data.linkchecker.LinkDataExtractor;
 import data.linkchecker.TextParser;
 import utils.HtmlHelper;
 import utils.xmlparsing.AuthorData;
+import utils.xmlparsing.LinkFormat;
 
-public class GithubBlogLinkContentParser {
+public class GithubBlogLinkContentParser extends LinkDataExtractor {
 
     private final String _data;
     private boolean _dataIsLoaded;
@@ -35,23 +43,22 @@ public class GithubBlogLinkContentParser {
                      "GitHub blog",
                      "subtitle");
 
-    public GithubBlogLinkContentParser(final String data) {
+    public GithubBlogLinkContentParser(final String url,
+                                       final String data) {
+        super(url);
         _data = data;
     }
 
+    @Override
     public String getTitle() throws ContentParserException {
         loadData();
         return _title;
     }
 
-    public String getSubtitle() throws ContentParserException {
+    @Override
+    public Optional<String> getSubtitle() throws ContentParserException {
         loadData();
-        return _subtitle;
-    }
-
-    public AuthorData getAuthor() throws ContentParserException {
-        loadData();
-        return _author;
+        return Optional.of(_subtitle);
     }
 
     public LocalDate getPublicationDate() throws ContentParserException {
@@ -121,5 +128,39 @@ public class GithubBlogLinkContentParser {
             throw new ContentParserException("Failed to find \"datePublished\" JSON object in GitHub Blog page");
         }
         _publicationDate = ZonedDateTime.parse(datePublished, DateTimeFormatter.ISO_DATE_TIME).toLocalDate();
+    }
+
+    @Override
+    public Optional<TemporalAccessor> getDate() throws ContentParserException {
+        return Optional.of(getPublicationDate());
+    }
+
+    @Override
+    public List<AuthorData> getSureAuthors() throws ContentParserException {
+        loadData();
+        final List<AuthorData> list = new ArrayList<>(1);
+        list.add(_author);
+        return list;
+    }
+
+    @Override
+    public List<ExtractedLinkData> getLinks() throws ContentParserException {
+        final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
+                                                                 new String[] { getSubtitle().get() },
+                                                                 getUrl().toString(),
+                                                                 Optional.empty(),
+                                                                 Optional.empty(),
+                                                                 new LinkFormat[] { LinkFormat.HTML },
+                                                                 new Locale[] { getLanguage() },
+                                                                 Optional.empty(),
+                                                                 Optional.empty());
+        final List<ExtractedLinkData> list = new ArrayList<>(1);
+        list.add(linkData);
+        return list;
+    }
+
+    @Override
+    public Locale getLanguage() {
+        return Locale.ENGLISH;
     }
 }

@@ -1,16 +1,22 @@
 package data.linkchecker.gitlabblog;
 
 import java.time.LocalDate;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 
 import data.linkchecker.ContentParserException;
+import data.linkchecker.ExtractedLinkData;
 import data.linkchecker.LinkContentParserUtils;
+import data.linkchecker.LinkDataExtractor;
 import data.linkchecker.TextParser;
 import utils.HtmlHelper;
 import utils.xmlparsing.AuthorData;
+import utils.xmlparsing.LinkFormat;
 
-public class GitlabBlogLinkContentParser {
+public class GitlabBlogLinkContentParser extends LinkDataExtractor {
 
     private final String _data;
     private static final TextParser s_titleParser = new TextParser("<meta content='",
@@ -28,19 +34,29 @@ public class GitlabBlogLinkContentParser {
                                                                     "GitLab blog",
                                                                     "author");
 
-    public GitlabBlogLinkContentParser(final String data) {
+    public GitlabBlogLinkContentParser(final String url,
+                                       final String data) {
+        super(url);
         _data = data;
     }
 
+    @Override
     public String getTitle() throws ContentParserException {
         return HtmlHelper.cleanContent(s_titleParser.extract(_data));
     }
 
-    public LocalDate getDate() throws ContentParserException {
-        return LocalDate.parse(HtmlHelper.cleanContent(s_dateParser.extract(_data)));
+    @Override
+    public Optional<String> getSubtitle() {
+        return Optional.empty();
     }
 
-    public List<AuthorData> getAuthors() throws ContentParserException {
+    @Override
+    public Optional<TemporalAccessor> getDate() throws ContentParserException {
+        return Optional.of(LocalDate.parse(HtmlHelper.cleanContent(s_dateParser.extract(_data))));
+    }
+
+    @Override
+    public List<AuthorData> getSureAuthors() throws ContentParserException {
         final String authors = s_authorParser.extract(_data);
         final List<AuthorData> authorList = new ArrayList<>();
         final String separator = " and ";
@@ -52,5 +68,26 @@ public class GitlabBlogLinkContentParser {
             authorList.add(LinkContentParserUtils.getAuthor(authors));
         }
         return authorList;
+    }
+
+    @Override
+    public List<ExtractedLinkData> getLinks() throws ContentParserException {
+        final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
+                                                                 new String[] { },
+                                                                 getUrl().toString(),
+                                                                 Optional.empty(),
+                                                                 Optional.empty(),
+                                                                 new LinkFormat[] { LinkFormat.HTML },
+                                                                 new Locale[] { getLanguage() },
+                                                                 Optional.empty(),
+                                                                 Optional.empty());
+        final List<ExtractedLinkData> list = new ArrayList<>(1);
+        list.add(linkData);
+        return list;
+    }
+
+    @Override
+    public Locale getLanguage() {
+        return Locale.ENGLISH;
     }
 }

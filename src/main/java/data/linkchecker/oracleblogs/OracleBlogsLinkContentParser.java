@@ -6,8 +6,10 @@ import java.nio.file.Path;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,12 +20,15 @@ import org.json.JSONObject;
 
 import data.internet.SynchronousSiteDataRetriever;
 import data.linkchecker.ContentParserException;
+import data.linkchecker.ExtractedLinkData;
 import data.linkchecker.LinkContentParserUtils;
+import data.linkchecker.LinkDataExtractor;
 import utils.HtmlHelper;
 import utils.UrlHelper;
 import utils.xmlparsing.AuthorData;
+import utils.xmlparsing.LinkFormat;
 
-public class OracleBlogsLinkContentParser {
+public class OracleBlogsLinkContentParser extends LinkDataExtractor {
 
     private static final String s_htmlTemplate = """
             <html>\r
@@ -49,9 +54,9 @@ public class OracleBlogsLinkContentParser {
     private final ContentParserException _authorException;
     private final SynchronousSiteDataRetriever _retriever;
 
-    public OracleBlogsLinkContentParser(final String data,
-                                        final String url) {
-
+    public OracleBlogsLinkContentParser(final String url,
+                                        final String data) {
+        super(url);
         _retriever = new SynchronousSiteDataRetriever(null);
 
         // retrieve site and caas from initial HTML
@@ -162,6 +167,7 @@ public class OracleBlogsLinkContentParser {
         _authorException = null;
     }
 
+    @Override
     public String getTitle() {
         if (_exception != null) {
             return "";
@@ -169,28 +175,12 @@ public class OracleBlogsLinkContentParser {
         return _title;
     }
 
+    @Override
     public Optional<String> getSubtitle() {
         if (_exception != null) {
             return Optional.empty();
         }
         return _subtitle;
-    }
-
-    public LocalDate getDate() {
-        if (_exception != null) {
-            return LocalDate.of(1970, 1, 1);
-        }
-        return _publicationDate;
-    }
-
-    public List<AuthorData> getAuthors() {
-        if (_exception != null) {
-            return new ArrayList<>();
-        }
-        if (_authorException != null) {
-            return new ArrayList<>();
-        }
-        return _authors;
     }
 
     private String getStructureJson(final String url,
@@ -220,4 +210,46 @@ public class OracleBlogsLinkContentParser {
         final String name = obj.getString("name");
         return LinkContentParserUtils.getAuthor(name);
     }
+
+    @Override
+    public Optional<TemporalAccessor> getDate() throws ContentParserException {
+        if (_exception != null) {
+            return Optional.of(LocalDate.of(1970, 1, 1));
+        }
+        return Optional.of(_publicationDate);
+    }
+
+    @Override
+    public List<AuthorData> getSureAuthors() throws ContentParserException {
+        if (_exception != null) {
+            return new ArrayList<>();
+        }
+        if (_authorException != null) {
+            return new ArrayList<>();
+        }
+        return _authors;
+    }
+
+    @Override
+    public List<ExtractedLinkData> getLinks() throws ContentParserException {
+        final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
+                                                                 getSubtitle().isPresent() ? new String[] { getSubtitle().get() }
+                                                                                           : new String[] { },
+                                                                 getUrl().toString(),
+                                                                 Optional.empty(),
+                                                                 Optional.empty(),
+                                                                 new LinkFormat[] { LinkFormat.HTML },
+                                                                 new Locale[] { getLanguage() },
+                                                                 Optional.empty(),
+                                                                 Optional.empty());
+        final List<ExtractedLinkData> list = new ArrayList<>(1);
+        list.add(linkData);
+        return list;
+    }
+
+    @Override
+    public Locale getLanguage() {
+        return Locale.ENGLISH;
+    }
+
 }

@@ -3,20 +3,25 @@ package data.linkchecker.wired;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import data.linkchecker.ContentParserException;
+import data.linkchecker.ExtractedLinkData;
 import data.linkchecker.LinkContentParserUtils;
+import data.linkchecker.LinkDataExtractor;
 import data.linkchecker.TextParser;
 import utils.HtmlHelper;
 import utils.xmlparsing.AuthorData;
+import utils.xmlparsing.LinkFormat;
 
-public class WiredLinkContentParser {
+public class WiredLinkContentParser extends LinkDataExtractor {
 
     private static final TextParser s_jsonParser
     = new TextParser("<script type=\"text/javascript\">window.__PRELOADED_STATE__ =",
@@ -30,7 +35,9 @@ public class WiredLinkContentParser {
     private final LocalDate _publicationDate;
     private final List<AuthorData> _authors;
 
-    public WiredLinkContentParser(final String data) {
+    public WiredLinkContentParser(final String url,
+                                  final String data) {
+        super(url);
         ContentParserException exception = null;
         String title = null;
         String subtitle = null;
@@ -63,6 +70,7 @@ public class WiredLinkContentParser {
         _exception = exception;
     }
 
+    @Override
     public String getTitle() throws ContentParserException {
         if (_exception != null) {
             throw _exception;
@@ -70,6 +78,7 @@ public class WiredLinkContentParser {
         return _title;
     }
 
+    @Override
     public Optional<String> getSubtitle() throws ContentParserException {
         if (_exception != null) {
             throw _exception;
@@ -83,18 +92,49 @@ public class WiredLinkContentParser {
         return Optional.of(_subtitle);
     }
 
-    public LocalDate getDate() throws ContentParserException {
+    @Override
+    public Optional<TemporalAccessor> getDate() throws ContentParserException {
         if (_exception != null) {
             throw _exception;
         }
-        return _publicationDate;
+        return Optional.of(_publicationDate);
     }
 
-    public List<AuthorData> getAuthors() throws ContentParserException {
+    @Override
+    public List<AuthorData> getSureAuthors() throws ContentParserException {
         if (_exception != null) {
             throw _exception;
         }
         return _authors;
     }
 
+    @Override
+    public List<ExtractedLinkData> getLinks() throws ContentParserException {
+        String subtitle = null;
+        if (getSubtitle().isPresent()) {
+            final String s = getSubtitle().get();
+            if (!s.endsWith("[…]")) { // we ignore subtitles which are an extract of the article
+                subtitle = s;
+            }
+        }
+        final String[] subtitles = (subtitle != null) ? new String[]{ subtitle }
+                                                      : new String[0];
+        final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
+                                                                 subtitles,
+                                                                 getUrl().toString(),
+                                                                 Optional.empty(),
+                                                                 Optional.empty(),
+                                                                 new LinkFormat[] { LinkFormat.HTML },
+                                                                 new Locale[] { getLanguage() },
+                                                                 Optional.empty(),
+                                                                 Optional.empty());
+        final List<ExtractedLinkData> list = new ArrayList<>(1);
+        list.add(linkData);
+        return list;
+    }
+
+    @Override
+    public Locale getLanguage() {
+        return Locale.ENGLISH;
+    }
 }
