@@ -1,8 +1,11 @@
-import ui.FileTable;
-
+import java.net.InetSocketAddress;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import com.sun.net.httpserver.HttpServer;
+import com.sun.net.httpserver.SimpleFileServer;
+
+import ui.FileTable;
 import utils.ExitHelper;
 
 public class Main {
@@ -30,6 +33,7 @@ public class Main {
 
         final Path homepagePath = Paths.get(args[args.length - 2]);
         final Path tmpPath = Paths.get(args[args.length - 1]);
+        startServer(homepagePath);
         FileTable.display(homepagePath, tmpPath, internetAccessIsEnabled);
     }
 
@@ -39,5 +43,10 @@ public class Main {
                         "|" +
                         disableInternetAccessOption +
                         "] <homepage directory> <tmp directory>");
+    }
+    
+    private static void startServer(final Path homepagePath) {
+        final HttpServer server = SimpleFileServer.createFileServer(new InetSocketAddress(80), homepagePath, SimpleFileServer.OutputLevel.VERBOSE);
+        server.start();
     }
 }

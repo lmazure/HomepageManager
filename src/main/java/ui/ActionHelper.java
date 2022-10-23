@@ -55,7 +55,7 @@ public class ActionHelper {
         }
 
         final Path relativePath = homepagePath.relativize(file);
-        final String url = "https://localhost/" + relativePath.toString().replace(java.io.File.separatorChar, '/');
+        final String url = "http://localhost/" + relativePath.toString().replace(java.io.File.separatorChar, '/');
         final URL u = UrlHelper.convertStringToUrl(url);
         if (isUrlAlive(u)) {
             try {
@@ -84,7 +84,7 @@ public class ActionHelper {
         try {
             final HttpURLConnection huc = (HttpURLConnection)url.openConnection();
             final int responseCode = huc.getResponseCode();
-            return (responseCode == 400);
+            return (responseCode == 200);
         } catch (final IOException e) {
             return e instanceof SSLHandshakeException;
         }

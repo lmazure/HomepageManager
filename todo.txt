@@ -1,3 +1,17 @@
+détecter author dupliqué
+
+==== merge =====
+
+gérer
+https://www.quantamagazine.org/barbara-liskov-is-the-architect-of-modern-algorithms-20191120/
+The number of authors (2) is not equal to the effective number of authors (1)
+https://www.quantamagazine.org/what-is-quantum-field-theory-and-why-is-it-incomplete-20220810/
+The number of authors (2) is not equal to the effective number of authors (1)
+
+gérer
+https://www.youtube.com/watch?v=x4rj4MfNkys
+language is "en" but this one is unexpected
+
 - https://blogs.oracle.com/javamagazine/java-lists-view-unmodifiable-immutable
 The expected publication date 2022-06-27 is not equal to the effective date 2022-09-13
 - https://blogs.oracle.com/javamagazine/java-module-definition-export-packages
@@ -6,9 +20,6 @@ subtitle "How do you provide access to a module’s classes to code outside that
 gérer
 https://medium.com/@kentbeck_7670/productive-compliments-giving-receiving-connecting-dda58570d96b
 subtitle "An early reviewer pointed out that what follows depends substantially on acting from a position of privilege. I’ll address that issue in a followup article." is not equal to the real subtitle "An early reviewer pointed out that what follows depends substantially on acting from a position of privilege. I’ll address that issue in a…"
-
-
-==== merge =====
 
 gérer https://arstechnica.com/tech-policy/2022/09/texts-show-roll-call-of-tech-figures-tried-to-help-elon-musk-in-twitter-deal/
 Ars Technica article should have at most one author
@@ -20,8 +31,6 @@ the best is probably to define a white list of the few having a publication date
 on the other side, IBM must have a creation date
 
 cacher les requêtes à Oracle, elles sont trop lentes
-
-détecter author dupliqué
 
 ajouter support de https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se
 
