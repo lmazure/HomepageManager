@@ -1,14 +1,10 @@
-import java.net.InetSocketAddress;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
-import com.sun.net.httpserver.HttpServer;
-import com.sun.net.httpserver.SimpleFileServer;
-
 import ui.FileTable;
 import utils.ExitHelper;
-import utils.Logger;
+import utils.WebServer;
 
 public class Main {
 
@@ -41,7 +37,7 @@ public class Main {
         final Path homepagePath = Paths.get(args[args.length - 2]);
         final Path tmpPath = Paths.get(args[args.length - 1]);
         if (serverIsEnabled) {
-            startServer(homepagePath);
+            WebServer.start(homepagePath);
         }
         FileTable.display(homepagePath, tmpPath, internetAccessIsEnabled);
     }
@@ -57,13 +53,5 @@ public class Main {
                                 enableServer +
                                 "] <homepage directory> <tmp directory>";
         ExitHelper.exit(message1 + message2);
-    }
-    
-    private static void startServer(final Path homepagePath) {
-        final HttpServer server = SimpleFileServer.createFileServer(new InetSocketAddress(80), homepagePath, SimpleFileServer.OutputLevel.VERBOSE);
-        server.start();
-        Logger.log(Logger.Level.INFO)
-              .append("server is sarted")
-              .submit();
     }
 }
