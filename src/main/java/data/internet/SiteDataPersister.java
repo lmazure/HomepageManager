@@ -25,7 +25,7 @@ import utils.ExitHelper;
 import utils.FileHelper;
 import utils.FileSection;
 import utils.Logger;
-import utils.UrlHelper;
+import utils.internet.UrlHelper;
 
 public class SiteDataPersister {
 

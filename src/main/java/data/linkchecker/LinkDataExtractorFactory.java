@@ -14,8 +14,8 @@ import data.linkchecker.oracleblogs.OracleBlogsLinkContentParser;
 import data.linkchecker.quantamagazine.QuantaMagazineLinkContentParser;
 import data.linkchecker.wired.WiredLinkContentParser;
 import data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser;
-import utils.HtmlHelper;
-import utils.UrlHelper;
+import utils.internet.HtmlHelper;
+import utils.internet.UrlHelper;
 
 public class LinkDataExtractorFactory {
 

@@ -12,7 +12,7 @@ import data.internet.SiteData;
 import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
 import data.linkchecker.LinkContentParser;
-import utils.HtmlHelper;
+import utils.internet.HtmlHelper;
 
 public class LinkContentParserTest {
 

@@ -1,4 +1,4 @@
-package utils;
+package utils.internet;
 
 @SuppressWarnings("serial")
 public class InvalidHttpCodeException extends Exception {

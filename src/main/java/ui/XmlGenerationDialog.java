@@ -16,7 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.VBox;
-import utils.UrlHelper;
+import utils.internet.UrlHelper;
 
 public class XmlGenerationDialog extends Dialog<Void> {
 

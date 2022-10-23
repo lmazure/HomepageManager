@@ -13,7 +13,7 @@ import data.internet.SiteData;
 import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
 import utils.FileSection;
-import utils.HtmlHelper;
+import utils.internet.HtmlHelper;
 
 public class HtmlHelperTest {
 

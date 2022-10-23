@@ -1,4 +1,4 @@
-package utils.internet;
+package utils.internet.twitter;
 
 import java.io.IOException;
 import java.net.URI;

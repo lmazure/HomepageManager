@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import utils.UrlHelper;
+import utils.internet.UrlHelper;
 import utils.xmlparsing.AuthorData;
 
 public class WellKnownAuthorsOfLink {

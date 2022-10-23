@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import ui.FileTable;
 import utils.ExitHelper;
-import utils.WebServer;
+import utils.internet.WebServer;
 
 public class Main {
 

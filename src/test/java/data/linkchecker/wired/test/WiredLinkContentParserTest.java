@@ -12,7 +12,7 @@ import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
 import data.linkchecker.ContentParserException;
 import data.linkchecker.wired.WiredLinkContentParser;
-import utils.HtmlHelper;
+import utils.internet.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 
 public class WiredLinkContentParserTest {

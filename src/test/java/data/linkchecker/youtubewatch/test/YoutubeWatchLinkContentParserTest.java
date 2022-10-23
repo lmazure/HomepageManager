@@ -17,7 +17,7 @@ import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
 import data.linkchecker.ContentParserException;
 import data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser;
-import utils.HtmlHelper;
+import utils.internet.HtmlHelper;
 
 public class YoutubeWatchLinkContentParserTest {
 

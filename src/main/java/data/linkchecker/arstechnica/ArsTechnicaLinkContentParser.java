@@ -14,7 +14,7 @@ import data.linkchecker.ExtractedLinkData;
 import data.linkchecker.LinkContentParserUtils;
 import data.linkchecker.LinkDataExtractor;
 import data.linkchecker.TextParser;
-import utils.HtmlHelper;
+import utils.internet.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkFormat;
 

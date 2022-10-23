@@ -7,7 +7,7 @@ import java.util.Locale;
 
 import data.linkchecker.ContentParserException;
 import data.linkchecker.TextParser;
-import utils.HtmlHelper;
+import utils.internet.HtmlHelper;
 
 public class ChromiumBlogLinkContentParser {
 

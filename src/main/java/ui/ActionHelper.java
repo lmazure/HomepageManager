@@ -18,7 +18,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import utils.ExitHelper;
-import utils.UrlHelper;
+import utils.internet.UrlHelper;
 
 public class ActionHelper {
 

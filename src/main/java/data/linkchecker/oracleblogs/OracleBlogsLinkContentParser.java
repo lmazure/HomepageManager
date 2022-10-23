@@ -23,8 +23,8 @@ import data.linkchecker.ContentParserException;
 import data.linkchecker.ExtractedLinkData;
 import data.linkchecker.LinkContentParserUtils;
 import data.linkchecker.LinkDataExtractor;
-import utils.HtmlHelper;
-import utils.UrlHelper;
+import utils.internet.HtmlHelper;
+import utils.internet.UrlHelper;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkFormat;
 

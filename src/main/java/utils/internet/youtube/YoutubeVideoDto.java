@@ -1,4 +1,4 @@
-package utils.internet;
+package utils.internet.youtube;
 
 import java.io.Serializable;
 import java.time.Duration;

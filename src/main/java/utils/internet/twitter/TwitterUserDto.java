@@ -1,4 +1,4 @@
-package utils.internet;
+package utils.internet.twitter;
 
 public class TwitterUserDto {
 

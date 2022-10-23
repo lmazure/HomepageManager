@@ -2,7 +2,7 @@ package data.linkchecker;
 
 import java.util.Optional;
 
-import utils.HtmlHelper;
+import utils.internet.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 
 public class LinkContentParserUtils {

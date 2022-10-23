@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import data.ParameterRepository;
-import utils.internet.YoutubeApi;
-import utils.internet.YoutubeVideoDto;
+import utils.internet.youtube.YoutubeApi;
+import utils.internet.youtube.YoutubeVideoDto;
 
 public class YoutubeApiTest {
 
