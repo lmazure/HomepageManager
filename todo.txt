@@ -1,12 +1,9 @@
-détecter author dupliqué
+détecter author dupliqué (à mettre dans AuthorsChecker)
 
 ==== merge =====
 
 gérer
-https://www.quantamagazine.org/barbara-liskov-is-the-architect-of-modern-algorithms-20191120/
-The number of authors (2) is not equal to the effective number of authors (1)
-https://www.quantamagazine.org/what-is-quantum-field-theory-and-why-is-it-incomplete-20220810/
-The number of authors (2) is not equal to the effective number of authors (1)
+ tag = "COMMENT" value = "Cocktail Games at Berlin for the Spiel des Jahres, 13 Mots, Washington Z.C., Cache Ton Cash, Dinosaur Island - Rawr 'n Write, Ticket to Ride - San Fransisco, the games at Place de la République, and Le Grenier Ludique." violation = "space is missing after punctuation" detail = ""Cocktail Games at Berlin for the Spiel des Jahres, 13 Mots, Washington Z.C., Cache Ton Cash, Dinosaur Island - Rawr 'n Write, Ticket to Ride - San Fransisco, the games at Place de la République, and Le Grenier Ludique." is missing a space after punctuation"
 
 gérer
 https://www.youtube.com/watch?v=x4rj4MfNkys

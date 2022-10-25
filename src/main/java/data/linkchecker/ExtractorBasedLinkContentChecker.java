@@ -132,28 +132,11 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
 
     @Override
     protected LinkContentCheck checkLinkAuthors(final String data,
-                                                final List<AuthorData> authors) throws ContentParserException
+                                                final List<AuthorData> expectedAuthors) throws ContentParserException
     {
         final List<AuthorData> effectiveAuthor = _parser.getSureAuthors();
 
-        if (effectiveAuthor.size() != authors.size()) {
-            return new LinkContentCheck("The number of authors (" +
-                                        authors.size() +
-                                        ") is not equal to the effective number of authors (" +
-                                        effectiveAuthor.size() +
-                                        ")");
-        }
-
-        for (int i=0; i < authors.size(); i++) {
-            if (!effectiveAuthor.get(i).equals(authors.get(i))) {
-                return new LinkContentCheck("The expected author (" +
-                                            authors.get(i) +
-                                            ") is not equal to the effective author (" +
-                                            effectiveAuthor.get(i) +
-                                            ")");
-            }
-        }
-        return null;
+        return simpleCheckLinkAuthors(effectiveAuthor, expectedAuthors);
     }
 
     @FunctionalInterface
