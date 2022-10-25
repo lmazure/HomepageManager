@@ -858,6 +858,30 @@ public class NodeValueCheckerTest extends NodeValueCheckerTestBase {
         }
     }
 
+
+    @SuppressWarnings("static-method")
+    @Test
+    void duplicatedAuthor() {
+
+        final String content =
+            "<?xml version=\"1.0\"?>" +
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">" +
+            "<TITLE>TypeScript</TITLE>" +
+            "<PATH>links/typescript.xml</PATH>" +
+            "<DATE><YEAR>2022</YEAR><MONTH>10</MONTH><DAY>25</DAY></DATE>" +
+            "<CONTENT>" +
+            "<ITEM><ARTICLE><X><T>Tric Trac Show #35 - Maud CHALMEL &amp; Thibaut de la Touane</T><A>https://www.youtube.com/watch?v=aW61yxnQvio</A><L>fr</L><F>MP4</F><DURATION><HOUR>2</HOUR><MINUTE>0</MINUTE><SECOND>6</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Guillaume</FIRSTNAME><LASTNAME>Chifoumi</LASTNAME></AUTHOR><AUTHOR><FIRSTNAME>François</FIRSTNAME><LASTNAME>Décamp</LASTNAME></AUTHOR><AUTHOR><GIVENNAME>Tarsa</GIVENNAME></AUTHOR><AUTHOR><GIVENNAME>Muss Ino</GIVENNAME></AUTHOR><AUTHOR><FIRSTNAME>Pénélope</FIRSTNAME></AUTHOR><AUTHOR><GIVENNAME>Tarsa</GIVENNAME></AUTHOR><AUTHOR><FIRSTNAME>Maud</FIRSTNAME><LASTNAME>Chalmel</LASTNAME></AUTHOR><AUTHOR><FIRSTNAME>Thibaut</FIRSTNAME><LASTNAME>de la Touane</LASTNAME></AUTHOR><DATE><YEAR>2022</YEAR><MONTH>10</MONTH><DAY>13</DAY></DATE><COMMENT>Heat, Clockworker, Super Mega Lucky Box, Turing Machine, the games of Triton Noir, a visit of Volumique workshop, and a interview of <AUTHOR><FIRSTNAME>Maud</FIRSTNAME><LASTNAME>Chalmel</LASTNAME></AUTHOR>.</COMMENT></ARTICLE></ITEM>" +
+            "</CONTENT>" +
+            "</PAGE>";
+        try {
+            test(content,
+                 "The list of authors of article \"https://www.youtube.com/watch?v=aW61yxnQvio\" contains duplicated author: ▭ ▭ ▭ ▭ ▭ given=Tarsa");
+        } catch (@SuppressWarnings("unused") final SAXException e) {
+            Assertions.fail("SAXException");
+        }
+    }
+
     @SuppressWarnings("static-method")
     @Test
     void missedPunctuationAtCommentEnd() {

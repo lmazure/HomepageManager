@@ -1,7 +1,9 @@
 package data.nodechecker.checker.nodeChecker;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.w3c.dom.Element;
@@ -25,7 +27,8 @@ public class AuthorsChecker extends NodeChecker {
 
     public AuthorsChecker() {
         super(s_selector,
-              AuthorsChecker::checkWellKnownAuthors, "author list contains expected list of well known authors");
+              AuthorsChecker::checkWellKnownAuthors, "author list contains expected list of well known authors",
+              AuthorsChecker::detectDuplicatedAuthor, "author list contains duplicated authors");
     }
 
     private static CheckStatus checkWellKnownAuthors(final Element e) {
@@ -63,6 +66,29 @@ public class AuthorsChecker extends NodeChecker {
             }
         }
 
+        return null;
+    }
+
+    private static CheckStatus detectDuplicatedAuthor(final Element e) {
+
+        final Set<AuthorData> authors = new HashSet<>();
+
+        ArticleData articleData;
+        try {
+            articleData = XmlParser.parseArticleElement(e);
+        } catch (final XmlParsingException ex) {
+            return new CheckStatus("Failed to parse article (" + ex.getMessage() + ")");
+        }
+
+        for (AuthorData author: articleData.getAuthors()) {
+            if (authors.contains(author)) {
+                return new CheckStatus("The list of authors of article \"" +
+                                       articleData.getLinks().get(0).getUrl() +
+                                       "\" contains duplicated author: " +
+                                       author);
+            }
+            authors.add(author);
+        }
         return null;
     }
 
