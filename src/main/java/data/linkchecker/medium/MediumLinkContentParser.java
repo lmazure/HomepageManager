@@ -116,7 +116,6 @@ public class MediumLinkContentParser extends LinkDataExtractor {
             throw new ContentParserException("Failed to find \"" + creatorCode +"/name\" JSON field in Medium page", e);
         }
         _authors = Collections.singletonList(LinkContentParserUtils.getAuthor(name));
-        
 
         JSONObject previewContent;
         try {

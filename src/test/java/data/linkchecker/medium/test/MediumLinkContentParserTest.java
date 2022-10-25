@@ -77,7 +77,6 @@ public class MediumLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
-    
     @ParameterizedTest
     @CsvSource(value = {
         "https://donraab.medium.com/nine-features-in-eclipse-collections-9-0-a2ca97dfdf74|CountBy, DistinctBy, Cartesian Product for primitive collections… and more."
@@ -101,7 +100,7 @@ public class MediumLinkContentParserTest {
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
-    
+
     @Test
     void testTitleWithAmpersandAndLink() {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());

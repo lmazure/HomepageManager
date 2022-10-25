@@ -1,4 +1,4 @@
-détecter author dupliqué (à mettre dans AuthorsChecker)
+
 
 ==== merge =====
 

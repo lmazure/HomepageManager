@@ -82,7 +82,7 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public List<AuthorData> getPossibleAuthors()  {
+    public List<AuthorData> getPossibleAuthors() {
         return new ArrayList<>(0);
     }
 

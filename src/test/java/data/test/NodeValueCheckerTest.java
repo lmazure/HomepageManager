@@ -858,7 +858,6 @@ public class NodeValueCheckerTest extends NodeValueCheckerTestBase {
         }
     }
 
-
     @SuppressWarnings("static-method")
     @Test
     void duplicatedAuthor() {

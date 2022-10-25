@@ -17,7 +17,7 @@ import utils.xmlparsing.AuthorData;
 public class LinkDataExtractorTest {
 
     @Test
-    void  arsTechnicaIsManaged() throws ContentParserException {
+    void arsTechnicaIsManaged() throws ContentParserException {
         final String url = "https://arstechnica.com/tech-policy/2021/10/uh-no-pfizer-scientist-denies-holmes-claim-that-pfizer-endorsed-theranos-tech/";
         final String expectedXml = """
                 <ARTICLE><X><T>“Uh, no”—Pfizer scientist denies Holmes’ claim that Pfizer endorsed Theranos tech</T>\
@@ -34,7 +34,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void  baeldungIsManaged() throws ContentParserException {
+    void baeldungIsManaged() throws ContentParserException {
         final String url = "https://www.baeldung.com/java-unit-testing-best-practices";
         final String expectedXml = """
                 <ARTICLE><X><T>Best Practices For Unit Testing In Java</T>\
@@ -150,7 +150,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void  youtubeWatch3Blue1BrownIsManaged() throws ContentParserException {
+    void youtubeWatch3Blue1BrownIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=-RdOwhmqP5s";
         final String expectedXml = """
                 <ARTICLE><X><T>Newton’s method, and the fractal it creates that Newton knew nothing about</T>\
@@ -1018,7 +1018,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void  youtubeWatchWebDevSimplifiedIsManaged() throws ContentParserException {
+    void youtubeWatchWebDevSimplifiedIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=mnmYwRoSisg";
         final String expectedXml = """
                 <ARTICLE><X><T>10 Must Know Git Commands That Almost Nobody Knows</T>\
@@ -1034,7 +1034,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void  youtubeWatchWonderWhyIsManaged() throws ContentParserException {
+    void youtubeWatchWonderWhyIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=DfdewkU3_Hg";
         final String expectedXml = """
                 <ARTICLE><X><T>The Country That Didn't Want Independence</T>\
@@ -1050,7 +1050,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void  youtubeWatchYoshaEchecsIsManaged() throws ContentParserException {
+    void youtubeWatchYoshaEchecsIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=_PqORG75Cr4";
         final String expectedXml = """
                 <ARTICLE><X><T>Les indices les plus compromettants contre Hans Niemann</T>\
@@ -1066,7 +1066,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void  youtubeWatchUnknownEnglishChannelIsManaged() throws ContentParserException {
+    void youtubeWatchUnknownEnglishChannelIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=eAkb2mpybnM";
         final String expectedXml = """
                 <ARTICLE><X><T>How I Built the Entire Universe in Minecraft</T>\
@@ -1082,7 +1082,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void  youtubeWatchUnknownFrenchChannelIsManaged() throws ContentParserException {
+    void youtubeWatchUnknownFrenchChannelIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=1Q4RoWIfpoY";
         final String expectedXml = """
                 <ARTICLE><X><T>La Chine est embarrassée face à la guerre en Ukraine</T>\
@@ -1098,7 +1098,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void  youtubeWatchUrlInListIsManaged() throws ContentParserException {
+    void youtubeWatchUrlInListIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=C926N9zMJkU&list=WL&index=11";
         final String expectedXml = """
                 <ARTICLE><X><T>5 Must Know VSCode Shortcuts</T>\
