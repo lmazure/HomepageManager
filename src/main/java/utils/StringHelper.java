@@ -79,9 +79,9 @@ public class StringHelper {
 
         for (final String word: words) {
             final String w = word.toLowerCase();
-            if (englishWords.contains(w))  {
+            if (englishWords.contains(w)) {
                 english++;
-            } else if (frenchWords.contains(w))  {
+            } else if (frenchWords.contains(w)) {
                 french++;
             }
         }

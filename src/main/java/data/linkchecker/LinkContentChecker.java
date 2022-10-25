@@ -14,9 +14,9 @@ import java.util.stream.Collectors;
 import data.knowledge.WellKnownAuthors;
 import data.knowledge.WellKnownAuthorsOfLink;
 import utils.FileSection;
-import utils.HtmlHelper;
 import utils.Logger;
 import utils.StringHelper;
+import utils.internet.HtmlHelper;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkData;
@@ -236,8 +236,8 @@ public class LinkContentChecker {
 
         if (!unexpectedAuthors.isEmpty() || !missingAuthors.isEmpty()) {
             final String message = "The list of effective authors is not the effective one."
-                                   + "\nThe following authors are effectively present but are unexpected:" + unexpectedAuthors.stream().map(a-> a.toString()).collect(Collectors.joining(","))
-                                   + "\nThe following authors are expected but are effectively missing:" + missingAuthors.stream().map(a-> a.toString()).collect(Collectors.joining(","));
+                                   + "\nThe following authors are effectively present but are unexpected: " + unexpectedAuthors.stream().map(a-> a.toString()).collect(Collectors.joining(","))
+                                   + "\nThe following authors are expected but are effectively missing: " + missingAuthors.stream().map(a-> a.toString()).collect(Collectors.joining(","));
             return new LinkContentCheck(message);
 
         }
@@ -245,8 +245,8 @@ public class LinkContentChecker {
         for (int i = 0; i < expectedAuthors.size(); i++) {
             if (!expectedAuthors.get(i).equals(effectiveAuthors.get(i))) {
                 final String message = "The list of effective authors is not ordered as the effective one."
-                        + "\nexpected authors:" + expectedAuthors.stream().map(a-> a.toString()).collect(Collectors.joining(","))
-                        + "\neffective authors:" + effectiveAuthors.stream().map(a-> a.toString()).collect(Collectors.joining(","));
+                        + "\nexpected authors: " + expectedAuthors.stream().map(a-> a.toString()).collect(Collectors.joining(","))
+                        + "\neffective authors: " + effectiveAuthors.stream().map(a-> a.toString()).collect(Collectors.joining(","));
                 return new LinkContentCheck(message);
             }
         }

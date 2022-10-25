@@ -1,4 +1,4 @@
-package utils.internet;
+package utils.internet.youtube;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

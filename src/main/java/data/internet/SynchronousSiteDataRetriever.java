@@ -23,7 +23,7 @@ import javax.net.ssl.X509TrustManager;
 
 import utils.ExitHelper;
 import utils.FileSection;
-import utils.UrlHelper;
+import utils.internet.UrlHelper;
 
 /**
  * Synchronous retrieving of site data

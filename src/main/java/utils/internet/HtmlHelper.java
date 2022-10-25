@@ -1,4 +1,4 @@
-package utils;
+package utils.internet;
 
 import java.io.StringWriter;
 import java.nio.charset.Charset;
@@ -8,6 +8,10 @@ import java.util.HashMap;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import utils.FileHelper;
+import utils.FileSection;
+import utils.Logger;
 
 public class HtmlHelper {
 

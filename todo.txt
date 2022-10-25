@@ -1,3 +1,14 @@
+
+
+==== merge =====
+
+gérer
+ tag = "COMMENT" value = "Cocktail Games at Berlin for the Spiel des Jahres, 13 Mots, Washington Z.C., Cache Ton Cash, Dinosaur Island - Rawr 'n Write, Ticket to Ride - San Fransisco, the games at Place de la République, and Le Grenier Ludique." violation = "space is missing after punctuation" detail = ""Cocktail Games at Berlin for the Spiel des Jahres, 13 Mots, Washington Z.C., Cache Ton Cash, Dinosaur Island - Rawr 'n Write, Ticket to Ride - San Fransisco, the games at Place de la République, and Le Grenier Ludique." is missing a space after punctuation"
+
+gérer
+https://www.youtube.com/watch?v=x4rj4MfNkys
+language is "en" but this one is unexpected
+
 - https://blogs.oracle.com/javamagazine/java-lists-view-unmodifiable-immutable
 The expected publication date 2022-06-27 is not equal to the effective date 2022-09-13
 - https://blogs.oracle.com/javamagazine/java-module-definition-export-packages
@@ -6,9 +17,6 @@ subtitle "How do you provide access to a module’s classes to code outside that
 gérer
 https://medium.com/@kentbeck_7670/productive-compliments-giving-receiving-connecting-dda58570d96b
 subtitle "An early reviewer pointed out that what follows depends substantially on acting from a position of privilege. I’ll address that issue in a followup article." is not equal to the real subtitle "An early reviewer pointed out that what follows depends substantially on acting from a position of privilege. I’ll address that issue in a…"
-
-
-==== merge =====
 
 gérer https://arstechnica.com/tech-policy/2022/09/texts-show-roll-call-of-tech-figures-tried-to-help-elon-musk-in-twitter-deal/
 Ars Technica article should have at most one author
@@ -20,8 +28,6 @@ the best is probably to define a white list of the few having a publication date
 on the other side, IBM must have a creation date
 
 cacher les requêtes à Oracle, elles sont trop lentes
-
-détecter author dupliqué
 
 ajouter support de https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se
 

@@ -285,7 +285,7 @@ public class XmlParser {
 
         final NodeList hoursNodes = XmlHelper.getDescendantsByElementType(durationElement, ElementType.HOUR);
         if (hoursNodes.getLength() == 1) {
-            final long  hours = Long.parseLong(hoursNodes.item(0).getTextContent());
+            final long hours = Long.parseLong(hoursNodes.item(0).getTextContent());
             duration = duration.plusHours(hours);
         } else if (hoursNodes.getLength() > 1) {
             throw new XmlParsingException("Wrong number of HOUR nodes (" + hoursNodes.getLength() + ") in string \"" + durationElement.getTextContent() + "\"");

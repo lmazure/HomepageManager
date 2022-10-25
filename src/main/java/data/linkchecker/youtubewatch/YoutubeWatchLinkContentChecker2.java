@@ -14,8 +14,8 @@ import data.linkchecker.LinkContentCheck;
 import data.linkchecker.LinkContentChecker;
 import utils.FileSection;
 import utils.StringHelper;
-import utils.internet.CachedYoutubeApi;
-import utils.internet.YoutubeVideoDto;
+import utils.internet.youtube.CachedYoutubeApi;
+import utils.internet.youtube.YoutubeVideoDto;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkData;
 

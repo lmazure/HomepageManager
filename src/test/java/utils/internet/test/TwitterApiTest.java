@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import data.ParameterRepository;
-import utils.internet.TwitterApi;
-import utils.internet.TwitterUserDto;
+import utils.internet.twitter.TwitterApi;
+import utils.internet.twitter.TwitterUserDto;
 
 public class TwitterApiTest {
 

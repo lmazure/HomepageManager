@@ -9,8 +9,8 @@ import data.linkchecker.LinkContentCheck;
 import data.linkchecker.LinkContentChecker;
 import utils.FileSection;
 import utils.StringHelper;
-import utils.internet.TwitterApi;
-import utils.internet.TwitterUserDto;
+import utils.internet.twitter.TwitterApi;
+import utils.internet.twitter.TwitterUserDto;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkData;
 

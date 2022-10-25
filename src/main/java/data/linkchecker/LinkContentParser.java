@@ -3,8 +3,8 @@ package data.linkchecker;
 import java.util.Locale;
 import java.util.Optional;
 
-import utils.HtmlHelper;
 import utils.StringHelper;
+import utils.internet.HtmlHelper;
 
 public class LinkContentParser {
 
