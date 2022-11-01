@@ -69,9 +69,22 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
     @Override
     public List<AuthorData> getSureAuthors() throws ContentParserException {
         final List<AuthorData> list = new ArrayList<>(1);
-        final String authorName = s_authorParser.extract(_data);
-        if (!authorName.equals("Ars Staff")) {
-            list.add(LinkContentParserUtils.getAuthor(authorName));
+        final String extracted = s_authorParser.extract(_data);
+        final String[] components = extracted.split(" *, *");
+        if (components.length > 1) {
+            components[components.length - 1] = components[components.length - 1].replaceAll("^and ", "");
+            if (components.length > 2) {
+                components[components.length - 2] = components[components.length - 2].replaceAll("^and ", "");
+            }
+        }
+        for (final String author: components) {
+            if (author.equals("Ars Staff")) {
+                continue;
+            }
+            if (author.equals("FT")) {
+                continue;
+            }
+            list.add(LinkContentParserUtils.getAuthor(author));
         }
         return list;
     }
