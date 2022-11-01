@@ -330,7 +330,9 @@ public class YoutubeWatchLinkContentParserTest {
             "https://www.youtube.com/watch?v=kiv32_P_T3k",
             "https://www.youtube.com/watch?v=lkdnOuzHdFE",
             // vidéo bilingue "https://www.youtube.com/watch?v=nhDpozSK0uw",
-            "https://www.youtube.com/watch?v=ohU1tEwxOSE"
+            "https://www.youtube.com/watch?v=ohU1tEwxOSE",
+            // the following video has no description
+            "https://www.youtube.com/watch?v=x4rj4MfNkys"
                            })
     void testFrench(final String url) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());

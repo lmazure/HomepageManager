@@ -128,7 +128,12 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                 _language = lang.get();
             } else {
                 final Optional<Locale> lang2 = StringHelper.guessLanguage(getDescription());
-                _language = lang2.isPresent() ? lang2.get() : Locale.ENGLISH;
+                if (lang2.isPresent()) {
+                    _language = lang2.get();
+                } else {
+                    final Optional<Locale> lang3 = StringHelper.guessLanguage(getTitle());
+                    _language = lang3.isPresent() ? lang3.get() : Locale.ENGLISH;
+                }
             }
         }
 
