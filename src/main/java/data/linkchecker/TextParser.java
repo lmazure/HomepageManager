@@ -1,5 +1,6 @@
 package data.linkchecker;
 
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,11 +28,19 @@ public class TextParser {
     }
 
     public String extract(final String data) throws ContentParserException {
-        final Matcher m = _pattern.matcher(data);
-        if (m.find()) {
-            return m.group(1);
+        final Optional<String> str = extractOptional(data);
+        if (str.isPresent()) {
+            return str.get();
          }
 
         throw new ContentParserException("Failed to find " + _field + " in " + _source);
     }
-}
+
+    public Optional<String> extractOptional(final String data) {
+        final Matcher m = _pattern.matcher(data);
+        if (m.find()) {
+            return Optional.of(m.group(1));
+         }
+
+        return Optional.empty();
+    }}

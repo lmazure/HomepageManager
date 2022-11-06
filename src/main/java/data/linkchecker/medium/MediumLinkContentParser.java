@@ -19,6 +19,8 @@ import data.linkchecker.ExtractedLinkData;
 import data.linkchecker.LinkContentParserUtils;
 import data.linkchecker.LinkDataExtractor;
 import data.linkchecker.TextParser;
+import utils.StringHelper;
+import utils.internet.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkFormat;
 
@@ -28,15 +30,28 @@ public class MediumLinkContentParser extends LinkDataExtractor {
     private final String _code;
     private boolean _dataIsLoaded;
     private String _title;
-    private String _subtitle;
+    private Optional<String> _subtitle;
     private List<AuthorData> _authors;
     private LocalDate _publicationDate;
+    private Locale _locale;
 
     private static final TextParser s_jsonParser
         = new TextParser("<script>window.__APOLLO_STATE__ = ",
                          "</script>",
                          "Medium",
                          "JSON preloaded state");
+
+    private static final TextParser s_jsonTitle
+    = new TextParser("<h1 id=\"(?:\\p{XDigit}{4}|title)\" class=\"pw-post-title(?: \\p{Lower}{2})+\">",
+                     "</h1>",
+                     "Medium",
+                     "title");
+
+    private static final TextParser s_jsonSubtitle
+    = new TextParser("<h2 id=\"(?:\\p{XDigit}{4}|subtitle)\" class=\"pw-subtitle-paragraph(?: \\p{Lower}{1,2})+\">",
+                     "</h2>",
+                     "Medium",
+                     "subtitle");
 
     public MediumLinkContentParser(final String url,
                                    final String data) {
@@ -54,7 +69,7 @@ public class MediumLinkContentParser extends LinkDataExtractor {
     @Override
     public Optional<String> getSubtitle() throws ContentParserException {
         loadData();
-        return Optional.of(_subtitle);
+        return _subtitle;
     }
 
     public LocalDate getPublicationDate() throws ContentParserException {
@@ -84,6 +99,7 @@ public class MediumLinkContentParser extends LinkDataExtractor {
         }
         final Instant instant = Instant.ofEpochMilli(firstPublishedAt.longValueExact());
         _publicationDate = LocalDate.ofInstant(instant, ZoneId.of("Europe/Paris"));
+        /* does not work, the title is out of date in the JSON payload if the author modified it after the first publication
         String title;
         try {
             title = post.getString("title");
@@ -91,6 +107,8 @@ public class MediumLinkContentParser extends LinkDataExtractor {
             throw new ContentParserException("Failed to find \"Post:" + _code +"/title\" JSON field in Medium page", e);
         }
         _title = title.replace("\n"," ");
+        */
+        _title = HtmlHelper.cleanContent(s_jsonTitle.extract(_data));
         JSONObject creator;
         try {
             creator = post.getJSONObject("creator");
@@ -117,6 +135,7 @@ public class MediumLinkContentParser extends LinkDataExtractor {
         }
         _authors = Collections.singletonList(LinkContentParserUtils.getAuthor(name));
 
+        /* does not workn the subtitle in the FSON payload is not the subtitle, but the first oaragraog, whatever is is this one
         JSONObject previewContent;
         try {
             previewContent = post.getJSONObject("previewContent");
@@ -130,6 +149,11 @@ public class MediumLinkContentParser extends LinkDataExtractor {
             throw new ContentParserException("Failed to find \"previewContent/subtitle\" JSON field in Medium page", e);
         }
         _subtitle = subtitle;
+        */
+        final Optional<String> subtitle = s_jsonSubtitle.extractOptional(_data);
+        _subtitle = subtitle.isPresent() ? Optional.of(HtmlHelper.cleanContent(subtitle.get()))
+                                         : Optional.empty();
+        _locale = StringHelper.guessLanguage(HtmlHelper.cleanContent(_data)).get(); //TODO handle the case where the language is not recognized
     }
 
     @Override
@@ -160,7 +184,8 @@ public class MediumLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public Locale getLanguage() {
-        return Locale.ENGLISH;
+    public Locale getLanguage() throws ContentParserException {
+        loadData();
+        return _locale;
     }
 }

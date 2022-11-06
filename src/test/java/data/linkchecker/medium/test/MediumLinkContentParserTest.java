@@ -1,5 +1,6 @@
 package data.linkchecker.medium.test;
 
+import java.util.Locale;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -56,7 +57,10 @@ public class MediumLinkContentParserTest {
     @CsvSource(value = {
         "https://medium.com/@kentbeck_7670/bs-changes-e574bc396aaa|SB Changes",
         "https://medium.com/@kentbeck_7670/productive-compliments-giving-receiving-connecting-dda58570d96b|Productive Compliments: Giving, Receiving, Connecting",
-        "https://medium.com/@kentbeck_7670/sipping-the-big-gulp-a7c50549c393|Sipping the Big Gulp: 2 Ways to Narrow an Interface"
+        "https://medium.com/@kentbeck_7670/sipping-the-big-gulp-a7c50549c393|Sipping the Big Gulp: 2 Ways to Narrow an Interface",
+        // the next articles seem to be old ones one where the paragraph IDs where not 4 hexadecimal numbers
+        "https://medium.com/@docjamesw/the-anti-meeting-culture-c209bab5a16d|The Anti-Meeting Culture",
+        "https://medium.com/@docjamesw/work-hard-youll-get-there-eventually-d4f4fc704820|Work Hard You’ll Get There Eventually"
         }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
@@ -79,7 +83,11 @@ public class MediumLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-        "https://donraab.medium.com/nine-features-in-eclipse-collections-9-0-a2ca97dfdf74|CountBy, DistinctBy, Cartesian Product for primitive collections… and more."
+        // articles with a long subtitle that is truncated in the JSON payload
+        "https://medium.com/devops-with-valentine/send-gitlab-ci-reports-artifacts-via-e-mail-86bc96e66511|Most users migrating from Jenkins to Gitlab CI are looking for a way to send emails with the reports when a test fails. While Gitlab CI can notify you that a job has failed (or was successful) it will not attach any files or reports to that email.",
+        // the next articles seem to be old ones one where the paragraph IDs where not 4 hexadecimal numbers
+        "https://medium.com/@docjamesw/the-anti-meeting-culture-c209bab5a16d|Kill wasteful meetings before they kill you",
+        "https://medium.com/@docjamesw/work-hard-youll-get-there-eventually-d4f4fc704820|(Hint: No You Won’t)"
         }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
@@ -93,6 +101,31 @@ public class MediumLinkContentParserTest {
                                try {
                                    Assertions.assertTrue(parser.getSubtitle().isPresent());
                                    Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getSubtitle threw " + e.getMessage());
+                               }
+                               consumerHasBeenCalled.set(true);
+                           });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+        "https://medium.com/@bpnorlander/stop-writing-code-comments-28fef5272752",
+        "https://medium.com/@kentbeck_7670/bs-changes-e574bc396aaa",
+        "https://medium.com/@tdeniffel/tcr-test-commit-revert-a-test-alternative-to-tdd-6e6b03c22bec",
+        "https://medium.com/@kentbeck_7670/limbo-scaling-software-collaboration-afd4f00db4b"
+        }, delimiter = '|')
+    void testNoSubtitle(final String url) {
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(url,
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               final MediumLinkContentParser parser = new MediumLinkContentParser(url, data);
+                               try {
+                                   Assertions.assertFalse(parser.getSubtitle().isPresent());
                                } catch (final ContentParserException e) {
                                    Assertions.fail("getSubtitle threw " + e.getMessage());
                                }
@@ -163,8 +196,9 @@ public class MediumLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://medium.com/@kentbeck_7670/curiosity-as-a-service-literally-1f4f6309fae5,Curiosity as a Service\u200A—\u200ALiterally",
-        "https://medium.com/@specktackle/selenium-and-webdriverio-a-historical-overview-6f8fbf94b418,Selenium and WebdriverIO\u200A—\u200AA Historical Overview"
+        // the hair space is in the JSON payload, but not in the HTML 
+        "https://medium.com/@kentbeck_7670/curiosity-as-a-service-literally-1f4f6309fae5,Curiosity as a Service — Literally",
+        "https://medium.com/@specktackle/selenium-and-webdriverio-a-historical-overview-6f8fbf94b418,Selenium and WebdriverIO — A Historical Overview"
         })
     void testTitleWithHairSpace(final String url,
                                 final String expectedTitle) {
@@ -209,7 +243,7 @@ public class MediumLinkContentParserTest {
     void testTitleForNetflix() {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        final String url = "https://medium.com/netflix-techblog/a-microscope-on-microservices-923b906103f4";
+        final String url = "https://netflixtechblog.com/a-microscope-on-microservices-923b906103f4";
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertTrue(d.getDataFile().isPresent());
@@ -277,4 +311,28 @@ public class MediumLinkContentParserTest {
                            });
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
-}
+
+    @ParameterizedTest
+    @CsvSource(value = {
+        "https://medium.com/@kentbeck_7670/bs-changes-e574bc396aaa|en",
+        "https://medium.com/france/praha-8e7086a6c1fe|fr",
+        "https://medium.com/@FibreTigre/mon-emploi-du-temps-2019-b4a44c2efa46|fr"
+        }, delimiter = '|')
+    void testLanguage(final String url,
+                      final String expectedLanguage) {
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(url,
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               final MediumLinkContentParser parser = new MediumLinkContentParser(url, data);
+                               try {
+                                   Assertions.assertEquals(Locale.of(expectedLanguage), parser.getLanguage());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getLanguage threw " + e.getMessage());
+                               }
+                               consumerHasBeenCalled.set(true);
+                           });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }}
