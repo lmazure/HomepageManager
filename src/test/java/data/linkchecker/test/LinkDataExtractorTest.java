@@ -763,7 +763,7 @@ public class LinkDataExtractorTest {
     void youtubeWatchPhiloximeIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=YVtW5d94KN0";
         final String expectedXml = """
-                <ARTICLE><X><T>Climat : ce moment où ça a déraillé</T>\
+                <ARTICLE><X><T>Justice climatique : ce moment où ça a déraillé</T>\
                 <A>https://www.youtube.com/watch?v=YVtW5d94KN0</A>\
                 <L>fr</L><F>MP4</F><DURATION><MINUTE>28</MINUTE><SECOND>14</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Maxime</FIRSTNAME><LASTNAME>Lambrecht</LASTNAME></AUTHOR>\
