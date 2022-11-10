@@ -54,13 +54,66 @@ public class MediumLinkContentParserTest {
     }
 
     @ParameterizedTest
+    @CsvSource({
+        "https://medium.com/@kentbeck_7670/sipping-the-big-gulp-a7c50549c393,Coburn,,Watson,Scott,,Emmons,Brendan,,Gregg"
+        })
+    void test3Authors(final String url,
+                      final String expectedFirstName1,
+                      final String expectedLastName1,
+                      final String expectedGivenName1,
+                      final String expectedFirstName2,
+                      final String expectedLastName2,
+                      final String expectedGivenName2,
+                      final String expectedFirstName3,
+                      final String expectedLastName3,
+                      final String expectedGivenName3) {
+        final AuthorData expectedAuthor1 = new AuthorData(Optional.empty(),
+                                                          Optional.ofNullable(expectedFirstName1),
+                                                          Optional.empty(),
+                                                          Optional.ofNullable(expectedLastName1),
+                                                          Optional.empty(),
+                                                          Optional.ofNullable(expectedGivenName1));
+        final AuthorData expectedAuthor2 = new AuthorData(Optional.empty(),
+                                                          Optional.ofNullable(expectedFirstName2),
+                                                          Optional.empty(),
+                                                          Optional.ofNullable(expectedLastName2),
+                                                          Optional.empty(),
+                                                          Optional.ofNullable(expectedGivenName2));
+        final AuthorData expectedAuthor3 = new AuthorData(Optional.empty(),
+                                                          Optional.ofNullable(expectedFirstName3),
+                                                          Optional.empty(),
+                                                          Optional.ofNullable(expectedLastName3),
+                                                          Optional.empty(),
+                                                          Optional.ofNullable(expectedGivenName3));
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(url,
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               final MediumLinkContentParser parser = new MediumLinkContentParser(url, data);
+                               try {
+                                   Assertions.assertEquals(3, parser.getSureAuthors().size());
+                                   Assertions.assertEquals(expectedAuthor1, parser.getSureAuthors().get(0));
+                                   Assertions.assertEquals(expectedAuthor2, parser.getSureAuthors().get(1));
+                                   Assertions.assertEquals(expectedAuthor3, parser.getSureAuthors().get(2));
+                                } catch (final ContentParserException e) {
+                                    Assertions.fail("getSureAuthors threw " + e.getMessage());
+                                }
+                               consumerHasBeenCalled.set(true);
+                           });
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    @ParameterizedTest
     @CsvSource(value = {
         "https://medium.com/@kentbeck_7670/bs-changes-e574bc396aaa|SB Changes",
         "https://medium.com/@kentbeck_7670/productive-compliments-giving-receiving-connecting-dda58570d96b|Productive Compliments: Giving, Receiving, Connecting",
         "https://medium.com/@kentbeck_7670/sipping-the-big-gulp-a7c50549c393|Sipping the Big Gulp: 2 Ways to Narrow an Interface",
+        "https://medium.com/swlh/microservices-architecture-what-is-saga-pattern-and-how-important-is-it-55f56cfedd6b|[Microservices Architecture] What is SAGA Pattern and How important is it?",
         // the next articles seem to be old ones one where the paragraph IDs where not 4 hexadecimal numbers
         "https://medium.com/@docjamesw/the-anti-meeting-culture-c209bab5a16d|The Anti-Meeting Culture",
-        "https://medium.com/@docjamesw/work-hard-youll-get-there-eventually-d4f4fc704820|Work Hard You’ll Get There Eventually"
+        "https://medium.com/@docjamesw/work-hard-youll-get-there-eventually-d4f4fc704820|Work Hard You’ll Get There Eventually",
         }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {

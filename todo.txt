@@ -3,6 +3,15 @@ https://uxdesign.cc/the-dark-yellow-problem-in-design-system-color-palettes-a0db
 https://netflixtechblog.com/a-microscope-on-microservices-923b906103f4
 
 
+
+
+
+regarder récupération d'auteurs multiples pour Medium
+https://netflixtechblog.com/a-microscope-on-microservices-923b906103f4
+<p id="b344" class="pw-post-body-paragraph kd ke jg kf b kg kh ki kj kk kl km kn ko kp kq kr ks kt ku kv kw kx ky kz la iz ga"><em class="lb">by </em><a class="au lc" href="https://www.linkedin.com/profile/view?id=8432078" rel="noopener ugc nofollow" target="_blank"><em class="lb">Coburn Watson</em></a><em class="lb">, </em><a class="au lc" href="https://scotte.github.io/" rel="noopener ugc nofollow" target="_blank"><em class="lb">Scott Emmons</em></a><em class="lb">, and </em><a class="au lc" href="http://www.brendangregg.com/" rel="noopener ugc nofollow" target="_blank"><em class="lb">Brendan Gregg</em></a></p>
+
+
+
 ==== merge =====
 
 
