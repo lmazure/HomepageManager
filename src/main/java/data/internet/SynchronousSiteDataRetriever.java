@@ -42,10 +42,6 @@ public class SynchronousSiteDataRetriever {
 
     private static final String s_userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv\", \"0.0) Gecko/20100101 Firefox/90.0";
 
-    static {
-        java.net.CookieManager cm = new java.net.CookieManager();
-        java.net.CookieHandler.setDefault(cm);
-    }
     public SynchronousSiteDataRetriever(final SiteDataPersister persister) {
         _persister = persister;
         _sslSocketFactory = getDisabledPKIXCheck();
@@ -60,61 +56,70 @@ public class SynchronousSiteDataRetriever {
      */
     public void retrieve(final String url,
                          final BiConsumer<Boolean, SiteData> consumer) {
-        retrieveInternal(url, consumer, 0, new CookieManager());
+        retrieveInternal(url, url, consumer, 0, new CookieManager());
     }
 
-    private void retrieveInternal(final String url,
+    private void retrieveInternal(final String initialUrl,
+                                  final String currentUrl,
                                   final BiConsumer<Boolean, SiteData> consumer,
-                                  int depth,
+                                  final int depth,
                                   final CookieManager cookieManager) {
-        //System.out.println("===================================================================================");
-        //System.out.println("retrieveInternal " + url);
+        System.out.println("===================================================================================");
+        System.out.println("retrieveInternal " + initialUrl);
             final Instant timestamp = Instant.now();
         Optional<Integer> httpCode = Optional.empty();
         Optional<Map<String, List<String>>> headers = Optional.empty();
         Optional<String> error = Optional.empty();
        
          try {
-             final HttpURLConnection httpConnection = httpConnect(url, cookieManager);
+             final HttpURLConnection httpConnection = httpConnect(currentUrl, cookieManager);
              headers = Optional.of(httpConnection.getHeaderFields());
              final int responseCode = httpConnection.getResponseCode();
              httpCode = Optional.of(Integer.valueOf(responseCode));
-             /*if (responseCode == 301 ||responseCode == 302 || responseCode == 307) {
-                 final String redirectUrl = httpConnection.getHeaderField("Location");
-                 //final String redirectCookies = httpConnection.getHeaderField("Set-Cookie");
-                 Map<String, List<String>> headerFields = httpConnection.getHeaderFields();
-                 List<String> redirectCookies = headerFields.get("Set-Cookie");
-                 if (redirectCookies != null) {
-                     for (String cookie : redirectCookies) {
-                         System.out.println("set cookie to " + cookie);
-                         cookieManager.getCookieStore().add(new URI(url),HttpCookie.parse(cookie).get(0));
+             if (responseCode == HttpURLConnection.HTTP_MOVED_PERM || // 301
+                 responseCode == HttpURLConnection.HTTP_MOVED_TEMP || // 302 
+                 responseCode == 307) {
+                 if (depth == 40) {
+                     throw new IOException("Too many redirects (40) occurred trying to load URL " + initialUrl);
+                 }
+                 final String location = httpConnection.getHeaderField("Location");
+                 final String redirectUrl = getRedirectionUrl(currentUrl, location);
+                 final Map<String, List<String>> headerFields = httpConnection.getHeaderFields();
+                 final List<String> cookies = headerFields.get("Set-Cookie");
+                 if (cookies != null) {
+                     for (final String cookie: cookies) {
+                         System.out.println("record cookie " + cookie);
+                         for (final HttpCookie c: HttpCookie.parse(cookie)) {
+                             cookieManager.getCookieStore().add(new URI(currentUrl), c);
+                         }
                      }  
                  }
-                 System.out.println(depth+ " redirected to: " + redirectUrl + " with cookies " + redirectCookies);
-                 retrieveInternal(redirectUrl, consumer, depth + 1, cookieManager);
-             } else */if (responseCode != HttpURLConnection.HTTP_OK         /* 200 */ &&
-                 responseCode != HttpURLConnection.HTTP_CREATED    /* 201 */) {
+                 System.out.println(depth+ " redirected to: " + redirectUrl + " with cookies " + cookies);
+                 retrieveInternal(initialUrl, redirectUrl, consumer, depth + 1, cookieManager);
+                 return;
+             } else if (responseCode != HttpURLConnection.HTTP_OK /* 200 */ &&
+                 responseCode != HttpURLConnection.HTTP_CREATED   /* 201 */) {
                  error = Optional.of("page not found");
-                 _persister.persist(url, timestamp, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error);
-                 consumer.accept(Boolean.TRUE, new SiteData(url, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error));
+                 _persister.persist(initialUrl, timestamp, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error);
+                 consumer.accept(Boolean.TRUE, new SiteData(initialUrl, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error));
                  return;
              }
-             _persister.persist(url, timestamp, SiteData.Status.SUCCESS, httpCode, headers, Optional.of(httpConnection.getInputStream()), error);
-             final FileSection dataFile = _persister.getDataFileSection(url, timestamp);
-             consumer.accept(Boolean.TRUE, new SiteData(url, SiteData.Status.SUCCESS, httpCode, headers, Optional.of(dataFile), error));
+             _persister.persist(initialUrl, timestamp, SiteData.Status.SUCCESS, httpCode, headers, Optional.of(httpConnection.getInputStream()), error);
+             final FileSection dataFile = _persister.getDataFileSection(initialUrl, timestamp);
+             consumer.accept(Boolean.TRUE, new SiteData(initialUrl, SiteData.Status.SUCCESS, httpCode, headers, Optional.of(dataFile), error));
          } catch (final IOException e) {
              error = Optional.of(e.toString());
-             _persister.persist(url, timestamp, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error);
-             consumer.accept(Boolean.TRUE, new SiteData(url, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error));
-         //} catch (URISyntaxException e) {
-         //   // TODO Auto-generated catch block
-         //   e.printStackTrace();
+             _persister.persist(initialUrl, timestamp, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error);
+             consumer.accept(Boolean.TRUE, new SiteData(initialUrl, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error));
+         } catch (URISyntaxException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 
     public String getGzippedContent(final String url) throws IOException {
         try {
-            final HttpURLConnection httpConnection = httpConnect(url, null);
+            final HttpURLConnection httpConnection = httpConnect(url, new CookieManager());
             try (final GZIPInputStream gzipReader = new GZIPInputStream(httpConnection.getInputStream())) {
                 final byte[] bytes = gzipReader.readAllBytes();
                 return new String(bytes, StandardCharsets.UTF_8);
@@ -134,8 +139,8 @@ public class SynchronousSiteDataRetriever {
         }
         connection.setConnectTimeout(s_connectTimeout);
         connection.setReadTimeout(s_readTimeout);
-        //httpConnection.setInstanceFollowRedirects(false);
-       /* try {
+        httpConnection.setInstanceFollowRedirects(false);
+        try {
             if (cookieManager.getCookieStore().get(new URI(urlString)).size() > 0) {
                 // While joining the Cookies, use ',' or ';' as needed. Most of the servers are using ';'
                 String c = cookieManager.getCookieStore().get(new URI(urlString)).stream().map(h -> h.toString()).collect(Collectors.joining(";"));
@@ -145,11 +150,7 @@ public class SynchronousSiteDataRetriever {
         } catch (URISyntaxException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }*/
-        //if (cookies != null) {
-        //    httpConnection.setRequestProperty("Cookie", cookies);
-        //}
-        httpConnection.setRequestMethod("GET");
+        }
         httpConnection.setRequestProperty("User-Agent", s_userAgent);
         httpConnection.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
         httpConnection.setRequestProperty("Accept-Language", "en");
@@ -164,7 +165,7 @@ public class SynchronousSiteDataRetriever {
         httpConnection.setRequestProperty("Cache-Control", "no-cache");
         httpConnection.setRequestProperty("TE", "trailers");
         httpConnection.connect();
-        //System.out.println("cookies were set to: " +         httpConnection.getRequestProperty("Cookie"));
+        System.out.println("cookies were set to: " +         httpConnection.getRequestProperty("Cookie"));
         return httpConnection;
     }
 
@@ -197,5 +198,27 @@ public class SynchronousSiteDataRetriever {
         // Create a SSL socket factory with our all-trusting manager
         assert(sslContext != null);
         return sslContext.getSocketFactory();
+    }
+
+
+    private static String getRedirectionUrl(final String currentUrl,
+                                            final String redirection) {
+        try {
+            if (redirection.startsWith("http://") || redirection.startsWith("https://")) {
+                return redirection;
+            }
+            if (redirection.startsWith("/")) {
+                final URI uri = new URI(currentUrl);
+                final URI redirectUri = new URI(uri.getScheme(), uri.getHost(), redirection, null);
+                return redirectUri.toString();
+            }
+             final URI uri = new URI(currentUrl);
+             final URI redirectUri = new URI(uri.getScheme(), uri.getHost(), uri.getPath().replaceFirst("[^/]*$", "") + redirection, null);
+             return redirectUri.toString();
+        } catch (final URISyntaxException e) {
+            ExitHelper.exit("Invalid URI", e);
+            // NOTREACHED
+            return null;
+        }
     }
 }

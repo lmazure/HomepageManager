@@ -55,36 +55,33 @@ public class MediumLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://netflixtechblog.com/a-microscope-on-microservices-923b906103f4,Coburn,Watson,,Scott,Emmons,,Brendan,Gregg,"
+        "https://netflixtechblog.com/a-microscope-on-microservices-923b906103f4,Coburn,Watson,Scott,Emmons,Brendan,Gregg"
         })
     void testNetflix3Authors(final String url,
                              final String expectedFirstName1,
                              final String expectedLastName1,
-                             final String expectedGivenName1,
                              final String expectedFirstName2,
                              final String expectedLastName2,
-                             final String expectedGivenName2,
                              final String expectedFirstName3,
-                             final String expectedLastName3,
-                             final String expectedGivenName3) {
+                             final String expectedLastName3) {
         final AuthorData expectedAuthor1 = new AuthorData(Optional.empty(),
                                                           Optional.ofNullable(expectedFirstName1),
                                                           Optional.empty(),
                                                           Optional.ofNullable(expectedLastName1),
                                                           Optional.empty(),
-                                                          Optional.ofNullable(expectedGivenName1));
+                                                          Optional.empty());
         final AuthorData expectedAuthor2 = new AuthorData(Optional.empty(),
                                                           Optional.ofNullable(expectedFirstName2),
                                                           Optional.empty(),
                                                           Optional.ofNullable(expectedLastName2),
                                                           Optional.empty(),
-                                                          Optional.ofNullable(expectedGivenName2));
+                                                          Optional.empty());
         final AuthorData expectedAuthor3 = new AuthorData(Optional.empty(),
                                                           Optional.ofNullable(expectedFirstName3),
                                                           Optional.empty(),
                                                           Optional.ofNullable(expectedLastName3),
                                                           Optional.empty(),
-                                                          Optional.ofNullable(expectedGivenName3));
+                                                          Optional.empty());
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
