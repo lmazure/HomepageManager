@@ -1,7 +1,11 @@
 package data.internet;
 
 import java.io.IOException;
+import java.net.CookieManager;
+import java.net.HttpCookie;
 import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
@@ -13,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -37,6 +42,10 @@ public class SynchronousSiteDataRetriever {
 
     private static final String s_userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv\", \"0.0) Gecko/20100101 Firefox/90.0";
 
+    static {
+        java.net.CookieManager cm = new java.net.CookieManager();
+        java.net.CookieHandler.setDefault(cm);
+    }
     public SynchronousSiteDataRetriever(final SiteDataPersister persister) {
         _persister = persister;
         _sslSocketFactory = getDisabledPKIXCheck();
@@ -51,18 +60,39 @@ public class SynchronousSiteDataRetriever {
      */
     public void retrieve(final String url,
                          final BiConsumer<Boolean, SiteData> consumer) {
+        retrieveInternal(url, consumer, 0, new CookieManager());
+    }
 
-        final Instant timestamp = Instant.now();
+    private void retrieveInternal(final String url,
+                                  final BiConsumer<Boolean, SiteData> consumer,
+                                  int depth,
+                                  final CookieManager cookieManager) {
+        //System.out.println("===================================================================================");
+        //System.out.println("retrieveInternal " + url);
+            final Instant timestamp = Instant.now();
         Optional<Integer> httpCode = Optional.empty();
         Optional<Map<String, List<String>>> headers = Optional.empty();
         Optional<String> error = Optional.empty();
-
+       
          try {
-             final HttpURLConnection httpConnection = httpConnect(url);
+             final HttpURLConnection httpConnection = httpConnect(url, cookieManager);
              headers = Optional.of(httpConnection.getHeaderFields());
              final int responseCode = httpConnection.getResponseCode();
              httpCode = Optional.of(Integer.valueOf(responseCode));
-             if (responseCode != HttpURLConnection.HTTP_OK         /* 200 */ && // TODO this cannot be right
+             /*if (responseCode == 301 ||responseCode == 302 || responseCode == 307) {
+                 final String redirectUrl = httpConnection.getHeaderField("Location");
+                 //final String redirectCookies = httpConnection.getHeaderField("Set-Cookie");
+                 Map<String, List<String>> headerFields = httpConnection.getHeaderFields();
+                 List<String> redirectCookies = headerFields.get("Set-Cookie");
+                 if (redirectCookies != null) {
+                     for (String cookie : redirectCookies) {
+                         System.out.println("set cookie to " + cookie);
+                         cookieManager.getCookieStore().add(new URI(url),HttpCookie.parse(cookie).get(0));
+                     }  
+                 }
+                 System.out.println(depth+ " redirected to: " + redirectUrl + " with cookies " + redirectCookies);
+                 retrieveInternal(redirectUrl, consumer, depth + 1, cookieManager);
+             } else */if (responseCode != HttpURLConnection.HTTP_OK         /* 200 */ &&
                  responseCode != HttpURLConnection.HTTP_CREATED    /* 201 */) {
                  error = Optional.of("page not found");
                  _persister.persist(url, timestamp, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error);
@@ -76,12 +106,15 @@ public class SynchronousSiteDataRetriever {
              error = Optional.of(e.toString());
              _persister.persist(url, timestamp, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error);
              consumer.accept(Boolean.TRUE, new SiteData(url, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error));
-         }
+         //} catch (URISyntaxException e) {
+         //   // TODO Auto-generated catch block
+         //   e.printStackTrace();
+        }
     }
 
     public String getGzippedContent(final String url) throws IOException {
         try {
-            final HttpURLConnection httpConnection = httpConnect(url);
+            final HttpURLConnection httpConnection = httpConnect(url, null);
             try (final GZIPInputStream gzipReader = new GZIPInputStream(httpConnection.getInputStream())) {
                 final byte[] bytes = gzipReader.readAllBytes();
                 return new String(bytes, StandardCharsets.UTF_8);
@@ -91,7 +124,8 @@ public class SynchronousSiteDataRetriever {
         }
     }
 
-    private HttpURLConnection httpConnect(final String urlString) throws IOException {
+    private HttpURLConnection httpConnect(final String urlString,
+                                          final CookieManager cookieManager) throws IOException {
         final URL url = UrlHelper.convertStringToUrl(urlString);
         final URLConnection connection = url.openConnection();
         final HttpURLConnection httpConnection = (HttpURLConnection)connection;
@@ -100,6 +134,21 @@ public class SynchronousSiteDataRetriever {
         }
         connection.setConnectTimeout(s_connectTimeout);
         connection.setReadTimeout(s_readTimeout);
+        //httpConnection.setInstanceFollowRedirects(false);
+       /* try {
+            if (cookieManager.getCookieStore().get(new URI(urlString)).size() > 0) {
+                // While joining the Cookies, use ',' or ';' as needed. Most of the servers are using ';'
+                String c = cookieManager.getCookieStore().get(new URI(urlString)).stream().map(h -> h.toString()).collect(Collectors.joining(";"));
+                connection.setRequestProperty("Cookie", c);
+                System.out.println("set cookies to " + c);
+            }
+        } catch (URISyntaxException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }*/
+        //if (cookies != null) {
+        //    httpConnection.setRequestProperty("Cookie", cookies);
+        //}
         httpConnection.setRequestMethod("GET");
         httpConnection.setRequestProperty("User-Agent", s_userAgent);
         httpConnection.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
@@ -115,6 +164,7 @@ public class SynchronousSiteDataRetriever {
         httpConnection.setRequestProperty("Cache-Control", "no-cache");
         httpConnection.setRequestProperty("TE", "trailers");
         httpConnection.connect();
+        //System.out.println("cookies were set to: " +         httpConnection.getRequestProperty("Cookie"));
         return httpConnection;
     }
 

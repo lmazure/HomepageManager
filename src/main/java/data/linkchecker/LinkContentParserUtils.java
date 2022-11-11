@@ -1,5 +1,7 @@
 package data.linkchecker;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import utils.internet.HtmlHelper;
@@ -46,5 +48,14 @@ public class LinkContentParserUtils {
         }
 
         throw new ContentParserException("Failed to parse author name (author name has " + nameParts.length + " parts)");
+    }
+
+    public static List<AuthorData> getAuthors(final String str) throws ContentParserException {
+        final List<AuthorData> authorList = new ArrayList<>();
+        final String[] splits = str.split(", and | and |, ");
+        for (final String s: splits) {
+            authorList.add(LinkContentParserUtils.getAuthor(s));
+        }
+        return authorList;
     }
 }

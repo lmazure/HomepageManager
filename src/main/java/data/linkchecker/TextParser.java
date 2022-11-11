@@ -43,4 +43,5 @@ public class TextParser {
          }
 
         return Optional.empty();
-    }}
+    }
+}

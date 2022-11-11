@@ -42,16 +42,22 @@ public class MediumLinkContentParser extends LinkDataExtractor {
                          "JSON preloaded state");
 
     private static final TextParser s_jsonTitle
-    = new TextParser("<h1 id=\"(?:\\p{XDigit}{4}|title)\" class=\"pw-post-title(?: \\p{Lower}{1,2})+\">",
-                     "</h1>",
-                     "Medium",
-                     "title");
+        = new TextParser("<h1 id=\"(?:\\p{XDigit}{4}|title)\" class=\"pw-post-title(?: \\p{Lower}{1,2})+\">",
+                         "</h1>",
+                         "Medium",
+                         "title");
 
     private static final TextParser s_jsonSubtitle
-    = new TextParser("<h2 id=\"(?:\\p{XDigit}{4}|subtitle)\" class=\"pw-subtitle-paragraph(?: \\p{Lower}{1,2})+\">",
-                     "</h2>",
-                     "Medium",
-                     "subtitle");
+        = new TextParser("<h2 id=\"(?:\\p{XDigit}{4}|subtitle)\" class=\"pw-subtitle-paragraph(?: \\p{Lower}{1,2})+\">",
+                         "</h2>",
+                         "Medium",
+                         "subtitle");
+
+    private static final TextParser s_netflixAuthors
+        = new TextParser("<p id=\"\\p{XDigit}{4}\" class=\"pw-post-body-paragraph(?: \\p{Lower}{1,2})+\"><em class=\"\\p{Lower}{2}\">by ",
+                         "</p>",
+                        "Medium",
+                        "Netflix authors");
 
     public MediumLinkContentParser(final String url,
                                    final String data) {
@@ -133,9 +139,18 @@ public class MediumLinkContentParser extends LinkDataExtractor {
         } catch (final JSONException e) {
             throw new ContentParserException("Failed to find \"" + creatorCode +"/name\" JSON field in Medium page", e);
         }
-        _authors = Collections.singletonList(LinkContentParserUtils.getAuthor(name));
+        if (name.equals("Netflix Technology Blog")) {
+            final Optional<String> netflixAuthors = s_netflixAuthors.extractOptional(_data);
+            if (netflixAuthors.isPresent()) {
+                _authors = LinkContentParserUtils.getAuthors(HtmlHelper.cleanContent((netflixAuthors.get())));
+            } else {
+                _authors = new ArrayList<>();
+            }
+        } else {
+            _authors = Collections.singletonList(LinkContentParserUtils.getAuthor(name));
+        }
 
-        /* does not workn the subtitle in the FSON payload is not the subtitle, but the first oaragraog, whatever is is this one
+        /* does not work, the subtitle in the FSON payload is not the subtitle, but the first oaragraog, whatever is is this one
         JSONObject previewContent;
         try {
             previewContent = post.getJSONObject("previewContent");
