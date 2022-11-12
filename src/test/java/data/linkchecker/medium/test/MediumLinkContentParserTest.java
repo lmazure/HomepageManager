@@ -246,7 +246,7 @@ public class MediumLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        // the hair space is in the JSON payload, but not in the HTML 
+        // the hair space is in the JSON payload, but not in the HTML
         "https://medium.com/@kentbeck_7670/curiosity-as-a-service-literally-1f4f6309fae5,Curiosity as a Service — Literally",
         "https://medium.com/@specktackle/selenium-and-webdriverio-a-historical-overview-6f8fbf94b418,Selenium and WebdriverIO — A Historical Overview"
         })

@@ -3,7 +3,7 @@ package utils.internet;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class UrlHelper extends HttpHelper {
+public class UrlHelper {
 
     public static String removeQueryParameters(final String url,
                                                final String ...parameters) {
