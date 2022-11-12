@@ -120,6 +120,6 @@ public class IbmLinkContentParser {
         final String urlJsonStructure = url.replaceFirst("//developer.ibm.com/articles/", "//developer.ibm.com/middleware/v1/contents/articles/")
                                            .replaceFirst("//developer.ibm.com/tutorials/", "//developer.ibm.com/middleware/v1/contents/tutorials/")
                                            .replaceFirst("/$", "");
-        return _retriever.getGzippedContent(urlJsonStructure);
+        return _retriever.getGzippedContent(urlJsonStructure, false);
     }
 }

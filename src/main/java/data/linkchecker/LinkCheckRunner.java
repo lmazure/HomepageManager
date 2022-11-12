@@ -120,7 +120,7 @@ public class LinkCheckRunner {
             return;
         }
         for (final String url: linksToBeChecked) {
-            _retriever.retrieve(url, this::handleLinkData, MAX_CACHE_AGE);
+            _retriever.retrieve(url, this::handleLinkData, MAX_CACHE_AGE, doNotUseCookies(url));
         }
     }
 
@@ -417,5 +417,10 @@ public class LinkCheckRunner {
         }
 
         return (effectiveData.getHttpCode().isPresent() && effectiveData.getHttpCode().get().intValue() == 200);
+    }
+
+    static private boolean doNotUseCookies(final String url) { // TODO the decision to allow/disallow cookies should be in the parser
+        return url.startsWith("https://www.youtube.com/channel/") ||
+               url.startsWith("https://www.youtube.com/user/");
     }
 }

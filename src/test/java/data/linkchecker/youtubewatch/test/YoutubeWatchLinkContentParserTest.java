@@ -1,7 +1,7 @@
 package data.linkchecker.youtubewatch.test;
 
-import java.time.Duration;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -36,7 +36,8 @@ public class YoutubeWatchLinkContentParserTest {
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
                                Assertions.assertTrue(parser.isPlayable());
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -52,7 +53,8 @@ public class YoutubeWatchLinkContentParserTest {
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
                                Assertions.assertFalse(parser.isPlayable());
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -79,7 +81,8 @@ public class YoutubeWatchLinkContentParserTest {
                                    Assertions.fail("getChannel threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -99,12 +102,13 @@ public class YoutubeWatchLinkContentParserTest {
                                    Assertions.fail("getTitle threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
     @Test
-    @Disabled // I need to find another video with a control character, this one has been fixed
+    @Disabled("I need to find another video with a control character, this one has been fixed")
     void testTitleWithControlCharacterString() {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
@@ -120,7 +124,8 @@ public class YoutubeWatchLinkContentParserTest {
                                    Assertions.fail("getTitle threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -140,7 +145,8 @@ public class YoutubeWatchLinkContentParserTest {
                                   Assertions.fail("getTitle threw " + e.getMessage());
                               }
                               consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -160,7 +166,8 @@ public class YoutubeWatchLinkContentParserTest {
                                    Assertions.fail("getTitle threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -180,7 +187,8 @@ public class YoutubeWatchLinkContentParserTest {
                                    Assertions.fail("getDescription threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -202,7 +210,8 @@ public class YoutubeWatchLinkContentParserTest {
                                    Assertions.fail("getDescription threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -234,7 +243,8 @@ public class YoutubeWatchLinkContentParserTest {
                                    Assertions.fail("getDescription threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -259,7 +269,8 @@ public class YoutubeWatchLinkContentParserTest {
                                    Assertions.fail("getPublishDate threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -274,17 +285,18 @@ public class YoutubeWatchLinkContentParserTest {
                                final String data = HtmlHelper.slurpFile(d.getDataFile().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
                                try {
-                                   Assertions.assertEquals(Duration.ofMillis(5602280), parser.getMinDuration());
+                                   Assertions.assertEquals(5602, parser.getMinDuration().get(ChronoUnit.SECONDS));
                                } catch (final ContentParserException e) {
                                    Assertions.fail("getMinDuration threw " + e.getMessage());
                                }
                                try {
-                                   Assertions.assertEquals(Duration.ofMillis(5602348), parser.getMaxDuration());
+                                   Assertions.assertEquals(5602, parser.getMaxDuration().get(ChronoUnit.SECONDS));
                                } catch (final ContentParserException e) {
                                    Assertions.fail("getMaxDuration threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -310,7 +322,8 @@ public class YoutubeWatchLinkContentParserTest {
                                    Assertions.fail("getLanguage threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -330,7 +343,9 @@ public class YoutubeWatchLinkContentParserTest {
             "https://www.youtube.com/watch?v=kiv32_P_T3k",
             "https://www.youtube.com/watch?v=lkdnOuzHdFE",
             // vidéo bilingue "https://www.youtube.com/watch?v=nhDpozSK0uw",
-            "https://www.youtube.com/watch?v=ohU1tEwxOSE"
+            "https://www.youtube.com/watch?v=ohU1tEwxOSE",
+            // the following video has no description
+            "https://www.youtube.com/watch?v=x4rj4MfNkys"
                            })
     void testFrench(final String url) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
@@ -346,7 +361,8 @@ public class YoutubeWatchLinkContentParserTest {
                                    Assertions.fail("getLanguage threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -367,7 +383,8 @@ public class YoutubeWatchLinkContentParserTest {
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
                                Assertions.assertEquals(Locale.ENGLISH, parser.getSubtitlesLanguage().get());
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -387,15 +404,16 @@ public class YoutubeWatchLinkContentParserTest {
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
                                Assertions.assertEquals(Locale.FRENCH, parser.getSubtitlesLanguage().get());
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
-    @Disabled // TODO 001 I need to find such examples
     @ParameterizedTest
     @ValueSource(strings = {
             "https://www.youtube.com/watch?v=CfRSVPhzN5M"
                            })
+    @Disabled("I need to find such examples")
     void testNoSubtitles(final String url) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
@@ -406,7 +424,8 @@ public class YoutubeWatchLinkContentParserTest {
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
                                Assertions.assertTrue(parser.getSubtitlesLanguage().isEmpty());
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -427,7 +446,8 @@ public class YoutubeWatchLinkContentParserTest {
                                    // do nothing
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 

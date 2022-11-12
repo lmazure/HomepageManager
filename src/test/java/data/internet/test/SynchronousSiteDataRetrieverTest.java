@@ -25,7 +25,8 @@ public class SynchronousSiteDataRetrieverTest {
                                consumerHasBeenCalled.set(true);
                                Assertions.assertTrue(b.booleanValue());
                                TestHelper.assertData(d);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -40,7 +41,8 @@ public class SynchronousSiteDataRetrieverTest {
                                consumerHasBeenCalled.set(true);
                                Assertions.assertTrue(b.booleanValue());
                                TestHelper.assertData(d);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -52,7 +54,8 @@ public class SynchronousSiteDataRetrieverTest {
         retriever.retrieve("https://www.linkedin.com/in/thomas-cabaret-36766674/",
                            (final Boolean b, final SiteData d) -> {
                                Assertions.assertEquals(200, d.getHttpCode().get().intValue());
-                           });
+                           },
+                           false);
     }
 
     private SynchronousSiteDataRetriever buildDataSiteRetriever() {

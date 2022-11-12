@@ -63,8 +63,9 @@ public class LinkDataExtractorFactory {
         if (u.startsWith("https://www.youtube.com/watch?")) {
             u = UrlHelper.removeQueryParameters(u, "app",
                                                    "feature",
+                                                   "index",
                                                    "list",
-                                                   "index");
+                                                   "t");
             constructor = YoutubeWatchLinkContentParser::new;
         }
 
@@ -82,7 +83,7 @@ public class LinkDataExtractorFactory {
 
         final SiteDataPersister persister = new SiteDataPersister(cacheDirectory);
         final SynchronousSiteDataRetriever retriever = new SynchronousSiteDataRetriever(persister);
-        retriever.retrieve(url, this::handleLinkData);
+        retriever.retrieve(url, this::handleLinkData, false);
 
         return constructor.apply(u, _content);
     }

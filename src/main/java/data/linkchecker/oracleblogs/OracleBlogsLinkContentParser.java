@@ -187,7 +187,7 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
                                     final String site) throws IOException {
         final String urlJsonStructure = url.replaceFirst("/post/", "/")
                                            .replaceFirst("/[^/]*$", "/" + site + "/structure.json");
-        return _retriever.getGzippedContent(urlJsonStructure);
+        return _retriever.getGzippedContent(urlJsonStructure, false);
     }
 
     private String getJsonPayload(final String url,
@@ -201,11 +201,11 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
                                + channelAccessToken
                                + "&cb="
                                + caas;
-        return _retriever.getGzippedContent(jsonUrl);
+        return _retriever.getGzippedContent(jsonUrl, false);
     }
 
     private AuthorData getAuthor(final String url) throws IOException, ContentParserException {
-        final String jsonPayload = _retriever.getGzippedContent(url);
+        final String jsonPayload = _retriever.getGzippedContent(url, false);
         final JSONObject obj = new JSONObject(jsonPayload);
         final String name = obj.getString("name");
         return LinkContentParserUtils.getAuthor(name);

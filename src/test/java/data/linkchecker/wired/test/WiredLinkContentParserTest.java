@@ -39,7 +39,8 @@ public class WiredLinkContentParserTest {
                                    Assertions.fail("getTitle threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -66,7 +67,8 @@ public class WiredLinkContentParserTest {
                                    Assertions.fail("getSubtitle threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -90,7 +92,8 @@ public class WiredLinkContentParserTest {
                                    Assertions.fail("getSubtitle threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -114,7 +117,8 @@ public class WiredLinkContentParserTest {
                                    Assertions.fail("getSubtitle threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -139,7 +143,8 @@ public class WiredLinkContentParserTest {
                                    Assertions.fail("getDate threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -173,7 +178,8 @@ public class WiredLinkContentParserTest {
                                   Assertions.fail("getSureAuthors threw " + e.getMessage());
                               }
                               consumerHasBeenCalled.set(true);
-                          });
+                          },
+                          false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -195,7 +201,8 @@ public class WiredLinkContentParserTest {
                                   Assertions.fail("getSureAuthors threw " + e.getMessage());
                               }
                               consumerHasBeenCalled.set(true);
-                          });
+                          },
+                          false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 }

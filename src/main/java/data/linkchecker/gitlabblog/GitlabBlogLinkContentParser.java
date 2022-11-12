@@ -58,16 +58,7 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
     @Override
     public List<AuthorData> getSureAuthors() throws ContentParserException {
         final String authors = s_authorParser.extract(_data);
-        final List<AuthorData> authorList = new ArrayList<>();
-        final String separator = " and ";
-        if (authors.contains(separator)) {
-            final String[] split = authors.split(separator);
-            authorList.add(LinkContentParserUtils.getAuthor(split[0]));
-            authorList.add(LinkContentParserUtils.getAuthor(split[1]));
-        } else {
-            authorList.add(LinkContentParserUtils.getAuthor(authors));
-        }
-        return authorList;
+        return LinkContentParserUtils.getAuthors(authors);
     }
 
     @Override

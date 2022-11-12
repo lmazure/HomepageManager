@@ -40,7 +40,8 @@ public class GithubBlogLinkContentParserTest {
                                    Assertions.fail("getTitle threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -67,7 +68,8 @@ public class GithubBlogLinkContentParserTest {
                                    Assertions.fail("getSubtitle threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -90,7 +92,8 @@ public class GithubBlogLinkContentParserTest {
                                     Assertions.fail("getPublicationDate threw " + e.getMessage());
                                 }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -123,7 +126,8 @@ public class GithubBlogLinkContentParserTest {
                                     Assertions.fail("getSureAuthors threw " + e.getMessage());
                                 }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 }

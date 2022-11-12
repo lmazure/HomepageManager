@@ -36,7 +36,8 @@ public class IbmLinkContentParserTest {
                                     Assertions.fail("getTitle threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -61,7 +62,8 @@ public class IbmLinkContentParserTest {
                                     Assertions.fail("getSubtitle threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -84,7 +86,8 @@ public class IbmLinkContentParserTest {
                                   Assertions.fail("getDate threw " + e.getMessage());
                               }
                               consumerHasBeenCalled.set(true);
-                          });
+                          },
+                          false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -115,7 +118,8 @@ public class IbmLinkContentParserTest {
                                  Assertions.fail("getSureAuthors threw " + e.getMessage());
                              }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 }

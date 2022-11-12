@@ -124,7 +124,8 @@ public class HtmlHelperTest {
                                    Assertions.assertEquals(expectedCharset, effectiveCharset.get());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 }

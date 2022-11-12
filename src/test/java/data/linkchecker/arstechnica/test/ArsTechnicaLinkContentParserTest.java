@@ -37,7 +37,8 @@ public class ArsTechnicaLinkContentParserTest {
                                    Assertions.fail("getTitle threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -60,7 +61,8 @@ public class ArsTechnicaLinkContentParserTest {
                                    Assertions.fail("getSubtitle threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -85,7 +87,8 @@ public class ArsTechnicaLinkContentParserTest {
                                     Assertions.fail("getDate threw " + e.getMessage());
                                 }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -121,7 +124,61 @@ public class ArsTechnicaLinkContentParserTest {
                                     Assertions.fail("getSureAuthors threw " + e.getMessage());
                                 }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "https://arstechnica.com/tech-policy/2022/09/texts-show-roll-call-of-tech-figures-tried-to-help-elon-musk-in-twitter-deal/,Hannah,,Murphy,James,,Fontanella-Khan,Sujeet,,Indap"
+        })
+    void test3Authors(final String url,
+                      final String expectedFirstName1,
+                      final String expectedMiddleName1,
+                      final String expectedLastName1,
+                      final String expectedFirstName2,
+                      final String expectedMiddleName2,
+                      final String expectedLastName2,
+                      final String expectedFirstName3,
+                      final String expectedMiddleName3,
+                      final String expectedLastName3) {
+        final AuthorData expectedAuthor1 = new AuthorData(Optional.empty(),
+                                                          Optional.of(expectedFirstName1),
+                                                          Optional.ofNullable(expectedMiddleName1),
+                                                          Optional.of(expectedLastName1),
+                                                          Optional.empty(),
+                                                          Optional.empty());
+        final AuthorData expectedAuthor2 = new AuthorData(Optional.empty(),
+                                                          Optional.of(expectedFirstName2),
+                                                          Optional.ofNullable(expectedMiddleName2),
+                                                          Optional.of(expectedLastName2),
+                                                          Optional.empty(),
+                                                          Optional.empty());
+        final AuthorData expectedAuthor3 = new AuthorData(Optional.empty(),
+                                                          Optional.of(expectedFirstName3),
+                                                          Optional.ofNullable(expectedMiddleName3),
+                                                          Optional.of(expectedLastName3),
+                                                          Optional.empty(),
+                                                          Optional.empty());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(url,
+                           (final Boolean b, final SiteData d) -> {
+                               Assertions.assertTrue(d.getDataFile().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               final ArsTechnicaLinkContentParser parser = new ArsTechnicaLinkContentParser(url, data);
+                               try {
+                                   Assertions.assertEquals(3, parser.getSureAuthors().size());
+                                   Assertions.assertEquals(expectedAuthor1, parser.getSureAuthors().get(0));
+                                   Assertions.assertEquals(expectedAuthor2, parser.getSureAuthors().get(1));
+                                   Assertions.assertEquals(expectedAuthor3, parser.getSureAuthors().get(2));
+                                } catch (final ContentParserException e) {
+                                    Assertions.fail("getSureAuthors threw " + e.getMessage());
+                                }
+                               consumerHasBeenCalled.set(true);
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -143,7 +200,8 @@ public class ArsTechnicaLinkContentParserTest {
                                     Assertions.fail("getSureAuthors threw " + e.getMessage());
                                 }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 }

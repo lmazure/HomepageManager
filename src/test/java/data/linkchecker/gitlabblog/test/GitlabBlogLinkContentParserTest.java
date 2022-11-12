@@ -39,7 +39,8 @@ public class GitlabBlogLinkContentParserTest {
                                    Assertions.fail("getTitle threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -65,7 +66,8 @@ public class GitlabBlogLinkContentParserTest {
                                     Assertions.fail("getDate threw " + e.getMessage());
                                 }
                                consumerHasBeenCalled.set(true);
-          });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -100,7 +102,8 @@ public class GitlabBlogLinkContentParserTest {
                                     Assertions.fail("getSureAuthors threw " + e.getMessage());
                                 }
                                consumerHasBeenCalled.set(true);
-          });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -143,7 +146,8 @@ public class GitlabBlogLinkContentParserTest {
                                    Assertions.fail("getSureAuthors threw " + e.getMessage());
                                }
                               consumerHasBeenCalled.set(true);
-          });
+                          },
+                          false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 }
