@@ -57,7 +57,8 @@ public class SynchronousSiteDataRetriever {
      */
     public void retrieve(final String url,
                          final BiConsumer<Boolean, SiteData> consumer) {
-        retrieveInternal(url, url, consumer, 0, new CookieManager());
+        final boolean doNotUseCoockies = doNotUseCookies(url);
+        retrieveInternal(url, url, consumer, 0, doNotUseCoockies ? null : new CookieManager());
     }
 
     private void retrieveInternal(final String initialUrl,
@@ -77,18 +78,21 @@ public class SynchronousSiteDataRetriever {
             httpCode = Optional.of(Integer.valueOf(responseCode));
             if (responseCode == HttpURLConnection.HTTP_MOVED_PERM || // 301
                 responseCode == HttpURLConnection.HTTP_MOVED_TEMP || // 302
+                responseCode == HttpURLConnection.HTTP_SEE_OTHER || // 303
                 responseCode == 307) {
                 if (depth == s_maxNbRedirects) {
                     throw new IOException("Too many redirects (" + s_maxNbRedirects + ") occurred trying to load URL " + initialUrl);
                 }
                 final String location = httpConnection.getHeaderField("Location");
                 final String redirectUrl = getRedirectionUrl(currentUrl, location);
-                final Map<String, List<String>> headerFields = httpConnection.getHeaderFields();
-                final List<String> cookies = headerFields.get("Set-Cookie");
-                if (cookies != null) {
-                    for (final String cookie: cookies) {
-                        for (final HttpCookie c: HttpCookie.parse(cookie)) {
-                            cookieManager.getCookieStore().add(UriHelper.convertStringToUri(currentUrl), c);
+                if (cookieManager != null) {
+                    final Map<String, List<String>> headerFields = httpConnection.getHeaderFields();
+                    final List<String> cookies = headerFields.get("Set-Cookie");
+                    if (cookies != null) {
+                        for (final String cookie: cookies) {
+                            for (final HttpCookie c: HttpCookie.parse(cookie)) {
+                                cookieManager.getCookieStore().add(UriHelper.convertStringToUri(currentUrl), c);
+                            }
                         }
                     }
                 }
@@ -114,7 +118,8 @@ public class SynchronousSiteDataRetriever {
 
     public String getGzippedContent(final String url) throws IOException {
         try {
-            final HttpURLConnection httpConnection = httpConnect(url, new CookieManager());
+            final boolean doNotUseCoockies = doNotUseCookies(url);
+            final HttpURLConnection httpConnection = httpConnect(url, doNotUseCoockies ? null : new CookieManager());
             try (final GZIPInputStream gzipReader = new GZIPInputStream(httpConnection.getInputStream())) {
                 final byte[] bytes = gzipReader.readAllBytes();
                 return new String(bytes, StandardCharsets.UTF_8);
@@ -135,12 +140,14 @@ public class SynchronousSiteDataRetriever {
         connection.setConnectTimeout(s_connectTimeout);
         connection.setReadTimeout(s_readTimeout);
         httpConnection.setInstanceFollowRedirects(false);
-        final String cookies = cookieManager.getCookieStore()
-                                            .get(UriHelper.convertStringToUri(urlString))
-                                            .stream()
-                                            .map(h -> h.toString())
-                                            .collect(Collectors.joining(";"));
-        connection.setRequestProperty("Cookie", cookies);
+        if (cookieManager != null) {
+            final String cookies = cookieManager.getCookieStore()
+                    .get(UriHelper.convertStringToUri(urlString))
+                    .stream()
+                    .map(h -> h.toString())
+                    .collect(Collectors.joining(";"));
+            connection.setRequestProperty("Cookie", cookies);
+        }
         httpConnection.setRequestProperty("User-Agent", s_userAgent);
         httpConnection.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
         httpConnection.setRequestProperty("Accept-Language", "en");
@@ -203,5 +210,10 @@ public class SynchronousSiteDataRetriever {
         }
         final URI redirectUri = UriHelper.buildUri(uri.getScheme(), uri.getHost(), uri.getPath().replaceFirst("[^/]*$", "") + redirection);
         return redirectUri.toString();
+    }
+    
+    private boolean doNotUseCookies(final String url) {
+        return url.startsWith("https://www.youtube.com/channel/") ||
+                url.startsWith("https://www.youtube.com/user/");
     }
 }
