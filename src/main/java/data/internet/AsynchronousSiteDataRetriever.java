@@ -20,15 +20,16 @@ public class AsynchronousSiteDataRetriever {
     /**
      * @param url
      * @param consumer
-     * its first argument is always true since the data is always fresh
-     * its second argument is the site data
-     * @param maxAge maximum age in seconds
+     *   - its first argument is always true since the data is always fresh
+     *   - its second argument is the site data
+     * @param doNotUseCookies
      */
     public void retrieve(final String url,
-                         final BiConsumer<Boolean, SiteData> consumer) {
+                         final BiConsumer<Boolean, SiteData> consumer,
+                         final boolean doNotUseCookies) {
 
         _threadPool.execute(() -> {
-            _retriever.retrieve(url, consumer);
+            _retriever.retrieve(url, consumer, doNotUseCookies);
         });
     }
 }

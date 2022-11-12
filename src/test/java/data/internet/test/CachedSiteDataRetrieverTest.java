@@ -28,7 +28,8 @@ public class CachedSiteDataRetrieverTest {
                                Assertions.assertTrue(b.booleanValue());
                                TestHelper.assertData(d);
                            },
-                           3600);
+                           3600,
+                           false);
         Assertions.assertFalse(firstConsumerHasBeenCalled.get());
         while (!firstConsumerHasBeenCalled.get()) {
             try {
@@ -48,7 +49,8 @@ public class CachedSiteDataRetrieverTest {
                                Assertions.assertTrue(b.booleanValue());
                                TestHelper.assertData(d);
                            },
-                           3600);
+                           3600,
+                           false);
         Assertions.assertTrue(secondConsumerHasBeenCalled.get());
 
         // the third retrieval must use the cache and call twice
@@ -66,7 +68,8 @@ public class CachedSiteDataRetrieverTest {
                                }
                                TestHelper.assertData(d);
                            },
-                           0);
+                           0,
+                           false);
         Assertions.assertTrue(thirdConsumerHasBeenCalledOnce.get());
         Assertions.assertFalse(thirdConsumerHasBeenCalledTwice.get());
         while (!thirdConsumerHasBeenCalledTwice.get()) {

@@ -29,7 +29,8 @@ public class YoutubeChannelUserLinkContentParserTest {
                             Assertions.assertTrue(parser.getErrorMessage().isPresent());
                             Assertions.assertEquals("This channel does not exist.", parser.getErrorMessage().get());
                             consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           true);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -44,7 +45,8 @@ public class YoutubeChannelUserLinkContentParserTest {
                             final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
                             Assertions.assertTrue(parser.getErrorMessage().isEmpty());
                             consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           true);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -70,7 +72,8 @@ public class YoutubeChannelUserLinkContentParserTest {
                                 Assertions.fail("getLanguage threw " + e.getMessage());
                             }
                             consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           true);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -93,7 +96,8 @@ public class YoutubeChannelUserLinkContentParserTest {
                                 Assertions.fail("getLanguage threw " + e.getMessage());
                             }
                             consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           true);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 }

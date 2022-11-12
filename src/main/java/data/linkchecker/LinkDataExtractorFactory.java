@@ -83,7 +83,7 @@ public class LinkDataExtractorFactory {
 
         final SiteDataPersister persister = new SiteDataPersister(cacheDirectory);
         final SynchronousSiteDataRetriever retriever = new SynchronousSiteDataRetriever(persister);
-        retriever.retrieve(url, this::handleLinkData);
+        retriever.retrieve(url, this::handleLinkData, false);
 
         return constructor.apply(u, _content);
     }

@@ -54,11 +54,12 @@ public class SynchronousSiteDataRetriever {
      * @param consumer
      *   - its first argument is always true since the data is always fresh
      *   - its second argument is the site data
+     * @param doNotUseCookies
      */
     public void retrieve(final String url,
-                         final BiConsumer<Boolean, SiteData> consumer) {
-        final boolean doNotUseCoockies = doNotUseCookies(url);
-        retrieveInternal(url, url, consumer, 0, doNotUseCoockies ? null : new CookieManager());
+                         final BiConsumer<Boolean, SiteData> consumer,
+                         final boolean doNotUseCookies) {
+        retrieveInternal(url, url, consumer, 0, doNotUseCookies ? null : new CookieManager());
     }
 
     private void retrieveInternal(final String initialUrl,
@@ -116,10 +117,10 @@ public class SynchronousSiteDataRetriever {
         }
     }
 
-    public String getGzippedContent(final String url) throws IOException {
+    public String getGzippedContent(final String url,
+                                    final boolean doNotUseCookies) throws IOException {
         try {
-            final boolean doNotUseCoockies = doNotUseCookies(url);
-            final HttpURLConnection httpConnection = httpConnect(url, doNotUseCoockies ? null : new CookieManager());
+            final HttpURLConnection httpConnection = httpConnect(url, doNotUseCookies ? null : new CookieManager());
             try (final GZIPInputStream gzipReader = new GZIPInputStream(httpConnection.getInputStream())) {
                 final byte[] bytes = gzipReader.readAllBytes();
                 return new String(bytes, StandardCharsets.UTF_8);
@@ -210,10 +211,5 @@ public class SynchronousSiteDataRetriever {
         }
         final URI redirectUri = UriHelper.buildUri(uri.getScheme(), uri.getHost(), uri.getPath().replaceFirst("[^/]*$", "") + redirection);
         return redirectUri.toString();
-    }
-    
-    private boolean doNotUseCookies(final String url) {
-        return url.startsWith("https://www.youtube.com/channel/") ||
-                url.startsWith("https://www.youtube.com/user/");
     }
 }

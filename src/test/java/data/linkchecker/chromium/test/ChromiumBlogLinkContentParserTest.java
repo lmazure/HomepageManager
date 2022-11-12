@@ -35,7 +35,8 @@ public class ChromiumBlogLinkContentParserTest {
                                    Assertions.fail("getTitle threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -58,7 +59,8 @@ public class ChromiumBlogLinkContentParserTest {
                                    Assertions.fail("getTitle threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -84,7 +86,8 @@ public class ChromiumBlogLinkContentParserTest {
                                    Assertions.fail("getTitle threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
     @ParameterizedTest
@@ -107,7 +110,8 @@ public class ChromiumBlogLinkContentParserTest {
                                    Assertions.fail("getPublicationDate threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 }

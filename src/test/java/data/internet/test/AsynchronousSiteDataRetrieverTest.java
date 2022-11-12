@@ -24,7 +24,8 @@ public class AsynchronousSiteDataRetrieverTest {
                                consumerHasBeenCalled.set(true);
                                Assertions.assertTrue(b.booleanValue());
                                TestHelper.assertData(d);
-                           });
+                           },
+                           false);
         Assertions.assertFalse(consumerHasBeenCalled.get());
         while (!consumerHasBeenCalled.get()) {
             try {
@@ -47,7 +48,8 @@ public class AsynchronousSiteDataRetrieverTest {
                                consumerHasBeenCalled.set(true);
                                Assertions.assertTrue(b.booleanValue());
                                TestHelper.assertData(d);
-                           });
+                           },
+                           false);
         Assertions.assertFalse(consumerHasBeenCalled.get());
         while (!consumerHasBeenCalled.get()) {
             try {

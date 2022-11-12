@@ -52,7 +52,8 @@ public class LinkContentCheckerTest {
                                    Assertions.fail("getTitle threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -82,7 +83,8 @@ public class LinkContentCheckerTest {
                                    Assertions.fail("getTitle threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -109,7 +111,8 @@ public class LinkContentCheckerTest {
                                    Assertions.fail("getTitle threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -138,7 +141,8 @@ public class LinkContentCheckerTest {
                                    Assertions.fail("getTitle threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 }

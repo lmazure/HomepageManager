@@ -36,7 +36,8 @@ public class YoutubeWatchLinkContentParserTest {
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
                                Assertions.assertTrue(parser.isPlayable());
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -52,7 +53,8 @@ public class YoutubeWatchLinkContentParserTest {
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
                                Assertions.assertFalse(parser.isPlayable());
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -79,7 +81,8 @@ public class YoutubeWatchLinkContentParserTest {
                                    Assertions.fail("getChannel threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -99,7 +102,8 @@ public class YoutubeWatchLinkContentParserTest {
                                    Assertions.fail("getTitle threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -120,7 +124,8 @@ public class YoutubeWatchLinkContentParserTest {
                                    Assertions.fail("getTitle threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -140,7 +145,8 @@ public class YoutubeWatchLinkContentParserTest {
                                   Assertions.fail("getTitle threw " + e.getMessage());
                               }
                               consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -160,7 +166,8 @@ public class YoutubeWatchLinkContentParserTest {
                                    Assertions.fail("getTitle threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -180,7 +187,8 @@ public class YoutubeWatchLinkContentParserTest {
                                    Assertions.fail("getDescription threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -202,7 +210,8 @@ public class YoutubeWatchLinkContentParserTest {
                                    Assertions.fail("getDescription threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -234,7 +243,8 @@ public class YoutubeWatchLinkContentParserTest {
                                    Assertions.fail("getDescription threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -259,7 +269,8 @@ public class YoutubeWatchLinkContentParserTest {
                                    Assertions.fail("getPublishDate threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -284,7 +295,8 @@ public class YoutubeWatchLinkContentParserTest {
                                    Assertions.fail("getMaxDuration threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -310,7 +322,8 @@ public class YoutubeWatchLinkContentParserTest {
                                    Assertions.fail("getLanguage threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -348,7 +361,8 @@ public class YoutubeWatchLinkContentParserTest {
                                    Assertions.fail("getLanguage threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -369,7 +383,8 @@ public class YoutubeWatchLinkContentParserTest {
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
                                Assertions.assertEquals(Locale.ENGLISH, parser.getSubtitlesLanguage().get());
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -389,7 +404,8 @@ public class YoutubeWatchLinkContentParserTest {
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
                                Assertions.assertEquals(Locale.FRENCH, parser.getSubtitlesLanguage().get());
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -408,7 +424,8 @@ public class YoutubeWatchLinkContentParserTest {
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
                                Assertions.assertTrue(parser.getSubtitlesLanguage().isEmpty());
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -429,7 +446,8 @@ public class YoutubeWatchLinkContentParserTest {
                                    // do nothing
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 

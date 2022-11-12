@@ -39,7 +39,8 @@ public class OracleBlogsLinkContentParserTest {
                                final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data);
                                Assertions.assertEquals(expectedTitle, parser.getTitle());
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -73,7 +74,8 @@ public class OracleBlogsLinkContentParserTest {
                                Assertions.assertTrue(parser.getSubtitle().isPresent());
                                Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -95,7 +97,8 @@ public class OracleBlogsLinkContentParserTest {
                                final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data);
                                Assertions.assertFalse(parser.getSubtitle().isPresent());
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -124,7 +127,8 @@ public class OracleBlogsLinkContentParserTest {
                                    Assertions.fail("getDate threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -159,7 +163,8 @@ public class OracleBlogsLinkContentParserTest {
                                     Assertions.fail("getSureAuthors threw " + e.getMessage());
                                 }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -200,7 +205,8 @@ public class OracleBlogsLinkContentParserTest {
                                     Assertions.fail("getSureAuthors threw " + e.getMessage());
                                 }
                                consumerHasBeenCalled.set(true);
-                           });
+                           },
+                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
@@ -230,7 +236,8 @@ public class OracleBlogsLinkContentParserTest {
                                   Assertions.fail("getDate threw " + e.getMessage());
                               }
                               consumerHasBeenCalled.set(true);
-                          });
+                          },
+                          false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 }
