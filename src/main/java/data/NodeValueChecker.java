@@ -148,6 +148,11 @@ public class NodeValueChecker implements FileHandler {
         _controller.handleCreation(file, status, getOutputFile(file), getReportFile(file));
     }
 
+    /**
+     * @param file
+     * @return
+     * @throws SAXException
+     */
     public List<NodeCheckError> check(final Path file) throws SAXException {
 
         try {

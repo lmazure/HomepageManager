@@ -10,12 +10,18 @@ import java.util.Scanner;
 import utils.ExitHelper;
 import utils.Logger;
 
+/**
+ *
+ */
 public class MetricsExtractor {
 
     private static final String METRICS_DIRECTORY = "metrics";
     private static final String METRICS_FILE = "metrics.csv";
     private static final String SEPARATOR = ";";
 
+    /**
+     * @param homepage
+     */
     public static void generate(final Path homepage) {
 
         final Path metricsDirectory = homepage.resolve(METRICS_DIRECTORY);

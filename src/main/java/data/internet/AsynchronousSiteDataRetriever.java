@@ -13,6 +13,9 @@ public class AsynchronousSiteDataRetriever {
     private static int NB_THREADS = 32;
     private static final ExecutorService _threadPool = Executors.newFixedThreadPool(NB_THREADS);
 
+    /**
+     * @param persister
+     */
     public AsynchronousSiteDataRetriever(final SiteDataPersister persister) {
         _retriever = new SynchronousSiteDataRetriever(persister);
     }

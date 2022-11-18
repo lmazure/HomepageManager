@@ -1,7 +1,3 @@
-nettoyer les javadocs
-
-détourner les logs du Simple Web Server
-
 data.linkchecker.ContentParserException: Failed to check data of "https://developer.ibm.com/articles/wa-ecmascript6-neward-p1/"
 
 ajouter la chaîne de redirections et de codes à SiteData

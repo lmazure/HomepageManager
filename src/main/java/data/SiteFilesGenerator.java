@@ -9,6 +9,9 @@ import java.util.List;
 import utils.ExitHelper;
 import utils.Logger;
 
+/**
+ *
+ */
 public class SiteFilesGenerator {
 
     private static final String DOMAIN = "mazure.fr"; // TODO this should not be hardcoded
@@ -16,6 +19,10 @@ public class SiteFilesGenerator {
     private static final String SITEMAPDIR = "sitemap"; // TODO this directory name also appears in DataOrchestrator
     private static final String SITEMAP = "sitemap.xml";
 
+    /**
+     * @param homepage
+     * @param files
+     */
     public static void generate(final Path homepage,
                                 final List<Path> files) {
         generateRobottxt(homepage, files);

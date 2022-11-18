@@ -110,6 +110,11 @@ public class FileChecker implements FileHandler {
         _controller.handleCreation(file, status, getOutputFile(file), getReportFile(file));
     }
 
+    /**
+     * @param file
+     * @param content
+     * @return
+     */
     public List<Error> check(final Path file,
                              final String content) {  //TODO see how to test this method while keeping it private
         final List<Error> errors =  new ArrayList<>();
@@ -297,20 +302,35 @@ public class FileChecker implements FileHandler {
         return n;
     }
 
+    /**
+     * @author Laurent
+     *
+     */
     public static class Error {
 
         private final int _lineNumber;
         private final String _errorMessage;
 
-        public Error(final int lineNumber, final String errorMessage) {
+        /**
+         * @param lineNumber
+         * @param errorMessage
+         */
+        public Error(final int lineNumber,
+                     final String errorMessage) {
             _lineNumber = lineNumber;
             _errorMessage = errorMessage;
         }
 
+        /**
+         * @return
+         */
         public int getLineNumber() {
             return _lineNumber;
         }
 
+        /**
+         * @return
+         */
         public String getErrorMessage() {
             return _errorMessage;
         }

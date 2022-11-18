@@ -44,6 +44,9 @@ public class SynchronousSiteDataRetriever {
 
     private static final String s_userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv\", \"0.0) Gecko/20100101 Firefox/90.0";
 
+    /**
+     * @param persister
+     */
     public SynchronousSiteDataRetriever(final SiteDataPersister persister) {
         _persister = persister;
         _sslSocketFactory = getDisabledPKIXCheck();
@@ -117,6 +120,12 @@ public class SynchronousSiteDataRetriever {
         }
     }
 
+    /**
+     * @param url
+     * @param doNotUseCookies
+     * @return
+     * @throws IOException
+     */
     public String getGzippedContent(final String url,
                                     final boolean doNotUseCookies) throws IOException {
         try {

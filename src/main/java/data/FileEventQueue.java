@@ -11,19 +11,37 @@ import java.util.Set;
 import utils.ExitHelper;
 import utils.Logger;
 
+/**
+ *
+ */
 public class FileEventQueue {
 
-    private final Map<Path, Type> _queue;
+    private final Map<Path, EventType> _queue;
     private final List<FileHandler> _fileHandlers;
     private final Set<Path> _filesBeingProcessed;
     private final int NB_THREADS = 4;
 
-    public enum Type {
+    /**
+     *
+     */
+    public enum EventType {
+        /**
+         * the file has been created
+         */
         CREATE,
+        /**
+         * the file has been deleted
+         */
         DELETE,
+        /**
+         * the file has been updated
+         */
         UPDATE
     }
 
+    /**
+     * @param fileHandlers
+     */
     public FileEventQueue(final List<FileHandler> fileHandlers) {
         _queue = new HashMap<>();
         _fileHandlers = fileHandlers;
@@ -36,11 +54,15 @@ public class FileEventQueue {
         }
     }
 
+    /**
+     * @param file
+     * @param type
+     */
     public void insertEvent(final Path file,
-                            final Type type) {
+                            final EventType type) {
         synchronized (_queue) {
 
-            final Type presentType = _queue.get(file);
+            final EventType presentType = _queue.get(file);
 
             if (presentType == null) {
                 _queue.put(file, type);
@@ -49,19 +71,19 @@ public class FileEventQueue {
 
             switch (type) {
             case CREATE:
-                if (presentType != Type.DELETE) {
+                if (presentType != EventType.DELETE) {
                     ExitHelper.exit("file " + file + " is created while it was not deleted before");
                 }
-                _queue.put(file, Type.CREATE);
+                _queue.put(file, EventType.CREATE);
                 return;
             case DELETE:
-                if (presentType == Type.DELETE) {
+                if (presentType == EventType.DELETE) {
                     ExitHelper.exit("file " + file + " is deleted while it was already deleted before");
                 }
-                _queue.put(file, Type.DELETE);
+                _queue.put(file, EventType.DELETE);
                 return;
             case UPDATE:
-                if (presentType == Type.DELETE) {
+                if (presentType == EventType.DELETE) {
                     ExitHelper.exit("file " + file + " is updated while it was already deleted before");
                 }
                 // do nothing
@@ -73,6 +95,9 @@ public class FileEventQueue {
         }
     }
 
+    /**
+     * @return
+     */
     public Event popEvent() {
         synchronized (_queue) {
            final Optional<Path> path = _queue.keySet().stream().filter(p -> !_filesBeingProcessed.contains(p)).findFirst();
@@ -87,6 +112,9 @@ public class FileEventQueue {
         }
     }
 
+    /**
+     * @param path
+     */
     public void eventHasBeenHandled(final Path path) {
        synchronized (_queue) {
         _filesBeingProcessed.remove(path);
@@ -117,10 +145,10 @@ public class FileEventQueue {
     private class Event {
 
         private Path _file;
-        private Type _type;
+        private EventType _type;
 
         public Event(final Path file,
-                     final Type type) {
+                     final EventType type) {
             _file = file;
             _type = type;
         }
@@ -129,7 +157,7 @@ public class FileEventQueue {
             return _file;
         }
 
-        public Type getType() {
+        public EventType getType() {
             return _type;
         }
     }

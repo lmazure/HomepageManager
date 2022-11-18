@@ -12,6 +12,9 @@ public class CachedSiteDataRetriever {
     private final SiteDataPersister _persister;
     private final AsynchronousSiteDataRetriever _retriever;
 
+    /**
+     * @param persister
+     */
     public CachedSiteDataRetriever(final SiteDataPersister persister) {
         _persister = persister;
         _retriever = new AsynchronousSiteDataRetriever(persister);
