@@ -27,6 +27,10 @@ import utils.FileSection;
 import utils.Logger;
 import utils.internet.UrlHelper;
 
+/**
+ * 
+ *
+ */
 public class SiteDataPersister {
 
     private final Path _path;
@@ -35,10 +39,22 @@ public class SiteDataPersister {
 
     private static final Charset UTF8_CHARSET = StandardCharsets.UTF_8;
 
+    /**
+     * @param path
+     */
     public SiteDataPersister(final Path path) {
         _path = path;
     }
 
+    /**
+     * @param url
+     * @param timestamp
+     * @param status
+     * @param httpCode
+     * @param headers
+     * @param dataStream
+     * @param error
+     */
     public void persist(final String url,
                         final Instant timestamp,
                         final Status status,
@@ -141,6 +157,11 @@ public class SiteDataPersister {
         }
     }
 
+    /**
+     * @param url
+     * @param timestamp
+     * @return
+     */
     public SiteData retrieve(final String url,
                              final Instant timestamp) {
 
@@ -214,6 +235,11 @@ public class SiteDataPersister {
         return new SiteData(url, status, httpCode, headers, dataFileSection, error);
     }
 
+    /**
+     * @param url
+     * @param timestamp
+     * @return
+     */
     public FileSection getDataFileSection(final String url,
                                           final Instant timestamp) {
         final File statusFile = getPersistedFile(url, timestamp);

@@ -40,7 +40,7 @@ public class Article {
     }
 
     /**
-     * @return
+     * @return the list of authors
      */
     public Author[] getAuthors() {
         Author a[] = _authors.toArray(new Author[0]);
@@ -56,7 +56,7 @@ public class Article {
     }
 
     /**
-     * @return
+     * @return the list of links
      */
     public Link[] getLinks() {
         final Link a[] = _links.toArray(new Link[0]);

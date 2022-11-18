@@ -1,3 +1,7 @@
+nettoyer les javadocs
+
+détourner les logs du Simple Web Server
+
 data.linkchecker.ContentParserException: Failed to check data of "https://developer.ibm.com/articles/wa-ecmascript6-neward-p1/"
 
 ajouter la chaîne de redirections et de codes à SiteData
@@ -6,13 +10,11 @@ en fait la liste  des headers devrait être enregistrées pour chaque étape de 
 
 spin off de la page
 - dev tools
-- cloudforges.xml
 mettre IDE en dessous de dev tools
 
-détourner les logs du Simple Web Server
-
-
 ==== merge =====
+
+nettoyage de javadoc : 720 warnings
 
 voir comment assurer que est à jour testdata/css/schema.xsd (tester que c'est le même que dans mazure.fr ?)
 

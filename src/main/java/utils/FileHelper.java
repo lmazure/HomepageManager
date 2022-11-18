@@ -19,6 +19,13 @@ import java.nio.file.Paths;
  */
 public class FileHelper {
 
+    /**
+     * Return the whole content of a file
+     *
+     * @param file file to read
+     * @param charset encoding of the file
+     * @return content of the file
+     */
     public static String slurpFile(final FileSection file,
                                    final Charset charset) {
         final CharsetDecoder decoder = charset.newDecoder();
@@ -44,7 +51,7 @@ public class FileHelper {
     /**
      * create parent directory of the file
      *
-     * @param file
+     * @param file file whose directory is to be created
      */
     public static void createParentDirectory(final Path file) {
 
@@ -59,20 +66,25 @@ public class FileHelper {
         }
     }
 
-    public static void deleteDirectory(final File directoryToBeDeleted) {
-        final File[] allContents = directoryToBeDeleted.listFiles();
+    /**
+     * Delete a directory and (recursively) its content
+     *
+     * @param directory directory to be deleted
+     */
+    public static void deleteDirectory(final File directory) {
+        final File[] allContents = directory.listFiles();
         if (allContents != null) {
-            for (File file : allContents) {
+            for (final File file : allContents) {
                 deleteDirectory(file);
             }
         }
-        directoryToBeDeleted.delete();
+        directory.delete();
     }
 
     /**
-     * delete the file
+     * delete a file
      *
-     * @param file
+     * @param file file to be deleted
      */
     public static void deleteFile(final Path file) {
         try {
@@ -105,6 +117,10 @@ public class FileHelper {
         return Paths.get(s.substring(0, s.lastIndexOf('.')).concat(suffix + "." + extension));
    }
 
+    /**
+     * @param url
+     * @return
+     */
     public static String generateFileNameFromURL(final String url) {
 
         final int MAX_FILENAME_LENGTH = 245;

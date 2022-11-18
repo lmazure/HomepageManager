@@ -11,7 +11,7 @@ public class InclusionTagSelector implements TagSelector {
     private final Set<ElementType> _types;
 
     /**
-     * @param tagsToCheck
+     * @param typesToIgnore 
      */
     public InclusionTagSelector(final ElementType typesToIgnore[]) {
         _types = new HashSet<>(Arrays.asList(typesToIgnore));

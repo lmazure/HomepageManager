@@ -12,7 +12,7 @@ public class SiteDataRetriever {
     private final SiteDataPersister _persister;
 
     /**
-     *
+     * @param cachePath
      */
     public SiteDataRetriever(final Path cachePath) {
         _persister = new SiteDataPersister(cachePath);

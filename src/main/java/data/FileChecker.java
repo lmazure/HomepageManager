@@ -50,8 +50,8 @@ public class FileChecker implements FileHandler {
     private final static Lock _lock = new ReentrantLock();
 
     /**
-     * @param homepagePath
-     * @param tmpPath
+     * @param homepagePath path to the directory containing the pages
+     * @param tmpPath path to the directory containing the temporary files and log files 
      * @param controller
      */
     public FileChecker(final Path homepagePath,

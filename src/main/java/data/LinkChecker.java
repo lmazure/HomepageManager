@@ -21,8 +21,8 @@ public class LinkChecker implements FileHandler {
     private final Map<Path, LinkCheckRunner> _handlers;
 
     /**
-     * @param homepagePath
-     * @param tmpPath
+     * @param homepagePath path to the directory containing the pages
+     * @param tmpPath path to the directory containing the temporary files and log files 
      * @param cacheFolderName
      * @param controller
      */

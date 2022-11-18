@@ -1,16 +1,31 @@
 package utils;
 
+/**
+ * Method for ending the program
+ *
+ */
 public class ExitHelper {
 
+    /**
+     * @param message message to display at exit
+     */
     public static void exit(final String message) {
         exit(message, null);
     }
 
+    /**
+     * @param exception exception to display at exit
+     */
     public static void exit(final Exception exception) {
         exit(null, exception);
     }
 
-    public static void exit(final String message, final Exception exception) {
+    /**
+     * @param message message to display at exit
+     * @param exception exception to display at exit
+     */
+    public static void exit(final String message,
+                            final Exception exception) {
 
         final Log log = Logger.log(Logger.Level.FATAL);
 

@@ -23,13 +23,17 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * Table listing all homepage pages
+ *
+ */
 public class FileTable extends Application {
 
-    private static Path _homepagePath;
-    private static Path _tmpPath;
-    private static final String _cacheFolderName = "internet_cache";
-    private static boolean _internetAccessiSEnabled;
-    private static ObservableFileList _list;
+    private static Path s_homepagePath;
+    private static Path s_tmpPath;
+    private static final String s_cacheFolderName = "internet_cache";
+    private static boolean s_internetAccessiSEnabled;
+    private static ObservableFileList s_list;
 
     @Override
     public void start(final Stage stage) {
@@ -37,24 +41,24 @@ public class FileTable extends Application {
         final List<GenericUiController> uiControllers = new ArrayList<>();
         final List<FileHandler> fileHandlers = new ArrayList<>();
 
-        final HtmlGenerationController htmlFileController = new HtmlGenerationController(_list, _homepagePath);
-        final HTMLGenerator htmlFileGenerator = new HTMLGenerator(_homepagePath, _tmpPath, htmlFileController);
+        final HtmlGenerationController htmlFileController = new HtmlGenerationController(s_list, s_homepagePath);
+        final HTMLGenerator htmlFileGenerator = new HTMLGenerator(s_homepagePath, s_tmpPath, htmlFileController);
         uiControllers.add(htmlFileController);
         fileHandlers.add(htmlFileGenerator);
 
-        final FileCheckController fileCheckController = new FileCheckController(_list);
-        final FileChecker fileCheckGenerator = new FileChecker(_homepagePath, _tmpPath, fileCheckController);
+        final FileCheckController fileCheckController = new FileCheckController(s_list);
+        final FileChecker fileCheckGenerator = new FileChecker(s_homepagePath, s_tmpPath, fileCheckController);
         uiControllers.add(fileCheckController);
         fileHandlers.add(fileCheckGenerator);
 
-        final NodeValueCheckController nodeCheckController = new NodeValueCheckController(_list);
-        final NodeValueChecker nodeValueCheckGenerator = new NodeValueChecker(_homepagePath, _tmpPath, nodeCheckController);
+        final NodeValueCheckController nodeCheckController = new NodeValueCheckController(s_list);
+        final NodeValueChecker nodeValueCheckGenerator = new NodeValueChecker(s_homepagePath, s_tmpPath, nodeCheckController);
         uiControllers.add(nodeCheckController);
         fileHandlers.add(nodeValueCheckGenerator);
 
-        if (_internetAccessiSEnabled) {
-            final LinkCheckController linkCheckController = new LinkCheckController(_list);
-            final LinkChecker linkCheckGenerator = new LinkChecker(_homepagePath, _tmpPath, _cacheFolderName, linkCheckController);
+        if (s_internetAccessiSEnabled) {
+            final LinkCheckController linkCheckController = new LinkCheckController(s_list);
+            final LinkChecker linkCheckGenerator = new LinkChecker(s_homepagePath, s_tmpPath, s_cacheFolderName, linkCheckController);
             uiControllers.add(linkCheckController);
             fileHandlers.add(linkCheckGenerator);
         }
@@ -89,7 +93,7 @@ public class FileTable extends Application {
 
                     @Override
                     protected Void call() throws Exception {
-                        final FileEventDispachter dataOrchestrator = new FileEventDispachter(_homepagePath, _list, fileHandlers);
+                        final FileEventDispachter dataOrchestrator = new FileEventDispachter(s_homepagePath, s_list, fileHandlers);
                         dataOrchestrator.start();
                         return null;
                     }
@@ -126,7 +130,7 @@ public class FileTable extends Application {
         }
 
         // solution 1
-        table.setItems(_list.getObservableFileList());
+        table.setItems(s_list.getObservableFileList());
 
         // solution 2 (same behavior, but I am still not able to make a default sorting working at initial display)
         /*
@@ -140,23 +144,30 @@ public class FileTable extends Application {
         return table;
     }
 
+    /**
+     * display the table
+     *
+     * @param homepagePath path to the directory containing the pages
+     * @param tmpPath path to the directory containing the temporary files and log files 
+     * @param internetAccessiSEnabled flag indicating if Internet is accessed (if False, links will not be checked)
+     */
     public static void display(final Path homepagePath,
                                final Path tmpPath,
                                final boolean internetAccessiSEnabled) {
-        _homepagePath = homepagePath;
-        _tmpPath = tmpPath;
-        _internetAccessiSEnabled = internetAccessiSEnabled;
-        _list = new ObservableFileList();
+        s_homepagePath = homepagePath;
+        s_tmpPath = tmpPath;
+        s_internetAccessiSEnabled = internetAccessiSEnabled;
+        s_list = new ObservableFileList();
         launch();
     }
 
     @SuppressWarnings("unused")
     private static void generateGlobalFiles() {
-        new GlobalFileCreationDialog(_homepagePath, _list.getFileList());
+        new GlobalFileCreationDialog(s_homepagePath, s_list.getFileList()); //TODO this is wrong, the UI should not pilot the logic, it should be the other way around
     }
 
     private static void displayLinkXmlGenerator() {
-       final XmlGenerationDialog dialog = new XmlGenerationDialog(_tmpPath.resolve(_cacheFolderName));
+       final XmlGenerationDialog dialog = new XmlGenerationDialog(s_tmpPath.resolve(s_cacheFolderName));
        dialog.showAndWait();
     }
 

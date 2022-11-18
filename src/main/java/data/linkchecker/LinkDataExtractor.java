@@ -31,6 +31,8 @@ public abstract class LinkDataExtractor {
     public abstract Locale getLanguage() throws ContentParserException;
 
     /**
+     * @return the list of probable authors
+     *   (they may be present and it is probable that they are effectively present)
      * @throws ContentParserException
      */
     @SuppressWarnings("static-method")
@@ -39,6 +41,8 @@ public abstract class LinkDataExtractor {
     }
 
     /**
+     * @return the list of possible authors
+     *   (they may be present but it is probable that they are not effectively present)
      * @throws ContentParserException
      */
     @SuppressWarnings("static-method")
