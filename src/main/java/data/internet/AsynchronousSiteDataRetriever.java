@@ -25,7 +25,7 @@ public class AsynchronousSiteDataRetriever {
      * @param consumer
      *   - its first argument is always true since the data is always fresh
      *   - its second argument is the site data
-     * @param doNotUseCookies
+     * @param doNotUseCookies if true, cookies will not be recorded and resend while following redirections
      */
     public void retrieve(final String url,
                          final BiConsumer<Boolean, SiteData> consumer,

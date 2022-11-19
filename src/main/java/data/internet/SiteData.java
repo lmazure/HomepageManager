@@ -7,15 +7,21 @@ import java.util.Optional;
 import utils.FileSection;
 
 /**
- *
+ * Information (saved on disk) about a link 
  */
 public class SiteData {
 
     /**
-     *
+     * status of the information retrieval
      */
     public enum Status {
+        /**
+         * the information was successfully retrieved
+         */
         SUCCESS,
+        /**
+         * could not retrieve the information
+         */
         FAILURE
     }
 
@@ -23,16 +29,16 @@ public class SiteData {
     private final Status _status;
     private final Optional<Integer> _httpCode;
     private final Optional<Map<String, List<String>>> _headers;
-    private final Optional<FileSection> _dataFile;
     private final Optional<String> _error;
+    private final Optional<FileSection> _dataFile;
 
     /**
-     * @param url
-     * @param status
-     * @param httpCode
-     * @param headers
-     * @param dataFile
-     * @param error
+     * @param url URL of the link
+     * @param status status SUCCESS/FAILURE
+     * @param httpCode HTTP code, empty if the retrieval failed
+     * @param headers HTTT header, empty if the retrieval failed
+     * @param dataFile file section containing the FTP payload, empty if the retrieval failed
+     * @param error error message describing why the information retrieval failed, empty if there is no error
      */
     public SiteData(final String url,
                     final Status status,
@@ -44,46 +50,49 @@ public class SiteData {
         _status = status;
         _httpCode = httpCode;
         _headers = headers;
-        _dataFile = dataFile;
         _error = error;
+        _dataFile = dataFile;
     }
 
     /**
-     * @return
+     * @return URL of the link
      */
     public String getUrl() {
         return _url;
     }
 
     /**
-     * @return
+     * @return status SUCCESS/FAILURE
      */
     public Status getStatus() {
         return _status;
     }
 
     /**
-     * @return
+     * @return HTTP code, empty if the retrieval failed
      */
     public Optional<Integer> getHttpCode() {
         return _httpCode;
     }
 
     /**
-     * @return
+     * @return HTTT header, empty if the retrieval failed
      */
     public Optional<Map<String, List<String>>> getHeaders() {
         return _headers;
     }
 
-    public Optional<FileSection> getDataFile() {
-        return _dataFile;
-    }
-
     /**
-     * @return
+     * @return  error message describing why the information retrieval failed, empty if there is no error
      */
     public Optional<String> getError() {
         return _error;
+    }
+
+    /**
+     * @return file section containing the FTP payload, empty if the retrieval failed
+     */
+    public Optional<FileSection> getDataFile() {
+        return _dataFile;
     }
 }

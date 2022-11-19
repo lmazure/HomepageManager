@@ -16,6 +16,10 @@ import data.linkchecker.quantamagazine.QuantaMagazineLinkContentParser;
 import utils.internet.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 
+/**
+ * Tests of QuantaMagazineLinkContentParser
+ *
+ */
 public class QuantaMagazineLinkContentParserTest {
 
     @ParameterizedTest

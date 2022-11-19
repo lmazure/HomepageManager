@@ -16,6 +16,10 @@ import data.linkchecker.githubblog.GithubBlogLinkContentParser;
 import utils.internet.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 
+/**
+ * Tests of GithubBlogLinkContentParser
+ *
+ */
 public class GithubBlogLinkContentParserTest {
 
     @ParameterizedTest

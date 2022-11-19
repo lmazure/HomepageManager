@@ -15,6 +15,10 @@ import data.linkchecker.ibm.IbmLinkContentParser;
 import utils.internet.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 
+/**
+ * Tests of IbmLinkContentParser
+ *
+ */
 public class IbmLinkContentParserTest {
 
     @ParameterizedTest

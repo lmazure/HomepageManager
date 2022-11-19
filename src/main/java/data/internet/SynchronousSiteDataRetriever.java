@@ -1,6 +1,7 @@
 package data.internet;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.CookieManager;
 import java.net.HttpCookie;
 import java.net.HttpURLConnection;
@@ -57,7 +58,7 @@ public class SynchronousSiteDataRetriever {
      * @param consumer
      *   - its first argument is always true since the data is always fresh
      *   - its second argument is the site data
-     * @param doNotUseCookies
+     * @param doNotUseCookies if true, cookies will not be recorded and resend while following redirections
      */
     public void retrieve(final String url,
                          final BiConsumer<Boolean, SiteData> consumer,
@@ -70,10 +71,11 @@ public class SynchronousSiteDataRetriever {
                                   final BiConsumer<Boolean, SiteData> consumer,
                                   final int depth,
                                   final CookieManager cookieManager) {
-        final Instant timestamp = Instant.now();
         Optional<Integer> httpCode = Optional.empty();
         Optional<Map<String, List<String>>> headers = Optional.empty();
+        SiteData.Status status = SiteData.Status.SUCCESS;
         Optional<String> error = Optional.empty();
+        Optional<InputStream> dataStream = Optional.empty();
 
         try {
             final HttpURLConnection httpConnection = httpConnect(currentUrl, cookieManager);
@@ -85,44 +87,46 @@ public class SynchronousSiteDataRetriever {
                 responseCode == HttpURLConnection.HTTP_SEE_OTHER || // 303
                 responseCode == 307) {
                 if (depth == s_maxNbRedirects) {
-                    throw new IOException("Too many redirects (" + s_maxNbRedirects + ") occurred trying to load URL " + initialUrl);
-                }
-                final String location = httpConnection.getHeaderField("Location");
-                final String redirectUrl = getRedirectionUrl(currentUrl, location);
-                if (cookieManager != null) {
-                    final Map<String, List<String>> headerFields = httpConnection.getHeaderFields();
-                    final List<String> cookies = headerFields.get("Set-Cookie");
-                    if (cookies != null) {
-                        for (final String cookie: cookies) {
-                            for (final HttpCookie c: HttpCookie.parse(cookie)) {
-                                cookieManager.getCookieStore().add(UriHelper.convertStringToUri(currentUrl), c);
+                    error = Optional.of("Too many redirects (" + s_maxNbRedirects + ") occurred while trying to load URL " + initialUrl);
+                    status = SiteData.Status.FAILURE;
+                } else {                    
+                    final String location = httpConnection.getHeaderField("Location");
+                    final String redirectUrl = getRedirectionUrl(currentUrl, location);
+                    if (cookieManager != null) {
+                        final Map<String, List<String>> headerFields = httpConnection.getHeaderFields();
+                        final List<String> cookies = headerFields.get("Set-Cookie");
+                        if (cookies != null) {
+                            for (final String cookie: cookies) {
+                                for (final HttpCookie c: HttpCookie.parse(cookie)) {
+                                    cookieManager.getCookieStore().add(UriHelper.convertStringToUri(currentUrl), c);
+                                }
                             }
                         }
                     }
+                    retrieveInternal(initialUrl, redirectUrl, consumer, depth + 1, cookieManager);
+                    return;
                 }
-                retrieveInternal(initialUrl, redirectUrl, consumer, depth + 1, cookieManager);
-                return;
             }
             if (responseCode != HttpURLConnection.HTTP_OK /* 200 */ &&
                 responseCode != HttpURLConnection.HTTP_CREATED   /* 201 */) {
                 error = Optional.of("page not found");
-                _persister.persist(initialUrl, timestamp, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error);
-                consumer.accept(Boolean.TRUE, new SiteData(initialUrl, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error));
-                return;
+                status = SiteData.Status.FAILURE;
             }
-            _persister.persist(initialUrl, timestamp, SiteData.Status.SUCCESS, httpCode, headers, Optional.of(httpConnection.getInputStream()), error);
-            final FileSection dataFile = _persister.getDataFileSection(initialUrl, timestamp);
-            consumer.accept(Boolean.TRUE, new SiteData(initialUrl, SiteData.Status.SUCCESS, httpCode, headers, Optional.of(dataFile), error));
+            dataStream = Optional.of(httpConnection.getInputStream());
         } catch (final IOException e) {
             error = Optional.of(e.toString());
-            _persister.persist(initialUrl, timestamp, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error);
-            consumer.accept(Boolean.TRUE, new SiteData(initialUrl, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error));
+            status = SiteData.Status.FAILURE;
         }
+        final Instant timestamp = Instant.now();
+        _persister.persist(initialUrl, status, httpCode, headers, dataStream, error, timestamp);
+        final FileSection dataFile = _persister.getDataFileSection(initialUrl, timestamp);
+        final SiteData siteData = new SiteData(initialUrl, status, httpCode, headers, Optional.of(dataFile), error);
+        consumer.accept(Boolean.TRUE, siteData);
     }
 
     /**
      * @param url
-     * @param doNotUseCookies
+     * @param doNotUseCookies if true, cookies will not be recorded and resend while following redirections
      * @return
      * @throws IOException
      */
@@ -152,10 +156,10 @@ public class SynchronousSiteDataRetriever {
         httpConnection.setInstanceFollowRedirects(false);
         if (cookieManager != null) {
             final String cookies = cookieManager.getCookieStore()
-                    .get(UriHelper.convertStringToUri(urlString))
-                    .stream()
-                    .map(h -> h.toString())
-                    .collect(Collectors.joining(";"));
+                                                .get(UriHelper.convertStringToUri(urlString))
+                                                .stream()
+                                                .map(h -> h.toString())
+                                                .collect(Collectors.joining(";"));
             connection.setRequestProperty("Cookie", cookies);
         }
         httpConnection.setRequestProperty("User-Agent", s_userAgent);

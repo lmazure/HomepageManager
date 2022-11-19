@@ -15,6 +15,10 @@ import data.linkchecker.gitlabblog.GitlabBlogLinkContentParser;
 import utils.internet.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 
+/**
+ * Tests of GitlabBlogLinkContentParser
+ *
+ */
 public class GitlabBlogLinkContentParserTest {
 
     @ParameterizedTest

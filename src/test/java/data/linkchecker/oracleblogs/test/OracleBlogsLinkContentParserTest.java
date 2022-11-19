@@ -15,6 +15,10 @@ import data.linkchecker.oracleblogs.OracleBlogsLinkContentParser;
 import utils.internet.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 
+/**
+ * Tests of OracleBlogsLinkContentParser
+ *
+ */
 public class OracleBlogsLinkContentParserTest {
 
     @ParameterizedTest

@@ -17,6 +17,10 @@ import data.linkchecker.baeldung.BaeldungLinkContentParser;
 import utils.internet.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 
+/**
+ * Tests of BaeldungLinkContentParser
+ *
+ */
 public class BaeldungLinkContentParserTest {
 
     @Test

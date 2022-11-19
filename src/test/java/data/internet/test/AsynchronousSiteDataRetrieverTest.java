@@ -11,6 +11,10 @@ import data.internet.SiteData;
 import data.internet.SiteDataPersister;
 import utils.FileHelper;
 
+/**
+ * Tests of AsynchronousSiteDataRetriever
+ *
+ */
 public class AsynchronousSiteDataRetrieverTest {
 
     @Test

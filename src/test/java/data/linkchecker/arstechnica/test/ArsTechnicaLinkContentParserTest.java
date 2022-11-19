@@ -16,6 +16,10 @@ import data.linkchecker.arstechnica.ArsTechnicaLinkContentParser;
 import utils.internet.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 
+/**
+ * Tests of ArsTechnicaLinkContentParser
+ *
+ */
 public class ArsTechnicaLinkContentParserTest {
 
     @ParameterizedTest

@@ -13,6 +13,10 @@ import data.linkchecker.ContentParserException;
 import data.linkchecker.chromium.ChromiumBlogLinkContentParser;
 import utils.internet.HtmlHelper;
 
+/**
+ * Tests of ChromiumBlogLinkContentParser
+ *
+ */
 public class ChromiumBlogLinkContentParserTest {
 
     @ParameterizedTest

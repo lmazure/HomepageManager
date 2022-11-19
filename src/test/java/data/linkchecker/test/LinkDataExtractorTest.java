@@ -153,7 +153,7 @@ public class LinkDataExtractorTest {
     void youtubeWatch3Blue1BrownIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=-RdOwhmqP5s";
         final String expectedXml = """
-                <ARTICLE><X><T>Newton’s method, and the fractal it creates that Newton knew nothing about</T>\
+                <ARTICLE><X><T>From Newton’s method to Newton’s fractal (which Newton knew nothing about)</T>\
                 <A>https://www.youtube.com/watch?v=-RdOwhmqP5s</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>26</MINUTE><SECOND>5</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Grant</FIRSTNAME><LASTNAME>Sanderson</LASTNAME></AUTHOR>\

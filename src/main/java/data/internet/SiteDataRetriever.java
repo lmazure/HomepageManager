@@ -26,7 +26,7 @@ public class SiteDataRetriever {
      *     (if the data is not fresh, it will be called a second time with fresh data)
      *   - its second argument is the site data
      * @param maxAge maximum age in seconds
-     * @param doNotUseCookies
+     * @param doNotUseCookies if true, cookies will not be recorded and resend while following redirections
      */
     public void retrieve(final String url,
                          final BiConsumer<Boolean, SiteData> consumer,

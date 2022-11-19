@@ -10,9 +10,11 @@ mettre IDE en dessous de dev tools
 
 ==== merge =====
 
-nettoyage de javadoc : 720 warnings
+nettoyer notes/csharp.xml
 
-voir comment assurer que est à jour testdata/css/schema.xsd (tester que c'est le même que dans mazure.fr ?)
+nettoyage de javadoc : 8 warnings
+
+voir comment assurer que testdata/css/schema.xsd est à jour (tester que c'est le même que dans mazure.fr ?)
 
 gérer
  tag = "COMMENT" value = "Cocktail Games at Berlin for the Spiel des Jahres, 13 Mots, Washington Z.C., Cache Ton Cash, Dinosaur Island - Rawr 'n Write, Ticket to Ride - San Fransisco, the games at Place de la République, and Le Grenier Ludique." violation = "space is missing after punctuation" detail = ""Cocktail Games at Berlin for the Spiel des Jahres, 13 Mots, Washington Z.C., Cache Ton Cash, Dinosaur Island - Rawr 'n Write, Ticket to Ride - San Fransisco, the games at Place de la République, and Le Grenier Ludique." is missing a space after punctuation"

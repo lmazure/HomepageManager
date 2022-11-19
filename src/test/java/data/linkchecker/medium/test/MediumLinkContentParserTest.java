@@ -17,6 +17,10 @@ import data.linkchecker.medium.MediumLinkContentParser;
 import utils.internet.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 
+/**
+ * Tests of MediumLinkContentParser
+ *
+ */
 public class MediumLinkContentParserTest {
 
     @ParameterizedTest

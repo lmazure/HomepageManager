@@ -12,6 +12,10 @@ import data.internet.SiteDataPersister;
 import data.internet.SynchronousSiteDataRetriever;
 import utils.FileHelper;
 
+/**
+ * Tests of SynchronousSiteDataRetriever
+ *
+ */
 public class SynchronousSiteDataRetrieverTest {
 
     @Test

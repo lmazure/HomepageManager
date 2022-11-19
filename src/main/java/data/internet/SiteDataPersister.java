@@ -20,7 +20,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
 
-import data.internet.SiteData.Status;
 import utils.ExitHelper;
 import utils.FileHelper;
 import utils.FileSection;
@@ -40,7 +39,7 @@ public class SiteDataPersister {
     private static final Charset UTF8_CHARSET = StandardCharsets.UTF_8;
 
     /**
-     * @param path
+     * @param path directory where the persistence files should be written
      */
     public SiteDataPersister(final Path path) {
         _path = path;
@@ -48,20 +47,20 @@ public class SiteDataPersister {
 
     /**
      * @param url
-     * @param timestamp
      * @param status
      * @param httpCode
      * @param headers
      * @param dataStream
+     * @param timestamp
      * @param error
      */
     public void persist(final String url,
-                        final Instant timestamp,
-                        final Status status,
+                        final SiteData.Status status,
                         final Optional<Integer> httpCode,
                         final Optional<Map<String, List<String>>> headers,
                         final Optional<InputStream> dataStream,
-                        final Optional<String> error) {
+                        final Optional<String> error,
+                        final Instant timestamp) {
 
         getOutputDirectory(url).toFile().mkdirs();
 
@@ -138,7 +137,7 @@ public class SiteDataPersister {
 
     /**
      * @param url
-     * @return the timestamps of the cached values (in reverse order, the first in the younger one)
+     * @return timestamps of the cached visits (in reverse order, the first in the younger one)
      */
     public List<Instant> getTimestampList(final String url) {
 
@@ -169,7 +168,7 @@ public class SiteDataPersister {
             ExitHelper.exit("status file " + getPersistedFile(url, timestamp) + " does not exist");
         }
 
-        Status status = Status.FAILURE;
+        SiteData.Status status = SiteData.Status.FAILURE;
         Optional<Integer> httpCode = Optional.empty();
         Optional<Map<String, List<String>>> headers = Optional.empty();
         Optional<String> error = Optional.empty();
@@ -180,7 +179,7 @@ public class SiteDataPersister {
 
             size = Integer.parseInt(reader.readLine().trim());
 
-            status = Status.valueOf(reader.readLine());
+            status = SiteData.Status.valueOf(reader.readLine());
 
             final String httpCodePresence = reader.readLine();
             if (httpCodePresence.equals("present")) {
