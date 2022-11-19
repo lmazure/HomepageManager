@@ -113,8 +113,8 @@ public class HtmlHelperTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final FileSection file = d.getDataFile().get();
+                               Assertions.assertTrue(d.getDataFileSection().isPresent());
+                               final FileSection file = d.getDataFileSection().get();
                                final Optional<Charset> effectiveCharset = HtmlHelper.getCharset(file);
                                if (expectedCharsetName == null) {
                                    Assertions.assertTrue(effectiveCharset.isEmpty());

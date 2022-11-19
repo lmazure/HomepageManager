@@ -31,8 +31,8 @@ public class IbmLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               Assertions.assertTrue(d.getDataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFileSection().get());
                                final IbmLinkContentParser parser = new IbmLinkContentParser(data, url);
                                try {
                                     Assertions.assertEquals(expectedTitle, parser.getTitle());
@@ -57,8 +57,8 @@ public class IbmLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               Assertions.assertTrue(d.getDataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFileSection().get());
                                final IbmLinkContentParser parser = new IbmLinkContentParser(data, url);
                                try {
                                     Assertions.assertEquals(expectedSubtitle, parser.getSubtitle());
@@ -81,8 +81,8 @@ public class IbmLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                           (final Boolean b, final SiteData d) -> {
-                              Assertions.assertTrue(d.getDataFile().isPresent());
-                              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                              Assertions.assertTrue(d.getDataFileSection().isPresent());
+                              final String data = HtmlHelper.slurpFile(d.getDataFileSection().get());
                               final IbmLinkContentParser parser = new IbmLinkContentParser(data, url);
                               try {
                                   Assertions.assertEquals(expectedDate, parser.getDate().toString());
@@ -112,8 +112,8 @@ public class IbmLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               Assertions.assertTrue(d.getDataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFileSection().get());
                                final IbmLinkContentParser parser = new IbmLinkContentParser(data, url);
                                try {
                                  Assertions.assertEquals(1, parser.getAuthors().size());

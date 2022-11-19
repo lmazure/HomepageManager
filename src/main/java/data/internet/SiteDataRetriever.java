@@ -12,15 +12,15 @@ public class SiteDataRetriever {
     private final SiteDataPersister _persister;
 
     /**
-     * @param cachePath
+     * @param path directory where the persistence files should be written
      */
-    public SiteDataRetriever(final Path cachePath) {
-        _persister = new SiteDataPersister(cachePath);
+    public SiteDataRetriever(final Path path) {
+        _persister = new SiteDataPersister(path);
         _retriever = new CachedSiteDataRetriever(_persister);
     }
 
     /**
-     * @param url
+     * @param url URL of the link to retrieve
      * @param consumer
      *   - its first argument is true is the data is fresh
      *     (if the data is not fresh, it will be called a second time with fresh data)

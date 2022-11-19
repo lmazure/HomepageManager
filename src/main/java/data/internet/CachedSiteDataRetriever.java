@@ -13,7 +13,7 @@ public class CachedSiteDataRetriever {
     private final AsynchronousSiteDataRetriever _retriever;
 
     /**
-     * @param persister
+     * @param persister data persister
      */
     public CachedSiteDataRetriever(final SiteDataPersister persister) {
         _persister = persister;
@@ -21,7 +21,7 @@ public class CachedSiteDataRetriever {
     }
 
     /**
-     * @param url
+     * @param url URL of the link to retrieve
      * @param consumer
      *   - its first argument is true is the data is fresh
      *     (if the data is not fresh, it will be called a second time with fresh data)

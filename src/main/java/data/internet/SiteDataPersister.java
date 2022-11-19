@@ -46,13 +46,13 @@ public class SiteDataPersister {
     }
 
     /**
-     * @param url
-     * @param status
-     * @param httpCode
-     * @param headers
-     * @param dataStream
-     * @param timestamp
-     * @param error
+     * @param url URL of the link to retrieve
+     * @param status status SUCCESS/FAILURE
+     * @param httpCode HTTP code, empty if the retrieval failed
+     * @param headers HTTT header, empty if the retrieval failed
+     * @param dataStream stream to download the HTTP payload
+     * @param error error message describing why the information retrieval failed, empty if there is no error
+     * @param timestamp timestamp of the visit
      */
     public void persist(final String url,
                         final SiteData.Status status,
@@ -136,7 +136,7 @@ public class SiteDataPersister {
     }
 
     /**
-     * @param url
+     * @param url URL of the link to retrieve
      * @return timestamps of the cached visits (in reverse order, the first in the younger one)
      */
     public List<Instant> getTimestampList(final String url) {
@@ -157,9 +157,9 @@ public class SiteDataPersister {
     }
 
     /**
-     * @param url
-     * @param timestamp
-     * @return
+     * @param url URL of the link to retrieve
+     * @param timestamp timestamp of the visit to retrieve
+     * @return link data
      */
     public SiteData retrieve(final String url,
                              final Instant timestamp) {
@@ -235,9 +235,9 @@ public class SiteDataPersister {
     }
 
     /**
-     * @param url
-     * @param timestamp
-     * @return
+     * @param url URL of the link to retrieve
+     * @param timestamp timestamp of the visit to retrieve
+     * @return file section containing the HTTP payload, empty if the retrieval failed
      */
     public FileSection getDataFileSection(final String url,
                                           final Instant timestamp) {

@@ -35,8 +35,8 @@ public class GithubBlogLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               Assertions.assertTrue(d.getDataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFileSection().get());
                                final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(url, data);
                                try {
                                    Assertions.assertEquals(expectedTitle, parser.getTitle());
@@ -63,8 +63,8 @@ public class GithubBlogLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               Assertions.assertTrue(d.getDataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFileSection().get());
                                final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(url, data);
                                try {
                                    Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
@@ -87,8 +87,8 @@ public class GithubBlogLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               Assertions.assertTrue(d.getDataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFileSection().get());
                                final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(url, data);
                                try {
                                    Assertions.assertEquals(expectedDate, parser.getPublicationDate().toString());
@@ -121,8 +121,8 @@ public class GithubBlogLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               Assertions.assertTrue(d.getDataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFileSection().get());
                                final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(url, data);
                                try {
                                    Assertions.assertEquals(Collections.singletonList(expectedAuthor), parser.getSureAuthors());

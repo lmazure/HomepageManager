@@ -37,7 +37,7 @@ public class SiteData {
      * @param status status SUCCESS/FAILURE
      * @param httpCode HTTP code, empty if the retrieval failed
      * @param headers HTTT header, empty if the retrieval failed
-     * @param dataFile file section containing the FTP payload, empty if the retrieval failed
+     * @param dataFile file section containing the HTTP payload, empty if the retrieval failed
      * @param error error message describing why the information retrieval failed, empty if there is no error
      */
     public SiteData(final String url,
@@ -90,9 +90,9 @@ public class SiteData {
     }
 
     /**
-     * @return file section containing the FTP payload, empty if the retrieval failed
+     * @return file section containing the HTTP payload, empty if the retrieval failed
      */
-    public Optional<FileSection> getDataFile() {
+    public Optional<FileSection> getDataFileSection() {
         return _dataFile;
     }
 }

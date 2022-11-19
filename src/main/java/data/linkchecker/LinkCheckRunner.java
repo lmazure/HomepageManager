@@ -260,7 +260,7 @@ public class LinkCheckRunner {
             final LinkContentChecker contentChecker = LinkContentCheckerFactory.build(siteData.getUrl(),
                                                                                       _expectedData.get(siteData.getUrl().toString()),
                                                                                       Optional.ofNullable(_articles.get(siteData.getUrl().toString())),
-                                                                                      siteData.getDataFile().get());
+                                                                                      siteData.getDataFileSection().get());
             try {
                 _checks.put(siteData.getUrl().toString(), contentChecker.check());
             } catch (final ContentParserException e) {

@@ -30,8 +30,8 @@ public class ChromiumBlogLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               Assertions.assertTrue(d.getDataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFileSection().get());
                                final ChromiumBlogLinkContentParser parser = new ChromiumBlogLinkContentParser(data);
                                try {
                                    Assertions.assertEquals(expectedTitle, parser.getTitle());
@@ -54,8 +54,8 @@ public class ChromiumBlogLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               Assertions.assertTrue(d.getDataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFileSection().get());
                                final ChromiumBlogLinkContentParser parser = new ChromiumBlogLinkContentParser(data);
                                try {
                                    Assertions.assertEquals(expectedTitle, parser.getTitle());
@@ -81,8 +81,8 @@ public class ChromiumBlogLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               Assertions.assertTrue(d.getDataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFileSection().get());
                                final ChromiumBlogLinkContentParser parser = new ChromiumBlogLinkContentParser(data);
                                try {
                                    Assertions.assertEquals(expectedTitle, parser.getTitle());
@@ -105,8 +105,8 @@ public class ChromiumBlogLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               Assertions.assertTrue(d.getDataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFileSection().get());
                                final ChromiumBlogLinkContentParser parser = new ChromiumBlogLinkContentParser(data);
                                try {
                                    Assertions.assertEquals(expectedPublicationDate, parser.getPublicationDate().toString());

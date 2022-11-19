@@ -46,7 +46,7 @@ public class SynchronousSiteDataRetriever {
     private static final String s_userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv\", \"0.0) Gecko/20100101 Firefox/90.0";
 
     /**
-     * @param persister
+     * @param persister data persister
      */
     public SynchronousSiteDataRetriever(final SiteDataPersister persister) {
         _persister = persister;
@@ -54,7 +54,7 @@ public class SynchronousSiteDataRetriever {
     }
 
     /**
-     * @param url
+     * @param url URL of the link to retrieve
      * @param consumer
      *   - its first argument is always true since the data is always fresh
      *   - its second argument is the site data
@@ -125,10 +125,12 @@ public class SynchronousSiteDataRetriever {
     }
 
     /**
-     * @param url
+     * get the content of a link whose payload is gzipped
+     * 
+     * @param url URL of the link to retrieve
      * @param doNotUseCookies if true, cookies will not be recorded and resend while following redirections
-     * @return
-     * @throws IOException
+     * @return payload
+     * @throws IOException exception if the payload could not be retrieved
      */
     public String getGzippedContent(final String url,
                                     final boolean doNotUseCookies) throws IOException {

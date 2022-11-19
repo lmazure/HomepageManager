@@ -38,8 +38,8 @@ public class OracleBlogsLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               Assertions.assertTrue(d.getDataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFileSection().get());
                                final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data);
                                Assertions.assertEquals(expectedTitle, parser.getTitle());
                                consumerHasBeenCalled.set(true);
@@ -72,8 +72,8 @@ public class OracleBlogsLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               Assertions.assertTrue(d.getDataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFileSection().get());
                                final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data);
                                Assertions.assertTrue(parser.getSubtitle().isPresent());
                                Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
@@ -96,8 +96,8 @@ public class OracleBlogsLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               Assertions.assertTrue(d.getDataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFileSection().get());
                                final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data);
                                Assertions.assertFalse(parser.getSubtitle().isPresent());
                                consumerHasBeenCalled.set(true);
@@ -122,8 +122,8 @@ public class OracleBlogsLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               Assertions.assertTrue(d.getDataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFileSection().get());
                                final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data);
                                try {
                                    TestHelper.assertDate(expectedDate, parser.getDate());
@@ -157,8 +157,8 @@ public class OracleBlogsLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               Assertions.assertTrue(d.getDataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFileSection().get());
                                final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data);
                                try {
                                    Assertions.assertEquals(1, parser.getSureAuthors().size());
@@ -198,8 +198,8 @@ public class OracleBlogsLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                               Assertions.assertTrue(d.getDataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.getDataFileSection().get());
                                final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data);
                                try {
                                    Assertions.assertEquals(2, parser.getSureAuthors().size());
@@ -224,8 +224,8 @@ public class OracleBlogsLinkContentParserTest {
         final String expectedDate = "1970-01-01";
         retriever.retrieve(url,
                           (final Boolean b, final SiteData d) -> {
-                              Assertions.assertTrue(d.getDataFile().isPresent());
-                              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                              Assertions.assertTrue(d.getDataFileSection().isPresent());
+                              final String data = HtmlHelper.slurpFile(d.getDataFileSection().get());
                               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data);
                               Assertions.assertEquals("", parser.getTitle());
                               Assertions.assertTrue(parser.getSubtitle().isEmpty());
