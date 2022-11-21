@@ -43,8 +43,8 @@ public class LinkContentCheckerTest {
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<AuthorData>(), null);
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFileSection().isPresent());
-                               final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.getDataFileSection().get());
+                               Assertions.assertTrue(d.dataFileSection().isPresent());
+                               final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.dataFileSection().get());
                                try {
                                    final List<LinkContentCheck> checks = checker.check();
                                    Assertions.assertTrue(checks.isEmpty());
@@ -72,8 +72,8 @@ public class LinkContentCheckerTest {
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<AuthorData>(), null);
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFileSection().isPresent());
-                               final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.getDataFileSection().get());
+                               Assertions.assertTrue(d.dataFileSection().isPresent());
+                               final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.dataFileSection().get());
                                try {
                                    final List<LinkContentCheck> checks = checker.check();
                                    Assertions.assertEquals(1, checks.size());
@@ -102,8 +102,8 @@ public class LinkContentCheckerTest {
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<AuthorData>(), null);
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFileSection().isPresent());
-                               final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.getDataFileSection().get());
+                               Assertions.assertTrue(d.dataFileSection().isPresent());
+                               final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.dataFileSection().get());
                                try {
                                    final List<LinkContentCheck> checks = checker.check();
                                    Assertions.assertTrue(checks.isEmpty());
@@ -130,8 +130,8 @@ public class LinkContentCheckerTest {
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<AuthorData>(), null);
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFileSection().isPresent());
-                               final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.getDataFileSection().get());
+                               Assertions.assertTrue(d.dataFileSection().isPresent());
+                               final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.dataFileSection().get());
                                try {
                                    final List<LinkContentCheck> checks = checker.check();
                                    Assertions.assertEquals(1, checks.size());

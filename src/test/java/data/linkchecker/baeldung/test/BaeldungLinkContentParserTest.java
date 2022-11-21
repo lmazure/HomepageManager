@@ -30,8 +30,8 @@ public class BaeldungLinkContentParserTest {
         final String url = "https://www.baeldung.com/crawler4j";
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.getDataFileSection().get());
+                               Assertions.assertTrue(d.dataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(url, data);
                                try {
                                    Assertions.assertEquals("A Guide to Crawler4j", parser.getTitle());
@@ -54,8 +54,8 @@ public class BaeldungLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                           (final Boolean b, final SiteData d) -> {
-                              Assertions.assertTrue(d.getDataFileSection().isPresent());
-                              final String data = HtmlHelper.slurpFile(d.getDataFileSection().get());
+                              Assertions.assertTrue(d.dataFileSection().isPresent());
+                              final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                               final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(url, data);
                               try {
                                   TestHelper.assertDate(expectedDate, parser.getDate());
@@ -85,8 +85,8 @@ public class BaeldungLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.getDataFileSection().get());
+                               Assertions.assertTrue(d.dataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(url, data);
                                try {
                                    Assertions.assertEquals(Collections.singletonList(expectedAuthor), parser.getSureAuthors());
@@ -108,8 +108,8 @@ public class BaeldungLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                           (final Boolean b, final SiteData d) -> {
-                              Assertions.assertTrue(d.getDataFileSection().isPresent());
-                              final String data = HtmlHelper.slurpFile(d.getDataFileSection().get());
+                              Assertions.assertTrue(d.dataFileSection().isPresent());
+                              final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                               final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(url, data);
                               try {
                                   Assertions.assertEquals(0, parser.getSureAuthors().size());

@@ -90,8 +90,8 @@ public class LinkDataExtractorFactory {
 
     private void handleLinkData(@SuppressWarnings("unused") final Boolean isDataFresh,
                                 final SiteData siteData) {
-        if (siteData.getDataFileSection().isPresent()) {
-            _content = HtmlHelper.slurpFile(siteData.getDataFileSection().get());
+        if (siteData.dataFileSection().isPresent()) {
+            _content = HtmlHelper.slurpFile(siteData.dataFileSection().get());
         }
     }
 

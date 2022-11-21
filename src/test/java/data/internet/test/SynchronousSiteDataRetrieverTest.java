@@ -57,7 +57,7 @@ public class SynchronousSiteDataRetrieverTest {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         retriever.retrieve("https://www.linkedin.com/in/thomas-cabaret-36766674/",
                            (final Boolean b, final SiteData d) -> {
-                               Assertions.assertEquals(200, d.getHttpCode().get().intValue());
+                               Assertions.assertEquals(200, d.httpCode().get().intValue());
                            },
                            false);
     }

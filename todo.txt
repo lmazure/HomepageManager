@@ -8,6 +8,12 @@ spin off de la page
 - dev tools
 mettre IDE en dessous de dev tools
 
+détecter américanismes
+
+détecter espace en début et fin de DESC et de TERM
+
+faire passer la table des droits Java en XML
+
 ==== merge =====
 
 nettoyer notes/csharp.xml

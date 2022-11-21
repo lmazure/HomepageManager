@@ -39,6 +39,9 @@ import utils.xmlparsing.LinkData;
 import utils.xmlparsing.XmlParser;
 import utils.xmlparsing.XmlParsingException;
 
+/**
+ *
+ */
 public class LinkCheckRunner {
 
     private static final int MAX_CACHE_AGE = 30*24*60*60;
@@ -55,6 +58,13 @@ public class LinkCheckRunner {
     private final Path _outputFile;
     private final Path _reportFile;
 
+    /**
+     * @param file
+     * @param cachePath
+     * @param controller
+     * @param ouputFile
+     * @param reportFile
+     */
     public LinkCheckRunner(final Path file,
                            final Path cachePath,
                            final BackgroundDataController controller,
@@ -73,6 +83,9 @@ public class LinkCheckRunner {
         _reportFile = reportFile;
     }
 
+    /**
+     * 
+     */
     public synchronized void launch() {
 
         createOutputfile();
@@ -254,15 +267,15 @@ public class LinkCheckRunner {
             return;
         }
 
-        _effectiveData.put(siteData.getUrl().toString(), siteData);
-        if ((siteData.getStatus() == SiteData.Status.SUCCESS) &&
-            _expectedData.get(siteData.getUrl().toString()).getStatus().isEmpty()) {
-            final LinkContentChecker contentChecker = LinkContentCheckerFactory.build(siteData.getUrl(),
-                                                                                      _expectedData.get(siteData.getUrl().toString()),
-                                                                                      Optional.ofNullable(_articles.get(siteData.getUrl().toString())),
-                                                                                      siteData.getDataFileSection().get());
+        _effectiveData.put(siteData.url().toString(), siteData);
+        if ((siteData.status() == SiteData.Status.SUCCESS) &&
+            _expectedData.get(siteData.url().toString()).getStatus().isEmpty()) {
+            final LinkContentChecker contentChecker = LinkContentCheckerFactory.build(siteData.url(),
+                                                                                      _expectedData.get(siteData.url().toString()),
+                                                                                      Optional.ofNullable(_articles.get(siteData.url().toString())),
+                                                                                      siteData.dataFileSection().get());
             try {
-                _checks.put(siteData.getUrl().toString(), contentChecker.check());
+                _checks.put(siteData.url().toString(), contentChecker.check());
             } catch (final ContentParserException e) {
                 FileHelper.createParentDirectory(_reportFile);
                 try (final PrintStream reportWriter = new PrintStream(_reportFile.toFile())) {
@@ -284,7 +297,7 @@ public class LinkCheckRunner {
 
         Logger.log(Logger.Level.INFO)
               .append("URL ")
-              .append(siteData.getUrl())
+              .append(siteData.url())
               .append(" ")
               .append(_nbSitesRemainingToBeChecked)
               .append(" status=")
@@ -360,8 +373,8 @@ public class LinkCheckRunner {
         }
         builder.append("URL = " + url + "\n");
         builder.append("Expected status = " + expectedData.getStatus().map(utils.xmlparsing.LinkStatus::toString).orElse("") + "\n");
-        builder.append("Effective status = " + effectiveData.getStatus() + "\n");
-        final String httpCode = effectiveData.getHttpCode().map(i -> {
+        builder.append("Effective status = " + effectiveData.status() + "\n");
+        final String httpCode = effectiveData.httpCode().map(i -> {
             try {
                 return i.toString() + " " + HttpHelper.getStringOfCode(i.intValue());
             } catch (@SuppressWarnings("unused") final InvalidHttpCodeException e) {
@@ -369,12 +382,12 @@ public class LinkCheckRunner {
             }
         }).orElse("---");
         builder.append("Effective HTTP code = " + httpCode + "\n");
-        if (effectiveData.getHeaders().isPresent() && effectiveData.getHeaders().get().containsKey("Location")) {
-            final String redirection = effectiveData.getHeaders().get().get("Location").get(0);
+        if (effectiveData.headers().isPresent() && effectiveData.headers().get().containsKey("Location")) {
+            final String redirection = effectiveData.headers().get().get("Location").get(0);
             builder.append("Redirection = " + redirection + "\n");
         }
-        if (effectiveData.getError().isPresent()) {
-            builder.append("Effective error = \"" + effectiveData.getError().get() + "\"\n");
+        if (effectiveData.error().isPresent()) {
+            builder.append("Effective error = \"" + effectiveData.error().get() + "\"\n");
         }
         final StringBuilder googleUrl = new StringBuilder("https://www.google.com/search?q=%22" +
                                                           URLEncoder.encode(expectedData.getTitle(), StandardCharsets.UTF_8) +
@@ -404,19 +417,19 @@ public class LinkCheckRunner {
                                              final SiteData effectiveData) {
 
         if (expectedData.getStatus().isPresent() && expectedData.getStatus().get().equals(utils.xmlparsing.LinkStatus.DEAD)) {
-            if (effectiveData.getStatus() == SiteData.Status.FAILURE) {
+            if (effectiveData.status() == SiteData.Status.FAILURE) {
                 return true;
             }
-            if (effectiveData.getHttpCode().isEmpty()) {
+            if (effectiveData.httpCode().isEmpty()) {
                 return true;
             }
-            if (effectiveData.getHttpCode().isPresent() && effectiveData.getHttpCode().get().intValue() != 200) {
+            if (effectiveData.httpCode().isPresent() && effectiveData.httpCode().get().intValue() != 200) {
                 return true;
             }
             return false;
         }
 
-        return (effectiveData.getHttpCode().isPresent() && effectiveData.getHttpCode().get().intValue() == 200);
+        return (effectiveData.httpCode().isPresent() && effectiveData.httpCode().get().intValue() == 200);
     }
 
     static private boolean doNotUseCookies(final String url) { // TODO the decision to allow/disallow cookies should be in the parser

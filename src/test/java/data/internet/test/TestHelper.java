@@ -19,22 +19,22 @@ import utils.FileHelper;
 public class TestHelper {
 
     public static void assertData(final SiteData data) {
-        Assertions.assertTrue(data.getHttpCode().isPresent());
-        Assertions.assertEquals(200, data.getHttpCode().get());
-        Assertions.assertTrue(data.getHeaders().isPresent());
-        Assertions.assertTrue(data.getHeaders().get().keySet().contains("Content-Type"));
-        Assertions.assertEquals(1, data.getHeaders().get().get("Content-Type").size());
-        Assertions.assertEquals("text/html; charset=UTF-8", data.getHeaders().get().get("Content-Type").get(0));
-        Assertions.assertTrue(data.getHeaders().get().keySet().contains("Cache-Control"));
-        Assertions.assertEquals(1, data.getHeaders().get().get("Cache-Control").size());
-        Assertions.assertEquals("max-age=604800", data.getHeaders().get().get("Cache-Control").get(0));
-        Assertions.assertTrue(data.getDataFileSection().isPresent());
-        Assertions.assertFalse(data.getError().isPresent());
+        Assertions.assertTrue(data.httpCode().isPresent());
+        Assertions.assertEquals(200, data.httpCode().get());
+        Assertions.assertTrue(data.headers().isPresent());
+        Assertions.assertTrue(data.headers().get().keySet().contains("Content-Type"));
+        Assertions.assertEquals(1, data.headers().get().get("Content-Type").size());
+        Assertions.assertEquals("text/html; charset=UTF-8", data.headers().get().get("Content-Type").get(0));
+        Assertions.assertTrue(data.headers().get().keySet().contains("Cache-Control"));
+        Assertions.assertEquals(1, data.headers().get().get("Cache-Control").size());
+        Assertions.assertEquals("max-age=604800", data.headers().get().get("Cache-Control").get(0));
+        Assertions.assertTrue(data.dataFileSection().isPresent());
+        Assertions.assertFalse(data.error().isPresent());
         try {
-            final String d = Files.readString(data.getDataFileSection().get().file().toPath());
+            final String d = Files.readString(data.dataFileSection().get().file().toPath());
             Assertions.assertNotEquals(-1, d.indexOf("This domain is for use in illustrative examples in documents."));
         } catch (final IOException e) {
-            Assertions.fail("failure to read data file " + data.getDataFileSection().get() + " (" + e.getMessage() +")");
+            Assertions.fail("failure to read data file " + data.dataFileSection().get() + " (" + e.getMessage() +")");
         }
     }
 
