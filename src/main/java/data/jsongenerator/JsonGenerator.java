@@ -32,9 +32,8 @@ public class JsonGenerator {
     }
 
     /**
-     * @param homepage 
-     * @param files 
-     * @throws XmlParsingException
+     * @param homepage
+     * @param files
      */
     public static void generate(final Path homepage,
                                 final List<Path> files) {

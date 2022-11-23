@@ -45,7 +45,7 @@ public class HTMLGenerator implements FileHandler {
      * This class generates the HTML files from the XML files.
      *
      * @param homepagePath path to the directory containing the pages
-     * @param tmpPath path to the directory containing the temporary files and log files 
+     * @param tmpPath path to the directory containing the temporary files and log files
      * @param controller
      */
     public HTMLGenerator(final Path homepagePath,

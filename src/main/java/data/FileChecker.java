@@ -51,7 +51,7 @@ public class FileChecker implements FileHandler {
 
     /**
      * @param homepagePath path to the directory containing the pages
-     * @param tmpPath path to the directory containing the temporary files and log files 
+     * @param tmpPath path to the directory containing the temporary files and log files
      * @param controller
      */
     public FileChecker(final Path homepagePath,

@@ -16,8 +16,14 @@ import data.internet.SiteDataPersister;
 import data.internet.SynchronousSiteDataRetriever;
 import utils.FileHelper;
 
+/**
+ * Helper for the data retrieved tests
+ */
 public class TestHelper {
 
+    /**
+     * @param data
+     */
     public static void assertData(final SiteData data) {
         Assertions.assertTrue(data.httpCode().isPresent());
         Assertions.assertEquals(200, data.httpCode().get());
@@ -38,6 +44,10 @@ public class TestHelper {
         }
     }
 
+    /**
+     * @param expectedDateAsString
+     * @param date
+     */
     public static void assertDate(final String expectedDateAsString,
                                   final Optional<TemporalAccessor> date) {
         Assertions.assertTrue(date.isPresent());
@@ -50,12 +60,20 @@ public class TestHelper {
         Assertions.assertEquals(expectedDateAsString, d.toString());
     }
 
+    /**
+     * @param clazz
+     * @return
+     */
     public static SynchronousSiteDataRetriever buildDataSiteRetriever(final Class<?> clazz) {
         final Path cachePath = getTestDatapath(clazz);
         FileHelper.deleteDirectory(cachePath.toFile());
         return new SynchronousSiteDataRetriever(new SiteDataPersister(cachePath));
     }
 
+    /**
+     * @param clazz
+     * @return
+     */
     public static Path getTestDatapath(final Class<?> clazz) {
         return Paths.get("H:\\Documents\\tmp\\hptmp\\test\\" + clazz.getSimpleName());
     }

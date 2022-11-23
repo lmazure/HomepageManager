@@ -148,7 +148,7 @@ public class FileTable extends Application {
      * display the table
      *
      * @param homepagePath path to the directory containing the pages
-     * @param tmpPath path to the directory containing the temporary files and log files 
+     * @param tmpPath path to the directory containing the temporary files and log files
      * @param internetAccessiSEnabled flag indicating if Internet is accessed (if False, links will not be checked)
      */
     public static void display(final Path homepagePath,

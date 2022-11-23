@@ -27,7 +27,6 @@ import utils.Logger;
 import utils.internet.UrlHelper;
 
 /**
- * 
  *
  */
 public class SiteDataPersister {
@@ -53,12 +52,11 @@ public class SiteDataPersister {
     public void persist(final SiteDataDTO siteData,
                         final Optional<InputStream> dataStream,
                         final Instant timestamp) {
-        persist(siteData.url(), siteData.status(), siteData.httpCode(), siteData.headers(), dataStream, siteData.error(), timestamp);
+        persist(siteData.url(), siteData.httpCode(), siteData.headers(), dataStream, siteData.error(), timestamp);
     }
 
     /**
      * @param url URL of the link to retrieve
-     * @param status status SUCCESS/FAILURE
      * @param httpCode HTTP code, empty if the retrieval failed
      * @param headers HTTT header, empty if the retrieval failed
      * @param dataStream stream to download the HTTP payload
@@ -66,7 +64,6 @@ public class SiteDataPersister {
      * @param timestamp timestamp of the visit
      */
     public void persist(final String url,
-                        final SiteDataDTO.Status status,
                         final Optional<Integer> httpCode,
                         final Optional<Map<String, List<String>>> headers,
                         final Optional<InputStream> dataStream,
@@ -77,7 +74,6 @@ public class SiteDataPersister {
 
         final StringBuilder builder = new StringBuilder();
 
-        builder.append(status).append('\n');
         if (httpCode.isPresent()) {
             builder.append("present\n");
             builder.append(httpCode.get()).append('\n');
@@ -179,7 +175,6 @@ public class SiteDataPersister {
             ExitHelper.exit("status file " + getPersistedFile(url, timestamp) + " does not exist");
         }
 
-        SiteData.Status status = SiteData.Status.FAILURE;
         Optional<Integer> httpCode = Optional.empty();
         Optional<Map<String, List<String>>> headers = Optional.empty();
         Optional<String> error = Optional.empty();
@@ -189,8 +184,6 @@ public class SiteDataPersister {
         try (final BufferedReader reader = new BufferedReader(new FileReader(statusFile))) {
 
             size = Integer.parseInt(reader.readLine().trim());
-
-            status = SiteData.Status.valueOf(reader.readLine());
 
             final String httpCodePresence = reader.readLine();
             if (httpCodePresence.equals("present")) {
@@ -242,7 +235,7 @@ public class SiteDataPersister {
         final File dataFile = getPersistedFile(url, timestamp);
         final Optional<FileSection> dataFileSection = Optional.of(new FileSection(dataFile, size, dataFile.length() - size));
 
-        return new SiteData(url, status, httpCode, headers, dataFileSection, error, null);
+        return new SiteData(url, httpCode, headers, dataFileSection, error, null);
     }
 
     /**

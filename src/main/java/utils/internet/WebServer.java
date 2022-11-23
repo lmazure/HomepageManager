@@ -31,8 +31,8 @@ public class WebServer {
      * Start the Web Server
      *
      * @param homepagePath path to the directory containing the pages
-     * @param tmpPath path to the directory containing the temporary files and log files 
-     * 
+     * @param tmpPath path to the directory containing the temporary files and log files
+     *
      */
     public static void start(final Path homepagePath,
                              final Path tmpPath) {

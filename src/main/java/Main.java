@@ -18,7 +18,7 @@ public class Main {
 
     /**
      * Entry point of the program
-     * 
+     *
      * @param args command line parameters
      */
     public static void main(final String[] args) {

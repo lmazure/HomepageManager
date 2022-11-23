@@ -30,9 +30,9 @@ import utils.ExitHelper;
 import utils.FileHelper;
 import utils.Logger;
 import utils.Logger.Level;
+import utils.XmlHelper;
 import utils.internet.HttpHelper;
 import utils.internet.InvalidHttpCodeException;
-import utils.XmlHelper;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.ElementType;
 import utils.xmlparsing.LinkData;
@@ -59,11 +59,11 @@ public class LinkCheckRunner {
     private final Path _reportFile;
 
     /**
-     * @param file
-     * @param cachePath
-     * @param controller
-     * @param ouputFile
-     * @param reportFile
+     * @param file XML file to be checked
+     * @param cachePath directory where the persistence files are written
+     * @param controller controller
+     * @param ouputFile file into which the found violated checks are written
+     * @param reportFile file into which technical error occuring during the check are written
      */
     public LinkCheckRunner(final Path file,
                            final Path cachePath,
@@ -84,7 +84,7 @@ public class LinkCheckRunner {
     }
 
     /**
-     * 
+     *
      */
     public synchronized void launch() {
 
@@ -268,7 +268,7 @@ public class LinkCheckRunner {
         }
 
         _effectiveData.put(siteData.url().toString(), siteData);
-        if ((siteData.status() == SiteData.Status.SUCCESS) &&
+        if ((siteData.error().isPresent()) &&
             _expectedData.get(siteData.url().toString()).getStatus().isEmpty()) {
             final LinkContentChecker contentChecker = LinkContentCheckerFactory.build(siteData.url(),
                                                                                       _expectedData.get(siteData.url().toString()),
@@ -373,7 +373,9 @@ public class LinkCheckRunner {
         }
         builder.append("URL = " + url + "\n");
         builder.append("Expected status = " + expectedData.getStatus().map(utils.xmlparsing.LinkStatus::toString).orElse("") + "\n");
-        builder.append("Effective status = " + effectiveData.status() + "\n");
+        if (effectiveData.error().isPresent()) {
+            builder.append("Effective error = \"" + effectiveData.error().get() + "\"\n");
+        }
         final String httpCode = effectiveData.httpCode().map(i -> {
             try {
                 return i.toString() + " " + HttpHelper.getStringOfCode(i.intValue());
@@ -385,9 +387,6 @@ public class LinkCheckRunner {
         if (effectiveData.headers().isPresent() && effectiveData.headers().get().containsKey("Location")) {
             final String redirection = effectiveData.headers().get().get("Location").get(0);
             builder.append("Redirection = " + redirection + "\n");
-        }
-        if (effectiveData.error().isPresent()) {
-            builder.append("Effective error = \"" + effectiveData.error().get() + "\"\n");
         }
         final StringBuilder googleUrl = new StringBuilder("https://www.google.com/search?q=%22" +
                                                           URLEncoder.encode(expectedData.getTitle(), StandardCharsets.UTF_8) +
@@ -417,7 +416,7 @@ public class LinkCheckRunner {
                                              final SiteData effectiveData) {
 
         if (expectedData.getStatus().isPresent() && expectedData.getStatus().get().equals(utils.xmlparsing.LinkStatus.DEAD)) {
-            if (effectiveData.status() == SiteData.Status.FAILURE) {
+            if (effectiveData.error().isPresent()) {
                 return true;
             }
             if (effectiveData.httpCode().isEmpty()) {

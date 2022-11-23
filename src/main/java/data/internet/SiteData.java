@@ -7,10 +7,9 @@ import java.util.Optional;
 import utils.FileSection;
 
 /**
- * Information about a link 
- * @param url URL of the link
+ * Information about a link
  *
- * @param status status SUCCESS/FAILURE
+ * @param url URL of the link
  * @param httpCode HTTP code, empty if the retrieval failed
  * @param headers HTTT header, empty if the retrieval failed
  * @param dataFileSection file section containing the HTTP payload, empty if the retrieval failed
@@ -18,23 +17,10 @@ import utils.FileSection;
  * @param previousRedirection link data of the previous redirection
  */
 public record SiteData(String url,
-                       Status status,
                        Optional<Integer> httpCode,
                        Optional<Map<String, List<String>>> headers,
                        Optional<FileSection> dataFileSection,
                        Optional<String> error,
                        SiteData previousRedirection) {
-    /**
-     * status of the information retrieval
-     */
-    public enum Status {
-        /**
-         * the information was successfully retrieved
-         */
-        SUCCESS,
-        /**
-         * could not retrieve the information
-         */
-        FAILURE
-    }
+    // EMPTY
 }
