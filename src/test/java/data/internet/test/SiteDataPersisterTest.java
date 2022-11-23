@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import data.internet.SiteData;
+import data.internet.SiteDataDTO;
 import data.internet.SiteDataPersister;
 import utils.FileHelper;
 
@@ -21,7 +22,7 @@ public class SiteDataPersisterTest {
 
     private static String url = "http://example.com";
     private static Instant now = Instant.now();
-    private static SiteData.Status status = SiteData.Status.SUCCESS;
+    private static SiteDataDTO.Status status = SiteDataDTO.Status.SUCCESS;
     private static Optional<Integer> httpCode = Optional.of(Integer.valueOf(200));
     private static Optional<Map<String, List<String>>> headers = Optional.of(Map.of("header1", List.of("val11"),
                                                                                     "header2", List.of("val21", "val22"),
@@ -38,7 +39,7 @@ public class SiteDataPersisterTest {
         final SiteData effectiveData = persister.retrieve(url, now);
 
         Assertions.assertEquals(httpCode, effectiveData.httpCode());
-        Assertions.assertEquals(status, effectiveData.status());
+        Assertions.assertEquals(SiteData.Status.SUCCESS, effectiveData.status());
         Assertions.assertEquals(headers, effectiveData.headers());
         Assertions.assertEquals(error, effectiveData.error());
     }
@@ -51,7 +52,7 @@ public class SiteDataPersisterTest {
         final SiteData effectiveData = persister.retrieve(url, now);
 
         Assertions.assertEquals(Optional.empty(), effectiveData.httpCode());
-        Assertions.assertEquals(status, effectiveData.status());
+        Assertions.assertEquals(SiteData.Status.SUCCESS, effectiveData.status());
         Assertions.assertEquals(headers, effectiveData.headers());
         Assertions.assertEquals(error, effectiveData.error());
     }
@@ -64,7 +65,7 @@ public class SiteDataPersisterTest {
         final SiteData effectiveData = persister.retrieve(url, now);
 
         Assertions.assertEquals(httpCode, effectiveData.httpCode());
-        Assertions.assertEquals(status, effectiveData.status());
+        Assertions.assertEquals(SiteData.Status.SUCCESS, effectiveData.status());
         Assertions.assertEquals(Optional.empty(), effectiveData.headers());
         Assertions.assertEquals(error, effectiveData.error());
     }
@@ -77,7 +78,7 @@ public class SiteDataPersisterTest {
         final SiteData effectiveData = persister.retrieve(url, now);
 
         Assertions.assertEquals(httpCode, effectiveData.httpCode());
-        Assertions.assertEquals(status, effectiveData.status());
+        Assertions.assertEquals(SiteData.Status.SUCCESS, effectiveData.status());
         Assertions.assertEquals(headers, effectiveData.headers());
         Assertions.assertEquals(Optional.empty(), effectiveData.error());
     }
@@ -90,7 +91,7 @@ public class SiteDataPersisterTest {
         final SiteData effectiveData = persister.retrieve(url, now);
 
         Assertions.assertEquals(Optional.empty(), effectiveData.httpCode());
-        Assertions.assertEquals(status, effectiveData.status());
+        Assertions.assertEquals(SiteData.Status.SUCCESS, effectiveData.status());
         Assertions.assertEquals(Optional.empty(), effectiveData.headers());
         Assertions.assertEquals(Optional.empty(), effectiveData.error());
     }
@@ -99,7 +100,7 @@ public class SiteDataPersisterTest {
     void allPresentAndStatusFailure() {
 
         final SiteDataPersister persister = buildSiteDataPersister();
-        persister.persist(url, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error, now);
+        persister.persist(url, SiteDataDTO.Status.FAILURE, httpCode, headers, Optional.empty(), error, now);
         final SiteData effectiveData = persister.retrieve(url, now);
 
         Assertions.assertEquals(httpCode, effectiveData.httpCode());

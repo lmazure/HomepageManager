@@ -27,7 +27,6 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import utils.ExitHelper;
-import utils.FileSection;
 import utils.internet.UriHelper;
 import utils.internet.UrlHelper;
 
@@ -66,16 +65,17 @@ public class SynchronousSiteDataRetriever {
         retrieveInternal(url, url, consumer, 0, doNotUseCookies ? null : new CookieManager());
     }
 
-    private void retrieveInternal(final String initialUrl,
-                                  final String currentUrl,
-                                  final BiConsumer<Boolean, SiteData> consumer,
-                                  final int depth,
-                                  final CookieManager cookieManager) {
+    private SiteDataDTO retrieveInternal(final String initialUrl,
+                                         final String currentUrl,
+                                         final BiConsumer<Boolean, SiteData> consumer,
+                                         final int depth,
+                                         final CookieManager cookieManager) {
         Optional<Integer> httpCode = Optional.empty();
         Optional<Map<String, List<String>>> headers = Optional.empty();
-        SiteData.Status status = SiteData.Status.SUCCESS;
+        SiteDataDTO.Status status = SiteDataDTO.Status.SUCCESS;
         Optional<String> error = Optional.empty();
         Optional<InputStream> dataStream = Optional.empty();
+        SiteDataDTO previousRedirection = null;
 
         try {
             final HttpURLConnection httpConnection = httpConnect(currentUrl, cookieManager);
@@ -88,7 +88,7 @@ public class SynchronousSiteDataRetriever {
                 responseCode == 307) {
                 if (depth == s_maxNbRedirects) {
                     error = Optional.of("Too many redirects (" + s_maxNbRedirects + ") occurred while trying to load URL " + initialUrl);
-                    status = SiteData.Status.FAILURE;
+                    status = SiteDataDTO.Status.FAILURE;
                 } else {                    
                     final String location = httpConnection.getHeaderField("Location");
                     final String redirectUrl = getRedirectionUrl(currentUrl, location);
@@ -103,25 +103,26 @@ public class SynchronousSiteDataRetriever {
                             }
                         }
                     }
-                    retrieveInternal(initialUrl, redirectUrl, consumer, depth + 1, cookieManager);
-                    return;
+                    previousRedirection = retrieveInternal(initialUrl, redirectUrl, consumer, depth + 1, cookieManager);
                 }
-            }
-            if (responseCode != HttpURLConnection.HTTP_OK /* 200 */ &&
+            } else if (responseCode != HttpURLConnection.HTTP_OK /* 200 */ &&
                 responseCode != HttpURLConnection.HTTP_CREATED   /* 201 */) {
                 error = Optional.of("page not found");
-                status = SiteData.Status.FAILURE;
+                status = SiteDataDTO.Status.FAILURE;
             }
             dataStream = Optional.of(httpConnection.getInputStream());
         } catch (final IOException e) {
             error = Optional.of(e.toString());
-            status = SiteData.Status.FAILURE;
+            status = SiteDataDTO.Status.FAILURE;
         }
         final Instant timestamp = Instant.now();
-        _persister.persist(initialUrl, status, httpCode, headers, dataStream, error, timestamp);
-        final FileSection dataFile = _persister.getDataFileSection(initialUrl, timestamp);
-        final SiteData siteData = new SiteData(initialUrl, status, httpCode, headers, Optional.of(dataFile), error);
-        consumer.accept(Boolean.TRUE, siteData);
+        final SiteDataDTO dto = new SiteDataDTO(initialUrl, status, httpCode, headers, error, previousRedirection);
+        if (previousRedirection == null) {
+            _persister.persist(dto, dataStream, timestamp);
+            final SiteData siteData = _persister.retrieve(initialUrl, timestamp);
+            consumer.accept(Boolean.TRUE, siteData);
+        }
+        return dto;
     }
 
     /**

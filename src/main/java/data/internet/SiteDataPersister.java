@@ -46,6 +46,17 @@ public class SiteDataPersister {
     }
 
     /**
+     * @param siteData link data
+     * @param dataStream stream to download the HTTP payload
+     * @param timestamp timestamp of the visit
+     */
+    public void persist(final SiteDataDTO siteData,
+                        final Optional<InputStream> dataStream,
+                        final Instant timestamp) {
+        persist(siteData.url(), siteData.status(), siteData.httpCode(), siteData.headers(), dataStream, siteData.error(), timestamp);
+    }
+
+    /**
      * @param url URL of the link to retrieve
      * @param status status SUCCESS/FAILURE
      * @param httpCode HTTP code, empty if the retrieval failed
@@ -55,7 +66,7 @@ public class SiteDataPersister {
      * @param timestamp timestamp of the visit
      */
     public void persist(final String url,
-                        final SiteData.Status status,
+                        final SiteDataDTO.Status status,
                         final Optional<Integer> httpCode,
                         final Optional<Map<String, List<String>>> headers,
                         final Optional<InputStream> dataStream,
@@ -231,7 +242,7 @@ public class SiteDataPersister {
         final File dataFile = getPersistedFile(url, timestamp);
         final Optional<FileSection> dataFileSection = Optional.of(new FileSection(dataFile, size, dataFile.length() - size));
 
-        return new SiteData(url, status, httpCode, headers, dataFileSection, error);
+        return new SiteData(url, status, httpCode, headers, dataFileSection, error, null);
     }
 
     /**
