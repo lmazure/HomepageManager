@@ -13,6 +13,9 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
 import java.time.Instant;
+import java.util.Deque;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -62,25 +65,26 @@ public class SynchronousSiteDataRetriever {
     public void retrieve(final String url,
                          final BiConsumer<Boolean, FullFetchedLinkData> consumer,
                          final boolean doNotUseCookies) {
-        retrieveInternal(url, url, consumer, 0, doNotUseCookies ? null : new CookieManager());
+        retrieveInternal(url, url, new LinkedList<>(), consumer, 0, doNotUseCookies ? null : new CookieManager());
     }
 
-    private HeaderFetchedLinkData retrieveInternal(final String initialUrl,
-                                                   final String currentUrl,
-                                                   final BiConsumer<Boolean, FullFetchedLinkData> consumer,
-                                                   final int depth,
-                                                   final CookieManager cookieManager) {
+    private void retrieveInternal(final String initialUrl,
+                                  final String currentUrl,
+                                  final Deque<HeaderFetchedLinkData> redirectionsData,
+                                  final BiConsumer<Boolean, FullFetchedLinkData> consumer,
+                                  final int depth,
+                                  final CookieManager cookieManager) {
         Optional<Integer> httpCode = Optional.empty();
         Optional<Map<String, List<String>>> headers = Optional.empty();
         Optional<String> error = Optional.empty();
-        Optional<InputStream> dataStream = Optional.empty();
-        HeaderFetchedLinkData previousRedirection = null;
 
         try {
             final HttpURLConnection httpConnection = httpConnect(currentUrl, cookieManager);
             headers = Optional.of(httpConnection.getHeaderFields());
             final int responseCode = httpConnection.getResponseCode();
             httpCode = Optional.of(Integer.valueOf(responseCode));
+            final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, httpCode, headers, error, null);
+            redirectionsData.addFirst(redirectionData);
             if (httpCodeIsRedirected(responseCode)) {
                 if (depth == s_maxNbRedirects) {
                     error = Optional.of("Too many redirects (" + s_maxNbRedirects + ") occurred while trying to load URL " + initialUrl);
@@ -88,23 +92,27 @@ public class SynchronousSiteDataRetriever {
                     final String location = httpConnection.getHeaderField("Location");
                     final String redirectUrl = getRedirectionUrl(currentUrl, location);
                     storeCookies(currentUrl, cookieManager, httpConnection);
-                    previousRedirection = retrieveInternal(initialUrl, redirectUrl, consumer, depth + 1, cookieManager);
+                    retrieveInternal(initialUrl, redirectUrl, redirectionsData, consumer, depth + 1, cookieManager);
                 }
-            } else if (httpCodeIsOk(responseCode)) {
-                error = Optional.of("page not found");
+            } else {
+                if (httpCodeIsOk(responseCode)) {
+                    error = Optional.of("page not found");
+                }
+                final Iterator<HeaderFetchedLinkData> i = redirectionsData.iterator();
+                HeaderFetchedLinkData previous = null;
+                do {
+                    final HeaderFetchedLinkData d = i.next();
+                    previous = new HeaderFetchedLinkData(d.url(), d.httpCode(), d.headers(), d.error(), previous);
+                } while (i.hasNext());
+                final Optional<InputStream> dataStream = Optional.of(httpConnection.getInputStream());
+                final Instant timestamp = Instant.now();
+                _persister.persist(previous, dataStream, timestamp);
+                final FullFetchedLinkData siteData = _persister.retrieve(initialUrl, timestamp);
+                consumer.accept(Boolean.TRUE, siteData);
             }
-            dataStream = Optional.of(httpConnection.getInputStream());
         } catch (final IOException e) {
             error = Optional.of(e.toString());
         }
-        final HeaderFetchedLinkData dto = new HeaderFetchedLinkData(initialUrl, httpCode, headers, error, previousRedirection);
-        if (previousRedirection == null) {
-            final Instant timestamp = Instant.now();
-            _persister.persist(dto, dataStream, timestamp);
-            final FullFetchedLinkData siteData = _persister.retrieve(initialUrl, timestamp);
-            consumer.accept(Boolean.TRUE, siteData);
-        }
-        return dto;
     }
 
     /**

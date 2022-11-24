@@ -15,6 +15,10 @@ import data.linkchecker.wired.WiredLinkContentParser;
 import utils.internet.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 
+/**
+ * Tests of YoutubeWatchLinkContentParser
+ *
+ */
 public class WiredLinkContentParserTest {
 
     @ParameterizedTest

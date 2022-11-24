@@ -63,8 +63,6 @@ public class SynchronousSiteDataRetrieverTest {
     }
 
     private SynchronousSiteDataRetriever buildDataSiteRetriever() {
-        final Path cachePath = TestHelper.getTestDatapath(getClass());
-        FileHelper.deleteDirectory(cachePath.toFile());
-        return new SynchronousSiteDataRetriever(new SiteDataPersister(cachePath));
+        return new SynchronousSiteDataRetriever(TestHelper.buildSiteDataPersister(getClass()));
     }
 }

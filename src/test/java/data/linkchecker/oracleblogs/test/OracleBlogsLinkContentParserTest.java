@@ -17,7 +17,6 @@ import utils.xmlparsing.AuthorData;
 
 /**
  * Tests of OracleBlogsLinkContentParser
- *
  */
 public class OracleBlogsLinkContentParserTest {
 

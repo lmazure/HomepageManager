@@ -65,9 +65,17 @@ public class TestHelper {
      * @return
      */
     public static SynchronousSiteDataRetriever buildDataSiteRetriever(final Class<?> clazz) {
+        return new SynchronousSiteDataRetriever(buildSiteDataPersister(clazz));
+    }
+
+    /**
+     * @param clazz
+     * @return
+     */
+    public static SiteDataPersister buildSiteDataPersister(final Class<?> clazz) {
         final Path cachePath = getTestDatapath(clazz);
         FileHelper.deleteDirectory(cachePath.toFile());
-        return new SynchronousSiteDataRetriever(new SiteDataPersister(cachePath));
+        return new SiteDataPersister(cachePath);
     }
 
     /**

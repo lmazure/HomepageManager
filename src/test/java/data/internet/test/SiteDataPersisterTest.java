@@ -173,8 +173,6 @@ public class SiteDataPersisterTest {
     }
 
     private SiteDataPersister buildSiteDataPersister() {
-        final Path cachePath = TestHelper.getTestDatapath(getClass());
-        FileHelper.deleteDirectory(cachePath.toFile());
-        return new SiteDataPersister(cachePath);
+        return TestHelper.buildSiteDataPersister(getClass());
     }
 }

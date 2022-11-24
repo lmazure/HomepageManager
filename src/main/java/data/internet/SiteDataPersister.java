@@ -53,7 +53,6 @@ public class SiteDataPersister {
     public void persist(final HeaderFetchedLinkData siteData,
                         final Optional<InputStream> dataStream,
                         final Instant timestamp) {
-        
 
         getOutputDirectory(siteData.url()).toFile().mkdirs();
 
@@ -81,8 +80,8 @@ public class SiteDataPersister {
 
             if (dataStream.isPresent()) {
                 @SuppressWarnings("resource")
-                final InputStream inputStream = isEncodedWithGzip(siteData.headers()) ? new GZIPInputStream(dataStream.get())
-                                                                                      : dataStream.get();
+                final InputStream inputStream = isEncodedWithGzip(getHeadersOfLastRedirection(siteData)) ? new GZIPInputStream(dataStream.get())
+                                                                                                         : dataStream.get();
                 long size = 0L;
                 final byte[] buffer = new byte[s_file_buffer_size];
                 int length;
@@ -104,7 +103,7 @@ public class SiteDataPersister {
                   .append("Error (")
                   .append(e.toString())
                   .append(") while getting data from ")
-                  .append(siteData.url().toString())
+                  .append(siteData.url())
                   .submit();
         }
     }
@@ -180,7 +179,7 @@ public class SiteDataPersister {
      * @return link data
      */
     public FullFetchedLinkData retrieve(final String url,
-                             final Instant timestamp) {
+                                        final Instant timestamp) {
 
         final File file = getPersistedFile(url, timestamp);
 
@@ -296,6 +295,14 @@ public class SiteDataPersister {
     private Path getOutputDirectory(final String url) {
         return _path.resolve(UrlHelper.getHost(url))
                     .resolve(FileHelper.generateFileNameFromURL(url));
+    }
+
+    private static Optional<Map<String, List<String>>> getHeadersOfLastRedirection(final HeaderFetchedLinkData siteData) {
+        HeaderFetchedLinkData s = siteData;
+        while (s.previousRedirection() != null) {
+            s = s.previousRedirection();
+        }
+        return s.headers();
     }
 
     private static boolean isEncodedWithGzip(final Optional<Map<String, List<String>>> headers) {

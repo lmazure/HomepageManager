@@ -17,10 +17,19 @@ import data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser;
 import utils.internet.HtmlHelper;
 import utils.internet.UrlHelper;
 
+/**
+ *
+ */
 public class LinkDataExtractorFactory {
 
     private String _content;
 
+    /**
+     * @param cacheDirectory
+     * @param url
+     * @return
+     * @throws ContentParserException
+     */
     public static LinkDataExtractor build(final Path cacheDirectory,
                                           final String url) throws ContentParserException {
         final LinkDataExtractorFactory factory = new LinkDataExtractorFactory();
