@@ -97,9 +97,9 @@ public class SynchronousSiteDataRetriever {
         } catch (final IOException e) {
             error = Optional.of(e.toString());
         }
-        final Instant timestamp = Instant.now();
         final SiteDataDTO dto = new SiteDataDTO(initialUrl, httpCode, headers, error, previousRedirection);
         if (previousRedirection == null) {
+            final Instant timestamp = Instant.now();
             _persister.persist(dto, dataStream, timestamp);
             final SiteData siteData = _persister.retrieve(initialUrl, timestamp);
             consumer.accept(Boolean.TRUE, siteData);
@@ -193,7 +193,8 @@ public class SynchronousSiteDataRetriever {
 
     private static String getRedirectionUrl(final String currentUrl,
                                             final String redirection) {
-        if (redirection.startsWith("http://") || redirection.startsWith("https://")) {
+        if (redirection.startsWith("http://") ||
+            redirection.startsWith("https://")) {
             return redirection;
         }
         final URI uri = UriHelper.convertStringToUri(currentUrl);
@@ -208,14 +209,15 @@ public class SynchronousSiteDataRetriever {
     private static void storeCookies(final String url,
                                      final CookieManager cookieManager,
                                      final HttpURLConnection connection) {
-         if (cookieManager != null) {
-             final Map<String, List<String>> headerFields = connection.getHeaderFields();
-             final List<String> cookies = headerFields.get("Set-Cookie");
-             if (cookies != null) {
-                 for (final String cookie: cookies) {
-                     for (final HttpCookie c: HttpCookie.parse(cookie)) {
-                         cookieManager.getCookieStore().add(UriHelper.convertStringToUri(url), c);
-                     }
+
+        if (cookieManager == null) return;
+         
+         final Map<String, List<String>> headerFields = connection.getHeaderFields();
+         final List<String> cookies = headerFields.get("Set-Cookie");
+         if (cookies != null) {
+             for (final String cookie: cookies) {
+                 for (final HttpCookie c: HttpCookie.parse(cookie)) {
+                     cookieManager.getCookieStore().add(UriHelper.convertStringToUri(url), c);
                  }
              }
          }
@@ -224,14 +226,14 @@ public class SynchronousSiteDataRetriever {
     private static void applyCookies(final String url,
                                      final CookieManager cookieManager,
                                      final URLConnection connection) {
-        if (cookieManager != null) {
-            final String cookies = cookieManager.getCookieStore()
-                                                .get(UriHelper.convertStringToUri(url))
-                                                .stream()
-                                                .map(h -> h.toString())
-                                                .collect(Collectors.joining(";"));
-            connection.setRequestProperty("Cookie", cookies);
-        }
+        if (cookieManager == null) return;
+
+        final String cookies = cookieManager.getCookieStore()
+                                            .get(UriHelper.convertStringToUri(url))
+                                            .stream()
+                                            .map(h -> h.toString())
+                                            .collect(Collectors.joining(";"));
+        connection.setRequestProperty("Cookie", cookies);
     }
 
     private static boolean httpCodeIsOk(final int responseCode) {

@@ -1,8 +1,7 @@
-data.linkchecker.ContentParserException: Failed to check data of "https://developer.ibm.com/articles/wa-ecmascript6-neward-p1/"
 
-ajouter la chaîne de redirections et de codes à SiteData
-structurer a liste des headers
-en fait la liste  des headers devrait être enregistrées pour chaque étape de redirection
+==== merge =====
+
+data.linkchecker.ContentParserException: Failed to check data of "https://developer.ibm.com/articles/wa-ecmascript6-neward-p1/"
 
 spin off de la page
 - dev tools
@@ -11,10 +10,6 @@ mettre IDE en dessous de dev tools
 détecter américanismes
 
 détecter espace en début et fin de DESC et de TERM
-
-faire passer la table des droits Java en XML
-
-==== merge =====
 
 nettoyer notes/csharp.xml
 

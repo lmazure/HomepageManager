@@ -31,8 +31,6 @@ public class AsynchronousSiteDataRetriever {
                          final BiConsumer<Boolean, SiteData> consumer,
                          final boolean doNotUseCookies) {
 
-        _threadPool.execute(() -> {
-            _retriever.retrieve(url, consumer, doNotUseCookies);
-        });
+        _threadPool.execute(() -> _retriever.retrieve(url, consumer, doNotUseCookies));
     }
 }
