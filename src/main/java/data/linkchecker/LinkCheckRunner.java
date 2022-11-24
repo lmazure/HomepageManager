@@ -24,7 +24,8 @@ import org.w3c.dom.NodeList;
 
 import data.BackgroundDataController;
 import data.FileHandler.Status;
-import data.internet.SiteData;
+import data.internet.FullFetchedLinkData;
+import data.internet.HeaderFetchedLinkData;
 import data.internet.SiteDataRetriever;
 import utils.ExitHelper;
 import utils.FileHelper;
@@ -46,7 +47,7 @@ public class LinkCheckRunner {
 
     private static final int MAX_CACHE_AGE = 30*24*60*60;
     private final Path _file;
-    private final Map<String, SiteData> _effectiveData;
+    private final Map<String, FullFetchedLinkData> _effectiveData;
     private final Map<String, LinkData> _expectedData;
     private final Map<String, ArticleData> _articles;
     private final Map<String, List<LinkContentCheck>> _checks;
@@ -261,7 +262,7 @@ public class LinkCheckRunner {
      * @param siteData
      */
     private synchronized void handleLinkData(final Boolean isDataFresh,
-                                             final SiteData siteData) {
+                                             final FullFetchedLinkData siteData) {
 
         if (_isCancelled) {
             return;
@@ -330,14 +331,14 @@ public class LinkCheckRunner {
 
         for (final String url : _effectiveData.keySet()) {
             final LinkData expectedData = _expectedData.get(url);
-            final SiteData effectiveData = _effectiveData.get(url);
+            final FullFetchedLinkData effectiveData = _effectiveData.get(url);
             final StringBuilder builder = isOneDataExpected(expectedData, effectiveData) ? ok : ko;
             appendLivenessCheckResult(url, expectedData, effectiveData, builder);
-            if (_checks.containsKey(url.toString()) && !_checks.get(url.toString()).isEmpty()) {
+            if (_checks.containsKey(url) && !_checks.get(url).isEmpty()) {
                 checks.append('\n');
                 checks.append(url);
                 checks.append('\n');
-                for (final LinkContentCheck c: _checks.get(url.toString())) {
+                for (final LinkContentCheck c: _checks.get(url)) {
                     checks.append(c.getDescription());
                     checks.append('\n');
                 }
@@ -364,7 +365,7 @@ public class LinkCheckRunner {
      */
     private static void appendLivenessCheckResult(final String url,
                                                   final LinkData expectedData,
-                                                  final SiteData effectiveData,
+                                                  final FullFetchedLinkData effectiveData,
                                                   final StringBuilder builder) {
 
         builder.append("Title = \"" + expectedData.getTitle() + "\"\n");
@@ -384,9 +385,14 @@ public class LinkCheckRunner {
             }
         }).orElse("---");
         builder.append("Effective HTTP code = " + httpCode + "\n");
-        if (effectiveData.headers().isPresent() && effectiveData.headers().get().containsKey("Location")) {
-            final String redirection = effectiveData.headers().get().get("Location").get(0);
-            builder.append("Redirection = " + redirection + "\n");
+        if (effectiveData.previousRedirection() != null) {
+            String b = effectiveData.url();
+            HeaderFetchedLinkData d = effectiveData.previousRedirection();
+            while (d != null) {
+                b = d.url() + " → " + b;
+                d = d.previousRedirection();
+            }
+            builder.append("Redirection chain = " + d + "\n");
         }
         final StringBuilder googleUrl = new StringBuilder("https://www.google.com/search?q=%22" +
                                                           URLEncoder.encode(expectedData.getTitle(), StandardCharsets.UTF_8) +
@@ -413,7 +419,7 @@ public class LinkCheckRunner {
     }
 
     private static boolean isOneDataExpected(final LinkData expectedData,
-                                             final SiteData effectiveData) {
+                                             final FullFetchedLinkData effectiveData) {
 
         if (expectedData.getStatus().isPresent() && expectedData.getStatus().get().equals(utils.xmlparsing.LinkStatus.DEAD)) {
             if (effectiveData.error().isPresent()) {

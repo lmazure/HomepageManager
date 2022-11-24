@@ -50,7 +50,7 @@ public class SiteDataPersister {
      * @param dataStream stream to download the HTTP payload
      * @param timestamp timestamp of the visit
      */
-    public void persist(final SiteDataDTO siteData,
+    public void persist(final HeaderFetchedLinkData siteData,
                         final Optional<InputStream> dataStream,
                         final Instant timestamp) {
         
@@ -60,7 +60,7 @@ public class SiteDataPersister {
         final List<byte[]> byteArrays = new LinkedList<>();
         int sumOfSizes = 0;
         
-        SiteDataDTO data = siteData;
+        HeaderFetchedLinkData data = siteData;
         while (data != null) {
             final String dataString = buildSerializedHeaderString(data);
             final byte[] byteArray = dataString.getBytes(UTF8_CHARSET);
@@ -109,7 +109,7 @@ public class SiteDataPersister {
         }
     }
 
-    private static String buildSerializedHeaderString(final SiteDataDTO siteData) {
+    private static String buildSerializedHeaderString(final HeaderFetchedLinkData siteData) {
 
         final StringBuilder builder = new StringBuilder();
 
@@ -179,7 +179,7 @@ public class SiteDataPersister {
      * @param timestamp timestamp of the visit to retrieve
      * @return link data
      */
-    public SiteData retrieve(final String url,
+    public FullFetchedLinkData retrieve(final String url,
                              final Instant timestamp) {
 
         final File file = getPersistedFile(url, timestamp);
@@ -193,22 +193,22 @@ public class SiteDataPersister {
             final int size = Integer.parseInt(reader.readLine().trim());
             final int numberOfRedirections = Integer.parseInt(reader.readLine().trim());
 
-            final List<SiteData> redirectionsDatas = new LinkedList<>();
+            final List<FullFetchedLinkData> redirectionsDatas = new LinkedList<>();
             for (int i = 0; i < numberOfRedirections; i++) {
-                final SiteData d = readOneRedirection(reader);
+                final FullFetchedLinkData d = readOneRedirection(reader);
                 redirectionsDatas.add(d);
             }
 
-            SiteData lastRedirectionData = null;
+            HeaderFetchedLinkData lastRedirectionData = null;
             for (int i = numberOfRedirections - 1; i >= 0; i--) {
-                final SiteData d = redirectionsDatas.get(i);
-                lastRedirectionData = new SiteData(d.url(), d.httpCode(), d.headers(), Optional.empty(), d.error(), lastRedirectionData);
+                final FullFetchedLinkData d = redirectionsDatas.get(i);
+                lastRedirectionData = new HeaderFetchedLinkData(d.url(), d.httpCode(), d.headers(), d.error(), lastRedirectionData);
             }
 
             assert lastRedirectionData != null;
             assert lastRedirectionData.url().equals(url);
 
-            return new SiteData(lastRedirectionData.url(),
+            return new FullFetchedLinkData(lastRedirectionData.url(),
                                 lastRedirectionData.httpCode(),
                                 lastRedirectionData.headers(),
                                 Optional.of(new FileSection(file, size, file.length() - size)),
@@ -219,7 +219,7 @@ public class SiteDataPersister {
         }
     }
 
-    private static SiteData readOneRedirection(final BufferedReader reader) throws IOException {
+    private static FullFetchedLinkData readOneRedirection(final BufferedReader reader) throws IOException {
 
         final String url = reader.readLine();
 
@@ -269,7 +269,7 @@ public class SiteDataPersister {
             throw new IllegalStateException("File is corrupted (bad error presence)");
         }
 
-        return new SiteData(url, httpCode, headers, null, error, null);        
+        return new FullFetchedLinkData(url, httpCode, headers, null, error, null);        
     }
 
     /**

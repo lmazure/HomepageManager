@@ -12,7 +12,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import data.internet.SiteData;
+import data.internet.FullFetchedLinkData;
 import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
 import data.linkchecker.ContentParserException;
@@ -30,7 +30,7 @@ public class YoutubeWatchLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
@@ -47,7 +47,7 @@ public class YoutubeWatchLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String url = "https://www.youtube.com/watch?v=dM_JivN3HvI";
         retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
@@ -71,7 +71,7 @@ public class YoutubeWatchLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
@@ -92,7 +92,7 @@ public class YoutubeWatchLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String url = "https://www.youtube.com/watch?v=_kGqkxQo-Tw";
         retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
@@ -114,7 +114,7 @@ public class YoutubeWatchLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String url = "https://www.youtube.com/watch?v=y7FVLPvw1-I";
         retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
@@ -135,7 +135,7 @@ public class YoutubeWatchLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String url = "https://www.youtube.com/watch?v=ytuHV2e4c4Q";
         retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                               Assertions.assertTrue(d.dataFileSection().isPresent());
                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                               final YoutubeWatchLinkContentParser parser = buildParser(data,url);
@@ -156,7 +156,7 @@ public class YoutubeWatchLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String url = "https://www.youtube.com/watch?v=aeF-0y9HP9A";
         retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
@@ -177,7 +177,7 @@ public class YoutubeWatchLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String url = "https://www.youtube.com/watch?v=_kGqkxQo-Tw";
         retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
@@ -198,7 +198,7 @@ public class YoutubeWatchLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String url = "https://www.youtube.com/watch?v=y7FVLPvw1-I";
         retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
@@ -221,7 +221,7 @@ public class YoutubeWatchLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String url = "https://www.youtube.com/watch?v=cJOSvvdy27I";
         retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
@@ -254,7 +254,7 @@ public class YoutubeWatchLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String url = "https://www.youtube.com/watch?v=_kGqkxQo-Tw";
         retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
@@ -280,7 +280,7 @@ public class YoutubeWatchLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String url = "https://www.youtube.com/watch?v=_kGqkxQo-Tw";
         retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
@@ -312,7 +312,7 @@ public class YoutubeWatchLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
@@ -351,7 +351,7 @@ public class YoutubeWatchLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
@@ -377,7 +377,7 @@ public class YoutubeWatchLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
@@ -398,7 +398,7 @@ public class YoutubeWatchLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
@@ -418,7 +418,7 @@ public class YoutubeWatchLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
@@ -435,7 +435,7 @@ public class YoutubeWatchLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String url = "https://www.google.com";
         retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                try {

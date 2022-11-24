@@ -60,21 +60,21 @@ public class SynchronousSiteDataRetriever {
      * @param doNotUseCookies if true, cookies will not be recorded and resend while following redirections
      */
     public void retrieve(final String url,
-                         final BiConsumer<Boolean, SiteData> consumer,
+                         final BiConsumer<Boolean, FullFetchedLinkData> consumer,
                          final boolean doNotUseCookies) {
         retrieveInternal(url, url, consumer, 0, doNotUseCookies ? null : new CookieManager());
     }
 
-    private SiteDataDTO retrieveInternal(final String initialUrl,
-                                         final String currentUrl,
-                                         final BiConsumer<Boolean, SiteData> consumer,
-                                         final int depth,
-                                         final CookieManager cookieManager) {
+    private HeaderFetchedLinkData retrieveInternal(final String initialUrl,
+                                                   final String currentUrl,
+                                                   final BiConsumer<Boolean, FullFetchedLinkData> consumer,
+                                                   final int depth,
+                                                   final CookieManager cookieManager) {
         Optional<Integer> httpCode = Optional.empty();
         Optional<Map<String, List<String>>> headers = Optional.empty();
         Optional<String> error = Optional.empty();
         Optional<InputStream> dataStream = Optional.empty();
-        SiteDataDTO previousRedirection = null;
+        HeaderFetchedLinkData previousRedirection = null;
 
         try {
             final HttpURLConnection httpConnection = httpConnect(currentUrl, cookieManager);
@@ -97,11 +97,11 @@ public class SynchronousSiteDataRetriever {
         } catch (final IOException e) {
             error = Optional.of(e.toString());
         }
-        final SiteDataDTO dto = new SiteDataDTO(initialUrl, httpCode, headers, error, previousRedirection);
+        final HeaderFetchedLinkData dto = new HeaderFetchedLinkData(initialUrl, httpCode, headers, error, previousRedirection);
         if (previousRedirection == null) {
             final Instant timestamp = Instant.now();
             _persister.persist(dto, dataStream, timestamp);
-            final SiteData siteData = _persister.retrieve(initialUrl, timestamp);
+            final FullFetchedLinkData siteData = _persister.retrieve(initialUrl, timestamp);
             consumer.accept(Boolean.TRUE, siteData);
         }
         return dto;

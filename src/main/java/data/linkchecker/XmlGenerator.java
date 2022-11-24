@@ -19,9 +19,9 @@ public class XmlGenerator {
         builder.append("<ARTICLE>");
         for (ExtractedLinkData linkData: links) {
             builder.append("<X");
-            if (linkData.getStatus().isPresent()) {
+            if (linkData.status().isPresent()) {
                 builder.append(" status=\"");
-                switch (linkData.getStatus().get()) {
+                switch (linkData.status().get()) {
                     case DEAD:
                         builder.append("dead");
                         break;
@@ -32,13 +32,13 @@ public class XmlGenerator {
                         builder.append("zombie");
                         break;
                     default:
-                        throw new UnsupportedOperationException("Illegal status value (" + linkData.getStatus().get() + ")");
+                        throw new UnsupportedOperationException("Illegal status value (" + linkData.status().get() + ")");
                 }
                 builder.append("\"");
             }
-            if (linkData.getProtection().isPresent()) {
+            if (linkData.protection().isPresent()) {
                 builder.append(" status=\"");
-                switch (linkData.getProtection().get()) {
+                switch (linkData.protection().get()) {
                     case FREE_REGISTRATION:
                         builder.append("free_registration");
                         break;
@@ -46,33 +46,33 @@ public class XmlGenerator {
                         builder.append("payed_registration");
                         break;
                     default:
-                        throw new UnsupportedOperationException("Illegal protection value (" + linkData.getProtection().get() + ")");
+                        throw new UnsupportedOperationException("Illegal protection value (" + linkData.protection().get() + ")");
                 }
                 builder.append("\"");
             }
             builder.append(">");
             builder.append("<T>");
-            builder.append(escapeXml(linkData.getTitle()));
+            builder.append(escapeXml(linkData.title()));
             builder.append("</T>");
-            for (String subTitle: linkData.getSubtitles()) {
+            for (String subTitle: linkData.subtitles()) {
                 builder.append("<ST>");
                 builder.append(escapeXml(subTitle));
                 builder.append("</ST>");
             }
             builder.append("<A>");
-            builder.append(linkData.getUrl());
+            builder.append(linkData.url());
             builder.append("</A>");
-            for (Locale language: linkData.getLanguages()) {
+            for (Locale language: linkData.languages()) {
                 builder.append(generateLanguage(language));
             }
-            for (LinkFormat format: linkData.getFormats()) {
+            for (LinkFormat format: linkData.formats()) {
                 builder.append(generateFormat(format));
             }
-            if (linkData.getDuration().isPresent()) {
-                builder.append(generateDuration(linkData.getDuration().get()));
+            if (linkData.duration().isPresent()) {
+                builder.append(generateDuration(linkData.duration().get()));
             }
-            if (linkData.getPublicationDate().isPresent()) {
-                builder.append(generateDate(linkData.getPublicationDate().get()));
+            if (linkData.publicationDate().isPresent()) {
+                builder.append(generateDate(linkData.publicationDate().get()));
             }
             builder.append("</X>");
         }

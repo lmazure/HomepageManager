@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import data.internet.SiteData;
+import data.internet.FullFetchedLinkData;
 import data.internet.SiteDataPersister;
 import data.internet.SynchronousSiteDataRetriever;
 import utils.FileHelper;
@@ -24,7 +24,7 @@ public class SynchronousSiteDataRetrieverTest {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve("http://example.com",
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertFalse(consumerHasBeenCalled.get());
                                consumerHasBeenCalled.set(true);
                                Assertions.assertTrue(b.booleanValue());
@@ -40,7 +40,7 @@ public class SynchronousSiteDataRetrieverTest {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve("https://example.com",
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertFalse(consumerHasBeenCalled.get());
                                consumerHasBeenCalled.set(true);
                                Assertions.assertTrue(b.booleanValue());
@@ -56,7 +56,7 @@ public class SynchronousSiteDataRetrieverTest {
 
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         retriever.retrieve("https://www.linkedin.com/in/thomas-cabaret-36766674/",
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertEquals(200, d.httpCode().get().intValue());
                            },
                            false);

@@ -29,7 +29,7 @@ public class SiteDataRetriever {
      * @param doNotUseCookies if true, cookies will not be recorded and resend while following redirections
      */
     public void retrieve(final String url,
-                         final BiConsumer<Boolean, SiteData> consumer,
+                         final BiConsumer<Boolean, FullFetchedLinkData> consumer,
                          final long maxAge,
                          final boolean doNotUseCookies) {
 

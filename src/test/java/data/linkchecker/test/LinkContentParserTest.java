@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import data.internet.SiteData;
+import data.internet.FullFetchedLinkData;
 import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
 import data.linkchecker.LinkContentParser;
@@ -29,7 +29,7 @@ public class LinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                             Assertions.assertTrue(d.dataFileSection().isPresent());
                             final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                             final LinkContentParser parser = new LinkContentParser(data);
@@ -55,7 +55,7 @@ public class LinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                             Assertions.assertTrue(d.dataFileSection().isPresent());
                             final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                             final LinkContentParser parser = new LinkContentParser(data);
@@ -76,7 +76,7 @@ public class LinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                             Assertions.assertTrue(d.dataFileSection().isPresent());
                             final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                             final LinkContentParser parser = new LinkContentParser(data);
@@ -92,7 +92,7 @@ public class LinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve("https://medium.com/@kentbeck_7670/bs-changes-e574bc396aaa",
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                             Assertions.assertTrue(d.dataFileSection().isPresent());
                             final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                             final LinkContentParser parser = new LinkContentParser(data);
@@ -109,7 +109,7 @@ public class LinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve("https://medium.com/france/praha-8e7086a6c1fe",
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                             Assertions.assertTrue(d.dataFileSection().isPresent());
                             final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                             final LinkContentParser parser = new LinkContentParser(data);

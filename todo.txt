@@ -1,6 +1,11 @@
+le reporting des redirections ne marche pas, voir pex http://www.onlamp.com/pub/a/onlamp/2005/06/30/esr_interview.html
 
 ==== merge =====
 
+nettoyage de javadoc : 8 warnings
+
+remplacer les classes de utils.xmlparsing par des records
+ 
 data.linkchecker.ContentParserException: Failed to check data of "https://developer.ibm.com/articles/wa-ecmascript6-neward-p1/"
 
 spin off de la page
@@ -12,8 +17,6 @@ détecter américanismes
 détecter espace en début et fin de DESC et de TERM
 
 nettoyer notes/csharp.xml
-
-nettoyage de javadoc : 8 warnings
 
 voir comment assurer que testdata/css/schema.xsd est à jour (tester que c'est le même que dans mazure.fr ?)
 

@@ -2,7 +2,7 @@ package data.linkchecker;
 
 import java.nio.file.Path;
 
-import data.internet.SiteData;
+import data.internet.FullFetchedLinkData;
 import data.internet.SiteDataPersister;
 import data.internet.SynchronousSiteDataRetriever;
 import data.linkchecker.arstechnica.ArsTechnicaLinkContentParser;
@@ -89,7 +89,7 @@ public class LinkDataExtractorFactory {
     }
 
     private void handleLinkData(@SuppressWarnings("unused") final Boolean isDataFresh,
-                                final SiteData siteData) {
+                                final FullFetchedLinkData siteData) {
         if (siteData.dataFileSection().isPresent()) {
             _content = HtmlHelper.slurpFile(siteData.dataFileSection().get());
         }

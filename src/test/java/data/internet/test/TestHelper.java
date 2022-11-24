@@ -11,7 +11,7 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
 
-import data.internet.SiteData;
+import data.internet.FullFetchedLinkData;
 import data.internet.SiteDataPersister;
 import data.internet.SynchronousSiteDataRetriever;
 import utils.FileHelper;
@@ -24,7 +24,7 @@ public class TestHelper {
     /**
      * @param data
      */
-    public static void assertData(final SiteData data) {
+    public static void assertData(final FullFetchedLinkData data) {
         Assertions.assertTrue(data.httpCode().isPresent());
         Assertions.assertEquals(200, data.httpCode().get());
         Assertions.assertTrue(data.headers().isPresent());

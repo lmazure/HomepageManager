@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import data.internet.AsynchronousSiteDataRetriever;
-import data.internet.SiteData;
+import data.internet.FullFetchedLinkData;
 import data.internet.SiteDataPersister;
 import utils.FileHelper;
 
@@ -23,7 +23,7 @@ public class AsynchronousSiteDataRetrieverTest {
         final AsynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve("http://example.com",
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertFalse(consumerHasBeenCalled.get());
                                consumerHasBeenCalled.set(true);
                                Assertions.assertTrue(b.booleanValue());
@@ -47,7 +47,7 @@ public class AsynchronousSiteDataRetrieverTest {
         final AsynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve("https://example.com",
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertFalse(consumerHasBeenCalled.get());
                                consumerHasBeenCalled.set(true);
                                Assertions.assertTrue(b.booleanValue());

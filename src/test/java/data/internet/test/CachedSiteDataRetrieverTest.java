@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import data.internet.CachedSiteDataRetriever;
-import data.internet.SiteData;
+import data.internet.FullFetchedLinkData;
 import data.internet.SiteDataPersister;
 import utils.FileHelper;
 
@@ -26,7 +26,7 @@ public class CachedSiteDataRetrieverTest {
         // the first retrieval must not use the cache
         final AtomicBoolean firstConsumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertFalse(firstConsumerHasBeenCalled.get());
                                firstConsumerHasBeenCalled.set(true);
                                Assertions.assertTrue(b.booleanValue());
@@ -47,7 +47,7 @@ public class CachedSiteDataRetrieverTest {
         // the second retrieval must use the cache and not call twice
         final AtomicBoolean secondConsumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertFalse(secondConsumerHasBeenCalled.get());
                                secondConsumerHasBeenCalled.set(true);
                                Assertions.assertTrue(b.booleanValue());
@@ -61,7 +61,7 @@ public class CachedSiteDataRetrieverTest {
         final AtomicBoolean thirdConsumerHasBeenCalledOnce = new AtomicBoolean(false);
         final AtomicBoolean thirdConsumerHasBeenCalledTwice = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                                if (thirdConsumerHasBeenCalledOnce.get()) {
                                    Assertions.assertFalse(thirdConsumerHasBeenCalledTwice.get());
                                    thirdConsumerHasBeenCalledTwice.set(true);

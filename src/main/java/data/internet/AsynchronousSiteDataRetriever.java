@@ -28,7 +28,7 @@ public class AsynchronousSiteDataRetriever {
      * @param doNotUseCookies if true, cookies will not be recorded and resend while following redirections
      */
     public void retrieve(final String url,
-                         final BiConsumer<Boolean, SiteData> consumer,
+                         final BiConsumer<Boolean, FullFetchedLinkData> consumer,
                          final boolean doNotUseCookies) {
 
         _threadPool.execute(() -> _retriever.retrieve(url, consumer, doNotUseCookies));
