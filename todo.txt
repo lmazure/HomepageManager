@@ -3,6 +3,9 @@ le reporting des redirections ne marche pas, voir pex http://www.onlamp.com/pub/
 
 ==== merge =====
 
+mauvaise gestion des URLs incorrectes (pex hhtps://...)
+le thread sembke définitivement planté
+
 nettoyage de javadoc : 8 warnings
 
 remplacer les classes de utils.xmlparsing par des records

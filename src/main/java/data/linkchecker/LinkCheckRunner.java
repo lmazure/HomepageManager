@@ -378,23 +378,21 @@ public class LinkCheckRunner {
         if (effectiveData.error().isPresent()) {
             builder.append("Effective error = \"" + effectiveData.error().get() + "\"\n");
         }
-        final String httpCode = effectiveData.headers().map(h -> {
-            final Integer i = Integer.valueOf(HttpHelper.getResponseCodeFromHeaders(h));
+        final String httpCode = effectiveData.headers().map(headers -> {
+            final int code = HttpHelper.getResponseCodeFromHeaders(headers);
             try {
-                return i.toString() + " " + HttpHelper.getStringOfCode(i.intValue());
+                return code + " " + HttpHelper.getStringOfCode(code);
             } catch (@SuppressWarnings("unused") final InvalidHttpCodeException e) {
-                return " invalid code! (" + i.toString() + ")";
+                return " invalid code! (" + code + ")";
             }
         }).orElse("---");
         builder.append("Effective HTTP code = " + httpCode + "\n");
         if (effectiveData.previousRedirection() != null) {
-            String b = effectiveData.url();
-            HeaderFetchedLinkData d = effectiveData.previousRedirection();
-            while (d != null) {
-                b = d.url() + " → " + b;
-                d = d.previousRedirection();
+            String descriptionOfRedirectionChain = effectiveData.url();
+            for (HeaderFetchedLinkData d = effectiveData.previousRedirection(); d != null; d = d.previousRedirection()) {
+                descriptionOfRedirectionChain += " → " + d.url();
             }
-            builder.append("Redirection chain = " + d + "\n");
+            builder.append("Redirection chain = " + descriptionOfRedirectionChain + "\n");
         }
         final StringBuilder googleUrl = new StringBuilder("https://www.google.com/search?q=%22" +
                                                           URLEncoder.encode(expectedData.getTitle(), StandardCharsets.UTF_8) +
