@@ -115,14 +115,6 @@ public class SiteDataPersister {
         final String url = siteData.url();
         builder.append(url + "\n");
 
-        final Optional<Integer> httpCode = siteData.httpCode();
-        if (httpCode.isPresent()) {
-            builder.append("present\n");
-            builder.append(httpCode.get()).append('\n');
-        } else {
-            builder.append("empty\n");
-        }
-
         final Optional<Map<String, List<String>>> headers = siteData.headers();
         if (headers.isPresent()) {
             builder.append("present\n");
@@ -201,18 +193,17 @@ public class SiteDataPersister {
             HeaderFetchedLinkData lastRedirectionData = null;
             for (int i = numberOfRedirections - 1; i >= 0; i--) {
                 final FullFetchedLinkData d = redirectionsDatas.get(i);
-                lastRedirectionData = new HeaderFetchedLinkData(d.url(), d.httpCode(), d.headers(), d.error(), lastRedirectionData);
+                lastRedirectionData = new HeaderFetchedLinkData(d.url(), d.headers(), d.error(), lastRedirectionData);
             }
 
             assert lastRedirectionData != null;
             assert lastRedirectionData.url().equals(url);
 
             return new FullFetchedLinkData(lastRedirectionData.url(),
-                                lastRedirectionData.httpCode(),
-                                lastRedirectionData.headers(),
-                                Optional.of(new FileSection(file, size, file.length() - size)),
-                                lastRedirectionData.error(),
-                                lastRedirectionData.previousRedirection());
+                                           lastRedirectionData.headers(),
+                                           Optional.of(new FileSection(file, size, file.length() - size)),
+                                           lastRedirectionData.error(),
+                                           lastRedirectionData.previousRedirection());
         } catch (final IOException e) {
             throw new IllegalStateException("Failure while reading " + file, e);
         }
@@ -222,16 +213,6 @@ public class SiteDataPersister {
 
         final String url = reader.readLine();
 
-        Optional<Integer> httpCode = Optional.empty();
-        final String httpCodePresence = reader.readLine();
-        if (httpCodePresence.equals("present")) {
-            httpCode = Optional.of(Integer.valueOf(Integer.parseInt(reader.readLine())));
-        } else if (httpCodePresence.equals("empty")) {
-            httpCode = Optional.empty();
-        } else {
-            throw new IllegalStateException("File is corrupted (bad HTTP code presence)");
-        }
-
         Optional<Map<String, List<String>>> headers = Optional.empty();
         final String headersPresence = reader.readLine();
         if (headersPresence.equals("present")) {
@@ -239,7 +220,7 @@ public class SiteDataPersister {
             final Map<String, List<String>> map = new HashMap<>(nbHeaders);
             for (int i = 0; i < nbHeaders; i++) {
                 final String[] lineParts = reader.readLine().split("\t");
-                final String header = lineParts[0];
+                final String header = lineParts[0].equals("null") ? null : lineParts[0];
                 final List<String> list = new ArrayList<>(lineParts.length - 1);
                 for (int j = 1; j < lineParts.length; j++) {
                     list.add(lineParts[j]);
@@ -268,7 +249,7 @@ public class SiteDataPersister {
             throw new IllegalStateException("File is corrupted (bad error presence)");
         }
 
-        return new FullFetchedLinkData(url, httpCode, headers, null, error, null);        
+        return new FullFetchedLinkData(url, headers, null, error, null);        
     }
 
     /**

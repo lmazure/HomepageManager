@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
@@ -377,7 +378,8 @@ public class LinkCheckRunner {
         if (effectiveData.error().isPresent()) {
             builder.append("Effective error = \"" + effectiveData.error().get() + "\"\n");
         }
-        final String httpCode = effectiveData.httpCode().map(i -> {
+        final String httpCode = effectiveData.headers().map(h -> {
+            final Integer i = Integer.valueOf(HttpHelper.getResponseCodeFromHeaders(h));
             try {
                 return i.toString() + " " + HttpHelper.getStringOfCode(i.intValue());
             } catch (@SuppressWarnings("unused") final InvalidHttpCodeException e) {
@@ -425,16 +427,13 @@ public class LinkCheckRunner {
             if (effectiveData.error().isPresent()) {
                 return true;
             }
-            if (effectiveData.httpCode().isEmpty()) {
-                return true;
-            }
-            if (effectiveData.httpCode().isPresent() && effectiveData.httpCode().get().intValue() != 200) {
+            if (effectiveData.headers().isPresent() && (HttpHelper.getResponseCodeFromHeaders(effectiveData.headers().get()) != HttpURLConnection.HTTP_OK)) {
                 return true;
             }
             return false;
         }
 
-        return (effectiveData.httpCode().isPresent() && effectiveData.httpCode().get().intValue() == 200);
+        return (effectiveData.headers().isPresent() && (HttpHelper.getResponseCodeFromHeaders(effectiveData.headers().get()) == HttpURLConnection.HTTP_OK));
     }
 
     static private boolean doNotUseCookies(final String url) { // TODO the decision to allow/disallow cookies should be in the parser

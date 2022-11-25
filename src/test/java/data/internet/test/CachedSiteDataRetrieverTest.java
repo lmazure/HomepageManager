@@ -1,6 +1,5 @@
 package data.internet.test;
 
-import java.nio.file.Path;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.jupiter.api.Assertions;
@@ -8,8 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import data.internet.CachedSiteDataRetriever;
 import data.internet.FullFetchedLinkData;
-import data.internet.SiteDataPersister;
-import utils.FileHelper;
 
 /**
  * Tests of CachedSiteDataRetriever

@@ -15,6 +15,7 @@ import data.internet.FullFetchedLinkData;
 import data.internet.SiteDataPersister;
 import data.internet.SynchronousSiteDataRetriever;
 import utils.FileHelper;
+import utils.internet.HttpHelper;
 
 /**
  * Helper for the data retrieved tests
@@ -25,8 +26,7 @@ public class TestHelper {
      * @param data
      */
     public static void assertData(final FullFetchedLinkData data) {
-        Assertions.assertTrue(data.httpCode().isPresent());
-        Assertions.assertEquals(200, data.httpCode().get());
+        Assertions.assertEquals(200, HttpHelper.getResponseCodeFromHeaders(data.headers().get()));
         Assertions.assertTrue(data.headers().isPresent());
         Assertions.assertTrue(data.headers().get().keySet().contains("Content-Type"));
         Assertions.assertEquals(1, data.headers().get().get("Content-Type").size());

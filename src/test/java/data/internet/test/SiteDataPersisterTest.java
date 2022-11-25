@@ -1,6 +1,5 @@
 package data.internet.test;
 
-import java.nio.file.Path;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import data.internet.FullFetchedLinkData;
 import data.internet.HeaderFetchedLinkData;
 import data.internet.SiteDataPersister;
-import utils.FileHelper;
 
 /**
  * Tests of SiteDataPersister
@@ -22,7 +20,6 @@ public class SiteDataPersisterTest {
 
     private static String url = "http://example.com";
     private static Instant now = Instant.now();
-    private static Optional<Integer> httpCode = Optional.of(Integer.valueOf(200));
     private static Optional<Map<String, List<String>>> headers = Optional.of(Map.of("header1", List.of("val11"),
                                                                                     "header2", List.of("val21", "val22"),
                                                                                     "header3", List.of(),
@@ -31,7 +28,6 @@ public class SiteDataPersisterTest {
     private static Optional<String> error = Optional.of("error");
 
     private static String url2 = "http://example2.com";
-    private static Optional<Integer> httpCode2 = Optional.of(Integer.valueOf(201));
     private static Optional<Map<String, List<String>>> headers2 = Optional.of(Map.of("header1_2", List.of("val11_2"),
                                                                                      "header2_2", List.of("val21_2", "val22_2"),
                                                                                      "header3_2", List.of(),
@@ -40,7 +36,6 @@ public class SiteDataPersisterTest {
     private static Optional<String> error2 = Optional.of("error2");
 
     private static String url3 = "http://example3.com";
-    private static Optional<Integer> httpCode3 = Optional.of(Integer.valueOf(202));
     private static Optional<Map<String, List<String>>> headers3 = Optional.of(Map.of("header1_3", List.of(),
                                                                                      "header2_3", List.of("val21_3", "val22_3"),
                                                                                      "header3_3", List.of("val31_3", "val32_3", "val33_3", "val34_3", "val35_3", "val36_3", "val37_3", "val38_3", "val39_3", "val3a_3", "val3b_3"),
@@ -52,27 +47,11 @@ public class SiteDataPersisterTest {
     void allPresent() {
 
         final SiteDataPersister persister = buildSiteDataPersister();
-        final HeaderFetchedLinkData dto = new HeaderFetchedLinkData(url, httpCode, headers, error, null);
+        final HeaderFetchedLinkData dto = new HeaderFetchedLinkData(url, headers, error, null);
         persister.persist(dto, Optional.empty(), now);
         final FullFetchedLinkData effectiveData = persister.retrieve(url, now);
 
         Assertions.assertEquals(url, effectiveData.url());
-        Assertions.assertEquals(httpCode, effectiveData.httpCode());
-        Assertions.assertEquals(headers, effectiveData.headers());
-        Assertions.assertEquals(error, effectiveData.error());
-        Assertions.assertNull(effectiveData.previousRedirection());
-    }
-
-    @Test
-    void allHttpCodeEmpty() {
-
-        final SiteDataPersister persister = buildSiteDataPersister();
-        final HeaderFetchedLinkData dto = new HeaderFetchedLinkData(url, Optional.empty(), headers, error, null);
-        persister.persist(dto, Optional.empty(), now);
-        final FullFetchedLinkData effectiveData = persister.retrieve(url, now);
-
-        Assertions.assertEquals(url, effectiveData.url());
-        Assertions.assertEquals(Optional.empty(), effectiveData.httpCode());
         Assertions.assertEquals(headers, effectiveData.headers());
         Assertions.assertEquals(error, effectiveData.error());
         Assertions.assertNull(effectiveData.previousRedirection());
@@ -82,12 +61,11 @@ public class SiteDataPersisterTest {
     void allHeadersEmpty() {
 
         final SiteDataPersister persister = buildSiteDataPersister();
-        final HeaderFetchedLinkData dto = new HeaderFetchedLinkData(url, httpCode, Optional.empty(), error, null);
+        final HeaderFetchedLinkData dto = new HeaderFetchedLinkData(url, Optional.empty(), error, null);
         persister.persist(dto, Optional.empty(), now);
         final FullFetchedLinkData effectiveData = persister.retrieve(url, now);
 
         Assertions.assertEquals(url, effectiveData.url());
-        Assertions.assertEquals(httpCode, effectiveData.httpCode());
         Assertions.assertEquals(Optional.empty(), effectiveData.headers());
         Assertions.assertEquals(error, effectiveData.error());
         Assertions.assertNull(effectiveData.previousRedirection());
@@ -97,12 +75,11 @@ public class SiteDataPersisterTest {
     void allErrorEmpty() {
 
         final SiteDataPersister persister = buildSiteDataPersister();
-        final HeaderFetchedLinkData dto = new HeaderFetchedLinkData(url, httpCode, headers, Optional.empty(), null);
+        final HeaderFetchedLinkData dto = new HeaderFetchedLinkData(url, headers, Optional.empty(), null);
         persister.persist(dto, Optional.empty(), now);
         final FullFetchedLinkData effectiveData = persister.retrieve(url, now);
 
         Assertions.assertEquals(url, effectiveData.url());
-        Assertions.assertEquals(httpCode, effectiveData.httpCode());
         Assertions.assertEquals(headers, effectiveData.headers());
         Assertions.assertEquals(Optional.empty(), effectiveData.error());
         Assertions.assertNull(effectiveData.previousRedirection());
@@ -112,12 +89,11 @@ public class SiteDataPersisterTest {
     void allEmpty() {
 
         final SiteDataPersister persister = buildSiteDataPersister();
-        final HeaderFetchedLinkData dto = new HeaderFetchedLinkData(url, Optional.empty(), Optional.empty(), Optional.empty(), null);
+        final HeaderFetchedLinkData dto = new HeaderFetchedLinkData(url, Optional.empty(), Optional.empty(), null);
         persister.persist(dto, Optional.empty(), now);
         final FullFetchedLinkData effectiveData = persister.retrieve(url, now);
 
         Assertions.assertEquals(url, effectiveData.url());
-        Assertions.assertEquals(Optional.empty(), effectiveData.httpCode());
         Assertions.assertEquals(Optional.empty(), effectiveData.headers());
         Assertions.assertTrue(effectiveData.error().isEmpty());
         Assertions.assertNull(effectiveData.previousRedirection());
@@ -127,18 +103,16 @@ public class SiteDataPersisterTest {
     void oneRedirection() {
 
         final SiteDataPersister persister = buildSiteDataPersister();
-        final HeaderFetchedLinkData dto2 = new HeaderFetchedLinkData(url2, httpCode2, headers2, error2, null);
-        final HeaderFetchedLinkData dto = new HeaderFetchedLinkData(url, httpCode, headers, error, dto2);
+        final HeaderFetchedLinkData dto2 = new HeaderFetchedLinkData(url2, headers2, error2, null);
+        final HeaderFetchedLinkData dto = new HeaderFetchedLinkData(url, headers, error, dto2);
         persister.persist(dto, Optional.empty(), now);
         final FullFetchedLinkData effectiveData = persister.retrieve(url, now);
 
         Assertions.assertEquals(url, effectiveData.url());
-        Assertions.assertEquals(httpCode, effectiveData.httpCode());
         Assertions.assertEquals(headers, effectiveData.headers());
         Assertions.assertEquals(error, effectiveData.error());
 
         Assertions.assertEquals(url2, effectiveData.previousRedirection().url());
-        Assertions.assertEquals(httpCode2, effectiveData.previousRedirection().httpCode());
         Assertions.assertEquals(headers2, effectiveData.previousRedirection().headers());
         Assertions.assertEquals(error2, effectiveData.previousRedirection().error());
         Assertions.assertNull(effectiveData.previousRedirection().previousRedirection());
@@ -149,24 +123,21 @@ public class SiteDataPersisterTest {
     void twoRedirections() {
 
         final SiteDataPersister persister = buildSiteDataPersister();
-        final HeaderFetchedLinkData dto3 = new HeaderFetchedLinkData(url3, httpCode3, headers3, error3, null);
-        final HeaderFetchedLinkData dto2 = new HeaderFetchedLinkData(url2, httpCode2, headers2, error2, dto3);
-        final HeaderFetchedLinkData dto = new HeaderFetchedLinkData(url, httpCode, headers, error, dto2);
+        final HeaderFetchedLinkData dto3 = new HeaderFetchedLinkData(url3, headers3, error3, null);
+        final HeaderFetchedLinkData dto2 = new HeaderFetchedLinkData(url2, headers2, error2, dto3);
+        final HeaderFetchedLinkData dto = new HeaderFetchedLinkData(url, headers, error, dto2);
         persister.persist(dto, Optional.empty(), now);
         final FullFetchedLinkData effectiveData = persister.retrieve(url, now);
 
         Assertions.assertEquals(url, effectiveData.url());
-        Assertions.assertEquals(httpCode, effectiveData.httpCode());
         Assertions.assertEquals(headers, effectiveData.headers());
         Assertions.assertEquals(error, effectiveData.error());
 
         Assertions.assertEquals(url2, effectiveData.previousRedirection().url());
-        Assertions.assertEquals(httpCode2, effectiveData.previousRedirection().httpCode());
         Assertions.assertEquals(headers2, effectiveData.previousRedirection().headers());
         Assertions.assertEquals(error2, effectiveData.previousRedirection().error());
 
         Assertions.assertEquals(url3, effectiveData.previousRedirection().previousRedirection().url());
-        Assertions.assertEquals(httpCode3, effectiveData.previousRedirection().previousRedirection().httpCode());
         Assertions.assertEquals(headers3, effectiveData.previousRedirection().previousRedirection().headers());
         Assertions.assertEquals(error3, effectiveData.previousRedirection().previousRedirection().error());
         Assertions.assertNull(effectiveData.previousRedirection().previousRedirection().previousRedirection());

@@ -1,6 +1,5 @@
 package data.internet.test;
 
-import java.nio.file.Path;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.jupiter.api.Assertions;
@@ -8,9 +7,8 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import data.internet.FullFetchedLinkData;
-import data.internet.SiteDataPersister;
 import data.internet.SynchronousSiteDataRetriever;
-import utils.FileHelper;
+import utils.internet.HttpHelper;
 
 /**
  * Tests of SynchronousSiteDataRetriever
@@ -57,7 +55,7 @@ public class SynchronousSiteDataRetrieverTest {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         retriever.retrieve("https://www.linkedin.com/in/thomas-cabaret-36766674/",
                            (final Boolean b, final FullFetchedLinkData d) -> {
-                               Assertions.assertEquals(200, d.httpCode().get().intValue());
+                               Assertions.assertEquals(200, HttpHelper.getResponseCodeFromHeaders(d.headers().get()));
                            },
                            false);
     }

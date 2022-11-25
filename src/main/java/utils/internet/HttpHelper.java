@@ -1,7 +1,18 @@
 package utils.internet;
 
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Helper to manage HTTP requests
+ */
 public class HttpHelper {
 
+    /**
+     * @param code HTTP code
+     * @return string describing the code
+     * @throws InvalidHttpCodeException the code is not valid
+     */
     public static String getStringOfCode(final int code) throws InvalidHttpCodeException {
 
         switch (code) {
@@ -90,5 +101,31 @@ public class HttpHelper {
             case 527: return "Railgun Error (Cloudflare)";
             default: throw new InvalidHttpCodeException("Invalid HTTP code (" + code + ")");
         }
+    }
+
+    /**
+     * @param headers headers
+     * @return HTTP code
+     */
+    public static int getResponseCodeFromHeaders(final Map<String, List<String>> headers) {
+        List<String> l = headers.get(null);
+        String ll = l.get(0);
+        String c = ll.split(" ")[1];
+        return Integer.parseInt(c);
+        //return Integer.parseInt(headers.get(null).get(0).split(" ")[1]);
+    }
+
+    /**
+     * @param headers headers
+     * @return redirect location
+     */
+    public static String getLocationFromHeaders(final Map<String, List<String>> headers) {
+        if (headers.get("Location") != null) {
+            return headers.get("Location").get(0);
+        }
+        if (headers.get("location") != null) {
+            return headers.get("location").get(0);
+        }
+        return null;
     }
 }
