@@ -8,18 +8,25 @@ import java.util.Optional;
 import utils.internet.UrlHelper;
 import utils.xmlparsing.AuthorData;
 
+/**
+ * Manage well known authors of Web sites
+ */
 public class WellKnownAuthorsOfLink {
 
     private static final Map<String, WellKnownAuthors> s_knownUrls = Map.of(
-        "automaths.blog",         buildWellKnownAuthors("Jason", "Lapeyronnie", null, false),
-        "eljjdx.canalblog.com",   buildWellKnownAuthors("Jérôme", "Cottanceau", "El Jj", false),
-        "lexfridman.com",         buildWellKnownAuthors("Lex", "Fridman", null, true),
-        "mkyong.com",             buildWellKnownAuthors("Yong", "Mook Kim", null, true),
-        "nipafx.dev",             buildWellKnownAuthors("Nicolai", "Parlog", null, true),
-        "www.inspiredtester.com", buildWellKnownAuthors("Leah", "Stockley", null, false),
-        "www.jwz.org",            buildWellKnownAuthors("Jamie", "Zawinski", null, false),
-        "www.numberphile.com",    buildWellKnownAuthors("Brady", "Haran", null, true));
+        "automathssite.wordpress.com", buildWellKnownAuthors("Jason", "Lapeyronnie", null, false),
+        "eljjdx.canalblog.com",        buildWellKnownAuthors("Jérôme", "Cottanceau", "El Jj", false),
+        "lexfridman.com",              buildWellKnownAuthors("Lex", "Fridman", null, true),
+        "mkyong.com",                  buildWellKnownAuthors("Yong", "Mook Kim", null, true),
+        "nipafx.dev",                  buildWellKnownAuthors("Nicolai", "Parlog", null, true),
+        "www.inspiredtester.com",      buildWellKnownAuthors("Leah", "Stockley", null, false),
+        "www.jwz.org",                 buildWellKnownAuthors("Jamie", "Zawinski", null, false),
+        "www.numberphile.com",         buildWellKnownAuthors("Brady", "Haran", null, true));
 
+    /**
+     * @param url site URL
+     * @return well known authors of the site
+     */
     public static Optional<WellKnownAuthors> getWellKnownAuthors(final String url) { // TODO *** should return a set instead of an optional
         final String host = UrlHelper.getHost(url);
         if (host == null) {

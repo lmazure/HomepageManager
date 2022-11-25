@@ -270,14 +270,14 @@ public class LinkCheckRunner {
         }
 
         _effectiveData.put(siteData.url().toString(), siteData);
-        if ((siteData.error().isPresent()) &&
-            _expectedData.get(siteData.url().toString()).getStatus().isEmpty()) {
+        if (!siteData.error().isPresent() &&
+            _expectedData.get(siteData.url()).getStatus().isEmpty()) {
             final LinkContentChecker contentChecker = LinkContentCheckerFactory.build(siteData.url(),
                                                                                       _expectedData.get(siteData.url().toString()),
                                                                                       Optional.ofNullable(_articles.get(siteData.url().toString())),
                                                                                       siteData.dataFileSection().get());
             try {
-                _checks.put(siteData.url().toString(), contentChecker.check());
+                _checks.put(siteData.url(), contentChecker.check());
             } catch (final ContentParserException e) {
                 FileHelper.createParentDirectory(_reportFile);
                 try (final PrintStream reportWriter = new PrintStream(_reportFile.toFile())) {
@@ -378,15 +378,11 @@ public class LinkCheckRunner {
         if (effectiveData.error().isPresent()) {
             builder.append("Effective error = \"" + effectiveData.error().get() + "\"\n");
         }
-        final String httpCode = effectiveData.headers().map(headers -> {
-            final int code = HttpHelper.getResponseCodeFromHeaders(headers);
-            try {
-                return code + " " + HttpHelper.getStringOfCode(code);
-            } catch (@SuppressWarnings("unused") final InvalidHttpCodeException e) {
-                return " invalid code! (" + code + ")";
-            }
-        }).orElse("---");
-        builder.append("Effective HTTP code = " + httpCode + "\n");
+        builder.append("Effective HTTP code = " + extractPrintableHttpCode(effectiveData.headers()) + "\n");
+        final HeaderFetchedLinkData lastRedirection = lastRedirection(effectiveData);
+        if (lastRedirection != null) {
+            builder.append("Effective HTTP code of last redirection = " + extractPrintableHttpCode(lastRedirection.headers()) + "\n");
+        }
         if (effectiveData.previousRedirection() != null) {
             String descriptionOfRedirectionChain = effectiveData.url();
             for (HeaderFetchedLinkData d = effectiveData.previousRedirection(); d != null; d = d.previousRedirection()) {
@@ -402,6 +398,17 @@ public class LinkCheckRunner {
         }
         builder.append("Look for article = " + googleUrl.toString() + "\n");
         builder.append("\n");
+    }
+
+    private static String extractPrintableHttpCode(final Optional<Map<String, List<String>>> headers) {
+        return headers.map(h -> {
+            final int code = HttpHelper.getResponseCodeFromHeaders(h);
+            try {
+                return code + " " + HttpHelper.getStringOfCode(code);
+            } catch (@SuppressWarnings("unused") final InvalidHttpCodeException e) {
+                return " invalid code! (" + code + ")";
+            }
+        }).orElse("---");
     }
 
     private boolean isDataExpected() { //TODO this method is very stupid, we should used a flag instead of computing the status every time
@@ -425,16 +432,49 @@ public class LinkCheckRunner {
             if (effectiveData.error().isPresent()) {
                 return true;
             }
-            if (effectiveData.headers().isPresent() && (HttpHelper.getResponseCodeFromHeaders(effectiveData.headers().get()) != HttpURLConnection.HTTP_OK)) {
+            if (!httpRequestIsSuccessful(effectiveData.headers().get())) {
+                return true;
+            }
+            final HeaderFetchedLinkData lastRedirection = lastRedirection(effectiveData);
+            if (lastRedirection == null) {
+                return false;
+            }
+            if (lastRedirection.error().isPresent()) {
+                return true;
+            }
+            if (!httpRequestIsSuccessful(lastRedirection.headers().get())) {
                 return true;
             }
             return false;
         }
 
-        return (effectiveData.headers().isPresent() && (HttpHelper.getResponseCodeFromHeaders(effectiveData.headers().get()) == HttpURLConnection.HTTP_OK));
+        final HeaderFetchedLinkData lastRedirection = lastRedirection(effectiveData);
+        return (effectiveData.headers().isPresent() &&
+                httpRequestIsSuccessful(effectiveData.headers().get()) &&
+                ((lastRedirection == null) ||
+                 lastRedirection.headers().isPresent() &&
+                 httpRequestIsSuccessful(lastRedirection.headers().get())));
     }
 
-    static private boolean doNotUseCookies(final String url) { // TODO the decision to allow/disallow cookies should be in the parser
+    private static HeaderFetchedLinkData lastRedirection(final FullFetchedLinkData data) {
+        HeaderFetchedLinkData d = data.previousRedirection();
+        if (d == null) {
+            return null;
+        }
+        while (d.previousRedirection() != null) {
+            d = d.previousRedirection();
+        }
+        return d;
+    }
+
+    private static boolean httpRequestIsSuccessful(final Map<String, List<String>> headers) {
+        final int code = HttpHelper.getResponseCodeFromHeaders(headers);
+        return (code == HttpURLConnection.HTTP_OK) ||
+               (code == HttpURLConnection.HTTP_MOVED_TEMP) ||
+               (code == HttpURLConnection.HTTP_SEE_OTHER);
+    }
+    
+    private static boolean doNotUseCookies(final String url) { // TODO the decision to allow/disallow cookies should be in the parser
         return url.startsWith("https://www.youtube.com/channel/") ||
                url.startsWith("https://www.youtube.com/user/");
     }
