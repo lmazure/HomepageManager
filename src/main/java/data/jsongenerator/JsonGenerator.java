@@ -7,6 +7,9 @@ import java.util.List;
 import utils.Logger;
 import utils.xmlparsing.XmlParsingException;
 
+/**
+*
+*/
 public class JsonGenerator {
 
     private final Parser parser;

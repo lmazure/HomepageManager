@@ -7,12 +7,18 @@ import java.util.Optional;
 
 import utils.xmlparsing.AuthorData;
 
+/**
+*
+*/
 public class Author extends AuthorData implements Comparable<Author> {
 
     private final SortingKey _sortingKey;
     private final ArrayList<Article> _articles;
     private final ArrayList<Link> _links;
 
+    /**
+     *
+     */
     public static class SortingKey implements Comparable<SortingKey> {
 
         private static final Collator s_collator = Collator.getInstance(Locale.UK);

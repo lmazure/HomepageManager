@@ -48,10 +48,12 @@ public class SiteDataPersister {
     /**
      * @param siteData link data
      * @param dataStream stream to download the HTTP payload
+     * @param error error description, empty if no error
      * @param timestamp timestamp of the visit
      */
     public void persist(final HeaderFetchedLinkData siteData,
                         final Optional<InputStream> dataStream,
+                        final Optional<String> error,
                         final Instant timestamp) {
 
         getOutputDirectory(siteData.url()).toFile().mkdirs();
@@ -68,6 +70,10 @@ public class SiteDataPersister {
             data = data.previousRedirection();
         }
 
+        final String dataErrorString = buildSerializedErrorString(error);
+        final byte[] byteErrorArray = dataErrorString.getBytes(UTF8_CHARSET);
+        sumOfSizes += byteErrorArray.length;
+
         try (FileOutputStream fos = new FileOutputStream(getPersistedFile(siteData.url(), timestamp))) {
 
             final String siz = String.format("%9d\n", Integer.valueOf(sumOfSizes + 20));
@@ -77,6 +83,7 @@ public class SiteDataPersister {
             for (final byte[] byteArray: byteArrays) {                
                 fos.write(byteArray);
             }
+            fos.write(byteErrorArray);
 
             if (dataStream.isPresent()) {
                 @SuppressWarnings("resource")
@@ -131,7 +138,14 @@ public class SiteDataPersister {
             builder.append("empty\n");
         }
 
-        final Optional<String> error = siteData.error();
+        final String dataString = builder.toString();
+        return dataString;
+    }
+
+    private static String buildSerializedErrorString(final Optional<String> error) {
+
+        final StringBuilder builder = new StringBuilder();
+
         if (error.isPresent()) {
             builder.append("present\n");
             builder.append(error.get().lines().count()).append('\n');
@@ -143,7 +157,7 @@ public class SiteDataPersister {
         final String dataString = builder.toString();
         return dataString;
     }
-
+    
     /**
      * @param url URL of the link to retrieve
      * @return timestamps of the cached visits (in reverse order, the first in the younger one)
@@ -184,16 +198,32 @@ public class SiteDataPersister {
             final int size = Integer.parseInt(reader.readLine().trim());
             final int numberOfRedirections = Integer.parseInt(reader.readLine().trim());
 
-            final List<FullFetchedLinkData> redirectionsDatas = new LinkedList<>();
+            final List<HeaderFetchedLinkData> redirectionsDatas = new LinkedList<>();
             for (int i = 0; i < numberOfRedirections; i++) {
-                final FullFetchedLinkData d = readOneRedirection(reader);
+                final HeaderFetchedLinkData d = readOneRedirection(reader);
                 redirectionsDatas.add(d);
             }
 
+            Optional<String> error = Optional.empty();
+            final String errorPresence = reader.readLine();
+            if (errorPresence.equals("present")) {
+                final int nbErrorLines = Integer.parseInt(reader.readLine());
+                final StringBuilder strBuilder = new StringBuilder();
+                for (int i = 0; i < nbErrorLines; i++) {
+                    strBuilder.append(reader.readLine());
+                }
+                error = Optional.of(strBuilder.toString());
+            } else if (errorPresence.equals("empty")) {
+                error = Optional.empty();
+            } else {
+                throw new IllegalStateException("File is corrupted (bad error presence)");
+            }
+
+
             HeaderFetchedLinkData lastRedirectionData = null;
             for (int i = numberOfRedirections - 1; i >= 0; i--) {
-                final FullFetchedLinkData d = redirectionsDatas.get(i);
-                lastRedirectionData = new HeaderFetchedLinkData(d.url(), d.headers(), d.error(), lastRedirectionData);
+                final HeaderFetchedLinkData d = redirectionsDatas.get(i);
+                lastRedirectionData = new HeaderFetchedLinkData(d.url(), d.headers(), lastRedirectionData);
             }
 
             assert lastRedirectionData != null;
@@ -202,14 +232,14 @@ public class SiteDataPersister {
             return new FullFetchedLinkData(lastRedirectionData.url(),
                                            lastRedirectionData.headers(),
                                            Optional.of(new FileSection(file, size, file.length() - size)),
-                                           lastRedirectionData.error(),
+                                           error,
                                            lastRedirectionData.previousRedirection());
         } catch (final IOException e) {
             throw new IllegalStateException("Failure while reading " + file, e);
         }
     }
 
-    private static FullFetchedLinkData readOneRedirection(final BufferedReader reader) throws IOException {
+    private static HeaderFetchedLinkData readOneRedirection(final BufferedReader reader) throws IOException {
 
         final String url = reader.readLine();
 
@@ -234,22 +264,7 @@ public class SiteDataPersister {
             throw new IllegalStateException("File is corrupted (bad HTTP headers)");
         }
 
-        Optional<String> error = Optional.empty();
-        final String errorPresence = reader.readLine();
-        if (errorPresence.equals("present")) {
-            final int nbErrorLines = Integer.parseInt(reader.readLine());
-            final StringBuilder strBuilder = new StringBuilder();
-            for (int i = 0; i < nbErrorLines; i++) {
-                strBuilder.append(reader.readLine());
-            }
-            error = Optional.of(strBuilder.toString());
-        } else if (errorPresence.equals("empty")) {
-            error = Optional.empty();
-        } else {
-            throw new IllegalStateException("File is corrupted (bad error presence)");
-        }
-
-        return new FullFetchedLinkData(url, headers, null, error, null);        
+        return new HeaderFetchedLinkData(url, headers, null);        
     }
 
     /**

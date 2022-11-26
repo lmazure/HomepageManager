@@ -42,7 +42,7 @@ import utils.xmlparsing.XmlParser;
 import utils.xmlparsing.XmlParsingException;
 
 /**
- *
+ * Execute the checks on all link of an XML file
  */
 public class LinkCheckRunner {
 
@@ -86,7 +86,7 @@ public class LinkCheckRunner {
     }
 
     /**
-     *
+     * Launch the checks
      */
     public synchronized void launch() {
 
@@ -234,6 +234,9 @@ public class LinkCheckRunner {
         return list;
     }
 
+    /**
+     * Cancel the checks
+     */
     public synchronized void cancel() {
         _isCancelled = true;
         FileHelper.deleteFile(_outputFile);
@@ -438,9 +441,6 @@ public class LinkCheckRunner {
             final HeaderFetchedLinkData lastRedirection = lastRedirection(effectiveData);
             if (lastRedirection == null) {
                 return false;
-            }
-            if (lastRedirection.error().isPresent()) {
-                return true;
             }
             if (!httpRequestIsSuccessful(lastRedirection.headers().get())) {
                 return true;

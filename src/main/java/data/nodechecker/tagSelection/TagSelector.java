@@ -2,6 +2,9 @@ package data.nodechecker.tagSelection;
 
 import utils.xmlparsing.ElementType;
 
+/**
+ * Filter on the tags to be checked
+ */
 public interface TagSelector {
 
     /**

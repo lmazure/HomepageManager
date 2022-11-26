@@ -5,6 +5,9 @@ import java.util.HashMap;
 
 import utils.xmlparsing.AuthorData;
 
+/**
+*
+*/
 public class AuthorFactory {
 
     private final HashMap<String,Author> _authors;
