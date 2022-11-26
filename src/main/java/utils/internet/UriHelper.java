@@ -5,6 +5,9 @@ import java.net.URISyntaxException;
 
 import utils.ExitHelper;
 
+/**
+ *
+ */
 public class UriHelper {
 
     /**
@@ -37,7 +40,7 @@ public class UriHelper {
         try {
             return new URI(scheme, host, path, null);
         } catch (final URISyntaxException e) {
-            ExitHelper.exit("Invalid URI", e);
+            ExitHelper.exit("Invalid URI (scheme = \"" + scheme + "\", host = \"" + host + "\", path = \"" + path + "\")", e);
             // NOTREACHED
             return null;
         }

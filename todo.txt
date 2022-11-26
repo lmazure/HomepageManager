@@ -1,3 +1,7 @@
+ tag = "ARTICLE" value = "F# in use at Microsoft Research (#4 of 4)https://channel9.msdn.com/Blogs/David+Gristwood/F-in-use-at-Microsoft-Research-4-of-4enWindows Media Player4050DaveBrownDavidSternJurgenvan GaelAntonSchwaighoferThoreGraepelJoaquinQuiñonreroCandelaDavidStern20109Three project (analysis of Twitter feeds, Bing's AdPredictor, and a Go game) explain why they have chosen F#." violation = "author list contains duplicated authors" detail = "The list of authors of article "https://channel9.msdn.com/Blogs/David+Gristwood/F-in-use-at-Microsoft-Research-4-of-4" contains duplicated author: ▭ first=David ▭ last=Stern ▭ ▭"
+
+
+
 
 le reporting des redirections ne marche pas, voir pex http://www.onlamp.com/pub/a/onlamp/2005/06/30/esr_interview.html
 

@@ -31,6 +31,7 @@ public class ExitHelper {
 
         if (message != null) {
             log.append(message);
+            log.append(" - ");
         }
 
         if (exception != null) {
