@@ -6,8 +6,8 @@ import java.util.HashSet;
 import java.util.Optional;
 
 /**
-*
-*/
+ *
+ */
 public class ArticleFactory {
 
     private final HashSet<Article> _articles;

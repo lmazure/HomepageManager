@@ -8,8 +8,8 @@ import java.util.Optional;
 import utils.xmlparsing.AuthorData;
 
 /**
-*
-*/
+ *
+ */
 public class Author extends AuthorData implements Comparable<Author> {
 
     private final SortingKey _sortingKey;

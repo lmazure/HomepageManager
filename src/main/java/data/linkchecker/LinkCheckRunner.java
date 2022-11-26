@@ -473,7 +473,7 @@ public class LinkCheckRunner {
                (code == HttpURLConnection.HTTP_MOVED_TEMP) ||
                (code == HttpURLConnection.HTTP_SEE_OTHER);
     }
-    
+
     private static boolean doNotUseCookies(final String url) { // TODO the decision to allow/disallow cookies should be in the parser
         return url.startsWith("https://www.youtube.com/channel/") ||
                url.startsWith("https://www.youtube.com/user/");

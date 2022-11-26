@@ -60,7 +60,7 @@ public class SiteDataPersister {
 
         final List<byte[]> byteArrays = new LinkedList<>();
         int sumOfSizes = 0;
-        
+
         HeaderFetchedLinkData data = siteData;
         while (data != null) {
             final String dataString = buildSerializedHeaderString(data);
@@ -80,7 +80,7 @@ public class SiteDataPersister {
             fos.write(siz.getBytes(UTF8_CHARSET));
             final String numberOfRedirections = String.format("%9d\n", Integer.valueOf(byteArrays.size()));
             fos.write(numberOfRedirections.getBytes(UTF8_CHARSET));
-            for (final byte[] byteArray: byteArrays) {                
+            for (final byte[] byteArray: byteArrays) {
                 fos.write(byteArray);
             }
             fos.write(byteErrorArray);
@@ -157,7 +157,7 @@ public class SiteDataPersister {
         final String dataString = builder.toString();
         return dataString;
     }
-    
+
     /**
      * @param url URL of the link to retrieve
      * @return timestamps of the cached visits (in reverse order, the first in the younger one)
@@ -219,7 +219,6 @@ public class SiteDataPersister {
                 throw new IllegalStateException("File is corrupted (bad error presence)");
             }
 
-
             HeaderFetchedLinkData lastRedirectionData = null;
             for (int i = numberOfRedirections - 1; i >= 0; i--) {
                 final HeaderFetchedLinkData d = redirectionsDatas.get(i);
@@ -264,7 +263,7 @@ public class SiteDataPersister {
             throw new IllegalStateException("File is corrupted (bad HTTP headers)");
         }
 
-        return new HeaderFetchedLinkData(url, headers, null);        
+        return new HeaderFetchedLinkData(url, headers, null);
     }
 
     /**

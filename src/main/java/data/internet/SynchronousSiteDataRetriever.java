@@ -177,7 +177,6 @@ public class SynchronousSiteDataRetriever {
         return httpConnection;
     }
 
-
     private static SSLSocketFactory getDisabledPKIXCheck() {
         // Create a trust manager that does not validate certificate chains
         final TrustManager[] trustAllCerts = new TrustManager[] {
@@ -231,7 +230,7 @@ public class SynchronousSiteDataRetriever {
                                      final HttpURLConnection connection) {
 
         if (cookieManager == null) return;
-         
+
          final Map<String, List<String>> headerFields = connection.getHeaderFields();
          final List<String> cookies = headerFields.get("Set-Cookie");
          if (cookies != null) {

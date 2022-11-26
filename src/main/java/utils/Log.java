@@ -10,8 +10,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Logger
- *
+ * Log
  */
 public class Log {
 
@@ -37,49 +36,51 @@ public class Log {
     }
 
     /**
-     * @param string
-     * @return
+     * @param string string to append to the log
+     * @return the log itself (i.e. this is a fluent API)
      */
     public Log append(final String string) {
-        _stringBuilder.append(string.replaceAll("\0", "[0]").replaceAll("\r", "[returnline]").replaceAll("\n", "[newline]"));
+        _stringBuilder.append(string.replaceAll("\0", "[0]")
+                                    .replaceAll("\r", "[returnline]")
+                                    .replaceAll("\n", "[newline]"));
         return this;
     }
 
     /**
-     * @param b
-     * @return
+     * @param b boolean to append to the log
+     * @return the log itself (i.e. this is a fluent API)
      */
     public Log append(final boolean b) {
         return append(Boolean.toString(b));
     }
 
     /**
-     * @param i
-     * @return
+     * @param i integer to append to the log
+     * @return the log itself (i.e. this is a fluent API)
      */
     public Log append(final int i) {
         return append(Integer.toString(i));
     }
 
     /**
-     * @param file
-     * @return
+     * @param file filename to append to the log
+     * @return the log itself (i.e. this is a fluent API)
      */
     public Log append(final File file) {
         return append(file.getAbsolutePath());
     }
 
     /**
-     * @param path
-     * @return
+     * @param path path to append to the log
+     * @return the log itself (i.e. this is a fluent API)
      */
     public Log append(final Path path) {
         return append(path.toString());
     }
 
     /**
-     * @param stack
-     * @return
+     * @param stack stacktrace to append to the log
+     * @return the log itself (i.e. this is a fluent API)
      */
     public Log append(final StackTraceElement[] stack) {
         for (final StackTraceElement elem: stack) {
@@ -88,6 +89,10 @@ public class Log {
         return this;
     }
 
+    /**
+     * @param exception exception to append to the log
+     * @return the log itself (i.e. this is a fluent API)
+     */
     public Log append(final Exception exception) {
         final StringWriter sw = new StringWriter();
         final PrintWriter pw = new PrintWriter(sw);
@@ -97,7 +102,7 @@ public class Log {
     }
 
     /**
-     * 
+     * write the logs stderr (for error and fatal levels) and stdoyt (other levels)
      */
     public void submit() {
         @SuppressWarnings("resource")

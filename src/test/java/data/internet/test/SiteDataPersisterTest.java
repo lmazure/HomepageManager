@@ -115,7 +115,6 @@ public class SiteDataPersisterTest {
         Assertions.assertNull(effectiveData.previousRedirection().previousRedirection());
     }
 
-
     @Test
     void twoRedirections() {
 
