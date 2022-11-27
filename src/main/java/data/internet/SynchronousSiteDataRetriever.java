@@ -95,8 +95,12 @@ public class SynchronousSiteDataRetriever {
 
         if (httpConnection != null) {
             final Optional<Map<String, List<String>>> headers = Optional.of(httpConnection.getHeaderFields());
-            if (headers.isEmpty() ) {
+            if (headers.isEmpty()) {
                 error = Optional.of("Failed to read headers");
+                final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, Optional.empty(), null);
+                redirectionsData.push(redirectionData);
+            } else if (headers.get().size() == 0) {
+                error = Optional.of("No header");
                 final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, Optional.empty(), null);
                 redirectionsData.push(redirectionData);
             } else {
