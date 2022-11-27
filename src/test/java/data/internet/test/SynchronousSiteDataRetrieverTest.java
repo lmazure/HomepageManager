@@ -47,6 +47,23 @@ public class SynchronousSiteDataRetrieverTest {
                            false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
+    
+    @Test
+    // this site returns an invalid cookie
+    void softteam() {
+
+        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve("https://www.softeam.fr",
+                           (final Boolean b, final FullFetchedLinkData d) -> {
+                               Assertions.assertFalse(consumerHasBeenCalled.get());
+                               consumerHasBeenCalled.set(true);
+                               Assertions.assertTrue(b.booleanValue());
+                               Assertions.assertEquals(301, HttpHelper.getResponseCodeFromHeaders(d.headers().get()));
+                           },
+                           false);
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
 
     @Disabled("I have not found yet a workaround for LinkedIn protection")
     @Test

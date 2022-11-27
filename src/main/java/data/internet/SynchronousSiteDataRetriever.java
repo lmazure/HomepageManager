@@ -13,6 +13,7 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
 import java.time.Instant;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -28,6 +29,8 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import utils.ExitHelper;
+import utils.Log;
+import utils.Logger;
 import utils.internet.HttpHelper;
 import utils.internet.UriHelper;
 import utils.internet.UrlHelper;
@@ -64,7 +67,11 @@ public class SynchronousSiteDataRetriever {
     public void retrieve(final String url,
                          final BiConsumer<Boolean, FullFetchedLinkData> consumer,
                          final boolean doNotUseCookies) {
-        retrieveInternal(url, url, new Stack<>(), consumer, 0, doNotUseCookies ? null : new CookieManager());
+        try {
+            retrieveInternal(url, url, new Stack<>(), consumer, 0, doNotUseCookies ? null : new CookieManager());
+        } catch (final Throwable e) {
+            throw new IllegalStateException("Exception while retrieving " + url, e);
+        }
     }
 
     private void retrieveInternal(final String initialUrl,
@@ -245,7 +252,17 @@ public class SynchronousSiteDataRetriever {
          final List<String> cookies = headerFields.get("Set-Cookie");
          if (cookies != null) {
              for (final String cookie: cookies) {
-                 for (final HttpCookie c: HttpCookie.parse(cookie)) {
+                 List<HttpCookie> list = new LinkedList<>();
+                 try {
+                     list = HttpCookie.parse(cookie);
+                 } catch (final IllegalArgumentException e) {
+                     Logger.log(Logger.Level.ERROR)
+                     .append(url)
+                     .append(" has an invalid cookie value: ")
+                     .append(cookie)
+                     .submit();
+                 }
+                 for (final HttpCookie c: list) {
                      cookieManager.getCookieStore().add(UriHelper.convertStringToUri(url), c);
                  }
              }
