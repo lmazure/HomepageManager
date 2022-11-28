@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -74,8 +76,13 @@ public class SiteDataPersister {
         final byte[] byteErrorArray = dataErrorString.getBytes(UTF8_CHARSET);
         sumOfSizes += byteErrorArray.length;
 
-        try (FileOutputStream fos = new FileOutputStream(getPersistedFile(siteData.url(), timestamp))) {
-
+        final File file = getPersistedFile(siteData.url(), timestamp);
+        try (final FileOutputStream fos = new FileOutputStream(file);
+             final FileChannel channel = fos.getChannel();
+             final FileLock lock = channel.lock()) {
+            if (lock == null) {
+                throw new IllegalStateException("Failed to lock file " + file.getCanonicalPath());
+            }
             final String siz = String.format("%9d\n", Integer.valueOf(sumOfSizes + 20));
             fos.write(siz.getBytes(UTF8_CHARSET));
             final String numberOfRedirections = String.format("%9d\n", Integer.valueOf(byteArrays.size()));
@@ -103,8 +110,8 @@ public class SiteDataPersister {
                           .append(" is truncated")
                           .submit();
                 }
-        }
-        fos.flush();
+            }
+            fos.flush();
         } catch (final IOException e) {
             Logger.log(Logger.Level.ERROR)
                   .append("Error (")
