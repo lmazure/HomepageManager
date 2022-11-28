@@ -8,6 +8,10 @@ import data.linkchecker.LinkCheckRunner;
 import utils.ExitHelper;
 import utils.FileHelper;
 
+/**
+ * This class checks the links appearing in XML files.
+ *
+ */
 public class LinkChecker implements FileHandler {
 
     private final Path _homepagePath;
@@ -17,10 +21,10 @@ public class LinkChecker implements FileHandler {
     private final Map<Path, LinkCheckRunner> _handlers;
 
     /**
-     * This class checks the links appearing in the XML files.
-     *
-     * @param homepagePath
-     * @param tmpPath
+     * @param homepagePath path to the directory containing the pages
+     * @param tmpPath path to the directory containing the temporary files and log files
+     * @param cacheFolderName
+     * @param controller
      */
     public LinkChecker(final Path homepagePath,
                        final Path tmpPath,

@@ -1,6 +1,7 @@
 package data.internet;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.CookieManager;
 import java.net.HttpCookie;
 import java.net.HttpURLConnection;
@@ -12,9 +13,11 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
 import java.time.Instant;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Stack;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
@@ -26,7 +29,9 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import utils.ExitHelper;
-import utils.FileSection;
+import utils.Log;
+import utils.Logger;
+import utils.internet.HttpHelper;
 import utils.internet.UriHelper;
 import utils.internet.UrlHelper;
 
@@ -44,79 +49,109 @@ public class SynchronousSiteDataRetriever {
 
     private static final String s_userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv\", \"0.0) Gecko/20100101 Firefox/90.0";
 
+    /**
+     * @param persister data persister
+     */
     public SynchronousSiteDataRetriever(final SiteDataPersister persister) {
         _persister = persister;
         _sslSocketFactory = getDisabledPKIXCheck();
     }
 
     /**
-     * @param url
+     * @param url URL of the link to retrieve
      * @param consumer
      *   - its first argument is always true since the data is always fresh
      *   - its second argument is the site data
-     * @param doNotUseCookies
+     * @param doNotUseCookies if true, cookies will not be recorded and resend while following redirections
      */
     public void retrieve(final String url,
-                         final BiConsumer<Boolean, SiteData> consumer,
+                         final BiConsumer<Boolean, FullFetchedLinkData> consumer,
                          final boolean doNotUseCookies) {
-        retrieveInternal(url, url, consumer, 0, doNotUseCookies ? null : new CookieManager());
+        try {
+            retrieveInternal(url, url, new Stack<>(), consumer, 0, doNotUseCookies ? null : new CookieManager());
+        } catch (final Throwable e) {
+            throw new IllegalStateException("Exception while retrieving " + url, e);
+        }
     }
 
     private void retrieveInternal(final String initialUrl,
                                   final String currentUrl,
-                                  final BiConsumer<Boolean, SiteData> consumer,
+                                  final Stack<HeaderFetchedLinkData> redirectionsData,
+                                  final BiConsumer<Boolean, FullFetchedLinkData> consumer,
                                   final int depth,
                                   final CookieManager cookieManager) {
-        final Instant timestamp = Instant.now();
-        Optional<Integer> httpCode = Optional.empty();
-        Optional<Map<String, List<String>>> headers = Optional.empty();
+
+        Optional<InputStream> dataStream = Optional.empty();
         Optional<String> error = Optional.empty();
+        HttpURLConnection httpConnection = null;
 
         try {
-            final HttpURLConnection httpConnection = httpConnect(currentUrl, cookieManager);
-            headers = Optional.of(httpConnection.getHeaderFields());
-            final int responseCode = httpConnection.getResponseCode();
-            httpCode = Optional.of(Integer.valueOf(responseCode));
-            if (responseCode == HttpURLConnection.HTTP_MOVED_PERM || // 301
-                responseCode == HttpURLConnection.HTTP_MOVED_TEMP || // 302
-                responseCode == HttpURLConnection.HTTP_SEE_OTHER || // 303
-                responseCode == 307) {
-                if (depth == s_maxNbRedirects) {
-                    throw new IOException("Too many redirects (" + s_maxNbRedirects + ") occurred trying to load URL " + initialUrl);
-                }
-                final String location = httpConnection.getHeaderField("Location");
-                final String redirectUrl = getRedirectionUrl(currentUrl, location);
-                if (cookieManager != null) {
-                    final Map<String, List<String>> headerFields = httpConnection.getHeaderFields();
-                    final List<String> cookies = headerFields.get("Set-Cookie");
-                    if (cookies != null) {
-                        for (final String cookie: cookies) {
-                            for (final HttpCookie c: HttpCookie.parse(cookie)) {
-                                cookieManager.getCookieStore().add(UriHelper.convertStringToUri(currentUrl), c);
-                            }
-                        }
+            httpConnection = httpConnect(currentUrl, cookieManager);
+        } catch (final Exception e) {
+            error = Optional.of("Failed to connect: " + e.toString());
+            final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, Optional.empty(), null);
+            redirectionsData.push(redirectionData);
+        }
+
+        if (httpConnection != null) {
+            final Optional<Map<String, List<String>>> headers = Optional.of(httpConnection.getHeaderFields());
+            if (headers.isEmpty()) {
+                error = Optional.of("Failed to read headers");
+                final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, Optional.empty(), null);
+                redirectionsData.push(redirectionData);
+            } else if (headers.get().size() == 0) {
+                error = Optional.of("No header");
+                final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, Optional.empty(), null);
+                redirectionsData.push(redirectionData);
+            } else {
+                final int responseCode = HttpHelper.getResponseCodeFromHeaders(headers.get());
+                if (httpCodeIsRedirected(responseCode)) {
+                    if (depth == s_maxNbRedirects) {
+                        error = Optional.of("Too many redirects (" + s_maxNbRedirects + ") occurred while trying to load URL " + initialUrl);
+                        final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, headers, null);
+                        redirectionsData.push(redirectionData);
+                    } else {
+                        final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, headers, null);
+                        redirectionsData.push(redirectionData);
+                        final String location = HttpHelper.getLocationFromHeaders(headers.get());
+                        final String redirectUrl = getRedirectionUrl(currentUrl, location);
+                        storeCookies(currentUrl, cookieManager, httpConnection);
+                        retrieveInternal(initialUrl, redirectUrl, redirectionsData, consumer, depth + 1, cookieManager);
+                        return;
+                    }
+                } else {
+                    try {
+                        dataStream = Optional.of(httpConnection.getInputStream());
+                        final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, headers, null);
+                        redirectionsData.push(redirectionData);
+                    } catch (final IOException e) {
+                        error = Optional.of("Failed to get input stream: " + e.toString());
+                        final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, Optional.empty(), null);
+                        redirectionsData.push(redirectionData);
                     }
                 }
-                retrieveInternal(initialUrl, redirectUrl, consumer, depth + 1, cookieManager);
-                return;
             }
-            if (responseCode != HttpURLConnection.HTTP_OK /* 200 */ &&
-                responseCode != HttpURLConnection.HTTP_CREATED   /* 201 */) {
-                error = Optional.of("page not found");
-                _persister.persist(initialUrl, timestamp, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error);
-                consumer.accept(Boolean.TRUE, new SiteData(initialUrl, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error));
-                return;
-            }
-            _persister.persist(initialUrl, timestamp, SiteData.Status.SUCCESS, httpCode, headers, Optional.of(httpConnection.getInputStream()), error);
-            final FileSection dataFile = _persister.getDataFileSection(initialUrl, timestamp);
-            consumer.accept(Boolean.TRUE, new SiteData(initialUrl, SiteData.Status.SUCCESS, httpCode, headers, Optional.of(dataFile), error));
-        } catch (final IOException e) {
-            error = Optional.of(e.toString());
-            _persister.persist(initialUrl, timestamp, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error);
-            consumer.accept(Boolean.TRUE, new SiteData(initialUrl, SiteData.Status.FAILURE, httpCode, headers, Optional.empty(), error));
         }
+
+        HeaderFetchedLinkData previous = null;
+        do {
+            final HeaderFetchedLinkData d = redirectionsData.pop();
+            previous = new HeaderFetchedLinkData(d.url(), d.headers(), previous);
+        } while (!redirectionsData.isEmpty());
+        final Instant timestamp = Instant.now();
+        _persister.persist(previous, dataStream, error, timestamp);
+        final FullFetchedLinkData siteData = _persister.retrieve(initialUrl, timestamp);
+        consumer.accept(Boolean.TRUE, siteData);
     }
 
+    /**
+     * get the content of a link whose payload is gzipped
+     *
+     * @param url URL of the link to retrieve
+     * @param doNotUseCookies if true, cookies will not be recorded and resend while following redirections
+     * @return payload
+     * @throws IOException exception if the payload could not be retrieved
+     */
     public String getGzippedContent(final String url,
                                     final boolean doNotUseCookies) throws IOException {
         try {
@@ -141,14 +176,7 @@ public class SynchronousSiteDataRetriever {
         connection.setConnectTimeout(s_connectTimeout);
         connection.setReadTimeout(s_readTimeout);
         httpConnection.setInstanceFollowRedirects(false);
-        if (cookieManager != null) {
-            final String cookies = cookieManager.getCookieStore()
-                    .get(UriHelper.convertStringToUri(urlString))
-                    .stream()
-                    .map(h -> h.toString())
-                    .collect(Collectors.joining(";"));
-            connection.setRequestProperty("Cookie", cookies);
-        }
+        applyCookies(urlString, cookieManager, connection);
         httpConnection.setRequestProperty("User-Agent", s_userAgent);
         httpConnection.setRequestProperty("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
         httpConnection.setRequestProperty("Accept-Language", "en");
@@ -201,7 +229,8 @@ public class SynchronousSiteDataRetriever {
 
     private static String getRedirectionUrl(final String currentUrl,
                                             final String redirection) {
-        if (redirection.startsWith("http://") || redirection.startsWith("https://")) {
+        if (redirection.startsWith("http://") ||
+            redirection.startsWith("https://")) {
             return redirection;
         }
         final URI uri = UriHelper.convertStringToUri(currentUrl);
@@ -209,7 +238,58 @@ public class SynchronousSiteDataRetriever {
             final URI redirectUri = UriHelper.buildUri(uri.getScheme(), uri.getHost(), redirection);
             return redirectUri.toString();
         }
-        final URI redirectUri = UriHelper.buildUri(uri.getScheme(), uri.getHost(), uri.getPath().replaceFirst("[^/]*$", "") + redirection);
+        String root = uri.getPath().replaceFirst("[^/]*$", "");
+        if (root.isEmpty()) {
+            root = "/";
+        }
+        final URI redirectUri = UriHelper.buildUri(uri.getScheme(), uri.getHost(), root + redirection);
         return redirectUri.toString();
+    }
+
+    private static void storeCookies(final String url,
+                                     final CookieManager cookieManager,
+                                     final HttpURLConnection connection) {
+
+        if (cookieManager == null) return;
+
+         final Map<String, List<String>> headerFields = connection.getHeaderFields();
+         final List<String> cookies = headerFields.get("Set-Cookie");
+         if (cookies != null) {
+             for (final String cookie: cookies) {
+                 List<HttpCookie> list = new LinkedList<>();
+                 try {
+                     list = HttpCookie.parse(cookie);
+                 } catch (final IllegalArgumentException e) {
+                     Logger.log(Logger.Level.ERROR)
+                     .append(url)
+                     .append(" has an invalid cookie value: ")
+                     .append(cookie)
+                     .submit();
+                 }
+                 for (final HttpCookie c: list) {
+                     cookieManager.getCookieStore().add(UriHelper.convertStringToUri(url), c);
+                 }
+             }
+         }
+     }
+
+    private static void applyCookies(final String url,
+                                     final CookieManager cookieManager,
+                                     final URLConnection connection) {
+        if (cookieManager == null) return;
+
+        final String cookies = cookieManager.getCookieStore()
+                                            .get(UriHelper.convertStringToUri(url))
+                                            .stream()
+                                            .map(h -> h.toString())
+                                            .collect(Collectors.joining(";"));
+        connection.setRequestProperty("Cookie", cookies);
+    }
+
+    private static boolean httpCodeIsRedirected(final int responseCode) {
+        return responseCode == HttpURLConnection.HTTP_MOVED_PERM || // 301
+               responseCode == HttpURLConnection.HTTP_MOVED_TEMP || // 302
+               responseCode == HttpURLConnection.HTTP_SEE_OTHER  || // 303
+               responseCode == 307;                                 // 307
     }
 }

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import data.internet.SiteData;
+import data.internet.FullFetchedLinkData;
 import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
 import data.linkchecker.ContentParserException;
@@ -15,6 +15,10 @@ import data.linkchecker.wired.WiredLinkContentParser;
 import utils.internet.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 
+/**
+ * Tests of YoutubeWatchLinkContentParser
+ *
+ */
 public class WiredLinkContentParserTest {
 
     @ParameterizedTest
@@ -29,9 +33,9 @@ public class WiredLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                           (final Boolean b, final FullFetchedLinkData d) -> {
+                               Assertions.assertTrue(d.dataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final WiredLinkContentParser parser = new WiredLinkContentParser(url, data);
                                try {
                                    Assertions.assertEquals(expectedTitle, parser.getTitle());
@@ -56,9 +60,9 @@ public class WiredLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                           (final Boolean b, final FullFetchedLinkData d) -> {
+                               Assertions.assertTrue(d.dataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final WiredLinkContentParser parser = new WiredLinkContentParser(url, data);
                                try {
                                    Assertions.assertTrue(parser.getSubtitle().isPresent());
@@ -82,9 +86,9 @@ public class WiredLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                           (final Boolean b, final FullFetchedLinkData d) -> {
+                               Assertions.assertTrue(d.dataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final WiredLinkContentParser parser = new WiredLinkContentParser(url, data);
                                try {
                                    Assertions.assertFalse(parser.getSubtitle().isPresent());
@@ -107,9 +111,9 @@ public class WiredLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                           (final Boolean b, final FullFetchedLinkData d) -> {
+                               Assertions.assertTrue(d.dataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final WiredLinkContentParser parser = new WiredLinkContentParser(url, data);
                                try {
                                    Assertions.assertFalse(parser.getSubtitle().isPresent());
@@ -133,9 +137,9 @@ public class WiredLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final SiteData d) -> {
-                               Assertions.assertTrue(d.getDataFile().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                           (final Boolean b, final FullFetchedLinkData d) -> {
+                               Assertions.assertTrue(d.dataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final WiredLinkContentParser parser = new WiredLinkContentParser(url, data);
                                try {
                                    TestHelper.assertDate(expectedDate, parser.getDate());
@@ -167,9 +171,9 @@ public class WiredLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                          (final Boolean b, final SiteData d) -> {
-                              Assertions.assertTrue(d.getDataFile().isPresent());
-                              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                          (final Boolean b, final FullFetchedLinkData d) -> {
+                              Assertions.assertTrue(d.dataFileSection().isPresent());
+                              final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                               final WiredLinkContentParser parser = new WiredLinkContentParser(url, data);
                               try {
                                   Assertions.assertEquals(1, parser.getSureAuthors().size());
@@ -191,9 +195,9 @@ public class WiredLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                          (final Boolean b, final SiteData d) -> {
-                              Assertions.assertTrue(d.getDataFile().isPresent());
-                              final String data = HtmlHelper.slurpFile(d.getDataFile().get());
+                          (final Boolean b, final FullFetchedLinkData d) -> {
+                              Assertions.assertTrue(d.dataFileSection().isPresent());
+                              final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                               final WiredLinkContentParser parser = new WiredLinkContentParser(url, data);
                               try {
                                   Assertions.assertEquals(0, parser.getSureAuthors().size());

@@ -44,8 +44,9 @@ public class HTMLGenerator implements FileHandler {
     /**
      * This class generates the HTML files from the XML files.
      *
-     * @param homepagePath
-     * @param tmpPath
+     * @param homepagePath path to the directory containing the pages
+     * @param tmpPath path to the directory containing the temporary files and log files
+     * @param controller
      */
     public HTMLGenerator(final Path homepagePath,
                          final Path tmpPath,
@@ -137,7 +138,7 @@ public class HTMLGenerator implements FileHandler {
         return FileHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_report_html", "txt");
     }
 
-    public Path getSylesheetFile() {
+    private Path getSylesheetFile() {
         return Paths.get(_homepagePath.toString(), "css", "strict.xsl");
     }
 

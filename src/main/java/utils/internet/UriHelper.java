@@ -5,13 +5,16 @@ import java.net.URISyntaxException;
 
 import utils.ExitHelper;
 
+/**
+ *
+ */
 public class UriHelper {
 
     /**
      * Convert a string to URI, exit if the string is an invalid URI
      *
-     * @param str
-     * @return
+     * @param str string
+     * @return URI
      */
     public static URI convertStringToUri(final String str) {
         try {
@@ -24,7 +27,7 @@ public class UriHelper {
     }
 
     /**
-     * Build an UIR from its components
+     * Build an URI from its components
      *
      * @param scheme
      * @param host
@@ -37,7 +40,7 @@ public class UriHelper {
         try {
             return new URI(scheme, host, path, null);
         } catch (final URISyntaxException e) {
-            ExitHelper.exit("Invalid URI", e);
+            ExitHelper.exit("Invalid URI (scheme = \"" + scheme + "\", host = \"" + host + "\", path = \"" + path + "\")", e);
             // NOTREACHED
             return null;
         }

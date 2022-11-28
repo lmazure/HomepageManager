@@ -16,12 +16,20 @@ import utils.xmlparsing.LinkFormat;
 import utils.xmlparsing.LinkProtection;
 import utils.xmlparsing.LinkStatus;
 
+/**
+ *
+ */
 public class JsonWriter {
 
     private final ArticleFactory _articleFactory;
     private final AuthorFactory _authorFactory;
     private final KeywordFactory _keywordFactory;
 
+    /**
+     * @param articleFactory
+     * @param authorFactory
+     * @param keywordFactory
+     */
     public JsonWriter(final ArticleFactory articleFactory,
                       final AuthorFactory authorFactory,
                       final KeywordFactory keywordFactory) {
@@ -31,7 +39,7 @@ public class JsonWriter {
         _keywordFactory = keywordFactory;
     }
 
-       /**
+   /**
      * @param root
      * @param pageName
      */
@@ -189,7 +197,11 @@ public class JsonWriter {
                .submit();
      }
 
-     public void generateKeywordJson(final File root,
+     /**
+     * @param root
+     * @param fileName
+     */
+    public void generateKeywordJson(final File root,
                                      final String fileName) {
 
         final String rootFileName = root.getAbsolutePath();

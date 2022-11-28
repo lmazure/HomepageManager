@@ -19,8 +19,19 @@ import utils.FileSection;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkData;
 
+/**
+ * @author Laurent
+ *
+ */
 public class LinkContentCheckerFactory {
 
+    /**
+     * @param url
+     * @param linkData
+     * @param articleData
+     * @param file
+     * @return
+     */
     public static LinkContentChecker build(final String url,
                                            final LinkData linkData,
                                            final Optional<ArticleData> articleData,

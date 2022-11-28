@@ -11,33 +11,43 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
 
-import data.internet.SiteData;
+import data.internet.FullFetchedLinkData;
 import data.internet.SiteDataPersister;
 import data.internet.SynchronousSiteDataRetriever;
 import utils.FileHelper;
+import utils.internet.HttpHelper;
 
+/**
+ * Helper for the data retrieved tests
+ */
 public class TestHelper {
 
-    public static void assertData(final SiteData data) {
-        Assertions.assertTrue(data.getHttpCode().isPresent());
-        Assertions.assertEquals(200, data.getHttpCode().get());
-        Assertions.assertTrue(data.getHeaders().isPresent());
-        Assertions.assertTrue(data.getHeaders().get().keySet().contains("Content-Type"));
-        Assertions.assertEquals(1, data.getHeaders().get().get("Content-Type").size());
-        Assertions.assertEquals("text/html; charset=UTF-8", data.getHeaders().get().get("Content-Type").get(0));
-        Assertions.assertTrue(data.getHeaders().get().keySet().contains("Cache-Control"));
-        Assertions.assertEquals(1, data.getHeaders().get().get("Cache-Control").size());
-        Assertions.assertEquals("max-age=604800", data.getHeaders().get().get("Cache-Control").get(0));
-        Assertions.assertTrue(data.getDataFile().isPresent());
-        Assertions.assertFalse(data.getError().isPresent());
+    /**
+     * @param data
+     */
+    public static void assertData(final FullFetchedLinkData data) {
+        Assertions.assertEquals(200, HttpHelper.getResponseCodeFromHeaders(data.headers().get()));
+        Assertions.assertTrue(data.headers().isPresent());
+        Assertions.assertTrue(data.headers().get().keySet().contains("Content-Type"));
+        Assertions.assertEquals(1, data.headers().get().get("Content-Type").size());
+        Assertions.assertEquals("text/html; charset=UTF-8", data.headers().get().get("Content-Type").get(0));
+        Assertions.assertTrue(data.headers().get().keySet().contains("Cache-Control"));
+        Assertions.assertEquals(1, data.headers().get().get("Cache-Control").size());
+        Assertions.assertEquals("max-age=604800", data.headers().get().get("Cache-Control").get(0));
+        Assertions.assertTrue(data.dataFileSection().isPresent());
+        Assertions.assertFalse(data.error().isPresent());
         try {
-            final String d = Files.readString(data.getDataFile().get().file().toPath());
+            final String d = Files.readString(data.dataFileSection().get().file().toPath());
             Assertions.assertNotEquals(-1, d.indexOf("This domain is for use in illustrative examples in documents."));
         } catch (final IOException e) {
-            Assertions.fail("failure to read data file " + data.getDataFile().get() + " (" + e.getMessage() +")");
+            Assertions.fail("failure to read data file " + data.dataFileSection().get() + " (" + e.getMessage() +")");
         }
     }
 
+    /**
+     * @param expectedDateAsString
+     * @param date
+     */
     public static void assertDate(final String expectedDateAsString,
                                   final Optional<TemporalAccessor> date) {
         Assertions.assertTrue(date.isPresent());
@@ -50,12 +60,28 @@ public class TestHelper {
         Assertions.assertEquals(expectedDateAsString, d.toString());
     }
 
+    /**
+     * @param clazz
+     * @return
+     */
     public static SynchronousSiteDataRetriever buildDataSiteRetriever(final Class<?> clazz) {
-        final Path cachePath = getTestDatapath(clazz);
-        FileHelper.deleteDirectory(cachePath.toFile());
-        return new SynchronousSiteDataRetriever(new SiteDataPersister(cachePath));
+        return new SynchronousSiteDataRetriever(buildSiteDataPersister(clazz));
     }
 
+    /**
+     * @param clazz
+     * @return
+     */
+    public static SiteDataPersister buildSiteDataPersister(final Class<?> clazz) {
+        final Path cachePath = getTestDatapath(clazz);
+        FileHelper.deleteDirectory(cachePath.toFile());
+        return new SiteDataPersister(cachePath);
+    }
+
+    /**
+     * @param clazz
+     * @return
+     */
     public static Path getTestDatapath(final Class<?> clazz) {
         return Paths.get("H:\\Documents\\tmp\\hptmp\\test\\" + clazz.getSimpleName());
     }

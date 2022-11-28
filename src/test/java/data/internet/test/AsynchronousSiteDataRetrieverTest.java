@@ -1,16 +1,17 @@
 package data.internet.test;
 
-import java.nio.file.Path;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import data.internet.AsynchronousSiteDataRetriever;
-import data.internet.SiteData;
-import data.internet.SiteDataPersister;
-import utils.FileHelper;
+import data.internet.FullFetchedLinkData;
 
+/**
+ * Tests of AsynchronousSiteDataRetriever
+ *
+ */
 public class AsynchronousSiteDataRetrieverTest {
 
     @Test
@@ -19,7 +20,7 @@ public class AsynchronousSiteDataRetrieverTest {
         final AsynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve("http://example.com",
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertFalse(consumerHasBeenCalled.get());
                                consumerHasBeenCalled.set(true);
                                Assertions.assertTrue(b.booleanValue());
@@ -43,7 +44,7 @@ public class AsynchronousSiteDataRetrieverTest {
         final AsynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve("https://example.com",
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertFalse(consumerHasBeenCalled.get());
                                consumerHasBeenCalled.set(true);
                                Assertions.assertTrue(b.booleanValue());
@@ -62,8 +63,6 @@ public class AsynchronousSiteDataRetrieverTest {
     }
 
     private AsynchronousSiteDataRetriever buildDataSiteRetriever() {
-        final Path cachePath = TestHelper.getTestDatapath(getClass());
-        FileHelper.deleteDirectory(cachePath.toFile());
-        return new AsynchronousSiteDataRetriever(new SiteDataPersister(cachePath));
+        return new AsynchronousSiteDataRetriever(TestHelper.buildSiteDataPersister(getClass()));
     }
 }

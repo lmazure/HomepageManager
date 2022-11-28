@@ -2,7 +2,7 @@ package data.linkchecker;
 
 import java.nio.file.Path;
 
-import data.internet.SiteData;
+import data.internet.FullFetchedLinkData;
 import data.internet.SiteDataPersister;
 import data.internet.SynchronousSiteDataRetriever;
 import data.linkchecker.arstechnica.ArsTechnicaLinkContentParser;
@@ -17,10 +17,19 @@ import data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser;
 import utils.internet.HtmlHelper;
 import utils.internet.UrlHelper;
 
+/**
+ *
+ */
 public class LinkDataExtractorFactory {
 
     private String _content;
 
+    /**
+     * @param cacheDirectory
+     * @param url
+     * @return
+     * @throws ContentParserException
+     */
     public static LinkDataExtractor build(final Path cacheDirectory,
                                           final String url) throws ContentParserException {
         final LinkDataExtractorFactory factory = new LinkDataExtractorFactory();
@@ -89,9 +98,9 @@ public class LinkDataExtractorFactory {
     }
 
     private void handleLinkData(@SuppressWarnings("unused") final Boolean isDataFresh,
-                                final SiteData siteData) {
-        if (siteData.getDataFile().isPresent()) {
-            _content = HtmlHelper.slurpFile(siteData.getDataFile().get());
+                                final FullFetchedLinkData siteData) {
+        if (siteData.dataFileSection().isPresent()) {
+            _content = HtmlHelper.slurpFile(siteData.dataFileSection().get());
         }
     }
 

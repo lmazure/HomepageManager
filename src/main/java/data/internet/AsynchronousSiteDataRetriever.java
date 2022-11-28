@@ -13,23 +13,24 @@ public class AsynchronousSiteDataRetriever {
     private static int NB_THREADS = 32;
     private static final ExecutorService _threadPool = Executors.newFixedThreadPool(NB_THREADS);
 
+    /**
+     * @param persister data persister
+     */
     public AsynchronousSiteDataRetriever(final SiteDataPersister persister) {
         _retriever = new SynchronousSiteDataRetriever(persister);
     }
 
     /**
-     * @param url
+     * @param url URL of the link to retrieve
      * @param consumer
      *   - its first argument is always true since the data is always fresh
      *   - its second argument is the site data
-     * @param doNotUseCookies
+     * @param doNotUseCookies if true, cookies will not be recorded and resend while following redirections
      */
     public void retrieve(final String url,
-                         final BiConsumer<Boolean, SiteData> consumer,
+                         final BiConsumer<Boolean, FullFetchedLinkData> consumer,
                          final boolean doNotUseCookies) {
 
-        _threadPool.execute(() -> {
-            _retriever.retrieve(url, consumer, doNotUseCookies);
-        });
+        _threadPool.execute(() -> _retriever.retrieve(url, consumer, doNotUseCookies));
     }
 }

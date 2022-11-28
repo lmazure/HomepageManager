@@ -2,6 +2,9 @@ package utils;
 
 import java.time.Instant;
 
+/**
+ *
+ */
 public class Logger {
 
     public enum Level {
@@ -13,6 +16,10 @@ public class Logger {
         TRACE
     }
 
+    /**
+     * @param level
+     * @return
+     */
     public static Log log(final Level level) {
         final Thread thread = Thread.currentThread();
         final Instant instant = Instant.now();

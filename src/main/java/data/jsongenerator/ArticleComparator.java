@@ -2,6 +2,9 @@ package data.jsongenerator;
 
 import java.util.Comparator;
 
+/**
+ *
+ */
 public class ArticleComparator implements Comparator<Article>
 {
     @Override

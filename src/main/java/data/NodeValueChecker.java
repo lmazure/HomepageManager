@@ -51,6 +51,9 @@ import utils.FileHelper;
 import utils.Logger;
 import utils.XmlHelper;
 
+/**
+ * This class checks the XM node values of XML files.
+ */
 public class NodeValueChecker implements FileHandler {
 
     private final Path _homepagePath;
@@ -62,10 +65,9 @@ public class NodeValueChecker implements FileHandler {
     private final static Lock _lock = new ReentrantLock();
 
     /**
-     * This class checks the characters of the XML files.
-     *
-     * @param homepagePath
-     * @param tmpPath
+     * @param homepagePath path to the directory containing the pages
+     * @param tmpPath path to the directory containing the temporary files and log files
+     * @param controller
      */
     public NodeValueChecker(final Path homepagePath,
                             final Path tmpPath,
@@ -146,6 +148,11 @@ public class NodeValueChecker implements FileHandler {
         _controller.handleCreation(file, status, getOutputFile(file), getReportFile(file));
     }
 
+    /**
+     * @param file
+     * @return
+     * @throws SAXException
+     */
     public List<NodeCheckError> check(final Path file) throws SAXException {
 
         try {

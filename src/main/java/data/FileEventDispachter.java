@@ -15,6 +15,9 @@ import utils.ExitHelper;
 import utils.Logger;
 import utils.WatchDir;
 
+/**
+ *
+ */
 public class FileEventDispachter {
 
     private static final String s_markerFile = "google1b78f05130a6dbb0.html"; // TODO this should not be hardcoded
@@ -32,6 +35,11 @@ public class FileEventDispachter {
     private final FileExistenceHandler _handler;
     private final FileEventQueue _fileEventQueue;
 
+    /**
+     * @param homepagePath
+     * @param handler
+     * @param fileHandlers
+     */
     public FileEventDispachter(final Path homepagePath,
                                final FileExistenceHandler handler,
                                final List<FileHandler> fileHandlers) {
@@ -41,6 +49,9 @@ public class FileEventDispachter {
         _fileEventQueue = new FileEventQueue(fileHandlers);
     }
 
+    /**
+     *
+     */
     public void start() {
 
         if (!(new File(_homepagePath + File.separator + s_markerFile)).exists()) {
@@ -92,7 +103,7 @@ public class FileEventDispachter {
 
         for (final FileHandler h: _fileHandlers) {
             if (h.outputFileMustBeRegenerated(file)) {
-                _fileEventQueue.insertEvent(file, FileEventQueue.Type.UPDATE);
+                _fileEventQueue.insertEvent(file, FileEventQueue.EventType.UPDATE);
             }
         }
     }
@@ -104,17 +115,17 @@ public class FileEventDispachter {
             case CREATE:
                 final BasicFileAttributes attr = getBasicFileAttributes(path);
                 _handler.handleCreation(path, attr.lastModifiedTime(), attr.size());
-                _fileEventQueue.insertEvent(path, FileEventQueue.Type.CREATE);
+                _fileEventQueue.insertEvent(path, FileEventQueue.EventType.CREATE);
                 break;
             case DELETE:
                 _handler.handleDeletion(path);
-                _fileEventQueue.insertEvent(path, FileEventQueue.Type.DELETE);
+                _fileEventQueue.insertEvent(path, FileEventQueue.EventType.DELETE);
                 break;
             case UPDATE:
                 _handler.handleDeletion(path);
                 final BasicFileAttributes attr2 = getBasicFileAttributes(path);
                 _handler.handleCreation(path, attr2.lastModifiedTime(), attr2.size());
-                _fileEventQueue.insertEvent(path, FileEventQueue.Type.UPDATE);
+                _fileEventQueue.insertEvent(path, FileEventQueue.EventType.UPDATE);
                 break;
             default:
                 ExitHelper.exit("Unknwown event");

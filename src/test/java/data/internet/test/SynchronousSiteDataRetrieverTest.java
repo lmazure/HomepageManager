@@ -1,17 +1,19 @@
 package data.internet.test;
 
-import java.nio.file.Path;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import data.internet.SiteData;
-import data.internet.SiteDataPersister;
+import data.internet.FullFetchedLinkData;
 import data.internet.SynchronousSiteDataRetriever;
-import utils.FileHelper;
+import utils.internet.HttpHelper;
 
+/**
+ * Tests of SynchronousSiteDataRetriever
+ *
+ */
 public class SynchronousSiteDataRetrieverTest {
 
     @Test
@@ -20,7 +22,7 @@ public class SynchronousSiteDataRetrieverTest {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve("http://example.com",
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertFalse(consumerHasBeenCalled.get());
                                consumerHasBeenCalled.set(true);
                                Assertions.assertTrue(b.booleanValue());
@@ -36,11 +38,45 @@ public class SynchronousSiteDataRetrieverTest {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve("https://example.com",
-                           (final Boolean b, final SiteData d) -> {
+                           (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertFalse(consumerHasBeenCalled.get());
                                consumerHasBeenCalled.set(true);
                                Assertions.assertTrue(b.booleanValue());
                                TestHelper.assertData(d);
+                           },
+                           false);
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+    
+    @Test
+    // this site returns an invalid cookie
+    void softteam() {
+
+        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve("https://www.softeam.fr",
+                           (final Boolean b, final FullFetchedLinkData d) -> {
+                               Assertions.assertFalse(consumerHasBeenCalled.get());
+                               consumerHasBeenCalled.set(true);
+                               Assertions.assertTrue(b.booleanValue());
+                               Assertions.assertEquals(301, HttpHelper.getResponseCodeFromHeaders(d.headers().get()));
+                           },
+                           false);
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    @Test
+    // this site times out and returns an empty response
+    void leMondeEnTique() {
+
+        final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve("https://www.lmet.fr/GSWeb/lmet.gswa",
+                           (final Boolean b, final FullFetchedLinkData d) -> {
+                               Assertions.assertFalse(consumerHasBeenCalled.get());
+                               consumerHasBeenCalled.set(true);
+                               Assertions.assertTrue(b.booleanValue());
+                               Assertions.assertEquals("No header", d.error().get());
                            },
                            false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -52,15 +88,13 @@ public class SynchronousSiteDataRetrieverTest {
 
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         retriever.retrieve("https://www.linkedin.com/in/thomas-cabaret-36766674/",
-                           (final Boolean b, final SiteData d) -> {
-                               Assertions.assertEquals(200, d.getHttpCode().get().intValue());
+                           (final Boolean b, final FullFetchedLinkData d) -> {
+                               Assertions.assertEquals(200, HttpHelper.getResponseCodeFromHeaders(d.headers().get()));
                            },
                            false);
     }
 
     private SynchronousSiteDataRetriever buildDataSiteRetriever() {
-        final Path cachePath = TestHelper.getTestDatapath(getClass());
-        FileHelper.deleteDirectory(cachePath.toFile());
-        return new SynchronousSiteDataRetriever(new SiteDataPersister(cachePath));
+        return new SynchronousSiteDataRetriever(TestHelper.buildSiteDataPersister(getClass()));
     }
 }

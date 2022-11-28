@@ -1,8 +1,15 @@
 package data;
 import java.nio.file.Path;
 
+/**
+ *
+ */
 public interface FileHandler {
 
+    /**
+     * @author Laurent
+     *
+     */
     public enum Status {
         /**
          * the file is still being handled, not error yet
@@ -26,13 +33,31 @@ public interface FileHandler {
         FAILED_TO_HANDLED
     }
 
+    /**
+     * @param file
+     */
     public void handleCreation(final Path file);
 
+    /**
+     * @param file
+     */
     public void handleDeletion(final Path file);
 
+    /**
+     * @param file
+     * @return
+     */
     public Path getOutputFile(final Path file);
 
+    /**
+     * @param file
+     * @return
+     */
     public Path getReportFile(final Path file);
 
+    /**
+     * @param file
+     * @return
+     */
     public boolean outputFileMustBeRegenerated(final Path file);
 }

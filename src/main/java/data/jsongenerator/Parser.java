@@ -34,6 +34,7 @@ public class Parser {
      * @param articleFactory
      * @param linkFactory
      * @param authorFactory
+     * @param keywordFactory
      */
     public Parser(final ArticleFactory articleFactory,
                   final LinkFactory linkFactory,

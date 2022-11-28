@@ -6,12 +6,15 @@ import java.util.Set;
 
 import utils.xmlparsing.ElementType;
 
+/**
+ * Filter, defined as a black list, on the tags to be checked
+ */
 public class ExclusionTagSelector implements TagSelector {
 
     private final Set<ElementType> _types;
 
     /**
-     * @param typesToIgnore
+     * @param typesToIgnore  types of the tags not to be checked
      */
     public ExclusionTagSelector(final ElementType typesToIgnore[]) {
         _types = new HashSet<>(Arrays.asList(typesToIgnore));

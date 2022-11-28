@@ -7,6 +7,9 @@ import java.util.List;
 import utils.Logger;
 import utils.xmlparsing.XmlParsingException;
 
+/**
+ *
+ */
 public class JsonGenerator {
 
     private final Parser parser;
@@ -32,8 +35,8 @@ public class JsonGenerator {
     }
 
     /**
-     * @param args
-     * @throws XmlParsingException
+     * @param homepage
+     * @param files
      */
     public static void generate(final Path homepage,
                                 final List<Path> files) {

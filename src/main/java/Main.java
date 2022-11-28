@@ -6,12 +6,21 @@ import ui.FileTable;
 import utils.ExitHelper;
 import utils.internet.WebServer;
 
+/**
+ * Top level class
+ *
+ */
 public class Main {
 
     private static final String enableInternetAccessOption  = "-enableInternetAccess";
     private static final String disableInternetAccessOption = "-disableInternetAccess";
     private static final String enableServer = "-serve";
 
+    /**
+     * Entry point of the program
+     *
+     * @param args command line parameters
+     */
     public static void main(final String[] args) {
 
         if ((args.length < 2) || (args.length > 4)) {
@@ -37,7 +46,7 @@ public class Main {
         final Path homepagePath = Paths.get(args[args.length - 2]);
         final Path tmpPath = Paths.get(args[args.length - 1]);
         if (serverIsEnabled) {
-            WebServer.start(homepagePath);
+            WebServer.start(homepagePath, tmpPath);
         }
         FileTable.display(homepagePath, tmpPath, internetAccessIsEnabled);
     }

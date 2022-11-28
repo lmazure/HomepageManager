@@ -30,12 +30,12 @@ import utils.Logger;
 import utils.XmlHelper;
 
 /**
- * Manage the creation of the HTML files
+ * This class checks the text appearing in XML files (buit without interpreting the XML, the XML content is verified by NodeValueChecker).
  *
  */
 public class FileChecker implements FileHandler {
 
-    private static final String UTF8_BOM = "\uFEFF";
+    private static final String s_utf8_bom = "\uFEFF";
     private static final Pattern s_badGreaterThan = Pattern.compile("<[^>]*>");
     private static final Pattern s_spaceInTags = Pattern.compile("(</? [^>]*/?>|</?[^>]* /?>)");
     private static final Pattern s_spaceInAttributes = Pattern.compile("(</?[^>]*( =|= )[^>]*/?>)");
@@ -50,10 +50,9 @@ public class FileChecker implements FileHandler {
     private final static Lock _lock = new ReentrantLock();
 
     /**
-     * This class checks the characters of the XML files.
-     *
-     * @param homepagePath
-     * @param tmpPath
+     * @param homepagePath path to the directory containing the pages
+     * @param tmpPath path to the directory containing the temporary files and log files
+     * @param controller
      */
     public FileChecker(final Path homepagePath,
                        final Path tmpPath,
@@ -111,6 +110,11 @@ public class FileChecker implements FileHandler {
         _controller.handleCreation(file, status, getOutputFile(file), getReportFile(file));
     }
 
+    /**
+     * @param file
+     * @param content
+     * @return
+     */
     public List<Error> check(final Path file,
                              final String content) {  //TODO see how to test this method while keeping it private
         final List<Error> errors =  new ArrayList<>();
@@ -125,7 +129,7 @@ public class FileChecker implements FileHandler {
     private static List<Error> checkFileBom(final String content) {
 
         final List<Error> errors = new ArrayList<>();
-        if (content.startsWith(UTF8_BOM)) {
+        if (content.startsWith(s_utf8_bom)) {
             errors.add(new Error(1, "file should not have a UTF BOM"));
         }
         return errors;
@@ -298,20 +302,35 @@ public class FileChecker implements FileHandler {
         return n;
     }
 
+    /**
+     * @author Laurent
+     *
+     */
     public static class Error {
 
         private final int _lineNumber;
         private final String _errorMessage;
 
-        public Error(final int lineNumber, final String errorMessage) {
+        /**
+         * @param lineNumber
+         * @param errorMessage
+         */
+        public Error(final int lineNumber,
+                     final String errorMessage) {
             _lineNumber = lineNumber;
             _errorMessage = errorMessage;
         }
 
+        /**
+         * @return
+         */
         public int getLineNumber() {
             return _lineNumber;
         }
 
+        /**
+         * @return
+         */
         public String getErrorMessage() {
             return _errorMessage;
         }

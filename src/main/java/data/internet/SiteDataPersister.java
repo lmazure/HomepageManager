@@ -6,6 +6,8 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -14,19 +16,22 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
 
-import data.internet.SiteData.Status;
 import utils.ExitHelper;
 import utils.FileHelper;
 import utils.FileSection;
 import utils.Logger;
 import utils.internet.UrlHelper;
 
+/**
+ *
+ */
 public class SiteDataPersister {
 
     private final Path _path;
@@ -35,29 +40,96 @@ public class SiteDataPersister {
 
     private static final Charset UTF8_CHARSET = StandardCharsets.UTF_8;
 
+    /**
+     * @param path directory where the persistence files should be written
+     */
     public SiteDataPersister(final Path path) {
         _path = path;
     }
 
-    public void persist(final String url,
-                        final Instant timestamp,
-                        final Status status,
-                        final Optional<Integer> httpCode,
-                        final Optional<Map<String, List<String>>> headers,
+    /**
+     * @param siteData link data
+     * @param dataStream stream to download the HTTP payload
+     * @param error error description, empty if no error
+     * @param timestamp timestamp of the visit
+     */
+    public void persist(final HeaderFetchedLinkData siteData,
                         final Optional<InputStream> dataStream,
-                        final Optional<String> error) {
+                        final Optional<String> error,
+                        final Instant timestamp) {
 
-        getOutputDirectory(url).toFile().mkdirs();
+        getOutputDirectory(siteData.url()).toFile().mkdirs();
+
+        final List<byte[]> byteArrays = new LinkedList<>();
+        int sumOfSizes = 0;
+
+        HeaderFetchedLinkData data = siteData;
+        while (data != null) {
+            final String dataString = buildSerializedHeaderString(data);
+            final byte[] byteArray = dataString.getBytes(UTF8_CHARSET);
+            byteArrays.add(byteArray);
+            sumOfSizes += byteArray.length;
+            data = data.previousRedirection();
+        }
+
+        final String dataErrorString = buildSerializedErrorString(error);
+        final byte[] byteErrorArray = dataErrorString.getBytes(UTF8_CHARSET);
+        sumOfSizes += byteErrorArray.length;
+
+        final File file = getPersistedFile(siteData.url(), timestamp);
+        try (final FileOutputStream fos = new FileOutputStream(file);
+             final FileChannel channel = fos.getChannel();
+             final FileLock lock = channel.lock()) {
+            if (lock == null) {
+                throw new IllegalStateException("Failed to lock file " + file.getCanonicalPath());
+            }
+            final String siz = String.format("%9d\n", Integer.valueOf(sumOfSizes + 20));
+            fos.write(siz.getBytes(UTF8_CHARSET));
+            final String numberOfRedirections = String.format("%9d\n", Integer.valueOf(byteArrays.size()));
+            fos.write(numberOfRedirections.getBytes(UTF8_CHARSET));
+            for (final byte[] byteArray: byteArrays) {
+                fos.write(byteArray);
+            }
+            fos.write(byteErrorArray);
+
+            if (dataStream.isPresent()) {
+                @SuppressWarnings("resource")
+                final InputStream inputStream = isEncodedWithGzip(getHeadersOfLastRedirection(siteData)) ? new GZIPInputStream(dataStream.get())
+                                                                                                         : dataStream.get();
+                long size = 0L;
+                final byte[] buffer = new byte[s_file_buffer_size];
+                int length;
+                while ((size <= s_max_content_size) && (length = inputStream.read(buffer)) > 0) {
+                    fos.write(buffer, 0, length);
+                    size += length;
+                }
+                if (size > s_max_content_size) {
+                    Logger.log(Logger.Level.WARN)
+                          .append("retrieved content of ")
+                          .append(siteData.url())
+                          .append(" is truncated")
+                          .submit();
+                }
+            }
+            fos.flush();
+        } catch (final IOException e) {
+            Logger.log(Logger.Level.ERROR)
+                  .append("Error (")
+                  .append(e.toString())
+                  .append(") while getting data from ")
+                  .append(siteData.url())
+                  .submit();
+        }
+    }
+
+    private static String buildSerializedHeaderString(final HeaderFetchedLinkData siteData) {
 
         final StringBuilder builder = new StringBuilder();
 
-        builder.append(status).append('\n');
-        if (httpCode.isPresent()) {
-            builder.append("present\n");
-            builder.append(httpCode.get()).append('\n');
-        } else {
-            builder.append("empty\n");
-        }
+        final String url = siteData.url();
+        builder.append(url + "\n");
+
+        final Optional<Map<String, List<String>>> headers = siteData.headers();
         if (headers.isPresent()) {
             builder.append("present\n");
             final Map<String, List<String>> heads = headers.get();
@@ -73,6 +145,14 @@ public class SiteDataPersister {
             builder.append("empty\n");
         }
 
+        final String dataString = builder.toString();
+        return dataString;
+    }
+
+    private static String buildSerializedErrorString(final Optional<String> error) {
+
+        final StringBuilder builder = new StringBuilder();
+
         if (error.isPresent()) {
             builder.append("present\n");
             builder.append(error.get().lines().count()).append('\n');
@@ -82,47 +162,12 @@ public class SiteDataPersister {
         }
 
         final String dataString = builder.toString();
-        byte[] byteArrray = dataString.getBytes(UTF8_CHARSET);
-
-        try (FileOutputStream fos = new FileOutputStream(getPersistedFile(url, timestamp))) {
-
-            final String sz = String.format("%9d\n", Integer.valueOf(byteArrray.length + 10));
-            fos.write(sz.getBytes(UTF8_CHARSET));
-            fos.write(byteArrray);
-
-            if (dataStream.isPresent()) {
-                @SuppressWarnings("resource")
-                final InputStream inputStream = isEncodedWithGzip(headers) ? new GZIPInputStream(dataStream.get())
-                                                                           : dataStream.get();
-                long size = 0L;
-                final byte[] buffer = new byte[s_file_buffer_size];
-                int length;
-                while ((size <= s_max_content_size) && (length = inputStream.read(buffer)) > 0) {
-                    fos.write(buffer, 0, length);
-                    size += length;
-                }
-                if (size > s_max_content_size) {
-                    Logger.log(Logger.Level.WARN)
-                          .append("retrieved content of ")
-                          .append(url)
-                          .append(" is truncated")
-                          .submit();
-                }
-        }
-        fos.flush();
-        } catch (final IOException e) {
-            Logger.log(Logger.Level.ERROR)
-                  .append("Error (")
-                  .append(e.toString())
-                  .append(") while getting data from ")
-                  .append(url.toString())
-                  .submit();
-        }
+        return dataString;
     }
 
     /**
-     * @param url
-     * @return the timestamps of the cached values (in reverse order, the first in the younger one)
+     * @param url URL of the link to retrieve
+     * @return timestamps of the cached visits (in reverse order, the first in the younger one)
      */
     public List<Instant> getTimestampList(final String url) {
 
@@ -141,55 +186,32 @@ public class SiteDataPersister {
         }
     }
 
-    public SiteData retrieve(final String url,
-                             final Instant timestamp) {
+    /**
+     * @param url URL of the link to retrieve
+     * @param timestamp timestamp of the visit to retrieve
+     * @return link data
+     */
+    public FullFetchedLinkData retrieve(final String url,
+                                        final Instant timestamp) {
 
-        if (!Files.exists(getPersistedFile(url, timestamp).toPath())) {
-            ExitHelper.exit("status file " + getPersistedFile(url, timestamp) + " does not exist");
+        final File file = getPersistedFile(url, timestamp);
+
+        if (!Files.exists(file.toPath())) {
+            ExitHelper.exit("status file " + file + " does not exist");
         }
 
-        Status status = Status.FAILURE;
-        Optional<Integer> httpCode = Optional.empty();
-        Optional<Map<String, List<String>>> headers = Optional.empty();
-        Optional<String> error = Optional.empty();
-        int size;
+        try (final BufferedReader reader = new BufferedReader(new FileReader(file))) {
 
-        final File statusFile = getPersistedFile(url, timestamp);
-        try (final BufferedReader reader = new BufferedReader(new FileReader(statusFile))) {
+            final int size = Integer.parseInt(reader.readLine().trim());
+            final int numberOfRedirections = Integer.parseInt(reader.readLine().trim());
 
-            size = Integer.parseInt(reader.readLine().trim());
-
-            status = Status.valueOf(reader.readLine());
-
-            final String httpCodePresence = reader.readLine();
-            if (httpCodePresence.equals("present")) {
-                httpCode = Optional.of(Integer.valueOf(Integer.parseInt(reader.readLine())));
-            } else if (httpCodePresence.equals("empty")) {
-                httpCode = Optional.empty();
-            } else {
-                throw new IllegalStateException("File " + statusFile + " is corrupted (bad HTTP code presence)");
+            final List<HeaderFetchedLinkData> redirectionsDatas = new LinkedList<>();
+            for (int i = 0; i < numberOfRedirections; i++) {
+                final HeaderFetchedLinkData d = readOneRedirection(reader);
+                redirectionsDatas.add(d);
             }
 
-            final String headersPresence = reader.readLine();
-            if (headersPresence.equals("present")) {
-                final int nbHeaders = Integer.parseInt(reader.readLine());
-                final Map<String, List<String>> map = new HashMap<>(nbHeaders);
-                for (int i = 0; i < nbHeaders; i++) {
-                    final String[] lineParts = reader.readLine().split("\t");
-                    final String header = lineParts[0];
-                    final List<String> list = new ArrayList<>(lineParts.length - 1);
-                    for (int j = 1; j < lineParts.length; j++) {
-                        list.add(lineParts[j]);
-                    }
-                    map.put(header, list);
-                }
-                headers = Optional.of(map);
-            } else if (headersPresence.equals("empty")) {
-                headers = Optional.empty();
-            } else {
-                throw new IllegalStateException("File " + statusFile + " is corrupted (bad HTTP headers)");
-            }
-
+            Optional<String> error = Optional.empty();
             final String errorPresence = reader.readLine();
             if (errorPresence.equals("present")) {
                 final int nbErrorLines = Integer.parseInt(reader.readLine());
@@ -201,19 +223,61 @@ public class SiteDataPersister {
             } else if (errorPresence.equals("empty")) {
                 error = Optional.empty();
             } else {
-                throw new IllegalStateException("File " + statusFile + " is corrupted (bad error presence)");
+                throw new IllegalStateException("File is corrupted (bad error presence)");
             }
 
+            HeaderFetchedLinkData lastRedirectionData = null;
+            for (int i = numberOfRedirections - 1; i >= 0; i--) {
+                final HeaderFetchedLinkData d = redirectionsDatas.get(i);
+                lastRedirectionData = new HeaderFetchedLinkData(d.url(), d.headers(), lastRedirectionData);
+            }
+
+            assert lastRedirectionData != null;
+            assert lastRedirectionData.url().equals(url);
+
+            return new FullFetchedLinkData(lastRedirectionData.url(),
+                                           lastRedirectionData.headers(),
+                                           Optional.of(new FileSection(file, size, file.length() - size)),
+                                           error,
+                                           lastRedirectionData.previousRedirection());
         } catch (final IOException e) {
-            throw new IllegalStateException("Failure while reading " + statusFile, e);
+            throw new IllegalStateException("Failure while reading " + file, e);
         }
-
-        final File dataFile = getPersistedFile(url, timestamp);
-        final Optional<FileSection> dataFileSection = Optional.of(new FileSection(dataFile, size, dataFile.length() - size));
-
-        return new SiteData(url, status, httpCode, headers, dataFileSection, error);
     }
 
+    private static HeaderFetchedLinkData readOneRedirection(final BufferedReader reader) throws IOException {
+
+        final String url = reader.readLine();
+
+        Optional<Map<String, List<String>>> headers = Optional.empty();
+        final String headersPresence = reader.readLine();
+        if (headersPresence.equals("present")) {
+            final int nbHeaders = Integer.parseInt(reader.readLine());
+            final Map<String, List<String>> map = new HashMap<>(nbHeaders);
+            for (int i = 0; i < nbHeaders; i++) {
+                final String[] lineParts = reader.readLine().split("\t");
+                final String header = lineParts[0].equals("null") ? null : lineParts[0];
+                final List<String> list = new ArrayList<>(lineParts.length - 1);
+                for (int j = 1; j < lineParts.length; j++) {
+                    list.add(lineParts[j]);
+                }
+                map.put(header, list);
+            }
+            headers = Optional.of(map);
+        } else if (headersPresence.equals("empty")) {
+            headers = Optional.empty();
+        } else {
+            throw new IllegalStateException("File is corrupted (bad HTTP headers)");
+        }
+
+        return new HeaderFetchedLinkData(url, headers, null);
+    }
+
+    /**
+     * @param url URL of the link to retrieve
+     * @param timestamp timestamp of the visit to retrieve
+     * @return file section containing the HTTP payload, empty if the retrieval failed
+     */
     public FileSection getDataFileSection(final String url,
                                           final Instant timestamp) {
         final File statusFile = getPersistedFile(url, timestamp);
@@ -233,6 +297,14 @@ public class SiteDataPersister {
     private Path getOutputDirectory(final String url) {
         return _path.resolve(UrlHelper.getHost(url))
                     .resolve(FileHelper.generateFileNameFromURL(url));
+    }
+
+    private static Optional<Map<String, List<String>>> getHeadersOfLastRedirection(final HeaderFetchedLinkData siteData) {
+        HeaderFetchedLinkData s = siteData;
+        while (s.previousRedirection() != null) {
+            s = s.previousRedirection();
+        }
+        return s.headers();
     }
 
     private static boolean isEncodedWithGzip(final Optional<Map<String, List<String>>> headers) {
