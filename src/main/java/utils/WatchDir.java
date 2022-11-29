@@ -229,7 +229,8 @@ public class WatchDir {
             _consummer = consummer;
         }
 
-        public void consume(final Path path, final Event event) {
+        public void consume(final Path path,
+                            final Event event) {
 
             if (_matcher.matches(path)) {
                 _consummer.accept(path, event);

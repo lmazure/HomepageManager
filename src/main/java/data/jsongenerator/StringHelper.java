@@ -3,11 +3,20 @@ package data.jsongenerator;
 import java.text.Collator;
 import java.util.Locale;
 
+/**
+ *
+ */
 public class StringHelper {
 
     private static final Collator s_collator = Collator.getInstance(Locale.UK);
 
-    public static int compare(final String str1, final String str2) {
+    /**
+     * @param str1
+     * @param str2
+     * @return
+     */
+    public static int compare(final String str1,
+                              final String str2) {
 
         return s_collator.compare(StringHelper.cleanString(str1), StringHelper.cleanString(str2));
     }
