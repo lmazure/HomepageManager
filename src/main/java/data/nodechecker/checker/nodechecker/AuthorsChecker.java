@@ -1,4 +1,4 @@
-package data.nodechecker.checker.nodeChecker;
+package data.nodechecker.checker.nodechecker;
 
 import java.util.HashSet;
 import java.util.List;
@@ -11,7 +11,7 @@ import org.w3c.dom.Element;
 import data.knowledge.WellKnownAuthors;
 import data.knowledge.WellKnownAuthorsOfLink;
 import data.nodechecker.checker.CheckStatus;
-import data.nodechecker.tagSelection.InclusionTagSelector;
+import data.nodechecker.tagselection.InclusionTagSelector;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.ElementType;

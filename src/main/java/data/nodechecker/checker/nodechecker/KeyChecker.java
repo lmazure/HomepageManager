@@ -1,4 +1,4 @@
-package data.nodechecker.checker.nodeChecker;
+package data.nodechecker.checker.nodechecker;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 import org.w3c.dom.Element;
 
 import data.nodechecker.checker.CheckStatus;
-import data.nodechecker.tagSelection.InclusionTagSelector;
+import data.nodechecker.tagselection.InclusionTagSelector;
 import utils.xmlparsing.ElementType;
 
 public class KeyChecker extends NodeChecker {

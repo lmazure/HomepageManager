@@ -1,4 +1,4 @@
-package data.nodechecker.checker.nodeChecker;
+package data.nodechecker.checker.nodechecker;
 
 public class NodeCheckError {
 

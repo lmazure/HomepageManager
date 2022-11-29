@@ -1,4 +1,4 @@
-package data.nodechecker.checker.nodeChecker;
+package data.nodechecker.checker.nodechecker;
 
 import java.text.Normalizer;
 
@@ -7,7 +7,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import data.nodechecker.checker.CheckStatus;
-import data.nodechecker.tagSelection.InclusionTagSelector;
+import data.nodechecker.tagselection.InclusionTagSelector;
 import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
 

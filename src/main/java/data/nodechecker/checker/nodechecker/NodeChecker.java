@@ -1,7 +1,7 @@
-package data.nodechecker.checker.nodeChecker;
+package data.nodechecker.checker.nodechecker;
 
 import data.nodechecker.checker.CheckStatus;
-import data.nodechecker.tagSelection.TagSelector;
+import data.nodechecker.tagselection.TagSelector;
 import utils.XmlHelper;
 
 import java.util.ArrayList;

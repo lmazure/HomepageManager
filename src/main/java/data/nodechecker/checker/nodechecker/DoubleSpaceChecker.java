@@ -1,7 +1,7 @@
-package data.nodechecker.checker.nodeChecker;
+package data.nodechecker.checker.nodechecker;
 
 import data.nodechecker.checker.CheckStatus;
-import data.nodechecker.tagSelection.ExclusionTagSelector;
+import data.nodechecker.tagselection.ExclusionTagSelector;
 import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
 

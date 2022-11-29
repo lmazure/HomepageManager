@@ -1,7 +1,7 @@
-package data.nodechecker.checker.nodeChecker;
+package data.nodechecker.checker.nodechecker;
 
 import data.nodechecker.checker.CheckStatus;
-import data.nodechecker.tagSelection.InclusionTagSelector;
+import data.nodechecker.tagselection.InclusionTagSelector;
 import utils.xmlparsing.ElementType;
 
 import org.w3c.dom.Element;

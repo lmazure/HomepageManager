@@ -1,4 +1,4 @@
-package data.nodechecker.checker.nodeChecker;
+package data.nodechecker.checker.nodechecker;
 
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
@@ -8,7 +8,7 @@ import java.util.Optional;
 import org.w3c.dom.Element;
 
 import data.nodechecker.checker.CheckStatus;
-import data.nodechecker.tagSelection.InclusionTagSelector;
+import data.nodechecker.tagselection.InclusionTagSelector;
 import utils.XmlHelper;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkData;

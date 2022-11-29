@@ -14,8 +14,8 @@ import org.xml.sax.SAXException;
 
 import data.DataController;
 import data.FileHandler.Status;
+import data.nodechecker.checker.nodechecker.NodeCheckError;
 import data.NodeValueChecker;
-import data.nodechecker.checker.nodeChecker.NodeCheckError;
 import utils.ExitHelper;
 
 public class NodeValueCheckerTestBase {
