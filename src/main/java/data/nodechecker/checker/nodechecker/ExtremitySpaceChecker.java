@@ -6,6 +6,9 @@ import utils.xmlparsing.ElementType;
 
 import org.w3c.dom.Element;
 
+/**
+*
+*/
 public class ExtremitySpaceChecker extends NodeChecker {
 
     private static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new ElementType[] {
@@ -17,7 +20,6 @@ public class ExtremitySpaceChecker extends NodeChecker {
             ElementType.CONTENT,
             ElementType.DEFINITION2TABLE,
             ElementType.DEFINITIONTABLE,
-            ElementType.DESC,
             ElementType.ITEM,
             ElementType.LLIST,
             ElementType.NLIST,
@@ -26,10 +28,12 @@ public class ExtremitySpaceChecker extends NodeChecker {
             ElementType.SCRIPT,
             ElementType.SLIST,
             ElementType.TABLE,
-            ElementType.TERM,
             ElementType.TEXTBLOCK
             });
 
+    /**
+    * constructor
+    */
     public ExtremitySpaceChecker() {
         super(s_selector,
               ExtremitySpaceChecker::checkSpaceAtBeginning, "space present at the beginning",

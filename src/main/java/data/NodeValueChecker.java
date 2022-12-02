@@ -119,10 +119,10 @@ public class NodeValueChecker implements FileHandler {
             final List<NodeCheckError> errors = check(file);
             if (errors.size() > 0) {
                 for (final NodeCheckError error: errors) {
-                    pw.println(" tag = \""       + error.getTag()       + "\"" +
-                               " value = \""     + error.getValue()     + "\"" +
-                               " violation = \"" + error.getViolation() + "\"" +
-                               " detail = \""    + error.getDetail()    + "\"");
+                    pw.println(" tag = \""       + error.tag()       + "\"" +
+                               " value = \""     + error.value()     + "\"" +
+                               " violation = \"" + error.violation() + "\"" +
+                               " detail = \""    + error.detail()    + "\"");
 
                 }
                 status = Status.HANDLED_WITH_ERROR;

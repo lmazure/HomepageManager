@@ -8,6 +8,9 @@ import data.nodechecker.tagselection.InclusionTagSelector;
 import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
 
+/**
+*
+*/
 public class ModifierKeyChecker extends NodeChecker {
 
     private static final String s_WINDOWS = "Windows";
@@ -20,6 +23,9 @@ public class ModifierKeyChecker extends NodeChecker {
             ElementType.MODIFIERKEY
             });
 
+    /**
+    * constructor
+    */
     public ModifierKeyChecker() {
         super(s_selector,
                 ModifierKeyChecker::checkModifierKeyString, "the MODIFIERKEY is incorrect",

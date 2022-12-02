@@ -9,6 +9,9 @@ import java.util.List;
 
 import org.w3c.dom.Element;
 
+/**
+*
+*/
 public class EllipsisChecker extends NodeChecker {
 
     private static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new ElementType[] {
@@ -31,6 +34,9 @@ public class EllipsisChecker extends NodeChecker {
             ElementType.X
             });
 
+    /**
+    * constructor
+    */
     public EllipsisChecker() {
         super(s_selector,
              EllipsisChecker::checkEllipsis, "ellipsis is improperly encoded",

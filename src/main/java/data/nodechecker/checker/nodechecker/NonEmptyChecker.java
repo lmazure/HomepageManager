@@ -6,6 +6,9 @@ import utils.xmlparsing.ElementType;
 
 import org.w3c.dom.Element;
 
+/**
+*
+*/
 public class NonEmptyChecker extends NodeChecker {
 
     private static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new ElementType[] {
@@ -21,6 +24,9 @@ public class NonEmptyChecker extends NodeChecker {
             ElementType.TABCHAR
             });
 
+    /**
+    * constructor
+    */
     public NonEmptyChecker() {
         super(s_selector,
               NonEmptyChecker::checkNonEmpty, "element should not be empty");

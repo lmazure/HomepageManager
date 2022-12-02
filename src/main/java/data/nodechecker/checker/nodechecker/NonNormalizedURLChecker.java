@@ -6,12 +6,18 @@ import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagselection.InclusionTagSelector;
 import utils.xmlparsing.ElementType;
 
+/**
+*
+*/
 public class NonNormalizedURLChecker extends NodeChecker {
 
     private final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.A
             });
 
+    /**
+    * constructor
+    */
     public NonNormalizedURLChecker() {
         super(s_selector,
               NonNormalizedURLChecker::checkUrl, "uses a non-normalized URL",

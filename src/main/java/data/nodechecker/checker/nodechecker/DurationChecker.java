@@ -8,12 +8,18 @@ import data.nodechecker.tagselection.InclusionTagSelector;
 import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
 
+/**
+*
+*/
 public class DurationChecker extends NodeChecker {
 
     private final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.DURATION
             });
 
+    /**
+    * constructor
+    */
     public DurationChecker() {
         super(s_selector,
               DurationChecker::checkDurationHierarchy, "the DURATION components are incorrectly structured",

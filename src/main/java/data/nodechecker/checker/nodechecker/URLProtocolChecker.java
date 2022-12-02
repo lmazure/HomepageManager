@@ -6,12 +6,18 @@ import utils.xmlparsing.ElementType;
 
 import org.w3c.dom.Element;
 
+/**
+*
+*/
 public class URLProtocolChecker extends NodeChecker {
 
     private final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.A
             });
 
+    /**
+     * constructor
+     */
     public URLProtocolChecker() {
         super(s_selector,
               URLProtocolChecker::checkUrl, "uses a non-normalized URL");

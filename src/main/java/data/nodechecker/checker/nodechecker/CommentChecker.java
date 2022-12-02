@@ -9,12 +9,18 @@ import data.nodechecker.tagselection.InclusionTagSelector;
 import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
 
+/**
+*
+*/
 public class CommentChecker extends NodeChecker {
 
     private static final InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.COMMENT
             });
 
+    /**
+    * constructor
+    */
     public CommentChecker() {
         super(s_selector,
               CommentChecker::commentFinishesWithPunctuation,"a COMMENT must finish with a punctuation");

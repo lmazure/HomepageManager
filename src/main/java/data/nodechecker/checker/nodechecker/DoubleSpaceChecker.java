@@ -11,6 +11,9 @@ import java.util.regex.Pattern;
 
 import org.w3c.dom.Element;
 
+/**
+*
+*/
 public class DoubleSpaceChecker extends NodeChecker {
 
     private static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new ElementType[] {
@@ -31,6 +34,9 @@ public class DoubleSpaceChecker extends NodeChecker {
 
     static final Pattern s_indentationPattern = Pattern.compile("\\n +");
 
+    /**
+    * constructor
+    */
     public DoubleSpaceChecker() {
         super(s_selector,
               DoubleSpaceChecker::checkDoubleSpace, "double space is present");

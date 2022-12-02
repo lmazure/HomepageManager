@@ -13,6 +13,9 @@ import java.util.Set;
 
 import org.w3c.dom.Element;
 
+/**
+*
+*/
 public class TitleFormatChecker extends NodeChecker {
 
     private static final Set<String> s_authorizedList = new HashSet<>(Arrays.asList(
@@ -57,6 +60,9 @@ public class TitleFormatChecker extends NodeChecker {
             ElementType.TITLE
             });
 
+    /**
+    * constructor
+    */
     public TitleFormatChecker() {
         super(s_selector,
               // TitleFormatChecker::titleDoesNotFinishWithColon, "a TITLE must not finish with a colon",

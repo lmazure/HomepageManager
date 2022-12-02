@@ -1,35 +1,15 @@
 package data.nodechecker.checker.nodechecker;
 
-public class NodeCheckError {
-
-    private final String _tag;
-    private final String _value;
-    private final String _violation;
-    private final String _detail;
-
-    public NodeCheckError(final String tag,
-                          final String value,
-                          final String violation,
-                          final String detail) {
-        _tag = tag;
-        _value = value;
-        _violation = violation;
-        _detail = detail;
-    }
-
-    public String getTag() {
-        return _tag;
-    }
-
-    public String getValue() {
-        return _value;
-    }
-
-    public String getViolation() {
-        return _violation;
-    }
-
-    public String getDetail() {
-        return _detail;
-    }
+/**
+ * @param tag tag of the node
+ * @param value text content of the node
+ * @param violation description of the check that us violated
+ * @param detail details of the violation
+*
+*/
+public record NodeCheckError(String tag,
+                             String value,
+                             String violation,
+                             String detail) {
+    // EMPTY
 }

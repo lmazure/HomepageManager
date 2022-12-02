@@ -9,12 +9,18 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+/**
+*
+*/
 public class ProtectionFromURLChecker extends NodeChecker {
 
     private final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.X
             });
 
+    /**
+    * constructor
+    */
     public ProtectionFromURLChecker() {
         super(s_selector,
               ProtectionFromURLChecker::checkProtection, "given the URL, the protection is incorrect");

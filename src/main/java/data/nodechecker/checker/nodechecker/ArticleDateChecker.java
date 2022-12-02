@@ -16,12 +16,18 @@ import utils.xmlparsing.ElementType;
 import utils.xmlparsing.XmlParser;
 import utils.xmlparsing.XmlParsingException;
 
+/**
+ *
+ */
 public class ArticleDateChecker extends NodeChecker {
 
     private final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.ARTICLE
             });
 
+    /**
+    * constructor
+    */
     public ArticleDateChecker() {
         super(s_selector,
               ArticleDateChecker::checkArticleDatesToPageDate, "incorrect article creation/publication date compared to page date",

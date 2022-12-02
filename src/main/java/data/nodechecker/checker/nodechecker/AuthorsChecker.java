@@ -19,12 +19,18 @@ import utils.xmlparsing.LinkData;
 import utils.xmlparsing.XmlParser;
 import utils.xmlparsing.XmlParsingException;
 
+/**
+*
+*/
 public class AuthorsChecker extends NodeChecker {
 
     private final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.ARTICLE
             });
 
+    /**
+    * constructor
+    */
     public AuthorsChecker() {
         super(s_selector,
               AuthorsChecker::checkWellKnownAuthors, "author list contains expected list of well known authors",

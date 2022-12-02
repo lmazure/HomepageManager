@@ -9,12 +9,18 @@ import data.nodechecker.tagselection.InclusionTagSelector;
 import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
 
+/**
+*
+*/
 public class FormatFromURLChecker extends NodeChecker {
 
     private final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.X
             });
 
+    /**
+    * constructor
+    */
     public FormatFromURLChecker() {
         super(s_selector,
               FormatFromURLChecker::checkFormat, "given the URL, the format is incorrect");

@@ -9,12 +9,18 @@ import data.nodechecker.tagselection.InclusionTagSelector;
 import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
 
+/**
+*
+*/
 public class DurationPresenceChecker extends NodeChecker {
 
     private final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.X
             });
 
+    /**
+    * constructor
+    */
     public DurationPresenceChecker() {
         super(s_selector,
               DurationPresenceChecker::checkDuration, "given the format, the duration is missing");

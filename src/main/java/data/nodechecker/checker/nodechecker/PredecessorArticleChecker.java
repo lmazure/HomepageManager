@@ -10,12 +10,18 @@ import utils.xmlparsing.ElementType;
 import utils.xmlparsing.XmlParser;
 import utils.xmlparsing.XmlParsingException;
 
+/**
+*
+*/
 public class PredecessorArticleChecker extends NodeChecker {
 
     private final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.ARTICLE
             });
 
+    /**
+    * constructor
+    */
     public PredecessorArticleChecker() {
         super(s_selector,
               PredecessorArticleChecker::checkPredArticle, "the previous article is not the one defined by the 'predecessor' attribute");

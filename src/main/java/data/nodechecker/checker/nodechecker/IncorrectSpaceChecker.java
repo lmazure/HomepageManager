@@ -14,6 +14,9 @@ import data.nodechecker.tagselection.InclusionTagSelector;
 import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
 
+/**
+*
+*/
 public class IncorrectSpaceChecker extends NodeChecker {
 
     //TODO ajouter l'ellipsis
@@ -80,6 +83,9 @@ public class IncorrectSpaceChecker extends NodeChecker {
             ElementType.TITLE,
             });
 
+    /**
+    * constructor
+    */
     public IncorrectSpaceChecker() {
         super(s_selector,
               IncorrectSpaceChecker::checkMissingSpaceBeforePunctuation, "space is missing before punctuation",

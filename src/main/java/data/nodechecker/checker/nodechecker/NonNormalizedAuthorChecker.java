@@ -6,6 +6,9 @@ import data.nodechecker.checker.CheckStatus;
 import data.nodechecker.tagselection.InclusionTagSelector;
 import utils.xmlparsing.ElementType;
 
+/**
+*
+*/
 public class NonNormalizedAuthorChecker extends NodeChecker {
     // TODO add a unit test for this because I am pretty sure this does not work anymore
 
@@ -13,6 +16,9 @@ public class NonNormalizedAuthorChecker extends NodeChecker {
             ElementType.AUTHOR
             });
 
+    /**
+    * constructor
+    */
     public NonNormalizedAuthorChecker() {
         super(s_selector,
               NonNormalizedAuthorChecker::checkAuthorNamet, "uses a non-normalized author name");

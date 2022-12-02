@@ -1,3 +1,6 @@
+    /**
+    * constructor
+    */
 package data.nodechecker.checker.nodechecker;
 
 import java.util.Calendar;
@@ -10,6 +13,9 @@ import data.nodechecker.tagselection.InclusionTagSelector;
 import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
 
+/**
+*
+*/
 public class DateChecker extends NodeChecker {
 
     private final static Calendar s_now = Calendar.getInstance();
@@ -21,6 +27,9 @@ public class DateChecker extends NodeChecker {
             ElementType.DATE
             });
 
+    /**
+    * constructor
+    */
     public DateChecker() {
         super(s_selector,
               DateChecker::checkDateHierarchy, "the DATE components are incorrectly structured",

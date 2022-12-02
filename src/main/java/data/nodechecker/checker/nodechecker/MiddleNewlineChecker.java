@@ -6,6 +6,9 @@ import utils.xmlparsing.ElementType;
 
 import org.w3c.dom.Element;
 
+/**
+*
+*/
 public class MiddleNewlineChecker extends NodeChecker {
 
     private static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new ElementType[] {
@@ -33,6 +36,9 @@ public class MiddleNewlineChecker extends NodeChecker {
             ElementType.TEXTBLOCK
             });
 
+    /**
+    * constructor
+    */
     public MiddleNewlineChecker() {
         super(s_selector,
               MiddleNewlineChecker::checkNewline, "newline is the middle of the string");
