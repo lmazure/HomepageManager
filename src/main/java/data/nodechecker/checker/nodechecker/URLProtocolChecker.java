@@ -20,7 +20,7 @@ public class URLProtocolChecker extends NodeChecker {
      */
     public URLProtocolChecker() {
         super(s_selector,
-              URLProtocolChecker::checkUrl, "uses a non-normalized URL");
+              URLProtocolChecker::checkUrl, "uses an unknown protocol");
     }
 
     private static CheckStatus checkUrl(final Element e) {
