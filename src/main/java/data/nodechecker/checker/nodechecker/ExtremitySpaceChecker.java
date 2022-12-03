@@ -5,6 +5,8 @@ import data.nodechecker.tagselection.ExclusionTagSelector;
 import utils.xmlparsing.ElementType;
 
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
 *
@@ -41,7 +43,17 @@ public class ExtremitySpaceChecker extends NodeChecker {
     }
 
     private static CheckStatus checkSpaceAtBeginning(final Element e) {
-        final String s = e.getTextContent();
+        final NodeList list = e.getChildNodes();
+        if (list.getLength() == 0) {
+            return checkSpaceAtBeginningInternal(e.getTextContent());
+        }
+        if (list.item(0).getNodeType() == Node.TEXT_NODE) {
+            return checkSpaceAtBeginningInternal(list.item(0).getTextContent());
+        }
+        return null;
+    }
+
+    private static CheckStatus checkSpaceAtBeginningInternal(final String s) {
         if (s.length() == 0) {
             return null;
         }
@@ -53,7 +65,17 @@ public class ExtremitySpaceChecker extends NodeChecker {
     }
 
     private static CheckStatus checkSpaceAtEnd(final Element e) {
-        final String s = e.getTextContent();
+        final NodeList list = e.getChildNodes();
+        if (list.getLength() == 0) {
+            return checkSpaceAtEndInternal(e.getTextContent());
+        }
+        if (list.item(list.getLength() - 1).getNodeType() == Node.TEXT_NODE) {
+            return checkSpaceAtEndInternal(list.item(list.getLength() - 1).getTextContent());
+        }
+        return null;
+    }
+
+    private static CheckStatus checkSpaceAtEndInternal(final String s) {
         if (s.length() == 0) {
             return null;
         }

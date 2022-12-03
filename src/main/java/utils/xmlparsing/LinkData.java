@@ -5,7 +5,9 @@ import java.time.temporal.TemporalAccessor;
 import java.util.Locale;
 import java.util.Optional;
 
-public class LinkData {
+/**
+*
+*/public class LinkData {
 
     private final String _title;
     private final String _subtitles[];

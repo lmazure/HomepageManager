@@ -111,7 +111,7 @@ public class LinkCheckRunner {
         }
 
         for (final ArticleData article : articles) {
-            for (final LinkData link : article.getLinks()) {
+            for (final LinkData link : article.links()) {
                 _articles.put(link.getUrl(), article);
             }
         }

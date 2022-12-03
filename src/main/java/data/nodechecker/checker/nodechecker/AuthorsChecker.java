@@ -46,25 +46,25 @@ public class AuthorsChecker extends NodeChecker {
             return new CheckStatus("Failed to parse article (" + ex.getMessage() + ")");
         }
 
-        for (LinkData link: articleData.getLinks()) {
+        for (LinkData link: articleData.links()) {
             final Optional<WellKnownAuthors> expectedWellKnownAuthors = WellKnownAuthorsOfLink.getWellKnownAuthors(link.getUrl());
             if (expectedWellKnownAuthors.isPresent()) {
                 if (expectedWellKnownAuthors.get().canHaveOtherAuthors()) {
-                    if (!articleData.getAuthors().containsAll(expectedWellKnownAuthors.get().getCompulsoryAuthors())) {
+                    if (!articleData.authors().containsAll(expectedWellKnownAuthors.get().getCompulsoryAuthors())) {
                         return new CheckStatus("The list of authors of article \"" +
                                 link.getUrl() +
                                 "\" (" +
-                                formatAuthorList(articleData.getAuthors()) +
+                                formatAuthorList(articleData.authors()) +
                                 ") does not contain the expected list for the site (" +
                                 formatAuthorList(expectedWellKnownAuthors.get().getCompulsoryAuthors()) +
                                 ")");
                     }
-                } else if (!articleData.getAuthors().containsAll(expectedWellKnownAuthors.get().getCompulsoryAuthors()) ||
-                           !expectedWellKnownAuthors.get().getCompulsoryAuthors().containsAll(articleData.getAuthors())) {
+                } else if (!articleData.authors().containsAll(expectedWellKnownAuthors.get().getCompulsoryAuthors()) ||
+                           !expectedWellKnownAuthors.get().getCompulsoryAuthors().containsAll(articleData.authors())) {
                     return new CheckStatus("The list of authors of article \"" +
                             link.getUrl() +
                             "\" (" +
-                            formatAuthorList(articleData.getAuthors()) +
+                            formatAuthorList(articleData.authors()) +
                             ") is not equal to the expected list for the site (" +
                             formatAuthorList(expectedWellKnownAuthors.get().getCompulsoryAuthors()) +
                             ")");
@@ -86,10 +86,10 @@ public class AuthorsChecker extends NodeChecker {
             return new CheckStatus("Failed to parse article (" + ex.getMessage() + ")");
         }
 
-        for (AuthorData author: articleData.getAuthors()) {
+        for (AuthorData author: articleData.authors()) {
             if (authors.contains(author)) {
                 return new CheckStatus("The list of authors of article \"" +
-                                       articleData.getLinks().get(0).getUrl() +
+                                       articleData.links().get(0).getUrl() +
                                        "\" contains duplicated author: " +
                                        author);
             }

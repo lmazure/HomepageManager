@@ -55,13 +55,13 @@ public class PredecessorArticleChecker extends NodeChecker {
         } catch (final XmlParsingException ex) {
             return new CheckStatus("Failed to parse article (" + ex.getMessage() + ")");
         }
-        final String urlOfPreviousArticle = previousArticleData.getLinks().get(0).getUrl();
+        final String urlOfPreviousArticle = previousArticleData.links().get(0).getUrl();
 
         if (!predecessor.equals(urlOfPreviousArticle)) {
             return new CheckStatus("Article has 'predecessor' article equal to \"" +
                                    predecessor +
                                    "\" while previous article has URL \"" +
-                                   previousArticleData.getLinks().get(0).getUrl() +
+                                   previousArticleData.links().get(0).getUrl() +
                                    "\"");
         }
 

@@ -122,7 +122,7 @@ public class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Modern file input/output with Java: Going fast with NIO and NIO.2</T>\
                 <ST>Reach for these low-level Java APIs when you need to move a lot of file data or socket data quickly.</ST>\
-                <A>https://blogs.oracle.com/javamagazine/java-nio-nio2-buffers-channels-async-future-callback</A><L>en</L><F>HTML</F></X>\
+                <A>https://blogs.oracle.com/javamagazine/post/java-nio-nio2-buffers-channels-async-future-callback</A><L>en</L><F>HTML</F></X>\
                 <AUTHOR><FIRSTNAME>Ben</FIRSTNAME><LASTNAME>Evans</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>1</MONTH><DAY>7</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";

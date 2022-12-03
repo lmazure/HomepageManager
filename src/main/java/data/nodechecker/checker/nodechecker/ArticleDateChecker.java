@@ -53,11 +53,11 @@ public class ArticleDateChecker extends NodeChecker {
         } catch (final XmlParsingException ex) {
             return new CheckStatus("Failed to parse article (" + ex.getMessage() + ")");
         }
-        final Optional<TemporalAccessor> creationDate = articleData.getDate();
+        final Optional<TemporalAccessor> creationDate = articleData.date();
         if (creationDate.isPresent()) {
             if (compareTemporalAccesssor(creationDate.get(), pageDate.get()) > 0) {
                 return new CheckStatus("Creation date of article \"" +
-                                       articleData.getLinks().get(0).getUrl() +
+                                       articleData.links().get(0).getUrl() +
                                        "\" (" +
                                        creationDate.get() +
                                        ") is after page date (" +
@@ -66,7 +66,7 @@ public class ArticleDateChecker extends NodeChecker {
             }
         }
 
-        for (final LinkData l: articleData.getLinks()) {
+        for (final LinkData l: articleData.links()) {
             final Optional<TemporalAccessor> publicationDate = l.getPublicationDate();
             if (publicationDate.isPresent()) {
                 if (compareTemporalAccesssor(publicationDate.get(), pageDate.get()) > 0) {
@@ -111,7 +111,7 @@ public class ArticleDateChecker extends NodeChecker {
         } catch (final XmlParsingException ex) {
             return new CheckStatus("Failed to parse article (" + ex.getMessage() + ")");
         }
-        final Optional<TemporalAccessor> creationDate = articleData.getDate();
+        final Optional<TemporalAccessor> creationDate = articleData.date();
 
         if (!XmlHelper.isOfType(e.getParentNode(), ElementType.ITEM)) {
             return null;
@@ -138,13 +138,13 @@ public class ArticleDateChecker extends NodeChecker {
         } catch (final XmlParsingException ex) {
             return new CheckStatus("Failed to parse article (" + ex.getMessage() + ")");
         }
-        final Optional<TemporalAccessor> previousCreationDate = previousArticleData.getDate();
+        final Optional<TemporalAccessor> previousCreationDate = previousArticleData.date();
 
         if (previousCreationDate.isPresent() && creationDate.isEmpty()) {
             return new CheckStatus("Article \"" +
-                                   articleData.getLinks().get(0).getUrl() +
+                                   articleData.links().get(0).getUrl() +
                                    "\" has no date while being after article \"" +
-                                   previousArticleData.getLinks().get(0).getUrl() +
+                                   previousArticleData.links().get(0).getUrl() +
                                    "\" which has a date");
         }
 
@@ -154,13 +154,13 @@ public class ArticleDateChecker extends NodeChecker {
 
         if (compareTemporalAccesssor(previousCreationDate.get(), creationDate.get()) > 0) {
             return new CheckStatus("Creation date of article \"" +
-                    articleData.getLinks().get(0).getUrl() +
+                    articleData.links().get(0).getUrl() +
                     "\" (" +
                     creationDate.get() +
                     ") is before creation date (" +
                     previousCreationDate.get() +
                     ") of previous article \"" +
-                    previousArticleData.getLinks().get(0).getUrl() +
+                    previousArticleData.links().get(0).getUrl() +
                     "\"");
         }
 

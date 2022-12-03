@@ -2,6 +2,9 @@ package utils.xmlparsing;
 
 import java.util.Optional;
 
+/**
+ *
+ */
 public class AuthorData {
 
     private final Optional<String> _namePrefix;

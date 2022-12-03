@@ -61,7 +61,6 @@ public class LinkDataExtractorFactory {
         }
 
         if (u.matches("https://blogs.oracle.com/javamagazine/.+")) {
-            u = u.replace("/post/", "/");
             constructor = OracleBlogsLinkContentParser::new;
         }
 
