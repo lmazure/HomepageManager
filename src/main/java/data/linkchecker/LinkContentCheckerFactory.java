@@ -20,20 +20,19 @@ import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkData;
 
 /**
- * @author Laurent
- *
+ * Factory returning the LinkContentChecker able to check a given URL
  */
 public class LinkContentCheckerFactory {
 
     /**
-     * @param url
-     * @param linkData
-     * @param articleData
-     * @param file
-     * @return
+     * @param url URL of the link to check
+     * @param linkData expected link data
+     * @param articleData expected article data
+     * @param file effective retrieved kink data
+     * @return LinkContentChecker able to check the link
      */
     public static LinkContentChecker build(final String url,
-                                           final LinkData linkData,
+                                           final LinkData linkData, // TODO we should not have to provide linkData and articleData to the factory
                                            final Optional<ArticleData> articleData,
                                            final FileSection file) {
 

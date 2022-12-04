@@ -15,6 +15,9 @@ import data.linkchecker.ContentParserException;
 import data.linkchecker.LinkContentParserUtils;
 import utils.xmlparsing.AuthorData;
 
+/**
+*
+*/
 public class IbmLinkContentParser {
 
     private final String _title;
@@ -25,6 +28,10 @@ public class IbmLinkContentParser {
     private final ContentParserException _authorException;
     private final SynchronousSiteDataRetriever _retriever;
 
+    /**
+     * @param url URL of the link
+     * @param data retrieved link data
+     */
     public IbmLinkContentParser(@SuppressWarnings("unused") final String data,
                                 final String url) {
 

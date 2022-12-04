@@ -17,10 +17,19 @@ import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkData;
 
+/**
+*
+*/
 public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChecker {
 
     private YoutubeWatchLinkContentParser _parser;
 
+    /**
+     * @param url URL of the link to check
+     * @param linkData expected link data
+     * @param articleData expected article data
+     * @param file effective retrieved kink data
+     */
     public YoutubeWatchLinkContentChecker(final String url,
                                           final LinkData linkData,
                                           final Optional<ArticleData> articleData,

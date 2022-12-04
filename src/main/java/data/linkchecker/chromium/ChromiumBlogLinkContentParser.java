@@ -9,6 +9,9 @@ import data.linkchecker.ContentParserException;
 import data.linkchecker.TextParser;
 import utils.internet.HtmlHelper;
 
+/**
+*
+*/
 public class ChromiumBlogLinkContentParser {
 
     private final String _data;
@@ -24,6 +27,10 @@ public class ChromiumBlogLinkContentParser {
                          "date");
     private static final DateTimeFormatter s_formatter = DateTimeFormatter.ofPattern("EEEE, MMMM d, u", Locale.ENGLISH);
 
+    /**
+     * @param url URL of the link
+     * @param data retrieved link data
+     */
     public ChromiumBlogLinkContentParser(final String data) {
         _data = data;
     }

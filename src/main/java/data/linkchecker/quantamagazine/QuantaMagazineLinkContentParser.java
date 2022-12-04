@@ -18,6 +18,9 @@ import utils.internet.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkFormat;
 
+/**
+*
+*/
 public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
 
     private final String _data;
@@ -40,6 +43,10 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
     private static final Pattern s_authorPattern
         = Pattern.compile("<a (class=\"[^\"]+\" )?href=\"/authors/[^/]+/\"><span [^>]+>([^<]+)</span></a>");
 
+    /**
+     * @param url URL of the link
+     * @param data retrieved link data
+     */
     public QuantaMagazineLinkContentParser(final String url,
                                            final String data) {
         super(url);

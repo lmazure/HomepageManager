@@ -17,9 +17,13 @@ import data.linkchecker.ContentParserException;
 import data.linkchecker.ExtractedLinkData;
 import data.linkchecker.LinkDataExtractor;
 import utils.StringHelper;
+import utils.internet.UrlHelper;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkFormat;
 
+/**
+ *
+ */
 public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
 
     private final String _data;
@@ -35,9 +39,18 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     private Duration _minDuration;
     private Duration _maxDuration;
 
+    /**
+     * @param url URL of the link
+     * @param data retrieved link data
+     * @throws ContentParserException
+     */
     public YoutubeWatchLinkContentParser(final String url,
                                          final String data) throws ContentParserException {
-        super(url);
+        super(UrlHelper.removeQueryParameters(url, "app",
+                                                   "feature",
+                                                   "index",
+                                                   "list",
+                                                   "t"));
         _data = data;
         if (data.contains("ytInitialPlayerResponse =")) {
             _isEscaped = false;

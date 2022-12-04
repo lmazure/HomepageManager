@@ -18,6 +18,9 @@ import utils.internet.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkFormat;
 
+/**
+*
+*/
 public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
 
     private final String _data;
@@ -43,6 +46,10 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
                          "Ars Technica",
                          "author");
 
+    /**
+     * @param url URL of the link
+     * @param data retrieved link data
+     */
     public ArsTechnicaLinkContentParser(final String url,
                                         final String data) {
         super(url);

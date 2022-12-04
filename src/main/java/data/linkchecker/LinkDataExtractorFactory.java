@@ -69,11 +69,6 @@ public class LinkDataExtractorFactory {
         }
 
         if (u.startsWith("https://www.youtube.com/watch?")) {
-            u = UrlHelper.removeQueryParameters(u, "app",
-                                                   "feature",
-                                                   "index",
-                                                   "list",
-                                                   "t");
             constructor = YoutubeWatchLinkContentParser::new;
         }
 

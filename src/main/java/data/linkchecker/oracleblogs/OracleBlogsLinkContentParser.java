@@ -28,6 +28,9 @@ import utils.internet.UrlHelper;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkFormat;
 
+/**
+*
+*/
 public class OracleBlogsLinkContentParser extends LinkDataExtractor {
 
     private static final String s_htmlTemplate = """
@@ -54,9 +57,13 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
     private final ContentParserException _authorException;
     private final SynchronousSiteDataRetriever _retriever;
 
+    /**
+     * @param url URL of the link
+     * @param data retrieved link data
+     */
     public OracleBlogsLinkContentParser(final String url,
                                         final String data) {
-        super(url);
+        super(cleanUrl(url));
         _retriever = new SynchronousSiteDataRetriever(null);
 
         // retrieve site and caas from initial HTML
@@ -252,4 +259,12 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
         return Locale.ENGLISH;
     }
 
+    private static String cleanUrl(final String url) {
+        final String u = UrlHelper.removeQueryParameters(url, "source");
+        if (u.startsWith("https://blogs.oracle.com/javamagazine/post/")) {
+            return u;
+        }
+        return u.replaceFirst("https://blogs.oracle.com/javamagazine/", "https://blogs.oracle.com/javamagazine/post/");
+        
+    }
 }

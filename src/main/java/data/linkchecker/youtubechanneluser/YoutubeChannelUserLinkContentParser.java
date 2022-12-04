@@ -8,6 +8,9 @@ import java.util.regex.Pattern;
 import data.linkchecker.ContentParserException;
 import utils.StringHelper;
 
+/**
+*
+*/
 public class YoutubeChannelUserLinkContentParser {
 
     final static Pattern PATTERN = Pattern.compile("\"alerts\":\\[\\{\"alertRenderer\":\\{\"type\":\"ERROR\",\"text\":\\{\"simpleText\":\"([^\\\"]*)\"\\}\\}\\}\\]");
@@ -16,6 +19,9 @@ public class YoutubeChannelUserLinkContentParser {
     private Optional<Locale> _language;
     private Optional<String> _errorMessage;
 
+    /**
+     * @param data
+     */
     public YoutubeChannelUserLinkContentParser(final String data) {
         _data = data;
     }
@@ -28,6 +34,10 @@ public class YoutubeChannelUserLinkContentParser {
         return _errorMessage;
     }
 
+    /**
+     * @return
+     * @throws ContentParserException
+     */
     public Optional<Locale> getLanguage() throws ContentParserException {
         if (_language == null) {
             final String description = extractDescription();

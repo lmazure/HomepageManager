@@ -16,6 +16,9 @@ import utils.internet.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkFormat;
 
+/**
+*
+*/
 public class GitlabBlogLinkContentParser extends LinkDataExtractor {
 
     private final String _data;
@@ -34,6 +37,10 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
                                                                     "GitLab blog",
                                                                     "author");
 
+    /**
+     * @param url URL of the link
+     * @param data retrieved link data
+     */
     public GitlabBlogLinkContentParser(final String url,
                                        final String data) {
         super(url);

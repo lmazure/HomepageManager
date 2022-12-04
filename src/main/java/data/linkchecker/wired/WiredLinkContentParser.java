@@ -21,6 +21,9 @@ import utils.internet.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkFormat;
 
+/**
+*
+*/
 public class WiredLinkContentParser extends LinkDataExtractor {
 
     private static final TextParser s_jsonParser
@@ -35,6 +38,10 @@ public class WiredLinkContentParser extends LinkDataExtractor {
     private final LocalDate _publicationDate;
     private final List<AuthorData> _authors;
 
+    /**
+     * @param url URL of the link
+     * @param data retrieved link data
+     */
     public WiredLinkContentParser(final String url,
                                   final String data) {
         super(url);
