@@ -1131,6 +1131,23 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void ampersandIsEscaped() throws ContentParserException {
+        final String url = "https://arstechnica.com/information-technology/2022/11/nvidia-wins-award-for-ai-that-can-play-minecraft-on-command/?comments=1&comments-page=1";
+        final String expectedXml = """
+                <ARTICLE><X><T>Nvidia AI plays Minecraft, wins machine-learning conference award</T>\
+                <ST>NeurIPS 2022 honors MineDojo for playing Minecraft when instructed by written prompts.</ST>\
+                <A>https://arstechnica.com/information-technology/2022/11/nvidia-wins-award-for-ai-that-can-play-minecraft-on-command/?comments=1&amp;comments-page=1</A>\
+                <L>en</L><F>HTML</F></X>\
+                <AUTHOR><FIRSTNAME>Benj</FIRSTNAME><LASTNAME>Edwards</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>11</MONTH><DAY>28</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void wiredIsManaged() throws ContentParserException {
         final String url = "https://www.wired.com/2015/06/answer-150-year-old-math-conundrum-brings-mystery/";
         final String expectedXml = """

@@ -1,6 +1,3 @@
-la génération de XML gère mal les séparateurs entre pamèttres
-https://arstechnica.com/information-technology/2022/11/nvidia-wins-award-for-ai-that-can-play-minecraft-on-command/?comments=1&comments-page=1
-
 URL mal nettoyée
 https://blogs.oracle.com/javamagazine/post/curly-braces-java-recursion-tail-call-optimization?source=:em:nw:mt::::RC_WWMK200429P00043C0065:NSL400266546&utm_source=pocket_mylist
 

@@ -10,8 +10,17 @@ import java.util.Optional;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkFormat;
 
+/**
+ * Generate the XML describing articles
+ */
 public class XmlGenerator {
 
+    /**
+     * @param links links of the article
+     * @param date creation date of the article
+     * @param authors authors of the article
+     * @return XML describing the article
+     */
     public static String generateXml(final List<ExtractedLinkData> links,
                                      final Optional<TemporalAccessor> date,
                                      final List<AuthorData> authors) {
@@ -60,7 +69,7 @@ public class XmlGenerator {
                 builder.append("</ST>");
             }
             builder.append("<A>");
-            builder.append(linkData.url());
+            builder.append(escapeXml(linkData.url()));
             builder.append("</A>");
             for (Locale language: linkData.languages()) {
                 builder.append(generateLanguage(language));
