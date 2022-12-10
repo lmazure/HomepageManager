@@ -2,12 +2,15 @@ package data.internet;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
+import java.nio.channels.OverlappingFileLockException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -79,10 +82,7 @@ public class SiteDataPersister {
         final File file = getPersistedFile(siteData.url(), timestamp);
         try (final FileOutputStream fos = new FileOutputStream(file);
              final FileChannel channel = fos.getChannel();
-             final FileLock lock = channel.lock()) {
-            if (lock == null) {
-                throw new IllegalStateException("Failed to lock file " + file.getCanonicalPath());
-            }
+             final FileLock lock = getChannelLock(channel, false)) {
             final String siz = String.format("%9d\n", Integer.valueOf(sumOfSizes + 20));
             fos.write(siz.getBytes(UTF8_CHARSET));
             final String numberOfRedirections = String.format("%9d\n", Integer.valueOf(byteArrays.size()));
@@ -114,9 +114,9 @@ public class SiteDataPersister {
             fos.flush();
         } catch (final IOException e) {
             Logger.log(Logger.Level.ERROR)
-                  .append("Error (")
-                  .append(e.toString())
-                  .append(") while getting data from ")
+                  .appendln("Error")
+                  .append(e)
+                  .append("while getting data from ")
                   .append(siteData.url())
                   .submit();
         }
@@ -200,7 +200,10 @@ public class SiteDataPersister {
             ExitHelper.exit("status file " + file + " does not exist");
         }
 
-        try (final BufferedReader reader = new BufferedReader(new FileReader(file))) {
+        try (final FileInputStream fileInputStream = new FileInputStream(file);
+             final BufferedReader reader = new BufferedReader(new InputStreamReader(fileInputStream));
+             final FileChannel channel = fileInputStream.getChannel();
+             final FileLock lock = getChannelLock(channel, true)) {
 
             final int size = Integer.parseInt(reader.readLine().trim());
             final int numberOfRedirections = Integer.parseInt(reader.readLine().trim());
@@ -240,8 +243,26 @@ public class SiteDataPersister {
                                            Optional.of(new FileSection(file, size, file.length() - size)),
                                            error,
                                            lastRedirectionData.previousRedirection());
-        } catch (final IOException e) {
+        } catch (final Exception e) {
             throw new IllegalStateException("Failure while reading " + file, e);
+        }
+    }
+
+    private static FileLock getChannelLock(final FileChannel channel,
+                                          final boolean shared) throws IOException {
+        for (;;) {            
+            try {
+                return channel.lock(0, Long.MAX_VALUE, shared);
+            } catch (@SuppressWarnings("unused") OverlappingFileLockException e) {
+                // the file is being used by another thread, we are waiting that it finishes with it
+                try {
+                    Thread.sleep(50);
+                } catch (final InterruptedException e1) {
+                    ExitHelper.exit(e1);
+                }
+            } catch (IOException e) {
+                throw e;
+            }
         }
     }
 

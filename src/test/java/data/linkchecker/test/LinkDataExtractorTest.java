@@ -14,6 +14,9 @@ import data.linkchecker.LinkDataExtractorFactory;
 import data.linkchecker.XmlGenerator;
 import utils.xmlparsing.AuthorData;
 
+/**
+ * High level tests of LinkDataExtractors
+ */
 public class LinkDataExtractorTest {
 
     @Test

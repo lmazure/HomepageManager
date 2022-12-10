@@ -60,7 +60,7 @@ public class FormatFromURLChecker extends NodeChecker {
                return new CheckStatus("\"" + url + "\" is not indicated as being Flash Video format");
 
         if ((url.startsWith("https://medium.com/") ||
-             url.startsWith("https://www.ibm.com/")) && !format.equals("HTML"))
+             url.startsWith("https://www.ibm.com/")) && !(format.equals("HTML") || format.equals("MP3"))) // a HTML page may contain a MP3
             return new CheckStatus("\"" + url + "\" is not indicated as being HTML format");
 
         if ((url.startsWith("https://www.numberphile.com/podcast/") ||

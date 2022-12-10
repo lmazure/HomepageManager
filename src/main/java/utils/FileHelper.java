@@ -42,7 +42,21 @@ public class FileHelper {
             final String string = decoder.decode(byteBuffer).toString();
             return string;
         } catch (final IOException e) {
-            ExitHelper.exit(e);
+            ExitHelper.exit("Failed to slurp file", e);
+            // NOT REACHED
+            return null;
+        }
+    }
+
+    /**
+     * @param file file
+     * @return canonical path of the file
+     */
+    public static String getCanonicalPath(final File file) {
+        try {
+            return file.getCanonicalPath();
+        } catch (final IOException e) {
+            ExitHelper.exit("Failed to get canonical path", e);
             // NOT REACHED
             return null;
         }

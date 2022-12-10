@@ -14,6 +14,9 @@ import data.internet.test.TestHelper;
 import data.linkchecker.LinkContentParser;
 import utils.internet.HtmlHelper;
 
+/**
+ * Tests of LinkContentParser
+ */
 public class LinkContentParserTest {
 
     @ParameterizedTest
