@@ -28,17 +28,24 @@ public class ChromiumBlogLinkContentParser {
     private static final DateTimeFormatter s_formatter = DateTimeFormatter.ofPattern("EEEE, MMMM d, u", Locale.ENGLISH);
 
     /**
-     * @param url URL of the link
      * @param data retrieved link data
      */
     public ChromiumBlogLinkContentParser(final String data) {
         _data = data;
     }
 
+    /**
+     * @return title
+     * @throws ContentParserException failure to extract the information
+     */
     public String getTitle() throws ContentParserException {
         return HtmlHelper.cleanContent(s_titleParser.extract(_data));
     }
 
+    /**
+     * @return publication date, empty if there is none
+     * @throws ContentParserException failure to extract the information
+     */
     public LocalDate getPublicationDate() throws ContentParserException {
         final String date = HtmlHelper.cleanContent(s_dateParser.extract(_data));
         try {

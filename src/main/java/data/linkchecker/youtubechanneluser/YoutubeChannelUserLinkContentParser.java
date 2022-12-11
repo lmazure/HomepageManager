@@ -20,12 +20,15 @@ public class YoutubeChannelUserLinkContentParser {
     private Optional<String> _errorMessage;
 
     /**
-     * @param data
+     * @param data retrieved link data
      */
     public YoutubeChannelUserLinkContentParser(final String data) {
         _data = data;
     }
 
+    /**
+     * @return error message
+     */
     public Optional<String> getErrorMessage() {
         if (_errorMessage == null) {
             _errorMessage = extractErrorMessage();
@@ -35,8 +38,8 @@ public class YoutubeChannelUserLinkContentParser {
     }
 
     /**
-     * @return
-     * @throws ContentParserException
+     * @return language
+     * @throws ContentParserException failure to extract the information
      */
     public Optional<Locale> getLanguage() throws ContentParserException {
         if (_language == null) {

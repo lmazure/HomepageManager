@@ -42,7 +42,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     /**
      * @param url URL of the link
      * @param data retrieved link data
-     * @throws ContentParserException
+     * @throws ContentParserException failure to extract the information
      */
     public YoutubeWatchLinkContentParser(final String url,
                                          final String data) throws ContentParserException {

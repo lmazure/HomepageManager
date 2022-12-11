@@ -85,6 +85,10 @@ public class MediumLinkContentParser extends LinkDataExtractor {
         return _subtitle;
     }
 
+    /**
+     * @return publication date, empty if there is none
+     * @throws ContentParserException failure to extract the information
+     */
     public LocalDate getPublicationDate() throws ContentParserException {
         loadData();
         return _publicationDate;
