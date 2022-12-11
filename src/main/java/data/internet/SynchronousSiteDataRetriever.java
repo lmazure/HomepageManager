@@ -29,7 +29,6 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import utils.ExitHelper;
-import utils.Log;
 import utils.Logger;
 import utils.internet.HttpHelper;
 import utils.internet.UriHelper;
@@ -259,7 +258,7 @@ public class SynchronousSiteDataRetriever {
                  List<HttpCookie> list = new LinkedList<>();
                  try {
                      list = HttpCookie.parse(cookie);
-                 } catch (final IllegalArgumentException e) {
+                 } catch (@SuppressWarnings("unused") final IllegalArgumentException e) {
                      Logger.log(Logger.Level.ERROR)
                      .append(url)
                      .append(" has an invalid cookie value: ")

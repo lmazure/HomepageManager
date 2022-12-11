@@ -21,31 +21,31 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import data.nodechecker.checker.nodeChecker.ArticleDateChecker;
-import data.nodechecker.checker.nodeChecker.AuthorsChecker;
-import data.nodechecker.checker.nodeChecker.CommentChecker;
-import data.nodechecker.checker.nodeChecker.DateChecker;
-import data.nodechecker.checker.nodeChecker.DoubleSpaceChecker;
-import data.nodechecker.checker.nodeChecker.DurationChecker;
-import data.nodechecker.checker.nodeChecker.DurationPresenceChecker;
-import data.nodechecker.checker.nodeChecker.EllipsisChecker;
-import data.nodechecker.checker.nodeChecker.ExtremitySpaceChecker;
-import data.nodechecker.checker.nodeChecker.FormatFromURLChecker;
-import data.nodechecker.checker.nodeChecker.KeyChecker;
-import data.nodechecker.checker.nodeChecker.MiddleNewlineChecker;
-import data.nodechecker.checker.nodeChecker.IncorrectSpaceChecker;
-import data.nodechecker.checker.nodeChecker.ModifierKeyChecker;
-import data.nodechecker.checker.nodeChecker.NodeCheckError;
-import data.nodechecker.checker.nodeChecker.NodeChecker;
-import data.nodechecker.checker.nodeChecker.NonEmptyChecker;
-import data.nodechecker.checker.nodeChecker.NonNormalizedAuthorChecker;
-import data.nodechecker.checker.nodeChecker.NonNormalizedURLChecker;
-import data.nodechecker.checker.nodeChecker.PredecessorArticleChecker;
-import data.nodechecker.checker.nodeChecker.ProtectionFromURLChecker;
-import data.nodechecker.checker.nodeChecker.SpaceBetweenTagsChecker;
-import data.nodechecker.checker.nodeChecker.TableSortChecker;
-import data.nodechecker.checker.nodeChecker.TitleFormatChecker;
-import data.nodechecker.checker.nodeChecker.URLProtocolChecker;
+import data.nodechecker.checker.nodechecker.ArticleDateChecker;
+import data.nodechecker.checker.nodechecker.AuthorsChecker;
+import data.nodechecker.checker.nodechecker.CommentChecker;
+import data.nodechecker.checker.nodechecker.DateChecker;
+import data.nodechecker.checker.nodechecker.DoubleSpaceChecker;
+import data.nodechecker.checker.nodechecker.DurationChecker;
+import data.nodechecker.checker.nodechecker.DurationPresenceChecker;
+import data.nodechecker.checker.nodechecker.EllipsisChecker;
+import data.nodechecker.checker.nodechecker.ExtremitySpaceChecker;
+import data.nodechecker.checker.nodechecker.FormatFromURLChecker;
+import data.nodechecker.checker.nodechecker.IncorrectSpaceChecker;
+import data.nodechecker.checker.nodechecker.KeyChecker;
+import data.nodechecker.checker.nodechecker.MiddleNewlineChecker;
+import data.nodechecker.checker.nodechecker.ModifierKeyChecker;
+import data.nodechecker.checker.nodechecker.NodeCheckError;
+import data.nodechecker.checker.nodechecker.NodeChecker;
+import data.nodechecker.checker.nodechecker.NonEmptyChecker;
+import data.nodechecker.checker.nodechecker.NonNormalizedAuthorChecker;
+import data.nodechecker.checker.nodechecker.NonNormalizedURLChecker;
+import data.nodechecker.checker.nodechecker.PredecessorArticleChecker;
+import data.nodechecker.checker.nodechecker.ProtectionFromURLChecker;
+import data.nodechecker.checker.nodechecker.SpaceBetweenTagsChecker;
+import data.nodechecker.checker.nodechecker.TableSortChecker;
+import data.nodechecker.checker.nodechecker.TitleFormatChecker;
+import data.nodechecker.checker.nodechecker.URLProtocolChecker;
 import utils.ExitHelper;
 import utils.FileHelper;
 import utils.Logger;
@@ -119,10 +119,10 @@ public class NodeValueChecker implements FileHandler {
             final List<NodeCheckError> errors = check(file);
             if (errors.size() > 0) {
                 for (final NodeCheckError error: errors) {
-                    pw.println(" tag = \""       + error.getTag()       + "\"" +
-                               " value = \""     + error.getValue()     + "\"" +
-                               " violation = \"" + error.getViolation() + "\"" +
-                               " detail = \""    + error.getDetail()    + "\"");
+                    pw.println(" tag = \""       + error.tag()       + "\"" +
+                               " value = \""     + error.value()     + "\"" +
+                               " violation = \"" + error.violation() + "\"" +
+                               " detail = \""    + error.detail()    + "\"");
 
                 }
                 status = Status.HANDLED_WITH_ERROR;

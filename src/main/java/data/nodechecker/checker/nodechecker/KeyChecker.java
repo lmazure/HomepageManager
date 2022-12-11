@@ -1,4 +1,4 @@
-package data.nodechecker.checker.nodeChecker;
+package data.nodechecker.checker.nodechecker;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -6,9 +6,12 @@ import java.util.regex.Pattern;
 import org.w3c.dom.Element;
 
 import data.nodechecker.checker.CheckStatus;
-import data.nodechecker.tagSelection.InclusionTagSelector;
+import data.nodechecker.tagselection.InclusionTagSelector;
 import utils.xmlparsing.ElementType;
 
+/**
+*
+*/
 public class KeyChecker extends NodeChecker {
     // TODO do we really need this checker? this should be verified by the schema
 
@@ -19,6 +22,9 @@ public class KeyChecker extends NodeChecker {
             ElementType.KEY
             });
 
+    /**
+    * constructor
+    */
     public KeyChecker() {
         super(s_selector,
               KeyChecker::checkKeyString, "the KEY is incorrect");

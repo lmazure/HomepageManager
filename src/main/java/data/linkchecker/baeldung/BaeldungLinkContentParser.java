@@ -18,6 +18,9 @@ import utils.internet.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkFormat;
 
+/**
+*
+*/
 public class BaeldungLinkContentParser extends LinkDataExtractor {
 
     private final String _data;
@@ -39,6 +42,10 @@ public class BaeldungLinkContentParser extends LinkDataExtractor {
                          "author");
     private static DateTimeFormatter s_formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.US);
 
+    /**
+     * @param url URL of the link
+     * @param data retrieved link data
+     */
     public BaeldungLinkContentParser(final String url,
                                      final String data) {
         super(url);

@@ -15,6 +15,9 @@ import data.linkchecker.ContentParserException;
 import data.linkchecker.LinkContentParserUtils;
 import utils.xmlparsing.AuthorData;
 
+/**
+*
+*/
 public class IbmLinkContentParser {
 
     private final String _title;
@@ -25,7 +28,11 @@ public class IbmLinkContentParser {
     private final ContentParserException _authorException;
     private final SynchronousSiteDataRetriever _retriever;
 
-    public IbmLinkContentParser(@SuppressWarnings("unused") final String data,
+    /**
+     * @param url URL of the link
+     * @param data retrieved link data
+     */
+    public IbmLinkContentParser(final String data,
                                 final String url) {
 
         _retriever = new SynchronousSiteDataRetriever(null);
@@ -85,6 +92,10 @@ public class IbmLinkContentParser {
         _authorException = authorException;
     }
 
+    /**
+     * @return title
+     * @throws ContentParserException failure to extract the information
+     */
     public String getTitle() throws ContentParserException {
         if (_exception != null) {
             throw _exception;
@@ -92,6 +103,10 @@ public class IbmLinkContentParser {
         return _title;
     }
 
+    /**
+     * @return subtitle, empty if the is none
+     * @throws ContentParserException failure to extract the information
+     */
     public String getSubtitle() throws ContentParserException {
         if (_exception != null) {
             throw _exception;
@@ -99,6 +114,10 @@ public class IbmLinkContentParser {
         return _subtitle;
     }
 
+    /**
+     * @return creation date, empty if there is none
+     * @throws ContentParserException failure to extract the information
+     */
     public LocalDate getDate() throws ContentParserException {
         if (_exception != null) {
             throw _exception;
@@ -106,6 +125,10 @@ public class IbmLinkContentParser {
         return _publicationDate;
     }
 
+    /**
+     * @return authors, empty list if there is none
+     * @throws ContentParserException failure to extract the information
+     */
     public List<AuthorData> getAuthors() throws ContentParserException {
         if (_exception != null) {
             throw _exception;

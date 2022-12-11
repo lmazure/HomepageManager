@@ -1,13 +1,16 @@
-package data.nodechecker.checker.nodeChecker;
+package data.nodechecker.checker.nodechecker;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import data.nodechecker.checker.CheckStatus;
-import data.nodechecker.tagSelection.InclusionTagSelector;
+import data.nodechecker.tagselection.InclusionTagSelector;
 import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
 
+/**
+*
+*/
 public class ModifierKeyChecker extends NodeChecker {
 
     private static final String s_WINDOWS = "Windows";
@@ -20,6 +23,9 @@ public class ModifierKeyChecker extends NodeChecker {
             ElementType.MODIFIERKEY
             });
 
+    /**
+    * constructor
+    */
     public ModifierKeyChecker() {
         super(s_selector,
                 ModifierKeyChecker::checkModifierKeyString, "the MODIFIERKEY is incorrect",

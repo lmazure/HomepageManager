@@ -83,7 +83,7 @@ public class LinkContentChecker {
         }
 
         if (_articleData.isPresent()) {
-            final LinkContentCheck check = checkLinkAuthors(data, _articleData.get().getAuthors());
+            final LinkContentCheck check = checkLinkAuthors(data, _articleData.get().authors());
             if (check != null) {
                 checks.add(check);
             }
@@ -108,7 +108,7 @@ public class LinkContentChecker {
         {
             final LinkContentCheck check = checkArticleDate(data,
                                                             _linkData.getPublicationDate(),
-                                                            _articleData.isPresent() ? _articleData.get().getDate()
+                                                            _articleData.isPresent() ? _articleData.get().date()
                                                                                      : Optional.empty());
             if (check != null) {
                 checks.add(check);

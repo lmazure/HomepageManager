@@ -1,7 +1,7 @@
-package data.nodechecker.checker.nodeChecker;
+package data.nodechecker.checker.nodechecker;
 
 import data.nodechecker.checker.CheckStatus;
-import data.nodechecker.tagSelection.ExclusionTagSelector;
+import data.nodechecker.tagselection.ExclusionTagSelector;
 import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
 
@@ -11,6 +11,9 @@ import java.util.regex.Pattern;
 
 import org.w3c.dom.Element;
 
+/**
+*
+*/
 public class DoubleSpaceChecker extends NodeChecker {
 
     private static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new ElementType[] {
@@ -31,6 +34,9 @@ public class DoubleSpaceChecker extends NodeChecker {
 
     static final Pattern s_indentationPattern = Pattern.compile("\\n +");
 
+    /**
+    * constructor
+    */
     public DoubleSpaceChecker() {
         super(s_selector,
               DoubleSpaceChecker::checkDoubleSpace, "double space is present");

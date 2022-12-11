@@ -21,6 +21,9 @@ import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkData;
 import utils.xmlparsing.LinkFormat;
 
+/**
+ * Tests of LinkContentParser
+ */
 public class LinkContentCheckerTest {
 
     @ParameterizedTest

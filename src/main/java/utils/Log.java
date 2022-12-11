@@ -47,6 +47,16 @@ public class Log {
     }
 
     /**
+     * @param string string to append to the log followed by a new line
+     * @return the log itself (i.e. this is a fluent API)
+     */
+    public Log appendln(final String string) {
+        append(string);
+        _stringBuilder.append("\n");
+        return this;
+    }
+
+    /**
      * @param b boolean to append to the log
      * @return the log itself (i.e. this is a fluent API)
      */

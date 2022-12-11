@@ -1,6 +1,8 @@
 package utils.xmlparsing;
 
-public enum ElementType {
+/**
+*
+*/public enum ElementType {
     A,
     ANCHOR,
     ARTICLE,

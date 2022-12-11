@@ -1,17 +1,23 @@
-package data.nodechecker.checker.nodeChecker;
+package data.nodechecker.checker.nodechecker;
 
 import org.w3c.dom.Element;
 
 import data.nodechecker.checker.CheckStatus;
-import data.nodechecker.tagSelection.InclusionTagSelector;
+import data.nodechecker.tagselection.InclusionTagSelector;
 import utils.xmlparsing.ElementType;
 
+/**
+*
+*/
 public class NonNormalizedURLChecker extends NodeChecker {
 
     private final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.A
             });
 
+    /**
+    * constructor
+    */
     public NonNormalizedURLChecker() {
         super(s_selector,
               NonNormalizedURLChecker::checkUrl, "uses a non-normalized URL",
@@ -38,8 +44,8 @@ public class NonNormalizedURLChecker extends NodeChecker {
             return new CheckStatus("\"www-128.ibm.com\" should be \"www.ibm.com\"");
         }
 
-        if (url.contains("blogs.oracle.com") && url.contains("/post/")) {
-            return new CheckStatus("\"blogs.oracle.com\" should not contain \"/post/\"");
+        if (url.contains("blogs.oracle.com/java") && !url.contains("/post/")) {
+            return new CheckStatus("\"blogs.oracle.com\" should contain \"/post/\"");
         }
 
         return null;

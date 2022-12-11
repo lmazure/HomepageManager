@@ -1,4 +1,4 @@
-package data.nodechecker.checker.nodeChecker;
+package data.nodechecker.checker.nodechecker;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -10,10 +10,13 @@ import java.util.Set;
 import org.w3c.dom.Element;
 
 import data.nodechecker.checker.CheckStatus;
-import data.nodechecker.tagSelection.InclusionTagSelector;
+import data.nodechecker.tagselection.InclusionTagSelector;
 import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
 
+/**
+*
+*/
 public class IncorrectSpaceChecker extends NodeChecker {
 
     //TODO ajouter l'ellipsis
@@ -80,6 +83,9 @@ public class IncorrectSpaceChecker extends NodeChecker {
             ElementType.TITLE,
             });
 
+    /**
+    * constructor
+    */
     public IncorrectSpaceChecker() {
         super(s_selector,
               IncorrectSpaceChecker::checkMissingSpaceBeforePunctuation, "space is missing before punctuation",

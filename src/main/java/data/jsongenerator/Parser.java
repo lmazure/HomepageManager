@@ -87,15 +87,15 @@ public class Parser {
 
             final ArticleData articleData = XmlParser.parseArticleElement(articleNode);
 
-            final Article article = _articleFactory.buildArticle(file, articleData.getDate());
+            final Article article = _articleFactory.buildArticle(file, articleData.date());
 
-            for (int j = 0; j < articleData.getLinks().size(); j++) {
-                final Link link = _linkFactory.newLink(articleData.getLinks().get(j));
+            for (int j = 0; j < articleData.links().size(); j++) {
+                final Link link = _linkFactory.newLink(articleData.links().get(j));
                 article.addLink(link);
             }
 
-            for (int j = 0; j < articleData.getAuthors().size(); j++) {
-                final Author author = _authorFactory.buildAuthor(articleData.getAuthors().get(j));
+            for (int j = 0; j < articleData.authors().size(); j++) {
+                final Author author = _authorFactory.buildAuthor(articleData.authors().get(j));
                 author.addArticle(article);
                 article.addAuthor(author);
             }
@@ -119,17 +119,17 @@ public class Parser {
 
             final KeywordData keywordData = XmlParser.parseKeywordElement(keywordNode);
 
-            final Keyword keyword = _keywordFactory.newKeyword(keywordData.getKeyId());
+            final Keyword keyword = _keywordFactory.newKeyword(keywordData.keyId());
 
-            for (final ArticleData articleData : keywordData.getArticle()) {
-                final Optional<Article> article =  _articleFactory.getArticle(articleData.getLinks().get(0).getUrl());
+            for (final ArticleData articleData : keywordData.article()) {
+                final Optional<Article> article =  _articleFactory.getArticle(articleData.links().get(0).getUrl());
                 if (article.isEmpty()) {
                     throw new XmlParsingException("Cannot retrieve article of KEYWORD");
                 }
                 keyword.addArticle(article.get());
             }
 
-            for (final LinkData link : keywordData.getLinks()) {
+            for (final LinkData link : keywordData.links()) {
                 final Link l = _linkFactory.newLink(link);
                 keyword.addLink(l);
             }

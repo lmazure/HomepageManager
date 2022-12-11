@@ -1,20 +1,26 @@
-package data.nodechecker.checker.nodeChecker;
+package data.nodechecker.checker.nodechecker;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import data.nodechecker.checker.CheckStatus;
-import data.nodechecker.tagSelection.InclusionTagSelector;
+import data.nodechecker.tagselection.InclusionTagSelector;
 import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
 
+/**
+*
+*/
 public class FormatFromURLChecker extends NodeChecker {
 
     private final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.X
             });
 
+    /**
+    * constructor
+    */
     public FormatFromURLChecker() {
         super(s_selector,
               FormatFromURLChecker::checkFormat, "given the URL, the format is incorrect");
@@ -54,7 +60,7 @@ public class FormatFromURLChecker extends NodeChecker {
                return new CheckStatus("\"" + url + "\" is not indicated as being Flash Video format");
 
         if ((url.startsWith("https://medium.com/") ||
-             url.startsWith("https://www.ibm.com/")) && !format.equals("HTML"))
+             url.startsWith("https://www.ibm.com/")) && !(format.equals("HTML") || format.equals("MP3"))) // a HTML page may contain a MP3
             return new CheckStatus("\"" + url + "\" is not indicated as being HTML format");
 
         if ((url.startsWith("https://www.numberphile.com/podcast/") ||

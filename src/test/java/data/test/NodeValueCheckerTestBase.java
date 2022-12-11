@@ -14,8 +14,8 @@ import org.xml.sax.SAXException;
 
 import data.DataController;
 import data.FileHandler.Status;
+import data.nodechecker.checker.nodechecker.NodeCheckError;
 import data.NodeValueChecker;
-import data.nodechecker.checker.nodeChecker.NodeCheckError;
 import utils.ExitHelper;
 
 public class NodeValueCheckerTestBase {
@@ -42,7 +42,7 @@ public class NodeValueCheckerTestBase {
 
     private static String normalize(final List<NodeCheckError> errors) {
         return errors.stream()
-                     .map(e -> e.getDetail())
+                     .map(e -> e.detail())
                      .sorted()
                      .collect(Collectors.joining("\n"));
     }

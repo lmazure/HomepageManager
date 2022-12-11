@@ -1,7 +1,7 @@
-package data.nodechecker.checker.nodeChecker;
+package data.nodechecker.checker.nodechecker;
 
 import data.nodechecker.checker.CheckStatus;
-import data.nodechecker.tagSelection.TagSelector;
+import data.nodechecker.tagselection.TagSelector;
 import utils.XmlHelper;
 
 import java.util.ArrayList;
@@ -10,12 +10,18 @@ import java.util.function.Function;
 
 import org.w3c.dom.Element;
 
+/**
+*
+*/
 public class NodeChecker {
 
     private final TagSelector _tagSelector;
     private final Function<Element, CheckStatus>[] _rules;
     private final String[] _descriptions;
 
+    /**
+    * constructor
+    */
     public interface NodeRule {
         /**
          * @param e element to verify
@@ -75,16 +81,24 @@ public class NodeChecker {
         _descriptions[2] = description3;
     }
 
+    /**
+     * @param element
+     * @return
+     */
     public boolean isElementCheckable(final Element element) {
         return _tagSelector.isTagCheckable(XmlHelper.getElementType(element));
     }
 
+    /**
+     * @param element
+     * @return
+     */
     public List<NodeCheckError> check(final Element element) {
         final List<NodeCheckError> errors = new ArrayList<>();
         for (int i = 0; i < _rules.length; i++) {
             final CheckStatus status = _rules[i].apply(element);
             if (status != null) {
-                errors.add(new NodeCheckError(element.getTagName(), element.getTextContent(), _descriptions[i], status.getDetail()));
+                errors.add(new NodeCheckError(element.getTagName(), element.getTextContent(), _descriptions[i], status.detail()));
             }
         }
         return errors;

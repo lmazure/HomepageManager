@@ -164,13 +164,11 @@ public class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             "  <ROW>\n" +
             "    <TERM><CODEROUTINE>foo bar</CODEROUTINE></TERM>\n" +
             "  </ROW>\n" +
-            "  <DESC>\r\n" +
-            "    <BLIST><TITLE>Display</TITLE>\r\n" +
+            "  <DESC><BLIST><TITLE>Display</TITLE>\r\n" +
             "      <ITEM>alpha</ITEM>\r\n" +
             "      <ITEM>beta</ITEM>\r\n" +
             "      <ITEM>gamma</ITEM>\r\n" +
-            "    </BLIST>\r\n" +
-            "  </DESC>\r\n" +
+            "    </BLIST></DESC>\r\n" +
             "</DEFINITIONTABLE>\r\n" +
             "</CONTENT>\r\n" +
             "</PAGE>";

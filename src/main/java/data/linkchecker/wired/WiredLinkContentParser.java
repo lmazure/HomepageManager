@@ -21,6 +21,9 @@ import utils.internet.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkFormat;
 
+/**
+*
+*/
 public class WiredLinkContentParser extends LinkDataExtractor {
 
     private static final TextParser s_jsonParser
@@ -35,6 +38,10 @@ public class WiredLinkContentParser extends LinkDataExtractor {
     private final LocalDate _publicationDate;
     private final List<AuthorData> _authors;
 
+    /**
+     * @param url URL of the link
+     * @param data retrieved link data
+     */
     public WiredLinkContentParser(final String url,
                                   final String data) {
         super(url);
@@ -110,15 +117,8 @@ public class WiredLinkContentParser extends LinkDataExtractor {
 
     @Override
     public List<ExtractedLinkData> getLinks() throws ContentParserException {
-        String subtitle = null;
-        if (getSubtitle().isPresent()) {
-            final String s = getSubtitle().get();
-            if (!s.endsWith("[…]")) { // we ignore subtitles which are an extract of the article
-                subtitle = s;
-            }
-        }
-        final String[] subtitles = (subtitle != null) ? new String[]{ subtitle }
-                                                      : new String[0];
+        final String[] subtitles = getSubtitle().isPresent() ? new String[]{ getSubtitle().get() }
+                                                             : new String[0];
         final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
                                                                  subtitles,
                                                                  getUrl().toString(),

@@ -23,8 +23,14 @@ import org.xml.sax.SAXException;
 
 import utils.xmlparsing.ElementType;
 
+/**
+ *
+ */
 public class XmlHelper {
 
+    /**
+     * @return
+     */
     public static DocumentBuilder buildDocumentBuilder() {
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = null;
@@ -39,6 +45,10 @@ public class XmlHelper {
         return builder;
     }
 
+    /**
+     * @param schemaLocation
+     * @return
+     */
     public static Validator buildValidator(final Path schemaLocation) {
         final SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         Schema schema = null;
@@ -51,13 +61,18 @@ public class XmlHelper {
         return schema.newValidator();
     }
 
+    /**
+     * @param node
+     * @return
+     */
     public static List<String> getFirstLevelTextContent(final Node node) {
         final NodeList list = node.getChildNodes();
         final List<String> content = new ArrayList<>();
         for (int i = 0; i < list.getLength(); i++) {
             final Node child = list.item(i);
-            if (child.getNodeType() == Node.TEXT_NODE)
+            if (child.getNodeType() == Node.TEXT_NODE) {
                 content.add(child.getTextContent());
+            }
         }
         return content;
     }
@@ -76,6 +91,10 @@ public class XmlHelper {
         return ElementType.valueOf(element.getTagName());
     }
 
+    /**
+     * @param element
+     * @return
+     */
     public static Optional<Locale> getElementLanguage(final Element element) {
 
         if (element.hasAttribute("xml:lang")) {
@@ -108,6 +127,11 @@ public class XmlHelper {
         return getSiblingElement(element, Node::getNextSibling);
     }
 
+    /**
+     * @param element
+     * @param siblingFunction
+     * @return
+     */
     public static Element getSiblingElement(final Element element,
                                             final Function<Node, Node> siblingFunction) {
         Node sibling = element;

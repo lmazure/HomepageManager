@@ -25,7 +25,6 @@ import javafx.stage.Stage;
 
 /**
  * Table listing all homepage pages
- *
  */
 public class FileTable extends Application {
 

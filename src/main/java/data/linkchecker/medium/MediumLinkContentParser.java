@@ -24,6 +24,9 @@ import utils.internet.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkFormat;
 
+/**
+*
+*/
 public class MediumLinkContentParser extends LinkDataExtractor {
 
     private final String _data;
@@ -59,6 +62,10 @@ public class MediumLinkContentParser extends LinkDataExtractor {
                         "Medium",
                         "Netflix authors");
 
+    /**
+     * @param url URL of the link
+     * @param data retrieved link data
+     */
     public MediumLinkContentParser(final String url,
                                    final String data) {
         super(url);
@@ -78,6 +85,10 @@ public class MediumLinkContentParser extends LinkDataExtractor {
         return _subtitle;
     }
 
+    /**
+     * @return publication date, empty if there is none
+     * @throws ContentParserException failure to extract the information
+     */
     public LocalDate getPublicationDate() throws ContentParserException {
         loadData();
         return _publicationDate;

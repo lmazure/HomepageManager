@@ -1,15 +1,47 @@
 
 
 
+
 ==== merge =====
 
+data.linkchecker.ContentParserException: Failed to check data of "https://developer.ibm.com/tutorials/wa-build-deploy-web-app-sailsjs-2-bluemix"
+    at data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:55)
+    at data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:283)
+    at data.internet.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:143)
+    at data.internet.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:118)
+    at data.internet.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:70)
+    at data.internet.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:34)
+    at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+    at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+    at java.base/java.lang.Thread.run(Thread.java:1589)
+Caused by: data.linkchecker.ContentParserException: failed to get JSON data for https://developer.ibm.com/tutorials/wa-build-deploy-web-app-sailsjs-2-bluemix
+    at data.linkchecker.ibm.IbmLinkContentParser.<init>(IbmLinkContentParser.java:44)
+    at data.linkchecker.ibm.IbmLinkContentChecker.checkGlobalData(IbmLinkContentChecker.java:42)
+    at data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:64)
+    at data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:53)
+    ... 8 more
+Caused by: java.io.IOException: Failed to get gzipped payload from https://developer.ibm.com/middleware/v1/contents/tutorials/wa-build-deploy-web-app-sailsjs-2-bluemix
+    at data.internet.SynchronousSiteDataRetriever.getGzippedContent(SynchronousSiteDataRetriever.java:163)
+    at data.linkchecker.ibm.IbmLinkContentParser.getStructureJson(IbmLinkContentParser.java:130)
+    at data.linkchecker.ibm.IbmLinkContentParser.<init>(IbmLinkContentParser.java:42)
+    ... 11 more
+Caused by: java.util.zip.ZipException: Not in GZIP format
+    at java.base/java.util.zip.GZIPInputStream.readHeader(GZIPInputStream.java:165)
+    at java.base/java.util.zip.GZIPInputStream.<init>(GZIPInputStream.java:79)
+    at java.base/java.util.zip.GZIPInputStream.<init>(GZIPInputStream.java:91)
+    at data.internet.SynchronousSiteDataRetriever.getGzippedContent(SynchronousSiteDataRetriever.java:158)
+    ... 13 more
+
+
+ne oas tout reconstruire à partir du moment où un seul des fichiers résultats n'est plus à jour
+
+se débarrasser de xampp
+
+mettre en place https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details
+
 mauvaise gestion des URLs incorrectes (pex hhtps://...)
-le thread sembke définitivement planté
+le thread semble définitivement planté
 
-nettoyage de javadoc : 8 warnings
-
-remplacer les classes de utils.xmlparsing par des records
- 
 data.linkchecker.ContentParserException: Failed to check data of "https://developer.ibm.com/articles/wa-ecmascript6-neward-p1/"
 
 spin off de la page
@@ -17,8 +49,6 @@ spin off de la page
 mettre IDE en dessous de dev tools
 
 détecter américanismes
-
-détecter espace en début et fin de DESC et de TERM
 
 nettoyer notes/csharp.xml
 

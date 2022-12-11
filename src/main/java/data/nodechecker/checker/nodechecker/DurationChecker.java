@@ -1,19 +1,25 @@
-package data.nodechecker.checker.nodeChecker;
+package data.nodechecker.checker.nodechecker;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import data.nodechecker.checker.CheckStatus;
-import data.nodechecker.tagSelection.InclusionTagSelector;
+import data.nodechecker.tagselection.InclusionTagSelector;
 import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
 
+/**
+*
+*/
 public class DurationChecker extends NodeChecker {
 
     private final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.DURATION
             });
 
+    /**
+    * constructor
+    */
     public DurationChecker() {
         super(s_selector,
               DurationChecker::checkDurationHierarchy, "the DURATION components are incorrectly structured",

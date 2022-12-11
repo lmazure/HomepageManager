@@ -14,11 +14,20 @@ import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkData;
 
+/**
+*
+*/
 public class IbmLinkContentChecker extends LinkContentChecker {
 
     private IbmLinkContentParser _parser;
     private final String _url;
 
+    /**
+     * @param url URL of the link to check
+     * @param linkData expected link data
+     * @param articleData expected article data
+     * @param file effective retrieved kink data
+     */
     public IbmLinkContentChecker(final String url,
                                  final LinkData linkData,
                                  final Optional<ArticleData> articleData,

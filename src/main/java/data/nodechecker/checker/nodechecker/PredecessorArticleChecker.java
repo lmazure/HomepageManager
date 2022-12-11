@@ -1,21 +1,27 @@
-package data.nodechecker.checker.nodeChecker;
+package data.nodechecker.checker.nodechecker;
 
 import org.w3c.dom.Element;
 
 import data.nodechecker.checker.CheckStatus;
-import data.nodechecker.tagSelection.InclusionTagSelector;
+import data.nodechecker.tagselection.InclusionTagSelector;
 import utils.XmlHelper;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.ElementType;
 import utils.xmlparsing.XmlParser;
 import utils.xmlparsing.XmlParsingException;
 
+/**
+*
+*/
 public class PredecessorArticleChecker extends NodeChecker {
 
     private final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.ARTICLE
             });
 
+    /**
+    * constructor
+    */
     public PredecessorArticleChecker() {
         super(s_selector,
               PredecessorArticleChecker::checkPredArticle, "the previous article is not the one defined by the 'predecessor' attribute");
@@ -49,13 +55,13 @@ public class PredecessorArticleChecker extends NodeChecker {
         } catch (final XmlParsingException ex) {
             return new CheckStatus("Failed to parse article (" + ex.getMessage() + ")");
         }
-        final String urlOfPreviousArticle = previousArticleData.getLinks().get(0).getUrl();
+        final String urlOfPreviousArticle = previousArticleData.links().get(0).getUrl();
 
         if (!predecessor.equals(urlOfPreviousArticle)) {
             return new CheckStatus("Article has 'predecessor' article equal to \"" +
                                    predecessor +
                                    "\" while previous article has URL \"" +
-                                   previousArticleData.getLinks().get(0).getUrl() +
+                                   previousArticleData.links().get(0).getUrl() +
                                    "\"");
         }
 

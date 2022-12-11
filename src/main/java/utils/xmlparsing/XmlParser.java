@@ -17,7 +17,9 @@ import org.w3c.dom.NodeList;
 
 import utils.XmlHelper;
 
-public class XmlParser {
+/**
+*
+*/public class XmlParser {
 
     public static ArticleData parseArticleElement(final Element articleElement) throws XmlParsingException {
 

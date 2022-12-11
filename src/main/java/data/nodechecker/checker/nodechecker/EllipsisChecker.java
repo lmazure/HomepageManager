@@ -1,7 +1,7 @@
-package data.nodechecker.checker.nodeChecker;
+package data.nodechecker.checker.nodechecker;
 
 import data.nodechecker.checker.CheckStatus;
-import data.nodechecker.tagSelection.ExclusionTagSelector;
+import data.nodechecker.tagselection.ExclusionTagSelector;
 import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
 
@@ -9,6 +9,9 @@ import java.util.List;
 
 import org.w3c.dom.Element;
 
+/**
+*
+*/
 public class EllipsisChecker extends NodeChecker {
 
     private static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new ElementType[] {
@@ -31,6 +34,9 @@ public class EllipsisChecker extends NodeChecker {
             ElementType.X
             });
 
+    /**
+    * constructor
+    */
     public EllipsisChecker() {
         super(s_selector,
              EllipsisChecker::checkEllipsis, "ellipsis is improperly encoded",

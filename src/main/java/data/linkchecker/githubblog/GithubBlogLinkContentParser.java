@@ -22,6 +22,9 @@ import utils.internet.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkFormat;
 
+/**
+*
+*/
 public class GithubBlogLinkContentParser extends LinkDataExtractor {
 
     private final String _data;
@@ -43,6 +46,10 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
                      "GitHub blog",
                      "subtitle");
 
+    /**
+     * @param url URL of the link
+     * @param data retrieved link data
+     */
     public GithubBlogLinkContentParser(final String url,
                                        final String data) {
         super(url);
@@ -61,6 +68,10 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
         return Optional.of(_subtitle);
     }
 
+    /**
+     * @return publication date, empty if there is none
+     * @throws ContentParserException failure to extract the information
+     */
     public LocalDate getPublicationDate() throws ContentParserException {
         loadData();
         return _publicationDate;

@@ -14,6 +14,9 @@ import data.linkchecker.LinkDataExtractorFactory;
 import data.linkchecker.XmlGenerator;
 import utils.xmlparsing.AuthorData;
 
+/**
+ * High level tests of LinkDataExtractors
+ */
 public class LinkDataExtractorTest {
 
     @Test
@@ -100,12 +103,12 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void oracleBlogsIsManaged() throws ContentParserException {
+    void oracleBlogsWithoutPostIsManaged() throws ContentParserException {
         final String url = "https://blogs.oracle.com/javamagazine/unit-test-your-architecture-with-archunit";
         final String expectedXml = """
                 <ARTICLE><X><T>Unit Test Your Architecture with ArchUnit</T>\
                 <ST>Discover architectural defects at build time.</ST>\
-                <A>https://blogs.oracle.com/javamagazine/unit-test-your-architecture-with-archunit</A>\
+                <A>https://blogs.oracle.com/javamagazine/post/unit-test-your-architecture-with-archunit</A>\
                 <L>en</L><F>HTML</F></X>\
                 <AUTHOR><FIRSTNAME>Jonas</FIRSTNAME><LASTNAME>Havers</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2019</YEAR><MONTH>8</MONTH><DAY>20</DAY></DATE>\
@@ -122,9 +125,26 @@ public class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Modern file input/output with Java: Going fast with NIO and NIO.2</T>\
                 <ST>Reach for these low-level Java APIs when you need to move a lot of file data or socket data quickly.</ST>\
-                <A>https://blogs.oracle.com/javamagazine/java-nio-nio2-buffers-channels-async-future-callback</A><L>en</L><F>HTML</F></X>\
+                <A>https://blogs.oracle.com/javamagazine/post/java-nio-nio2-buffers-channels-async-future-callback</A>\
+                <L>en</L><F>HTML</F></X>\
                 <AUTHOR><FIRSTNAME>Ben</FIRSTNAME><LASTNAME>Evans</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>1</MONTH><DAY>7</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
+    void oracleBlogsUrlIsProperlyCleanedUp() throws ContentParserException {
+        final String url = "https://blogs.oracle.com/javamagazine/post/curly-braces-java-recursion-tail-call-optimization?source=:em:nw:mt::::RC_WWMK200429P00043C0065:NSL400266546&utm_source=pocket_mylist";
+        final String expectedXml = """
+                <ARTICLE><X><T>Curly Braces #6: Recursion and tail-call optimization</T>\
+                <A>https://blogs.oracle.com/javamagazine/post/curly-braces-java-recursion-tail-call-optimization</A>\
+                <L>en</L><F>HTML</F></X>\
+                <AUTHOR><FIRSTNAME>Eric</FIRSTNAME><MIDDLENAME>J.</MIDDLENAME><LASTNAME>Bruno</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>11</MONTH><DAY>7</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
@@ -1123,6 +1143,23 @@ public class LinkDataExtractorTest {
                 <L>en</L><F>HTML</F></X>\
                 <AUTHOR><FIRSTNAME>Elena</FIRSTNAME><LASTNAME>Renken</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>9</MONTH><DAY>20</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
+    void ampersandIsEscaped() throws ContentParserException {
+        final String url = "https://arstechnica.com/information-technology/2022/11/nvidia-wins-award-for-ai-that-can-play-minecraft-on-command/?comments=1&comments-page=1";
+        final String expectedXml = """
+                <ARTICLE><X><T>Nvidia AI plays Minecraft, wins machine-learning conference award</T>\
+                <ST>NeurIPS 2022 honors MineDojo for playing Minecraft when instructed by written prompts.</ST>\
+                <A>https://arstechnica.com/information-technology/2022/11/nvidia-wins-award-for-ai-that-can-play-minecraft-on-command/?comments=1&amp;comments-page=1</A>\
+                <L>en</L><F>HTML</F></X>\
+                <AUTHOR><FIRSTNAME>Benj</FIRSTNAME><LASTNAME>Edwards</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>11</MONTH><DAY>28</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));

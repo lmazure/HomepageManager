@@ -11,10 +11,19 @@ import utils.FileSection;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkData;
 
+/**
+*
+*/
 public class ChromiumBlogLinkContentChecker extends LinkContentChecker {
 
     private ChromiumBlogLinkContentParser _parser;
 
+    /**
+     * @param url URL of the link to check
+     * @param linkData expected link data
+     * @param articleData expected article data
+     * @param file effective retrieved kink data
+     */
     public ChromiumBlogLinkContentChecker(final String url,
                                           final LinkData linkData,
                                           final Optional<ArticleData> articleData,

@@ -1,12 +1,15 @@
-package data.nodechecker.checker.nodeChecker;
+package data.nodechecker.checker.nodechecker;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import data.nodechecker.checker.CheckStatus;
-import data.nodechecker.tagSelection.ExclusionTagSelector;
+import data.nodechecker.tagselection.ExclusionTagSelector;
 import utils.xmlparsing.ElementType;
 
+/**
+*
+*/
 public class SpaceBetweenTagsChecker extends NodeChecker {
 
     private static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new ElementType[] {
@@ -30,6 +33,9 @@ public class SpaceBetweenTagsChecker extends NodeChecker {
             ElementType.TEXTBLOCK
             });
 
+    /**
+    * constructor
+    */
     public SpaceBetweenTagsChecker() {
         super(s_selector,
                 SpaceBetweenTagsChecker::checkNoSpacey, "element should not contain space between tags");
