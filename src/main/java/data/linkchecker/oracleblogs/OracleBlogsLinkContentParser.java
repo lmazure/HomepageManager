@@ -265,6 +265,5 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
             return u;
         }
         return u.replaceFirst("https://blogs.oracle.com/javamagazine/", "https://blogs.oracle.com/javamagazine/post/");
-        
     }
 }

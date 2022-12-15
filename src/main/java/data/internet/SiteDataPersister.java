@@ -250,7 +250,7 @@ public class SiteDataPersister {
 
     private static FileLock getChannelLock(final FileChannel channel,
                                           final boolean shared) throws IOException {
-        for (;;) {            
+        for (;;) {
             try {
                 return channel.lock(0, Long.MAX_VALUE, shared);
             } catch (@SuppressWarnings("unused") OverlappingFileLockException e) {

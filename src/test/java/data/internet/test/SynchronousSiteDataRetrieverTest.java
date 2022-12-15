@@ -47,7 +47,7 @@ public class SynchronousSiteDataRetrieverTest {
                            false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
-    
+
     @Test
     // this site returns an invalid cookie
     void softteam() {

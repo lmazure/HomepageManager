@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * @param date 
- * @param authors 
- * @param links 
+ * @param date
+ * @param authors
+ * @param links
  *
  */
 public record ArticleData(Optional<TemporalAccessor> date,

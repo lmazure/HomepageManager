@@ -278,10 +278,6 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                           new ChannelData(buildList(buildAuthor("Clément", "Freze")),
                                                           buildMatchingList(),
                                                           Locale.FRENCH)),
-            new AbstractMap.SimpleEntry<>("Dr. Becky",
-                                          new ChannelData(buildList(buildAuthor("Becky", "Smethurst")),
-                                                          buildMatchingList(),
-                                                          Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("DeepSkyVideos",
                                           new ChannelData(buildList(),
                                                           buildMatchingList(match("Crowther", buildAuthor("Paul", "Crowther")),
@@ -292,6 +288,14 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                           new ChannelData(buildList(buildAuthor("Léo", "Grasset")),
                                                           buildMatchingList(),
                                                           Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("Dr. Becky",
+                                          new ChannelData(buildList(buildAuthor("Becky", "Smethurst")),
+                                                          buildMatchingList(),
+                                                          Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("Dr Peyam",
+                                          new ChannelData(buildList(buildAuthor("Peyam", "Ryan", "Tabrizian")),
+                                                          buildMatchingList(),
+                                                          Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("El Jj",
                                           new ChannelData(buildList(buildAuthor("Jérôme", "Cottanceau")),
                                                           buildMatchingList(),
@@ -558,6 +562,17 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         return new AuthorData(Optional.empty(),
                               Optional.of(firstName),
                               Optional.empty(),
+                              Optional.of(lastName),
+                              Optional.empty(),
+                              Optional.empty());
+    }
+
+    private static AuthorData buildAuthor(final String firstName,
+                                          final String middleName,
+                                          final String lastName) {
+        return new AuthorData(Optional.empty(),
+                              Optional.of(firstName),
+                              Optional.of(middleName),
                               Optional.of(lastName),
                               Optional.empty(),
                               Optional.empty());

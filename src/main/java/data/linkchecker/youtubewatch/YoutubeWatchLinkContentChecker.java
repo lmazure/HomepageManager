@@ -28,7 +28,7 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
      * @param url URL of the link to check
      * @param linkData expected link data
      * @param articleData expected article data
-     * @param file effective retrieved kink data
+     * @param file effective retrieved link data
      */
     public YoutubeWatchLinkContentChecker(final String url,
                                           final LinkData linkData,

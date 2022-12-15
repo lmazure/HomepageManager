@@ -3,10 +3,10 @@ package utils.xmlparsing;
 import java.util.List;
 
 /**
- * @param keyId 
- * @param keyText 
- * @param article 
- * @param links 
+ * @param keyId
+ * @param keyText
+ * @param article
+ * @param links
  *
  */
 public record KeywordData(String keyId,
