@@ -18,7 +18,7 @@ import utils.WatchDir;
 /**
  *
  */
-public class FileEventDispachter {
+public class FileEventDispatcher {
 
     private static final String s_markerFile = "google1b78f05130a6dbb0.html"; // TODO this should not be hardcoded
     private static final PathMatcher s_matcher = FileSystems.getDefault().getPathMatcher("glob:**/*.xml");
@@ -40,7 +40,7 @@ public class FileEventDispachter {
      * @param handler
      * @param fileHandlers
      */
-    public FileEventDispachter(final Path homepagePath,
+    public FileEventDispatcher(final Path homepagePath,
                                final FileExistenceHandler handler,
                                final List<FileHandler> fileHandlers) {
         _homepagePath = homepagePath;

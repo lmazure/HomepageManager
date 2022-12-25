@@ -4,6 +4,11 @@
 
 ==== merge =====
 
+see the Mastodon stuff
+<a rel="me" href="https://qoto.org/@Laurent">Mastodon</a>
+https://qoto.org/settings/profile
+
+
 data.linkchecker.ContentParserException: Failed to check data of "https://developer.ibm.com/tutorials/wa-build-deploy-web-app-sailsjs-2-bluemix"
     at data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:55)
     at data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:283)

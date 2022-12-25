@@ -55,6 +55,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             ".NET",
             "Node.js",
             "Normalize.css",
+            "npmjs.com",
             "openjdk.org",
             "OpenOffice.org",
             "P.Anno",

@@ -4,7 +4,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-import data.FileEventDispachter;
+import data.FileEventDispatcher;
 import data.FileChecker;
 import data.FileHandler;
 import data.HTMLGenerator;
@@ -31,7 +31,7 @@ public class FileTable extends Application {
     private static Path s_homepagePath;
     private static Path s_tmpPath;
     private static final String s_cacheFolderName = "internet_cache";
-    private static boolean s_internetAccessiSEnabled;
+    private static boolean s_internetAccessIsEnabled;
     private static ObservableFileList s_list;
 
     @Override
@@ -55,7 +55,7 @@ public class FileTable extends Application {
         uiControllers.add(nodeCheckController);
         fileHandlers.add(nodeValueCheckGenerator);
 
-        if (s_internetAccessiSEnabled) {
+        if (s_internetAccessIsEnabled) {
             final LinkCheckController linkCheckController = new LinkCheckController(s_list);
             final LinkChecker linkCheckGenerator = new LinkChecker(s_homepagePath, s_tmpPath, s_cacheFolderName, linkCheckController);
             uiControllers.add(linkCheckController);
@@ -92,7 +92,7 @@ public class FileTable extends Application {
 
                     @Override
                     protected Void call() throws Exception {
-                        final FileEventDispachter dataOrchestrator = new FileEventDispachter(s_homepagePath, s_list, fileHandlers);
+                        final FileEventDispatcher dataOrchestrator = new FileEventDispatcher(s_homepagePath, s_list, fileHandlers);
                         dataOrchestrator.start();
                         return null;
                     }
@@ -155,7 +155,7 @@ public class FileTable extends Application {
                                final boolean internetAccessiSEnabled) {
         s_homepagePath = homepagePath;
         s_tmpPath = tmpPath;
-        s_internetAccessiSEnabled = internetAccessiSEnabled;
+        s_internetAccessIsEnabled = internetAccessiSEnabled;
         s_list = new ObservableFileList();
         launch();
     }
