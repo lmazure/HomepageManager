@@ -314,7 +314,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchDeepSkyVideosIsManaged1() throws ContentParserException {
+    void youtubeWatchDeepSkyPaulCrowtherVideosIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=MkzyMS_hNwU";
         final String expectedSureXml = """
                 <ARTICLE><X><T>M28 - Millisecond Pulsar - Deep Sky Videos</T>\
@@ -335,7 +335,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchDeepSkyVideosIsManaged2() throws ContentParserException {
+    void youtubeWatchDeepSkyMeganGrayVideosIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=17LITLns-pk";
         final String expectedSureXml = """
                 <ARTICLE><X><T>M50 - Spinning Stars - Deep Sky Videos</T>\
@@ -356,7 +356,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchDeepSkyVideosIsManaged3() throws ContentParserException {
+    void youtubeWatchDeepSkyMichaelMerryfielVideosIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=2d2YCUdt2gc";
         final String expectedSureXml = """
                 <ARTICLE><X><T>M61 - Barred Spiral Galaxy - Deep Sky Videos</T>\
@@ -651,6 +651,22 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchMathologer2IsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=WY5X_3q80WY";
+        final String expectedXml = """
+                <ARTICLE><X><T>Animating Nicomachus's 2000 year old mathematical gem (Mathologer Christmas video)</T>\
+                <A>https://www.youtube.com/watch?v=WY5X_3q80WY</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>3</MINUTE><SECOND>29</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Burkard</FIRSTNAME><LASTNAME>Polster</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>12</MONTH><DAY>24</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeWatchMathParker2IsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=gusXBTyg1O4";
         final String expectedXml = """
@@ -744,6 +760,28 @@ public class LinkDataExtractorTest {
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
         Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+
+    @Test
+    void youtubeWatchNumberphileJamesGrimeIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=ZdQFN2XKeKI";
+        final String expectedSureXml = """
+                <ARTICLE><X><T>The Goat Problem - Numberphile</T>\
+                <A>https://www.youtube.com/watch?v=ZdQFN2XKeKI</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>51</SECOND></DURATION></X>\
+                <DATE><YEAR>2022</YEAR><MONTH>12</MONTH><DAY>24</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final String expectedProbableXml = """
+                <ARTICLE><X><T>The Goat Problem - Numberphile</T>\
+                <A>https://www.youtube.com/watch?v=ZdQFN2XKeKI</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>51</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>James</FIRSTNAME><LASTNAME>Grime</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>12</MONTH><DAY>24</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
+        Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
     }
 
     @Test

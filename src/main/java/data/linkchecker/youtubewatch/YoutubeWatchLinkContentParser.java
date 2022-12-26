@@ -63,6 +63,9 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         }
     }
 
+    /**
+     * @return is the video playable or blocked?
+     */
     public boolean isPlayable() {
         if (_isPlayable == null) {
             _isPlayable = Boolean.valueOf(getPlayable());
@@ -71,6 +74,10 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         return _isPlayable.booleanValue();
     }
 
+    /**
+     * @return channel of the video
+     * @throws ContentParserException failure to extract the information
+     */
     public String getChannel() throws ContentParserException {
         if (_channel == null) {
             _channel = extractField("ownerChannelName");
@@ -93,6 +100,10 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         return Optional.empty();
     }
 
+    /**
+     * @return description of the video
+     * @throws ContentParserException failure to extract the information
+     */
     public String getDescription() throws ContentParserException {
         if (_description == null) {
             _description = extractField("shortDescription");
@@ -101,6 +112,10 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         return _description;
     }
 
+    /**
+     * @return upload date of the video
+     * @throws ContentParserException failure to extract the information
+     */
     public LocalDate getUploadDateInternal() throws ContentParserException {
         if (_uploadDate == null) {
             _uploadDate = extractDate("uploadDate");
@@ -109,6 +124,10 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         return _uploadDate;
     }
 
+    /**
+     * @return publication date of the video
+     * @throws ContentParserException failure to extract the information
+     */
     public LocalDate getPublishDateInternal() throws ContentParserException {
         if (_publishDate == null) {
             _publishDate = extractDate("publishDate");
@@ -117,6 +136,10 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         return _publishDate;
     }
 
+    /**
+     * @return minimum duration of the video
+     * @throws ContentParserException failure to extract the information
+     */
     public Duration getMinDuration() throws ContentParserException {
         if (_minDuration == null) {
             extractDuration();
@@ -125,6 +148,10 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         return _minDuration;
     }
 
+    /**
+     * @return maximum duration of the video
+     * @throws ContentParserException failure to extract the information
+     */
     public Duration getMaxDuration() throws ContentParserException {
         if (_maxDuration == null) {
             extractDuration();
@@ -153,6 +180,9 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         return _language;
     }
 
+    /**
+     * @return language of the subtitles of the video
+     */
     public Optional<Locale> getSubtitlesLanguage() {
         final String prefix = _isEscaped ? "\\\"name\\\":{\\\"simpleText\\\":\\\""
                                          : "\"name\":{\"simpleText\":\"";
@@ -346,6 +376,10 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                           new ChannelData(buildList(buildAuthor("Burkard", "Polster")),
                                                           buildMatchingList(),
                                                           Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("Mathologer 2",
+                                          new ChannelData(buildList(buildAuthor("Burkard", "Polster")),
+                                                          buildMatchingList(),
+                                                          Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Matt_Parker_2",
                                           new ChannelData(buildList(buildAuthor("Matt", "Parker")),
                                                           buildMatchingList(),
@@ -366,6 +400,10 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                           new ChannelData(buildList(buildAuthor("Thibaut", "Giraud")),
                                                           buildMatchingList(),
                                                           Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("Numberphile",
+                                          new ChannelData(buildList(),
+                                                          buildMatchingList(match("Grime", buildAuthor("James", "Grime"))),
+                                                          Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Nota Bonus",
                                           new ChannelData(buildList(buildAuthor("Benjamin", "Brillaud")),
                                                           buildMatchingList(),
