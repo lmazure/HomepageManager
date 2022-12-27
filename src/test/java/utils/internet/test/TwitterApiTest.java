@@ -3,7 +3,7 @@ package utils.internet.test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import data.ParameterRepository;
+import data.SecretRepository;
 import utils.internet.twitter.TwitterApi;
 import utils.internet.twitter.TwitterUserDto;
 
@@ -18,6 +18,6 @@ public class TwitterApiTest {
     }
 
     private static TwitterApi buildApi() {
-        return new TwitterApi(ParameterRepository.getTwitterApiKey(), ParameterRepository.getTwitterApiSecretKey());
+        return new TwitterApi(SecretRepository.getTwitterApiKey(), SecretRepository.getTwitterApiSecretKey());
     }
 }

@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.Optional;
 
-import data.ParameterRepository;
+import data.SecretRepository;
 import data.linkchecker.LinkContentCheck;
 import data.linkchecker.LinkContentChecker;
 import utils.FileSection;
@@ -32,7 +32,7 @@ public class TwitterLinkContentChecker extends LinkContentChecker {
                                      final Optional<ArticleData> articleData,
                                      final FileSection file) {
         super(url, linkData, articleData, file);
-        final TwitterApi api = new TwitterApi(ParameterRepository.getTwitterApiKey(), ParameterRepository.getTwitterApiSecretKey());
+        final TwitterApi api = new TwitterApi(SecretRepository.getTwitterApiKey(), SecretRepository.getTwitterApiSecretKey());
         final String userName = url.replace("https://twitter.com/", "");
         _dto = api.getUser(userName);
     }
