@@ -28,7 +28,7 @@ public class YoutubeApi {
     private final String _applicationName;
     private final String _apiKey;
     private final String _referenceRegion;
-    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+    private static final JsonFactory s_json_factory = JacksonFactory.getDefaultInstance();
 
     public YoutubeApi(final String applicationName,
                       final String apiKey,
@@ -102,7 +102,7 @@ public class YoutubeApi {
     private VideoListResponse getVideoInfo(final List<String> videoIds) {
         try {
             final NetHttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
-            final YouTube youtubeService = new YouTube.Builder(httpTransport, JSON_FACTORY, null)
+            final YouTube youtubeService = new YouTube.Builder(httpTransport, s_json_factory, null)
                                                       .setApplicationName(_applicationName)
                                                       .setYouTubeRequestInitializer(new YouTubeRequestInitializer(_apiKey))
                                                       .build();

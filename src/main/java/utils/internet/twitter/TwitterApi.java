@@ -38,13 +38,13 @@ public class TwitterApi {
         return null;
     }
 
-    private static final String ALL_USER_FIELDS = "user.fields=id,created_at,username,name,location,url,verified,profile_image_url,public_metrics,pinned_tweet_id,description,protected";
+    private static final String s_all_user_fields = "user.fields=id,created_at,username,name,location,url,verified,profile_image_url,public_metrics,pinned_tweet_id,description,protected";
 
     private static String getUserUrlFromName(String username) {
         return "https://api.twitter.com/2/users/by/username/" +
                username +
                "?" +
-               ALL_USER_FIELDS;
+               s_all_user_fields;
     }
 
     private static String getBearerToken(final String apiKey,

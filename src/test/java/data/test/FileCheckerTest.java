@@ -13,15 +13,19 @@ import data.DataController;
 import data.FileChecker;
 import data.FileHandler.Status;
 
+/**
+ * Tests of FileChecker
+ *
+ */
 public class FileCheckerTest {
 
-    private static final String MESS_BOM  = "file should not have a UTF BOM";
-    private static final String MESS_CTRL = "line contains a control character";
-    private static final String MESS_WTSP = "line is finishing with a white space";
-    private static final String MESS_PATH = "the name of the file does not appear in the <PATH> node (expected to see \"<PATH>HomepageManager/test.xml</PATH>\")";
-    private static final String MESS_CRLF = "line should finish by \\r\\n instead of \\n";
-    private static final String MESS_EMPT = "empty line";
-    private static final String MESS_ODSP = "odd number of spaces at the beginning of the line";
+    private static final String s_mess_bom  = "file should not have a UTF BOM";
+    private static final String s_mess_ctrl = "line contains a control character";
+    private static final String s_mess_white_space = "line is finishing with a white space";
+    private static final String s_mess_path = "the name of the file does not appear in the <PATH> node (expected to see \"<PATH>HomepageManager/test.xml</PATH>\")";
+    private static final String s_mess_crlf = "line should finish by \\r\\n instead of \\n";
+    private static final String s_mess_empty_line = "empty line";
+    private static final String s_mess_odd_space_indentation = "odd number of spaces at the beginning of the line";
 
     @SuppressWarnings("static-method")
     @Test
@@ -58,7 +62,7 @@ public class FileCheckerTest {
 
         test(content,
              0, "the file violates the schema (\"org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 1; Content is not allowed in prolog.\")",
-             1, MESS_BOM);
+             1, s_mess_bom);
     }
 
     @SuppressWarnings("static-method")
@@ -78,7 +82,7 @@ public class FileCheckerTest {
 
         test(content,
              0, "the file violates the schema (\"org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 7; The processing instruction target matching \"[xX][mM][lL]\" is not allowed.\")",
-             1, MESS_CTRL + " (x9) at column 1");
+             1, s_mess_ctrl + " (x9) at column 1");
     }
 
     @SuppressWarnings("static-method")
@@ -115,9 +119,9 @@ public class FileCheckerTest {
             "</PAGE>";
 
         test(content,
-             5, MESS_CTRL + " (x9) at column 1",
-             6, MESS_CTRL + " (x9) at column 60",
-             6, MESS_WTSP);
+             5, s_mess_ctrl + " (x9) at column 1",
+             6, s_mess_ctrl + " (x9) at column 60",
+             6, s_mess_white_space);
     }
 
     @SuppressWarnings("static-method")
@@ -136,8 +140,8 @@ public class FileCheckerTest {
             "</PAGE>\t";
 
         test(content,
-             9, MESS_CTRL + " (x9) at column 8",
-             9, MESS_WTSP);
+             9, s_mess_ctrl + " (x9) at column 8",
+             9, s_mess_white_space);
     }
 
     @SuppressWarnings("static-method")
@@ -156,7 +160,7 @@ public class FileCheckerTest {
             "</PAGE>";
 
         test(content,
-             1, MESS_WTSP);
+             1, s_mess_white_space);
     }
 
     @SuppressWarnings("static-method")
@@ -175,8 +179,8 @@ public class FileCheckerTest {
             "</PAGE>";
 
         test(content,
-             5, MESS_WTSP,
-             6, MESS_WTSP);
+             5, s_mess_white_space,
+             6, s_mess_white_space);
     }
 
     @SuppressWarnings("static-method")
@@ -195,7 +199,7 @@ public class FileCheckerTest {
             "</PAGE> ";
 
         test(content,
-             9, MESS_WTSP);
+             9, s_mess_white_space);
     }
 
     @SuppressWarnings("static-method")
@@ -214,7 +218,7 @@ public class FileCheckerTest {
             "</PAGE>";
 
         test(content,
-             5, MESS_PATH);
+             5, s_mess_path);
     }
 
     @SuppressWarnings("static-method")
@@ -233,7 +237,7 @@ public class FileCheckerTest {
             "</PAGE>";
 
         test(content,
-             4, MESS_CRLF);
+             4, s_mess_crlf);
     }
 
     @SuppressWarnings("static-method")
@@ -254,7 +258,7 @@ public class FileCheckerTest {
 
         test(content,
              0, "the file violates the schema (\"org.xml.sax.SAXParseException; lineNumber: 2; columnNumber: 6; The processing instruction target matching \"[xX][mM][lL]\" is not allowed.\")",
-             1, MESS_EMPT);
+             1, s_mess_empty_line);
     }
 
     @SuppressWarnings("static-method")
@@ -274,7 +278,7 @@ public class FileCheckerTest {
             "</PAGE>";
 
         test(content,
-             6, MESS_EMPT);
+             6, s_mess_empty_line);
     }
 
     @SuppressWarnings("static-method")
@@ -293,7 +297,7 @@ public class FileCheckerTest {
             "</PAGE>\r\n";
 
         test(content,
-             10, MESS_EMPT);
+             10, s_mess_empty_line);
     }
 
     @SuppressWarnings("static-method")
@@ -314,9 +318,9 @@ public class FileCheckerTest {
 
         test(content,
              0, "the file violates the schema (\"org.xml.sax.SAXParseException; lineNumber: 2; columnNumber: 6; The processing instruction target matching \"[xX][mM][lL]\" is not allowed.\")",
-             1, MESS_EMPT,
-             1, MESS_WTSP,
-             1, MESS_ODSP);
+             1, s_mess_empty_line,
+             1, s_mess_white_space,
+             1, s_mess_odd_space_indentation);
     }
 
     @SuppressWarnings("static-method")
@@ -336,8 +340,8 @@ public class FileCheckerTest {
             "</PAGE>";
 
         test(content,
-             6, MESS_EMPT,
-             6, MESS_WTSP);
+             6, s_mess_empty_line,
+             6, s_mess_white_space);
     }
 
     @SuppressWarnings("static-method")
@@ -357,9 +361,9 @@ public class FileCheckerTest {
             " ";
 
         test(content,
-             10, MESS_EMPT,
-             10, MESS_WTSP,
-             10, MESS_ODSP);
+             10, s_mess_empty_line,
+             10, s_mess_white_space,
+             10, s_mess_odd_space_indentation);
     }
 
     @SuppressWarnings("static-method")
@@ -378,8 +382,8 @@ public class FileCheckerTest {
             "</PAGE>";
 
         test(content,
-             3, MESS_ODSP,
-             5, MESS_ODSP);
+             3, s_mess_odd_space_indentation,
+             5, s_mess_odd_space_indentation);
     }
 
     @SuppressWarnings("static-method")
