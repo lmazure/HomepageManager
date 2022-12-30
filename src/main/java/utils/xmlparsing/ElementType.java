@@ -6,6 +6,7 @@ package utils.xmlparsing;
     A,
     ANCHOR,
     ARTICLE,
+    ATTRIBUTE,
     AUTHOR,
     BLIST,
     B,
@@ -46,6 +47,7 @@ package utils.xmlparsing;
     MINUTE,
     MODIFIERKEY,
     MONTH,
+    ATTRIBUTENAME,
     NAMEPREFIX,
     NAMESUFFIX,
     NLIST,
@@ -71,6 +73,7 @@ package utils.xmlparsing;
     TEXTBLOCK,
     TITLE,
     U,
+    ATTRIBUTEVALUE,
     X,
     YEAR
 }

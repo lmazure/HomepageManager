@@ -4,6 +4,9 @@
 
 ==== merge =====
 
+nettoyer links/cracking.html
+
+
 data.linkchecker.ContentParserException: Failed to check data of "https://developer.ibm.com/articles/j-java-streams-2-brian-goetz/"
     at data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:55)
     at data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:283)
