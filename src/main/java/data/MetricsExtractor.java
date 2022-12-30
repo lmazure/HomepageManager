@@ -15,17 +15,17 @@ import utils.Logger;
  */
 public class MetricsExtractor {
 
-    private static final String METRICS_DIRECTORY = "metrics";
-    private static final String METRICS_FILE = "metrics.csv";
-    private static final String SEPARATOR = ";";
+    private static final String s_metrics_directory = "metrics";
+    private static final String s_metrics_file = "metrics.csv";
+    private static final String s_separator = ";";
 
     /**
      * @param homepage
      */
     public static void generate(final Path homepage) {
 
-        final Path metricsDirectory = homepage.resolve(METRICS_DIRECTORY);
-        final File metricsFile = metricsDirectory.resolve(METRICS_FILE).toFile();
+        final Path metricsDirectory = homepage.resolve(s_metrics_directory);
+        final File metricsFile = metricsDirectory.resolve(s_metrics_file).toFile();
 
         final String metrics = extractMetrics(metricsDirectory);
 
@@ -47,10 +47,10 @@ public class MetricsExtractor {
 
         final StringBuilder builder = new StringBuilder();
 
-        builder.append("Date" + SEPARATOR +
-                       "Hits" + SEPARATOR +
-                       "Files" + SEPARATOR +
-                       "Pages" + SEPARATOR +
+        builder.append("Date" + s_separator +
+                       "Hits" + s_separator +
+                       "Files" + s_separator +
+                       "Pages" + s_separator +
                        "Visits\n");
 
         final File[] files = metricsDirectory.toFile().listFiles((dir, name) -> name.startsWith("usage_"));
@@ -65,16 +65,16 @@ public class MetricsExtractor {
                     final String line = scanner.nextLine();
                     lineNumber++;
                     if (lineNumber == 49) { // hits
-                       builder.append(SEPARATOR);
+                       builder.append(s_separator);
                        builder.append(extractNumberFromLine(line));
                     } else if (lineNumber == 51) { //files
-                       builder.append(SEPARATOR);
+                       builder.append(s_separator);
                        builder.append(extractNumberFromLine(line));
                     } else if (lineNumber == 53) { // pages
-                       builder.append(SEPARATOR);
+                       builder.append(s_separator);
                        builder.append(extractNumberFromLine(line));
                     } else if (lineNumber == 55) { // visits
-                       builder.append(SEPARATOR);
+                       builder.append(s_separator);
                        builder.append(extractNumberFromLine(line));
                        builder.append("\n");
                        break;

@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.Optional;
 
-import data.ParameterRepository;
+import data.SecretRepository;
 import data.linkchecker.LinkContentCheck;
 import data.linkchecker.LinkContentChecker;
 import utils.FileSection;
@@ -39,7 +39,7 @@ public class YoutubeWatchLinkContentChecker2 extends LinkContentChecker {
         super(url, linkData, articleData, file);
 
         final Path tmpPath = Paths.get("D:\\tmp");
-        final CachedYoutubeApi api = new CachedYoutubeApi(ParameterRepository.getYoutubeApplicationName(), ParameterRepository.getYoutubeApiKey(), "FR", tmpPath);
+        final CachedYoutubeApi api = new CachedYoutubeApi(SecretRepository.getYoutubeApplicationName(), SecretRepository.getYoutubeApiKey(), "FR", tmpPath);
         final String videoId = url.substring(url.toString().length() - 11);
         _dto = api.getData(videoId);
     }

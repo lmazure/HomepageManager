@@ -41,7 +41,7 @@ public class SiteDataPersister {
     private static final int s_file_buffer_size = 8192;
     private static final int s_max_content_size = 8 * 1024 * 1024;
 
-    private static final Charset UTF8_CHARSET = StandardCharsets.UTF_8;
+    private static final Charset s_charset_utf8 = StandardCharsets.UTF_8;
 
     /**
      * @param path directory where the persistence files should be written
@@ -69,14 +69,14 @@ public class SiteDataPersister {
         HeaderFetchedLinkData data = siteData;
         while (data != null) {
             final String dataString = buildSerializedHeaderString(data);
-            final byte[] byteArray = dataString.getBytes(UTF8_CHARSET);
+            final byte[] byteArray = dataString.getBytes(s_charset_utf8);
             byteArrays.add(byteArray);
             sumOfSizes += byteArray.length;
             data = data.previousRedirection();
         }
 
         final String dataErrorString = buildSerializedErrorString(error);
-        final byte[] byteErrorArray = dataErrorString.getBytes(UTF8_CHARSET);
+        final byte[] byteErrorArray = dataErrorString.getBytes(s_charset_utf8);
         sumOfSizes += byteErrorArray.length;
 
         final File file = getPersistedFile(siteData.url(), timestamp);
@@ -84,9 +84,9 @@ public class SiteDataPersister {
              final FileChannel channel = fos.getChannel();
              final FileLock lock = getChannelLock(channel, false)) {
             final String siz = String.format("%9d\n", Integer.valueOf(sumOfSizes + 20));
-            fos.write(siz.getBytes(UTF8_CHARSET));
+            fos.write(siz.getBytes(s_charset_utf8));
             final String numberOfRedirections = String.format("%9d\n", Integer.valueOf(byteArrays.size()));
-            fos.write(numberOfRedirections.getBytes(UTF8_CHARSET));
+            fos.write(numberOfRedirections.getBytes(s_charset_utf8));
             for (final byte[] byteArray: byteArrays) {
                 fos.write(byteArray);
             }

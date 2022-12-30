@@ -46,7 +46,7 @@ import utils.xmlparsing.XmlParsingException;
  */
 public class LinkCheckRunner {
 
-    private static final int MAX_CACHE_AGE = 30*24*60*60;
+    private static final int s_max_cache_age = 30*24*60*60;
     private final Path _file;
     private final Map<String, FullFetchedLinkData> _effectiveData;
     private final Map<String, LinkData> _expectedData;
@@ -135,7 +135,7 @@ public class LinkCheckRunner {
             return;
         }
         for (final String url: linksToBeChecked) {
-            _retriever.retrieve(url, this::handleLinkData, MAX_CACHE_AGE, doNotUseCookies(url));
+            _retriever.retrieve(url, this::handleLinkData, s_max_cache_age, doNotUseCookies(url));
         }
     }
 

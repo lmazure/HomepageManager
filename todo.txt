@@ -4,6 +4,74 @@
 
 ==== merge =====
 
+data.linkchecker.ContentParserException: Failed to check data of "https://developer.ibm.com/articles/j-java-streams-2-brian-goetz/"
+    at data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:55)
+    at data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:283)
+    at data.internet.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:45)
+    at data.internet.SiteDataRetriever.retrieve(SiteDataRetriever.java:36)
+    at data.linkchecker.LinkCheckRunner.launch(LinkCheckRunner.java:138)
+    at data.LinkChecker.handleCreation(LinkChecker.java:49)
+    at data.FileEventQueue.handleFileCreation(FileEventQueue.java:131)
+    at data.FileEventQueue$Consumer.run(FileEventQueue.java:195)
+    at java.base/java.lang.Thread.run(Thread.java:1589)
+Caused by: data.linkchecker.ContentParserException: failed to get JSON data for https://developer.ibm.com/articles/j-java-streams-2-brian-goetz/
+    at data.linkchecker.ibm.IbmLinkContentParser.<init>(IbmLinkContentParser.java:44)
+    at data.linkchecker.ibm.IbmLinkContentChecker.checkGlobalData(IbmLinkContentChecker.java:42)
+    at data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:64)
+    at data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:53)
+    ... 8 more
+Caused by: java.io.IOException: Failed to get gzipped payload from https://developer.ibm.com/middleware/v1/contents/articles/j-java-streams-2-brian-goetz
+    at data.internet.SynchronousSiteDataRetriever.getGzippedContent(SynchronousSiteDataRetriever.java:163)
+    at data.linkchecker.ibm.IbmLinkContentParser.getStructureJson(IbmLinkContentParser.java:146)
+    at data.linkchecker.ibm.IbmLinkContentParser.<init>(IbmLinkContentParser.java:42)
+    ... 11 more
+Caused by: java.util.zip.ZipException: Not in GZIP format
+    at java.base/java.util.zip.GZIPInputStream.readHeader(GZIPInputStream.java:165)
+    at java.base/java.util.zip.GZIPInputStream.<init>(GZIPInputStream.java:79)
+    at java.base/java.util.zip.GZIPInputStream.<init>(GZIPInputStream.java:91)
+    at data.internet.SynchronousSiteDataRetriever.getGzippedContent(SynchronousSiteDataRetriever.java:158)
+    .
+    
+    
+    
+    
+ 
+ 
+ data.linkchecker.ContentParserException: Failed to check data of "https://developer.ibm.com/articles/wa-sailsjs4/"
+    at data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:55)
+    at data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:283)
+    at data.internet.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:45)
+    at data.internet.SiteDataRetriever.retrieve(SiteDataRetriever.java:36)
+    at data.linkchecker.LinkCheckRunner.launch(LinkCheckRunner.java:138)
+    at data.LinkChecker.handleCreation(LinkChecker.java:49)
+    at data.FileEventQueue.handleFileCreation(FileEventQueue.java:131)
+    at data.FileEventQueue$Consumer.run(FileEventQueue.java:195)
+    at java.base/java.lang.Thread.run(Thread.java:1589)
+Caused by: data.linkchecker.ContentParserException: failed to get JSON data for https://developer.ibm.com/articles/wa-sailsjs4/
+    at data.linkchecker.ibm.IbmLinkContentParser.<init>(IbmLinkContentParser.java:44)
+    at data.linkchecker.ibm.IbmLinkContentChecker.checkGlobalData(IbmLinkContentChecker.java:42)
+    at data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:64)
+    at data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:53)
+    ... 8 more
+Caused by: java.io.IOException: Failed to get gzipped payload from https://developer.ibm.com/middleware/v1/contents/articles/wa-sailsjs4
+    at data.internet.SynchronousSiteDataRetriever.getGzippedContent(SynchronousSiteDataRetriever.java:163)
+    at data.linkchecker.ibm.IbmLinkContentParser.getStructureJson(IbmLinkContentParser.java:146)
+    at data.linkchecker.ibm.IbmLinkContentParser.<init>(IbmLinkContentParser.java:42)
+    ... 11 more
+Caused by: java.util.zip.ZipException: Not in GZIP format
+    at java.base/java.util.zip.GZIPInputStream.readHeader(GZIPInputStream.java:165)
+    at java.base/java.util.zip.GZIPInputStream.<init>(GZIPInputStream.java:79)
+    at java.base/java.util.zip.GZIPInputStream.<init>(GZIPInputStream.java:91)
+    at data.internet.SynchronousSiteDataRetriever.getGzippedContent(SynchronousSiteDataRetriever.java:158)
+    ... 13 more
+ 
+ 
+ 
+ 
+ 
+
+
+
 see the Mastodon stuff
 <a rel="me" href="https://qoto.org/@Laurent">Mastodon</a>
 https://qoto.org/settings/profile

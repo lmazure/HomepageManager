@@ -10,8 +10,8 @@ import java.util.function.BiConsumer;
 public class AsynchronousSiteDataRetriever {
 
     private final SynchronousSiteDataRetriever _retriever;
-    private static int NB_THREADS = 32;
-    private static final ExecutorService _threadPool = Executors.newFixedThreadPool(NB_THREADS);
+    private static final int s_nb_threads = 32;
+    private static final ExecutorService s_threadPool = Executors.newFixedThreadPool(s_nb_threads);
 
     /**
      * @param persister data persister
@@ -31,6 +31,6 @@ public class AsynchronousSiteDataRetriever {
                          final BiConsumer<Boolean, FullFetchedLinkData> consumer,
                          final boolean doNotUseCookies) {
 
-        _threadPool.execute(() -> _retriever.retrieve(url, consumer, doNotUseCookies));
+        s_threadPool.execute(() -> _retriever.retrieve(url, consumer, doNotUseCookies));
     }
 }

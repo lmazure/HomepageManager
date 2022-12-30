@@ -2252,12 +2252,12 @@ public class HtmlHelper {
         lookupMap.put("&zwnj;", "\u200C");
     }
 
-    private static final Pattern CHARSET_EXTRACTION_1 = Pattern.compile(".*<meta\\s+charset\\s*=\\s*['\"]([^'\"]+)['\"]\\s*/?>.*", Pattern.CASE_INSENSITIVE);
-    private static final Pattern CHARSET_EXTRACTION_2 = Pattern.compile(".*<meta\\s+http-equiv\\s*=\\s*['\"]Content-Type['\"]\\s+content\\s*=\\s*['\"]text/html;\\s*charset=([^'\"]+)['\"]\\s*/?>.*", Pattern.CASE_INSENSITIVE);
-    private static final Pattern CHARSET_EXTRACTION_3 = Pattern.compile(".*<meta\\s+content\\s*=\\s*['\"]text/html;\\s*charset=([^'\"]+)['\"]\\s+http-equiv\\s*=\\s*['\"]Content-Type([^\"]+)\\s*/?>.*", Pattern.CASE_INSENSITIVE);
+    private static final Pattern s_charset_extraction_1 = Pattern.compile(".*<meta\\s+charset\\s*=\\s*['\"]([^'\"]+)['\"]\\s*/?>.*", Pattern.CASE_INSENSITIVE);
+    private static final Pattern s_charset_extraction_2 = Pattern.compile(".*<meta\\s+http-equiv\\s*=\\s*['\"]Content-Type['\"]\\s+content\\s*=\\s*['\"]text/html;\\s*charset=([^'\"]+)['\"]\\s*/?>.*", Pattern.CASE_INSENSITIVE);
+    private static final Pattern s_charset_extraction_3 = Pattern.compile(".*<meta\\s+content\\s*=\\s*['\"]text/html;\\s*charset=([^'\"]+)['\"]\\s+http-equiv\\s*=\\s*['\"]Content-Type([^\"]+)\\s*/?>.*", Pattern.CASE_INSENSITIVE);
 
-    private static final Pattern CLEAN_TRAILING_WHITESPACES = Pattern.compile("\\p{Z}*$");
-    private static final Pattern CLEAN_LEADING_WHITESPACES = Pattern.compile("^\\p{Z}*");
+    private static final Pattern s_clean_trailing_whitespaces = Pattern.compile("\\p{Z}*$");
+    private static final Pattern s_clean_leading_whitespaces = Pattern.compile("^\\p{Z}*");
 
     public static String slurpFile(final FileSection file) {
         final Charset charset = getCharset(file).orElse(StandardCharsets.UTF_8);
@@ -2283,15 +2283,15 @@ public class HtmlHelper {
     }
 
     private static Optional<Charset> extractCharsetFromString(final String str) {
-        final Matcher m1 = CHARSET_EXTRACTION_1.matcher(str);
+        final Matcher m1 = s_charset_extraction_1.matcher(str);
         if (m1.find()) {
             return createCharsetFromName(m1.group(1));
         }
-        final Matcher m2 = CHARSET_EXTRACTION_2.matcher(str);
+        final Matcher m2 = s_charset_extraction_2.matcher(str);
         if (m2.find()) {
             return createCharsetFromName(m2.group(1));
         }
-        final Matcher m3 = CHARSET_EXTRACTION_3.matcher(str);
+        final Matcher m3 = s_charset_extraction_3.matcher(str);
         if (m3.find()) {
             return createCharsetFromName(m3.group(1));
         }
@@ -2429,8 +2429,8 @@ public class HtmlHelper {
 
     public static final String trim(final String input) {
 
-        final String s1 = CLEAN_LEADING_WHITESPACES.matcher(input).replaceAll("");
-        final String s2 = CLEAN_TRAILING_WHITESPACES.matcher(s1).replaceAll("");
+        final String s1 = s_clean_leading_whitespaces.matcher(input).replaceAll("");
+        final String s2 = s_clean_trailing_whitespaces.matcher(s1).replaceAll("");
         return s2;
     }
 

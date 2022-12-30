@@ -7,7 +7,7 @@ import java.util.Locale;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import data.ParameterRepository;
+import data.SecretRepository;
 import utils.internet.youtube.YoutubeApi;
 import utils.internet.youtube.YoutubeVideoDto;
 
@@ -95,6 +95,6 @@ public class YoutubeApiTest {
     }
 
     private static YoutubeApi buildApi() {
-        return new YoutubeApi(ParameterRepository.getYoutubeApplicationName(), ParameterRepository.getYoutubeApiKey() , "FR");
+        return new YoutubeApi(SecretRepository.getYoutubeApplicationName(), SecretRepository.getYoutubeApiKey() , "FR");
     }
 }
