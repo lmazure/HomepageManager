@@ -74,7 +74,7 @@ public class XmlGenerationDialog extends Dialog<Void> {
         }
 
         final List<AuthorData> authors = new ArrayList<>(_sureAuthors);
-        
+
         int i = 0;
         for (final AuthorData author: _probableAuthors) {
             if (((CheckBox)_authors.getChildren().get(i++)).isSelected()) {
@@ -131,7 +131,7 @@ public class XmlGenerationDialog extends Dialog<Void> {
             displayError("Failed to parse the URL data:\n" + e.getMessage());
             return;
         }
-        
+
         for (final AuthorData author: _probableAuthors) {
             final CheckBox cb = new CheckBox(authorAsString(author));
             cb.setSelected(true);
@@ -170,7 +170,7 @@ public class XmlGenerationDialog extends Dialog<Void> {
                author.getMiddleName().orElse(" ") +
                author.getLastName().orElse(" ") +
                author.getNameSuffix().orElse(" ") +
-               author.getGivenName().orElse(" ");    
+               author.getGivenName().orElse(" ");
     }
 
     private void displayError(final String errorMessage) {

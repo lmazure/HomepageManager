@@ -32,7 +32,7 @@ public class SecretRepository {
     public static String getTwitterApiSecretKey() {
         return getEnvironmentVariableValue("TWITTER_API_SECRET_KEY", "Twitter API secret key");
     }
-    
+
     private static String getEnvironmentVariableValue(final String environmentVariableName,
                                                       final String environmentVariableDescription) {
         final String value = System.getenv(environmentVariableName);
