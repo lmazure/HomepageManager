@@ -111,9 +111,9 @@ public class FileChecker implements FileHandler {
     }
 
     /**
-     * @param file
-     * @param content
-     * @return
+     * @param file name of the file to be checked
+     * @param content content of the file to be checked
+     * @return violations
      */
     public List<Error> check(final Path file,
                              final String content) {  //TODO see how to test this method while keeping it private
