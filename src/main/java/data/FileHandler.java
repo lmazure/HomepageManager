@@ -30,7 +30,7 @@ public interface FileHandler {
         /**
          * the file could not be handled
          */
-        FAILED_TO_HANDLED
+        FAILED_TO_HANDLE
     }
 
     /**

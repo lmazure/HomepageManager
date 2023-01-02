@@ -106,7 +106,7 @@ public class LinkCheckRunner {
             } catch (final IOException e2) {
                 ExitHelper.exit(e2);
             }
-            _controller.handleUpdate(_file, Status.FAILED_TO_HANDLED, _outputFile, _reportFile);
+            _controller.handleUpdate(_file, Status.FAILED_TO_HANDLE, _outputFile, _reportFile);
             return;
         }
 
@@ -128,7 +128,7 @@ public class LinkCheckRunner {
                } catch (final IOException e2) {
                    ExitHelper.exit(e2);
                }
-               _controller.handleUpdate(_file, Status.FAILED_TO_HANDLED, _outputFile, _reportFile);
+               _controller.handleUpdate(_file, Status.FAILED_TO_HANDLE, _outputFile, _reportFile);
                return;
             }
             _controller.handleUpdate(_file, Status.HANDLED_WITH_SUCCESS, _outputFile, _reportFile);
@@ -288,7 +288,7 @@ public class LinkCheckRunner {
                 } catch (final IOException e2) {
                     ExitHelper.exit(e2);
                 }
-                _controller.handleUpdate(_file, Status.FAILED_TO_HANDLED, _outputFile, _reportFile);
+                _controller.handleUpdate(_file, Status.FAILED_TO_HANDLE, _outputFile, _reportFile);
                 return;
             }
         }
@@ -319,7 +319,7 @@ public class LinkCheckRunner {
               } catch (final IOException e2) {
                   ExitHelper.exit(e2);
               }
-              _controller.handleUpdate(_file, Status.FAILED_TO_HANDLED, _outputFile, _reportFile);
+              _controller.handleUpdate(_file, Status.FAILED_TO_HANDLE, _outputFile, _reportFile);
               return;
            }
            _controller.handleUpdate(_file, status, _outputFile, _reportFile);

@@ -23,6 +23,46 @@ public class IbmLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource(value = {
+            "https://developer.ibm.com/articles/j-java-streams-2-brian-goetz/",
+            "https://developer.ibm.com/articles/wa-sailsjs4/",
+            "https://developer.ibm.com/tutorials/wa-build-deploy-web-app-sailsjs-2-bluemix"
+        })
+    void testArticleIsLost(final String url) {
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(url,
+                           (final Boolean b, final FullFetchedLinkData d) -> {
+                               Assertions.assertTrue(d.dataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
+                               final IbmLinkContentParser parser = new IbmLinkContentParser(data, url);
+                               Assertions.assertTrue(parser.articleIsLost());
+                               consumerHasBeenCalled.set(true);
+                           },
+                           false);
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+            "https://developer.ibm.com/articles/j-java-streams-1-brian-goetz/"
+        })
+    void testArticleIsNotLost(final String url) {
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(url,
+                           (final Boolean b, final FullFetchedLinkData d) -> {
+                               Assertions.assertTrue(d.dataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
+                               final IbmLinkContentParser parser = new IbmLinkContentParser(data, url);
+                               Assertions.assertFalse(parser.articleIsLost());
+                               consumerHasBeenCalled.set(true);
+                           },
+                           false);
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
         "https://developer.ibm.com/articles/j-java-streams-1-brian-goetz/£Archived | An introduction to the java.util.stream library",
         }, delimiter = '£')
     void testTitle(final String url,

@@ -142,7 +142,7 @@ public class NodeValueChecker implements FileHandler {
             } catch (final IOException e2) {
                 ExitHelper.exit(e2);
             }
-            status = Status.FAILED_TO_HANDLED;
+            status = Status.FAILED_TO_HANDLE;
         }
 
         _controller.handleCreation(file, status, getOutputFile(file), getReportFile(file));

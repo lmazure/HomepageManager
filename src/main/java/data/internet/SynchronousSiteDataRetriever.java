@@ -93,26 +93,22 @@ public class SynchronousSiteDataRetriever {
         }
 
         if (httpConnection != null) {
-            final Optional<Map<String, List<String>>> headers = Optional.of(httpConnection.getHeaderFields());
-            if (headers.isEmpty()) {
-                error = Optional.of("Failed to read headers");
-                final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, Optional.empty(), null);
-                redirectionsData.push(redirectionData);
-            } else if (headers.get().size() == 0) {
-                error = Optional.of("No header");
+            final Map<String, List<String>> headers = httpConnection.getHeaderFields();
+            if (headers.size() == 0) {
+                error = Optional.of("No headers");
                 final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, Optional.empty(), null);
                 redirectionsData.push(redirectionData);
             } else {
-                final int responseCode = HttpHelper.getResponseCodeFromHeaders(headers.get());
+                final int responseCode = HttpHelper.getResponseCodeFromHeaders(headers);
                 if (httpCodeIsRedirected(responseCode)) {
                     if (depth == s_maxNbRedirects) {
                         error = Optional.of("Too many redirects (" + s_maxNbRedirects + ") occurred while trying to load URL " + initialUrl);
-                        final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, headers, null);
+                        final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, Optional.of(headers), null);
                         redirectionsData.push(redirectionData);
                     } else {
-                        final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, headers, null);
+                        final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, Optional.of(headers), null);
                         redirectionsData.push(redirectionData);
-                        final String location = HttpHelper.getLocationFromHeaders(headers.get());
+                        final String location = HttpHelper.getLocationFromHeaders(headers);
                         final String redirectUrl = getRedirectionUrl(currentUrl, location);
                         storeCookies(currentUrl, cookieManager, httpConnection);
                         retrieveInternal(initialUrl, redirectUrl, redirectionsData, consumer, depth + 1, cookieManager);
@@ -121,7 +117,7 @@ public class SynchronousSiteDataRetriever {
                 } else {
                     try {
                         dataStream = Optional.of(httpConnection.getInputStream());
-                        final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, headers, null);
+                        final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, Optional.of(headers), null);
                         redirectionsData.push(redirectionData);
                     } catch (final IOException e) {
                         error = Optional.of("Failed to get input stream: " + e.toString());
@@ -152,13 +148,42 @@ public class SynchronousSiteDataRetriever {
      * @throws IOException exception if the payload could not be retrieved
      */
     public String getGzippedContent(final String url,
-                                    final boolean doNotUseCookies) throws IOException {
-        try {
-            final HttpURLConnection httpConnection = httpConnect(url, doNotUseCookies ? null : new CookieManager());
-            try (final GZIPInputStream gzipReader = new GZIPInputStream(httpConnection.getInputStream())) {
-                final byte[] bytes = gzipReader.readAllBytes();
-                return new String(bytes, StandardCharsets.UTF_8);
+                                    final boolean doNotUseCookies) throws IOException, NotGzipException {
+        final HttpURLConnection httpConnection = httpConnect(url, doNotUseCookies ? null : new CookieManager());
+        final Map<String, List<String>> headers = httpConnection.getHeaderFields();
+        if (headers.size() == 0) {
+            throw new IOException("No headers for " + url);
+        }
+
+        final int responseCode = HttpHelper.getResponseCodeFromHeaders(headers);
+        if (responseCode != HttpURLConnection.HTTP_OK) {
+            throw new IOException("Received HTTP code " + responseCode + " for " + url);
+        }
+
+        final String encoding = (headers.get("Content-Encoding") != null) ? headers.get("Content-Encoding").get(0)
+                                                                          : null;
+        if (!"gzip".equals(encoding)) {
+            try (final InputStream reader = httpConnection.getInputStream()) {
+                final byte[] bytes = reader.readAllBytes();
+                final String errorMessage = new String(bytes, StandardCharsets.UTF_8);
+                throw new NotGzipException("\"Content-Encoding\" is not equal to \"gzip\" but to \"" +
+                                           encoding +
+                                           "\", error message is \"" +
+                                           errorMessage +
+                                           "\" for " +
+                                           url);
+            } catch (final IOException e) {
+                throw new NotGzipException("\"Content-Encoding\" is not equal to \"gzip\" but to \"" +
+                                           encoding +
+                                           "\", error message is not retrievable for " +
+                                           url,
+                                           e);
             }
+        }
+        
+        try (final InputStream gzipReader = new GZIPInputStream(httpConnection.getInputStream())) {
+            final byte[] bytes = gzipReader.readAllBytes();
+            return new String(bytes, StandardCharsets.UTF_8);
         } catch (final IOException e) {
             throw new IOException("Failed to get gzipped payload from " + url, e);
         }

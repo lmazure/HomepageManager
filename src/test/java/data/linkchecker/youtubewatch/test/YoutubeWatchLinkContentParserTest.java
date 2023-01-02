@@ -19,6 +19,9 @@ import data.linkchecker.ContentParserException;
 import data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser;
 import utils.internet.HtmlHelper;
 
+/**
+ * Tests of YoutubeWatchLinkContentParser
+ */
 public class YoutubeWatchLinkContentParserTest {
 
     @ParameterizedTest

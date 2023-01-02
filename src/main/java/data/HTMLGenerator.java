@@ -92,7 +92,7 @@ public class HTMLGenerator implements FileHandler {
             } catch (final IOException e2) {
                 ExitHelper.exit(e2);
             }
-            status = Status.FAILED_TO_HANDLED;
+            status = Status.FAILED_TO_HANDLE;
         }
 
         _controller.handleDeletion(file, status, getOutputFile(file), getReportFile(file));

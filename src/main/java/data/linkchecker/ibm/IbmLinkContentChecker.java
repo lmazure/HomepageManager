@@ -40,6 +40,10 @@ public class IbmLinkContentChecker extends LinkContentChecker {
     protected LinkContentCheck checkGlobalData(final String data)
     {
         _parser = new IbmLinkContentParser(data, _url);
+        if (!_parser.articleIsLost()) {
+            return new LinkContentCheck("article is lost");
+        }
+
         return null;
     }
 

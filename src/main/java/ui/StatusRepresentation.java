@@ -15,7 +15,7 @@ public class StatusRepresentation {
         _colors.put(FileHandler.Status.HANDLING_WITH_ERROR.toString(), "LightRed");
         _colors.put(FileHandler.Status.HANDLED_WITH_SUCCESS.toString(), "Green");
         _colors.put(FileHandler.Status.HANDLED_WITH_ERROR.toString(), "Red");
-        _colors.put(FileHandler.Status.FAILED_TO_HANDLED.toString(), "Blue");
+        _colors.put(FileHandler.Status.FAILED_TO_HANDLE.toString(), "Blue");
     }
 
     public static Map<String, String> getColorMap() {

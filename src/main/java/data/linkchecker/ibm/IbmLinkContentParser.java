@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import data.internet.NotGzipException;
 import data.internet.SynchronousSiteDataRetriever;
 import data.linkchecker.ContentParserException;
 import data.linkchecker.LinkContentParserUtils;
@@ -27,6 +28,7 @@ public class IbmLinkContentParser {
     private final ContentParserException _exception;
     private final ContentParserException _authorException;
     private final SynchronousSiteDataRetriever _retriever;
+    private final boolean _articleIsLost;
 
     /**
      * @param url URL of the link
@@ -40,7 +42,8 @@ public class IbmLinkContentParser {
         String json = null;
         try {
             json = getStructureJson(url);
-        } catch (final IOException e) {
+        } catch (final IOException | NotGzipException e) {
+            _articleIsLost = e instanceof NotGzipException;
             _exception = new ContentParserException("failed to get JSON data for " + url, e);
             _title = null;
             _subtitle = null;
@@ -49,6 +52,8 @@ public class IbmLinkContentParser {
             _authorException = null;
             return;
         }
+
+        _articleIsLost = false;
 
         String title;
         String subtitle;
@@ -90,6 +95,13 @@ public class IbmLinkContentParser {
             }
         }
         _authorException = authorException;
+    }
+
+    /**
+     * @return true if IBM lost the article
+     */
+    public boolean articleIsLost() {
+        return _articleIsLost;
     }
 
     /**
@@ -139,7 +151,7 @@ public class IbmLinkContentParser {
         return _authors;
     }
 
-    private String getStructureJson(final String url) throws IOException {
+    private String getStructureJson(final String url) throws IOException, NotGzipException {
         final String urlJsonStructure = url.replaceFirst("//developer.ibm.com/articles/", "//developer.ibm.com/middleware/v1/contents/articles/")
                                            .replaceFirst("//developer.ibm.com/tutorials/", "//developer.ibm.com/middleware/v1/contents/tutorials/")
                                            .replaceFirst("/$", "");
