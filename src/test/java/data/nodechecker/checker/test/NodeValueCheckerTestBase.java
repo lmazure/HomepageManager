@@ -1,4 +1,4 @@
-package data.test;
+package data.nodechecker.checker.test;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +18,9 @@ import data.nodechecker.checker.nodechecker.NodeCheckError;
 import data.NodeValueChecker;
 import utils.ExitHelper;
 
+/**
+ * base class for all the tests of NodeChecker subclasses
+ */
 public class NodeValueCheckerTestBase {
 
     protected static void test(final String content,

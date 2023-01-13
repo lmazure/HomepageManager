@@ -91,6 +91,9 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
             if (author.equals("FT")) {
                 continue;
             }
+            if (author.equals("wired.com")) {
+                continue;
+            }
             list.add(LinkContentParserUtils.getAuthor(author));
         }
         return list;

@@ -1,9 +1,12 @@
-package data.test;
+package data.nodechecker.checker.test;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
+/**
+ * Tests of IncorrectSpaceChecker class
+ */
 public class IncorrectSpaceCheckerTest extends NodeValueCheckerTestBase {
 
     @SuppressWarnings("static-method")
