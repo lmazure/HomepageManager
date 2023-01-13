@@ -23,6 +23,7 @@ import org.xml.sax.SAXException;
 
 import data.nodechecker.checker.nodechecker.ArticleDateChecker;
 import data.nodechecker.checker.nodechecker.AuthorsChecker;
+import data.nodechecker.checker.nodechecker.BritishChecker;
 import data.nodechecker.checker.nodechecker.CommentChecker;
 import data.nodechecker.checker.nodechecker.DateChecker;
 import data.nodechecker.checker.nodechecker.DoubleSpaceChecker;
@@ -105,6 +106,7 @@ public class NodeValueChecker implements FileHandler {
         _nodeCheckers.add(new ProtectionFromURLChecker());
         _nodeCheckers.add(new SpaceBetweenTagsChecker());
         _nodeCheckers.add(new CommentChecker());
+        _nodeCheckers.add(new BritishChecker());
     }
 
     @Override
@@ -149,9 +151,9 @@ public class NodeValueChecker implements FileHandler {
     }
 
     /**
-     * @param file
-     * @return
-     * @throws SAXException
+     * @param file file to be checked
+     * @return list of violation
+     * @throws SAXException exception if the XML is invalid
      */
     public List<NodeCheckError> check(final Path file) throws SAXException {
 

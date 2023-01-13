@@ -1,10 +1,14 @@
-package data.test;
+package data.nodechecker.checker.test;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 
+/**
+ * Tests of some NodeChecker subclasses
+ * (this should be dispatched in test class per NodeChecker subclass)
+ */
 public class NodeValueCheckerTest extends NodeValueCheckerTestBase {
 
     @SuppressWarnings("static-method")
