@@ -65,6 +65,7 @@ public class SynchronousSiteDataRetrieverTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @Disabled("https://www.lmet.fr is currently down")
     @Test
     // this site times out and returns an empty response
     void leMondeEnTique() {
