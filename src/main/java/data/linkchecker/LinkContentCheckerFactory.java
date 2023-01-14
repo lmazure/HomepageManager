@@ -59,7 +59,8 @@ public class LinkContentCheckerFactory {
             return new ChromiumBlogLinkContentChecker(url, linkData, articleData, file);
         }
 
-        if (url.matches("https://blogs.oracle.com/javamagazine/.+")) {
+        if (url.matches("https://blogs.oracle.com/javamagazine/.+") ||
+            url.matches("https://blogs.oracle.com/java/.+")) {
             return new OracleBlogsLinkContentChecker(url, linkData, articleData, file);
         }
 

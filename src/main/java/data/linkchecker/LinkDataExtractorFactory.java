@@ -18,17 +18,17 @@ import utils.internet.HtmlHelper;
 import utils.internet.UrlHelper;
 
 /**
- *
+ * Factory returning the LinkDataExtractor able to extract data from a given URL
  */
 public class LinkDataExtractorFactory {
 
     private String _content;
 
     /**
-     * @param cacheDirectory
-     * @param url
-     * @return
-     * @throws ContentParserException
+     * @param cacheDirectory directory where the persistence files should be written
+     * @param url URL to check
+     * @return LinkDataExtractor able to extract data from the link
+     * @throws ContentParserException 
      */
     public static LinkDataExtractor build(final Path cacheDirectory,
                                           final String url) throws ContentParserException {
@@ -60,7 +60,8 @@ public class LinkDataExtractorFactory {
             constructor = MediumLinkContentParser::new;
         }
 
-        if (u.matches("https://blogs.oracle.com/javamagazine/.+")) {
+        if (u.matches("https://blogs.oracle.com/javamagazine/.+") ||
+            u.matches("https://blogs.oracle.com/java/.+")) {
             constructor = OracleBlogsLinkContentParser::new;
         }
 

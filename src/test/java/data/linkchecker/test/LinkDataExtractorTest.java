@@ -102,6 +102,40 @@ public class LinkDataExtractorTest {
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
+
+    @Test
+    void oracleBlogsJavaMagazineIsManaged() throws ContentParserException {
+        final String url = "https://blogs.oracle.com/javamagazine/post/java-nio-nio2-buffers-channels-async-future-callback";
+        final String expectedXml = """
+                <ARTICLE><X><T>Modern file input/output with Java: Going fast with NIO and NIO.2</T>\
+                <ST>Reach for these low-level Java APIs when you need to move a lot of file data or socket data quickly.</ST>\
+                <A>https://blogs.oracle.com/javamagazine/post/java-nio-nio2-buffers-channels-async-future-callback</A>\
+                <L>en</L><F>HTML</F></X>\
+                <AUTHOR><FIRSTNAME>Ben</FIRSTNAME><LASTNAME>Evans</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>1</MONTH><DAY>7</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
+    void oracleBlogsJavaIsManaged() throws ContentParserException {
+        final String url = "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se";
+        final String expectedXml = """
+                <ARTICLE><X><T>Faster and Easier Use and Redistribution of Java SE</T>\
+                <A>https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se</A>\
+                <L>en</L><F>HTML</F></X>\
+                <AUTHOR><FIRSTNAME>Donald</FIRSTNAME><LASTNAME>Smith</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2017</YEAR><MONTH>9</MONTH><DAY>6</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
     @Test
     void oracleBlogsWithoutPostIsManaged() throws ContentParserException {
         final String url = "https://blogs.oracle.com/javamagazine/unit-test-your-architecture-with-archunit";
@@ -112,23 +146,6 @@ public class LinkDataExtractorTest {
                 <L>en</L><F>HTML</F></X>\
                 <AUTHOR><FIRSTNAME>Jonas</FIRSTNAME><LASTNAME>Havers</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2019</YEAR><MONTH>8</MONTH><DAY>20</DAY></DATE>\
-                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        final LinkDataExtractor extractor = getExtractor(url);
-        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
-        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
-        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
-    }
-
-    @Test
-    void oracleBlogsWithPostinUrlIsManaged() throws ContentParserException {
-        final String url = "https://blogs.oracle.com/javamagazine/post/java-nio-nio2-buffers-channels-async-future-callback";
-        final String expectedXml = """
-                <ARTICLE><X><T>Modern file input/output with Java: Going fast with NIO and NIO.2</T>\
-                <ST>Reach for these low-level Java APIs when you need to move a lot of file data or socket data quickly.</ST>\
-                <A>https://blogs.oracle.com/javamagazine/post/java-nio-nio2-buffers-channels-async-future-callback</A>\
-                <L>en</L><F>HTML</F></X>\
-                <AUTHOR><FIRSTNAME>Ben</FIRSTNAME><LASTNAME>Evans</LASTNAME></AUTHOR>\
-                <DATE><YEAR>2022</YEAR><MONTH>1</MONTH><DAY>7</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));

@@ -1,13 +1,14 @@
 
+
 ==== merge =====
+
+gérer les faux subtitles tels que https://github.blog/2015-12-15-move-fast/
 
 mettre à jour le XML dès qu'on a checké/unchecké un auteur
 
 povoir mettre la qualité d'un article dans le générateur XML
 
 espace entre les deux icones de very good
-
-le lien https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se n'est pas considéré comme un lien oracle
 
 Homepage Taper esc devrait fermer la recherche
 
@@ -68,9 +69,6 @@ nettoyer
 
 ajouter support de https://about.gitlab.com/releases/2022/01/22/gitlab-14-7-released/
 
-gérer les auteurs optionnels (pex comptuterphile)
-pouvoir ajouter un author à la main (pex numberphile)
-
 les tests ne devraient pas hardcoder H:
 
 détecter la présence du givenname sur une page
@@ -87,11 +85,6 @@ vérifier le bon type d'apostrophe pour person's object
 mettre GIVENNAME entre double quote côté JS
 
 von neumman
-
-problème avec les titres de medium
-https://medium.com/@kentbeck_7670/sipping-the-big-gulp-a7c50549c393
-https://medium.com/@tdeniffel/tcr-test-commit-revert-a-test-alternative-to-tdd-6e6b03c22bec
-https://medium.com/backchannel/has-deepmind-really-passed-go-adc85e256bec
 
 comment gérer les changements de nom Barb Palser -> Barb Smith
 
