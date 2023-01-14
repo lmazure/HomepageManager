@@ -27,7 +27,7 @@ public class LinkDataExtractorFactory {
     /**
      * @param cacheDirectory directory where the persistence files should be written
      * @param url URL to check
-     * @return LinkDataExtractor able to extract data from the link
+     * @return LinkDataExtractor able to extract data from the link, null if there is no such LinkDataExtractor
      * @throws ContentParserException 
      */
     public static LinkDataExtractor build(final Path cacheDirectory,
@@ -39,8 +39,11 @@ public class LinkDataExtractorFactory {
     private LinkDataExtractor create(final Path cacheDirectory,
                                      final String url) throws ContentParserException {
 
-        String u = UrlHelper.removeQueryParameters(url, "utm_source"
-                                                      , "utm_medium");
+        final String u = UrlHelper.removeQueryParameters(url, "utm_source",
+                                                              "utm_medium",
+                                                              "utm_campaign",
+                                                              "utm_content",
+                                                              "utm_term");
 
         ThrowingLinkDataExtractor constructor = null;
 
