@@ -823,6 +823,22 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeOsonsCauserIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=b4HfK_coDcc";
+        final String expectedXml = """
+                <ARTICLE><X><T>Nucléaire : un atout pour l'indépendance de la France ?</T>\
+                <A>https://www.youtube.com/watch?v=b4HfK_coDcc</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>29</MINUTE><SECOND>38</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Ludo</FIRSTNAME><LASTNAME>Torbey</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>12</MONTH><DAY>20</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeWatchPasseScienceIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=yfFck7EfptU";
         final String expectedXml = """
@@ -1308,12 +1324,12 @@ public class LinkDataExtractorTest {
     }
 
     private static String generateSureXml(final LinkDataExtractor extractor) throws ContentParserException {
-        return XmlGenerator.generateXml(extractor.getLinks(), extractor.getDate(), extractor.getSureAuthors());
+        return XmlGenerator.generateXml(extractor.getLinks(), extractor.getDate(), extractor.getSureAuthors(), 0);
     }
 
     private static String generateProbableXml(final LinkDataExtractor extractor) throws ContentParserException {
         final List<AuthorData> allAuthors = new ArrayList<>(extractor.getSureAuthors());
         allAuthors.addAll(extractor.getProbableAuthors());
-        return XmlGenerator.generateXml(extractor.getLinks(), extractor.getDate(), allAuthors);
+        return XmlGenerator.generateXml(extractor.getLinks(), extractor.getDate(), allAuthors, 0);
     }
 }
