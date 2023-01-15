@@ -22,18 +22,17 @@ public class BritishChecker extends NodeChecker {
     private static final Set<Traduction> s_americanWords = new HashSet<>(Arrays.asList(
             new Traduction("analyze", "analyse"),
             new Traduction("anemia", "anaemia"),
-            new Traduction("apologize", "apologise"),
-            new Traduction("catalog", "catalogue"),
+            new Traduction("catalog[^u]", "catalogue"),
             new Traduction("center", "centre"),
             new Traduction("color", "colour"),
             new Traduction("defense", "defence"),
             new Traduction("fetus", "foetus"),
+            new Traduction("\\w\\wize[sd]+\\W", "ise"),
             new Traduction("labor\\s", "labour"),
             new Traduction("license", "licence"),
             new Traduction("liters+\\s", "litre"),
             new Traduction("modeling", "modelling"),
             new Traduction("paralyze", "paralyse"),
-            new Traduction("realize", "realise"),
             new Traduction("traveler", "traveller")));
 
     private static final InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
@@ -55,7 +54,7 @@ public class BritishChecker extends NodeChecker {
         }
         for (final String l: list ) {
             for (final Traduction traduction: s_americanWords) {
-                if (traduction.matchesAmerican(l.toLowerCase())) {
+                if (traduction.matchesAmerican(l)) {
                     return new CheckStatus("COMMENT \"" +
                                            e.getTextContent() +
                                            "\" contains american word \"" +
