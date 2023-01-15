@@ -19,11 +19,13 @@ public class XmlGenerator {
      * @param links links of the article
      * @param date creation date of the article
      * @param authors authors of the article
+     * @param quality quality of the lik (between -2 and 2)
      * @return XML describing the article
      */
     public static String generateXml(final List<ExtractedLinkData> links,
                                      final Optional<TemporalAccessor> date,
-                                     final List<AuthorData> authors) {
+                                     final List<AuthorData> authors,
+                                     final int quality) {
         final StringBuilder builder = new StringBuilder();
         builder.append("<ARTICLE>");
         for (ExtractedLinkData linkData: links) {
@@ -58,6 +60,9 @@ public class XmlGenerator {
                         throw new UnsupportedOperationException("Illegal protection value (" + linkData.protection().get() + ")");
                 }
                 builder.append("\"");
+            }
+            if (quality != 0) {
+                builder.append(" status=\"" + quality + "\"");
             }
             builder.append(">");
             builder.append("<T>");

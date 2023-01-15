@@ -2,22 +2,14 @@
 
 ==== merge =====
 
+recherche des liens morts
+
 gérer les faux subtitles tels que https://github.blog/2015-12-15-move-fast/
-
-mettre à jour le XML dès qu'on a checké/unchecké un auteur
-
-povoir mettre la qualité d'un article dans le générateur XML
-
-espace entre les deux icones de very good
 
 Homepage Taper esc devrait fermer la recherche
 
 
 corriger la corruption de données si on checke le même lien deux fois d'affilée
-
-
-
-
 
 ne pas tout reconstruire à partir du moment où un seul des fichiers résultats n'est plus à jour
 
