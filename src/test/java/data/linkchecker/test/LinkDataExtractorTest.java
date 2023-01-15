@@ -1135,7 +1135,7 @@ public class LinkDataExtractorTest {
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
         Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
-        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+        Assertions.assertFalse(extractor.getPossibleAuthors().isEmpty());
     }
 
     @Test

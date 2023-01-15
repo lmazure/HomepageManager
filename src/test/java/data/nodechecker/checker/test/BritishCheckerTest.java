@@ -35,7 +35,7 @@ public class BritishCheckerTest extends NodeValueCheckerTestBase {
         try {
             test(content,
                  "COMMENT \"Evaluating the magnetic dipole moment of neutrinos with the color–magnitude diagram of M5.\" contains american word \"color\", it should be \"colour\"\n" +
-                 "COMMENT \"M102 was improperly recorded in Messier catalog, it is a galaxy seen almost exactly edge-on.\" contains american word \"catalog\", it should be \"catalogue\"");
+                 "COMMENT \"M102 was improperly recorded in Messier catalog, it is a galaxy seen almost exactly edge-on.\" contains american word \"catalog[^u]\", it should be \"catalogue\"");
         } catch (@SuppressWarnings("unused") final SAXException e) {
             Assertions.fail("SAXException");
         }
