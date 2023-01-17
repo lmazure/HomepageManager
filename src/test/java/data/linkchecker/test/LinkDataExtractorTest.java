@@ -1123,6 +1123,22 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchTechWorldWithNanaIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=R8_veQiYBjI";
+        final String expectedXml = """
+                <ARTICLE><X><T>GitHub Actions Tutorial - Basic Concepts and CI/CD Pipeline with Docker</T>\
+                <A>https://www.youtube.com/watch?v=R8_veQiYBjI</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>32</MINUTE><SECOND>30</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Nana</FIRSTNAME><LASTNAME>Janashia</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2020</YEAR><MONTH>10</MONTH><DAY>8</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeWatchThomathsIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=G5nbqZnlvHo";
         final String expectedXml = """
