@@ -1038,6 +1038,28 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchSciShowIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=z2bmOGCh1Q8";
+        final String expectedSureXml = """
+                <ARTICLE><X><T>This Molecule Has Saved Billions of Lives, How Do We Make It Without Killing Ourselves?</T>\
+                <A>https://www.youtube.com/watch?v=z2bmOGCh1Q8</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>41</SECOND></DURATION></X>\
+                <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>16</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final String expectedProbableXml = """
+                <ARTICLE><X><T>This Molecule Has Saved Billions of Lives, How Do We Make It Without Killing Ourselves?</T>\
+                <A>https://www.youtube.com/watch?v=z2bmOGCh1Q8</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>41</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Hank</FIRSTNAME><LASTNAME>Green</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>16</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
+        Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
+    }
+
+
+    @Test
     void youtubeWatchScilabusIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=url1TFdHlSI";
         final String expectedXml = """
