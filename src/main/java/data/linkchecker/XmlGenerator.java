@@ -62,7 +62,7 @@ public class XmlGenerator {
                 builder.append("\"");
             }
             if (quality != 0) {
-                builder.append(" status=\"" + quality + "\"");
+                builder.append(" quality=\"" + quality + "\"");
             }
             builder.append(">");
             builder.append("<T>");

@@ -27,8 +27,8 @@ public class BritishChecker extends NodeChecker {
             new Traduction("color", "colour"),
             new Traduction("defense", "defence"),
             new Traduction("fetus", "foetus"),
-            new Traduction("\\p{Ll}\\p{Ll}ize[sd]?\\W", "ise"),
-            new Traduction("ization", "isation"),
+            new Traduction("\\W\\p{Ll}{2,}ize[sd]?\\W", "ise"),
+            new Traduction("\\W\\p{Ll}{2,}ization", "isation"),
             new Traduction("labor\\s", "labour"),
             new Traduction("license", "licence"),
             new Traduction("liters+\\s", "litre"),
@@ -55,10 +55,13 @@ public class BritishChecker extends NodeChecker {
         }
         for (final String l: list ) {
             for (final Traduction traduction: s_americanWords) {
-                if (traduction.matchesAmerican(l)) {
+                final String match = traduction.matchesAmerican(l);
+                if (match != null) {
                     return new CheckStatus("COMMENT \"" +
                                            e.getTextContent() +
                                            "\" contains american word \"" +
+                                           match +
+                                           "\"  matching regexp \"" +
                                            traduction.getAmerican() +
                                            "\", it should be \"" +
                                            traduction.getBritish() +
@@ -78,9 +81,12 @@ public class BritishChecker extends NodeChecker {
             _americanRegexp = Pattern.compile(american);
             _british = british;
         }
-        private boolean matchesAmerican(final String str) {
+        private String matchesAmerican(final String str) {
             final Matcher m = _americanRegexp.matcher(str);
-            return m.find();
+            if (m.find()) {
+                return m.group();
+            }
+            return null;
         }
         private String getAmerican() {
             return _americanRegexp.toString();
