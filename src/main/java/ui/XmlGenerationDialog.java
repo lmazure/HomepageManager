@@ -11,9 +11,12 @@ import data.linkchecker.ExtractedLinkData;
 import data.linkchecker.LinkDataExtractor;
 import data.linkchecker.LinkDataExtractorFactory;
 import data.linkchecker.XmlGenerator;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -29,6 +32,7 @@ import utils.xmlparsing.AuthorData;
 public class XmlGenerationDialog extends Dialog<Void> {
 
     private final TextField _urlField;
+    private final ComboBox<String> _quality;
     private final TextArea _xmlField;
     private final Path _cacheDirectory;
     private final VBox _authors;
@@ -38,7 +42,6 @@ public class XmlGenerationDialog extends Dialog<Void> {
     private List<AuthorData> _probableAuthors;
     private List<AuthorData> _possibleAuthors;
 
-
     /**
      * Constructor
      * @param cacheDirectory directory where the cache files are written
@@ -46,22 +49,32 @@ public class XmlGenerationDialog extends Dialog<Void> {
     public XmlGenerationDialog(final Path cacheDirectory) {
         super();
 
-        setTitle("XML Generation");
         _cacheDirectory = cacheDirectory;
+
+        setTitle("XML Generation");
+
         _urlField = new TextField();
         _urlField.setMinWidth(640);
+
         final Button pasteUrl = new Button("Paste URL");
         pasteUrl.setOnAction(e -> pasteUrl());
+
         _authors = new VBox();
-        final Button generateXml = new Button("Generate XML");
-        generateXml.setOnAction(e -> generateXml());
+
+        final String[] qualities = { "very good", "good", "average", "bad", "very bad" }; 
+        _quality = new ComboBox<>(FXCollections.observableArrayList(qualities));
+        _quality.getSelectionModel().select(2);
+        _quality.valueProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> generateXml());
+
         _xmlField = new TextArea();
         _xmlField.setMinWidth(640);
         _xmlField.setPrefRowCount(6);
         _xmlField.setWrapText(true);
+
         final Button copyXml = new Button("Copy XML");
         copyXml.setOnAction(e -> copyXml());
-        final VBox vbox = new VBox(_urlField, pasteUrl, _authors, generateXml, _xmlField, copyXml);
+
+        final VBox vbox = new VBox(_urlField, pasteUrl, _authors, _quality, _xmlField, copyXml);
         getDialogPane().setContent(vbox);
         getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
 
@@ -87,7 +100,8 @@ public class XmlGenerationDialog extends Dialog<Void> {
             }
         }
 
-        final String xml = XmlGenerator.generateXml(_links, _date, authors);
+        final int quality = 2 - _quality.getSelectionModel().getSelectedIndex();
+        final String xml = XmlGenerator.generateXml(_links, _date, authors, quality);
         _xmlField.setText(xml);
         _xmlField.setStyle("-fx-text-fill: darkGreen;");
     }
@@ -135,12 +149,14 @@ public class XmlGenerationDialog extends Dialog<Void> {
         for (final AuthorData author: _probableAuthors) {
             final CheckBox cb = new CheckBox(authorAsString(author));
             cb.setSelected(true);
+            cb.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> generateXml());
             _authors.getChildren().add(cb);
         }
 
         for (final AuthorData author: _possibleAuthors) {
             final CheckBox cb = new CheckBox(authorAsString(author));
             cb.setSelected(false);
+            cb.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> generateXml());
             _authors.getChildren().add(cb);
         }
 

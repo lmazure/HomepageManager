@@ -2,22 +2,16 @@
 
 ==== merge =====
 
-gérer les faux subtitles tels que https://github.blog/2015-12-15-move-fast/
+recherche des liens morts
 
-mettre à jour le XML dès qu'on a checké/unchecké un auteur
-
-povoir mettre la qualité d'un article dans le générateur XML
-
-espace entre les deux icones de very good
+gérer les faux subtitles tels que
+https://github.blog/2015-12-15-move-fast/
+https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
 
 Homepage Taper esc devrait fermer la recherche
 
 
 corriger la corruption de données si on checke le même lien deux fois d'affilée
-
-
-
-
 
 ne pas tout reconstruire à partir du moment où un seul des fichiers résultats n'est plus à jour
 
