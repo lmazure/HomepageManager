@@ -222,7 +222,7 @@ public class FileChecker implements FileHandler {
         int n = 0;
         for (final String line : content.lines().toArray(String[]::new)) {
             n++;
-            if (numberOfWhiteCharactersAtBeginning(line) % 2 == 1) {
+            if (numberOfSpacesAtBeginningOfLine(line) % 2 == 1) {
                 errors.add(new Error(n, "odd number of spaces at the beginning of the line"));
             }
             final Matcher badGreaterThan = s_badGreaterThan.matcher(line);
@@ -295,10 +295,12 @@ public class FileChecker implements FileHandler {
                || (getOutputFile(file).toFile().lastModified() <= file.toFile().lastModified());
     }
 
-    private static int numberOfWhiteCharactersAtBeginning(final String str) {
+    private static int numberOfSpacesAtBeginningOfLine(final String str) {
 
         int n = 0;
-        while ((n < str.length()) && (str.charAt(n) == ' ')) n++;
+        while ((n < str.length()) && (str.charAt(n) == ' ')) {
+            n++;
+        }
         return n;
     }
 

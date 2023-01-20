@@ -2,6 +2,8 @@
 
 ==== merge =====
 
+updated les dépendances
+
 recherche des liens morts
 
 gérer les faux subtitles tels que
