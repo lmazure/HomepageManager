@@ -40,7 +40,8 @@ public class EllipsisChecker extends NodeChecker {
     public EllipsisChecker() {
         super(s_selector,
              EllipsisChecker::checkEllipsis, "ellipsis is improperly encoded",
-             EllipsisChecker::checkDoubleDot, "double dot is present");
+             EllipsisChecker::checkDoubleDot, "double dot is present",
+             EllipsisChecker::checkApostrophe, "apostrophe should be used");
     }
 
     private static CheckStatus checkEllipsis(final Element e) {
@@ -63,4 +64,24 @@ public class EllipsisChecker extends NodeChecker {
         }
         return null;
     }
+
+    private static CheckStatus checkApostrophe(final Element e) {
+
+        final String s = e.getTextContent();
+        if (s.indexOf("'s ") >= 0) {
+            return new CheckStatus("\"'s \" should be \"’s ");
+        }
+        if (s.indexOf("s' ") >= 0) {
+            return new CheckStatus("\"s' \" should be \"s’ ");
+        }
+        if (s.indexOf("x' ") >= 0) {
+            return new CheckStatus("\"x' \" should be \"x’ ");
+        }
+        if (s.indexOf("z' ") >= 0) {
+            return new CheckStatus("\"z' \" should be \"z’ ");
+        }
+
+        return null;
+    }
+
 }
