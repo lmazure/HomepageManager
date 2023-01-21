@@ -315,7 +315,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchComputerfileIsManaged() throws ContentParserException {
+    void youtubeWatchComputerfileMikePoundIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=-ShwJqAalOk";
         final String expectedSureXml = """
                 <ARTICLE><X><T>Breaking RSA - Computerphile</T>\
@@ -329,6 +329,27 @@ public class LinkDataExtractorTest {
                 <L>en</L><F>MP4</F><DURATION><MINUTE>14</MINUTE><SECOND>49</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Mike</FIRSTNAME><LASTNAME>Pound</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>5</MONTH><DAY>10</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
+        Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
+    }
+
+    @Test
+    void youtubeWatchComputerfileLaurenceTrattIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=c32zXYAK7CI";
+        final String expectedSureXml = """
+                <ARTICLE><X><T>Garbage Collection (Mark &amp; Sweep) - Computerphile</T>\
+                <A>https://www.youtube.com/watch?v=c32zXYAK7CI</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>21</SECOND></DURATION></X>\
+                <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>20</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final String expectedProbableXml = """
+                <ARTICLE><X><T>Garbage Collection (Mark &amp; Sweep) - Computerphile</T>\
+                <A>https://www.youtube.com/watch?v=c32zXYAK7CI</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>21</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Laurence</FIRSTNAME><LASTNAME>Tratt</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>20</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
