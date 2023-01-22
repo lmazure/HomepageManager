@@ -39,9 +39,9 @@ public class EllipsisChecker extends NodeChecker {
     */
     public EllipsisChecker() {
         super(s_selector,
-             EllipsisChecker::checkEllipsis, "ellipsis is improperly encoded",
-             EllipsisChecker::checkDoubleDot, "double dot is present",
-             EllipsisChecker::checkApostrophe, "apostrophe should be used");
+              EllipsisChecker::checkEllipsis, "ellipsis is improperly encoded",
+              EllipsisChecker::checkDoubleDot, "double dot is present",
+              EllipsisChecker::checkApostrophe, "apostrophe should be used");
     }
 
     private static CheckStatus checkEllipsis(final Element e) {
