@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Assertions;
@@ -593,12 +594,11 @@ public class FileCheckerTest {
         @Override
         public void add(Violation violation) {
             // do nothing
-            
         }
 
         @Override
-        public void remove(Violation violation) {
+        public void remove(final Predicate<Violation> violationFilter) {
             // do nothing
-            
         }
-}}
+    }
+}

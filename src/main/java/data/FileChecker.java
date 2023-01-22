@@ -49,6 +49,7 @@ public class FileChecker implements FileHandler {
     private final Validator _validator;
 
     private final static Lock _lock = new ReentrantLock();
+    private final static String s_checkType = "file";
 
     /**
      * @param homepagePath path to the directory containing the pages
@@ -94,7 +95,7 @@ public class FileChecker implements FileHandler {
             for (final Error error: errors) {
                 final String message = "line " + error.getLineNumber() + ": " + error.getErrorMessage();
                 pw.println(message);
-                _violationController.add(new Violation(file.toString(), "file", "an unknown file rule", new ViolationLocationUnknown(), message, new ViolationCorrections[0]));
+                _violationController.add(new Violation(file.toString(), s_checkType, "an unknown file rule", new ViolationLocationUnknown(), message, new ViolationCorrections[0]));
             }
             Logger.log(Logger.Level.INFO)
                   .append(getOutputFile(file))
@@ -280,6 +281,8 @@ public class FileChecker implements FileHandler {
         FileHelper.deleteFile(getReportFile(file));
 
         _controller.handleDeletion(file, Status.HANDLED_WITH_SUCCESS, getOutputFile(file), getReportFile(file));
+        
+        _violationController.remove(v -> (v.getFile().equals(file.toString()) && v.getType().equals(s_checkType)));
     }
 
     @Override

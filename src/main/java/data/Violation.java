@@ -1,7 +1,7 @@
 package data;
 
 /**
- *
+ * Record of a check violation
  */
 public class Violation {
 
@@ -13,12 +13,12 @@ public class Violation {
     private final ViolationCorrections[] _correction;
 
     /**
-     * @param file
-     * @param type
-     * @param rule
-     * @param location
-     * @param description
-     * @param correction
+     * @param file file violating the check
+     * @param type type of check
+     * @param rule check rule
+     * @param location location of the violation in the file
+     * @param description description of the violation
+     * @param correction possible automated corrections
      */
     public Violation(final String file,
                      final String type,
