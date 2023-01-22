@@ -46,7 +46,7 @@ public class HTMLGenerator implements FileHandler {
      *
      * @param homepagePath path to the directory containing the pages
      * @param tmpPath path to the directory containing the temporary files and log files
-     * @param controller
+     * @param controller controller to notify of additional / removed violations
      */
     public HTMLGenerator(final Path homepagePath,
                          final Path tmpPath,

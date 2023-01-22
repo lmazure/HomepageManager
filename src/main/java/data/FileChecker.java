@@ -31,7 +31,6 @@ import utils.XmlHelper;
 
 /**
  * This class checks the text appearing in XML files (buit without interpreting the XML, the XML content is verified by NodeValueChecker).
- *
  */
 public class FileChecker implements FileHandler {
 
@@ -54,7 +53,8 @@ public class FileChecker implements FileHandler {
     /**
      * @param homepagePath path to the directory containing the pages
      * @param tmpPath path to the directory containing the temporary files and log files
-     * @param controller
+     * @param controller controller to notify of additional / removed violations
+     * @param violationController controller to notify of additional / removed violations
      */
     public FileChecker(final Path homepagePath,
                        final Path tmpPath,

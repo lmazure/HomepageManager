@@ -27,7 +27,7 @@ public class ViolationTable {
      */
     public void show() {
         Stage stage = new Stage();
-        stage.setTitle("My New Stage Title");
+        stage.setTitle("Violations");
         
         final TableColumn<Violation, String> flleCol = new TableColumn<>("File");
         flleCol.setMinWidth(200);

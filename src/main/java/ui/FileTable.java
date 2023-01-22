@@ -58,13 +58,13 @@ public class FileTable extends Application {
         fileHandlers.add(fileCheckGenerator);
 
         final NodeValueCheckController nodeCheckController = new NodeValueCheckController(s_list);
-        final NodeValueChecker nodeValueCheckGenerator = new NodeValueChecker(s_homepagePath, s_tmpPath, nodeCheckController);
+        final NodeValueChecker nodeValueCheckGenerator = new NodeValueChecker(s_homepagePath, s_tmpPath, nodeCheckController, violationDataController);
         uiControllers.add(nodeCheckController);
         fileHandlers.add(nodeValueCheckGenerator);
 
         if (s_internetAccessIsEnabled) {
             final LinkCheckController linkCheckController = new LinkCheckController(s_list);
-            final LinkChecker linkCheckGenerator = new LinkChecker(s_homepagePath, s_tmpPath, s_cacheFolderName, linkCheckController);
+            final LinkChecker linkCheckGenerator = new LinkChecker(s_homepagePath, s_tmpPath, s_cacheFolderName, linkCheckController, violationDataController);
             uiControllers.add(linkCheckController);
             fileHandlers.add(linkCheckGenerator);
         }

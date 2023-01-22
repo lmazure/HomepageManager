@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Assertions;
@@ -16,6 +17,8 @@ import data.DataController;
 import data.FileHandler.Status;
 import data.nodechecker.checker.nodechecker.NodeCheckError;
 import data.NodeValueChecker;
+import data.Violation;
+import data.ViolationDataController;
 import utils.ExitHelper;
 
 /**
@@ -31,7 +34,7 @@ public class NodeValueCheckerTestBase {
                                       .collect(Collectors.joining("\n"));
 
         List<NodeCheckError> effective = null;
-        final NodeValueChecker checker = new NodeValueChecker(Paths.get("home"), Paths.get("tmp"), new DummyDataController());
+        final NodeValueChecker checker = new NodeValueChecker(Paths.get("home"), Paths.get("tmp"), new DummyDataController(), new DummyViolationController());
         try {
             final Path tempFile = File.createTempFile("NodeValueCheckerTest", ".xml").toPath();
             Files.writeString(tempFile, content);
@@ -63,4 +66,16 @@ public class NodeValueCheckerTestBase {
         }
     }
 
+    private static class DummyViolationController implements ViolationDataController {
+
+        @Override
+        public void add(Violation violation) {
+            // do nothing
+        }
+
+        @Override
+        public void remove(final Predicate<Violation> violationFilter) {
+            // do nothing
+        }
+    }
 }

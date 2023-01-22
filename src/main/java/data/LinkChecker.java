@@ -24,12 +24,14 @@ public class LinkChecker implements FileHandler {
      * @param homepagePath path to the directory containing the pages
      * @param tmpPath path to the directory containing the temporary files and log files
      * @param cacheFolderName
-     * @param controller
+     * @param controller controller to notify of additional / removed violations
+     * @param violationController controller to notify of additional / removed violations
      */
     public LinkChecker(final Path homepagePath,
                        final Path tmpPath,
                        final String cacheFolderName,
-                       final BackgroundDataController controller) {
+                       final BackgroundDataController controller,
+                       final ViolationDataController violationController) {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;
         _cacheFolderName = cacheFolderName;
