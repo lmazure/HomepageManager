@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import data.FileHandler.Status;
 
 /**
- * @author Laurent
  *
  */
 public interface DataController {

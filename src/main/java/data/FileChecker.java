@@ -45,6 +45,7 @@ public class FileChecker implements FileHandler {
     private final Path _homepagePath;
     private final Path _tmpPath;
     private final DataController _controller;
+    private final ViolationDataController _violationController;
     private final Validator _validator;
 
     private final static Lock _lock = new ReentrantLock();
@@ -56,10 +57,12 @@ public class FileChecker implements FileHandler {
      */
     public FileChecker(final Path homepagePath,
                        final Path tmpPath,
-                       final DataController controller) {
+                       final DataController controller,
+                       final ViolationDataController violationController) {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;
         _controller = controller;
+        _violationController = violationController;
         _lock.lock();
         try {
             _validator = XmlHelper.buildValidator(homepagePath.resolve("css").resolve("schema.xsd"));
@@ -91,6 +94,7 @@ public class FileChecker implements FileHandler {
             for (final Error error: errors) {
                 final String message = "line " + error.getLineNumber() + ": " + error.getErrorMessage();
                 pw.println(message);
+                _violationController.add(new Violation(file.toString(), "file", "an unknown file rule", new ViolationLocationUnknown(), message, new ViolationCorrections[0]));
             }
             Logger.log(Logger.Level.INFO)
                   .append(getOutputFile(file))

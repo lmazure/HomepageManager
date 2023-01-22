@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 import data.DataController;
 import data.FileChecker;
 import data.FileHandler.Status;
+import data.Violation;
+import data.ViolationDataController;
 
 /**
  * Tests of FileChecker
@@ -560,7 +562,7 @@ public class FileCheckerTest {
     private static void test(final String content,
                              final List<FileChecker.Error> expected) {
 
-        final FileChecker checker = new FileChecker(Paths.get("testdata"), Paths.get("tmp"), new DummyDataController());
+        final FileChecker checker = new FileChecker(Paths.get("testdata"), Paths.get("tmp"), new DummyDataController(), new DummyViolationController());
         final List<FileChecker.Error> effective = checker.check(Paths.get("dummy-dir","test.xml"), content);
 
         Assertions.assertEquals(normalize(expected), normalize(effective));
@@ -585,4 +587,18 @@ public class FileCheckerTest {
             // do nothing
         }
     }
-}
+
+    private static class DummyViolationController implements ViolationDataController {
+
+        @Override
+        public void add(Violation violation) {
+            // do nothing
+            
+        }
+
+        @Override
+        public void remove(Violation violation) {
+            // do nothing
+            
+        }
+}}
