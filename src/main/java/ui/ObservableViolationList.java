@@ -21,6 +21,12 @@ public class ObservableViolationList implements ViolationDataController {
     @Override
     public void add(final Violation violation) {
         _data.add(new ObservableViolation(violation));
+        
+        System.out.println("---- before add");
+        for (ObservableViolation o: _data) {
+            System.out.println(o);
+        }
+        System.out.println("---- after add");
     }
 
     @Override

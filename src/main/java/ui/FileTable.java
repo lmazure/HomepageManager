@@ -50,7 +50,7 @@ public class FileTable extends Application {
         uiControllers.add(htmlFileController);
         fileHandlers.add(htmlFileGenerator);
 
-        final ViolationDataController violationDataController = new ObservableViolationList();
+        final ViolationDataController violationDataController = s_violationList;
 
         final FileCheckController fileCheckController = new FileCheckController(s_list);
         final FileChecker fileCheckGenerator = new FileChecker(s_homepagePath, s_tmpPath, fileCheckController, violationDataController);
