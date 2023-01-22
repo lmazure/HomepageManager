@@ -14,12 +14,12 @@ import javafx.stage.Stage;
  */
 public class ViolationTable {
 
-    private final TableView<ObservableViolation> _table;
+    private final TableView<Violation> _table;
 
-    public ViolationTable(final ObservableList<ObservableViolation> violationList) {
+    public ViolationTable(final ObservableList<Violation> violationList) {
         _table = new TableView<>(violationList);
         System.out.println("---- before");
-        for (ObservableViolation o: violationList) {
+        for (Violation o: violationList) {
             System.out.println(o);
         }
         System.out.println("---- after");
@@ -29,19 +29,19 @@ public class ViolationTable {
         Stage stage = new Stage();
         stage.setTitle("My New Stage Title");
         
-        final TableColumn<ObservableViolation, String> flleCol = new TableColumn<>("File");
+        final TableColumn<Violation, String> flleCol = new TableColumn<>("File");
         flleCol.setMinWidth(100);
         flleCol.setCellValueFactory(new PropertyValueFactory<>("file"));
 
-        final TableColumn<ObservableViolation, String> typeCol = new TableColumn<>("Type");
+        final TableColumn<Violation, String> typeCol = new TableColumn<>("Type");
         typeCol.setMinWidth(100);
         typeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
 
-        final TableColumn<ObservableViolation, String> ruleCol = new TableColumn<>("Rule");
+        final TableColumn<Violation, String> ruleCol = new TableColumn<>("Rule");
         ruleCol.setMinWidth(100);
         ruleCol.setCellValueFactory(new PropertyValueFactory<>("rule"));
 
-        final TableColumn<ObservableViolation, String> descriptionCol = new TableColumn<>("Description");
+        final TableColumn<Violation, String> descriptionCol = new TableColumn<>("Description");
         descriptionCol.setMinWidth(100);
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
 

@@ -7,23 +7,23 @@ import javafx.collections.ObservableList;
 
 public class ObservableViolationList implements ViolationDataController {
 
-    private final ObservableList<ObservableViolation> _data;
+    private final ObservableList<Violation> _data;
 
     public ObservableViolationList() {
         _data = FXCollections.observableArrayList();
     }
 
 
-    public ObservableList<ObservableViolation> getObservableList() {
+    public ObservableList<Violation> getObservableList() {
         return _data;
     }
 
     @Override
     public void add(final Violation violation) {
-        _data.add(new ObservableViolation(violation));
+        _data.add(violation);
         
         System.out.println("---- before add");
-        for (ObservableViolation o: _data) {
+        for (Violation o: _data) {
             System.out.println(o);
         }
         System.out.println("---- after add");
@@ -31,10 +31,10 @@ public class ObservableViolationList implements ViolationDataController {
 
     @Override
     public void remove(final Violation violation) {
-        _data.remove(new ObservableViolation(violation));
+        _data.remove(violation);
     }
 
-    public ObservableList<ObservableViolation> getObservableViolationList() {
+    public ObservableList<Violation> getObservableViolationList() {
         return _data;
     }
 }

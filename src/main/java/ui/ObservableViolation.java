@@ -17,10 +17,10 @@ public class ObservableViolation {
      * @param violation
      */
     public ObservableViolation(final Violation violation) {
-        _file = new SimpleStringProperty(violation.file());
-        _type = new SimpleStringProperty(violation.type());
-        _rule = new SimpleStringProperty(violation.rule());
-        _description = new SimpleStringProperty(violation.description());
+        _file = new SimpleStringProperty(violation.getFile());
+        _type = new SimpleStringProperty(violation.getType());
+        _rule = new SimpleStringProperty(violation.getRule());
+        _description = new SimpleStringProperty(violation.getDescription());
     }
 
     /**
