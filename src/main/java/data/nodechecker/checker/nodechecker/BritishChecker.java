@@ -29,7 +29,7 @@ public class BritishChecker extends NodeChecker {
             new Traduction("fetus", "foetus"),
             new Traduction("\\W\\p{Ll}{2,}ize[sd]?\\W", "ise"),
             new Traduction("\\W\\p{Ll}{2,}ization", "isation"),
-            new Traduction("\\W\\p{Ll}{2,}zing", "sing"),
+            new Traduction("\\W\\p{Ll}{2,}izing", "sing"),
             new Traduction("labor\\s", "labour"),
             new Traduction("license", "licence"),
             new Traduction("liters+\\s", "litre"),
