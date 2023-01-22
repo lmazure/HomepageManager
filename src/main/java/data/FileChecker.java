@@ -95,7 +95,13 @@ public class FileChecker implements FileHandler {
             for (final Error error: errors) {
                 final String message = "line " + error.getLineNumber() + ": " + error.getErrorMessage();
                 pw.println(message);
-                _violationController.add(new Violation(file.toString(), s_checkType, "an unknown file rule", new ViolationLocationUnknown(), message, new ViolationCorrections[0]));
+                _violationController.add(new Violation(file.toString(),
+                                                       s_checkType,
+                                                       "an unknown file rule",
+                                                       (error.getLineNumber() > 0) ? new ViolationLocationLine(error.getLineNumber())
+                                                                                   : new ViolationLocationUnknown(),
+                                                       error.getErrorMessage(),
+                                                       new ViolationCorrections[0]));
             }
             Logger.log(Logger.Level.INFO)
                   .append(getOutputFile(file))

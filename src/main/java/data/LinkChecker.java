@@ -18,7 +18,10 @@ public class LinkChecker implements FileHandler {
     private final Path _tmpPath;
     private final String _cacheFolderName;
     private final BackgroundDataController _controller;
+    private final ViolationDataController _violationController;
     private final Map<Path, LinkCheckRunner> _handlers;
+
+    private final static String s_checkType = "link";
 
     /**
      * @param homepagePath path to the directory containing the pages
@@ -36,6 +39,7 @@ public class LinkChecker implements FileHandler {
         _tmpPath = tmpPath;
         _cacheFolderName = cacheFolderName;
         _controller = controller;
+        _violationController = violationController;
         _handlers = new HashMap<>();
     }
 
@@ -59,6 +63,7 @@ public class LinkChecker implements FileHandler {
             handler.cancel();
             _handlers.remove(file);
         }
+        _violationController.remove(v -> (v.getFile().equals(file.toString()) && v.getType().equals(s_checkType)));
     }
 
     @Override

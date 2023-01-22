@@ -44,6 +44,11 @@ public class ViolationTable {
         ruleCol.setCellValueFactory(new PropertyValueFactory<>("rule"));
         _table.getColumns().add(ruleCol);
 
+        final TableColumn<Violation, String> locationCol = new TableColumn<>("Location");
+        locationCol.setMinWidth(100);
+        locationCol.setCellValueFactory(new PropertyValueFactory<>("locationDescription"));
+        _table.getColumns().add(locationCol);
+
         final TableColumn<Violation, String> descriptionCol = new TableColumn<>("Description");
         descriptionCol.setMinWidth(500);
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));

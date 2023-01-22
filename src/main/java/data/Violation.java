@@ -55,10 +55,10 @@ public class Violation {
     }
 
     /**
-     * @return the location
+     * @return the description of the location
      */
-    public ViolationLocation getLocation() {
-        return _location;
+    public String getLocationDescription() {
+        return _location.getDescription();
     }
 
     /**

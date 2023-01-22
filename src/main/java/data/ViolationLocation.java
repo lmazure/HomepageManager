@@ -1,8 +1,10 @@
 package data;
 
 /**
- *
+ * Class defining the location of a violation
  */
-public class ViolationLocation {
-    // DO NOTHING
+
+abstract public class ViolationLocation {
+    
+    abstract String getDescription();
 }

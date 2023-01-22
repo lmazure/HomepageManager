@@ -60,10 +60,12 @@ public class NodeValueChecker implements FileHandler {
     private final Path _homepagePath;
     private final Path _tmpPath;
     private final DataController _controller;
+    private final ViolationDataController _violationController;
     private final DocumentBuilder _builder;
     private final Set<NodeChecker> _nodeCheckers;
 
     private final static Lock _lock = new ReentrantLock();
+    private final static String s_checkType = "node";
 
     /**
      * @param homepagePath path to the directory containing the pages
@@ -78,6 +80,7 @@ public class NodeValueChecker implements FileHandler {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;
         _controller = controller;
+        _violationController = violationController;
         _lock.lock();
         try {
             _builder = XmlHelper.buildDocumentBuilder();
@@ -123,11 +126,12 @@ public class NodeValueChecker implements FileHandler {
             final List<NodeCheckError> errors = check(file);
             if (errors.size() > 0) {
                 for (final NodeCheckError error: errors) {
-                    pw.println(" tag = \""       + error.tag()       + "\"" +
-                               " value = \""     + error.value()     + "\"" +
-                               " violation = \"" + error.violation() + "\"" +
-                               " detail = \""    + error.detail()    + "\"");
-
+                    final String message = " tag = \""       + error.tag()       + "\"" +
+                                           " value = \""     + error.value()     + "\"" +
+                                           " violation = \"" + error.violation() + "\"" +
+                                           " detail = \""    + error.detail()    + "\"";
+                    pw.println(message);
+                    _violationController.add(new Violation(file.toString(), s_checkType, "an unknown file rule", new ViolationLocationUnknown(), message, new ViolationCorrections[0]));
                 }
                 status = Status.HANDLED_WITH_ERROR;
                 Logger.log(Logger.Level.INFO)
@@ -180,7 +184,8 @@ public class NodeValueChecker implements FileHandler {
         FileHelper.deleteFile(getReportFile(file));
 
         _controller.handleDeletion(file, Status.HANDLED_WITH_SUCCESS, getOutputFile(file), getReportFile(file));
-    }
+        
+        _violationController.remove(v -> (v.getFile().equals(file.toString()) && v.getType().equals(s_checkType)));    }
 
     @Override
     public Path getOutputFile(final Path file) {
