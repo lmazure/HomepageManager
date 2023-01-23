@@ -8,7 +8,7 @@ import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkData;
 
 /**
-*
+* Check data of Baeldung link
 */
 public class BaeldungLinkContentChecker extends ExtractorBasedLinkContentChecker {
 

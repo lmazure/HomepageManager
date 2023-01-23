@@ -13,11 +13,21 @@ import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkData;
 
+/**
+ *
+ */
 public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
 
     private final LinkDataExtractorBuilder _extractorBuilder;
     private LinkDataExtractor _parser;
 
+    /**
+     * @param url URL of the link to check
+     * @param linkData expected link data
+     * @param articleData expected article data
+     * @param file effective retrieved link data
+     * @param extractorBuilder 
+     */
     public ExtractorBasedLinkContentChecker(final String url,
                                             final LinkData linkData,
                                             final Optional<ArticleData> articleData,

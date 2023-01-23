@@ -22,6 +22,9 @@ import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkData;
 import utils.xmlparsing.LinkFormat;
 
+/**
+ *
+ */
 public class LinkContentChecker {
 
     private final String _url;
@@ -30,6 +33,12 @@ public class LinkContentChecker {
     private final FileSection _file;
     private LinkContentParser _parser;
 
+    /**
+     * @param url
+     * @param linkData
+     * @param articleData
+     * @param file
+     */
     public LinkContentChecker(final String url,
                               final LinkData linkData,
                               final Optional<ArticleData> articleData,
@@ -40,6 +49,10 @@ public class LinkContentChecker {
         _file = file;
     }
 
+    /**
+     * @return
+     * @throws ContentParserException
+     */
     public final List<LinkContentCheck> check() throws ContentParserException {
         final String content = HtmlHelper.slurpFile(_file);
         final Pattern p = Pattern.compile("</HTML>\\p{Space}*$", Pattern.CASE_INSENSITIVE);
@@ -56,6 +69,11 @@ public class LinkContentChecker {
         }
     }
 
+    /**
+     * @param data
+     * @return
+     * @throws ContentParserException
+     */
     public final List<LinkContentCheck> check(final String data) throws ContentParserException {
 
         final List<LinkContentCheck> checks = new ArrayList<>();

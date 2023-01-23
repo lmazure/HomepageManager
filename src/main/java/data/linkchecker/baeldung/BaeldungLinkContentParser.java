@@ -19,7 +19,7 @@ import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkFormat;
 
 /**
-*
+* Extract data of Baeldung link
 */
 public class BaeldungLinkContentParser extends LinkDataExtractor {
 

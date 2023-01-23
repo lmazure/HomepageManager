@@ -19,7 +19,7 @@ import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkFormat;
 
 /**
-*
+* Extract data of an Ars Technical link
 */
 public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
 

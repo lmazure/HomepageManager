@@ -50,7 +50,7 @@ public class LinkChecker implements FileHandler {
             ExitHelper.exit("there is already a handler for file " + file);
         }
 
-        final LinkCheckRunner handler = new LinkCheckRunner(file, _tmpPath.resolve(_cacheFolderName), _controller, getOutputFile(file), getReportFile(file));
+        final LinkCheckRunner handler = new LinkCheckRunner(file, _tmpPath.resolve(_cacheFolderName), _controller, _violationController, s_checkType, getOutputFile(file), getReportFile(file));
         _handlers.put(file, handler);
         handler.launch();
     }
