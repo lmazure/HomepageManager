@@ -44,7 +44,7 @@ public class NonNormalizedURLChecker extends NodeChecker {
             return new CheckStatus("\"www-128.ibm.com\" should be \"www.ibm.com\"");
         }
 
-        if (url.contains("blogs.oracle.com/java") && !url.contains("/post/")) {
+        if (url.contains("blogs.oracle.com/javamagazine") && !url.contains("/post/") && !url.endsWith("/javamagazine/")) {
             return new CheckStatus("\"blogs.oracle.com\" should contain \"/post/\"");
         }
 
