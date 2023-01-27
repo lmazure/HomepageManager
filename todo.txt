@@ -2,9 +2,7 @@
 
 ==== merge =====
 
-updated les dépendances
-
-recherche des liens morts
+upgrader google-api-services-youtube
 
 gérer les faux subtitles tels que
 https://github.blog/2015-12-15-move-fast/
