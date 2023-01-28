@@ -38,15 +38,16 @@ public class SpaceBetweenTagsChecker extends NodeChecker {
     */
     public SpaceBetweenTagsChecker() {
         super(s_selector,
-                SpaceBetweenTagsChecker::checkNoSpacey, "element should not contain space between tags");
+                SpaceBetweenTagsChecker::checkNoSpace, "element should not contain space between tags");
     }
 
-    private static CheckStatus checkNoSpacey(final Element e) {
+    private static CheckStatus checkNoSpace(final Element e) {
 
         for (int i = 0; i < e.getChildNodes().getLength(); i++) {
             final Node child = e.getChildNodes().item(i);
             if ((child.getNodeType() == Node.TEXT_NODE) && child.getTextContent().trim().isEmpty()) {
-                return new CheckStatus("node " + e.getNodeName() + " (" + e.getTextContent() + ") shall not be contain space between tags");
+                return new CheckStatus("SpaceBetweenTags",
+                                       "node " + e.getNodeName() + " (" + e.getTextContent() + ") shall not contain space between tags");
             }
         }
         return null;

@@ -45,28 +45,28 @@ public class FormatFromURLChecker extends NodeChecker {
         }
 
         if (url.toUpperCase().endsWith(".PDF") && !format.equals("PDF"))
-           return new CheckStatus("\"" + url + "\" is not indicated as being PDF format");
+           return new CheckStatus("ImproperFormat", "\"" + url + "\" is not indicated as being PDF format");
 
         if (url.toUpperCase().endsWith(".PS") && !format.equals("PostScript"))
-            return new CheckStatus("\"" + url + "\" is not indicated as being PostScript format");
+            return new CheckStatus("ImproperFormat", "\"" + url + "\" is not indicated as being PostScript format");
 
         if (url.toUpperCase().endsWith(".WMV") && !format.equals("Windows Media Player"))
-               return new CheckStatus("\"" + url + "\" is not indicated as being Windows Media Player format");
+               return new CheckStatus("ImproperFormat", "\"" + url + "\" is not indicated as being Windows Media Player format");
 
         if (url.startsWith("https://www.youtube.com/watch?v=") && !format.equals("MP4"))
-               return new CheckStatus("\"" + url + "\" is not indicated as being MP4 format");
+               return new CheckStatus("ImproperFormat", "\"" + url + "\" is not indicated as being MP4 format");
 
         if (url.startsWith("http://video.google.com/videoplay") && !format.equals("Flash Video"))
-               return new CheckStatus("\"" + url + "\" is not indicated as being Flash Video format");
+               return new CheckStatus("ImproperFormat", "\"" + url + "\" is not indicated as being Flash Video format");
 
         if ((url.startsWith("https://medium.com/") ||
              url.startsWith("https://www.ibm.com/")) && !(format.equals("HTML") || format.equals("MP3"))) // a HTML page may contain a MP3
-            return new CheckStatus("\"" + url + "\" is not indicated as being HTML format");
+            return new CheckStatus("ImproperFormat", "\"" + url + "\" is not indicated as being HTML format");
 
         if ((url.startsWith("https://www.numberphile.com/podcast/") ||
              url.startsWith("https://play.acast.com") ||
              url.startsWith("https://podcastaddict.com")) && !format.equals("MP3"))
-            return new CheckStatus("\"" + url + "\" is not indicated as being MP3 format");
+            return new CheckStatus("ImproperFormat", "\"" + url + "\" is not indicated as being MP3 format");
 
         return null;
     }

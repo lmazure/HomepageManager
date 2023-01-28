@@ -51,7 +51,7 @@ public class EllipsisChecker extends NodeChecker {
             return null;
         }
 
-        return new CheckStatus("\"" + s + "\" should not contain \"...\"");
+        return new CheckStatus("ImproperEllipsis", "\"" + s + "\" should not contain \"...\"");
     }
 
     private static CheckStatus checkDoubleDot(final Element e) {
@@ -59,7 +59,7 @@ public class EllipsisChecker extends NodeChecker {
         final List<String> content = XmlHelper.getFirstLevelTextContent(e);
         for (final String s: content) {
             if (s.indexOf("..") >= 0) {
-                return new CheckStatus("\"" + s + "\" contains \"..\"");
+                return new CheckStatus("DoubleDot", "\"" + s + "\" contains \"..\"");
             }
         }
         return null;
@@ -69,16 +69,16 @@ public class EllipsisChecker extends NodeChecker {
 
         final String s = e.getTextContent();
         if (s.indexOf("'s ") >= 0) {
-            return new CheckStatus("\"'s \" should be \"’s ");
+            return new CheckStatus("ImproperApostrophe", "\"'s \" should be \"’s ");
         }
         if (s.indexOf("s' ") >= 0) {
-            return new CheckStatus("\"s' \" should be \"s’ ");
+            return new CheckStatus("ImproperApostrophe", "\"s' \" should be \"s’ ");
         }
         if (s.indexOf("x' ") >= 0) {
-            return new CheckStatus("\"x' \" should be \"x’ ");
+            return new CheckStatus("ImproperApostrophe", "\"x' \" should be \"x’ ");
         }
         if (s.indexOf("z' ") >= 0) {
-            return new CheckStatus("\"z' \" should be \"z’ ");
+            return new CheckStatus("ImproperApostrophe", "\"z' \" should be \"z’ ");
         }
 
         return null;

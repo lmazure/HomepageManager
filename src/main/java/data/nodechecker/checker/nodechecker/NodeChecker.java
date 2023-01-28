@@ -98,7 +98,7 @@ public class NodeChecker {
         for (int i = 0; i < _rules.length; i++) {
             final CheckStatus status = _rules[i].apply(element);
             if (status != null) {
-                errors.add(new NodeCheckError(element.getTagName(), element.getTextContent(), _descriptions[i], status.detail()));
+                errors.add(new NodeCheckError(element.getTagName(), element.getTextContent(), _descriptions[i], status.checkName(), status.detail()));
             }
         }
         return errors;

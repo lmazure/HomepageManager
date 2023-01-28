@@ -35,9 +35,9 @@ public class BritishCheckerTest extends NodeValueCheckerTestBase {
 
         try {
             test(content,
-                 "COMMENT \"A civilization is any complex society.\" contains american word \" civilization\"  matching regexp \"\\W\\p{Ll}{2,}ization\", it should be \"isation\"\n" +
-                 "COMMENT \"Evaluating the magnetic dipole moment of neutrinos with the color–magnitude diagram of M5.\" contains american word \"color\"  matching regexp \"color\", it should be \"colour\"\n" +
-                 "COMMENT \"M102 was improperly recorded in Messier catalog, it is a galaxy seen almost exactly edge-on.\" contains american word \"catalog,\"  matching regexp \"catalog[^u]\", it should be \"catalogue\"");
+                 "COMMENT \"A civilization is any complex society.\" contains american word \" civilization\"  matching regexp \"\\W\\p{Ll}{2,}ization\", it should be \"isation\"<<AmericanSpelling>>",
+                 "COMMENT \"Evaluating the magnetic dipole moment of neutrinos with the color–magnitude diagram of M5.\" contains american word \"color\"  matching regexp \"color\", it should be \"colour\"<<AmericanSpelling>>",
+                 "COMMENT \"M102 was improperly recorded in Messier catalog, it is a galaxy seen almost exactly edge-on.\" contains american word \"catalog,\"  matching regexp \"catalog[^u]\", it should be \"catalogue\"<<AmericanSpelling>>");
         } catch (@SuppressWarnings("unused") final SAXException e) {
             Assertions.fail("SAXException");
         }

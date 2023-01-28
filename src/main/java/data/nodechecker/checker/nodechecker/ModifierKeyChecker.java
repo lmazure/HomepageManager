@@ -52,7 +52,7 @@ public class ModifierKeyChecker extends NodeChecker {
             return null;
         }
 
-        return new CheckStatus("Illegal MODIFIERKEY (" + str + ")");
+        return new CheckStatus("IllegalModifierKey", "Illegal MODIFIERKEY (" + str + ")");
     }
 
     private static CheckStatus checkModifierKeyOrder(final Element e) {
@@ -69,7 +69,7 @@ public class ModifierKeyChecker extends NodeChecker {
             return null;
         }
 
-        return new CheckStatus("MODIFIERKEY " + strNext + " cannot follow MODIFIERKEY " + str);
+        return new CheckStatus("IllegalModifierKeyOrder", "MODIFIERKEY " + strNext + " cannot follow MODIFIERKEY " + str);
     }
 
     private static boolean modifier1CanPreceedModifier2(

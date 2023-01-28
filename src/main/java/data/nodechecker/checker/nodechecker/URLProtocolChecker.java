@@ -41,6 +41,7 @@ public class URLProtocolChecker extends NodeChecker {
             return null;
         }
 
-        return new CheckStatus("unknown protocol for URL \"" + url + "\"");
+        return new CheckStatus("UnkownProtoclInUrl",
+                               "unknown protocol for URL \"" + url + "\"");
     }
 }

@@ -131,7 +131,7 @@ public class NodeValueChecker implements FileHandler {
                                            " violation = \"" + error.violation() + "\"" +
                                            " detail = \""    + error.detail()    + "\"";
                     pw.println(message);
-                    _violationController.add(new Violation(file.toString(), s_checkType, "an unknown file rule", new ViolationLocationUnknown(), message, new ViolationCorrections[0]));
+                    _violationController.add(new Violation(file.toString(), s_checkType, error.checkName(), new ViolationLocationUnknown(), message, new ViolationCorrections[0]));
                 }
                 status = Status.HANDLED_WITH_ERROR;
                 Logger.log(Logger.Level.INFO)

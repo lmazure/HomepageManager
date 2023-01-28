@@ -61,7 +61,7 @@ public class ExtremitySpaceChecker extends NodeChecker {
         if (!Character.isWhitespace(c)) {
             return null;
         }
-        return new CheckStatus("\"" + s + "\" should not begin with a space");
+        return new CheckStatus("SpaceAtTheBeginning", "\"" + s + "\" should not begin with a space");
     }
 
     private static CheckStatus checkSpaceAtEnd(final Element e) {
@@ -83,6 +83,6 @@ public class ExtremitySpaceChecker extends NodeChecker {
         if (!Character.isWhitespace(c)) {
             return null;
         }
-        return new CheckStatus("\"" + s + "\" should not end with a space");
+        return new CheckStatus("SpaceAtTheEnd", "\"" + s + "\" should not end with a space");
     }
 }

@@ -29,23 +29,23 @@ public class NonNormalizedURLChecker extends NodeChecker {
         final String url = element.getTextContent();
 
         if (url.contains("youtube.fr")) {
-            return new CheckStatus("\"youtube.fr\" should be \"youtube.com\"");
+            return new CheckStatus("ImproperUrlEncoding", "\"youtube.fr\" should be \"youtube.com\"");
         }
 
         if (url.contains("fr.youtube")) {
-            return new CheckStatus("\"fr.youtube\" should be \"youtube.com\"");
+            return new CheckStatus("ImproperUrlEncoding", "\"fr.youtube\" should be \"youtube.com\"");
         }
 
         if (url.contains("google.fr")) {
-            return new CheckStatus("\"google.fr\" should be \"google.com\"");
+            return new CheckStatus("ImproperUrlEncoding", "\"google.fr\" should be \"google.com\"");
         }
 
         if (url.contains("www-128.ibm.com")) {
-            return new CheckStatus("\"www-128.ibm.com\" should be \"www.ibm.com\"");
+            return new CheckStatus("ImproperUrlEncoding", "\"www-128.ibm.com\" should be \"www.ibm.com\"");
         }
 
         if (url.contains("blogs.oracle.com/javamagazine") && !url.contains("/post/") && !url.endsWith("/javamagazine/")) {
-            return new CheckStatus("\"blogs.oracle.com\" should contain \"/post/\"");
+            return new CheckStatus("ImproperUrlEncoding", "\"blogs.oracle.com\" should contain \"/post/\"");
         }
 
         return null;
@@ -61,7 +61,7 @@ public class NonNormalizedURLChecker extends NodeChecker {
 
         final String urlWithoutProtocol = url.replaceFirst("^[a-z]+://", "");
         if (urlWithoutProtocol.contains("//")) {
-            return new CheckStatus("URL \"" + url + "\"contains \"//\"");
+            return new CheckStatus("ImproperUrl", "URL \"" + url + "\"contains \"//\"");
         }
 
         return null;

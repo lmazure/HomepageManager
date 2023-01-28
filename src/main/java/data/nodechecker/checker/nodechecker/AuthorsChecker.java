@@ -43,7 +43,8 @@ public class AuthorsChecker extends NodeChecker {
         try {
             articleData = XmlParser.parseArticleElement(e);
         } catch (final XmlParsingException ex) {
-            return new CheckStatus("Failed to parse article (" + ex.getMessage() + ")");
+            return new CheckStatus("ArticleParsingError",
+                                   "Failed to parse article (" + ex.getMessage() + ")");
         }
 
         for (LinkData link: articleData.links()) {
@@ -51,23 +52,25 @@ public class AuthorsChecker extends NodeChecker {
             if (expectedWellKnownAuthors.isPresent()) {
                 if (expectedWellKnownAuthors.get().canHaveOtherAuthors()) {
                     if (!articleData.authors().containsAll(expectedWellKnownAuthors.get().getCompulsoryAuthors())) {
-                        return new CheckStatus("The list of authors of article \"" +
-                                link.getUrl() +
-                                "\" (" +
-                                formatAuthorList(articleData.authors()) +
-                                ") does not contain the expected list for the site (" +
-                                formatAuthorList(expectedWellKnownAuthors.get().getCompulsoryAuthors()) +
-                                ")");
+                        return new CheckStatus("IncorrectAuthorList",
+                                               "The list of authors of article \"" +
+                                               link.getUrl() +
+                                               "\" (" +
+                                               formatAuthorList(articleData.authors()) +
+                                               ") does not contain the expected list for the site (" +
+                                               formatAuthorList(expectedWellKnownAuthors.get().getCompulsoryAuthors()) +
+                                               ")");
                     }
                 } else if (!articleData.authors().containsAll(expectedWellKnownAuthors.get().getCompulsoryAuthors()) ||
                            !expectedWellKnownAuthors.get().getCompulsoryAuthors().containsAll(articleData.authors())) {
-                    return new CheckStatus("The list of authors of article \"" +
-                            link.getUrl() +
-                            "\" (" +
-                            formatAuthorList(articleData.authors()) +
-                            ") is not equal to the expected list for the site (" +
-                            formatAuthorList(expectedWellKnownAuthors.get().getCompulsoryAuthors()) +
-                            ")");
+                    return new CheckStatus("IncorrectAuthorList",
+                                           "The list of authors of article \"" +
+                                           link.getUrl() +
+                                           "\" (" +
+                                           formatAuthorList(articleData.authors()) +
+                                           ") is not equal to the expected list for the site (" +
+                                           formatAuthorList(expectedWellKnownAuthors.get().getCompulsoryAuthors()) +
+                                           ")");
                 }
             }
         }
@@ -83,12 +86,14 @@ public class AuthorsChecker extends NodeChecker {
         try {
             articleData = XmlParser.parseArticleElement(e);
         } catch (final XmlParsingException ex) {
-            return new CheckStatus("Failed to parse article (" + ex.getMessage() + ")");
+            return new CheckStatus("ArticleParsingError",
+                                   "Failed to parse article (" + ex.getMessage() + ")");
         }
 
         for (AuthorData author: articleData.authors()) {
             if (authors.contains(author)) {
-                return new CheckStatus("The list of authors of article \"" +
+                return new CheckStatus("DuplicatedAuthor",
+                                       "The list of authors of article \"" +
                                        articleData.links().get(0).getUrl() +
                                        "\" contains duplicated author: " +
                                        author);

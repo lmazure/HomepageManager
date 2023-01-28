@@ -102,7 +102,8 @@ public class TitleFormatChecker extends NodeChecker {
         }
 
         if (Character.isLowerCase(firstWord.get().codePointAt(0))) {
-            return new CheckStatus("TITLE \"" + e.getTextContent() + "\" must start with an uppercase");
+            return new CheckStatus("LowercaseTitle",
+                                   "TITLE \"" + e.getTextContent() + "\" must start with an uppercase");
         }
 
         return null;

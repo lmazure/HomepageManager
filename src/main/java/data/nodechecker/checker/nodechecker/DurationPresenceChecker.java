@@ -49,95 +49,95 @@ public class DurationPresenceChecker extends NodeChecker {
 
         if (format.equals("PDF")) {
             if (hasDuration) {
-                return new CheckStatus("PDF cannot have duration");
+                return new CheckStatus("SpuriousDuration", "PDF cannot have duration");
             }
             return null;
         }
         if (format.equals("Flash Video")) {
             if (!hasDuration) {
-                return new CheckStatus("missing duration for Flash Video");
+                return new CheckStatus("MissingDuration", "missing duration for Flash Video");
             }
             return null;
         }
         if (format.equals("Word")) {
             if (hasDuration) {
-                return new CheckStatus("Word cannot have duration");
+                return new CheckStatus("SpuriousDuration", "Word cannot have duration");
             }
             return null;
         }
         if (format.equals("PostScript")) {
             if (hasDuration) {
-                return new CheckStatus("PostScript cannot have duration");
+                return new CheckStatus("SpuriousDuration", "PostScript cannot have duration");
             }
             return null;
         }
         if (format.equals("Flash")) {
             if (hasDuration) {
-                return new CheckStatus("Flash cannot have duration");
+                return new CheckStatus("SpuriousDuration", "Flash cannot have duration");
             }
             return null;
         }
         if (format.equals("PowerPoint")) {
             if (hasDuration) {
-                return new CheckStatus("PowerPoint cannot have duration");
+                return new CheckStatus("SpuriousDuration", "PowerPoint cannot have duration");
             }
             return null;
         }
         if (format.equals("ASCII")) {
             if (hasDuration) {
-                return new CheckStatus("ASCII cannot have duration");
+                return new CheckStatus("SpuriousDuration", "ASCII cannot have duration");
             }
             return null;
         }
         if (format.equals("RSS")) {
             if (hasDuration) {
-                return new CheckStatus("RSS cannot have duration");
+                return new CheckStatus("SpuriousDuration", "RSS cannot have duration");
             }
             return null;
         }
         if (format.equals("RSS2")) {
             if (hasDuration) {
-                return new CheckStatus("RSS2 cannot have duration");
+                return new CheckStatus("SpuriousDuration", "RSS2 cannot have duration");
             }
             return null;
         }
         if (format.equals("MP3")) {
             if (!hasDuration) {
-                return new CheckStatus("missing duration for MP3");
+                return new CheckStatus("MissingDuration", "missing duration for MP3");
             }
             return null;
         }
         if (format.equals("MP4")) {
             if (!hasDuration) {
-                return new CheckStatus("missing duration for MP4");
+                return new CheckStatus("MissingDuration", "missing duration for MP4");
             }
             return null;
         }
         if (format.equals("RealMedia")) {
             if (!hasDuration) {
-                return new CheckStatus("missing duration for RealMedia");
+                return new CheckStatus("MissingDuration", "missing duration for RealMedia");
             }
             return null;
         }
         if (format.equals("Windows Media Player")) {
             if (!hasDuration) {
-                return new CheckStatus("missing duration for Windows Media Player");
+                return new CheckStatus("MissingDuration", "missing duration for Windows Media Player");
             }
             return null;
         }
         if (format.equals("Atom")) {
             if (hasDuration) {
-                return new CheckStatus("Atom cannot have duration");
+                return new CheckStatus("SpuriousDuration", "Atom cannot have duration");
             }
             return null;
         }
         if (format.equals("txt")) {
             if (hasDuration) {
-                return new CheckStatus("txt cannot have duration");
+                return new CheckStatus("SpuriousDuration", "txt cannot have duration");
             }
             return null;
         }
 
-        return new CheckStatus("\"" + format + "\" is a unknown format to get duration presence");
+        return new CheckStatus("UnkwonFormat", "\"" + format + "\" is a unknown format to get duration presence");
     }
 }

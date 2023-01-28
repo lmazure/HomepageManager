@@ -59,7 +59,8 @@ public class BritishChecker extends NodeChecker {
             for (final Traduction traduction: s_americanWords) {
                 final String match = traduction.matchesAmerican(l);
                 if (match != null) {
-                    return new CheckStatus("COMMENT \"" +
+                    return new CheckStatus("AmericanSpelling",
+                                           "COMMENT \"" +
                                            e.getTextContent() +
                                            "\" contains american word \"" +
                                            match +

@@ -48,7 +48,7 @@ public class NodeValueCheckerTestBase {
 
     private static String normalize(final List<NodeCheckError> errors) {
         return errors.stream()
-                     .map(e -> e.detail())
+                     .map(e -> e.detail() + "<<" + e.checkName() + ">>")
                      .sorted()
                      .collect(Collectors.joining("\n"));
     }

@@ -39,6 +39,6 @@ public class KeyChecker extends NodeChecker {
             return null;
         }
 
-        return new CheckStatus("Illegal KEY (\"" + key + "\")");
+        return new CheckStatus("IlegalKey", "Illegal KEY (\"" + key + "\")");
     }
 }

@@ -44,7 +44,8 @@ public class CommentChecker extends NodeChecker {
             error = !isFinalPunctuation(lastChar);
         }
 
-        return error ? new CheckStatus("COMMENT \"" + e.getTextContent() + "\" must end with a punctuation")
+        return error ? new CheckStatus("MissingPuctuation",
+                                       "COMMENT \"" + e.getTextContent() + "\" must end with a punctuation")
                      : null;
     }
 

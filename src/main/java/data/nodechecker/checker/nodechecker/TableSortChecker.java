@@ -77,7 +77,7 @@ public class TableSortChecker extends NodeChecker {
         }
 
         if (numberOfUnsortedTerms > 0) {
-            return new CheckStatus(summary);
+            return new CheckStatus("ImproperTableSorting", summary);
         }
 
         return null;

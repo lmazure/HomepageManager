@@ -40,6 +40,6 @@ public class NonEmptyChecker extends NodeChecker {
             return null;
         }
 
-        return new CheckStatus("node shall not be empty");
+        return new CheckStatus("EmptyNode", "node shall not be empty");
     }
 }

@@ -35,17 +35,21 @@ public class PredecessorArticleChecker extends NodeChecker {
         }
 
         if (!XmlHelper.isOfType(e.getParentNode(), ElementType.ITEM)) {
-            return new CheckStatus("Article has 'predecessor' attribute, but it is not in an <ITEM>");
+            return new CheckStatus("IncorrectPredecessorArticle",
+                                   "Article has 'predecessor' attribute, but it is not in an <ITEM>");
         }
         final Element previousSibling = XmlHelper.getPreviousSiblingElement((Element)e.getParentNode());
         if (previousSibling == null) {
-            return new CheckStatus("Article has 'predecessor' attribute, but there is no previous element");
+            return new CheckStatus("IncorrectPredecessorArticle",
+                                   "Article has 'predecessor' attribute, but there is no previous element");
         }
         if (!XmlHelper.isOfType(previousSibling, ElementType.ITEM)) {
-            return new CheckStatus("Article has 'predecessor' attribute, but previous element is not an <ITEM>");
+            return new CheckStatus("IncorrectPredecessorArticle",
+                                   "Article has 'predecessor' attribute, but previous element is not an <ITEM>");
         }
         if (!XmlHelper.isOfType(previousSibling.getFirstChild(), ElementType.ARTICLE)) {
-            return new CheckStatus("Article has 'predecessor' attribute, but previous <ITEM> does not contain an <ARTICLE>");
+            return new CheckStatus("IncorrectPredecessorArticle",
+                                   "Article has 'predecessor' attribute, but previous <ITEM> does not contain an <ARTICLE>");
         }
 
         final Element previousArticle = (Element)previousSibling.getFirstChild();
@@ -53,12 +57,14 @@ public class PredecessorArticleChecker extends NodeChecker {
         try {
             previousArticleData = XmlParser.parseArticleElement(previousArticle);
         } catch (final XmlParsingException ex) {
-            return new CheckStatus("Failed to parse article (" + ex.getMessage() + ")");
+            return new CheckStatus("ArticleParsingError",
+                                   "Failed to parse article (" + ex.getMessage() + ")");
         }
         final String urlOfPreviousArticle = previousArticleData.links().get(0).getUrl();
 
         if (!predecessor.equals(urlOfPreviousArticle)) {
-            return new CheckStatus("Article has 'predecessor' article equal to \"" +
+            return new CheckStatus("IncorrectPredecessorArticle", 
+                                   "Article has 'predecessor' article equal to \"" +
                                    predecessor +
                                    "\" while previous article has URL \"" +
                                    previousArticleData.links().get(0).getUrl() +

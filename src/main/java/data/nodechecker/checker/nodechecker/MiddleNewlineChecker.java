@@ -49,6 +49,6 @@ public class MiddleNewlineChecker extends NodeChecker {
         if (s.indexOf('\n') == -1) {
             return null;
         }
-        return new CheckStatus("\"" + s + "\" should not contain a newline");
+        return new CheckStatus("IllegalNewline", "\"" + s + "\" should not contain a newline");
     }
 }

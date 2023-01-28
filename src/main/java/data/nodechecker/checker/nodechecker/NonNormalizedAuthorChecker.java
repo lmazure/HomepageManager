@@ -29,13 +29,13 @@ public class NonNormalizedAuthorChecker extends NodeChecker {
         final String s = e.getTextContent();
 
         if (s.equalsIgnoreCase("Vint Cerf"))
-            return new CheckStatus("\"Vint Cerf\" should be \"Vinton Cerf\"");
+            return new CheckStatus("ImproperAuthorEncoding", "\"Vint Cerf\" should be \"Vinton Cerf\"");
 
         if (s.equalsIgnoreCase("Cynthia Keen"))
-            return new CheckStatus("\"Cynthia Keen\" should be \"Cynthia E. Keen\"");
+            return new CheckStatus("ImproperAuthorEncoding", "\"Cynthia Keen\" should be \"Cynthia E. Keen\"");
 
         if (s.equalsIgnoreCase("Deb Borfitz"))
-            return new CheckStatus("\"Deb Borfitz\" should be \"Deborah Borfitz\"");
+            return new CheckStatus("ImproperAuthorEncoding", "\"Deb Borfitz\" should be \"Deborah Borfitz\"");
 
         return null;
     }
