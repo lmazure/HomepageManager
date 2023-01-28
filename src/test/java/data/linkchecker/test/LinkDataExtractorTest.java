@@ -1191,6 +1191,38 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchStatedClearlyIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=FNynz6Q12Bw";
+        final String expectedXml = """
+                <ARTICLE><X><T>DNA and RNA - Differences in Form and Function | Stated Clearly</T>\
+                <A>https://www.youtube.com/watch?v=FNynz6Q12Bw</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>49</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Jon</FIRSTNAME><LASTNAME>Perry</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>25</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
+    void youtubeWatchSteveMouldIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=Qyn64b4LNJ0";
+        final String expectedXml = """
+                <ARTICLE><X><T>The Planets Are Weirdly In Sync</T>\
+                <A>https://www.youtube.com/watch?v=Qyn64b4LNJ0</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>23</MINUTE><SECOND>21</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Steve</FIRSTNAME><LASTNAME>Mould</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2021</YEAR><MONTH>4</MONTH><DAY>8</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeWatchScience4AllIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=sAjm3-IaRtI";
         final String expectedXml = """
