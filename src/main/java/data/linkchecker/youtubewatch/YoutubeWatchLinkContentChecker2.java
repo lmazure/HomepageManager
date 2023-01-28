@@ -47,7 +47,8 @@ public class YoutubeWatchLinkContentChecker2 extends LinkContentChecker {
     @Override
     protected LinkContentCheck checkGlobalData(final String data) {
         if (!_dto.isAllowed()) {
-            return new LinkContentCheck("video is not playable in FR");
+            return new LinkContentCheck("VideoNotPlayable",
+                                        "video is not playable in FR");
         }
 
         return null;
@@ -60,7 +61,8 @@ public class YoutubeWatchLinkContentChecker2 extends LinkContentChecker {
         final String effectiveTitle = _dto.getTitle();
 
         if (!title.equals(effectiveTitle)) {
-            return new LinkContentCheck("title \"" +
+            return new LinkContentCheck("WrongTitle",
+                                        "title \"" +
                                         title +
                                         "\" is not equal to the real title \"" +
                                         effectiveTitle +
@@ -77,7 +79,8 @@ public class YoutubeWatchLinkContentChecker2 extends LinkContentChecker {
         final Duration effectiveDuration = _dto.getDuration();
 
         if (!expectedDuration.equals(effectiveDuration)) {
-            return new LinkContentCheck("expected duration " +
+            return new LinkContentCheck("WrongDuration",
+                                        "expected duration " +
                                         expectedDuration +
                                         " is not in the real duration " +
                                         effectiveDuration);
@@ -93,13 +96,15 @@ public class YoutubeWatchLinkContentChecker2 extends LinkContentChecker {
     {
 
         if (creationDate.isEmpty()) {
-            return new LinkContentCheck("YouTube link with no creation date");
+            return new LinkContentCheck("MissingCreationDate",
+                                        "YouTube link with no creation date");
         }
 
         final TemporalAccessor date = publicationDate.isPresent() ? publicationDate.get() : creationDate.get();
 
         if (!(date instanceof LocalDate)) {
-            return new LinkContentCheck("Date without month or day");
+            return new LinkContentCheck("IncorrectDate",
+                                        "Date without month or day");
        }
 
         final LocalDate effectivePublicationDate = _dto.getPublicationDate();
@@ -145,12 +150,12 @@ public class YoutubeWatchLinkContentChecker2 extends LinkContentChecker {
 
         if (errorRecordingDate != null) {
             if (errorPublicationDate != null) {
-                return new LinkContentCheck(errorRecordingDate + " // " + errorPublicationDate);
+                return new LinkContentCheck("WrongDate", errorRecordingDate + " // " + errorPublicationDate);
             }
-            return new LinkContentCheck(errorRecordingDate);
+            return new LinkContentCheck("WrongDate", errorRecordingDate);
         }
         if (errorPublicationDate != null) {
-            return new LinkContentCheck(errorPublicationDate);
+            return new LinkContentCheck("WrongDate", errorPublicationDate);
         }
         return null;
     }
@@ -163,14 +168,16 @@ public class YoutubeWatchLinkContentChecker2 extends LinkContentChecker {
 
         if (language != null) {
             if (!Arrays.asList(languages).contains(language)) {
-                return new LinkContentCheck("language is \"" +
+                return new LinkContentCheck("WrongLanguage",
+                                            "language is \"" +
                                             language +
                                             "\" but this one is unexpected (verified with API)");
             }
         } else {
             final Optional<Locale> lang = StringHelper.guessLanguage(_dto.getDescription());
             if (lang.isPresent() && !Arrays.asList(languages).contains(lang.get())) {
-                return new LinkContentCheck("language is \"" +
+                return new LinkContentCheck("WrongLanguage",
+                                            "language is \"" +
                                             language +
                                             "\" but this one is unexpected (verified with guessing)");
             }

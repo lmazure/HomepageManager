@@ -36,7 +36,8 @@ public class YoutubeChannelUserLinkContentChecker extends LinkContentChecker {
         _parser = new YoutubeChannelUserLinkContentParser(data);
 
         if (_parser.getErrorMessage().isPresent()) {
-            return new LinkContentCheck(_parser.getErrorMessage().get());
+            return new LinkContentCheck("LinkDataRetrievalFailure",
+                                        _parser.getErrorMessage().get());
         }
 
         return null;
@@ -49,7 +50,8 @@ public class YoutubeChannelUserLinkContentChecker extends LinkContentChecker {
         final Optional<Locale> language = _parser.getLanguage();
 
         if (language.isPresent() && !Arrays.asList(languages).contains(language.get())) {
-            return new LinkContentCheck("language is \"" + language.get() + "\" but this one is unexpected");
+            return new LinkContentCheck("WrongLanguage",
+                                        "language is \"" + language.get() + "\" but this one is unexpected");
         }
 
         return null;

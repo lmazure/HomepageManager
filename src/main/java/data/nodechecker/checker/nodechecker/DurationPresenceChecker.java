@@ -138,6 +138,6 @@ public class DurationPresenceChecker extends NodeChecker {
             return null;
         }
 
-        return new CheckStatus("UnkwonFormat", "\"" + format + "\" is a unknown format to get duration presence");
+        return new CheckStatus("UnkwonFormat", "\"" + format + "\" is an unknown format to get duration presence");
     }
 }

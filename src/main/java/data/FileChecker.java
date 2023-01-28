@@ -93,14 +93,14 @@ public class FileChecker implements FileHandler {
                 pw.println("OK");
             }
             for (final Error error: errors) {
-                final String message = "line " + error.getLineNumber() + ": " + error.getErrorMessage();
+                final String message = "line " + error.lineNumber() + ": " + error.errorMessage();
                 pw.println(message);
                 _violationController.add(new Violation(file.toString(),
                                                        s_checkType,
                                                        "an unknown file rule",
-                                                       (error.getLineNumber() > 0) ? new ViolationLocationLine(error.getLineNumber())
-                                                                                   : new ViolationLocationUnknown(),
-                                                       error.getErrorMessage(),
+                                                       (error.lineNumber() > 0) ? new ViolationLocationLine(error.lineNumber())
+                                                                                : new ViolationLocationUnknown(),
+                                                       error.errorMessage(),
                                                        new ViolationCorrections[0]));
             }
             Logger.log(Logger.Level.INFO)
@@ -141,7 +141,7 @@ public class FileChecker implements FileHandler {
 
         final List<Error> errors = new ArrayList<>();
         if (content.startsWith(s_utf8_bom)) {
-            errors.add(new Error(1, "file should not have a UTF BOM"));
+            errors.add(new Error("MissingBom", 1, "file should not have a UTF BOM"));
         }
         return errors;
     }
@@ -162,13 +162,13 @@ public class FileChecker implements FileHandler {
                 isPreviousCharacterCarriageReturn = true;
             } else if (ch == '\n') {
                 if (!isPreviousCharacterCarriageReturn) {
-                    errors.add(new Error(lineNumber, "line should finish by \\r\\n instead of \\n"));
+                    errors.add(new Error("BadEndOfLine", lineNumber, "line should finish by \\r\\n instead of \\n"));
                 }
                 if (isPreviousCharacterWhiteSpace) {
-                    errors.add(new Error(lineNumber, "line is finishing with a white space"));
+                    errors.add(new Error("WhiteSpaceAtLineEnd", lineNumber, "line is finishing with a white space"));
                 }
                 if (isLineEmpty) {
-                    errors.add(new Error(lineNumber, "empty line"));
+                    errors.add(new Error("EmptyLine", lineNumber, "empty line"));
                 }
                 lineNumber++;
                 columnNumber = 1;
@@ -178,10 +178,12 @@ public class FileChecker implements FileHandler {
             } else if (Character.isISOControl(ch)) {
                 isPreviousCharacterCarriageReturn = false;
                 isPreviousCharacterWhiteSpace = Character.isWhitespace(ch);
-                errors.add(new Error(lineNumber, "line contains a control character (x" +
-                                                 Integer.toHexString(ch) +
-                                                 ") at column " +
-                                                 columnNumber));
+                errors.add(new Error("ControlCharacter",
+                                     lineNumber,
+                                     "line contains a control character (x" +
+                                     Integer.toHexString(ch) +
+                                     ") at column " +
+                                     columnNumber));
                 columnNumber++;
             } else if (Character.isWhitespace(ch)) {
                 isPreviousCharacterCarriageReturn = false;
@@ -196,10 +198,10 @@ public class FileChecker implements FileHandler {
         }
 
         if (isPreviousCharacterWhiteSpace) {
-            errors.add(new Error(lineNumber, "line is finishing with a white space"));
+            errors.add(new Error("WhiteSpaceAtLineEnd", lineNumber, "line is finishing with a white space"));
         }
         if (isLineEmpty) {
-            errors.add(new Error(lineNumber, "empty line"));
+            errors.add(new Error("EmptyLine", lineNumber, "empty line"));
         }
 
         return errors;
@@ -217,7 +219,9 @@ public class FileChecker implements FileHandler {
             final String endOfFilename = filename.substring(previousSeparatorPosition + 1);
             final String pathString = "<PATH>" + endOfFilename.replace(File.separator, "/") + "</PATH>";
             if (!content.contains(pathString)) {
-                errors.add(new Error(5, "the name of the file does not appear in the <PATH> node (expected to see \"" + pathString + "\")"));
+                errors.add(new Error("WrongPath",
+                                     5,
+                                     "the name of the file does not appear in the <PATH> node (expected to see \"" + pathString + "\")"));
             }
         } catch (final IOException e) {
             ExitHelper.exit(e);
@@ -234,27 +238,27 @@ public class FileChecker implements FileHandler {
         for (final String line : content.lines().toArray(String[]::new)) {
             n++;
             if (numberOfSpacesAtBeginningOfLine(line) % 2 == 1) {
-                errors.add(new Error(n, "odd number of spaces at the beginning of the line"));
+                errors.add(new Error("OddIndentation", n, "odd number of spaces at the beginning of the line"));
             }
             final Matcher badGreaterThan = s_badGreaterThan.matcher(line);
             if (badGreaterThan.replaceAll("").indexOf('>') >= 0) {
-                errors.add(new Error(n, "the line contains a \">\""));
+                errors.add(new Error("GreaterThanCharacter", n, "the line contains a \">\""));
             }
             final Matcher attributeWithSingleQuote = s_attributeWithSingleQuote.matcher(line);
             if (attributeWithSingleQuote.find()) {
-                errors.add(new Error(n, "the line contains an XML attribute between single quotes \"" + attributeWithSingleQuote.group() + "\""));
+                errors.add(new Error("AttributeBetweenSingleQuotes", n, "the line contains an XML attribute between single quotes \"" + attributeWithSingleQuote.group() + "\""));
             }
             final Matcher spaceInTags = s_spaceInTags.matcher(line);
             if (spaceInTags.find()) {
-                errors.add(new Error(n, "the line contains space in an XML tag \"" + spaceInTags.group() + "\""));
+                errors.add(new Error("SpaceInXmlNode", n, "the line contains space in an XML tag \"" + spaceInTags.group() + "\""));
             }
             final Matcher spaceInAttributes = s_spaceInAttributes.matcher(line);
             if (spaceInAttributes.find()) {
-                errors.add(new Error(n, "the line contains space near \"=\" in an XML attribute \"" + spaceInAttributes.group() + "\""));
+                errors.add(new Error("SpaceInAttributeSetting", n, "the line contains space near \"=\" in an XML attribute \"" + spaceInAttributes.group() + "\""));
             }
             final Matcher doubleSpaceInAttributes = s_doubleSpaceInAttributes.matcher(line);
             if (doubleSpaceInAttributes.find()) {
-                errors.add(new Error(n, "the line contains double space in an XML attribute \"" + doubleSpaceInAttributes.group() + "\""));
+                errors.add(new Error("DoubleSpaceInXmlNode", n, "the line contains double space in an XML attribute \"" + doubleSpaceInAttributes.group() + "\""));
             }
         }
 
@@ -272,7 +276,7 @@ public class FileChecker implements FileHandler {
                 _validator.validate(source);
             }
         } catch (final SAXException e) {
-            errors.add(new Error(0, "the file violates the schema (\"" + e.toString() + "\")"));
+            errors.add(new Error("SchemaViolation", 0, "the file violates the schema (\"" + e.toString() + "\")"));
         } catch (final IOException e) {
             ExitHelper.exit(e);
         }
@@ -317,37 +321,11 @@ public class FileChecker implements FileHandler {
         return n;
     }
 
+
     /**
-     * @author Laurent
-     *
+     * @param checkName Name of the check
+     * @param lineNumber Line number of the violation
+     * @param errorMessage Message describing the violation
      */
-    public static class Error {
-
-        private final int _lineNumber;
-        private final String _errorMessage;
-
-        /**
-         * @param lineNumber
-         * @param errorMessage
-         */
-        public Error(final int lineNumber,
-                     final String errorMessage) {
-            _lineNumber = lineNumber;
-            _errorMessage = errorMessage;
-        }
-
-        /**
-         * @return
-         */
-        public int getLineNumber() {
-            return _lineNumber;
-        }
-
-        /**
-         * @return
-         */
-        public String getErrorMessage() {
-            return _errorMessage;
-        }
-    }
+    public static record Error(String checkName, int lineNumber, String errorMessage) {}
 }

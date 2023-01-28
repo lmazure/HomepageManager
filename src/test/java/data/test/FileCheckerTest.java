@@ -64,8 +64,8 @@ public class FileCheckerTest {
             "</PAGE>";
 
         test(content,
-             0, "the file violates the schema (\"org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 1; Content is not allowed in prolog.\")",
-             1, s_mess_bom);
+             "SchemaViolation", 0, "the file violates the schema (\"org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 1; Content is not allowed in prolog.\")",
+             "MissingBom", 1, s_mess_bom);
     }
 
     @SuppressWarnings("static-method")
@@ -84,8 +84,8 @@ public class FileCheckerTest {
             "</PAGE>";
 
         test(content,
-             0, "the file violates the schema (\"org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 7; The processing instruction target matching \"[xX][mM][lL]\" is not allowed.\")",
-             1, s_mess_ctrl + " (x9) at column 1");
+             "SchemaViolation", 0, "the file violates the schema (\"org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 7; The processing instruction target matching \"[xX][mM][lL]\" is not allowed.\")",
+             "ControlCharacter", 1, s_mess_ctrl + " (x9) at column 1");
     }
 
     @SuppressWarnings("static-method")
@@ -122,9 +122,9 @@ public class FileCheckerTest {
             "</PAGE>";
 
         test(content,
-             5, s_mess_ctrl + " (x9) at column 1",
-             6, s_mess_ctrl + " (x9) at column 60",
-             6, s_mess_white_space);
+             "ControlCharacter", 5, s_mess_ctrl + " (x9) at column 1",
+             "ControlCharacter", 6, s_mess_ctrl + " (x9) at column 60",
+             "WhiteSpaceAtLineEnd", 6, s_mess_white_space);
     }
 
     @SuppressWarnings("static-method")
@@ -143,8 +143,8 @@ public class FileCheckerTest {
             "</PAGE>\t";
 
         test(content,
-             9, s_mess_ctrl + " (x9) at column 8",
-             9, s_mess_white_space);
+             "ControlCharacter", 9, s_mess_ctrl + " (x9) at column 8",
+             "WhiteSpaceAtLineEnd", 9, s_mess_white_space);
     }
 
     @SuppressWarnings("static-method")
@@ -163,7 +163,7 @@ public class FileCheckerTest {
             "</PAGE>";
 
         test(content,
-             1, s_mess_white_space);
+             "WhiteSpaceAtLineEnd", 1, s_mess_white_space);
     }
 
     @SuppressWarnings("static-method")
@@ -182,8 +182,8 @@ public class FileCheckerTest {
             "</PAGE>";
 
         test(content,
-             5, s_mess_white_space,
-             6, s_mess_white_space);
+             "WhiteSpaceAtLineEnd", 5, s_mess_white_space,
+             "WhiteSpaceAtLineEnd", 6, s_mess_white_space);
     }
 
     @SuppressWarnings("static-method")
@@ -202,7 +202,7 @@ public class FileCheckerTest {
             "</PAGE> ";
 
         test(content,
-             9, s_mess_white_space);
+             "WhiteSpaceAtLineEnd", 9, s_mess_white_space);
     }
 
     @SuppressWarnings("static-method")
@@ -221,7 +221,7 @@ public class FileCheckerTest {
             "</PAGE>";
 
         test(content,
-             5, s_mess_path);
+             "WrongPath", 5, s_mess_path);
     }
 
     @SuppressWarnings("static-method")
@@ -240,7 +240,7 @@ public class FileCheckerTest {
             "</PAGE>";
 
         test(content,
-             4, s_mess_crlf);
+             "BadEndOfLine", 4, s_mess_crlf);
     }
 
     @SuppressWarnings("static-method")
@@ -260,8 +260,8 @@ public class FileCheckerTest {
             "</PAGE>";
 
         test(content,
-             0, "the file violates the schema (\"org.xml.sax.SAXParseException; lineNumber: 2; columnNumber: 6; The processing instruction target matching \"[xX][mM][lL]\" is not allowed.\")",
-             1, s_mess_empty_line);
+             "SchemaViolation", 0, "the file violates the schema (\"org.xml.sax.SAXParseException; lineNumber: 2; columnNumber: 6; The processing instruction target matching \"[xX][mM][lL]\" is not allowed.\")",
+             "EmptyLine", 1, s_mess_empty_line);
     }
 
     @SuppressWarnings("static-method")
@@ -281,7 +281,7 @@ public class FileCheckerTest {
             "</PAGE>";
 
         test(content,
-             6, s_mess_empty_line);
+             "EmptyLine", 6, s_mess_empty_line);
     }
 
     @SuppressWarnings("static-method")
@@ -300,7 +300,7 @@ public class FileCheckerTest {
             "</PAGE>\r\n";
 
         test(content,
-             10, s_mess_empty_line);
+             "EmptyLine", 10, s_mess_empty_line);
     }
 
     @SuppressWarnings("static-method")
@@ -320,10 +320,10 @@ public class FileCheckerTest {
             "</PAGE>";
 
         test(content,
-             0, "the file violates the schema (\"org.xml.sax.SAXParseException; lineNumber: 2; columnNumber: 6; The processing instruction target matching \"[xX][mM][lL]\" is not allowed.\")",
-             1, s_mess_empty_line,
-             1, s_mess_white_space,
-             1, s_mess_odd_space_indentation);
+             "SchemaViolation", 0, "the file violates the schema (\"org.xml.sax.SAXParseException; lineNumber: 2; columnNumber: 6; The processing instruction target matching \"[xX][mM][lL]\" is not allowed.\")",
+             "EmptyLine", 1, s_mess_empty_line,
+             "WhiteSpaceAtLineEnd", 1, s_mess_white_space,
+             "OddIndentation", 1, s_mess_odd_space_indentation);
     }
 
     @SuppressWarnings("static-method")
@@ -343,8 +343,8 @@ public class FileCheckerTest {
             "</PAGE>";
 
         test(content,
-             6, s_mess_empty_line,
-             6, s_mess_white_space);
+             "EmptyLine", 6, s_mess_empty_line,
+             "WhiteSpaceAtLineEnd", 6, s_mess_white_space);
     }
 
     @SuppressWarnings("static-method")
@@ -364,9 +364,9 @@ public class FileCheckerTest {
             " ";
 
         test(content,
-             10, s_mess_empty_line,
-             10, s_mess_white_space,
-             10, s_mess_odd_space_indentation);
+             "EmptyLine", 10, s_mess_empty_line,
+             "WhiteSpaceAtLineEnd", 10, s_mess_white_space,
+             "OddIndentation", 10, s_mess_odd_space_indentation);
     }
 
     @SuppressWarnings("static-method")
@@ -385,8 +385,8 @@ public class FileCheckerTest {
             "</PAGE>";
 
         test(content,
-             3, s_mess_odd_space_indentation,
-             5, s_mess_odd_space_indentation);
+             "OddIndentation", 3, s_mess_odd_space_indentation,
+             "OddIndentation", 5, s_mess_odd_space_indentation);
     }
 
     @SuppressWarnings("static-method")
@@ -410,7 +410,7 @@ public class FileCheckerTest {
             "</PAGE>";
 
         test(content,
-             9, "the line contains a \">\"");
+             "GreaterThanCharacter", 9, "the line contains a \">\"");
     }
 
     @SuppressWarnings("static-method")
@@ -434,7 +434,7 @@ public class FileCheckerTest {
             "</PAGE>";
 
         test(content,
-             13, "the line contains space in an XML tag \"</CONTENT >\"");
+             "SpaceInXmlNode", 13, "the line contains space in an XML tag \"</CONTENT >\"");
     }
 
     @SuppressWarnings("static-method")
@@ -458,8 +458,8 @@ public class FileCheckerTest {
             "</PAGE>";
 
         test(content,
-                9, "the line contains space near \"=\" in an XML attribute \"<X quality =\"1\">\"",
-                10, "the line contains space near \"=\" in an XML attribute \"<X quality= \"1\" status=\"dead\">\"");
+             "SpaceInAttributeSetting", 9, "the line contains space near \"=\" in an XML attribute \"<X quality =\"1\">\"",
+             "SpaceInAttributeSetting", 10, "the line contains space near \"=\" in an XML attribute \"<X quality= \"1\" status=\"dead\">\"");
     }
 
     @SuppressWarnings("static-method")
@@ -483,7 +483,7 @@ public class FileCheckerTest {
             "</PAGE>";
 
         test(content,
-             9, "the line contains double space in an XML attribute \"<X  quality=\"1\">\"");
+             "DoubleSpaceInXmlNode", 9, "the line contains double space in an XML attribute \"<X  quality=\"1\">\"");
     }
 
     @SuppressWarnings("static-method")
@@ -507,7 +507,7 @@ public class FileCheckerTest {
             "</PAGE>";
 
         test(content,
-             10, "the line contains an XML attribute between single quotes \"<X status='dead'>\"");
+             "AttributeBetweenSingleQuotes", 10, "the line contains an XML attribute between single quotes \"<X status='dead'>\"");
     }
 
     private static void test(final String content) {
@@ -517,46 +517,46 @@ public class FileCheckerTest {
     }
 
     private static void test(final String content,
-                             final int line0, final String message0) {
+                             final String checkName0, final int line0, final String message0) {
 
         final List<FileChecker.Error> expected = new ArrayList<>();
-        expected.add(new FileChecker.Error(line0, message0));
+        expected.add(new FileChecker.Error(checkName0, line0, message0));
         test(content, expected);
     }
 
     private static void test(final String content,
-                             final int line0, final String message0,
-                             final int line1, final String message1) {
+                             final String checkName0, final int line0, final String message0,
+                             final String checkName1, final int line1, final String message1) {
 
         final List<FileChecker.Error> expected = new ArrayList<>();
-        expected.add(new FileChecker.Error(line0, message0));
-        expected.add(new FileChecker.Error(line1, message1));
+        expected.add(new FileChecker.Error(checkName0, line0, message0));
+        expected.add(new FileChecker.Error(checkName1, line1, message1));
         test(content, expected);
     }
 
     private static void test(final String content,
-                             final int line0, final String message0,
-                             final int line1, final String message1,
-                             final int line2, final String message2) {
+                             final String checkName0, final int line0, final String message0,
+                             final String checkName1, final int line1, final String message1,
+                             final String checkName2, final int line2, final String message2) {
 
         final List<FileChecker.Error> expected = new ArrayList<>();
-        expected.add(new FileChecker.Error(line0, message0));
-        expected.add(new FileChecker.Error(line1, message1));
-        expected.add(new FileChecker.Error(line2, message2));
+        expected.add(new FileChecker.Error(checkName0, line0, message0));
+        expected.add(new FileChecker.Error(checkName1, line1, message1));
+        expected.add(new FileChecker.Error(checkName2, line2, message2));
         test(content, expected);
     }
 
     private static void test(final String content,
-                             final int line0, final String message0,
-                             final int line1, final String message1,
-                             final int line2, final String message2,
-                             final int line3, final String message3) {
+                             final String checkName0, final int line0, final String message0,
+                             final String checkName1, final int line1, final String message1,
+                             final String checkName2, final int line2, final String message2,
+                             final String checkName3, final int line3, final String message3) {
 
         final List<FileChecker.Error> expected = new ArrayList<>();
-        expected.add(new FileChecker.Error(line0, message0));
-        expected.add(new FileChecker.Error(line1, message1));
-        expected.add(new FileChecker.Error(line2, message2));
-        expected.add(new FileChecker.Error(line3, message3));
+        expected.add(new FileChecker.Error(checkName0, line0, message0));
+        expected.add(new FileChecker.Error(checkName1, line1, message1));
+        expected.add(new FileChecker.Error(checkName2, line2, message2));
+        expected.add(new FileChecker.Error(checkName3, line3, message3));
         test(content, expected);
     }
 
@@ -571,7 +571,7 @@ public class FileCheckerTest {
 
     private static String normalize(final List<FileChecker.Error> errors) {
         return errors.stream()
-                     .map(e -> String.format("%02d %s", Integer.valueOf(e.getLineNumber()), e.getErrorMessage()))
+                     .map(e -> String.format("<<%s>> [line=%02d] %s", e.checkName(), Integer.valueOf(e.lineNumber()), e.errorMessage()))
                      .sorted()
                      .collect(Collectors.joining("\n"));
     }

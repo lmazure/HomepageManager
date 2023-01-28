@@ -56,7 +56,8 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
 
         final String diff = StringHelper.compareAndExplainDifference(title, effectiveTitle);
         if (diff != null) {
-            return new LinkContentCheck("title \"" +
+            return new LinkContentCheck("WrongTitle",
+                                        "title \"" +
                                         title +
                                         "\" is not equal to the real title \"" +
                                         effectiveTitle +
@@ -72,14 +73,16 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
                                                   final String[] expectedSubtitles) throws ContentParserException
     {
         if (expectedSubtitles.length > 1) {
-            return new LinkContentCheck("More than one subtitle is not supported yet");  // TODO implement support of several subtitles
+            return new LinkContentCheck("MultipleSubtiles",
+                                        "More than one subtitle is not supported yet");  // TODO implement support of several subtitles
         }
 
         final Optional<String> effectiveSubtitle = _parser.getSubtitle();
 
         if (effectiveSubtitle.isEmpty()) {
             if (expectedSubtitles.length != 0 ) {
-                return new LinkContentCheck("subtitle \"" +
+                return new LinkContentCheck("WrongSubtitle",
+                                            "subtitle \"" +
                                             expectedSubtitles[0] +
                                             "\" should not be present");
             }
@@ -87,13 +90,15 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
         }
 
         if (expectedSubtitles.length == 0) {
-            return new LinkContentCheck("the subtitle \"" +
+            return new LinkContentCheck("MissingSubtitle",
+                                        "the subtitle \"" +
                                         effectiveSubtitle.get() +
                                         "\" is missing");
         }
 
         if (!expectedSubtitles[0].equals(effectiveSubtitle.get())) {
-            return new LinkContentCheck("subtitle \"" +
+            return new LinkContentCheck("WrongSubtitle",
+                                        "subtitle \"" +
                                         expectedSubtitles[0] +
                                         "\" is not equal to the real subtitle \"" +
                                         effectiveSubtitle.get() +
@@ -108,7 +113,8 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
                                                   final Locale[] languages) throws ContentParserException
     {
         if ((languages.length != 1) || (languages[0] != _parser.getLanguage())) {
-            return new LinkContentCheck("Article should have the language set as " + _parser.getLanguage());
+            return new LinkContentCheck("WrongLanguage",
+                                        "Article should have the language set as " + _parser.getLanguage());
         }
 
         return null;
@@ -120,7 +126,8 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
                                                 final Optional<TemporalAccessor> creationDate) throws ContentParserException
     {
         if (creationDate.isEmpty()) {
-            return new LinkContentCheck("Article should have a creation date");
+            return new LinkContentCheck("MissingCreationDate",
+                                        "Article should have a creation date");
         }
         final TemporalAccessor date =  publicationDate.isPresent() ? publicationDate.get()
                                                                    : creationDate.get();
@@ -131,7 +138,8 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
                                                      d.get(ChronoField.DAY_OF_MONTH));
 
         if (!date.equals(effectiveDate)) {
-            return new LinkContentCheck("The expected publication date " +
+            return new LinkContentCheck("WrongDate",
+                                        "The expected date " +
                                         date +
                                         " is not equal to the effective date " +
                                         effectiveDate);

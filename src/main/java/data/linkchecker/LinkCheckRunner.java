@@ -355,7 +355,7 @@ public class LinkCheckRunner {
                 ko.append(temp.toString());
                 _violationController.add(new Violation(_file.toString(),
                                                        _checkType,
-                                                       "Unknown rule",
+                                                       "WrongLiveness",
                                                        new ViolationLocationUnknown(),
                                                        temp.toString(),
                                                        new ViolationCorrections[0]));
@@ -369,7 +369,7 @@ public class LinkCheckRunner {
                     checks.append('\n');
                     _violationController.add(new Violation(_file.toString(),
                                                            _checkType,
-                                                           "Unknown rule",
+                                                           c.getCheckName(),
                                                            new ViolationLocationUnknown(),
                                                            url + "\n" + c.getDescription(),
                                                            new ViolationCorrections[0]));
