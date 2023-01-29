@@ -63,7 +63,7 @@ public class PredecessorArticleChecker extends NodeChecker {
         final String urlOfPreviousArticle = previousArticleData.links().get(0).getUrl();
 
         if (!predecessor.equals(urlOfPreviousArticle)) {
-            return new CheckStatus("IncorrectPredecessorArticle", 
+            return new CheckStatus("IncorrectPredecessorArticle",
                                    "Article has 'predecessor' article equal to \"" +
                                    predecessor +
                                    "\" while previous article has URL \"" +

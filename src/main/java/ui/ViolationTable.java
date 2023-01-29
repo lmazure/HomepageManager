@@ -28,11 +28,11 @@ public class ViolationTable {
     public void show() {
         Stage stage = new Stage();
         stage.setTitle("Violations");
-        
-        final TableColumn<Violation, String> flleCol = new TableColumn<>("File");
-        flleCol.setMinWidth(200);
-        flleCol.setCellValueFactory(new PropertyValueFactory<>("file"));
-        _table.getColumns().add(flleCol);
+
+        final TableColumn<Violation, String> fileCol = new TableColumn<>("File");
+        fileCol.setMinWidth(200);
+        fileCol.setCellValueFactory(new PropertyValueFactory<>("file"));
+        _table.getColumns().add(fileCol);
 
         final TableColumn<Violation, String> typeCol = new TableColumn<>("Type");
         typeCol.setMinWidth(50);

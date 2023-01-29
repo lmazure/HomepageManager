@@ -28,7 +28,7 @@ public class LinkDataExtractorFactory {
      * @param cacheDirectory directory where the persistence files should be written
      * @param url URL to check
      * @return LinkDataExtractor able to extract data from the link, null if there is no such LinkDataExtractor
-     * @throws ContentParserException 
+     * @throws ContentParserException Failure to extract the information
      */
     public static LinkDataExtractor build(final Path cacheDirectory,
                                           final String url) throws ContentParserException {

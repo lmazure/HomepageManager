@@ -102,7 +102,6 @@ public class LinkDataExtractorTest {
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
-
     @Test
     void oracleBlogsJavaMagazineIsManaged() throws ContentParserException {
         final String url = "https://blogs.oracle.com/javamagazine/post/java-nio-nio2-buffers-channels-async-future-callback";
@@ -836,7 +835,6 @@ public class LinkDataExtractorTest {
         Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
-
 
     @Test
     void youtubeWatchNumberphileJamesGrimeIsManaged() throws ContentParserException {

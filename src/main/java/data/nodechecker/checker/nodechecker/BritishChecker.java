@@ -75,7 +75,7 @@ public class BritishChecker extends NodeChecker {
 
         return null;
     }
-    
+
     private static class Traduction{
         private Pattern _americanRegexp;
         private String _british;

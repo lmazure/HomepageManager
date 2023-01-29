@@ -39,7 +39,7 @@ public class YoutubeChannelUserLinkContentParser {
 
     /**
      * @return language
-     * @throws ContentParserException failure to extract the information
+     * @throws ContentParserException Failure to extract the information
      */
     public Optional<Locale> getLanguage() throws ContentParserException {
         if (_language == null) {

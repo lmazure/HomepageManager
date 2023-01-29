@@ -82,16 +82,16 @@ public class NodeChecker {
     }
 
     /**
-     * @param element
-     * @return
+     * @param element Element
+     * @return Is the element checkable?
      */
     public boolean isElementCheckable(final Element element) {
         return _tagSelector.isTagCheckable(XmlHelper.getElementType(element));
     }
 
     /**
-     * @param element
-     * @return
+     * @param element Element
+     * @return List of check violations
      */
     public List<NodeCheckError> check(final Element element) {
         final List<NodeCheckError> errors = new ArrayList<>();

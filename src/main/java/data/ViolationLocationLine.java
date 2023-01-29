@@ -6,7 +6,7 @@ package data;
 public class ViolationLocationLine extends ViolationLocation {
 
     private final int _lineNumber;
-    
+
     /**
      * Constructor
      * @param lineNumber line where is the violation

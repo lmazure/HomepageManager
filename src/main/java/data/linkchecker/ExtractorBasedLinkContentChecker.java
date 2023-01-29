@@ -26,7 +26,7 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
      * @param linkData expected link data
      * @param articleData expected article data
      * @param file effective retrieved link data
-     * @param extractorBuilder 
+     * @param extractorBuilder
      */
     public ExtractorBasedLinkContentChecker(final String url,
                                             final LinkData linkData,

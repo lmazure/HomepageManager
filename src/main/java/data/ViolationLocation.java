@@ -5,6 +5,6 @@ package data;
  */
 
 abstract public class ViolationLocation {
-    
+
     abstract String getDescription();
 }

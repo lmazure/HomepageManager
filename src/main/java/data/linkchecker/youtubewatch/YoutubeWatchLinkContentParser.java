@@ -42,7 +42,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     /**
      * @param url URL of the link
      * @param data retrieved link data
-     * @throws ContentParserException failure to extract the information
+     * @throws ContentParserException Failure to extract the information
      */
     public YoutubeWatchLinkContentParser(final String url,
                                          final String data) throws ContentParserException {
@@ -76,7 +76,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
 
     /**
      * @return channel of the video
-     * @throws ContentParserException failure to extract the information
+     * @throws ContentParserException Failure to extract the information
      */
     public String getChannel() throws ContentParserException {
         if (_channel == null) {
@@ -102,7 +102,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
 
     /**
      * @return description of the video
-     * @throws ContentParserException failure to extract the information
+     * @throws ContentParserException Failure to extract the information
      */
     public String getDescription() throws ContentParserException {
         if (_description == null) {
@@ -114,7 +114,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
 
     /**
      * @return upload date of the video
-     * @throws ContentParserException failure to extract the information
+     * @throws ContentParserException Failure to extract the information
      */
     public LocalDate getUploadDateInternal() throws ContentParserException {
         if (_uploadDate == null) {
@@ -126,7 +126,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
 
     /**
      * @return publication date of the video
-     * @throws ContentParserException failure to extract the information
+     * @throws ContentParserException Failure to extract the information
      */
     public LocalDate getPublishDateInternal() throws ContentParserException {
         if (_publishDate == null) {
@@ -138,7 +138,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
 
     /**
      * @return minimum duration of the video
-     * @throws ContentParserException failure to extract the information
+     * @throws ContentParserException Failure to extract the information
      */
     public Duration getMinDuration() throws ContentParserException {
         if (_minDuration == null) {
@@ -150,7 +150,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
 
     /**
      * @return maximum duration of the video
-     * @throws ContentParserException failure to extract the information
+     * @throws ContentParserException Failure to extract the information
      */
     public Duration getMaxDuration() throws ContentParserException {
         if (_maxDuration == null) {

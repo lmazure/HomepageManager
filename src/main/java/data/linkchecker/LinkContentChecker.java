@@ -51,7 +51,7 @@ public class LinkContentChecker {
 
     /**
      * @return
-     * @throws ContentParserException
+     * @throws ContentParserException Failure to extract the information
      */
     public final List<LinkContentCheck> check() throws ContentParserException {
         final String content = HtmlHelper.slurpFile(_file);
@@ -72,7 +72,7 @@ public class LinkContentChecker {
     /**
      * @param data
      * @return
-     * @throws ContentParserException
+     * @throws ContentParserException Failure to extract the information
      */
     public final List<LinkContentCheck> check(final String data) throws ContentParserException {
 
@@ -137,7 +137,7 @@ public class LinkContentChecker {
     }
 
     /**
-     * @throws ContentParserException
+     * @throws ContentParserException Failure to extract the information
      */
     @SuppressWarnings("static-method")
     protected LinkContentCheck checkGlobalData(@SuppressWarnings("unused") final String data) throws ContentParserException
@@ -146,7 +146,7 @@ public class LinkContentChecker {
     }
 
     /**
-     * @throws ContentParserException
+     * @throws ContentParserException Failure to extract the information
      */
     @SuppressWarnings("static-method")
     protected LinkContentCheck checkLinkTitle(final String data,
@@ -156,7 +156,7 @@ public class LinkContentChecker {
     }
 
     /**
-     * @throws ContentParserException
+     * @throws ContentParserException Failure to extract the information
      */
     @SuppressWarnings("static-method")
     protected LinkContentCheck checkLinkSubtitles(final String data,
@@ -172,7 +172,7 @@ public class LinkContentChecker {
     }
 
     /**
-     * @throws ContentParserException
+     * @throws ContentParserException Failure to extract the information
      */
     protected LinkContentCheck checkLinkAuthors(final String data,
                                                 final List<AuthorData> authors) throws ContentParserException
@@ -194,7 +194,7 @@ public class LinkContentChecker {
     }
 
     /**
-     * @throws ContentParserException
+     * @throws ContentParserException Failure to extract the information
      */
     @SuppressWarnings("static-method")
     protected LinkContentCheck checkLinkDuration(@SuppressWarnings("unused") final String data,
@@ -204,7 +204,7 @@ public class LinkContentChecker {
     }
 
     /**
-     * @throws ContentParserException
+     * @throws ContentParserException Failure to extract the information
      */
     protected LinkContentCheck checkLinkLanguages(final String data,
                                                   final Locale[] languages) throws ContentParserException
@@ -229,7 +229,7 @@ public class LinkContentChecker {
     }
 
     /**
-     * @throws ContentParserException
+     * @throws ContentParserException Failure to extract the information
      */
     @SuppressWarnings("static-method")
     protected LinkContentCheck checkArticleDate(@SuppressWarnings("unused") final String data,

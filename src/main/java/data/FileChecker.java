@@ -291,7 +291,7 @@ public class FileChecker implements FileHandler {
         FileHelper.deleteFile(getReportFile(file));
 
         _controller.handleDeletion(file, Status.HANDLED_WITH_SUCCESS, getOutputFile(file), getReportFile(file));
-        
+
         _violationController.remove(v -> (v.getFile().equals(file.toString()) && v.getType().equals(s_checkType)));
     }
 

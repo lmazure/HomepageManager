@@ -36,7 +36,7 @@ public class ChromiumBlogLinkContentParser {
 
     /**
      * @return title
-     * @throws ContentParserException failure to extract the information
+     * @throws ContentParserException Failure to extract the information
      */
     public String getTitle() throws ContentParserException {
         return HtmlHelper.cleanContent(s_titleParser.extract(_data));
@@ -44,7 +44,7 @@ public class ChromiumBlogLinkContentParser {
 
     /**
      * @return publication date, empty if there is none
-     * @throws ContentParserException failure to extract the information
+     * @throws ContentParserException Failure to extract the information
      */
     public LocalDate getPublicationDate() throws ContentParserException {
         final String date = HtmlHelper.cleanContent(s_dateParser.extract(_data));

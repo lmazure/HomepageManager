@@ -7,7 +7,6 @@ import java.nio.file.Path;
 public interface FileHandler {
 
     /**
-     * @author Laurent
      *
      */
     public enum Status {

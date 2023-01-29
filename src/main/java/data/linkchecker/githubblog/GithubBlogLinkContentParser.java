@@ -70,7 +70,7 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
 
     /**
      * @return publication date, empty if there is none
-     * @throws ContentParserException failure to extract the information
+     * @throws ContentParserException Failure to extract the information
      */
     public LocalDate getPublicationDate() throws ContentParserException {
         loadData();
