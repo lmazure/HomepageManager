@@ -26,7 +26,7 @@ public class ViolationTable {
      * create and display the table
      */
     public void show() {
-        Stage stage = new Stage();
+        final Stage stage = new Stage();
         stage.setTitle("Violations");
 
         final TableColumn<Violation, String> fileCol = new TableColumn<>("File");

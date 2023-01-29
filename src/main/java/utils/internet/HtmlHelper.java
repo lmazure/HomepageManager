@@ -2261,11 +2261,11 @@ public class HtmlHelper {
 
     public static String slurpFile(final FileSection file) {
         final Charset charset = getCharset(file).orElse(StandardCharsets.UTF_8);
-        return FileHelper.slurpFile(file, charset);
+        return FileHelper.slurpFileSection(file, charset);
     }
 
     public static Optional<Charset> getCharset(final FileSection file) {
-        final String data = FileHelper.slurpFile(file, StandardCharsets.UTF_8);
+        final String data = FileHelper.slurpFileSection(file, StandardCharsets.UTF_8);
         final int length = data.length();
         for (int i = 0; i < length; i++) {
             if (data.startsWith("<meta", i)) {

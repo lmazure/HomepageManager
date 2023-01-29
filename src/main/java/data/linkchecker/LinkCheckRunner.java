@@ -70,8 +70,10 @@ public class LinkCheckRunner {
      * @param file XML file to be checked
      * @param cachePath directory where the persistence files are written
      * @param controller controller
+     * @param violationController violation controller
+     * @param checkType Check type to use when recording the violations
      * @param ouputFile file into which the found violated checks are written
-     * @param reportFile file into which technical error occuring during the check are written
+     * @param reportFile file into which technical error occurring during the check are written
      */
     public LinkCheckRunner(final Path file,
                            final Path cachePath,
@@ -353,6 +355,7 @@ public class LinkCheckRunner {
                 final StringBuilder temp = new StringBuilder();
                 appendLivenessCheckResult(url, expectedData, effectiveData, temp);
                 ko.append(temp.toString());
+                ko.append('\n');
                 _violationController.add(new Violation(_file.toString(),
                                                        _checkType,
                                                        "WrongLiveness",
@@ -428,7 +431,6 @@ public class LinkCheckRunner {
             googleUrl.append("+%22" + URLEncoder.encode(st, StandardCharsets.UTF_8) + "%22");
         }
         builder.append("Look for article = " + googleUrl.toString() + "\n");
-        builder.append("\n");
     }
 
     private static String extractPrintableHttpCode(final Optional<Map<String, List<String>>> headers) {

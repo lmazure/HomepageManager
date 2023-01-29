@@ -20,23 +20,23 @@ import java.nio.file.Paths;
 public class FileHelper {
 
     /**
-     * Return the whole content of a file
+     * Return the content of a section of a file
      *
-     * @param file file to read
+     * @param fileSection Section of a file to read
      * @param charset encoding of the file
      * @return content of the file
      */
-    public static String slurpFile(final FileSection file,
-                                   final Charset charset) {
+    public static String slurpFileSection(final FileSection fileSection,
+                                          final Charset charset) {
         final CharsetDecoder decoder = charset.newDecoder();
         if (charset.equals(StandardCharsets.UTF_8)) {
             decoder.onMalformedInput(CodingErrorAction.REPLACE);
         }
 
-        try (final RandomAccessFile reader = new RandomAccessFile(file.file(), "r");
+        try (final RandomAccessFile reader = new RandomAccessFile(fileSection.file(), "r");
              final FileChannel channel = reader.getChannel()){
-            final ByteBuffer byteBuffer = ByteBuffer.allocate((int)file.length());
-            channel.position(file.offset());
+            final ByteBuffer byteBuffer = ByteBuffer.allocate((int)fileSection.length());
+            channel.position(fileSection.offset());
             channel.read(byteBuffer);
             byteBuffer.flip();
             final String string = decoder.decode(byteBuffer).toString();
@@ -46,6 +46,18 @@ public class FileHelper {
             // NOT REACHED
             return null;
         }
+    }
+
+    /**
+     * Return the whole content of a file
+     *
+     * @param file file to read
+     * @param charset encoding of the file
+     * @return content of the file
+     */
+    public static String slurpFile(final File file,
+                                   final Charset charset) {
+        return FileHelper.slurpFileSection(new FileSection(file, 0, file.length()), charset);
     }
 
     /**
@@ -132,21 +144,22 @@ public class FileHelper {
    }
 
     /**
-     * @param url
-     * @return
+     * @param url URL
+     * @return file name
      */
     public static String generateFileNameFromURL(final String url) {
 
         final int MAX_FILENAME_LENGTH = 245;
 
-        String s = url.replaceFirst("://", "→")
-                      .replaceAll(" ", "%20")
-                      .replaceAll("/", "%2F")
-                      .replaceAll(":", "%3A")
-                      .replaceAll("\\?", "%3F");
+        final String s = url.replaceFirst("://", "→")
+                            .replaceAll(" ", "%20")
+                            .replaceAll("/", "%2F")
+                            .replaceAll(":", "%3A")
+                            .replaceAll("\\?", "%3F");
 
         if (s.length() > MAX_FILENAME_LENGTH) {
-            s = s.substring(0, MAX_FILENAME_LENGTH - 9) + "_" + Integer.toHexString(s.hashCode()); // avoid crash on Windows due to too long file name
+            // avoid crash on Windows due to too long file name
+            return s.substring(0, MAX_FILENAME_LENGTH - 9) + "_" + Integer.toHexString(s.hashCode());
         }
 
         return s;

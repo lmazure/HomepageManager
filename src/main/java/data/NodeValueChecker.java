@@ -34,6 +34,7 @@ import data.nodechecker.checker.nodechecker.ExtremitySpaceChecker;
 import data.nodechecker.checker.nodechecker.FormatFromURLChecker;
 import data.nodechecker.checker.nodechecker.IncorrectSpaceChecker;
 import data.nodechecker.checker.nodechecker.KeyChecker;
+import data.nodechecker.checker.nodechecker.LocalLinkChecker;
 import data.nodechecker.checker.nodechecker.MiddleNewlineChecker;
 import data.nodechecker.checker.nodechecker.ModifierKeyChecker;
 import data.nodechecker.checker.nodechecker.NodeCheckError;
@@ -88,30 +89,33 @@ public class NodeValueChecker implements FileHandler {
             _lock.unlock();
         }
         _nodeCheckers = new HashSet<>();
-        _nodeCheckers.add(new ExtremitySpaceChecker());
-        _nodeCheckers.add(new MiddleNewlineChecker());
-        _nodeCheckers.add(new EllipsisChecker());
-        _nodeCheckers.add(new DoubleSpaceChecker());
-        _nodeCheckers.add(new AuthorsChecker());
         _nodeCheckers.add(new ArticleDateChecker());
-        _nodeCheckers.add(new PredecessorArticleChecker());
-        _nodeCheckers.add(new IncorrectSpaceChecker());
-        _nodeCheckers.add(new TitleFormatChecker());
-        _nodeCheckers.add(new NonEmptyChecker());
-        _nodeCheckers.add(new FormatFromURLChecker());
-        _nodeCheckers.add(new NonNormalizedURLChecker());
-        _nodeCheckers.add(new NonNormalizedAuthorChecker());
-        _nodeCheckers.add(new TableSortChecker());
-        _nodeCheckers.add(new DurationPresenceChecker());
-        _nodeCheckers.add(new URLProtocolChecker());
+        _nodeCheckers.add(new AuthorsChecker());
+        _nodeCheckers.add(new BritishChecker());
+        _nodeCheckers.add(new CommentChecker());
         _nodeCheckers.add(new DateChecker());
-        _nodeCheckers.add(new ModifierKeyChecker());
-        _nodeCheckers.add(new KeyChecker());
+        _nodeCheckers.add(new DoubleSpaceChecker());
         _nodeCheckers.add(new DurationChecker());
+        _nodeCheckers.add(new DurationPresenceChecker());
+        _nodeCheckers.add(new EllipsisChecker());
+        _nodeCheckers.add(new ExtremitySpaceChecker());
+        _nodeCheckers.add(new FormatFromURLChecker());
+        _nodeCheckers.add(new IncorrectSpaceChecker());
+        _nodeCheckers.add(new KeyChecker());
+        _nodeCheckers.add(new LocalLinkChecker());
+        _nodeCheckers.add(new MiddleNewlineChecker());
+        _nodeCheckers.add(new ModifierKeyChecker());
+        _nodeCheckers.add(new NonEmptyChecker());
+        _nodeCheckers.add(new NonNormalizedAuthorChecker());
+        _nodeCheckers.add(new NonNormalizedURLChecker());
+        _nodeCheckers.add(new PredecessorArticleChecker());
         _nodeCheckers.add(new ProtectionFromURLChecker());
         _nodeCheckers.add(new SpaceBetweenTagsChecker());
-        _nodeCheckers.add(new CommentChecker());
-        _nodeCheckers.add(new BritishChecker());
+        _nodeCheckers.add(new TableSortChecker());
+        _nodeCheckers.add(new TitleFormatChecker());
+        _nodeCheckers.add(new URLProtocolChecker());
+
+        LocalLinkChecker.setHomepagePath(_homepagePath);
     }
 
     @Override
