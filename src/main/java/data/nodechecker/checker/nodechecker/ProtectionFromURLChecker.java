@@ -46,7 +46,6 @@ public class ProtectionFromURLChecker extends NodeChecker {
             protection = statusAttribute.getTextContent();
         }
 
-        // TODO "free_registration" should not be hardcoded
         if (url.contains("auntminnie.com/") && !protection.equals("free_registration"))
            return new CheckStatus("MissingRegistrationIndicator",
                                   "\"" + url + "\" should be flagged as 'free_registration'");

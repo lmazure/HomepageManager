@@ -97,7 +97,7 @@ public class FileChecker implements FileHandler {
                 pw.println(message);
                 _violationController.add(new Violation(file.toString(),
                                                        s_checkType,
-                                                       "an unknown file rule",
+                                                       error.checkName(),
                                                        (error.lineNumber() > 0) ? new ViolationLocationLine(error.lineNumber())
                                                                                 : new ViolationLocationUnknown(),
                                                        error.errorMessage(),

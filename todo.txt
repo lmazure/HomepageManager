@@ -1,6 +1,18 @@
+les noms de file checks sont restés "unknown"
+
+l'affichage de la table des violations n'est pas correcte, les dernières lignes sont cachées
+
+erreur de checks des liens locaux pour links/design.html
+
 
 
 ==== merge =====
+
+les CODEROUTINE sont écrits trop bas
+
+nettoyer abbreven.xml
+
+dans la table, on ne devrait afficher que le nom des fichiers à partir de la racine de la homepage
 
 corriger
 janv. 28, 2023 7:22:00 AM com.sun.javafx.application.PlatformImpl startup
