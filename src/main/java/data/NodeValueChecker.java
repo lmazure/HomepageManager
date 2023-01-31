@@ -34,7 +34,6 @@ import data.nodechecker.checker.nodechecker.ExtremitySpaceChecker;
 import data.nodechecker.checker.nodechecker.FormatFromURLChecker;
 import data.nodechecker.checker.nodechecker.IncorrectSpaceChecker;
 import data.nodechecker.checker.nodechecker.KeyChecker;
-import data.nodechecker.checker.nodechecker.LocalLinkChecker;
 import data.nodechecker.checker.nodechecker.MiddleNewlineChecker;
 import data.nodechecker.checker.nodechecker.ModifierKeyChecker;
 import data.nodechecker.checker.nodechecker.NodeCheckError;
@@ -102,7 +101,6 @@ public class NodeValueChecker implements FileHandler {
         _nodeCheckers.add(new FormatFromURLChecker());
         _nodeCheckers.add(new IncorrectSpaceChecker());
         _nodeCheckers.add(new KeyChecker());
-        _nodeCheckers.add(new LocalLinkChecker());
         _nodeCheckers.add(new MiddleNewlineChecker());
         _nodeCheckers.add(new ModifierKeyChecker());
         _nodeCheckers.add(new NonEmptyChecker());
@@ -115,7 +113,6 @@ public class NodeValueChecker implements FileHandler {
         _nodeCheckers.add(new TitleFormatChecker());
         _nodeCheckers.add(new URLProtocolChecker());
 
-        LocalLinkChecker.setHomepagePath(_homepagePath);
     }
 
     @Override

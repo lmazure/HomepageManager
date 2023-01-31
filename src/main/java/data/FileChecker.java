@@ -1,15 +1,14 @@
 package data;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,15 +39,15 @@ public class FileChecker implements FileHandler {
     private static final Pattern s_spaceInAttributes = Pattern.compile("(</?[^>]*( =|= )[^>]*/?>)");
     private static final Pattern s_doubleSpaceInAttributes = Pattern.compile("(</?[^>]*  [^>]*/?>)");
     private static final Pattern s_attributeWithSingleQuote = Pattern.compile("<[^>]*'[^>]*>");
+    private static final Pattern s_localLinkPattern = Pattern.compile("<A>([^:]+?)</A>");
+    private final static String s_checkType = "file";
+    private final static Lock s_lock = new ReentrantLock();
 
     private final Path _homepagePath;
     private final Path _tmpPath;
     private final DataController _controller;
     private final ViolationDataController _violationController;
     private final Validator _validator;
-
-    private final static Lock _lock = new ReentrantLock();
-    private final static String s_checkType = "file";
 
     /**
      * @param homepagePath path to the directory containing the pages
@@ -64,11 +63,11 @@ public class FileChecker implements FileHandler {
         _tmpPath = tmpPath;
         _controller = controller;
         _violationController = violationController;
-        _lock.lock();
+        s_lock.lock();
         try {
             _validator = XmlHelper.buildValidator(homepagePath.resolve("css").resolve("schema.xsd"));
         } finally {
-            _lock.unlock();
+            s_lock.unlock();
         }
     }
 
@@ -79,29 +78,29 @@ public class FileChecker implements FileHandler {
 
         FileHelper.createParentDirectory(getOutputFile(file));
 
-        try (final FileReader fr = new FileReader(file.toFile());
-             final BufferedReader br = new BufferedReader(fr);
-             final FileOutputStream os = new FileOutputStream(getOutputFile(file).toFile());
+        final String content = FileHelper.slurpFile(file.toFile(), StandardCharsets.UTF_8);
+        final List<Error> errors = check(file, content);
+        if (!errors.isEmpty()) {
+            status = Status.HANDLED_WITH_ERROR;
+        }
+
+        try (final FileOutputStream os = new FileOutputStream(getOutputFile(file).toFile());
              final PrintWriter pw = new PrintWriter(os)) {
-            final byte[] encoded = Files.readAllBytes(file);
-            final String content = new String(encoded, StandardCharsets.UTF_8);
-            final List<Error> errors = check(file, content);
-            if (!errors.isEmpty()) {
-                status = Status.HANDLED_WITH_ERROR;
-            } else {
+            if (status == Status.HANDLED_WITH_SUCCESS) {
                 // must write something in the file otherwise its last modification datetime will be incorrect
                 pw.println("OK");
-            }
-            for (final Error error: errors) {
-                final String message = "line " + error.lineNumber() + ": " + error.errorMessage();
-                pw.println(message);
-                _violationController.add(new Violation(file.toString(),
-                                                       s_checkType,
-                                                       error.checkName(),
-                                                       (error.lineNumber() > 0) ? new ViolationLocationLine(error.lineNumber())
-                                                                                : new ViolationLocationUnknown(),
-                                                       error.errorMessage(),
-                                                       new ViolationCorrections[0]));
+            } else {
+                for (final Error error: errors) {
+                    final String message = "line " + error.lineNumber() + ": " + error.errorMessage();
+                    pw.println(message);
+                    _violationController.add(new Violation(file.toString(),
+                                             s_checkType,
+                                             error.checkName(),
+                                             (error.lineNumber() > 0) ? new ViolationLocationLine(error.lineNumber())
+                                                                      : new ViolationLocationUnknown(),
+                                             error.errorMessage(),
+                                             new ViolationCorrections[0]));
+                }
             }
             Logger.log(Logger.Level.INFO)
                   .append(getOutputFile(file))
@@ -134,6 +133,7 @@ public class FileChecker implements FileHandler {
         errors.addAll(checkPath(file, content));
         errors.addAll(checkSchema(content));
         errors.addAll(checkLines(content));
+        errors.addAll(checkLocalLinks(content, file));
         return errors;
     }
 
@@ -265,6 +265,21 @@ public class FileChecker implements FileHandler {
         return errors;
     }
 
+    private static List<Error> checkLocalLinks(final String content,
+                                               final Path file) {
+
+        final List<Error> errors = new ArrayList<>();
+
+        final List<String> localLinks = extractLocalLinks(content);
+        for (final String link: localLinks) {
+            final Error error = checkLocalLink(link, file);
+            if (error != null) {
+                errors.add(error);
+            }
+        }
+        return errors;
+    }
+
     private List<Error> checkSchema(final String content) {
 
         final List<Error> errors = new ArrayList<>();
@@ -282,6 +297,45 @@ public class FileChecker implements FileHandler {
         }
 
         return errors;
+    }
+
+    private static List<String> extractLocalLinks(final String content) {
+        final List<String> links = new ArrayList<>();
+        final Matcher matcher = s_localLinkPattern.matcher(content);
+        while (matcher.find()) {
+            String table = matcher.group(1);
+            links.add(table);
+        }
+        return links;
+    }
+
+    private static Error checkLocalLink(final String link,
+                                        final Path file) {
+        final Path directory = file.getParent();
+
+        // check file presence
+        Path targetFile; 
+        try {            
+            targetFile = directory.resolve(link.replaceFirst("#.*$", "")
+                                               .replaceFirst("\\.html$", ".xml"));
+            if (!Files.exists(targetFile)) {
+                return new Error("IncorrectLocalLink", 0, "the file \"" + targetFile + "\" does not exist");
+            }
+        } catch (@SuppressWarnings("unused") final InvalidPathException e) {
+            return new Error("IncorrectLocalLink", 0, "the local link \"" + link + "\" has an invalid value");
+        }
+
+        // check anchor presence
+        if (link.indexOf('#') < 0 ) {
+            return null;
+        }
+        final String anchor = link.replaceFirst(".*#", "");
+        final String targetFileContent = FileHelper.slurpFile(targetFile.toFile(), StandardCharsets.UTF_8);
+        if (targetFileContent.indexOf("<ANCHOR>" + anchor + "</ANCHOR>") < 0) {
+            return new Error("IncorrectLocalLink", 0, "the file \"" + file + "\" does not contain the anchor \"" + anchor + "\"");
+        }
+
+        return null;
     }
 
     @Override

@@ -1,8 +1,4 @@
-les noms de file checks sont restés "unknown"
-
 l'affichage de la table des violations n'est pas correcte, les dernières lignes sont cachées
-
-erreur de checks des liens locaux pour links/design.html
 
 
 

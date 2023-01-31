@@ -27,7 +27,7 @@ public class URLProtocolChecker extends NodeChecker {
 
         final String url = e.getTextContent();
 
-        if(url.indexOf(':') < 0) {
+        if (url.indexOf(':') < 0) {
             // pointer to another of my pages
             return null;
         }
