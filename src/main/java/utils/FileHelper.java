@@ -75,6 +75,19 @@ public class FileHelper {
     }
 
     /**
+     * Write a file
+     * @param file File to write
+     * @param content Content of the file
+     */
+    public static void writeFile(final Path file,
+                                 final String content) {
+        try {
+            Files.writeString(file, content, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            ExitHelper.exit("Failed to write file", e);
+        }
+    }
+    /**
      * create parent directory of the file
      *
      * @param file file whose directory is to be created

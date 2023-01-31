@@ -212,12 +212,7 @@ public class LinkCheckRunner {
                 continue;
             }
             if (url.indexOf(":") < 0) {
-                // TODO implement check of local links
-                Logger.log(Logger.Level.INFO)
-                      .append("TBD: local link ")
-                      .append(url)
-                      .append(" is not checked")
-                      .submit();
+                // local links are checked in a file checker
                 continue;
             }
             if (url.startsWith("ftp:")) {

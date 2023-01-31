@@ -53,7 +53,7 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
     protected LinkContentCheck checkLinkAuthors(final String data,
                                                 final List<AuthorData> authors)
     {
-        return null; //TODO We will have to check YT authors somewhere in the future
+        return null; //TODO We will have to check YT authors sometime in the future
     }
 
     @Override

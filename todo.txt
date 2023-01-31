@@ -1,10 +1,19 @@
 l'affichage de la table des violations n'est pas correcte, les dernières lignes sont cachées
 
+remplacer la liste de fixer par un fixed optional
+
+implémenter un fixer pour corriger la date du fichier
+
+merger (la branche devient vraiment trop grosse)
 
 
 ==== merge =====
 
-les CODEROUTINE sont écrits trop bas
+vérifier les dépendances avec JDepend
+
+jeter un coup d'oeil sur le code coverage
+
+les CODEROUTINE sont écrits trop bas dans le HTML généré
 
 nettoyer abbreven.xml
 

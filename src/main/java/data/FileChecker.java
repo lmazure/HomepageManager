@@ -78,8 +78,7 @@ public class FileChecker implements FileHandler {
 
         FileHelper.createParentDirectory(getOutputFile(file));
 
-        final String content = FileHelper.slurpFile(file.toFile(), StandardCharsets.UTF_8);
-        final List<Error> errors = check(file, content);
+        final List<Error> errors = check(file);
         if (!errors.isEmpty()) {
             status = Status.HANDLED_WITH_ERROR;
         }
@@ -122,11 +121,11 @@ public class FileChecker implements FileHandler {
 
     /**
      * @param file name of the file to be checked
-     * @param content content of the file to be checked
      * @return violations
      */
-    public List<Error> check(final Path file,
-                             final String content) {  //TODO see how to test this method while keeping it private
+    public List<Error> check(final Path file) {  //TODO see how to test this method while keeping it private
+        final String content = FileHelper.slurpFile(file.toFile(), StandardCharsets.UTF_8);
+
         final List<Error> errors =  new ArrayList<>();
         errors.addAll(checkFileBom(content));
         errors.addAll(checkCharacters(content));

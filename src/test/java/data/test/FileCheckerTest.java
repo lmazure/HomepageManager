@@ -15,6 +15,8 @@ import data.FileChecker;
 import data.FileHandler.Status;
 import data.Violation;
 import data.ViolationDataController;
+import data.internet.test.TestHelper;
+import utils.FileHelper;
 
 /**
  * Tests of FileChecker
@@ -30,7 +32,6 @@ public class FileCheckerTest {
     private static final String s_mess_empty_line = "empty line";
     private static final String s_mess_odd_space_indentation = "odd number of spaces at the beginning of the line";
 
-    @SuppressWarnings("static-method")
     @Test
     void testNoError() {
 
@@ -48,7 +49,6 @@ public class FileCheckerTest {
         test(content);
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void testBomDetection() {
 
@@ -68,7 +68,6 @@ public class FileCheckerTest {
              "MissingBom", 1, s_mess_bom);
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void testTabDetectionAtBeginning() {
 
@@ -88,7 +87,6 @@ public class FileCheckerTest {
              "ControlCharacter", 1, s_mess_ctrl + " (x9) at column 1");
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void testNonBreakingSpaceAreNotReported() {
 
@@ -106,7 +104,6 @@ public class FileCheckerTest {
         test(content);
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void testTabDetectionInMiddle() {
 
@@ -127,7 +124,6 @@ public class FileCheckerTest {
              "WhiteSpaceAtLineEnd", 6, s_mess_white_space);
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void testTabDetectionAtEnd() {
 
@@ -147,7 +143,6 @@ public class FileCheckerTest {
              "WhiteSpaceAtLineEnd", 9, s_mess_white_space);
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void testSpaceDetectionAtBeginning() {
 
@@ -166,7 +161,6 @@ public class FileCheckerTest {
              "WhiteSpaceAtLineEnd", 1, s_mess_white_space);
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void testSpaceDetectionInMiddle() {
 
@@ -186,7 +180,6 @@ public class FileCheckerTest {
              "WhiteSpaceAtLineEnd", 6, s_mess_white_space);
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void testSpaceDetectionAtEnd() {
 
@@ -205,7 +198,6 @@ public class FileCheckerTest {
              "WhiteSpaceAtLineEnd", 9, s_mess_white_space);
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void testIncorrectPath() {
 
@@ -224,7 +216,6 @@ public class FileCheckerTest {
              "WrongPath", 5, s_mess_path);
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void testMissingCarriageReturn() {
 
@@ -243,7 +234,6 @@ public class FileCheckerTest {
              "BadEndOfLine", 4, s_mess_crlf);
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void testEmptyLineDetectionAtBeginning() {
 
@@ -264,7 +254,6 @@ public class FileCheckerTest {
              "EmptyLine", 1, s_mess_empty_line);
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void testEmptyLineDetectionInMiddle() {
 
@@ -284,7 +273,6 @@ public class FileCheckerTest {
              "EmptyLine", 6, s_mess_empty_line);
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void testEmptyLineDetectionAtEnd() {
 
@@ -303,7 +291,6 @@ public class FileCheckerTest {
              "EmptyLine", 10, s_mess_empty_line);
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void testWhiteLineDetectionAtBeginning() {
 
@@ -326,7 +313,6 @@ public class FileCheckerTest {
              "OddIndentation", 1, s_mess_odd_space_indentation);
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void testWhiteLineDetectionInMiddle() {
 
@@ -347,7 +333,6 @@ public class FileCheckerTest {
              "WhiteSpaceAtLineEnd", 6, s_mess_white_space);
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void testWhiteLineDetectionAtEnd() {
 
@@ -369,7 +354,6 @@ public class FileCheckerTest {
              "OddIndentation", 10, s_mess_odd_space_indentation);
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void testOddNumberOfSpaces() {
 
@@ -389,7 +373,6 @@ public class FileCheckerTest {
              "OddIndentation", 5, s_mess_odd_space_indentation);
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void testBadGreaterThanCharacter() {
 
@@ -413,7 +396,6 @@ public class FileCheckerTest {
              "GreaterThanCharacter", 9, "the line contains a \">\"");
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void testSpaceInTag() {
 
@@ -437,7 +419,6 @@ public class FileCheckerTest {
              "SpaceInXmlNode", 13, "the line contains space in an XML tag \"</CONTENT >\"");
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void testSpaceInAttribute() {
 
@@ -462,7 +443,6 @@ public class FileCheckerTest {
              "SpaceInAttributeSetting", 10, "the line contains space near \"=\" in an XML attribute \"<X quality= \"1\" status=\"dead\">\"");
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void testDoubleSpaceInAttribute() {
 
@@ -486,7 +466,6 @@ public class FileCheckerTest {
              "DoubleSpaceInXmlNode", 9, "the line contains double space in an XML attribute \"<X  quality=\"1\">\"");
     }
 
-    @SuppressWarnings("static-method")
     @Test
     void testXmlAttributeBetweenSingleQuote() {
 
@@ -505,28 +484,51 @@ public class FileCheckerTest {
             "  </BLIST>\r\n" +
             "</CONTENT>\r\n" +
             "</PAGE>";
-
         test(content,
-             "AttributeBetweenSingleQuotes", 10, "the line contains an XML attribute between single quotes \"<X status='dead'>\"");
-    }
+                "AttributeBetweenSingleQuotes", 10, "the line contains an XML attribute between single quotes \"<X status='dead'>\"");
+       }
 
-    private static void test(final String content) {
+        @Test
+        void testLocalLinks() {
+
+            final String content =
+                "<?xml version=\"1.0\"?>\r\n" +
+                "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
+                "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+                "<TITLE>test</TITLE>\r\n" +
+                "<PATH>dummy-dir/test.xml</PATH>\r\n" +
+                "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
+                "<CONTENT>\r\n" +
+                "<ANCHOR>here</ANCHOR>\r\n" +
+                "<X><T>link 1 → OK</T><A>test.html#here</A><L>en</L><F>HTML</F></X>\r\n" +
+                "<X><T>link 2 → OK</T><A>../dummy-dir/test.html#here</A><L>en</L><F>HTML</F></X>\r\n" +
+                "<X><T>link 3 → KO</T><A>tast.html#here</A><L>en</L><F>HTML</F></X>\r\n" +
+                "<X><T>link 4 → KO</T><A>test.html#hare</A><L>en</L><F>HTML</F></X>\r\n" +
+                "</CONTENT>\r\n" +
+                "</PAGE>";
+
+            test(content,
+                 "IncorrectLocalLink", 0, "the file \"H:\\Documents\\tmp\\hptmp\\test\\FileCheckerTest\\dummy-dir\\tast.xml\" does not exist",
+                 "IncorrectLocalLink", 0, "the file \"H:\\Documents\\tmp\\hptmp\\test\\FileCheckerTest\\dummy-dir\\test.xml\" does not contain the anchor \"hare\"");
+        }
+
+    private void test(final String content) {
 
         final List<FileChecker.Error> expected = new ArrayList<>();
         test(content, expected);
     }
 
-    private static void test(final String content,
-                             final String checkName0, final int line0, final String message0) {
+    private void test(final String content,
+                      final String checkName0, final int line0, final String message0) {
 
         final List<FileChecker.Error> expected = new ArrayList<>();
         expected.add(new FileChecker.Error(checkName0, line0, message0));
         test(content, expected);
     }
 
-    private static void test(final String content,
-                             final String checkName0, final int line0, final String message0,
-                             final String checkName1, final int line1, final String message1) {
+    private void test(final String content,
+                      final String checkName0, final int line0, final String message0,
+                      final String checkName1, final int line1, final String message1) {
 
         final List<FileChecker.Error> expected = new ArrayList<>();
         expected.add(new FileChecker.Error(checkName0, line0, message0));
@@ -534,10 +536,10 @@ public class FileCheckerTest {
         test(content, expected);
     }
 
-    private static void test(final String content,
-                             final String checkName0, final int line0, final String message0,
-                             final String checkName1, final int line1, final String message1,
-                             final String checkName2, final int line2, final String message2) {
+    private void test(final String content,
+                      final String checkName0, final int line0, final String message0,
+                      final String checkName1, final int line1, final String message1,
+                      final String checkName2, final int line2, final String message2) {
 
         final List<FileChecker.Error> expected = new ArrayList<>();
         expected.add(new FileChecker.Error(checkName0, line0, message0));
@@ -546,11 +548,11 @@ public class FileCheckerTest {
         test(content, expected);
     }
 
-    private static void test(final String content,
-                             final String checkName0, final int line0, final String message0,
-                             final String checkName1, final int line1, final String message1,
-                             final String checkName2, final int line2, final String message2,
-                             final String checkName3, final int line3, final String message3) {
+    private void test(final String content,
+                      final String checkName0, final int line0, final String message0,
+                      final String checkName1, final int line1, final String message1,
+                      final String checkName2, final int line2, final String message2,
+                      final String checkName3, final int line3, final String message3) {
 
         final List<FileChecker.Error> expected = new ArrayList<>();
         expected.add(new FileChecker.Error(checkName0, line0, message0));
@@ -560,11 +562,16 @@ public class FileCheckerTest {
         test(content, expected);
     }
 
-    private static void test(final String content,
-                             final List<FileChecker.Error> expected) {
+    private void test(final String content,
+                      final List<FileChecker.Error> expected) {
 
-        final FileChecker checker = new FileChecker(Paths.get("testdata"), Paths.get("tmp"), new DummyDataController(), new DummyViolationController());
-        final List<FileChecker.Error> effective = checker.check(Paths.get("dummy-dir","test.xml"), content);
+        final Path root = TestHelper.getTestDatapath(getClass());
+        final FileChecker checker = new FileChecker(Paths.get("testdata"), root, new DummyDataController(), new DummyViolationController());
+        final Path path = root.resolve(Paths.get("dummy-dir","test.xml"));
+        FileHelper.createParentDirectory(path);
+        FileHelper.writeFile(path, content);
+        final List<FileChecker.Error> effective = checker.check(path);
+        FileHelper.deleteFile(path);
 
         Assertions.assertEquals(normalize(expected), normalize(effective));
     }
