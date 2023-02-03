@@ -40,7 +40,8 @@ public class ArticleDateChecker extends NodeChecker {
             pageDate = getPageDate(e);
         } catch (final XmlParsingException ex) {
             return new CheckStatus("PageParsingError",
-                                   "Failed to parse page date (" + ex.getMessage() + ")");
+                                   "Failed to parse page date (" + ex.getMessage() + ")",
+                                   Optional.empty());
         }
         if (pageDate.isEmpty()) {
             // should not happen
@@ -52,7 +53,8 @@ public class ArticleDateChecker extends NodeChecker {
             articleData = XmlParser.parseArticleElement(e);
         } catch (final XmlParsingException ex) {
             return new CheckStatus("ArticleParsingError",
-                                   "Failed to parse article (" + ex.getMessage() + ")");
+                                   "Failed to parse article (" + ex.getMessage() + ")",
+                                   Optional.empty());
         }
         final Optional<TemporalAccessor> creationDate = articleData.date();
         if (creationDate.isPresent()) {
@@ -64,7 +66,8 @@ public class ArticleDateChecker extends NodeChecker {
                                        creationDate.get() +
                                        ") is after page date (" +
                                        pageDate.get() +
-                                       ")");
+                                       ")",
+                                       Optional.empty());
             }
         }
 
@@ -79,7 +82,8 @@ public class ArticleDateChecker extends NodeChecker {
                                            publicationDate.get() +
                                            ") is after page date (" +
                                            pageDate.get() +
-                                           ")");
+                                           ")",
+                                           Optional.empty());
                 }
                 if (creationDate.isPresent() &&
                     compareTemporalAccesssor(publicationDate.get(), creationDate.get()) < 0) {
@@ -90,7 +94,8 @@ public class ArticleDateChecker extends NodeChecker {
                                            publicationDate.get() +
                                            ") is before creation date (" +
                                            creationDate.get() +
-                                           ")");
+                                           ")",
+                                           Optional.empty());
                 }
             }
         }
@@ -103,7 +108,8 @@ public class ArticleDateChecker extends NodeChecker {
         final Element firstArticleOfChain = getFirstArticleOfArticleChain(e);
         if (firstArticleOfChain == null) {
             return new CheckStatus("BadPredecessorChain",
-                                   "Incorrect chain of articles");
+                                   "Incorrect chain of articles",
+                                   Optional.empty());
         }
         if (firstArticleOfChain != e) {
             // we only verify the first article of the chain
@@ -115,7 +121,8 @@ public class ArticleDateChecker extends NodeChecker {
             articleData = XmlParser.parseArticleElement(e);
         } catch (final XmlParsingException ex) {
             return new CheckStatus("ArticleParsingError",
-                                   "Failed to parse article (" + ex.getMessage() + ")");
+                                   "Failed to parse article (" + ex.getMessage() + ")",
+                                   Optional.empty());
         }
         final Optional<TemporalAccessor> creationDate = articleData.date();
 
@@ -136,7 +143,8 @@ public class ArticleDateChecker extends NodeChecker {
         final Element firstArticleOfPreviousChain = getFirstArticleOfArticleChain(previousArticle);
         if (firstArticleOfPreviousChain == null) {
             return new CheckStatus("BadPredecessorChain",
-                                   "Incorrect chain of articles");
+                                   "Incorrect chain of articles",
+                                   Optional.empty());
         }
 
         ArticleData previousArticleData;
@@ -144,7 +152,8 @@ public class ArticleDateChecker extends NodeChecker {
             previousArticleData = XmlParser.parseArticleElement(firstArticleOfPreviousChain);
         } catch (final XmlParsingException ex) {
             return new CheckStatus("ArticleParsingError",
-                                   "Failed to parse article (" + ex.getMessage() + ")");
+                                   "Failed to parse article (" + ex.getMessage() + ")",
+                                   Optional.empty());
         }
         final Optional<TemporalAccessor> previousCreationDate = previousArticleData.date();
 
@@ -154,7 +163,8 @@ public class ArticleDateChecker extends NodeChecker {
                                    articleData.links().get(0).getUrl() +
                                    "\" has no date while being after article \"" +
                                    previousArticleData.links().get(0).getUrl() +
-                                   "\" which has a date");
+                                   "\" which has a date",
+                                   Optional.empty());
         }
 
         if (previousCreationDate.isEmpty()) {
@@ -171,7 +181,8 @@ public class ArticleDateChecker extends NodeChecker {
                                    previousCreationDate.get() +
                                    ") of previous article \"" +
                                    previousArticleData.links().get(0).getUrl() +
-                                   "\"");
+                                   "\"",
+                                   Optional.empty());
         }
 
         return null;

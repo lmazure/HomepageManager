@@ -1,6 +1,7 @@
 package data.nodechecker;
 
 import java.text.Normalizer;
+import java.util.Optional;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -76,7 +77,7 @@ public class TableSortChecker extends NodeChecker {
         }
 
         if (numberOfUnsortedTerms > 0) {
-            return new CheckStatus("ImproperTableSorting", summary);
+            return new CheckStatus("ImproperTableSorting", summary, Optional.empty());
         }
 
         return null;

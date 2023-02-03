@@ -3,6 +3,8 @@ package data.nodechecker;
 import data.nodechecker.tagselection.ExclusionTagSelector;
 import utils.xmlparsing.ElementType;
 
+import java.util.Optional;
+
 import org.w3c.dom.Element;
 
 /**
@@ -39,6 +41,6 @@ public class NonEmptyChecker extends NodeChecker {
             return null;
         }
 
-        return new CheckStatus("EmptyNode", "node shall not be empty");
+        return new CheckStatus("EmptyNode", "node shall not be empty", Optional.empty());
     }
 }

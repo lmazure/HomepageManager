@@ -24,11 +24,10 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import data.BackgroundDataController;
-import data.ViolationDataController;
-import data.ViolationLocationUnknown;
 import data.FileHandler.Status;
 import data.Violation;
-import data.ViolationCorrections;
+import data.ViolationDataController;
+import data.ViolationLocationUnknown;
 import data.internet.FullFetchedLinkData;
 import data.internet.HeaderFetchedLinkData;
 import data.internet.SiteDataRetriever;
@@ -356,7 +355,7 @@ public class LinkCheckRunner {
                                                        "WrongLiveness",
                                                        new ViolationLocationUnknown(),
                                                        temp.toString(),
-                                                       new ViolationCorrections[0]));
+                                                       Optional.empty()));
             }
             if (_checks.containsKey(url) && !_checks.get(url).isEmpty()) {
                 checks.append('\n');
@@ -370,7 +369,7 @@ public class LinkCheckRunner {
                                                            c.getCheckName(),
                                                            new ViolationLocationUnknown(),
                                                            url + "\n" + c.getDescription(),
-                                                           new ViolationCorrections[0]));
+                                                           Optional.empty()));
                 }
             }
         }

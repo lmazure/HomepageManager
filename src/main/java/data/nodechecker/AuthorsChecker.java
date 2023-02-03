@@ -43,7 +43,8 @@ public class AuthorsChecker extends NodeChecker {
             articleData = XmlParser.parseArticleElement(e);
         } catch (final XmlParsingException ex) {
             return new CheckStatus("ArticleParsingError",
-                                   "Failed to parse article (" + ex.getMessage() + ")");
+                                   "Failed to parse article (" + ex.getMessage() + ")",
+                                   Optional.empty());
         }
 
         for (LinkData link: articleData.links()) {
@@ -58,7 +59,8 @@ public class AuthorsChecker extends NodeChecker {
                                                formatAuthorList(articleData.authors()) +
                                                ") does not contain the expected list for the site (" +
                                                formatAuthorList(expectedWellKnownAuthors.get().getCompulsoryAuthors()) +
-                                               ")");
+                                               ")",
+                                               Optional.empty());
                     }
                 } else if (!articleData.authors().containsAll(expectedWellKnownAuthors.get().getCompulsoryAuthors()) ||
                            !expectedWellKnownAuthors.get().getCompulsoryAuthors().containsAll(articleData.authors())) {
@@ -69,7 +71,8 @@ public class AuthorsChecker extends NodeChecker {
                                            formatAuthorList(articleData.authors()) +
                                            ") is not equal to the expected list for the site (" +
                                            formatAuthorList(expectedWellKnownAuthors.get().getCompulsoryAuthors()) +
-                                           ")");
+                                           ")",
+                                           Optional.empty());
                 }
             }
         }
@@ -86,7 +89,8 @@ public class AuthorsChecker extends NodeChecker {
             articleData = XmlParser.parseArticleElement(e);
         } catch (final XmlParsingException ex) {
             return new CheckStatus("ArticleParsingError",
-                                   "Failed to parse article (" + ex.getMessage() + ")");
+                                   "Failed to parse article (" + ex.getMessage() + ")",
+                                   Optional.empty());
         }
 
         for (AuthorData author: articleData.authors()) {
@@ -95,7 +99,8 @@ public class AuthorsChecker extends NodeChecker {
                                        "The list of authors of article \"" +
                                        articleData.links().get(0).getUrl() +
                                        "\" contains duplicated author: " +
-                                       author);
+                                       author,
+                                       Optional.empty());
             }
             authors.add(author);
         }

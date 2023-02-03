@@ -1,6 +1,7 @@
 package data.nodechecker;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.w3c.dom.Element;
 
@@ -44,7 +45,8 @@ public class CommentChecker extends NodeChecker {
         }
 
         return error ? new CheckStatus("MissingPuctuation",
-                                       "COMMENT \"" + e.getTextContent() + "\" must end with a punctuation")
+                                       "COMMENT \"" + e.getTextContent() + "\" must end with a punctuation",
+                                       Optional.empty())
                      : null;
     }
 

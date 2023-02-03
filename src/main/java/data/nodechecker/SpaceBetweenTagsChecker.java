@@ -1,5 +1,7 @@
 package data.nodechecker;
 
+import java.util.Optional;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -46,7 +48,8 @@ public class SpaceBetweenTagsChecker extends NodeChecker {
             final Node child = e.getChildNodes().item(i);
             if ((child.getNodeType() == Node.TEXT_NODE) && child.getTextContent().trim().isEmpty()) {
                 return new CheckStatus("SpaceBetweenTags",
-                                       "node " + e.getNodeName() + " (" + e.getTextContent() + ") shall not contain space between tags");
+                                       "node " + e.getNodeName() + " (" + e.getTextContent() + ") shall not contain space between tags",
+                                       Optional.empty());
             }
         }
         return null;

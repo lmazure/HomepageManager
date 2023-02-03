@@ -12,6 +12,7 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.regex.Matcher;
@@ -93,12 +94,12 @@ public class FileChecker implements FileHandler {
                     final String message = "line " + error.lineNumber() + ": " + error.errorMessage();
                     pw.println(message);
                     _violationController.add(new Violation(file.toString(),
-                                             s_checkType,
-                                             error.checkName(),
-                                             (error.lineNumber() > 0) ? new ViolationLocationLine(error.lineNumber())
-                                                                      : new ViolationLocationUnknown(),
-                                             error.errorMessage(),
-                                             new ViolationCorrections[0]));
+                                                           s_checkType,
+                                                           error.checkName(),
+                                                           (error.lineNumber() > 0) ? new ViolationLocationLine(error.lineNumber())
+                                                                                    : new ViolationLocationUnknown(),
+                                                           error.errorMessage(),
+                                                           Optional.empty()));
                 }
             }
             Logger.log(Logger.Level.INFO)

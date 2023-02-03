@@ -1,5 +1,7 @@
 package data.nodechecker;
 
+import java.util.Optional;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -51,7 +53,7 @@ public class ModifierKeyChecker extends NodeChecker {
             return null;
         }
 
-        return new CheckStatus("IllegalModifierKey", "Illegal MODIFIERKEY (" + str + ")");
+        return new CheckStatus("IllegalModifierKey", "Illegal MODIFIERKEY (" + str + ")", Optional.empty());
     }
 
     private static CheckStatus checkModifierKeyOrder(final Element e) {
@@ -68,7 +70,7 @@ public class ModifierKeyChecker extends NodeChecker {
             return null;
         }
 
-        return new CheckStatus("IllegalModifierKeyOrder", "MODIFIERKEY " + strNext + " cannot follow MODIFIERKEY " + str);
+        return new CheckStatus("IllegalModifierKeyOrder", "MODIFIERKEY " + strNext + " cannot follow MODIFIERKEY " + str, Optional.empty());
     }
 
     private static boolean modifier1CanPreceedModifier2(

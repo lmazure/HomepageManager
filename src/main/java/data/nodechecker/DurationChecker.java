@@ -1,5 +1,7 @@
 package data.nodechecker;
 
+import java.util.Optional;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -32,21 +34,21 @@ public class DurationChecker extends NodeChecker {
         final int numberOfHours = XmlHelper.getDescendantsByElementType(e, ElementType.HOUR).getLength();
 
         if (numberOfSeconds > 1) {
-            return new CheckStatus("IncorrectDuration", "more than one SECOND");
+            return new CheckStatus("IncorrectDuration", "more than one SECOND", Optional.empty());
         }
         if (numberOfMinutes > 1) {
-            return new CheckStatus("IncorrectDuration", "more than one MINUTE");
+            return new CheckStatus("IncorrectDuration", "more than one MINUTE", Optional.empty());
         }
         if (numberOfHours > 1) {
-            return new CheckStatus("IncorrectDuration", "more than one HOUR");
+            return new CheckStatus("IncorrectDuration", "more than one HOUR", Optional.empty());
         }
 
         if (numberOfSeconds == 0) {
-            return new CheckStatus("IncorrectDuration", "no SECOND");
+            return new CheckStatus("IncorrectDuration", "no SECOND", Optional.empty());
         }
 
         if ((numberOfMinutes == 0) && (numberOfHours == 1)) {
-            return new CheckStatus("IncorrectDuration", "HOUR without MINUTE");
+            return new CheckStatus("IncorrectDuration", "HOUR without MINUTE", Optional.empty());
         }
 
         return null;
@@ -70,13 +72,13 @@ public class DurationChecker extends NodeChecker {
         try {
             final int second = Integer.parseInt(secondStr);
             if (second < 0) {
-                return new CheckStatus("IncorrectDuration", "SECOND is negative");
+                return new CheckStatus("IncorrectDuration", "SECOND is negative", Optional.empty());
             }
             if (second > 59) {
-                return new CheckStatus("IncorrectDuration", "SECOND is greater than 59");
+                return new CheckStatus("IncorrectDuration", "SECOND is greater than 59", Optional.empty());
             }
         } catch (@SuppressWarnings("unused") final NumberFormatException ex) {
-            return new CheckStatus("IncorrectDuration", "SECOND is not an integer");
+            return new CheckStatus("IncorrectDuration", "SECOND is not an integer", Optional.empty());
         }
 
         if (numberOfMinutes == 0) {
@@ -87,13 +89,13 @@ public class DurationChecker extends NodeChecker {
         try {
             final int minute = Integer.parseInt(minuteStr);
             if (minute < 0) {
-                return new CheckStatus("IncorrectDuration", "MINUTE is negative");
+                return new CheckStatus("IncorrectDuration", "MINUTE is negative", Optional.empty());
             }
             if (minute > 59) {
-                return new CheckStatus("IncorrectDuration", "MINUTE is greater than 59");
+                return new CheckStatus("IncorrectDuration", "MINUTE is greater than 59", Optional.empty());
             }
         } catch (@SuppressWarnings("unused") final NumberFormatException ex) {
-            return new CheckStatus("IncorrectDuration", "MINUTE is not an integer");
+            return new CheckStatus("IncorrectDuration", "MINUTE is not an integer", Optional.empty());
         }
 
         if (numberOfHours == 0) {
@@ -104,10 +106,10 @@ public class DurationChecker extends NodeChecker {
         try {
             final int hour = Integer.parseInt(hourStr);
             if (hour < 0) {
-                return new CheckStatus("IncorrectDuration", "HOUR is negative");
+                return new CheckStatus("IncorrectDuration", "HOUR is negative", Optional.empty());
             }
         } catch (@SuppressWarnings("unused") final NumberFormatException ex) {
-            return new CheckStatus("IncorrectDuration", "HOUR is not an integer");
+            return new CheckStatus("IncorrectDuration", "HOUR is not an integer", Optional.empty());
         }
 
         return null;

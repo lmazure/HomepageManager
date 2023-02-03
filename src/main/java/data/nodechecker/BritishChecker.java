@@ -3,6 +3,7 @@ package data.nodechecker;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -68,7 +69,8 @@ public class BritishChecker extends NodeChecker {
                                            traduction.getAmerican() +
                                            "\", it should be \"" +
                                            traduction.getBritish() +
-                                           "\"");
+                                           "\"",
+                                           Optional.empty());
                 }
             }
         }

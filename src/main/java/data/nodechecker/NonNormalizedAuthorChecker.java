@@ -1,5 +1,7 @@
 package data.nodechecker;
 
+import java.util.Optional;
+
 import org.w3c.dom.Element;
 
 import data.nodechecker.tagselection.InclusionTagSelector;
@@ -28,13 +30,13 @@ public class NonNormalizedAuthorChecker extends NodeChecker {
         final String s = e.getTextContent();
 
         if (s.equalsIgnoreCase("Vint Cerf"))
-            return new CheckStatus("ImproperAuthorEncoding", "\"Vint Cerf\" should be \"Vinton Cerf\"");
+            return new CheckStatus("ImproperAuthorEncoding", "\"Vint Cerf\" should be \"Vinton Cerf\"", Optional.empty());
 
         if (s.equalsIgnoreCase("Cynthia Keen"))
-            return new CheckStatus("ImproperAuthorEncoding", "\"Cynthia Keen\" should be \"Cynthia E. Keen\"");
+            return new CheckStatus("ImproperAuthorEncoding", "\"Cynthia Keen\" should be \"Cynthia E. Keen\"", Optional.empty());
 
         if (s.equalsIgnoreCase("Deb Borfitz"))
-            return new CheckStatus("ImproperAuthorEncoding", "\"Deb Borfitz\" should be \"Deborah Borfitz\"");
+            return new CheckStatus("ImproperAuthorEncoding", "\"Deb Borfitz\" should be \"Deborah Borfitz\"", Optional.empty());
 
         return null;
     }

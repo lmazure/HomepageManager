@@ -1,5 +1,9 @@
 package data;
 
+import java.util.Optional;
+
+import data.violationcorrection.ViolationCorrection;
+
 /**
  * Record of a check violation
  */
@@ -10,7 +14,7 @@ public class Violation {
     private final String _rule;
     private final ViolationLocation _location;
     private final String _description;
-    private final ViolationCorrections[] _correction;
+    private final Optional<ViolationCorrection> _correction;
 
     /**
      * @param file file violating the check
@@ -25,7 +29,7 @@ public class Violation {
                      final String rule,
                      final ViolationLocation location,
                      final String description,
-                     final ViolationCorrections[] correction) {
+                     final Optional<ViolationCorrection> correction) {
         _file = file;
         _type = type;
         _rule = rule;
@@ -71,7 +75,7 @@ public class Violation {
     /**
      * @return the correction
      */
-    public ViolationCorrections[] getCorrection() {
+    public Optional<ViolationCorrection> getCorrection() {
         return _correction;
     }
 }

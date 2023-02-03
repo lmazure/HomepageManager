@@ -5,6 +5,7 @@ import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -59,7 +60,7 @@ public class DoubleSpaceChecker extends NodeChecker {
             final Matcher matcher = s_indentationPattern.matcher(l);
             final String str = matcher.replaceFirst("");
             if (str.indexOf("  ") >= 0) {
-                return new CheckStatus("DoubleSpace", "\"" + e.getTextContent() + "\" should not contain a double space");
+                return new CheckStatus("DoubleSpace", "\"" + e.getTextContent() + "\" should not contain a double space", Optional.empty());
             }
         }
 

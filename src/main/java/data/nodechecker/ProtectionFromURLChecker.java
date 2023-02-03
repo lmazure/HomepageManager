@@ -4,6 +4,8 @@ import data.nodechecker.tagselection.InclusionTagSelector;
 import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
 
+import java.util.Optional;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -47,7 +49,8 @@ public class ProtectionFromURLChecker extends NodeChecker {
 
         if (url.contains("auntminnie.com/") && !protection.equals("free_registration"))
            return new CheckStatus("MissingRegistrationIndicator",
-                                  "\"" + url + "\" should be flagged as 'free_registration'");
+                                  "\"" + url + "\" should be flagged as 'free_registration'",
+                                  Optional.empty());
 
         return null;
     }

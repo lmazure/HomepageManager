@@ -1,5 +1,6 @@
 package data.nodechecker;
 
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,6 +39,6 @@ public class KeyChecker extends NodeChecker {
             return null;
         }
 
-        return new CheckStatus("IlegalKey", "Illegal KEY (\"" + key + "\")");
+        return new CheckStatus("IlegalKey", "Illegal KEY (\"" + key + "\")", Optional.empty());
     }
 }

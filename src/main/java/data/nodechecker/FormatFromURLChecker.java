@@ -1,5 +1,7 @@
 package data.nodechecker;
 
+import java.util.Optional;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -44,28 +46,28 @@ public class FormatFromURLChecker extends NodeChecker {
         }
 
         if (url.toUpperCase().endsWith(".PDF") && !format.equals("PDF"))
-           return new CheckStatus("ImproperFormat", "\"" + url + "\" is not indicated as being PDF format");
+           return new CheckStatus("ImproperFormat", "\"" + url + "\" is not indicated as being PDF format", Optional.empty());
 
         if (url.toUpperCase().endsWith(".PS") && !format.equals("PostScript"))
-            return new CheckStatus("ImproperFormat", "\"" + url + "\" is not indicated as being PostScript format");
+            return new CheckStatus("ImproperFormat", "\"" + url + "\" is not indicated as being PostScript format", Optional.empty());
 
         if (url.toUpperCase().endsWith(".WMV") && !format.equals("Windows Media Player"))
-               return new CheckStatus("ImproperFormat", "\"" + url + "\" is not indicated as being Windows Media Player format");
+               return new CheckStatus("ImproperFormat", "\"" + url + "\" is not indicated as being Windows Media Player format", Optional.empty());
 
         if (url.startsWith("https://www.youtube.com/watch?v=") && !format.equals("MP4"))
-               return new CheckStatus("ImproperFormat", "\"" + url + "\" is not indicated as being MP4 format");
+               return new CheckStatus("ImproperFormat", "\"" + url + "\" is not indicated as being MP4 format", Optional.empty());
 
         if (url.startsWith("http://video.google.com/videoplay") && !format.equals("Flash Video"))
-               return new CheckStatus("ImproperFormat", "\"" + url + "\" is not indicated as being Flash Video format");
+               return new CheckStatus("ImproperFormat", "\"" + url + "\" is not indicated as being Flash Video format", Optional.empty());
 
         if ((url.startsWith("https://medium.com/") ||
              url.startsWith("https://www.ibm.com/")) && !(format.equals("HTML") || format.equals("MP3"))) // a HTML page may contain a MP3
-            return new CheckStatus("ImproperFormat", "\"" + url + "\" is not indicated as being HTML format");
+            return new CheckStatus("ImproperFormat", "\"" + url + "\" is not indicated as being HTML format", Optional.empty());
 
         if ((url.startsWith("https://www.numberphile.com/podcast/") ||
              url.startsWith("https://play.acast.com") ||
              url.startsWith("https://podcastaddict.com")) && !format.equals("MP3"))
-            return new CheckStatus("ImproperFormat", "\"" + url + "\" is not indicated as being MP3 format");
+            return new CheckStatus("ImproperFormat", "\"" + url + "\" is not indicated as being MP3 format", Optional.empty());
 
         return null;
     }

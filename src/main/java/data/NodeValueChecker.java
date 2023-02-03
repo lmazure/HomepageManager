@@ -68,6 +68,7 @@ public class NodeValueChecker implements FileHandler {
     private final static String s_checkType = "node";
 
     /**
+     * Constructor
      * @param homepagePath path to the directory containing the pages
      * @param tmpPath path to the directory containing the temporary files and log files
      * @param controller controller to notify of additional / removed violations
@@ -132,7 +133,12 @@ public class NodeValueChecker implements FileHandler {
                                            " violation = \"" + error.violation() + "\"\n" +
                                            " detail = \""    + error.detail()    + "\"\n";
                     pw.println(message);
-                    _violationController.add(new Violation(file.toString(), s_checkType, error.checkName(), new ViolationLocationUnknown(), message, new ViolationCorrections[0]));
+                    _violationController.add(new Violation(file.toString(),
+                                                           s_checkType,
+                                                           error.checkName(),
+                                                           new ViolationLocationUnknown(),
+                                                           message,
+                                                           error.correction()));
                 }
                 status = Status.HANDLED_WITH_ERROR;
                 Logger.log(Logger.Level.INFO)

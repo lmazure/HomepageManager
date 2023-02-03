@@ -5,6 +5,7 @@ import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.w3c.dom.Element;
 
@@ -50,7 +51,7 @@ public class EllipsisChecker extends NodeChecker {
             return null;
         }
 
-        return new CheckStatus("ImproperEllipsis", "\"" + s + "\" should not contain \"...\"");
+        return new CheckStatus("ImproperEllipsis", "\"" + s + "\" should not contain \"...\"", Optional.empty());
     }
 
     private static CheckStatus checkDoubleDot(final Element e) {
@@ -58,7 +59,7 @@ public class EllipsisChecker extends NodeChecker {
         final List<String> content = XmlHelper.getFirstLevelTextContent(e);
         for (final String s: content) {
             if (s.indexOf("..") >= 0) {
-                return new CheckStatus("DoubleDot", "\"" + s + "\" contains \"..\"");
+                return new CheckStatus("DoubleDot", "\"" + s + "\" contains \"..\"", Optional.empty());
             }
         }
         return null;
@@ -68,16 +69,16 @@ public class EllipsisChecker extends NodeChecker {
 
         final String s = e.getTextContent();
         if (s.indexOf("'s ") >= 0) {
-            return new CheckStatus("ImproperApostrophe", "\"'s \" should be \"’s ");
+            return new CheckStatus("ImproperApostrophe", "\"'s \" should be \"’s ", Optional.empty());
         }
         if (s.indexOf("s' ") >= 0) {
-            return new CheckStatus("ImproperApostrophe", "\"s' \" should be \"s’ ");
+            return new CheckStatus("ImproperApostrophe", "\"s' \" should be \"s’ ", Optional.empty());
         }
         if (s.indexOf("x' ") >= 0) {
-            return new CheckStatus("ImproperApostrophe", "\"x' \" should be \"x’ ");
+            return new CheckStatus("ImproperApostrophe", "\"x' \" should be \"x’ ", Optional.empty());
         }
         if (s.indexOf("z' ") >= 0) {
-            return new CheckStatus("ImproperApostrophe", "\"z' \" should be \"z’ ");
+            return new CheckStatus("ImproperApostrophe", "\"z' \" should be \"z’ ", Optional.empty());
         }
 
         return null;

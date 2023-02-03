@@ -1,5 +1,7 @@
 package data.nodechecker;
 
+import java.util.Optional;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -48,95 +50,95 @@ public class DurationPresenceChecker extends NodeChecker {
 
         if (format.equals("PDF")) {
             if (hasDuration) {
-                return new CheckStatus("SpuriousDuration", "PDF cannot have duration");
+                return new CheckStatus("SpuriousDuration", "PDF cannot have duration", Optional.empty());
             }
             return null;
         }
         if (format.equals("Flash Video")) {
             if (!hasDuration) {
-                return new CheckStatus("MissingDuration", "missing duration for Flash Video");
+                return new CheckStatus("MissingDuration", "missing duration for Flash Video", Optional.empty());
             }
             return null;
         }
         if (format.equals("Word")) {
             if (hasDuration) {
-                return new CheckStatus("SpuriousDuration", "Word cannot have duration");
+                return new CheckStatus("SpuriousDuration", "Word cannot have duration", Optional.empty());
             }
             return null;
         }
         if (format.equals("PostScript")) {
             if (hasDuration) {
-                return new CheckStatus("SpuriousDuration", "PostScript cannot have duration");
+                return new CheckStatus("SpuriousDuration", "PostScript cannot have duration", Optional.empty());
             }
             return null;
         }
         if (format.equals("Flash")) {
             if (hasDuration) {
-                return new CheckStatus("SpuriousDuration", "Flash cannot have duration");
+                return new CheckStatus("SpuriousDuration", "Flash cannot have duration", Optional.empty());
             }
             return null;
         }
         if (format.equals("PowerPoint")) {
             if (hasDuration) {
-                return new CheckStatus("SpuriousDuration", "PowerPoint cannot have duration");
+                return new CheckStatus("SpuriousDuration", "PowerPoint cannot have duration", Optional.empty());
             }
             return null;
         }
         if (format.equals("ASCII")) {
             if (hasDuration) {
-                return new CheckStatus("SpuriousDuration", "ASCII cannot have duration");
+                return new CheckStatus("SpuriousDuration", "ASCII cannot have duration", Optional.empty());
             }
             return null;
         }
         if (format.equals("RSS")) {
             if (hasDuration) {
-                return new CheckStatus("SpuriousDuration", "RSS cannot have duration");
+                return new CheckStatus("SpuriousDuration", "RSS cannot have duration", Optional.empty());
             }
             return null;
         }
         if (format.equals("RSS2")) {
             if (hasDuration) {
-                return new CheckStatus("SpuriousDuration", "RSS2 cannot have duration");
+                return new CheckStatus("SpuriousDuration", "RSS2 cannot have duration", Optional.empty());
             }
             return null;
         }
         if (format.equals("MP3")) {
             if (!hasDuration) {
-                return new CheckStatus("MissingDuration", "missing duration for MP3");
+                return new CheckStatus("MissingDuration", "missing duration for MP3", Optional.empty());
             }
             return null;
         }
         if (format.equals("MP4")) {
             if (!hasDuration) {
-                return new CheckStatus("MissingDuration", "missing duration for MP4");
+                return new CheckStatus("MissingDuration", "missing duration for MP4", Optional.empty());
             }
             return null;
         }
         if (format.equals("RealMedia")) {
             if (!hasDuration) {
-                return new CheckStatus("MissingDuration", "missing duration for RealMedia");
+                return new CheckStatus("MissingDuration", "missing duration for RealMedia", Optional.empty());
             }
             return null;
         }
         if (format.equals("Windows Media Player")) {
             if (!hasDuration) {
-                return new CheckStatus("MissingDuration", "missing duration for Windows Media Player");
+                return new CheckStatus("MissingDuration", "missing duration for Windows Media Player", Optional.empty());
             }
             return null;
         }
         if (format.equals("Atom")) {
             if (hasDuration) {
-                return new CheckStatus("SpuriousDuration", "Atom cannot have duration");
+                return new CheckStatus("SpuriousDuration", "Atom cannot have duration", Optional.empty());
             }
             return null;
         }
         if (format.equals("txt")) {
             if (hasDuration) {
-                return new CheckStatus("SpuriousDuration", "txt cannot have duration");
+                return new CheckStatus("SpuriousDuration", "txt cannot have duration", Optional.empty());
             }
             return null;
         }
 
-        return new CheckStatus("UnkwonFormat", "\"" + format + "\" is an unknown format to get duration presence");
+        return new CheckStatus("UnkwonFormat", "\"" + format + "\" is an unknown format to get duration presence", Optional.empty());
     }
 }

@@ -98,12 +98,12 @@ public class IncorrectSpaceChecker extends NodeChecker {
         final List<String> list = XmlHelper.getFirstLevelTextContent(e);
         final Optional<Locale> locale = XmlHelper.getElementLanguage(e);
         if (locale.isEmpty()) {
-            return new CheckStatus("MissingLanguage", "\"" + e.getNodeName() + "\" has no language");
+            return new CheckStatus("MissingLanguage", "\"" + e.getNodeName() + "\" has no language", Optional.empty());
         }
 
         for (final String l: list) {
             if (Arrays.stream(l.split("[ /]")).anyMatch(s -> missesSpaceBeforePunctuation(s, locale.get()))) {
-                return new CheckStatus("MissingSpace", "\"" + e.getTextContent() + "\" is missing a space before punctuation");
+                return new CheckStatus("MissingSpace", "\"" + e.getTextContent() + "\" is missing a space before punctuation", Optional.empty());
             }
         }
 
@@ -115,12 +115,12 @@ public class IncorrectSpaceChecker extends NodeChecker {
         final List<String> list = XmlHelper.getFirstLevelTextContent(e);
         final Optional<Locale> locale = XmlHelper.getElementLanguage(e);
         if (locale.isEmpty()) {
-            return new CheckStatus("MissingLanguage", "\"" + e.getNodeName() + "\" has no language");
+            return new CheckStatus("MissingLanguage", "\"" + e.getNodeName() + "\" has no language", Optional.empty());
         }
 
         for (final String l: list) {
             if (Arrays.stream(l.split("[ /]")).anyMatch(s -> missesSpaceAfterPunctuation(s, locale.get()))) {
-                return new CheckStatus("MissingSpace", "\"" + e.getTextContent() + "\" is missing a space after punctuation");
+                return new CheckStatus("MissingSpace", "\"" + e.getTextContent() + "\" is missing a space after punctuation", Optional.empty());
             }
         }
 
@@ -132,13 +132,13 @@ public class IncorrectSpaceChecker extends NodeChecker {
         final List<String> list = XmlHelper.getFirstLevelTextContent(e);
         final Optional<Locale> locale = XmlHelper.getElementLanguage(e);
         if (locale.isEmpty()) {
-            return new CheckStatus("MissingLanguage", "\"" + e.getNodeName() + "\" has no language");
+            return new CheckStatus("MissingLanguage", "\"" + e.getNodeName() + "\" has no language", Optional.empty());
         }
 
         for (final String l: list) {
             final int c = containsPunctuationPrecededByInvalidSpace(l, locale.get());
             if (c > 0) {
-                return new CheckStatus("SpuriousSpace", "\"" + l + "\" has a space before a punctuation (at index " + c + ")");
+                return new CheckStatus("SpuriousSpace", "\"" + l + "\" has a space before a punctuation (at index " + c + ")", Optional.empty());
             }
         }
 

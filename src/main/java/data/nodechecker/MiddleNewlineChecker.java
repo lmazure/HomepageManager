@@ -3,6 +3,8 @@ package data.nodechecker;
 import data.nodechecker.tagselection.ExclusionTagSelector;
 import utils.xmlparsing.ElementType;
 
+import java.util.Optional;
+
 import org.w3c.dom.Element;
 
 /**
@@ -48,6 +50,6 @@ public class MiddleNewlineChecker extends NodeChecker {
         if (s.indexOf('\n') == -1) {
             return null;
         }
-        return new CheckStatus("IllegalNewline", "\"" + s + "\" should not contain a newline");
+        return new CheckStatus("IllegalNewline", "\"" + s + "\" should not contain a newline", Optional.empty());
     }
 }

@@ -3,6 +3,8 @@ package data.nodechecker;
 import data.nodechecker.tagselection.ExclusionTagSelector;
 import utils.xmlparsing.ElementType;
 
+import java.util.Optional;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -60,7 +62,7 @@ public class ExtremitySpaceChecker extends NodeChecker {
         if (!Character.isWhitespace(c)) {
             return null;
         }
-        return new CheckStatus("SpaceAtTheBeginning", "\"" + s + "\" should not begin with a space");
+        return new CheckStatus("SpaceAtTheBeginning", "\"" + s + "\" should not begin with a space", Optional.empty());
     }
 
     private static CheckStatus checkSpaceAtEnd(final Element e) {
@@ -82,6 +84,6 @@ public class ExtremitySpaceChecker extends NodeChecker {
         if (!Character.isWhitespace(c)) {
             return null;
         }
-        return new CheckStatus("SpaceAtTheEnd", "\"" + s + "\" should not end with a space");
+        return new CheckStatus("SpaceAtTheEnd", "\"" + s + "\" should not end with a space", Optional.empty());
     }
 }

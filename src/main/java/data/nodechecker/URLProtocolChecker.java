@@ -3,6 +3,8 @@ package data.nodechecker;
 import data.nodechecker.tagselection.InclusionTagSelector;
 import utils.xmlparsing.ElementType;
 
+import java.util.Optional;
+
 import org.w3c.dom.Element;
 
 /**
@@ -41,6 +43,7 @@ public class URLProtocolChecker extends NodeChecker {
         }
 
         return new CheckStatus("UnkownProtocolInUrl",
-                               "unknown protocol for URL \"" + url + "\"");
+                               "unknown protocol for URL \"" + url + "\"",
+                               Optional.empty());
     }
 }
