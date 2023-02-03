@@ -9,6 +9,8 @@ merger (la branche devient vraiment trop grosse)
 
 ==== merge =====
 
+fulfil (GB) vs. fulfill (US)
+
 vérifier les dépendances avec JDepend
 
 jeter un coup d'oeil sur le code coverage
