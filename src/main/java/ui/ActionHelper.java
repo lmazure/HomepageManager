@@ -8,6 +8,8 @@ import java.net.HttpURLConnection;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
+import java.util.Optional;
+import java.util.function.Function;
 
 import javax.net.ssl.SSLHandshakeException;
 
@@ -20,8 +22,14 @@ import javafx.scene.layout.Priority;
 import utils.ExitHelper;
 import utils.internet.UrlHelper;
 
+/**
+ *
+ */
 public class ActionHelper {
 
+    /**
+     * @param file
+     */
     public static void displayFile(final Path file) {
 
         if (file == null) {
@@ -39,6 +47,10 @@ public class ActionHelper {
         displayVerifiedFile(file);
     }
 
+    /**
+     * @param file
+     * @param homepagePath
+     */
     public static void displayHtmlFile(final Path file,
                                        final Path homepagePath) {
 
@@ -66,7 +78,6 @@ public class ActionHelper {
         } else {
             displayVerifiedFile(file);
         }
-
     }
 
     private static void displayVerifiedFile(final Path file) {
@@ -80,11 +91,25 @@ public class ActionHelper {
         }
     }
 
+    /**
+     * @param file
+     * @param apply
+     */
+    public static void modifyFile(final String file,
+                                  final Optional<Function<String, String>> apply) {
+
+        if (apply.isEmpty()) {
+            return;
+        }
+
+        System.out.println("========> " + file);
+    }
+
     private static boolean isUrlAlive(final URL url) {
         try {
             final HttpURLConnection huc = (HttpURLConnection)url.openConnection();
             final int responseCode = huc.getResponseCode();
-            return (responseCode == 200);
+            return (responseCode == HttpURLConnection.HTTP_OK);
         } catch (final IOException e) {
             return e instanceof SSLHandshakeException;
         }

@@ -25,7 +25,7 @@ public class LinkCheckController extends GenericBackgroundUiController {
         final TableColumn<ObservableFile, String> statusColumn = new TableColumn<>("Status");
         statusColumn.setPrefWidth(172);
         statusColumn.setCellValueFactory(f -> f.getValue().getLinkCheckProperty());
-        statusColumn.setCellFactory(p -> { return new UpdatableButtonCell<>(f -> ActionHelper.displayFile(f.getLinkCheckReportFile()),
+        statusColumn.setCellFactory(p -> { return new ColoredUpdatableButtonCell<>(f -> ActionHelper.displayFile(f.getLinkCheckReportFile()),
                                                                             StatusRepresentation.getColorMap());});
         allColumns.getColumns().add(statusColumn);
 

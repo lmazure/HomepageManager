@@ -78,4 +78,12 @@ public class Violation {
     public Optional<ViolationCorrection> getCorrection() {
         return _correction;
     }
+
+    /**
+     * @return the description of the location
+     */
+    public String getCorrectionDescription() {
+        return _correction.isPresent() ? _correction.get().getDescription()
+                                       : "none";
+    }
 }

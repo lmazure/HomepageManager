@@ -1,5 +1,7 @@
 package ui;
 
+import java.nio.file.Path;
+
 import data.Violation;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -14,7 +16,7 @@ import javafx.stage.Stage;
 public class ViolationTable {
 
     private final TableView<Violation> _table;
-
+    
     /**
      * @param violationList list of violation
      */
@@ -28,6 +30,7 @@ public class ViolationTable {
     public void show() {
         final Stage stage = new Stage();
         stage.setTitle("Violations");
+        stage.setMaximized(true);
 
         final TableColumn<Violation, String> fileCol = new TableColumn<>("File");
         fileCol.setMinWidth(200);
@@ -54,6 +57,12 @@ public class ViolationTable {
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
         _table.getColumns().add(descriptionCol);
 
+        final TableColumn<Violation, String> displayColumn = new TableColumn<>("Reparation");
+        displayColumn.setPrefWidth(60);
+        displayColumn.setCellValueFactory(new PropertyValueFactory<>("correctionDescription"));
+        displayColumn.setCellFactory(p -> { return new UpdatableButtonCell<>(v -> ActionHelper.modifyFile(v.getFile(), v.getCorrection().map(e -> e::apply)));});
+        _table.getColumns().add(displayColumn);
+        
         _table.setEditable(false);
 
         stage.setScene(new Scene(_table, 1000, 900));
