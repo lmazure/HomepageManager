@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringReader;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
@@ -26,6 +25,7 @@ import org.xml.sax.SAXException;
 
 import utils.ExitHelper;
 import utils.FileHelper;
+import utils.FileNameHelper;
 import utils.Logger;
 import utils.XmlHelper;
 
@@ -125,7 +125,7 @@ public class FileChecker implements FileHandler {
      * @return violations
      */
     public List<Error> check(final Path file) {  //TODO see how to test this method while keeping it private
-        final String content = FileHelper.slurpFile(file.toFile(), StandardCharsets.UTF_8);
+        final String content = FileHelper.slurpFile(file.toFile());
 
         final List<Error> errors =  new ArrayList<>();
         errors.addAll(checkFileBom(content));
@@ -330,7 +330,7 @@ public class FileChecker implements FileHandler {
             return null;
         }
         final String anchor = link.replaceFirst(".*#", "");
-        final String targetFileContent = FileHelper.slurpFile(targetFile.toFile(), StandardCharsets.UTF_8);
+        final String targetFileContent = FileHelper.slurpFile(targetFile.toFile());
         if (targetFileContent.indexOf("<ANCHOR>" + anchor + "</ANCHOR>") < 0) {
             return new Error("IncorrectLocalLink", 0, "the file \"" + file + "\" does not contain the anchor \"" + anchor + "\"");
         }
@@ -351,12 +351,12 @@ public class FileChecker implements FileHandler {
 
     @Override
     public Path getOutputFile(final Path file) {
-        return FileHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_filecheck", "txt");
+        return FileNameHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_filecheck", "txt");
     }
 
     @Override
     public Path getReportFile(final Path file) {
-         return FileHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_report_filecheck", "txt");
+         return FileNameHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_report_filecheck", "txt");
     }
 
     @Override

@@ -49,6 +49,7 @@ import data.nodechecker.TitleFormatChecker;
 import data.nodechecker.URLProtocolChecker;
 import utils.ExitHelper;
 import utils.FileHelper;
+import utils.FileNameHelper;
 import utils.Logger;
 import utils.XmlHelper;
 
@@ -196,12 +197,12 @@ public class NodeValueChecker implements FileHandler {
 
     @Override
     public Path getOutputFile(final Path file) {
-        return FileHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_nodevaluecheck", "txt");
+        return FileNameHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_nodevaluecheck", "txt");
     }
 
     @Override
     public Path getReportFile(final Path file) {
-         return FileHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_report_nodevaluecheck", "txt");
+         return FileNameHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_report_nodevaluecheck", "txt");
     }
 
     @Override

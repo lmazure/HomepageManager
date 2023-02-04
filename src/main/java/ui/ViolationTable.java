@@ -1,7 +1,5 @@
 package ui;
 
-import java.nio.file.Path;
-
 import data.Violation;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;

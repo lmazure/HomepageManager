@@ -24,6 +24,7 @@ import org.w3c.dom.Document;
 
 import utils.ExitHelper;
 import utils.FileHelper;
+import utils.FileNameHelper;
 import utils.Logger;
 
 /**
@@ -130,12 +131,12 @@ public class HTMLGenerator implements FileHandler {
 
     @Override
     public Path getOutputFile(final Path file) {
-        return FileHelper.computeTargetFile(_homepagePath, _homepagePath, file, "", "html");
+        return FileNameHelper.computeTargetFile(_homepagePath, _homepagePath, file, "", "html");
     }
 
     @Override
     public Path getReportFile(final Path file) {
-        return FileHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_report_html", "txt");
+        return FileNameHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_report_html", "txt");
     }
 
     private Path getSylesheetFile() {

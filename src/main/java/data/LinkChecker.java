@@ -6,7 +6,7 @@ import java.util.Map;
 
 import data.linkchecker.LinkCheckRunner;
 import utils.ExitHelper;
-import utils.FileHelper;
+import utils.FileNameHelper;
 
 /**
  * This class checks the links appearing in XML files.
@@ -68,12 +68,12 @@ public class LinkChecker implements FileHandler {
 
     @Override
     public Path getOutputFile(final Path file) {
-        return FileHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_linkcheck", "txt");
+        return FileNameHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_linkcheck", "txt");
     }
 
     @Override
     public Path getReportFile(final Path file) {
-         return FileHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_report_linkcheck", "txt");
+         return FileNameHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_report_linkcheck", "txt");
     }
 
     @Override

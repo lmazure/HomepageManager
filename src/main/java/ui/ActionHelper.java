@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -20,6 +21,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import utils.ExitHelper;
+import utils.FileHelper;
 import utils.internet.UrlHelper;
 
 /**
@@ -95,14 +97,19 @@ public class ActionHelper {
      * @param file
      * @param apply
      */
-    public static void modifyFile(final String file,
+    public static void modifyFile(final String file, // TODO this is not homogeneous with the other actions, we should have a file defined by a Path relative to the home directory
                                   final Optional<Function<String, String>> apply) {
 
         if (apply.isEmpty()) {
             return;
         }
 
+        final String oldContent = FileHelper.slurpFile(new File(file));
+        final String newContent = apply.get().apply(oldContent);
+        FileHelper.writeFile(Path.of(file), newContent);
         System.out.println("========> " + file);
+        
+        
     }
 
     private static boolean isUrlAlive(final URL url) {

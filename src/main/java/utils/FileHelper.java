@@ -11,11 +11,9 @@ import java.nio.charset.CodingErrorAction;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * Tools for managing files
- *
  */
 public class FileHelper {
 
@@ -57,7 +55,17 @@ public class FileHelper {
      */
     public static String slurpFile(final File file,
                                    final Charset charset) {
-        return FileHelper.slurpFileSection(new FileSection(file, 0, file.length()), charset);
+        return slurpFileSection(new FileSection(file, 0, file.length()), charset);
+    }
+
+    /**
+     * Return the whole content of a file (charset is UTF8)
+     *
+     * @param file file to read
+     * @return content of the file
+     */
+    public static String slurpFile(final File file) {
+        return slurpFile(file, StandardCharsets.UTF_8);
     }
 
     /**
@@ -75,7 +83,7 @@ public class FileHelper {
     }
 
     /**
-     * Write a file
+     * Write a file (charset is UTF8)
      * @param file File to write
      * @param content Content of the file
      */
@@ -87,6 +95,7 @@ public class FileHelper {
             ExitHelper.exit("Failed to write file", e);
         }
     }
+
     /**
      * create parent directory of the file
      *
@@ -106,7 +115,7 @@ public class FileHelper {
     }
 
     /**
-     * Delete a directory and (recursively) its content
+     * delete a directory and (recursively) its content
      *
      * @param directory directory to be deleted
      */
@@ -121,7 +130,7 @@ public class FileHelper {
     }
 
     /**
-     * delete a file
+     * delete simply a file, stop the program if failure
      *
      * @param file file to be deleted
      */
@@ -131,50 +140,5 @@ public class FileHelper {
         } catch (final IOException e) {
             ExitHelper.exit(e);
         }
-    }
-
-    /**
-     * Generate a new name from a file sourceFile which is in a directory sourceDirectory
-     * The new name is in directory targetDirectory has the same name as the sourceFile except
-     * with a suffix suffix and an extension extension
-     *
-     * @param sourceDirectory
-     * @param targetDirectory
-     * @param sourceFile
-     * @param suffix
-     * @param extension
-     * @return
-     */
-    public static Path computeTargetFile(final Path sourceDirectory,
-                                         final Path targetDirectory,
-                                         final Path sourceFile,
-                                         final String suffix,
-                                         final String extension) {
-        final Path relativePath = sourceDirectory.relativize(sourceFile);
-        final Path reportFilePath = targetDirectory.resolve(relativePath);
-        final String s = reportFilePath.toString();
-        return Paths.get(s.substring(0, s.lastIndexOf('.')).concat(suffix + "." + extension));
-   }
-
-    /**
-     * @param url URL
-     * @return file name
-     */
-    public static String generateFileNameFromURL(final String url) {
-
-        final int MAX_FILENAME_LENGTH = 245;
-
-        final String s = url.replaceFirst("://", "→")
-                            .replaceAll(" ", "%20")
-                            .replaceAll("/", "%2F")
-                            .replaceAll(":", "%3A")
-                            .replaceAll("\\?", "%3F");
-
-        if (s.length() > MAX_FILENAME_LENGTH) {
-            // avoid crash on Windows due to too long file name
-            return s.substring(0, MAX_FILENAME_LENGTH - 9) + "_" + Integer.toHexString(s.hashCode());
-        }
-
-        return s;
     }
 }
