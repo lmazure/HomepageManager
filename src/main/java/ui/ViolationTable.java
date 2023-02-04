@@ -50,12 +50,12 @@ public class ViolationTable {
         _table.getColumns().add(locationCol);
 
         final TableColumn<Violation, String> descriptionCol = new TableColumn<>("Description");
-        descriptionCol.setMinWidth(500);
+        descriptionCol.setMinWidth(800);
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
         _table.getColumns().add(descriptionCol);
 
         final TableColumn<Violation, String> repairColumn = new TableColumn<>("Reparation");
-        repairColumn.setPrefWidth(60);
+        repairColumn.setPrefWidth(150);
         repairColumn.setCellValueFactory(new PropertyValueFactory<>("correctionDescription"));
         repairColumn.setCellFactory(p -> { return new UpdatableButtonCell<>(v -> ActionHelper.modifyFile(v.getFile(), v.getCorrection().map(e -> e::apply)));});
         _table.getColumns().add(repairColumn);

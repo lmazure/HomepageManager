@@ -13,7 +13,7 @@ import utils.xmlparsing.ElementType;
 public class NonNormalizedAuthorChecker extends NodeChecker {
     // TODO add a unit test for this because I am pretty sure this does not work anymore
 
-    private final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
+    private static final InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.AUTHOR
             });
 

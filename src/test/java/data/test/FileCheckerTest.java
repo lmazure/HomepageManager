@@ -4,17 +4,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import data.DataController;
-import data.FileChecker;
-import data.FileHandler.Status;
-import data.Violation;
-import data.ViolationDataController;
+import data.FileContentChecker;
+import data.filechecker.FileChecker;
 import data.internet.test.TestHelper;
 import utils.FileHelper;
 
@@ -514,15 +510,15 @@ public class FileCheckerTest {
 
     private void test(final String content) {
 
-        final List<FileChecker.Error> expected = new ArrayList<>();
+        final List<FileContentChecker.Error> expected = new ArrayList<>();
         test(content, expected);
     }
 
     private void test(final String content,
                       final String checkName0, final int line0, final String message0) {
 
-        final List<FileChecker.Error> expected = new ArrayList<>();
-        expected.add(new FileChecker.Error(checkName0, line0, message0));
+        final List<FileContentChecker.Error> expected = new ArrayList<>();
+        expected.add(new FileContentChecker.Error(checkName0, line0, message0));
         test(content, expected);
     }
 
@@ -530,9 +526,9 @@ public class FileCheckerTest {
                       final String checkName0, final int line0, final String message0,
                       final String checkName1, final int line1, final String message1) {
 
-        final List<FileChecker.Error> expected = new ArrayList<>();
-        expected.add(new FileChecker.Error(checkName0, line0, message0));
-        expected.add(new FileChecker.Error(checkName1, line1, message1));
+        final List<FileContentChecker.Error> expected = new ArrayList<>();
+        expected.add(new FileContentChecker.Error(checkName0, line0, message0));
+        expected.add(new FileContentChecker.Error(checkName1, line1, message1));
         test(content, expected);
     }
 
@@ -541,10 +537,10 @@ public class FileCheckerTest {
                       final String checkName1, final int line1, final String message1,
                       final String checkName2, final int line2, final String message2) {
 
-        final List<FileChecker.Error> expected = new ArrayList<>();
-        expected.add(new FileChecker.Error(checkName0, line0, message0));
-        expected.add(new FileChecker.Error(checkName1, line1, message1));
-        expected.add(new FileChecker.Error(checkName2, line2, message2));
+        final List<FileContentChecker.Error> expected = new ArrayList<>();
+        expected.add(new FileContentChecker.Error(checkName0, line0, message0));
+        expected.add(new FileContentChecker.Error(checkName1, line1, message1));
+        expected.add(new FileContentChecker.Error(checkName2, line2, message2));
         test(content, expected);
     }
 
@@ -554,58 +550,32 @@ public class FileCheckerTest {
                       final String checkName2, final int line2, final String message2,
                       final String checkName3, final int line3, final String message3) {
 
-        final List<FileChecker.Error> expected = new ArrayList<>();
-        expected.add(new FileChecker.Error(checkName0, line0, message0));
-        expected.add(new FileChecker.Error(checkName1, line1, message1));
-        expected.add(new FileChecker.Error(checkName2, line2, message2));
-        expected.add(new FileChecker.Error(checkName3, line3, message3));
+        final List<FileContentChecker.Error> expected = new ArrayList<>();
+        expected.add(new FileContentChecker.Error(checkName0, line0, message0));
+        expected.add(new FileContentChecker.Error(checkName1, line1, message1));
+        expected.add(new FileContentChecker.Error(checkName2, line2, message2));
+        expected.add(new FileContentChecker.Error(checkName3, line3, message3));
         test(content, expected);
     }
 
     private void test(final String content,
-                      final List<FileChecker.Error> expected) {
+                      final List<FileContentChecker.Error> expected) {
 
+        final FileChecker checker = new FileChecker(Paths.get("testdata"));
         final Path root = TestHelper.getTestDatapath(getClass());
-        final FileChecker checker = new FileChecker(Paths.get("testdata"), root, new DummyDataController(), new DummyViolationController());
         final Path path = root.resolve(Paths.get("dummy-dir","test.xml"));
         FileHelper.createParentDirectory(path);
         FileHelper.writeFile(path, content);
-        final List<FileChecker.Error> effective = checker.check(path);
+        final List<FileContentChecker.Error> effective = checker.check(path);
         FileHelper.deleteFile(path);
 
         Assertions.assertEquals(normalize(expected), normalize(effective));
     }
 
-    private static String normalize(final List<FileChecker.Error> errors) {
+    private static String normalize(final List<FileContentChecker.Error> errors) {
         return errors.stream()
                      .map(e -> String.format("<<%s>> [line=%02d] %s", e.checkName(), Integer.valueOf(e.lineNumber()), e.errorMessage()))
                      .sorted()
                      .collect(Collectors.joining("\n"));
-    }
-
-    private static class DummyDataController implements DataController {
-
-        @Override
-        public void handleCreation(final Path file, final Status status, final Path outputFile, final Path reportFile) {
-            // do nothing
-        }
-
-        @Override
-        public void handleDeletion(final Path file, final Status status, final Path outputFile, final Path reportFile) {
-            // do nothing
-        }
-    }
-
-    private static class DummyViolationController implements ViolationDataController {
-
-        @Override
-        public void add(Violation violation) {
-            // do nothing
-        }
-
-        @Override
-        public void remove(final Predicate<Violation> violationFilter) {
-            // do nothing
-        }
     }
 }

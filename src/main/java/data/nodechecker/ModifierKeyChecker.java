@@ -20,7 +20,7 @@ public class ModifierKeyChecker extends NodeChecker {
     private static final String s_ALT = "Alt";
     private static final String s_CTRL = "Ctrl";
 
-    private final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
+    private static final InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.MODIFIERKEY
             });
 

@@ -275,7 +275,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         _maxDuration = Duration.ofMillis(maxDuration);
     }
 
-    private final static Map<String, ChannelData> _channelData = Map.ofEntries(
+    private static final Map<String, ChannelData> _channelData = Map.ofEntries(
             new AbstractMap.SimpleEntry<>("3Blue1Brown",
                                           new ChannelData(buildList(buildAuthor("Grant", "Sanderson")),
                                                           buildMatchingList(),

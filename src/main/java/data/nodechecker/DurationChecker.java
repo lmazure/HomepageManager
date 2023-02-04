@@ -14,7 +14,7 @@ import utils.xmlparsing.ElementType;
 */
 public class DurationChecker extends NodeChecker {
 
-    private final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
+    private static final InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.DURATION
             });
 

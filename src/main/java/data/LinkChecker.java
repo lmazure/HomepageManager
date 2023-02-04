@@ -21,7 +21,7 @@ public class LinkChecker implements FileHandler {
     private final ViolationDataController _violationController;
     private final Map<Path, LinkCheckRunner> _handlers;
 
-    private final static String s_checkType = "link";
+    private static final String s_checkType = "link";
 
     /**
      * @param homepagePath path to the directory containing the pages

@@ -15,7 +15,7 @@ import org.w3c.dom.NodeList;
 */
 public class ProtectionFromURLChecker extends NodeChecker {
 
-    private final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
+    private static final InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.X
             });
 

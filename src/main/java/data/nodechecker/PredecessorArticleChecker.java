@@ -16,7 +16,7 @@ import utils.xmlparsing.XmlParsingException;
 */
 public class PredecessorArticleChecker extends NodeChecker {
 
-    private final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
+    private static final InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.ARTICLE
             });
 

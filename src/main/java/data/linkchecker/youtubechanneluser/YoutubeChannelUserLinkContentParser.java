@@ -13,7 +13,7 @@ import utils.StringHelper;
 */
 public class YoutubeChannelUserLinkContentParser {
 
-    final static Pattern PATTERN = Pattern.compile("\"alerts\":\\[\\{\"alertRenderer\":\\{\"type\":\"ERROR\",\"text\":\\{\"simpleText\":\"([^\\\"]*)\"\\}\\}\\}\\]");
+    private static final Pattern PATTERN = Pattern.compile("\"alerts\":\\[\\{\"alertRenderer\":\\{\"type\":\"ERROR\",\"text\":\\{\"simpleText\":\"([^\\\"]*)\"\\}\\}\\}\\]");
 
     private final String _data;
     private Optional<Locale> _language;

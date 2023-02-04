@@ -65,8 +65,8 @@ public class NodeValueChecker implements FileHandler {
     private final DocumentBuilder _builder;
     private final Set<NodeChecker> _nodeCheckers;
 
-    private final static Lock _lock = new ReentrantLock();
-    private final static String s_checkType = "node";
+    private static final Lock _lock = new ReentrantLock();
+    private static final String s_checkType = "node";
 
     /**
      * Constructor
