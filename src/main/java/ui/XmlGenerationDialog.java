@@ -61,7 +61,7 @@ public class XmlGenerationDialog extends Dialog<Void> {
 
         _authors = new VBox();
 
-        final String[] qualities = { "very good", "good", "average", "bad", "very bad" }; 
+        final String[] qualities = { "very good", "good", "average", "bad", "very bad" };
         _quality = new ComboBox<>(FXCollections.observableArrayList(qualities));
         _quality.getSelectionModel().select(2);
         _quality.valueProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> generateXml());

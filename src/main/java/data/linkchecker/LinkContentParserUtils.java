@@ -7,8 +7,18 @@ import java.util.Optional;
 import utils.internet.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 
+/**
+ * Helper class for the LinkDataExtractors
+ *
+ */
 public class LinkContentParserUtils {
 
+    /**
+     * Extract an author names from a string
+     * @param str string
+     * @return extracted author name
+     * @throws ContentParserException failure to extract an author name from the string
+     */
     public static AuthorData getAuthor(final String str) throws ContentParserException {
         final String[] nameParts = HtmlHelper.cleanContent(str).split(" ");
         if (nameParts.length == 2) {
@@ -50,6 +60,12 @@ public class LinkContentParserUtils {
         throw new ContentParserException("Failed to parse author name (author name has " + nameParts.length + " parts)");
     }
 
+    /**
+     * Extract author names from a string
+     * @param str string
+     * @return extracted author names
+     * @throws ContentParserException failure to extract author names from the string
+     */
     public static List<AuthorData> getAuthors(final String str) throws ContentParserException {
         final List<AuthorData> authorList = new ArrayList<>();
         final String[] splits = str.split(", and | and |, ");

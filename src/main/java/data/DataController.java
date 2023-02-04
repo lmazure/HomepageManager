@@ -5,16 +5,16 @@ import java.nio.file.Path;
 import data.FileHandler.Status;
 
 /**
- * @author Laurent
- *
+ * Track the checks following the creation and deletion of file
  */
 public interface DataController {
 
     /**
-     * @param file
-     * @param status
-     * @param outputFile
-     * @param reportFile
+     * Called when a fle is created
+     * @param file file
+     * @param status status of the checks
+     * @param outputFile report of the checks
+     * @param reportFile error report of the checks
      */
     public void handleCreation(final Path file,
                                final Status status,
@@ -22,10 +22,11 @@ public interface DataController {
                                final Path reportFile);
 
     /**
-     * @param file
-     * @param status
-     * @param outputFile
-     * @param reportFile
+     * Called when a fle is delete
+     * @param file file
+     * @param status status of the checks
+     * @param outputFile report of the checks
+     * @param reportFile error report of the checks
      */
     public void handleDeletion(final Path file,
                                final Status status,

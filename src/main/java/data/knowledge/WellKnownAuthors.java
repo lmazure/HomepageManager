@@ -4,6 +4,9 @@ import java.util.List;
 
 import utils.xmlparsing.AuthorData;
 
+/**
+ *
+ */
 public class WellKnownAuthors {
 
     private final List<AuthorData> _compulsoryAuthors;
@@ -22,6 +25,9 @@ public class WellKnownAuthors {
         return _compulsoryAuthors;
     }
 
+    /**
+     * @return indicates if some other authors are possinble
+     */
     public boolean canHaveOtherAuthors() {
         return _canHaveOtherAuthors;
     }

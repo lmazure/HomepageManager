@@ -14,6 +14,9 @@ import data.jsongenerator.ArticleComparator;
 import data.jsongenerator.Link;
 import utils.xmlparsing.LinkFormat;
 
+/**
+ *
+ */
 public class ArticleComparatorTest {
 
     @SuppressWarnings("static-method")

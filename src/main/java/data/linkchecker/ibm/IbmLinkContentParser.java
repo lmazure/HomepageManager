@@ -106,7 +106,7 @@ public class IbmLinkContentParser {
 
     /**
      * @return title
-     * @throws ContentParserException failure to extract the information
+     * @throws ContentParserException Failure to extract the information
      */
     public String getTitle() throws ContentParserException {
         if (_exception != null) {
@@ -117,7 +117,7 @@ public class IbmLinkContentParser {
 
     /**
      * @return subtitle, empty if the is none
-     * @throws ContentParserException failure to extract the information
+     * @throws ContentParserException Failure to extract the information
      */
     public String getSubtitle() throws ContentParserException {
         if (_exception != null) {
@@ -128,7 +128,7 @@ public class IbmLinkContentParser {
 
     /**
      * @return creation date, empty if there is none
-     * @throws ContentParserException failure to extract the information
+     * @throws ContentParserException Failure to extract the information
      */
     public LocalDate getDate() throws ContentParserException {
         if (_exception != null) {
@@ -139,7 +139,7 @@ public class IbmLinkContentParser {
 
     /**
      * @return authors, empty list if there is none
-     * @throws ContentParserException failure to extract the information
+     * @throws ContentParserException Failure to extract the information
      */
     public List<AuthorData> getAuthors() throws ContentParserException {
         if (_exception != null) {

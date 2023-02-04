@@ -15,12 +15,12 @@ public class AuthorData {
     private final Optional<String> _givenName;
 
     /**
-     * @param namePrefix
-     * @param firstName
-     * @param middleName
-     * @param lastName
-     * @param nameSuffix
-     * @param givenName
+     * @param namePrefix prefix
+     * @param firstName first name
+     * @param middleName middle name
+     * @param lastName last name
+     * @param nameSuffix suffix
+     * @param givenName given name
      */
     public AuthorData(final Optional<String> namePrefix,
                       final Optional<String> firstName,
@@ -75,26 +75,44 @@ public class AuthorData {
                _nameSuffix.equals(other._nameSuffix);
     }
 
+    /**
+     * @return prefix
+     */
     public Optional<String> getNamePrefix() {
         return _namePrefix;
     }
 
+    /**
+     * @return first name
+     */
     public Optional<String> getFirstName() {
         return _firstName;
     }
 
+    /**
+     * @return middle name
+     */
     public Optional<String> getMiddleName() {
         return _middleName;
     }
 
+    /**
+     * @return last name
+     */
     public Optional<String> getLastName() {
         return _lastName;
     }
 
+    /**
+     * @return suffix
+     */
     public Optional<String> getNameSuffix() {
         return _nameSuffix;
     }
 
+    /**
+     * @return given name
+     */
     public Optional<String> getGivenName() {
         return _givenName;
     }

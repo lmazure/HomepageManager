@@ -21,34 +21,35 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import data.nodechecker.checker.nodechecker.ArticleDateChecker;
-import data.nodechecker.checker.nodechecker.AuthorsChecker;
-import data.nodechecker.checker.nodechecker.BritishChecker;
-import data.nodechecker.checker.nodechecker.CommentChecker;
-import data.nodechecker.checker.nodechecker.DateChecker;
-import data.nodechecker.checker.nodechecker.DoubleSpaceChecker;
-import data.nodechecker.checker.nodechecker.DurationChecker;
-import data.nodechecker.checker.nodechecker.DurationPresenceChecker;
-import data.nodechecker.checker.nodechecker.EllipsisChecker;
-import data.nodechecker.checker.nodechecker.ExtremitySpaceChecker;
-import data.nodechecker.checker.nodechecker.FormatFromURLChecker;
-import data.nodechecker.checker.nodechecker.IncorrectSpaceChecker;
-import data.nodechecker.checker.nodechecker.KeyChecker;
-import data.nodechecker.checker.nodechecker.MiddleNewlineChecker;
-import data.nodechecker.checker.nodechecker.ModifierKeyChecker;
-import data.nodechecker.checker.nodechecker.NodeCheckError;
-import data.nodechecker.checker.nodechecker.NodeChecker;
-import data.nodechecker.checker.nodechecker.NonEmptyChecker;
-import data.nodechecker.checker.nodechecker.NonNormalizedAuthorChecker;
-import data.nodechecker.checker.nodechecker.NonNormalizedURLChecker;
-import data.nodechecker.checker.nodechecker.PredecessorArticleChecker;
-import data.nodechecker.checker.nodechecker.ProtectionFromURLChecker;
-import data.nodechecker.checker.nodechecker.SpaceBetweenTagsChecker;
-import data.nodechecker.checker.nodechecker.TableSortChecker;
-import data.nodechecker.checker.nodechecker.TitleFormatChecker;
-import data.nodechecker.checker.nodechecker.URLProtocolChecker;
+import data.nodechecker.ArticleDateChecker;
+import data.nodechecker.AuthorsChecker;
+import data.nodechecker.BritishChecker;
+import data.nodechecker.CommentChecker;
+import data.nodechecker.DateChecker;
+import data.nodechecker.DoubleSpaceChecker;
+import data.nodechecker.DurationChecker;
+import data.nodechecker.DurationPresenceChecker;
+import data.nodechecker.EllipsisChecker;
+import data.nodechecker.ExtremitySpaceChecker;
+import data.nodechecker.FormatFromURLChecker;
+import data.nodechecker.IncorrectSpaceChecker;
+import data.nodechecker.KeyChecker;
+import data.nodechecker.MiddleNewlineChecker;
+import data.nodechecker.ModifierKeyChecker;
+import data.nodechecker.NodeCheckError;
+import data.nodechecker.NodeChecker;
+import data.nodechecker.NonEmptyChecker;
+import data.nodechecker.NonNormalizedAuthorChecker;
+import data.nodechecker.NonNormalizedURLChecker;
+import data.nodechecker.PredecessorArticleChecker;
+import data.nodechecker.ProtectionFromURLChecker;
+import data.nodechecker.SpaceBetweenTagsChecker;
+import data.nodechecker.TableSortChecker;
+import data.nodechecker.TitleFormatChecker;
+import data.nodechecker.URLProtocolChecker;
 import utils.ExitHelper;
 import utils.FileHelper;
+import utils.FileNameHelper;
 import utils.Logger;
 import utils.XmlHelper;
 
@@ -60,22 +61,28 @@ public class NodeValueChecker implements FileHandler {
     private final Path _homepagePath;
     private final Path _tmpPath;
     private final DataController _controller;
+    private final ViolationDataController _violationController;
     private final DocumentBuilder _builder;
     private final Set<NodeChecker> _nodeCheckers;
 
     private final static Lock _lock = new ReentrantLock();
+    private final static String s_checkType = "node";
 
     /**
+     * Constructor
      * @param homepagePath path to the directory containing the pages
      * @param tmpPath path to the directory containing the temporary files and log files
-     * @param controller
+     * @param controller controller to notify of additional / removed violations
+     * @param violationController controller to notify of additional / removed violations
      */
     public NodeValueChecker(final Path homepagePath,
                             final Path tmpPath,
-                            final DataController controller) {
+                            final DataController controller,
+                            final ViolationDataController violationController) {
         _homepagePath = homepagePath;
         _tmpPath = tmpPath;
         _controller = controller;
+        _violationController = violationController;
         _lock.lock();
         try {
             _builder = XmlHelper.buildDocumentBuilder();
@@ -83,30 +90,31 @@ public class NodeValueChecker implements FileHandler {
             _lock.unlock();
         }
         _nodeCheckers = new HashSet<>();
-        _nodeCheckers.add(new ExtremitySpaceChecker());
-        _nodeCheckers.add(new MiddleNewlineChecker());
-        _nodeCheckers.add(new EllipsisChecker());
-        _nodeCheckers.add(new DoubleSpaceChecker());
-        _nodeCheckers.add(new AuthorsChecker());
         _nodeCheckers.add(new ArticleDateChecker());
-        _nodeCheckers.add(new PredecessorArticleChecker());
-        _nodeCheckers.add(new IncorrectSpaceChecker());
-        _nodeCheckers.add(new TitleFormatChecker());
-        _nodeCheckers.add(new NonEmptyChecker());
-        _nodeCheckers.add(new FormatFromURLChecker());
-        _nodeCheckers.add(new NonNormalizedURLChecker());
-        _nodeCheckers.add(new NonNormalizedAuthorChecker());
-        _nodeCheckers.add(new TableSortChecker());
-        _nodeCheckers.add(new DurationPresenceChecker());
-        _nodeCheckers.add(new URLProtocolChecker());
+        _nodeCheckers.add(new AuthorsChecker());
+        _nodeCheckers.add(new BritishChecker());
+        _nodeCheckers.add(new CommentChecker());
         _nodeCheckers.add(new DateChecker());
-        _nodeCheckers.add(new ModifierKeyChecker());
-        _nodeCheckers.add(new KeyChecker());
+        _nodeCheckers.add(new DoubleSpaceChecker());
         _nodeCheckers.add(new DurationChecker());
+        _nodeCheckers.add(new DurationPresenceChecker());
+        _nodeCheckers.add(new EllipsisChecker());
+        _nodeCheckers.add(new ExtremitySpaceChecker());
+        _nodeCheckers.add(new FormatFromURLChecker());
+        _nodeCheckers.add(new IncorrectSpaceChecker());
+        _nodeCheckers.add(new KeyChecker());
+        _nodeCheckers.add(new MiddleNewlineChecker());
+        _nodeCheckers.add(new ModifierKeyChecker());
+        _nodeCheckers.add(new NonEmptyChecker());
+        _nodeCheckers.add(new NonNormalizedAuthorChecker());
+        _nodeCheckers.add(new NonNormalizedURLChecker());
+        _nodeCheckers.add(new PredecessorArticleChecker());
         _nodeCheckers.add(new ProtectionFromURLChecker());
         _nodeCheckers.add(new SpaceBetweenTagsChecker());
-        _nodeCheckers.add(new CommentChecker());
-        _nodeCheckers.add(new BritishChecker());
+        _nodeCheckers.add(new TableSortChecker());
+        _nodeCheckers.add(new TitleFormatChecker());
+        _nodeCheckers.add(new URLProtocolChecker());
+
     }
 
     @Override
@@ -121,11 +129,17 @@ public class NodeValueChecker implements FileHandler {
             final List<NodeCheckError> errors = check(file);
             if (errors.size() > 0) {
                 for (final NodeCheckError error: errors) {
-                    pw.println(" tag = \""       + error.tag()       + "\"" +
-                               " value = \""     + error.value()     + "\"" +
-                               " violation = \"" + error.violation() + "\"" +
-                               " detail = \""    + error.detail()    + "\"");
-
+                    final String message = " tag = \""       + error.tag()       + "\"\n" +
+                                           " value = \""     + error.value()     + "\"\n" +
+                                           " violation = \"" + error.violation() + "\"\n" +
+                                           " detail = \""    + error.detail()    + "\"\n";
+                    pw.println(message);
+                    _violationController.add(new Violation(file.toString(),
+                                                           s_checkType,
+                                                           error.checkName(),
+                                                           new ViolationLocationUnknown(),
+                                                           message,
+                                                           error.correction()));
                 }
                 status = Status.HANDLED_WITH_ERROR;
                 Logger.log(Logger.Level.INFO)
@@ -178,16 +192,17 @@ public class NodeValueChecker implements FileHandler {
         FileHelper.deleteFile(getReportFile(file));
 
         _controller.handleDeletion(file, Status.HANDLED_WITH_SUCCESS, getOutputFile(file), getReportFile(file));
-    }
+
+        _violationController.remove(v -> (v.getFile().equals(file.toString()) && v.getType().equals(s_checkType)));    }
 
     @Override
     public Path getOutputFile(final Path file) {
-        return FileHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_nodevaluecheck", "txt");
+        return FileNameHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_nodevaluecheck", "txt");
     }
 
     @Override
     public Path getReportFile(final Path file) {
-         return FileHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_report_nodevaluecheck", "txt");
+         return FileNameHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_report_nodevaluecheck", "txt");
     }
 
     @Override

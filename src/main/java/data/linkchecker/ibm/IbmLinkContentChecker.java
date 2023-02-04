@@ -41,7 +41,8 @@ public class IbmLinkContentChecker extends LinkContentChecker {
     {
         _parser = new IbmLinkContentParser(data, _url);
         if (_parser.articleIsLost()) {
-            return new LinkContentCheck("article is lost");
+            return new LinkContentCheck("LostArticle",
+                                        "article is lost");
         }
 
         return null;
@@ -54,7 +55,8 @@ public class IbmLinkContentChecker extends LinkContentChecker {
         final String effectiveTitle = _parser.getTitle();
 
         if (!title.equals(effectiveTitle)) {
-            return new LinkContentCheck("title \"" +
+            return new LinkContentCheck("WrongTitle",
+                                        "title \"" +
                                         title +
                                         "\" is not equal to the real title \"" +
                                         effectiveTitle +
@@ -69,14 +71,16 @@ public class IbmLinkContentChecker extends LinkContentChecker {
                                                   final String[] subtitles) throws ContentParserException
     {
         if (subtitles.length != 1) {
-            return new LinkContentCheck("IBM article should have one subtitle");
+            return new LinkContentCheck("MissingSubtitle",
+                                        "IBM article should have one subtitle");
         }
 
 
         final String effectiveSubtitle = _parser.getSubtitle();
 
         if (!subtitles[0].equals(effectiveSubtitle)) {
-            return new LinkContentCheck("subtitle \"" +
+            return new LinkContentCheck("WrongSubtitle",
+                                        "subtitle \"" +
                                         subtitles[0] +
                                         "\" is not equal to the real subtitle \"" +
                                         effectiveSubtitle +
@@ -91,7 +95,8 @@ public class IbmLinkContentChecker extends LinkContentChecker {
                                                   final Locale[] languages)
     {
         if ((languages.length != 1) || (languages[0] != Locale.ENGLISH)) {
-            return new LinkContentCheck("IBM article should have the language set as English");
+            return new LinkContentCheck("WrongLanguage",
+                                        "IBM article should have the language set as English");
         }
 
         return null;
@@ -103,7 +108,8 @@ public class IbmLinkContentChecker extends LinkContentChecker {
                                                 final Optional<TemporalAccessor> creationDate) throws ContentParserException
     {
         if (creationDate.isEmpty()) {
-            return new LinkContentCheck("IBM article should have a creation date");
+            return new LinkContentCheck("MissingCreationDate",
+                                        "IBM article should have a creation date");
         }
         final TemporalAccessor date =  publicationDate.isPresent() ? publicationDate.get()
                                                                    : creationDate.get();
@@ -111,7 +117,8 @@ public class IbmLinkContentChecker extends LinkContentChecker {
         final LocalDate effectiveDate = _parser.getDate();
 
         if (!date.equals(effectiveDate)) {
-            return new LinkContentCheck("expected publication date " +
+            return new LinkContentCheck("WrongDate",
+                                        "expected date " +
                                         date +
                                         " is not equal to the effective date " +
                                         effectiveDate);
@@ -127,7 +134,8 @@ public class IbmLinkContentChecker extends LinkContentChecker {
         final List<AuthorData> effectiveAuthor = _parser.getAuthors();
 
         if (effectiveAuthor.size() != authors.size()) {
-            return new LinkContentCheck("The number of authors (" +
+            return new LinkContentCheck("WrongAuthors",
+                                        "The number of authors (" +
                                         authors.size() +
                                         ") is not equal to the effective number of authors (" +
                                         effectiveAuthor.size() +
@@ -136,7 +144,8 @@ public class IbmLinkContentChecker extends LinkContentChecker {
 
         for (int i=0; i < authors.size(); i++) {
             if (!effectiveAuthor.get(i).equals(authors.get(i))) {
-                return new LinkContentCheck("The expected author (" +
+                return new LinkContentCheck("WrongAuthors",
+                                            "The expected author (" +
                                             authors.get(i) +
                                             ") is not equal to the effective author (" +
                                             effectiveAuthor.get(i) +

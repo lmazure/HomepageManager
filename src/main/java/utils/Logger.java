@@ -3,7 +3,7 @@ package utils;
 import java.time.Instant;
 
 /**
- *
+ * Logger
  */
 public class Logger {
 

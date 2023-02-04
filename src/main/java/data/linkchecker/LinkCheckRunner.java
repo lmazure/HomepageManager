@@ -25,6 +25,9 @@ import org.w3c.dom.NodeList;
 
 import data.BackgroundDataController;
 import data.FileHandler.Status;
+import data.Violation;
+import data.ViolationDataController;
+import data.ViolationLocationUnknown;
 import data.internet.FullFetchedLinkData;
 import data.internet.HeaderFetchedLinkData;
 import data.internet.SiteDataRetriever;
@@ -42,7 +45,7 @@ import utils.xmlparsing.XmlParser;
 import utils.xmlparsing.XmlParsingException;
 
 /**
- * Execute the checks on all link of an XML file
+ * Execute the checks on all links of an XML file
  */
 public class LinkCheckRunner {
 
@@ -55,6 +58,8 @@ public class LinkCheckRunner {
     private int _nbSitesRemainingToBeChecked;
     private boolean _isCancelled;
     private final BackgroundDataController _controller;
+    private final ViolationDataController _violationController;
+    private final String _checkType;
     private final SiteDataRetriever _retriever;
     private final DocumentBuilder _builder;
     private final Path _outputFile;
@@ -64,12 +69,16 @@ public class LinkCheckRunner {
      * @param file XML file to be checked
      * @param cachePath directory where the persistence files are written
      * @param controller controller
+     * @param violationController violation controller
+     * @param checkType Check type to use when recording the violations
      * @param ouputFile file into which the found violated checks are written
-     * @param reportFile file into which technical error occuring during the check are written
+     * @param reportFile file into which technical error occurring during the check are written
      */
     public LinkCheckRunner(final Path file,
                            final Path cachePath,
                            final BackgroundDataController controller,
+                           final ViolationDataController violationController,
+                           final String checkType,
                            final Path ouputFile,
                            final Path reportFile) {
         _file = file;
@@ -81,6 +90,8 @@ public class LinkCheckRunner {
         _builder = XmlHelper.buildDocumentBuilder();
         _retriever = new SiteDataRetriever(cachePath);
         _controller = controller;
+        _violationController = violationController;
+        _checkType = checkType;
         _outputFile = ouputFile;
         _reportFile = reportFile;
     }
@@ -200,12 +211,7 @@ public class LinkCheckRunner {
                 continue;
             }
             if (url.indexOf(":") < 0) {
-                // TODO implement check of local links
-                Logger.log(Logger.Level.INFO)
-                      .append("TBD: local link ")
-                      .append(url)
-                      .append(" is not checked")
-                      .submit();
+                // local links are checked in a file checker
                 continue;
             }
             if (url.startsWith("ftp:")) {
@@ -336,8 +342,21 @@ public class LinkCheckRunner {
         for (final String url : _effectiveData.keySet()) {
             final LinkData expectedData = _expectedData.get(url);
             final FullFetchedLinkData effectiveData = _effectiveData.get(url);
-            final StringBuilder builder = isOneDataExpected(expectedData, effectiveData) ? ok : ko;
-            appendLivenessCheckResult(url, expectedData, effectiveData, builder);
+            final boolean isDataExpected = isOneDataExpected(expectedData, effectiveData);
+            if (isDataExpected) {
+                appendLivenessCheckResult(url, expectedData, effectiveData, ok);
+            } else {
+                final StringBuilder temp = new StringBuilder();
+                appendLivenessCheckResult(url, expectedData, effectiveData, temp);
+                ko.append(temp.toString());
+                ko.append('\n');
+                _violationController.add(new Violation(_file.toString(),
+                                                       _checkType,
+                                                       "WrongLiveness",
+                                                       new ViolationLocationUnknown(),
+                                                       temp.toString(),
+                                                       Optional.empty()));
+            }
             if (_checks.containsKey(url) && !_checks.get(url).isEmpty()) {
                 checks.append('\n');
                 checks.append(url);
@@ -345,6 +364,12 @@ public class LinkCheckRunner {
                 for (final LinkContentCheck c: _checks.get(url)) {
                     checks.append(c.getDescription());
                     checks.append('\n');
+                    _violationController.add(new Violation(_file.toString(),
+                                                           _checkType,
+                                                           c.getCheckName(),
+                                                           new ViolationLocationUnknown(),
+                                                           url + "\n" + c.getDescription(),
+                                                           Optional.empty()));
                 }
             }
         }
@@ -400,7 +425,6 @@ public class LinkCheckRunner {
             googleUrl.append("+%22" + URLEncoder.encode(st, StandardCharsets.UTF_8) + "%22");
         }
         builder.append("Look for article = " + googleUrl.toString() + "\n");
-        builder.append("\n");
     }
 
     private static String extractPrintableHttpCode(final Optional<Map<String, List<String>>> headers) {

@@ -8,7 +8,7 @@ import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkData;
 
 /**
-*
+* Check data of an Ars Technical link
 */
 public class ArsTechnicaLinkContentChecker extends ExtractorBasedLinkContentChecker {
 

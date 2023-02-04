@@ -22,6 +22,9 @@ import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkData;
 import utils.xmlparsing.LinkFormat;
 
+/**
+ *
+ */
 public class LinkContentChecker {
 
     private final String _url;
@@ -30,6 +33,12 @@ public class LinkContentChecker {
     private final FileSection _file;
     private LinkContentParser _parser;
 
+    /**
+     * @param url
+     * @param linkData
+     * @param articleData
+     * @param file
+     */
     public LinkContentChecker(final String url,
                               final LinkData linkData,
                               final Optional<ArticleData> articleData,
@@ -40,6 +49,10 @@ public class LinkContentChecker {
         _file = file;
     }
 
+    /**
+     * @return
+     * @throws ContentParserException Failure to extract the information
+     */
     public final List<LinkContentCheck> check() throws ContentParserException {
         final String content = HtmlHelper.slurpFile(_file);
         final Pattern p = Pattern.compile("</HTML>\\p{Space}*$", Pattern.CASE_INSENSITIVE);
@@ -56,6 +69,11 @@ public class LinkContentChecker {
         }
     }
 
+    /**
+     * @param data
+     * @return
+     * @throws ContentParserException Failure to extract the information
+     */
     public final List<LinkContentCheck> check(final String data) throws ContentParserException {
 
         final List<LinkContentCheck> checks = new ArrayList<>();
@@ -119,7 +137,7 @@ public class LinkContentChecker {
     }
 
     /**
-     * @throws ContentParserException
+     * @throws ContentParserException Failure to extract the information
      */
     @SuppressWarnings("static-method")
     protected LinkContentCheck checkGlobalData(@SuppressWarnings("unused") final String data) throws ContentParserException
@@ -128,7 +146,7 @@ public class LinkContentChecker {
     }
 
     /**
-     * @throws ContentParserException
+     * @throws ContentParserException Failure to extract the information
      */
     @SuppressWarnings("static-method")
     protected LinkContentCheck checkLinkTitle(final String data,
@@ -138,7 +156,7 @@ public class LinkContentChecker {
     }
 
     /**
-     * @throws ContentParserException
+     * @throws ContentParserException Failure to extract the information
      */
     @SuppressWarnings("static-method")
     protected LinkContentCheck checkLinkSubtitles(final String data,
@@ -154,7 +172,7 @@ public class LinkContentChecker {
     }
 
     /**
-     * @throws ContentParserException
+     * @throws ContentParserException Failure to extract the information
      */
     protected LinkContentCheck checkLinkAuthors(final String data,
                                                 final List<AuthorData> authors) throws ContentParserException
@@ -176,7 +194,7 @@ public class LinkContentChecker {
     }
 
     /**
-     * @throws ContentParserException
+     * @throws ContentParserException Failure to extract the information
      */
     @SuppressWarnings("static-method")
     protected LinkContentCheck checkLinkDuration(@SuppressWarnings("unused") final String data,
@@ -186,7 +204,7 @@ public class LinkContentChecker {
     }
 
     /**
-     * @throws ContentParserException
+     * @throws ContentParserException Failure to extract the information
      */
     protected LinkContentCheck checkLinkLanguages(final String data,
                                                   final Locale[] languages) throws ContentParserException
@@ -200,14 +218,18 @@ public class LinkContentChecker {
         if (language.isPresent() &&
             !Arrays.asList(languages).contains(language.get())) {
             final String languagesAsString = Arrays.stream(languages).map(l -> l.toString()).collect(Collectors.joining(", "));
-            return new LinkContentCheck("language is \"" + language.get() + "\" but this one is unexpected, the expected languages are: " + languagesAsString);
+            return new LinkContentCheck("WrongLanguage",
+                                        "language is \"" +
+                                        language.get() +
+                                        "\" but this one is unexpected, the expected languages are: " +
+                                        languagesAsString);
         }
 
         return null;
     }
 
     /**
-     * @throws ContentParserException
+     * @throws ContentParserException Failure to extract the information
      */
     @SuppressWarnings("static-method")
     protected LinkContentCheck checkArticleDate(@SuppressWarnings("unused") final String data,
@@ -238,7 +260,7 @@ public class LinkContentChecker {
             final String message = "The list of effective authors is not the effective one."
                                    + "\nThe following authors are effectively present but are unexpected: " + unexpectedAuthors.stream().map(a-> a.toString()).collect(Collectors.joining(","))
                                    + "\nThe following authors are expected but are effectively missing: " + missingAuthors.stream().map(a-> a.toString()).collect(Collectors.joining(","));
-            return new LinkContentCheck(message);
+            return new LinkContentCheck("WrongAuthors", message);
 
         }
 
@@ -247,7 +269,7 @@ public class LinkContentChecker {
                 final String message = "The list of effective authors is not ordered as the effective one."
                         + "\nexpected authors: " + expectedAuthors.stream().map(a-> a.toString()).collect(Collectors.joining(","))
                         + "\neffective authors: " + effectiveAuthors.stream().map(a-> a.toString()).collect(Collectors.joining(","));
-                return new LinkContentCheck(message);
+                return new LinkContentCheck("WrongAuthors", message);
             }
         }
 
@@ -261,7 +283,8 @@ public class LinkContentChecker {
         if (StringHelper.generalizedIndex(d, expectedTitle, false, false) < 0) {
             final int i1 = StringHelper.generalizedIndex(d, expectedTitle, true, false);
             if (i1 >= 0) {
-                return new LinkContentCheck(description +
+                return new LinkContentCheck("WrongTitle",
+                                            description +
                                             " \"" +
                                             expectedTitle +
                                             "\" does not appear in the page, this is a problem of casing, the real title is \"" +
@@ -270,7 +293,8 @@ public class LinkContentChecker {
             }
             final int i2 = StringHelper.generalizedIndex(d, expectedTitle, false, true);
             if (i2 >= 0) {
-                return new LinkContentCheck(description +
+                return new LinkContentCheck("WrongTitle",
+                                            description +
                                             " \"" +
                                             expectedTitle +
                                             "\" does not appear in the page, this is a problem of space, the real title is \"" +
@@ -279,14 +303,16 @@ public class LinkContentChecker {
             }
             final int i3 = StringHelper.generalizedIndex(d, expectedTitle, false, true);
             if (i3 >= 0) {
-                return new LinkContentCheck(description +
+                return new LinkContentCheck("WrongTitle",
+                                            description +
                                             " \"" +
                                             expectedTitle +
                                             "\" does not appear in the page, this is a problem of casing and space, the real title is \"" +
                                             d.substring(i3, i3 + expectedTitle.length()) +
                                             "\"");
             }
-            return new LinkContentCheck(description +
+            return new LinkContentCheck("WrongTitle",
+                                        description +
                                         " \"" +
                                         expectedTitle +
                                         "\" does not appear in the page");
@@ -301,7 +327,8 @@ public class LinkContentChecker {
                                                                   : author.getFirstName().isPresent() ? author.getFirstName().get()
                                                                                                       : author.getGivenName().get();
         if (StringHelper.generalizedIndex(d, authorStr, true, false) < 0) {
-            return new LinkContentCheck("author \"" + authorStr + "\" does not appear in the page");
+            return new LinkContentCheck("WrongAuthors",
+                                        "author \"" + authorStr + "\" does not appear in the page");
         }
         return null;
     }

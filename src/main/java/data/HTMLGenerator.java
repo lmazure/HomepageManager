@@ -24,6 +24,7 @@ import org.w3c.dom.Document;
 
 import utils.ExitHelper;
 import utils.FileHelper;
+import utils.FileNameHelper;
 import utils.Logger;
 
 /**
@@ -46,7 +47,7 @@ public class HTMLGenerator implements FileHandler {
      *
      * @param homepagePath path to the directory containing the pages
      * @param tmpPath path to the directory containing the temporary files and log files
-     * @param controller
+     * @param controller controller to notify of additional / removed violations
      */
     public HTMLGenerator(final Path homepagePath,
                          final Path tmpPath,
@@ -130,12 +131,12 @@ public class HTMLGenerator implements FileHandler {
 
     @Override
     public Path getOutputFile(final Path file) {
-        return FileHelper.computeTargetFile(_homepagePath, _homepagePath, file, "", "html");
+        return FileNameHelper.computeTargetFile(_homepagePath, _homepagePath, file, "", "html");
     }
 
     @Override
     public Path getReportFile(final Path file) {
-        return FileHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_report_html", "txt");
+        return FileNameHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_report_html", "txt");
     }
 
     private Path getSylesheetFile() {

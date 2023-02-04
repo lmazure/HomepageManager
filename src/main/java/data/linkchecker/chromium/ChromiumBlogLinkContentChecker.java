@@ -45,7 +45,8 @@ public class ChromiumBlogLinkContentChecker extends LinkContentChecker {
         final String effectiveTitle = _parser.getTitle();
 
         if (!title.equals(effectiveTitle)) {
-            return new LinkContentCheck("title \"" +
+            return new LinkContentCheck("WrongTitle",
+                                        "title \"" +
                                         title +
                                         "\" is not equal to the real title \"" +
                                         effectiveTitle +
@@ -62,18 +63,21 @@ public class ChromiumBlogLinkContentChecker extends LinkContentChecker {
     {
 
         if (creationDate.isEmpty()) {
-            return new LinkContentCheck("Medium link with no creation date");
+            return new LinkContentCheck("MissingCreationDate",
+                                        "Medium link with no creation date");
         }
 
         if (!(creationDate.get() instanceof LocalDate)) {
-            return new LinkContentCheck("Date without month or day");
+            return new LinkContentCheck("IncorrectCreationDate",
+                                        "Date without month or day");
         }
 
         final LocalDate expectedDate = (LocalDate)creationDate.get();
         final LocalDate effectivePublishDate = _parser.getPublicationDate();
 
         if (!expectedDate.equals(effectivePublishDate)) {
-            return new LinkContentCheck("expected date " +
+            return new LinkContentCheck("WrongCreationDate",
+                                        "expected date " +
                                         expectedDate +
                                         " is not equal to the effective publish date " +
                                         effectivePublishDate);

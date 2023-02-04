@@ -42,7 +42,8 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
         super.checkGlobalData(data);
         _parser = (YoutubeWatchLinkContentParser)(getParser()); // TODO cleanup this crap
         if (!_parser.isPlayable()) {
-            return new LinkContentCheck("video is not playable");
+            return new LinkContentCheck("VideoNotPlayable",
+                                        "video is not playable");
         }
 
         return null;
@@ -52,7 +53,7 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
     protected LinkContentCheck checkLinkAuthors(final String data,
                                                 final List<AuthorData> authors)
     {
-        return null; //TODO We will have to check YT authors somewhere in the future
+        return null; //TODO We will have to check YT authors sometime in the future
     }
 
     @Override
@@ -64,7 +65,8 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
 
         if ((expectedDuration.compareTo(effectiveMinDuration) < 0) ||
             (expectedDuration.compareTo(effectiveMaxDuration) > 0)) {
-            return new LinkContentCheck("expected duration " +
+            return new LinkContentCheck("WrongDuration",
+                                        "expected duration " +
                                         expectedDuration +
                                         " is not in the real duration interval [" +
                                         effectiveMinDuration +
@@ -83,13 +85,15 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
     {
 
         if (creationDate.isEmpty() && publicationDate.isEmpty()) {
-            return new LinkContentCheck("YouTube link with neither creation date not publication date");
+            return new LinkContentCheck("MissingDate",
+                                        "YouTube link with neither creation date not publication date");
         }
 
         final TemporalAccessor date = publicationDate.isPresent() ? publicationDate.get() : creationDate.get();
 
         if (!(date instanceof LocalDate)) {
-            return new LinkContentCheck("Date without month or day");
+            return new LinkContentCheck("IncorrectDate",
+                                        "Date without month or day");
        }
 
         final LocalDate expectedDate = (LocalDate)date;
@@ -97,14 +101,16 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
         final LocalDate effectiveUploadDate = _parser.getUploadDateInternal();
 
         if (!expectedDate.equals(effectivePublishDate)) {
-            return new LinkContentCheck("expected date " +
+            return new LinkContentCheck("WrongDate",
+                                        "expected date " +
                                         expectedDate +
                                         " is not equal to the effective publish date " +
                                         effectivePublishDate);
        }
 
        if (!expectedDate.equals(effectiveUploadDate)) {
-            return new LinkContentCheck("expected date " +
+            return new LinkContentCheck("WrongDate",
+                                        "expected date " +
                                         expectedDate +
                                         " is not equal to the effective upload date " +
                                         effectivePublishDate);
@@ -118,7 +124,10 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
                                                   final Locale[] languages) throws ContentParserException
     {
         if (!Arrays.asList(languages).contains(_parser.getLanguage())) {
-            return new LinkContentCheck("language is \"" + _parser.getLanguage() + "\" but this one is unexpected");
+            return new LinkContentCheck("WrongLanguage",
+                                        "language is \"" +
+                                        _parser.getLanguage() +
+                                        "\" but this one is unexpected");
         }
 
         return null;

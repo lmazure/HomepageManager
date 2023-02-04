@@ -180,7 +180,7 @@ public class SynchronousSiteDataRetriever {
                                            e);
             }
         }
-        
+
         try (final InputStream gzipReader = new GZIPInputStream(httpConnection.getInputStream())) {
             final byte[] bytes = gzipReader.readAllBytes();
             return new String(bytes, StandardCharsets.UTF_8);

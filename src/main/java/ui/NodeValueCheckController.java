@@ -25,7 +25,7 @@ public class NodeValueCheckController extends GenericUiController {
         final TableColumn<ObservableFile, String> statusColumn = new TableColumn<>("Status");
         statusColumn.setPrefWidth(172);
         statusColumn.setCellValueFactory(f -> f.getValue().getNodeValueCheckProperty());
-        statusColumn.setCellFactory(p -> { return new UpdatableButtonCell<>(f -> ActionHelper.displayFile(f.getNodeValueCheckReportFile()),
+        statusColumn.setCellFactory(p -> { return new ColoredUpdatableButtonCell<>(f -> ActionHelper.displayFile(f.getNodeValueCheckReportFile()),
                                                                             StatusRepresentation.getColorMap());});
         allColumns.getColumns().add(statusColumn);
 

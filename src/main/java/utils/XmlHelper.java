@@ -24,7 +24,7 @@ import org.xml.sax.SAXException;
 import utils.xmlparsing.ElementType;
 
 /**
- *
+ * Tools to manage XML
  */
 public class XmlHelper {
 

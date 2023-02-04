@@ -10,6 +10,7 @@ import data.FileHandler;
 import data.HTMLGenerator;
 import data.LinkChecker;
 import data.NodeValueChecker;
+import data.ViolationDataController;
 import javafx.application.Application;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -36,6 +37,7 @@ public class FileTable extends Application {
     private static final String s_cacheFolderName = "internet_cache";
     private static boolean s_internetAccessIsEnabled;
     private static ObservableFileList s_list;
+    private static ObservableViolationList s_violationList;
 
     @Override
     public void start(final Stage stage) {
@@ -48,19 +50,21 @@ public class FileTable extends Application {
         uiControllers.add(htmlFileController);
         fileHandlers.add(htmlFileGenerator);
 
+        final ViolationDataController violationDataController = s_violationList;
+
         final FileCheckController fileCheckController = new FileCheckController(s_list);
-        final FileChecker fileCheckGenerator = new FileChecker(s_homepagePath, s_tmpPath, fileCheckController);
+        final FileChecker fileCheckGenerator = new FileChecker(s_homepagePath, s_tmpPath, fileCheckController, violationDataController);
         uiControllers.add(fileCheckController);
         fileHandlers.add(fileCheckGenerator);
 
         final NodeValueCheckController nodeCheckController = new NodeValueCheckController(s_list);
-        final NodeValueChecker nodeValueCheckGenerator = new NodeValueChecker(s_homepagePath, s_tmpPath, nodeCheckController);
+        final NodeValueChecker nodeValueCheckGenerator = new NodeValueChecker(s_homepagePath, s_tmpPath, nodeCheckController, violationDataController);
         uiControllers.add(nodeCheckController);
         fileHandlers.add(nodeValueCheckGenerator);
 
         if (s_internetAccessIsEnabled) {
             final LinkCheckController linkCheckController = new LinkCheckController(s_list);
-            final LinkChecker linkCheckGenerator = new LinkChecker(s_homepagePath, s_tmpPath, s_cacheFolderName, linkCheckController);
+            final LinkChecker linkCheckGenerator = new LinkChecker(s_homepagePath, s_tmpPath, s_cacheFolderName, linkCheckController, violationDataController);
             uiControllers.add(linkCheckController);
             fileHandlers.add(linkCheckGenerator);
         }
@@ -72,6 +76,10 @@ public class FileTable extends Application {
 
         final MenuBar menuBar = new MenuBar();
         final Menu menu = new Menu("Tools");
+        final MenuItem displayViolations = new MenuItem("Display violations");
+        displayViolations.setAccelerator(new KeyCodeCombination(KeyCode.E, KeyCombination.CONTROL_DOWN));
+        displayViolations.setOnAction(e -> displayViolations());
+        menu.getItems().add(displayViolations);
         final MenuItem generateFiles = new MenuItem("Generate global files");
         generateFiles.setAccelerator(new KeyCodeCombination(KeyCode.G, KeyCombination.CONTROL_DOWN));
         generateFiles.setOnAction(e -> generateGlobalFiles());
@@ -163,8 +171,14 @@ public class FileTable extends Application {
         s_tmpPath = tmpPath;
         s_internetAccessIsEnabled = internetAccessiSEnabled;
         s_list = new ObservableFileList();
+        s_violationList = new ObservableViolationList();
         launch();
     }
+
+    private static void displayViolations() {
+        final ViolationTable violationTable = new ViolationTable(s_violationList.getObservableList());
+        violationTable.show();
+     }
 
     @SuppressWarnings("unused")
     private static void generateGlobalFiles() {

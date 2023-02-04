@@ -6,9 +6,12 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 
+/**
+ * Tools for managing strings
+ */
 public class StringHelper {
 
-    public static final Set<String> englishWords = new HashSet<>(Arrays.asList(
+    private static final Set<String> englishWords = new HashSet<>(Arrays.asList(
             "a", "an",
             "the",
             "this", "that", "these",
@@ -40,7 +43,7 @@ public class StringHelper {
             "japan"
         ));
 
-    public static final Set<String> frenchWords = new HashSet<>(Arrays.asList(
+    private static final Set<String> frenchWords = new HashSet<>(Arrays.asList(
             "un", "une",
             "le", "la", "les",
             "ces", "cet", "cette",
@@ -72,6 +75,11 @@ public class StringHelper {
             "japon"
         ));
 
+    /**
+     * Guess the langage of s string
+     * @param text string
+     * @return guessed language, Optional.empty if guess failure
+     */
     public static Optional<Locale> guessLanguage(final String text) {
 
         final String[] words = text.split("\\W");
@@ -99,6 +107,13 @@ public class StringHelper {
         return Optional.empty();
     }
 
+    /**
+     * @param string
+     * @param searchedString
+     * @param ignoreCase
+     * @param ignoreSpaceType
+     * @return
+     */
     public static int generalizedIndex(final String string,
                                        final String searchedString,
                                        final boolean ignoreCase,
@@ -110,6 +125,10 @@ public class StringHelper {
         return s2.indexOf(ss2);
     }
 
+    /**
+     * @param string
+     * @return
+     */
     public static String normalizeSpace(final String string) {
         final int length = string.length();
         final StringBuilder builder = new StringBuilder(length);
@@ -122,6 +141,11 @@ public class StringHelper {
         return builder.toString();
     }
 
+    /**
+     * @param str1
+     * @param str2
+     * @return
+     */
     public static String compareAndExplainDifference(final String str1,
                                                      final String str2) {
         if (str1.equals(str2)) {

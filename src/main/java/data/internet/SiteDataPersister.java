@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
 
 import utils.ExitHelper;
-import utils.FileHelper;
+import utils.FileNameHelper;
 import utils.FileSection;
 import utils.Logger;
 import utils.internet.UrlHelper;
@@ -317,7 +317,7 @@ public class SiteDataPersister {
 
     private Path getOutputDirectory(final String url) {
         return _path.resolve(UrlHelper.getHost(url))
-                    .resolve(FileHelper.generateFileNameFromURL(url));
+                    .resolve(FileNameHelper.generateFileNameFromURL(url));
     }
 
     private static Optional<Map<String, List<String>>> getHeadersOfLastRedirection(final HeaderFetchedLinkData siteData) {

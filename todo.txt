@@ -1,8 +1,30 @@
 
+merger (la branche devient vraiment trop grosse)
+
 
 ==== merge =====
 
-recherche des liens morts
+l'affichage de la table des violations n'est pas correcte, les dernières lignes sont cachées
+
+fulfil (GB) vs. fulfill (US)
+
+vérifier les dépendances avec JDepend
+
+jeter un coup d'oeil sur le code coverage
+
+les CODEROUTINE sont écrits trop bas dans le HTML généré
+
+nettoyer abbreven.xml
+
+dans la table, on ne devrait afficher que le nom des fichiers à partir de la racine de la homepage
+
+corriger
+janv. 28, 2023 7:22:00 AM com.sun.javafx.application.PlatformImpl startup
+WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @795df74'
+
+le process continue de tourner
+
+upgrader google-api-services-youtube
 
 gérer les faux subtitles tels que
 https://github.blog/2015-12-15-move-fast/
