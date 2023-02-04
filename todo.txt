@@ -1,6 +1,4 @@
 
-merger (la branche devient vraiment trop grosse)
-
 
 ==== merge =====
 

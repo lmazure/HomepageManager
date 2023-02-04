@@ -2,7 +2,9 @@ package utils.xmlparsing;
 
 /**
 *
-*/public enum LinkFormat {
+*/
+@SuppressWarnings("javadoc")
+public enum LinkFormat {
     FLASH,
     FLASH_VIDEO,
     HTML,

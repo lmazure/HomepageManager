@@ -2,7 +2,9 @@ package utils.xmlparsing;
 
 /**
 *
-*/public enum ElementType {
+*/
+@SuppressWarnings("javadoc")
+public enum ElementType {
     A,
     ANCHOR,
     ARTICLE,

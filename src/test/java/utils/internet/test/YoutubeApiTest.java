@@ -11,6 +11,9 @@ import data.SecretRepository;
 import utils.internet.youtube.YoutubeApi;
 import utils.internet.youtube.YoutubeVideoDto;
 
+/**
+ * Tests of YoutubeApi class
+ */
 public class YoutubeApiTest {
 
     @SuppressWarnings("static-method")
