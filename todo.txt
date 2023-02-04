@@ -2,6 +2,11 @@
 
 ==== merge =====
 
+génération de javadoc ne marche pas
+error: Source option 1.3 is no longer supported. Use 7 or later.
+error: Target option 1.3 is no longer supported. Use 7 or later.
+2 errors
+
 l'affichage de la table des violations n'est pas correcte, les dernières lignes sont cachées
 
 fulfil (GB) vs. fulfill (US)
