@@ -32,7 +32,7 @@ import utils.XmlHelper;
 /**
  * This class checks the text appearing in XML files (buit without interpreting the XML, the XML content is verified by NodeValueChecker).
  */
-public class FileChecker implements FileHandler {
+public class FileChecker implements FileHandler { // TODO should be split several checkers (and these one put in their own namespace)
 
     private static final String s_utf8_bom = "\uFEFF";
     private static final Pattern s_badGreaterThan = Pattern.compile("<[^>]*>");
@@ -314,8 +314,8 @@ public class FileChecker implements FileHandler {
         final Path directory = file.getParent();
 
         // check file presence
-        Path targetFile; 
-        try {            
+        Path targetFile;
+        try {
             targetFile = directory.resolve(link.replaceFirst("#.*$", "")
                                                .replaceFirst("\\.html$", ".xml"));
             if (!Files.exists(targetFile)) {

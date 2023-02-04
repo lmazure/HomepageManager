@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Violation correction based on search/replace 
+ * Violation correction based on search/replace
  */
 public class RegexpViolationCorrection extends ViolationCorrection {
 
@@ -28,6 +28,6 @@ public class RegexpViolationCorrection extends ViolationCorrection {
     @Override
     public String apply(String content) {
         final Matcher matcher = _pattern.matcher(content);
-        return matcher.replaceAll(_replacement);    
+        return matcher.replaceAll(_replacement);
     }
 }

@@ -14,9 +14,8 @@ import javafx.stage.Stage;
 public class ViolationTable {
 
     private final TableView<Violation> _table;
-    
     /**
-     * @param violationList list of violation
+     * @param violationList list of violations
      */
     public ViolationTable(final ObservableList<Violation> violationList) {
         _table = new TableView<>(violationList);
@@ -55,12 +54,12 @@ public class ViolationTable {
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
         _table.getColumns().add(descriptionCol);
 
-        final TableColumn<Violation, String> displayColumn = new TableColumn<>("Reparation");
-        displayColumn.setPrefWidth(60);
-        displayColumn.setCellValueFactory(new PropertyValueFactory<>("correctionDescription"));
-        displayColumn.setCellFactory(p -> { return new UpdatableButtonCell<>(v -> ActionHelper.modifyFile(v.getFile(), v.getCorrection().map(e -> e::apply)));});
-        _table.getColumns().add(displayColumn);
-        
+        final TableColumn<Violation, String> repairColumn = new TableColumn<>("Reparation");
+        repairColumn.setPrefWidth(60);
+        repairColumn.setCellValueFactory(new PropertyValueFactory<>("correctionDescription"));
+        repairColumn.setCellFactory(p -> { return new UpdatableButtonCell<>(v -> ActionHelper.modifyFile(v.getFile(), v.getCorrection().map(e -> e::apply)));});
+        _table.getColumns().add(repairColumn);
+
         _table.setEditable(false);
 
         stage.setScene(new Scene(_table, 1000, 900));

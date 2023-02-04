@@ -2443,7 +2443,7 @@ public class HtmlHelper {
                     .replaceAll("<[^>]*>", "");
     }
 
-    public static final String removeNewlines(final String input) {
+    private static final String removeNewlines(final String input) {
         return input.replace('\n', ' ').trim();
     }
 }

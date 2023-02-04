@@ -12,7 +12,7 @@ public interface QuadriConsumer<T,U, V, W> {
 
     /**
      * Performs this operation on the given arguments.
-     * 
+     *
      * @param t the first input argument
      * @param u the second input argument
      * @param v the third input argument

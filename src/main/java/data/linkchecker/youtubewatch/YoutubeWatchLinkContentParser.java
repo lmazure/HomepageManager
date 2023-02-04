@@ -705,4 +705,5 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         private AuthorData getAuthor() {
             return _author;
         }
-   }}
+   }
+}

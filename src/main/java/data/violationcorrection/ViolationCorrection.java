@@ -5,7 +5,7 @@ package data.violationcorrection;
  */
 public abstract class ViolationCorrection {
     private final String _description;
-    
+
     protected ViolationCorrection(final String description) {
         _description = description;
     }

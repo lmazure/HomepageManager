@@ -107,9 +107,6 @@ public class ActionHelper {
         final String oldContent = FileHelper.slurpFile(new File(file));
         final String newContent = apply.get().apply(oldContent);
         FileHelper.writeFile(Path.of(file), newContent);
-        System.out.println("========> " + file);
-        
-        
     }
 
     private static boolean isUrlAlive(final URL url) {

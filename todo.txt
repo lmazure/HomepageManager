@@ -1,11 +1,10 @@
-l'affichage de la table des violations n'est pas correcte, les dernières lignes sont cachées
-
-implémenter un fixer pour corriger la date du fichier
 
 merger (la branche devient vraiment trop grosse)
 
 
 ==== merge =====
+
+l'affichage de la table des violations n'est pas correcte, les dernières lignes sont cachées
 
 fulfil (GB) vs. fulfill (US)
 

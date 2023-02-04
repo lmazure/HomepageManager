@@ -69,4 +69,5 @@ public class BritishCheckerTest extends NodeValueCheckerTestBase {
         } catch (@SuppressWarnings("unused") final SAXException e) {
             Assertions.fail("SAXException");
         }
-    }}
+    }
+}

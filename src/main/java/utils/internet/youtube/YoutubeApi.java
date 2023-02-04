@@ -23,6 +23,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ *
+ */
 public class YoutubeApi {
 
     private final String _applicationName;
@@ -30,6 +33,11 @@ public class YoutubeApi {
     private final String _referenceRegion;
     private static final JsonFactory s_json_factory = JacksonFactory.getDefaultInstance();
 
+    /**
+     * @param applicationName
+     * @param apiKey
+     * @param referenceRegion
+     */
     public YoutubeApi(final String applicationName,
                       final String apiKey,
                       final String referenceRegion) {
@@ -38,17 +46,20 @@ public class YoutubeApi {
         _referenceRegion = referenceRegion;
     }
 
+    /**
+     * @param videoId
+     * @return
+     */
     public YoutubeVideoDto getData(final String videoId) {
         return getData(Arrays.asList(videoId)).get(0);
     }
 
+    /**
+     * @param videoIds
+     * @return
+     */
     public List<YoutubeVideoDto> getData(final List<String> videoIds) {
         final VideoListResponse responses  = getVideoInfo(videoIds);
-        /*try {
-            System.out.println(JSON_FACTORY.toPrettyString(responses));
-        } catch (final IOException e) {
-            e.printStackTrace();
-        }*/
 
         final List<YoutubeVideoDto> dtos = new ArrayList<>();
         for (final Video video: responses.getItems()) {

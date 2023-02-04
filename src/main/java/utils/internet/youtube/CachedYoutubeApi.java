@@ -11,11 +11,20 @@ import java.util.List;
 
 import utils.ExitHelper;
 
+/**
+ *
+ */
 public class CachedYoutubeApi {
 
     private final Path _cachePath;
     private final YoutubeApi _api;
 
+    /**
+     * @param applicationName
+     * @param apiKey
+     * @param referenceRegion
+     * @param cachePath
+     */
     public CachedYoutubeApi(final String applicationName,
                             final String apiKey,
                             final String referenceRegion,
@@ -24,6 +33,10 @@ public class CachedYoutubeApi {
         _api = new YoutubeApi(applicationName, apiKey, referenceRegion);
     }
 
+    /**
+     * @param videoId
+     * @return
+     */
     public YoutubeVideoDto getData(final String videoId) {
         if (getVideoOutputFile(videoId).toFile().exists()) {
             return deserialiseVideoDto(videoId);
@@ -33,6 +46,10 @@ public class CachedYoutubeApi {
         return dto;
     }
 
+    /**
+     * @param videoIds
+     * @return
+     */
     public List<YoutubeVideoDto> getData(final List<String> videoIds) {
         final List<YoutubeVideoDto> dtos = new ArrayList<>();
         for (String videoId: videoIds) {

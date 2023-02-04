@@ -6,7 +6,7 @@ import java.util.Map;
 import data.FileHandler;
 
 /**
- *
+ * Definition of the colors for the status of a FileHanlder
  */
 public class StatusRepresentation {
 
