@@ -9,7 +9,7 @@ import data.linkchecker.ContentParserException;
 import utils.StringHelper;
 
 /**
-*
+* Data extractor for YouTube channels
 */
 public class YoutubeChannelUserLinkContentParser {
 

@@ -186,6 +186,22 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void stackOverflowBlogIsManaged() throws ContentParserException {
+        final String url = "https://stackoverflow.blog/2023/01/09/beyond-git-the-other-version-control-systems-developers-use/";
+        final String expectedXml = """
+                <ARTICLE><X><T>Beyond Git: The other version control systems developers use</T>\
+                <ST>Our developer survey found 93% of developers use Git. But what are the other 7% using?</ST>\
+                <A>https://stackoverflow.blog/2023/01/09/beyond-git-the-other-version-control-systems-developers-use/</A>\
+                <L>en</L><F>HTML</F></X>\
+                <AUTHOR><FIRSTNAME>Ryan</FIRSTNAME><LASTNAME>Donovan</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>9</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }    @Test
+
     void youtubeWatch3Blue1BrownIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=-RdOwhmqP5s";
         final String expectedXml = """

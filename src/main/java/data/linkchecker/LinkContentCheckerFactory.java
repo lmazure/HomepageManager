@@ -11,6 +11,7 @@ import data.linkchecker.ibm.IbmLinkContentChecker;
 import data.linkchecker.medium.MediumLinkContentChecker;
 import data.linkchecker.oracleblogs.OracleBlogsLinkContentChecker;
 import data.linkchecker.quantamagazine.QuantaMagazineLinkContentChecker;
+import data.linkchecker.stackoverflowblog.StackOverflowBlogContentChecker;
 import data.linkchecker.twitter.TwitterLinkContentChecker;
 import data.linkchecker.wired.WiredLinkContentChecker;
 import data.linkchecker.youtubechanneluser.YoutubeChannelUserLinkContentChecker;
@@ -91,6 +92,10 @@ public class LinkContentCheckerFactory {
 
         if (url.startsWith("https://www.youtube.com/channel/")) {
             return new YoutubeChannelUserLinkContentChecker(url, linkData, articleData, file);
+        }
+
+        if (url.startsWith("https://stackoverflow.blog/")) {
+            return new StackOverflowBlogContentChecker(url, linkData, articleData, file);
         }
 
         if (url.startsWith("https://www.youtube.com/user/")) {

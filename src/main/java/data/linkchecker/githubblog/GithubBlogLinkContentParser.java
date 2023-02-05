@@ -23,7 +23,7 @@ import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkFormat;
 
 /**
-*
+* Data extractor for Github blog
 */
 public class GithubBlogLinkContentParser extends LinkDataExtractor {
 

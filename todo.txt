@@ -2,10 +2,7 @@
 
 ==== merge =====
 
-génération de javadoc ne marche pas
-error: Source option 1.3 is no longer supported. Use 7 or later.
-error: Target option 1.3 is no longer supported. Use 7 or later.
-2 errors
+extractor générique basé sur les meta og (pex https://stackoverflow.blog/2023/01/24/ai-applications-open-new-security-vulnerabilities/)
 
 l'affichage de la table des violations n'est pas correcte, les dernières lignes sont cachées
 

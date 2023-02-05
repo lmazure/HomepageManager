@@ -15,6 +15,7 @@ public class ViolationTable {
 
     private final TableView<Violation> _table;
     /**
+     * Constructor
      * @param violationList list of violations
      */
     public ViolationTable(final ObservableList<Violation> violationList) {

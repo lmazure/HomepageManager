@@ -10,7 +10,7 @@ import data.linkchecker.TextParser;
 import utils.internet.HtmlHelper;
 
 /**
-*
+* Data extractor from Chromium blog
 */
 public class ChromiumBlogLinkContentParser {
 

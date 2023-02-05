@@ -5,7 +5,7 @@ import java.util.List;
 import utils.xmlparsing.AuthorData;
 
 /**
- *
+ * Records of the well-known authors
  */
 public class WellKnownAuthors {
 
