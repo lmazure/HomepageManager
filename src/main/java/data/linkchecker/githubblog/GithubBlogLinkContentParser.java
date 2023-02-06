@@ -65,6 +65,10 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
     @Override
     public Optional<String> getSubtitle() throws ContentParserException {
         loadData();
+        if (_subtitle.endsWith("…")) {
+         // this is not a real subtitle, but, in fact, the beginning of the article
+            return Optional.empty();
+        }
         return Optional.of(_subtitle);
     }
 

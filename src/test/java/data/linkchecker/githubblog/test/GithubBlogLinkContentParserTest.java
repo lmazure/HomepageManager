@@ -49,12 +49,10 @@ public class GithubBlogLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
-
     @ParameterizedTest
     @CsvSource(value = {
         "https://github.blog/2022-10-03-highlights-from-git-2-38/|Another new release of Git is here! Take a look at some of our highlights on what's new in Git 2.38.",
-        // the next articles have a different subtitle in the JSON payload and the HTML content
-        "https://github.blog/2021-03-15-highlights-from-git-2-31/|The open source Git project just released Git 2.31 with features and bug fixes from 85 contributors, 23 of them new. Last time we caught up with you, Git 2.29…",
+        // the following articles have a different subtitle in the JSON payload and the HTML content
         "https://github.blog/2022-01-24-highlights-from-git-2-35/|The open source Git project just released Git 2.35. Here's GitHub's look at some of the most interesting features and changes introduced since last time."
         }, delimiter = '|')
     void testSubtitle(final String url,
@@ -68,6 +66,31 @@ public class GithubBlogLinkContentParserTest {
                                final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(url, data);
                                try {
                                    Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getSubtitle threw " + e.getMessage());
+                               }
+                               consumerHasBeenCalled.set(true);
+                           },
+                           false);
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+        // the following articles have a subtitle which is, in fact, the beginning of the article
+        "https://github.blog/2015-12-15-move-fast/",
+        "https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/",
+        })
+    void testNoSubtitle(final String url) {
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(url,
+                           (final Boolean b, final FullFetchedLinkData d) -> {
+                               Assertions.assertTrue(d.dataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
+                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(url, data);
+                               try {
+                                   Assertions.assertTrue(parser.getSubtitle().isEmpty());
                                } catch (final ContentParserException e) {
                                    Assertions.fail("getSubtitle threw " + e.getMessage());
                                }
