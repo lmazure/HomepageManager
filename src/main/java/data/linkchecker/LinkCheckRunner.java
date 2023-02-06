@@ -345,6 +345,7 @@ public class LinkCheckRunner {
             final boolean isDataExpected = isOneDataExpected(expectedData, effectiveData);
             if (isDataExpected) {
                 appendLivenessCheckResult(url, expectedData, effectiveData, ok);
+                ok.append('\n');
             } else {
                 final StringBuilder temp = new StringBuilder();
                 appendLivenessCheckResult(url, expectedData, effectiveData, temp);

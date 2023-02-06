@@ -2,8 +2,6 @@
 
 ==== merge =====
 
-extractor générique basé sur les meta og (pex https://stackoverflow.blog/2023/01/24/ai-applications-open-new-security-vulnerabilities/)
-
 l'affichage de la table des violations n'est pas correcte, les dernières lignes sont cachées
 
 fulfil (GB) vs. fulfill (US)
