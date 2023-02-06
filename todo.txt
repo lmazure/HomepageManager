@@ -4,8 +4,6 @@
 
 l'affichage de la table des violations n'est pas correcte, les dernières lignes sont cachées
 
-fulfil (GB) vs. fulfill (US)
-
 vérifier les dépendances avec JDepend
 
 jeter un coup d'oeil sur le code coverage
@@ -19,17 +17,13 @@ dans la table, on ne devrait afficher que le nom des fichiers à partir de la ra
 corriger
 janv. 28, 2023 7:22:00 AM com.sun.javafx.application.PlatformImpl startup
 WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @795df74'
+voir https://stackoverflow.com/questions/67854139/javafx-warning-unsupported-javafx-configuration-classes-were-loaded-from-unna
 
 le process continue de tourner
 
 upgrader google-api-services-youtube
 
-gérer les faux subtitles tels que
-https://github.blog/2015-12-15-move-fast/
-https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
-
 Homepage Taper esc devrait fermer la recherche
-
 
 corriger la corruption de données si on checke le même lien deux fois d'affilée
 
