@@ -13,8 +13,15 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+*
+*/
 public class GlobalFileCreationDialog extends Dialog<Void> {
 
+    /**
+     * @param homepagePath
+     * @param files
+     */
     public GlobalFileCreationDialog(final Path homepagePath,
                                     final List<Path> files) {
         super();

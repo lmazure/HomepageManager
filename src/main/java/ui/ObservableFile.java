@@ -114,6 +114,9 @@ public class ObservableFile { // TODO this class must be split, it currently kno
         return _htmlFileStatus;
     }
 
+    /**
+     * @return
+     */
     public String getHtmlGenerationStatus() {
         return _htmlFileStatus.get();
     }

@@ -5,8 +5,14 @@ import java.nio.file.Path;
 import data.FileHandler.Status;
 import javafx.scene.control.TableColumn;
 
+/**
+*
+*/
 public class LinkCheckController extends GenericBackgroundUiController {
 
+    /**
+     * @param list
+     */
     public LinkCheckController(final ObservableFileList list) {
         super((final Path file, final Status status, final Path outputFile, final Path reportFile) -> list.getFile(file).setLinkCheckStatus(status, outputFile, reportFile));
     }

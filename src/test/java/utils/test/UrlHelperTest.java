@@ -6,6 +6,9 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import utils.internet.UrlHelper;
 
+/**
+*
+*/
 public class UrlHelperTest {
 
     @SuppressWarnings("static-method")

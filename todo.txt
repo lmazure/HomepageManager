@@ -2,9 +2,6 @@
 
 ==== merge =====
 
-mvn clean package -Dmaven.test.skip=true
-deps  target/HomepageManager-0.0.1-SNAPSHOT.jar
-
 l'affichage de la table des violations n'est pas correcte, les dernières lignes sont cachées
 
 vérifier les dépendances avec JDepend

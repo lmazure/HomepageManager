@@ -5,14 +5,25 @@ import java.util.HashSet;
 
 import utils.xmlparsing.LinkData;
 
+/**
+ * @author Laurent
+ *
+ */
 public class LinkFactory {
 
     private final HashSet<Link> _links;
 
+    /**
+     * 
+     */
     public LinkFactory() {
         _links = new HashSet<>();
     }
 
+    /**
+     * @param linkData
+     * @return
+     */
     public Link newLink(final LinkData linkData) {
         final Link link = new Link(linkData.getTitle(),
                                    linkData.getSubtitles(),

@@ -27,9 +27,21 @@ import java.util.function.BiConsumer;
 
 public class WatchDir {
 
+    /**
+    *
+    */
     public enum Event {
+        /**
+         * 
+         */
         CREATE,
+        /**
+         * 
+         */
         DELETE,
+        /**
+         * 
+         */
         UPDATE
     }
 

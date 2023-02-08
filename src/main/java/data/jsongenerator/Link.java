@@ -10,10 +10,24 @@ import utils.xmlparsing.LinkData;
 import utils.xmlparsing.LinkProtection;
 import utils.xmlparsing.LinkStatus;
 
+/**
+ *
+ */
 public class Link extends LinkData implements Comparable<Link> {
 
     private final String _sortingKey;
 
+    /**
+     * @param title
+     * @param subtitles
+     * @param url
+     * @param status
+     * @param protection
+     * @param formats
+     * @param languages
+     * @param duration
+     * @param publicationDate
+     */
     public Link(final String title,
                 final String[] subtitles,
                 final String url,

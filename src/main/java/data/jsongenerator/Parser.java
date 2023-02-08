@@ -22,6 +22,9 @@ import utils.xmlparsing.ElementType;
 import utils.xmlparsing.XmlParser;
 import utils.xmlparsing.XmlParsingException;
 
+/**
+ *
+ */
 public class Parser {
 
     private final DocumentBuilder _builder;

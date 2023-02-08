@@ -6,8 +6,14 @@ import data.BackgroundDataController;
 import data.FileHandler.Status;
 import utils.QuadriConsumer;
 
+/**
+*
+*/
 public abstract class GenericBackgroundUiController extends GenericUiController implements BackgroundDataController {
 
+    /**
+     * @param callback
+     */
     public GenericBackgroundUiController(QuadriConsumer<Path, Status, Path, Path> callback) {
         super(callback);
     }

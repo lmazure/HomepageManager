@@ -3,14 +3,24 @@ package data.jsongenerator;
 import java.util.Arrays;
 import java.util.HashMap;
 
+/**
+ *
+ */
 public class KeywordFactory {
 
     private final HashMap<String,Keyword> _keywords;
 
+    /**
+     * 
+     */
     public KeywordFactory() {
         _keywords = new HashMap<>();
     }
 
+    /**
+     * @param keyId
+     * @return
+     */
     public Keyword newKeyword(final String keyId) {
 
         if (_keywords.containsKey(keyId)) {

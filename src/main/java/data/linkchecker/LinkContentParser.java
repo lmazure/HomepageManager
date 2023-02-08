@@ -6,15 +6,24 @@ import java.util.Optional;
 import utils.StringHelper;
 import utils.internet.HtmlHelper;
 
+/**
+ *
+ */
 public class LinkContentParser {
 
     private final String _data;
     private Optional<Locale> _language;
 
+    /**
+     * @param data
+     */
     public LinkContentParser(final String data) {
         _data = HtmlHelper.cleanContent(data);
     }
 
+    /**
+     * @return
+     */
     public Optional<Locale> getLanguage() {
 
         if (_language == null) {
