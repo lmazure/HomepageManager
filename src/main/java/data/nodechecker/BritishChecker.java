@@ -11,8 +11,8 @@ import java.util.regex.Pattern;
 import org.w3c.dom.Element;
 
 import data.nodechecker.tagselection.InclusionTagSelector;
-import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
+import utils.xmlparsing.XmlHelper;
 
 /**
 *

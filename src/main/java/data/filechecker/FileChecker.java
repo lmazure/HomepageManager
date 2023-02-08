@@ -22,7 +22,7 @@ import org.xml.sax.SAXException;
 import data.FileContentChecker.Error;
 import utils.ExitHelper;
 import utils.FileHelper;
-import utils.XmlHelper;
+import utils.xmlparsing.XmlHelper;
 
 /**
  * Verification of the file content

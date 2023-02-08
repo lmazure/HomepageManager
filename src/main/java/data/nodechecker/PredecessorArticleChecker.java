@@ -5,9 +5,9 @@ import java.util.Optional;
 import org.w3c.dom.Element;
 
 import data.nodechecker.tagselection.InclusionTagSelector;
-import utils.XmlHelper;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.ElementType;
+import utils.xmlparsing.XmlHelper;
 import utils.xmlparsing.XmlParser;
 import utils.xmlparsing.XmlParsingException;
 

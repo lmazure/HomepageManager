@@ -9,9 +9,9 @@ import org.w3c.dom.Element;
 
 import data.nodechecker.tagselection.InclusionTagSelector;
 import data.violationcorrection.UpdatePageDateCorrection;
-import utils.XmlHelper;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkData;
+import utils.xmlparsing.XmlHelper;
 import utils.xmlparsing.ElementType;
 import utils.xmlparsing.XmlParser;
 import utils.xmlparsing.XmlParsingException;

@@ -51,7 +51,7 @@ import utils.ExitHelper;
 import utils.FileHelper;
 import utils.FileNameHelper;
 import utils.Logger;
-import utils.XmlHelper;
+import utils.xmlparsing.XmlHelper;
 
 /**
  * This class checks the XM node values of XML files.

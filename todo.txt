@@ -2,6 +2,9 @@
 
 ==== merge =====
 
+mvn clean package -Dmaven.test.skip=true
+deps  target/HomepageManager-0.0.1-SNAPSHOT.jar
+
 Java HotSpot(TM) 64-Bit Server VM warning: Ignoring option --illegal-access=permit; support was removed in 17.0
 
 l'affichage de la table des violations n'est pas correcte, les dernières lignes sont cachées

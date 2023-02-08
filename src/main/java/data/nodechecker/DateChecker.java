@@ -11,8 +11,8 @@ import org.w3c.dom.NodeList;
 
 import data.nodechecker.tagselection.InclusionTagSelector;
 import data.violationcorrection.UpdatePageDateCorrection;
-import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
+import utils.xmlparsing.XmlHelper;
 
 /**
 *
