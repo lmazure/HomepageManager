@@ -2,6 +2,8 @@
 
 ==== merge =====
 
+Java HotSpot(TM) 64-Bit Server VM warning: Ignoring option --illegal-access=permit; support was removed in 17.0
+
 l'affichage de la table des violations n'est pas correcte, les dernières lignes sont cachées
 
 vérifier les dépendances avec JDepend
