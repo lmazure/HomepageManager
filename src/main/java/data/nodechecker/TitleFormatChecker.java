@@ -1,8 +1,8 @@
 package data.nodechecker;
 
 import data.nodechecker.tagselection.InclusionTagSelector;
-import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
+import utils.xmlparsing.XmlHelper;
 
 import java.util.Arrays;
 import java.util.HashSet;

@@ -12,7 +12,7 @@ import org.w3c.dom.Element;
 */
 public class URLProtocolChecker extends NodeChecker {
 
-    private final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
+    private static final InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.A
             });
 

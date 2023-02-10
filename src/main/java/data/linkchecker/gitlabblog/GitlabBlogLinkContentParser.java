@@ -17,7 +17,7 @@ import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkFormat;
 
 /**
-*
+ * Data extractor for GitLab blog
 */
 public class GitlabBlogLinkContentParser extends LinkDataExtractor {
 

@@ -7,12 +7,33 @@ import java.time.Instant;
  */
 public class Logger {
 
+    /**
+     * Level of the log
+     */
     public enum Level {
+        /**
+         * 
+         */
         FATAL,
+        /**
+         * 
+         */
         ERROR,
+        /**
+         * 
+         */
         WARN,
+        /**
+         * 
+         */
         INFO,
+        /**
+         * 
+         */
         DEBUG,
+        /**
+         * 
+         */
         TRACE
     }
 

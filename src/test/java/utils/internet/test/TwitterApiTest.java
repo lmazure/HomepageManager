@@ -7,6 +7,9 @@ import data.SecretRepository;
 import utils.internet.twitter.TwitterApi;
 import utils.internet.twitter.TwitterUserDto;
 
+/**
+*
+*/
 public class TwitterApiTest {
 
     @SuppressWarnings("static-method")

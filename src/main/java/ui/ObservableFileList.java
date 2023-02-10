@@ -11,11 +11,17 @@ import data.FileExistenceHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+*
+*/
 public class ObservableFileList implements FileExistenceHandler {
 
     private final ObservableList<ObservableFile> _data;
     private final Map<Path, ObservableFile> _files;
 
+    /**
+     * 
+     */
     public ObservableFileList() {
         _data = FXCollections.observableArrayList();
         _files = new HashMap<>();
@@ -40,16 +46,26 @@ public class ObservableFileList implements FileExistenceHandler {
         getFile(file).setDeleted();
     }
 
+    /**
+     * @return
+     */
     public ObservableList<ObservableFile> getObservableFileList() {
         return _data;
     }
 
+    /**
+     * @return
+     */
     public List<Path> getFileList() {
         return _data.stream()
                     .map(f -> f.getPath())
                     .collect(Collectors.toList());
     }
 
+    /**
+     * @param file
+     * @return
+     */
     public ObservableFile getFile(final Path file) {
         return _files.get(file);
     }

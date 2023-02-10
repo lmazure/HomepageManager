@@ -10,15 +10,26 @@ import java.util.Base64;
 
 import utils.ExitHelper;
 
+/**
+*
+*/
 public class TwitterApi {
 
     private final String _token;
 
+    /**
+     * @param apiKey
+     * @param apiSecretKey
+     */
     public TwitterApi(final String apiKey,
                       final String apiSecretKey) {
         _token = getBearerToken(apiKey, apiSecretKey);
     }
 
+    /**
+     * @param userId
+     * @return
+     */
     public TwitterUserDto getUser(final String userId) {
         final HttpRequest request = HttpRequest.newBuilder()
                                                .uri(URI.create(getUserUrlFromName(userId)))

@@ -11,8 +11,8 @@ import java.util.regex.Pattern;
 import org.w3c.dom.Element;
 
 import data.nodechecker.tagselection.InclusionTagSelector;
-import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
+import utils.xmlparsing.XmlHelper;
 
 /**
 *
@@ -28,6 +28,7 @@ public class BritishChecker extends NodeChecker {
             new Traduction("defense", "defence"),
             new Traduction("donut", "doughnut"),
             new Traduction("fetus", "foetus"),
+            new Traduction("fulfill[^i]", "fulfil"),
             new Traduction("\\W\\p{Ll}{2,}ize[sd]?\\W", "ise"),
             new Traduction("\\W\\p{Ll}{2,}ization", "isation"),
             new Traduction("\\W\\p{Ll}{2,}izing", "sing"),

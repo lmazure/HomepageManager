@@ -35,12 +35,12 @@ import utils.ExitHelper;
 import utils.FileHelper;
 import utils.Logger;
 import utils.Logger.Level;
-import utils.XmlHelper;
 import utils.internet.HttpHelper;
 import utils.internet.InvalidHttpCodeException;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.ElementType;
 import utils.xmlparsing.LinkData;
+import utils.xmlparsing.XmlHelper;
 import utils.xmlparsing.XmlParser;
 import utils.xmlparsing.XmlParsingException;
 
@@ -345,6 +345,7 @@ public class LinkCheckRunner {
             final boolean isDataExpected = isOneDataExpected(expectedData, effectiveData);
             if (isDataExpected) {
                 appendLivenessCheckResult(url, expectedData, effectiveData, ok);
+                ok.append('\n');
             } else {
                 final StringBuilder temp = new StringBuilder();
                 appendLivenessCheckResult(url, expectedData, effectiveData, temp);

@@ -15,6 +15,9 @@ import data.internet.test.TestHelper;
 import utils.FileSection;
 import utils.internet.HtmlHelper;
 
+/**
+*
+*/
 public class HtmlHelperTest {
 
     @SuppressWarnings("static-method")

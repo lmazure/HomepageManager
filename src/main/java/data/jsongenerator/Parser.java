@@ -13,15 +13,18 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import utils.Logger;
-import utils.XmlHelper;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.KeywordData;
 import utils.xmlparsing.LinkData;
+import utils.xmlparsing.XmlHelper;
 import utils.xmlparsing.ElementType;
 import utils.xmlparsing.XmlParser;
 import utils.xmlparsing.XmlParsingException;
 
+/**
+ *
+ */
 public class Parser {
 
     private final DocumentBuilder _builder;

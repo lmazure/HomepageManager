@@ -8,7 +8,7 @@ import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkData;
 
 /**
-*
+* Check data for a link toward a Quanta Magazine article
 */
 public class QuantaMagazineLinkContentChecker extends ExtractorBasedLinkContentChecker {
 

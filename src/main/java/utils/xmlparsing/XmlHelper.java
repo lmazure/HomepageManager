@@ -1,4 +1,4 @@
-package utils;
+package utils.xmlparsing;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -21,7 +21,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import utils.xmlparsing.ElementType;
+import utils.ExitHelper;
+import utils.Logger;
 
 /**
  * Tools to manage XML

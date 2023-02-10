@@ -17,7 +17,7 @@ import data.linkchecker.LinkContentParserUtils;
 import utils.xmlparsing.AuthorData;
 
 /**
-*
+ * Data extractor for IBM articles
 */
 public class IbmLinkContentParser {
 

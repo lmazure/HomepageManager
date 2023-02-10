@@ -11,8 +11,17 @@ import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkData;
 
+/**
+*
+*/
 public class NoCheckContentChecker extends LinkContentChecker {
 
+    /**
+     * @param url
+     * @param linkData
+     * @param articleData
+     * @param file
+     */
     public NoCheckContentChecker(final String url,
                                  final LinkData linkData,
                                  final Optional<ArticleData> articleData,

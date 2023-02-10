@@ -30,7 +30,7 @@ import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkFormat;
 
 /**
-*
+ * Data extractor for Oracle blog
 */
 public class OracleBlogsLinkContentParser extends LinkDataExtractor {
 

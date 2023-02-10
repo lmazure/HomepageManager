@@ -13,6 +13,9 @@ import utils.FileHelper;
 import utils.FileSection;
 import utils.Logger;
 
+/**
+*
+*/
 public class HtmlHelper {
 
     // from https://html.spec.whatwg.org/multipage/named-characters.html
@@ -2259,11 +2262,19 @@ public class HtmlHelper {
     private static final Pattern s_clean_trailing_whitespaces = Pattern.compile("\\p{Z}*$");
     private static final Pattern s_clean_leading_whitespaces = Pattern.compile("^\\p{Z}*");
 
+    /**
+     * @param file
+     * @return
+     */
     public static String slurpFile(final FileSection file) {
         final Charset charset = getCharset(file).orElse(StandardCharsets.UTF_8);
         return FileHelper.slurpFileSection(file, charset);
     }
 
+    /**
+     * @param file
+     * @return
+     */
     public static Optional<Charset> getCharset(final FileSection file) {
         final String data = FileHelper.slurpFileSection(file, StandardCharsets.UTF_8);
         final int length = data.length();
@@ -2310,6 +2321,10 @@ public class HtmlHelper {
         }
     }
 
+    /**
+     * @param input
+     * @return
+     */
     public static final String cleanContent(final String input) {
         final String s1 = removeHtmlTags(input);
         final String s2 = unescape(s1);
@@ -2319,6 +2334,10 @@ public class HtmlHelper {
         return s5;
     }
 
+    /**
+     * @param input
+     * @return
+     */
     public static final String unescape(final String input) {
         // from https://stackoverflow.com/questions/994331/how-to-unescape-html-character-entities-in-java
         final int MIN_ESCAPE = 2;
@@ -2405,6 +2424,10 @@ public class HtmlHelper {
         return input;
     }
 
+    /**
+     * @param input
+     * @return
+     */
     public static final String cleanAndUnduplicateSpace(final String input) {
 
         final StringBuilder builder = new StringBuilder(input.length());
@@ -2427,6 +2450,10 @@ public class HtmlHelper {
         return builder.toString();
     }
 
+    /**
+     * @param input
+     * @return
+     */
     public static final String trim(final String input) {
 
         final String s1 = s_clean_leading_whitespaces.matcher(input).replaceAll("");
@@ -2434,6 +2461,10 @@ public class HtmlHelper {
         return s2;
     }
 
+    /**
+     * @param input
+     * @return
+     */
     public static final String removeHtmlTags(final String input) {
 
         return input.replaceAll("< *[bB][rR] */?>", "\n")

@@ -3,8 +3,16 @@ package utils.internet;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+*
+*/
 public class UrlHelper {
 
+    /**
+     * @param url
+     * @param parameters
+     * @return
+     */
     public static String removeQueryParameters(final String url,
                                                final String ...parameters) {
         String u = url;
@@ -14,12 +22,21 @@ public class UrlHelper {
         return u;
     }
 
+    /**
+     * @param url
+     * @param parameter
+     * @return
+     */
     public static String removeQueryParameter(final String url,
                                               final String parameter) {
         return url.replaceFirst("(\\?|&)(" + parameter + "=[^&]*(&|$))", "$1")
                   .replaceFirst("(\\?|&)$","");
    }
 
+    /**
+     * @param url
+     * @return
+     */
     public static String getHost(final String url) {
         if (url.startsWith("..")) {
             return null;
@@ -42,6 +59,10 @@ public class UrlHelper {
         }
     }
 
+    /**
+     * @param str
+     * @return
+     */
     @SuppressWarnings("unused")
     public static boolean isValidUrl(final String str) {
         try {

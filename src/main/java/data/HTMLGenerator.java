@@ -40,7 +40,7 @@ public class HTMLGenerator implements FileHandler {
     private final DocumentBuilder _builder;
     private final Transformer _transformer;
 
-    private final static Lock _lock = new ReentrantLock();
+    private static final Lock _lock = new ReentrantLock();
 
     /**
      * This class generates the HTML files from the XML files.

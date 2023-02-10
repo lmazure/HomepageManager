@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import data.FileEventDispatcher;
-import data.FileChecker;
+import data.FileContentChecker;
 import data.FileHandler;
 import data.HTMLGenerator;
 import data.LinkChecker;
@@ -53,7 +53,7 @@ public class FileTable extends Application {
         final ViolationDataController violationDataController = s_violationList;
 
         final FileCheckController fileCheckController = new FileCheckController(s_list);
-        final FileChecker fileCheckGenerator = new FileChecker(s_homepagePath, s_tmpPath, fileCheckController, violationDataController);
+        final FileContentChecker fileCheckGenerator = new FileContentChecker(s_homepagePath, s_tmpPath, fileCheckController, violationDataController);
         uiControllers.add(fileCheckController);
         fileHandlers.add(fileCheckGenerator);
 

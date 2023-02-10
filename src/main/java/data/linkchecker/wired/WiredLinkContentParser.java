@@ -22,7 +22,7 @@ import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkFormat;
 
 /**
-*
+* Data extractor for Wired articles
 */
 public class WiredLinkContentParser extends LinkDataExtractor {
 

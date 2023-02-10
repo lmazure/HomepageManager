@@ -1,17 +1,13 @@
-package data;
+package data.filechecker;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.regex.Matcher;
@@ -23,16 +19,15 @@ import javax.xml.validation.Validator;
 
 import org.xml.sax.SAXException;
 
+import data.FileContentChecker.Error;
 import utils.ExitHelper;
 import utils.FileHelper;
-import utils.FileNameHelper;
-import utils.Logger;
-import utils.XmlHelper;
+import utils.xmlparsing.XmlHelper;
 
 /**
- * This class checks the text appearing in XML files (buit without interpreting the XML, the XML content is verified by NodeValueChecker).
+ * Verification of the file content
  */
-public class FileChecker implements FileHandler { // TODO should be split several checkers (and these one put in their own namespace)
+public class FileChecker {
 
     private static final String s_utf8_bom = "\uFEFF";
     private static final Pattern s_badGreaterThan = Pattern.compile("<[^>]*>");
@@ -41,83 +36,19 @@ public class FileChecker implements FileHandler { // TODO should be split severa
     private static final Pattern s_doubleSpaceInAttributes = Pattern.compile("(</?[^>]*  [^>]*/?>)");
     private static final Pattern s_attributeWithSingleQuote = Pattern.compile("<[^>]*'[^>]*>");
     private static final Pattern s_localLinkPattern = Pattern.compile("<A>([^:]+?)</A>");
-    private final static String s_checkType = "file";
-    private final static Lock s_lock = new ReentrantLock();
-
-    private final Path _homepagePath;
-    private final Path _tmpPath;
-    private final DataController _controller;
-    private final ViolationDataController _violationController;
     private final Validator _validator;
+    private static final Lock s_lock = new ReentrantLock();
 
     /**
      * @param homepagePath path to the directory containing the pages
-     * @param tmpPath path to the directory containing the temporary files and log files
-     * @param controller controller to notify of additional / removed violations
-     * @param violationController controller to notify of additional / removed violations
      */
-    public FileChecker(final Path homepagePath,
-                       final Path tmpPath,
-                       final DataController controller,
-                       final ViolationDataController violationController) {
-        _homepagePath = homepagePath;
-        _tmpPath = tmpPath;
-        _controller = controller;
-        _violationController = violationController;
+    public FileChecker(final Path homepagePath) {
         s_lock.lock();
         try {
             _validator = XmlHelper.buildValidator(homepagePath.resolve("css").resolve("schema.xsd"));
         } finally {
             s_lock.unlock();
         }
-    }
-
-    @Override
-    public void handleCreation(final Path file) {
-
-        Status status = Status.HANDLED_WITH_SUCCESS;
-
-        FileHelper.createParentDirectory(getOutputFile(file));
-
-        final List<Error> errors = check(file);
-        if (!errors.isEmpty()) {
-            status = Status.HANDLED_WITH_ERROR;
-        }
-
-        try (final FileOutputStream os = new FileOutputStream(getOutputFile(file).toFile());
-             final PrintWriter pw = new PrintWriter(os)) {
-            if (status == Status.HANDLED_WITH_SUCCESS) {
-                // must write something in the file otherwise its last modification datetime will be incorrect
-                pw.println("OK");
-            } else {
-                for (final Error error: errors) {
-                    final String message = "line " + error.lineNumber() + ": " + error.errorMessage();
-                    pw.println(message);
-                    _violationController.add(new Violation(file.toString(),
-                                                           s_checkType,
-                                                           error.checkName(),
-                                                           (error.lineNumber() > 0) ? new ViolationLocationLine(error.lineNumber())
-                                                                                    : new ViolationLocationUnknown(),
-                                                           error.errorMessage(),
-                                                           Optional.empty()));
-                }
-            }
-            Logger.log(Logger.Level.INFO)
-                  .append(getOutputFile(file))
-                  .append(" is generated")
-                  .submit();
-        } catch (final Exception e) {
-            final Path reportFile = getReportFile(file);
-            FileHelper.createParentDirectory(reportFile);
-            try (final PrintStream reportWriter = new PrintStream(reportFile.toFile())) {
-                e.printStackTrace(reportWriter);
-            } catch (final IOException e2) {
-                ExitHelper.exit(e2);
-            }
-            status = Status.FAILED_TO_HANDLE;
-        }
-
-        _controller.handleCreation(file, status, getOutputFile(file), getReportFile(file));
     }
 
     /**
@@ -338,34 +269,6 @@ public class FileChecker implements FileHandler { // TODO should be split severa
         return null;
     }
 
-    @Override
-    public void handleDeletion(final Path file) {
-
-        FileHelper.deleteFile(getOutputFile(file));
-        FileHelper.deleteFile(getReportFile(file));
-
-        _controller.handleDeletion(file, Status.HANDLED_WITH_SUCCESS, getOutputFile(file), getReportFile(file));
-
-        _violationController.remove(v -> (v.getFile().equals(file.toString()) && v.getType().equals(s_checkType)));
-    }
-
-    @Override
-    public Path getOutputFile(final Path file) {
-        return FileNameHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_filecheck", "txt");
-    }
-
-    @Override
-    public Path getReportFile(final Path file) {
-         return FileNameHelper.computeTargetFile(_homepagePath, _tmpPath, file, "_report_filecheck", "txt");
-    }
-
-    @Override
-    public boolean outputFileMustBeRegenerated(final Path file) {
-
-        return !getOutputFile(file).toFile().isFile()
-               || (getOutputFile(file).toFile().lastModified() <= file.toFile().lastModified());
-    }
-
     private static int numberOfSpacesAtBeginningOfLine(final String str) {
 
         int n = 0;
@@ -374,12 +277,4 @@ public class FileChecker implements FileHandler { // TODO should be split severa
         }
         return n;
     }
-
-
-    /**
-     * @param checkName Name of the check
-     * @param lineNumber Line number of the violation
-     * @param errorMessage Message describing the violation
-     */
-    public static record Error(String checkName, int lineNumber, String errorMessage) {}
 }

@@ -15,12 +15,15 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import utils.XmlHelper;
-
 /**
 *
 */public class XmlParser {
 
+    /**
+     * @param articleElement
+     * @return
+     * @throws XmlParsingException
+     */
     public static ArticleData parseArticleElement(final Element articleElement) throws XmlParsingException {
 
         if (!XmlHelper.isOfType(articleElement, ElementType.ARTICLE)) {
@@ -49,6 +52,11 @@ import utils.XmlHelper;
         return new ArticleData(date, authors, links);
     }
 
+    /**
+     * @param keywordElement
+     * @return
+     * @throws XmlParsingException
+     */
     public static KeywordData parseKeywordElement(final Element keywordElement) throws XmlParsingException {
 
         if (!XmlHelper.isOfType(keywordElement, ElementType.KEYWORD)) {
@@ -106,6 +114,11 @@ import utils.XmlHelper;
         return new KeywordData(keyId, keyText, articles, links);
     }
 
+    /**
+     * @param xElement
+     * @return
+     * @throws XmlParsingException
+     */
     public static LinkData parseXElement(final Element xElement) throws XmlParsingException {
 
         if (!XmlHelper.isOfType(xElement, ElementType.X)) {
@@ -176,6 +189,11 @@ import utils.XmlHelper;
         return new LinkData(title, subtitles, url, status.map(LinkData::parseStatus), protection.map(LinkData::parseProtection), formats, languages, duration, publicationDate);
     }
 
+    /**
+     * @param authorElement
+     * @return
+     * @throws XmlParsingException
+     */
     public static AuthorData parseAuthorElement(final Element authorElement) throws XmlParsingException {
 
         if (!XmlHelper.isOfType(authorElement, ElementType.AUTHOR)) {
@@ -233,6 +251,11 @@ import utils.XmlHelper;
         return new AuthorData(namePrefix, firstName, middleName, lastName, nameSuffix, givenName);
     }
 
+    /**
+     * @param dateElement
+     * @return
+     * @throws XmlParsingException
+     */
     public static TemporalAccessor parseDateElement(final Element dateElement) throws XmlParsingException {
 
         if (!XmlHelper.isOfType(dateElement, ElementType.DATE)) {

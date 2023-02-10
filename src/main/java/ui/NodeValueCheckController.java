@@ -5,8 +5,14 @@ import java.nio.file.Path;
 import data.FileHandler.Status;
 import javafx.scene.control.TableColumn;
 
+/**
+*
+*/
 public class NodeValueCheckController extends GenericUiController {
 
+    /**
+     * @param list
+     */
     public NodeValueCheckController(final ObservableFileList list) {
         super((final Path file, final Status status, final Path outputFile, final Path reportFile) -> list.getFile(file).setNodeValueCheckStatus(status, outputFile, reportFile));
     }

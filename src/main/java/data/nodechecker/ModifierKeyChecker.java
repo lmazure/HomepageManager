@@ -6,8 +6,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import data.nodechecker.tagselection.InclusionTagSelector;
-import utils.XmlHelper;
 import utils.xmlparsing.ElementType;
+import utils.xmlparsing.XmlHelper;
 
 /**
 *
@@ -20,7 +20,7 @@ public class ModifierKeyChecker extends NodeChecker {
     private static final String s_ALT = "Alt";
     private static final String s_CTRL = "Ctrl";
 
-    private final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
+    private static final InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.MODIFIERKEY
             });
 

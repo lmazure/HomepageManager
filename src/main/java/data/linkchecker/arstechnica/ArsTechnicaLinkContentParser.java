@@ -19,7 +19,7 @@ import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkFormat;
 
 /**
-* Extract data of an Ars Technical link
+*  * Data extractor for Ars Technica articles
 */
 public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
 
@@ -31,10 +31,10 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
                          "Ars Technica",
                          "title");
     private static final TextParser s_subtitleParser
-    = new TextParser("<h2 itemprop=\"description\">",
-                     "</h2>",
-                     "Ars Technica",
-                     "subtitle");
+        = new TextParser("<h2 itemprop=\"description\">",
+                         "</h2>",
+                         "Ars Technica",
+                         "subtitle");
     private static final TextParser s_dateParser
         = new TextParser("<time class=\"date\" data-time=\"",
                          "\" datetime=\".*?\">",

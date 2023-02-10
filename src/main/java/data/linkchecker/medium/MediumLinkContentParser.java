@@ -25,7 +25,7 @@ import utils.xmlparsing.AuthorData;
 import utils.xmlparsing.LinkFormat;
 
 /**
-*
+ * Data extractor for Medium
 */
 public class MediumLinkContentParser extends LinkDataExtractor {
 

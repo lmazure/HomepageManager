@@ -1,4 +1,4 @@
-package data.linkchecker.githubblog.test;
+package data.linkchecker.stackoverflowblog.test;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -12,23 +12,21 @@ import data.internet.FullFetchedLinkData;
 import data.internet.SynchronousSiteDataRetriever;
 import data.internet.test.TestHelper;
 import data.linkchecker.ContentParserException;
-import data.linkchecker.githubblog.GithubBlogLinkContentParser;
+import data.linkchecker.stackoverflowblog.StackOverflowBlogContentParser;
 import utils.internet.HtmlHelper;
 import utils.xmlparsing.AuthorData;
 
 /**
- * Tests of GithubBlogLinkContentParser
+ * Tests of StackOverflowBlogContentParser class
  *
  */
-public class GithubBlogLinkContentParserTest {
+public class StackOverflowBlogContentParserTest {
+
 
     @ParameterizedTest
-    @CsvSource(value = {
-        "https://github.blog/2022-10-03-highlights-from-git-2-38/|Highlights from Git 2.38",
-        // the next articles have a title with an encoded character
-        "https://github.blog/2022-08-29-gits-database-internals-i-packed-object-store/|Git’s database internals I: packed object store",
-        "https://github.blog/2022-09-02-gits-database-internals-v-scalability/|Git’s database internals V: scalability",
-        }, delimiter = '|')
+    @CsvSource({
+        "https://stackoverflow.blog/2023/01/24/ai-applications-open-new-security-vulnerabilities/,AI applications open new security vulnerabilities"
+        })
     void testTitle(final String url,
                    final String expectedTitle) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
@@ -37,7 +35,7 @@ public class GithubBlogLinkContentParserTest {
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(url, data);
+                               final StackOverflowBlogContentParser parser = new StackOverflowBlogContentParser(url, data);
                                try {
                                    Assertions.assertEquals(expectedTitle, parser.getTitle());
                                } catch (final ContentParserException e) {
@@ -50,11 +48,9 @@ public class GithubBlogLinkContentParserTest {
     }
 
     @ParameterizedTest
-    @CsvSource(value = {
-        "https://github.blog/2022-10-03-highlights-from-git-2-38/|Another new release of Git is here! Take a look at some of our highlights on what's new in Git 2.38.",
-        // the following articles have a different subtitle in the JSON payload and the HTML content
-        "https://github.blog/2022-01-24-highlights-from-git-2-35/|The open source Git project just released Git 2.35. Here's GitHub's look at some of the most interesting features and changes introduced since last time."
-        }, delimiter = '|')
+    @CsvSource({
+        "https://stackoverflow.blog/2023/01/24/ai-applications-open-new-security-vulnerabilities/,Your ML model and AI-as-a-service apps might open new attack surfaces. Here's how to mitigate them."
+        })
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
@@ -63,7 +59,7 @@ public class GithubBlogLinkContentParserTest {
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(url, data);
+                               final StackOverflowBlogContentParser parser = new StackOverflowBlogContentParser(url, data);
                                try {
                                    Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
                                } catch (final ContentParserException e) {
@@ -76,33 +72,8 @@ public class GithubBlogLinkContentParserTest {
     }
 
     @ParameterizedTest
-    @CsvSource(value = {
-        // the following articles have a subtitle which is, in fact, the beginning of the article
-        "https://github.blog/2015-12-15-move-fast/",
-        "https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/",
-        })
-    void testNoSubtitle(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(url, data);
-                               try {
-                                   Assertions.assertTrue(parser.getSubtitle().isEmpty());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getSubtitle threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
-    }
-
-    @ParameterizedTest
     @CsvSource({
-        "https://github.blog/2022-10-03-highlights-from-git-2-38/,2022-10-03",
+        "https://stackoverflow.blog/2023/01/24/ai-applications-open-new-security-vulnerabilities/,2023-01-24"
         })
     void testDate(final String url,
                   final String expectedDate) {
@@ -112,11 +83,12 @@ public class GithubBlogLinkContentParserTest {
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(url, data);
+                               final StackOverflowBlogContentParser parser = new StackOverflowBlogContentParser(url, data);
                                try {
-                                   Assertions.assertEquals(expectedDate, parser.getPublicationDate().toString());
+                                   Assertions.assertTrue(parser.getDate().isPresent());
+                                   Assertions.assertEquals(expectedDate, parser.getDate().get().toString());
                                 } catch (final ContentParserException e) {
-                                    Assertions.fail("getPublicationDate threw " + e.getMessage());
+                                    Assertions.fail("getDate threw " + e.getMessage());
                                 }
                                consumerHasBeenCalled.set(true);
                            },
@@ -126,9 +98,7 @@ public class GithubBlogLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://github.blog/2022-10-03-highlights-from-git-2-38/,Taylor,,Blau ",
-        // the next article has an authot name with a particle
-        "https://github.blog/2022-08-15-the-next-step-for-lgtm-com-github-code-scanning/,Bas,,van Schaik",
+        "https://stackoverflow.blog/2023/01/24/ai-applications-open-new-security-vulnerabilities/,Taimur,,Ijlal"
         })
     void testAuthor(final String url,
                     final String expectedFirstName,
@@ -146,7 +116,7 @@ public class GithubBlogLinkContentParserTest {
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(url, data);
+                               final StackOverflowBlogContentParser parser = new StackOverflowBlogContentParser(url, data);
                                try {
                                    Assertions.assertEquals(Collections.singletonList(expectedAuthor), parser.getSureAuthors());
                                 } catch (final ContentParserException e) {
@@ -157,4 +127,5 @@ public class GithubBlogLinkContentParserTest {
                            false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
+
 }

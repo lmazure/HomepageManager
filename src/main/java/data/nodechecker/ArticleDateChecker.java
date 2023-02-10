@@ -8,9 +8,10 @@ import java.util.Optional;
 import org.w3c.dom.Element;
 
 import data.nodechecker.tagselection.InclusionTagSelector;
-import utils.XmlHelper;
+import data.violationcorrection.UpdatePageDateCorrection;
 import utils.xmlparsing.ArticleData;
 import utils.xmlparsing.LinkData;
+import utils.xmlparsing.XmlHelper;
 import utils.xmlparsing.ElementType;
 import utils.xmlparsing.XmlParser;
 import utils.xmlparsing.XmlParsingException;
@@ -20,7 +21,7 @@ import utils.xmlparsing.XmlParsingException;
  */
 public class ArticleDateChecker extends NodeChecker {
 
-    private final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
+    private static final InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.ARTICLE
             });
 
@@ -67,7 +68,7 @@ public class ArticleDateChecker extends NodeChecker {
                                        ") is after page date (" +
                                        pageDate.get() +
                                        ")",
-                                       Optional.empty());
+                                       Optional.of(new UpdatePageDateCorrection()));
             }
         }
 
@@ -83,7 +84,7 @@ public class ArticleDateChecker extends NodeChecker {
                                            ") is after page date (" +
                                            pageDate.get() +
                                            ")",
-                                           Optional.empty());
+                                           Optional.of(new UpdatePageDateCorrection()));
                 }
                 if (creationDate.isPresent() &&
                     compareTemporalAccesssor(publicationDate.get(), creationDate.get()) < 0) {

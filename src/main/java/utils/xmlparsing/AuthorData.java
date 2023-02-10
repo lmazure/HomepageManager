@@ -3,7 +3,7 @@ package utils.xmlparsing;
 import java.util.Optional;
 
 /**
- *
+ * Author data
  */
 public class AuthorData {
 

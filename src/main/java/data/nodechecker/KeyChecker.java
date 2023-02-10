@@ -18,7 +18,7 @@ public class KeyChecker extends NodeChecker {
     private static final Pattern s_pattern =
         Pattern.compile("^([-+*/=A-Z0-9àéèù^;:.,&\"'%#!?_)(]|F[1-9]|F10|F11|F12|Left|Up|Right|Down|Beginning|PageUp|PageDown|Space|Tab|Enter|Del|Backspace|Esc|Break|Ins|End|Return|Num [-+*/0-9])$");
 
-    private final static InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
+    private static final InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.KEY
             });
 

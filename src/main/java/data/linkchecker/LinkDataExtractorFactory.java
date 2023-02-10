@@ -12,6 +12,7 @@ import data.linkchecker.gitlabblog.GitlabBlogLinkContentParser;
 import data.linkchecker.medium.MediumLinkContentParser;
 import data.linkchecker.oracleblogs.OracleBlogsLinkContentParser;
 import data.linkchecker.quantamagazine.QuantaMagazineLinkContentParser;
+import data.linkchecker.stackoverflowblog.StackOverflowBlogContentParser;
 import data.linkchecker.wired.WiredLinkContentParser;
 import data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser;
 import utils.internet.HtmlHelper;
@@ -49,38 +50,25 @@ public class LinkDataExtractorFactory {
 
         if (u.startsWith("https://arstechnica.com/")) {
             constructor = ArsTechnicaLinkContentParser::new;
-        }
-
-        if (u.startsWith("https://www.baeldung.com/") && !u.equals("https://www.baeldung.com/")) {
+        } else if (u.startsWith("https://www.baeldung.com/") &&
+        		   !u.equals("https://www.baeldung.com/")) {
             constructor = BaeldungLinkContentParser::new;
-        }
-
-        if (url.startsWith("https://github.blog/")) {
+        } else if (url.startsWith("https://github.blog/")) {
             constructor = GithubBlogLinkContentParser::new;
-        }
-
-        if (u.startsWith("https://medium.com/")) {
+        } else if (u.startsWith("https://medium.com/")) {
             constructor = MediumLinkContentParser::new;
-        }
-
-        if (u.matches("https://blogs.oracle.com/javamagazine/.+") ||
-            u.matches("https://blogs.oracle.com/java/.+")) {
+        } else if (u.matches("https://blogs.oracle.com/javamagazine/.+") ||
+                   u.matches("https://blogs.oracle.com/java/.+")) {
             constructor = OracleBlogsLinkContentParser::new;
-        }
-
-        if (u.startsWith("https://www.quantamagazine.org/")) {
+        } else if (u.startsWith("https://www.quantamagazine.org/")) {
             constructor = QuantaMagazineLinkContentParser::new;
-        }
-
-        if (u.startsWith("https://www.youtube.com/watch?")) {
+        } else if (u.startsWith("https://stackoverflow.blog/")) {
+            constructor = StackOverflowBlogContentParser::new;
+        } else if (u.startsWith("https://www.youtube.com/watch?")) {
             constructor = YoutubeWatchLinkContentParser::new;
-        }
-
-        if (u.startsWith("https://about.gitlab.com/blog/")) {
+        } else if (u.startsWith("https://about.gitlab.com/blog/")) {
             constructor = GitlabBlogLinkContentParser::new;
-        }
-
-        if (u.startsWith("https://www.wired.com/")) {
+        } else if (u.startsWith("https://www.wired.com/")) {
             constructor = WiredLinkContentParser::new;
         }
 

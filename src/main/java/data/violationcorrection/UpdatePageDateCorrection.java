@@ -7,10 +7,10 @@ import java.util.Calendar;
  */
 public class UpdatePageDateCorrection extends RegexpViolationCorrection {
 
-    private final static Calendar s_now = Calendar.getInstance();
-    private final static int s_now_year = s_now.get(Calendar.YEAR);
-    private final static int s_now_month = s_now.get(Calendar.MONTH)+1;
-    private final static int s_now_day = s_now.get(Calendar.DAY_OF_MONTH);
+    private static final Calendar s_now = Calendar.getInstance();
+    private static final int s_now_year = s_now.get(Calendar.YEAR);
+    private static final int s_now_month = s_now.get(Calendar.MONTH)+1;
+    private static final int s_now_day = s_now.get(Calendar.DAY_OF_MONTH);
 
     /**
      * Constructor

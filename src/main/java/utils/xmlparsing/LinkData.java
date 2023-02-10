@@ -21,15 +21,15 @@ public class LinkData {
     private final Optional<TemporalAccessor> _publicationDate;
 
     /**
-     * @param title
-     * @param subtitles
-     * @param url
-     * @param status
-     * @param protection
-     * @param formats
-     * @param languages
-     * @param duration
-     * @param publicationDate
+     * @param title Title
+     * @param subtitles Subtitles
+     * @param url URL
+     * @param status Status
+     * @param protection Protection
+     * @param formats Formats
+     * @param languages Languages
+     * @param duration Duration
+     * @param publicationDate Publication date
      */
     public LinkData(final String title,
                     final String subtitles[],
@@ -51,42 +51,73 @@ public class LinkData {
         _publicationDate = publicationDate;
     }
 
+    /**
+     * @return Title
+     */
     public String getTitle() {
         return _title;
     }
 
+    /**
+     * @return Subtitles
+     */
     public String[] getSubtitles() {
         return _subtitles;
     }
 
+    /**
+     * @return URL
+     */
     public String getUrl() {
         return _url;
     }
 
+    /**
+     * @return Status
+     */
     public Optional<LinkStatus> getStatus() {
         return _status;
     }
 
+    /**
+     * @return Protection
+     */
     public Optional<LinkProtection> getProtection() {
         return _protection;
     }
 
+    /**
+     * @return Formats
+     */
     public LinkFormat[] getFormats() {
         return _formats;
     }
 
+    /**
+     * @return Languages
+     */
     public Locale[] getLanguages() {
         return _languages;
     }
 
+    /**
+     * @return Duration
+     */
     public Optional<Duration> getDuration() {
         return _duration;
     }
 
+    /**
+     * @return Publication date
+     */
     public Optional<TemporalAccessor> getPublicationDate() {
         return _publicationDate;
     }
 
+    /**
+     * @param status
+     * @return
+     */
     public static LinkStatus parseStatus(final String status) {
         if (status.equals("dead")) {
             return LinkStatus.DEAD;
@@ -100,6 +131,10 @@ public class LinkData {
         throw new UnsupportedOperationException("Illegal status value (" + status + ")");
     }
 
+    /**
+     * @param protection
+     * @return
+     */
     public static LinkProtection parseProtection(final String protection) {
         if (protection.equals("free_registration")) {
             return LinkProtection.FREE_REGISTRATION;
@@ -110,6 +145,10 @@ public class LinkData {
         throw new UnsupportedOperationException("Illegal protection value (" + protection + ")");
     }
 
+    /**
+     * @param format
+     * @return
+     */
     public static LinkFormat parseFormat(final String format) {
         if (format.equals("HTML")) {
             return LinkFormat.HTML;
@@ -150,6 +189,10 @@ public class LinkData {
         throw new UnsupportedOperationException("Illegal format value (" + format + ")");
     }
 
+    /**
+     * @param language
+     * @return
+     */
     public static Locale parseLanguage(final String language) {
         if (language.equals("en")) {
             return Locale.ENGLISH;

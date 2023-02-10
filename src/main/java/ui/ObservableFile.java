@@ -10,6 +10,9 @@ import data.FileHandler;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+/**
+ *
+ */
 public class ObservableFile { // TODO this class must be split, it currently knows all the types of generated files !
 
     private final SimpleStringProperty _name;
@@ -30,6 +33,11 @@ public class ObservableFile { // TODO this class must be split, it currently kno
 
     private static DateTimeFormatter s_formatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss");
 
+    /**
+     * @param path
+     * @param modificationDateTime
+     * @param size
+     */
     public ObservableFile(final Path path,
                           final FileTime modificationDateTime,
                           final long size) {
@@ -43,47 +51,81 @@ public class ObservableFile { // TODO this class must be split, it currently kno
         _linkCheckStatus = new SimpleStringProperty();
     }
 
+    /**
+     * @return
+     */
     public SimpleStringProperty getNameProperty() {
         return _name;
     }
 
+    /**
+     * @return
+     */
     public String getName() {
         return _name.get();
     }
 
+    /**
+     * @return
+     */
     public Path getPath() {
         return Paths.get(_name.get());
     }
 
-    void setDeleted() {
+
+    /**
+     * 
+     */
+    public void setDeleted() {
         _modificationDateTime.set("");
         _size.set(0L);
     }
 
-    void setCreated(final FileTime modificationDateTime,
-                    final long size) {
+    /**
+     * @param modificationDateTime
+     * @param size
+     */
+    public void setCreated(final FileTime modificationDateTime,
+                           final long size) {
         _modificationDateTime.set(formatFileTime(modificationDateTime));
         _size.set(size);
     }
 
+    /**
+     * @return
+     */
     public SimpleStringProperty getModificationDateTimeProperty() {
         return _modificationDateTime;
     }
 
+    /**
+     * @return
+     */
     public SimpleLongProperty getSizeProperty() {
         return _size;
     }
 
     // --- HTML generation ---
 
+    /**
+     * @return
+     */
     public SimpleStringProperty getHtmlGenerationProperty() {
         return _htmlFileStatus;
     }
 
+    /**
+     * @return
+     */
     public String getHtmlGenerationStatus() {
         return _htmlFileStatus.get();
     }
 
+    /**
+     * @param status
+     * @param outputFile
+     * @param reportFile
+     */
     public void setHtmlGenerationStatus(final FileHandler.Status status,
                                         final Path outputFile,
                                         final Path reportFile) {
@@ -92,24 +134,41 @@ public class ObservableFile { // TODO this class must be split, it currently kno
         _htmlFileReportFile = reportFile;
     }
 
+    /**
+     * @return
+     */
     public Path getHtmlFileOuputFile() {
         return _htmlFileOuputFile;
     }
 
+    /**
+     * @return
+     */
     public Path getHtmlFileReportFile() {
         return _htmlFileReportFile;
     }
 
     // --- file check ---
 
+    /**
+     * @return
+     */
     public SimpleStringProperty getFileCheckProperty() {
         return _fileCheckStatus;
     }
 
+    /**
+     * @return
+     */
     public String getFileCheckStatus() {
         return _fileCheckStatus.get();
     }
 
+    /**
+     * @param status
+     * @param outputFile
+     * @param reportFile
+     */
     public void setFileCheckStatus(final FileHandler.Status status,
                                    final Path outputFile,
                                    final Path reportFile) {
@@ -118,24 +177,41 @@ public class ObservableFile { // TODO this class must be split, it currently kno
         _fileCheckReportFile = reportFile;
     }
 
+    /**
+     * @return
+     */
     public Path getFileCheckOuputFile() {
         return _fileCheckOuputFile;
     }
 
+    /**
+     * @return
+     */
     public Path getFileCheckReportFile() {
         return _fileCheckReportFile;
     }
 
     // --- node value check ---
 
+    /**
+     * @return
+     */
     public SimpleStringProperty getNodeValueCheckProperty() {
         return _nodeValueCheckStatus;
     }
 
+    /**
+     * @return
+     */
     public String getNodeValueCheckStatus() {
         return _nodeValueCheckStatus.get();
     }
 
+    /**
+     * @param status
+     * @param outputFile
+     * @param reportFile
+     */
     public void setNodeValueCheckStatus(final FileHandler.Status status,
                                         final Path outputFile,
                                         final Path reportFile) {
@@ -144,24 +220,41 @@ public class ObservableFile { // TODO this class must be split, it currently kno
         _nodeValueCheckReportFile = reportFile;
     }
 
+    /**
+     * @return
+     */
     public Path getNodeValueCheckOuputFile() {
         return _nodeValueCheckOuputFile;
     }
 
+    /**
+     * @return
+     */
     public Path getNodeValueCheckReportFile() {
         return _nodeValueCheckReportFile;
     }
 
     // --- link check ---
 
+    /**
+     * @return
+     */
     public SimpleStringProperty getLinkCheckProperty() {
         return _linkCheckStatus;
     }
 
+    /**
+     * @return
+     */
     public String getLinkCheckStatus() {
         return _linkCheckStatus.get();
     }
 
+    /**
+     * @param status
+     * @param outputFile
+     * @param reportFile
+     */
     public void setLinkCheckStatus(final FileHandler.Status status,
                                    final Path outputFile,
                                    final Path reportFile) {
@@ -170,10 +263,16 @@ public class ObservableFile { // TODO this class must be split, it currently kno
         _linkCheckReportFile = reportFile;
     }
 
+    /**
+     * @return
+     */
     public Path getLinkCheckOuputFile() {
         return _linkCheckOuputFile;
     }
 
+    /**
+     * @return
+     */
     public Path getLinkCheckReportFile() {
         return _linkCheckReportFile;
     }
