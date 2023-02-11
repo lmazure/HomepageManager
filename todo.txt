@@ -2,15 +2,13 @@
 
 ==== merge =====
 
-corriger les noms de packages
-
-ajouter deux channels youtube
+'maven package' crache sur
+[[1;31mERROR[m] [1;31m  YoutubeChannelUserLinkContentParserTest.testEnglish:68 » IllegalState Exception while retrieving https://www.youtube.com/channel/UC6nSFpj9HTCZ5t-N3Rm3-HA[m
+[[1;31mERROR[m] [1;31m  YoutubeWatchLinkContentParserTest.testFrench:356 » IllegalState Exception while retrieving https://www.youtube.com/watch?v=atKDrGedg_w[m
 
 le subtitle récupéré n'est pas bon pour https://stackoverflow.blog/2021/07/14/getting-started-with-python/
 
 l'affichage de la table des violations n'est pas correcte, les dernières lignes sont cachées
-
-jeter un coup d'oeil sur le code coverage
 
 les CODEROUTINE sont écrits trop bas dans le HTML généré
 
