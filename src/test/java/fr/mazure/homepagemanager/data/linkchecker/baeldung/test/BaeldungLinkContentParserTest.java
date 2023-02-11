@@ -44,6 +44,23 @@ public class BaeldungLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @Test
+    void testNoSubtitle() {
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        final String url = "https://www.baeldung.com/crawler4j";
+        retriever.retrieve(url,
+                           (final Boolean b, final FullFetchedLinkData d) -> {
+                               Assertions.assertTrue(d.dataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
+                               final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(url, data);
+                               Assertions.assertFalse(parser.getSubtitle().isPresent());
+                               consumerHasBeenCalled.set(true);
+                           },
+                           false);
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
     @ParameterizedTest
     @CsvSource({
         "https://www.baeldung.com/crawler4j,2019-09-06"

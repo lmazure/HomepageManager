@@ -49,6 +49,26 @@ public class GitlabBlogLinkContentParserTest {
     }
 
     @ParameterizedTest
+    @CsvSource(value = {
+        "https://about.gitlab.com/blog/2021/12/15/devops-adoption",
+        "https://about.gitlab.com/blog/2021/08/24/stageless-pipelines/"
+        })
+    void testNoSubtitle(final String url) {
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(url,
+                           (final Boolean b, final FullFetchedLinkData d) -> {
+                               Assertions.assertTrue(d.dataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
+                               final GitlabBlogLinkContentParser parser = new GitlabBlogLinkContentParser(url, data);
+                               Assertions.assertFalse(parser.getSubtitle().isPresent());
+                               consumerHasBeenCalled.set(true);
+                           },
+                           false);
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    @ParameterizedTest
     @CsvSource({
         "https://about.gitlab.com/blog/2021/12/15/devops-adoption/,2021-12-15",
         "https://about.gitlab.com/blog/2021/08/24/stageless-pipelines/,2021-08-24",
