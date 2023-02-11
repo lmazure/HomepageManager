@@ -2,10 +2,6 @@
 
 ==== merge =====
 
-corriger les noms de packages
-
-ajouter deux channels youtube
-
 le subtitle récupéré n'est pas bon pour https://stackoverflow.blog/2021/07/14/getting-started-with-python/
 
 l'affichage de la table des violations n'est pas correcte, les dernières lignes sont cachées

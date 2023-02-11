@@ -218,6 +218,22 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchArjanCodesIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=pxuXaaT1u3k";
+        final String expectedXml = """
+                <ARTICLE><X><T>Python Logging: How to Write Logs Like a Pro!</T>\
+                <A>https://www.youtube.com/watch?v=pxuXaaT1u3k</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>1</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Arjan</FIRSTNAME><LASTNAME>Egges</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2023</YEAR><MONTH>2</MONTH><DAY>3</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeWatchAstronoGeekIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=7rTKxHoU_Rc";
         final String expectedXml = """
@@ -517,6 +533,27 @@ public class LinkDataExtractorTest {
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
         Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
+    void youtubeWatchGotoConferenceDaveFarleyIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=ihOUzzwPFIk";
+        final String expectedSureXml = """
+                <ARTICLE><X><T>The 3 Types of Unit Test in TDD • Dave Farley • GOTO 2022</T>\
+                <A>https://www.youtube.com/watch?v=ihOUzzwPFIk</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>17</MINUTE><SECOND>29</SECOND></DURATION></X>\
+                <DATE><YEAR>2022</YEAR><MONTH>12</MONTH><DAY>2</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final String expectedProbableXml = """
+                <ARTICLE><X><T>The 3 Types of Unit Test in TDD • Dave Farley • GOTO 2022</T>\
+                <A>https://www.youtube.com/watch?v=ihOUzzwPFIk</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>17</MINUTE><SECOND>29</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Dave</FIRSTNAME><LASTNAME>Farley</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>12</MONTH><DAY>2</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
+        Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
     }
 
     @Test
