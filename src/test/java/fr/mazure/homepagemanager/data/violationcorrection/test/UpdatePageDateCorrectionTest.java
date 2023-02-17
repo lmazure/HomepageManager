@@ -18,9 +18,7 @@ public class UpdatePageDateCorrectionTest {
     private static final int s_now_month = s_now.get(Calendar.MONTH)+1;
     private static final int s_now_day = s_now.get(Calendar.DAY_OF_MONTH);
 
-    /**
-     * This test will not work if it crosses midnight.
-     */
+    // This test will not work if it crosses midnight.
     @SuppressWarnings("static-method")
     @Test
     void dateIsUpdated() {

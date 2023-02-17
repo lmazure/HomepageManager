@@ -2,8 +2,6 @@
 
 ==== merge =====
 
-corriger les titres de ai.xml
-
 'maven package' crache sur
 [[1;31mERROR[m] [1;31m  YoutubeChannelUserLinkContentParserTest.testEnglish:68 » IllegalState Exception while retrieving https://www.youtube.com/channel/UC6nSFpj9HTCZ5t-N3Rm3-HA[m
 [[1;31mERROR[m] [1;31m  YoutubeWatchLinkContentParserTest.testFrench:356 » IllegalState Exception while retrieving https://www.youtube.com/watch?v=atKDrGedg_w[m
