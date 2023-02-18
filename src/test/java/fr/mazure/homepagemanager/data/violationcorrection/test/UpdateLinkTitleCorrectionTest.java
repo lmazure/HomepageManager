@@ -3,13 +3,13 @@ package fr.mazure.homepagemanager.data.violationcorrection.test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.mazure.homepagemanager.data.violationcorrection.UpdateArticleTitleCorrection;
+import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkTitleCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
 
 /**
- * Test of UpdateArticleTitleCorrection class
+ * Test of UpdateLinkTitleCorrection class
  */
-public class UpdateArticleTitleCorrectionTest {
+public class UpdateLinkTitleCorrectionTest {
 
     /**
      * This test will not work if it crosses midnight.
@@ -46,7 +46,7 @@ public class UpdateArticleTitleCorrectionTest {
             "</CONTENT>\r\n" +
             "</PAGE>";
 
-        final ViolationCorrection correction = new UpdateArticleTitleCorrection("Visual Perception with Deep Learning",
+        final ViolationCorrection correction = new UpdateLinkTitleCorrection("Visual Perception with Deep Learning",
                                                                                 "Visual Perception with Machine Learning",
                                                                                 "https://www.youtube.com/watch?v=3boKlkPBckA");
         Assertions.assertEquals(expected, correction.apply(content));
@@ -84,7 +84,7 @@ public class UpdateArticleTitleCorrectionTest {
             "</CONTENT>\r\n" +
             "</PAGE>";
 
-        final ViolationCorrection correction = new UpdateArticleTitleCorrection("Nvidia AI plays Minecraft, wins machine-learning conference award",
+        final ViolationCorrection correction = new UpdateLinkTitleCorrection("Nvidia AI plays Minecraft, wins machine-learning conference award",
                                                                                 "Nvidia AI plays Warcraft, wins machine-learning conference award",
                                                                                 "https://arstechnica.com/information-technology/2022/11/nvidia-wins-award-for-ai-that-can-play-minecraft-on-command/");
         Assertions.assertEquals(expected, correction.apply(content));

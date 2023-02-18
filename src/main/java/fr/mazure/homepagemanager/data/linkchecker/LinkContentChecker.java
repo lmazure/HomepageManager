@@ -23,7 +23,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
 /**
- *
+ * Base class for the link data checkers
  */
 public class LinkContentChecker {
 
@@ -34,10 +34,10 @@ public class LinkContentChecker {
     private LinkContentParser _parser;
 
     /**
-     * @param url
-     * @param linkData
-     * @param articleData
-     * @param file
+     * @param url URL of the link to check
+     * @param linkData expected link data
+     * @param articleData expected article data
+     * @param file effective retrieved link data
      */
     public LinkContentChecker(final String url,
                               final LinkData linkData,
@@ -50,7 +50,9 @@ public class LinkContentChecker {
     }
 
     /**
-     * @return
+     * Perform the check
+     *
+     * @return List of violations
      * @throws ContentParserException Failure to extract the information
      */
     public final List<LinkContentCheck> check() throws ContentParserException {
@@ -69,12 +71,7 @@ public class LinkContentChecker {
         }
     }
 
-    /**
-     * @param data
-     * @return
-     * @throws ContentParserException Failure to extract the information
-     */
-    public final List<LinkContentCheck> check(final String data) throws ContentParserException {
+    private final List<LinkContentCheck> check(final String data) throws ContentParserException {
 
         final List<LinkContentCheck> checks = new ArrayList<>();
 

@@ -12,15 +12,15 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 
 /**
-*
+* Dummy link data checkercthat cjheck nothing (i.e. it does not report any violation)
 */
 public class NoCheckContentChecker extends LinkContentChecker {
 
     /**
-     * @param url
-     * @param linkData
-     * @param articleData
-     * @param file
+     * @param url URL of the link to check
+     * @param linkData expected link data
+     * @param articleData expected article data
+     * @param file effective retrieved link data
      */
     public NoCheckContentChecker(final String url,
                                  final LinkData linkData,

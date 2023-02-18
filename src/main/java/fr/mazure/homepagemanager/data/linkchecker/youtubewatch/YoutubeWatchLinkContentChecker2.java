@@ -12,7 +12,7 @@ import java.util.Optional;
 import fr.mazure.homepagemanager.data.SecretRepository;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentCheck;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker;
-import fr.mazure.homepagemanager.data.violationcorrection.UpdateArticleTitleCorrection;
+import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkTitleCorrection;
 import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.StringHelper;
 import fr.mazure.homepagemanager.utils.internet.youtube.CachedYoutubeApi;
@@ -69,7 +69,7 @@ public class YoutubeWatchLinkContentChecker2 extends LinkContentChecker {
                                         "\" is not equal to the real title \"" +
                                         effectiveTitle +
                                         "\"",
-                                        Optional.of(new UpdateArticleTitleCorrection(title, effectiveTitle, getUrl())));
+                                        Optional.of(new UpdateLinkTitleCorrection(title, effectiveTitle, getUrl())));
         }
 
         return null;

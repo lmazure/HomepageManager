@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-import fr.mazure.homepagemanager.data.violationcorrection.UpdateArticleTitleCorrection;
+import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkTitleCorrection;
 import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.StringHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
@@ -27,7 +27,7 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
      * @param linkData expected link data
      * @param articleData expected article data
      * @param file effective retrieved link data
-     * @param extractorBuilder
+     * @param extractorBuilder function that returns a link data extractor
      */
     public ExtractorBasedLinkContentChecker(final String url,
                                             final LinkData linkData,
@@ -64,7 +64,7 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
                                         effectiveTitle +
                                           "\"\n" +
                                         diff,
-                                        Optional.of(new UpdateArticleTitleCorrection(title, effectiveTitle, getUrl())));
+                                        Optional.of(new UpdateLinkTitleCorrection(title, effectiveTitle, getUrl())));
         }
 
         return null;

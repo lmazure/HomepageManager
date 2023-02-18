@@ -7,7 +7,7 @@ import java.util.Optional;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentCheck;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker;
-import fr.mazure.homepagemanager.data.violationcorrection.UpdateArticleTitleCorrection;
+import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkTitleCorrection;
 import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
@@ -52,7 +52,7 @@ public class ChromiumBlogLinkContentChecker extends LinkContentChecker {
                                         "\" is not equal to the real title \"" +
                                         effectiveTitle +
                                         "\"",
-                                        Optional.of(new UpdateArticleTitleCorrection(title, effectiveTitle, getUrl())));
+                                        Optional.of(new UpdateLinkTitleCorrection(title, effectiveTitle, getUrl())));
         }
 
         return null;

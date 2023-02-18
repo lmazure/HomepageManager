@@ -10,7 +10,7 @@ import fr.mazure.homepagemanager.utils.ExitHelper;
 import fr.mazure.homepagemanager.utils.Logger;
 
 /**
- *
+ * Class generating the file global to the site
  */
 public class SiteFilesGenerator {
 
