@@ -43,7 +43,8 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
         _parser = (YoutubeWatchLinkContentParser)(getParser()); // TODO cleanup this crap
         if (!_parser.isPlayable()) {
             return new LinkContentCheck("VideoNotPlayable",
-                                        "video is not playable");
+                                        "video is not playable",
+                                        Optional.empty());
         }
 
         return null;
@@ -72,7 +73,8 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
                                         effectiveMinDuration +
                                         "," +
                                         effectiveMaxDuration +
-                                        "]");
+                                        "]",
+                                        Optional.empty());
         }
 
         return null;
@@ -86,14 +88,16 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
 
         if (creationDate.isEmpty() && publicationDate.isEmpty()) {
             return new LinkContentCheck("MissingDate",
-                                        "YouTube link with neither creation date not publication date");
+                                        "YouTube link with neither creation date not publication date",
+                                        Optional.empty());
         }
 
         final TemporalAccessor date = publicationDate.isPresent() ? publicationDate.get() : creationDate.get();
 
         if (!(date instanceof LocalDate)) {
             return new LinkContentCheck("IncorrectDate",
-                                        "Date without month or day");
+                                        "Date without month or day",
+                                        Optional.empty());
        }
 
         final LocalDate expectedDate = (LocalDate)date;
@@ -105,7 +109,8 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
                                         "expected date " +
                                         expectedDate +
                                         " is not equal to the effective publish date " +
-                                        effectivePublishDate);
+                                        effectivePublishDate,
+                                        Optional.empty());
        }
 
        if (!expectedDate.equals(effectiveUploadDate)) {
@@ -113,7 +118,8 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
                                         "expected date " +
                                         expectedDate +
                                         " is not equal to the effective upload date " +
-                                        effectivePublishDate);
+                                        effectivePublishDate,
+                                        Optional.empty());
        }
 
        return null;
@@ -127,7 +133,8 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
             return new LinkContentCheck("WrongLanguage",
                                         "language is \"" +
                                         _parser.getLanguage() +
-                                        "\" but this one is unexpected");
+                                        "\" but this one is unexpected",
+                                        Optional.empty());
         }
 
         return null;

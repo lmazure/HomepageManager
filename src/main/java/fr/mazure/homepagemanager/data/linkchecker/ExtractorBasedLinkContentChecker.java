@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
+import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkTitleCorrection;
 import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.StringHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
@@ -26,7 +27,7 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
      * @param linkData expected link data
      * @param articleData expected article data
      * @param file effective retrieved link data
-     * @param extractorBuilder
+     * @param extractorBuilder function that returns a link data extractor
      */
     public ExtractorBasedLinkContentChecker(final String url,
                                             final LinkData linkData,
@@ -62,7 +63,8 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
                                         "\" is not equal to the real title \"" +
                                         effectiveTitle +
                                           "\"\n" +
-                                        diff);
+                                        diff,
+                                        Optional.of(new UpdateLinkTitleCorrection(title, effectiveTitle, getUrl())));
         }
 
         return null;
@@ -74,7 +76,8 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
     {
         if (expectedSubtitles.length > 1) {
             return new LinkContentCheck("MultipleSubtiles",
-                                        "More than one subtitle is not supported yet");  // TODO implement support of several subtitles
+                                        "More than one subtitle is not supported yet",
+                                        Optional.empty());  // TODO implement support of several subtitles
         }
 
         final Optional<String> effectiveSubtitle = _parser.getSubtitle();
@@ -84,7 +87,8 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
                 return new LinkContentCheck("WrongSubtitle",
                                             "subtitle \"" +
                                             expectedSubtitles[0] +
-                                            "\" should not be present");
+                                            "\" should not be present",
+                                            Optional.empty());
             }
             return null;
         }
@@ -93,7 +97,8 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
             return new LinkContentCheck("MissingSubtitle",
                                         "the subtitle \"" +
                                         effectiveSubtitle.get() +
-                                        "\" is missing");
+                                        "\" is missing",
+                                        Optional.empty());
         }
 
         if (!expectedSubtitles[0].equals(effectiveSubtitle.get())) {
@@ -102,7 +107,8 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
                                         expectedSubtitles[0] +
                                         "\" is not equal to the real subtitle \"" +
                                         effectiveSubtitle.get() +
-                                          "\"");
+                                          "\"",
+                                          Optional.empty());
         }
 
         return null;
@@ -114,7 +120,8 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
     {
         if ((languages.length != 1) || (languages[0] != _parser.getLanguage())) {
             return new LinkContentCheck("WrongLanguage",
-                                        "Article should have the language set as " + _parser.getLanguage());
+                                        "Article should have the language set as " + _parser.getLanguage(),
+                                        Optional.empty());
         }
 
         return null;
@@ -127,7 +134,8 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
     {
         if (creationDate.isEmpty()) {
             return new LinkContentCheck("MissingCreationDate",
-                                        "Article should have a creation date");
+                                        "Article should have a creation date",
+                                        Optional.empty());
         }
         final TemporalAccessor date =  publicationDate.isPresent() ? publicationDate.get()
                                                                    : creationDate.get();
@@ -142,7 +150,8 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
                                         "The expected date " +
                                         date +
                                         " is not equal to the effective date " +
-                                        effectiveDate);
+                                        effectiveDate,
+                                        Optional.empty());
         }
 
         return null;

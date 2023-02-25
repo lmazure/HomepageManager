@@ -77,7 +77,7 @@ public abstract class LinkDataExtractor {
     }
 
     /**
-     * @return
+     * @return the list of lonks
      * @throws ContentParserException Failure to extract the information
      */
     public abstract List<ExtractedLinkData> getLinks() throws ContentParserException;

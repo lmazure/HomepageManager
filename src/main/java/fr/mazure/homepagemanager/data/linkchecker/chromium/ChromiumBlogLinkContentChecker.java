@@ -7,6 +7,7 @@ import java.util.Optional;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentCheck;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker;
+import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkTitleCorrection;
 import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
@@ -50,7 +51,8 @@ public class ChromiumBlogLinkContentChecker extends LinkContentChecker {
                                         title +
                                         "\" is not equal to the real title \"" +
                                         effectiveTitle +
-                                          "\"");
+                                        "\"",
+                                        Optional.of(new UpdateLinkTitleCorrection(title, effectiveTitle, getUrl())));
         }
 
         return null;
@@ -64,12 +66,14 @@ public class ChromiumBlogLinkContentChecker extends LinkContentChecker {
 
         if (creationDate.isEmpty()) {
             return new LinkContentCheck("MissingCreationDate",
-                                        "Medium link with no creation date");
+                                        "Medium link with no creation date",
+                                        Optional.empty());
         }
 
         if (!(creationDate.get() instanceof LocalDate)) {
             return new LinkContentCheck("IncorrectCreationDate",
-                                        "Date without month or day");
+                                        "Date without month or day",
+                                        Optional.empty());
         }
 
         final LocalDate expectedDate = (LocalDate)creationDate.get();
@@ -80,7 +84,8 @@ public class ChromiumBlogLinkContentChecker extends LinkContentChecker {
                                         "expected date " +
                                         expectedDate +
                                         " is not equal to the effective publish date " +
-                                        effectivePublishDate);
+                                        effectivePublishDate,
+                                        Optional.empty());
        }
 
        return null;

@@ -7,7 +7,7 @@ import fr.mazure.homepagemanager.utils.StringHelper;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 
 /**
- *
+ * Base class for all the link data parsers
  */
 public class LinkContentParser {
 
@@ -15,14 +15,14 @@ public class LinkContentParser {
     private Optional<Locale> _language;
 
     /**
-     * @param data
+     * @param data Data to be parsed
      */
     public LinkContentParser(final String data) {
         _data = HtmlHelper.cleanContent(data);
     }
 
     /**
-     * @return
+     * @return Language of the data
      */
     public Optional<Locale> getLanguage() {
 

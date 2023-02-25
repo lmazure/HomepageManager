@@ -371,7 +371,7 @@ public class LinkCheckRunner {
                                                            c.getCheckName(),
                                                            new ViolationLocationUnknown(),
                                                            url + "\n" + c.getDescription(),
-                                                           Optional.empty()));
+                                                           c.getCorrection()));
                 }
             }
         }

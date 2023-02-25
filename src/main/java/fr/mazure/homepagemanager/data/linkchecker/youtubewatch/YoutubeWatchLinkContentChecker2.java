@@ -12,6 +12,7 @@ import java.util.Optional;
 import fr.mazure.homepagemanager.data.SecretRepository;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentCheck;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker;
+import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkTitleCorrection;
 import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.StringHelper;
 import fr.mazure.homepagemanager.utils.internet.youtube.CachedYoutubeApi;
@@ -48,7 +49,8 @@ public class YoutubeWatchLinkContentChecker2 extends LinkContentChecker {
     protected LinkContentCheck checkGlobalData(final String data) {
         if (!_dto.isAllowed()) {
             return new LinkContentCheck("VideoNotPlayable",
-                                        "video is not playable in FR");
+                                        "video is not playable in FR",
+                                        Optional.empty());
         }
 
         return null;
@@ -66,7 +68,8 @@ public class YoutubeWatchLinkContentChecker2 extends LinkContentChecker {
                                         title +
                                         "\" is not equal to the real title \"" +
                                         effectiveTitle +
-                                          "\"");
+                                        "\"",
+                                        Optional.of(new UpdateLinkTitleCorrection(title, effectiveTitle, getUrl())));
         }
 
         return null;
@@ -83,7 +86,8 @@ public class YoutubeWatchLinkContentChecker2 extends LinkContentChecker {
                                         "expected duration " +
                                         expectedDuration +
                                         " is not in the real duration " +
-                                        effectiveDuration);
+                                        effectiveDuration,
+                                        Optional.empty());
         }
 
         return null;
@@ -97,14 +101,16 @@ public class YoutubeWatchLinkContentChecker2 extends LinkContentChecker {
 
         if (creationDate.isEmpty()) {
             return new LinkContentCheck("MissingCreationDate",
-                                        "YouTube link with no creation date");
+                                        "YouTube link with no creation date",
+                                        Optional.empty());
         }
 
         final TemporalAccessor date = publicationDate.isPresent() ? publicationDate.get() : creationDate.get();
 
         if (!(date instanceof LocalDate)) {
             return new LinkContentCheck("IncorrectDate",
-                                        "Date without month or day");
+                                        "Date without month or day",
+                                        Optional.empty());
        }
 
         final LocalDate effectivePublicationDate = _dto.getPublicationDate();
@@ -150,12 +156,18 @@ public class YoutubeWatchLinkContentChecker2 extends LinkContentChecker {
 
         if (errorRecordingDate != null) {
             if (errorPublicationDate != null) {
-                return new LinkContentCheck("WrongDate", errorRecordingDate + " // " + errorPublicationDate);
+                return new LinkContentCheck("WrongDate",
+                                            errorRecordingDate + " // " + errorPublicationDate,
+                                            Optional.empty());
             }
-            return new LinkContentCheck("WrongDate", errorRecordingDate);
+            return new LinkContentCheck("WrongDate",
+                                        errorRecordingDate,
+                                        Optional.empty());
         }
         if (errorPublicationDate != null) {
-            return new LinkContentCheck("WrongDate", errorPublicationDate);
+            return new LinkContentCheck("WrongDate",
+                                        errorPublicationDate,
+                                        Optional.empty());
         }
         return null;
     }
@@ -171,7 +183,8 @@ public class YoutubeWatchLinkContentChecker2 extends LinkContentChecker {
                 return new LinkContentCheck("WrongLanguage",
                                             "language is \"" +
                                             language +
-                                            "\" but this one is unexpected (verified with API)");
+                                            "\" but this one is unexpected (verified with API)",
+                                            Optional.empty());
             }
         } else {
             final Optional<Locale> lang = StringHelper.guessLanguage(_dto.getDescription());
@@ -179,7 +192,8 @@ public class YoutubeWatchLinkContentChecker2 extends LinkContentChecker {
                 return new LinkContentCheck("WrongLanguage",
                                             "language is \"" +
                                             language +
-                                            "\" but this one is unexpected (verified with guessing)");
+                                            "\" but this one is unexpected (verified with guessing)",
+                                            Optional.empty());
             }
         }
 

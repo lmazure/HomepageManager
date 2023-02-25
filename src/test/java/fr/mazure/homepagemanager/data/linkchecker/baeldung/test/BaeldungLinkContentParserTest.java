@@ -63,7 +63,7 @@ public class BaeldungLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://www.baeldung.com/crawler4j,2019-09-06"
+        "https://www.baeldung.com/crawler4j,2023-02-24"
         })
     void testDate(final String url,
                   final String expectedDate) {

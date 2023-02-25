@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
-*
+* Helper to extract a string from some data
 */
 public class TextParser {
 
@@ -14,10 +14,10 @@ public class TextParser {
     private final String _field;
 
     /**
-     * @param prefix
-     * @param postfix
-     * @param source
-     * @param field
+     * @param prefix Regular expression of the text before the string to be extracted
+     * @param postfix Regular expression of the text after the string to be extracted
+     * @param source Textual description of the source of the data
+     * @param field Textual description of the string to be extracted
      */
     public TextParser(final String prefix,
                       final String postfix,
@@ -27,11 +27,11 @@ public class TextParser {
     }
 
     /**
-     * @param prefix
-     * @param pattern
-     * @param postfix
-     * @param source
-     * @param field
+     * @param prefix Regular expression of the text before the string to be extracted
+     * @param pattern Regular expression of the string to be extracted
+     * @param postfix Regular expression of the text after the string to be extracted
+     * @param source Textual description of the source of the data
+     * @param field Textual description of the string to be extracted
      */
     public TextParser(final String prefix,
                       final String pattern,
@@ -44,9 +44,11 @@ public class TextParser {
     }
 
     /**
-     * @param data
-     * @return
-     * @throws ContentParserException
+     * Extract a string from data
+     *
+     * @param data Data
+     * @return Extracted string if found
+     * @throws ContentParserException Exception if string not found
      */
     public String extract(final String data) throws ContentParserException {
         final Optional<String> str = extractOptional(data);
@@ -58,8 +60,10 @@ public class TextParser {
     }
 
     /**
-     * @param data
-     * @return
+     * Extract a string from data
+     *
+     * @param data Data
+     * @return Extracted string if found, empty Optional if not found
      */
     public Optional<String> extractOptional(final String data) {
         final Matcher m = _pattern.matcher(data);

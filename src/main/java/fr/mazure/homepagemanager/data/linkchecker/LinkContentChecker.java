@@ -23,7 +23,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
 /**
- *
+ * Base class for the link data checkers
  */
 public class LinkContentChecker {
 
@@ -34,10 +34,10 @@ public class LinkContentChecker {
     private LinkContentParser _parser;
 
     /**
-     * @param url
-     * @param linkData
-     * @param articleData
-     * @param file
+     * @param url URL of the link to check
+     * @param linkData expected link data
+     * @param articleData expected article data
+     * @param file effective retrieved link data
      */
     public LinkContentChecker(final String url,
                               final LinkData linkData,
@@ -50,7 +50,9 @@ public class LinkContentChecker {
     }
 
     /**
-     * @return
+     * Perform the check
+     *
+     * @return List of violations
      * @throws ContentParserException Failure to extract the information
      */
     public final List<LinkContentCheck> check() throws ContentParserException {
@@ -69,12 +71,7 @@ public class LinkContentChecker {
         }
     }
 
-    /**
-     * @param data
-     * @return
-     * @throws ContentParserException Failure to extract the information
-     */
-    public final List<LinkContentCheck> check(final String data) throws ContentParserException {
+    private final List<LinkContentCheck> check(final String data) throws ContentParserException {
 
         final List<LinkContentCheck> checks = new ArrayList<>();
 
@@ -222,7 +219,8 @@ public class LinkContentChecker {
                                         "language is \"" +
                                         language.get() +
                                         "\" but this one is unexpected, the expected languages are: " +
-                                        languagesAsString);
+                                        languagesAsString,
+                                        Optional.empty());
         }
 
         return null;
@@ -260,7 +258,9 @@ public class LinkContentChecker {
             final String message = "The list of effective authors is not the effective one."
                                    + "\nThe following authors are effectively present but are unexpected: " + unexpectedAuthors.stream().map(a-> a.toString()).collect(Collectors.joining(","))
                                    + "\nThe following authors are expected but are effectively missing: " + missingAuthors.stream().map(a-> a.toString()).collect(Collectors.joining(","));
-            return new LinkContentCheck("WrongAuthors", message);
+            return new LinkContentCheck("WrongAuthors",
+                                        message,
+                                        Optional.empty());
 
         }
 
@@ -269,7 +269,9 @@ public class LinkContentChecker {
                 final String message = "The list of effective authors is not ordered as the effective one."
                         + "\nexpected authors: " + expectedAuthors.stream().map(a-> a.toString()).collect(Collectors.joining(","))
                         + "\neffective authors: " + effectiveAuthors.stream().map(a-> a.toString()).collect(Collectors.joining(","));
-                return new LinkContentCheck("WrongAuthors", message);
+                return new LinkContentCheck("WrongAuthors",
+                                            message,
+                                            Optional.empty());
             }
         }
 
@@ -289,7 +291,8 @@ public class LinkContentChecker {
                                             expectedTitle +
                                             "\" does not appear in the page, this is a problem of casing, the real title is \"" +
                                             d.substring(i1, i1 + expectedTitle.length()) +
-                                            "\"");
+                                            "\"",
+                                            Optional.empty());
             }
             final int i2 = StringHelper.generalizedIndex(d, expectedTitle, false, true);
             if (i2 >= 0) {
@@ -299,7 +302,8 @@ public class LinkContentChecker {
                                             expectedTitle +
                                             "\" does not appear in the page, this is a problem of space, the real title is \"" +
                                             d.substring(i2, i2 + expectedTitle.length()) +
-                                            "\"");
+                                            "\"",
+                                            Optional.empty());
             }
             final int i3 = StringHelper.generalizedIndex(d, expectedTitle, false, true);
             if (i3 >= 0) {
@@ -309,13 +313,15 @@ public class LinkContentChecker {
                                             expectedTitle +
                                             "\" does not appear in the page, this is a problem of casing and space, the real title is \"" +
                                             d.substring(i3, i3 + expectedTitle.length()) +
-                                            "\"");
+                                            "\"",
+                                            Optional.empty());
             }
             return new LinkContentCheck("WrongTitle",
                                         description +
                                         " \"" +
                                         expectedTitle +
-                                        "\" does not appear in the page");
+                                        "\" does not appear in the page",
+                                        Optional.empty());
         }
         return null;
     }
@@ -328,7 +334,8 @@ public class LinkContentChecker {
                                                                                                       : author.getGivenName().get();
         if (StringHelper.generalizedIndex(d, authorStr, true, false) < 0) {
             return new LinkContentCheck("WrongAuthors",
-                                        "author \"" + authorStr + "\" does not appear in the page");
+                                        "author \"" + authorStr + "\" does not appear in the page",
+                                        Optional.empty());
         }
         return null;
     }

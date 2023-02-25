@@ -46,7 +46,8 @@ public class TwitterLinkContentChecker extends LinkContentChecker {
 
         if (language.isPresent() && !Arrays.asList(languages).contains(language.get())) {
             return new LinkContentCheck("WrongLanguage",
-                                        "language is \"" + language.get() + "\" but this one is unexpected");
+                                        "language is \"" + language.get() + "\" but this one is unexpected",
+                                        Optional.empty());
         }
 
         return null;

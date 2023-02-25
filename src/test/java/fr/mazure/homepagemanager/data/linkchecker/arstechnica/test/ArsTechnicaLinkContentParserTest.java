@@ -105,7 +105,9 @@ public class ArsTechnicaLinkContentParserTest {
         // the next article contains "_" and digits in the person URL
         "https://arstechnica.com/gaming/2022/08/crypto-driven-gpu-crash-makes-nvidia-miss-q2-projections-by-1-4-billion/,Andrew,,Cunningham",
         // the next article ends with wired.com
-        "https://arstechnica.com/information-technology/2022/09/mystery-hackers-are-hyperjacking-targets-for-insidious-spying/,Andy,,Greenberg"
+        "https://arstechnica.com/information-technology/2022/09/mystery-hackers-are-hyperjacking-targets-for-insidious-spying/,Andy,,Greenberg",
+        // the next article ends with Financial Times
+        "https://arstechnica.com/tech-policy/2022/12/twitter-rival-mastodon-rejects-funding-to-preserve-nonprofit-status/,Ian,,Johnston"
         })
     void testAuthor(final String url,
                     final String expectedFirstName,
