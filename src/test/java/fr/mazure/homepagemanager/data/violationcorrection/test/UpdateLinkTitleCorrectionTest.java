@@ -47,8 +47,8 @@ public class UpdateLinkTitleCorrectionTest {
             "</PAGE>";
 
         final ViolationCorrection correction = new UpdateLinkTitleCorrection("Visual Perception with Deep Learning",
-                                                                                "Visual Perception with Machine Learning",
-                                                                                "https://www.youtube.com/watch?v=3boKlkPBckA");
+                                                                             "Visual Perception with Machine Learning",
+                                                                             "https://www.youtube.com/watch?v=3boKlkPBckA");
         Assertions.assertEquals(expected, correction.apply(content));
     }
 
@@ -85,8 +85,8 @@ public class UpdateLinkTitleCorrectionTest {
             "</PAGE>";
 
         final ViolationCorrection correction = new UpdateLinkTitleCorrection("Nvidia AI plays Minecraft, wins machine-learning conference award",
-                                                                                "Nvidia AI plays Warcraft, wins machine-learning conference award",
-                                                                                "https://arstechnica.com/information-technology/2022/11/nvidia-wins-award-for-ai-that-can-play-minecraft-on-command/");
+                                                                             "Nvidia AI plays Warcraft, wins machine-learning conference award",
+                                                                             "https://arstechnica.com/information-technology/2022/11/nvidia-wins-award-for-ai-that-can-play-minecraft-on-command/");
         Assertions.assertEquals(expected, correction.apply(content));
     }
 }
