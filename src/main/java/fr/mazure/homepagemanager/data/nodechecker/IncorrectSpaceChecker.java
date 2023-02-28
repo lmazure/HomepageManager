@@ -21,6 +21,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
     //TODO ajouter l'ellipsis
 
     private static final Set<String> s_authorizedMissingSpaceList = new HashSet<>(Arrays.asList(
+            "2b2t.org",
             "2.X",
             "3.X",
             "4.X",
