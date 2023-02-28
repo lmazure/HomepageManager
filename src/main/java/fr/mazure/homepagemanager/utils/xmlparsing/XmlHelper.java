@@ -29,6 +29,18 @@ import fr.mazure.homepagemanager.utils.Logger;
  */
 public class XmlHelper {
 
+
+    /**
+     * Transform a string into a XML strinf
+     * @param str string
+     * @return XML string
+     */
+    public static String transform(final String str) {
+        return str.replace("&", "&amp;")
+                  .replace("<","&lt;")
+                  .replace(">","&gt;");
+    }
+
     /**
      * @return
      */

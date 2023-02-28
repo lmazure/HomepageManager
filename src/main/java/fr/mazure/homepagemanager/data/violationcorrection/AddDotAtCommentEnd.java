@@ -3,6 +3,8 @@ package fr.mazure.homepagemanager.data.violationcorrection;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import fr.mazure.homepagemanager.utils.xmlparsing.XmlHelper;
+
 /**
  * Add a dot at the end of a comment
  *
@@ -26,7 +28,7 @@ public class AddDotAtCommentEnd extends RegexpViolationCorrection {
             if (!first) {
                 builder.append("(<.*>)");
             }
-            builder.append(Pattern.quote(str));
+            builder.append(Pattern.quote(XmlHelper.transform(str)));
             first = false;
         }
         builder.append("((<.*>)?)</COMMENT>");
@@ -40,7 +42,7 @@ public class AddDotAtCommentEnd extends RegexpViolationCorrection {
             if (i > 2) {
                 builder.append("$" + i);
             }
-            builder.append(str);
+            builder.append(XmlHelper.transform(str));
             i++;
         }
         builder.append("$" + i + ".</COMMENT>");

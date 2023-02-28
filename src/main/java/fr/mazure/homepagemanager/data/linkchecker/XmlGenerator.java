@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
+import fr.mazure.homepagemanager.utils.xmlparsing.XmlHelper;
 
 /**
  * Generate the XML describing articles
@@ -66,15 +67,15 @@ public class XmlGenerator {
             }
             builder.append(">");
             builder.append("<T>");
-            builder.append(escapeXml(linkData.title()));
+            builder.append(XmlHelper.transform(linkData.title()));
             builder.append("</T>");
             for (String subTitle: linkData.subtitles()) {
                 builder.append("<ST>");
-                builder.append(escapeXml(subTitle));
+                builder.append(XmlHelper.transform(subTitle));
                 builder.append("</ST>");
             }
             builder.append("<A>");
-            builder.append(escapeXml(linkData.url()));
+            builder.append(XmlHelper.transform(linkData.url()));
             builder.append("</A>");
             for (Locale language: linkData.languages()) {
                 builder.append(generateLanguage(language));
@@ -106,32 +107,32 @@ public class XmlGenerator {
         builder.append("<AUTHOR>");
         if (authorData.getNamePrefix().isPresent()) {
             builder.append("<NAMEPREFIX>");
-            builder.append(escapeXml(authorData.getNamePrefix().get()));
+            builder.append(XmlHelper.transform(authorData.getNamePrefix().get()));
             builder.append("</NAMEPREFIX>");
         }
         if (authorData.getFirstName().isPresent()) {
             builder.append("<FIRSTNAME>");
-            builder.append(escapeXml(authorData.getFirstName().get()));
+            builder.append(XmlHelper.transform(authorData.getFirstName().get()));
             builder.append("</FIRSTNAME>");
         }
         if (authorData.getMiddleName().isPresent()) {
             builder.append("<MIDDLENAME>");
-            builder.append(escapeXml(authorData.getMiddleName().get()));
+            builder.append(XmlHelper.transform(authorData.getMiddleName().get()));
             builder.append("</MIDDLENAME>");
         }
         if (authorData.getLastName().isPresent()) {
             builder.append("<LASTNAME>");
-            builder.append(escapeXml(authorData.getLastName().get()));
+            builder.append(XmlHelper.transform(authorData.getLastName().get()));
             builder.append("</LASTNAME>");
         }
         if (authorData.getNameSuffix().isPresent()) {
             builder.append("<NAMESUFFIX>");
-            builder.append(escapeXml(authorData.getNameSuffix().get()));
+            builder.append(XmlHelper.transform(authorData.getNameSuffix().get()));
             builder.append("</NAMESUFFIX>");
         }
         if (authorData.getGivenName().isPresent()) {
             builder.append("<GIVENNAME>");
-            builder.append(escapeXml(authorData.getGivenName().get()));
+            builder.append(XmlHelper.transform(authorData.getGivenName().get()));
             builder.append("</GIVENNAME>");
         }
         builder.append("</AUTHOR>");
@@ -237,11 +238,5 @@ public class XmlGenerator {
         builder.append("</SECOND>");
         builder.append("</DURATION>");
         return builder.toString();
-    }
-
-    private static String escapeXml(final String str) {
-        return str.replace("&", "&amp;")
-                  .replace("<","&lt;")
-                  .replace(">","&gt;");
     }
 }
