@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthors;
 import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthorsOfLink;
+import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkTitleCorrection;
 import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.Logger;
 import fr.mazure.homepagemanager.utils.StringHelper;
@@ -278,43 +279,46 @@ public class LinkContentChecker {
         return null;
     }
 
-    private static LinkContentCheck checkTitle(final String data,
-                                               final String expectedTitle,
-                                               final String description) {
+    private LinkContentCheck checkTitle(final String data,
+                                        final String expectedTitle,
+                                        final String description) {
         final String d = HtmlHelper.cleanContent(data);
         if (StringHelper.generalizedIndex(d, expectedTitle, false, false) < 0) {
             final int i1 = StringHelper.generalizedIndex(d, expectedTitle, true, false);
             if (i1 >= 0) {
+                final String effectiveTitle = d.substring(i1, i1 + expectedTitle.length()); 
                 return new LinkContentCheck("WrongTitle",
                                             description +
                                             " \"" +
                                             expectedTitle +
                                             "\" does not appear in the page, this is a problem of casing, the real title is \"" +
-                                            d.substring(i1, i1 + expectedTitle.length()) +
+                                            effectiveTitle +
                                             "\"",
-                                            Optional.empty());
+                                            Optional.of(new UpdateLinkTitleCorrection(expectedTitle, effectiveTitle, _url)));
             }
             final int i2 = StringHelper.generalizedIndex(d, expectedTitle, false, true);
             if (i2 >= 0) {
+                final String effectiveTitle = d.substring(i2, i2 + expectedTitle.length());
                 return new LinkContentCheck("WrongTitle",
                                             description +
                                             " \"" +
                                             expectedTitle +
                                             "\" does not appear in the page, this is a problem of space, the real title is \"" +
-                                            d.substring(i2, i2 + expectedTitle.length()) +
+                                            effectiveTitle +
                                             "\"",
-                                            Optional.empty());
+                                            Optional.of(new UpdateLinkTitleCorrection(expectedTitle, effectiveTitle, _url)));
             }
             final int i3 = StringHelper.generalizedIndex(d, expectedTitle, false, true);
             if (i3 >= 0) {
+                final String effectiveTitle = d.substring(i3, i3 + expectedTitle.length());
                 return new LinkContentCheck("WrongTitle",
                                             description +
                                             " \"" +
                                             expectedTitle +
                                             "\" does not appear in the page, this is a problem of casing and space, the real title is \"" +
-                                            d.substring(i3, i3 + expectedTitle.length()) +
+                                            effectiveTitle +
                                             "\"",
-                                            Optional.empty());
+                                            Optional.of(new UpdateLinkTitleCorrection(expectedTitle, effectiveTitle, _url)));
             }
             return new LinkContentCheck("WrongTitle",
                                         description +
