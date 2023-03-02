@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.w3c.dom.Element;
 
 import fr.mazure.homepagemanager.data.nodechecker.tagselection.InclusionTagSelector;
+import fr.mazure.homepagemanager.data.violationcorrection.AddDotAtCommentEnd;
 import fr.mazure.homepagemanager.utils.xmlparsing.ElementType;
 import fr.mazure.homepagemanager.utils.xmlparsing.XmlHelper;
 
@@ -46,11 +47,11 @@ public class CommentChecker extends NodeChecker {
 
         return error ? new CheckStatus("MissingPuctuation",
                                        "COMMENT \"" + e.getTextContent() + "\" must end with a punctuation",
-                                       Optional.empty())
+                                       Optional.of(new AddDotAtCommentEnd(list)))
                      : null;
     }
 
-    static boolean isFinalPunctuation(final char c) {
+    private static boolean isFinalPunctuation(final char c) {
         return (c == '.') || (c == '?') || (c == '!') || (c == '…') || (c == '‽');
     }
 }

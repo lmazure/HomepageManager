@@ -11,9 +11,6 @@ import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
  */
 public class UpdateLinkTitleCorrectionTest {
 
-    /**
-     * This test will not work if it crosses midnight.
-     */
     @SuppressWarnings("static-method")
     @Test
     void titleIsUpdated() {
@@ -47,8 +44,8 @@ public class UpdateLinkTitleCorrectionTest {
             "</PAGE>";
 
         final ViolationCorrection correction = new UpdateLinkTitleCorrection("Visual Perception with Deep Learning",
-                                                                                "Visual Perception with Machine Learning",
-                                                                                "https://www.youtube.com/watch?v=3boKlkPBckA");
+                                                                             "Visual Perception with Machine Learning",
+                                                                             "https://www.youtube.com/watch?v=3boKlkPBckA");
         Assertions.assertEquals(expected, correction.apply(content));
     }
 
@@ -85,8 +82,46 @@ public class UpdateLinkTitleCorrectionTest {
             "</PAGE>";
 
         final ViolationCorrection correction = new UpdateLinkTitleCorrection("Nvidia AI plays Minecraft, wins machine-learning conference award",
-                                                                                "Nvidia AI plays Warcraft, wins machine-learning conference award",
-                                                                                "https://arstechnica.com/information-technology/2022/11/nvidia-wins-award-for-ai-that-can-play-minecraft-on-command/");
+                                                                             "Nvidia AI plays Warcraft, wins machine-learning conference award",
+                                                                             "https://arstechnica.com/information-technology/2022/11/nvidia-wins-award-for-ai-that-can-play-minecraft-on-command/");
+        Assertions.assertEquals(expected, correction.apply(content));
+    }
+
+    @SuppressWarnings("static-method")
+    @Test
+    void titleWithAmpersandIsUpdated() {
+
+        final String content =
+            "<?xml version=\"1.0\"?>\r\n" +
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<TITLE>test</TITLE>\r\n" +
+            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
+            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
+            "<CONTENT>\r\n" +
+            "<BLIST><TITLE>Articles and videos</TITLE>\r\n" +
+            "<ITEM><ARTICLE><X><T>Real mathematical magic: The king’s algorithm &amp; Sallow’s geomagic</T><A>https://www.youtube.com/watch?v=FANbncTMCGc</A><L>en</L><F>MP4</F><DURATION><MINUTE>33</MINUTE><SECOND>24</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Burkard</FIRSTNAME><LASTNAME>Polster</LASTNAME></AUTHOR><DATE><YEAR>2023</YEAR><MONTH>2</MONTH><DAY>4</DAY></DATE><COMMENT>A \"proof\" that <AUTHOR><FIRSTNAME>Claude-Gaspar</FIRSTNAME><LASTNAME>Bachet de Méziriac</LASTNAME></AUTHOR>’s method generates a magic square and applying magic squares to geometrical shapes.</COMMENT></ARTICLE></ITEM>\r\n" +
+            "</BLIST>\r\n" +
+            "</CONTENT>\r\n" +
+            "</PAGE>";
+
+        final String expected =
+            "<?xml version=\"1.0\"?>\r\n" +
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<TITLE>test</TITLE>\r\n" +
+            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
+            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
+            "<CONTENT>\r\n" +
+            "<BLIST><TITLE>Articles and videos</TITLE>\r\n" +
+            "<ITEM><ARTICLE><X><T>New magic in magic squares</T><A>https://www.youtube.com/watch?v=FANbncTMCGc</A><L>en</L><F>MP4</F><DURATION><MINUTE>33</MINUTE><SECOND>24</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Burkard</FIRSTNAME><LASTNAME>Polster</LASTNAME></AUTHOR><DATE><YEAR>2023</YEAR><MONTH>2</MONTH><DAY>4</DAY></DATE><COMMENT>A \"proof\" that <AUTHOR><FIRSTNAME>Claude-Gaspar</FIRSTNAME><LASTNAME>Bachet de Méziriac</LASTNAME></AUTHOR>’s method generates a magic square and applying magic squares to geometrical shapes.</COMMENT></ARTICLE></ITEM>\r\n" +
+            "</BLIST>\r\n" +
+            "</CONTENT>\r\n" +
+            "</PAGE>";
+
+        final ViolationCorrection correction = new UpdateLinkTitleCorrection("Real mathematical magic: The king’s algorithm & Sallow’s geomagic",
+                                                                             "New magic in magic squares",
+                                                                             "https://www.youtube.com/watch?v=FANbncTMCGc");
         Assertions.assertEquals(expected, correction.apply(content));
     }
 }
