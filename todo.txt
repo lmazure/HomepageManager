@@ -6,6 +6,8 @@
 
 ==== merge =====
 
+correction des mauvaises dates dans les articles de baldung pour java.xml
+
 gérer les faux sous-titres tels que https://stackoverflow.blog/2017/06/15/developers-use-spaces-make-money-use-tabs/
 
 possible next quick fixes
