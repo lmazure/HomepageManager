@@ -1049,6 +1049,22 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeOfficielDefakatorIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=j3fvoM5Er2k";
+        final String expectedXml = """
+                <ARTICLE><X><T>🤖 Comprendre ChatGPT (avec DefendIntelligence)</T>\
+                <A>https://www.youtube.com/watch?v=j3fvoM5Er2k</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>49</MINUTE><SECOND>53</SECOND></DURATION></X>\
+                <AUTHOR><GIVENNAME>Defakator</GIVENNAME></AUTHOR>\
+                <DATE><YEAR>2023</YEAR><MONTH>3</MONTH><DAY>2</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeOsonsCauserIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=b4HfK_coDcc";
         final String expectedXml = """
@@ -1500,7 +1516,7 @@ public class LinkDataExtractorTest {
     void youtubeWatchThomathsIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=G5nbqZnlvHo";
         final String expectedXml = """
-                <ARTICLE><X><T>Thomaths 14 : Solides Réguliers</T>\
+                <ARTICLE><X><T>Thomaths 14 : Les plus beaux solides de l'espace</T>\
                 <A>https://www.youtube.com/watch?v=G5nbqZnlvHo</A>\
                 <L>fr</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>34</SECOND></DURATION>\
                 </X><AUTHOR><FIRSTNAME>Alexander</FIRSTNAME><LASTNAME>Thomas</LASTNAME></AUTHOR>\

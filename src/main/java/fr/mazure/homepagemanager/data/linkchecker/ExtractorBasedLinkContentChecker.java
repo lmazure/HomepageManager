@@ -1,13 +1,15 @@
 package fr.mazure.homepagemanager.data.linkchecker;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
+import fr.mazure.homepagemanager.data.violationcorrection.UpdateArticleDateCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkTitleCorrection;
+import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
+import fr.mazure.homepagemanager.utils.DateHelper;
 import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.StringHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
@@ -140,18 +142,17 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
         final TemporalAccessor date =  publicationDate.isPresent() ? publicationDate.get()
                                                                    : creationDate.get();
 
-        final TemporalAccessor d = _parser.getDate().get();
-        final LocalDate effectiveDate = LocalDate.of(d.get(ChronoField.YEAR),
-                                                     d.get(ChronoField.MONTH_OF_YEAR),
-                                                     d.get(ChronoField.DAY_OF_MONTH));
+        final LocalDate effectiveDate = DateHelper.convertTemporalAccessorToLocalDate(_parser.getDate().get()).get();
 
         if (!date.equals(effectiveDate)) {
+            final Optional<ViolationCorrection> correction = DateHelper.convertTemporalAccessorToLocalDate(date)
+                                                                       .map(dat -> new UpdateArticleDateCorrection(dat, effectiveDate, getUrl()));
             return new LinkContentCheck("WrongDate",
                                         "The expected date " +
                                         date +
                                         " is not equal to the effective date " +
                                         effectiveDate,
-                                        Optional.empty());
+                                        correction);
         }
 
         return null;

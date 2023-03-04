@@ -4,7 +4,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * Helpers fo generate some file names
+ * Helpers to generate some file names
  */
 public class FileNameHelper {
     /**
