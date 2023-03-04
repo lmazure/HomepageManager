@@ -1049,6 +1049,22 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeOfficielDefakatorIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=j3fvoM5Er2k";
+        final String expectedXml = """
+                <ARTICLE><X><T>🤖 Comprendre ChatGPT (avec DefendIntelligence)</T>\
+                <A>https://www.youtube.com/watch?v=j3fvoM5Er2k</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>49</MINUTE><SECOND>53</SECOND></DURATION></X>\
+                <AUTHOR><GIVENNAME>Defakator</GIVENNAME></AUTHOR>\
+                <DATE><YEAR>2023</YEAR><MONTH>3</MONTH><DAY>2</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeOsonsCauserIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=b4HfK_coDcc";
         final String expectedXml = """
