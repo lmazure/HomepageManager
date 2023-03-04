@@ -1,6 +1,5 @@
 package fr.mazure.homepagemanager.data.linkchecker.youtubechanneluser;
 
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -46,14 +45,12 @@ public class YoutubeChannelUserLinkContentChecker extends LinkContentChecker {
 
     @Override
     protected LinkContentCheck checkLinkLanguages(final String data,
-                                                  Locale[] languages) throws ContentParserException
+                                                  Locale[] expectedLanguages) throws ContentParserException
     {
-        final Optional<Locale> language = _parser.getLanguage();
+        final Optional<Locale> effectiveLanguage = _parser.getLanguage();
 
-        if (language.isPresent() && !Arrays.asList(languages).contains(language.get())) {
-            return new LinkContentCheck("WrongLanguage",
-                                        "language is \"" + language.get() + "\" but this one is unexpected",
-                                        Optional.empty());
+        if (effectiveLanguage.isPresent()) {
+            return checkLinkLanguagesHelper(effectiveLanguage.get(), expectedLanguages);
         }
 
         return null;

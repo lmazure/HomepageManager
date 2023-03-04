@@ -17,7 +17,7 @@ public class UpdateLinkLanguageCorrection extends RegexpViolationCorrection {
     public UpdateLinkLanguageCorrection(final Locale badLanguage,
                                         final Locale correctLanguage,
                                         final String url) {
-        super("Update the article title",
+        super("Update the link language",
               "<A>" + Pattern.quote(url) + "</A><L>" + badLanguage.getLanguage() + "</L>",
               "<A>" + url + "</A><L>" + correctLanguage.getLanguage() + "</L>");
     }
