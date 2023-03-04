@@ -1516,7 +1516,7 @@ public class LinkDataExtractorTest {
     void youtubeWatchThomathsIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=G5nbqZnlvHo";
         final String expectedXml = """
-                <ARTICLE><X><T>Thomaths 14 : Solides Réguliers</T>\
+                <ARTICLE><X><T>Thomaths 14 : Les plus beaux solides de l'espace</T>\
                 <A>https://www.youtube.com/watch?v=G5nbqZnlvHo</A>\
                 <L>fr</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>34</SECOND></DURATION>\
                 </X><AUTHOR><FIRSTNAME>Alexander</FIRSTNAME><LASTNAME>Thomas</LASTNAME></AUTHOR>\
