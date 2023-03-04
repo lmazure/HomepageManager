@@ -9,7 +9,10 @@ import java.util.Optional;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentCheck;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker;
+import fr.mazure.homepagemanager.data.violationcorrection.UpdateArticleDateCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkTitleCorrection;
+import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
+import fr.mazure.homepagemanager.utils.DateHelper;
 import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
@@ -124,12 +127,14 @@ public class IbmLinkContentChecker extends LinkContentChecker {
         final LocalDate effectiveDate = _parser.getDate();
 
         if (!date.equals(effectiveDate)) {
+            final Optional<ViolationCorrection> correction = DateHelper.convertTemporalAccessorToLocalDate(date)
+                                                                       .map(dat -> new UpdateArticleDateCorrection(dat, effectiveDate, getUrl()));
             return new LinkContentCheck("WrongDate",
                                         "expected date " +
                                         date +
                                         " is not equal to the effective date " +
                                         effectiveDate,
-                                        Optional.empty());
+                                        correction);
         }
 
         return null;

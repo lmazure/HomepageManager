@@ -146,7 +146,6 @@ public class LinkContentChecker {
     /**
      * @throws ContentParserException Failure to extract the information
      */
-    @SuppressWarnings("static-method")
     protected LinkContentCheck checkLinkTitle(final String data,
                                               final String title) throws ContentParserException
     {
@@ -156,7 +155,6 @@ public class LinkContentChecker {
     /**
      * @throws ContentParserException Failure to extract the information
      */
-    @SuppressWarnings("static-method")
     protected LinkContentCheck checkLinkSubtitles(final String data,
                                                   final String[] subtitles) throws ContentParserException
     {
