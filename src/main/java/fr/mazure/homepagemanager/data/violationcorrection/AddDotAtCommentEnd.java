@@ -20,7 +20,7 @@ public class AddDotAtCommentEnd extends RegexpViolationCorrection {
               fromPattern(commentComponents),
               toPattern(commentComponents));
     }
-    
+
     private static String fromPattern(final List<String> commentComponents) {
         final StringBuilder builder = new StringBuilder("<COMMENT>((<.*>)?)");
         boolean first = true;
@@ -34,7 +34,7 @@ public class AddDotAtCommentEnd extends RegexpViolationCorrection {
         builder.append("((<.*>)?)</COMMENT>");
         return builder.toString();
     }
-    
+
     private static String toPattern(final List<String> commentComponents) {
         final StringBuilder builder = new StringBuilder("<COMMENT>$1");
         int i = 2;

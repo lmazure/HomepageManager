@@ -279,7 +279,7 @@ public class LinkContentChecker {
         if (StringHelper.generalizedIndex(d, expectedTitle, false, false) < 0) {
             final int i1 = StringHelper.generalizedIndex(d, expectedTitle, true, false);
             if (i1 >= 0) {
-                final String effectiveTitle = d.substring(i1, i1 + expectedTitle.length()); 
+                final String effectiveTitle = d.substring(i1, i1 + expectedTitle.length());
                 return new LinkContentCheck("WrongTitle",
                                             description +
                                             " \"" +

@@ -20,7 +20,7 @@ public class ObservableFileList implements FileExistenceHandler {
     private final Map<Path, ObservableFile> _files;
 
     /**
-     * 
+     *
      */
     public ObservableFileList() {
         _data = FXCollections.observableArrayList();
@@ -54,7 +54,7 @@ public class ObservableFileList implements FileExistenceHandler {
     }
 
     /**
-     * @return
+     * @return list of the paths of all files
      */
     public List<Path> getFileList() {
         return _data.stream()

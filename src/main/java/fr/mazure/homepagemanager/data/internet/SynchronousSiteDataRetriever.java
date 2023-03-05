@@ -146,7 +146,7 @@ public class SynchronousSiteDataRetriever {
      * @param doNotUseCookies if true, cookies will not be recorded and resend while following redirections
      * @return payload
      * @throws IOException exception if the payload could not be retrieved
-     * @throws NotGzipException 
+     * @throws NotGzipException
      */
     public String getGzippedContent(final String url,
                                     final boolean doNotUseCookies) throws IOException, NotGzipException {

@@ -29,7 +29,6 @@ import fr.mazure.homepagemanager.utils.Logger;
  */
 public class XmlHelper {
 
-
     /**
      * Transform a string into a XML strinf
      * @param str string

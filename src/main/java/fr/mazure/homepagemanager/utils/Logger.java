@@ -12,27 +12,27 @@ public class Logger {
      */
     public enum Level {
         /**
-         * 
+         *
          */
         FATAL,
         /**
-         * 
+         *
          */
         ERROR,
         /**
-         * 
+         *
          */
         WARN,
         /**
-         * 
+         *
          */
         INFO,
         /**
-         * 
+         *
          */
         DEBUG,
         /**
-         * 
+         *
          */
         TRACE
     }

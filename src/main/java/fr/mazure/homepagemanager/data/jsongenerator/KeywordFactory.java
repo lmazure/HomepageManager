@@ -11,7 +11,7 @@ public class KeywordFactory {
     private final HashMap<String,Keyword> _keywords;
 
     /**
-     * 
+     *
      */
     public KeywordFactory() {
         _keywords = new HashMap<>();

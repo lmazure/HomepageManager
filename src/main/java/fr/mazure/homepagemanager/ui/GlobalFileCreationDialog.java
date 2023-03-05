@@ -19,14 +19,17 @@ import javafx.stage.Stage;
 public class GlobalFileCreationDialog extends Dialog<Void> {
 
     /**
-     * @param homepagePath
-     * @param files
+     * Constructor
+     * The constructor is displaying the progress dialog and launch the file generation
+     *
+     * @param homepage path of the homepage directory
+     * @param files list of the paths of all files
      */
-    public GlobalFileCreationDialog(final Path homepagePath,
+    public GlobalFileCreationDialog(final Path homepage,
                                     final List<Path> files) {
         super();
 
-        final Task<Void> task = buildFileCreationTask(homepagePath, files);
+        final Task<Void> task = buildFileCreationTask(homepage, files);
 
         setTitle("Global File Creation");
         final TextArea textArea = new TextArea();
