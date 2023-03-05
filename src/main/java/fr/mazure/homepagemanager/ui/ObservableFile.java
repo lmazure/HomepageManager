@@ -72,9 +72,8 @@ public class ObservableFile { // TODO this class must be split, it currently kno
         return Paths.get(_name.get());
     }
 
-
     /**
-     * 
+     *
      */
     public void setDeleted() {
         _modificationDateTime.set("");

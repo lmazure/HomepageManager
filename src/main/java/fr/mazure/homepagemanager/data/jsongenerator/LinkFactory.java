@@ -14,7 +14,7 @@ public class LinkFactory {
     private final HashSet<Link> _links;
 
     /**
-     * 
+     *
      */
     public LinkFactory() {
         _links = new HashSet<>();

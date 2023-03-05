@@ -1,6 +1,5 @@
 package fr.mazure.homepagemanager.data.linkchecker.twitter;
 
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -39,15 +38,13 @@ public class TwitterLinkContentChecker extends LinkContentChecker {
 
     @Override
     protected LinkContentCheck checkLinkLanguages(final String data,
-                                                  final Locale[] languages)
+                                                  final Locale[] expectedLanguages)
     {
         final String description = _dto.getDescription();
-        final Optional<Locale> language = StringHelper.guessLanguage(description);
+        final Optional<Locale> effectiveLanguage = StringHelper.guessLanguage(description);
 
-        if (language.isPresent() && !Arrays.asList(languages).contains(language.get())) {
-            return new LinkContentCheck("WrongLanguage",
-                                        "language is \"" + language.get() + "\" but this one is unexpected",
-                                        Optional.empty());
+        if (effectiveLanguage.isPresent()) {
+            return checkLinkLanguagesHelper(effectiveLanguage.get(), expectedLanguages);
         }
 
         return null;

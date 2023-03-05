@@ -10,7 +10,7 @@ import fr.mazure.homepagemanager.utils.ExitHelper;
 import fr.mazure.homepagemanager.utils.Logger;
 
 /**
- * Class generating the file global to the site
+ * Class generating the files global to the site
  */
 public class SiteFilesGenerator {
 
@@ -20,8 +20,9 @@ public class SiteFilesGenerator {
     private static final String s_sitemap = "sitemap.xml";
 
     /**
-     * @param homepage
-     * @param files
+     * Generate the files
+     * @param homepage path of the homepage directory
+     * @param files list of the paths of all files
      */
     public static void generate(final Path homepage,
                                 final List<Path> files) {

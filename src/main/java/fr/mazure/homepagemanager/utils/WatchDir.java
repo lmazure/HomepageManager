@@ -32,15 +32,15 @@ public class WatchDir {
     */
     public enum Event {
         /**
-         * 
+         *
          */
         CREATE,
         /**
-         * 
+         *
          */
         DELETE,
         /**
-         * 
+         *
          */
         UPDATE
     }

@@ -1026,7 +1026,6 @@ public class LinkDataExtractorTest {
         Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
     }
 
-
     @Test
     void youtubeWatchNumberphileBenSparksIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=-UBDRX6bk-A";

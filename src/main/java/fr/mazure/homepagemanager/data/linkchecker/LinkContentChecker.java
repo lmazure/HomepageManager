@@ -13,7 +13,9 @@ import java.util.stream.Collectors;
 
 import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthors;
 import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthorsOfLink;
+import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkLanguageCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkTitleCorrection;
+import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
 import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.Logger;
 import fr.mazure.homepagemanager.utils.StringHelper;
@@ -203,23 +205,16 @@ public class LinkContentChecker {
      * @throws ContentParserException Failure to extract the information
      */
     protected LinkContentCheck checkLinkLanguages(final String data,
-                                                  final Locale[] languages) throws ContentParserException
+                                                  final Locale[] expectedLanguages) throws ContentParserException
     {
         if (_parser == null) {
             _parser = new LinkContentParser(data);
         }
 
-        final Optional<Locale> language = _parser.getLanguage();
+        final Optional<Locale> effectiveLanguage = _parser.getLanguage();
 
-        if (language.isPresent() &&
-            !Arrays.asList(languages).contains(language.get())) {
-            final String languagesAsString = Arrays.stream(languages).map(l -> l.toString()).collect(Collectors.joining(", "));
-            return new LinkContentCheck("WrongLanguage",
-                                        "language is \"" +
-                                        language.get() +
-                                        "\" but this one is unexpected, the expected languages are: " +
-                                        languagesAsString,
-                                        Optional.empty());
+        if (effectiveLanguage.isPresent()) {
+            return checkLinkLanguagesHelper(effectiveLanguage.get(), expectedLanguages);
         }
 
         return null;
@@ -284,7 +279,7 @@ public class LinkContentChecker {
         if (StringHelper.generalizedIndex(d, expectedTitle, false, false) < 0) {
             final int i1 = StringHelper.generalizedIndex(d, expectedTitle, true, false);
             if (i1 >= 0) {
-                final String effectiveTitle = d.substring(i1, i1 + expectedTitle.length()); 
+                final String effectiveTitle = d.substring(i1, i1 + expectedTitle.length());
                 return new LinkContentCheck("WrongTitle",
                                             description +
                                             " \"" +
@@ -344,5 +339,23 @@ public class LinkContentChecker {
 
     protected String getUrl() {
         return _url;
+    }
+
+    protected LinkContentCheck checkLinkLanguagesHelper(final Locale effectiveLanguage,
+                                                        final Locale[] expectedLanguages) {
+
+        if (Arrays.asList(expectedLanguages).contains(effectiveLanguage)) {
+            return null;
+        }
+
+        final Optional<ViolationCorrection> correction = (expectedLanguages.length == 1) ? Optional.of(new UpdateLinkLanguageCorrection(expectedLanguages[0], effectiveLanguage, getUrl()))
+                                                                                         : Optional.empty();
+        final String expectedLanguagesAsString = Arrays.stream(expectedLanguages).map(l -> l.toString()).collect(Collectors.joining(", "));
+        return new LinkContentCheck("WrongLanguage",
+                                    "language is \"" +
+                                    effectiveLanguage +
+                                    "\" but this one is unexpected, the expected languages are: " +
+                                    expectedLanguagesAsString,
+                                    correction);
     }
 }

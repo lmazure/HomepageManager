@@ -5,7 +5,6 @@ import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -174,27 +173,16 @@ public class YoutubeWatchLinkContentChecker2 extends LinkContentChecker {
 
     @Override
     protected LinkContentCheck checkLinkLanguages(final String data,
-                                                  final Locale[] languages)
+                                                  final Locale[] expectedLanguages)
     {
-        final Locale language = _dto.getAudioLanguage();
+        final Locale effectiveLanguage = _dto.getAudioLanguage();
+        if (effectiveLanguage != null) {
+            return checkLinkLanguagesHelper(effectiveLanguage, expectedLanguages);
+        }
 
-        if (language != null) {
-            if (!Arrays.asList(languages).contains(language)) {
-                return new LinkContentCheck("WrongLanguage",
-                                            "language is \"" +
-                                            language +
-                                            "\" but this one is unexpected (verified with API)",
-                                            Optional.empty());
-            }
-        } else {
-            final Optional<Locale> lang = StringHelper.guessLanguage(_dto.getDescription());
-            if (lang.isPresent() && !Arrays.asList(languages).contains(lang.get())) {
-                return new LinkContentCheck("WrongLanguage",
-                                            "language is \"" +
-                                            language +
-                                            "\" but this one is unexpected (verified with guessing)",
-                                            Optional.empty());
-            }
+        final Optional<Locale> effectiveLang = StringHelper.guessLanguage(_dto.getDescription());
+        if (effectiveLang.isPresent()) {
+            return checkLinkLanguagesHelper(effectiveLang.get(), expectedLanguages);
         }
 
         return null;
