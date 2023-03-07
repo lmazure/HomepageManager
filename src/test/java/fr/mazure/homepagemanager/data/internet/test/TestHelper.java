@@ -79,8 +79,9 @@ public class TestHelper {
     }
 
     /**
-     * @param clazz
-     * @return
+     * Return a directory to store the data of the unit tests defined in a test class 
+     * @param clazz Test class
+     * @return Directory
      */
     public static Path getTestDatapath(final Class<?> clazz) {
         return Paths.get("H:\\Documents\\tmp\\hptmp\\test\\" + clazz.getSimpleName());
