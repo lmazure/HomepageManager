@@ -6,9 +6,6 @@
 
 ==== merge =====
 
-nettoyer les liens tels que
-https://arstechnica.com/information-technology/2023/03/wikipedia-ai-truth-duckduckgo-hopes-so-with-new-answerbot/?comments=1&comments-page=1
-
 gérer les faux sous-titres tels que https://stackoverflow.blog/2017/06/15/developers-use-spaces-make-money-use-tabs/
 
 possible next quick fixes
