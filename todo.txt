@@ -6,6 +6,9 @@
 
 ==== merge =====
 
+nettoyer les liens tels que
+https://arstechnica.com/information-technology/2023/03/wikipedia-ai-truth-duckduckgo-hopes-so-with-new-answerbot/?comments=1&comments-page=1
+
 gérer les faux sous-titres tels que https://stackoverflow.blog/2017/06/15/developers-use-spaces-make-money-use-tabs/
 
 possible next quick fixes
@@ -44,9 +47,6 @@ corriger la corruption de données si on checke le même lien deux fois d'affil�
 ne pas tout reconstruire à partir du moment où un seul des fichiers résultats n'est plus à jour
 
 mettre en place https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details
-
-mauvaise gestion des URLs incorrectes (pex hhtps://...)
-le thread semble définitivement planté
 
 data.linkchecker.ContentParserException: Failed to check data of "https://developer.ibm.com/articles/wa-ecmascript6-neward-p1/"
 
