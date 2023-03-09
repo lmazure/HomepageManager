@@ -1711,12 +1711,12 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void ampersandIsEscaped() throws ContentParserException {
+    void queryParametersAreRemoved() throws ContentParserException {
         final String url = "https://arstechnica.com/information-technology/2022/11/nvidia-wins-award-for-ai-that-can-play-minecraft-on-command/?comments=1&comments-page=1";
         final String expectedXml = """
                 <ARTICLE><X><T>Nvidia AI plays Minecraft, wins machine-learning conference award</T>\
                 <ST>NeurIPS 2022 honors MineDojo for playing Minecraft when instructed by written prompts.</ST>\
-                <A>https://arstechnica.com/information-technology/2022/11/nvidia-wins-award-for-ai-that-can-play-minecraft-on-command/?comments=1&amp;comments-page=1</A>\
+                <A>https://arstechnica.com/information-technology/2022/11/nvidia-wins-award-for-ai-that-can-play-minecraft-on-command/</A>\
                 <L>en</L><F>HTML</F></X>\
                 <AUTHOR><FIRSTNAME>Benj</FIRSTNAME><LASTNAME>Edwards</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>11</MONTH><DAY>28</DAY></DATE>\

@@ -25,7 +25,7 @@ public class LinkRedirectionTest {
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                Assertions.assertEquals("https://www.youtube.com/channel/UC6nSFpj9HTCZ5t-N3Rm3-HA", d.url());
-                               Assertions.assertEquals("https://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fchannel%2FUC6nSFpj9HTCZ5t-N3Rm3-HA%3Fcbrd%3D1&gl=FR&m=0&pc=yt&hl=en&src=1", d.previousRedirection().url());
+                               Assertions.assertEquals("https://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fchannel%2FUC6nSFpj9HTCZ5t-N3Rm3-HA%3Fcbrd%3D1&gl=FR&m=0&pc=yt&cm=2&hl=en&src=1", d.previousRedirection().url());
                                Assertions.assertEquals("https://www.youtube.com/channel/UC6nSFpj9HTCZ5t-N3Rm3-HA?cbrd=1&ucbcb=1", d.previousRedirection().previousRedirection().url());
                                Assertions.assertNull(d.previousRedirection().previousRedirection().previousRedirection());
                                consumerHasBeenCalled.set(true);
