@@ -45,9 +45,6 @@ ne pas tout reconstruire à partir du moment où un seul des fichiers résultats
 
 mettre en place https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details
 
-mauvaise gestion des URLs incorrectes (pex hhtps://...)
-le thread semble définitivement planté
-
 data.linkchecker.ContentParserException: Failed to check data of "https://developer.ibm.com/articles/wa-ecmascript6-neward-p1/"
 
 spin off de la page

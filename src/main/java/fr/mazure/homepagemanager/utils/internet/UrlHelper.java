@@ -4,14 +4,16 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
-*
+* Helper to manager URLs
 */
 public class UrlHelper {
 
     /**
-     * @param url
-     * @param parameters
-     * @return
+     * Remove some query parameters from a URL
+     * 
+     * @param url URL
+     * @param parameters Query parameters to remove
+     * @return Resulting URL
      */
     public static String removeQueryParameters(final String url,
                                                final String ...parameters) {
@@ -23,9 +25,11 @@ public class UrlHelper {
     }
 
     /**
-     * @param url
-     * @param parameter
-     * @return
+     * Remove a query parameter from a URL
+     * 
+     * @param url URL
+     * @param parameter Query parameter to remove
+     * @return Resulting URL
      */
     public static String removeQueryParameter(final String url,
                                               final String parameter) {
@@ -34,8 +38,10 @@ public class UrlHelper {
    }
 
     /**
-     * @param url
-     * @return
+     * Return the host from a URL
+     *
+     * @param url URL
+     * @return Hosr
      */
     public static String getHost(final String url) {
         if (url.startsWith("..")) {
@@ -48,8 +54,8 @@ public class UrlHelper {
     /**
      * Convert a string to URL, throw IllegalArgumentException if the string is an invalid URL
      *
-     * @param str
-     * @return
+     * @param str String
+     * @return URL
      */
     public static URL convertStringToUrl(final String str) {
         try {
@@ -60,8 +66,10 @@ public class UrlHelper {
     }
 
     /**
-     * @param str
-     * @return
+     * Check if a String is a valid URL
+     * 
+     * @param str String
+     * @return True if valid URL, false otherwise
      */
     @SuppressWarnings("unused")
     public static boolean isValidUrl(final String str) {

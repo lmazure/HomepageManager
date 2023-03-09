@@ -15,6 +15,7 @@ import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
+import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
@@ -52,7 +53,8 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
      */
     public ArsTechnicaLinkContentParser(final String url,
                                         final String data) {
-        super(url);
+        super(UrlHelper.removeQueryParameters(url,"comments",
+                                                  "comments-page"));
         _data = data;
     }
 

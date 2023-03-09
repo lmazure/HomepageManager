@@ -28,6 +28,9 @@ public class WellKnownAuthorsOfLink {
      * @return well known authors of the site
      */
     public static Optional<WellKnownAuthors> getWellKnownAuthors(final String url) { // TODO should return a set instead of an optional
+        if (!UrlHelper.isValidUrl(url)) {
+            return Optional.empty();
+        }
         final String host = UrlHelper.getHost(url);
         if (host == null) {
             return Optional.empty();
