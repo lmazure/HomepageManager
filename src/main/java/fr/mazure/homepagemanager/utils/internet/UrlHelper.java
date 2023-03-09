@@ -38,7 +38,7 @@ public class UrlHelper {
    }
 
     /**
-     * Return the hos from a URL
+     * Return the host from a URL
      *
      * @param url URL
      * @return Hosr
