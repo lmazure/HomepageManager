@@ -31,6 +31,8 @@ import fr.mazure.homepagemanager.data.ViolationLocationUnknown;
 import fr.mazure.homepagemanager.data.internet.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.internet.HeaderFetchedLinkData;
 import fr.mazure.homepagemanager.data.internet.SiteDataRetriever;
+import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkUrlCorrection;
+import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
 import fr.mazure.homepagemanager.utils.ExitHelper;
 import fr.mazure.homepagemanager.utils.FileHelper;
 import fr.mazure.homepagemanager.utils.Logger;
@@ -352,12 +354,22 @@ public class LinkCheckRunner {
                 appendLivenessCheckResult(url, expectedData, effectiveData, temp);
                 ko.append(temp.toString());
                 ko.append('\n');
+                Optional<ViolationCorrection> correction = Optional.empty();
+                if (extractHttpCode(effectiveData.headers()).isPresent() && (extractHttpCode(effectiveData.headers()).get().intValue() == HttpURLConnection.HTTP_MOVED_PERM)) {
+                    if (effectiveData.previousRedirection() != null) {
+                        HeaderFetchedLinkData d = effectiveData.previousRedirection();
+                        while (d.previousRedirection() != null) {
+                            d = d.previousRedirection();
+                        }
+                        correction = Optional.of(new UpdateLinkUrlCorrection(url, d.url()));
+                    }
+                }
                 _violationController.add(new Violation(_file.toString(),
                                                        _checkType,
                                                        "WrongLiveness",
                                                        new ViolationLocationUnknown(),
                                                        temp.toString(),
-                                                       Optional.empty()));
+                                                       correction));
             }
             if (_checks.containsKey(url) && !_checks.get(url).isEmpty()) {
                 checks.append('\n');
@@ -430,17 +442,24 @@ public class LinkCheckRunner {
     }
 
     private static String extractPrintableHttpCode(final Optional<Map<String, List<String>>> headers) {
-        return headers.map(h -> {
-            final int code = HttpHelper.getResponseCodeFromHeaders(h);
+        return extractHttpCode(headers).map(code -> {
             try {
-                return code + " " + HttpHelper.getStringOfCode(code);
+                return code + " " + HttpHelper.getStringOfCode(code.intValue());
             } catch (@SuppressWarnings("unused") final InvalidHttpCodeException e) {
                 return " invalid code! (" + code + ")";
             }
         }).orElse("---");
     }
 
-    private boolean isDataExpected() { //TODO this method is very stupid, we should used a flag instead of computing the status every time
+    private static Optional<Integer> extractHttpCode(final Optional<Map<String, List<String>>> headers) {
+        if (headers.isEmpty()) {
+            return Optional.empty();
+        }
+        final int code = HttpHelper.getResponseCodeFromHeaders(headers.get());
+        return Optional.of(Integer.valueOf(code));
+    }
+
+    private boolean isDataExpected() { //TODO this method is very stupid, we should use a flag instead of computing the status every time
 
         for (final String url : _effectiveData.keySet()) {
             if (!isOneDataExpected(_expectedData.get(url), _effectiveData.get(url))) {
