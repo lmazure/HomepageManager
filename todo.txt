@@ -1,4 +1,4 @@
-    warnings = 312
+    warnings = 293
 
 
 
@@ -6,15 +6,13 @@
 
 ==== merge =====
 
+voir redirection 308 de https://www.reviewed.com/cameras/news/canon-announces-eos-rebel-t4i-we-go-hands-on-with-first-touchscreen-dslr-2
+
 gérer les faux sous-titres tels que https://stackoverflow.blog/2017/06/15/developers-use-spaces-make-money-use-tabs/
 
 possible next quick fixes
 - incorrect subtitle
 - space/casing problem
-
-'maven package' crache sur
-[[1;31mERROR[m] [1;31m  YoutubeChannelUserLinkContentParserTest.testEnglish:68 » IllegalState Exception while retrieving https://www.youtube.com/channel/UC6nSFpj9HTCZ5t-N3Rm3-HA[m
-[[1;31mERROR[m] [1;31m  YoutubeWatchLinkContentParserTest.testFrench:356 » IllegalState Exception while retrieving https://www.youtube.com/watch?v=atKDrGedg_w[m
 
 le title récupéré n'est pas bon pour https://stackoverflow.blog/2021/07/14/getting-started-with-python/
 https://stackoverflow.blog/2021/03/15/getting-started-with-rust/
