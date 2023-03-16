@@ -137,6 +137,50 @@ public class ArsTechnicaLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+
+    @ParameterizedTest
+    @CsvSource({
+        "https://arstechnica.com/information-technology/2023/03/chinese-search-giant-launches-ai-chatbot-with-prerecorded-demo/,Ryan,,McMorrow,Qianer,,Liu"
+        })
+    void test2Authors(final String url,
+                      final String expectedFirstName1,
+                      final String expectedMiddleName1,
+                      final String expectedLastName1,
+                      final String expectedFirstName2,
+                      final String expectedMiddleName2,
+                      final String expectedLastName2) {
+        final AuthorData expectedAuthor1 = new AuthorData(Optional.empty(),
+                                                          Optional.of(expectedFirstName1),
+                                                          Optional.ofNullable(expectedMiddleName1),
+                                                          Optional.of(expectedLastName1),
+                                                          Optional.empty(),
+                                                          Optional.empty());
+        final AuthorData expectedAuthor2 = new AuthorData(Optional.empty(),
+                                                          Optional.of(expectedFirstName2),
+                                                          Optional.ofNullable(expectedMiddleName2),
+                                                          Optional.of(expectedLastName2),
+                                                          Optional.empty(),
+                                                          Optional.empty());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(url,
+                           (final Boolean b, final FullFetchedLinkData d) -> {
+                               Assertions.assertTrue(d.dataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
+                               final ArsTechnicaLinkContentParser parser = new ArsTechnicaLinkContentParser(url, data);
+                               try {
+                                   Assertions.assertEquals(2, parser.getSureAuthors().size());
+                                   Assertions.assertEquals(expectedAuthor1, parser.getSureAuthors().get(0));
+                                   Assertions.assertEquals(expectedAuthor2, parser.getSureAuthors().get(1));
+                                } catch (final ContentParserException e) {
+                                    Assertions.fail("getSureAuthors threw " + e.getMessage());
+                                }
+                               consumerHasBeenCalled.set(true);
+                           },
+                           false);
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
     @ParameterizedTest
     @CsvSource({
         "https://arstechnica.com/tech-policy/2022/09/texts-show-roll-call-of-tech-figures-tried-to-help-elon-musk-in-twitter-deal/,Hannah,,Murphy,James,,Fontanella-Khan,Sujeet,,Indap"
