@@ -6,6 +6,8 @@
 
 ==== merge =====
 
+display HTML is table cells
+
 voir redirection 308 de https://www.reviewed.com/cameras/news/canon-announces-eos-rebel-t4i-we-go-hands-on-with-first-touchscreen-dslr-2
 
 gérer les faux sous-titres tels que https://stackoverflow.blog/2017/06/15/developers-use-spaces-make-money-use-tabs/
