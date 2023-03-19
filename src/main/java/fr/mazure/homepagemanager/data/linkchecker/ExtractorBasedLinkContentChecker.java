@@ -6,7 +6,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
+import fr.mazure.homepagemanager.data.violationcorrection.AddLinkSubtitleCorrection;
+import fr.mazure.homepagemanager.data.violationcorrection.RemoveLinkSubtitleCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateArticleDateCorrection;
+import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkSubtitleCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkTitleCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
 import fr.mazure.homepagemanager.utils.DateHelper;
@@ -90,7 +93,7 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
                                             "subtitle \"" +
                                             expectedSubtitles[0] +
                                             "\" should not be present",
-                                            Optional.empty());
+                                            Optional.of(new RemoveLinkSubtitleCorrection(expectedSubtitles[0], getUrl())));
             }
             return null;
         }
@@ -100,7 +103,7 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
                                         "the subtitle \"" +
                                         effectiveSubtitle.get() +
                                         "\" is missing",
-                                        Optional.empty());
+                                        Optional.of(new AddLinkSubtitleCorrection(effectiveSubtitle.get(), getUrl())));
         }
 
         if (!expectedSubtitles[0].equals(effectiveSubtitle.get())) {
@@ -109,8 +112,8 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
                                         expectedSubtitles[0] +
                                         "\" is not equal to the real subtitle \"" +
                                         effectiveSubtitle.get() +
-                                          "\"",
-                                          Optional.empty());
+                                        "\"",
+                                        Optional.of(new UpdateLinkSubtitleCorrection(expectedSubtitles[0], effectiveSubtitle.get(), getUrl())));
         }
 
         return null;
