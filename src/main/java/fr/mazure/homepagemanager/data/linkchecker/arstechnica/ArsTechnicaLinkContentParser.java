@@ -5,9 +5,12 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.Set;
 
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
@@ -26,6 +29,13 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
 
     private final String _data;
 
+    private static final Set<String> parternSites
+        = new HashSet<>(Arrays.asList("Ars Staff",
+                                      "FT",
+                                      "wired.com",
+                                      "Financial Times",
+                                      "The Conversation",
+                                      "Inside Climate News"));
     private static final TextParser s_titleParser
         = new TextParser("<h1 itemprop=\"headline\">",
                          "</h1>",
@@ -81,16 +91,7 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
         final String extracted = s_authorParser.extract(_data);
         final String[] components = extracted.split(" *(, and|and|,) *");
         for (final String author: components) {
-            if (author.equals("Ars Staff")) {
-                continue;
-            }
-            if (author.equals("FT")) {
-                continue;
-            }
-            if (author.equals("wired.com")) {
-                continue;
-            }
-            if (author.equals("Financial Times")) {
+            if (parternSites.contains(author)) {
                 continue;
             }
             list.add(LinkContentParserUtils.getAuthor(author));

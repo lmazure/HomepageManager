@@ -107,7 +107,9 @@ public class ArsTechnicaLinkContentParserTest {
         // the next article ends with wired.com
         "https://arstechnica.com/information-technology/2022/09/mystery-hackers-are-hyperjacking-targets-for-insidious-spying/,Andy,,Greenberg",
         // the next article ends with Financial Times
-        "https://arstechnica.com/tech-policy/2022/12/twitter-rival-mastodon-rejects-funding-to-preserve-nonprofit-status/,Ian,,Johnston"
+        "https://arstechnica.com/tech-policy/2022/12/twitter-rival-mastodon-rejects-funding-to-preserve-nonprofit-status/,Ian,,Johnston",
+        // the next article ends with Inside Climate News
+        "https://arstechnica.com/cars/2023/03/why-its-time-to-officially-get-over-your-ev-range-anxiety/,Dan,,Gearino"
         })
     void testAuthor(final String url,
                     final String expectedFirstName,
@@ -183,7 +185,8 @@ public class ArsTechnicaLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://arstechnica.com/tech-policy/2022/09/texts-show-roll-call-of-tech-figures-tried-to-help-elon-musk-in-twitter-deal/,Hannah,,Murphy,James,,Fontanella-Khan,Sujeet,,Indap"
+        "https://arstechnica.com/tech-policy/2022/09/texts-show-roll-call-of-tech-figures-tried-to-help-elon-musk-in-twitter-deal/,Hannah,,Murphy,James,,Fontanella-Khan,Sujeet,,Indap",
+        "https://arstechnica.com/science/2023/03/radio-interference-from-satellites-is-threatening-astronomy/,Christopher,Gordon,De Pree,Christopher,R.,Anderson,Mariya,,Zheleva"
         })
     void test3Authors(final String url,
                       final String expectedFirstName1,
