@@ -1,27 +1,29 @@
 package fr.mazure.homepagemanager.utils.internet.youtube;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
-
+import com.google.api.client.util.DateTime;
 import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.YouTubeRequestInitializer;
 import com.google.api.services.youtube.model.Video;
 import com.google.api.services.youtube.model.VideoListResponse;
 
 import fr.mazure.homepagemanager.utils.ExitHelper;
-
-import java.io.IOException;
-import java.security.GeneralSecurityException;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
 
 /**
  *
@@ -72,16 +74,18 @@ public class YoutubeApi {
 
         // see https://developers.google.com/youtube/v3/docs/videos
         // duration is incorrect : https://issuetracker.google.com/issues/35178038
+        
+        // see https://developers.google.com/resources/api-libraries/documentation/youtube/v3/java/latest/com/google/api/services/youtube/YouTube.Videos.html
 
         final String title = video.getSnippet().getTitle();
 
         final String description = video.getSnippet().getDescription();
 
-        final String rec = video.getRecordingDetails().getRecordingDate();
+        final DateTime rec = video.getRecordingDetails().getRecordingDate();
         final LocalDate recordingDate = (rec == null) ? null
-                                                      : localizeDate(rec);
+                                                      : LocalDateTime.ofEpochSecond(rec.getValue()/1000, 0, ZoneOffset.ofTotalSeconds(rec.getTimeZoneShift()*60)).toLocalDate();
 
-        final LocalDate publicationDate = localizeDate(video.getSnippet().getPublishedAt());
+        final LocalDate publicationDate = LocalDateTime.ofEpochSecond(video.getSnippet().getPublishedAt().getValue()/1000, 0, ZoneOffset.ofTotalSeconds(video.getSnippet().getPublishedAt().getTimeZoneShift()*60)).toLocalDate();
 
         final Duration duration = Duration.parse(video.getContentDetails().getDuration());
 
@@ -118,8 +122,8 @@ public class YoutubeApi {
                                                       .setYouTubeRequestInitializer(new YouTubeRequestInitializer(_apiKey))
                                                       .build();
             final YouTube.Videos.List request = youtubeService.videos()
-                                                              .list(Arrays.asList("snippet","contentDetails", "recordingDetails"));
-            return request.setId(videoIds)
+                                                              .list("snippet,contentDetails,recordingDetails");
+            return request.setId(String.join(",", videoIds))
                           .execute();
         } catch (final GeneralSecurityException | IOException e) {
             ExitHelper.exit(e);
