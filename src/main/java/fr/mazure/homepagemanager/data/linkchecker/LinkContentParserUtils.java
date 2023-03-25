@@ -38,10 +38,7 @@ public class LinkContentParserUtils {
                                   Optional.of(nameParts[0]));
         }
         if (nameParts.length == 3) {
-            final String upperMiddleName = nameParts[1].toUpperCase();
-            if (upperMiddleName.equals("DE") ||
-                upperMiddleName.equals("VON") ||
-                upperMiddleName.equals("VAN")) {
+            if (isParticle(nameParts[1])) {
                 return new AuthorData(Optional.empty(),
                                       Optional.of(nameParts[0]),
                                       Optional.empty(),
@@ -56,8 +53,23 @@ public class LinkContentParserUtils {
                                   Optional.empty(),
                                   Optional.empty());
         }
+        if ((nameParts.length == 4) && isParticle(nameParts[2])) {
+            return new AuthorData(Optional.empty(),
+                                  Optional.of(nameParts[0]),
+                                  Optional.of(nameParts[1]),
+                                  Optional.of(nameParts[2] + " " + nameParts[3]),
+                                  Optional.empty(),
+                                  Optional.empty());
+        }
 
         throw new ContentParserException("Failed to parse author name (author name has " + nameParts.length + " parts)");
+    }
+
+    private static boolean isParticle(final String name) {
+        final String n = name.toUpperCase();
+        return n.equals("DE") ||
+               n.equals("VON") ||
+               n.equals("VAN");
     }
 
     /**
