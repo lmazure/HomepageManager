@@ -27,7 +27,9 @@ public class MediumLinkContentParserTest {
     @CsvSource({
         "https://medium.com/@kentbeck_7670/sipping-the-big-gulp-a7c50549c393,Kent,Beck,",
         "https://medium.com/@FibreTigre/mon-emploi-du-temps-2019-b4a44c2efa46,,,FibreTigre",
-        "https://sendilkumarn.medium.com/safevarargs-variable-arguments-in-java-b9fdd5d996bb,,,sendilkumarn"
+        "https://sendilkumarn.medium.com/safevarargs-variable-arguments-in-java-b9fdd5d996bb,,,sendilkumarn",
+        // the next blog is from "Anuj shah (Exploring Neurons)"
+        "https://medium.com/@anuj_shah/through-the-eyes-of-gabor-filter-17d1fdb3ac97,Anuj,Shah,",
         })
     void testAuthor(final String url,
                     final String expectedFirstName,

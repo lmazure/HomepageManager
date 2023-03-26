@@ -20,12 +20,13 @@ public class LinkContentParserUtils {
      * @throws ContentParserException failure to extract an author name from the string
      */
     public static AuthorData getAuthor(final String str) throws ContentParserException {
-        final String[] nameParts = HtmlHelper.cleanContent(str).split(" ");
+        final String s = str.replaceAll("\\(.*\\)", "");
+        final String[] nameParts = HtmlHelper.cleanContent(s).split(" ");
         if (nameParts.length == 2) {
             return new AuthorData(Optional.empty(),
-                                  Optional.of(nameParts[0]),
+                                  Optional.of(toTitleCase(nameParts[0])),
                                   Optional.empty(),
-                                  Optional.of(nameParts[1]),
+                                  Optional.of(toTitleCase(nameParts[1])),
                                   Optional.empty(),
                                   Optional.empty());
         }
@@ -40,24 +41,24 @@ public class LinkContentParserUtils {
         if (nameParts.length == 3) {
             if (isParticle(nameParts[1])) {
                 return new AuthorData(Optional.empty(),
-                                      Optional.of(nameParts[0]),
+                                      Optional.of(toTitleCase(nameParts[0])),
                                       Optional.empty(),
-                                      Optional.of(nameParts[1] + " " + nameParts[2]),
+                                      Optional.of(nameParts[1].toLowerCase() + " " + toTitleCase(nameParts[2])),
                                       Optional.empty(),
                                       Optional.empty());
             }
             return new AuthorData(Optional.empty(),
-                                  Optional.of(nameParts[0]),
-                                  Optional.of(nameParts[1]),
-                                  Optional.of(nameParts[2]),
+                                  Optional.of(toTitleCase(nameParts[0])),
+                                  Optional.of(toTitleCase(nameParts[1])),
+                                  Optional.of(toTitleCase(nameParts[2])),
                                   Optional.empty(),
                                   Optional.empty());
         }
         if ((nameParts.length == 4) && isParticle(nameParts[2])) {
             return new AuthorData(Optional.empty(),
-                                  Optional.of(nameParts[0]),
-                                  Optional.of(nameParts[1]),
-                                  Optional.of(nameParts[2] + " " + nameParts[3]),
+                                  Optional.of(toTitleCase(nameParts[0])),
+                                  Optional.of(toTitleCase(nameParts[1])),
+                                  Optional.of(nameParts[2].toLowerCase() + " " + toTitleCase(nameParts[3])),
                                   Optional.empty(),
                                   Optional.empty());
         }
@@ -70,6 +71,14 @@ public class LinkContentParserUtils {
         return n.equals("DE") ||
                n.equals("VON") ||
                n.equals("VAN");
+    }
+
+    private static String toTitleCase(final String str) {
+        final StringBuilder converted = new StringBuilder();
+        for (final char ch : str.toCharArray()) {
+            converted.append(converted.isEmpty() ? Character.toUpperCase(ch) : Character.toLowerCase(ch));
+        }
+        return converted.toString();
     }
 
     /**

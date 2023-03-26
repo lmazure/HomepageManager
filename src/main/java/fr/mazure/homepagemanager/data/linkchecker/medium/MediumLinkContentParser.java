@@ -161,7 +161,7 @@ public class MediumLinkContentParser extends LinkDataExtractor {
             _authors = Collections.singletonList(LinkContentParserUtils.getAuthor(name));
         }
 
-        /* does not work, the subtitle in the FSON payload is not the subtitle, but the first oaragraog, whatever is is this one
+        /* does not work, the subtitle in the FSON payload is not the subtitle, but the first paragraph, whatever is is this one
         JSONObject previewContent;
         try {
             previewContent = post.getJSONObject("previewContent");
