@@ -3,10 +3,9 @@ package fr.mazure.homepagemanager.utils.internet.youtube;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,9 +35,9 @@ public class YoutubeApi {
     private static final JsonFactory s_json_factory = JacksonFactory.getDefaultInstance();
 
     /**
-     * @param applicationName
-     * @param apiKey
-     * @param referenceRegion
+     * @param applicationName Application name
+     * @param apiKey API key
+     * @param referenceRegion Region used to check for access restriction
      */
     public YoutubeApi(final String applicationName,
                       final String apiKey,
@@ -49,16 +48,16 @@ public class YoutubeApi {
     }
 
     /**
-     * @param videoId
-     * @return
+     * @param videoId ID of the video
+     * @return Video data
      */
     public YoutubeVideoDto getData(final String videoId) {
         return getData(Arrays.asList(videoId)).get(0);
     }
 
     /**
-     * @param videoIds
-     * @return
+     * @param videoIds ID of the videos
+     * @return Video data
      */
     public List<YoutubeVideoDto> getData(final List<String> videoIds) {
         final VideoListResponse responses  = getVideoInfo(videoIds);
@@ -83,9 +82,9 @@ public class YoutubeApi {
 
         final DateTime rec = video.getRecordingDetails().getRecordingDate();
         final LocalDate recordingDate = (rec == null) ? null
-                                                      : LocalDateTime.ofEpochSecond(rec.getValue()/1000, 0, ZoneOffset.ofTotalSeconds(rec.getTimeZoneShift()*60)).toLocalDate();
+                                                      : convertYoutubeDateTimeToLocalDate(rec);
 
-        final LocalDate publicationDate = LocalDateTime.ofEpochSecond(video.getSnippet().getPublishedAt().getValue()/1000, 0, ZoneOffset.ofTotalSeconds(video.getSnippet().getPublishedAt().getTimeZoneShift()*60)).toLocalDate();
+        final LocalDate publicationDate = convertYoutubeDateTimeToLocalDate(video.getSnippet().getPublishedAt());
 
         final Duration duration = Duration.parse(video.getContentDetails().getDuration());
 
@@ -151,10 +150,9 @@ public class YoutubeApi {
         return null;
     }
 
-    private static LocalDate localizeDate(final String value) {
-        final ZonedDateTime zdt = ZonedDateTime.parse(value);
-        final ZonedDateTime zdttz = zdt.withZoneSameInstant(ZoneId.of("America/Los_Angeles"));
-        final LocalDate localDate = zdttz.toLocalDate();
-        return localDate;
+    private static LocalDate convertYoutubeDateTimeToLocalDate(final DateTime dateTime) {
+        final Instant instant = Instant.ofEpochMilli(dateTime.getValue()) ;
+        final ZonedDateTime zdt = instant.atZone(ZoneId.of("Europe/Paris")) ;
+        return zdt.toLocalDate();
     }
 }

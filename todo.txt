@@ -8,8 +8,6 @@
 
 réparer unit tests
 
-nettoyer YoutubeApi.java
-
 nettoyer java.xml
 
 nettoyer quality.xml

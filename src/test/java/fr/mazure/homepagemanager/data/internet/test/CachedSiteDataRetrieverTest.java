@@ -1,12 +1,17 @@
 package fr.mazure.homepagemanager.data.internet.test;
 
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import fr.mazure.homepagemanager.data.internet.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.internet.FullFetchedLinkData;
+import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
+import fr.mazure.homepagemanager.data.linkchecker.baeldung.BaeldungLinkContentParser;
+import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 
 /**
  * Tests of CachedSiteDataRetriever
@@ -74,6 +79,42 @@ public class CachedSiteDataRetrieverTest {
         Assertions.assertTrue(thirdConsumerHasBeenCalledOnce.get());
         Assertions.assertFalse(thirdConsumerHasBeenCalledTwice.get());
         while (!thirdConsumerHasBeenCalledTwice.get()) {
+            try {
+                Thread.sleep(100);
+            } catch (final InterruptedException e) {
+                e.printStackTrace();
+                Assertions.fail();
+            }
+        }
+    }
+
+    @Test
+    @Disabled
+    void testSimultaneousRetrieval() {
+        final CachedSiteDataRetriever retriever = buildDataSiteRetriever();
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        final AtomicInteger numberOfConsumerCalls = new AtomicInteger();
+        final String url = "https://www.baeldung.com/crawler4j";
+        for (int i = 0; i < 50; i++) {
+            final int j = i;
+            retriever.retrieve(url,
+                    (final Boolean b, final FullFetchedLinkData d) -> {
+                        Assertions.assertTrue(d.dataFileSection().isPresent());
+                        final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
+                        final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(url, data);
+                        try {
+                            Assertions.assertEquals("A Guide to Crawler4j", parser.getTitle());
+                        } catch (final ContentParserException e) {
+                            Assertions.fail("getTitle threw " + e.getMessage());
+                        }
+                        consumerHasBeenCalled.set(true);
+                        System.out.println(j);
+                        numberOfConsumerCalls.addAndGet(1);
+                    },
+                    3600,
+                    false);
+        }
+        while (numberOfConsumerCalls.get() != 50) {
             try {
                 Thread.sleep(100);
             } catch (final InterruptedException e) {

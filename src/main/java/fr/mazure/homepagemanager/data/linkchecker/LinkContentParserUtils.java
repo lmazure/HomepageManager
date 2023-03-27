@@ -2,6 +2,7 @@ package fr.mazure.homepagemanager.data.linkchecker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
@@ -12,6 +13,11 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
  *
  */
 public class LinkContentParserUtils {
+
+    private static final Map<String, String> _particles = Map.of("de", "De",
+                                                                 "von", "von",
+                                                                 "van", "van"
+                                                                );
 
     /**
      * Extract an author names from a string
@@ -24,9 +30,9 @@ public class LinkContentParserUtils {
         final String[] nameParts = HtmlHelper.cleanContent(s).split(" ");
         if (nameParts.length == 2) {
             return new AuthorData(Optional.empty(),
-                                  Optional.of(toTitleCase(nameParts[0])),
+                                  Optional.of(uppercaseFirstCharacter(nameParts[0])),
                                   Optional.empty(),
-                                  Optional.of(toTitleCase(nameParts[1])),
+                                  Optional.of(uppercaseFirstCharacter(nameParts[1])),
                                   Optional.empty(),
                                   Optional.empty());
         }
@@ -41,24 +47,24 @@ public class LinkContentParserUtils {
         if (nameParts.length == 3) {
             if (isParticle(nameParts[1])) {
                 return new AuthorData(Optional.empty(),
-                                      Optional.of(toTitleCase(nameParts[0])),
+                                      Optional.of(uppercaseFirstCharacter(nameParts[0])),
                                       Optional.empty(),
-                                      Optional.of(nameParts[1].toLowerCase() + " " + toTitleCase(nameParts[2])),
+                                      Optional.of(properCaseParticle(nameParts[1]) + " " + uppercaseFirstCharacter(nameParts[2])),
                                       Optional.empty(),
                                       Optional.empty());
             }
             return new AuthorData(Optional.empty(),
-                                  Optional.of(toTitleCase(nameParts[0])),
-                                  Optional.of(toTitleCase(nameParts[1])),
-                                  Optional.of(toTitleCase(nameParts[2])),
+                                  Optional.of(uppercaseFirstCharacter(nameParts[0])),
+                                  Optional.of(uppercaseFirstCharacter(nameParts[1])),
+                                  Optional.of(uppercaseFirstCharacter(nameParts[2])),
                                   Optional.empty(),
                                   Optional.empty());
         }
         if ((nameParts.length == 4) && isParticle(nameParts[2])) {
             return new AuthorData(Optional.empty(),
-                                  Optional.of(toTitleCase(nameParts[0])),
-                                  Optional.of(toTitleCase(nameParts[1])),
-                                  Optional.of(nameParts[2].toLowerCase() + " " + toTitleCase(nameParts[3])),
+                                  Optional.of(uppercaseFirstCharacter(nameParts[0])),
+                                  Optional.of(uppercaseFirstCharacter(nameParts[1])),
+                                  Optional.of(properCaseParticle(nameParts[2]) + " " + uppercaseFirstCharacter(nameParts[3])),
                                   Optional.empty(),
                                   Optional.empty());
         }
@@ -67,16 +73,17 @@ public class LinkContentParserUtils {
     }
 
     private static boolean isParticle(final String name) {
-        final String n = name.toUpperCase();
-        return n.equals("DE") ||
-               n.equals("VON") ||
-               n.equals("VAN");
+        return _particles.containsKey(name.toLowerCase());
     }
 
-    private static String toTitleCase(final String str) {
+    private static String properCaseParticle(final String particle) {
+        return _particles.get(particle.toLowerCase());
+    }
+
+    private static String uppercaseFirstCharacter(final String str) {
         final StringBuilder converted = new StringBuilder();
         for (final char ch : str.toCharArray()) {
-            converted.append(converted.isEmpty() ? Character.toUpperCase(ch) : Character.toLowerCase(ch));
+            converted.append(converted.isEmpty() ? Character.toUpperCase(ch) : ch);
         }
         return converted.toString();
     }
