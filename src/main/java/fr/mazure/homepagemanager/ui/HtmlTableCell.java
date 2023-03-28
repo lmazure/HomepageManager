@@ -43,7 +43,7 @@ public class HtmlTableCell<S> extends TableCell<S, String> {
         setGraphic(stackPane);
         webView.getEngine().getLoadWorker().stateProperty().addListener(new ChangeListener<State>() {
             @Override
-            public void changed(final ObservableValue ov, final State oldState, final State newState) {
+            public void changed(final ObservableValue<? extends State> ov, final State oldState, final State newState) {
                 if (newState == Worker.State.SUCCEEDED) {
                     final EventListener listener = new EventListener() {
                         @Override
@@ -71,7 +71,7 @@ public class HtmlTableCell<S> extends TableCell<S, String> {
     }
 
     @Override
-    protected void updateItem(String item, boolean empty) {
+    protected void updateItem(final String item, final boolean empty) {
         super.updateItem(item, empty);
         if (empty || (item == null)) {
             setText(null);
