@@ -6,20 +6,11 @@
 
 ==== merge =====
 
+fix height of HTML table cells
+
 nettoyer java.xml
 
 nettoyer quality.xml
-
-display HTML is table cells
-
-voir redirection 308 de https://www.reviewed.com/cameras/news/canon-announces-eos-rebel-t4i-we-go-hands-on-with-first-touchscreen-dslr-2
-ou
-Title = "Understanding cancer through proteomics"
-URL = https://www.ted.com/talks/danny_hillis_understanding_cancer_through_proteomics/
-Expected status = 
-Effective HTTP code = 308 Permanent Redirect
-Look for article = https://www.google.com/search?q=%22Understanding+cancer+through+proteomics%22
-
 
 gérer les faux sous-titres tels que https://stackoverflow.blog/2017/06/15/developers-use-spaces-make-money-use-tabs/
 

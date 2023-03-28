@@ -315,6 +315,7 @@ public class SynchronousSiteDataRetriever {
         return responseCode == HttpURLConnection.HTTP_MOVED_PERM || // 301
                responseCode == HttpURLConnection.HTTP_MOVED_TEMP || // 302
                responseCode == HttpURLConnection.HTTP_SEE_OTHER  || // 303
-               responseCode == 307;                                 // 307
+               responseCode == 307                               || // 307
+               responseCode == 308;                                 // 308
     }
 }
