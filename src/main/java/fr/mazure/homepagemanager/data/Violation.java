@@ -3,6 +3,7 @@ package fr.mazure.homepagemanager.data;
 import java.util.Optional;
 
 import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
+import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 
 /**
  * Record of a check violation
@@ -70,6 +71,13 @@ public class Violation {
      */
     public String getDescription() {
         return _description;
+    }
+
+    /**
+     * @return the description
+     */
+    public String getHtmlDescription() {
+        return HtmlHelper.convertStringToHtml(_description);
     }
 
     /**

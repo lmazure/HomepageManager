@@ -2477,4 +2477,17 @@ public class HtmlHelper {
     private static final String removeNewlines(final String input) {
         return input.replace('\n', ' ').trim();
     }
+
+    /**
+     * Convert a string to HTML
+     * @param str String
+     * @return String converted to HTML
+     */
+    public static String convertStringToHtml(final String str) {
+        return str.replace("&", "&amp;")
+                  .replace("<","&lt;")
+                  .replace(">","&gt;")
+                  .replace("\n","<br>")
+                  .replaceAll("(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]", "<a href='$0'>$0</a>");
+    }
 }

@@ -6,12 +6,11 @@
 
 ==== merge =====
 
-voir redirection 308 de https://www.reviewed.com/cameras/news/canon-announces-eos-rebel-t4i-we-go-hands-on-with-first-touchscreen-dslr-2
+fix height of HTML table cells
 
 gérer les faux sous-titres tels que https://stackoverflow.blog/2017/06/15/developers-use-spaces-make-money-use-tabs/
 
 possible next quick fixes
-- incorrect subtitle
 - space/casing problem
 
 le title récupéré n'est pas bon pour https://stackoverflow.blog/2021/07/14/getting-started-with-python/

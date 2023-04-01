@@ -54,7 +54,7 @@ public class UpdateLinkUrlCorrectionTest {
 
     @SuppressWarnings("static-method")
     @Test
-    void urlAndPredessorAreUpdated() {
+    void urlAndPredecessorAreUpdated() {
 
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +

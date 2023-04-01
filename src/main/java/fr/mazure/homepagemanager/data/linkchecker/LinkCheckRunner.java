@@ -355,7 +355,9 @@ public class LinkCheckRunner {
                 ko.append(temp.toString());
                 ko.append('\n');
                 Optional<ViolationCorrection> correction = Optional.empty();
-                if (extractHttpCode(effectiveData.headers()).isPresent() && (extractHttpCode(effectiveData.headers()).get().intValue() == HttpURLConnection.HTTP_MOVED_PERM)) {
+                if (extractHttpCode(effectiveData.headers()).isPresent() &&
+                    ((extractHttpCode(effectiveData.headers()).get().intValue() == HttpURLConnection.HTTP_MOVED_PERM) ||
+                     (extractHttpCode(effectiveData.headers()).get().intValue() == 308))) {
                     if (effectiveData.previousRedirection() != null) {
                         HeaderFetchedLinkData d = effectiveData.previousRedirection();
                         while (d.previousRedirection() != null) {
