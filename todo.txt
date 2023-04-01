@@ -8,10 +8,6 @@
 
 fix height of HTML table cells
 
-nettoyer java.xml
-
-nettoyer quality.xml
-
 gérer les faux sous-titres tels que https://stackoverflow.blog/2017/06/15/developers-use-spaces-make-money-use-tabs/
 
 possible next quick fixes

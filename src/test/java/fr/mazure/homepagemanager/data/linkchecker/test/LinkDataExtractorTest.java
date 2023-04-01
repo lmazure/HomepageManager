@@ -1463,6 +1463,28 @@ public class LinkDataExtractorTest {
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
+
+    @Test
+    void youtubeWatchSixtySymbolsEdmundCopelandVideosIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=MAGdU-G5OZg";
+        final String expectedSureXml = """
+                <ARTICLE><X><T>Black Holes and Dimensional Analysis - Sixty Symbols</T>\
+                <A>https://www.youtube.com/watch?v=MAGdU-G5OZg</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>57</SECOND></DURATION></X>\
+                <DATE><YEAR>2023</YEAR><MONTH>3</MONTH><DAY>31</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final String expectedProbableXml = """
+                <ARTICLE><X><T>Black Holes and Dimensional Analysis - Sixty Symbols</T>\
+                <A>https://www.youtube.com/watch?v=MAGdU-G5OZg</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>57</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Edmund</FIRSTNAME><LASTNAME>Copeland</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2023</YEAR><MONTH>3</MONTH><DAY>31</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
+        Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
+    }
+
     @Test
     void youtubeWatchSixtySymbolsMeganGraryVideosIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=lEG_Oyt1QmE";
