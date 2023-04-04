@@ -78,21 +78,18 @@ public class HtmlTableCell<S> extends TableCell<S, String> {
             setGraphic(null);
         } else {
             _webView.setPrefHeight(-1);   // <- Absolute must at this position (before calling the Javascript)
-            
             _webView.getEngine().loadContent(item);
             setText(null);
             setGraphic(_stackPane);
             _htmlContent = item;
-            _webView.getEngine().documentProperty().addListener((obj, prev, newv) -> {
-
-            final String heightText = _webView.getEngine().executeScript(   // <- Some modification, which gives moreless the same result than the original
-                    "Math.max( document.body.scrollHeight , document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);"
-            ).toString();
-
-            System.out.println("heighttext: " + heightText);
-            final double height = Double.parseDouble(heightText.replace("px", "")) + 10.;  // <- Why are this 15.0 required??
-            _webView.setPrefHeight(height);
-            this.setPrefHeight(height);
+            _webView.getEngine().documentProperty().addListener((final ObservableValue<? extends Document>obj, final Document prev, final Document newv) -> {
+                final Integer heightText = (Integer)_webView.getEngine().executeScript(
+                        "Math.max( document.body.scrollHeight , document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);"
+                );
+                System.out.println("heighttext: " + heightText);
+                final int height = heightText.intValue() + 10;
+                _webView.setPrefHeight(height);
+                this.setPrefHeight(height);
             });
         }
     }
