@@ -29,19 +29,19 @@ import javafx.scene.web.WebView;
  */
 public class HtmlTableCell<S> extends TableCell<S, String> {
 
-    private final StackPane stackPane;
-    private final WebView webView;
-    private String itemRecord;
+    private final StackPane _stackPane;
+    private final WebView _webView;
+    private String _htmlContent;
 
     /**
      * Constructor
      */
     public HtmlTableCell() {
-        stackPane = new StackPane();
-        webView = new WebView();
-        stackPane.getChildren().add(webView);
-        setGraphic(stackPane);
-        webView.getEngine().getLoadWorker().stateProperty().addListener(new ChangeListener<State>() {
+        _stackPane = new StackPane();
+        _webView = new WebView();
+        _stackPane.getChildren().add(_webView);
+        setGraphic(_stackPane);
+        _webView.getEngine().getLoadWorker().stateProperty().addListener(new ChangeListener<State>() {
             @Override
             public void changed(final ObservableValue<? extends State> ov, final State oldState, final State newState) {
                 if (newState == Worker.State.SUCCEEDED) {
@@ -50,17 +50,17 @@ public class HtmlTableCell<S> extends TableCell<S, String> {
                         public void handleEvent(final Event ev) {
                             if (ev.getType().equals("click")) {
                                 final String href = ((Element)ev.getTarget()).getAttribute("href");
-                                webView.getEngine().loadContent(itemRecord); // kludge to avoid the WebView to navigate to the clicked link
+                                _webView.getEngine().loadContent(_htmlContent); // kludge to avoid the WebView to navigate to the clicked link
                                 try {
                                     Desktop.getDesktop().browse(new URI(href));
                                 } catch (final IOException | URISyntaxException e) {
                                     ExitHelper.exit(e);
                                 }
-                                webView.getEngine().executeScript("history.back()");
+                                _webView.getEngine().executeScript("history.back()");
                             }
                         }
                     }; 
-                    final Document doc = webView.getEngine().getDocument();
+                    final Document doc = _webView.getEngine().getDocument();
                     final NodeList nodeList = doc.getElementsByTagName("a");
                     for (int i = 0; i < nodeList.getLength(); i++) {
                         ((EventTarget)nodeList.item(i)).addEventListener("click", listener, false);
@@ -77,10 +77,23 @@ public class HtmlTableCell<S> extends TableCell<S, String> {
             setText(null);
             setGraphic(null);
         } else {
-            webView.getEngine().loadContent(item);
+            _webView.setPrefHeight(-1);   // <- Absolute must at this position (before calling the Javascript)
+            
+            _webView.getEngine().loadContent(item);
             setText(null);
-            setGraphic(stackPane);
-            itemRecord = item;
+            setGraphic(_stackPane);
+            _htmlContent = item;
+            _webView.getEngine().documentProperty().addListener((obj, prev, newv) -> {
+
+            final String heightText = _webView.getEngine().executeScript(   // <- Some modification, which gives moreless the same result than the original
+                    "Math.max( document.body.scrollHeight , document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);"
+            ).toString();
+
+            System.out.println("heighttext: " + heightText);
+            final double height = Double.parseDouble(heightText.replace("px", "")) + 10.;  // <- Why are this 15.0 required??
+            _webView.setPrefHeight(height);
+            this.setPrefHeight(height);
+            });
         }
     }
 }
