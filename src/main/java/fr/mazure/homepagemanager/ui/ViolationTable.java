@@ -50,12 +50,7 @@ public class ViolationTable {
         locationCol.setCellValueFactory(new PropertyValueFactory<>("locationDescription"));
         _table.getColumns().add(locationCol);
 
-        final TableColumn<Violation, String> descriptionCol = new TableColumn<>("Description");
-        descriptionCol.setMinWidth(800);
-        descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
-        _table.getColumns().add(descriptionCol);
-
-        final TableColumn<Violation, String> htmlDescriptionCol = new TableColumn<>("HTML Content");
+        final TableColumn<Violation, String> htmlDescriptionCol = new TableColumn<>("Description");
         htmlDescriptionCol.setMinWidth(800);
         htmlDescriptionCol.setCellFactory(tc -> new HtmlTableCell<>());
         htmlDescriptionCol.setCellValueFactory(new PropertyValueFactory<>("htmlDescription"));

@@ -69,13 +69,6 @@ public class Violation {
     /**
      * @return the description
      */
-    public String getDescription() {
-        return _description;
-    }
-
-    /**
-     * @return the description
-     */
     public String getHtmlDescription() {
         return HtmlHelper.convertStringToHtml(_description);
     }
