@@ -1,4 +1,4 @@
-    warnings = 293
+warnings = 287
 
 
 
@@ -7,6 +7,14 @@
 ==== merge =====
 
 fix height of HTML table cells
+→ I believe it does not work when we change the text of the cell
+→ analyse the differents height, the current cut 'n paste of StachOverflow, doing a max of five heights, is stupid
+
+fix the font weight and size of the HTML cells
+
+remove the column for the text violation descriptions when the HTML description column will be good enough
+
+scrolling with the mouse does not work above the HTML column
 
 gérer les faux sous-titres tels que https://stackoverflow.blog/2017/06/15/developers-use-spaces-make-money-use-tabs/
 

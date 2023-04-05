@@ -19,6 +19,7 @@ import javafx.concurrent.Worker;
 import javafx.concurrent.Worker.State;
 import javafx.scene.control.TableCell;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
 import javafx.scene.web.WebView;
 
 
@@ -41,6 +42,7 @@ public class HtmlTableCell<S> extends TableCell<S, String> {
         _webView = new WebView();
         _stackPane.getChildren().add(_webView);
         setGraphic(_stackPane);
+        _webView.getEngine().setUserStyleSheetLocation("data:,body { font: " + Font.getDefault().getSize() + "px '"+ Font.getDefault().getName() + "'; }");
         _webView.getEngine().getLoadWorker().stateProperty().addListener(new ChangeListener<State>() {
             @Override
             public void changed(final ObservableValue<? extends State> ov, final State oldState, final State newState) {
@@ -78,6 +80,7 @@ public class HtmlTableCell<S> extends TableCell<S, String> {
             setGraphic(null);
         } else {
             _webView.setPrefHeight(-1);   // <- Absolute must at this position (before calling the Javascript)
+            _webView.getEngine().setUserStyleSheetLocation("data:,body { font: " + Font.getDefault().getSize() + "px '"+ Font.getDefault().getName() + "'; }");
             _webView.getEngine().loadContent(item);
             setText(null);
             setGraphic(_stackPane);
