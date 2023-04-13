@@ -1304,6 +1304,22 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchPlainlyDifficultIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=XuZvc5mmAXk";
+        final String expectedXml = """
+                <ARTICLE><X><T>What Caused the 2013 Hueypoxtla, Mexico Radiation Event?  | Plainly Difficult Disaster Documentary</T>\
+                <A>https://www.youtube.com/watch?v=XuZvc5mmAXk</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>47</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>John</FIRSTNAME></AUTHOR>\
+                <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>28</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeWatchPrimerIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=XTcP4oo4JI4";
         final String expectedXml = """
