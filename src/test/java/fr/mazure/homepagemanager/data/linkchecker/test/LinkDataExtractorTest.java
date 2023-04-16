@@ -301,7 +301,7 @@ public class LinkDataExtractorTest {
     void youtubeWatchBlackPenRedPenIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=eex9Gm_rOrQ";
         final String expectedXml = """
-                <ARTICLE><X><T>solving a triple exponential equation, different bases, real and complex solutions!</T>\
+                <ARTICLE><X><T>homemade triple exponential equation 8^x+4^x+2^x=14</T>\
                 <A>https://www.youtube.com/watch?v=eex9Gm_rOrQ</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>7</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Steve</FIRSTNAME><LASTNAME>Chow</LASTNAME></AUTHOR>\
@@ -1627,7 +1627,7 @@ public class LinkDataExtractorTest {
     void youtubeWatchStatedClearlyIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=FNynz6Q12Bw";
         final String expectedXml = """
-                <ARTICLE><X><T>DNA and RNA - Differences in Form and Function | Stated Clearly</T>\
+                <ARTICLE><X><T>DNA vs RNA - Differences in Form and Function | Stated Clearly</T>\
                 <A>https://www.youtube.com/watch?v=FNynz6Q12Bw</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>49</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Jon</FIRSTNAME><LASTNAME>Perry</LASTNAME></AUTHOR>\
