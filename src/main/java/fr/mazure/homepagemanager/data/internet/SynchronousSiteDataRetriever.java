@@ -287,8 +287,10 @@ public class SynchronousSiteDataRetriever {
                  } catch (@SuppressWarnings("unused") final IllegalArgumentException e) {
                      Logger.log(Logger.Level.ERROR)
                      .append(url)
-                     .append(" has an invalid cookie value: ")
+                     .append(" has an invalid cookie value: \"")
                      .append(cookie)
+                     .append("\" ")
+                     .append(e)
                      .submit();
                  }
                  for (final HttpCookie c: list) {
