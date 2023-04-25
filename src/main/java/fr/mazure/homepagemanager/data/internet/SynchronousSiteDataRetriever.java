@@ -117,13 +117,11 @@ public class SynchronousSiteDataRetriever {
                 } else {
                     try {
                         dataStream = Optional.of(httpConnection.getInputStream());
-                        final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, Optional.of(headers), null);
-                        redirectionsData.push(redirectionData);
                     } catch (final IOException e) {
                         error = Optional.of("Failed to get input stream: " + e.toString());
-                        final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, Optional.empty(), null);
-                        redirectionsData.push(redirectionData);
                     }
+                    final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, Optional.of(headers), null);
+                    redirectionsData.push(redirectionData);
                 }
             }
         }
