@@ -31,7 +31,7 @@ public class BaeldungLinkContentParser extends LinkDataExtractor {
                          "Baeldung",
                          "title");
     private static final TextParser s_dateParser
-        = new TextParser("<p class=\"post-modified\">Last modified: <span class=\"updated\">",
+        = new TextParser("<p class=\"post-modified\">Last updated: <span class=\"updated\">",
                          "</span></p>",
                          "Baeldung",
                          "date");

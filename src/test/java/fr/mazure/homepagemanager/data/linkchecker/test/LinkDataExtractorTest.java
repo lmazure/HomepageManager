@@ -301,7 +301,7 @@ public class LinkDataExtractorTest {
     void youtubeWatchBlackPenRedPenIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=eex9Gm_rOrQ";
         final String expectedXml = """
-                <ARTICLE><X><T>solving a triple exponential equation, different bases, real and complex solutions!</T>\
+                <ARTICLE><X><T>homemade triple exponential equation 8^x+4^x+2^x=14</T>\
                 <A>https://www.youtube.com/watch?v=eex9Gm_rOrQ</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>7</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Steve</FIRSTNAME><LASTNAME>Chow</LASTNAME></AUTHOR>\
@@ -359,6 +359,28 @@ public class LinkDataExtractorTest {
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
         Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
+    void youtubeWatchComputerfileSteveBagleyMikePoundIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=95ovjnMhUq0";
+        final String expectedSureXml = """
+                <ARTICLE><X><T>Acropalypse Now - Computerphile</T>\
+                <A>https://www.youtube.com/watch?v=95ovjnMhUq0</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>52</SECOND></DURATION></X>\
+                <DATE><YEAR>2023</YEAR><MONTH>3</MONTH><DAY>28</DAY>\
+                </DATE><COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final String expectedProbableXml = """
+                <ARTICLE><X><T>Acropalypse Now - Computerphile</T>\
+                <A>https://www.youtube.com/watch?v=95ovjnMhUq0</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>52</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Steve</FIRSTNAME><LASTNAME>Bagley</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Mike</FIRSTNAME><LASTNAME>Pound</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2023</YEAR><MONTH>3</MONTH><DAY>28</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
+        Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
     }
 
     @Test
@@ -1017,6 +1039,27 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchNumberphileDavidEisenbudIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=NWahomDHaDs";
+        final String expectedSureXml = """
+                <ARTICLE><X><T>The Journey to 3264 - Numberphile</T>\
+                <A>https://www.youtube.com/watch?v=NWahomDHaDs</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>37</SECOND></DURATION></X>\
+                <DATE><YEAR>2023</YEAR><MONTH>4</MONTH><DAY>2</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final String expectedProbableXml = """
+                <ARTICLE><X><T>The Journey to 3264 - Numberphile</T>\
+                <A>https://www.youtube.com/watch?v=NWahomDHaDs</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>37</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>David</FIRSTNAME><LASTNAME>Eisenbud</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2023</YEAR><MONTH>4</MONTH><DAY>2</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
+        Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
+    }
+
+    @Test
     void youtubeWatchNumberphileJamesGrimeIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=ZdQFN2XKeKI";
         final String expectedSureXml = """
@@ -1253,6 +1296,22 @@ public class LinkDataExtractorTest {
                 <L>fr</L><F>MP4</F><DURATION><MINUTE>28</MINUTE><SECOND>14</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Maxime</FIRSTNAME><LASTNAME>Lambrecht</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>5</MONTH><DAY>26</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
+    void youtubeWatchPlainlyDifficultIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=XuZvc5mmAXk";
+        final String expectedXml = """
+                <ARTICLE><X><T>What Caused the 2013 Hueypoxtla, Mexico Radiation Event?  | Plainly Difficult Disaster Documentary</T>\
+                <A>https://www.youtube.com/watch?v=XuZvc5mmAXk</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>47</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>John</FIRSTNAME></AUTHOR>\
+                <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>28</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
@@ -1568,7 +1627,7 @@ public class LinkDataExtractorTest {
     void youtubeWatchStatedClearlyIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=FNynz6Q12Bw";
         final String expectedXml = """
-                <ARTICLE><X><T>DNA and RNA - Differences in Form and Function | Stated Clearly</T>\
+                <ARTICLE><X><T>DNA vs RNA - Differences in Form and Function | Stated Clearly</T>\
                 <A>https://www.youtube.com/watch?v=FNynz6Q12Bw</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>49</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Jon</FIRSTNAME><LASTNAME>Perry</LASTNAME></AUTHOR>\

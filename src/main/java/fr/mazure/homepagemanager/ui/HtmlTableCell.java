@@ -2,6 +2,7 @@ package fr.mazure.homepagemanager.ui;
 
 import java.awt.Desktop;
 import java.io.IOException;
+import java.net.CookieHandler;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -19,6 +20,7 @@ import javafx.concurrent.Worker;
 import javafx.concurrent.Worker.State;
 import javafx.scene.control.TableCell;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
 import javafx.scene.web.WebView;
 
 
@@ -29,19 +31,21 @@ import javafx.scene.web.WebView;
  */
 public class HtmlTableCell<S> extends TableCell<S, String> {
 
-    private final StackPane stackPane;
-    private final WebView webView;
-    private String itemRecord;
+    private final StackPane _stackPane;
+    private final WebView _webView;
+    private String _htmlContent;
 
     /**
      * Constructor
      */
     public HtmlTableCell() {
-        stackPane = new StackPane();
-        webView = new WebView();
-        stackPane.getChildren().add(webView);
-        setGraphic(stackPane);
-        webView.getEngine().getLoadWorker().stateProperty().addListener(new ChangeListener<State>() {
+        _stackPane = new StackPane();
+        _webView = new WebView();
+        CookieHandler.setDefault(null);
+        _stackPane.getChildren().add(_webView);
+        setGraphic(_stackPane);
+        _webView.getEngine().setUserStyleSheetLocation("data:,body { font: " + Font.getDefault().getSize() + "px '"+ Font.getDefault().getName() + "'; }");
+        _webView.getEngine().getLoadWorker().stateProperty().addListener(new ChangeListener<State>() {
             @Override
             public void changed(final ObservableValue<? extends State> ov, final State oldState, final State newState) {
                 if (newState == Worker.State.SUCCEEDED) {
@@ -50,17 +54,17 @@ public class HtmlTableCell<S> extends TableCell<S, String> {
                         public void handleEvent(final Event ev) {
                             if (ev.getType().equals("click")) {
                                 final String href = ((Element)ev.getTarget()).getAttribute("href");
-                                webView.getEngine().loadContent(itemRecord); // kludge to avoid the WebView to navigate to the clicked link
+                                _webView.getEngine().loadContent(_htmlContent); // kludge to avoid the WebView to navigate to the clicked link
                                 try {
                                     Desktop.getDesktop().browse(new URI(href));
                                 } catch (final IOException | URISyntaxException e) {
                                     ExitHelper.exit(e);
                                 }
-                                webView.getEngine().executeScript("history.back()");
+                                _webView.getEngine().executeScript("history.back()");
                             }
                         }
                     }; 
-                    final Document doc = webView.getEngine().getDocument();
+                    final Document doc = _webView.getEngine().getDocument();
                     final NodeList nodeList = doc.getElementsByTagName("a");
                     for (int i = 0; i < nodeList.getLength(); i++) {
                         ((EventTarget)nodeList.item(i)).addEventListener("click", listener, false);
@@ -77,10 +81,30 @@ public class HtmlTableCell<S> extends TableCell<S, String> {
             setText(null);
             setGraphic(null);
         } else {
-            webView.getEngine().loadContent(item);
+            _webView.setPrefHeight(-1);   // <- Absolute must at this position (before calling the Javascript)
+            _webView.getEngine().setUserStyleSheetLocation("data:,body { font: " + Font.getDefault().getSize() + "px '"+ Font.getDefault().getName() + "'; }");
+            //_webView.getEngine().loadContent("<!DOCTYPE html><html><head><meta charset=\"utf-8\"/></head><body>" + item + "</body></html>");
             setText(null);
-            setGraphic(stackPane);
-            itemRecord = item;
+            setGraphic(_stackPane);
+            _htmlContent = item;
+            _webView.getEngine().documentProperty().addListener((final ObservableValue<? extends Document>obj, final Document prev, final Document newv) -> {
+                final Integer heightText = (Integer)_webView.getEngine().executeScript(
+                        "Math.max( document.body.scrollHeight , document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);"
+                );
+                final int height = heightText.intValue() + 10;
+                //System.out.println("document.body.scrollHeight = " + getJavaScriptIntegerValue("document.body.scrollHeight"));
+                //System.out.println("document.body.offsetHeight = " + getJavaScriptIntegerValue("document.body.offsetHeight"));
+                //System.out.println("document.documentElement.clientHeight = " + getJavaScriptIntegerValue("document.documentElement.clientHeight"));
+                //System.out.println("document.documentElement.scrollHeight = " + getJavaScriptIntegerValue("document.documentElement.scrollHeight"));
+                //System.out.println("document.documentElement.offsetHeight = " + getJavaScriptIntegerValue("document.documentElement.offsetHeight"));
+                _webView.setPrefHeight(height);
+                this.setPrefHeight(height);
+            });
         }
+    }
+    
+    private int getJavaScriptIntegerValue(final String name) {
+        final Integer heightText = (Integer)_webView.getEngine().executeScript(name);
+        return heightText.intValue();
     }
 }

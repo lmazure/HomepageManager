@@ -309,14 +309,14 @@ public class LinkCheckRunner {
         final Status status = isDataExpected() ? ((_nbSitesRemainingToBeChecked == 0) ? Status.HANDLED_WITH_SUCCESS : Status.HANDLING_NO_ERROR)
                                                : ((_nbSitesRemainingToBeChecked == 0) ? Status.HANDLED_WITH_ERROR : Status.HANDLING_WITH_ERROR);
 
-        Logger.log(Logger.Level.INFO)
+        /*Logger.log(Logger.Level.INFO)
               .append("URL ")
               .append(siteData.url())
               .append(" ")
               .append(_nbSitesRemainingToBeChecked)
               .append(" status=")
               .append(status.toString())
-              .submit();
+              .submit();*/
 
         if (_nbSitesRemainingToBeChecked == 0) {
            try {

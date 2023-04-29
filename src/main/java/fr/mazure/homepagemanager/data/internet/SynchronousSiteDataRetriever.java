@@ -117,13 +117,11 @@ public class SynchronousSiteDataRetriever {
                 } else {
                     try {
                         dataStream = Optional.of(httpConnection.getInputStream());
-                        final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, Optional.of(headers), null);
-                        redirectionsData.push(redirectionData);
                     } catch (final IOException e) {
                         error = Optional.of("Failed to get input stream: " + e.toString());
-                        final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, Optional.empty(), null);
-                        redirectionsData.push(redirectionData);
                     }
+                    final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, Optional.of(headers), null);
+                    redirectionsData.push(redirectionData);
                 }
             }
         }
@@ -287,8 +285,10 @@ public class SynchronousSiteDataRetriever {
                  } catch (@SuppressWarnings("unused") final IllegalArgumentException e) {
                      Logger.log(Logger.Level.ERROR)
                      .append(url)
-                     .append(" has an invalid cookie value: ")
+                     .append(" has an invalid cookie value: \"")
                      .append(cookie)
+                     .append("\" ")
+                     .append(e)
                      .submit();
                  }
                  for (final HttpCookie c: list) {
