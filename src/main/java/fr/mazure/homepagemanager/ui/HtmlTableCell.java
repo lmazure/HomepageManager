@@ -2,6 +2,7 @@ package fr.mazure.homepagemanager.ui;
 
 import java.awt.Desktop;
 import java.io.IOException;
+import java.net.CookieHandler;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -40,6 +41,7 @@ public class HtmlTableCell<S> extends TableCell<S, String> {
     public HtmlTableCell() {
         _stackPane = new StackPane();
         _webView = new WebView();
+        CookieHandler.setDefault(null);
         _stackPane.getChildren().add(_webView);
         setGraphic(_stackPane);
         _webView.getEngine().setUserStyleSheetLocation("data:,body { font: " + Font.getDefault().getSize() + "px '"+ Font.getDefault().getName() + "'; }");
@@ -81,7 +83,7 @@ public class HtmlTableCell<S> extends TableCell<S, String> {
         } else {
             _webView.setPrefHeight(-1);   // <- Absolute must at this position (before calling the Javascript)
             _webView.getEngine().setUserStyleSheetLocation("data:,body { font: " + Font.getDefault().getSize() + "px '"+ Font.getDefault().getName() + "'; }");
-            _webView.getEngine().loadContent(item);
+            //_webView.getEngine().loadContent("<!DOCTYPE html><html><head><meta charset=\"utf-8\"/></head><body>" + item + "</body></html>");
             setText(null);
             setGraphic(_stackPane);
             _htmlContent = item;
@@ -89,11 +91,20 @@ public class HtmlTableCell<S> extends TableCell<S, String> {
                 final Integer heightText = (Integer)_webView.getEngine().executeScript(
                         "Math.max( document.body.scrollHeight , document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);"
                 );
-                System.out.println("heighttext: " + heightText);
                 final int height = heightText.intValue() + 10;
+                //System.out.println("document.body.scrollHeight = " + getJavaScriptIntegerValue("document.body.scrollHeight"));
+                //System.out.println("document.body.offsetHeight = " + getJavaScriptIntegerValue("document.body.offsetHeight"));
+                //System.out.println("document.documentElement.clientHeight = " + getJavaScriptIntegerValue("document.documentElement.clientHeight"));
+                //System.out.println("document.documentElement.scrollHeight = " + getJavaScriptIntegerValue("document.documentElement.scrollHeight"));
+                //System.out.println("document.documentElement.offsetHeight = " + getJavaScriptIntegerValue("document.documentElement.offsetHeight"));
                 _webView.setPrefHeight(height);
                 this.setPrefHeight(height);
             });
         }
+    }
+    
+    private int getJavaScriptIntegerValue(final String name) {
+        final Integer heightText = (Integer)_webView.getEngine().executeScript(name);
+        return heightText.intValue();
     }
 }
