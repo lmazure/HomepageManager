@@ -282,7 +282,7 @@ public class SynchronousSiteDataRetriever {
                  List<HttpCookie> list = new LinkedList<>();
                  try {
                      list = HttpCookie.parse(cookie);
-                 } catch (@SuppressWarnings("unused") final IllegalArgumentException e) {
+                 } catch (final IllegalArgumentException e) {
                      Logger.log(Logger.Level.ERROR)
                      .append(url)
                      .append(" has an invalid cookie value: \"")

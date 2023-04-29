@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.CookieHandler;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.stream.Collectors;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -81,12 +82,12 @@ public class HtmlTableCell<S> extends TableCell<S, String> {
             setText(null);
             setGraphic(null);
         } else {
+            _htmlContent = workaroundWebViewEmojiBug(item);
             _webView.setPrefHeight(-1);   // <- Absolute must at this position (before calling the Javascript)
             _webView.getEngine().setUserStyleSheetLocation("data:,body { font: " + Font.getDefault().getSize() + "px '"+ Font.getDefault().getName() + "'; }");
-            //_webView.getEngine().loadContent("<!DOCTYPE html><html><head><meta charset=\"utf-8\"/></head><body>" + item + "</body></html>");
+            _webView.getEngine().loadContent(_htmlContent);
             setText(null);
             setGraphic(_stackPane);
-            _htmlContent = item;
             _webView.getEngine().documentProperty().addListener((final ObservableValue<? extends Document>obj, final Document prev, final Document newv) -> {
                 final Integer heightText = (Integer)_webView.getEngine().executeScript(
                         "Math.max( document.body.scrollHeight , document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);"
@@ -106,5 +107,12 @@ public class HtmlTableCell<S> extends TableCell<S, String> {
     private int getJavaScriptIntegerValue(final String name) {
         final Integer heightText = (Integer)_webView.getEngine().executeScript(name);
         return heightText.intValue();
+    }
+    
+    private static String workaroundWebViewEmojiBug(final String str) {
+        return str.codePoints()
+                  .mapToObj(c -> Character.isBmpCodePoint(c) ? Character.toString(c)
+                                                             : ("&#" + c + ";"))
+                  .collect(Collectors.joining());
     }
 }

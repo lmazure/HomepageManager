@@ -1,4 +1,4 @@
-warnings = 287
+warnings = 282
 
 
 
@@ -31,8 +31,6 @@ problème avec interraction des coockies si WebView est affichés
 - immédiatement tpaer Ctrl-E
 
 comprendre pourquoi certains fichiers sont régénérés au démarrage
-
-mauvais encoding pour l'affichage HTML
 
 fix height of HTML table cells
 → I believe it does not work when we change the text of the cell
