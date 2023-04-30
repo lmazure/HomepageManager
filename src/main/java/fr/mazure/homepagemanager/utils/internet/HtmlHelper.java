@@ -2263,8 +2263,9 @@ public class HtmlHelper {
     private static final Pattern s_clean_leading_whitespaces = Pattern.compile("^\\p{Z}*");
 
     /**
-     * @param file
-     * @return
+     * Slurp the content of a HTML file
+     * @param file HTML file
+     * @return content of the file
      */
     public static String slurpFile(final FileSection file) {
         final Charset charset = getCharset(file).orElse(StandardCharsets.UTF_8);
@@ -2272,8 +2273,9 @@ public class HtmlHelper {
     }
 
     /**
-     * @param file
-     * @return
+     * Determinate the charset of a file
+     * @param file HTML file
+     * @return charset of the file
      */
     public static Optional<Charset> getCharset(final FileSection file) {
         final String data = FileHelper.slurpFileSection(file, StandardCharsets.UTF_8);

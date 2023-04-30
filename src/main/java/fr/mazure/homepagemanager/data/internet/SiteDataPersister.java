@@ -249,7 +249,7 @@ public class SiteDataPersister {
     }
 
     private static FileLock getChannelLock(final FileChannel channel,
-                                          final boolean shared) throws IOException {
+                                           final boolean shared) throws IOException {
         for (;;) {
             try {
                 return channel.lock(0, Long.MAX_VALUE, shared);
@@ -260,7 +260,7 @@ public class SiteDataPersister {
                 } catch (final InterruptedException e1) {
                     ExitHelper.exit(e1);
                 }
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 throw e;
             }
         }

@@ -104,10 +104,10 @@ public class HtmlTableCell<S> extends TableCell<S, String> {
         }
     }
     
-    private int getJavaScriptIntegerValue(final String name) {
-        final Integer heightText = (Integer)_webView.getEngine().executeScript(name);
-        return heightText.intValue();
-    }
+    //private int getJavaScriptIntegerValue(final String name) {
+    //    final Integer heightText = (Integer)_webView.getEngine().executeScript(name);
+    //    return heightText.intValue();
+    //}
     
     private static String workaroundWebViewEmojiBug(final String str) {
         return str.codePoints()

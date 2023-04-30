@@ -1,6 +1,7 @@
-warnings = 282
+warnings = 278
 
 
+crash en analysant abbreven.xml avec un cache vide
 
 on ne pas faire
                         dataStream = Optional.of(httpConnection.getInputStream());
