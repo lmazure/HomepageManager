@@ -90,7 +90,7 @@ public class CachedSiteDataRetrieverTest {
     @Test
     //@Disabled
     void testSimultaneousRetrieval() {
-        final int nbThread = 20;
+        final int nbThread = 200;
         final CachedSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicInteger numberOfConsumerCalls = new AtomicInteger();
         final String url = "https://www.baeldung.com/crawler4j";
