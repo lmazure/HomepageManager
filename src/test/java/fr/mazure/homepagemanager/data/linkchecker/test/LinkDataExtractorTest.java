@@ -1522,7 +1522,6 @@ public class LinkDataExtractorTest {
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
-
     @Test
     void youtubeWatchSixtySymbolsEdmundCopelandVideosIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=MAGdU-G5OZg";

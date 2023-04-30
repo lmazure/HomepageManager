@@ -73,7 +73,7 @@ public class YoutubeApi {
 
         // see https://developers.google.com/youtube/v3/docs/videos
         // duration is incorrect : https://issuetracker.google.com/issues/35178038
-        
+
         // see https://developers.google.com/resources/api-libraries/documentation/youtube/v3/java/latest/com/google/api/services/youtube/YouTube.Videos.html
 
         final String title = video.getSnippet().getTitle();

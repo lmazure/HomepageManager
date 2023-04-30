@@ -10,7 +10,7 @@ public class UrlHelper {
 
     /**
      * Remove some query parameters from a URL
-     * 
+     *
      * @param url URL
      * @param parameters Query parameters to remove
      * @return Resulting URL
@@ -26,7 +26,7 @@ public class UrlHelper {
 
     /**
      * Remove a query parameter from a URL
-     * 
+     *
      * @param url URL
      * @param parameter Query parameter to remove
      * @return Resulting URL
@@ -67,7 +67,7 @@ public class UrlHelper {
 
     /**
      * Check if a String is a valid URL
-     * 
+     *
      * @param str String
      * @return True if valid URL, false otherwise
      */

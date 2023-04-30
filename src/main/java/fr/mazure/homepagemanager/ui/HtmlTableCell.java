@@ -64,7 +64,7 @@ public class HtmlTableCell<S> extends TableCell<S, String> {
                                 _webView.getEngine().executeScript("history.back()");
                             }
                         }
-                    }; 
+                    };
                     final Document doc = _webView.getEngine().getDocument();
                     final NodeList nodeList = doc.getElementsByTagName("a");
                     for (int i = 0; i < nodeList.getLength(); i++) {
@@ -103,12 +103,12 @@ public class HtmlTableCell<S> extends TableCell<S, String> {
             });
         }
     }
-    
+
     //private int getJavaScriptIntegerValue(final String name) {
     //    final Integer heightText = (Integer)_webView.getEngine().executeScript(name);
     //    return heightText.intValue();
     //}
-    
+
     private static String workaroundWebViewEmojiBug(final String str) {
         return str.codePoints()
                   .mapToObj(c -> Character.isBmpCodePoint(c) ? Character.toString(c)
