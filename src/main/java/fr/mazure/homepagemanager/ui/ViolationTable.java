@@ -55,7 +55,7 @@ public class ViolationTable {
         htmlDescriptionCol.setCellFactory(tc -> new HtmlTableCell<>());
         htmlDescriptionCol.setCellValueFactory(new PropertyValueFactory<>("htmlDescription"));
         _table.getColumns().add(htmlDescriptionCol);
-        
+
         final TableColumn<Violation, String> repairColumn = new TableColumn<>("Reparation");
         repairColumn.setPrefWidth(150);
         repairColumn.setCellValueFactory(new PropertyValueFactory<>("correctionDescription"));

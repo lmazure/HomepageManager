@@ -1,6 +1,7 @@
-warnings = 287
+warnings = 278
 
 
+crash en analysant abbreven.xml avec un cache vide
 
 on ne pas faire
                         dataStream = Optional.of(httpConnection.getInputStream());
@@ -24,15 +25,8 @@ Look for article = https://www.google.com/search?q=%22How+ChatGPT+Hijacks+Democr
 
 ==== merge =====
 
-problème avec interraction des coockies si WebView est affichés
-- purger le cache disque
-- mettre à jour les fichiers companies.xml, geography.xml et cracking.xml
-- lancer le programme
-- immédiatement tpaer Ctrl-E
 
 comprendre pourquoi certains fichiers sont régénérés au démarrage
-
-mauvais encoding pour l'affichage HTML
 
 fix height of HTML table cells
 → I believe it does not work when we change the text of the cell
@@ -49,11 +43,7 @@ le title récupéré n'est pas bon pour https://stackoverflow.blog/2021/07/14/ge
 https://stackoverflow.blog/2021/03/15/getting-started-with-rust/
 title "Getting started with … Rust" is not equal to the real title "Getting started with ... Rust"
 
-l'affichage de la table des violations n'est pas correcte, les dernières lignes sont cachées
-
 les CODEROUTINE sont écrits trop bas dans le HTML généré
-
-nettoyer abbreven.xml
 
 dans la table, on ne devrait afficher que le nom des fichiers à partir de la racine de la homepage
 
@@ -67,8 +57,6 @@ le process continue de tourner
 upgrader google-api-services-youtube
 
 Homepage Taper esc devrait fermer la recherche
-
-corriger la corruption de données si on checke le même lien deux fois d'affilée
 
 ne pas tout reconstruire à partir du moment où un seul des fichiers résultats n'est plus à jour
 

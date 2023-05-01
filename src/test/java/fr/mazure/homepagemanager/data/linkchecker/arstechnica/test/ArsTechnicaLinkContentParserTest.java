@@ -139,7 +139,6 @@ public class ArsTechnicaLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
-
     @ParameterizedTest
     @CsvSource({
         "https://arstechnica.com/information-technology/2023/03/chinese-search-giant-launches-ai-chatbot-with-prerecorded-demo/,Ryan,,McMorrow,Qianer,,Liu"

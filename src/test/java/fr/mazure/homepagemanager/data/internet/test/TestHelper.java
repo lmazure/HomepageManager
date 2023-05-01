@@ -79,7 +79,7 @@ public class TestHelper {
     }
 
     /**
-     * Return a directory to store the data of the unit tests defined in a test class 
+     * Return a directory to store the data of the unit tests defined in a test class
      * @param clazz Test class
      * @return Directory
      */

@@ -4,7 +4,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import fr.mazure.homepagemanager.data.internet.CachedSiteDataRetriever;
@@ -89,14 +88,13 @@ public class CachedSiteDataRetrieverTest {
     }
 
     @Test
-    @Disabled
+    //@Disabled
     void testSimultaneousRetrieval() {
+        final int nbThread = 200;
         final CachedSiteDataRetriever retriever = buildDataSiteRetriever();
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final AtomicInteger numberOfConsumerCalls = new AtomicInteger();
         final String url = "https://www.baeldung.com/crawler4j";
-        for (int i = 0; i < 50; i++) {
-            final int j = i;
+        for (int i = 0; i < nbThread; i++) {
             retriever.retrieve(url,
                     (final Boolean b, final FullFetchedLinkData d) -> {
                         Assertions.assertTrue(d.dataFileSection().isPresent());
@@ -107,14 +105,12 @@ public class CachedSiteDataRetrieverTest {
                         } catch (final ContentParserException e) {
                             Assertions.fail("getTitle threw " + e.getMessage());
                         }
-                        consumerHasBeenCalled.set(true);
-                        System.out.println(j);
                         numberOfConsumerCalls.addAndGet(1);
                     },
                     3600,
                     false);
         }
-        while (numberOfConsumerCalls.get() != 50) {
+        while (numberOfConsumerCalls.get() != nbThread) {
             try {
                 Thread.sleep(100);
             } catch (final InterruptedException e) {

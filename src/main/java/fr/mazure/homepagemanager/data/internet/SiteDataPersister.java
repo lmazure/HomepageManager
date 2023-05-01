@@ -8,11 +8,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.channels.FileChannel;
-import java.nio.channels.FileLock;
-import java.nio.channels.OverlappingFileLockException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Instant;
@@ -23,6 +21,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
 
@@ -42,6 +41,8 @@ public class SiteDataPersister {
     private static final int s_max_content_size = 8 * 1024 * 1024;
 
     private static final Charset s_charset_utf8 = StandardCharsets.UTF_8;
+    private static final String effectiveFileNamePrefix = "cache_";
+    private static final String tempoFileNamePrefix = "temp_";
 
     /**
      * @param path directory where the persistence files should be written
@@ -79,10 +80,9 @@ public class SiteDataPersister {
         final byte[] byteErrorArray = dataErrorString.getBytes(s_charset_utf8);
         sumOfSizes += byteErrorArray.length;
 
-        final File file = getPersistedFile(siteData.url(), timestamp);
-        try (final FileOutputStream fos = new FileOutputStream(file);
-             final FileChannel channel = fos.getChannel();
-             final FileLock lock = getChannelLock(channel, false)) {
+        final File tempoFile = getTempoPersistedFile(siteData.url(), timestamp);
+        final File effectiveFile = getEffectivePersistedFile(siteData.url(), timestamp);
+        try (final FileOutputStream fos = new FileOutputStream(tempoFile)) {
             final String siz = String.format("%9d\n", Integer.valueOf(sumOfSizes + 20));
             fos.write(siz.getBytes(s_charset_utf8));
             final String numberOfRedirections = String.format("%9d\n", Integer.valueOf(byteArrays.size()));
@@ -119,6 +119,19 @@ public class SiteDataPersister {
                   .append("while getting data from ")
                   .append(siteData.url())
                   .submit();
+        }
+        
+
+        try {
+            Files.move(tempoFile.toPath(), effectiveFile.toPath());
+        } catch (@SuppressWarnings("unused") final FileAlreadyExistsException e) {
+            Logger.log(Logger.Level.WARN)
+                  .append("Do not rename file into ")
+                  .append(effectiveFile.toPath())
+                  .append(", that one already exists")
+                  .submit();
+        } catch (final IOException e) {
+            ExitHelper.exit(e);
         }
     }
 
@@ -177,7 +190,10 @@ public class SiteDataPersister {
 
         try {
             return Files.list(getOutputDirectory(url))
-                        .map(p -> Instant.parse(p.getFileName().toString().replaceAll(";", ":")))
+                        .map(p -> p.getFileName().toString())
+                        .filter(s -> s.startsWith(effectiveFileNamePrefix))
+                        .map(s -> s.replace(effectiveFileNamePrefix, ""))
+                        .map(s -> Instant.parse(s.replaceAll(";", ":")))
                         .sorted(Comparator.reverseOrder())
                         .collect(Collectors.toList());
         } catch (final IOException e) {
@@ -194,16 +210,14 @@ public class SiteDataPersister {
     public FullFetchedLinkData retrieve(final String url,
                                         final Instant timestamp) {
 
-        final File file = getPersistedFile(url, timestamp);
+        final File file = getEffectivePersistedFile(url, timestamp);
 
         if (!Files.exists(file.toPath())) {
             ExitHelper.exit("status file " + file + " does not exist");
         }
 
         try (final FileInputStream fileInputStream = new FileInputStream(file);
-             final BufferedReader reader = new BufferedReader(new InputStreamReader(fileInputStream));
-             final FileChannel channel = fileInputStream.getChannel();
-             final FileLock lock = getChannelLock(channel, true)) {
+             final BufferedReader reader = new BufferedReader(new InputStreamReader(fileInputStream))) {
 
             final int size = Integer.parseInt(reader.readLine().trim());
             final int numberOfRedirections = Integer.parseInt(reader.readLine().trim());
@@ -248,24 +262,6 @@ public class SiteDataPersister {
         }
     }
 
-    private static FileLock getChannelLock(final FileChannel channel,
-                                          final boolean shared) throws IOException {
-        for (;;) {
-            try {
-                return channel.lock(0, Long.MAX_VALUE, shared);
-            } catch (@SuppressWarnings("unused") OverlappingFileLockException e) {
-                // the file is being used by another thread, we are waiting that it finishes with it
-                try {
-                    Thread.sleep(50);
-                } catch (final InterruptedException e1) {
-                    ExitHelper.exit(e1);
-                }
-            } catch (IOException e) {
-                throw e;
-            }
-        }
-    }
-
     private static HeaderFetchedLinkData readOneRedirection(final BufferedReader reader) throws IOException {
 
         final String url = reader.readLine();
@@ -301,7 +297,7 @@ public class SiteDataPersister {
      */
     public FileSection getDataFileSection(final String url,
                                           final Instant timestamp) {
-        final File statusFile = getPersistedFile(url, timestamp);
+        final File statusFile = getEffectivePersistedFile(url, timestamp);
         try (final BufferedReader reader = new BufferedReader(new FileReader(statusFile))) {
             final int size = Integer.parseInt(reader.readLine().trim());
             return new FileSection(statusFile, size, statusFile.length() - size);
@@ -310,9 +306,15 @@ public class SiteDataPersister {
         }
     }
 
-    private File getPersistedFile(final String url,
-                                  final Instant timestamp) {
-        return getOutputDirectory(url).resolve(timestamp.toString().replaceAll(":", ";")).toFile();
+    private File getTempoPersistedFile(final String url,
+                                       final Instant timestamp) {
+        return getOutputDirectory(url).resolve(tempoFileNamePrefix + UUID.randomUUID() + "_" + timestamp.toString().replaceAll(":", ";")).toFile();
+    }
+
+
+    private File getEffectivePersistedFile(final String url,
+                                           final Instant timestamp) {
+        return getOutputDirectory(url).resolve(effectiveFileNamePrefix + timestamp.toString().replaceAll(":", ";")).toFile();
     }
 
     private Path getOutputDirectory(final String url) {

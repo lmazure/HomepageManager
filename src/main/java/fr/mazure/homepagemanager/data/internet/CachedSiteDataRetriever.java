@@ -36,7 +36,7 @@ public class CachedSiteDataRetriever {
 
         final List<Instant> timestamps = _persister.getTimestampList(url);
 
-        if (timestamps.size() > 0) {
+        if (!timestamps.isEmpty()) {
 
             final Instant lastTimestamp = timestamps.get(0);
             final boolean isDataFresh = lastTimestamp.isAfter(Instant.now().minusSeconds(maxAge));
