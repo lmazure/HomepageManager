@@ -1,7 +1,13 @@
 warnings = 278
 
+filtrer les redirections parasites (ibm, onlamp…)
 
-crash en analysant abbreven.xml avec un cache vide
+si le programme passe minuit, la vérification de la date de la page croit toujours que nous sommes la veille
+
+corriger mauvaise gestion des erreurs de parsing lors de la génération du JSON
+
+==== merge =====
+
 
 on ne pas faire
                         dataStream = Optional.of(httpConnection.getInputStream());
@@ -20,10 +26,6 @@ Expected status =
 Effective error = "Failed to get input stream: java.io.IOException: Server returned HTTP response code: 403 for URL: https://www.nytimes.com/2023/01/15/opinion/ai-chatgpt-lobbying-democracy.html"
 Effective HTTP code = 403 Forbidden
 Look for article = https://www.google.com/search?q=%22How+ChatGPT+Hijacks+Democracy%22
-
-
-
-==== merge =====
 
 
 comprendre pourquoi certains fichiers sont régénérés au démarrage

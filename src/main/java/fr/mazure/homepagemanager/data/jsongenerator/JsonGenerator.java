@@ -5,7 +5,6 @@ import java.nio.file.Path;
 import java.util.List;
 
 import fr.mazure.homepagemanager.utils.Logger;
-import fr.mazure.homepagemanager.utils.xmlparsing.XmlParsingException;
 
 /**
  *
@@ -35,28 +34,22 @@ public class JsonGenerator {
     }
 
     /**
-     * @param homepage
-     * @param files
+     * @param homepage directory where the XML files are located
+     * @param files list of files to parse
+     * @throws Exception exception if any
      */
     public static void generate(final Path homepage,
-                                final List<Path> files) {
+                                final List<Path> files) throws Exception {
 
         final JsonGenerator main = new JsonGenerator();
 
         final String homepagePath = homepage.toString();
 
         // parse the XML files
-        try {
-            for (final Path file: files) {
-                main.scanFile(file.toFile());
-            }
-            main.scanPersonFile(new File(homepagePath + File.separator + s_linksDirectoryFileName + File.separator + s_personFileName));
-        } catch (final XmlParsingException e) {
-            Logger.log(Logger.Level.ERROR)
-            .append("Failed to parse the XML files")
-            .append(e)
-            .submit();
+        for (final Path file: files) {
+            main.scanFile(file.toFile());
         }
+        main.scanPersonFile(new File(homepagePath + File.separator + s_linksDirectoryFileName + File.separator + s_personFileName));
 
         // generate content files
         main.generateReports(homepagePath);
@@ -66,15 +59,11 @@ public class JsonGenerator {
               .submit();
     }
 
-    /**
-     * @param file
-     * @throws XmlParsingException
-     */
-    private void scanFile(final File file) throws XmlParsingException {
+    private void scanFile(final File file) throws Exception {
         parser.parse(file);
     }
 
-    private void scanPersonFile(final File file) throws XmlParsingException {
+    private void scanPersonFile(final File file) throws Exception {
         parser.parsePersonFile(file);
     }
 
