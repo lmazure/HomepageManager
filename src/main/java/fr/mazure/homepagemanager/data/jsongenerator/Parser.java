@@ -59,11 +59,12 @@ public class Parser {
             extractArticles(document, file);
             extractKeywords(document, file);
         } catch (final Exception e) {
+            final String errorMessage = "Failed to parse the XML file (" + file + ")"; 
             Logger.log(Logger.Level.ERROR)
-                  .appendln("Failed to parse the XML file (" + file + ")")
+                  .appendln(errorMessage)
                   .append(e)
                   .submit();
-            throw new Exception("Failed to parse the XML file (" + file + ")", e);
+            throw new Exception(errorMessage, e);
         }
     }
 
@@ -143,11 +144,12 @@ public class Parser {
             final Document document = _builder.parse(file);
             extractPersonLinks(document, file);
         } catch (final Exception e) {
+            final String errorMessage = "Failed to parse the XML person file (" + file + ")"; 
             Logger.log(Logger.Level.ERROR)
-                  .appendln("Failed to parse the XML person file (" + file + ")")
+                  .appendln(errorMessage)
                   .append(e)
-                   .submit();
-            throw new Exception("Failed to parse the XML file (" + file + ")", e);
+                  .submit();
+            throw new Exception(errorMessage, e);
         }
     }
 

@@ -139,13 +139,8 @@ public class XmlHelper {
         return getSiblingElement(element, Node::getNextSibling);
     }
 
-    /**
-     * @param element
-     * @param siblingFunction
-     * @return
-     */
-    public static Element getSiblingElement(final Element element,
-                                            final Function<Node, Node> siblingFunction) {
+    private static Element getSiblingElement(final Element element,
+                                             final Function<Node, Node> siblingFunction) {
         Node sibling = element;
         while ((sibling = siblingFunction.apply(sibling)) != null) {
             if (sibling.getNodeType() == Node.ELEMENT_NODE) {
@@ -157,9 +152,10 @@ public class XmlHelper {
 
     /**
      * Return the child elements having a given node type
-     * @param element
-     * @param type
-     * @return
+     *
+     * @param element starting element
+     * @param type desired child element type
+     * @return child elements having this type
      */
     public static List<Element> getChildrenByElementType(final Element element,
                                                          final ElementType type) {
@@ -179,9 +175,10 @@ public class XmlHelper {
 
     /**
      * Return the descendant elements having a given node type
-     * @param element
-     * @param type
-     * @return
+     *
+     * @param element starting element
+     * @param type desired descendant element type
+     * @return descendant elements having this type
      */
     public static NodeList getDescendantsByElementType(final Element element,
                                                        final ElementType type) {
@@ -190,9 +187,10 @@ public class XmlHelper {
 
     /**
      * Test if an element is of given type
-     * @param element
-     * @param type
-     * @return
+     *
+     * @param element element to be tested
+     * @param type type
+     * @return true if the element if of type type
      */
     public static boolean isOfType(final Element element,
                                    final ElementType type) {
@@ -201,9 +199,10 @@ public class XmlHelper {
 
     /**
      * Test if a node is an element of given type
-     * @param node
-     * @param type
-     * @return
+     *
+     * @param node node to be tested
+     * @param type type
+     * @return true if the element if of type type
      */
     public static boolean isOfType(final Node node,
                                    final ElementType type) {
