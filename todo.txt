@@ -1,4 +1,4 @@
-warnings = 278
+warnings = 257
 
 filtrer les redirections parasites (ibm, onlamp…)
 
