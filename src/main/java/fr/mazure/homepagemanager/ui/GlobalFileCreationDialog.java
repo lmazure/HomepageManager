@@ -41,6 +41,10 @@ public class GlobalFileCreationDialog extends Dialog<Void> {
         initModality(Modality.NONE);
 
         task.setOnSucceeded(event -> ((Stage)(getDialogPane().getScene().getWindow())).close());
+        task.setOnFailed(event -> {
+            textArea.textProperty().unbind();
+            textArea.setText(task.getException().getMessage());
+            });
 
         show();
 
@@ -51,7 +55,7 @@ public class GlobalFileCreationDialog extends Dialog<Void> {
                                                     final List<Path> files) {
         return new Task<>() {
             @Override
-            protected Void call() {
+            protected Void call() throws Exception {
                 final StringBuilder status = new StringBuilder();
 
                 SiteFilesGenerator.generate(homepagePath, files);

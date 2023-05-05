@@ -30,7 +30,7 @@ import org.w3c.dom.NodeList;
             throw new XmlParsingException("parseArticleNode called with wrong node (" + articleElement.getTagName() + ")");
         }
 
-        final List<Element> dateNodes =  getChildElements(articleElement, ElementType.DATE);
+        final List<Element> dateNodes =  XmlHelper.getChildrenByElementType(articleElement, ElementType.DATE);
         Optional<TemporalAccessor> date = Optional.empty();
         if (dateNodes.size() == 1) {
             final TemporalAccessor dt = XmlParser.parseDateElement(dateNodes.get(0));
@@ -40,12 +40,12 @@ import org.w3c.dom.NodeList;
         }
 
         final List<LinkData> links = new ArrayList<>();
-        for (final Element linkNode: getChildElements(articleElement, ElementType.X)) {
+        for (final Element linkNode: XmlHelper.getChildrenByElementType(articleElement, ElementType.X)) {
             links.add(XmlParser.parseXElement(linkNode));
         }
 
         final List<AuthorData> authors = new ArrayList<>();
-        for (final Element authorNode: getChildElements(articleElement, ElementType.AUTHOR)) {
+        for (final Element authorNode: XmlHelper.getChildrenByElementType(articleElement, ElementType.AUTHOR)) {
             authors.add(XmlParser.parseAuthorElement(authorNode));
         }
 
@@ -85,7 +85,7 @@ import org.w3c.dom.NodeList;
             articles.add(parseArticleElement(grandParent));
         } else if (XmlHelper.isOfType(grandParent, ElementType.CLIST)) {
             // the KEYWORD is in the title of a list of keywords
-            for (final Element itemNode: getChildElements(grandParent, ElementType.ITEM)) {
+            for (final Element itemNode: XmlHelper.getChildrenByElementType(grandParent, ElementType.ITEM)) {
                 final NodeList child =  itemNode.getChildNodes();
                 if (child.getLength() != 1) {
                     throw new XmlParsingException("ITEM should have single child node");
@@ -97,15 +97,9 @@ import org.w3c.dom.NodeList;
             }
         } else if (XmlHelper.isOfType(grandParent, ElementType.BLIST)) {
             // the KEYWORD is in the title of a list of articles
-            for (final Element itemNode: getChildElements(grandParent, ElementType.ITEM)) {
-                final NodeList child =  itemNode.getChildNodes();
-                if (child.getLength() != 1) {
-                    throw new XmlParsingException("ITEM should have single child node");
-                }
-                if ((child.item(0).getNodeType() != Node.ELEMENT_NODE) || !XmlHelper.isOfType(child.item(0), ElementType.ARTICLE)) {
-                    throw new XmlParsingException("ITEM should have an ARTICLE child node");
-                }
-                articles.add(XmlParser.parseArticleElement((Element)child.item(0)));
+            final NodeList articleNodes = XmlHelper.getDescendantsByElementType(grandParent, ElementType.ARTICLE);
+            for (int i = 0; i < articleNodes.getLength(); i++ ) {
+                articles.add(XmlParser.parseArticleElement((Element)articleNodes.item(i)));
             }
         } else {
             throw new XmlParsingException("grandparent of KEYWORD node must be a BLIST, CLIST, or ARTICLE node (it is currently a " + grandParent.getTagName() + ")");
@@ -137,7 +131,7 @@ import org.w3c.dom.NodeList;
             subtitles[k] = ((Element)subtitleNodes.item(k)).getTextContent();
         }
 
-        final List<Element> urlNodes = getChildElements(xElement, ElementType.A);
+        final List<Element> urlNodes = XmlHelper.getChildrenByElementType(xElement, ElementType.A);
         if (urlNodes.size() != 1) {
             throw new XmlParsingException("Wrong number of A nodes (" + urlNodes.size() + ") in \"" + title + "\"");
         }
@@ -169,7 +163,7 @@ import org.w3c.dom.NodeList;
             throw new XmlParsingException("Wrong number of DURATION nodes (" + durationNodes.getLength() + ") in \"" + title + "\"");
         }
 
-        final List<Element> dateNodes =  getChildElements(xElement, ElementType.DATE);
+        final List<Element> dateNodes =  XmlHelper.getChildrenByElementType(xElement, ElementType.DATE);
         Optional<TemporalAccessor> publicationDate = Optional.empty();
         if (dateNodes.size() == 1) {
             final TemporalAccessor dt = XmlParser.parseDateElement(dateNodes.get(0));
@@ -317,23 +311,5 @@ import org.w3c.dom.NodeList;
         }
 
         return duration;
-    }
-
-    private static List<Element> getChildElements(final Element element,
-                                                  final ElementType type) {
-
-        final List<Element> list = new ArrayList<>();
-
-        final NodeList children =  element.getChildNodes();
-        for (int i = 0; i < children.getLength(); i++) {
-            if (children.item(i).getNodeType() == Node.ELEMENT_NODE) {
-                final Element child = (Element)children.item(i);
-                if (XmlHelper.isOfType(child, type)) {
-                    list.add(child);
-                }
-            }
-        }
-
-        return list;
     }
 }

@@ -1,7 +1,6 @@
 package fr.mazure.homepagemanager.data.jsongenerator;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Optional;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -10,7 +9,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import fr.mazure.homepagemanager.utils.Logger;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
@@ -51,25 +49,22 @@ public class Parser {
     }
 
     /**
-     * @param file
-     * @throws XmlParsingException
+     * @param file XML file
+     * @throws Exception exception if any
      */
-    public void parse(final File file) throws XmlParsingException {
+    public void parse(final File file) throws Exception {
 
         try {
             final Document document = _builder.parse(file);
             extractArticles(document, file);
             extractKeywords(document, file);
-        } catch (final SAXException se) {
+        } catch (final Exception e) {
+            final String errorMessage = "Failed to parse the XML file (" + file + ")"; 
             Logger.log(Logger.Level.ERROR)
-                  .append("Failed to parse the XML file")
-                  .append(se)
+                  .appendln(errorMessage)
+                  .append(e)
                   .submit();
-        } catch (final IOException ioe) {
-            Logger.log(Logger.Level.ERROR)
-                  .append("Failed to read the XML file")
-                  .append(ioe)
-                  .submit();
+            throw new Exception(errorMessage, e);
         }
     }
 
@@ -140,24 +135,21 @@ public class Parser {
     }
 
        /**
-     * @param file
-     * @throws XmlParsingException
+     * @param file file conaining a list of persons
+     * @throws Exception exception if any
      */
-    public void parsePersonFile(final File file) throws XmlParsingException {
+    public void parsePersonFile(final File file) throws Exception {
 
         try {
             final Document document = _builder.parse(file);
             extractPersonLinks(document, file);
-        } catch (final SAXException se) {
+        } catch (final Exception e) {
+            final String errorMessage = "Failed to parse the XML person file (" + file + ")"; 
             Logger.log(Logger.Level.ERROR)
-                  .append("Failed to parse the XML file")
-                  .append(se)
+                  .appendln(errorMessage)
+                  .append(e)
                   .submit();
-        } catch (final IOException ioe) {
-            Logger.log(Logger.Level.ERROR)
-                  .append("Failed to read the XML file")
-                  .append(ioe)
-                  .submit();
+            throw new Exception(errorMessage, e);
         }
     }
 
