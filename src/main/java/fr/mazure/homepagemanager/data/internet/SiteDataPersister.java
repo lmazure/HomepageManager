@@ -320,7 +320,7 @@ public class SiteDataPersister {
     private Path getOutputDirectory(final String url) {
         final String host = UrlHelper.isValidUrl(url) ? UrlHelper.getHost(url)
                                                       : "_invalid_URL";
-        return _path.resolve(host)
+        return _path.resolve(FileNameHelper.generateDirectoryNameFromHostName(host))
                     .resolve(FileNameHelper.generateFileNameFromURL(url));
     }
 

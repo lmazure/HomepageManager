@@ -1,4 +1,5 @@
 warnings = 257
+test coverafe = 65.3%
 
 filtrer les redirections parasites (ibm, onlamp…)
 
@@ -25,10 +26,33 @@ Redirection%20chain%20=%20http?www.xfront.com%2FREST.html%20?%20
     at fr.mazure.homepagemanager.data.FileEventQueue.handleFileCreation(FileEventQueue.java:131)
     at fr.mazure.homepagemanager.data.FileEventQueue$Consumer.run(FileEventQueue.java:195)
     at java.base/java.lang.Thread.run(Thread.java:1589)
-    
+ 
+ idem pour     <ITEM><ARTICLE><X quality="-1"><T>JSON, not Jason - Computerphile</T><A>https://www.you>tube.com/watch?v=A0hoqSkyY7o</A><L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>5</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Steve</FIRSTNAME><LASTNAME>Bagley</LASTNAME></AUTHOR><DATE><YEAR>2019</YEAR><MONTH>5</MONTH><DAY>9</DAY></DATE><COMMENT>A very basic presentation of JSON.</COMMENT></ARTICLE></ITEM>
+ 
+ corriger abbrevfr.xml
+ 
+             pool-2-thread-1 | 20230506T091958.224 | FATAL | Invalid URI - java.net.URISyntaxException: Illegal character in authority at index 8: https://www.you>tube.com/watch?v=A0hoqSkyY7o
+    at java.base/java.net.URI$Parser.fail(URI.java:2970)
+    at java.base/java.net.URI$Parser.parseAuthority(URI.java:3304)
+    at java.base/java.net.URI$Parser.parseHierarchical(URI.java:3215)
+    at java.base/java.net.URI$Parser.parse(URI.java:3171)
+    at java.base/java.net.URI.<init>(URI.java:705)
+    at fr.mazure.homepagemanager.utils.internet.UriHelper.convertStringToUriSlowerButSafer(UriHelper.java:39)
+    at fr.mazure.homepagemanager.utils.internet.UriHelper.convertStringToUri(UriHelper.java:25)
+    at fr.mazure.homepagemanager.data.internet.SynchronousSiteDataRetriever.applyCookies(SynchronousSiteDataRetriever.java:307)
+    at fr.mazure.homepagemanager.data.internet.SynchronousSiteDataRetriever.httpConnect(SynchronousSiteDataRetriever.java:202)
+    at fr.mazure.homepagemanager.data.internet.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:88)
+    at fr.mazure.homepagemanager.data.internet.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:70)
+    at fr.mazure.homepagemanager.data.internet.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:34)
+    at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+    at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+    at java.base/java.lang.Thread.run(Thread.java:1589)
+ 
+ 
 
 ==== merge =====
 
+acceleate oracle links by caching the intermediary requests
 
 on ne pas faire
                         dataStream = Optional.of(httpConnection.getInputStream());
