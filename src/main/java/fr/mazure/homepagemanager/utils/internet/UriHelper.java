@@ -6,6 +6,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 import fr.mazure.homepagemanager.utils.ExitHelper;
+import fr.mazure.homepagemanager.utils.Logger;
+import fr.mazure.homepagemanager.utils.Logger.Level;
 
 /**
  *
@@ -34,18 +36,18 @@ public class UriHelper {
      * @return URI
      */
     private static URI convertStringToUriSlowerButSafer(final String str) {
+        URI uri;
         try {
             final URL url = new URL(str);
-            return new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
-        } catch (final URISyntaxException e) {
-            ExitHelper.exit("Invalid URI", e);
-            // NOTREACHED
-            return null;
-        } catch (MalformedURLException e) {
-            ExitHelper.exit("Invalid URL", e);
-            // NOTREACHED
+            uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
+        } catch (final MalformedURLException|URISyntaxException e) {
+            Logger.log(Level.ERROR)
+                  .appendln("Invalid URL (" + str + ")")
+                  .append(e)
+                  .submit();
             return null;
         }
+        return uri;
     }
 
     /**

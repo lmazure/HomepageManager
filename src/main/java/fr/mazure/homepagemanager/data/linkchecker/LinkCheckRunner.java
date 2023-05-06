@@ -398,6 +398,11 @@ public class LinkCheckRunner {
             pw.println("=".repeat(80));
             pw.println(ok.toString());
         }
+
+        Logger.log(Logger.Level.INFO)
+              .append(_outputFile)
+              .append(" has been generated")
+              .submit();
     }
 
     /**
