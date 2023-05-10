@@ -366,7 +366,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchContinuousDeliveryVideosIsManaged() throws ContentParserException {
+    void youtubeWatchContinuousDeliveryIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=_S5iUf0ANyQ";
         final String expectedXml = """
                 <ARTICLE><X><T>Are You Chicago Or London When It Comes To TDD?</T>\
@@ -509,7 +509,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchDeepSkyPaulCrowtherVideosIsManaged() throws ContentParserException {
+    void youtubeWatchDeepSkyVideosPaulCrowtherIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=MkzyMS_hNwU";
         final String expectedSureXml = """
                 <ARTICLE><X><T>M28 - Millisecond Pulsar - Deep Sky Videos</T>\
@@ -530,7 +530,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchDeepSkyMeganGrayVideosIsManaged() throws ContentParserException {
+    void youtubeWatchDeepSkyVideosMeganGrayIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=17LITLns-pk";
         final String expectedSureXml = """
                 <ARTICLE><X><T>M50 - Spinning Stars - Deep Sky Videos</T>\
@@ -551,7 +551,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchDeepSkyMichaelMerryfielVideosIsManaged() throws ContentParserException {
+    void youtubeWatchDeepSkyVideosMichaelMerryfielIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=2d2YCUdt2gc";
         final String expectedSureXml = """
                 <ARTICLE><X><T>M61 - Barred Spiral Galaxy - Deep Sky Videos</T>\
@@ -1564,7 +1564,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchSixtySymbolsEdmundCopelandVideosIsManaged() throws ContentParserException {
+    void youtubeWatchSixtySymbolsEdmundCopelandIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=MAGdU-G5OZg";
         final String expectedSureXml = """
                 <ARTICLE><X><T>Black Holes and Dimensional Analysis - Sixty Symbols</T>\
@@ -1585,7 +1585,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchSixtySymbolsMeganGraryVideosIsManaged() throws ContentParserException {
+    void youtubeWatchSixtySymbolsMeganGraryIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=lEG_Oyt1QmE";
         final String expectedSureXml = """
                 <ARTICLE><X><T>My First Paper (Meghan Gray) - Sixty Symbols</T>\
@@ -1606,7 +1606,28 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchSixtySymbolsBeckySmethurstVideosIsManaged() throws ContentParserException {
+    void youtubeWatchSixtySymbolsPhilipMoriartyIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=GBtfwa-Fexc";
+        final String expectedSureXml = """
+                <ARTICLE><X><T>ChatGPT does Physics - Sixty Symbols</T>\
+                <A>https://www.youtube.com/watch?v=GBtfwa-Fexc</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>41</SECOND></DURATION></X>\
+                <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>23</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final String expectedProbableXml = """
+                <ARTICLE><X><T>ChatGPT does Physics - Sixty Symbols</T>\
+                <A>https://www.youtube.com/watch?v=GBtfwa-Fexc</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>41</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Philip</FIRSTNAME><LASTNAME>Moriarty</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>23</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
+        Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
+    }
+
+    @Test
+    void youtubeWatchSixtySymbolsBeckySmethurstIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=pGO_GJL17gM";
         final String expectedSureXml = """
                 <ARTICLE><X><T>The Biggest Possible Black Hole - Sixty Symbols</T>\
@@ -1627,20 +1648,21 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchSixtySymbolsPhilipMoriartyVideosIsManaged() throws ContentParserException {
-        final String url = "https://www.youtube.com/watch?v=GBtfwa-Fexc";
+    void youtubeWatchSixtySymbolsJamesUnwinIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=BlqHLHxVliI";
         final String expectedSureXml = """
-                <ARTICLE><X><T>ChatGPT does Physics - Sixty Symbols</T>\
-                <A>https://www.youtube.com/watch?v=GBtfwa-Fexc</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>41</SECOND></DURATION></X>\
-                <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>23</DAY></DATE>\
+                <ARTICLE><X><T>Is there a Black Hole in our Solar System? - Sixty Symbols</T>\
+                <A>https://www.youtube.com/watch?v=BlqHLHxVliI</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>51</SECOND></DURATION></X>\
+                <DATE><YEAR>2023</YEAR><MONTH>5</MONTH><DAY>9</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
-                <ARTICLE><X><T>ChatGPT does Physics - Sixty Symbols</T>\
-                <A>https://www.youtube.com/watch?v=GBtfwa-Fexc</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>41</SECOND></DURATION></X>\
-                <AUTHOR><FIRSTNAME>Philip</FIRSTNAME><LASTNAME>Moriarty</LASTNAME></AUTHOR>\
-                <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>23</DAY></DATE>\
+                <ARTICLE><X><T>Is there a Black Hole in our Solar System? - Sixty Symbols</T>\
+                <A>https://www.youtube.com/watch?v=BlqHLHxVliI</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>51</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Becky</FIRSTNAME><LASTNAME>Smethurst</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>James</FIRSTNAME><LASTNAME>Unwin</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2023</YEAR><MONTH>5</MONTH><DAY>9</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
