@@ -13,7 +13,7 @@ public class LinkData {
     private final String _title;
     private final String _subtitles[];
     private final String _url;
-    private final Optional<LinkStatus> _status;
+    private final LinkStatus _status;
     private final Optional<LinkProtection> _protection;
     private final LinkFormat _formats[];
     private final Locale _languages[];
@@ -34,7 +34,7 @@ public class LinkData {
     public LinkData(final String title,
                     final String subtitles[],
                     final String url,
-                    final Optional<LinkStatus> status,
+                    final LinkStatus status,
                     final Optional<LinkProtection> protection,
                     final LinkFormat formats[],
                     final Locale languages[],
@@ -75,7 +75,7 @@ public class LinkData {
     /**
      * @return Status
      */
-    public Optional<LinkStatus> getStatus() {
+    public LinkStatus getStatus() {
         return _status;
     }
 

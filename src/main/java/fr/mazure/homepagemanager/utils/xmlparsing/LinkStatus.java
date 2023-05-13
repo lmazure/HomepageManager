@@ -15,5 +15,9 @@ public enum LinkStatus {
     /**
      *  the link is alive but its content is no more what it used to be
      */
-    ZOMBIE
+    ZOMBIE,
+    /**
+     *  the link is alive and its content is what is expected
+     */
+    OK
 }

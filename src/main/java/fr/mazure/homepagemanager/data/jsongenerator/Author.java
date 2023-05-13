@@ -66,12 +66,12 @@ public class Author extends AuthorData implements Comparable<Author> {
     }
 
     /**
-     * @param namePrefix
-     * @param firstName
-     * @param middleName
-     * @param lastName
-     * @param nameSuffix
-     * @param givenName
+     * @param namePrefix Name prefix
+     * @param firstName First name
+     * @param middleName Middle name
+     * @param lastName Last name
+     * @param nameSuffix Name suffix
+     * @param givenName Given name
      */
     public Author(final Optional<String> namePrefix,
                   final Optional<String> firstName,

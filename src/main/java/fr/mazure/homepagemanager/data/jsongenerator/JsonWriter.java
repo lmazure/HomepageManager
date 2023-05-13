@@ -287,8 +287,8 @@ public class JsonWriter {
             if (link.getDuration().isPresent()) {
                 out.write("          \"duration\" : " + link.getDuration().get().getSeconds() + ",\n");
             }
-            if (link.getStatus().isPresent()) {
-                out.write("          \"status\" : \"" + formatStatus(link.getStatus().get()) + "\",\n");
+            if (link.getStatus() != LinkStatus.OK) {
+                out.write("          \"status\" : \"" + formatStatus(link.getStatus()) + "\",\n");
             }
             if (link.getProtection().isPresent()) {
                 out.write("          \"protection\" : \"" + formatProtection(link.getProtection().get()) + "\",\n");

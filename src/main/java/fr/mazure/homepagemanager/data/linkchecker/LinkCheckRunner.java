@@ -283,7 +283,7 @@ public class LinkCheckRunner {
 
         _effectiveData.put(siteData.url().toString(), siteData);
         if (!siteData.error().isPresent() &&
-            _expectedData.get(siteData.url()).getStatus().isEmpty()) {
+            _expectedData.get(siteData.url()).getStatus() == LinkStatus.OK) {
             final LinkContentChecker contentChecker = LinkContentCheckerFactory.build(siteData.url(),
                                                                                       _expectedData.get(siteData.url().toString()),
                                                                                       Optional.ofNullable(_articles.get(siteData.url().toString())),
@@ -423,7 +423,7 @@ public class LinkCheckRunner {
             builder.append("Subtitle = \"" + String.join("\" \"",  expectedData.getSubtitles()) + "\"\n");
         }
         builder.append("URL = " + url + "\n");
-        builder.append("Expected status = " + expectedData.getStatus().map(LinkStatus::toString).orElse("") + "\n");
+        builder.append("Expected status = " + expectedData.getStatus() + "\n");
         if (effectiveData.error().isPresent()) {
             builder.append("Effective error = \"" + effectiveData.error().get() + "\"\n");
         }

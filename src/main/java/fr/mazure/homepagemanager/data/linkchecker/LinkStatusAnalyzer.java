@@ -3,7 +3,6 @@ package fr.mazure.homepagemanager.data.linkchecker;
 import java.net.HttpURLConnection;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import fr.mazure.homepagemanager.data.internet.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.internet.HeaderFetchedLinkData;
@@ -25,7 +24,7 @@ public class LinkStatusAnalyzer {
     public static boolean doesEffectiveDataMatchesExpectedData(final LinkData expectedData,
                                                                final FullFetchedLinkData effectiveData) {
 
-        if (expectedData.getStatus().isPresent() && expectedData.getStatus().get().equals(LinkStatus.DEAD)) {
+        if ((expectedData.getStatus() != LinkStatus.OK) && expectedData.getStatus() != LinkStatus.DEAD) {
             if (effectiveData.error().isPresent()) {
                 return true;
             }
