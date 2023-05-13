@@ -345,7 +345,7 @@ public class LinkCheckRunner {
         for (final String url : _effectiveData.keySet()) {
             final LinkData expectedData = _expectedData.get(url);
             final FullFetchedLinkData effectiveData = _effectiveData.get(url);
-            final boolean isDataExpected = isOneDataExpected(expectedData, effectiveData);
+            final boolean isDataExpected = LinkStatusAnalyzer.doesEffectiveDataMatchesExpectedData(expectedData, effectiveData);
             if (isDataExpected) {
                 appendLivenessCheckResult(url, expectedData, effectiveData, ok);
                 ok.append('\n');
@@ -469,7 +469,7 @@ public class LinkCheckRunner {
     private boolean isDataExpected() { //TODO this method is very stupid, we should use a flag instead of computing the status every time
 
         for (final String url : _effectiveData.keySet()) {
-            if (!isOneDataExpected(_expectedData.get(url), _effectiveData.get(url))) {
+            if (!LinkStatusAnalyzer.doesEffectiveDataMatchesExpectedData(_expectedData.get(url), _effectiveData.get(url))) {
                 return false;
             }
             if (_checks.containsKey(url) && !_checks.get(url).isEmpty()) {
@@ -478,34 +478,6 @@ public class LinkCheckRunner {
         }
 
         return true;
-    }
-
-    private static boolean isOneDataExpected(final LinkData expectedData,
-                                             final FullFetchedLinkData effectiveData) {
-
-        if (expectedData.getStatus().isPresent() && expectedData.getStatus().get().equals(LinkStatus.DEAD)) {
-            if (effectiveData.error().isPresent()) {
-                return true;
-            }
-            if (!httpRequestIsSuccessful(effectiveData.headers().get())) {
-                return true;
-            }
-            final HeaderFetchedLinkData lastRedirection = lastRedirection(effectiveData);
-            if (lastRedirection == null) {
-                return false;
-            }
-            if (!httpRequestIsSuccessful(lastRedirection.headers().get())) {
-                return true;
-            }
-            return false;
-        }
-
-        final HeaderFetchedLinkData lastRedirection = lastRedirection(effectiveData);
-        return (effectiveData.headers().isPresent() &&
-                httpRequestIsSuccessful(effectiveData.headers().get()) &&
-                ((lastRedirection == null) ||
-                 lastRedirection.headers().isPresent() &&
-                 httpRequestIsSuccessful(lastRedirection.headers().get())));
     }
 
     private static HeaderFetchedLinkData lastRedirection(final FullFetchedLinkData data) {
@@ -517,13 +489,6 @@ public class LinkCheckRunner {
             d = d.previousRedirection();
         }
         return d;
-    }
-
-    private static boolean httpRequestIsSuccessful(final Map<String, List<String>> headers) {
-        final int code = HttpHelper.getResponseCodeFromHeaders(headers);
-        return (code == HttpURLConnection.HTTP_OK) ||
-               (code == HttpURLConnection.HTTP_MOVED_TEMP) ||
-               (code == HttpURLConnection.HTTP_SEE_OTHER);
     }
 
     private static boolean doNotUseCookies(final String url) { // TODO the decision to allow/disallow cookies should be in the parser

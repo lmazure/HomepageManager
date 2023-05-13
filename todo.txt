@@ -1,5 +1,7 @@
 warnings = 257
-test coverafe = 65.3%
+test coverage = 65.3%
+
+en définissant un LinkStats OK, to serait plus simple !
 
 filtrer les redirections parasites (ibm, onlamp…)
 
