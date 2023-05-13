@@ -177,10 +177,10 @@ import org.w3c.dom.NodeList;
                                                             : LinkStatus.OK;
 
         final Attr protectionAttribute = xElement.getAttributeNode("protection");
-        final Optional<String> protection = (protectionAttribute != null) ? Optional.of(protectionAttribute.getValue())
-                                                                          : Optional.empty();
+        final LinkProtection protection = (protectionAttribute != null) ? LinkData.parseProtection(protectionAttribute.getValue())
+                                                                        : LinkProtection.NO_REQUIRED_REGISTRATION;
 
-        return new LinkData(title, subtitles, url, status, protection.map(LinkData::parseProtection), formats, languages, duration, publicationDate);
+        return new LinkData(title, subtitles, url, status, protection, formats, languages, duration, publicationDate);
     }
 
     /**

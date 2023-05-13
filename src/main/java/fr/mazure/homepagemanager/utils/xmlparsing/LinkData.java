@@ -14,7 +14,7 @@ public class LinkData {
     private final String _subtitles[];
     private final String _url;
     private final LinkStatus _status;
-    private final Optional<LinkProtection> _protection;
+    private final LinkProtection _protection;
     private final LinkFormat _formats[];
     private final Locale _languages[];
     private final Optional<Duration> _duration;
@@ -35,7 +35,7 @@ public class LinkData {
                     final String subtitles[],
                     final String url,
                     final LinkStatus status,
-                    final Optional<LinkProtection> protection,
+                    final LinkProtection protection,
                     final LinkFormat formats[],
                     final Locale languages[],
                     final Optional<Duration> duration,
@@ -82,7 +82,7 @@ public class LinkData {
     /**
      * @return Protection
      */
-    public Optional<LinkProtection> getProtection() {
+    public LinkProtection getProtection() {
         return _protection;
     }
 

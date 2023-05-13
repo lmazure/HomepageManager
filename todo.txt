@@ -1,8 +1,6 @@
 warnings = 257
 test coverage = 65.3%
 
-en définissant un LinkStats OK, to serait plus simple !
-
 filtrer les redirections parasites (ibm, onlamp…)
 
 si le programme passe minuit, la vérification de la date de la page croit toujours que nous sommes la veille
