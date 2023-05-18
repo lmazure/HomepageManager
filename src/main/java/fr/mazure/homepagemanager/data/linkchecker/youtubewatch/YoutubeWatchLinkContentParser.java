@@ -473,8 +473,10 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                           buildMatchingList(),
                                                           Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("PBS Eons",
-                                          new ChannelData(buildList(buildAuthor("Michelle", "Barboza-Ramirez")),
-                                                          buildMatchingList(),
+                                          new ChannelData(buildList(),
+                                                          buildMatchingList(match("Barboza-Ramirez", buildAuthor("Michelle", "Barboza-Ramirez")),
+                                                                            match("Moore", buildAuthor("Kallie", "Moore")),
+                                                                            match("de Pastino", buildAuthor("Blake", "de Pastino"))),
                                                           Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Periodic Videos",
                                           new ChannelData(buildList(),
@@ -770,5 +772,5 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         private AuthorData getAuthor() {
             return _author;
         }
-   }
+    }
 }

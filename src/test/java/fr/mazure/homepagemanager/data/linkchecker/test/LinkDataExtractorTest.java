@@ -40,11 +40,11 @@ public class LinkDataExtractorTest {
     void baeldungIsManaged() throws ContentParserException {
         final String url = "https://www.baeldung.com/java-unit-testing-best-practices";
         final String expectedXml = """
-                <ARTICLE><X><T>Best Practices For Unit Testing In Java</T>\
+                <ARTICLE><X><T>Best Practices for Unit Testing in Java</T>\
                 <A>https://www.baeldung.com/java-unit-testing-best-practices</A>\
                 <L>en</L><F>HTML</F></X>\
                 <AUTHOR><FIRSTNAME>Anshul</FIRSTNAME><LASTNAME>Bansal</LASTNAME></AUTHOR>\
-                <DATE><YEAR>2022</YEAR><MONTH>6</MONTH><DAY>9</DAY></DATE>\
+                <DATE><YEAR>2023</YEAR><MONTH>5</MONTH><DAY>5</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
@@ -1280,14 +1280,16 @@ public class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Our Ancient Relative That Said 'No Thanks' To Land</T>\
                 <A>https://www.youtube.com/watch?v=Ke0BjyO41Qg</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>9</MINUTE><SECOND>55</SECOND></DURATION></X\
-                ><AUTHOR><FIRSTNAME>Michelle</FIRSTNAME><LASTNAME>Barboza-Ramirez</LASTNAME></AUTHOR>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>9</MINUTE><SECOND>55</SECOND></DURATION></X>\
                 <DATE><YEAR>2022</YEAR><MONTH>10</MONTH><DAY>4</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
         Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
-        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+        Assertions.assertEquals(3, extractor.getPossibleAuthors().size());
+        Assertions.assertEquals("▭ first=Michelle ▭ last=Barboza-Ramirez ▭ ▭", extractor.getPossibleAuthors().get(0).toString());
+        Assertions.assertEquals("▭ first=Kallie ▭ last=Moore ▭ ▭", extractor.getPossibleAuthors().get(1).toString());
+        Assertions.assertEquals("▭ first=Blake ▭ last=de Pastino ▭ ▭", extractor.getPossibleAuthors().get(2).toString());
     }
 
     @Test
