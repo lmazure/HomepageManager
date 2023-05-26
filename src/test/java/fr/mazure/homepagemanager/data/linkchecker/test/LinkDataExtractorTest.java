@@ -822,7 +822,7 @@ public class LinkDataExtractorTest {
     void youtubeWatchJMEnervePasJExpliqueIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=JjgcD2o7IME";
         final String expectedXml = """
-                <ARTICLE><X><T>☀️ Du Soleil à ITER : une Histoire de la FUSION #11 Science</T>\
+                <ARTICLE><X><T>☀️ Soleil vs ITER : une Histoire de la FUSION #11 Science</T>\
                 <A>https://www.youtube.com/watch?v=JjgcD2o7IME</A>\
                 <L>fr</L><F>MP4</F><DURATION><MINUTE>35</MINUTE><SECOND>25</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Bertrand</FIRSTNAME><LASTNAME>Augustin</LASTNAME></AUTHOR>\
