@@ -1817,6 +1817,22 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchVeryMathTripIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=tShSCFv_rGU";
+        final String expectedXml = """
+                <ARTICLE><X><T>Les bretelles d'autoroutes ne sont pas des arcs de cercle !</T>\
+                <A>https://www.youtube.com/watch?v=tShSCFv_rGU</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>5</MINUTE><SECOND>51</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Manu</FIRSTNAME><LASTNAME>Houdart</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2021</YEAR><MONTH>9</MONTH><DAY>15</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeWatchWebDevSimplifiedIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=mnmYwRoSisg";
         final String expectedXml = """
