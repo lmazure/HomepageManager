@@ -64,6 +64,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "Quokka.js",
             "redhat.com",
             "Sails.js",
+            "scicomm.xyz",
             "Three.js",
             "tween.js",
             "typescriptlang.org",

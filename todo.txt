@@ -7,6 +7,8 @@ si le programme passe minuit, la vérification de la date de la page croit toujo
 
 ==== merge =====
 
+nettoyer links/text.xml
+
 acceleate oracle links by caching the intermediary requests
 
 on ne pas faire
