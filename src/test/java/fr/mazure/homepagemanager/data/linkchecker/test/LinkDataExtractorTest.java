@@ -1694,19 +1694,19 @@ public class LinkDataExtractorTest {
 
     @Test
     void youtubeWatchSixtySymbolsMeganGraryIsManaged() throws ContentParserException {
-        final String url = "https://www.youtube.com/watch?v=lEG_Oyt1QmE";
+        final String url = "https://www.youtube.com/watch?v=66anxw_EuyQ";
         final String expectedSureXml = """
-                <ARTICLE><X><T>My First Paper (Meghan Gray) - Sixty Symbols</T>\
-                <A>https://www.youtube.com/watch?v=lEG_Oyt1QmE</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>15</MINUTE><SECOND>50</SECOND></DURATION></X>\
-                <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>13</DAY></DATE>\
+                <ARTICLE><X><T>Untangling the Cosmic Web - Sixty Symbols</T>\
+                <A>https://www.youtube.com/watch?v=66anxw_EuyQ</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>46</SECOND></DURATION></X>\
+                <DATE><YEAR>2021</YEAR><MONTH>5</MONTH><DAY>7</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
-                <ARTICLE><X><T>My First Paper (Meghan Gray) - Sixty Symbols</T>\
-                <A>https://www.youtube.com/watch?v=lEG_Oyt1QmE</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>15</MINUTE><SECOND>50</SECOND></DURATION></X>\
+                <ARTICLE><X><T>Untangling the Cosmic Web - Sixty Symbols</T>\
+                <A>https://www.youtube.com/watch?v=66anxw_EuyQ</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>46</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Meghan</FIRSTNAME><LASTNAME>Gray</LASTNAME></AUTHOR>\
-                <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>13</DAY></DATE>\
+                <DATE><YEAR>2021</YEAR><MONTH>5</MONTH><DAY>7</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
