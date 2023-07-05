@@ -1,6 +1,8 @@
 warnings = 257
 test coverage = 65.3%
 
+détecter les articles dont le commentaire contient subtitle, mais qui n'ont pas de subtitle
+
 filtrer les redirections parasites (ibm, onlamp…)
 
 si le programme passe minuit, la vérification de la date de la page croit toujours que nous sommes la veille
