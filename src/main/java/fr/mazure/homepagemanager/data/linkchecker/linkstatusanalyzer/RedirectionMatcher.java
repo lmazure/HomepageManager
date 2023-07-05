@@ -15,7 +15,21 @@ import fr.mazure.homepagemanager.utils.internet.HttpHelper;
  */
 public class RedirectionMatcher {
 
-    private final List<RedirectionMatcherElement> _elements;
+    /**
+     * How many time can an element appear in the redirection chain 
+     */
+    public enum Multiplicity {
+        /**
+         * one 
+         */
+        ONE,
+        /**
+         * one or more
+         */
+        ONE_OR_MANY
+    }
+
+    private final List<Element> _elements;
     private Pattern _pattern;
     private static final String sep1 = "§§§§";
     private static final String sep2 = "££££";
@@ -34,12 +48,12 @@ public class RedirectionMatcher {
      */
     public void add(final String regexp,
                     final Set<Integer> httpCodes,
-                    final RedirectionMatcherElement.Multiplicity multiplicity) {
+                    final Multiplicity multiplicity) {
         if (_pattern != null) {
             throw new UnsupportedOperationException("Cannot add a pattern element on a compiled pattern");
         }
 
-        _elements.add(new RedirectionMatcherElement(regexp, httpCodes, multiplicity));
+        _elements.add(new Element(regexp, httpCodes, multiplicity));
     }
    
     /**
@@ -51,16 +65,16 @@ public class RedirectionMatcher {
         }
 
         final StringBuilder builder =  new StringBuilder();
-        for (final RedirectionMatcherElement elem: _elements) {
+        for (final Element elem: _elements) {
             builder.append("(");
-            builder.append(elem.getRegexp());
+            builder.append(elem.regexp());
             builder.append(sep1);
             builder.append("(");
-            builder.append(elem.getHttpCodes().stream().map(c -> c.toString()).collect(Collectors.joining( "|")));
+            builder.append(elem.httpCodes().stream().map(c -> c.toString()).collect(Collectors.joining( "|")));
             builder.append(")");
             builder.append(sep2);
             builder.append(")");
-            switch (elem.getMultiplicity()) {
+            switch (elem.multiplicity()) {
                 case ONE: 
                     // do nothing
                     break;
@@ -107,7 +121,12 @@ public class RedirectionMatcher {
             }
             builder.append(sep2);
             d = d.previousRedirection();
-        };
+        }
         return builder.toString();
+    }
+    
+    private record Element(String regexp,
+                           Set<Integer> httpCodes,
+                           Multiplicity multiplicity) {
     }
 }

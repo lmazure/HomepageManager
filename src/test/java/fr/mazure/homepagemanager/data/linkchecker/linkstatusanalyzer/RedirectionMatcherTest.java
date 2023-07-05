@@ -15,7 +15,7 @@ class RedirectionMatcherTest {
     @Test
     void basicSuccessfulMatch() {
         final RedirectionMatcher matcher = new RedirectionMatcher();
-        matcher.add(".*", Set.of(Integer.valueOf(200)), RedirectionMatcherElement.Multiplicity.ONE);
+        matcher.add(".*", Set.of(Integer.valueOf(200)), RedirectionMatcher.Multiplicity.ONE);
         matcher.compile();
         assertMatch("http://example.com", matcher, true);
     }
@@ -23,7 +23,7 @@ class RedirectionMatcherTest {
     @Test
     void basicSuccessfulNonMatch() {
         final RedirectionMatcher matcher = new RedirectionMatcher();
-        matcher.add(".*", Set.of(Integer.valueOf(500)), RedirectionMatcherElement.Multiplicity.ONE);
+        matcher.add(".*", Set.of(Integer.valueOf(500)), RedirectionMatcher.Multiplicity.ONE);
         matcher.compile();
         assertMatch("http://example.com", matcher, false);
     }
