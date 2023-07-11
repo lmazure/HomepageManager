@@ -1,5 +1,9 @@
-warnings = 257
+warnings = 248
 test coverage = 65.3%
+
+gestion des sites morts comme http://gurukul.ucc.american.edu/ted/victoria.htm (utiliser un HTTP code null)
+
+chaque redirection matcher recompile la chaine de redirection, ce n'est pas performant
 
 détecter les articles dont le commentaire contient subtitle, mais qui n'ont pas de subtitle
 

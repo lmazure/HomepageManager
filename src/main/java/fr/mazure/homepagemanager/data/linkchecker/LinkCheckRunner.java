@@ -409,8 +409,8 @@ public class LinkCheckRunner {
      * append (at the end of builder) the result of the liveness check of url
      *
      * @param url
-     * @param expectedData
-     * @param effectiveData
+     * @param expectedData data as expected in the XML file
+     * @param effectiveData data as retrieved from internet
      * @param builder
      */
     private static void appendLivenessCheckResult(final String url,

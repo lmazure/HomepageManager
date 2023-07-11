@@ -86,14 +86,14 @@ public class RedirectionMatcher {
                     break;
             }
         }
-       
+
         _pattern = Pattern.compile(builder.toString());
    }
-   
+
     /**
      * Test if a redirection chain matches the pattern
      * 
-     * @param effectiveData effective date retrived from the link
+     * @param effectiveData effective date retrieved from the link
      * @return true is the chain matches, false if npt
      */
     public boolean doesRedirectionMatch(final FullFetchedLinkData effectiveData) {
@@ -103,7 +103,7 @@ public class RedirectionMatcher {
         final String encoded = encode(effectiveData);
         return _pattern.matcher(encoded).matches();
     }
-   
+
     private static String encode(final FullFetchedLinkData effectiveData) {
         final StringBuilder builder = new StringBuilder();
         builder.append(effectiveData.url());
