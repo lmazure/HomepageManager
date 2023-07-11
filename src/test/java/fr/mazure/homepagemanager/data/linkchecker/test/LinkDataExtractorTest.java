@@ -803,22 +803,6 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchKyleHillIsManaged() throws ContentParserException {
-        final String url = "https://www.youtube.com/watch?v=e3GYg7Y_W7s";
-        final String expectedXml = """
-                <ARTICLE><X><T>The Lia Radiological Accident - Nuclear Bonfire</T>\
-                <A>https://www.youtube.com/watch?v=e3GYg7Y_W7s</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>15</MINUTE><SECOND>32</SECOND></DURATION></X>\
-                <AUTHOR><FIRSTNAME>Kyle</FIRSTNAME><LASTNAME>Hill</LASTNAME></AUTHOR>\
-                <DATE><YEAR>2023</YEAR><MONTH>3</MONTH><DAY>3</DAY></DATE>\
-                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        final LinkDataExtractor extractor = getExtractor(url);
-        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
-        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
-        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
-    }
-
-    @Test
     void youtubeWatchJamyEpicurieuxIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=5cdqxrZJt5o";
         final String expectedXml = """
@@ -875,6 +859,39 @@ public class LinkDataExtractorTest {
                 <L>en</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>3</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Kevin</FIRSTNAME><LASTNAME>Fang</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>6</MONTH><DAY>12</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
+    void youtubeWatchKyleHillIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=e3GYg7Y_W7s";
+        final String expectedXml = """
+                <ARTICLE><X><T>The Lia Radiological Accident - Nuclear Bonfire</T>\
+                <A>https://www.youtube.com/watch?v=e3GYg7Y_W7s</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>15</MINUTE><SECOND>32</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Kyle</FIRSTNAME><LASTNAME>Hill</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2023</YEAR><MONTH>3</MONTH><DAY>3</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
+    void youtubeWatchLaChaineEVIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=GdkelMnxiaE";
+        final String expectedXml = """
+                <ARTICLE><X><T>ABRP vs CHARGEMAP ! 450km pour comparer les 2 planificateurs sur mobile !</T>\
+                <A>https://www.youtube.com/watch?v=GdkelMnxiaE</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>46</MINUTE><SECOND>5</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Jean-Christophe</FIRSTNAME><LASTNAME>Gigniac</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Alexandre</FIRSTNAME><LASTNAME>Homberger</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>10</MONTH><DAY>19</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
