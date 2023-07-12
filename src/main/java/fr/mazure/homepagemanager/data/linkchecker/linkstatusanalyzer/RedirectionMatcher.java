@@ -43,7 +43,7 @@ public class RedirectionMatcher {
    
     /**
      * @param regexp the regular expression on the URL
-     * @param httpCodes the possible valued for the received HTTP code
+     * @param httpCodes the possible valued for the received HTTP code, null for no response
      * @param multiplicity the number of times this element may appear in the chain of redirections
      */
     public void add(final String regexp,
@@ -70,7 +70,11 @@ public class RedirectionMatcher {
             builder.append(elem.regexp());
             builder.append(sep1);
             builder.append("(");
-            builder.append(elem.httpCodes().stream().map(c -> c.toString()).collect(Collectors.joining( "|")));
+            builder.append(elem.httpCodes()
+                               .stream()
+                               .map(c -> (c==null) ? ""
+                                                   : c.toString())
+                               .collect(Collectors.joining( "|")));
             builder.append(")");
             builder.append(sep2);
             builder.append(")");

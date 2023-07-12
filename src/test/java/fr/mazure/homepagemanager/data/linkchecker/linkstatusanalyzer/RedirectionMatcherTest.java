@@ -1,5 +1,6 @@
 package fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -26,6 +27,16 @@ class RedirectionMatcherTest {
         matcher.add(".*", Set.of(Integer.valueOf(500)), RedirectionMatcher.Multiplicity.ONE);
         matcher.compile();
         assertMatch("http://example.com", matcher, false);
+    }
+
+    @Test
+    void nonExistingSite() {
+        final RedirectionMatcher matcher = new RedirectionMatcher();
+        final Set<Integer> codes = new HashSet<>();
+        codes.add((Integer)null);
+        matcher.add(".*", codes, RedirectionMatcher.Multiplicity.ONE);
+        matcher.compile();
+        assertMatch("http://non.existing.site.com", matcher, true);
     }
 
     private void assertMatch(final String url,

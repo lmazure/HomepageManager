@@ -1,6 +1,7 @@
 package fr.mazure.homepagemanager.data.linkchecker;
 
 import java.net.HttpURLConnection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -23,7 +24,7 @@ public class LinkStatusAnalyzer {
      * @param effectiveData data as retrieved from internet
      * @return true if and only if effectiveData matches expectedData
      */
-    public static boolean doesEffectiveDataMatchesExpectedData(final LinkData expectedData,
+    public static boolean doesEffectiveDataMatchesExpectedData2(final LinkData expectedData,
                                                                final FullFetchedLinkData effectiveData) {
 
         if ((expectedData.getStatus() != LinkStatus.OK) && expectedData.getStatus() != LinkStatus.DEAD) {
@@ -56,7 +57,7 @@ public class LinkStatusAnalyzer {
      * @param effectiveData data as retrieved from internet
      * @return true if and only if effectiveData matches expectedData
      */
-    public static boolean doesEffectiveDataMatchesExpectedData2(final LinkData expectedData,
+    public static boolean doesEffectiveDataMatchesExpectedData(final LinkData expectedData,
                                                                final FullFetchedLinkData effectiveData) {
         final Set<LinkStatus> expectedStatuses = getPossibleStatuses(effectiveData);
         return expectedStatuses.contains(expectedData.getStatus());
@@ -80,23 +81,28 @@ public class LinkStatusAnalyzer {
                (code == HttpURLConnection.HTTP_SEE_OTHER);
     }
 
-    private static final RedirectionMatcher _basic200;
-    private static final RedirectionMatcher _basic404;
+    private static final RedirectionMatcher _basicOk;
+    private static final RedirectionMatcher _basicError;
     
     static {
-        _basic200 = new RedirectionMatcher();
-        _basic200.add(".*", Set.of(Integer.valueOf(200)), RedirectionMatcher.Multiplicity.ONE);
-        _basic200.compile();
-        _basic404 = new RedirectionMatcher();
-        _basic404.add(".*", Set.of(Integer.valueOf(404)), RedirectionMatcher.Multiplicity.ONE);
-        _basic404.compile();
+        _basicOk = new RedirectionMatcher();
+        _basicOk.add(".*", Set.of(Integer.valueOf(200)), RedirectionMatcher.Multiplicity.ONE);
+        _basicOk.compile();
+        final Set<Integer> basicErrorCodes = new HashSet<>();
+        basicErrorCodes.add(null);
+        basicErrorCodes.add(Integer.valueOf(400));
+        basicErrorCodes.add(Integer.valueOf(403));
+        basicErrorCodes.add(Integer.valueOf(404));
+        _basicError = new RedirectionMatcher();
+        _basicError.add(".*", basicErrorCodes, RedirectionMatcher.Multiplicity.ONE);
+        _basicError.compile();
     }
         
     private static Set<LinkStatus> getPossibleStatuses(final FullFetchedLinkData effectiveData) {
-        if (_basic200.doesRedirectionMatch(effectiveData)) {
+        if (_basicOk.doesRedirectionMatch(effectiveData)) {
             return Set.of(LinkStatus.OK, LinkStatus.ZOMBIE);
         }
-        if (_basic404.doesRedirectionMatch(effectiveData)) {
+        if (_basicError.doesRedirectionMatch(effectiveData)) {
             return Set.of(LinkStatus.DEAD);
         }
         throw new UnsupportedOperationException(effectiveDataToString(effectiveData));
