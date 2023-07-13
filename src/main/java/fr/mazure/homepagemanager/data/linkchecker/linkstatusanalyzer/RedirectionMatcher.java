@@ -65,6 +65,7 @@ public class RedirectionMatcher {
         }
 
         final StringBuilder builder =  new StringBuilder();
+        builder.append("^");
         for (final Element elem: _elements) {
             builder.append("(");
             builder.append(elem.regexp());
@@ -90,6 +91,7 @@ public class RedirectionMatcher {
                     break;
             }
         }
+        builder.append("$");
 
         _pattern = Pattern.compile(builder.toString());
    }

@@ -1,7 +1,7 @@
 warnings = 248
 test coverage = 65.3%
 
-gestion des sites morts comme http://gurukul.ucc.american.edu/ted/victoria.htm (utiliser un HTTP code null)
+réparer redirection infinie de twiter  https://twitter.com/DEFAKATOR_Off
 
 chaque redirection matcher recompile la chaine de redirection, ce n'est pas performant
 

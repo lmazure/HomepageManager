@@ -8,6 +8,7 @@ import java.util.Set;
 
 import fr.mazure.homepagemanager.data.internet.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.internet.HeaderFetchedLinkData;
+import fr.mazure.homepagemanager.data.internet.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.RedirectionMatcher;
 import fr.mazure.homepagemanager.utils.internet.HttpHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
@@ -83,7 +84,7 @@ public class LinkStatusAnalyzer {
 
     private static final RedirectionMatcher _basicOk;
     private static final RedirectionMatcher _basicError;
-    
+
     static {
         _basicOk = new RedirectionMatcher();
         _basicOk.add(".*", Set.of(Integer.valueOf(200)), RedirectionMatcher.Multiplicity.ONE);
@@ -93,21 +94,36 @@ public class LinkStatusAnalyzer {
         basicErrorCodes.add(Integer.valueOf(400));
         basicErrorCodes.add(Integer.valueOf(403));
         basicErrorCodes.add(Integer.valueOf(404));
+        basicErrorCodes.add(Integer.valueOf(500));
+        basicErrorCodes.add(Integer.valueOf(999));  // TODO handle fucking LinkedIn
         _basicError = new RedirectionMatcher();
         _basicError.add(".*", basicErrorCodes, RedirectionMatcher.Multiplicity.ONE);
         _basicError.compile();
     }
         
     private static Set<LinkStatus> getPossibleStatuses(final FullFetchedLinkData effectiveData) {
+        if (numberOfRedirections(effectiveData) == SynchronousSiteDataRetriever.getMaximumNumberOfRedirections()) { 
+            return Set.of(LinkStatus.DEAD);
+        }
         if (_basicOk.doesRedirectionMatch(effectiveData)) {
-            return Set.of(LinkStatus.OK, LinkStatus.ZOMBIE);
+            return Set.of(LinkStatus.OK, LinkStatus.ZOMBIE, LinkStatus.OBSOLETE);
         }
         if (_basicError.doesRedirectionMatch(effectiveData)) {
             return Set.of(LinkStatus.DEAD);
         }
         throw new UnsupportedOperationException(effectiveDataToString(effectiveData));
     }
-    
+
+    private static int numberOfRedirections(final FullFetchedLinkData effectiveData) {
+        int n = 0;
+        HeaderFetchedLinkData d = effectiveData.previousRedirection();
+        while (d != null) {
+            n++;
+            d = d.previousRedirection();
+        }
+        return n;
+    }
+
     private static String effectiveDataToString(final FullFetchedLinkData effectiveData) {
         final StringBuilder builder = new StringBuilder();
         builder.append(effectiveData.url());

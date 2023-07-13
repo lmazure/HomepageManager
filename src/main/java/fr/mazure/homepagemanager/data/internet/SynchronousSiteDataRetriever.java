@@ -57,6 +57,13 @@ public class SynchronousSiteDataRetriever {
     }
 
     /**
+     * @return maximum number of redirections supported
+     */
+    public static int getMaximumNumberOfRedirections() {
+        return s_maxNbRedirects;
+    }
+
+    /**
      * @param url URL of the link to retrieve
      * @param consumer
      *   - its first argument is always true since the data is always fresh
