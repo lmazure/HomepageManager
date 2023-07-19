@@ -287,7 +287,7 @@ public class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Cette méthode hallucinante permet d'écrire 417% plus vite 🤯 (feat. @ggmilgram )</T>\
                 <A>https://www.youtube.com/watch?v=l6g6c_3zmHs</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>24</MINUTE><SECOND>25</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>24</MINUTE><SECOND>21</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Clément</FIRSTNAME><LASTNAME>Berut</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>6</MONTH><DAY>19</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -413,6 +413,27 @@ public class LinkDataExtractorTest {
                 <AUTHOR><FIRSTNAME>Steve</FIRSTNAME><LASTNAME>Bagley</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Mike</FIRSTNAME><LASTNAME>Pound</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>3</MONTH><DAY>28</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
+        Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
+    }
+
+    @Test
+    void youtubeWatchComputerfileDavidBrailsfordIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=CE8UhcyJS0I";
+        final String expectedSureXml = """
+                <ARTICLE><X><T>Busy Beaver Turing Machines - Computerphile</T>\
+                <A>https://www.youtube.com/watch?v=CE8UhcyJS0I</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>17</MINUTE><SECOND>55</SECOND></DURATION></X>\
+                <DATE><YEAR>2014</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final String expectedProbableXml = """
+                <ARTICLE><X><T>Busy Beaver Turing Machines - Computerphile</T>\
+                <A>https://www.youtube.com/watch?v=CE8UhcyJS0I</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>17</MINUTE><SECOND>55</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>David</FIRSTNAME><MIDDLENAME>F.</MIDDLENAME><LASTNAME>Brailsford</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2014</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
