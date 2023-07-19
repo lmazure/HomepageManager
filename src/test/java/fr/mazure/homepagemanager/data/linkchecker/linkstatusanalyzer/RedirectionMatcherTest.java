@@ -14,29 +14,37 @@ import fr.mazure.homepagemanager.data.internet.test.TestHelper;
 class RedirectionMatcherTest {
 
     @Test
-    void basicSuccessfulMatch() {
+    void basicSuccessfulMatches() {
         final RedirectionMatcher matcher = new RedirectionMatcher();
-        matcher.add(".*", Set.of(Integer.valueOf(200)), RedirectionMatcher.Multiplicity.ONE);
+        matcher.add("https?://" + RedirectionMatcher.ANY_STRING + "/?", Set.of(Integer.valueOf(200)), RedirectionMatcher.Multiplicity.ONE);
         matcher.compile();
         assertMatch("http://example.com", matcher, true);
     }
 
     @Test
-    void basicSuccessfulNonMatch() {
+    void basicSuccessfulDoesNotMatch() {
         final RedirectionMatcher matcher = new RedirectionMatcher();
-        matcher.add(".*", Set.of(Integer.valueOf(500)), RedirectionMatcher.Multiplicity.ONE);
+        matcher.add("https?://" + RedirectionMatcher.ANY_STRING + "/?", Set.of(Integer.valueOf(500)), RedirectionMatcher.Multiplicity.ONE);
         matcher.compile();
         assertMatch("http://example.com", matcher, false);
     }
 
     @Test
-    void nonExistingSite() {
+    void nonExistingSiteMatches() {
         final RedirectionMatcher matcher = new RedirectionMatcher();
         final Set<Integer> codes = new HashSet<>();
         codes.add((Integer)null);
-        matcher.add(".*", codes, RedirectionMatcher.Multiplicity.ONE);
+        matcher.add("https?://" + RedirectionMatcher.ANY_STRING + "/?", codes, RedirectionMatcher.Multiplicity.ONE);
         matcher.compile();
         assertMatch("http://non.existing.site.com", matcher, true);
+    }
+
+    @Test
+    void basicRedirectionToEntryPageDoesNotMatch() {
+        final RedirectionMatcher matcher = new RedirectionMatcher();
+        matcher.add("https?://" + RedirectionMatcher.ANY_STRING + "/?", Set.of(Integer.valueOf(200)), RedirectionMatcher.Multiplicity.ONE);
+        matcher.compile();
+        assertMatch("http://www.onlamp.com/pub/a/onlamp/2004/11/11/smrthome_hks1.html", matcher, false);
     }
 
     private void assertMatch(final String url,

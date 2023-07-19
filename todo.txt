@@ -1,6 +1,8 @@
 warnings = 248
 test coverage = 65.3%
 
+réparer testSimultaneousRetrieval
+
 réparer redirection infinie de twiter  https://twitter.com/DEFAKATOR_Off
 
 chaque redirection matcher recompile la chaine de redirection, ce n'est pas performant

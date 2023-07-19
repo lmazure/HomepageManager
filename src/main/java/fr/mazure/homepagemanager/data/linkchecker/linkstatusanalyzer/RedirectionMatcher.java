@@ -29,18 +29,23 @@ public class RedirectionMatcher {
         ONE_OR_MANY
     }
 
+    private static final char sep1 = '£';
+    private static final char sep2 = '€';
+    /**
+     * regexp matching any string
+     */
+    public static final String ANY_STRING = "([^/" + sep1 + sep2 + "]+)";
+    
     private final List<Element> _elements;
     private Pattern _pattern;
-    private static final String sep1 = "§§§§";
-    private static final String sep2 = "££££";
-    
+
     /**
-     * Crreate an empty matcher
+     * Create an empty matcher
      */
     public RedirectionMatcher() {
        _elements = new ArrayList<>();
     }
-   
+
     /**
      * @param regexp the regular expression on the URL
      * @param httpCodes the possible valued for the received HTTP code, null for no response
@@ -55,7 +60,7 @@ public class RedirectionMatcher {
 
         _elements.add(new Element(regexp, httpCodes, multiplicity));
     }
-   
+
     /**
      * Compile the pattern 
      */
@@ -67,34 +72,40 @@ public class RedirectionMatcher {
         final StringBuilder builder =  new StringBuilder();
         builder.append("^");
         for (final Element elem: _elements) {
-            builder.append("(");
-            builder.append(elem.regexp());
-            builder.append(sep1);
-            builder.append("(");
-            builder.append(elem.httpCodes()
-                               .stream()
-                               .map(c -> (c==null) ? ""
-                                                   : c.toString())
-                               .collect(Collectors.joining( "|")));
-            builder.append(")");
-            builder.append(sep2);
-            builder.append(")");
-            switch (elem.multiplicity()) {
-                case ONE: 
-                    // do nothing
-                    break;
-                case ONE_OR_MANY: 
-                    builder.append("+");
-                    break;
-                default:
-                    // impossible
-                    break;
-            }
+            builder.append(compileElement(elem));
         }
         builder.append("$");
 
         _pattern = Pattern.compile(builder.toString());
    }
+
+    private static String compileElement(final Element element) {
+        final StringBuilder builder =  new StringBuilder();
+        builder.append("(");
+        builder.append(element.regexp());
+        builder.append(sep1);
+        builder.append("(");
+        builder.append(element.httpCodes()
+                .stream()
+                .map(c -> (c == null) ? ""
+                        : c.toString())
+                .collect(Collectors.joining( "|")));
+        builder.append(")");
+        builder.append(sep2);
+        builder.append(")");
+        switch (element.multiplicity()) {
+            case ONE: 
+                // do nothing
+                break;
+            case ONE_OR_MANY: 
+                builder.append("+");
+                break;
+            default:
+                // impossible
+                break;
+        }
+        return builder.toString().replace("()", ""); // kludge: add nothing if the only code is null
+    }
 
     /**
      * Test if a redirection chain matches the pattern
@@ -130,7 +141,7 @@ public class RedirectionMatcher {
         }
         return builder.toString();
     }
-    
+
     private record Element(String regexp,
                            Set<Integer> httpCodes,
                            Multiplicity multiplicity) {

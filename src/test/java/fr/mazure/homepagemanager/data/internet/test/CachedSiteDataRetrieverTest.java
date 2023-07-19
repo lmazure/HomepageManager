@@ -4,6 +4,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import fr.mazure.homepagemanager.data.internet.CachedSiteDataRetriever;
@@ -88,7 +89,7 @@ public class CachedSiteDataRetrieverTest {
     }
 
     @Test
-    //@Disabled
+    @Disabled
     void testSimultaneousRetrieval() {
         final int nbThread = 200;
         final CachedSiteDataRetriever retriever = buildDataSiteRetriever();

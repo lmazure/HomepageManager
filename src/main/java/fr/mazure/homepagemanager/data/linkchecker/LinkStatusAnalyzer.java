@@ -1,7 +1,6 @@
 package fr.mazure.homepagemanager.data.linkchecker;
 
 import java.net.HttpURLConnection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -9,7 +8,6 @@ import java.util.Set;
 import fr.mazure.homepagemanager.data.internet.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.internet.HeaderFetchedLinkData;
 import fr.mazure.homepagemanager.data.internet.SynchronousSiteDataRetriever;
-import fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.RedirectionMatcher;
 import fr.mazure.homepagemanager.utils.internet.HttpHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkStatus;
@@ -19,13 +17,14 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkStatus;
  */
 public class LinkStatusAnalyzer {
 
+    private static RedirectionData _redirectionData = new RedirectionData();
 
     /**
      * @param expectedData data as expected in the XML file
      * @param effectiveData data as retrieved from internet
      * @return true if and only if effectiveData matches expectedData
      */
-    public static boolean doesEffectiveDataMatchesExpectedData2(final LinkData expectedData,
+    public static boolean doesEffectiveDataMatchesExpectedData(final LinkData expectedData,
                                                                final FullFetchedLinkData effectiveData) {
 
         if ((expectedData.getStatus() != LinkStatus.OK) && expectedData.getStatus() != LinkStatus.DEAD) {
@@ -58,7 +57,7 @@ public class LinkStatusAnalyzer {
      * @param effectiveData data as retrieved from internet
      * @return true if and only if effectiveData matches expectedData
      */
-    public static boolean doesEffectiveDataMatchesExpectedData(final LinkData expectedData,
+    public static boolean doesEffectiveDataMatchesExpectedData2(final LinkData expectedData,
                                                                final FullFetchedLinkData effectiveData) {
         final Set<LinkStatus> expectedStatuses = getPossibleStatuses(effectiveData);
         return expectedStatuses.contains(expectedData.getStatus());
@@ -82,36 +81,11 @@ public class LinkStatusAnalyzer {
                (code == HttpURLConnection.HTTP_SEE_OTHER);
     }
 
-    private static final RedirectionMatcher _basicOk;
-    private static final RedirectionMatcher _basicError;
-
-    static {
-        _basicOk = new RedirectionMatcher();
-        _basicOk.add(".*", Set.of(Integer.valueOf(200)), RedirectionMatcher.Multiplicity.ONE);
-        _basicOk.compile();
-        final Set<Integer> basicErrorCodes = new HashSet<>();
-        basicErrorCodes.add(null);
-        basicErrorCodes.add(Integer.valueOf(400));
-        basicErrorCodes.add(Integer.valueOf(403));
-        basicErrorCodes.add(Integer.valueOf(404));
-        basicErrorCodes.add(Integer.valueOf(500));
-        basicErrorCodes.add(Integer.valueOf(999));  // TODO handle fucking LinkedIn
-        _basicError = new RedirectionMatcher();
-        _basicError.add(".*", basicErrorCodes, RedirectionMatcher.Multiplicity.ONE);
-        _basicError.compile();
-    }
-        
     private static Set<LinkStatus> getPossibleStatuses(final FullFetchedLinkData effectiveData) {
         if (numberOfRedirections(effectiveData) == SynchronousSiteDataRetriever.getMaximumNumberOfRedirections()) { 
             return Set.of(LinkStatus.DEAD);
         }
-        if (_basicOk.doesRedirectionMatch(effectiveData)) {
-            return Set.of(LinkStatus.OK, LinkStatus.ZOMBIE, LinkStatus.OBSOLETE);
-        }
-        if (_basicError.doesRedirectionMatch(effectiveData)) {
-            return Set.of(LinkStatus.DEAD);
-        }
-        throw new UnsupportedOperationException(effectiveDataToString(effectiveData));
+        return _redirectionData.getPossibleStatuses(effectiveData);
     }
 
     private static int numberOfRedirections(final FullFetchedLinkData effectiveData) {
@@ -124,25 +98,5 @@ public class LinkStatusAnalyzer {
         return n;
     }
 
-    private static String effectiveDataToString(final FullFetchedLinkData effectiveData) {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(effectiveData.url());
-        builder.append("|");
-        if (effectiveData.headers().isPresent()) {
-            builder.append(HttpHelper.getResponseCodeFromHeaders(effectiveData.headers().get()));
-        }
-        builder.append("→");
-        HeaderFetchedLinkData d = effectiveData.previousRedirection();
-        while (d != null) {
-            builder.append(d.url());
-            builder.append("|");
-            if (d.headers().isPresent()) {
-                builder.append(HttpHelper.getResponseCodeFromHeaders(d.headers().get()));
-            }
-            builder.append("→");
-            d = d.previousRedirection();
-        }
-        return builder.toString();
-    }
 }
 
