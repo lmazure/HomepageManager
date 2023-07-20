@@ -35,14 +35,18 @@ public class RedirectionMatcher {
      * regexp matching any string
      */
     public static final String ANY_STRING = "([^/" + sep1 + sep2 + "]+)";
-    
+
+    private final String _name;
     private final List<Element> _elements;
     private Pattern _pattern;
 
     /**
      * Create an empty matcher
+     * 
+     * @param name Name of the matcher 
      */
-    public RedirectionMatcher() {
+    public RedirectionMatcher(final String name) {
+        _name = name;
        _elements = new ArrayList<>();
     }
 
@@ -59,6 +63,15 @@ public class RedirectionMatcher {
         }
 
         _elements.add(new Element(regexp, httpCodes, multiplicity));
+    }
+
+    /**
+     * Get the nmae of the matcher
+     *
+     * @return Name
+     */
+    public final String getName() {
+        return _name;
     }
 
     /**

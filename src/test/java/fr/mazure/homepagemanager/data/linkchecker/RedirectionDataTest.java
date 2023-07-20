@@ -29,7 +29,7 @@ class RedirectionDataTest {
                 (final Boolean b, final FullFetchedLinkData d) -> {
                     consumerHasBeenCalled.set(true);
                     final Set<LinkStatus> effectiveStatuses = data.getPossibleStatuses(d);
-                    assertIterableEquals(expectedStatuses, effectiveStatuses);
+                    assertEquals(expectedStatuses, effectiveStatuses);
                 },
                 false);
         Assertions.assertTrue(consumerHasBeenCalled.get());

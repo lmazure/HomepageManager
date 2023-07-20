@@ -13,7 +13,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkStatus;
 
 /**
- * Base class for all the link status analyzers (i.e. the classes deciding if the effective data matches the expected data 
+ * Base class for all the link status analyzers (i.e. the classes deciding if the effective data matches the expected data) 
  */
 public class LinkStatusAnalyzer {
 
@@ -24,7 +24,7 @@ public class LinkStatusAnalyzer {
      * @param effectiveData data as retrieved from internet
      * @return true if and only if effectiveData matches expectedData
      */
-    public static boolean doesEffectiveDataMatchesExpectedData(final LinkData expectedData,
+    public static boolean doesEffectiveDataMatchesExpectedData2(final LinkData expectedData,
                                                                final FullFetchedLinkData effectiveData) {
 
         if ((expectedData.getStatus() != LinkStatus.OK) && expectedData.getStatus() != LinkStatus.DEAD) {
@@ -57,7 +57,7 @@ public class LinkStatusAnalyzer {
      * @param effectiveData data as retrieved from internet
      * @return true if and only if effectiveData matches expectedData
      */
-    public static boolean doesEffectiveDataMatchesExpectedData2(final LinkData expectedData,
+    public static boolean doesEffectiveDataMatchesExpectedData(final LinkData expectedData,
                                                                final FullFetchedLinkData effectiveData) {
         final Set<LinkStatus> expectedStatuses = getPossibleStatuses(effectiveData);
         return expectedStatuses.contains(expectedData.getStatus());
