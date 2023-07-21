@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import fr.mazure.homepagemanager.data.internet.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.internet.HeaderFetchedLinkData;
 import fr.mazure.homepagemanager.utils.internet.HttpHelper;
+import fr.mazure.homepagemanager.utils.xmlparsing.LinkStatus;
 
 /**
  * a redirection pattern
@@ -16,11 +17,11 @@ import fr.mazure.homepagemanager.utils.internet.HttpHelper;
 public class RedirectionMatcher {
 
     /**
-     * How many time can an element appear in the redirection chain 
+     * How many time can an element appear in the redirection chain
      */
     public enum Multiplicity {
         /**
-         * one 
+         * one
          */
         ONE,
         /**
@@ -37,17 +38,21 @@ public class RedirectionMatcher {
     public static final String ANY_STRING = "([^/" + sep1 + sep2 + "]+)";
 
     private final String _name;
+    private final Set<LinkStatus> _statuses;
     private final List<Element> _elements;
     private Pattern _pattern;
 
     /**
      * Create an empty matcher
-     * 
-     * @param name Name of the matcher 
+     *
+     * @param name Name of the matcher
+     * @param statuses Possible statuses for this redirection chain
      */
-    public RedirectionMatcher(final String name) {
+    public RedirectionMatcher(final String name,
+                              final Set<LinkStatus> statuses) {
         _name = name;
-       _elements = new ArrayList<>();
+        _statuses = statuses;
+        _elements = new ArrayList<>();
     }
 
     /**
@@ -66,7 +71,7 @@ public class RedirectionMatcher {
     }
 
     /**
-     * Get the nmae of the matcher
+     * Get the name of the matcher
      *
      * @return Name
      */
@@ -75,7 +80,16 @@ public class RedirectionMatcher {
     }
 
     /**
-     * Compile the pattern 
+     * Get the statuses possible for a matching redirection chain
+     *
+     * @return Statuses
+     */
+    public final Set<LinkStatus> getStatuses() {
+        return _statuses;
+    }
+
+    /**
+     * Compile the pattern
      */
     public void compile() {
         if (_pattern != null) {
@@ -107,10 +121,10 @@ public class RedirectionMatcher {
         builder.append(sep2);
         builder.append(")");
         switch (element.multiplicity()) {
-            case ONE: 
+            case ONE:
                 // do nothing
                 break;
-            case ONE_OR_MANY: 
+            case ONE_OR_MANY:
                 builder.append("+");
                 break;
             default:
@@ -122,7 +136,7 @@ public class RedirectionMatcher {
 
     /**
      * Test if a redirection chain matches the pattern
-     * 
+     *
      * @param effectiveData effective date retrieved from the link
      * @return true is the chain matches, false if npt
      */

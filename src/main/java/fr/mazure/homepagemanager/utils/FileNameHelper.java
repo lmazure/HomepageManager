@@ -10,7 +10,7 @@ import java.nio.file.Paths;
  * Helpers to generate some file names
  */
 public class FileNameHelper {
-    
+
     /**
      * Generate a new name from a file sourceFile which is in a directory sourceDirectory
      * The new name is in directory targetDirectory has the same name as the sourceFile except

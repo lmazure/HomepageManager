@@ -41,7 +41,7 @@ public class JsonWriter {
 
     /**
      * Generate the JSON file containing the author data
-     * 
+     *
      * @param root directory where is located the homepage
      * @param fileName relative path and name of the JSON file to generate
      */
@@ -129,7 +129,7 @@ public class JsonWriter {
 
     /**
      * Generate the JSON file containing the article data
-     * 
+     *
      * @param root directory where is located the homepage
      * @param fileName relative path and name of the JSON file to generate
      */
@@ -205,7 +205,7 @@ public class JsonWriter {
 
     /**
      * Generate the JSON file containing the keyword data
-     * 
+     *
      * @param root directory where is located the homepage
      * @param fileName relative path and name of the JSON file to generate
      */

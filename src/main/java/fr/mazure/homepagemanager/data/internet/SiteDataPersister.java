@@ -120,7 +120,6 @@ public class SiteDataPersister {
                   .append(siteData.url())
                   .submit();
         }
-        
 
         try {
             Files.move(tempoFile.toPath(), effectiveFile.toPath());

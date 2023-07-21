@@ -1,11 +1,10 @@
-package fr.mazure.homepagemanager.data.linkchecker;
+package fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import fr.mazure.homepagemanager.data.internet.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.internet.HeaderFetchedLinkData;
-import fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.RedirectionMatcher;
 import fr.mazure.homepagemanager.utils.internet.HttpHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkStatus;
 
@@ -22,7 +21,7 @@ public class RedirectionData {
      * constructor
      */
     public RedirectionData() {
-        _basicOk = new RedirectionMatcher("direct successful");
+        _basicOk = new RedirectionMatcher("direct successful", Set.of(LinkStatus.OK, LinkStatus.ZOMBIE, LinkStatus.OBSOLETE));
         _basicOk.add("https?://(" + RedirectionMatcher.ANY_STRING + "/)*" + RedirectionMatcher.ANY_STRING + "/?", Set.of(Integer.valueOf(200)), RedirectionMatcher.Multiplicity.ONE);
         _basicOk.compile();
 
@@ -33,11 +32,11 @@ public class RedirectionData {
         basicErrorCodes.add(Integer.valueOf(404));
         basicErrorCodes.add(Integer.valueOf(500));
         basicErrorCodes.add(Integer.valueOf(999));  // TODO handle fucking LinkedIn
-        _basicError = new RedirectionMatcher("direct failure");
+        _basicError = new RedirectionMatcher("direct failure", Set.of(LinkStatus.DEAD));
         _basicError.add("https?://(" + RedirectionMatcher.ANY_STRING + "/)*" + RedirectionMatcher.ANY_STRING + "/?", basicErrorCodes, RedirectionMatcher.Multiplicity.ONE);
         _basicError.compile();
 
-        _fromGoogleChannelToCookiesConfiguration = new RedirectionMatcher("from Google channel to conkies configuration");
+        _fromGoogleChannelToCookiesConfiguration = new RedirectionMatcher("from Google channel to cookies configuration", Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
         _fromGoogleChannelToCookiesConfiguration.add("\\Qhttps://www.youtube.com/channel/\\E.*", Set.of(Integer.valueOf(302)), RedirectionMatcher.Multiplicity.ONE);
         _fromGoogleChannelToCookiesConfiguration.add("\\Qhttps://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fchannel%2F\\E.*", Set.of(Integer.valueOf(302)), RedirectionMatcher.Multiplicity.ONE);
         _fromGoogleChannelToCookiesConfiguration.add("\\Qhttps://consent.youtube.com/ml?continue=https://www.youtube.com/channel/\\E.*", Set.of(Integer.valueOf(200)), RedirectionMatcher.Multiplicity.ONE);
@@ -46,19 +45,19 @@ public class RedirectionData {
 
     /**
      * Compute the possible statuses of the redirection chain
-     * 
+     *
      * @param effectiveData redirection chain
      * @return possible statuses
      */
-    public Set<LinkStatus> getPossibleStatuses(final FullFetchedLinkData effectiveData) {
+    public Match getMatch(final FullFetchedLinkData effectiveData) {
         if (_fromGoogleChannelToCookiesConfiguration.doesRedirectionMatch(effectiveData)) {
-            return Set.of(LinkStatus.OK, LinkStatus.OBSOLETE);
+            return matchOf(_fromGoogleChannelToCookiesConfiguration);
         }
         if (_basicError.doesRedirectionMatch(effectiveData)) {
-            return Set.of(LinkStatus.DEAD);
+            return matchOf(_basicError);
         }
         if (_basicOk.doesRedirectionMatch(effectiveData)) {
-            return Set.of(LinkStatus.OK, LinkStatus.ZOMBIE, LinkStatus.OBSOLETE);
+            return matchOf(_basicError);
         }
         throw new UnsupportedOperationException(effectiveDataToString(effectiveData));
     }
@@ -82,4 +81,18 @@ public class RedirectionData {
             d = d.previousRedirection();
         }
         return builder.toString();
-    }}
+    }
+
+    private static Match matchOf(final RedirectionMatcher matcher) {
+        return new Match(matcher.getName(), matcher.getStatuses());
+    }
+
+    /**
+     * Result of a redirection chain matching
+     *
+     * @param name Name of the matcher
+     * @param statuses Possible statuses of the redirection chain
+     *
+     */
+    public record Match(String name, Set<LinkStatus> statuses) {}
+}

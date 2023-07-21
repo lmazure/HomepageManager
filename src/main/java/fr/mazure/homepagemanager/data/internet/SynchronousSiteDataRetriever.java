@@ -315,7 +315,7 @@ public class SynchronousSiteDataRetriever {
 
         final URI uri = UriHelper.convertStringToUri(url);
         if (uri == null) return;
-            
+
         final String cookies = cookieManager.getCookieStore()
                                             .get(uri)
                                             .stream()

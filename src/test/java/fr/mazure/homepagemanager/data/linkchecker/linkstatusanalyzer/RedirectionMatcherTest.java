@@ -1,5 +1,6 @@
 package fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -10,12 +11,13 @@ import org.junit.jupiter.api.Test;
 import fr.mazure.homepagemanager.data.internet.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.internet.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.internet.test.TestHelper;
+import fr.mazure.homepagemanager.utils.xmlparsing.LinkStatus;
 
 class RedirectionMatcherTest {
 
     @Test
     void basicSuccessfulMatches() {
-        final RedirectionMatcher matcher = new RedirectionMatcher("direct success");
+        final RedirectionMatcher matcher = new RedirectionMatcher("direct success", Collections.<LinkStatus>emptySet());
         matcher.add("https?://" + RedirectionMatcher.ANY_STRING + "/?", Set.of(Integer.valueOf(200)), RedirectionMatcher.Multiplicity.ONE);
         matcher.compile();
         assertMatch("http://example.com", matcher, true);
@@ -23,7 +25,7 @@ class RedirectionMatcherTest {
 
     @Test
     void basicSuccessfulDoesNotMatch() {
-        final RedirectionMatcher matcher = new RedirectionMatcher("direct failure");
+        final RedirectionMatcher matcher = new RedirectionMatcher("direct failure", Collections.<LinkStatus>emptySet());
         matcher.add("https?://" + RedirectionMatcher.ANY_STRING + "/?", Set.of(Integer.valueOf(500)), RedirectionMatcher.Multiplicity.ONE);
         matcher.compile();
         assertMatch("http://example.com", matcher, false);
@@ -31,7 +33,7 @@ class RedirectionMatcherTest {
 
     @Test
     void nonExistingSiteMatches() {
-        final RedirectionMatcher matcher = new RedirectionMatcher("unanswering server");
+        final RedirectionMatcher matcher = new RedirectionMatcher("unanswering server", Collections.<LinkStatus>emptySet());
         final Set<Integer> codes = new HashSet<>();
         codes.add((Integer)null);
         matcher.add("https?://" + RedirectionMatcher.ANY_STRING + "/?", codes, RedirectionMatcher.Multiplicity.ONE);
@@ -41,7 +43,7 @@ class RedirectionMatcherTest {
 
     @Test
     void basicRedirectionToEntryPageDoesNotMatch() {
-        final RedirectionMatcher matcher = new RedirectionMatcher("redirect success");
+        final RedirectionMatcher matcher = new RedirectionMatcher("redirect success", Collections.<LinkStatus>emptySet());
         matcher.add("https?://" + RedirectionMatcher.ANY_STRING + "/?", Set.of(Integer.valueOf(200)), RedirectionMatcher.Multiplicity.ONE);
         matcher.compile();
         assertMatch("http://www.onlamp.com/pub/a/onlamp/2004/11/11/smrthome_hks1.html", matcher, false);
@@ -56,7 +58,7 @@ class RedirectionMatcherTest {
                 (final Boolean b, final FullFetchedLinkData d) -> {
                     consumerHasBeenCalled.set(true);
                     if (expectedMatch) {
-                        Assertions.assertTrue(matcher.doesRedirectionMatch(d));                        
+                        Assertions.assertTrue(matcher.doesRedirectionMatch(d));
                     } else {
                         Assertions.assertFalse(matcher.doesRedirectionMatch(d));
                     }

@@ -59,7 +59,7 @@ public class Parser {
             extractArticles(document, file);
             extractKeywords(document, file);
         } catch (final Exception e) {
-            final String errorMessage = "Failed to parse the XML file (" + file + ")"; 
+            final String errorMessage = "Failed to parse the XML file (" + file + ")";
             Logger.log(Logger.Level.ERROR)
                   .appendln(errorMessage)
                   .append(e)
@@ -144,7 +144,7 @@ public class Parser {
             final Document document = _builder.parse(file);
             extractPersonLinks(document, file);
         } catch (final Exception e) {
-            final String errorMessage = "Failed to parse the XML person file (" + file + ")"; 
+            final String errorMessage = "Failed to parse the XML person file (" + file + ")";
             Logger.log(Logger.Level.ERROR)
                   .appendln(errorMessage)
                   .append(e)
