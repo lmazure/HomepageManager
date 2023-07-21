@@ -32,6 +32,7 @@ public class RedirectionMatcher {
 
     private static final char sep1 = '£';
     private static final char sep2 = '€';
+
     /**
      * regexp matching any string
      */

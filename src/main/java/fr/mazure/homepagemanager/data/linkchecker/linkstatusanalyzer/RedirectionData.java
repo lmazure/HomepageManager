@@ -16,6 +16,7 @@ public class RedirectionData {
     private final RedirectionMatcher _basicOk;
     private final RedirectionMatcher _basicError;
     private final RedirectionMatcher _fromGoogleChannelToCookiesConfiguration;
+    private final RedirectionMatcher _mediumAnalytics;
 
     /**
      * constructor
@@ -41,6 +42,12 @@ public class RedirectionData {
         _fromGoogleChannelToCookiesConfiguration.add("\\Qhttps://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fchannel%2F\\E.*", Set.of(Integer.valueOf(302)), RedirectionMatcher.Multiplicity.ONE);
         _fromGoogleChannelToCookiesConfiguration.add("\\Qhttps://consent.youtube.com/ml?continue=https://www.youtube.com/channel/\\E.*", Set.of(Integer.valueOf(200)), RedirectionMatcher.Multiplicity.ONE);
         _fromGoogleChannelToCookiesConfiguration.compile();
+
+        _mediumAnalytics = new RedirectionMatcher("Medium analytics", Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
+        _mediumAnalytics.add("\\Qhttps://\\E(?<site>[^/]+)/(?<article>.+)", Set.of(Integer.valueOf(307)), RedirectionMatcher.Multiplicity.ONE);
+        _mediumAnalytics.add("\\Qhttps://\\Emedium.com/m/global-identity-2\\?redirectUrl=https%3A%2F%2F\\k<site>%2F\\k<article>", Set.of(Integer.valueOf(307)), RedirectionMatcher.Multiplicity.ONE);
+        _mediumAnalytics.add("\\Qhttps://\\E\\k<site>/\\k<article>\\?gi=[0-9a-z]+", Set.of(Integer.valueOf(200)), RedirectionMatcher.Multiplicity.ONE);
+        _mediumAnalytics.compile();
     }
 
     /**
@@ -52,6 +59,9 @@ public class RedirectionData {
     public Match getMatch(final FullFetchedLinkData effectiveData) {
         if (_fromGoogleChannelToCookiesConfiguration.doesRedirectionMatch(effectiveData)) {
             return matchOf(_fromGoogleChannelToCookiesConfiguration);
+        }
+        if (_mediumAnalytics.doesRedirectionMatch(effectiveData)) {
+            return matchOf(_mediumAnalytics);
         }
         if (_basicError.doesRedirectionMatch(effectiveData)) {
             return matchOf(_basicError);

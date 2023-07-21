@@ -21,6 +21,11 @@ class RedirectionDataTest {
         assertMatch("https://www.youtube.com/channel/UCUHW94eEFW7hkUMVaZz4eDg", "from Google channel to cookies configuration", Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
     }
 
+    @Test
+    void medium() {
+        assertMatch("https://blog.sparksuite.com/7-ways-to-speed-up-gitlab-ci-cd-times-29f60aab69f9", "Medium analytics", Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
+    }
+
     private void assertMatch(final String url,
                              final String expectedMatcherName,
                              final Set<LinkStatus> expectedStatuses) {
