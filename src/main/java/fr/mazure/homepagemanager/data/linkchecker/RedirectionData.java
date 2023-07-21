@@ -38,9 +38,9 @@ public class RedirectionData {
         _basicError.compile();
 
         _fromGoogleChannelToCookiesConfiguration = new RedirectionMatcher("from Google channel to conkies configuration");
-        _fromGoogleChannelToCookiesConfiguration.add("https:\\/\\/www\\.youtube\\.com\\/channel\\/.*", Set.of(Integer.valueOf(302)), RedirectionMatcher.Multiplicity.ONE);
-        _fromGoogleChannelToCookiesConfiguration.add("https:\\/\\/consent\\.youtube.com\\/m\\?continue=https%3A%2F%2Fwww\\.youtube\\.com%2Fchannel%2F.*", Set.of(Integer.valueOf(302)), RedirectionMatcher.Multiplicity.ONE);
-        _fromGoogleChannelToCookiesConfiguration.add("https:\\/\\/consent\\.youtube.com\\/ml\\?continue=https:\\/\\/www\\.youtube\\.com\\/channel\\/.*", Set.of(Integer.valueOf(200)), RedirectionMatcher.Multiplicity.ONE);
+        _fromGoogleChannelToCookiesConfiguration.add("\\Qhttps://www.youtube.com/channel/\\E.*", Set.of(Integer.valueOf(302)), RedirectionMatcher.Multiplicity.ONE);
+        _fromGoogleChannelToCookiesConfiguration.add("\\Qhttps://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fchannel%2F\\E.*", Set.of(Integer.valueOf(302)), RedirectionMatcher.Multiplicity.ONE);
+        _fromGoogleChannelToCookiesConfiguration.add("\\Qhttps://consent.youtube.com/ml?continue=https://www.youtube.com/channel/\\E.*", Set.of(Integer.valueOf(200)), RedirectionMatcher.Multiplicity.ONE);
         _fromGoogleChannelToCookiesConfiguration.compile();
     }
 
