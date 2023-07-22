@@ -18,14 +18,24 @@ class RedirectionDataTest {
 
     @Test
     void youtubeChannel() {
-        assertMatch("https://www.youtube.com/channel/UCUHW94eEFW7hkUMVaZz4eDg", "from Google channel to cookies configuration", Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
+        assertMatch("https://www.youtube.com/channel/UCUHW94eEFW7hkUMVaZz4eDg",
+                    "from Google channel to cookies configuration",
+                    Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
     }
 
     @Test
     void medium() {
-        assertMatch("https://blog.sparksuite.com/7-ways-to-speed-up-gitlab-ci-cd-times-29f60aab69f9", "Medium analytics", Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
+        assertMatch("https://blog.sparksuite.com/7-ways-to-speed-up-gitlab-ci-cd-times-29f60aab69f9",
+                    "Medium analytics",
+                    Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
     }
 
+    @Test
+    void redirectionsEndingWith403() {
+        assertMatch("http://blogs.msdn.com/b/jw_on_tech/archive/2012/03/14/why-i-joined-microsoft.aspx",
+                    "redirection ending with an error code",
+                    Set.of(LinkStatus.DEAD));
+    }
     private void assertMatch(final String url,
                              final String expectedMatcherName,
                              final Set<LinkStatus> expectedStatuses) {

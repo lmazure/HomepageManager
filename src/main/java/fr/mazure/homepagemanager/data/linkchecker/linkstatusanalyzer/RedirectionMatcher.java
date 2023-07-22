@@ -36,7 +36,7 @@ public class RedirectionMatcher {
     /**
      * regexp matching any string
      */
-    public static final String ANY_STRING = "([^/" + sep1 + sep2 + "]+)";
+    public static final String ANY_STRING = "[^" + sep1 + sep2 + "]+";
 
     private final String _name;
     private final Set<LinkStatus> _statuses;

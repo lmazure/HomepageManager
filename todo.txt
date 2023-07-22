@@ -1,5 +1,5 @@
 warnings = 248
-test coverage = 65.3%
+test coverage = 65.8%
 
 réparer testSimultaneousRetrieval
 

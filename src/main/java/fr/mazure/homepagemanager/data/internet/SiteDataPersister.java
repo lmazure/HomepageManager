@@ -310,7 +310,6 @@ public class SiteDataPersister {
         return getOutputDirectory(url).resolve(tempoFileNamePrefix + UUID.randomUUID() + "_" + timestamp.toString().replaceAll(":", ";")).toFile();
     }
 
-
     private File getEffectivePersistedFile(final String url,
                                            final Instant timestamp) {
         return getOutputDirectory(url).resolve(effectiveFileNamePrefix + timestamp.toString().replaceAll(":", ";")).toFile();
