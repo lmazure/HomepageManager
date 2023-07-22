@@ -36,6 +36,14 @@ class RedirectionDataTest {
                     "redirection ending with an error code",
                     Set.of(LinkStatus.DEAD));
     }
+
+    @Test
+    void redirectionsEndingInSuccess() {
+        assertMatch("https://www.4d.com",
+                    "redirection ending in success (last URL should be used)",
+                    Set.of());
+    }
+
     private void assertMatch(final String url,
                              final String expectedMatcherName,
                              final Set<LinkStatus> expectedStatuses) {

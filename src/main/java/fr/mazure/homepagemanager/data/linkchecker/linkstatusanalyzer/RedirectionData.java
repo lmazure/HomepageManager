@@ -1,6 +1,8 @@
 package fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import fr.mazure.homepagemanager.data.internet.FullFetchedLinkData;
@@ -13,16 +15,14 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkStatus;
  */
 public class RedirectionData {
 
-    private final RedirectionMatcher _basicOk;
-    private final RedirectionMatcher _basicError;
-    private final RedirectionMatcher _redirectionEndingInError;
-    private final RedirectionMatcher _fromGoogleChannelToCookiesConfiguration;
-    private final RedirectionMatcher _mediumAnalytics;
+    private final List<RedirectionMatcher> _matchers;
 
     /**
      * constructor
      */
     public RedirectionData() {
+
+        _matchers = new ArrayList<>();
 
         final Set<Integer> errorCodes = new HashSet<>();
         errorCodes.add(null);
@@ -37,30 +37,72 @@ public class RedirectionData {
         redirectionCodes.add(Integer.valueOf(302));
         redirectionCodes.add(Integer.valueOf(307));
 
-        _basicOk = new RedirectionMatcher("direct successful", Set.of(LinkStatus.OK, LinkStatus.ZOMBIE, LinkStatus.OBSOLETE));
-        _basicOk.add("https?://" + RedirectionMatcher.ANY_STRING, Set.of(Integer.valueOf(200)), RedirectionMatcher.Multiplicity.ONE);
-        _basicOk.compile();
+        final RedirectionMatcher fromGoogleChannelToCookiesConfiguration = new RedirectionMatcher("from Google channel to cookies configuration",
+                                                                                                  Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
+        fromGoogleChannelToCookiesConfiguration.add("\\Qhttps://www.youtube.com/channel/\\E" + RedirectionMatcher.ANY_STRING,
+                                                    Set.of(Integer.valueOf(302)),
+                                                    RedirectionMatcher.Multiplicity.ONE);
+        fromGoogleChannelToCookiesConfiguration.add("\\Qhttps://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fchannel%2F\\E" + RedirectionMatcher.ANY_STRING,
+                                                    Set.of(Integer.valueOf(302)),
+                                                    RedirectionMatcher.Multiplicity.ONE);
+        fromGoogleChannelToCookiesConfiguration.add("\\Qhttps://consent.youtube.com/ml?continue=https://www.youtube.com/channel/\\E"  + RedirectionMatcher.ANY_STRING,
+                                                    Set.of(Integer.valueOf(200)),
+                                                    RedirectionMatcher.Multiplicity.ONE);
+        fromGoogleChannelToCookiesConfiguration.compile();
+        _matchers.add(fromGoogleChannelToCookiesConfiguration);
 
-        _basicError = new RedirectionMatcher("direct failure", Set.of(LinkStatus.DEAD));
-        _basicError.add("https?://"  + RedirectionMatcher.ANY_STRING, errorCodes, RedirectionMatcher.Multiplicity.ONE);
-        _basicError.compile();
+        final RedirectionMatcher mediumAnalytics = new RedirectionMatcher("Medium analytics",
+                                                                          Set.of(LinkStatus.OK,
+                                                                                  LinkStatus.OBSOLETE));
+        mediumAnalytics.add("\\Qhttps://\\E(?<site>[^/]+)/(?<article>.+)",
+                            Set.of(Integer.valueOf(307)),
+                            RedirectionMatcher.Multiplicity.ONE);
+        mediumAnalytics.add("\\Qhttps://\\Emedium.com/m/global-identity-2\\?redirectUrl=https%3A%2F%2F\\k<site>%2F\\k<article>",
+                            Set.of(Integer.valueOf(307)),
+                            RedirectionMatcher.Multiplicity.ONE);
+        mediumAnalytics.add("\\Qhttps://\\E\\k<site>/\\k<article>\\?gi=[0-9a-z]+",
+                            Set.of(Integer.valueOf(200)),
+                            RedirectionMatcher.Multiplicity.ONE);
+        mediumAnalytics.compile();
+        _matchers.add(mediumAnalytics);
 
-        _redirectionEndingInError = new RedirectionMatcher("redirection ending with an error code", Set.of(LinkStatus.DEAD));
-        _redirectionEndingInError.add("https?://"  + RedirectionMatcher.ANY_STRING, redirectionCodes, RedirectionMatcher.Multiplicity.ONE_OR_MANY);
-        _redirectionEndingInError.add("https?://"  + RedirectionMatcher.ANY_STRING, errorCodes, RedirectionMatcher.Multiplicity.ONE);
-        _redirectionEndingInError.compile();
+        final RedirectionMatcher redirectionEndingInSuccess = new RedirectionMatcher("redirection ending in success (last URL should be used)",
+                                                                                     Set.of());
+        redirectionEndingInSuccess.add("https?://"  + RedirectionMatcher.ANY_STRING,
+                                       redirectionCodes,
+                                       RedirectionMatcher.Multiplicity.ONE_OR_MANY);
+        redirectionEndingInSuccess.add("https?://"  + RedirectionMatcher.ANY_STRING,
+                                       Set.of(Integer.valueOf(200)),
+                                       RedirectionMatcher.Multiplicity.ONE);
+        redirectionEndingInSuccess.compile();
+        _matchers.add(redirectionEndingInSuccess);
 
-        _fromGoogleChannelToCookiesConfiguration = new RedirectionMatcher("from Google channel to cookies configuration", Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
-        _fromGoogleChannelToCookiesConfiguration.add("\\Qhttps://www.youtube.com/channel/\\E" + RedirectionMatcher.ANY_STRING, Set.of(Integer.valueOf(302)), RedirectionMatcher.Multiplicity.ONE);
-        _fromGoogleChannelToCookiesConfiguration.add("\\Qhttps://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fchannel%2F\\E" + RedirectionMatcher.ANY_STRING, Set.of(Integer.valueOf(302)), RedirectionMatcher.Multiplicity.ONE);
-        _fromGoogleChannelToCookiesConfiguration.add("\\Qhttps://consent.youtube.com/ml?continue=https://www.youtube.com/channel/\\E"  + RedirectionMatcher.ANY_STRING, Set.of(Integer.valueOf(200)), RedirectionMatcher.Multiplicity.ONE);
-        _fromGoogleChannelToCookiesConfiguration.compile();
+        final RedirectionMatcher redirectionEndingInError = new RedirectionMatcher("redirection ending with an error code",
+                                                                                   Set.of(LinkStatus.DEAD));
+        redirectionEndingInError.add("https?://"  + RedirectionMatcher.ANY_STRING,
+                                     redirectionCodes,
+                                     RedirectionMatcher.Multiplicity.ONE_OR_MANY);
+        redirectionEndingInError.add("https?://"  + RedirectionMatcher.ANY_STRING,
+                                     errorCodes,
+                                     RedirectionMatcher.Multiplicity.ONE);
+        redirectionEndingInError.compile();
+        _matchers.add(redirectionEndingInError);
 
-        _mediumAnalytics = new RedirectionMatcher("Medium analytics", Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
-        _mediumAnalytics.add("\\Qhttps://\\E(?<site>[^/]+)/(?<article>.+)", Set.of(Integer.valueOf(307)), RedirectionMatcher.Multiplicity.ONE);
-        _mediumAnalytics.add("\\Qhttps://\\Emedium.com/m/global-identity-2\\?redirectUrl=https%3A%2F%2F\\k<site>%2F\\k<article>", Set.of(Integer.valueOf(307)), RedirectionMatcher.Multiplicity.ONE);
-        _mediumAnalytics.add("\\Qhttps://\\E\\k<site>/\\k<article>\\?gi=[0-9a-z]+", Set.of(Integer.valueOf(200)), RedirectionMatcher.Multiplicity.ONE);
-        _mediumAnalytics.compile();
+        final RedirectionMatcher basicError = new RedirectionMatcher("direct failure",
+                                                                     Set.of(LinkStatus.DEAD));
+        basicError.add("https?://"  + RedirectionMatcher.ANY_STRING,
+                       errorCodes,
+                       RedirectionMatcher.Multiplicity.ONE);
+        basicError.compile();
+        _matchers.add(basicError);
+
+        final RedirectionMatcher basicOk = new RedirectionMatcher("direct successful",
+                                                                  Set.of(LinkStatus.OK, LinkStatus.ZOMBIE, LinkStatus.OBSOLETE));
+        basicOk.add("https?://" + RedirectionMatcher.ANY_STRING,
+                    Set.of(Integer.valueOf(200)),
+                    RedirectionMatcher.Multiplicity.ONE);
+        basicOk.compile();
+        _matchers.add(basicOk);
     }
 
     /**
@@ -70,20 +112,10 @@ public class RedirectionData {
      * @return possible statuses
      */
     public Match getMatch(final FullFetchedLinkData effectiveData) {
-        if (_fromGoogleChannelToCookiesConfiguration.doesRedirectionMatch(effectiveData)) {
-            return matchOf(_fromGoogleChannelToCookiesConfiguration);
-        }
-        if (_mediumAnalytics.doesRedirectionMatch(effectiveData)) {
-            return matchOf(_mediumAnalytics);
-        }
-        if (_redirectionEndingInError.doesRedirectionMatch(effectiveData)) {
-            return matchOf(_redirectionEndingInError);
-        }
-        if (_basicError.doesRedirectionMatch(effectiveData)) {
-            return matchOf(_basicError);
-        }
-        if (_basicOk.doesRedirectionMatch(effectiveData)) {
-            return matchOf(_basicError);
+        for (final RedirectionMatcher matcher: _matchers) {
+            if (matcher.doesRedirectionMatch(effectiveData)) {
+                return matchOf(matcher);
+            }
         }
         throw new UnsupportedOperationException(effectiveDataToString(effectiveData));
     }
