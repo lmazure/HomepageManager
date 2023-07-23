@@ -35,6 +35,7 @@ public class RedirectionData {
         final Set<Integer> redirectionCodes = new HashSet<>();
         redirectionCodes.add(Integer.valueOf(301));
         redirectionCodes.add(Integer.valueOf(302));
+        redirectionCodes.add(Integer.valueOf(303));
         redirectionCodes.add(Integer.valueOf(307));
 
         final RedirectionMatcher fromGoogleChannelToCookiesConfiguration = new RedirectionMatcher("from Google channel to cookies configuration",
