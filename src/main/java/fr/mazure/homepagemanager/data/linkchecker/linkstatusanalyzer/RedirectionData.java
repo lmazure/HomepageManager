@@ -29,6 +29,7 @@ public class RedirectionData {
         errorCodes.add(Integer.valueOf(400));
         errorCodes.add(Integer.valueOf(403));
         errorCodes.add(Integer.valueOf(404));
+        errorCodes.add(Integer.valueOf(410));
         errorCodes.add(Integer.valueOf(500));
         errorCodes.add(Integer.valueOf(999));  // TODO handle fucking LinkedIn
 
@@ -97,7 +98,7 @@ public class RedirectionData {
         basicError.compile();
         _matchers.add(basicError);
 
-        final RedirectionMatcher basicOk = new RedirectionMatcher("direct successful",
+        final RedirectionMatcher basicOk = new RedirectionMatcher("direct success",
                                                                   Set.of(LinkStatus.OK, LinkStatus.ZOMBIE, LinkStatus.OBSOLETE));
         basicOk.add("https?://" + RedirectionMatcher.ANY_STRING,
                     Set.of(Integer.valueOf(200)),
