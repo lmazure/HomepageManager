@@ -39,19 +39,33 @@ public class RedirectionData {
         redirectionCodes.add(Integer.valueOf(303));
         redirectionCodes.add(Integer.valueOf(307));
 
-        final RedirectionMatcher fromGoogleChannelToCookiesConfiguration = new RedirectionMatcher("from Google channel to cookies configuration",
-                                                                                                  Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
-        fromGoogleChannelToCookiesConfiguration.add("\\Qhttps://www.youtube.com/channel/\\E" + RedirectionMatcher.ANY_STRING,
+        final RedirectionMatcher fromYoutubeChannelToCookiesConfiguration = new RedirectionMatcher("from Youtube channel to cookies configuration",
+                                                                                                   Set.of(LinkStatus.OK));
+        fromYoutubeChannelToCookiesConfiguration.add("\\Qhttps://www.youtube.com/channel/\\E" + RedirectionMatcher.ANY_STRING,
+                                                     Set.of(Integer.valueOf(302)),
+                                                     RedirectionMatcher.Multiplicity.ONE);
+        fromYoutubeChannelToCookiesConfiguration.add("\\Qhttps://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fchannel%2F\\E" + RedirectionMatcher.ANY_STRING,
+                                                     Set.of(Integer.valueOf(302)),
+                                                     RedirectionMatcher.Multiplicity.ONE);
+        fromYoutubeChannelToCookiesConfiguration.add("\\Qhttps://consent.youtube.com/ml?continue=https://www.youtube.com/channel/\\E"  + RedirectionMatcher.ANY_STRING,
+                                                     Set.of(Integer.valueOf(200)),
+                                                     RedirectionMatcher.Multiplicity.ONE);
+        fromYoutubeChannelToCookiesConfiguration.compile();
+        _matchers.add(fromYoutubeChannelToCookiesConfiguration);
+
+        final RedirectionMatcher fromYoutubeChannelToYoutubeChannel = new RedirectionMatcher("from Youtube channel to Youtube channel",
+                                                                                             Set.of(LinkStatus.OK));
+        fromYoutubeChannelToYoutubeChannel.add("\\Qhttps://www.youtube.com/channel/\\E" + RedirectionMatcher.ANY_STRING,
                                                     Set.of(Integer.valueOf(302)),
                                                     RedirectionMatcher.Multiplicity.ONE);
-        fromGoogleChannelToCookiesConfiguration.add("\\Qhttps://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fchannel%2F\\E" + RedirectionMatcher.ANY_STRING,
-                                                    Set.of(Integer.valueOf(302)),
+        fromYoutubeChannelToYoutubeChannel.add("\\Qhttps://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fchannel%2F\\E" + RedirectionMatcher.ANY_STRING,
+                                                    Set.of(Integer.valueOf(303)),
                                                     RedirectionMatcher.Multiplicity.ONE);
-        fromGoogleChannelToCookiesConfiguration.add("\\Qhttps://consent.youtube.com/ml?continue=https://www.youtube.com/channel/\\E"  + RedirectionMatcher.ANY_STRING,
+        fromYoutubeChannelToYoutubeChannel.add("\\Qhttps://www.youtube.com/channel/\\E"  + RedirectionMatcher.ANY_STRING,
                                                     Set.of(Integer.valueOf(200)),
                                                     RedirectionMatcher.Multiplicity.ONE);
-        fromGoogleChannelToCookiesConfiguration.compile();
-        _matchers.add(fromGoogleChannelToCookiesConfiguration);
+        fromYoutubeChannelToYoutubeChannel.compile();
+        _matchers.add(fromYoutubeChannelToYoutubeChannel);
 
         final RedirectionMatcher mediumAnalytics = new RedirectionMatcher("Medium analytics",
                                                                           Set.of(LinkStatus.OK,

@@ -97,14 +97,15 @@ class RedirectionDataTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://www.youtube.com/channel/UCUHW94eEFW7hkUMVaZz4eDg"
+        "https://www.youtube.com/channel/UCUHW94eEFW7hkUMVaZz4eDg",
+        "https://www.youtube.com/channel/UC1Ue7TuX3iH4y8-Qrjj-hyg"
         })
     void youtubeChannel(final String url) {
         assertMatch(url,
                     true,
                     Integer.valueOf(200),
-                    "from Google channel to cookies configuration",
-                    Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
+                    "from Youtube channel to cookies configuration",
+                    Set.of(LinkStatus.OK));
     }
 
     @ParameterizedTest

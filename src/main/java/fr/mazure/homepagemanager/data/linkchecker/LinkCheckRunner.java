@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 import javax.xml.parsers.DocumentBuilder;
 
@@ -31,6 +32,8 @@ import fr.mazure.homepagemanager.data.ViolationLocationUnknown;
 import fr.mazure.homepagemanager.data.internet.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.internet.HeaderFetchedLinkData;
 import fr.mazure.homepagemanager.data.internet.SiteDataRetriever;
+import fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.RedirectionData;
+import fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.RedirectionData.Match;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkUrlCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
 import fr.mazure.homepagemanager.utils.ExitHelper;
@@ -67,6 +70,7 @@ public class LinkCheckRunner {
     private final DocumentBuilder _builder;
     private final Path _outputFile;
     private final Path _reportFile;
+    private static final RedirectionData _redirectionData = new RedirectionData();
 
     /**
      * @param file XML file to be checked
@@ -439,6 +443,9 @@ public class LinkCheckRunner {
             }
             builder.append("Redirection chain = " + descriptionOfRedirectionChain + "\n");
         }
+        final Match match = _redirectionData.getMatch(effectiveData);
+        builder.append("Redirection matcher = " + match.name() + "\n");
+        builder.append("Redirection matcher expected statuses = " + match.statuses().stream().map(s -> s.toString()).collect(Collectors.joining( "," )) + "\n");
         final StringBuilder googleUrl = new StringBuilder("https://www.google.com/search?q=%22" +
                                                           URLEncoder.encode(expectedData.getTitle(), StandardCharsets.UTF_8) +
                                                          "%22");

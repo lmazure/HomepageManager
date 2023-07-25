@@ -1,6 +1,8 @@
 warnings = 248
 test coverage = 65.8%
 
+nettoyer links/chrome.xml
+
 réparer testSimultaneousRetrieval
 
 réparer redirection infinie de twiter  https://twitter.com/DEFAKATOR_Off

@@ -14,11 +14,11 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkStatus;
  */
 public class LinkStatusAnalyzer {
 
-    private static RedirectionData _redirectionData = new RedirectionData();
+    private static final RedirectionData _redirectionData = new RedirectionData();
 
     /**
      * @param expectedData data as expected in the XML file
-     * @param effectiveData data as retrieved from internet
+     * @param effectiveData data as retrieved from Internet
      * @return true if and only if effectiveData matches expectedData
      */
     public static boolean doesEffectiveDataMatchesExpectedData(final LinkData expectedData,
