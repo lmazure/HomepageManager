@@ -39,10 +39,13 @@ public class JsonWriter {
         _keywordFactory = keywordFactory;
     }
 
-   /**
-     * @param root
-     * @param pageName
+    /**
+     * Generate the JSON file containing the author data
+     *
+     * @param root directory where is located the homepage
+     * @param fileName relative path and name of the JSON file to generate
      */
+
     public void generateAuthorJson(final File root,
                                    final String pageName) {
 
@@ -125,9 +128,12 @@ public class JsonWriter {
     }
 
     /**
-      * @param root
-      * @param fileName
-      */
+     * Generate the JSON file containing the article data
+     *
+     * @param root directory where is located the homepage
+     * @param fileName relative path and name of the JSON file to generate
+     */
+
      public void generateArticleJson(final File root,
                                      final String fileName) {
 
@@ -197,12 +203,14 @@ public class JsonWriter {
                .submit();
      }
 
-     /**
-     * @param root
-     * @param fileName
+    /**
+     * Generate the JSON file containing the keyword data
+     *
+     * @param root directory where is located the homepage
+     * @param fileName relative path and name of the JSON file to generate
      */
     public void generateKeywordJson(final File root,
-                                     final String fileName) {
+                                    final String fileName) {
 
         final String rootFileName = root.getAbsolutePath();
         final File f = new File(rootFileName + File.separator + fileName);
@@ -287,11 +295,11 @@ public class JsonWriter {
             if (link.getDuration().isPresent()) {
                 out.write("          \"duration\" : " + link.getDuration().get().getSeconds() + ",\n");
             }
-            if (link.getStatus().isPresent()) {
-                out.write("          \"status\" : \"" + formatStatus(link.getStatus().get()) + "\",\n");
+            if (link.getStatus() != LinkStatus.OK) {
+                out.write("          \"status\" : \"" + formatStatus(link.getStatus()) + "\",\n");
             }
-            if (link.getProtection().isPresent()) {
-                out.write("          \"protection\" : \"" + formatProtection(link.getProtection().get()) + "\",\n");
+            if (link.getProtection() != LinkProtection.NO_REQUIRED_REGISTRATION) {
+                out.write("          \"protection\" : \"" + formatProtection(link.getProtection()) + "\",\n");
             }
             out.write("          \"formats\" : [");
             for (int k = 0; k < link.getFormats().length; k++) {

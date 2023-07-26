@@ -71,12 +71,11 @@ public class UrlHelper {
      * @param str String
      * @return True if valid URL, false otherwise
      */
-    @SuppressWarnings("unused")
     public static boolean isValidUrl(final String str) {
         try {
-            new URL(str);
+            @SuppressWarnings("unused") final URL u = new URL(str);
             return true;
-        } catch (final MalformedURLException e) {
+        } catch (@SuppressWarnings("unused") final MalformedURLException e) {
             return false;
         }
     }

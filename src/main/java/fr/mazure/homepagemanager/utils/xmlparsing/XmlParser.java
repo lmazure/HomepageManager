@@ -173,14 +173,14 @@ import org.w3c.dom.NodeList;
         }
 
         final Attr statusAttribute = xElement.getAttributeNode("status");
-        final Optional<String> status = (statusAttribute != null) ? Optional.of(statusAttribute.getValue())
-                                                                  : Optional.empty();
+        final LinkStatus status = (statusAttribute != null) ? LinkData.parseStatus(statusAttribute.getValue())
+                                                            : LinkStatus.OK;
 
         final Attr protectionAttribute = xElement.getAttributeNode("protection");
-        final Optional<String> protection = (protectionAttribute != null) ? Optional.of(protectionAttribute.getValue())
-                                                                          : Optional.empty();
+        final LinkProtection protection = (protectionAttribute != null) ? LinkData.parseProtection(protectionAttribute.getValue())
+                                                                        : LinkProtection.NO_REQUIRED_REGISTRATION;
 
-        return new LinkData(title, subtitles, url, status.map(LinkData::parseStatus), protection.map(LinkData::parseProtection), formats, languages, duration, publicationDate);
+        return new LinkData(title, subtitles, url, status, protection, formats, languages, duration, publicationDate);
     }
 
     /**

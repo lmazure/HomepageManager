@@ -40,11 +40,17 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
                          "GitHub blog",
                          "JSON");
 
+    private static final TextParser s_titleParser
+        = new TextParser("<h1 class=\"h3-mktg lh-condensed mb-3 color-fg-default\">",
+                         "</h1>",
+                         "GitHub blog",
+                         "title");
+
     private static final TextParser s_subtitleParser
-    = new TextParser("<p class=\"f4-mktg\">",
-                     "</p>",
-                     "GitHub blog",
-                     "subtitle");
+        = new TextParser("<p class=\"f4-mktg\">",
+                         "</p>",
+                         "GitHub blog",
+                         "subtitle");
 
     /**
      * @param url URL of the link
@@ -95,28 +101,33 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
         } catch (final JSONException e) {
             throw new ContentParserException("Failed to find \"@graph\" JSON object in GitHub Blog page", e);
         }
-        JSONObject article = null;
+        JSONObject person = null;
         JSONObject webPage = null;
         for (int i=0; i < post.length(); i++) {
             final JSONObject o = post.getJSONObject(i);
             final String type = o.getString("@type");
-            if (type.equals("Article")) {
-                article = o;
+            if (type.equals("Person")) {
+                person = o;
             } else if (type.equals("WebPage")) {
                 webPage = o;
             }
         }
-        if (article == null) {
-            throw new ContentParserException("Failed to find \"@type\" JSON object in GitHub Blog page");
+        if (person == null) {
+            throw new ContentParserException("Failed to find \"@Person\" JSON object in GitHub Blog page");
         }
         if (webPage == null) {
             throw new ContentParserException("Failed to find \"@WebPage\" JSON object in GitHub Blog page");
         }
-        final String title = article.getString("headline");
+        /* This does not work: ’ is replaced by '
+        final String title = webPage.getString("name");
         if (title == null) {
-            throw new ContentParserException("Failed to find \"headline\" JSON object in GitHub Blog page");
+            throw new ContentParserException("Failed to find \"name\" JSON object in GitHub Blog page");
         }
-        _title = HtmlHelper.unescape(title);
+        if (!title.endsWith(" - The GitHub Blog")) {
+            throw new ContentParserException("Title does not end with \" - The GitHub Blog\" in GitHub Blog page");
+        }
+        _title = HtmlHelper.unescape(title.replace(" - The GitHub Blog", ""));
+        */
         /* this does not work, the subtitle in the JSON payload is sometimes incorrect
         final String subtitle = webPage.getString("description");
         if (subtitle == null) {
@@ -124,12 +135,9 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
         }
         _subtitle = HtmlHelper.unescape(subtitle);
         */
+        _title = HtmlHelper.cleanContent(s_titleParser.extract(_data));
         _subtitle = HtmlHelper.cleanContent(s_subtitleParser.extract(_data));
-        final JSONObject author = article.getJSONObject("author");
-        if (author == null) {
-            throw new ContentParserException("Failed to find \"author\" JSON object in GitHub Blog page");
-        }
-        final String authorName = author.getString("name");
+        final String authorName = person.getString("name");
         if (authorName == null) {
             throw new ContentParserException("Failed to find \"name\" JSON object in GitHub Blog page");
         }
@@ -138,7 +146,7 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
         } catch (final ContentParserException e) {
             throw new ContentParserException("failed to parse author name", e);
         }
-        final String datePublished  = article.getString("datePublished");
+        final String datePublished  = webPage.getString("datePublished");
         if (datePublished == null) {
             throw new ContentParserException("Failed to find \"datePublished\" JSON object in GitHub Blog page");
         }

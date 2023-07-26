@@ -120,7 +120,6 @@ public class SiteDataPersister {
                   .append(siteData.url())
                   .submit();
         }
-        
 
         try {
             Files.move(tempoFile.toPath(), effectiveFile.toPath());
@@ -311,7 +310,6 @@ public class SiteDataPersister {
         return getOutputDirectory(url).resolve(tempoFileNamePrefix + UUID.randomUUID() + "_" + timestamp.toString().replaceAll(":", ";")).toFile();
     }
 
-
     private File getEffectivePersistedFile(final String url,
                                            final Instant timestamp) {
         return getOutputDirectory(url).resolve(effectiveFileNamePrefix + timestamp.toString().replaceAll(":", ";")).toFile();
@@ -320,7 +318,7 @@ public class SiteDataPersister {
     private Path getOutputDirectory(final String url) {
         final String host = UrlHelper.isValidUrl(url) ? UrlHelper.getHost(url)
                                                       : "_invalid_URL";
-        return _path.resolve(host)
+        return _path.resolve(FileNameHelper.generateDirectoryNameFromHostName(host))
                     .resolve(FileNameHelper.generateFileNameFromURL(url));
     }
 

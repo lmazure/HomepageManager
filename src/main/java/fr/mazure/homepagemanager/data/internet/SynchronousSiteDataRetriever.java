@@ -57,6 +57,13 @@ public class SynchronousSiteDataRetriever {
     }
 
     /**
+     * @return maximum number of redirections supported
+     */
+    public static int getMaximumNumberOfRedirections() {
+        return s_maxNbRedirects;
+    }
+
+    /**
      * @param url URL of the link to retrieve
      * @param consumer
      *   - its first argument is always true since the data is always fresh
@@ -275,36 +282,42 @@ public class SynchronousSiteDataRetriever {
 
         if (cookieManager == null) return;
 
-         final Map<String, List<String>> headerFields = connection.getHeaderFields();
-         final List<String> cookies = headerFields.get("Set-Cookie");
-         if (cookies != null) {
-             for (final String cookie: cookies) {
-                 List<HttpCookie> list = new LinkedList<>();
-                 try {
-                     list = HttpCookie.parse(cookie);
-                 } catch (final IllegalArgumentException e) {
-                     Logger.log(Logger.Level.ERROR)
-                     .append(url)
-                     .append(" has an invalid cookie value: \"")
-                     .append(cookie)
-                     .append("\" ")
-                     .append(e)
-                     .submit();
-                 }
-                 for (final HttpCookie c: list) {
-                     cookieManager.getCookieStore().add(UriHelper.convertStringToUri(url), c);
-                 }
-             }
-         }
-     }
+        final URI uri = UriHelper.convertStringToUri(url);
+        if (uri == null) return;
+
+        final Map<String, List<String>> headerFields = connection.getHeaderFields();
+        final List<String> cookies = headerFields.get("Set-Cookie");
+        if (cookies != null) {
+            for (final String cookie: cookies) {
+                List<HttpCookie> list = new LinkedList<>();
+                try {
+                    list = HttpCookie.parse(cookie);
+                } catch (final IllegalArgumentException e) {
+                    Logger.log(Logger.Level.ERROR)
+                          .append(url)
+                          .append(" has an invalid cookie value: \"")
+                          .append(cookie)
+                          .appendln("\" ")
+                          .append(e)
+                         .submit();
+                }
+                for (final HttpCookie c: list) {
+                    cookieManager.getCookieStore().add(uri, c);
+                }
+            }
+        }
+    }
 
     private static void applyCookies(final String url,
                                      final CookieManager cookieManager,
                                      final URLConnection connection) {
         if (cookieManager == null) return;
 
+        final URI uri = UriHelper.convertStringToUri(url);
+        if (uri == null) return;
+
         final String cookies = cookieManager.getCookieStore()
-                                            .get(UriHelper.convertStringToUri(url))
+                                            .get(uri)
                                             .stream()
                                             .map(h -> h.toString())
                                             .collect(Collectors.joining(";"));

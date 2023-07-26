@@ -48,7 +48,7 @@ public class FileEventQueue {
         _filesBeingProcessed = new HashSet<>();
         for (int i = 0; i < NB_THREADS; i++) {
             final Consumer consumer = new Consumer(this);
-            final String threadName = "file-event-dispatche-" + String.format("%03d", Integer.valueOf(i));
+            final String threadName = "file-event-dispatch-" + String.format("%03d", Integer.valueOf(i));
             final Thread thread = new Thread(consumer, threadName);
             thread.start();
         }

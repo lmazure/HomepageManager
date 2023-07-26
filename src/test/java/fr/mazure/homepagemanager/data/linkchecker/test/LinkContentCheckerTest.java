@@ -17,7 +17,6 @@ import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentCheck;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
-import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
@@ -43,7 +42,7 @@ public class LinkContentCheckerTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null);
-        final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<AuthorData>(), null);
+        final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null);
         retriever.retrieve(url,
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
@@ -72,7 +71,7 @@ public class LinkContentCheckerTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null);
-        final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<AuthorData>(), null);
+        final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null);
         retriever.retrieve(url,
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
@@ -102,7 +101,7 @@ public class LinkContentCheckerTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final LinkData linkData = new LinkData(expectedSubtitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null);
-        final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<AuthorData>(), null);
+        final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null);
         retriever.retrieve(url,
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
@@ -130,7 +129,7 @@ public class LinkContentCheckerTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null);
-        final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<AuthorData>(), null);
+        final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null);
         retriever.retrieve(url,
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());

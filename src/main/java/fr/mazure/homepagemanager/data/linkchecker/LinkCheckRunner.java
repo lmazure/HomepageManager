@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 import javax.xml.parsers.DocumentBuilder;
 
@@ -31,6 +32,8 @@ import fr.mazure.homepagemanager.data.ViolationLocationUnknown;
 import fr.mazure.homepagemanager.data.internet.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.internet.HeaderFetchedLinkData;
 import fr.mazure.homepagemanager.data.internet.SiteDataRetriever;
+import fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.RedirectionData;
+import fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.RedirectionData.Match;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkUrlCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
 import fr.mazure.homepagemanager.utils.ExitHelper;
@@ -67,6 +70,7 @@ public class LinkCheckRunner {
     private final DocumentBuilder _builder;
     private final Path _outputFile;
     private final Path _reportFile;
+    private static final RedirectionData _redirectionData = new RedirectionData();
 
     /**
      * @param file XML file to be checked
@@ -283,7 +287,7 @@ public class LinkCheckRunner {
 
         _effectiveData.put(siteData.url().toString(), siteData);
         if (!siteData.error().isPresent() &&
-            _expectedData.get(siteData.url()).getStatus().isEmpty()) {
+            _expectedData.get(siteData.url()).getStatus() == LinkStatus.OK) {
             final LinkContentChecker contentChecker = LinkContentCheckerFactory.build(siteData.url(),
                                                                                       _expectedData.get(siteData.url().toString()),
                                                                                       Optional.ofNullable(_articles.get(siteData.url().toString())),
@@ -345,7 +349,7 @@ public class LinkCheckRunner {
         for (final String url : _effectiveData.keySet()) {
             final LinkData expectedData = _expectedData.get(url);
             final FullFetchedLinkData effectiveData = _effectiveData.get(url);
-            final boolean isDataExpected = isOneDataExpected(expectedData, effectiveData);
+            final boolean isDataExpected = LinkStatusAnalyzer.doesEffectiveDataMatchesExpectedData(expectedData, effectiveData);
             if (isDataExpected) {
                 appendLivenessCheckResult(url, expectedData, effectiveData, ok);
                 ok.append('\n');
@@ -398,14 +402,19 @@ public class LinkCheckRunner {
             pw.println("=".repeat(80));
             pw.println(ok.toString());
         }
+
+        Logger.log(Logger.Level.INFO)
+              .append(_outputFile)
+              .append(" has been generated")
+              .submit();
     }
 
     /**
      * append (at the end of builder) the result of the liveness check of url
      *
      * @param url
-     * @param expectedData
-     * @param effectiveData
+     * @param expectedData data as expected in the XML file
+     * @param effectiveData data as retrieved from internet
      * @param builder
      */
     private static void appendLivenessCheckResult(final String url,
@@ -418,7 +427,7 @@ public class LinkCheckRunner {
             builder.append("Subtitle = \"" + String.join("\" \"",  expectedData.getSubtitles()) + "\"\n");
         }
         builder.append("URL = " + url + "\n");
-        builder.append("Expected status = " + expectedData.getStatus().map(LinkStatus::toString).orElse("") + "\n");
+        builder.append("Expected status = " + expectedData.getStatus() + "\n");
         if (effectiveData.error().isPresent()) {
             builder.append("Effective error = \"" + effectiveData.error().get() + "\"\n");
         }
@@ -434,6 +443,9 @@ public class LinkCheckRunner {
             }
             builder.append("Redirection chain = " + descriptionOfRedirectionChain + "\n");
         }
+        final Match match = _redirectionData.getMatch(effectiveData);
+        builder.append("Redirection matcher = " + match.name() + "\n");
+        builder.append("Redirection matcher expected statuses = " + match.statuses().stream().map(s -> s.toString()).collect(Collectors.joining( "," )) + "\n");
         final StringBuilder googleUrl = new StringBuilder("https://www.google.com/search?q=%22" +
                                                           URLEncoder.encode(expectedData.getTitle(), StandardCharsets.UTF_8) +
                                                          "%22");
@@ -464,7 +476,7 @@ public class LinkCheckRunner {
     private boolean isDataExpected() { //TODO this method is very stupid, we should use a flag instead of computing the status every time
 
         for (final String url : _effectiveData.keySet()) {
-            if (!isOneDataExpected(_expectedData.get(url), _effectiveData.get(url))) {
+            if (!LinkStatusAnalyzer.doesEffectiveDataMatchesExpectedData(_expectedData.get(url), _effectiveData.get(url))) {
                 return false;
             }
             if (_checks.containsKey(url) && !_checks.get(url).isEmpty()) {
@@ -473,34 +485,6 @@ public class LinkCheckRunner {
         }
 
         return true;
-    }
-
-    private static boolean isOneDataExpected(final LinkData expectedData,
-                                             final FullFetchedLinkData effectiveData) {
-
-        if (expectedData.getStatus().isPresent() && expectedData.getStatus().get().equals(LinkStatus.DEAD)) {
-            if (effectiveData.error().isPresent()) {
-                return true;
-            }
-            if (!httpRequestIsSuccessful(effectiveData.headers().get())) {
-                return true;
-            }
-            final HeaderFetchedLinkData lastRedirection = lastRedirection(effectiveData);
-            if (lastRedirection == null) {
-                return false;
-            }
-            if (!httpRequestIsSuccessful(lastRedirection.headers().get())) {
-                return true;
-            }
-            return false;
-        }
-
-        final HeaderFetchedLinkData lastRedirection = lastRedirection(effectiveData);
-        return (effectiveData.headers().isPresent() &&
-                httpRequestIsSuccessful(effectiveData.headers().get()) &&
-                ((lastRedirection == null) ||
-                 lastRedirection.headers().isPresent() &&
-                 httpRequestIsSuccessful(lastRedirection.headers().get())));
     }
 
     private static HeaderFetchedLinkData lastRedirection(final FullFetchedLinkData data) {
@@ -512,13 +496,6 @@ public class LinkCheckRunner {
             d = d.previousRedirection();
         }
         return d;
-    }
-
-    private static boolean httpRequestIsSuccessful(final Map<String, List<String>> headers) {
-        final int code = HttpHelper.getResponseCodeFromHeaders(headers);
-        return (code == HttpURLConnection.HTTP_OK) ||
-               (code == HttpURLConnection.HTTP_MOVED_TEMP) ||
-               (code == HttpURLConnection.HTTP_SEE_OTHER);
     }
 
     private static boolean doNotUseCookies(final String url) { // TODO the decision to allow/disallow cookies should be in the parser

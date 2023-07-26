@@ -1,34 +1,35 @@
-warnings = 257
+warnings = 248
+lines prod = 9514
+lines test = 3939
+test coverage =
+              main     test
+instructions  66.0%    88.7%
+branches      44.5%    77.5%
+lines         65.6%    94.0%
+methods       53.0%    97.2%
+
+==== merge =====
+
+- ajouter la vérification des <FEED>s
+
+nettoyer links/chrome.xml
+
+réparer testSimultaneousRetrieval
+
+réparer redirection infinie de twiter  https://twitter.com/DEFAKATOR_Off
+
+chaque redirection matcher recompile la chaine de redirections, ce n'est pas performant
+en plus cela est recalculé plusieurs fois dans LinkCheckRunner.isDataExpected
+
+détecter les articles dont le commentaire contient subtitle, mais qui n'ont pas de subtitle
 
 filtrer les redirections parasites (ibm, onlamp…)
 
 si le programme passe minuit, la vérification de la date de la page croit toujours que nous sommes la veille
 
-corriger mauvaise gestion des erreurs de parsing lors de la génération du JSON
+nettoyer links/test.xml
 
-ccorriger crash en mettant URL incorrecte
-Exception in thread "file-event-dispatche-002" java.nio.file.InvalidPathException: Illegal char <
-> at index 0: 
-Redirection%20chain%20=%20http?www.xfront.com%2FREST.html%20?%20
-    at java.base/sun.nio.fs.WindowsPathParser.normalize(WindowsPathParser.java:182)
-    at java.base/sun.nio.fs.WindowsPathParser.parse(WindowsPathParser.java:153)
-    at java.base/sun.nio.fs.WindowsPathParser.parse(WindowsPathParser.java:77)
-    at java.base/sun.nio.fs.WindowsPath.parse(WindowsPath.java:92)
-    at java.base/sun.nio.fs.WindowsFileSystem.getPath(WindowsFileSystem.java:232)
-    at java.base/java.nio.file.Path.resolve(Path.java:515)
-    at fr.mazure.homepagemanager.data.internet.SiteDataPersister.getOutputDirectory(SiteDataPersister.java:324)
-    at fr.mazure.homepagemanager.data.internet.SiteDataPersister.getTimestampList(SiteDataPersister.java:187)
-    at fr.mazure.homepagemanager.data.internet.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-    at fr.mazure.homepagemanager.data.internet.SiteDataRetriever.retrieve(SiteDataRetriever.java:36)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.launch(LinkCheckRunner.java:152)
-    at fr.mazure.homepagemanager.data.LinkChecker.handleCreation(LinkChecker.java:55)
-    at fr.mazure.homepagemanager.data.FileEventQueue.handleFileCreation(FileEventQueue.java:131)
-    at fr.mazure.homepagemanager.data.FileEventQueue$Consumer.run(FileEventQueue.java:195)
-    at java.base/java.lang.Thread.run(Thread.java:1589)
-    
-
-==== merge =====
-
+accelerate oracle links by caching the intermediary requests
 
 on ne pas faire
                         dataStream = Optional.of(httpConnection.getInputStream());
@@ -225,8 +226,6 @@ de plus cela génère des erreurs
 - Ajouter la règle sur les URLs qui apparaissent plusieurs fois
 
 - Accelérer la création des fichier JSON (en extrayant les données de chaque fichier à la modification de celui-ci, en mettant cela dans un fichier de résumé et en ayant la création des JSON qui ne fasse que consolider ces fichiers)
-
-- ajouter la vérification des <FEED>s
 
 - mettre un tooltip sur les expand/contract
 
