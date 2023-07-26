@@ -1,5 +1,16 @@
 warnings = 248
-test coverage = 65.8%
+lines prod = 9514
+lines test = 3939
+test coverage =
+              main     test
+instructions  66.0%    88.7%
+branches      44.5%    77.5%
+lines         65.6%    94.0%
+methods       53.0%    97.2%
+
+==== merge =====
+
+- ajouter la vérification des <FEED>s
 
 nettoyer links/chrome.xml
 
@@ -7,7 +18,8 @@ réparer testSimultaneousRetrieval
 
 réparer redirection infinie de twiter  https://twitter.com/DEFAKATOR_Off
 
-chaque redirection matcher recompile la chaine de redirection, ce n'est pas performant
+chaque redirection matcher recompile la chaine de redirections, ce n'est pas performant
+en plus cela est recalculé plusieurs fois dans LinkCheckRunner.isDataExpected
 
 détecter les articles dont le commentaire contient subtitle, mais qui n'ont pas de subtitle
 
@@ -15,11 +27,9 @@ filtrer les redirections parasites (ibm, onlamp…)
 
 si le programme passe minuit, la vérification de la date de la page croit toujours que nous sommes la veille
 
-==== merge =====
+nettoyer links/test.xml
 
-nettoyer links/text.xml
-
-acceleate oracle links by caching the intermediary requests
+accelerate oracle links by caching the intermediary requests
 
 on ne pas faire
                         dataStream = Optional.of(httpConnection.getInputStream());
@@ -216,8 +226,6 @@ de plus cela génère des erreurs
 - Ajouter la règle sur les URLs qui apparaissent plusieurs fois
 
 - Accelérer la création des fichier JSON (en extrayant les données de chaque fichier à la modification de celui-ci, en mettant cela dans un fichier de résumé et en ayant la création des JSON qui ne fasse que consolider ces fichiers)
-
-- ajouter la vérification des <FEED>s
 
 - mettre un tooltip sur les expand/contract
 
