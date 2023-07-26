@@ -414,7 +414,7 @@ public class LinkCheckRunner {
      *
      * @param url
      * @param expectedData data as expected in the XML file
-     * @param effectiveData data as retrieved from internet
+     * @param effectiveData data as retrieved from Internet
      * @param builder
      */
     private static void appendLivenessCheckResult(final String url,

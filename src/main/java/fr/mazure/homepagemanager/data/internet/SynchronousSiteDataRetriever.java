@@ -299,7 +299,7 @@ public class SynchronousSiteDataRetriever {
                           .append(cookie)
                           .appendln("\" ")
                           .append(e)
-                         .submit();
+                          .submit();
                 }
                 for (final HttpCookie c: list) {
                     cookieManager.getCookieStore().add(uri, c);
