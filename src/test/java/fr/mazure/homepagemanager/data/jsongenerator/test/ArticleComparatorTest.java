@@ -27,9 +27,9 @@ public class ArticleComparatorTest {
         final LinkFormat[] formats = { LinkFormat.HTML };
         final Locale[] languages = { Locale.FRENCH };
         final Article data1 = new Article(new File(""), Optional.of(LocalDate.of(2000, 1, 1)));
-        data1.addLink(new Link("aa", null, "url", null, null, formats, languages, Optional.empty(), Optional.empty()));
+        data1.addLink(new Link("aa", null, "url", null, null, formats, languages, Optional.empty(), Optional.empty(), Optional.empty()));
         final Article data2 = new Article(new File(""), Optional.of(LocalDate.of(2000, 1, 1)));
-        data2.addLink(new Link("ab", null, "url", null, null, formats, languages, Optional.empty(), Optional.empty()));
+        data2.addLink(new Link("ab", null, "url", null, null, formats, languages, Optional.empty(), Optional.empty(), Optional.empty()));
         final ArticleComparator comparator = new ArticleComparator();
 
         // --- act ---
@@ -47,9 +47,9 @@ public class ArticleComparatorTest {
         final LinkFormat[] formats = { LinkFormat.HTML };
         final Locale[] languages = { Locale.FRENCH };
         final Article data1 = new Article(new File(""), Optional.of(LocalDate.of(2000, 1, 1)));
-        data1.addLink(new Link("a a", null, "url", null, null, formats, languages, Optional.empty(), Optional.empty()));
+        data1.addLink(new Link("a a", null, "url", null, null, formats, languages, Optional.empty(), Optional.empty(), Optional.empty()));
         final Article data2 = new Article(new File(""), Optional.of(LocalDate.of(2000, 1, 1)));
-        data2.addLink(new Link("aa", null, "url", null, null, formats, languages, Optional.empty(), Optional.empty()));
+        data2.addLink(new Link("aa", null, "url", null, null, formats, languages, Optional.empty(), Optional.empty(), Optional.empty()));
         final ArticleComparator comparator = new ArticleComparator();
 
         // --- act ---
@@ -67,9 +67,9 @@ public class ArticleComparatorTest {
         final LinkFormat[] formats = { LinkFormat.HTML };
         final Locale[] languages = { Locale.FRENCH };
         final Article data1 = new Article(new File(""), Optional.of(LocalDate.of(2000, 1, 1)));
-        data1.addLink(new Link("a a", null, "url", null, null, formats, languages, Optional.empty(), Optional.empty()));
+        data1.addLink(new Link("a a", null, "url", null, null, formats, languages, Optional.empty(), Optional.empty(), Optional.empty()));
         final Article data2 = new Article(new File(""), Optional.of(LocalDate.of(2000, 1, 1)));
-        data2.addLink(new Link("aØ", null, "url", null, null, formats, languages, Optional.empty(), Optional.empty()));
+        data2.addLink(new Link("aØ", null, "url", null, null, formats, languages, Optional.empty(), Optional.empty(), Optional.empty()));
         final ArticleComparator comparator = new ArticleComparator();
 
         // --- act ---
