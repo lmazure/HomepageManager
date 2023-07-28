@@ -1,4 +1,4 @@
-warnings = 226
+warnings = 215
 lines prod = 9514
 lines test = 3939
 test coverage =
@@ -13,16 +13,7 @@ réparer redirection infinie de twiter  https://twitter.com/DEFAKATOR_Off
 
 crash sur URL tps://lekitblob.fr/en/blob-main-page
 
-comprendre pourquoi est reporté
-Title = "DirtyBiology"
-URL = https://www.youtube.com/user/dirtybiology
-Expected status = OK
-Effective HTTP code = 302 Found
-Effective HTTP code of last redirection = 200 OK
-Redirection chain = https://www.youtube.com/user/dirtybiology → https://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fuser%2Fdirtybiology%3Fcbrd%3D1&gl=FR&m=0&pc=yt&cm=2&hl=en&src=1 → https://www.youtube.com/user/dirtybiology?cbrd=1&ucbcb=1
-Redirection matcher = redirection ending in success (last URL should be used)
-Redirection matcher expected statuses = 
-Look for article = https://www.google.com/search?q=%22DirtyBiology%22
+réparer test direct403
 
 ==== merge =====
 

@@ -5,7 +5,7 @@ import java.util.Set;
 import fr.mazure.homepagemanager.data.internet.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.internet.HeaderFetchedLinkData;
 import fr.mazure.homepagemanager.data.internet.SynchronousSiteDataRetriever;
-import fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.RedirectionData;
+import fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkStatus;
 
@@ -14,7 +14,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkStatus;
  */
 public class LinkStatusAnalyzer {
 
-    private static final RedirectionData _redirectionData = new RedirectionData();
+    private static final WellKnownRedirections _redirectionData = new WellKnownRedirections();
 
     /**
      * @param expectedData data as expected in the XML file

@@ -32,8 +32,8 @@ import fr.mazure.homepagemanager.data.ViolationLocationUnknown;
 import fr.mazure.homepagemanager.data.internet.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.internet.HeaderFetchedLinkData;
 import fr.mazure.homepagemanager.data.internet.SiteDataRetriever;
-import fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.RedirectionData;
-import fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.RedirectionData.Match;
+import fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections;
+import fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.Match;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkUrlCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
 import fr.mazure.homepagemanager.utils.ExitHelper;
@@ -70,7 +70,7 @@ public class LinkCheckRunner {
     private final DocumentBuilder _builder;
     private final Path _outputFile;
     private final Path _reportFile;
-    private static final RedirectionData _redirectionData = new RedirectionData();
+    private static final WellKnownRedirections _redirectionData = new WellKnownRedirections();
 
     /**
      * @param file XML file to be checked

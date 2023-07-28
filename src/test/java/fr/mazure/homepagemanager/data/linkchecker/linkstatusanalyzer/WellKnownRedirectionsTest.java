@@ -11,11 +11,11 @@ import fr.mazure.homepagemanager.data.internet.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.internet.HeaderFetchedLinkData;
 import fr.mazure.homepagemanager.data.internet.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.internet.test.TestHelper;
-import fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.RedirectionData.Match;
+import fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.Match;
 import fr.mazure.homepagemanager.utils.internet.HttpHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkStatus;
 
-class RedirectionDataTest {
+class WellKnownRedirectionsTest {
 
     // URLs giving directly a success
     @ParameterizedTest
@@ -23,7 +23,7 @@ class RedirectionDataTest {
         "https://example.com"
         })
     void directSuccess(final String url) {
-        assertMatch(url,
+        test(url,
                     false,
                     Integer.valueOf(200),
                     "direct success",
@@ -36,7 +36,7 @@ class RedirectionDataTest {
         "https://www.pnas.org/doi/pdf/10.1073/pnas.1810141115"
         })
     void direct403(final String url) {
-        assertMatch(url,
+        test(url,
                     false,
                     Integer.valueOf(403),
                     "direct failure",
@@ -49,7 +49,7 @@ class RedirectionDataTest {
         "https://scienceetonnante.com/2017/11/12/glyphosate-le-nouvel-amiante/"
         })
     void direct404(final String url) {
-        assertMatch(url,
+        test(url,
                     false,
                     Integer.valueOf(404),
                     "direct failure",
@@ -63,7 +63,7 @@ class RedirectionDataTest {
         "https://dzone.com/articles/the-developers-guide-to-collections-lists"
         })
     void direct410(final String url) {
-        assertMatch(url,
+        test(url,
                     false,
                     Integer.valueOf(410),
                     "direct failure",
@@ -76,7 +76,7 @@ class RedirectionDataTest {
         " https://www.ibm.com"
         })
     void redirectionsEndingInSuccess(final String url) {
-        assertMatch(url,
+        test(url,
                     true,
                     Integer.valueOf(200),
                     "redirection ending in success (last URL should be used)",
@@ -88,7 +88,7 @@ class RedirectionDataTest {
         "http://blogs.msdn.com/b/jw_on_tech/archive/2012/03/14/why-i-joined-microsoft.aspx"
         })
     void redirectionsEndingWith403(final String url) {
-        assertMatch(url,
+        test(url,
                     true,
                     Integer.valueOf(403),
                     "redirection ending with an error code",
@@ -101,7 +101,7 @@ class RedirectionDataTest {
         "https://www.youtube.com/channel/UC1Ue7TuX3iH4y8-Qrjj-hyg"
         })
     void youtubeChannel(final String url) {
-        assertMatch(url,
+        test(url,
                     true,
                     Integer.valueOf(200),
                     "from Youtube channel to cookies configuration",
@@ -110,22 +110,33 @@ class RedirectionDataTest {
 
     @ParameterizedTest
     @CsvSource({
+        "https://www.youtube.com/user/dirtybiology"
+        })
+    void youtubeUser(final String url) {
+        test(url,
+                    true,
+                    Integer.valueOf(200),
+                    "from Youtube user to cookies configuration",
+                    Set.of(LinkStatus.OK));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
         "https://blog.sparksuite.com/7-ways-to-speed-up-gitlab-ci-cd-times-29f60aab69f9"
         })
     void medium(final String url) {
-        assertMatch(url,
+        test(url,
                     true,
                     Integer.valueOf(200),
                     "Medium analytics",
                     Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
     }
 
-    private void assertMatch(final String url,
-                             final boolean redirectionIsExpected,  // use to ensure that test data is up-to-date
-                             final Integer expectedCode,           // use to ensure that test data is up-to-date
-                             final String expectedMatcherName,
-                             final Set<LinkStatus> expectedStatuses) {
-        final RedirectionData data = new RedirectionData();
+    private void test(final String url,
+                      final boolean redirectionIsExpected,  // use to ensure that test data is up-to-date
+                      final Integer expectedCode,           // use to ensure that test data is up-to-date
+                      final String expectedMatcherName,
+                      final Set<LinkStatus> expectedStatuses) {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
@@ -137,12 +148,19 @@ class RedirectionDataTest {
                         Assertions.assertNull(d.previousRedirection(), "the test data is out-of-date: a redirection was expected");
                     }
                     Assertions.assertEquals(expectedCode, getCodeOfLastRedirection(d), "the test data is out-of-date: the expected code is not the expected one");
-                    final Match effectiveStatuses = data.getMatch(d);
-                    Assertions.assertEquals(expectedMatcherName, effectiveStatuses.name());
-                    Assertions.assertEquals(expectedStatuses, effectiveStatuses.statuses());
+                    assertMatch(expectedMatcherName, expectedStatuses, d);
                 },
                 false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    private static void assertMatch(final String expectedMatcherName,
+                                    final Set<LinkStatus> expectedStatuses,
+                                    final FullFetchedLinkData effectiveData) {
+        final WellKnownRedirections data = new WellKnownRedirections();
+        final Match effectiveStatuses = data.getMatch(effectiveData);
+        Assertions.assertEquals(expectedMatcherName, effectiveStatuses.name());
+        Assertions.assertEquals(expectedStatuses, effectiveStatuses.statuses());
     }
 
     private static Integer getCodeOfLastRedirection(final FullFetchedLinkData data) {

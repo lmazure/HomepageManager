@@ -13,14 +13,14 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkStatus;
 /**
  * Expected redirection data
  */
-public class RedirectionData {
+public class WellKnownRedirections {
 
     private final List<RedirectionMatcher> _matchers;
 
     /**
      * constructor
      */
-    public RedirectionData() {
+    public WellKnownRedirections() {
 
         _matchers = new ArrayList<>();
 
@@ -53,17 +53,31 @@ public class RedirectionData {
         fromYoutubeChannelToCookiesConfiguration.compile();
         _matchers.add(fromYoutubeChannelToCookiesConfiguration);
 
+        final RedirectionMatcher fromYoutubeUserToCookiesConfiguration = new RedirectionMatcher("from Youtube user to cookies configuration",
+                                                                                                Set.of(LinkStatus.OK));
+        fromYoutubeUserToCookiesConfiguration.add("\\Qhttps://www.youtube.com/user/\\E" + RedirectionMatcher.ANY_STRING,
+                                                  Set.of(Integer.valueOf(302)),
+                                                  RedirectionMatcher.Multiplicity.ONE);
+        fromYoutubeUserToCookiesConfiguration.add("\\Qhttps://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fuser%2F\\E" + RedirectionMatcher.ANY_STRING,
+                                                  Set.of(Integer.valueOf(302)),
+                                                  RedirectionMatcher.Multiplicity.ONE);
+        fromYoutubeUserToCookiesConfiguration.add("\\Qhttps://consent.youtube.com/ml?continue=https://www.youtube.com/user/\\E"  + RedirectionMatcher.ANY_STRING,
+                                                  Set.of(Integer.valueOf(200)),
+                                                  RedirectionMatcher.Multiplicity.ONE);
+        fromYoutubeUserToCookiesConfiguration.compile();
+        _matchers.add(fromYoutubeUserToCookiesConfiguration);
+
         final RedirectionMatcher fromYoutubeChannelToYoutubeChannel = new RedirectionMatcher("from Youtube channel to Youtube channel",
                                                                                              Set.of(LinkStatus.OK));
         fromYoutubeChannelToYoutubeChannel.add("\\Qhttps://www.youtube.com/channel/\\E" + RedirectionMatcher.ANY_STRING,
-                                                    Set.of(Integer.valueOf(302)),
-                                                    RedirectionMatcher.Multiplicity.ONE);
+                                               Set.of(Integer.valueOf(302)),
+                                               RedirectionMatcher.Multiplicity.ONE);
         fromYoutubeChannelToYoutubeChannel.add("\\Qhttps://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fchannel%2F\\E" + RedirectionMatcher.ANY_STRING,
-                                                    Set.of(Integer.valueOf(303)),
-                                                    RedirectionMatcher.Multiplicity.ONE);
+                                               Set.of(Integer.valueOf(303)),
+                                               RedirectionMatcher.Multiplicity.ONE);
         fromYoutubeChannelToYoutubeChannel.add("\\Qhttps://www.youtube.com/channel/\\E"  + RedirectionMatcher.ANY_STRING,
-                                                    Set.of(Integer.valueOf(200)),
-                                                    RedirectionMatcher.Multiplicity.ONE);
+                                               Set.of(Integer.valueOf(200)),
+                                               RedirectionMatcher.Multiplicity.ONE);
         fromYoutubeChannelToYoutubeChannel.compile();
         _matchers.add(fromYoutubeChannelToYoutubeChannel);
 
