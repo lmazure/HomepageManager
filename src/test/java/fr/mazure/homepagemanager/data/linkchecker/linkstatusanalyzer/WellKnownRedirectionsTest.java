@@ -95,6 +95,19 @@ class WellKnownRedirectionsTest {
                     Set.of(LinkStatus.DEAD));
     }
 
+
+    @ParameterizedTest
+    @CsvSource({
+        "https://www.gamasutra.com/view/feature/3413/orphans_preferred.php"
+        })
+    void redirectionsEndingWith404(final String url) {
+        test(url,
+                    true,
+                    Integer.valueOf(404),
+                    "redirection ending with an error code",
+                    Set.of(LinkStatus.DEAD));
+    }
+
     @ParameterizedTest
     @CsvSource({
         "https://www.youtube.com/channel/UCUHW94eEFW7hkUMVaZz4eDg",

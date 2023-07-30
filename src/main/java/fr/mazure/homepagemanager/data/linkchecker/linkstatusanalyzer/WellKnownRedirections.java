@@ -38,6 +38,7 @@ public class WellKnownRedirections {
         redirectionCodes.add(Integer.valueOf(302));
         redirectionCodes.add(Integer.valueOf(303));
         redirectionCodes.add(Integer.valueOf(307));
+        redirectionCodes.add(Integer.valueOf(308));
 
         final RedirectionMatcher fromYoutubeChannelToCookiesConfiguration = new RedirectionMatcher("from Youtube channel to cookies configuration",
                                                                                                    Set.of(LinkStatus.OK));
