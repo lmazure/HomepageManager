@@ -8,6 +8,9 @@ branches      44.5%    77.5%
 lines         65.6%    94.0%
 methods       53.0%    97.2%
 
+gérer java.lang.UnsupportedOperationException: https://awstats.sourceforge.io/|503→
+
+gérer java.lang.UnsupportedOperationException: https://www.wired.com/story/database-humans-messing-with-evolution/|502→
 
 réparer redirection infinie de twiter  https://twitter.com/DEFAKATOR_Off
 

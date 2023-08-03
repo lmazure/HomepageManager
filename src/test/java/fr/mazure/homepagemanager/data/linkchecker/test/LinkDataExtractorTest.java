@@ -625,6 +625,22 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchDomainOfScienceIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=bD2M7P6dTVA";
+        final String expectedXml = """
+                <ARTICLE><X><T>The Map of Superconductivity</T>\
+                <A>https://www.youtube.com/watch?v=bD2M7P6dTVA</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>23</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Dominic</FIRSTNAME><LASTNAME>Walliman</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2021</YEAR><MONTH>7</MONTH><DAY>3</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeWatchDrBeckyIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=6v72L_1L4lQ";
         final String expectedXml = """
