@@ -12,7 +12,6 @@ import fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentChecke
 import fr.mazure.homepagemanager.data.linkchecker.oracleblogs.OracleBlogsLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.quantamagazine.QuantaMagazineLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.stackoverflowblog.StackOverflowBlogContentChecker;
-import fr.mazure.homepagemanager.data.linkchecker.twitter.TwitterLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.wired.WiredLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.youtubechanneluser.YoutubeChannelUserLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentChecker;
@@ -76,10 +75,6 @@ public class LinkContentCheckerFactory {
 
         if (url.startsWith("https://medium.com/")) {
             return new MediumLinkContentChecker(url, linkData, articleData, file);
-        }
-
-        if (url.startsWith("https://twitter.com/")) {
-            return new TwitterLinkContentChecker(url, linkData, articleData, file);
         }
 
         if (url.startsWith("https://www.wired.com/")) {

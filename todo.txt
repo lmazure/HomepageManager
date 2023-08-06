@@ -8,19 +8,48 @@ branches      44.5%    77.5%
 lines         65.6%    94.0%
 methods       53.0%    97.2%
 
+gérer
+fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://medium.com/@kentbeck_7670/programmer-test-principles-d01c064d7934"
+    at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:73)
+    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:296)
+    at fr.mazure.homepagemanager.data.internet.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
+    at fr.mazure.homepagemanager.data.internet.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
+    at fr.mazure.homepagemanager.data.internet.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:34)
+    at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+    at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+    at java.base/java.lang.Thread.run(Thread.java:1589)
+Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find title in Medium
+    at fr.mazure.homepagemanager.data.linkchecker.TextParser.extract(TextParser.java:59)
+    at fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentParser.loadData(MediumLinkContentParser.java:128)
+    at fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentParser.getTitle(MediumLinkContentParser.java:78)
+    at fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkLinkTitle(ExtractorBasedLinkContentChecker.java:61)
+    at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:90)
+    at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:71)
+    ... 7 more
+
 gérer java.lang.UnsupportedOperationException: https://awstats.sourceforge.io/|503→
 
 gérer java.lang.UnsupportedOperationException: https://www.wired.com/story/database-humans-messing-with-evolution/|502→
 
-réparer redirection infinie de twiter  https://twitter.com/DEFAKATOR_Off
+réparer redirection infinie de twitter  https://twitter.com/DEFAKATOR_Off
+le premier GET met un coockie et redirige vers la page elle-même
+requête qui contient l'information
+GET https://twitter.com/i/api/graphql/SAMkL5y_N9pmahSw8yy6gw/UserByScreenName?variables={"screen_name":"gitlabstatus","withSafetyModeUserFields":true}&features={"hidden_profile_likes_enabled":false,"hidden_profile_subscriptions_enabled":true,"responsive_web_graphql_exclude_directive_enabled":true,"verified_phone_label_enabled":false,"subscriptions_verification_info_is_identity_verified_enabled":false,"subscriptions_verification_info_verified_since_enabled":true,"highlights_tweets_tab_ui_enabled":true,"creator_subscriptions_tweet_preview_api_enabled":true,"responsive_web_graphql_skip_user_profile_image_extensions_enabled":false,"responsive_web_graphql_timeline_navigation_enabled":true}&fieldToggles={"withAuxiliaryUserLabels":false}
+l'information est dans data>user>result>legacy>description
 
-crash sur URL tps://lekitblob.fr/en/blob-main-page
+crash sur URL tps://lekitblob.fr/en/blob-main-page (il manque les deux premier caractères)
 
 réparer test direct403
 
-==== merge =====
+ajouter la vérification des <FEED>s
 
-- ajouter la vérification des <FEED>s
+
+==== potentially after merge =====
+
+gesion des podcasts Quanta Magazine
+
+
+==== after merge =====
 
 nettoyer links/chrome.xml
 
