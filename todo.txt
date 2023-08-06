@@ -9,23 +9,18 @@ lines         65.6%    94.0%
 methods       53.0%    97.2%
 
 gérer
-fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://medium.com/@kentbeck_7670/programmer-test-principles-d01c064d7934"
-    at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:73)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:296)
-    at fr.mazure.homepagemanager.data.internet.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-    at fr.mazure.homepagemanager.data.internet.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-    at fr.mazure.homepagemanager.data.internet.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:34)
-    at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
-    at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
-    at java.base/java.lang.Thread.run(Thread.java:1589)
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find title in Medium
-    at fr.mazure.homepagemanager.data.linkchecker.TextParser.extract(TextParser.java:59)
-    at fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentParser.loadData(MediumLinkContentParser.java:128)
-    at fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentParser.getTitle(MediumLinkContentParser.java:78)
-    at fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkLinkTitle(ExtractorBasedLinkContentChecker.java:61)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:90)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:71)
-    ... 7 more
+Title = "YouTube"
+URL = https://www.youtube.com/c/ReportPortal
+Expected status = OK
+Effective HTTP code = 302 Found
+Effective HTTP code of last redirection = 200 OK
+Redirection chain = https://www.youtube.com/c/ReportPortal → https://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fc%2FReportPortal%3Fcbrd%3D1&gl=FR&m=0&pc=yt&cm=2&hl=en&src=1 → https://consent.youtube.com/ml?continue=https://www.youtube.com/c/ReportPortal?cbrd%3D1&gl=FR&hl=en&cm=2&pc=yt&src=1
+Redirection matcher = redirection ending in success (last URL should be used)
+Redirection matcher expected statuses = 
+Look for article = https://www.google.com/search?q=%22YouTube%22
+
+réparer les tests unitaires d'Oracle
+cela à l'air d'être les posts de https://blogs.oracle.com/java/category/j-java-technology
 
 gérer java.lang.UnsupportedOperationException: https://awstats.sourceforge.io/|503→
 
