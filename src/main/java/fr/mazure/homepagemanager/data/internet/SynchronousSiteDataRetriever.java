@@ -151,7 +151,7 @@ public class SynchronousSiteDataRetriever {
      * @param doNotUseCookies if true, cookies will not be recorded and resend while following redirections
      * @return payload
      * @throws IOException exception if the payload could not be retrieved
-     * @throws NotGzipException
+     * @throws NotGzipException The payload is not gzipped
      */
     public String getGzippedContent(final String url,
                                     final boolean doNotUseCookies) throws IOException, NotGzipException {
@@ -286,23 +286,24 @@ public class SynchronousSiteDataRetriever {
         if (uri == null) return;
 
         final Map<String, List<String>> headerFields = connection.getHeaderFields();
-        final List<String> cookies = headerFields.get("Set-Cookie");
-        if (cookies != null) {
-            for (final String cookie: cookies) {
-                List<HttpCookie> list = new LinkedList<>();
-                try {
-                    list = HttpCookie.parse(cookie);
-                } catch (final IllegalArgumentException e) {
-                    Logger.log(Logger.Level.ERROR)
-                          .append(url)
-                          .append(" has an invalid cookie value: \"")
-                          .append(cookie)
-                          .appendln("\" ")
-                          .append(e)
-                          .submit();
-                }
-                for (final HttpCookie c: list) {
-                    cookieManager.getCookieStore().add(uri, c);
+        for (final Map.Entry<String, List<String>> entry: headerFields.entrySet()) {
+            if ((entry.getKey() != null) && entry.getKey().equalsIgnoreCase("set-cookie")) {
+                for (final String cookie: entry.getValue()) {
+                    List<HttpCookie> list = new LinkedList<>();
+                    try {
+                        list = HttpCookie.parse(cookie);
+                    } catch (final IllegalArgumentException e) {
+                        Logger.log(Logger.Level.ERROR)
+                              .append(url)
+                              .append(" has an invalid cookie value: \"")
+                              .append(cookie)
+                              .appendln("\" ")
+                              .append(e)
+                              .submit();
+                    }
+                    for (final HttpCookie c: list) {
+                        cookieManager.getCookieStore().add(uri, c);
+                    }
                 }
             }
         }

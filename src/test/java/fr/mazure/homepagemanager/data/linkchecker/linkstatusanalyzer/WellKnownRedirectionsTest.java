@@ -24,10 +24,10 @@ class WellKnownRedirectionsTest {
         })
     void directSuccess(final String url) {
         test(url,
-                    false,
-                    Integer.valueOf(200),
-                    "direct success",
-                    Set.of(LinkStatus.OK, LinkStatus.ZOMBIE, LinkStatus.OBSOLETE));
+             false,
+             Integer.valueOf(200),
+             "direct success",
+             Set.of(LinkStatus.OK, LinkStatus.ZOMBIE, LinkStatus.OBSOLETE));
     }
 
     // URLs giving directly a 403
@@ -37,10 +37,10 @@ class WellKnownRedirectionsTest {
         })
     void direct403(final String url) {
         test(url,
-                    false,
-                    Integer.valueOf(403),
-                    "direct failure",
-                    Set.of(LinkStatus.DEAD));
+             false,
+             Integer.valueOf(403),
+             "direct failure",
+             Set.of(LinkStatus.DEAD));
     }
 
     // URLs giving directly a 404
@@ -50,10 +50,10 @@ class WellKnownRedirectionsTest {
         })
     void direct404(final String url) {
         test(url,
-                    false,
-                    Integer.valueOf(404),
-                    "direct failure",
-                    Set.of(LinkStatus.DEAD));
+             false,
+             Integer.valueOf(404),
+             "direct failure",
+             Set.of(LinkStatus.DEAD));
     }
 
     // URLs giving directly a 410
@@ -64,23 +64,24 @@ class WellKnownRedirectionsTest {
         })
     void direct410(final String url) {
         test(url,
-                    false,
-                    Integer.valueOf(410),
-                    "direct failure",
-                    Set.of(LinkStatus.DEAD));
+             false,
+             Integer.valueOf(410),
+             "direct failure",
+             Set.of(LinkStatus.DEAD));
     }
 
     @ParameterizedTest
     @CsvSource({
         "https://www.4d.com",
-        " https://www.ibm.com"
+        "https://www.ibm.com",
+        "https://twitter.com/dlouapre"
         })
     void redirectionsEndingInSuccess(final String url) {
         test(url,
-                    true,
-                    Integer.valueOf(200),
-                    "redirection ending in success (last URL should be used)",
-                    Set.of());
+             true,
+             Integer.valueOf(200),
+             "redirection ending in success (last URL should be used)",
+             Set.of());
     }
 
     @ParameterizedTest
@@ -89,10 +90,10 @@ class WellKnownRedirectionsTest {
         })
     void redirectionsEndingWith403(final String url) {
         test(url,
-                    true,
-                    Integer.valueOf(403),
-                    "redirection ending with an error code",
-                    Set.of(LinkStatus.DEAD));
+             true,
+             Integer.valueOf(403),
+             "redirection ending with an error code",
+             Set.of(LinkStatus.DEAD));
     }
 
 
@@ -102,10 +103,10 @@ class WellKnownRedirectionsTest {
         })
     void redirectionsEndingWith404(final String url) {
         test(url,
-                    true,
-                    Integer.valueOf(404),
-                    "redirection ending with an error code",
-                    Set.of(LinkStatus.DEAD));
+             true,
+             Integer.valueOf(404),
+             "redirection ending with an error code",
+             Set.of(LinkStatus.DEAD));
     }
 
     @ParameterizedTest
@@ -115,10 +116,10 @@ class WellKnownRedirectionsTest {
         })
     void youtubeChannel(final String url) {
         test(url,
-                    true,
-                    Integer.valueOf(200),
-                    "from Youtube channel to cookies configuration",
-                    Set.of(LinkStatus.OK));
+             true,
+             Integer.valueOf(200),
+             "from Youtube channel to cookies configuration",
+             Set.of(LinkStatus.OK));
     }
 
     @ParameterizedTest
@@ -127,10 +128,10 @@ class WellKnownRedirectionsTest {
         })
     void youtubeUser(final String url) {
         test(url,
-                    true,
-                    Integer.valueOf(200),
-                    "from Youtube user to cookies configuration",
-                    Set.of(LinkStatus.OK));
+             true,
+             Integer.valueOf(200),
+             "from Youtube user to cookies configuration",
+             Set.of(LinkStatus.OK));
     }
 
     @ParameterizedTest
@@ -139,10 +140,10 @@ class WellKnownRedirectionsTest {
         })
     void medium(final String url) {
         test(url,
-                    true,
-                    Integer.valueOf(200),
-                    "Medium analytics",
-                    Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
+             true,
+             Integer.valueOf(200),
+             "Medium analytics",
+             Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
     }
 
     private void test(final String url,

@@ -63,7 +63,7 @@ public class IbmLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-        "https://developer.ibm.com/articles/j-java-streams-1-brian-goetz/£Archived | An introduction to the java.util.stream library",
+        "https://developer.ibm.com/articles/j-java-streams-1-brian-goetz/£An introduction to the java.util.stream library",
         }, delimiter = '£')
     void testTitle(final String url,
                    final String expectedTitle) {

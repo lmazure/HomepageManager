@@ -1,4 +1,4 @@
-warnings = 215
+warnings = 208
 lines prod = 9514
 lines test = 3939
 test coverage =
@@ -26,12 +26,6 @@ gérer java.lang.UnsupportedOperationException: https://awstats.sourceforge.io/|
 
 gérer java.lang.UnsupportedOperationException: https://www.wired.com/story/database-humans-messing-with-evolution/|502→
 
-réparer redirection infinie de twitter  https://twitter.com/DEFAKATOR_Off
-le premier GET met un coockie et redirige vers la page elle-même
-requête qui contient l'information
-GET https://twitter.com/i/api/graphql/SAMkL5y_N9pmahSw8yy6gw/UserByScreenName?variables={"screen_name":"gitlabstatus","withSafetyModeUserFields":true}&features={"hidden_profile_likes_enabled":false,"hidden_profile_subscriptions_enabled":true,"responsive_web_graphql_exclude_directive_enabled":true,"verified_phone_label_enabled":false,"subscriptions_verification_info_is_identity_verified_enabled":false,"subscriptions_verification_info_verified_since_enabled":true,"highlights_tweets_tab_ui_enabled":true,"creator_subscriptions_tweet_preview_api_enabled":true,"responsive_web_graphql_skip_user_profile_image_extensions_enabled":false,"responsive_web_graphql_timeline_navigation_enabled":true}&fieldToggles={"withAuxiliaryUserLabels":false}
-l'information est dans data>user>result>legacy>description
-
 crash sur URL tps://lekitblob.fr/en/blob-main-page (il manque les deux premier caractères)
 
 réparer test direct403
@@ -45,6 +39,10 @@ gesion des podcasts Quanta Magazine
 
 
 ==== after merge =====
+
+support de twitter : requête qui contient l'information
+GET https://twitter.com/i/api/graphql/SAMkL5y_N9pmahSw8yy6gw/UserByScreenName?variables={"screen_name":"gitlabstatus","withSafetyModeUserFields":true}&features={"hidden_profile_likes_enabled":false,"hidden_profile_subscriptions_enabled":true,"responsive_web_graphql_exclude_directive_enabled":true,"verified_phone_label_enabled":false,"subscriptions_verification_info_is_identity_verified_enabled":false,"subscriptions_verification_info_verified_since_enabled":true,"highlights_tweets_tab_ui_enabled":true,"creator_subscriptions_tweet_preview_api_enabled":true,"responsive_web_graphql_skip_user_profile_image_extensions_enabled":false,"responsive_web_graphql_timeline_navigation_enabled":true}&fieldToggles={"withAuxiliaryUserLabels":false}
+l'information est dans data>user>result>legacy>description
 
 nettoyer links/chrome.xml
 
