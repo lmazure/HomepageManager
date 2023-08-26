@@ -206,11 +206,11 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                           : _data.contains("\"playabilityStatus\":{\"status\":\"OK\"");
     }
 
-    private String extractField(final String str) throws ContentParserException {
+    private String extractField(final String field) throws ContentParserException {
         String text = null;
 
-        final Pattern p = Pattern.compile(_isEscaped ? ("\\\\\"" + str + "\\\\\":\\\\\"(.+?)(?<!\\\\\\\\)\\\\\"")
-                                                     : (",\"" + str + "\":\"(.+?)(?<!\\\\)\""));
+        final Pattern p = Pattern.compile(_isEscaped ? ("\\\\\"" + field + "\\\\\":\\\\\"(.+?)(?<!\\\\\\\\)\\\\\"")
+                                                     : (",\"" + field + "\":\"(.+?)(?<!\\\\)\""));
         final Matcher m = p.matcher(_data);
         while (m.find()) {
             final String t = m.group(1);
@@ -218,13 +218,13 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                 text = t;
             } else {
                 if (!text.equals(t)) {
-                    throw new ContentParserException("Found different " + str + " texts in YouTube watch page");
+                    throw new ContentParserException("Found different " + field + " texts in YouTube watch page: \"" + text + "\" vs. \"" + t + "\"");
                 }
             }
         }
 
         if (text == null) {
-            throw new ContentParserException("Failed to extract " + str + " text from YouTube watch page ");
+            throw new ContentParserException("Failed to extract " + field + " text from YouTube watch page");
         }
 
         if (_isEscaped) {

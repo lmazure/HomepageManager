@@ -89,18 +89,24 @@ public class YoutubeWatchLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
-    @Test
-    void testTitle() {
+    @ParameterizedTest
+    @CsvSource(value = {
+            "https://www.youtube.com/watch?v=_kGqkxQo-Tw|Alain Aspect - Le photon onde ou particule ? L’étrangeté quantique mise en lumière",
+            "https://www.youtube.com/watch?v=C2Tw0BeZb8Q|Scott Schiller: Web Audio - HTML5 + Flash (in a tree)",
+            "https://www.youtube.com/watch?v=EcPPjZVB2vA|L'INCROYABLE HISTOIRE DE LA CONJECTURE DE FERMAT CMH#14",
+            "https://www.youtube.com/watch?v=hcACC8LXokU|FLIP, L'émission quotidienne - Les Escapes Games"
+              }, delimiter = '|')
+    void testTitle(final String url,
+                   final String expectedTitle) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        final String url = "https://www.youtube.com/watch?v=_kGqkxQo-Tw";
         retriever.retrieve(url,
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
                                try {
-                                   Assertions.assertEquals("Alain Aspect - Le photon onde ou particule ? L’étrangeté quantique mise en lumière", parser.getTitle());
+                                   Assertions.assertEquals(expectedTitle, parser.getTitle());
                                } catch (final ContentParserException e) {
                                    Assertions.fail("getTitle threw " + e.getMessage());
                                }
