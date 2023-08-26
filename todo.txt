@@ -8,6 +8,15 @@ branches      44.5%    77.5%
 lines         65.6%    94.0%
 methods       53.0%    97.2%
 
+pourquoi y a t il
+    public YoutubeWatchLinkContentParserNew(final String url,
+                                            final String data) throws ContentParserException {
+        super(UrlHelper.removeQueryParameters(url, "app",
+                                                   "feature",
+                                                   "index",
+                                                   "list",
+                                                   "t"));
+
 gérer
 java.lang.UnsupportedOperationException: https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→
     at fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.getMatch(WellKnownRedirections.java:151)
