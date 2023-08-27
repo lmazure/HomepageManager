@@ -21,7 +21,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 */
 public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChecker {
 
-    private YoutubeWatchLinkContentParserNew _parser;
+    private YoutubeWatchLinkContentParser _parser;
 
     /**
      * @param url URL of the link to check
@@ -33,13 +33,13 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
                                           final LinkData linkData,
                                           final Optional<ArticleData> articleData,
                                           final FileSection file) {
-        super(url, linkData, articleData, file, (LinkDataExtractorBuilder)YoutubeWatchLinkContentParserNew::new);
+        super(url, linkData, articleData, file, (LinkDataExtractorBuilder)YoutubeWatchLinkContentParser::new);
     }
 
     @Override
     protected LinkContentCheck checkGlobalData(final String data) throws ContentParserException {
         super.checkGlobalData(data);
-        _parser = (YoutubeWatchLinkContentParserNew)(getParser()); // TODO cleanup this crap
+        _parser = (YoutubeWatchLinkContentParser)(getParser()); // TODO cleanup this crap
         if (!_parser.isPlayable()) {
             return new LinkContentCheck("VideoNotPlayable",
                                         "video is not playable",
