@@ -16,7 +16,7 @@ import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 
 /**
- * Tests of YoutubeWatchLinkContentParser
+ * Tests of WiredLinkContentParser
  *
  */
 public class WiredLinkContentParserTest {

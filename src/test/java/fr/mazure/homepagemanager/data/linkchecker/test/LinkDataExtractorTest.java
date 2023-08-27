@@ -355,7 +355,7 @@ public class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>L'erreur Excel qui a coûté la vie à 1500 personnes 💀</T>\
                 <A>https://www.youtube.com/watch?v=VubMw46DK0U</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>0</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>1</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Nathan</FIRSTNAME><LASTNAME>Uyttendaele</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>2</MONTH><DAY>17</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -425,13 +425,13 @@ public class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Busy Beaver Turing Machines - Computerphile</T>\
                 <A>https://www.youtube.com/watch?v=CE8UhcyJS0I</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>17</MINUTE><SECOND>55</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>17</MINUTE><SECOND>56</SECOND></DURATION></X>\
                 <DATE><YEAR>2014</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Busy Beaver Turing Machines - Computerphile</T>\
                 <A>https://www.youtube.com/watch?v=CE8UhcyJS0I</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>17</MINUTE><SECOND>55</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>17</MINUTE><SECOND>56</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>David</FIRSTNAME><MIDDLENAME>F.</MIDDLENAME><LASTNAME>Brailsford</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2014</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1858,7 +1858,7 @@ public class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Find your own ABC Conjecture Triple</T>\
                 <A>https://www.youtube.com/watch?v=ueEOHk1UzrA</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>28</MINUTE><SECOND>15</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>28</MINUTE><SECOND>16</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Matt</FIRSTNAME><LASTNAME>Parker</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>8</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2019,7 +2019,7 @@ public class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>10 Must Know Git Commands That Almost Nobody Knows</T>\
                 <A>https://www.youtube.com/watch?v=mnmYwRoSisg</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>15</MINUTE><SECOND>21</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>15</MINUTE><SECOND>22</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Kyle</FIRSTNAME><LASTNAME>Cook</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>19</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";

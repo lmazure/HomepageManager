@@ -14,7 +14,7 @@ import fr.mazure.homepagemanager.data.linkchecker.oracleblogs.OracleBlogsLinkCon
 import fr.mazure.homepagemanager.data.linkchecker.quantamagazine.QuantaMagazineLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.stackoverflowblog.StackOverflowBlogContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.wired.WiredLinkContentParser;
-import fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser;
+import fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentParserNew;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 
@@ -65,7 +65,7 @@ public class LinkDataExtractorFactory {
         } else if (u.startsWith("https://stackoverflow.blog/")) {
             constructor = StackOverflowBlogContentParser::new;
         } else if (u.startsWith("https://www.youtube.com/watch?")) {
-            constructor = YoutubeWatchLinkContentParser::new;
+            constructor = YoutubeWatchLinkContentParserNew::new;
         } else if (u.startsWith("https://about.gitlab.com/blog/")) {
             constructor = GitlabBlogLinkContentParser::new;
         } else if (u.startsWith("https://www.wired.com/")) {
