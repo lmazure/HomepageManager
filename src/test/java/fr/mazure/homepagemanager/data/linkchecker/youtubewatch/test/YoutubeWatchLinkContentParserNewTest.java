@@ -413,6 +413,32 @@ public class YoutubeWatchLinkContentParserNewTest {
     }
 
     @ParameterizedTest
+    @CsvSource(value = {
+            "https://www.youtube.com/watch?v=QAU9psRDPZg|de",
+            "https://www.youtube.com/watch?v=laty3vXKRek|ko",
+            "https://www.youtube.com/watch?v=HEfHFsfGXjs|nl",
+              }, delimiter = '|')
+    void testWeirdSubtitles(final String url,
+                            final String expectedLanguage) {
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(url,
+                           (final Boolean b, final FullFetchedLinkData d) -> {
+                               Assertions.assertTrue(d.dataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
+                               final YoutubeWatchLinkContentParserNew parser = buildParser(data, url);
+                               try {
+                                   Assertions.assertEquals(expectedLanguage, parser.getSubtitlesLanguage().get().toString());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getSubtitlesLanguage threw " + e.getMessage());
+                               }
+                               consumerHasBeenCalled.set(true);
+                           },
+                           false);
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    @ParameterizedTest
     @ValueSource(strings = {
             "https://www.youtube.com/watch?v=CfRSVPhzN5M"
                            })

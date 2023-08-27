@@ -8,6 +8,14 @@ branches      44.5%    77.5%
 lines         65.6%    94.0%
 methods       53.0%    97.2%
 
+gérer
+https://www.youtube.com/watch?v=b3cTYn6_2sY
+language is "en" but this one is unexpected, the expected languages are: fr
+https://www.youtube.com/watch?v=laty3vXKRek
+language is "ko" but this one is unexpected, the expected languages are: en
+
+implémenter autocorrection des durées
+
 pourquoi y a t il
     public YoutubeWatchLinkContentParserNew(final String url,
                                             final String data) throws ContentParserException {
@@ -46,62 +54,6 @@ java.lang.UnsupportedOperationException: https://www.htmlgoodies.com/html5/revie
 
 gérer le nettoyage des URLs telle que
 https://www.youtube.com/watch?app=desktop&v=iCEe6E9Yr9c&embeds_referring_euri=https%3A%2F%2Fwww.l214.com%2F&embeds_referring_origin=https%3A%2F%2Fwww.l214.com&source_ve_path=Mjg2NjY&feature=emb_logo
-
-gérer
-fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://www.youtube.com/watch?v=C2Tw0BeZb8Q"
-    at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:73)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:296)
-    at fr.mazure.homepagemanager.data.internet.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:45)
-    at fr.mazure.homepagemanager.data.internet.SiteDataRetriever.retrieve(SiteDataRetriever.java:36)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.launch(LinkCheckRunner.java:156)
-    at fr.mazure.homepagemanager.data.LinkChecker.handleCreation(LinkChecker.java:55)
-    at fr.mazure.homepagemanager.data.FileEventQueue.handleFileCreation(FileEventQueue.java:131)
-    at fr.mazure.homepagemanager.data.FileEventQueue$Consumer.run(FileEventQueue.java:195)
-    at java.base/java.lang.Thread.run(Thread.java:1589)
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Found different title texts in YouTube watch page
-    at fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser.extractField(YoutubeWatchLinkContentParser.java:221)
-    at fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser.getTitle(YoutubeWatchLinkContentParser.java:92)
-    at fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkLinkTitle(ExtractorBasedLinkContentChecker.java:61)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:90)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:71)
-    ... 8 more
-
-gérer
-fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://www.youtube.com/watch?v=EcPPjZVB2vA"
-    at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:73)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:296)
-    at fr.mazure.homepagemanager.data.internet.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:45)
-    at fr.mazure.homepagemanager.data.internet.SiteDataRetriever.retrieve(SiteDataRetriever.java:36)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.launch(LinkCheckRunner.java:156)
-    at fr.mazure.homepagemanager.data.LinkChecker.handleCreation(LinkChecker.java:55)
-    at fr.mazure.homepagemanager.data.FileEventQueue.handleFileCreation(FileEventQueue.java:131)
-    at fr.mazure.homepagemanager.data.FileEventQueue$Consumer.run(FileEventQueue.java:195)
-    at java.base/java.lang.Thread.run(Thread.java:1589)
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Found different title texts in YouTube watch page
-    at fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser.extractField(YoutubeWatchLinkContentParser.java:221)
-    at fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser.getTitle(YoutubeWatchLinkContentParser.java:92)
-    at fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkLinkTitle(ExtractorBasedLinkContentChecker.java:61)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:90)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:71)
-    ... 8 more
-
-gérer
-fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://www.youtube.com/watch?v=hcACC8LXokU"
-    at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:73)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:296)
-    at fr.mazure.homepagemanager.data.internet.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-    at fr.mazure.homepagemanager.data.internet.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-    at fr.mazure.homepagemanager.data.internet.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:34)
-    at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
-    at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
-    at java.base/java.lang.Thread.run(Thread.java:1589)
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Found different title texts in YouTube watch page
-    at fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser.extractField(YoutubeWatchLinkContentParser.java:221)
-    at fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser.getTitle(YoutubeWatchLinkContentParser.java:92)
-    at fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkLinkTitle(ExtractorBasedLinkContentChecker.java:61)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:90)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:71)
-    ... 7 more
 
 gérer
 java.lang.UnsupportedOperationException: https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→
