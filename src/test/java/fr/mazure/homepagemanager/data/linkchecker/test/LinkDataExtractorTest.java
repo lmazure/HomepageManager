@@ -2143,7 +2143,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void arstechnicaQueryParametersAreRemoved1() throws ContentParserException {
+    void arstechnicaQueryParametersAreRemoved() throws ContentParserException {
         final String url = "https://arstechnica.com/information-technology/2022/11/nvidia-wins-award-for-ai-that-can-play-minecraft-on-command/?comments=1&comments-page=1";
         final String expectedXml = """
                 <ARTICLE><X><T>Nvidia AI plays Minecraft, wins machine-learning conference award</T>\
@@ -2160,7 +2160,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeQueryParametersAreRemoved1() throws ContentParserException {
+    void youtubeQueryParametersAreRemoved() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?app=desktop&v=iCEe6E9Yr9c&embeds_referring_euri=https%3A%2F%2Fwww.l214.com%2F&embeds_referring_origin=https%3A%2F%2Fwww.l214.com&source_ve_path=Mjg2NjY&feature=emb_logo";
         final String expectedXml = """
                 <ARTICLE><X><T>Enquête inédite : l’enfer des cages pour les pintades du groupe LDC</T>\

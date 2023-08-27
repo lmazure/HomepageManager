@@ -414,10 +414,11 @@ public class YoutubeWatchLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-            "https://www.youtube.com/watch?v=QAU9psRDPZg|de",
-            "https://www.youtube.com/watch?v=laty3vXKRek|ko",
-            "https://www.youtube.com/watch?v=HEfHFsfGXjs|nl",
-            "https://www.youtube.com/watch?v=-JcoFa5ieyA|vi",
+            "https://www.youtube.com/watch?v=QAU9psRDPZg|German",
+            "https://www.youtube.com/watch?v=laty3vXKRek|Korean",
+            "https://www.youtube.com/watch?v=HEfHFsfGXjs|Dutch",
+            "https://www.youtube.com/watch?v=dQXVn7pFsVI|Portuguese",
+            "https://www.youtube.com/watch?v=-JcoFa5ieyA|Vietnamese",
               }, delimiter = '|')
     void testWeirdSubtitles(final String url,
                             final String expectedLanguage) {
@@ -429,7 +430,7 @@ public class YoutubeWatchLinkContentParserTest {
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
                                try {
-                                   Assertions.assertEquals(expectedLanguage, parser.getSubtitlesLanguage().get().toString());
+                                   Assertions.assertEquals(expectedLanguage, parser.getSubtitlesLanguage().get().getDisplayLanguage(Locale.ENGLISH));
                                } catch (final ContentParserException e) {
                                    Assertions.fail("getSubtitlesLanguage threw " + e.getMessage());
                                }

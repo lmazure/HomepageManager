@@ -27,8 +27,16 @@ public class LinkStatusAnalyzer {
         return expectedStatuses.contains(expectedData.getStatus());
     }
 
+    /**
+     * @param effectiveData data as retrieved from Internet
+     * @return true if maximum number of redirection has been reached
+     */
+    public static boolean hasMaximumNumberOfRedirectionsBeenReached(final FullFetchedLinkData effectiveData) {
+        return numberOfRedirections(effectiveData) == SynchronousSiteDataRetriever.getMaximumNumberOfRedirections();
+    }
+
     private static Set<LinkStatus> getPossibleStatuses(final FullFetchedLinkData effectiveData) {
-        if (numberOfRedirections(effectiveData) == SynchronousSiteDataRetriever.getMaximumNumberOfRedirections()) {
+        if (hasMaximumNumberOfRedirectionsBeenReached(effectiveData)) {
             return Set.of(LinkStatus.DEAD);
         }
         return _redirectionData.getMatch(effectiveData).statuses();

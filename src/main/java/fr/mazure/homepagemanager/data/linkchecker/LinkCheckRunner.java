@@ -443,9 +443,13 @@ public class LinkCheckRunner {
             }
             builder.append("Redirection chain = " + descriptionOfRedirectionChain + "\n");
         }
-        final Match match = _redirectionData.getMatch(effectiveData);
-        builder.append("Redirection matcher = " + match.name() + "\n");
-        builder.append("Redirection matcher expected statuses = " + match.statuses().stream().map(s -> s.toString()).collect(Collectors.joining( "," )) + "\n");
+        if (LinkStatusAnalyzer.hasMaximumNumberOfRedirectionsBeenReached(effectiveData)) {
+            builder.append("The maximum number of redirections has been reached.\n");            
+        } else {
+            final Match match = _redirectionData.getMatch(effectiveData);
+            builder.append("Redirection matcher = " + match.name() + "\n");
+            builder.append("Redirection matcher expected statuses = " + match.statuses().stream().map(s -> s.toString()).collect(Collectors.joining( "," )) + "\n");
+        }
         final StringBuilder googleUrl = new StringBuilder("https://www.google.com/search?q=%22" +
                                                           URLEncoder.encode(expectedData.getTitle(), StandardCharsets.UTF_8) +
                                                          "%22");

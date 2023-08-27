@@ -9,6 +9,21 @@ lines         65.6%    94.0%
 methods       53.0%    97.2%
 
 
+voir gestion des redirection sinfinies de
+https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html
+
+on peut gérer ces cas
+Title = "Springer"
+URL = https://link.springer.com/
+Expected status = OK
+Effective HTTP code = 302 Found
+Effective HTTP code of last redirection = 200 OK
+Redirection chain = https://link.springer.com/ → https://idp.springer.com/authorize?redirect_uri=https://link.springer.com/&client_id=springerlink&response_type=cookie → https://idp.springer.com/transit?redirect_uri=https%3A%2F%2Flink.springer.com%2F&code=563545a8-7caf-448e-9b4e-1ec566f4754c → https://link.springer.com/
+Redirection matcher = redirection ending in success (last URL should be used)
+Redirection matcher expected statuses = 
+Look for article = https://www.google.com/search?q=%22Springer%22
+en ignorant lorsque la chaîne de redirection ramène au point de départ
+je crois que c'est aussi le cas de twitter
 
 réparer les tests unitaires d'Oracle
 cela à l'air d'être les posts de https://blogs.oracle.com/java/category/j-java-technology
@@ -23,32 +38,6 @@ language is "ko" but this one is unexpected, the expected languages are: en
 implémenter autocorrection des durées
 
 réparer unit tests
-
-gérer
-java.lang.UnsupportedOperationException: https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→https://www.papaflammy.engineer/|301→
-    at fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.getMatch(WellKnownRedirections.java:151)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.appendLivenessCheckResult(LinkCheckRunner.java:446)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.writeOutputFile(LinkCheckRunner.java:354)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:327)
-    at fr.mazure.homepagemanager.data.internet.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-    at fr.mazure.homepagemanager.data.internet.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-    at fr.mazure.homepagemanager.data.internet.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:34)
-    at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
-    at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
-    at java.base/java.lang.Thread.run(Thread.java:1589)
-
-gérer
-java.lang.UnsupportedOperationException: https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html|302→
-    at fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.getMatch(WellKnownRedirections.java:151)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.appendLivenessCheckResult(LinkCheckRunner.java:446)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.writeOutputFile(LinkCheckRunner.java:358)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:327)
-    at fr.mazure.homepagemanager.data.internet.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-    at fr.mazure.homepagemanager.data.internet.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-    at fr.mazure.homepagemanager.data.internet.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:34)
-    at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
-    at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
-    at java.base/java.lang.Thread.run(Thread.java:1589)
 
 gérer
 java.lang.UnsupportedOperationException: https://content.time.com/time/world/article/0,8599,2050979,00.html|504→
@@ -74,10 +63,6 @@ Redirection chain = https://www.youtube.com/c/ReportPortal → https://consent.y
 Redirection matcher = redirection ending in success (last URL should be used)
 Redirection matcher expected statuses = 
 Look for article = https://www.google.com/search?q=%22YouTube%22
-
-gérer java.lang.UnsupportedOperationException: https://awstats.sourceforge.io/|503→
-
-gérer java.lang.UnsupportedOperationException: https://www.wired.com/story/database-humans-messing-with-evolution/|502→
 
 crash sur URL tps://lekitblob.fr/en/blob-main-page (il manque les deux premier caractères)
 
@@ -112,12 +97,6 @@ si le programme passe minuit, la vérification de la date de la page croit toujo
 
 nettoyer links/test.xml
 
-accelerate oracle links by caching the intermediary requests
-
-on ne pas faire
-                        dataStream = Optional.of(httpConnection.getInputStream());
-si le code HTTP indique une erreur
-
 Title = "ChatGPT"
 URL = https://chat.openai.com
 Expected status = 
@@ -131,9 +110,6 @@ Expected status =
 Effective error = "Failed to get input stream: java.io.IOException: Server returned HTTP response code: 403 for URL: https://www.nytimes.com/2023/01/15/opinion/ai-chatgpt-lobbying-democracy.html"
 Effective HTTP code = 403 Forbidden
 Look for article = https://www.google.com/search?q=%22How+ChatGPT+Hijacks+Democracy%22
-
-
-comprendre pourquoi certains fichiers sont régénérés au démarrage
 
 fix height of HTML table cells
 → I believe it does not work when we change the text of the cell
