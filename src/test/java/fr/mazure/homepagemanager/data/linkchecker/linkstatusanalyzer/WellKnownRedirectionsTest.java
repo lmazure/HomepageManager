@@ -157,9 +157,9 @@ class WellKnownRedirectionsTest {
                 (final Boolean b, final FullFetchedLinkData d) -> {
                     consumerHasBeenCalled.set(true);
                     if (redirectionIsExpected) {
-                        Assertions.assertNotNull(d.previousRedirection(), "the test data is out-of-date: no redirection was expected");
+                        Assertions.assertNotNull(d.previousRedirection(), "the test data is out-of-date: a redirection was expected");
                     } else {
-                        Assertions.assertNull(d.previousRedirection(), "the test data is out-of-date: a redirection was expected");
+                        Assertions.assertNull(d.previousRedirection(), "the test data is out-of-date: no redirection was expected");
                     }
                     Assertions.assertEquals(expectedCode, getCodeOfLastRedirection(d), "the test data is out-of-date: the expected code is not the expected one");
                     assertMatch(expectedMatcherName, expectedStatuses, d);

@@ -56,9 +56,12 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     public YoutubeWatchLinkContentParser(final String url,
                                             final String data) throws ContentParserException {
         super(UrlHelper.removeQueryParameters(url, "app",
+                                                   "embeds_referring_euri",
+                                                   "embeds_referring_origin",
                                                    "feature",
                                                    "index",
                                                    "list",
+                                                   "source_ve_path",
                                                    "t"));
         ContentParserException exception = null;
         String channel = null;

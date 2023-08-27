@@ -2143,7 +2143,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void queryParametersAreRemoved() throws ContentParserException {
+    void arstechnicaQueryParametersAreRemoved1() throws ContentParserException {
         final String url = "https://arstechnica.com/information-technology/2022/11/nvidia-wins-award-for-ai-that-can-play-minecraft-on-command/?comments=1&comments-page=1";
         final String expectedXml = """
                 <ARTICLE><X><T>Nvidia AI plays Minecraft, wins machine-learning conference award</T>\
@@ -2152,6 +2152,22 @@ public class LinkDataExtractorTest {
                 <L>en</L><F>HTML</F></X>\
                 <AUTHOR><FIRSTNAME>Benj</FIRSTNAME><LASTNAME>Edwards</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>11</MONTH><DAY>28</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
+    void youtubeQueryParametersAreRemoved1() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?app=desktop&v=iCEe6E9Yr9c&embeds_referring_euri=https%3A%2F%2Fwww.l214.com%2F&embeds_referring_origin=https%3A%2F%2Fwww.l214.com&source_ve_path=Mjg2NjY&feature=emb_logo";
+        final String expectedXml = """
+                <ARTICLE><X><T>Enquête inédite : l’enfer des cages pour les pintades du groupe LDC</T>\
+                <A>https://www.youtube.com/watch?v=iCEe6E9Yr9c</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>2</MINUTE><SECOND>19</SECOND></DURATION></X>\
+                <AUTHOR><GIVENNAME>L214 éthique et animaux</GIVENNAME></AUTHOR>\
+                <DATE><YEAR>2023</YEAR><MONTH>8</MONTH><DAY>9</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
