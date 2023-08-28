@@ -1,6 +1,5 @@
 package fr.mazure.homepagemanager.data.linkchecker.test;
 
-
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.jupiter.api.Assertions;

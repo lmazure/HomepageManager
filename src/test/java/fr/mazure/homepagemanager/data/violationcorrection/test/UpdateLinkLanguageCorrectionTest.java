@@ -13,7 +13,6 @@ import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
  */
 public class UpdateLinkLanguageCorrectionTest {
 
-
     @SuppressWarnings("static-method")
     @Test
     void languageIsUpdated() {

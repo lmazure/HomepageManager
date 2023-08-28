@@ -22,7 +22,6 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
  */
 public class StackOverflowBlogContentParserTest {
 
-
     @ParameterizedTest
     @CsvSource({
         "https://stackoverflow.blog/2023/01/24/ai-applications-open-new-security-vulnerabilities/,AI applications open new security vulnerabilities"

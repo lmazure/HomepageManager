@@ -96,7 +96,6 @@ class WellKnownRedirectionsTest {
              Set.of(LinkStatus.DEAD));
     }
 
-
     @ParameterizedTest
     @CsvSource({
         "https://www.gamasutra.com/view/feature/3413/orphans_preferred.php"

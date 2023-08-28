@@ -9,7 +9,7 @@ lines         65.6%    94.0%
 methods       53.0%    97.2%
 
 
-voir gestion des redirection sinfinies de
+voir gestion des redirections infinies de
 https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html
 
 on peut gérer ces cas
@@ -34,8 +34,6 @@ https://www.youtube.com/watch?v=b3cTYn6_2sY
 language is "en" but this one is unexpected, the expected languages are: fr
 https://www.youtube.com/watch?v=laty3vXKRek
 language is "ko" but this one is unexpected, the expected languages are: en
-
-implémenter autocorrection des durées
 
 réparer unit tests
 
