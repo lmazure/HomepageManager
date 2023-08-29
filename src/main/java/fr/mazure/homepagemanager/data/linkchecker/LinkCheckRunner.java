@@ -26,12 +26,12 @@ import org.w3c.dom.NodeList;
 
 import fr.mazure.homepagemanager.data.BackgroundDataController;
 import fr.mazure.homepagemanager.data.FileHandler.Status;
+import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
+import fr.mazure.homepagemanager.data.dataretriever.HeaderFetchedLinkData;
+import fr.mazure.homepagemanager.data.dataretriever.SiteDataRetriever;
 import fr.mazure.homepagemanager.data.Violation;
 import fr.mazure.homepagemanager.data.ViolationDataController;
 import fr.mazure.homepagemanager.data.ViolationLocationUnknown;
-import fr.mazure.homepagemanager.data.internet.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.internet.HeaderFetchedLinkData;
-import fr.mazure.homepagemanager.data.internet.SiteDataRetriever;
 import fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections;
 import fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.Match;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkUrlCorrection;

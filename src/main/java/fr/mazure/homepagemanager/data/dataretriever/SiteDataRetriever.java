@@ -1,4 +1,4 @@
-package fr.mazure.homepagemanager.data.internet;
+package fr.mazure.homepagemanager.data.dataretriever;
 
 import java.nio.file.Path;
 import java.util.function.BiConsumer;

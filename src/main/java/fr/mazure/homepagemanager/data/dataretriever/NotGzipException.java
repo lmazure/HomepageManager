@@ -1,4 +1,4 @@
-package fr.mazure.homepagemanager.data.internet;
+package fr.mazure.homepagemanager.data.dataretriever;
 
 /**
  * Exception used when trying to read a GZIP payload, but it it not gzipped

@@ -1,4 +1,4 @@
-package fr.mazure.homepagemanager.data.internet;
+package fr.mazure.homepagemanager.data.dataretriever;
 
 import java.util.List;
 import java.util.Map;

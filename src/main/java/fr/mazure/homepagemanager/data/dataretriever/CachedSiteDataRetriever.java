@@ -1,4 +1,4 @@
-package fr.mazure.homepagemanager.data.internet;
+package fr.mazure.homepagemanager.data.dataretriever;
 
 import java.time.Instant;
 import java.util.List;

@@ -1,12 +1,12 @@
-package fr.mazure.homepagemanager.data.internet.test;
+package fr.mazure.homepagemanager.data.dataretriever.test;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.mazure.homepagemanager.data.internet.AsynchronousSiteDataRetriever;
-import fr.mazure.homepagemanager.data.internet.FullFetchedLinkData;
+import fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever;
+import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 
 /**
  * Tests of AsynchronousSiteDataRetriever

@@ -1,4 +1,4 @@
-package fr.mazure.homepagemanager.data.internet.test;
+package fr.mazure.homepagemanager.data.dataretriever.test;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import fr.mazure.homepagemanager.data.internet.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.internet.SynchronousSiteDataRetriever;
+import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
+import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.utils.internet.HttpHelper;
 
 /**
