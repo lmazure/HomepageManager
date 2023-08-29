@@ -25,10 +25,6 @@ Look for article = https://www.google.com/search?q=%22Springer%22
 en ignorant lorsque la chaîne de redirection ramène au point de départ
 je crois que c'est aussi le cas de twitter
 
-réparer les tests unitaires d'Oracle
-cela à l'air d'être les posts de https://blogs.oracle.com/java/category/j-java-technology
-
-
 gérer
 https://www.youtube.com/watch?v=b3cTYn6_2sY
 language is "en" but this one is unexpected, the expected languages are: fr
