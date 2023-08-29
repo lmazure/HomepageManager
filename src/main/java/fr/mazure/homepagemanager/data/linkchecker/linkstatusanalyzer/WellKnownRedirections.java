@@ -24,6 +24,11 @@ public class WellKnownRedirections {
 
         _matchers = new ArrayList<>();
 
+        final Set<Integer> successCodes = new HashSet<>();
+        successCodes.add(null);
+        successCodes.add(Integer.valueOf(200));
+        successCodes.add(Integer.valueOf(202));
+
         final Set<Integer> errorCodes = new HashSet<>();
         errorCodes.add(null);
         errorCodes.add(Integer.valueOf(400));
@@ -130,7 +135,7 @@ public class WellKnownRedirections {
         final RedirectionMatcher basicOk = new RedirectionMatcher("direct success",
                                                                   Set.of(LinkStatus.OK, LinkStatus.ZOMBIE, LinkStatus.OBSOLETE));
         basicOk.add("https?://" + RedirectionMatcher.ANY_STRING,
-                    Set.of(Integer.valueOf(200)),
+                    successCodes,
                     RedirectionMatcher.Multiplicity.ONE);
         basicOk.compile();
         _matchers.add(basicOk);

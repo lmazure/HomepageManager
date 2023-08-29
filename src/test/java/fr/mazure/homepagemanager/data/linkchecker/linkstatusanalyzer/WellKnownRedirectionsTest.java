@@ -17,15 +17,28 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkStatus;
 
 class WellKnownRedirectionsTest {
 
-    // URLs giving directly a success
+    // URLs giving directly a 200 (success)
     @ParameterizedTest
     @CsvSource({
         "https://example.com"
         })
-    void directSuccess(final String url) {
+    void direct200(final String url) {
         test(url,
              false,
              Integer.valueOf(200),
+             "direct success",
+             Set.of(LinkStatus.OK, LinkStatus.ZOMBIE, LinkStatus.OBSOLETE));
+    }
+
+    // URLs giving directly a 202 (success)
+    @ParameterizedTest
+    @CsvSource({
+        "https://www.semanticscholar.org/paper/The-Native-POSIX-Thread-Library-for-Linux-Drepper-Molnar/ffced47e5604b66736d365030bfe532d11285433?p2df"
+        })
+    void direct202(final String url) {
+        test(url,
+             false,
+             Integer.valueOf(202),
              "direct success",
              Set.of(LinkStatus.OK, LinkStatus.ZOMBIE, LinkStatus.OBSOLETE));
     }
