@@ -8,7 +8,7 @@ branches      44.5%    77.5%
 lines         65.6%    94.0%
 methods       53.0%    97.2%
 
-corriger problème parsing Stackoverflow
+l'naalyse de links/ecology.xml ne finit jamais
 
 voir gestion des redirections infinies de
 https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html

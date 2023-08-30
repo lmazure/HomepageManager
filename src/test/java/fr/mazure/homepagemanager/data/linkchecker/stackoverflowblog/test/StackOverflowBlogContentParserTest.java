@@ -97,7 +97,8 @@ public class StackOverflowBlogContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://stackoverflow.blog/2023/01/24/ai-applications-open-new-security-vulnerabilities/,Taimur,,Ijlal"
+        "https://stackoverflow.blog/2023/01/24/ai-applications-open-new-security-vulnerabilities/,Taimur,,Ijlal",
+        "https://stackoverflow.blog/2021/09/21/podcast-377-you-dont-need-a-math-phd-to-play-dwarf-fortress-just-to-code-it/,Ryan,,Donovan"
         })
     void testAuthor(final String url,
                     final String expectedFirstName,
