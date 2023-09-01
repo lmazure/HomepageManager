@@ -6,7 +6,6 @@ import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -60,6 +59,27 @@ public class YoutubeWatchLinkContentParserTest {
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
                                try {
                                    Assertions.assertFalse(parser.isPlayable());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("isPlayable threw " + e.getMessage());
+                               }
+                               consumerHasBeenCalled.set(true);
+                           },
+                           false);
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    @Test
+    void testPrivate() {
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        final String url = "https://www.youtube.com/watch?v=xcV4bfEiucs";
+        retriever.retrieve(url,
+                           (final Boolean b, final FullFetchedLinkData d) -> {
+                               Assertions.assertTrue(d.dataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
+                               final YoutubeWatchLinkContentParser parser = buildParser(data, url);
+                               try {
+                                   Assertions.assertTrue(parser.isPrivate());
                                } catch (final ContentParserException e) {
                                    Assertions.fail("isPlayable threw " + e.getMessage());
                                }
@@ -431,30 +451,6 @@ public class YoutubeWatchLinkContentParserTest {
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
                                try {
                                    Assertions.assertEquals(expectedLanguage, parser.getSubtitlesLanguage().get().getDisplayLanguage(Locale.ENGLISH));
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getSubtitlesLanguage threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {
-            "https://www.youtube.com/watch?v=CfRSVPhzN5M"
-                           })
-    @Disabled("I need to find such examples")
-    void testNoSubtitles(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final YoutubeWatchLinkContentParser parser = buildParser(data, url);
-                               try {
-                                   Assertions.assertTrue(parser.getSubtitlesLanguage().isEmpty());
                                } catch (final ContentParserException e) {
                                    Assertions.fail("getSubtitlesLanguage threw " + e.getMessage());
                                }

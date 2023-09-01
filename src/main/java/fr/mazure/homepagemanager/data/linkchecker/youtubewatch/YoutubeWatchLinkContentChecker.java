@@ -41,6 +41,11 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
     protected LinkContentCheck checkGlobalData(final String data) throws ContentParserException {
         super.checkGlobalData(data);
         _parser = (YoutubeWatchLinkContentParser)(getParser()); // TODO cleanup this crap
+        if (_parser.isPrivate()) {
+            return new LinkContentCheck("VideoNotPlayable",
+                                        "video is private",
+                                        Optional.empty());
+        }
         if (!_parser.isPlayable()) {
             return new LinkContentCheck("VideoNotPlayable",
                                         "video is not playable",

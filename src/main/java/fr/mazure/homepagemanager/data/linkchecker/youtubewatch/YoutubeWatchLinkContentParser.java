@@ -36,6 +36,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                          "YouTube",
                          "JSON");
 
+    private final boolean _isPrivate;
     private final boolean _isPlayable;
     private final String _channel;
     private final String _title;
@@ -54,7 +55,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
      * @throws ContentParserException Failure to extract the information
      */
     public YoutubeWatchLinkContentParser(final String url,
-                                            final String data) throws ContentParserException {
+                                         final String data) throws ContentParserException {
         super(UrlHelper.removeQueryParameters(url, "app",
                                                    "embeds_referring_euri",
                                                    "embeds_referring_origin",
@@ -72,14 +73,19 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         int maxDuration = Integer.MIN_VALUE;
         LocalDate uploadDate = null;
         LocalDate publishDate = null;
+        boolean isPrivate = false;
         boolean isPlayable = false;
 
         try {
             final String json = s_jsonParser.extract(data);
             final JSONObject payload = new JSONObject(json);
-            channel = payload.getJSONObject("videoDetails").getString("author");
-            title = payload.getJSONObject("videoDetails").getString("title");
-            description = payload.getJSONObject("videoDetails").getString("shortDescription");
+            if (!payload.has("videoDetails")) {
+                isPrivate = true;
+            } else {
+                channel = payload.getJSONObject("videoDetails").getString("author");
+                title = payload.getJSONObject("videoDetails").getString("title");
+                description = payload.getJSONObject("videoDetails").getString("shortDescription");
+            }
             if (payload.has("captions")) {
                 final JSONArray captions = payload.getJSONObject("captions").getJSONObject("playerCaptionsTracklistRenderer").getJSONArray("captionTracks");
                 String language = null;
@@ -132,8 +138,10 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                     }
                 }
             }
-            uploadDate = LocalDate.parse(payload.getJSONObject("microformat").getJSONObject("playerMicroformatRenderer").getString("uploadDate"));
-            publishDate = LocalDate.parse(payload.getJSONObject("microformat").getJSONObject("playerMicroformatRenderer").getString("publishDate"));
+            if (!isPrivate) {
+                uploadDate = LocalDate.parse(payload.getJSONObject("microformat").getJSONObject("playerMicroformatRenderer").getString("uploadDate"));
+                publishDate = LocalDate.parse(payload.getJSONObject("microformat").getJSONObject("playerMicroformatRenderer").getString("publishDate"));
+            }
             isPlayable = payload.getJSONObject("playabilityStatus").getString("status").equals("OK");
         } catch (final ContentParserException e) {
             exception = e;
@@ -159,9 +167,21 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         _maxDuration = Duration.ofMillis(maxDuration);
         _uploadDate = uploadDate;
         _publishDate = publishDate;
+        _isPrivate = isPrivate;
         _isPlayable = isPlayable;
 
         _exception = exception;
+    }
+
+    /**
+     * @return is the video public or private?
+     * @throws ContentParserException Failure to extract the information
+     */
+    public boolean isPrivate() throws ContentParserException {
+        if (_exception != null) {
+            throw _exception;
+        }
+        return _isPrivate;
     }
 
     /**

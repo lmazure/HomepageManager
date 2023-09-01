@@ -43,6 +43,19 @@ class WellKnownRedirectionsTest {
              Set.of(LinkStatus.OK, LinkStatus.ZOMBIE, LinkStatus.OBSOLETE));
     }
 
+    // URLs giving directly a 401
+    @ParameterizedTest
+    @CsvSource({
+        "https://www.uop.edu.jo/download/research/members/csharp_ebook.pdf"
+        })
+    void direct401(final String url) {
+        test(url,
+             false,
+             Integer.valueOf(401),
+             "direct failure",
+             Set.of(LinkStatus.DEAD));
+    }
+
     // URLs giving directly a 403
     @ParameterizedTest
     @CsvSource({

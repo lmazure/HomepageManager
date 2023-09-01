@@ -32,6 +32,7 @@ public class WellKnownRedirections {
         final Set<Integer> errorCodes = new HashSet<>();
         errorCodes.add(null);
         errorCodes.add(Integer.valueOf(400));
+        errorCodes.add(Integer.valueOf(401));
         errorCodes.add(Integer.valueOf(403));
         errorCodes.add(Integer.valueOf(404));
         errorCodes.add(Integer.valueOf(410));
