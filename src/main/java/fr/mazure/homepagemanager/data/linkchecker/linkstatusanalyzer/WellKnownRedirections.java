@@ -35,8 +35,10 @@ public class WellKnownRedirections {
         errorCodes.add(Integer.valueOf(401));
         errorCodes.add(Integer.valueOf(403));
         errorCodes.add(Integer.valueOf(404));
+        errorCodes.add(Integer.valueOf(409));
         errorCodes.add(Integer.valueOf(410));
         errorCodes.add(Integer.valueOf(500));
+        errorCodes.add(Integer.valueOf(503));
         errorCodes.add(Integer.valueOf(999));  // TODO handle fucking LinkedIn
 
         final Set<Integer> redirectionCodes = new HashSet<>();

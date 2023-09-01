@@ -82,6 +82,19 @@ class WellKnownRedirectionsTest {
              Set.of(LinkStatus.DEAD));
     }
 
+    // URLs giving directly a 409
+    @ParameterizedTest
+    @CsvSource({
+        "http://forums.construx.com/forums/t/432.aspx"
+        })
+    void direct409(final String url) {
+        test(url,
+             false,
+             Integer.valueOf(409),
+             "direct failure",
+             Set.of(LinkStatus.DEAD));
+    }
+
     // URLs giving directly a 410
     @ParameterizedTest
     @CsvSource({
@@ -92,6 +105,19 @@ class WellKnownRedirectionsTest {
         test(url,
              false,
              Integer.valueOf(410),
+             "direct failure",
+             Set.of(LinkStatus.DEAD));
+    }
+
+    // URLs giving directly a 503
+    @ParameterizedTest
+    @CsvSource({
+        "http://www.nplus1executive.com/"
+        })
+    void direct503(final String url) {
+        test(url,
+             false,
+             Integer.valueOf(503),
              "direct failure",
              Set.of(LinkStatus.DEAD));
     }
