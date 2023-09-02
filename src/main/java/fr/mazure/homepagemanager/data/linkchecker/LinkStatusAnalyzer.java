@@ -6,7 +6,6 @@ import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.dataretriever.HeaderFetchedLinkData;
 import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections;
-import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkStatus;
 
 /**
@@ -17,14 +16,14 @@ public class LinkStatusAnalyzer {
     private static final WellKnownRedirections _redirectionData = new WellKnownRedirections();
 
     /**
-     * @param expectedData data as expected in the XML file
+     * @param expectedStatus status as expected in the XML file
      * @param effectiveData data as retrieved from Internet
      * @return true if and only if effectiveData matches expectedData
      */
-    public static boolean doesEffectiveDataMatchesExpectedData(final LinkData expectedData,
+    public static boolean doesEffectiveDataMatchesExpectedData(final LinkStatus expectedStatus,
                                                                final FullFetchedLinkData effectiveData) {
         final Set<LinkStatus> expectedStatuses = getPossibleStatuses(effectiveData);
-        return expectedStatuses.contains(expectedData.getStatus());
+        return expectedStatuses.contains(expectedStatus);
     }
 
     /**

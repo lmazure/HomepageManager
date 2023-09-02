@@ -44,6 +44,7 @@ import fr.mazure.homepagemanager.utils.internet.HttpHelper;
 import fr.mazure.homepagemanager.utils.internet.InvalidHttpCodeException;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
 import fr.mazure.homepagemanager.utils.xmlparsing.ElementType;
+import fr.mazure.homepagemanager.utils.xmlparsing.FeedData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkStatus;
 import fr.mazure.homepagemanager.utils.xmlparsing.XmlHelper;
@@ -58,7 +59,8 @@ public class LinkCheckRunner {
     private static final int s_max_cache_age = 30*24*60*60;
     private final Path _file;
     private final Map<String, FullFetchedLinkData> _effectiveData;
-    private final Map<String, LinkData> _expectedData;
+    private final Map<String, LinkData> _expectedLinkData;
+    private final Map<String, FeedData> _expectedFeedData;
     private final Map<String, ArticleData> _articles;
     private final Map<String, List<LinkContentCheck>> _checks;
     private int _nbSitesRemainingToBeChecked;
@@ -90,7 +92,8 @@ public class LinkCheckRunner {
                            final Path reportFile) {
         _file = file;
         _effectiveData = new TreeMap<>();
-        _expectedData = new HashMap<>();
+        _expectedLinkData = new HashMap<>();
+        _expectedFeedData = new HashMap<>();
         _articles = new HashMap<>();
         _checks = new HashMap<>();
         _isCancelled = false;
@@ -212,39 +215,49 @@ public class LinkCheckRunner {
         final List<String> list = new ArrayList<>();
 
         for (final LinkData linkData: linkDatas) {
-
             final String url = linkData.getUrl();
-            if (url.startsWith("javascript:")) {
-                continue;
+            if (isLinkCheckable(url)) {
+                list.add(url);
+                _expectedLinkData.put(url, linkData);
             }
-            if (url.indexOf(":") < 0) {
-                // local links are checked in a file checker
-                continue;
+            if (linkData.getFeed().isPresent()) {
+                final String urlFeed = linkData.getFeed().get().getUrl();
+                list.add(urlFeed);
+                _expectedFeedData.put(urlFeed, linkData.getFeed().get());
             }
-            if (url.startsWith("ftp:")) {
-                // TODO implement check of FTP links
-                Logger.log(Logger.Level.INFO)
-                      .append("TBD: FTP URL ")
-                      .append(url)
-                      .append(" is not checked")
-                      .submit();
-                continue;
-            }
-            if (url.startsWith("mailto:")) {
-                // TODO implement check of mail links
-                Logger.log(Logger.Level.INFO)
-                      .append("TBD: mailto URL ")
-                      .append(url)
-                      .append(" is not checked")
-                      .submit();
-                continue;
-            }
-
-            list.add(url);
-            _expectedData.put(url, linkData);
         }
 
         return list;
+    }
+
+    private static boolean isLinkCheckable(final String url) {
+        if (url.indexOf(":") < 0) {
+            // local links are checked in a file checker
+            // TODO which one?
+            return false;
+        }
+        if (url.startsWith("javascript:")) {
+            return false;
+        }
+        if (url.startsWith("ftp:")) {
+            // TODO implement check of FTP links
+            Logger.log(Logger.Level.INFO)
+                  .append("TBD: FTP URL ")
+                  .append(url)
+                  .append(" is not checked")
+                  .submit();
+            return false;
+        }
+        if (url.startsWith("mailto:")) {
+            // TODO implement check of mail links
+            Logger.log(Logger.Level.INFO)
+                  .append("TBD: mailto URL ")
+                  .append(url)
+                  .append(" is not checked")
+                  .submit();
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -276,33 +289,44 @@ public class LinkCheckRunner {
     /**
      * Callback when the data of a link has been retrieved
      * @param isDataFresh
-     * @param siteData
+     * @param effectiveSiteData
      */
     private synchronized void handleLinkData(final Boolean isDataFresh,
-                                             final FullFetchedLinkData siteData) {
+                                             final FullFetchedLinkData effectiveSiteData) {
 
         if (_isCancelled) {
             return;
         }
 
-        _effectiveData.put(siteData.url().toString(), siteData);
-        if (!siteData.error().isPresent() &&
-            _expectedData.get(siteData.url()).getStatus() == LinkStatus.OK) {
-            final LinkContentChecker contentChecker = LinkContentCheckerFactory.build(siteData.url(),
-                                                                                      _expectedData.get(siteData.url().toString()),
-                                                                                      Optional.ofNullable(_articles.get(siteData.url().toString())),
-                                                                                      siteData.dataFileSection().get());
-            try {
-                _checks.put(siteData.url(), contentChecker.check());
-            } catch (final ContentParserException e) {
-                FileHelper.createParentDirectory(_reportFile);
-                try (final PrintStream reportWriter = new PrintStream(_reportFile.toFile())) {
-                    e.printStackTrace(reportWriter);
-                } catch (final IOException e2) {
-                    ExitHelper.exit(e2);
+        _effectiveData.put(effectiveSiteData.url().toString(), effectiveSiteData);
+        if (!effectiveSiteData.error().isPresent()) {
+            Checker checker = null;
+            if (_expectedLinkData.containsKey(effectiveSiteData.url())) {
+                if (_expectedLinkData.get(effectiveSiteData.url()).getStatus() == LinkStatus.OK) {
+                    checker = LinkContentCheckerFactory.build(effectiveSiteData.url(),
+                                                              _expectedLinkData.get(effectiveSiteData.url().toString()),
+                                                              Optional.ofNullable(_articles.get(effectiveSiteData.url().toString())),
+                                                              effectiveSiteData.dataFileSection().get());
                 }
-                _controller.handleUpdate(_file, Status.FAILED_TO_HANDLE, _outputFile, _reportFile);
-                return;
+            } else if (_expectedFeedData.containsKey(effectiveSiteData.url())) {
+                checker = new FeedContentChecker(_expectedFeedData.get(effectiveSiteData.url()),
+                                                 effectiveSiteData.dataFileSection().get());
+            } else {
+                ExitHelper.exit("URL " + effectiveSiteData.url() + " is unexpected");
+            }
+            if (checker != null) {
+                try {
+                    _checks.put(effectiveSiteData.url(), checker.check());
+                } catch (final ContentParserException e) {
+                    FileHelper.createParentDirectory(_reportFile);
+                    try (final PrintStream reportWriter = new PrintStream(_reportFile.toFile())) {
+                        e.printStackTrace(reportWriter);
+                    } catch (final IOException e2) {
+                        ExitHelper.exit(e2);
+                    }
+                    _controller.handleUpdate(_file, Status.FAILED_TO_HANDLE, _outputFile, _reportFile);
+                    return;
+                }
             }
         }
 
@@ -347,35 +371,67 @@ public class LinkCheckRunner {
         final StringBuilder checks = new StringBuilder();
 
         for (final String url : _effectiveData.keySet()) {
-            final LinkData expectedData = _expectedData.get(url);
             final FullFetchedLinkData effectiveData = _effectiveData.get(url);
-            final boolean isDataExpected = LinkStatusAnalyzer.doesEffectiveDataMatchesExpectedData(expectedData, effectiveData);
-            if (isDataExpected) {
-                appendLivenessCheckResult(url, expectedData, effectiveData, ok);
-                ok.append('\n');
-            } else {
-                final StringBuilder temp = new StringBuilder();
-                appendLivenessCheckResult(url, expectedData, effectiveData, temp);
-                ko.append(temp.toString());
-                ko.append('\n');
-                Optional<ViolationCorrection> correction = Optional.empty();
-                if (extractHttpCode(effectiveData.headers()).isPresent() &&
-                    ((extractHttpCode(effectiveData.headers()).get().intValue() == HttpURLConnection.HTTP_MOVED_PERM) ||
-                     (extractHttpCode(effectiveData.headers()).get().intValue() == 308))) {
-                    if (effectiveData.previousRedirection() != null) {
-                        HeaderFetchedLinkData d = effectiveData.previousRedirection();
-                        while (d.previousRedirection() != null) {
-                            d = d.previousRedirection();
+            final LinkData expectedData = _expectedLinkData.get(url);
+            if (expectedData == null) {
+                final FeedData expectedFeedData = _expectedFeedData.get(url);
+                final boolean isDataExpected = LinkStatusAnalyzer.doesEffectiveDataMatchesExpectedData(LinkStatus.OK, effectiveData);
+                if (isDataExpected) {
+                    appendFeedLivenessCheckResult(url, expectedFeedData, effectiveData, ok);
+                    ok.append('\n');
+                } else {
+                    final StringBuilder temp = new StringBuilder();
+                    appendFeedLivenessCheckResult(url, expectedFeedData, effectiveData, temp);
+                    ko.append(temp.toString());
+                    ko.append('\n');
+                    Optional<ViolationCorrection> correction = Optional.empty();
+                    if (extractHttpCode(effectiveData.headers()).isPresent() &&
+                        ((extractHttpCode(effectiveData.headers()).get().intValue() == HttpURLConnection.HTTP_MOVED_PERM) ||
+                         (extractHttpCode(effectiveData.headers()).get().intValue() == 308))) {
+                        if (effectiveData.previousRedirection() != null) {
+                            HeaderFetchedLinkData d = effectiveData.previousRedirection();
+                            while (d.previousRedirection() != null) {
+                                d = d.previousRedirection();
+                            }
+                            correction = Optional.of(new UpdateLinkUrlCorrection(url, d.url()));
                         }
-                        correction = Optional.of(new UpdateLinkUrlCorrection(url, d.url()));
                     }
+                    _violationController.add(new Violation(_file.toString(),
+                                                           _checkType,
+                                                           "WrongLiveness",
+                                                           new ViolationLocationUnknown(),
+                                                           temp.toString(),
+                                                           correction));
                 }
-                _violationController.add(new Violation(_file.toString(),
-                                                       _checkType,
-                                                       "WrongLiveness",
-                                                       new ViolationLocationUnknown(),
-                                                       temp.toString(),
-                                                       correction));
+            } else {
+                final boolean isDataExpected = LinkStatusAnalyzer.doesEffectiveDataMatchesExpectedData(expectedData.getStatus(), effectiveData);
+                if (isDataExpected) {
+                    appendLinkLivenessCheckResult(url, expectedData, effectiveData, ok);
+                    ok.append('\n');
+                } else {
+                    final StringBuilder temp = new StringBuilder();
+                    appendLinkLivenessCheckResult(url, expectedData, effectiveData, temp);
+                    ko.append(temp.toString());
+                    ko.append('\n');
+                    Optional<ViolationCorrection> correction = Optional.empty();
+                    if (extractHttpCode(effectiveData.headers()).isPresent() &&
+                        ((extractHttpCode(effectiveData.headers()).get().intValue() == HttpURLConnection.HTTP_MOVED_PERM) ||
+                         (extractHttpCode(effectiveData.headers()).get().intValue() == 308))) {
+                        if (effectiveData.previousRedirection() != null) {
+                            HeaderFetchedLinkData d = effectiveData.previousRedirection();
+                            while (d.previousRedirection() != null) {
+                                d = d.previousRedirection();
+                            }
+                            correction = Optional.of(new UpdateLinkUrlCorrection(url, d.url()));
+                        }
+                    }
+                    _violationController.add(new Violation(_file.toString(),
+                                                           _checkType,
+                                                           "WrongLiveness",
+                                                           new ViolationLocationUnknown(),
+                                                           temp.toString(),
+                                                           correction));
+                }
             }
             if (_checks.containsKey(url) && !_checks.get(url).isEmpty()) {
                 checks.append('\n');
@@ -410,17 +466,17 @@ public class LinkCheckRunner {
     }
 
     /**
-     * append (at the end of builder) the result of the liveness check of url
+     * append (at the end of builder) the result of the liveness check of a link
      *
      * @param url
      * @param expectedData data as expected in the XML file
      * @param effectiveData data as retrieved from Internet
      * @param builder
      */
-    private static void appendLivenessCheckResult(final String url,
-                                                  final LinkData expectedData,
-                                                  final FullFetchedLinkData effectiveData,
-                                                  final StringBuilder builder) {
+    private static void appendLinkLivenessCheckResult(final String url,
+                                                      final LinkData expectedData,
+                                                      final FullFetchedLinkData effectiveData,
+                                                      final StringBuilder builder) {
 
         builder.append("Title = \"" + expectedData.getTitle() + "\"\n");
         if (expectedData.getSubtitles().length > 0) {
@@ -459,6 +515,41 @@ public class LinkCheckRunner {
         builder.append("Look for article = " + googleUrl.toString() + "\n");
     }
 
+    /**
+     * append (at the end of builder) the result of the liveness check of a feed
+     *
+     * @param url
+     * @param expectedData data as expected in the XML file
+     * @param effectiveData data as retrieved from Internet
+     * @param builder
+     */
+    private static void appendFeedLivenessCheckResult(final String url,
+                                                      final FeedData expectedData,
+                                                      final FullFetchedLinkData effectiveData,
+                                                      final StringBuilder builder) {
+
+        builder.append("URL = " + url + "\n");
+        builder.append("Effective HTTP code = " + extractPrintableHttpCode(effectiveData.headers()) + "\n");
+        final HeaderFetchedLinkData lastRedirection = lastRedirection(effectiveData);
+        if (lastRedirection != null) {
+            builder.append("Effective HTTP code of last redirection = " + extractPrintableHttpCode(lastRedirection.headers()) + "\n");
+        }
+        if (effectiveData.previousRedirection() != null) {
+            String descriptionOfRedirectionChain = effectiveData.url();
+            for (HeaderFetchedLinkData d = effectiveData.previousRedirection(); d != null; d = d.previousRedirection()) {
+                descriptionOfRedirectionChain += " → " + d.url();
+            }
+            builder.append("Redirection chain = " + descriptionOfRedirectionChain + "\n");
+        }
+        if (LinkStatusAnalyzer.hasMaximumNumberOfRedirectionsBeenReached(effectiveData)) {
+            builder.append("The maximum number of redirections has been reached.\n");            
+        } else {
+            final Match match = _redirectionData.getMatch(effectiveData);
+            builder.append("Redirection matcher = " + match.name() + "\n");
+            builder.append("Redirection matcher expected statuses = " + match.statuses().stream().map(s -> s.toString()).collect(Collectors.joining( "," )) + "\n");
+        }
+    }
+
     private static String extractPrintableHttpCode(final Optional<Map<String, List<String>>> headers) {
         return extractHttpCode(headers).map(code -> {
             try {
@@ -480,7 +571,7 @@ public class LinkCheckRunner {
     private boolean isDataExpected() { //TODO this method is very stupid, we should use a flag instead of computing the status every time
 
         for (final String url : _effectiveData.keySet()) {
-            if (!LinkStatusAnalyzer.doesEffectiveDataMatchesExpectedData(_expectedData.get(url), _effectiveData.get(url))) {
+            if (!LinkStatusAnalyzer.doesEffectiveDataMatchesExpectedData(_expectedLinkData.get(url).getStatus(), _effectiveData.get(url))) {
                 return false;
             }
             if (_checks.containsKey(url) && !_checks.get(url).isEmpty()) {
