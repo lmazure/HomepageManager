@@ -82,7 +82,6 @@ public class IbmLinkContentChecker extends LinkContentChecker {
                                         Optional.empty());
         }
 
-
         final String effectiveSubtitle = _parser.getSubtitle();
 
         if (!subtitles[0].equals(effectiveSubtitle)) {

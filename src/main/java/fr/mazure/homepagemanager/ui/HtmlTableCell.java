@@ -24,7 +24,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.scene.web.WebView;
 
-
 /**
  * Table cell to display HTML
  *

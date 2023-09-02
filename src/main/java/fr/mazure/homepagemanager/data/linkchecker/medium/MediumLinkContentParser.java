@@ -45,7 +45,7 @@ public class MediumLinkContentParser extends LinkDataExtractor {
                          "JSON preloaded state");
 
     private static final TextParser s_jsonTitle
-        = new TextParser("<h1 id=\"(?:\\p{XDigit}{4}|title)\" class=\"pw-post-title(?: \\p{Lower}{1,2})+\">",
+        = new TextParser("<h1 id=\"(?:\\p{XDigit}{4}|title)\" class=\"pw-post-title(?: \\p{Lower}{1,2})+\" data-testid=\"storyTitle\">",
                          "</h1>",
                          "Medium",
                          "title");

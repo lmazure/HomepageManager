@@ -6,7 +6,6 @@ import java.util.HashSet;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 
 /**
- * @author Laurent
  *
  */
 public class LinkFactory {
@@ -33,7 +32,8 @@ public class LinkFactory {
                                    linkData.getFormats(),
                                    linkData.getLanguages(),
                                    linkData.getDuration(),
-                                   linkData.getPublicationDate());
+                                   linkData.getPublicationDate(),
+                                   linkData.getFeed());
         _links.add(link);
         return link;
     }

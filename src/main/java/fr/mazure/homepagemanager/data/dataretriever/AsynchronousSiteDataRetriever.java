@@ -1,4 +1,4 @@
-package fr.mazure.homepagemanager.data.internet;
+package fr.mazure.homepagemanager.data.dataretriever;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

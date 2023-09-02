@@ -1,4 +1,4 @@
-package fr.mazure.homepagemanager.data.internet.test;
+package fr.mazure.homepagemanager.data.dataretriever.test;
 
 import java.time.Instant;
 import java.util.List;
@@ -8,9 +8,9 @@ import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import fr.mazure.homepagemanager.data.internet.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.internet.HeaderFetchedLinkData;
-import fr.mazure.homepagemanager.data.internet.SiteDataPersister;
+import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
+import fr.mazure.homepagemanager.data.dataretriever.HeaderFetchedLinkData;
+import fr.mazure.homepagemanager.data.dataretriever.SiteDataPersister;
 
 /**
  * Tests of SiteDataPersister

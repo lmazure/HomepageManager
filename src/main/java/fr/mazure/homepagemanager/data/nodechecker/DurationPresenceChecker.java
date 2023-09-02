@@ -90,18 +90,6 @@ public class DurationPresenceChecker extends NodeChecker {
             }
             return null;
         }
-        if (format.equals("RSS")) {
-            if (hasDuration) {
-                return new CheckStatus("SpuriousDuration", "RSS cannot have duration", Optional.empty());
-            }
-            return null;
-        }
-        if (format.equals("RSS2")) {
-            if (hasDuration) {
-                return new CheckStatus("SpuriousDuration", "RSS2 cannot have duration", Optional.empty());
-            }
-            return null;
-        }
         if (format.equals("MP3")) {
             if (!hasDuration) {
                 return new CheckStatus("MissingDuration", "missing duration for MP3", Optional.empty());
@@ -123,12 +111,6 @@ public class DurationPresenceChecker extends NodeChecker {
         if (format.equals("Windows Media Player")) {
             if (!hasDuration) {
                 return new CheckStatus("MissingDuration", "missing duration for Windows Media Player", Optional.empty());
-            }
-            return null;
-        }
-        if (format.equals("Atom")) {
-            if (hasDuration) {
-                return new CheckStatus("SpuriousDuration", "Atom cannot have duration", Optional.empty());
             }
             return null;
         }

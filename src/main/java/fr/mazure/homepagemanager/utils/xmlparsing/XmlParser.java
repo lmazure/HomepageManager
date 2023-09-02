@@ -20,9 +20,11 @@ import org.w3c.dom.NodeList;
 */public class XmlParser {
 
     /**
-     * @param articleElement
-     * @return
-     * @throws XmlParsingException
+     * Extract article data from a ARTICLE node
+     *
+     * @param articleElement the node
+     * @return the article data
+     * @throws XmlParsingException failure to parse the node
      */
     public static ArticleData parseArticleElement(final Element articleElement) throws XmlParsingException {
 
@@ -53,9 +55,11 @@ import org.w3c.dom.NodeList;
     }
 
     /**
-     * @param keywordElement
-     * @return
-     * @throws XmlParsingException
+     * Extract keyword data from a KEYWORD node
+     *
+     * @param keywordElement the node
+     * @return the keyword data
+     * @throws XmlParsingException failure to parse the node
      */
     public static KeywordData parseKeywordElement(final Element keywordElement) throws XmlParsingException {
 
@@ -109,9 +113,11 @@ import org.w3c.dom.NodeList;
     }
 
     /**
-     * @param xElement
-     * @return
-     * @throws XmlParsingException
+     * Extract link data from an X node
+     *
+     * @param xElement the node
+     * @return the link data
+     * @throws XmlParsingException failure to parse the node
      */
     public static LinkData parseXElement(final Element xElement) throws XmlParsingException {
 
@@ -180,13 +186,23 @@ import org.w3c.dom.NodeList;
         final LinkProtection protection = (protectionAttribute != null) ? LinkData.parseProtection(protectionAttribute.getValue())
                                                                         : LinkProtection.NO_REQUIRED_REGISTRATION;
 
-        return new LinkData(title, subtitles, url, status, protection, formats, languages, duration, publicationDate);
+        final List<Element> feedNodes =  XmlHelper.getChildrenByElementType(xElement, ElementType.FEED);
+        Optional<FeedData> feed = Optional.empty();
+        if (feedNodes.size() == 1) {
+            final FeedData data = XmlParser.parseFeedElement(feedNodes.get(0));
+            feed = Optional.of(data);
+        } else if (dateNodes.size() > 1) {
+            throw new XmlParsingException("Wrong number of FEED nodes (" + feedNodes.size() + ") in \"" + title + "\"");
+        }
+        return new LinkData(title, subtitles, url, status, protection, formats, languages, duration, publicationDate, feed);
     }
 
     /**
-     * @param authorElement
-     * @return
-     * @throws XmlParsingException
+     * Extract author data from a AUTHOR node
+     *
+     * @param authorElement the node
+     * @return author data
+     * @throws XmlParsingException failure to parse the node
      */
     public static AuthorData parseAuthorElement(final Element authorElement) throws XmlParsingException {
 
@@ -246,9 +262,11 @@ import org.w3c.dom.NodeList;
     }
 
     /**
-     * @param dateElement
-     * @return
-     * @throws XmlParsingException
+     * Extract date data from a DATE node
+     *
+     * @param dateElement the node
+     * @return the date data
+     * @throws XmlParsingException failure to parse the node
      */
     public static TemporalAccessor parseDateElement(final Element dateElement) throws XmlParsingException {
 
@@ -276,6 +294,34 @@ import org.w3c.dom.NodeList;
             return Year.of(year);
         }
         throw new XmlParsingException("Wrong number of YEAR nodes (" + yearNodes.getLength() + ") in string \"" + dateElement.getTextContent() + "\"");
+    }
+
+    /**
+     * Extract feed data from a FEED node
+     *
+     * @param feedElement the node
+     * @return the feed data
+     * @throws XmlParsingException failure to parse the node
+     */
+    public static FeedData parseFeedElement(final Element feedElement) throws XmlParsingException {
+
+        if (!XmlHelper.isOfType(feedElement, ElementType.FEED)) {
+            throw new XmlParsingException("parseFeedNode called with wrong node (" + feedElement.getTagName() + ")");
+        }
+
+        final List<Element> urlNodes = XmlHelper.getChildrenByElementType(feedElement, ElementType.A);
+        if (urlNodes.size() != 1) {
+            throw new XmlParsingException("Wrong number of A nodes (" + urlNodes.size() + ") in feed \"" + feedElement.getTextContent() + "\"");
+        }
+        final String url = urlNodes.get(0).getTextContent();
+
+        final List<Element> formatNodes = XmlHelper.getChildrenByElementType(feedElement, ElementType.F);
+        if (formatNodes.size() != 1) {
+            throw new XmlParsingException("Wrong number of F nodes (0) in feed \"" + feedElement.getTextContent() + "\"");
+        }
+        final FeedFormat format = FeedData.parseFormat((formatNodes.get(0)).getTextContent());
+
+        return new FeedData(url, format);
     }
 
     private static Duration parseDurationElement(final Element durationElement) throws XmlParsingException {

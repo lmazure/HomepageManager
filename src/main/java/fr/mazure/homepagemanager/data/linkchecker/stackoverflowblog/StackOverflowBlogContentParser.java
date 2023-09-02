@@ -26,23 +26,23 @@ public class StackOverflowBlogContentParser extends LinkDataExtractor {
     private final String _data;
 
     private static final TextParser s_titleParser
-        = new TextParser("<meta property=\"og:title\" content=\"",
-                         "\" />",
+        = new TextParser("<h1 class=\"fs-display2 lh-xs p-ff-roboto-slab-bold mb24\" itemprop=\"name\">",
+                         "</h1>",
                          "StackOverflow blog",
                          "title");
     private static final TextParser s_subtitleParser
-        = new TextParser("<meta property=\"og:description\" content=\"",
-                         "\" />",
+        = new TextParser("<p class=\"fs-title fc-black-500 wmx6\" itemprop=\"abstract\">",
+                         "</p>",
                          "StackOverflow blog",
                          "subtitle");
     private static final TextParser s_dateParser
-        = new TextParser("<meta property=\"article:published_time\" content=\"",
-                         "\" />",
+        = new TextParser("<header class=\"mb32 pt12\"><time datetime=\"",
+                         "\"",
                          "StackOverflow blog",
                          "date");
     private static final TextParser s_authorParser
-        = new TextParser("<a href=\"https://stackoverflow.blog/author/[^/]+/\" title=\"Posts by [^\"]+\" class=\"author url fn\" rel=\"author\">",
-                         "</a>",
+        = new TextParser("<div class=\"fw-bold fs-body3\" itemprop=\"author\">",
+                         "</div>",
                          "StackOverflow blog",
                          "author");
 

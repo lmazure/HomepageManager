@@ -200,19 +200,24 @@ public class XmlGenerator {
         return builder.toString();
     }
 
-    private static String generateDate(final TemporalAccessor publicationDate) {
+    /**
+     * Convert a date into an XML string
+     * @param date date
+     * @return XML String
+     */
+    public static String generateDate(final TemporalAccessor date) {
         final StringBuilder builder = new StringBuilder();
         builder.append("<DATE>");
         builder.append("<YEAR>");
-        builder.append(publicationDate.get(ChronoField.YEAR));
+        builder.append(date.get(ChronoField.YEAR));
         builder.append("</YEAR>");
-        if (publicationDate.isSupported(ChronoField.MONTH_OF_YEAR)) {
+        if (date.isSupported(ChronoField.MONTH_OF_YEAR)) {
             builder.append("<MONTH>");
-            builder.append(publicationDate.get(ChronoField.MONTH_OF_YEAR));
+            builder.append(date.get(ChronoField.MONTH_OF_YEAR));
             builder.append("</MONTH>");
-            if (publicationDate.isSupported(ChronoField.DAY_OF_MONTH)) {
+            if (date.isSupported(ChronoField.DAY_OF_MONTH)) {
                 builder.append("<DAY>");
-                builder.append(publicationDate.get(ChronoField.DAY_OF_MONTH));
+                builder.append(date.get(ChronoField.DAY_OF_MONTH));
                 builder.append("</DAY>");
             }
         }
@@ -220,7 +225,12 @@ public class XmlGenerator {
         return builder.toString();
     }
 
-    private static String generateDuration(final Duration duration) {
+    /**
+     * Convert a duration into an XML string
+     * @param duration duration
+     * @return XML String
+     */
+    public static String generateDuration(final Duration duration) {
         final StringBuilder builder = new StringBuilder();
         builder.append("<DURATION>");
         if ((duration.toHoursPart() > 0) || (duration.toMinutesPart()) > 0) {

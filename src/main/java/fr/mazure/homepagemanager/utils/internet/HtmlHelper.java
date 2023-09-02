@@ -2324,8 +2324,9 @@ public class HtmlHelper {
     }
 
     /**
-     * @param input
-     * @return
+     * Extract the text from an HTML string
+     * @param input dirty HTML
+     * @return clean text
      */
     public static final String cleanContent(final String input) {
         final String s1 = removeHtmlTags(input);
@@ -2337,8 +2338,9 @@ public class HtmlHelper {
     }
 
     /**
-     * @param input
-     * @return
+     * Replace encoded characters by their real characters in an HTML string
+     * @param input dirty HTML
+     * @return resulting text
      */
     public static final String unescape(final String input) {
         // from https://stackoverflow.com/questions/994331/how-to-unescape-html-character-entities-in-java
@@ -2427,8 +2429,8 @@ public class HtmlHelper {
     }
 
     /**
-     * @param input
-     * @return
+     * @param input dirty HTML
+     * @return resulting text
      */
     public static final String cleanAndUnduplicateSpace(final String input) {
 
@@ -2453,8 +2455,8 @@ public class HtmlHelper {
     }
 
     /**
-     * @param input
-     * @return
+     * @param input dirty HTML
+     * @return resulting text
      */
     public static final String trim(final String input) {
 
@@ -2464,8 +2466,8 @@ public class HtmlHelper {
     }
 
     /**
-     * @param input
-     * @return
+     * @param input dirty HTML
+     * @return resulting text
      */
     public static final String removeHtmlTags(final String input) {
 

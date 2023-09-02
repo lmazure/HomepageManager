@@ -10,8 +10,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import fr.mazure.homepagemanager.data.internet.NotGzipException;
-import fr.mazure.homepagemanager.data.internet.SynchronousSiteDataRetriever;
+import fr.mazure.homepagemanager.data.dataretriever.NotGzipException;
+import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;

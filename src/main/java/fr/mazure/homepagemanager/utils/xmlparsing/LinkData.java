@@ -6,7 +6,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 /**
-*
+* Data of a link
 */
 public class LinkData {
 
@@ -19,8 +19,11 @@ public class LinkData {
     private final Locale _languages[];
     private final Optional<Duration> _duration;
     private final Optional<TemporalAccessor> _publicationDate;
+    private final Optional<FeedData> _feed;
 
     /**
+     * Constructor
+     *
      * @param title Title
      * @param subtitles Subtitles
      * @param url URL
@@ -30,6 +33,7 @@ public class LinkData {
      * @param languages Languages
      * @param duration Duration
      * @param publicationDate Publication date
+     * @param feed Feed data
      */
     public LinkData(final String title,
                     final String subtitles[],
@@ -39,7 +43,8 @@ public class LinkData {
                     final LinkFormat formats[],
                     final Locale languages[],
                     final Optional<Duration> duration,
-                    final Optional<TemporalAccessor> publicationDate) {
+                    final Optional<TemporalAccessor> publicationDate,
+                    final Optional<FeedData> feed) {
         _title = title;
         _subtitles = subtitles;
         _url = url;
@@ -49,6 +54,7 @@ public class LinkData {
         _languages = languages;
         _duration = duration;
         _publicationDate = publicationDate;
+        _feed = feed;
     }
 
     /**
@@ -115,8 +121,17 @@ public class LinkData {
     }
 
     /**
-     * @param status
-     * @return
+     * @return Feed data
+     */
+    public Optional<FeedData> getFeed() {
+        return _feed;
+    }
+
+    /**
+     * Convert a string into a link status
+     *
+     * @param status string to be converted
+     * @return the status
      */
     public static LinkStatus parseStatus(final String status) {
         if (status.equals("dead")) {
@@ -128,12 +143,14 @@ public class LinkData {
         if (status.equals("zombie")) {
             return LinkStatus.ZOMBIE;
         }
-        throw new UnsupportedOperationException("Illegal status value (" + status + ")");
+        throw new UnsupportedOperationException("Illegal link status value (" + status + ")");
     }
 
     /**
-     * @param protection
-     * @return
+     * Convert a string into a link status
+     *
+     * @param protection string to be converted
+     * @return the protection
      */
     public static LinkProtection parseProtection(final String protection) {
         if (protection.equals("free_registration")) {
@@ -142,12 +159,14 @@ public class LinkData {
         if (protection.equals("payed_registration")) {
             return LinkProtection.PAYED_REGISTRATION;
         }
-        throw new UnsupportedOperationException("Illegal protection value (" + protection + ")");
+        throw new UnsupportedOperationException("Illegal link protection value (" + protection + ")");
     }
 
     /**
-     * @param format
-     * @return
+     * Convert a string into a link status
+     *
+     * @param format string to be converted
+     * @return the format
      */
     public static LinkFormat parseFormat(final String format) {
         if (format.equals("HTML")) {
@@ -186,12 +205,14 @@ public class LinkData {
         if (format.equals("Word")) {
             return LinkFormat.WORD;
         }
-        throw new UnsupportedOperationException("Illegal format value (" + format + ")");
+        throw new UnsupportedOperationException("Illegal link format value (" + format + ")");
     }
 
     /**
-     * @param language
-     * @return
+     * Convert a string into a link status
+     *
+     * @param language string to be converted
+     * @return the language
      */
     public static Locale parseLanguage(final String language) {
         if (language.equals("en")) {
@@ -203,6 +224,6 @@ public class LinkData {
         if (language.equals("de")) {
             return Locale.GERMAN;
         }
-        throw new UnsupportedOperationException("Illegal language value (" + language + ")");
+        throw new UnsupportedOperationException("Illegal link language value (" + language + ")");
     }
 }

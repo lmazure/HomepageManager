@@ -6,8 +6,8 @@ import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import fr.mazure.homepagemanager.data.internet.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.internet.HeaderFetchedLinkData;
+import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
+import fr.mazure.homepagemanager.data.dataretriever.HeaderFetchedLinkData;
 import fr.mazure.homepagemanager.utils.internet.HttpHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkStatus;
 

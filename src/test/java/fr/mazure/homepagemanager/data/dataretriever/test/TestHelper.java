@@ -1,4 +1,4 @@
-package fr.mazure.homepagemanager.data.internet.test;
+package fr.mazure.homepagemanager.data.dataretriever.test;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,9 +11,9 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
 
-import fr.mazure.homepagemanager.data.internet.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.internet.SiteDataPersister;
-import fr.mazure.homepagemanager.data.internet.SynchronousSiteDataRetriever;
+import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
+import fr.mazure.homepagemanager.data.dataretriever.SiteDataPersister;
+import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.utils.FileHelper;
 import fr.mazure.homepagemanager.utils.internet.HttpHelper;
 

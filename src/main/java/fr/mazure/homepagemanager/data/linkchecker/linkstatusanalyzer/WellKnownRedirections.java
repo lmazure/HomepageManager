@@ -5,32 +5,40 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import fr.mazure.homepagemanager.data.internet.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.internet.HeaderFetchedLinkData;
+import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
+import fr.mazure.homepagemanager.data.dataretriever.HeaderFetchedLinkData;
 import fr.mazure.homepagemanager.utils.internet.HttpHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkStatus;
 
 /**
  * Expected redirection data
  */
-public class RedirectionData {
+public class WellKnownRedirections {
 
     private final List<RedirectionMatcher> _matchers;
 
     /**
      * constructor
      */
-    public RedirectionData() {
+    public WellKnownRedirections() {
 
         _matchers = new ArrayList<>();
+
+        final Set<Integer> successCodes = new HashSet<>();
+        successCodes.add(null);
+        successCodes.add(Integer.valueOf(200));
+        successCodes.add(Integer.valueOf(202));
 
         final Set<Integer> errorCodes = new HashSet<>();
         errorCodes.add(null);
         errorCodes.add(Integer.valueOf(400));
+        errorCodes.add(Integer.valueOf(401));
         errorCodes.add(Integer.valueOf(403));
         errorCodes.add(Integer.valueOf(404));
+        errorCodes.add(Integer.valueOf(409));
         errorCodes.add(Integer.valueOf(410));
         errorCodes.add(Integer.valueOf(500));
+        errorCodes.add(Integer.valueOf(503));
         errorCodes.add(Integer.valueOf(999));  // TODO handle fucking LinkedIn
 
         final Set<Integer> redirectionCodes = new HashSet<>();
@@ -38,6 +46,7 @@ public class RedirectionData {
         redirectionCodes.add(Integer.valueOf(302));
         redirectionCodes.add(Integer.valueOf(303));
         redirectionCodes.add(Integer.valueOf(307));
+        redirectionCodes.add(Integer.valueOf(308));
 
         final RedirectionMatcher fromYoutubeChannelToCookiesConfiguration = new RedirectionMatcher("from Youtube channel to cookies configuration",
                                                                                                    Set.of(LinkStatus.OK));
@@ -53,17 +62,31 @@ public class RedirectionData {
         fromYoutubeChannelToCookiesConfiguration.compile();
         _matchers.add(fromYoutubeChannelToCookiesConfiguration);
 
+        final RedirectionMatcher fromYoutubeUserToCookiesConfiguration = new RedirectionMatcher("from Youtube user to cookies configuration",
+                                                                                                Set.of(LinkStatus.OK));
+        fromYoutubeUserToCookiesConfiguration.add("\\Qhttps://www.youtube.com/user/\\E" + RedirectionMatcher.ANY_STRING,
+                                                  Set.of(Integer.valueOf(302)),
+                                                  RedirectionMatcher.Multiplicity.ONE);
+        fromYoutubeUserToCookiesConfiguration.add("\\Qhttps://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fuser%2F\\E" + RedirectionMatcher.ANY_STRING,
+                                                  Set.of(Integer.valueOf(302)),
+                                                  RedirectionMatcher.Multiplicity.ONE);
+        fromYoutubeUserToCookiesConfiguration.add("\\Qhttps://consent.youtube.com/ml?continue=https://www.youtube.com/user/\\E"  + RedirectionMatcher.ANY_STRING,
+                                                  Set.of(Integer.valueOf(200)),
+                                                  RedirectionMatcher.Multiplicity.ONE);
+        fromYoutubeUserToCookiesConfiguration.compile();
+        _matchers.add(fromYoutubeUserToCookiesConfiguration);
+
         final RedirectionMatcher fromYoutubeChannelToYoutubeChannel = new RedirectionMatcher("from Youtube channel to Youtube channel",
                                                                                              Set.of(LinkStatus.OK));
         fromYoutubeChannelToYoutubeChannel.add("\\Qhttps://www.youtube.com/channel/\\E" + RedirectionMatcher.ANY_STRING,
-                                                    Set.of(Integer.valueOf(302)),
-                                                    RedirectionMatcher.Multiplicity.ONE);
+                                               Set.of(Integer.valueOf(302)),
+                                               RedirectionMatcher.Multiplicity.ONE);
         fromYoutubeChannelToYoutubeChannel.add("\\Qhttps://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fchannel%2F\\E" + RedirectionMatcher.ANY_STRING,
-                                                    Set.of(Integer.valueOf(303)),
-                                                    RedirectionMatcher.Multiplicity.ONE);
+                                               Set.of(Integer.valueOf(303)),
+                                               RedirectionMatcher.Multiplicity.ONE);
         fromYoutubeChannelToYoutubeChannel.add("\\Qhttps://www.youtube.com/channel/\\E"  + RedirectionMatcher.ANY_STRING,
-                                                    Set.of(Integer.valueOf(200)),
-                                                    RedirectionMatcher.Multiplicity.ONE);
+                                               Set.of(Integer.valueOf(200)),
+                                               RedirectionMatcher.Multiplicity.ONE);
         fromYoutubeChannelToYoutubeChannel.compile();
         _matchers.add(fromYoutubeChannelToYoutubeChannel);
 
@@ -115,7 +138,7 @@ public class RedirectionData {
         final RedirectionMatcher basicOk = new RedirectionMatcher("direct success",
                                                                   Set.of(LinkStatus.OK, LinkStatus.ZOMBIE, LinkStatus.OBSOLETE));
         basicOk.add("https?://" + RedirectionMatcher.ANY_STRING,
-                    Set.of(Integer.valueOf(200)),
+                    successCodes,
                     RedirectionMatcher.Multiplicity.ONE);
         basicOk.compile();
         _matchers.add(basicOk);

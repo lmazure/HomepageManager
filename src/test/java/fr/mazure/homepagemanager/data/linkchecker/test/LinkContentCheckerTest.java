@@ -10,9 +10,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import fr.mazure.homepagemanager.data.internet.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.internet.SynchronousSiteDataRetriever;
-import fr.mazure.homepagemanager.data.internet.test.TestHelper;
+import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
+import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
+import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentCheck;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker;
@@ -41,7 +41,7 @@ public class LinkContentCheckerTest {
                    final String expectedTitle) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null);
+        final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null);
         retriever.retrieve(url,
                            (final Boolean b, final FullFetchedLinkData d) -> {
@@ -70,7 +70,7 @@ public class LinkContentCheckerTest {
                                final String realTitle) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null);
+        final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null);
         retriever.retrieve(url,
                            (final Boolean b, final FullFetchedLinkData d) -> {
@@ -100,7 +100,7 @@ public class LinkContentCheckerTest {
                       final String expectedSubtitle) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        final LinkData linkData = new LinkData(expectedSubtitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null);
+        final LinkData linkData = new LinkData(expectedSubtitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null);
         retriever.retrieve(url,
                            (final Boolean b, final FullFetchedLinkData d) -> {
@@ -128,7 +128,7 @@ public class LinkContentCheckerTest {
                                 final String realTitle) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null);
+        final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null);
         retriever.retrieve(url,
                            (final Boolean b, final FullFetchedLinkData d) -> {

@@ -19,7 +19,6 @@ import fr.mazure.homepagemanager.utils.Logger;
  */
 public class FileContentChecker implements FileHandler { // TODO should be split several checkers (and these one put in their own namespace)
 
-
     private static final String s_checkType = "file";
 
     private final Path _homepagePath;
@@ -92,7 +91,6 @@ public class FileContentChecker implements FileHandler { // TODO should be split
 
         _controller.handleCreation(file, status, getOutputFile(file), getReportFile(file));
     }
-
 
     @Override
     public void handleDeletion(final Path file) {

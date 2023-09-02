@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +19,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import fr.mazure.homepagemanager.data.internet.NotGzipException;
-import fr.mazure.homepagemanager.data.internet.SynchronousSiteDataRetriever;
+import fr.mazure.homepagemanager.data.dataretriever.NotGzipException;
+import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
+import fr.mazure.homepagemanager.data.linkchecker.TextParser;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
@@ -50,6 +52,23 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
 
     private static final Pattern s_subtitlePattern = Pattern.compile("^(<!DOCTYPE html>)?<h2>(.*?)</h2>", Pattern.DOTALL);
 
+    private static final TextParser s_titleParser
+        = new TextParser("<meta name=\"title\" content=\"",
+                         "\">",
+                         "Oracle Blog",
+                         "title");
+    private static final TextParser s_dateParser
+        = new TextParser("<meta name=\"publish_date\" content=\"",
+                         "\">",
+                         "Oracle Blog",
+                         "date");
+    private static final TextParser s_authorParser
+        = new TextParser("<meta name=\"author\" content=\"",
+                         "\">",
+                         "Oracle Blog",
+                         "author");
+    private static DateTimeFormatter s_formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.US);
+
     private final String _title;
     private final Optional<String> _subtitle;
     private final LocalDate _publicationDate;
@@ -70,11 +89,45 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
         // retrieve site and caas from initial HTML
         final Matcher m = s_htmlPattern.matcher(data);
         if (!m.find()) {
-            _exception = new ContentParserException("HTML does not match " + s_htmlTemplate);
-            _title = null;
-            _subtitle = null;
-            _publicationDate = null;
-            _authors = null;
+            // we assume that we are in the case where the HTML is fully generated, so we try to parse it
+            String title;
+            try {
+                title = s_titleParser.extract(data);
+            } catch (final ContentParserException e) {
+                _exception = e;
+                _title = null;
+                _subtitle = null;
+                _publicationDate = null;
+                _authors = null;
+                _authorException = null;
+                return;
+            }
+            _title = title;
+            _subtitle = Optional.empty();
+            final LocalDate publicationDate;
+            try {
+                publicationDate = LocalDate.parse(s_dateParser.extract(data), s_formatter);
+            } catch (final ContentParserException e) {
+                _exception = e;
+                _publicationDate = null;
+                _authors = null;
+                _authorException = null;
+                return;
+            }
+            _publicationDate = publicationDate;
+            final List<AuthorData> list = new ArrayList<>(1);
+            String author;
+            try {
+                author = s_authorParser.extract(data);
+                list.add(LinkContentParserUtils.getAuthor(author));
+            } catch (final ContentParserException e) {
+                _exception = null;
+                _authorException = e;
+                _authors = null;
+                return;
+            }
+            _authors = list;
+            _exception = null;
             _authorException = null;
             return;
          }

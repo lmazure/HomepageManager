@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import fr.mazure.homepagemanager.data.internet.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.internet.SynchronousSiteDataRetriever;
-import fr.mazure.homepagemanager.data.internet.test.TestHelper;
+import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
+import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
+import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.oracleblogs.OracleBlogsLinkContentParser;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
@@ -28,6 +28,8 @@ public class OracleBlogsLinkContentParserTest {
         //"https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update|Opening Up Java EE - An Update",
         "https://blogs.oracle.com/javamagazine/post/12-recipes-for-using-the-optional-class-as-its-meant-to-be-used|12 recipes for using the Optional class as it’s meant to be used",
         "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se|Faster and Easier Use and Redistribution of Java SE",
+        "https://blogs.oracle.com/java/post/the-arrival-of-java-20|The Arrival of Java 20",
+        "https://blogs.oracle.com/java/post/javaone-is-back|JavaOne is Back!",
         "https://blogs.oracle.com/javamagazine/post/everything-you-need-to-know-about-openjdks-move-to-git-and-github|Everything you need to know about OpenJDK’s move to Git and GitHub",
         "https://blogs.oracle.com/javamagazine/understanding-the-jdks-new-superfast-garbage-collectors|Understanding the JDK’s New Superfast Garbage Collectors", // the title finishes with a space
         }, delimiter = '|')

@@ -5,8 +5,9 @@ import java.time.temporal.TemporalAccessor;
 import java.util.Locale;
 import java.util.Optional;
 
-import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
+import fr.mazure.homepagemanager.utils.xmlparsing.FeedData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
+import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkProtection;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkStatus;
 
@@ -18,15 +19,18 @@ public class Link extends LinkData implements Comparable<Link> {
     private final String _sortingKey;
 
     /**
-     * @param title
-     * @param subtitles
-     * @param url
-     * @param status
-     * @param protection
-     * @param formats
-     * @param languages
-     * @param duration
-     * @param publicationDate
+     * Constructor
+     *
+     * @param title Title
+     * @param subtitles Subtitles
+     * @param url URL
+     * @param status Status
+     * @param protection Protection
+     * @param formats Formats
+     * @param languages Languages
+     * @param duration Duration
+     * @param publicationDate Publication date
+     * @param feed Feed data
      */
     public Link(final String title,
                 final String[] subtitles,
@@ -36,15 +40,16 @@ public class Link extends LinkData implements Comparable<Link> {
                 final LinkFormat[] formats,
                 final Locale[] languages,
                 final Optional<Duration> duration,
-                final Optional<TemporalAccessor> publicationDate) {
-        super(title, subtitles, url, status, protection, formats, languages, duration, publicationDate);
+                final Optional<TemporalAccessor> publicationDate,
+                final Optional<FeedData> feed) {
+        super(title, subtitles, url, status, protection, formats, languages, duration, publicationDate, feed);
         _sortingKey = normalizeName(url);
     }
 
     /**
-     * @return
+     * @return the sorting key used to compare two links
      */
-    public String getSortingKey() {
+    private String getSortingKey() {
         return _sortingKey;
     }
 

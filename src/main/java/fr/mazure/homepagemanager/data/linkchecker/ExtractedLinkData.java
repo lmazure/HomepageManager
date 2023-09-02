@@ -24,13 +24,13 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkStatus;
  *
  */
 public record ExtractedLinkData (String title,
-                                String[] subtitles,
-                                String url,
-                                Optional<LinkStatus> status,
-                                Optional<LinkProtection> protection,
-                                LinkFormat[] formats,
-                                Locale[] languages,
-                                Optional<Duration> duration,
-                                Optional<TemporalAccessor> publicationDate) {
+                                 String[] subtitles,
+                                 String url,
+                                 Optional<LinkStatus> status,
+                                 Optional<LinkProtection> protection,
+                                 LinkFormat[] formats,
+                                 Locale[] languages,
+                                 Optional<Duration> duration,
+                                 Optional<TemporalAccessor> publicationDate) {
     // EMPTY
 }

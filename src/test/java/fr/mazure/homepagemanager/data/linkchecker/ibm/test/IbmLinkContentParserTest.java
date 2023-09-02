@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import fr.mazure.homepagemanager.data.internet.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.internet.SynchronousSiteDataRetriever;
-import fr.mazure.homepagemanager.data.internet.test.TestHelper;
+import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
+import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
+import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentParser;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
@@ -63,7 +63,7 @@ public class IbmLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-        "https://developer.ibm.com/articles/j-java-streams-1-brian-goetz/£Archived | An introduction to the java.util.stream library",
+        "https://developer.ibm.com/articles/j-java-streams-1-brian-goetz/£An introduction to the java.util.stream library",
         }, delimiter = '£')
     void testTitle(final String url,
                    final String expectedTitle) {

@@ -8,9 +8,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import fr.mazure.homepagemanager.data.internet.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.internet.SynchronousSiteDataRetriever;
-import fr.mazure.homepagemanager.data.internet.test.TestHelper;
+import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
+import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
+import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.stackoverflowblog.StackOverflowBlogContentParser;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
@@ -21,7 +21,6 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
  *
  */
 public class StackOverflowBlogContentParserTest {
-
 
     @ParameterizedTest
     @CsvSource({
@@ -98,7 +97,8 @@ public class StackOverflowBlogContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://stackoverflow.blog/2023/01/24/ai-applications-open-new-security-vulnerabilities/,Taimur,,Ijlal"
+        "https://stackoverflow.blog/2023/01/24/ai-applications-open-new-security-vulnerabilities/,Taimur,,Ijlal",
+        "https://stackoverflow.blog/2021/09/21/podcast-377-you-dont-need-a-math-phd-to-play-dwarf-fortress-just-to-code-it/,Ryan,,Donovan"
         })
     void testAuthor(final String url,
                     final String expectedFirstName,

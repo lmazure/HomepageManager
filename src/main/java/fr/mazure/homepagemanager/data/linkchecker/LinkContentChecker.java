@@ -28,7 +28,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 /**
  * Base class for the link data checkers
  */
-public class LinkContentChecker {
+public class LinkContentChecker implements Checker {
 
     private final String _url;
     private final LinkData _linkData;
@@ -58,6 +58,7 @@ public class LinkContentChecker {
      * @return List of violations
      * @throws ContentParserException Failure to extract the information
      */
+    @Override
     public final List<LinkContentCheck> check() throws ContentParserException {
         final String content = HtmlHelper.slurpFile(_file);
         final Pattern p = Pattern.compile("</HTML>\\p{Space}*$", Pattern.CASE_INSENSITIVE);

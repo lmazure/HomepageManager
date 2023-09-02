@@ -11,6 +11,7 @@ import java.util.Optional;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentCheck;
+import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkDurationCorrection;
 import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
@@ -40,6 +41,11 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
     protected LinkContentCheck checkGlobalData(final String data) throws ContentParserException {
         super.checkGlobalData(data);
         _parser = (YoutubeWatchLinkContentParser)(getParser()); // TODO cleanup this crap
+        if (_parser.isPrivate()) {
+            return new LinkContentCheck("VideoNotPlayable",
+                                        "video is private",
+                                        Optional.empty());
+        }
         if (!_parser.isPlayable()) {
             return new LinkContentCheck("VideoNotPlayable",
                                         "video is not playable",
@@ -73,7 +79,7 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
                                         "," +
                                         effectiveMaxDuration +
                                         "]",
-                                        Optional.empty());
+                                        Optional.of(new UpdateLinkDurationCorrection(expectedDuration, effectiveMinDuration,getUrl())));
         }
 
         return null;

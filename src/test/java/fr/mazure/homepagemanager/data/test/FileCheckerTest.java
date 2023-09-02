@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import fr.mazure.homepagemanager.data.FileContentChecker;
+import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.filechecker.FileChecker;
-import fr.mazure.homepagemanager.data.internet.test.TestHelper;
 import fr.mazure.homepagemanager.utils.FileHelper;
 
 /**
