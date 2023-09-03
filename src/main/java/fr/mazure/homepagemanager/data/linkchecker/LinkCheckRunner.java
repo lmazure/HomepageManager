@@ -302,6 +302,7 @@ public class LinkCheckRunner {
         if (!effectiveSiteData.error().isPresent()) {
             Checker checker = null;
             if (_expectedLinkData.containsKey(effectiveSiteData.url())) {
+                // this is a link
                 if (_expectedLinkData.get(effectiveSiteData.url()).getStatus() == LinkStatus.OK) {
                     checker = LinkContentCheckerFactory.build(effectiveSiteData.url(),
                                                               _expectedLinkData.get(effectiveSiteData.url().toString()),
@@ -309,9 +310,11 @@ public class LinkCheckRunner {
                                                               effectiveSiteData.dataFileSection().get());
                 }
             } else if (_expectedFeedData.containsKey(effectiveSiteData.url())) {
+                // this is a feed
                 checker = new FeedContentChecker(_expectedFeedData.get(effectiveSiteData.url()),
                                                  effectiveSiteData.dataFileSection().get());
             } else {
+                // this is a bug
                 ExitHelper.exit("URL " + effectiveSiteData.url() + " is unexpected");
             }
             if (checker != null) {
@@ -571,7 +574,8 @@ public class LinkCheckRunner {
     private boolean isDataExpected() { //TODO this method is very stupid, we should use a flag instead of computing the status every time
 
         for (final String url : _effectiveData.keySet()) {
-            if (!LinkStatusAnalyzer.doesEffectiveDataMatchesExpectedData(_expectedLinkData.get(url).getStatus(), _effectiveData.get(url))) {
+            if (_expectedLinkData.containsKey(url) &&
+                !LinkStatusAnalyzer.doesEffectiveDataMatchesExpectedData(_expectedLinkData.get(url).getStatus(), _effectiveData.get(url))) {
                 return false;
             }
             if (_checks.containsKey(url) && !_checks.get(url).isEmpty()) {
