@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import fr.mazure.homepagemanager.data.violationcorrection.UpdateFeedFormatCorrection;
 import fr.mazure.homepagemanager.utils.FileHelper;
 import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.xmlparsing.FeedData;
@@ -41,7 +42,7 @@ public class FeedContentChecker implements Checker {
         if (format != _feedData.getFormat()) {
             checks.add(new LinkContentCheck("WrongFeedFormat",
                                             "The expected feed format is " + _feedData.getFormat() + ", but the effective feed format is " + format,
-                                            Optional.empty()));
+                                            Optional.of(new UpdateFeedFormatCorrection(_feedData.getFormat(), format, _feedData.getUrl()))));
 
         }
         return checks;
