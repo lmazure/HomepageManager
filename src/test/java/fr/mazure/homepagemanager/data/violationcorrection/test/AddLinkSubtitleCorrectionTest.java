@@ -47,4 +47,12 @@ public class AddLinkSubtitleCorrectionTest {
                                                                              "https://stackoverflow.blog/2021/12/31/700000-lines-of-code-20-years-and-one-developer-how-dwarf-fortress-is-built/");
         Assertions.assertEquals(expected, correction.apply(content));
     }
+
+    @SuppressWarnings("static-method")
+    @Test
+    void description() {
+        final ViolationCorrection correction = new AddLinkSubtitleCorrection("Dwarf Fortress is one of those oddball passion projects",
+                                                                             "https://stackoverflow.blog/2021/12/31/700000-lines-of-code-20-years-and-one-developer-how-dwarf-fortress-is-built/");
+        Assertions.assertEquals("Add a link subtitle", correction.getDescription());
+    }
 }

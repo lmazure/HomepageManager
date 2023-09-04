@@ -1,10 +1,12 @@
 package fr.mazure.homepagemanager.data.violationcorrection.test;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import fr.mazure.homepagemanager.data.violationcorrection.AddDotAtCommentEnd;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateArticleDateCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
 
@@ -49,5 +51,12 @@ public class UpdateArticleDateCorrectionTest {
                                                                                LocalDate.of(2009, 5, 11),
                                                                                "https://www.youtube.com/watch?v=3boKlkPBckA");
         Assertions.assertEquals(expected, correction.apply(content));
+    }
+
+    @SuppressWarnings("static-method")
+    @Test
+    void description() {
+        final ViolationCorrection correction = new AddDotAtCommentEnd(List.of(" and ", " have been fired"));
+        Assertions.assertEquals("Add a dot at comment end", correction.getDescription());
     }
 }

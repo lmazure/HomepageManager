@@ -49,4 +49,13 @@ public class UpdateFeedFormatCorrectionTest {
                                                                               "https://www.youtube.com/feeds/videos.xml?channel_id=UCNAaM25o2k2Guv7Lrf-xuDw");
         Assertions.assertEquals(expected, correction.apply(content));
     }
+
+    @SuppressWarnings("static-method")
+    @Test
+    void description() {
+        final ViolationCorrection correction = new UpdateFeedFormatCorrection(FeedFormat.RSS,
+                                                                              FeedFormat.Atom,
+                                                                              "https://www.youtube.com/feeds/videos.xml?channel_id=UCNAaM25o2k2Guv7Lrf-xuDw");
+        Assertions.assertEquals("Update the feed format", correction.getDescription());
+    }
 }

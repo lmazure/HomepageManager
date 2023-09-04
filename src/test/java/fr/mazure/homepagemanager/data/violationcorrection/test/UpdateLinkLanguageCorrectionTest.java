@@ -51,4 +51,12 @@ public class UpdateLinkLanguageCorrectionTest {
         Assertions.assertEquals(expected, correction.apply(content));
     }
 
+    @SuppressWarnings("static-method")
+    @Test
+    void description() {
+        final ViolationCorrection correction = new UpdateLinkLanguageCorrection(Locale.FRENCH,
+                                                                                Locale.ENGLISH,
+                                                                                "https://www.youtube.com/watch?v=3boKlkPBckA");
+        Assertions.assertEquals("Update the link language", correction.getDescription());
+    }
 }

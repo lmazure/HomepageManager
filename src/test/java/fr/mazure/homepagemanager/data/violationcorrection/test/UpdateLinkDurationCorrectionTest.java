@@ -51,4 +51,12 @@ public class UpdateLinkDurationCorrectionTest {
         Assertions.assertEquals(expected, correction.apply(content));
     }
 
+    @SuppressWarnings("static-method")
+    @Test
+    void description() {
+        final ViolationCorrection correction = new UpdateLinkDurationCorrection(Duration.parse("PT57M25S"),
+                                                                                Duration.parse("PT56M24S"),
+                                                                                "https://www.youtube.com/watch?v=3boKlkPBckA");
+        Assertions.assertEquals("Update the link duration", correction.getDescription());
+    }
 }

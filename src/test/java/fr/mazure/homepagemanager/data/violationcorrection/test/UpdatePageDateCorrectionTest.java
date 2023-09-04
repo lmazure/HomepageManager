@@ -48,4 +48,11 @@ public class UpdatePageDateCorrectionTest {
         final ViolationCorrection correction = new UpdatePageDateCorrection();
         Assertions.assertEquals(expected, correction.apply(content));
     }
+
+    @SuppressWarnings("static-method")
+    @Test
+    void description() {
+        final ViolationCorrection correction = new UpdatePageDateCorrection();
+        Assertions.assertEquals("Update the page date", correction.getDescription());
+    }
 }
