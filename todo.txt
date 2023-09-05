@@ -1,4 +1,4 @@
-warnings = 174
+warnings = 172
 lines prod = 9514
 lines test = 3939
 test coverage =
@@ -12,11 +12,10 @@ methods       53.0%/51.8%    97.9%
 bring back main method coverage to 53.0%
 
 tester
-fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection.getDescription()
 fr.mazure.homepagemanager.utils.JsonHelper.unescapeString(String)
 fr.mazure.homepagemanager.utils.DateHelper.convertTemporalAccessorToLocalDate(TemporalAccessor)
-fr.mazure.homepagemanager.utils.xmlparsing.LinkData.parseProtection(String)
-fr.mazure.homepagemanager.utils.xmlparsing.LinkData.parseStatus(String)
+fr.mazure.homepagemanager.utils.xmlparsing.XmlParser.parseFeedElement(Element)
+fr.mazure.homepagemanager.utils.xmlparsing.XmlParser.parseKeywordElement(Element)
 
 ==== potentially after merge =====
 
