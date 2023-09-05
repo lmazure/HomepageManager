@@ -193,4 +193,11 @@ public class AddDotAtCommentEndTest {
         final ViolationCorrection correction = new AddDotAtCommentEnd(List.of(" and ", " have been fired"));
         Assertions.assertEquals(expected, correction.apply(content));
     }
+
+    @SuppressWarnings("static-method")
+    @Test
+    void description() {
+        final ViolationCorrection correction = new AddDotAtCommentEnd(List.of(" and ", " have been fired"));
+        Assertions.assertEquals("Add a dot at comment end", correction.getDescription());
+    }
 }

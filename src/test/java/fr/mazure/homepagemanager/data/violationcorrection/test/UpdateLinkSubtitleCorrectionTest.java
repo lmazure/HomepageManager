@@ -47,4 +47,13 @@ import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
                                                                                  "https://medium.com/@pragdave/wcf-5-a-most-elegant-data-structure-fff8d43a3f69");
          Assertions.assertEquals(expected, correction.apply(content));
      }
+
+     @SuppressWarnings("static-method")
+     @Test
+     void description() {
+         final ViolationCorrection correction = new UpdateLinkSubtitleCorrection("ZZA data structure from the 1960’s is still pretty cool today.",
+                                                                                 "A data structure from the 1960’s is still pretty cool today.",
+                                                                                 "https://medium.com/@pragdave/wcf-5-a-most-elegant-data-structure-fff8d43a3f69");
+         Assertions.assertEquals("Update a link subtitle", correction.getDescription());
+     }
 }

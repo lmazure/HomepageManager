@@ -92,4 +92,12 @@ public class UpdateLinkUrlCorrectionTest {
                                                                            "https://www.mytube.com/watch?v=Ddr-BZ9W180");
         Assertions.assertEquals(expected, correction.apply(content));
     }
+
+    @SuppressWarnings("static-method")
+    @Test
+    void description() {
+        final ViolationCorrection correction = new UpdateLinkUrlCorrection("https://www.youtube.com/watch?v=Ddr-BZ9W180",
+                                                                           "https://www.mytube.com/watch?v=Ddr-BZ9W180");
+        Assertions.assertEquals("Update the link URL", correction.getDescription());
+    }
 }

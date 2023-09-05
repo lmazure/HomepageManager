@@ -16,7 +16,7 @@ public class AddLinkSubtitleCorrection extends RegexpViolationCorrection {
      */
     public AddLinkSubtitleCorrection(final String correctSubtitle,
                                      final String url) {
-        super("add a link subtitle",
+        super("Add a link subtitle",
               "</T><A>" + Pattern.quote(url) + "</A><L>",
               "</T><ST>" + XmlHelper.transform(correctSubtitle) + "</ST><A>" + url + "</A><L>");
     }

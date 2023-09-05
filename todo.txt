@@ -1,22 +1,16 @@
-warnings = 174
+warnings = 172
 lines prod = 9514
 lines test = 3939
 test coverage =
               main     test
-instructions  66.0%    88.7%
-branches      44.5%    77.5%
-lines         65.6%    94.0%
-methods       53.0%    97.2%
-
+instructions  66.0%    89.1%
+branches      44.8%    77.5%
+lines         65.9%    94.7%
+methods       53.0%/52.2%    97.9%
 
 
 
 ==== potentially after merge =====
-
-gestion des podcasts Quanta Magazine
-
-voir gestion des redirections infinies de
-https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html
 
 on peut gérer ces cas
 Title = "Springer"
@@ -30,6 +24,19 @@ Redirection matcher expected statuses =
 Look for article = https://www.google.com/search?q=%22Springer%22
 en ignorant lorsque la chaîne de redirection ramène au point de départ
 je crois que c'est aussi le cas de twitter
+
+
+==== after merge =====
+bring back main method coverage to 53.0%
+
+tester les LinkContentChecker
+
+remettre en marche le test testSimultaneousRetrieval
+
+gestion des podcasts Quanta Magazine
+
+voir gestion des redirections infinies de
+https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html
 
 gérer
 https://www.youtube.com/watch?v=b3cTYn6_2sY
@@ -66,8 +73,6 @@ crash sur URL tps://lekitblob.fr/en/blob-main-page (il manque les deux premier c
 
 tout régénerer → il ne doit y avoir aucun crash
 
-
-==== after merge =====
 
 gérer sur perso/main.xml
 line 0: the local link "../content/map.html?page=links/life.html" has an invalid value

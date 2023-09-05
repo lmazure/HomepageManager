@@ -47,4 +47,12 @@ public class RemoveLinkSubtitleCorrectionTest {
                                                                                 "https://blogs.oracle.com/javamagazine/post/java-on-arm-processors-understanding-aarch64-vs-x86");
         Assertions.assertEquals(expected, correction.apply(content));
     }
+
+    @SuppressWarnings("static-method")
+    @Test
+    void description() {
+        final ViolationCorrection correction = new RemoveLinkSubtitleCorrection("Arm-based processors are increasingly popular and are in the news thanks to Apple’s latest notebooks and Oracle’s cloud services.",
+                                                                                "https://blogs.oracle.com/javamagazine/post/java-on-arm-processors-understanding-aarch64-vs-x86");
+        Assertions.assertEquals("Remove link subtitle", correction.getDescription());
+    }
 }

@@ -129,7 +129,7 @@ public class StringHelper {
      * @param string
      * @return
      */
-    public static String normalizeSpace(final String string) {
+    private static String normalizeSpace(final String string) {
         final int length = string.length();
         final StringBuilder builder = new StringBuilder(length);
         for (int offset = 0; offset < length;) {

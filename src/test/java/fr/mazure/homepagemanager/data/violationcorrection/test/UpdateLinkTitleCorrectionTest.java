@@ -124,4 +124,13 @@ public class UpdateLinkTitleCorrectionTest {
                                                                              "https://www.youtube.com/watch?v=FANbncTMCGc");
         Assertions.assertEquals(expected, correction.apply(content));
     }
+
+    @SuppressWarnings("static-method")
+    @Test
+    void description() {
+        final ViolationCorrection correction = new UpdateLinkTitleCorrection("Real mathematical magic: The king’s algorithm & Sallow’s geomagic",
+                                                                             "New magic in magic squares",
+                                                                             "https://www.youtube.com/watch?v=FANbncTMCGc");
+        Assertions.assertEquals("Update the link title", correction.getDescription());
+    }
 }
