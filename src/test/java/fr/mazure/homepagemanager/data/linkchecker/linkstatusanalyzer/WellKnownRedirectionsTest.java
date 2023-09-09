@@ -197,6 +197,20 @@ class WellKnownRedirectionsTest {
              Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
     }
 
+    @ParameterizedTest
+    @CsvSource({
+        "http://www.onjava.com/pub/a/onjava/2003/06/25/commons.html",
+        "http://www.onlamp.com/pub/a/onlamp/2005/02/24/pg_buildfarm.html",
+        "http://www.onlamp.com/pub/a/php/2005/12/20/php_ant.html"
+        })
+    void oReilly(final String url) {
+        test(url,
+             true,
+             Integer.valueOf(200),
+             "removed from O’Reilly",
+             Set.of(LinkStatus.REMOVED));
+    }
+
     private void test(final String url,
                       final boolean redirectionIsExpected,  // use to ensure that test data is up-to-date
                       final Integer expectedCode,           // use to ensure that test data is up-to-date
