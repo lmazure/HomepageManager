@@ -416,18 +416,7 @@ public class LinkCheckRunner {
                     appendLinkLivenessCheckResult(url, expectedData, effectiveData, temp);
                     ko.append(temp.toString());
                     ko.append('\n');
-                    Optional<ViolationCorrection> correction = Optional.empty();
-                    if (extractHttpCode(effectiveData.headers()).isPresent() &&
-                        ((extractHttpCode(effectiveData.headers()).get().intValue() == HttpURLConnection.HTTP_MOVED_PERM) ||
-                         (extractHttpCode(effectiveData.headers()).get().intValue() == 308))) {
-                        if (effectiveData.previousRedirection() != null) {
-                            HeaderFetchedLinkData d = effectiveData.previousRedirection();
-                            while (d.previousRedirection() != null) {
-                                d = d.previousRedirection();
-                            }
-                            correction = Optional.of(new UpdateLinkUrlCorrection(url, d.url()));
-                        }
-                    }
+                    final Optional<ViolationCorrection> correction = LinkStatusAnalyzer.getProposedCorrection(expectedData, effectiveData);
                     _violationController.add(new Violation(_file.toString(),
                                                            _checkType,
                                                            "WrongLiveness",
