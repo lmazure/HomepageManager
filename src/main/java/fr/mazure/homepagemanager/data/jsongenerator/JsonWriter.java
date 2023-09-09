@@ -328,6 +328,8 @@ public class JsonWriter {
 
     private static String formatStatus(final LinkStatus status) {
         switch (status) {
+            case REMOVED:
+                return "removed";
             case DEAD:
                 return "dead";
             case OBSOLETE:

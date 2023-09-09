@@ -9,6 +9,8 @@ import java.util.Optional;
 
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
+import fr.mazure.homepagemanager.utils.xmlparsing.LinkProtection;
+import fr.mazure.homepagemanager.utils.xmlparsing.LinkStatus;
 import fr.mazure.homepagemanager.utils.xmlparsing.XmlHelper;
 
 /**
@@ -32,35 +34,10 @@ public class XmlGenerator {
         for (ExtractedLinkData linkData: links) {
             builder.append("<X");
             if (linkData.status().isPresent()) {
-                builder.append(" status=\"");
-                switch (linkData.status().get()) {
-                    case DEAD:
-                        builder.append("dead");
-                        break;
-                    case OBSOLETE:
-                        builder.append("obsolete");
-                        break;
-                    case ZOMBIE:
-                        builder.append("zombie");
-                        break;
-                    default:
-                        throw new UnsupportedOperationException("Illegal status value (" + linkData.status().get() + ")");
-                }
-                builder.append("\"");
+                builder.append(generateStatus(linkData.status().get()));
             }
             if (linkData.protection().isPresent()) {
-                builder.append(" status=\"");
-                switch (linkData.protection().get()) {
-                    case FREE_REGISTRATION:
-                        builder.append("free_registration");
-                        break;
-                    case PAYED_REGISTRATION:
-                        builder.append("payed_registration");
-                        break;
-                    default:
-                        throw new UnsupportedOperationException("Illegal protection value (" + linkData.protection().get() + ")");
-                }
-                builder.append("\"");
+                builder.append(generateProtection(linkData.protection().get()));
             }
             if (quality != 0) {
                 builder.append(" quality=\"" + quality + "\"");
@@ -137,6 +114,41 @@ public class XmlGenerator {
         }
         builder.append("</AUTHOR>");
         return builder.toString();
+    }
+
+    /**
+     * Generate the XML attribute for the status
+     * @param status statys
+     * @return XML attribute as a text
+     */
+    public static String generateStatus(final LinkStatus status) {
+        switch (status) {
+            case OK:
+                return "";
+            case REMOVED:
+                return " status=\"removed\"";
+            case DEAD:
+                return " status=\"dead\"";
+            case OBSOLETE:
+                return " status=\"obsolete\"";
+            case ZOMBIE:
+                return " status=\"zombie\"";
+            default:
+                throw new UnsupportedOperationException("Illegal status value (" + status + ")");
+        }
+    }
+
+    private static String generateProtection(final LinkProtection protection) {
+        switch (protection) {
+            case NO_REQUIRED_REGISTRATION:
+                return "";
+            case FREE_REGISTRATION:
+                return " protection=\"free_registration\"";
+            case PAYED_REGISTRATION:
+                return " protection=\"payed_registration\"";
+            default:
+                throw new UnsupportedOperationException("Illegal protection value (" + protection + ")");
+        }
     }
 
     private static String generateLanguage(final Locale language) {

@@ -503,7 +503,7 @@ public class LinkCheckRunner {
             builder.append("Redirection chain = " + descriptionOfRedirectionChain + "\n");
         }
         if (LinkStatusAnalyzer.hasMaximumNumberOfRedirectionsBeenReached(effectiveData)) {
-            builder.append("The maximum number of redirections has been reached.\n");            
+            builder.append("The maximum number of redirections has been reached.\n");
         } else {
             final Match match = _redirectionData.getMatch(effectiveData);
             builder.append("Redirection matcher = " + match.name() + "\n");
@@ -545,7 +545,7 @@ public class LinkCheckRunner {
             builder.append("Redirection chain = " + descriptionOfRedirectionChain + "\n");
         }
         if (LinkStatusAnalyzer.hasMaximumNumberOfRedirectionsBeenReached(effectiveData)) {
-            builder.append("The maximum number of redirections has been reached.\n");            
+            builder.append("The maximum number of redirections has been reached.\n");
         } else {
             final Match match = _redirectionData.getMatch(effectiveData);
             builder.append("Redirection matcher = " + match.name() + "\n");

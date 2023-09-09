@@ -8,7 +8,8 @@ import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
 
 /**
  * Test of UpdateLinkSubtitleCorrection class
- */public class UpdateLinkSubtitleCorrectionTest {
+ */
+public class UpdateLinkSubtitleCorrectionTest {
 
      @SuppressWarnings("static-method")
      @Test

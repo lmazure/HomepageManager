@@ -17,7 +17,8 @@ import org.w3c.dom.NodeList;
 
 /**
 *
-*/public class XmlParser {
+*/
+public class XmlParser {
 
     /**
      * Extract article data from a ARTICLE node

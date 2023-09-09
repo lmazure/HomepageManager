@@ -47,7 +47,7 @@ public class FeedContentChecker implements Checker {
         }
         return checks;
     }
-    
+
     private static FeedFormat getFormat(final String data) {
         if (data.contains("http://www.w3.org/2005/Atom")) {
             return FeedFormat.Atom;

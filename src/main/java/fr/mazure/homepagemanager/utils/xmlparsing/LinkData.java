@@ -134,6 +134,9 @@ public class LinkData {
      * @return the status
      */
     public static LinkStatus parseStatus(final String status) {
+        if (status.equals("removed")) {
+            return LinkStatus.REMOVED;
+        }
         if (status.equals("dead")) {
             return LinkStatus.DEAD;
         }
