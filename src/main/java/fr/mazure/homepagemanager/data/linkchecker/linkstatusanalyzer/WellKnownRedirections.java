@@ -119,6 +119,17 @@ public class WellKnownRedirections {
         oReillyRemoved.compile();
         _matchers.add(oReillyRemoved);
 
+        final RedirectionMatcher ibmRemoved = new RedirectionMatcher("removed from IBM",
+                                                                     Set.of(LinkStatus.REMOVED));
+        ibmRemoved.add("\\Qhttps://www.ibm.com/developerworks/java/library/\\E.+",
+                       Set.of(Integer.valueOf(301)),
+                       RedirectionMatcher.Multiplicity.ONE);
+        ibmRemoved.add("\\Qhttps://developer.ibm.com/languages/java/\\E",
+                       Set.of(Integer.valueOf(200)),
+                       RedirectionMatcher.Multiplicity.ONE);
+        ibmRemoved.compile();
+        _matchers.add(ibmRemoved);
+
         final RedirectionMatcher redirectionEndingInSuccess = new RedirectionMatcher("redirection ending in success (last URL should be used)",
                                                                                      Set.of());
         redirectionEndingInSuccess.add("https?://"  + RedirectionMatcher.ANY_STRING,

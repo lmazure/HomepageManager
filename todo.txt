@@ -8,6 +8,12 @@ branches      44.8%    77.5%
 lines         65.9%    94.7%
 methods       53.0%/52.2%    97.9%
 
+faire que javabasics.xml soit propre
+
+nettoyer nouveaux warnings
+
+==== potentially after merge =====
+
 gérer env de built TypeScript (pour mettre à jour ContentBuilder.ts)
     private static statusToHtmlString(status: string): HtmlString {
         if ((status === "dead") || (status === "zombie")) {
@@ -77,9 +83,6 @@ java.lang.UnsupportedOperationException: https://www.esgi.fr|504→
     at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
     at java.base/java.lang.Thread.run(Thread.java:1589)
 
-
-
-==== potentially after merge =====
 
 on peut gérer ces cas
 Title = "Springer"

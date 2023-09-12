@@ -3,7 +3,6 @@ package fr.mazure.homepagemanager.data.dataretriever.test;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;

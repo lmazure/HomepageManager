@@ -1,4 +1,4 @@
-package fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer;
+package fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.test;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
+import fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.RedirectionMatcher;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkStatus;
 
 class RedirectionMatcherTest {
