@@ -15,10 +15,10 @@ import org.xml.sax.SAXException;
 
 import fr.mazure.homepagemanager.data.DataController;
 import fr.mazure.homepagemanager.data.FileHandler.Status;
-import fr.mazure.homepagemanager.data.nodechecker.NodeCheckError;
 import fr.mazure.homepagemanager.data.NodeValueChecker;
 import fr.mazure.homepagemanager.data.Violation;
 import fr.mazure.homepagemanager.data.ViolationDataController;
+import fr.mazure.homepagemanager.data.nodechecker.NodeCheckError;
 import fr.mazure.homepagemanager.utils.ExitHelper;
 
 /**
@@ -69,7 +69,7 @@ public class NodeValueCheckerTestBase {
     private static class DummyViolationController implements ViolationDataController {
 
         @Override
-        public void add(Violation violation) {
+        public void add(final Violation violation) {
             // do nothing
         }
 

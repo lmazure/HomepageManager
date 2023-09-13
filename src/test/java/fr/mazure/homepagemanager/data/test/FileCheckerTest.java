@@ -32,15 +32,16 @@ public class FileCheckerTest {
     void testNoError() {
 
         final String content =
-            "<?xml version=\"1.0\"?>\r\n" +
-            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-            "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
-            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
-            "<CONTENT>\r\n" +
-            "</CONTENT>\r\n" +
-            "</PAGE>";
+            """
+        	<?xml version="1.0"?>\r
+        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+        	<TITLE>test</TITLE>\r
+        	<PATH>dummy-dir/test.xml</PATH>\r
+        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+        	<CONTENT>\r
+        	</CONTENT>\r
+        	</PAGE>""";
 
         test(content);
     }
@@ -49,15 +50,16 @@ public class FileCheckerTest {
     void testBomDetection() {
 
         final String content =
-            "\uFEFF<?xml version=\"1.0\"?>\r\n" +
-            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-            "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
-            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
-            "<CONTENT>\r\n" +
-            "</CONTENT>\r\n" +
-            "</PAGE>";
+            """
+        	\uFEFF<?xml version="1.0"?>\r
+        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+        	<TITLE>test</TITLE>\r
+        	<PATH>dummy-dir/test.xml</PATH>\r
+        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+        	<CONTENT>\r
+        	</CONTENT>\r
+        	</PAGE>""";
 
         test(content,
              "SchemaViolation", 0, "the file violates the schema (\"org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 1; Content is not allowed in prolog.\")",
@@ -68,15 +70,16 @@ public class FileCheckerTest {
     void testTabDetectionAtBeginning() {
 
         final String content =
-            "\t<?xml version=\"1.0\"?>\r\n" +
-            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-            "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
-            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
-            "<CONTENT>\r\n" +
-            "</CONTENT>\r\n" +
-            "</PAGE>";
+            """
+        		<?xml version="1.0"?>\r
+        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+        	<TITLE>test</TITLE>\r
+        	<PATH>dummy-dir/test.xml</PATH>\r
+        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+        	<CONTENT>\r
+        	</CONTENT>\r
+        	</PAGE>""";
 
         test(content,
              "SchemaViolation", 0, "the file violates the schema (\"org.xml.sax.SAXParseException; lineNumber: 1; columnNumber: 7; The processing instruction target matching \"[xX][mM][lL]\" is not allowed.\")",
@@ -87,15 +90,16 @@ public class FileCheckerTest {
     void testNonBreakingSpaceAreNotReported() {
 
         final String content =
-            "<?xml version=\"1.0\"?>\r\n" +
-            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-            "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
-            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
-            "<CONTENT>foo\u00A0bar\r\n" +
-            "</CONTENT>\r\n" +
-            "</PAGE>";
+            """
+        	<?xml version="1.0"?>\r
+        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+        	<TITLE>test</TITLE>\r
+        	<PATH>dummy-dir/test.xml</PATH>\r
+        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+        	<CONTENT>foo\u00A0bar\r
+        	</CONTENT>\r
+        	</PAGE>""";
 
         test(content);
     }
@@ -104,15 +108,16 @@ public class FileCheckerTest {
     void testTabDetectionInMiddle() {
 
         final String content =
-            "<?xml version=\"1.0\"?>\r\n" +
-            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-            "<TITLE>test</TITLE>\r\n" +
-            "\t<PATH>dummy-dir/test.xml</PATH>\r\n" +
-            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\t\r\n" +
-            "<CONTENT>\r\n" +
-            "</CONTENT>\r\n" +
-            "</PAGE>";
+            """
+        	<?xml version="1.0"?>\r
+        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+        	<TITLE>test</TITLE>\r
+        		<PATH>dummy-dir/test.xml</PATH>\r
+        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>	\r
+        	<CONTENT>\r
+        	</CONTENT>\r
+        	</PAGE>""";
 
         test(content,
              "ControlCharacter", 5, s_mess_ctrl + " (x9) at column 1",
@@ -124,15 +129,16 @@ public class FileCheckerTest {
     void testTabDetectionAtEnd() {
 
         final String content =
-            "<?xml version=\"1.0\"?>\r\n" +
-            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-            "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
-            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
-            "<CONTENT>\r\n" +
-            "</CONTENT>\r\n" +
-            "</PAGE>\t";
+            """
+        	<?xml version="1.0"?>\r
+        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+        	<TITLE>test</TITLE>\r
+        	<PATH>dummy-dir/test.xml</PATH>\r
+        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+        	<CONTENT>\r
+        	</CONTENT>\r
+        	</PAGE>	""";
 
         test(content,
              "ControlCharacter", 9, s_mess_ctrl + " (x9) at column 8",
@@ -143,15 +149,16 @@ public class FileCheckerTest {
     void testSpaceDetectionAtBeginning() {
 
         final String content =
-            "<?xml version=\"1.0\"?> \r\n" +
-            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-            "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
-            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
-            "<CONTENT>\r\n" +
-            "</CONTENT>\r\n" +
-            "</PAGE>";
+            """
+        	<?xml version="1.0"?> \r
+        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+        	<TITLE>test</TITLE>\r
+        	<PATH>dummy-dir/test.xml</PATH>\r
+        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+        	<CONTENT>\r
+        	</CONTENT>\r
+        	</PAGE>""";
 
         test(content,
              "WhiteSpaceAtLineEnd", 1, s_mess_white_space);
@@ -161,15 +168,16 @@ public class FileCheckerTest {
     void testSpaceDetectionInMiddle() {
 
         final String content =
-            "<?xml version=\"1.0\"?>\r\n" +
-            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-            "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH> \r\n" +
-            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE> \r\n" +
-            "<CONTENT>\r\n" +
-            "</CONTENT>\r\n" +
-            "</PAGE>";
+            """
+        	<?xml version="1.0"?>\r
+        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+        	<TITLE>test</TITLE>\r
+        	<PATH>dummy-dir/test.xml</PATH> \r
+        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE> \r
+        	<CONTENT>\r
+        	</CONTENT>\r
+        	</PAGE>""";
 
         test(content,
              "WhiteSpaceAtLineEnd", 5, s_mess_white_space,
@@ -180,15 +188,16 @@ public class FileCheckerTest {
     void testSpaceDetectionAtEnd() {
 
         final String content =
-            "<?xml version=\"1.0\"?>\r\n" +
-            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-            "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
-            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
-            "<CONTENT>\r\n" +
-            "</CONTENT>\r\n" +
-            "</PAGE> ";
+            """
+        	<?xml version="1.0"?>\r
+        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+        	<TITLE>test</TITLE>\r
+        	<PATH>dummy-dir/test.xml</PATH>\r
+        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+        	<CONTENT>\r
+        	</CONTENT>\r
+        	</PAGE>\s""";
 
         test(content,
              "WhiteSpaceAtLineEnd", 9, s_mess_white_space);
@@ -198,15 +207,16 @@ public class FileCheckerTest {
     void testIncorrectPath() {
 
         final String content =
-            "<?xml version=\"1.0\"?>\r\n" +
-            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-            "<TITLE>test</TITLE>\r\n" +
-            "<PATH>HomepageManager/wrong.xml</PATH>\r\n" +
-            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
-            "<CONTENT>\r\n" +
-            "</CONTENT>\r\n" +
-            "</PAGE>";
+            """
+        	<?xml version="1.0"?>\r
+        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+        	<TITLE>test</TITLE>\r
+        	<PATH>HomepageManager/wrong.xml</PATH>\r
+        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+        	<CONTENT>\r
+        	</CONTENT>\r
+        	</PAGE>""";
 
         test(content,
              "WrongPath", 5, s_mess_path);
@@ -216,15 +226,16 @@ public class FileCheckerTest {
     void testMissingCarriageReturn() {
 
         final String content =
-            "<?xml version=\"1.0\"?>\r\n" +
-            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-            "<TITLE>test</TITLE>\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
-            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
-            "<CONTENT>\r\n" +
-            "</CONTENT>\r\n" +
-            "</PAGE>";
+            """
+        	<?xml version="1.0"?>\r
+        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+        	<TITLE>test</TITLE>
+        	<PATH>dummy-dir/test.xml</PATH>\r
+        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+        	<CONTENT>\r
+        	</CONTENT>\r
+        	</PAGE>""";
 
         test(content,
              "BadEndOfLine", 4, s_mess_crlf);
@@ -234,16 +245,17 @@ public class FileCheckerTest {
     void testEmptyLineDetectionAtBeginning() {
 
         final String content =
-            "\r\n" +
-            "<?xml version=\"1.0\"?>\r\n" +
-            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-            "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
-            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
-            "<CONTENT>\r\n" +
-            "</CONTENT>\r\n" +
-            "</PAGE>";
+            """
+        	\r
+        	<?xml version="1.0"?>\r
+        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+        	<TITLE>test</TITLE>\r
+        	<PATH>dummy-dir/test.xml</PATH>\r
+        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+        	<CONTENT>\r
+        	</CONTENT>\r
+        	</PAGE>""";
 
         test(content,
              "SchemaViolation", 0, "the file violates the schema (\"org.xml.sax.SAXParseException; lineNumber: 2; columnNumber: 6; The processing instruction target matching \"[xX][mM][lL]\" is not allowed.\")",
@@ -254,16 +266,17 @@ public class FileCheckerTest {
     void testEmptyLineDetectionInMiddle() {
 
         final String content =
-            "<?xml version=\"1.0\"?>\r\n" +
-            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-            "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
-            "\r\n" +
-            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
-            "<CONTENT>\r\n" +
-            "</CONTENT>\r\n" +
-            "</PAGE>";
+            """
+        	<?xml version="1.0"?>\r
+        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+        	<TITLE>test</TITLE>\r
+        	<PATH>dummy-dir/test.xml</PATH>\r
+        	\r
+        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+        	<CONTENT>\r
+        	</CONTENT>\r
+        	</PAGE>""";
 
         test(content,
              "EmptyLine", 6, s_mess_empty_line);
@@ -273,15 +286,17 @@ public class FileCheckerTest {
     void testEmptyLineDetectionAtEnd() {
 
         final String content =
-            "<?xml version=\"1.0\"?>\r\n" +
-            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-            "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
-            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
-            "<CONTENT>\r\n" +
-            "</CONTENT>\r\n" +
-            "</PAGE>\r\n";
+            """
+        	<?xml version="1.0"?>\r
+        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+        	<TITLE>test</TITLE>\r
+        	<PATH>dummy-dir/test.xml</PATH>\r
+        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+        	<CONTENT>\r
+        	</CONTENT>\r
+        	</PAGE>\r
+        	""";
 
         test(content,
              "EmptyLine", 10, s_mess_empty_line);
@@ -291,16 +306,17 @@ public class FileCheckerTest {
     void testWhiteLineDetectionAtBeginning() {
 
         final String content =
-            " \r\n" +
-            "<?xml version=\"1.0\"?>\r\n" +
-            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-            "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
-            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
-            "<CONTENT>\r\n" +
-            "</CONTENT>\r\n" +
-            "</PAGE>";
+            """
+        	 \r
+        	<?xml version="1.0"?>\r
+        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+        	<TITLE>test</TITLE>\r
+        	<PATH>dummy-dir/test.xml</PATH>\r
+        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+        	<CONTENT>\r
+        	</CONTENT>\r
+        	</PAGE>""";
 
         test(content,
              "SchemaViolation", 0, "the file violates the schema (\"org.xml.sax.SAXParseException; lineNumber: 2; columnNumber: 6; The processing instruction target matching \"[xX][mM][lL]\" is not allowed.\")",
@@ -313,16 +329,17 @@ public class FileCheckerTest {
     void testWhiteLineDetectionInMiddle() {
 
         final String content =
-            "<?xml version=\"1.0\"?>\r\n" +
-            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-            "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
-            "  \r\n" +
-            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
-            "<CONTENT>\r\n" +
-            "</CONTENT>\r\n" +
-            "</PAGE>";
+            """
+        	<?xml version="1.0"?>\r
+        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+        	<TITLE>test</TITLE>\r
+        	<PATH>dummy-dir/test.xml</PATH>\r
+        	  \r
+        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+        	<CONTENT>\r
+        	</CONTENT>\r
+        	</PAGE>""";
 
         test(content,
              "EmptyLine", 6, s_mess_empty_line,
@@ -333,16 +350,17 @@ public class FileCheckerTest {
     void testWhiteLineDetectionAtEnd() {
 
         final String content =
-            "<?xml version=\"1.0\"?>\r\n" +
-            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-            "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
-            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
-            "<CONTENT>\r\n" +
-            "</CONTENT>\r\n" +
-            "</PAGE>\r\n" +
-            " ";
+            """
+        	<?xml version="1.0"?>\r
+        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+        	<TITLE>test</TITLE>\r
+        	<PATH>dummy-dir/test.xml</PATH>\r
+        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+        	<CONTENT>\r
+        	</CONTENT>\r
+        	</PAGE>\r
+        	 """;
 
         test(content,
              "EmptyLine", 10, s_mess_empty_line,
@@ -354,15 +372,16 @@ public class FileCheckerTest {
     void testOddNumberOfSpaces() {
 
         final String content =
-            "<?xml version=\"1.0\"?>\r\n" +
-            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            " <PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-            "  <TITLE>test</TITLE>\r\n" +
-            "   <PATH>dummy-dir/test.xml</PATH>\r\n" +
-            "    <DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
-            "<CONTENT>\r\n" +
-            "</CONTENT>\r\n" +
-            "</PAGE>";
+            """
+        	<?xml version="1.0"?>\r
+        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+        	 <PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+        	  <TITLE>test</TITLE>\r
+        	   <PATH>dummy-dir/test.xml</PATH>\r
+        	    <DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+        	<CONTENT>\r
+        	</CONTENT>\r
+        	</PAGE>""";
 
         test(content,
              "OddIndentation", 3, s_mess_odd_space_indentation,
@@ -373,20 +392,21 @@ public class FileCheckerTest {
     void testBadGreaterThanCharacter() {
 
         final String content =
-            "<?xml version=\"1.0\"?>\r\n" +
-            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-            "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
-            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY> </DATE>\r\n" +
-            "<CONTENT>\r\n" +
-            "  <BLIST><TITLE>My articles</TITLE>\r\n" +
-            "    <ITEM><ARTICLE><X><T>>Antisocial Coding: My Year at GitHub</T><A>https://where.coraline.codes/blog/my-year-at-github/</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Coraline Ada</FIRSTNAME><LASTNAME>Ehmke</LASTNAME></AUTHOR><DATE><YEAR>2017</YEAR><MONTH>7</MONTH><DAY>5</DAY></DATE><COMMENT>The author, a transgender, described her life in and firing from GitHub.</COMMENT></ARTICLE></ITEM>\r\n" +
-            "    <ITEM><ARTICLE><X status=\"dead\"><T>example</T><A>https://example.com</A><L>en</L><F>HTML</F></X><DATE><YEAR>2021</YEAR></DATE><COMMENT>blabla</COMMENT></ARTICLE></ITEM>\r\n" +
-            "  <!-- comment -->\r\n" +
-            "  </BLIST>\r\n" +
-            "</CONTENT>\r\n" +
-            "</PAGE>";
+            """
+        	<?xml version="1.0"?>\r
+        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+        	<TITLE>test</TITLE>\r
+        	<PATH>dummy-dir/test.xml</PATH>\r
+        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY> </DATE>\r
+        	<CONTENT>\r
+        	  <BLIST><TITLE>My articles</TITLE>\r
+        	    <ITEM><ARTICLE><X><T>>Antisocial Coding: My Year at GitHub</T><A>https://where.coraline.codes/blog/my-year-at-github/</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Coraline Ada</FIRSTNAME><LASTNAME>Ehmke</LASTNAME></AUTHOR><DATE><YEAR>2017</YEAR><MONTH>7</MONTH><DAY>5</DAY></DATE><COMMENT>The author, a transgender, described her life in and firing from GitHub.</COMMENT></ARTICLE></ITEM>\r
+        	    <ITEM><ARTICLE><X status="dead"><T>example</T><A>https://example.com</A><L>en</L><F>HTML</F></X><DATE><YEAR>2021</YEAR></DATE><COMMENT>blabla</COMMENT></ARTICLE></ITEM>\r
+        	  <!-- comment -->\r
+        	  </BLIST>\r
+        	</CONTENT>\r
+        	</PAGE>""";
 
         test(content,
              "GreaterThanCharacter", 9, "the line contains a \">\"");
@@ -396,20 +416,21 @@ public class FileCheckerTest {
     void testSpaceInTag() {
 
         final String content =
-            "<?xml version=\"1.0\"?>\r\n" +
-            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-            "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
-            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
-            "<CONTENT>\r\n" +
-            "  <BLIST><TITLE>My articles</TITLE>\r\n" +
-            "    <ITEM><ARTICLE><X><T>Antisocial Coding: My Year at GitHub</T><A>https://where.coraline.codes/blog/my-year-at-github/</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Coraline Ada</FIRSTNAME><LASTNAME>Ehmke</LASTNAME></AUTHOR><DATE><YEAR>2017</YEAR><MONTH>7</MONTH><DAY>5</DAY></DATE><COMMENT>The author, a transgender, described her life in and firing from GitHub.</COMMENT></ARTICLE></ITEM>\r\n" +
-            "    <ITEM><ARTICLE><X status=\"dead\"><T>example</T><A>https://example.com</A><L>en</L><F>HTML</F></X><DATE><YEAR>2021</YEAR></DATE><COMMENT>blabla</COMMENT></ARTICLE></ITEM>\r\n" +
-            "  <!-- comment -->\r\n" +
-            "  </BLIST>\r\n" +
-            "</CONTENT >\r\n" +
-            "</PAGE>";
+            """
+        	<?xml version="1.0"?>\r
+        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+        	<TITLE>test</TITLE>\r
+        	<PATH>dummy-dir/test.xml</PATH>\r
+        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+        	<CONTENT>\r
+        	  <BLIST><TITLE>My articles</TITLE>\r
+        	    <ITEM><ARTICLE><X><T>Antisocial Coding: My Year at GitHub</T><A>https://where.coraline.codes/blog/my-year-at-github/</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Coraline Ada</FIRSTNAME><LASTNAME>Ehmke</LASTNAME></AUTHOR><DATE><YEAR>2017</YEAR><MONTH>7</MONTH><DAY>5</DAY></DATE><COMMENT>The author, a transgender, described her life in and firing from GitHub.</COMMENT></ARTICLE></ITEM>\r
+        	    <ITEM><ARTICLE><X status="dead"><T>example</T><A>https://example.com</A><L>en</L><F>HTML</F></X><DATE><YEAR>2021</YEAR></DATE><COMMENT>blabla</COMMENT></ARTICLE></ITEM>\r
+        	  <!-- comment -->\r
+        	  </BLIST>\r
+        	</CONTENT >\r
+        	</PAGE>""";
 
         test(content,
              "SpaceInXmlNode", 13, "the line contains space in an XML tag \"</CONTENT >\"");
@@ -419,20 +440,21 @@ public class FileCheckerTest {
     void testSpaceInAttribute() {
 
         final String content =
-            "<?xml version=\"1.0\"?>\r\n" +
-            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-            "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
-            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
-            "<CONTENT>\r\n" +
-            "  <BLIST><TITLE>My articles</TITLE>\r\n" +
-            "    <ITEM><ARTICLE><X quality =\"1\"><T>Antisocial Coding: My Year at GitHub</T><A>https://where.coraline.codes/blog/my-year-at-github/</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Coraline Ada</FIRSTNAME><LASTNAME>Ehmke</LASTNAME></AUTHOR><DATE><YEAR>2017</YEAR><MONTH>7</MONTH><DAY>5</DAY></DATE><COMMENT>The author, a transgender, described her life in and firing from GitHub.</COMMENT></ARTICLE></ITEM>\r\n" +
-            "    <ITEM><ARTICLE><X quality= \"1\" status=\"dead\"><T>example</T><A>https://example.com</A><L>en</L><F>HTML</F></X><DATE><YEAR>2021</YEAR></DATE><COMMENT>blabla</COMMENT></ARTICLE></ITEM>\r\n" +
-            "  <!-- comment -->\r\n" +
-            "  </BLIST>\r\n" +
-            "</CONTENT>\r\n" +
-            "</PAGE>";
+            """
+        	<?xml version="1.0"?>\r
+        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+        	<TITLE>test</TITLE>\r
+        	<PATH>dummy-dir/test.xml</PATH>\r
+        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+        	<CONTENT>\r
+        	  <BLIST><TITLE>My articles</TITLE>\r
+        	    <ITEM><ARTICLE><X quality ="1"><T>Antisocial Coding: My Year at GitHub</T><A>https://where.coraline.codes/blog/my-year-at-github/</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Coraline Ada</FIRSTNAME><LASTNAME>Ehmke</LASTNAME></AUTHOR><DATE><YEAR>2017</YEAR><MONTH>7</MONTH><DAY>5</DAY></DATE><COMMENT>The author, a transgender, described her life in and firing from GitHub.</COMMENT></ARTICLE></ITEM>\r
+        	    <ITEM><ARTICLE><X quality= "1" status="dead"><T>example</T><A>https://example.com</A><L>en</L><F>HTML</F></X><DATE><YEAR>2021</YEAR></DATE><COMMENT>blabla</COMMENT></ARTICLE></ITEM>\r
+        	  <!-- comment -->\r
+        	  </BLIST>\r
+        	</CONTENT>\r
+        	</PAGE>""";
 
         test(content,
              "SpaceInAttributeSetting", 9, "the line contains space near \"=\" in an XML attribute \"<X quality =\"1\">\"",
@@ -443,20 +465,21 @@ public class FileCheckerTest {
     void testDoubleSpaceInAttribute() {
 
         final String content =
-            "<?xml version=\"1.0\"?>\r\n" +
-            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-            "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
-            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
-            "<CONTENT>\r\n" +
-            "  <BLIST><TITLE>My articles</TITLE>\r\n" +
-            "    <ITEM><ARTICLE><X  quality=\"1\"><T>Antisocial Coding: My Year at GitHub</T><A>https://where.coraline.codes/blog/my-year-at-github/</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Coraline Ada</FIRSTNAME><LASTNAME>Ehmke</LASTNAME></AUTHOR><DATE><YEAR>2017</YEAR><MONTH>7</MONTH><DAY>5</DAY></DATE><COMMENT>The author, a transgender, described her life in and firing from GitHub.</COMMENT></ARTICLE></ITEM>\r\n" +
-            "    <ITEM><ARTICLE><X quality=\"1\" status=\"dead\"><T>example</T><A>https://example.com</A><L>en</L><F>HTML</F></X><DATE><YEAR>2021</YEAR></DATE><COMMENT>blabla</COMMENT></ARTICLE></ITEM>\r\n" +
-            "  <!-- comment -->\r\n" +
-            "  </BLIST>\r\n" +
-            "</CONTENT>\r\n" +
-            "</PAGE>";
+            """
+        	<?xml version="1.0"?>\r
+        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+        	<TITLE>test</TITLE>\r
+        	<PATH>dummy-dir/test.xml</PATH>\r
+        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+        	<CONTENT>\r
+        	  <BLIST><TITLE>My articles</TITLE>\r
+        	    <ITEM><ARTICLE><X  quality="1"><T>Antisocial Coding: My Year at GitHub</T><A>https://where.coraline.codes/blog/my-year-at-github/</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Coraline Ada</FIRSTNAME><LASTNAME>Ehmke</LASTNAME></AUTHOR><DATE><YEAR>2017</YEAR><MONTH>7</MONTH><DAY>5</DAY></DATE><COMMENT>The author, a transgender, described her life in and firing from GitHub.</COMMENT></ARTICLE></ITEM>\r
+        	    <ITEM><ARTICLE><X quality="1" status="dead"><T>example</T><A>https://example.com</A><L>en</L><F>HTML</F></X><DATE><YEAR>2021</YEAR></DATE><COMMENT>blabla</COMMENT></ARTICLE></ITEM>\r
+        	  <!-- comment -->\r
+        	  </BLIST>\r
+        	</CONTENT>\r
+        	</PAGE>""";
 
         test(content,
              "DoubleSpaceInXmlNode", 9, "the line contains double space in an XML attribute \"<X  quality=\"1\">\"");
@@ -466,20 +489,21 @@ public class FileCheckerTest {
     void testXmlAttributeBetweenSingleQuote() {
 
         final String content =
-            "<?xml version=\"1.0\"?>\r\n" +
-            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-            "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
-            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
-            "<CONTENT>\r\n" +
-            "  <BLIST><TITLE>My articles</TITLE>\r\n" +
-            "    <ITEM><ARTICLE><X><T>Antisocial Coding: My Year at GitHub</T><A>https://where.coraline.codes/blog/my-year-at-github/</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Coraline Ada</FIRSTNAME><LASTNAME>Ehmke</LASTNAME></AUTHOR><DATE><YEAR>2017</YEAR><MONTH>7</MONTH><DAY>5</DAY></DATE><COMMENT>The author, a transgender, described her life in and firing from GitHub.</COMMENT></ARTICLE></ITEM>\r\n" +
-            "    <ITEM><ARTICLE><X status='dead'><T>example</T><A>https://example.com</A><L>en</L><F>HTML</F></X><DATE><YEAR>2021</YEAR></DATE><COMMENT>blabla</COMMENT></ARTICLE></ITEM>\r\n" +
-            "  <!-- comment -->\r\n" +
-            "  </BLIST>\r\n" +
-            "</CONTENT>\r\n" +
-            "</PAGE>";
+            """
+        	<?xml version="1.0"?>\r
+        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+        	<TITLE>test</TITLE>\r
+        	<PATH>dummy-dir/test.xml</PATH>\r
+        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+        	<CONTENT>\r
+        	  <BLIST><TITLE>My articles</TITLE>\r
+        	    <ITEM><ARTICLE><X><T>Antisocial Coding: My Year at GitHub</T><A>https://where.coraline.codes/blog/my-year-at-github/</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Coraline Ada</FIRSTNAME><LASTNAME>Ehmke</LASTNAME></AUTHOR><DATE><YEAR>2017</YEAR><MONTH>7</MONTH><DAY>5</DAY></DATE><COMMENT>The author, a transgender, described her life in and firing from GitHub.</COMMENT></ARTICLE></ITEM>\r
+        	    <ITEM><ARTICLE><X status='dead'><T>example</T><A>https://example.com</A><L>en</L><F>HTML</F></X><DATE><YEAR>2021</YEAR></DATE><COMMENT>blabla</COMMENT></ARTICLE></ITEM>\r
+        	  <!-- comment -->\r
+        	  </BLIST>\r
+        	</CONTENT>\r
+        	</PAGE>""";
         test(content,
                 "AttributeBetweenSingleQuotes", 10, "the line contains an XML attribute between single quotes \"<X status='dead'>\"");
        }
@@ -488,20 +512,21 @@ public class FileCheckerTest {
         void testLocalLinks() {
 
             final String content =
-                "<?xml version=\"1.0\"?>\r\n" +
-                "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-                "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-                "<TITLE>test</TITLE>\r\n" +
-                "<PATH>dummy-dir/test.xml</PATH>\r\n" +
-                "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
-                "<CONTENT>\r\n" +
-                "<ANCHOR>here</ANCHOR>\r\n" +
-                "<X><T>link 1 → OK</T><A>test.html#here</A><L>en</L><F>HTML</F></X>\r\n" +
-                "<X><T>link 2 → OK</T><A>../dummy-dir/test.html#here</A><L>en</L><F>HTML</F></X>\r\n" +
-                "<X><T>link 3 → KO</T><A>tast.html#here</A><L>en</L><F>HTML</F></X>\r\n" +
-                "<X><T>link 4 → KO</T><A>test.html#hare</A><L>en</L><F>HTML</F></X>\r\n" +
-                "</CONTENT>\r\n" +
-                "</PAGE>";
+                """
+            	<?xml version="1.0"?>\r
+            	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+            	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+            	<TITLE>test</TITLE>\r
+            	<PATH>dummy-dir/test.xml</PATH>\r
+            	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+            	<CONTENT>\r
+            	<ANCHOR>here</ANCHOR>\r
+            	<X><T>link 1 → OK</T><A>test.html#here</A><L>en</L><F>HTML</F></X>\r
+            	<X><T>link 2 → OK</T><A>../dummy-dir/test.html#here</A><L>en</L><F>HTML</F></X>\r
+            	<X><T>link 3 → KO</T><A>tast.html#here</A><L>en</L><F>HTML</F></X>\r
+            	<X><T>link 4 → KO</T><A>test.html#hare</A><L>en</L><F>HTML</F></X>\r
+            	</CONTENT>\r
+            	</PAGE>""";
 
             test(content,
                  "IncorrectLocalLink", 0, "the file \"H:\\Documents\\tmp\\hptmp\\test\\FileCheckerTest\\dummy-dir\\tast.xml\" does not exist",

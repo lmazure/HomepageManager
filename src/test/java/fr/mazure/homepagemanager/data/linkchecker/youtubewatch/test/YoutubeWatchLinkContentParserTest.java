@@ -218,9 +218,10 @@ public class YoutubeWatchLinkContentParserTest {
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
                                try {
-                                   Assertions.assertEquals("Ce soir, on joue ensemble autour de quelques énigmes mathématiques.\n" +
-                                           "\n" +
-                                           "La chaîne Myriogon : https://www.youtube.com/channel/UCvYEpQbJ81n2pjrQrKUrRog/", parser.getDescription());
+                                   Assertions.assertEquals("""
+                                	Ce soir, on joue ensemble autour de quelques énigmes mathématiques.
+
+                                	La chaîne Myriogon : https://www.youtube.com/channel/UCvYEpQbJ81n2pjrQrKUrRog/""", parser.getDescription());
                                } catch (final ContentParserException e) {
                                    Assertions.fail("getDescription threw " + e.getMessage());
                                }
@@ -241,19 +242,20 @@ public class YoutubeWatchLinkContentParserTest {
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
                                try {
-                                   Assertions.assertEquals("Watch Metallica perform \"Master of Puppets\" live on the Howard Stern Show.\n" +
-                                           "\n" +
-                                           "Metallica's new album \"Hardwired… to Self-Destruct\" is available on Nov. 18.\n" +
-                                           "\n" +
-                                           "Want to know what's going on with Howard Stern in the future?\n" +
-                                           "\n" +
-                                           "Follow us on Twitter: http://bit.ly/1RzxGPD\n" +
-                                           "On Facebook: http://on.fb.me/1JELtz3\n" +
-                                           "On Instagram: https://goo.gl/VsWTND\n" +
-                                           "\n" +
-                                           "For more great content from the Howard Stern Show visit our official website: http://www.HowardStern.com\n" +
-                                           "\n" +
-                                           "Hear more Howard Stern by signing up for a free SiriusXM trial: https://goo.gl/uNL0Du", parser.getDescription());
+                                   Assertions.assertEquals("""
+                                	Watch Metallica perform "Master of Puppets" live on the Howard Stern Show.
+
+                                	Metallica's new album "Hardwired… to Self-Destruct" is available on Nov. 18.
+
+                                	Want to know what's going on with Howard Stern in the future?
+
+                                	Follow us on Twitter: http://bit.ly/1RzxGPD
+                                	On Facebook: http://on.fb.me/1JELtz3
+                                	On Instagram: https://goo.gl/VsWTND
+
+                                	For more great content from the Howard Stern Show visit our official website: http://www.HowardStern.com
+
+                                	Hear more Howard Stern by signing up for a free SiriusXM trial: https://goo.gl/uNL0Du""", parser.getDescription());
                                } catch (final ContentParserException e) {
                                    Assertions.fail("getDescription threw " + e.getMessage());
                                }
@@ -464,8 +466,7 @@ public class YoutubeWatchLinkContentParserTest {
                                                              final String url) {
 
         try {
-            final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(url, data);
-            return parser;
+            return new YoutubeWatchLinkContentParser(url, data);
         } catch (final ContentParserException e) {
             Assertions.fail("new YoutubeWatchLinkContentParserNew threw " + e.getMessage());
         }

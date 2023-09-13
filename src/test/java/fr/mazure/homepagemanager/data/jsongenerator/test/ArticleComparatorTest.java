@@ -1,12 +1,11 @@
 package fr.mazure.homepagemanager.data.jsongenerator.test;
 
-import org.junit.jupiter.api.Assertions;
-
 import java.io.File;
 import java.time.LocalDate;
 import java.util.Locale;
 import java.util.Optional;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import fr.mazure.homepagemanager.data.jsongenerator.Article;
