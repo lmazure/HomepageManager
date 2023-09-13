@@ -1,13 +1,13 @@
 package fr.mazure.homepagemanager.data.nodechecker;
 
-import fr.mazure.homepagemanager.data.nodechecker.tagselection.TagSelector;
-import fr.mazure.homepagemanager.utils.xmlparsing.XmlHelper;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
 import org.w3c.dom.Element;
+
+import fr.mazure.homepagemanager.data.nodechecker.tagselection.TagSelector;
+import fr.mazure.homepagemanager.utils.xmlparsing.XmlHelper;
 
 /**
 *
@@ -27,12 +27,12 @@ public class NodeChecker {
          * @return true is the rule is verified
          * false if the rule is violated
          */
-        public CheckStatus checkElement(final Element e);
+        CheckStatus checkElement(final Element e);
 
         /**
          * @return description of the violation
          */
-        public String getDescription();
+        String getDescription();
     }
 
     @SuppressWarnings("unchecked")

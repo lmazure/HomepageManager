@@ -47,7 +47,7 @@ public class AuthorsChecker extends NodeChecker {
                                    Optional.empty());
         }
 
-        for (LinkData link: articleData.links()) {
+        for (final LinkData link: articleData.links()) {
             final Optional<WellKnownAuthors> expectedWellKnownAuthors = WellKnownAuthorsOfLink.getWellKnownAuthors(link.getUrl());
             if (expectedWellKnownAuthors.isPresent()) {
                 if (expectedWellKnownAuthors.get().canHaveOtherAuthors()) {
@@ -93,7 +93,7 @@ public class AuthorsChecker extends NodeChecker {
                                    Optional.empty());
         }
 
-        for (AuthorData author: articleData.authors()) {
+        for (final AuthorData author: articleData.authors()) {
             if (authors.contains(author)) {
                 return new CheckStatus("DuplicatedAuthor",
                                        "The list of authors of article \"" +
@@ -108,6 +108,6 @@ public class AuthorsChecker extends NodeChecker {
     }
 
     private static String formatAuthorList(final List<AuthorData> list) {
-        return String.join(";", list.stream().map(data -> data.toString()).collect(Collectors.toList()));
+        return String.join(";", list.stream().map(AuthorData::toString).collect(Collectors.toList()));
     }
 }

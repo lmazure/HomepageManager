@@ -53,7 +53,7 @@ public class Article {
      * @return the list of authors
      */
     public Author[] getAuthors() {
-        Author a[] = _authors.toArray(new Author[0]);
+        final Author a[] = _authors.toArray(new Author[0]);
         Arrays.sort(a);
         return a;
     }

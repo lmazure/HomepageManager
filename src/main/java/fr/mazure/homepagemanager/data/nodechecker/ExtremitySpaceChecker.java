@@ -1,13 +1,13 @@
 package fr.mazure.homepagemanager.data.nodechecker;
 
-import fr.mazure.homepagemanager.data.nodechecker.tagselection.ExclusionTagSelector;
-import fr.mazure.homepagemanager.utils.xmlparsing.ElementType;
-
 import java.util.Optional;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import fr.mazure.homepagemanager.data.nodechecker.tagselection.ExclusionTagSelector;
+import fr.mazure.homepagemanager.utils.xmlparsing.ElementType;
 
 /**
 *
@@ -58,7 +58,7 @@ public class ExtremitySpaceChecker extends NodeChecker {
         if (s.length() == 0) {
             return null;
         }
-        char c = s.charAt(0);
+        final char c = s.charAt(0);
         if (!Character.isWhitespace(c)) {
             return null;
         }
@@ -80,7 +80,7 @@ public class ExtremitySpaceChecker extends NodeChecker {
         if (s.length() == 0) {
             return null;
         }
-        char c = s.charAt(s.length()-1);
+        final char c = s.charAt(s.length()-1);
         if (!Character.isWhitespace(c)) {
             return null;
         }

@@ -251,8 +251,8 @@ public class LinkContentChecker implements Checker {
 
         if (!unexpectedAuthors.isEmpty() || !missingAuthors.isEmpty()) {
             final String message = "The list of effective authors is not the effective one."
-                                   + "\nThe following authors are effectively present but are unexpected: " + unexpectedAuthors.stream().map(a-> a.toString()).collect(Collectors.joining(","))
-                                   + "\nThe following authors are expected but are effectively missing: " + missingAuthors.stream().map(a-> a.toString()).collect(Collectors.joining(","));
+                                   + "\nThe following authors are effectively present but are unexpected: " + unexpectedAuthors.stream().map(AuthorData::toString).collect(Collectors.joining(","))
+                                   + "\nThe following authors are expected but are effectively missing: " + missingAuthors.stream().map(AuthorData::toString).collect(Collectors.joining(","));
             return new LinkContentCheck("WrongAuthors",
                                         message,
                                         Optional.empty());
@@ -262,8 +262,8 @@ public class LinkContentChecker implements Checker {
         for (int i = 0; i < expectedAuthors.size(); i++) {
             if (!expectedAuthors.get(i).equals(effectiveAuthors.get(i))) {
                 final String message = "The list of effective authors is not ordered as the effective one."
-                        + "\nexpected authors: " + expectedAuthors.stream().map(a-> a.toString()).collect(Collectors.joining(","))
-                        + "\neffective authors: " + effectiveAuthors.stream().map(a-> a.toString()).collect(Collectors.joining(","));
+                        + "\nexpected authors: " + expectedAuthors.stream().map(AuthorData::toString).collect(Collectors.joining(","))
+                        + "\neffective authors: " + effectiveAuthors.stream().map(AuthorData::toString).collect(Collectors.joining(","));
                 return new LinkContentCheck("WrongAuthors",
                                             message,
                                             Optional.empty());
@@ -351,7 +351,7 @@ public class LinkContentChecker implements Checker {
 
         final Optional<ViolationCorrection> correction = (expectedLanguages.length == 1) ? Optional.of(new UpdateLinkLanguageCorrection(expectedLanguages[0], effectiveLanguage, getUrl()))
                                                                                          : Optional.empty();
-        final String expectedLanguagesAsString = Arrays.stream(expectedLanguages).map(l -> l.toString()).collect(Collectors.joining(", "));
+        final String expectedLanguagesAsString = Arrays.stream(expectedLanguages).map(Locale::toString).collect(Collectors.joining(", "));
         return new LinkContentCheck("WrongLanguage",
                                     "language is \"" +
                                     effectiveLanguage +

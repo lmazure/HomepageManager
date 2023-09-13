@@ -31,7 +31,7 @@ public class XmlGenerator {
                                      final int quality) {
         final StringBuilder builder = new StringBuilder();
         builder.append("<ARTICLE>");
-        for (ExtractedLinkData linkData: links) {
+        for (final ExtractedLinkData linkData: links) {
             builder.append("<X");
             if (linkData.status().isPresent()) {
                 builder.append(generateStatus(linkData.status().get()));
@@ -46,7 +46,7 @@ public class XmlGenerator {
             builder.append("<T>");
             builder.append(XmlHelper.transform(linkData.title()));
             builder.append("</T>");
-            for (String subTitle: linkData.subtitles()) {
+            for (final String subTitle: linkData.subtitles()) {
                 builder.append("<ST>");
                 builder.append(XmlHelper.transform(subTitle));
                 builder.append("</ST>");
@@ -54,10 +54,10 @@ public class XmlGenerator {
             builder.append("<A>");
             builder.append(XmlHelper.transform(linkData.url()));
             builder.append("</A>");
-            for (Locale language: linkData.languages()) {
+            for (final Locale language: linkData.languages()) {
                 builder.append(generateLanguage(language));
             }
-            for (LinkFormat format: linkData.formats()) {
+            for (final LinkFormat format: linkData.formats()) {
                 builder.append(generateFormat(format));
             }
             if (linkData.duration().isPresent()) {
@@ -68,7 +68,7 @@ public class XmlGenerator {
             }
             builder.append("</X>");
         }
-        for (AuthorData authorData: authors) {
+        for (final AuthorData authorData: authors) {
             builder.append(generateAuthor(authorData));
         }
         if (date.isPresent()) {
@@ -122,33 +122,23 @@ public class XmlGenerator {
      * @return XML attribute as a text
      */
     public static String generateStatus(final LinkStatus status) {
-        switch (status) {
-            case OK:
-                return "";
-            case REMOVED:
-                return " status=\"removed\"";
-            case DEAD:
-                return " status=\"dead\"";
-            case OBSOLETE:
-                return " status=\"obsolete\"";
-            case ZOMBIE:
-                return " status=\"zombie\"";
-            default:
-                throw new UnsupportedOperationException("Illegal status value (" + status + ")");
-        }
+        return switch (status) {
+        case OK -> "";
+        case REMOVED -> " status=\"removed\"";
+        case DEAD -> " status=\"dead\"";
+        case OBSOLETE -> " status=\"obsolete\"";
+        case ZOMBIE -> " status=\"zombie\"";
+        default -> throw new UnsupportedOperationException("Illegal status value (" + status + ")");
+        };
     }
 
     private static String generateProtection(final LinkProtection protection) {
-        switch (protection) {
-            case NO_REQUIRED_REGISTRATION:
-                return "";
-            case FREE_REGISTRATION:
-                return " protection=\"free_registration\"";
-            case PAYED_REGISTRATION:
-                return " protection=\"payed_registration\"";
-            default:
-                throw new UnsupportedOperationException("Illegal protection value (" + protection + ")");
-        }
+        return switch (protection) {
+        case NO_REQUIRED_REGISTRATION -> "";
+        case FREE_REGISTRATION -> " protection=\"free_registration\"";
+        case PAYED_REGISTRATION -> " protection=\"payed_registration\"";
+        default -> throw new UnsupportedOperationException("Illegal protection value (" + protection + ")");
+        };
     }
 
     private static String generateLanguage(final Locale language) {

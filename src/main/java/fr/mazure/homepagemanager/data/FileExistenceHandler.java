@@ -13,12 +13,12 @@ public interface FileExistenceHandler {
      * @param modificationDateTime
      * @param size
      */
-    public void handleCreation(final Path file,
-                               final FileTime modificationDateTime,
-                               final long size);
+    void handleCreation(final Path file,
+                        final FileTime modificationDateTime,
+                        final long size);
 
     /**
      * @param file
      */
-    public void handleDeletion(final Path file);
+    void handleDeletion(final Path file);
 }

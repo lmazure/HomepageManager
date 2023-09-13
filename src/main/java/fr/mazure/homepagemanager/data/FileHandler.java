@@ -35,28 +35,28 @@ public interface FileHandler {
     /**
      * @param file
      */
-    public void handleCreation(final Path file);
+    void handleCreation(final Path file);
 
     /**
      * @param file
      */
-    public void handleDeletion(final Path file);
-
-    /**
-     * @param file
-     * @return
-     */
-    public Path getOutputFile(final Path file);
+    void handleDeletion(final Path file);
 
     /**
      * @param file
      * @return
      */
-    public Path getReportFile(final Path file);
+    Path getOutputFile(final Path file);
 
     /**
      * @param file
      * @return
      */
-    public boolean outputFileMustBeRegenerated(final Path file);
+    Path getReportFile(final Path file);
+
+    /**
+     * @param file
+     * @return
+     */
+    boolean outputFileMustBeRegenerated(final Path file);
 }

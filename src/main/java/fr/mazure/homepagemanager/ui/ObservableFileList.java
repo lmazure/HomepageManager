@@ -58,7 +58,7 @@ public class ObservableFileList implements FileExistenceHandler {
      */
     public List<Path> getFileList() {
         return _data.stream()
-                    .map(f -> f.getPath())
+                    .map(ObservableFile::getPath)
                     .collect(Collectors.toList());
     }
 

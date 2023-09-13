@@ -56,8 +56,7 @@ public class AuthorData {
         result = prime * result + _lastName.hashCode();
         result = prime * result + _middleName.hashCode();
         result = prime * result + _namePrefix.hashCode();
-        result = prime * result + _nameSuffix.hashCode();
-        return result;
+        return prime * result + _nameSuffix.hashCode();
     }
 
     @Override

@@ -16,7 +16,7 @@ public interface DataController {
      * @param outputFile report of the checks
      * @param reportFile error report of the checks
      */
-    public void handleCreation(final Path file,
+    void handleCreation(final Path file,
                                final Status status,
                                final Path outputFile,
                                final Path reportFile);
@@ -28,8 +28,8 @@ public interface DataController {
      * @param outputFile report of the checks
      * @param reportFile error report of the checks
      */
-    public void handleDeletion(final Path file,
-                               final Status status,
-                               final Path outputFile,
-                               final Path reportFile);
+    void handleDeletion(final Path file,
+                        final Status status,
+                        final Path outputFile,
+                        final Path reportFile);
 }

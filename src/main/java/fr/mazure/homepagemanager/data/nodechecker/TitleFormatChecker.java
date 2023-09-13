@@ -1,9 +1,5 @@
 package fr.mazure.homepagemanager.data.nodechecker;
 
-import fr.mazure.homepagemanager.data.nodechecker.tagselection.InclusionTagSelector;
-import fr.mazure.homepagemanager.utils.xmlparsing.ElementType;
-import fr.mazure.homepagemanager.utils.xmlparsing.XmlHelper;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -11,6 +7,10 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.w3c.dom.Element;
+
+import fr.mazure.homepagemanager.data.nodechecker.tagselection.InclusionTagSelector;
+import fr.mazure.homepagemanager.utils.xmlparsing.ElementType;
+import fr.mazure.homepagemanager.utils.xmlparsing.XmlHelper;
 
 /**
 *

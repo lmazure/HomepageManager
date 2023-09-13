@@ -15,8 +15,8 @@ import java.time.format.DateTimeFormatter;
 public class Log {
 
     private static int THREAD_NAME_MAX_LENGTH = 27;
-    private Logger.Level _level;
-    private StringBuilder _stringBuilder;
+    private final Logger.Level _level;
+    private final StringBuilder _stringBuilder;
 
     Log(final Logger.Level level,
         final Thread thread,

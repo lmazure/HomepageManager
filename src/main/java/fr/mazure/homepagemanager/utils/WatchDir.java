@@ -124,7 +124,7 @@ public class WatchDir {
     }
 
     @SuppressWarnings("unchecked")
-    private static <T> WatchEvent<T> cast(WatchEvent<?> event) {
+    private static <T> WatchEvent<T> cast(final WatchEvent<?> event) {
         return (WatchEvent<T>)event;
     }
 
@@ -178,7 +178,7 @@ public class WatchDir {
                           .append(child)
                           .append(" create")
                           .submit();
-                    for (FileWatcher w: _watchers) {
+                    for (final FileWatcher w: _watchers) {
                         w.consume(child, Event.CREATE);
                     }
                 } else if (event.kind().equals(StandardWatchEventKinds.ENTRY_DELETE)) {
@@ -187,7 +187,7 @@ public class WatchDir {
                           .append(child)
                           .append(" delete")
                           .submit();
-                    for (FileWatcher w: _watchers) {
+                    for (final FileWatcher w: _watchers) {
                         w.consume(child, Event.DELETE);
                     }
                 } else if (event.kind().equals(StandardWatchEventKinds.ENTRY_MODIFY)) {
@@ -196,7 +196,7 @@ public class WatchDir {
                           .append(child)
                           .append(" modify")
                           .submit();
-                    for (FileWatcher w: _watchers) {
+                    for (final FileWatcher w: _watchers) {
                         w.consume(child, Event.UPDATE);
                     }
                 } else {

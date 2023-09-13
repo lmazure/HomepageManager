@@ -4,8 +4,8 @@ import java.nio.file.Path;
 
 import fr.mazure.homepagemanager.data.DataController;
 import fr.mazure.homepagemanager.data.FileHandler.Status;
-import javafx.scene.control.TableColumn;
 import fr.mazure.homepagemanager.utils.QuadriConsumer;
+import javafx.scene.control.TableColumn;
 
 /**
  *

@@ -11,6 +11,8 @@ import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractorFactory;
 import fr.mazure.homepagemanager.data.linkchecker.XmlGenerator;
+import fr.mazure.homepagemanager.utils.internet.UrlHelper;
+import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
@@ -23,8 +25,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.VBox;
-import fr.mazure.homepagemanager.utils.internet.UrlHelper;
-import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 
 /**
  * Dialog for generating the XML of a link
@@ -47,8 +47,6 @@ public class XmlGenerationDialog extends Dialog<Void> {
      * @param cacheDirectory directory where the cache files are written
      */
     public XmlGenerationDialog(final Path cacheDirectory) {
-        super();
-
         _cacheDirectory = cacheDirectory;
 
         setTitle("XML Generation");
@@ -64,7 +62,7 @@ public class XmlGenerationDialog extends Dialog<Void> {
         final String[] qualities = { "very good", "good", "average", "bad", "very bad" };
         _quality = new ComboBox<>(FXCollections.observableArrayList(qualities));
         _quality.getSelectionModel().select(2);
-        _quality.valueProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> generateXml());
+        _quality.valueProperty().addListener((final ObservableValue<? extends String> observable, final String oldValue, final String newValue) -> generateXml());
 
         _xmlField = new TextArea();
         _xmlField.setMinWidth(640);
@@ -149,14 +147,14 @@ public class XmlGenerationDialog extends Dialog<Void> {
         for (final AuthorData author: _probableAuthors) {
             final CheckBox cb = new CheckBox(authorAsString(author));
             cb.setSelected(true);
-            cb.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> generateXml());
+            cb.selectedProperty().addListener((final ObservableValue<? extends Boolean> observable, final Boolean oldValue, final Boolean newValue) -> generateXml());
             _authors.getChildren().add(cb);
         }
 
         for (final AuthorData author: _possibleAuthors) {
             final CheckBox cb = new CheckBox(authorAsString(author));
             cb.setSelected(false);
-            cb.selectedProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> generateXml());
+            cb.selectedProperty().addListener((final ObservableValue<? extends Boolean> observable, final Boolean oldValue, final Boolean newValue) -> generateXml());
             _authors.getChildren().add(cb);
         }
 

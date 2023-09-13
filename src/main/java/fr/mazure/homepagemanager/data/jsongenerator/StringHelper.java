@@ -30,7 +30,7 @@ public class StringHelper {
         int endIndex = -1;
 
         for (int i = 0; i < str.length(); i++) {
-            int c = str.codePointAt(i);
+            final int c = str.codePointAt(i);
             if (Character.isLetterOrDigit(c)) {
                 startIndex = i;
                 break;
@@ -41,7 +41,7 @@ public class StringHelper {
         }
 
         for (int i = str.length()-1; i >= 0; i--) {
-            int c = str.codePointAt(i);
+            final int c = str.codePointAt(i);
             if (Character.isLetterOrDigit(c)) {
                 endIndex = i;
                 break;
@@ -51,7 +51,7 @@ public class StringHelper {
         String result = "";
         boolean lastCharacterWasSpace = false;
         for (int i = startIndex; i <= endIndex; i++) {
-            int c = str.codePointAt(i);
+            final int c = str.codePointAt(i);
             if (Character.isLetterOrDigit(c)) {
                 result += new String(Character.toChars(Character.toUpperCase(c)));
                 lastCharacterWasSpace = false;

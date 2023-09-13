@@ -37,8 +37,7 @@ public class FileHelper {
             channel.position(fileSection.offset());
             channel.read(byteBuffer);
             byteBuffer.flip();
-            final String string = decoder.decode(byteBuffer).toString();
-            return string;
+            return decoder.decode(byteBuffer).toString();
         } catch (final IOException e) {
             ExitHelper.exit("Failed to slurp file", e);
             // NOT REACHED
@@ -91,7 +90,7 @@ public class FileHelper {
                                  final String content) {
         try {
             Files.writeString(file, content, StandardCharsets.UTF_8);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             ExitHelper.exit("Failed to write file", e);
         }
     }

@@ -27,8 +27,6 @@ public class GlobalFileCreationDialog extends Dialog<Void> {
      */
     public GlobalFileCreationDialog(final Path homepage,
                                     final List<Path> files) {
-        super();
-
         final Task<Void> task = buildFileCreationTask(homepage, files);
 
         setTitle("Global File Creation");

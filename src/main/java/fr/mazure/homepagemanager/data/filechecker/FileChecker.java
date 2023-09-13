@@ -106,24 +106,24 @@ public class FileChecker {
                 isLineEmpty = true;
                 isPreviousCharacterCarriageReturn = false;
                 isPreviousCharacterWhiteSpace = false;
-            } else if (Character.isISOControl(ch)) {
-                isPreviousCharacterCarriageReturn = false;
-                isPreviousCharacterWhiteSpace = Character.isWhitespace(ch);
-                errors.add(new Error("ControlCharacter",
-                                     lineNumber,
-                                     "line contains a control character (x" +
-                                     Integer.toHexString(ch) +
-                                     ") at column " +
-                                     columnNumber));
-                columnNumber++;
-            } else if (Character.isWhitespace(ch)) {
-                isPreviousCharacterCarriageReturn = false;
-                isPreviousCharacterWhiteSpace = true;
-                columnNumber++;
             } else {
-                isPreviousCharacterCarriageReturn = false;
-                isPreviousCharacterWhiteSpace = false;
-                isLineEmpty = false;
+                if (Character.isISOControl(ch)) {
+                    isPreviousCharacterCarriageReturn = false;
+                    isPreviousCharacterWhiteSpace = Character.isWhitespace(ch);
+                    errors.add(new Error("ControlCharacter",
+                                         lineNumber,
+                                         "line contains a control character (x" +
+                                         Integer.toHexString(ch) +
+                                         ") at column " +
+                                         columnNumber));
+                } else if (Character.isWhitespace(ch)) {
+                    isPreviousCharacterCarriageReturn = false;
+                    isPreviousCharacterWhiteSpace = true;
+                } else {
+                    isPreviousCharacterCarriageReturn = false;
+                    isPreviousCharacterWhiteSpace = false;
+                    isLineEmpty = false;
+                }
                 columnNumber++;
             }
         }
@@ -234,7 +234,7 @@ public class FileChecker {
         final List<String> links = new ArrayList<>();
         final Matcher matcher = s_localLinkPattern.matcher(content);
         while (matcher.find()) {
-            String table = matcher.group(1);
+            final String table = matcher.group(1);
             links.add(table);
         }
         return links;

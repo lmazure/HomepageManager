@@ -72,13 +72,11 @@ public class AuthorFactory {
     }
 
     private static String computeEncodedName(final AuthorData authorData) {
-        final String encodedName =
-            authorData.getLastName().orElse("") + '\n' +
+        return authorData.getLastName().orElse("") + '\n' +
             authorData.getGivenName().orElse("") + '\n' +
             authorData.getFirstName().orElse("") + '\n' +
             authorData.getMiddleName().orElse("") + '\n' +
             authorData.getNamePrefix().orElse("") + '\n' +
             authorData.getNameSuffix().orElse("");
-        return encodedName;
     }
 }

@@ -13,5 +13,5 @@ public interface Checker {
      * @return List of violations
      * @throws ContentParserException Failure to extract the information
      */
-    public List<LinkContentCheck> check() throws ContentParserException;
+    List<LinkContentCheck> check() throws ContentParserException;
 }

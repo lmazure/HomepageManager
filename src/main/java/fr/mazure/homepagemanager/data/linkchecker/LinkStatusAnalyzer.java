@@ -37,7 +37,7 @@ public class LinkStatusAnalyzer {
 
     /**
      * Propose a correction for a link
-     * 
+     *
      * @param expectedData expected link data
      * @param effectiveData effective link data
      * @return proposed correction
