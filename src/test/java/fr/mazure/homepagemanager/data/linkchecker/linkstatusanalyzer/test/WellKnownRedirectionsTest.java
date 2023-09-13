@@ -219,7 +219,9 @@ class WellKnownRedirectionsTest {
         "https://www.ibm.com/developerworks/java/library/x-simplexobjs/",
         "https://www.ibm.com/developerworks/library/j-jtp07265/",
         "https://www.ibm.com/developerworks/xml/library/x-matters32/index.html",
-        "https://www.ibm.com/developerworks/library/x-javaxmlvalidapi/index.html"
+        "https://www.ibm.com/developerworks/library/x-javaxmlvalidapi/index.html",
+        "https://www.ibm.com/developerworks/opensource/library/os-ecgui1",
+        "https://www.ibm.com/developerworks/java/library/os-lombok/index.html"
         })
     void ibm(final String url) {
         test(url,

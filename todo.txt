@@ -8,11 +8,9 @@ branches      44.8%    77.5%
 lines         65.9%    94.7%
 methods       53.0%/52.2%    97.9%
 
-faire que javabasics.xml soit propre
-
-nettoyer nouveaux warnings
-
 ==== potentially after merge =====
+
+faire que java.xml soit propre
 
 gérer env de built TypeScript (pour mettre à jour ContentBuilder.ts)
     private static statusToHtmlString(status: string): HtmlString {
@@ -99,6 +97,8 @@ je crois que c'est aussi le cas de twitter
 
 
 ==== after merge =====
+
+les artciles de https://www.nytimes.com/ devraient être en payed_registration
 
 gérer obsolescence de URL constructor
 
