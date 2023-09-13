@@ -99,6 +99,9 @@ je crois que c'est aussi le cas de twitter
 
 
 ==== after merge =====
+
+gérer obsolescence de URL constructor
+
 bring back main method coverage to 53.0%
 
 tester les LinkContentChecker

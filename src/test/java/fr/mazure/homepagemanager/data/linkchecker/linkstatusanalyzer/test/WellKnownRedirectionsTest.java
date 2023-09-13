@@ -215,7 +215,11 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://www.ibm.com/developerworks/java/library/j-mer1022.html"
+        "https://www.ibm.com/developerworks/java/library/j-mer1022.html",
+        "https://www.ibm.com/developerworks/java/library/x-simplexobjs/",
+        "https://www.ibm.com/developerworks/library/j-jtp07265/",
+        "https://www.ibm.com/developerworks/xml/library/x-matters32/index.html",
+        "https://www.ibm.com/developerworks/library/x-javaxmlvalidapi/index.html"
         })
     void ibm(final String url) {
         test(url,

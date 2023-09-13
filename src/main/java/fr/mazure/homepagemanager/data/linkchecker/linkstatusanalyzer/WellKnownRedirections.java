@@ -121,14 +121,25 @@ public class WellKnownRedirections {
 
         final RedirectionMatcher ibmRemoved = new RedirectionMatcher("removed from IBM",
                                                                      Set.of(LinkStatus.REMOVED));
-        ibmRemoved.add("\\Qhttps://www.ibm.com/developerworks/java/library/\\E.+",
+        ibmRemoved.add("https://www.ibm.com/developerworks/(java|xml|x-javaxmlvalidapi)/library/.+",
                        Set.of(Integer.valueOf(301)),
                        RedirectionMatcher.Multiplicity.ONE);
-        ibmRemoved.add("\\Qhttps://developer.ibm.com/languages/java/\\E",
+        ibmRemoved.add("https://developer.ibm.com/(languages/java|technologies/web-development)/",
                        Set.of(Integer.valueOf(200)),
                        RedirectionMatcher.Multiplicity.ONE);
         ibmRemoved.compile();
         _matchers.add(ibmRemoved);
+
+        final RedirectionMatcher ibmRemoved2 = new RedirectionMatcher("removed from IBM",
+                                                                     Set.of(LinkStatus.REMOVED));
+        ibmRemoved2.add("\\Qhttps://www.ibm.com/developerworks/library/\\E.+",
+                       Set.of(Integer.valueOf(301)),
+                       RedirectionMatcher.Multiplicity.ONE);
+        ibmRemoved2.add("https://developer.ibm.com/",
+                       Set.of(Integer.valueOf(200)),
+                       RedirectionMatcher.Multiplicity.ONE);
+        ibmRemoved2.compile();
+        _matchers.add(ibmRemoved2);
 
         final RedirectionMatcher redirectionEndingInSuccess = new RedirectionMatcher("redirection ending in success (last URL should be used)",
                                                                                      Set.of());

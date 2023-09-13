@@ -47,10 +47,10 @@ public class JsonWriter {
      */
 
     public void generateAuthorJson(final File root,
-                                   final String pageName) {
+                                   final String fileName) {
 
         final String rootFileName = root.getAbsolutePath();
-        final File f = new File(rootFileName + File.separator + pageName);
+        final File f = new File(rootFileName + File.separator + fileName);
         f.delete();
 
         try (final OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(f), Charset.forName("UTF-8").newEncoder())) {
