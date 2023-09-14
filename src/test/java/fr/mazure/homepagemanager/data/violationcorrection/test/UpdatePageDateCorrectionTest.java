@@ -36,15 +36,15 @@ public class UpdatePageDateCorrectionTest {
         	</PAGE>""";
 
         final String expected =
-                "<?xml version=\"1.0\"?>\r\n" +
-                "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-                "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-                "<TITLE>test</TITLE>\r\n" +
-                "<PATH>dummy-dir/test.xml</PATH>\r\n" +
-                "<DATE><YEAR>" + s_now_year + "</YEAR><MONTH>" + s_now_month + "</MONTH><DAY>" + s_now_day + "</DAY></DATE>\r\n" +
-                "<CONTENT>\r\n" +
-                "</CONTENT>\r\n" +
-                "</PAGE>";
+            "<?xml version=\"1.0\"?>\r\n" +
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<TITLE>test</TITLE>\r\n" +
+            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
+            "<DATE><YEAR>" + s_now_year + "</YEAR><MONTH>" + s_now_month + "</MONTH><DAY>" + s_now_day + "</DAY></DATE>\r\n" +
+            "<CONTENT>\r\n" +
+            "</CONTENT>\r\n" +
+            "</PAGE>";
 
         final ViolationCorrection correction = new UpdatePageDateCorrection();
         Assertions.assertEquals(expected, correction.apply(content));
