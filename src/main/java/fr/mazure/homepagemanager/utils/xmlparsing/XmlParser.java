@@ -17,7 +17,8 @@ import org.w3c.dom.NodeList;
 
 /**
 *
-*/public class XmlParser {
+*/
+public class XmlParser {
 
     /**
      * Extract article data from a ARTICLE node
@@ -288,7 +289,8 @@ import org.w3c.dom.NodeList;
                     throw new XmlParsingException("Wrong number of DAY nodes (" + dayNodes.getLength() + ") in string \"" + dateElement.getTextContent() + "\"");
                 }
                 return YearMonth.of(year, month);
-            } else if (monthNodes.getLength() > 1) {
+            }
+            if (monthNodes.getLength() > 1) {
                 throw new XmlParsingException("Wrong number of MONTH nodes (" + monthNodes.getLength() + ") in string \"" + dateElement.getTextContent() + "\"");
             }
             return Year.of(year);
@@ -333,12 +335,11 @@ import org.w3c.dom.NodeList;
         Duration duration;
 
         final NodeList secondsNodes = XmlHelper.getDescendantsByElementType(durationElement, ElementType.SECOND);
-        if (secondsNodes.getLength() == 1) {
-            final long seconds = Long.parseLong(secondsNodes.item(0).getTextContent());
-            duration = Duration.ofSeconds(seconds);
-        } else {
+        if (secondsNodes.getLength() != 1) {
             throw new XmlParsingException("Wrong number of SECOND nodes (" + secondsNodes.getLength() + ") in string \"" + durationElement.getTextContent() + "\"");
         }
+        final long seconds = Long.parseLong(secondsNodes.item(0).getTextContent());
+        duration = Duration.ofSeconds(seconds);
 
         final NodeList minutesNodes = XmlHelper.getDescendantsByElementType(durationElement, ElementType.MINUTE);
         if (minutesNodes.getLength() == 1) {

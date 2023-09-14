@@ -54,7 +54,7 @@ public class MetricsExtractor {
                        "Visits\n");
 
         final File[] files = metricsDirectory.toFile().listFiles((dir, name) -> name.startsWith("usage_"));
-        for (File file: files) {
+        for (final File file: files) {
             builder.append("01/");
              builder.append(file.getName().substring(10, 12));
             builder.append("/");

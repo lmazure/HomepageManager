@@ -144,8 +144,8 @@ public class FileEventQueue {
 
     private class Event {
 
-        private Path _file;
-        private EventType _type;
+        private final Path _file;
+        private final EventType _type;
 
         public Event(final Path file,
                      final EventType type) {

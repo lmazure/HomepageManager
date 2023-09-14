@@ -15,8 +15,8 @@ public interface BackgroundDataController extends DataController {
      * @param outputFile
      * @param reportFile
      */
-    public void handleUpdate(final Path file,
-                             final Status status,
-                             final Path outputFile,
-                             final Path reportFile);
+    void handleUpdate(final Path file,
+                      final Status status,
+                      final Path outputFile,
+                      final Path reportFile);
 }

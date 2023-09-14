@@ -17,7 +17,7 @@ public class RemoveLinkSubtitleCorrection extends RegexpViolationCorrection {
     public RemoveLinkSubtitleCorrection(final String badSubtitle,
                                         final String url) {
         super("Remove link subtitle",
-              "><ST>" + Pattern.quote(XmlHelper.transform(badSubtitle)) + "</ST><A>" + Pattern.quote(url) + "</A><L>",
-              "><A>" + url + "</A><L>");
+              "><ST>" + Pattern.quote(XmlHelper.transform(badSubtitle)) + "</ST><A>" + Pattern.quote(url) + "</A>",
+              "><A>" + url + "</A>");
     }
 }

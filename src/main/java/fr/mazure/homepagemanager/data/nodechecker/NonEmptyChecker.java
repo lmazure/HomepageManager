@@ -1,11 +1,11 @@
 package fr.mazure.homepagemanager.data.nodechecker;
 
-import fr.mazure.homepagemanager.data.nodechecker.tagselection.ExclusionTagSelector;
-import fr.mazure.homepagemanager.utils.xmlparsing.ElementType;
-
 import java.util.Optional;
 
 import org.w3c.dom.Element;
+
+import fr.mazure.homepagemanager.data.nodechecker.tagselection.ExclusionTagSelector;
+import fr.mazure.homepagemanager.utils.xmlparsing.ElementType;
 
 /**
 *

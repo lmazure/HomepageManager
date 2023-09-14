@@ -26,12 +26,12 @@ import org.w3c.dom.NodeList;
 
 import fr.mazure.homepagemanager.data.BackgroundDataController;
 import fr.mazure.homepagemanager.data.FileHandler.Status;
-import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.dataretriever.HeaderFetchedLinkData;
-import fr.mazure.homepagemanager.data.dataretriever.SiteDataRetriever;
 import fr.mazure.homepagemanager.data.Violation;
 import fr.mazure.homepagemanager.data.ViolationDataController;
 import fr.mazure.homepagemanager.data.ViolationLocationUnknown;
+import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
+import fr.mazure.homepagemanager.data.dataretriever.HeaderFetchedLinkData;
+import fr.mazure.homepagemanager.data.dataretriever.SiteDataRetriever;
 import fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections;
 import fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.Match;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkUrlCorrection;
@@ -416,18 +416,7 @@ public class LinkCheckRunner {
                     appendLinkLivenessCheckResult(url, expectedData, effectiveData, temp);
                     ko.append(temp.toString());
                     ko.append('\n');
-                    Optional<ViolationCorrection> correction = Optional.empty();
-                    if (extractHttpCode(effectiveData.headers()).isPresent() &&
-                        ((extractHttpCode(effectiveData.headers()).get().intValue() == HttpURLConnection.HTTP_MOVED_PERM) ||
-                         (extractHttpCode(effectiveData.headers()).get().intValue() == 308))) {
-                        if (effectiveData.previousRedirection() != null) {
-                            HeaderFetchedLinkData d = effectiveData.previousRedirection();
-                            while (d.previousRedirection() != null) {
-                                d = d.previousRedirection();
-                            }
-                            correction = Optional.of(new UpdateLinkUrlCorrection(url, d.url()));
-                        }
-                    }
+                    final Optional<ViolationCorrection> correction = LinkStatusAnalyzer.getProposedCorrection(expectedData, effectiveData);
                     _violationController.add(new Violation(_file.toString(),
                                                            _checkType,
                                                            "WrongLiveness",
@@ -503,11 +492,11 @@ public class LinkCheckRunner {
             builder.append("Redirection chain = " + descriptionOfRedirectionChain + "\n");
         }
         if (LinkStatusAnalyzer.hasMaximumNumberOfRedirectionsBeenReached(effectiveData)) {
-            builder.append("The maximum number of redirections has been reached.\n");            
+            builder.append("The maximum number of redirections has been reached.\n");
         } else {
             final Match match = _redirectionData.getMatch(effectiveData);
             builder.append("Redirection matcher = " + match.name() + "\n");
-            builder.append("Redirection matcher expected statuses = " + match.statuses().stream().map(s -> s.toString()).collect(Collectors.joining( "," )) + "\n");
+            builder.append("Redirection matcher expected statuses = " + match.statuses().stream().map(LinkStatus::toString).collect(Collectors.joining( "," )) + "\n");
         }
         final StringBuilder googleUrl = new StringBuilder("https://www.google.com/search?q=%22" +
                                                           URLEncoder.encode(expectedData.getTitle(), StandardCharsets.UTF_8) +
@@ -545,11 +534,11 @@ public class LinkCheckRunner {
             builder.append("Redirection chain = " + descriptionOfRedirectionChain + "\n");
         }
         if (LinkStatusAnalyzer.hasMaximumNumberOfRedirectionsBeenReached(effectiveData)) {
-            builder.append("The maximum number of redirections has been reached.\n");            
+            builder.append("The maximum number of redirections has been reached.\n");
         } else {
             final Match match = _redirectionData.getMatch(effectiveData);
             builder.append("Redirection matcher = " + match.name() + "\n");
-            builder.append("Redirection matcher expected statuses = " + match.statuses().stream().map(s -> s.toString()).collect(Collectors.joining( "," )) + "\n");
+            builder.append("Redirection matcher expected statuses = " + match.statuses().stream().map(LinkStatus::toString).collect(Collectors.joining( "," )) + "\n");
         }
     }
 

@@ -28,7 +28,7 @@ public class LinkContentParserTest {
             "https://www.meteor.com/",
             "https://www.wired.com/1998/04/es-lists/"
             })
-    void testLanguageForEnglishArticle(String url) {
+    void testLanguageForEnglishArticle(final String url) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
@@ -54,7 +54,7 @@ public class LinkContentParserTest {
             "https://www.lemonde.fr/blog/vidberg/2013/07/20/une-banale-histoire-de-proces-sur-internet/",
             "https://www.marmiton.org/"
             })
-    void testLanguageForFrenchArticle(String url) {
+    void testLanguageForFrenchArticle(final String url) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
@@ -75,7 +75,7 @@ public class LinkContentParserTest {
             "https://www.govinfo.gov/app/collection/cfr",
             "http://www.openafs.org/"
             })
-    void testLanguageForArticleWithNoText(String url) {
+    void testLanguageForArticleWithNoText(final String url) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,

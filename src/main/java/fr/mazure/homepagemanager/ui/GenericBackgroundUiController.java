@@ -14,12 +14,15 @@ public abstract class GenericBackgroundUiController extends GenericUiController 
     /**
      * @param callback
      */
-    public GenericBackgroundUiController(QuadriConsumer<Path, Status, Path, Path> callback) {
+    public GenericBackgroundUiController(final QuadriConsumer<Path, Status, Path, Path> callback) {
         super(callback);
     }
 
     @Override
-    public void handleUpdate(Path file, Status status, Path outputFile, Path reportFile) {
+    public void handleUpdate(final Path file,
+    		                 final Status status,
+    		                 final Path outputFile,
+    		                 final Path reportFile) {
         callCallback(file, status, outputFile, reportFile);
     }
 }

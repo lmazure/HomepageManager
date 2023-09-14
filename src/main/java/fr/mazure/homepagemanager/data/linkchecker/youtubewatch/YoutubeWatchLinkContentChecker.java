@@ -99,13 +99,12 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
 
         final TemporalAccessor date = publicationDate.isPresent() ? publicationDate.get() : creationDate.get();
 
-        if (!(date instanceof LocalDate)) {
+        if (!(date instanceof final LocalDate expectedDate)) {
             return new LinkContentCheck("IncorrectDate",
                                         "Date without month or day",
                                         Optional.empty());
        }
 
-        final LocalDate expectedDate = (LocalDate)date;
         final LocalDate effectivePublishDate = _parser.getPublishDateInternal();
         final LocalDate effectiveUploadDate = _parser.getUploadDateInternal();
 

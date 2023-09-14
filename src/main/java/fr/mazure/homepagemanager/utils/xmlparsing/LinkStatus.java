@@ -5,6 +5,10 @@ package fr.mazure.homepagemanager.utils.xmlparsing;
 */
 public enum LinkStatus {
     /**
+     * the article has been removed
+     */
+    REMOVED,
+    /**
      * the link is broken
      */
     DEAD,

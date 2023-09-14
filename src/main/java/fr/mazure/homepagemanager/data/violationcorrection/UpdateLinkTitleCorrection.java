@@ -19,7 +19,7 @@ public class UpdateLinkTitleCorrection extends RegexpViolationCorrection {
                                      final String correctTitle,
                                      final String url) {
         super("Update the link title",
-              "><T>" + Pattern.quote(XmlHelper.transform(badTitle)) + "</T>(<ST>[^<]+</ST>)?<A>" + Pattern.quote(url) + "</A><L>",
-              "><T>" + XmlHelper.transform(correctTitle) + "</T>$1<A>" + url + "</A><L>");
+              "><T>" + Pattern.quote(XmlHelper.transform(badTitle)) + "</T>(<ST>[^<]+</ST>)?<A>" + Pattern.quote(url) + "</A>",
+              "><T>" + XmlHelper.transform(correctTitle) + "</T>$1<A>" + url + "</A>");
     }
 }

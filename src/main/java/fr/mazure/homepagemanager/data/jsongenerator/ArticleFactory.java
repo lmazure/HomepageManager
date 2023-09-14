@@ -50,7 +50,6 @@ public class ArticleFactory {
      * @return sorted list of articles
      */
     public Article[] getArticles() {
-        final Article a[] = _articles.toArray(new Article[0]);
-        return a;
+        return _articles.toArray(new Article[0]);
     }
 }

@@ -20,10 +20,15 @@ import fr.mazure.homepagemanager.utils.FileHelper;
  */
 public class FileCheckerTest {
 
+    private static final String s_dirname = "dummy_dir";
+    private static final String s_bad_dirname = "dammy_dir";
+    private static final String s_filename = "good_file_name";
+    private static final String s_bad_filename = "bad_file_name";
+
     private static final String s_mess_bom  = "file should not have a UTF BOM";
     private static final String s_mess_ctrl = "line contains a control character";
     private static final String s_mess_white_space = "line is finishing with a white space";
-    private static final String s_mess_path = "the name of the file does not appear in the <PATH> node (expected to see \"<PATH>dummy-dir/test.xml</PATH>\")";
+    private static final String s_mess_path = "the name of the file does not appear in the <PATH> node (expected to see \"<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\")";
     private static final String s_mess_crlf = "line should finish by \\r\\n instead of \\n";
     private static final String s_mess_empty_line = "empty line";
     private static final String s_mess_odd_space_indentation = "odd number of spaces at the beginning of the line";
@@ -36,7 +41,7 @@ public class FileCheckerTest {
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
             "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
+            "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
             "<CONTENT>\r\n" +
             "</CONTENT>\r\n" +
@@ -53,7 +58,7 @@ public class FileCheckerTest {
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
             "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
+            "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
             "<CONTENT>\r\n" +
             "</CONTENT>\r\n" +
@@ -72,7 +77,7 @@ public class FileCheckerTest {
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
             "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
+            "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
             "<CONTENT>\r\n" +
             "</CONTENT>\r\n" +
@@ -91,7 +96,7 @@ public class FileCheckerTest {
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
             "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
+            "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
             "<CONTENT>foo\u00A0bar\r\n" +
             "</CONTENT>\r\n" +
@@ -108,7 +113,7 @@ public class FileCheckerTest {
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
             "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
-            "\t<PATH>dummy-dir/test.xml</PATH>\r\n" +
+            "\t<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\t\r\n" +
             "<CONTENT>\r\n" +
             "</CONTENT>\r\n" +
@@ -128,7 +133,7 @@ public class FileCheckerTest {
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
             "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
+            "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
             "<CONTENT>\r\n" +
             "</CONTENT>\r\n" +
@@ -147,7 +152,7 @@ public class FileCheckerTest {
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
             "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
+            "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
             "<CONTENT>\r\n" +
             "</CONTENT>\r\n" +
@@ -165,7 +170,7 @@ public class FileCheckerTest {
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
             "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH> \r\n" +
+            "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH> \r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE> \r\n" +
             "<CONTENT>\r\n" +
             "</CONTENT>\r\n" +
@@ -184,7 +189,7 @@ public class FileCheckerTest {
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
             "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
+            "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
             "<CONTENT>\r\n" +
             "</CONTENT>\r\n" +
@@ -202,7 +207,7 @@ public class FileCheckerTest {
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
             "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
-            "<PATH>HomepageManager/wrong.xml</PATH>\r\n" +
+            "<PATH>" + s_bad_dirname + "/" + s_bad_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
             "<CONTENT>\r\n" +
             "</CONTENT>\r\n" +
@@ -220,7 +225,7 @@ public class FileCheckerTest {
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
             "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
             "<TITLE>test</TITLE>\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
+            "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
             "<CONTENT>\r\n" +
             "</CONTENT>\r\n" +
@@ -239,7 +244,7 @@ public class FileCheckerTest {
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
             "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
+            "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
             "<CONTENT>\r\n" +
             "</CONTENT>\r\n" +
@@ -258,7 +263,7 @@ public class FileCheckerTest {
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
             "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
+            "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
             "<CONTENT>\r\n" +
@@ -277,7 +282,7 @@ public class FileCheckerTest {
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
             "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
+            "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
             "<CONTENT>\r\n" +
             "</CONTENT>\r\n" +
@@ -296,7 +301,7 @@ public class FileCheckerTest {
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
             "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
+            "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
             "<CONTENT>\r\n" +
             "</CONTENT>\r\n" +
@@ -317,7 +322,7 @@ public class FileCheckerTest {
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
             "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
+            "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "  \r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
             "<CONTENT>\r\n" +
@@ -337,7 +342,7 @@ public class FileCheckerTest {
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
             "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
+            "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
             "<CONTENT>\r\n" +
             "</CONTENT>\r\n" +
@@ -358,7 +363,7 @@ public class FileCheckerTest {
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
             " <PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
             "  <TITLE>test</TITLE>\r\n" +
-            "   <PATH>dummy-dir/test.xml</PATH>\r\n" +
+            "   <PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "    <DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
             "<CONTENT>\r\n" +
             "</CONTENT>\r\n" +
@@ -377,7 +382,7 @@ public class FileCheckerTest {
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
             "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
+            "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY> </DATE>\r\n" +
             "<CONTENT>\r\n" +
             "  <BLIST><TITLE>My articles</TITLE>\r\n" +
@@ -400,7 +405,7 @@ public class FileCheckerTest {
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
             "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
+            "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
             "<CONTENT>\r\n" +
             "  <BLIST><TITLE>My articles</TITLE>\r\n" +
@@ -423,7 +428,7 @@ public class FileCheckerTest {
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
             "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
+            "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
             "<CONTENT>\r\n" +
             "  <BLIST><TITLE>My articles</TITLE>\r\n" +
@@ -447,7 +452,7 @@ public class FileCheckerTest {
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
             "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
+            "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
             "<CONTENT>\r\n" +
             "  <BLIST><TITLE>My articles</TITLE>\r\n" +
@@ -470,7 +475,7 @@ public class FileCheckerTest {
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
             "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
-            "<PATH>dummy-dir/test.xml</PATH>\r\n" +
+            "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
             "<CONTENT>\r\n" +
             "  <BLIST><TITLE>My articles</TITLE>\r\n" +
@@ -484,29 +489,30 @@ public class FileCheckerTest {
                 "AttributeBetweenSingleQuotes", 10, "the line contains an XML attribute between single quotes \"<X status='dead'>\"");
        }
 
-        @Test
-        void testLocalLinks() {
 
-            final String content =
-                "<?xml version=\"1.0\"?>\r\n" +
-                "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-                "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-                "<TITLE>test</TITLE>\r\n" +
-                "<PATH>dummy-dir/test.xml</PATH>\r\n" +
-                "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
-                "<CONTENT>\r\n" +
-                "<ANCHOR>here</ANCHOR>\r\n" +
-                "<X><T>link 1 → OK</T><A>test.html#here</A><L>en</L><F>HTML</F></X>\r\n" +
-                "<X><T>link 2 → OK</T><A>../dummy-dir/test.html#here</A><L>en</L><F>HTML</F></X>\r\n" +
-                "<X><T>link 3 → KO</T><A>tast.html#here</A><L>en</L><F>HTML</F></X>\r\n" +
-                "<X><T>link 4 → KO</T><A>test.html#hare</A><L>en</L><F>HTML</F></X>\r\n" +
-                "</CONTENT>\r\n" +
-                "</PAGE>";
+    @Test
+    void testLocalLinks() {
 
-            test(content,
-                 "IncorrectLocalLink", 0, "the file \"H:\\Documents\\tmp\\hptmp\\test\\FileCheckerTest\\dummy-dir\\tast.xml\" does not exist",
-                 "IncorrectLocalLink", 0, "the file \"H:\\Documents\\tmp\\hptmp\\test\\FileCheckerTest\\dummy-dir\\test.xml\" does not contain the anchor \"hare\"");
-        }
+        final String content =
+            "<?xml version=\"1.0\"?>\r\n" +
+                    "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
+                    "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+                    "<TITLE>test</TITLE>\r\n" +
+                    "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
+                    "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
+                    "<CONTENT>\r\n" +
+                    "<ANCHOR>here</ANCHOR>\r\n" +
+                    "<X><T>link 1 → OK</T><A>" + s_filename + ".html#here</A><L>en</L><F>HTML</F></X>\r\n" +
+                    "<X><T>link 2 → OK</T><A>../" + s_dirname + "/" + s_filename + ".html#here</A><L>en</L><F>HTML</F></X>\r\n" +
+                    "<X><T>link 3 → KO</T><A>" + s_bad_filename + ".html#here</A><L>en</L><F>HTML</F></X>\r\n" +
+                    "<X><T>link 4 → KO</T><A>" + s_filename + ".html#badanchor</A><L>en</L><F>HTML</F></X>\r\n" +
+                    "</CONTENT>\r\n" +
+                    "</PAGE>";
+
+        test(content,
+             "IncorrectLocalLink", 0, "the file \"" + getFilename(s_dirname, s_bad_filename) + "\" does not exist",
+             "IncorrectLocalLink", 0, "the file \"" + getFilename(s_dirname, s_filename) + "\" does not contain the anchor \"badanchor\"");
+    }
 
     private void test(final String content) {
 
@@ -562,14 +568,19 @@ public class FileCheckerTest {
                       final List<FileContentChecker.Error> expected) {
 
         final FileChecker checker = new FileChecker(Paths.get("testdata"));
-        final Path root = TestHelper.getTestDatapath(getClass());
-        final Path path = root.resolve(Paths.get("dummy-dir","test.xml"));
+        final Path path = getFilename(s_dirname, s_filename);
         FileHelper.createParentDirectory(path);
         FileHelper.writeFile(path, content);
         final List<FileContentChecker.Error> effective = checker.check(path);
         FileHelper.deleteFile(path);
 
         Assertions.assertEquals(normalize(expected), normalize(effective));
+    }
+
+    private Path getFilename(final String dirname,
+                             final String name) {
+        final Path root = TestHelper.getTestDatapath(getClass());
+        return root.resolve(Paths.get(dirname, name + ".xml"));
     }
 
     private static String normalize(final List<FileContentChecker.Error> errors) {

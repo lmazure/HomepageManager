@@ -19,7 +19,7 @@ public class UpdateLinkSubtitleCorrection extends RegexpViolationCorrection {
                                         final String correctSubtitle,
                                         final String url) {
         super("Update a link subtitle",
-              "<ST>" + Pattern.quote(XmlHelper.transform(badSubtitle)) + "</ST><A>" + Pattern.quote(url) + "</A><L>",
-              "<ST>" + XmlHelper.transform(correctSubtitle) + "</ST><A>" + url + "</A><L>");
+              "<ST>" + Pattern.quote(XmlHelper.transform(badSubtitle)) + "</ST><A>" + Pattern.quote(url) + "</A>",
+              "<ST>" + XmlHelper.transform(correctSubtitle) + "</ST><A>" + url + "</A>");
     }
 }

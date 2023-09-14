@@ -1,14 +1,14 @@
 package fr.mazure.homepagemanager.data.nodechecker;
 
-import fr.mazure.homepagemanager.data.nodechecker.tagselection.InclusionTagSelector;
-import fr.mazure.homepagemanager.utils.xmlparsing.ElementType;
-import fr.mazure.homepagemanager.utils.xmlparsing.XmlHelper;
-
 import java.util.Optional;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import fr.mazure.homepagemanager.data.nodechecker.tagselection.InclusionTagSelector;
+import fr.mazure.homepagemanager.utils.xmlparsing.ElementType;
+import fr.mazure.homepagemanager.utils.xmlparsing.XmlHelper;
 
 /**
 *
@@ -47,10 +47,11 @@ public class ProtectionFromURLChecker extends NodeChecker {
             protection = statusAttribute.getTextContent();
         }
 
-        if (url.contains("auntminnie.com/") && !protection.equals("free_registration"))
-           return new CheckStatus("MissingRegistrationIndicator",
-                                  "\"" + url + "\" should be flagged as 'free_registration'",
-                                  Optional.empty());
+        if (url.contains("auntminnie.com/") && !protection.equals("free_registration")) {
+            return new CheckStatus("MissingRegistrationIndicator",
+                                      "\"" + url + "\" should be flagged as 'free_registration'",
+                                      Optional.empty());
+        }
 
         return null;
     }

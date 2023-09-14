@@ -13,10 +13,10 @@ import org.w3c.dom.NodeList;
 import fr.mazure.homepagemanager.utils.Logger;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
+import fr.mazure.homepagemanager.utils.xmlparsing.ElementType;
 import fr.mazure.homepagemanager.utils.xmlparsing.KeywordData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 import fr.mazure.homepagemanager.utils.xmlparsing.XmlHelper;
-import fr.mazure.homepagemanager.utils.xmlparsing.ElementType;
 import fr.mazure.homepagemanager.utils.xmlparsing.XmlParser;
 import fr.mazure.homepagemanager.utils.xmlparsing.XmlParsingException;
 
@@ -87,13 +87,13 @@ public class Parser {
 
             final Article article = _articleFactory.buildArticle(file, articleData.date());
 
-            for (int j = 0; j < articleData.links().size(); j++) {
-                final Link link = _linkFactory.newLink(articleData.links().get(j));
+            for (final LinkData element : articleData.links()) {
+                final Link link = _linkFactory.newLink(element);
                 article.addLink(link);
             }
 
-            for (int j = 0; j < articleData.authors().size(); j++) {
-                final Author author = _authorFactory.buildAuthor(articleData.authors().get(j));
+            for (final AuthorData element : articleData.authors()) {
+                final Author author = _authorFactory.buildAuthor(element);
                 author.addArticle(article);
                 article.addAuthor(author);
             }
@@ -182,7 +182,10 @@ public class Parser {
 
             final Author author = _authorFactory.peekAuthor(authorData);
 
-            if (author == null) continue; // TODO ne devrait jamais arriver ?
+            if (author == null)
+             {
+                continue; // TODO ne devrait jamais arriver ?
+            }
 
             for (int j = 0; j < XmlHelper.getDescendantsByElementType(clistNode, ElementType.ITEM).getLength(); j++) {
 

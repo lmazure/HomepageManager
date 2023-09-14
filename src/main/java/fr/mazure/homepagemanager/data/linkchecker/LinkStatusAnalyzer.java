@@ -1,11 +1,20 @@
 package fr.mazure.homepagemanager.data.linkchecker;
 
+import java.net.HttpURLConnection;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.dataretriever.HeaderFetchedLinkData;
 import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections;
+import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkStatusCorrection;
+import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkUrlCorrection;
+import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
+import fr.mazure.homepagemanager.utils.internet.HttpHelper;
+import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkStatus;
 
 /**
@@ -24,6 +33,35 @@ public class LinkStatusAnalyzer {
                                                                final FullFetchedLinkData effectiveData) {
         final Set<LinkStatus> expectedStatuses = getPossibleStatuses(effectiveData);
         return expectedStatuses.contains(expectedStatus);
+    }
+
+    /**
+     * Propose a correction for a link
+     *
+     * @param expectedData expected link data
+     * @param effectiveData effective link data
+     * @return proposed correction
+     */
+    public static Optional<ViolationCorrection> getProposedCorrection(final LinkData expectedData,
+                                                                      final FullFetchedLinkData effectiveData) {
+        final Set<LinkStatus> expectedStatuses = getPossibleStatuses(effectiveData);
+        if (expectedStatuses.size() == 1) {
+            final LinkStatus status = expectedStatuses.iterator().next();
+            return Optional.of(new UpdateLinkStatusCorrection(expectedData.getStatus(), status, expectedData.getUrl()));
+        }
+        if (extractHttpCode(effectiveData.headers()).isPresent() &&
+            ((extractHttpCode(effectiveData.headers()).get().intValue() == HttpURLConnection.HTTP_MOVED_PERM) ||
+             (extractHttpCode(effectiveData.headers()).get().intValue() == 308))) {
+            if (effectiveData.previousRedirection() != null) {
+                HeaderFetchedLinkData d = effectiveData.previousRedirection();
+                while (d.previousRedirection() != null) {
+                    d = d.previousRedirection();
+                }
+                return Optional.of(new UpdateLinkUrlCorrection(expectedData.getUrl(), d.url()));
+            }
+        }
+
+        return Optional.empty();
     }
 
     /**
@@ -50,5 +88,12 @@ public class LinkStatusAnalyzer {
         }
         return n;
     }
-}
+
+    private static Optional<Integer> extractHttpCode(final Optional<Map<String, List<String>>> headers) {
+        if (headers.isEmpty()) {
+            return Optional.empty();
+        }
+        final int code = HttpHelper.getResponseCodeFromHeaders(headers.get());
+        return Optional.of(Integer.valueOf(code));
+    }}
 

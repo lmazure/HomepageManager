@@ -20,7 +20,7 @@ public class LinkContentParserUtils {
                                                                 );
 
     /**
-     * Extract an author names from a string
+     * Extract an author name from a string
      * @param str string
      * @return extracted author name
      * @throws ContentParserException failure to extract an author name from the string

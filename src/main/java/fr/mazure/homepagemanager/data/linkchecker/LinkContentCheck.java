@@ -21,7 +21,7 @@ public class LinkContentCheck {
      */
     public LinkContentCheck(final String checkName,
                             final String description,
-                            Optional<ViolationCorrection> correction) {
+                            final Optional<ViolationCorrection> correction) {
         _checkName = checkName;
         _description = description;
         _correction = correction;

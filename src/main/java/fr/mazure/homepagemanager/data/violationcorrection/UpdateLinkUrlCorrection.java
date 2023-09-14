@@ -28,7 +28,7 @@ public class UpdateLinkUrlCorrection extends ViolationCorrection {
     }
 
     @Override
-    public String apply(String content) {
+    public String apply(final String content) {
         final Matcher matcher1 = _pattern1.matcher(content);
         final String str =  matcher1.replaceAll(_replacement1);
         final Matcher matcher2 = _pattern2.matcher(str);

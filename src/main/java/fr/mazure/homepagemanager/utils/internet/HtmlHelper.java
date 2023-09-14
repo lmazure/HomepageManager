@@ -2333,8 +2333,7 @@ public class HtmlHelper {
         final String s2 = unescape(s1);
         final String s3 = removeNewlines(s2);
         final String s4 = cleanAndUnduplicateSpace(s3);
-        final String s5 = trim(s4);
-        return s5;
+        return trim(s4);
     }
 
     /**
@@ -2352,15 +2351,18 @@ public class HtmlHelper {
         int st = 0;
         while (true) {
             // look for '&'
-            while (i < totalLength && input.charAt(i-1) != '&')
+            while (i < totalLength && input.charAt(i-1) != '&') {
                 i++;
-            if (i >= totalLength)
+            }
+            if (i >= totalLength) {
                 break;
+            }
 
             // found '&', look for end
             int j = i;
-            while (j < totalLength && j < (i + MAX_ESCAPE + 1) && (Character.isLetterOrDigit(input.charAt(j)) || ((input.charAt(j) == '#') && (j == i))))
+            while (j < totalLength && j < (i + MAX_ESCAPE + 1) && (Character.isLetterOrDigit(input.charAt(j)) || ((input.charAt(j) == '#') && (j == i)))) {
                 j++;
+            }
             if (j < (i + MIN_ESCAPE) || j == (i + MAX_ESCAPE + 1)) {
                 i++;
                 continue;
@@ -2381,8 +2383,9 @@ public class HtmlHelper {
                 try {
                     final int entityValue = Integer.parseInt(input.substring(k, j), radix);
 
-                    if (writer == null)
+                    if (writer == null) {
                         writer = new StringWriter(input.length());
+                    }
                     writer.append(input.substring(st, i - 1));
 
                     if (entityValue > 0xFFFF) {
@@ -2407,17 +2410,19 @@ public class HtmlHelper {
                     continue;
                 }
 
-                if (writer == null)
+                if (writer == null) {
                     writer = new StringWriter(input.length());
+                }
                 writer.append(input.substring(st, i - 1));
                 writer.append(value);
             }
 
             // skip escape
-            if ((j < totalLength) && (input.charAt(j) == ';'))
+            if ((j < totalLength) && (input.charAt(j) == ';')) {
                 st = j + 1;
-            else
+            } else {
                 st = j;
+            }
             i = st;
         }
 
@@ -2461,8 +2466,7 @@ public class HtmlHelper {
     public static final String trim(final String input) {
 
         final String s1 = s_clean_leading_whitespaces.matcher(input).replaceAll("");
-        final String s2 = s_clean_trailing_whitespaces.matcher(s1).replaceAll("");
-        return s2;
+        return s_clean_trailing_whitespaces.matcher(s1).replaceAll("");
     }
 
     /**

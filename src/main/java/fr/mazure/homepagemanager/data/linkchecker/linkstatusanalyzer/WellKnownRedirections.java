@@ -84,7 +84,7 @@ public class WellKnownRedirections {
         fromYoutubeChannelToYoutubeChannel.add("\\Qhttps://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fchannel%2F\\E" + RedirectionMatcher.ANY_STRING,
                                                Set.of(Integer.valueOf(303)),
                                                RedirectionMatcher.Multiplicity.ONE);
-        fromYoutubeChannelToYoutubeChannel.add("\\Qhttps://www.youtube.com/channel/\\E"  + RedirectionMatcher.ANY_STRING,
+        fromYoutubeChannelToYoutubeChannel.add("\\Qhttps://www.youtube.com/channel/\\E" + RedirectionMatcher.ANY_STRING,
                                                Set.of(Integer.valueOf(200)),
                                                RedirectionMatcher.Multiplicity.ONE);
         fromYoutubeChannelToYoutubeChannel.compile();
@@ -92,7 +92,7 @@ public class WellKnownRedirections {
 
         final RedirectionMatcher mediumAnalytics = new RedirectionMatcher("Medium analytics",
                                                                           Set.of(LinkStatus.OK,
-                                                                                  LinkStatus.OBSOLETE));
+                                                                                 LinkStatus.OBSOLETE));
         mediumAnalytics.add("\\Qhttps://\\E(?<site>[^/]+)/(?<article>.+)",
                             Set.of(Integer.valueOf(307)),
                             RedirectionMatcher.Multiplicity.ONE);
@@ -104,6 +104,42 @@ public class WellKnownRedirections {
                             RedirectionMatcher.Multiplicity.ONE);
         mediumAnalytics.compile();
         _matchers.add(mediumAnalytics);
+
+        final RedirectionMatcher oReillyRemoved = new RedirectionMatcher("removed from O’Reilly",
+                                                                         Set.of(LinkStatus.REMOVED));
+        oReillyRemoved.add("\\Qhttp://www.onjava.com/pub/a/onjava/\\E.+|\\Qhttp://www.onlamp.com/pub/a/\\E(onlamp|php)/.+",
+                           Set.of(Integer.valueOf(301)),
+                           RedirectionMatcher.Multiplicity.ONE);
+        oReillyRemoved.add("\\Qhttps://www.oreilly.com/ideas\\E",
+                           Set.of(Integer.valueOf(301)),
+                           RedirectionMatcher.Multiplicity.ONE);
+        oReillyRemoved.add("\\Qhttps://www.oreilly.com/radar/\\E",
+                           Set.of(Integer.valueOf(200)),
+                           RedirectionMatcher.Multiplicity.ONE);
+        oReillyRemoved.compile();
+        _matchers.add(oReillyRemoved);
+
+        final RedirectionMatcher ibmRemoved = new RedirectionMatcher("removed from IBM",
+                                                                     Set.of(LinkStatus.REMOVED));
+        ibmRemoved.add("https://www.ibm.com/developerworks/(java|opensource|xml)/library/.+",
+                       Set.of(Integer.valueOf(301)),
+                       RedirectionMatcher.Multiplicity.ONE);
+        ibmRemoved.add("https://developer.ibm.com/(languages/java|technologies|technologies/web-development)/",
+                       Set.of(Integer.valueOf(200)),
+                       RedirectionMatcher.Multiplicity.ONE);
+        ibmRemoved.compile();
+        _matchers.add(ibmRemoved);
+
+        final RedirectionMatcher ibmRemoved2 = new RedirectionMatcher("removed from IBM",
+                                                                     Set.of(LinkStatus.REMOVED));
+        ibmRemoved2.add("\\Qhttps://www.ibm.com/developerworks/library/\\E.+",
+                       Set.of(Integer.valueOf(301)),
+                       RedirectionMatcher.Multiplicity.ONE);
+        ibmRemoved2.add("https://developer.ibm.com/(|technologies/web-development/)",
+                       Set.of(Integer.valueOf(200)),
+                       RedirectionMatcher.Multiplicity.ONE);
+        ibmRemoved2.compile();
+        _matchers.add(ibmRemoved2);
 
         final RedirectionMatcher redirectionEndingInSuccess = new RedirectionMatcher("redirection ending in success (last URL should be used)",
                                                                                      Set.of());
@@ -136,7 +172,9 @@ public class WellKnownRedirections {
         _matchers.add(basicError);
 
         final RedirectionMatcher basicOk = new RedirectionMatcher("direct success",
-                                                                  Set.of(LinkStatus.OK, LinkStatus.ZOMBIE, LinkStatus.OBSOLETE));
+                                                                  Set.of(LinkStatus.OK,
+                                                                         LinkStatus.ZOMBIE,
+                                                                         LinkStatus.OBSOLETE));
         basicOk.add("https?://" + RedirectionMatcher.ANY_STRING,
                     successCodes,
                     RedirectionMatcher.Multiplicity.ONE);

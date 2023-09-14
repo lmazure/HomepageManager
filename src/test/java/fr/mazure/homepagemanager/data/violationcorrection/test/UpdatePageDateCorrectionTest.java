@@ -24,26 +24,27 @@ public class UpdatePageDateCorrectionTest {
     void dateIsUpdated() {
 
         final String content =
+            """
+        	<?xml version="1.0"?>\r
+        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+        	<TITLE>test</TITLE>\r
+        	<PATH>dummy-dir/test.xml</PATH>\r
+        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+        	<CONTENT>\r
+        	</CONTENT>\r
+        	</PAGE>""";
+
+        final String expected =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
             "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
             "<PATH>dummy-dir/test.xml</PATH>\r\n" +
-            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
+            "<DATE><YEAR>" + s_now_year + "</YEAR><MONTH>" + s_now_month + "</MONTH><DAY>" + s_now_day + "</DAY></DATE>\r\n" +
             "<CONTENT>\r\n" +
             "</CONTENT>\r\n" +
             "</PAGE>";
-
-        final String expected =
-                "<?xml version=\"1.0\"?>\r\n" +
-                "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-                "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
-                "<TITLE>test</TITLE>\r\n" +
-                "<PATH>dummy-dir/test.xml</PATH>\r\n" +
-                "<DATE><YEAR>" + s_now_year + "</YEAR><MONTH>" + s_now_month + "</MONTH><DAY>" + s_now_day + "</DAY></DATE>\r\n" +
-                "<CONTENT>\r\n" +
-                "</CONTENT>\r\n" +
-                "</PAGE>";
 
         final ViolationCorrection correction = new UpdatePageDateCorrection();
         Assertions.assertEquals(expected, correction.apply(content));

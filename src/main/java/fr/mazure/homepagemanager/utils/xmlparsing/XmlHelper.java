@@ -114,7 +114,7 @@ public class XmlHelper {
             return Optional.of(Locale.forLanguageTag(lang));
         }
 
-        Node parent = element.getParentNode();
+        final Node parent = element.getParentNode();
         if (parent instanceof Document) {
             return Optional.empty();
         }

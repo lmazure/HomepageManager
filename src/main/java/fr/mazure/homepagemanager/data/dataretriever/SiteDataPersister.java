@@ -157,8 +157,7 @@ public class SiteDataPersister {
             builder.append("empty\n");
         }
 
-        final String dataString = builder.toString();
-        return dataString;
+        return builder.toString();
     }
 
     private static String buildSerializedErrorString(final Optional<String> error) {
@@ -173,8 +172,7 @@ public class SiteDataPersister {
             builder.append("empty\n");
         }
 
-        final String dataString = builder.toString();
-        return dataString;
+        return builder.toString();
     }
 
     /**

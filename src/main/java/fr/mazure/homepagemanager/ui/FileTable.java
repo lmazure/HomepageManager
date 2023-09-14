@@ -4,8 +4,8 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.mazure.homepagemanager.data.FileEventDispatcher;
 import fr.mazure.homepagemanager.data.FileContentChecker;
+import fr.mazure.homepagemanager.data.FileEventDispatcher;
 import fr.mazure.homepagemanager.data.FileHandler;
 import fr.mazure.homepagemanager.data.HTMLGenerator;
 import fr.mazure.homepagemanager.data.LinkChecker;

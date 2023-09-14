@@ -8,9 +8,79 @@ branches      44.8%    77.5%
 lines         65.9%    94.7%
 methods       53.0%/52.2%    97.9%
 
-
-
 ==== potentially after merge =====
+
+faire que java.xml soit propre
+
+gérer env de built TypeScript (pour mettre à jour ContentBuilder.ts)
+    private static statusToHtmlString(status: string): HtmlString {
+        if ((status === "dead") || (status === "zombie")) {
+            return HtmlString.buildFromTag(
+                "span",
+                "\u{2020}",
+                "title", "dead link",
+            );
+        } else if (status === "obsolete") {
+            return HtmlString.buildFromTag(
+                "span",
+                "\u{2021}",
+                "title", "obsolete",
+            );
+        } else if (status === "removed") {
+            return HtmlString.buildFromTag(
+                "span",
+                "\u{1FAA6}",
+                "title", "obsolete",
+            );
+        }
+        throw "illegal call to buildContentText.statusToHtmlString() (unknown value = \"" + status + "\")";
+    }
+    
+    
+nettoyage URL nettoyage URL https://www.youtube.com/watch?si=QejhgLoV5Iy3rKjJ&v=r7HV4s-4ksQ&feature=youtu.be
+
+Exception in thread "pool-2-thread-19" java.lang.IllegalStateException: Exception while retrieving http://ganttproject.biz
+    at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:79)
+    at fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:34)
+    at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+    at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+    at java.base/java.lang.Thread.run(Thread.java:1589)
+Caused by: java.lang.UnsupportedOperationException: http://ganttproject.biz|522?
+    at fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.getMatch(WellKnownRedirections.java:175)
+    at fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.getPossibleStatuses(LinkStatusAnalyzer.java:79)
+    at fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.doesEffectiveDataMatchesExpectedData(LinkStatusAnalyzer.java:34)
+    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.isDataExpected(LinkCheckRunner.java:556)
+    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:340)
+    at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
+    at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
+    ... 4 more
+
+java.lang.UnsupportedOperationException: https://polycom-recrutement.fr|508→
+    at fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.getMatch(WellKnownRedirections.java:175)
+    at fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.getPossibleStatuses(LinkStatusAnalyzer.java:79)
+    at fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.doesEffectiveDataMatchesExpectedData(LinkStatusAnalyzer.java:34)
+    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.writeOutputFile(LinkCheckRunner.java:410)
+    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:354)
+    at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
+    at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
+    at fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:34)
+    at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+    at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+    at java.base/java.lang.Thread.run(Thread.java:1589)
+
+java.lang.UnsupportedOperationException: https://www.esgi.fr|504→
+    at fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.getMatch(WellKnownRedirections.java:175)
+    at fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.getPossibleStatuses(LinkStatusAnalyzer.java:79)
+    at fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.doesEffectiveDataMatchesExpectedData(LinkStatusAnalyzer.java:34)
+    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.writeOutputFile(LinkCheckRunner.java:410)
+    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:354)
+    at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
+    at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
+    at fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:34)
+    at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+    at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+    at java.base/java.lang.Thread.run(Thread.java:1589)
+
 
 on peut gérer ces cas
 Title = "Springer"
@@ -27,6 +97,11 @@ je crois que c'est aussi le cas de twitter
 
 
 ==== after merge =====
+
+les artciles de https://www.nytimes.com/ devraient être en payed_registration
+
+gérer obsolescence de URL constructor
+
 bring back main method coverage to 53.0%
 
 tester les LinkContentChecker

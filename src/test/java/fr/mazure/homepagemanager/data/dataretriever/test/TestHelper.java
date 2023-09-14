@@ -28,10 +28,10 @@ public class TestHelper {
     public static void assertData(final FullFetchedLinkData data) {
         Assertions.assertEquals(200, HttpHelper.getResponseCodeFromHeaders(data.headers().get()));
         Assertions.assertTrue(data.headers().isPresent());
-        Assertions.assertTrue(data.headers().get().keySet().contains("Content-Type"));
+        Assertions.assertTrue(data.headers().get().containsKey("Content-Type"));
         Assertions.assertEquals(1, data.headers().get().get("Content-Type").size());
         Assertions.assertEquals("text/html; charset=UTF-8", data.headers().get().get("Content-Type").get(0));
-        Assertions.assertTrue(data.headers().get().keySet().contains("Cache-Control"));
+        Assertions.assertTrue(data.headers().get().containsKey("Cache-Control"));
         Assertions.assertEquals(1, data.headers().get().get("Cache-Control").size());
         Assertions.assertEquals("max-age=604800", data.headers().get().get("Cache-Control").get(0));
         Assertions.assertTrue(data.dataFileSection().isPresent());
@@ -84,6 +84,6 @@ public class TestHelper {
      * @return Directory
      */
     public static Path getTestDatapath(final Class<?> clazz) {
-        return Paths.get("H:\\Documents\\tmp\\hptmp\\test\\" + clazz.getSimpleName());
+        return Paths.get("F:\\Documents\\tmp\\hptmp\\test\\" + clazz.getSimpleName());
     }
 }

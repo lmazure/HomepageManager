@@ -10,9 +10,9 @@ import org.w3c.dom.Element;
 import fr.mazure.homepagemanager.data.nodechecker.tagselection.InclusionTagSelector;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdatePageDateCorrection;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
+import fr.mazure.homepagemanager.utils.xmlparsing.ElementType;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 import fr.mazure.homepagemanager.utils.xmlparsing.XmlHelper;
-import fr.mazure.homepagemanager.utils.xmlparsing.ElementType;
 import fr.mazure.homepagemanager.utils.xmlparsing.XmlParser;
 import fr.mazure.homepagemanager.utils.xmlparsing.XmlParsingException;
 

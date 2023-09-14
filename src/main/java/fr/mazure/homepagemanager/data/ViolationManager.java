@@ -37,6 +37,5 @@ public class ViolationManager {
                 _set.remove(violation);
             }
         }
-        return;
     }
 }

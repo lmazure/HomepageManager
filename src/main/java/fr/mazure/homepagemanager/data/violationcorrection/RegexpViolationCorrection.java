@@ -26,7 +26,7 @@ public class RegexpViolationCorrection extends ViolationCorrection {
     }
 
     @Override
-    public String apply(String content) {
+    public String apply(final String content) {
         final Matcher matcher = _pattern.matcher(content);
         return matcher.replaceAll(_replacement);
     }

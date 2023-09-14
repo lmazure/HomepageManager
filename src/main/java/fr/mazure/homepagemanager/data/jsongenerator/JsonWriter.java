@@ -47,10 +47,10 @@ public class JsonWriter {
      */
 
     public void generateAuthorJson(final File root,
-                                   final String pageName) {
+                                   final String fileName) {
 
         final String rootFileName = root.getAbsolutePath();
-        final File f = new File(rootFileName + File.separator + pageName);
+        final File f = new File(rootFileName + File.separator + fileName);
         f.delete();
 
         try (final OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(f), Charset.forName("UTF-8").newEncoder())) {
@@ -327,58 +327,39 @@ public class JsonWriter {
     }
 
     private static String formatStatus(final LinkStatus status) {
-        switch (status) {
-            case DEAD:
-                return "dead";
-            case OBSOLETE:
-                return "obsolete";
-            case ZOMBIE:
-                return "zombie";
-            default:
-                throw new UnsupportedOperationException("Illegal status value (" + status + ")");
-        }
+        return switch (status) {
+        case REMOVED -> "removed";
+        case DEAD -> "dead";
+        case OBSOLETE -> "obsolete";
+        case ZOMBIE -> "zombie";
+        default -> throw new UnsupportedOperationException("Illegal status value (" + status + ")");
+        };
     }
 
     private static String formatProtection(final LinkProtection protection) {
-        switch (protection) {
-            case FREE_REGISTRATION:
-                return "free_registration";
-            case PAYED_REGISTRATION:
-                return "payed_registration";
-            default:
-                throw new UnsupportedOperationException("Illegal protection value (" + protection + ")");
-        }
+        return switch (protection) {
+        case FREE_REGISTRATION -> "free_registration";
+        case PAYED_REGISTRATION -> "payed_registration";
+        default -> throw new UnsupportedOperationException("Illegal protection value (" + protection + ")");
+        };
     }
 
     private static String formatFormat(final LinkFormat format) {
-        switch (format) {
-        case FLASH:
-            return "Flash";
-        case FLASH_VIDEO:
-            return "Flash Video";
-        case HTML:
-            return "HTML";
-        case MP3:
-            return "MP3";
-        case MP4:
-            return "MP4";
-        case PDF:
-            return "PDF";
-        case POSTSCRIPT:
-            return "PostScript";
-        case POWERPOINT:
-            return "PowerPoint";
-        case REALMEDIA:
-            return "RealMedia";
-        case TXT:
-            return "txt";
-        case WINDOWS_MEDIA_PLAYER:
-            return "Windows Media Player";
-        case WORD:
-            return "Word";
-        default:
-            throw new UnsupportedOperationException("Illegal format value (" + format + ")");
-        }
+        return switch (format) {
+        case FLASH -> "Flash";
+        case FLASH_VIDEO -> "Flash Video";
+        case HTML -> "HTML";
+        case MP3 -> "MP3";
+        case MP4 -> "MP4";
+        case PDF -> "PDF";
+        case POSTSCRIPT -> "PostScript";
+        case POWERPOINT -> "PowerPoint";
+        case REALMEDIA -> "RealMedia";
+        case TXT -> "txt";
+        case WINDOWS_MEDIA_PLAYER -> "Windows Media Player";
+        case WORD -> "Word";
+        default -> throw new UnsupportedOperationException("Illegal format value (" + format + ")");
+        };
     }
 
     private static String formatLanguage(final Locale language) {

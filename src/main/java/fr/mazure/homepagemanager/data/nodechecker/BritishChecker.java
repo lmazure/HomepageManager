@@ -80,8 +80,8 @@ public class BritishChecker extends NodeChecker {
     }
 
     private static class Traduction{
-        private Pattern _americanRegexp;
-        private String _british;
+        private final Pattern _americanRegexp;
+        private final String _british;
         private Traduction(final String american,
                            final String british) {
             _americanRegexp = Pattern.compile(american);
