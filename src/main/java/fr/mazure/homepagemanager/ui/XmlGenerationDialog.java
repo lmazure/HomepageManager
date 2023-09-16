@@ -11,7 +11,7 @@ import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractorFactory;
 import fr.mazure.homepagemanager.data.linkchecker.XmlGenerator;
-import fr.mazure.homepagemanager.utils.internet.UrlHelper;
+import fr.mazure.homepagemanager.utils.internet.UriHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -165,7 +165,7 @@ public class XmlGenerationDialog extends Dialog<Void> {
         final Clipboard clipboard = Clipboard.getSystemClipboard();
         if (clipboard.hasString()) {
             final String url = clipboard.getString();
-            if (UrlHelper.isValidUrl(url)) {
+            if (UriHelper.isValidUri(url)) {
                 pasteUrl();
             }
         }

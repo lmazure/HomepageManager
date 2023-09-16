@@ -1,7 +1,7 @@
 package fr.mazure.homepagemanager.data.linkchecker.oracleblogs;
 
 import java.io.IOException;
-import java.net.URL;
+import java.net.URI;
 import java.nio.file.Path;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -27,6 +27,7 @@ import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
+import fr.mazure.homepagemanager.utils.internet.UriHelper;
 import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
@@ -254,7 +255,7 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
     private String getJsonPayload(final String url,
                                   final String channelAccessToken,
                                   final String caas) throws IOException, NotGzipException {
-        final URL u = UrlHelper.convertStringToUrl(url);
+        final URI u = UriHelper.convertStringToUri(url);
         final String slug = Path.of(u.getPath()).getFileName().toString();
         final String jsonUrl = "https://blogs.oracle.com/content/published/api/v1.1/items?fields=ALL&orderBy=name%3Aasc&limit=1&q=((type%20eq%20%22Blog-Post%22)%20and%20(language%20eq%20%22en-US%22%20or%20translatable%20eq%20%22false%22)%20and%20(slug%20eq%20%22"
                                + slug

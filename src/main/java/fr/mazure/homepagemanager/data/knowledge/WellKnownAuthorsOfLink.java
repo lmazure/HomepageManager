@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import fr.mazure.homepagemanager.utils.internet.UrlHelper;
+import fr.mazure.homepagemanager.utils.internet.UriHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 
 /**
@@ -28,10 +28,10 @@ public class WellKnownAuthorsOfLink {
      * @return well known authors of the site
      */
     public static Optional<WellKnownAuthors> getWellKnownAuthors(final String url) { // TODO should return a set instead of an optional
-        if (!UrlHelper.isValidUrl(url)) {
+        if (!UriHelper.isValidUri(url)) {
             return Optional.empty();
         }
-        final String host = UrlHelper.getHost(url);
+        final String host = UriHelper.getHost(url);
         if (host == null) {
             return Optional.empty();
         }

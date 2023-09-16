@@ -8,6 +8,15 @@ branches      44.8%    77.5%
 lines         65.9%    94.7%
 methods       53.0%/52.2%    97.9%
 
+
+
+problème de date avec https://developer.ibm.com/articles/os-developers-know-rust/
+
+il manque le sous-titre pour https://stackoverflow.blog/2022/09/08/this-is-not-your-grandfathers-perl/
+
+bug sur les corrections d'URL, voir sur medimag.xml
+
+
 ==== potentially after merge =====
 
 faire que java.xml soit propre
@@ -36,9 +45,6 @@ gérer env de built TypeScript (pour mettre à jour ContentBuilder.ts)
         throw "illegal call to buildContentText.statusToHtmlString() (unknown value = \"" + status + "\")";
     }
     
-    
-nettoyage URL nettoyage URL https://www.youtube.com/watch?si=QejhgLoV5Iy3rKjJ&v=r7HV4s-4ksQ&feature=youtu.be
-
 Exception in thread "pool-2-thread-19" java.lang.IllegalStateException: Exception while retrieving http://ganttproject.biz
     at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:79)
     at fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:34)
@@ -99,8 +105,6 @@ je crois que c'est aussi le cas de twitter
 ==== after merge =====
 
 les artciles de https://www.nytimes.com/ devraient être en payed_registration
-
-gérer obsolescence de URL constructor
 
 bring back main method coverage to 53.0%
 
