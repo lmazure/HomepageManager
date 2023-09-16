@@ -1,4 +1,4 @@
-warnings = 172
+warnings = 146
 lines prod = 9514
 lines test = 3939
 test coverage =
@@ -13,9 +13,6 @@ methods       53.0%/52.2%    97.9%
 problème de date avec https://developer.ibm.com/articles/os-developers-know-rust/
 
 il manque le sous-titre pour https://stackoverflow.blog/2022/09/08/this-is-not-your-grandfathers-perl/
-
-bug sur les corrections d'URL, voir sur medimag.xml
-
 
 ==== potentially after merge =====
 
