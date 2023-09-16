@@ -24,5 +24,4 @@ public class GitlabBlogLinkContentChecker extends ExtractorBasedLinkContentCheck
                                         final FileSection file) {
         super(url, linkData, articleData, file, (LinkDataExtractorBuilder)GitlabBlogLinkContentParser::new);
     }
-
 }

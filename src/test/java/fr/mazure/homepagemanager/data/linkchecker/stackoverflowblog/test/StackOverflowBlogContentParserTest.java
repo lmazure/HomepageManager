@@ -127,5 +127,4 @@ public class StackOverflowBlogContentParserTest {
                            false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
-
 }
