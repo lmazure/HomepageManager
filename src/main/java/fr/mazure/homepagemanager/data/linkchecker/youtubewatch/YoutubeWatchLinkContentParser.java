@@ -62,6 +62,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                    "feature",
                                                    "index",
                                                    "list",
+                                                   "si",
                                                    "source_ve_path",
                                                    "t"));
         ContentParserException exception = null;

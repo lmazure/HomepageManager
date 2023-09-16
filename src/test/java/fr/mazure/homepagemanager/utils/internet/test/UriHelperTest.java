@@ -17,5 +17,4 @@ class UriHelperTest {
         final URI uri = UriHelper.convertStringToUri(str);
         Assertions.assertEquals("https://app.gitter.im/#/room/%23theintern_intern:gitter.im", uri.toString());
     }
-
 }

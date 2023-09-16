@@ -2218,6 +2218,22 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeQueryParametersAreRemoved2() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?si=QejhgLoV5Iy3rKjJ&v=r7HV4s-4ksQ&feature=youtu.be";
+        final String expectedXml = """
+                <ARTICLE><X><T>Capital One's $200M Cloud Data Breach</T>\
+                <A>https://www.youtube.com/watch?v=r7HV4s-4ksQ</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>18</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Kevin</FIRSTNAME><LASTNAME>Fang</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2023</YEAR><MONTH>4</MONTH><DAY>13</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void wiredIsManaged() throws ContentParserException {
         final String url = "https://www.wired.com/2015/06/answer-150-year-old-math-conundrum-brings-mystery/";
         final String expectedXml = """
