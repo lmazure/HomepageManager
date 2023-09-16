@@ -99,6 +99,45 @@ public class UpdateLinkUrlCorrectionTest {
 
     @SuppressWarnings("static-method")
     @Test
+    void urlWithSpecialCharactersIsUpdated() {
+
+        final String content =
+            """
+            <?xml version="1.0"?>\r
+            <?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+            <PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+            <TITLE>test</TITLE>\r
+            <PATH>dummy-dir/test.xml</PATH>\r
+            <DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+            <CONTENT>\r
+            <BLIST><TITLE>Articles and videos</TITLE>\r
+            <ITEM><ARTICLE><X status="zombie" protection="free_registration"><T>Study shows whole-body CT screening centers on the rise</T><A>https://www.auntminnie.com/default.asp?Sec=sup&amp;Sub=cto&amp;Pag=dis&amp;ItemId=63966&amp;d=1</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Eric</FIRSTNAME><LASTNAME>Barnes</LASTNAME></AUTHOR><DATE><YEAR>2004</YEAR><MONTH>11</MONTH><DAY>17</DAY></DATE><COMMENT>The title says it all. Do you think these guys who ask for a full body scan really know the impact of XRays?</COMMENT></ARTICLE></ITEM>\r
+            </BLIST>\r
+            </CONTENT>\r
+            </PAGE>""";
+
+        final String expected =
+            """
+            <?xml version="1.0"?>\r
+            <?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+            <PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+            <TITLE>test</TITLE>\r
+            <PATH>dummy-dir/test.xml</PATH>\r
+            <DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+            <CONTENT>\r
+            <BLIST><TITLE>Articles and videos</TITLE>\r
+            <ITEM><ARTICLE><X status="zombie" protection="free_registration"><T>Study shows whole-body CT screening centers on the rise</T><A>https://www.auntminnie.com/practice-management/article/15570515/study-shows-whole-body-ct-screening-centers-on-the-rise&amp;dummy=2</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Eric</FIRSTNAME><LASTNAME>Barnes</LASTNAME></AUTHOR><DATE><YEAR>2004</YEAR><MONTH>11</MONTH><DAY>17</DAY></DATE><COMMENT>The title says it all. Do you think these guys who ask for a full body scan really know the impact of XRays?</COMMENT></ARTICLE></ITEM>\r
+            </BLIST>\r
+            </CONTENT>\r
+            </PAGE>""";
+
+        final ViolationCorrection correction = new UpdateLinkUrlCorrection("https://www.auntminnie.com/default.asp?Sec=sup&Sub=cto&Pag=dis&ItemId=63966&d=1",
+                                                                           "https://www.auntminnie.com/practice-management/article/15570515/study-shows-whole-body-ct-screening-centers-on-the-rise&dummy=2");
+        Assertions.assertEquals(expected, correction.apply(content));
+    }
+
+    @SuppressWarnings("static-method")
+    @Test
     void description() {
         final ViolationCorrection correction = new UpdateLinkUrlCorrection("https://www.youtube.com/watch?v=Ddr-BZ9W180",
                                                                            "https://www.mytube.com/watch?v=Ddr-BZ9W180");
