@@ -9,12 +9,16 @@ lines         65.9%    94.7%
 methods       53.0%/52.2%    97.9%
 
 
+==== potentially after merge =====
+
+
+nettoyer cracking.xml
+
+nettoyer tous les lisns auntminnie
 
 problème de date avec https://developer.ibm.com/articles/os-developers-know-rust/
 
 il manque le sous-titre pour https://stackoverflow.blog/2022/09/08/this-is-not-your-grandfathers-perl/
-
-==== potentially after merge =====
 
 faire que java.xml soit propre
 
