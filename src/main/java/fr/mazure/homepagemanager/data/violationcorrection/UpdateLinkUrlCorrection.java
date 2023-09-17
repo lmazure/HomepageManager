@@ -3,6 +3,8 @@ package fr.mazure.homepagemanager.data.violationcorrection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import fr.mazure.homepagemanager.utils.xmlparsing.XmlHelper;
+
 /**
  * Correct the URL of a link
  */
@@ -21,10 +23,12 @@ public class UpdateLinkUrlCorrection extends ViolationCorrection {
     public UpdateLinkUrlCorrection(final String badUrl,
                                    final String correctUrl) {
         super("Update the link URL");
-        _pattern1 = Pattern.compile("<A>" + Pattern.quote(badUrl) + "</A>");
-        _replacement1 = "<A>" + correctUrl + "</A>";
-        _pattern2 = Pattern.compile("predecessor=\""  + Pattern.quote(badUrl) + "\"");
-        _replacement2 = "predecessor=\""  + correctUrl + "\"";
+        final String bad = Pattern.quote(XmlHelper.transform(badUrl));
+        final String good = XmlHelper.transform(correctUrl);
+        _pattern1 = Pattern.compile("<A>" + bad + "</A>");
+        _replacement1 = "<A>" + good + "</A>";
+        _pattern2 = Pattern.compile("predecessor=\""  + bad + "\"");
+        _replacement2 = "predecessor=\""  + good + "\"";
     }
 
     @Override

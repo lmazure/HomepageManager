@@ -41,7 +41,9 @@ public class XmlHelper {
     }
 
     /**
-     * @return
+     * build a DocumentBuilder
+     *
+     * @return the DocumentBuilder
      */
     public static DocumentBuilder buildDocumentBuilder() {
         final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -58,8 +60,10 @@ public class XmlHelper {
     }
 
     /**
-     * @param schemaLocation
-     * @return
+     * build a Validator
+     *
+     * @param schemaLocation path of the schema
+     * @return the Validator
      */
     public static Validator buildValidator(final Path schemaLocation) {
         final SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
@@ -74,8 +78,10 @@ public class XmlHelper {
     }
 
     /**
-     * @param node
-     * @return
+     * Extract the text which is at the first level (i.e. not in child nodes)
+     *
+     * @param node node
+     * @return text which isthe first level
      */
     public static List<String> getFirstLevelTextContent(final Node node) {
         final NodeList list = node.getChildNodes();
@@ -91,8 +97,9 @@ public class XmlHelper {
 
     /**
      * return the type of an element Node
-     * @param element
-     * @return
+     *
+     * @param element element
+     * @return type
      * @throws UnsupportedOperationException if not an element node
      */
     public static ElementType getElementType(final Element element) {
@@ -104,8 +111,10 @@ public class XmlHelper {
     }
 
     /**
-     * @param element
-     * @return
+     * Return the value of the xml:lang attribute of an element
+     *
+     * @param element element
+     * @return value of xml:lang attribute
      */
     public static Optional<Locale> getElementLanguage(final Element element) {
 
@@ -123,8 +132,9 @@ public class XmlHelper {
     }
     /**
      * return the previous sibling element, otherwise return null
-     * @param element
-     * @return
+     *
+     * @param element element
+     * @return previous sibling element
      */
     public static Element getPreviousSiblingElement(final Element element) {
         return getSiblingElement(element, Node::getPreviousSibling);
@@ -132,8 +142,9 @@ public class XmlHelper {
 
     /**
      * return the next sibling element, otherwise return null
-     * @param element
-     * @return
+     *
+     * @param element element
+     * @return next sibling element
      */
     public static Element getNextSiblingElement(final Element element) {
         return getSiblingElement(element, Node::getNextSibling);

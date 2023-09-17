@@ -24,59 +24,23 @@ public class UrlHelper {
         return u;
     }
 
-    /**
-     * Remove a query parameter from a URL
-     *
-     * @param url URL
-     * @param parameter Query parameter to remove
-     * @return Resulting URL
-     */
-    public static String removeQueryParameter(final String url,
-                                              final String parameter) {
+    private static String removeQueryParameter(final String url,
+                                               final String parameter) {
         return url.replaceFirst("(\\?|&)(" + parameter + "=[^&]*(&|$))", "$1")
                   .replaceFirst("(\\?|&)$","");
    }
 
     /**
-     * Return the host from a URL
-     *
-     * @param url URL
-     * @return Hosr
-     */
-    public static String getHost(final String url) {
-        if (url.startsWith("..")) {
-            return null;
-        }
-        final URL u = convertStringToUrl(url);
-        return u.getHost();
-    }
-
-    /**
      * Convert a string to URL, throw IllegalArgumentException if the string is an invalid URL
      *
-     * @param str String
+     * @param string String
      * @return URL
      */
-    public static URL convertStringToUrl(final String str) {
+    public static URL convertStringToUrl(final String string) {
         try {
-            return new URL(str);
+            return UriHelper.convertStringToUri(string).toURL();
         } catch (@SuppressWarnings("unused") final MalformedURLException e) {
-            throw new IllegalArgumentException("Cannot convert string to URL: '" + str + "'");
-        }
-    }
-
-    /**
-     * Check if a String is a valid URL
-     *
-     * @param str String
-     * @return True if valid URL, false otherwise
-     */
-    public static boolean isValidUrl(final String str) {
-        try {
-            @SuppressWarnings("unused") final URL u = new URL(str);
-            return true;
-        } catch (@SuppressWarnings("unused") final MalformedURLException e) {
-            return false;
+            throw new IllegalArgumentException("Cannot convert string to URL: '" + string + "'");
         }
     }
 }

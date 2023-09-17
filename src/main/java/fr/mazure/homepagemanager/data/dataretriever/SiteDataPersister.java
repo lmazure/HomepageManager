@@ -29,7 +29,7 @@ import fr.mazure.homepagemanager.utils.ExitHelper;
 import fr.mazure.homepagemanager.utils.FileNameHelper;
 import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.Logger;
-import fr.mazure.homepagemanager.utils.internet.UrlHelper;
+import fr.mazure.homepagemanager.utils.internet.UriHelper;
 
 /**
  *
@@ -314,7 +314,7 @@ public class SiteDataPersister {
     }
 
     private Path getOutputDirectory(final String url) {
-        final String host = UrlHelper.isValidUrl(url) ? UrlHelper.getHost(url)
+        final String host = UriHelper.isValidUri(url) ? UriHelper.getHost(url)
                                                       : "_invalid_URL";
         return _path.resolve(FileNameHelper.generateDirectoryNameFromHostName(host))
                     .resolve(FileNameHelper.generateFileNameFromURL(url));

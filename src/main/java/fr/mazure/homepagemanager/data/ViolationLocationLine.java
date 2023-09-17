@@ -19,5 +19,4 @@ public class ViolationLocationLine extends ViolationLocation {
     final String getDescription() {
         return "line " + _lineNumber;
     }
-
 }

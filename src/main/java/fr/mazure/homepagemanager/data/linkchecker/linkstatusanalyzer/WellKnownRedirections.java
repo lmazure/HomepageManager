@@ -107,7 +107,7 @@ public class WellKnownRedirections {
 
         final RedirectionMatcher oReillyRemoved = new RedirectionMatcher("removed from O’Reilly",
                                                                          Set.of(LinkStatus.REMOVED));
-        oReillyRemoved.add("\\Qhttp://www.onjava.com/pub/a/onjava/\\E.+|\\Qhttp://www.onlamp.com/pub/a/\\E(onlamp|php)/.+",
+        oReillyRemoved.add("\\Qhttp://www.onjava.com/pub/a/onjava/\\E.+|\\Qhttp://www.onlamp.com/pub/a/\\E(onlamp|php|security)/.+",
                            Set.of(Integer.valueOf(301)),
                            RedirectionMatcher.Multiplicity.ONE);
         oReillyRemoved.add("\\Qhttps://www.oreilly.com/ideas\\E",
@@ -118,6 +118,20 @@ public class WellKnownRedirections {
                            RedirectionMatcher.Multiplicity.ONE);
         oReillyRemoved.compile();
         _matchers.add(oReillyRemoved);
+
+        final RedirectionMatcher oReillyRemoved2 = new RedirectionMatcher("removed from O’Reilly",
+                                                                          Set.of(LinkStatus.REMOVED));
+        oReillyRemoved2.add("\\Qhttp://www.oreillynet.com/\\E(pub/a/(network|oreilly/security/news)|onlamp/blog)/.+",
+                            Set.of(Integer.valueOf(301)),
+                            RedirectionMatcher.Multiplicity.ONE);
+        oReillyRemoved2.add("\\Qhttp://archive.oreilly.com/pub/\\E(a/(network|oreilly/security/news)|post)/.+",
+                            Set.of(Integer.valueOf(301)),
+                            RedirectionMatcher.Multiplicity.ONE);
+        oReillyRemoved2.add("\\Qhttps://www.oreilly.com\\E",
+                            Set.of(Integer.valueOf(200)),
+                            RedirectionMatcher.Multiplicity.ONE);
+        oReillyRemoved2.compile();
+        _matchers.add(oReillyRemoved2);
 
         final RedirectionMatcher ibmRemoved = new RedirectionMatcher("removed from IBM",
                                                                      Set.of(LinkStatus.REMOVED));
