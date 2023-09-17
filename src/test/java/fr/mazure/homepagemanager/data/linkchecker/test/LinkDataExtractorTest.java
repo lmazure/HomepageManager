@@ -483,6 +483,27 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchComputerfileTimMullerIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=Fy3Odm-dny0";
+        final String expectedSureXml = """
+                <ARTICLE><X><T>TETRA Vulnerability (TETRA:BURST) - Computerphile</T>\
+                <A>https://www.youtube.com/watch?v=Fy3Odm-dny0</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>18</MINUTE><SECOND>42</SECOND></DURATION></X>\
+                <DATE><YEAR>2023</YEAR><MONTH>9</MONTH><DAY>14</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final String expectedProbableXml = """
+                <ARTICLE><X><T>TETRA Vulnerability (TETRA:BURST) - Computerphile</T>\
+                <A>https://www.youtube.com/watch?v=Fy3Odm-dny0</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>18</MINUTE><SECOND>42</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Tim</FIRSTNAME><LASTNAME>Muller</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2023</YEAR><MONTH>9</MONTH><DAY>14</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
+        Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
+    }
+
+    @Test
     void youtubeWatchComputerfileMikePoundIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=-ShwJqAalOk";
         final String expectedSureXml = """
