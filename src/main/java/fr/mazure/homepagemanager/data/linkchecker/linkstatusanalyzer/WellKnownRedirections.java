@@ -145,11 +145,11 @@ public class WellKnownRedirections {
         _matchers.add(ibmRemoved);
 
         final RedirectionMatcher ibmRemoved2 = new RedirectionMatcher("removed from IBM",
-                                                                     Set.of(LinkStatus.REMOVED));
+                                                                      Set.of(LinkStatus.REMOVED));
         ibmRemoved2.add("\\Qhttps://www.ibm.com/developerworks/library/\\E.+",
                        Set.of(Integer.valueOf(301)),
                        RedirectionMatcher.Multiplicity.ONE);
-        ibmRemoved2.add("https://developer.ibm.com/(|technologies/web-development/)",
+        ibmRemoved2.add("https://developer.ibm.com/(|technologies/(|web-development/))",
                        Set.of(Integer.valueOf(200)),
                        RedirectionMatcher.Multiplicity.ONE);
         ibmRemoved2.compile();
