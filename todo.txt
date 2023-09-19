@@ -9,10 +9,19 @@ lines         65.9%    94.7%
 methods       53.0%/52.2%    97.9%
 
 
+nettoyer IBM pour xml.xml et cracking.xml
+
+indiquer tous les HTTP codes de redirection
+et en déduire quand la correction de l'URL devrait aussi être proposée
+
+corriger les liens de fda.org
+
 ==== potentially after merge =====
 
 
 nettoyer cracking.xml
+
+nettoyer xml.xml
 
 nettoyer tous les lisns auntminnie
 
