@@ -206,7 +206,8 @@ class WellKnownRedirectionsTest {
         "http://www.onlamp.com/pub/a/security/2004/09/16/open_source_security_myths.html",
         "http://www.oreillynet.com/pub/a/network/2003/05/20/secureprogckbk.html",
         "http://www.oreillynet.com/onlamp/blog/2005/12/two_things_that_bother_me_abou.html",
-        "http://www.oreillynet.com/pub/a/oreilly/security/news/2004/03/08/netsec.html"
+        "http://www.oreillynet.com/pub/a/oreilly/security/news/2004/03/08/netsec.html",
+        "http://www.oreillynet.com/xml/blog/2006/06/understanding_xforms_component.html",
         })
     void oReilly(final String url) {
         test(url,
@@ -226,7 +227,8 @@ class WellKnownRedirectionsTest {
         "https://www.ibm.com/developerworks/library/x-javaxmlvalidapi/index.html",
         "https://www.ibm.com/developerworks/opensource/library/os-ecgui1",
         "https://www.ibm.com/developerworks/java/library/os-lombok/index.html",
-        "https://www.ibm.com/developerworks/library/os-imagemagick/"
+        "https://www.ibm.com/developerworks/library/os-imagemagick/",
+        "https://www.ibm.com/developerworks/webservices/library/ws-array/",
         })
     void ibm(final String url) {
         test(url,

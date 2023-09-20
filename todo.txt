@@ -9,7 +9,7 @@ lines         65.9%    94.7%
 methods       53.0%/52.2%    97.9%
 
 
-nettoyer IBM pour xml.xml et cracking.xml
+nettoyer IBM pour cracking.xml
 
 indiquer tous les HTTP codes de redirection
 et en déduire quand la correction de l'URL devrait aussi être proposée
@@ -113,6 +113,8 @@ je crois que c'est aussi le cas de twitter
 
 
 ==== after merge =====
+
+mettre en place plausible
 
 les artciles de https://www.nytimes.com/ devraient être en payed_registration
 

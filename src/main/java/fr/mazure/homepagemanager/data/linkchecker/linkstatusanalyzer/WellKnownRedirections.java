@@ -121,7 +121,7 @@ public class WellKnownRedirections {
 
         final RedirectionMatcher oReillyRemoved2 = new RedirectionMatcher("removed from O’Reilly",
                                                                           Set.of(LinkStatus.REMOVED));
-        oReillyRemoved2.add("\\Qhttp://www.oreillynet.com/\\E(pub/a/(network|oreilly/security/news)|onlamp/blog)/.+",
+        oReillyRemoved2.add("\\Qhttp://www.oreillynet.com/\\E(pub/a/(network|oreilly/security/news)|(onlamp|xml)/blog)/.+",
                             Set.of(Integer.valueOf(301)),
                             RedirectionMatcher.Multiplicity.ONE);
         oReillyRemoved2.add("\\Qhttp://archive.oreilly.com/pub/\\E(a/(network|oreilly/security/news)|post)/.+",
@@ -135,7 +135,7 @@ public class WellKnownRedirections {
 
         final RedirectionMatcher ibmRemoved = new RedirectionMatcher("removed from IBM",
                                                                      Set.of(LinkStatus.REMOVED));
-        ibmRemoved.add("https://www.ibm.com/developerworks/(java|opensource|xml)/library/.+",
+        ibmRemoved.add("https://www.ibm.com/developerworks/(java|opensource|webservices|xml)/library/.+",
                        Set.of(Integer.valueOf(301)),
                        RedirectionMatcher.Multiplicity.ONE);
         ibmRemoved.add("https://developer.ibm.com/(languages/java|technologies|technologies/web-development)/",
