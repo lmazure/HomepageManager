@@ -229,6 +229,9 @@ class WellKnownRedirectionsTest {
         "https://www.ibm.com/developerworks/java/library/os-lombok/index.html",
         "https://www.ibm.com/developerworks/library/os-imagemagick/",
         "https://www.ibm.com/developerworks/webservices/library/ws-array/",
+        "https://www.ibm.com/developerworks/library/l-sp2/index.html",
+        "https://www.ibm.com/developerworks/web/library/wa-mashupsecure/",
+        "https://www.ibm.com/developerworks/tivoli/library/s-csscript/",
         })
     void ibm(final String url) {
         test(url,
