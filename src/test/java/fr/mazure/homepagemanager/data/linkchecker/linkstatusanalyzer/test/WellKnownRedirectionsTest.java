@@ -208,6 +208,8 @@ class WellKnownRedirectionsTest {
         "http://www.oreillynet.com/onlamp/blog/2005/12/two_things_that_bother_me_abou.html",
         "http://www.oreillynet.com/pub/a/oreilly/security/news/2004/03/08/netsec.html",
         "http://www.oreillynet.com/xml/blog/2006/06/understanding_xforms_component.html",
+        "http://www.onjava.com/catalog/javaadn/excerpt/javaadn_ch05.pdf",
+        "http://www.onlamp.com/pub/a/python/2001/07/19/pythonnews.html",
         })
     void oReilly(final String url) {
         test(url,
@@ -232,6 +234,9 @@ class WellKnownRedirectionsTest {
         "https://www.ibm.com/developerworks/library/l-sp2/index.html",
         "https://www.ibm.com/developerworks/web/library/wa-mashupsecure/",
         "https://www.ibm.com/developerworks/tivoli/library/s-csscript/",
+        "https://www.ibm.com/developerworks/library/l-psyco/index.html",
+        "https://www.ibm.com/developerworks/linux/library/l-perl-2-python",
+        "https://www.ibm.com/developerworks/rational/library/edge/08/mar08/curran/index.html",
         })
     void ibm(final String url) {
         test(url,
