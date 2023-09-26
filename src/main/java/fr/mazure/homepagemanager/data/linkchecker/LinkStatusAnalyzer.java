@@ -51,6 +51,7 @@ public class LinkStatusAnalyzer {
         }
         if (extractHttpCode(effectiveData.headers()).isPresent() &&
             ((extractHttpCode(effectiveData.headers()).get().intValue() == HttpURLConnection.HTTP_MOVED_PERM) ||
+             (extractHttpCode(effectiveData.headers()).get().intValue() == HttpURLConnection.HTTP_MOVED_TEMP) ||
              (extractHttpCode(effectiveData.headers()).get().intValue() == 308))) {
             if (effectiveData.previousRedirection() != null) {
                 HeaderFetchedLinkData d = effectiveData.previousRedirection();

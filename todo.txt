@@ -8,6 +8,7 @@ branches      44.8%    77.5%
 lines         65.9%    94.7%
 methods       53.0%/52.2%    97.9%
 
+corriger WrongLiveness for le correcteur d'URL
 
 
 ==== potentially after merge =====
@@ -22,8 +23,6 @@ corriger les liens de fda.org
 le début du nom des fichiers ne devrait par être présent
 
 nettoyer cracking.xml
-
-nettoyer xml.xml
 
 nettoyer tous les lisns auntminnie
 
