@@ -8,12 +8,10 @@ branches      44.8%    77.5%
 lines         65.9%    94.7%
 methods       53.0%/52.2%    97.9%
 
-corriger WrongLiveness for le correcteur d'URL
-
 
 ==== potentially after merge =====
 
-nettoyer python.xml
+nettoyer life.xml
 
 indiquer tous les HTTP codes de redirection
 et en déduire quand la correction de l'URL devrait aussi être proposée
@@ -114,6 +112,8 @@ je crois que c'est aussi le cas de twitter
 
 
 ==== after merge =====
+
+corriger le fait qu'on reporte une erreur de type WrongLiveness et qu'on propose une correction de l'URL en cas de redirection
 
 mettre en place plausible
 

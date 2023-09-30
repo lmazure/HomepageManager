@@ -149,7 +149,7 @@ public class WellKnownRedirections {
         ibmRemoved2.add("\\Qhttps://www.ibm.com/developerworks/library/\\E.+",
                        Set.of(Integer.valueOf(301)),
                        RedirectionMatcher.Multiplicity.ONE);
-        ibmRemoved2.add("https://developer.ibm.com/(|technologies/(|linux/|linux/tutorials/|web-development/))",
+        ibmRemoved2.add("https://developer.ibm.com/(|devpractices/devops/|technologies/(|linux/|linux/tutorials/|web-development/))",
                        Set.of(Integer.valueOf(200)),
                        RedirectionMatcher.Multiplicity.ONE);
         ibmRemoved2.compile();

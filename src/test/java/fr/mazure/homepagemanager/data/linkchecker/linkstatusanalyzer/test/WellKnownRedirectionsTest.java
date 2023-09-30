@@ -200,16 +200,16 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
+        "http://www.onjava.com/catalog/javaadn/excerpt/javaadn_ch05.pdf",
         "http://www.onjava.com/pub/a/onjava/2003/06/25/commons.html",
         "http://www.onlamp.com/pub/a/onlamp/2005/02/24/pg_buildfarm.html",
         "http://www.onlamp.com/pub/a/php/2005/12/20/php_ant.html",
+        "http://www.onlamp.com/pub/a/python/2001/07/19/pythonnews.html",
         "http://www.onlamp.com/pub/a/security/2004/09/16/open_source_security_myths.html",
-        "http://www.oreillynet.com/pub/a/network/2003/05/20/secureprogckbk.html",
         "http://www.oreillynet.com/onlamp/blog/2005/12/two_things_that_bother_me_abou.html",
+        "http://www.oreillynet.com/pub/a/network/2003/05/20/secureprogckbk.html",
         "http://www.oreillynet.com/pub/a/oreilly/security/news/2004/03/08/netsec.html",
         "http://www.oreillynet.com/xml/blog/2006/06/understanding_xforms_component.html",
-        "http://www.onjava.com/catalog/javaadn/excerpt/javaadn_ch05.pdf",
-        "http://www.onlamp.com/pub/a/python/2001/07/19/pythonnews.html",
         })
     void oReilly(final String url) {
         test(url,
@@ -223,20 +223,21 @@ class WellKnownRedirectionsTest {
     @ParameterizedTest
     @CsvSource({
         "https://www.ibm.com/developerworks/java/library/j-mer1022.html",
-        "https://www.ibm.com/developerworks/java/library/x-simplexobjs/",
-        "https://www.ibm.com/developerworks/library/j-jtp07265/",
-        "https://www.ibm.com/developerworks/xml/library/x-matters32/index.html",
-        "https://www.ibm.com/developerworks/library/x-javaxmlvalidapi/index.html",
-        "https://www.ibm.com/developerworks/opensource/library/os-ecgui1",
         "https://www.ibm.com/developerworks/java/library/os-lombok/index.html",
-        "https://www.ibm.com/developerworks/library/os-imagemagick/",
-        "https://www.ibm.com/developerworks/webservices/library/ws-array/",
-        "https://www.ibm.com/developerworks/library/l-sp2/index.html",
-        "https://www.ibm.com/developerworks/web/library/wa-mashupsecure/",
-        "https://www.ibm.com/developerworks/tivoli/library/s-csscript/",
+        "https://www.ibm.com/developerworks/java/library/x-simplexobjs/",
+        "https://www.ibm.com/developerworks/library/a-devops1/",
+        "https://www.ibm.com/developerworks/library/j-jtp07265/",
         "https://www.ibm.com/developerworks/library/l-psyco/index.html",
+        "https://www.ibm.com/developerworks/library/l-sp2/index.html",
+        "https://www.ibm.com/developerworks/library/os-imagemagick/",
+        "https://www.ibm.com/developerworks/library/x-javaxmlvalidapi/index.html",
         "https://www.ibm.com/developerworks/linux/library/l-perl-2-python",
+        "https://www.ibm.com/developerworks/opensource/library/os-ecgui1",
         "https://www.ibm.com/developerworks/rational/library/edge/08/mar08/curran/index.html",
+        "https://www.ibm.com/developerworks/tivoli/library/s-csscript/",
+        "https://www.ibm.com/developerworks/web/library/wa-mashupsecure/",
+        "https://www.ibm.com/developerworks/webservices/library/ws-array/",
+        "https://www.ibm.com/developerworks/xml/library/x-matters32/index.html",
         })
     void ibm(final String url) {
         test(url,
