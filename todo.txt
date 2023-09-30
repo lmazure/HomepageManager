@@ -11,6 +11,8 @@ methods       53.0%/52.2%    97.9%
 
 ==== potentially after merge =====
 
+nettoyer ide.xml
+
 indiquer tous les HTTP codes de redirection
 et en déduire quand la correction de l'URL devrait aussi être proposée
 

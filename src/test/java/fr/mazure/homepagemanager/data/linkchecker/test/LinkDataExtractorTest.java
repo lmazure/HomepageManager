@@ -2115,6 +2115,22 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchVousAvezLeDroitIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=w6k7eAA-qDQ";
+        final String expectedXml = """
+                <ARTICLE><X><T>Fallait-il interdire l’abaya ?</T>\
+                <A>https://www.youtube.com/watch?v=w6k7eAA-qDQ</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>54</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Sébastien</FIRSTNAME><LASTNAME>Canévet</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2023</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeWatchWonderWhyIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=DfdewkU3_Hg";
         final String expectedXml = """
