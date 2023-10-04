@@ -233,6 +233,7 @@ class WellKnownRedirectionsTest {
         "https://www.ibm.com/developerworks/library/x-javaxmlvalidapi/index.html",
         "https://www.ibm.com/developerworks/linux/library/l-perl-2-python",
         "https://www.ibm.com/developerworks/opensource/library/os-ecgui1",
+        "https://www.ibm.com/developerworks/power/library/pa-spec14/index.html",
         "https://www.ibm.com/developerworks/rational/library/edge/08/mar08/curran/index.html",
         "https://www.ibm.com/developerworks/tivoli/library/s-csscript/",
         "https://www.ibm.com/developerworks/web/library/wa-mashupsecure/",

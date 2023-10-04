@@ -178,6 +178,17 @@ public class WellKnownRedirections {
         ibmRemoved4.compile();
         _matchers.add(ibmRemoved4);
 
+        final RedirectionMatcher ibmRemoved5 = new RedirectionMatcher("removed from IBM",
+                                                                      Set.of(LinkStatus.REMOVED));
+        ibmRemoved5.add("\\Qhttps://www.ibm.com/developerworks/power/library/\\E.+",
+                       Set.of(Integer.valueOf(301)),
+                       RedirectionMatcher.Multiplicity.ONE);
+        ibmRemoved5.add("\\Qhttps://developer.ibm.com/components/ibm-power/\\E",
+                       Set.of(Integer.valueOf(200)),
+                       RedirectionMatcher.Multiplicity.ONE);
+        ibmRemoved5.compile();
+        _matchers.add(ibmRemoved5);
+
         final RedirectionMatcher redirectionEndingInSuccess = new RedirectionMatcher("redirection ending in success (last URL should be used)",
                                                                                      Set.of());
         redirectionEndingInSuccess.add("https?://"  + RedirectionMatcher.ANY_STRING,
