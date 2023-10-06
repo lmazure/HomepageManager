@@ -2,6 +2,10 @@ package fr.mazure.homepagemanager.data.linkchecker.youtubewatch;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -125,8 +129,8 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                 }
             }
             if (!isPrivate) {
-                uploadDate = LocalDate.parse(payload.getJSONObject("microformat").getJSONObject("playerMicroformatRenderer").getString("uploadDate"));
-                publishDate = LocalDate.parse(payload.getJSONObject("microformat").getJSONObject("playerMicroformatRenderer").getString("publishDate"));
+                uploadDate = parseDateTimeString(payload.getJSONObject("microformat").getJSONObject("playerMicroformatRenderer").getString("uploadDate"));
+                publishDate = parseDateTimeString(payload.getJSONObject("microformat").getJSONObject("playerMicroformatRenderer").getString("publishDate"));
             }
             isPlayable = payload.getJSONObject("playabilityStatus").getString("status").equals("OK");
         } catch (final ContentParserException e) {
@@ -157,6 +161,24 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         _isPlayable = isPlayable;
 
         _exception = exception;
+    }
+
+    final static LocalDate parseDateTimeString(final String str) throws ContentParserException {
+        
+        // case the date is formatted as YYYY-MM-DD
+        if (str.length() == 10) {
+            return LocalDate.parse(str);
+        }
+
+        // case the date is formatted as YYYY-MM-DDThh:mm:ss-XX:XX
+        if (str.length() == 25) {
+            final LocalDateTime inputDateTime = LocalDateTime.parse(str, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+            final ZoneId franceZoneId = ZoneId.of("Europe/Paris");
+            final ZonedDateTime franceDateTime = inputDateTime.atZone(franceZoneId);
+            return LocalDate.from(franceDateTime);
+        }
+
+        throw new ContentParserException("Unknown date format: \"" + str + "\"");
     }
 
     /**

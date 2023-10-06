@@ -8,7 +8,11 @@ branches      44.8%    77.5%
 lines         65.9%    94.7%
 methods       53.0%/52.2%    97.9%
 
+bug : https://github.blog/2023-09-12-codeql-team-uses-ai-to-power-vulnerability-detection-in-code/ seul le premier auteur est détecté
+
 gérer les redirections de https://msdn.microsoft.com/en-us/vstudio/ee675607.aspx
+
+gérer twitter
 
 ==== potentially after merge =====
 
