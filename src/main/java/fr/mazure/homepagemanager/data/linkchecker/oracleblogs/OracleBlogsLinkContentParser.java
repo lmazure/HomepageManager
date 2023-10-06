@@ -283,10 +283,7 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
 
     @Override
     public List<AuthorData> getSureAuthors() throws ContentParserException {
-        if (_exception != null) {
-            return new ArrayList<>();
-        }
-        if (_authorException != null) {
+        if ((_exception != null) || (_authorException != null)) {
             return new ArrayList<>();
         }
         return _authors;

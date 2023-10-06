@@ -37,19 +37,11 @@ public class ModifierKeyChecker extends NodeChecker {
 
         final String str = e.getAttribute("id");
 
-        if (str.equals(s_CTRL)) {
-            return null;
-        }
-        if (str.equals(s_ALT)) {
-            return null;
-        }
-        if (str.equals(s_SHIFT)) {
-            return null;
-        }
-        if (str.equals(s_SYS_RQ)) {
-            return null;
-        }
-        if (str.equals(s_WINDOWS)) {
+        if (str.equals(s_CTRL) ||
+            str.equals(s_ALT) ||
+            str.equals(s_SHIFT) ||
+            str.equals(s_SYS_RQ) ||
+            str.equals(s_WINDOWS)) {
             return null;
         }
 
@@ -88,22 +80,13 @@ public class ModifierKeyChecker extends NodeChecker {
             return true;
         }
         if (modifier1.equals(s_SHIFT)) {
-            if (modifier2.equals(s_CTRL)) {
-                return false;
-            }
-            if (modifier2.equals(s_ALT)) {
+            if (modifier2.equals(s_CTRL) || modifier2.equals(s_ALT)) {
                 return false;
             }
             return true;
         }
         if (modifier1.equals(s_SYS_RQ) || modifier1.equals(s_WINDOWS)) {
-            if (modifier2.equals(s_CTRL)) {
-                return false;
-            }
-            if (modifier2.equals(s_ALT)) {
-                return false;
-            }
-            if (modifier2.equals(s_SHIFT)) {
+            if (modifier2.equals(s_CTRL) || modifier2.equals(s_ALT) || modifier2.equals(s_SHIFT)) {
                 return false;
             }
             return true;

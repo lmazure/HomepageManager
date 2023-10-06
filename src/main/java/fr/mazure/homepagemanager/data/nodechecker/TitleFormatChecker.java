@@ -92,11 +92,9 @@ public class TitleFormatChecker extends NodeChecker {
         }
 
         final Optional<String> firstWord = Arrays.stream(list.get(0).split(" ")).findFirst();
-        if (firstWord.isEmpty() || (firstWord.get().length() == 0)) {
-            return null;
-        }
-
-        if (s_authorizedList.contains(firstWord.get())) {
+        if (firstWord.isEmpty() ||
+            (firstWord.get().length() == 0) ||
+            s_authorizedList.contains(firstWord.get())) {
             return null;
         }
 

@@ -153,11 +153,8 @@ public class IncorrectSpaceChecker extends NodeChecker {
 
         final char[] chars = str.toCharArray();
 
-        if (isVersionString(chars)) {
-            return false;
-        }
-
-        if (!containsPunctuationNotPrecededBySpace(chars, locale)) {
+        if (isVersionString(chars) ||
+            !containsPunctuationNotPrecededBySpace(chars, locale)) {
             return false;
         }
 
@@ -176,11 +173,8 @@ public class IncorrectSpaceChecker extends NodeChecker {
 
         final char[] chars = str.toCharArray();
 
-        if (isVersionString(chars)) {
-            return false;
-        }
-
-        if (!containsPunctuationNotFollowedBySpace(chars, locale)) {
+        if (isVersionString(chars) ||
+            !containsPunctuationNotFollowedBySpace(chars, locale)) {
             return false;
         }
 

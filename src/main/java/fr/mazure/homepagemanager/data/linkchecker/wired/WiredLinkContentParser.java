@@ -90,10 +90,7 @@ public class WiredLinkContentParser extends LinkDataExtractor {
         if (_exception != null) {
             throw _exception;
         }
-        if (_subtitle.isEmpty()) {
-            return Optional.empty();
-        }
-        if (_subtitle.endsWith(" […]")) {
+        if (_subtitle.isEmpty() || _subtitle.endsWith(" […]")) {
             return Optional.empty();
         }
         return Optional.of(_subtitle);
