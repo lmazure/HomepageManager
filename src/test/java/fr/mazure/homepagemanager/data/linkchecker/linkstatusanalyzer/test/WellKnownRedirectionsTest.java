@@ -21,7 +21,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 200 (success)
     @ParameterizedTest
     @CsvSource({
-        "https://example.com"
+        "https://example.com",
         })
     void direct200(final String url) {
         test(url,
@@ -34,7 +34,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 202 (success)
     @ParameterizedTest
     @CsvSource({
-        "https://www.semanticscholar.org/paper/The-Native-POSIX-Thread-Library-for-Linux-Drepper-Molnar/ffced47e5604b66736d365030bfe532d11285433?p2df"
+        "https://www.semanticscholar.org/paper/The-Native-POSIX-Thread-Library-for-Linux-Drepper-Molnar/ffced47e5604b66736d365030bfe532d11285433?p2df",
         })
     void direct202(final String url) {
         test(url,
@@ -47,7 +47,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 401
     @ParameterizedTest
     @CsvSource({
-        "https://www.uop.edu.jo/download/research/members/csharp_ebook.pdf"
+        "https://www.uop.edu.jo/download/research/members/csharp_ebook.pdf",
         })
     void direct401(final String url) {
         test(url,
@@ -60,7 +60,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 403
     @ParameterizedTest
     @CsvSource({
-        "https://www.pnas.org/doi/pdf/10.1073/pnas.1810141115"
+        "https://www.pnas.org/doi/pdf/10.1073/pnas.1810141115",
         })
     void direct403(final String url) {
         test(url,
@@ -73,7 +73,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 404
     @ParameterizedTest
     @CsvSource({
-        "https://scienceetonnante.com/2017/11/12/glyphosate-le-nouvel-amiante/"
+        "https://scienceetonnante.com/2017/11/12/glyphosate-le-nouvel-amiante/",
         })
     void direct404(final String url) {
         test(url,
@@ -86,7 +86,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 409
     @ParameterizedTest
     @CsvSource({
-        "http://forums.construx.com/forums/t/432.aspx"
+        "http://forums.construx.com/forums/t/432.aspx",
         })
     void direct409(final String url) {
         test(url,
@@ -100,7 +100,7 @@ class WellKnownRedirectionsTest {
     @ParameterizedTest
     @CsvSource({
         "https://dzone.com/articles/unit-test-insanity",
-        "https://dzone.com/articles/the-developers-guide-to-collections-lists"
+        "https://dzone.com/articles/the-developers-guide-to-collections-lists",
         })
     void direct410(final String url) {
         test(url,
@@ -113,7 +113,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 503
     @ParameterizedTest
     @CsvSource({
-        "http://www.nplus1executive.com/"
+        "http://www.nplus1executive.com/",
         })
     void direct503(final String url) {
         test(url,
@@ -127,7 +127,6 @@ class WellKnownRedirectionsTest {
     @CsvSource({
         "https://www.4d.com",
         "https://www.ibm.com",
-        "https://twitter.com/dlouapre"
         })
     void redirectionsEndingInSuccess(final String url) {
         test(url,
@@ -139,7 +138,7 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
-        "http://blogs.msdn.com/b/jw_on_tech/archive/2012/03/14/why-i-joined-microsoft.aspx"
+        "http://blogs.msdn.com/b/jw_on_tech/archive/2012/03/14/why-i-joined-microsoft.aspx",
         })
     void redirectionsEndingWith403(final String url) {
         test(url,
@@ -151,7 +150,7 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://www.gamasutra.com/view/feature/3413/orphans_preferred.php"
+        "https://www.gamasutra.com/view/feature/3413/orphans_preferred.php",
         })
     void redirectionsEndingWith404(final String url) {
         test(url,
@@ -164,7 +163,7 @@ class WellKnownRedirectionsTest {
     @ParameterizedTest
     @CsvSource({
         "https://www.youtube.com/channel/UCUHW94eEFW7hkUMVaZz4eDg",
-        "https://www.youtube.com/channel/UC1Ue7TuX3iH4y8-Qrjj-hyg"
+        "https://www.youtube.com/channel/UC1Ue7TuX3iH4y8-Qrjj-hyg",
         })
     void youtubeChannel(final String url) {
         test(url,
@@ -176,7 +175,7 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://www.youtube.com/user/dirtybiology"
+        "https://www.youtube.com/user/dirtybiology",
         })
     void youtubeUser(final String url) {
         test(url,
@@ -188,7 +187,7 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://blog.sparksuite.com/7-ways-to-speed-up-gitlab-ci-cd-times-29f60aab69f9"
+        "https://blog.sparksuite.com/7-ways-to-speed-up-gitlab-ci-cd-times-29f60aab69f9",
         })
     void medium(final String url) {
         test(url,
@@ -196,6 +195,18 @@ class WellKnownRedirectionsTest {
              Integer.valueOf(200),
              "Medium analytics",
              Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "https://twitter.com/3blue1brown"
+        })
+    void twitter(final String url) {
+        test(url,
+             true,
+             Integer.valueOf(200),
+             "Twitter",
+             Set.of(LinkStatus.OK));
     }
 
     @ParameterizedTest

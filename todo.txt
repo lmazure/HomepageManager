@@ -10,8 +10,6 @@ methods       53.0%/52.2%    97.9%
 
 gérer les redirections de https://msdn.microsoft.com/en-us/vstudio/ee675607.aspx
 
-gérer twitter
-
 ==== potentially after merge =====
 
 gérer les auteurs de https://about.gitlab.com/blog/2023/09/28/unmasking-password-attacks-at-gitlab/
