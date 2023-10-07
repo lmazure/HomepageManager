@@ -31,7 +31,7 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
     private boolean _dataIsLoaded;
     private String _title;
     private String _subtitle;
-    private AuthorData _author;
+    private List<AuthorData> _authors;
     private LocalDate _publicationDate;
 
     private static final TextParser s_jsonParser
@@ -52,6 +52,11 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
                          "GitHub blog",
                          "subtitle");
 
+    private static final TextParser s_authorParser
+        = new TextParser("<meta name=\"author\" content=\"",
+                         "\" />",
+                         "GitHub blog",
+                         "author");
     /**
      * @param url URL of the link
      * @param data retrieved link data
@@ -101,51 +106,22 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
         } catch (final JSONException e) {
             throw new ContentParserException("Failed to find \"@graph\" JSON object in GitHub Blog page", e);
         }
-        JSONObject person = null;
         JSONObject webPage = null;
-        for (int i=0; i < post.length(); i++) {
+        for (int i = 0; i < post.length(); i++) {
             final JSONObject o = post.getJSONObject(i);
             final String type = o.getString("@type");
-            if (type.equals("Person")) {
-                person = o;
-            } else if (type.equals("WebPage")) {
+            if (type.equals("WebPage")) {
                 webPage = o;
             }
-        }
-        if (person == null) {
-            throw new ContentParserException("Failed to find \"@Person\" JSON object in GitHub Blog page");
         }
         if (webPage == null) {
             throw new ContentParserException("Failed to find \"@WebPage\" JSON object in GitHub Blog page");
         }
-        /* This does not work: ’ is replaced by '
-        final String title = webPage.getString("name");
-        if (title == null) {
-            throw new ContentParserException("Failed to find \"name\" JSON object in GitHub Blog page");
-        }
-        if (!title.endsWith(" - The GitHub Blog")) {
-            throw new ContentParserException("Title does not end with \" - The GitHub Blog\" in GitHub Blog page");
-        }
-        _title = HtmlHelper.unescape(title.replace(" - The GitHub Blog", ""));
-        */
-        /* this does not work, the subtitle in the JSON payload is sometimes incorrect
-        final String subtitle = webPage.getString("description");
-        if (subtitle == null) {
-            throw new ContentParserException("Failed to find \"description\" JSON object in GitHub Blog page");
-        }
-        _subtitle = HtmlHelper.unescape(subtitle);
-        */
+
         _title = HtmlHelper.cleanContent(s_titleParser.extract(_data));
         _subtitle = HtmlHelper.cleanContent(s_subtitleParser.extract(_data));
-        final String authorName = person.getString("name");
-        if (authorName == null) {
-            throw new ContentParserException("Failed to find \"name\" JSON object in GitHub Blog page");
-        }
-        try {
-            _author = LinkContentParserUtils.getAuthor(authorName);
-        } catch (final ContentParserException e) {
-            throw new ContentParserException("failed to parse author name", e);
-        }
+        final String authorString = s_authorParser.extract(_data);
+        _authors = LinkContentParserUtils.getAuthors(authorString);
         final String datePublished  = webPage.getString("datePublished");
         if (datePublished == null) {
             throw new ContentParserException("Failed to find \"datePublished\" JSON object in GitHub Blog page");
@@ -161,9 +137,7 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
     @Override
     public List<AuthorData> getSureAuthors() throws ContentParserException {
         loadData();
-        final List<AuthorData> list = new ArrayList<>(1);
-        list.add(_author);
-        return list;
+        return _authors;
     }
 
     @Override
