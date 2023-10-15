@@ -262,6 +262,7 @@ class WellKnownRedirectionsTest {
     @CsvSource({
         "https://channel9.msdn.com/Shows/Going+Deep/Erik-Meijer-and-Bart-De-Smet-LINQ-to-Anything",
         "https://channel9.msdn.com/Blogs/David+Gristwood/An-F-Tutorial-with-Don-Syme-2-of-4 ",
+        "https://channel9.msdn.com/posts/Mads-Torgersen-Visual-Studio-Async-CTP-SP1-Refresh-Overview",
         })
     void channel9(final String url) {
         test(url,

@@ -10,6 +10,8 @@ methods       53.0%/52.2%    97.9%
 
 gérer les redirections de https://msdn.microsoft.com/en-us/vstudio/ee675607.aspx
 
+gérer les redirections de https://channel9.msdn.com/Events/...
+
 réparer test https://www.uop.edu.jo/download/research/members/csharp_ebook.pdf
 
 ==== potentially after merge =====
