@@ -230,7 +230,6 @@ class WellKnownRedirectionsTest {
              Set.of(LinkStatus.REMOVED));
     }
 
-
     @ParameterizedTest
     @CsvSource({
         "https://www.ibm.com/developerworks/java/library/j-mer1022.html",
@@ -256,6 +255,19 @@ class WellKnownRedirectionsTest {
              true,
              Integer.valueOf(200),
              "removed from IBM",
+             Set.of(LinkStatus.REMOVED));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "https://channel9.msdn.com/Shows/Going+Deep/Erik-Meijer-and-Bart-De-Smet-LINQ-to-Anything",
+        "https://channel9.msdn.com/Blogs/David+Gristwood/An-F-Tutorial-with-Don-Syme-2-of-4 ",
+        })
+    void channel9(final String url) {
+        test(url,
+             true,
+             Integer.valueOf(200),
+             "removed from Channel 9",
              Set.of(LinkStatus.REMOVED));
     }
 

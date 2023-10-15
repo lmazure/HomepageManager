@@ -10,7 +10,11 @@ methods       53.0%/52.2%    97.9%
 
 gérer les redirections de https://msdn.microsoft.com/en-us/vstudio/ee675607.aspx
 
+réparer test https://www.uop.edu.jo/download/research/members/csharp_ebook.pdf
+
 ==== potentially after merge =====
+
+nettoyer test.xml
 
 gérer
  tag = "CODEROUTINE"
@@ -102,6 +106,8 @@ je crois que c'est aussi le cas de twitter
 
 
 ==== after merge =====
+
+mettre lesCODESAMPLE en preformatted !
 
 certaines des chaines listées dans IncorrectSpaceChecker sons suspectes
 

@@ -200,6 +200,29 @@ public class WellKnownRedirections {
         twitter.compile();
         _matchers.add(twitter);
 
+        final RedirectionMatcher channel9Removed = new RedirectionMatcher("removed from Channel 9",
+                                                                          Set.of(LinkStatus.REMOVED));
+        channel9Removed.add("\\Qhttps://channel9.msdn.com/\\E(Blogs|Shows)" + RedirectionMatcher.ANY_STRING,
+                       Set.of(Integer.valueOf(301)),
+                       RedirectionMatcher.Multiplicity.ONE);
+        channel9Removed.add("\\Qhttps://learn.microsoft.com/shows/\\E" + RedirectionMatcher.ANY_STRING,
+                       Set.of(Integer.valueOf(301)),
+                       RedirectionMatcher.Multiplicity.ONE);
+        channel9Removed.add("\\Qhttps://learn.microsoft.com/en-us/shows/\\E" + RedirectionMatcher.ANY_STRING,
+                       Set.of(Integer.valueOf(301)),
+                       RedirectionMatcher.Multiplicity.ONE);
+        channel9Removed.add("\\Qhttps://aka.ms/Ch9Update\\E",
+                       Set.of(Integer.valueOf(301)),
+                       RedirectionMatcher.Multiplicity.ONE);
+        channel9Removed.add("\\Qhttps://learn.microsoft.com/shows/\\E",
+                       Set.of(Integer.valueOf(301)),
+                       RedirectionMatcher.Multiplicity.ONE);
+        channel9Removed.add("\\Qhttps://learn.microsoft.com/en-us/shows/\\E",
+                       Set.of(Integer.valueOf(200)),
+                       RedirectionMatcher.Multiplicity.ONE);
+        channel9Removed.compile();
+        _matchers.add(channel9Removed);
+
         final RedirectionMatcher redirectionEndingInSuccess = new RedirectionMatcher("redirection ending in success (last URL should be used)",
                                                                                      Set.of());
         redirectionEndingInSuccess.add("https?://"  + RedirectionMatcher.ANY_STRING,
