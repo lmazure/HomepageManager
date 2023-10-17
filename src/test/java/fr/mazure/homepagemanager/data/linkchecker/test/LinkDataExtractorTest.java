@@ -817,6 +817,24 @@ public class LinkDataExtractorTest {
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
+
+    @Test
+    void youtubeWatchHistoryOfTheUniverseIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=uBk-Wst_7aA";
+        final String expectedXml = """
+                <ARTICLE><X><T>Is There One All Powerful SUPERFORCE Controlling The Universe?</T>\
+                <A>https://www.youtube.com/watch?v=uBk-Wst_7aA</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>36</MINUTE><SECOND>17</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>David</FIRSTNAME><LASTNAME>Kelly</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Leila</FIRSTNAME><LASTNAME>Battison</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2021</YEAR><MONTH>5</MONTH><DAY>28</DAY>\
+                </DATE><COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
     @Test
     void youtubeWatchHolgerVoormannIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=GnNnQY5ujFg";
