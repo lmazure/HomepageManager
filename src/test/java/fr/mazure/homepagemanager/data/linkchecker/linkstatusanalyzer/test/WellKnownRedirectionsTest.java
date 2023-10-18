@@ -211,6 +211,7 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
+        "http://www.linuxdevcenter.com/pub/a/linux/2004/03/04/warp_pipe.html",
         "http://www.onjava.com/catalog/javaadn/excerpt/javaadn_ch05.pdf",
         "http://www.onjava.com/pub/a/onjava/2003/06/25/commons.html",
         "http://www.onlamp.com/pub/a/onlamp/2005/02/24/pg_buildfarm.html",
