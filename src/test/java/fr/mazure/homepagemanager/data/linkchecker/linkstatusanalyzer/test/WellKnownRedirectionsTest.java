@@ -21,7 +21,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 200 (success)
     @ParameterizedTest
     @CsvSource({
-        "https://example.com"
+        "https://example.com",
         })
     void direct200(final String url) {
         test(url,
@@ -34,7 +34,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 202 (success)
     @ParameterizedTest
     @CsvSource({
-        "https://www.semanticscholar.org/paper/The-Native-POSIX-Thread-Library-for-Linux-Drepper-Molnar/ffced47e5604b66736d365030bfe532d11285433?p2df"
+        "https://www.semanticscholar.org/paper/The-Native-POSIX-Thread-Library-for-Linux-Drepper-Molnar/ffced47e5604b66736d365030bfe532d11285433?p2df",
         })
     void direct202(final String url) {
         test(url,
@@ -47,7 +47,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 401
     @ParameterizedTest
     @CsvSource({
-        "https://www.uop.edu.jo/download/research/members/csharp_ebook.pdf"
+        "https://www.uop.edu.jo/download/research/members/csharp_ebook.pdf",
         })
     void direct401(final String url) {
         test(url,
@@ -60,7 +60,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 403
     @ParameterizedTest
     @CsvSource({
-        "https://www.pnas.org/doi/pdf/10.1073/pnas.1810141115"
+        "https://www.pnas.org/doi/pdf/10.1073/pnas.1810141115",
         })
     void direct403(final String url) {
         test(url,
@@ -73,7 +73,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 404
     @ParameterizedTest
     @CsvSource({
-        "https://scienceetonnante.com/2017/11/12/glyphosate-le-nouvel-amiante/"
+        "https://scienceetonnante.com/2017/11/12/glyphosate-le-nouvel-amiante/",
         })
     void direct404(final String url) {
         test(url,
@@ -86,7 +86,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 409
     @ParameterizedTest
     @CsvSource({
-        "http://forums.construx.com/forums/t/432.aspx"
+        "http://forums.construx.com/forums/t/432.aspx",
         })
     void direct409(final String url) {
         test(url,
@@ -100,7 +100,7 @@ class WellKnownRedirectionsTest {
     @ParameterizedTest
     @CsvSource({
         "https://dzone.com/articles/unit-test-insanity",
-        "https://dzone.com/articles/the-developers-guide-to-collections-lists"
+        "https://dzone.com/articles/the-developers-guide-to-collections-lists",
         })
     void direct410(final String url) {
         test(url,
@@ -113,7 +113,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 503
     @ParameterizedTest
     @CsvSource({
-        "http://www.nplus1executive.com/"
+        "http://www.nplus1executive.com/",
         })
     void direct503(final String url) {
         test(url,
@@ -127,7 +127,6 @@ class WellKnownRedirectionsTest {
     @CsvSource({
         "https://www.4d.com",
         "https://www.ibm.com",
-        "https://twitter.com/dlouapre"
         })
     void redirectionsEndingInSuccess(final String url) {
         test(url,
@@ -139,7 +138,7 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
-        "http://blogs.msdn.com/b/jw_on_tech/archive/2012/03/14/why-i-joined-microsoft.aspx"
+        "http://blogs.msdn.com/b/jw_on_tech/archive/2012/03/14/why-i-joined-microsoft.aspx",
         })
     void redirectionsEndingWith403(final String url) {
         test(url,
@@ -151,7 +150,7 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://www.gamasutra.com/view/feature/3413/orphans_preferred.php"
+        "https://www.gamasutra.com/view/feature/3413/orphans_preferred.php",
         })
     void redirectionsEndingWith404(final String url) {
         test(url,
@@ -164,7 +163,7 @@ class WellKnownRedirectionsTest {
     @ParameterizedTest
     @CsvSource({
         "https://www.youtube.com/channel/UCUHW94eEFW7hkUMVaZz4eDg",
-        "https://www.youtube.com/channel/UC1Ue7TuX3iH4y8-Qrjj-hyg"
+        "https://www.youtube.com/channel/UC1Ue7TuX3iH4y8-Qrjj-hyg",
         })
     void youtubeChannel(final String url) {
         test(url,
@@ -176,7 +175,7 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://www.youtube.com/user/dirtybiology"
+        "https://www.youtube.com/user/dirtybiology",
         })
     void youtubeUser(final String url) {
         test(url,
@@ -188,7 +187,7 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://blog.sparksuite.com/7-ways-to-speed-up-gitlab-ci-cd-times-29f60aab69f9"
+        "https://blog.sparksuite.com/7-ways-to-speed-up-gitlab-ci-cd-times-29f60aab69f9",
         })
     void medium(final String url) {
         test(url,
@@ -200,13 +199,29 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
+        "https://twitter.com/3blue1brown"
+        })
+    void twitter(final String url) {
+        test(url,
+             true,
+             Integer.valueOf(200),
+             "Twitter",
+             Set.of(LinkStatus.OK));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "http://www.linuxdevcenter.com/pub/a/linux/2004/03/04/warp_pipe.html",
+        "http://www.onjava.com/catalog/javaadn/excerpt/javaadn_ch05.pdf",
         "http://www.onjava.com/pub/a/onjava/2003/06/25/commons.html",
         "http://www.onlamp.com/pub/a/onlamp/2005/02/24/pg_buildfarm.html",
         "http://www.onlamp.com/pub/a/php/2005/12/20/php_ant.html",
+        "http://www.onlamp.com/pub/a/python/2001/07/19/pythonnews.html",
         "http://www.onlamp.com/pub/a/security/2004/09/16/open_source_security_myths.html",
-        "http://www.oreillynet.com/pub/a/network/2003/05/20/secureprogckbk.html",
         "http://www.oreillynet.com/onlamp/blog/2005/12/two_things_that_bother_me_abou.html",
-        "http://www.oreillynet.com/pub/a/oreilly/security/news/2004/03/08/netsec.html"
+        "http://www.oreillynet.com/pub/a/network/2003/05/20/secureprogckbk.html",
+        "http://www.oreillynet.com/pub/a/oreilly/security/news/2004/03/08/netsec.html",
+        "http://www.oreillynet.com/xml/blog/2006/06/understanding_xforms_component.html",
         })
     void oReilly(final String url) {
         test(url,
@@ -216,22 +231,45 @@ class WellKnownRedirectionsTest {
              Set.of(LinkStatus.REMOVED));
     }
 
-
     @ParameterizedTest
     @CsvSource({
         "https://www.ibm.com/developerworks/java/library/j-mer1022.html",
+        "https://www.ibm.com/developerworks/java/library/os-lombok/index.html",
         "https://www.ibm.com/developerworks/java/library/x-simplexobjs/",
+        "https://www.ibm.com/developerworks/library/a-devops1/",
         "https://www.ibm.com/developerworks/library/j-jtp07265/",
-        "https://www.ibm.com/developerworks/xml/library/x-matters32/index.html",
+        "https://www.ibm.com/developerworks/library/l-psyco/index.html",
+        "https://www.ibm.com/developerworks/library/l-sp2/index.html",
+        "https://www.ibm.com/developerworks/library/os-imagemagick/",
         "https://www.ibm.com/developerworks/library/x-javaxmlvalidapi/index.html",
+        "https://www.ibm.com/developerworks/linux/library/l-perl-2-python",
         "https://www.ibm.com/developerworks/opensource/library/os-ecgui1",
-        "https://www.ibm.com/developerworks/java/library/os-lombok/index.html"
+        "https://www.ibm.com/developerworks/power/library/pa-spec14/index.html",
+        "https://www.ibm.com/developerworks/rational/library/edge/08/mar08/curran/index.html",
+        "https://www.ibm.com/developerworks/tivoli/library/s-csscript/",
+        "https://www.ibm.com/developerworks/web/library/wa-mashupsecure/",
+        "https://www.ibm.com/developerworks/webservices/library/ws-array/",
+        "https://www.ibm.com/developerworks/xml/library/x-matters32/index.html",
         })
     void ibm(final String url) {
         test(url,
              true,
              Integer.valueOf(200),
              "removed from IBM",
+             Set.of(LinkStatus.REMOVED));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "https://channel9.msdn.com/Shows/Going+Deep/Erik-Meijer-and-Bart-De-Smet-LINQ-to-Anything",
+        "https://channel9.msdn.com/Blogs/David+Gristwood/An-F-Tutorial-with-Don-Syme-2-of-4 ",
+        "https://channel9.msdn.com/posts/Mads-Torgersen-Visual-Studio-Async-CTP-SP1-Refresh-Overview",
+        })
+    void channel9(final String url) {
+        test(url,
+             true,
+             Integer.valueOf(200),
+             "removed from Channel 9",
              Set.of(LinkStatus.REMOVED));
     }
 

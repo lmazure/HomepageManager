@@ -8,9 +8,36 @@ branches      44.8%    77.5%
 lines         65.9%    94.7%
 methods       53.0%/52.2%    97.9%
 
+gérer les redirections de https://msdn.microsoft.com/en-us/vstudio/ee675607.aspx
+
+gérer les redirections de https://channel9.msdn.com/Events/...
+
+réparer test https://www.uop.edu.jo/download/research/members/csharp_ebook.pdf
 
 ==== potentially after merge =====
 
+nettoyer test.xml
+
+gérer
+ tag = "CODEROUTINE"
+ value = "File: Compare Active File With..."
+ violation = "ellipsis is improperly encoded"
+ detail = ""File: Compare Active File With..." should not contain "...""
+ 
+nettoyer physics.xml
+
+nettoyer coding.xml
+
+gérer les auteurs de https://about.gitlab.com/blog/2023/09/28/unmasking-password-attacks-at-gitlab/
+
+nettoyer ide.xml
+
+indiquer tous les HTTP codes de redirection
+et en déduire quand la correction de l'URL devrait aussi être proposée
+
+corriger les liens de fda.org
+
+le début du nom des fichiers ne devrait par être présent
 
 nettoyer cracking.xml
 
@@ -22,30 +49,7 @@ il manque le sous-titre pour https://stackoverflow.blog/2022/09/08/this-is-not-y
 
 faire que java.xml soit propre
 
-gérer env de built TypeScript (pour mettre à jour ContentBuilder.ts)
-    private static statusToHtmlString(status: string): HtmlString {
-        if ((status === "dead") || (status === "zombie")) {
-            return HtmlString.buildFromTag(
-                "span",
-                "\u{2020}",
-                "title", "dead link",
-            );
-        } else if (status === "obsolete") {
-            return HtmlString.buildFromTag(
-                "span",
-                "\u{2021}",
-                "title", "obsolete",
-            );
-        } else if (status === "removed") {
-            return HtmlString.buildFromTag(
-                "span",
-                "\u{1FAA6}",
-                "title", "obsolete",
-            );
-        }
-        throw "illegal call to buildContentText.statusToHtmlString() (unknown value = \"" + status + "\")";
-    }
-    
+   
 Exception in thread "pool-2-thread-19" java.lang.IllegalStateException: Exception while retrieving http://ganttproject.biz
     at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:79)
     at fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:34)
@@ -104,6 +108,16 @@ je crois que c'est aussi le cas de twitter
 
 
 ==== after merge =====
+
+mettre lesCODESAMPLE en preformatted !
+
+certaines des chaines listées dans IncorrectSpaceChecker sons suspectes
+
+détecter <SECOND>04</SECOND>
+
+corriger le fait qu'on reporte une erreur de type WrongLiveness et qu'on propose une correction de l'URL en cas de redirection
+
+mettre en place plausible
 
 les artciles de https://www.nytimes.com/ devraient être en payed_registration
 

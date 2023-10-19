@@ -2,6 +2,10 @@ package fr.mazure.homepagemanager.data.linkchecker.youtubewatch;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -125,8 +129,8 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                 }
             }
             if (!isPrivate) {
-                uploadDate = LocalDate.parse(payload.getJSONObject("microformat").getJSONObject("playerMicroformatRenderer").getString("uploadDate"));
-                publishDate = LocalDate.parse(payload.getJSONObject("microformat").getJSONObject("playerMicroformatRenderer").getString("publishDate"));
+                uploadDate = parseDateTimeString(payload.getJSONObject("microformat").getJSONObject("playerMicroformatRenderer").getString("uploadDate"));
+                publishDate = parseDateTimeString(payload.getJSONObject("microformat").getJSONObject("playerMicroformatRenderer").getString("publishDate"));
             }
             isPlayable = payload.getJSONObject("playabilityStatus").getString("status").equals("OK");
         } catch (final ContentParserException e) {
@@ -157,6 +161,24 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         _isPlayable = isPlayable;
 
         _exception = exception;
+    }
+
+    final static LocalDate parseDateTimeString(final String str) throws ContentParserException {
+        
+        // case the date is formatted as YYYY-MM-DD
+        if (str.length() == 10) {
+            return LocalDate.parse(str);
+        }
+
+        // case the date is formatted as YYYY-MM-DDThh:mm:ss-XX:XX
+        if (str.length() == 25) {
+            final LocalDateTime inputDateTime = LocalDateTime.parse(str, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+            final ZoneId franceZoneId = ZoneId.of("Europe/Paris");
+            final ZonedDateTime franceDateTime = inputDateTime.atZone(franceZoneId);
+            return LocalDate.from(franceDateTime);
+        }
+
+        throw new ContentParserException("Unknown date format: \"" + str + "\"");
     }
 
     /**
@@ -374,6 +396,10 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                           new ChannelData(buildList(),
                                                           buildMatchingList(match("Dave Farley", buildAuthor("Dave", "Farley"))),
                                                           Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("Greg Kamradt (Data Indy)",
+                                          new ChannelData(buildList(buildAuthor("Greg", "Kamradt")),
+                                                          buildMatchingList(),
+                                                          Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Heu?reka",
                                           new ChannelData(buildList(buildAuthor("Gilles", "Mitteau")),
                                                           buildMatchingList(),
@@ -381,7 +407,12 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
             new AbstractMap.SimpleEntry<>("History of the Earth",
                                           new ChannelData(buildList(buildAuthor("David", "Kelly"),
                                                                     buildAuthor("Pete", "Kelly"),
-                                                                    buildAuthor("Kelly", "Battison")),
+                                                                    buildAuthor("Leila", "Battison")),
+                                                          buildMatchingList(),
+                                                          Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("History of the Universe",
+                                          new ChannelData(buildList(buildAuthor("David", "Kelly"),
+                                                                    buildAuthor("Leila", "Battison")),
                                                           buildMatchingList(),
                                                           Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Holger Voormann",
@@ -482,9 +513,11 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                           new ChannelData(buildList(),
                                                           buildMatchingList(match("Crawford", buildAuthor("Tom", "Crawford")),
                                                                             match("Eisenbud", buildAuthor("David", "Eisenbud")),
+                                                                            match("Frenkel", buildAuthor("Edward", "Frenkel")),
                                                                             match("Grime", buildAuthor("James", "Grime")),
                                                                             match("MacDonald", buildAuthor("Ayliean", "MacDonald")),
                                                                             match("Grant", buildAuthor("Grant", "Sanderson")),
+                                                                            match("Padilla", buildAuthor("Tony", "Padilla")),
                                                                             match("Stoll", buildAuthor("Cliff", "Stoll")),
                                                                             match("Sloane", buildAuthor("Neil", "Sloane")),
                                                                             match("Sparks ", buildAuthor("Ben", "Sparks")),
@@ -542,6 +575,10 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                                     buildAuthor("Keshika", "Dabidin")),
                                                           buildMatchingList(),
                                                           Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("Rabbit Hole Syndrome",
+                                          new ChannelData(buildList(buildAuthor("Greg", "Richardson")),
+                                                          buildMatchingList(),
+                                                          Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Robert Miles AI Safety",
                                           new ChannelData(buildList(buildAuthor("Robert", "Miles")),
                                                           buildMatchingList(),
@@ -628,6 +665,10 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                           Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("VERY MATH TRIP - Manu Houdart",
                                           new ChannelData(buildList(buildAuthor("Manu", "Houdart")),
+                                                          buildMatchingList(),
+                                                          Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("Vous Avez Le Droit",
+                                          new ChannelData(buildList(buildAuthor("Sébastien", "Canévet")),
                                                           buildMatchingList(),
                                                           Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("Web Dev Simplified",

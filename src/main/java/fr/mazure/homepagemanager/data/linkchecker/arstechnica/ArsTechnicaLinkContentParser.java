@@ -52,7 +52,7 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
                          "Ars Technica",
                          "date");
     private static final TextParser s_authorParser
-        = new TextParser("<p class=\"byline\" itemprop=\"author creator\" itemscope itemtype=\"http://schema.org/Person\">.      <a itemprop=\"url\" href=\"https://arstechnica.com/author/[a-z0-9_-]+/\" rel=\"author\"><span itemprop=\"name\">",
+        = new TextParser("<p class=\"byline\" itemprop=\"author creator\" itemscope itemtype=\"http://schema.org/Person\">.      <a itemprop=\"url\" href=\"https://arstechnica.com/author/[a-z0-9_-]+/\"  rel=\"author\" ><span itemprop=\"name\">",
                          "</span></a>",
                          "Ars Technica",
                          "author");

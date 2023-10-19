@@ -27,6 +27,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "4.X",
             "a.k.a.",
             "Ampersand.js",
+            "analytics.katalon.com",
             "asm.js",
             "autosrb.pl",
             "ASP.NET",
@@ -39,14 +40,15 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "e.g.",
             "Famo.us",
             "Frama.space",
-            "gitlab.com",
+            "GitLab.com",
+            "GPU.zip",
             "Heu?reka",
             "i.e.",
             "Intl.RelativeTimeFormat",
             "Intro.js",
             "Java.Next",
-            "analytics.katalon.com",
             "Kosmopoli:t",
+            "learntail.com",
             "MANIFEST.MF",
             "M.A.R.I.",
             "MSCTF.DLL",
@@ -152,11 +154,8 @@ public class IncorrectSpaceChecker extends NodeChecker {
 
         final char[] chars = str.toCharArray();
 
-        if (isVersionString(chars)) {
-            return false;
-        }
-
-        if (!containsPunctuationNotPrecededBySpace(chars, locale)) {
+        if (isVersionString(chars) ||
+            !containsPunctuationNotPrecededBySpace(chars, locale)) {
             return false;
         }
 
@@ -175,11 +174,8 @@ public class IncorrectSpaceChecker extends NodeChecker {
 
         final char[] chars = str.toCharArray();
 
-        if (isVersionString(chars)) {
-            return false;
-        }
-
-        if (!containsPunctuationNotFollowedBySpace(chars, locale)) {
+        if (isVersionString(chars) ||
+            !containsPunctuationNotFollowedBySpace(chars, locale)) {
             return false;
         }
 

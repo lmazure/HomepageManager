@@ -21,6 +21,7 @@ public class LinkContentParserUtils {
 
     /**
      * Extract an author name from a string
+     *
      * @param str string
      * @return extracted author name
      * @throws ContentParserException failure to extract an author name from the string
@@ -90,6 +91,7 @@ public class LinkContentParserUtils {
 
     /**
      * Extract author names from a string
+     *
      * @param str string
      * @return extracted author names
      * @throws ContentParserException failure to extract author names from the string
