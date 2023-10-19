@@ -14,6 +14,10 @@ gérer les redirections de https://channel9.msdn.com/Events/...
 
 réparer test https://www.uop.edu.jo/download/research/members/csharp_ebook.pdf
 
+gérer http://linux.oreillynet.com/pub/a/linux/2002/05/09/uid.html
+
+gérer https://www.ibm.com/developerworks/aix/library/au-aix-string-externalization/
+
 ==== potentially after merge =====
 
 nettoyer test.xml

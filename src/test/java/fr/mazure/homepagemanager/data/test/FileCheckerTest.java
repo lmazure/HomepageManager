@@ -489,7 +489,6 @@ public class FileCheckerTest {
                 "AttributeBetweenSingleQuotes", 10, "the line contains an XML attribute between single quotes \"<X status='dead'>\"");
        }
 
-
     @Test
     void testLocalLinks() {
 

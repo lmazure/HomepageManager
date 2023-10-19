@@ -817,7 +817,6 @@ public class LinkDataExtractorTest {
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
-
     @Test
     void youtubeWatchHistoryOfTheUniverseIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=uBk-Wst_7aA";
@@ -1378,7 +1377,6 @@ public class LinkDataExtractorTest {
         Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
         Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
     }
-
 
     @Test
     void youtubeWatchNumberphileGrantSandersonIsManaged() throws ContentParserException {

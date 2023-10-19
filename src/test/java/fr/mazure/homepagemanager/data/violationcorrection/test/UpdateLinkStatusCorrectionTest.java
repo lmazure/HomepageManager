@@ -92,7 +92,6 @@ public class UpdateLinkStatusCorrectionTest {
         Assertions.assertEquals(expected, correction.apply(content));
     }
 
-
     @SuppressWarnings("static-method")
     @Test
     void fromDeadToOkWithSubtitle() {
@@ -132,7 +131,6 @@ public class UpdateLinkStatusCorrectionTest {
                                                                               "https://moodle-arquivo.ciencias.ulisboa.pt/1415/pluginfile.php/99900/mod_page/content/9/doc/j-jml-pdf.pdf");
         Assertions.assertEquals(expected, correction.apply(content));
     }
-
 
     @SuppressWarnings("static-method")
     @Test
@@ -213,7 +211,6 @@ public class UpdateLinkStatusCorrectionTest {
                                                                               "https://www.ibm.com/developerworks/java/library/j-animat/");
         Assertions.assertEquals(expected, correction.apply(content));
     }
-
 
     @SuppressWarnings("static-method")
     @Test
