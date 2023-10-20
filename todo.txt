@@ -10,9 +10,9 @@ methods       53.0%/52.2%    97.9%
 
 réparer test https://www.uop.edu.jo/download/research/members/csharp_ebook.pdf
 
-gérer http://linux.oreillynet.com/pub/a/linux/2002/05/09/uid.html
-
 gérer https://www.ibm.com/developerworks/aix/library/au-aix-string-externalization/
+
+gérer https://www.ibm.com/developerworks/architecture/library/ar-cloudaws1/
 
 corriger tests unitaires
 

@@ -108,7 +108,7 @@ public class WellKnownRedirections {
 
         final RedirectionMatcher oReillyRemoved1 = new RedirectionMatcher("removed from O’Reilly",
                                                                           Set.of(LinkStatus.REMOVED));
-        oReillyRemoved1.add("\\Qhttp://www.linuxdevcenter.com/pub/a/linux/\\E.+|\\Qhttp://www.onjava.com/pub/a/onjava/\\E.+|\\Qhttp://www.onlamp.com/pub/a/\\E(onlamp|php|python|security)/.+|\\Qhttp://www.onjava.com/catalog/javaadn\\E" + RedirectionMatcher.ANY_STRING,
+        oReillyRemoved1.add("(\\Qhttp://www.linuxdevcenter.com/pub/a/linux/\\E|\\Qhttp://www.onjava.com/pub/a/onjava/\\E|\\Qhttp://www.onlamp.com/pub/a/\\E(onlamp|php|python|security)/|\\Qhttp://www.onjava.com/catalog/javaadn\\E)" + RedirectionMatcher.ANY_STRING,
                             Set.of(Integer.valueOf(301)),
                             RedirectionMatcher.Multiplicity.ONE);
         oReillyRemoved1.add("\\Qhttps://www.oreilly.com/ideas\\E",
@@ -122,17 +122,34 @@ public class WellKnownRedirections {
 
         final RedirectionMatcher oReillyRemoved2 = new RedirectionMatcher("removed from O’Reilly",
                                                                           Set.of(LinkStatus.REMOVED));
-        oReillyRemoved2.add("\\Qhttp://www.oreillynet.com/\\E(pub/a/(network|oreilly/security/news)|(onlamp|xml)/blog)/" + RedirectionMatcher.ANY_STRING,
+        oReillyRemoved2.add("\\Qhttp://linux.oreillynet.com/pub/a/linux/\\E(?<article>.+)",
                             Set.of(Integer.valueOf(301)),
                             RedirectionMatcher.Multiplicity.ONE);
-        oReillyRemoved2.add("\\Qhttp://archive.oreilly.com/pub/\\E(a/(network|oreilly/security/news)|post)/" + RedirectionMatcher.ANY_STRING,
+        oReillyRemoved2.add("\\Qhttp://www.linuxdevcenter.com/pub/a/linux/\\E\\k<article>",
                             Set.of(Integer.valueOf(301)),
                             RedirectionMatcher.Multiplicity.ONE);
-        oReillyRemoved2.add("\\Qhttps://www.oreilly.com\\E",
+        oReillyRemoved2.add("\\Qhttps://www.oreilly.com/ideas\\E",
+                            Set.of(Integer.valueOf(301)),
+                            RedirectionMatcher.Multiplicity.ONE);
+        oReillyRemoved2.add("\\Qhttps://www.oreilly.com/radar/\\E",
                             Set.of(Integer.valueOf(200)),
                             RedirectionMatcher.Multiplicity.ONE);
         oReillyRemoved2.compile();
         _matchers.add(oReillyRemoved2);
+
+        final RedirectionMatcher oReillyRemoved3 = new RedirectionMatcher("removed from O’Reilly",
+                                                                          Set.of(LinkStatus.REMOVED));
+        oReillyRemoved3.add("\\Qhttp://www.oreillynet.com/\\E(pub/a/(network|oreilly/security/news)|(onlamp|xml)/blog)/" + RedirectionMatcher.ANY_STRING,
+                            Set.of(Integer.valueOf(301)),
+                            RedirectionMatcher.Multiplicity.ONE);
+        oReillyRemoved3.add("\\Qhttp://archive.oreilly.com/pub/\\E(a/(network|oreilly/security/news)|post)/" + RedirectionMatcher.ANY_STRING,
+                            Set.of(Integer.valueOf(301)),
+                            RedirectionMatcher.Multiplicity.ONE);
+        oReillyRemoved3.add("\\Qhttps://www.oreilly.com\\E",
+                            Set.of(Integer.valueOf(200)),
+                            RedirectionMatcher.Multiplicity.ONE);
+        oReillyRemoved3.compile();
+        _matchers.add(oReillyRemoved3);
 
         final RedirectionMatcher ibmRemoved1 = new RedirectionMatcher("removed from IBM",
                                                                       Set.of(LinkStatus.REMOVED));
