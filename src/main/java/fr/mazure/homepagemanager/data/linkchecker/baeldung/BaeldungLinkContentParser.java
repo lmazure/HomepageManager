@@ -36,11 +36,11 @@ public class BaeldungLinkContentParser extends LinkDataExtractor {
                          "Baeldung",
                          "date");
     private static final TextParser s_authorParser
-        = new TextParser("<a href=\"https://www.baeldung.com/author/[^/]*\" title=\"Posts by [^\"]*\" rel=\"author\">",
+        = new TextParser("<a href=\"https://www.baeldung.com(?:/ops)?/author/[^/]*\" title=\"Posts by [^\"]*\" rel=\"author\">",
                          "</a>",
                          "Baeldung",
                          "author");
-    private static DateTimeFormatter s_formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.US);
+    private static final DateTimeFormatter s_formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.US);
 
     /**
      * @param url URL of the link

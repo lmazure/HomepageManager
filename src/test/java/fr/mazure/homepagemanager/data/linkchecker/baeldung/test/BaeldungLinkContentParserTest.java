@@ -87,7 +87,8 @@ public class BaeldungLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://www.baeldung.com/crawler4j,Amy,DeGregorio"
+        "https://www.baeldung.com/crawler4j,Amy,DeGregorio",
+        "https://www.baeldung.com/ops/git-configure-credentials,Michael,Pratt",
         })
     void testAuthor(final String url,
                     final String expectedFirstName,

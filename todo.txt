@@ -8,24 +8,6 @@ branches      44.8%    77.5%
 lines         65.9%    94.7%
 methods       53.0%/52.2%    97.9%
 
-gérer
-fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://www.baeldung.com/ops/git-configure-credentials"
-    at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:74)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:322)
-    at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-    at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-    at fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:34)
-    at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
-    at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
-    at java.base/java.lang.Thread.run(Thread.java:1623)
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find author in Baeldung
-    at fr.mazure.homepagemanager.data.linkchecker.TextParser.extract(TextParser.java:59)
-    at fr.mazure.homepagemanager.data.linkchecker.baeldung.BaeldungLinkContentParser.getSureAuthors(BaeldungLinkContentParser.java:78)
-    at fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkLinkAuthors(ExtractorBasedLinkContentChecker.java:168)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:105)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:72)
-    ... 7 more
-
 gérer les redirections de https://msdn.microsoft.com/en-us/vstudio/ee675607.aspx
 
 réparer test https://www.uop.edu.jo/download/research/members/csharp_ebook.pdf
