@@ -224,7 +224,7 @@ public class WellKnownRedirections {
         _matchers.add(channel9Removed1);
 
         final RedirectionMatcher channel9Removed2 = new RedirectionMatcher("removed from Channel 9",
-                                                                          Set.of(LinkStatus.REMOVED));
+                                                                           Set.of(LinkStatus.REMOVED));
         channel9Removed2.add("\\Qhttps://channel9.msdn.com/posts/\\E" + RedirectionMatcher.ANY_STRING,
                              Set.of(Integer.valueOf(301)),
                              RedirectionMatcher.Multiplicity.ONE);
@@ -239,6 +239,23 @@ public class WellKnownRedirections {
                              RedirectionMatcher.Multiplicity.ONE);
         channel9Removed2.compile();
         _matchers.add(channel9Removed2);
+
+        final RedirectionMatcher channel9Removed3 = new RedirectionMatcher("removed from Channel 9",
+                                                                           Set.of(LinkStatus.REMOVED));
+        channel9Removed3.add("\\Qhttps://channel9.msdn.com/Events/\\E" + RedirectionMatcher.ANY_STRING,
+                             Set.of(Integer.valueOf(301)),
+                             RedirectionMatcher.Multiplicity.ONE);
+        channel9Removed3.add("\\Qhttps://learn.microsoft.com/events/\\E" + RedirectionMatcher.ANY_STRING,
+                             Set.of(Integer.valueOf(301)),
+                             RedirectionMatcher.Multiplicity.ONE);
+        channel9Removed3.add("\\Qhttps://learn.microsoft.com/en-us/events/\\E" + RedirectionMatcher.ANY_STRING,
+                             Set.of(Integer.valueOf(301)),
+                             RedirectionMatcher.Multiplicity.ONE);
+        channel9Removed3.add("\\Qhttps://learn.microsoft.com/en-us/shows/\\E",
+                             Set.of(Integer.valueOf(200)),
+                             RedirectionMatcher.Multiplicity.ONE);
+        channel9Removed3.compile();
+        _matchers.add(channel9Removed3);
 
         final RedirectionMatcher redirectionEndingInSuccess = new RedirectionMatcher("redirection ending in success (last URL should be used)",
                                                                                      Set.of());
