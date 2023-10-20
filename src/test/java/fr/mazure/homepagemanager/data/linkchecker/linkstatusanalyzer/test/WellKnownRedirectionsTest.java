@@ -274,6 +274,18 @@ class WellKnownRedirectionsTest {
              Set.of(LinkStatus.REMOVED));
     }
 
+    @ParameterizedTest
+    @CsvSource({
+        "https://msdn.microsoft.com/en-us/vstudio/dd442479",
+        })
+    void msdn(final String url) {
+        test(url,
+             true,
+             Integer.valueOf(200),
+             "removed from MSDN",
+             Set.of(LinkStatus.REMOVED));
+    }
+
     private void test(final String url,
                       final boolean redirectionIsExpected,  // use to ensure that test data is up-to-date
                       final Integer expectedCode,           // use to ensure that test data is up-to-date

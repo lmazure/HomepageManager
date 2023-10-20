@@ -8,8 +8,6 @@ branches      44.8%    77.5%
 lines         65.9%    94.7%
 methods       53.0%/52.2%    97.9%
 
-gérer les redirections de https://msdn.microsoft.com/en-us/vstudio/ee675607.aspx
-
 réparer test https://www.uop.edu.jo/download/research/members/csharp_ebook.pdf
 
 gérer http://linux.oreillynet.com/pub/a/linux/2002/05/09/uid.html

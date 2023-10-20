@@ -257,6 +257,23 @@ public class WellKnownRedirections {
         channel9Removed3.compile();
         _matchers.add(channel9Removed3);
 
+        final RedirectionMatcher msdnRemoved = new RedirectionMatcher("removed from MSDN",
+                                                                      Set.of(LinkStatus.REMOVED));
+        msdnRemoved.add("\\Qhttps://msdn.microsoft.com/en-us/vstudio/\\E" + RedirectionMatcher.ANY_STRING,
+                        Set.of(Integer.valueOf(301)),
+                        RedirectionMatcher.Multiplicity.ONE);
+        msdnRemoved.add("\\Qhttp://www.visualstudio.com\\E",
+                        Set.of(Integer.valueOf(301)),
+                        RedirectionMatcher.Multiplicity.ONE);
+        msdnRemoved.add("\\Qhttps://www.visualstudio.com/\\E",
+                        Set.of(Integer.valueOf(301)),
+                        RedirectionMatcher.Multiplicity.ONE);
+        msdnRemoved.add("\\Qhttps://visualstudio.microsoft.com/\\E",
+                        Set.of(Integer.valueOf(200)),
+                        RedirectionMatcher.Multiplicity.ONE);
+        msdnRemoved.compile();
+        _matchers.add(msdnRemoved);
+
         final RedirectionMatcher redirectionEndingInSuccess = new RedirectionMatcher("redirection ending in success (last URL should be used)",
                                                                                      Set.of());
         redirectionEndingInSuccess.add("https?://"  + RedirectionMatcher.ANY_STRING,
