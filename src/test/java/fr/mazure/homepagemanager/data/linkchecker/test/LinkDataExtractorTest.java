@@ -218,6 +218,22 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchAiJasonIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=_j7JEDWuqLE";
+        final String expectedXml = """
+                <ARTICLE><X><T>Hugging Face + Langchain in 5 mins | Access 200k+ FREE AI models for your AI apps</T>\
+                <A>https://www.youtube.com/watch?v=_j7JEDWuqLE</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>9</MINUTE><SECOND>47</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Jason</FIRSTNAME><LASTNAME>Zhou</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2023</YEAR><MONTH>6</MONTH><DAY>10</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeWatchArjanCodesIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=pxuXaaT1u3k";
         final String expectedXml = """
