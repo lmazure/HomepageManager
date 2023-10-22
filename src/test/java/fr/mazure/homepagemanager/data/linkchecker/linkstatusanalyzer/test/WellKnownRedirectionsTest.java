@@ -47,7 +47,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 401
     @ParameterizedTest
     @CsvSource({
-        "https://www.uop.edu.jo/download/research/members/csharp_ebook.pdf",
+        //"https://www.uop.edu.jo/download/research/members/csharp_ebook.pdf",
         })
     void direct401(final String url) {
         test(url,
@@ -234,6 +234,9 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
+        "https://www.ibm.com/developerworks/aix/library/au-boost_parser/",
+        "https://www.ibm.com/developerworks/architecture/library/ar-cloudaws1/",
+        "https://www.ibm.com/developerworks/cloud/library/cl-json-verification/",
         "https://www.ibm.com/developerworks/java/library/j-mer1022.html",
         "https://www.ibm.com/developerworks/java/library/os-lombok/index.html",
         "https://www.ibm.com/developerworks/java/library/x-simplexobjs/",
@@ -250,6 +253,7 @@ class WellKnownRedirectionsTest {
         "https://www.ibm.com/developerworks/tivoli/library/s-csscript/",
         "https://www.ibm.com/developerworks/web/library/wa-mashupsecure/",
         "https://www.ibm.com/developerworks/webservices/library/ws-array/",
+        "https://www.ibm.com/developerworks/websphere/techjournal/1203_noiret/1203_noiret.html",
         "https://www.ibm.com/developerworks/xml/library/x-matters32/index.html",
         })
     void ibm(final String url) {
