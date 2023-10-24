@@ -69,6 +69,9 @@ public class DurationChecker extends NodeChecker {
         }
 
         final String secondStr = seconds.item(0).getTextContent();
+        if ((secondStr.length() > 1) && secondStr.startsWith("0")) {
+            return new CheckStatus("IncorrectDuration", "SECOND starts with 0 +(\"" + secondStr + "\")", Optional.empty());
+        }
         try {
             final int second = Integer.parseInt(secondStr);
             if (second < 0) {
@@ -86,6 +89,9 @@ public class DurationChecker extends NodeChecker {
         }
 
         final String minuteStr = minutes.item(0).getTextContent();
+        if ((minuteStr.length() > 1) && minuteStr.startsWith("0")) {
+            return new CheckStatus("IncorrectDuration", "MINUTE starts with 0 +(\"" + minuteStr + "\")", Optional.empty());
+        }
         try {
             final int minute = Integer.parseInt(minuteStr);
             if (minute < 0) {
@@ -103,6 +109,9 @@ public class DurationChecker extends NodeChecker {
         }
 
         final String hourStr = hours.item(0).getTextContent();
+        if ((hourStr.length() > 1) && hourStr.startsWith("0")) {
+            return new CheckStatus("IncorrectDuration", "HOUR starts with 0 +(\"" + hourStr + "\")", Optional.empty());
+        }
         try {
             final int hour = Integer.parseInt(hourStr);
             if (hour < 0) {
