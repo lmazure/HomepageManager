@@ -398,6 +398,22 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatcCarberraIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=jA5L0GDrVqs";
+        final String expectedXml = """
+                <ARTICLE><X><T>ALL Python 3.12's major typing improvements</T>\
+                <A>https://www.youtube.com/watch?v=jA5L0GDrVqs</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>20</MINUTE><SECOND>15</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Ethan</FIRSTNAME><LASTNAME>Henderson</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2023</YEAR><MONTH>10</MONTH><DAY>9</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeWatchContinuousDeliveryIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=_S5iUf0ANyQ";
         final String expectedXml = """
