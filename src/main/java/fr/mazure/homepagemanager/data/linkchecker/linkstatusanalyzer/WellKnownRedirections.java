@@ -241,7 +241,7 @@ public class WellKnownRedirections {
 
         final RedirectionMatcher channel9Removed1 = new RedirectionMatcher("removed from Channel 9",
                                                                            Set.of(LinkStatus.REMOVED));
-        channel9Removed1.add("\\Qhttps://channel9.msdn.com/\\E(Blogs|Shows)" + RedirectionMatcher.ANY_STRING,
+        channel9Removed1.add("\\Qhttps://channel9.msdn.com/\\E(Blogs|Series|Shows)" + RedirectionMatcher.ANY_STRING,
                              Set.of(Integer.valueOf(301)),
                              RedirectionMatcher.Multiplicity.ONE);
         channel9Removed1.add("\\Qhttps://learn.microsoft.com/shows/\\E" + RedirectionMatcher.ANY_STRING,
