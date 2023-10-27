@@ -268,6 +268,7 @@ class WellKnownRedirectionsTest {
     @CsvSource({
         "https://channel9.msdn.com/Blogs/David+Gristwood/An-F-Tutorial-with-Don-Syme-2-of-4 ",
         "https://channel9.msdn.com/Events/Lang-NEXT/Lang-NEXT-2014/CSharp",
+        "https://channel9.msdn.com/Events/Patterns-Practices-Symposium-Online/pattern-practices-symposium-2013/Introducing-Git-Version-Control-into-Your-Team",
         "https://channel9.msdn.com/posts/Mads-Torgersen-Visual-Studio-Async-CTP-SP1-Refresh-Overview",
         "https://channel9.msdn.com/Series/mvcConf/mvcConf-2-Brandom-Satrom-BDD-in-ASPNET-MVC-using-SpecFlow-WatiN-and-WatiN-Test-Helpers",
         "https://channel9.msdn.com/Shows/Going+Deep/Erik-Meijer-and-Bart-De-Smet-LINQ-to-Anything",

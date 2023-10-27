@@ -264,13 +264,19 @@ public class WellKnownRedirections {
 
         final RedirectionMatcher channel9Removed2 = new RedirectionMatcher("removed from Channel 9",
                                                                            Set.of(LinkStatus.REMOVED));
-        channel9Removed2.add("\\Qhttps://channel9.msdn.com/posts/\\E" + RedirectionMatcher.ANY_STRING,
+        channel9Removed2.add("\\Qhttps://channel9.msdn.com/\\EEvent" + RedirectionMatcher.ANY_STRING,
                              Set.of(Integer.valueOf(301)),
                              RedirectionMatcher.Multiplicity.ONE);
-        channel9Removed2.add("\\Qhttps://learn.microsoft.com/shows\\E",
+        channel9Removed2.add("\\Qhttps://learn.microsoft.com/events/\\E" + RedirectionMatcher.ANY_STRING,
                              Set.of(Integer.valueOf(301)),
                              RedirectionMatcher.Multiplicity.ONE);
-        channel9Removed2.add("\\Qhttps://learn.microsoft.com/en-us/shows\\E",
+        channel9Removed2.add("\\Qhttps://learn.microsoft.com/en-us/events/\\E" + RedirectionMatcher.ANY_STRING,
+                             Set.of(Integer.valueOf(301)),
+                             RedirectionMatcher.Multiplicity.ONE);
+        channel9Removed2.add("\\Qhttps://aka.ms/Ch9Update\\E",
+                             Set.of(Integer.valueOf(301)),
+                             RedirectionMatcher.Multiplicity.ONE);
+        channel9Removed2.add("\\Qhttps://learn.microsoft.com/shows/\\E",
                              Set.of(Integer.valueOf(301)),
                              RedirectionMatcher.Multiplicity.ONE);
         channel9Removed2.add("\\Qhttps://learn.microsoft.com/en-us/shows/\\E",
@@ -281,13 +287,13 @@ public class WellKnownRedirections {
 
         final RedirectionMatcher channel9Removed3 = new RedirectionMatcher("removed from Channel 9",
                                                                            Set.of(LinkStatus.REMOVED));
-        channel9Removed3.add("\\Qhttps://channel9.msdn.com/Events/\\E" + RedirectionMatcher.ANY_STRING,
+        channel9Removed3.add("\\Qhttps://channel9.msdn.com/posts/\\E" + RedirectionMatcher.ANY_STRING,
                              Set.of(Integer.valueOf(301)),
                              RedirectionMatcher.Multiplicity.ONE);
-        channel9Removed3.add("\\Qhttps://learn.microsoft.com/events/\\E" + RedirectionMatcher.ANY_STRING,
+        channel9Removed3.add("\\Qhttps://learn.microsoft.com/shows\\E",
                              Set.of(Integer.valueOf(301)),
                              RedirectionMatcher.Multiplicity.ONE);
-        channel9Removed3.add("\\Qhttps://learn.microsoft.com/en-us/events/\\E" + RedirectionMatcher.ANY_STRING,
+        channel9Removed3.add("\\Qhttps://learn.microsoft.com/en-us/shows\\E",
                              Set.of(Integer.valueOf(301)),
                              RedirectionMatcher.Multiplicity.ONE);
         channel9Removed3.add("\\Qhttps://learn.microsoft.com/en-us/shows/\\E",
@@ -295,6 +301,23 @@ public class WellKnownRedirections {
                              RedirectionMatcher.Multiplicity.ONE);
         channel9Removed3.compile();
         _matchers.add(channel9Removed3);
+
+        final RedirectionMatcher channel9Removed4 = new RedirectionMatcher("removed from Channel 9",
+                                                                           Set.of(LinkStatus.REMOVED));
+        channel9Removed4.add("\\Qhttps://channel9.msdn.com/Events/\\E" + RedirectionMatcher.ANY_STRING,
+                             Set.of(Integer.valueOf(301)),
+                             RedirectionMatcher.Multiplicity.ONE);
+        channel9Removed4.add("\\Qhttps://learn.microsoft.com/events/\\E" + RedirectionMatcher.ANY_STRING,
+                             Set.of(Integer.valueOf(301)),
+                             RedirectionMatcher.Multiplicity.ONE);
+        channel9Removed4.add("\\Qhttps://learn.microsoft.com/en-us/events/\\E" + RedirectionMatcher.ANY_STRING,
+                             Set.of(Integer.valueOf(301)),
+                             RedirectionMatcher.Multiplicity.ONE);
+        channel9Removed4.add("\\Qhttps://learn.microsoft.com/en-us/shows/\\E",
+                             Set.of(Integer.valueOf(200)),
+                             RedirectionMatcher.Multiplicity.ONE);
+        channel9Removed4.compile();
+        _matchers.add(channel9Removed4);
 
         final RedirectionMatcher msdnRemoved = new RedirectionMatcher("removed from MSDN",
                                                                       Set.of(LinkStatus.REMOVED));
