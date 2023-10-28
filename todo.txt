@@ -14,8 +14,6 @@ corriger tests unitaires
 
 ==== potentially after merge =====
 
-upgrader toutes les dépendances
-
 ajouter détection des comments qui font allusion au fait qu'il y a un subtitle alors qu'il n'y en a pas
 
 nettoyer test.xml

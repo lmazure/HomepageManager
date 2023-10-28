@@ -2,8 +2,7 @@ package fr.mazure.homepagemanager.data;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import com.google.common.base.Predicate;
+import java.util.function.Predicate;
 
 /**
  * Record of all violations
@@ -33,7 +32,7 @@ public class ViolationManager {
      */
     public void remove(final Predicate<Violation> filter) {
         for (final Violation violation: _set) {
-            if (filter.apply(violation)) {
+            if (filter.test(violation)) {
                 _set.remove(violation);
             }
         }
