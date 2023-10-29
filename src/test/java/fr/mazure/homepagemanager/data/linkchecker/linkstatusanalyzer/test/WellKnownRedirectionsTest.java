@@ -206,18 +206,6 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://twitter.com/3blue1brown"
-        })
-    void twitter(final String url) {
-        test(url,
-             true,
-             Integer.valueOf(200),
-             "Twitter",
-             Set.of(LinkStatus.OK));
-    }
-
-    @ParameterizedTest
-    @CsvSource({
         "http://www.linuxdevcenter.com/pub/a/linux/2004/03/04/warp_pipe.html",
         "http://linux.oreillynet.com/pub/a/linux/2002/05/09/uid.html",
         "http://www.onjava.com/catalog/javaadn/excerpt/javaadn_ch05.pdf",

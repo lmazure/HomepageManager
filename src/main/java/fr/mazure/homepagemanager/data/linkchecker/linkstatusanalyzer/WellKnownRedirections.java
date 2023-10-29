@@ -228,17 +228,6 @@ public class WellKnownRedirections {
         ibmRemoved7.compile();
         _matchers.add(ibmRemoved7);
 
-        final RedirectionMatcher twitter = new RedirectionMatcher("Twitter",
-                                                                  Set.of(LinkStatus.OK));
-        twitter.add("\\Qhttps://twitter.com/\\E" + RedirectionMatcher.ANY_STRING,
-                       Set.of(Integer.valueOf(302)),
-                       RedirectionMatcher.Multiplicity.ONE);
-        twitter.add("\\Qhttps://twitter.com/\\E" + RedirectionMatcher.ANY_STRING,
-                    Set.of(Integer.valueOf(200)),
-                    RedirectionMatcher.Multiplicity.ONE);
-        twitter.compile();
-        _matchers.add(twitter);
-
         final RedirectionMatcher channel9Removed1 = new RedirectionMatcher("removed from Channel 9",
                                                                            Set.of(LinkStatus.REMOVED));
         channel9Removed1.add("\\Qhttps://channel9.msdn.com/\\E(Blogs|Series|Shows)" + RedirectionMatcher.ANY_STRING,
