@@ -21,6 +21,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 200 (success)
     @ParameterizedTest
     @CsvSource({
+        "https://httpstat.us/200",
         "https://example.com",
         })
     void direct200(final String url) {
@@ -34,6 +35,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 202 (success)
     @ParameterizedTest
     @CsvSource({
+        "https://httpstat.us/202",
         "https://www.semanticscholar.org/paper/The-Native-POSIX-Thread-Library-for-Linux-Drepper-Molnar/ffced47e5604b66736d365030bfe532d11285433?p2df",
         })
     void direct202(final String url) {
@@ -47,7 +49,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 401
     @ParameterizedTest
     @CsvSource({
-        //"https://www.uop.edu.jo/download/research/members/csharp_ebook.pdf",
+        "https://httpstat.us/401",
         })
     void direct401(final String url) {
         test(url,
@@ -60,6 +62,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 403
     @ParameterizedTest
     @CsvSource({
+        "https://httpstat.us/403",
         "https://www.pnas.org/doi/pdf/10.1073/pnas.1810141115",
         })
     void direct403(final String url) {
@@ -73,6 +76,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 404
     @ParameterizedTest
     @CsvSource({
+        "https://httpstat.us/404",
         "https://scienceetonnante.com/2017/11/12/glyphosate-le-nouvel-amiante/",
         })
     void direct404(final String url) {
@@ -86,6 +90,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 409
     @ParameterizedTest
     @CsvSource({
+        "https://httpstat.us/409",
         "http://forums.construx.com/forums/t/432.aspx",
         })
     void direct409(final String url) {
@@ -99,6 +104,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 410
     @ParameterizedTest
     @CsvSource({
+        "https://httpstat.us/410",
         "https://dzone.com/articles/unit-test-insanity",
         "https://dzone.com/articles/the-developers-guide-to-collections-lists",
         })
@@ -113,6 +119,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 503
     @ParameterizedTest
     @CsvSource({
+        "https://httpstat.us/503",
         "http://www.nplus1executive.com/",
         })
     void direct503(final String url) {
