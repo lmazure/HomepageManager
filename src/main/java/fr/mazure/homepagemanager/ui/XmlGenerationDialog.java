@@ -179,12 +179,43 @@ public class XmlGenerationDialog extends Dialog<Void> {
     }
 
     private static String authorAsString(final AuthorData author) {
-        return author.getNamePrefix().orElse(" ") +
-               author.getFirstName().orElse(" ") +
-               author.getMiddleName().orElse(" ") +
-               author.getLastName().orElse(" ") +
-               author.getNameSuffix().orElse(" ") +
-               author.getGivenName().orElse(" ");
+        final StringBuilder builder = new StringBuilder();
+        if (author.getNamePrefix().isPresent()) {
+            builder.append(author.getNamePrefix().get());
+        }
+        if (author.getFirstName().isPresent()) {
+            if (builder.length() > 0) {
+                builder.append(' ');
+            }
+            builder.append(author.getFirstName().get());
+        }
+        if (author.getMiddleName().isPresent()) {
+            if (builder.length() > 0) {
+                builder.append(' ');
+            }
+            builder.append(author.getMiddleName().get());
+        }
+        if (author.getLastName().isPresent()) {
+            if (builder.length() > 0) {
+                builder.append(' ');
+            }
+            builder.append(author.getLastName().get());
+        }
+        if (author.getNameSuffix().isPresent()) {
+            if (builder.length() > 0) {
+                builder.append(' ');
+            }
+            builder.append(author.getNameSuffix().get());
+        }
+        if (author.getGivenName().isPresent()) {
+            if (builder.length() > 0) {
+                builder.append(' ');
+            }
+            builder.append('"');
+            builder.append(author.getGivenName().get());
+            builder.append('"');
+        }
+        return builder.toString();
     }
 
     private void displayError(final String errorMessage) {
