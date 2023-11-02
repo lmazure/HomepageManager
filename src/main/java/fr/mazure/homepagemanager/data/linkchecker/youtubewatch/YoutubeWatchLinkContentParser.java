@@ -520,6 +520,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
             new AbstractMap.SimpleEntry<>("Numberphile",
                                           new ChannelData(buildList(),
                                                           buildMatchingList(match("Crawford", buildAuthor("Tom", "Crawford")),
+                                                                            match("Sautoy", buildAuthor("Marcus", "du Sautoy")),
                                                                             match("Eisenbud", buildAuthor("David", "Eisenbud")),
                                                                             match("Frenkel", buildAuthor("Edward", "Frenkel")),
                                                                             match("Grime", buildAuthor("James", "Grime")),
