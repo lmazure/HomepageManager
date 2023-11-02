@@ -8,11 +8,17 @@ branches      44.8%    77.5%
 lines         65.9%    94.7%
 methods       53.0%/52.2%    97.9%
 
-
-
 ==== potentially before merge =====
 
-réimplémenter toute la logique twitter: il répon désormais 200 même si le compte n'existe pas
+trouver d'autres icones pour représenter la qualité
+
+corriger problème de reconnaissance des langues syr YouTube
+
+ajouter la possibilité de mettre le commentaire à la création du XML
+
+nettoyer perl.xml
+
+réimplémenter toute la logique twitter: il répond désormais 200 même si le compte n'existe pas
 ²
 ajouter détection des comments qui font allusion au fait qu'il y a un subtitle alors qu'il n'y en a pas
 
