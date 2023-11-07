@@ -154,10 +154,10 @@ public class WellKnownRedirections {
 
         final RedirectionMatcher ibmRemoved1 = new RedirectionMatcher("removed from IBM",
                                                                       Set.of(LinkStatus.REMOVED));
-        ibmRemoved1.add("https://www.ibm.com/developerworks/(architecture|java|linux|opensource|web|webservices|xml)/library/" + RedirectionMatcher.ANY_STRING,
+        ibmRemoved1.add("https://www.ibm.com/developerworks/(architecture|java|linux|opensource|systems|web|webservices|xml)/library/" + RedirectionMatcher.ANY_STRING,
                         Set.of(Integer.valueOf(301)),
                         RedirectionMatcher.Multiplicity.ONE);
-        ibmRemoved1.add("https://developer.ibm.com/(languages/java|technologies|technologies/linux|technologies/web-development)/",
+        ibmRemoved1.add("https://developer.ibm.com/(languages/java|technologies|technologies/linux|technologies/systems|technologies/web-development)/",
                         Set.of(Integer.valueOf(200)),
                         RedirectionMatcher.Multiplicity.ONE);
         ibmRemoved1.compile();

@@ -1,4 +1,4 @@
-warnings = 146
+warnings = 144
 lines prod = 9514
 lines test = 3939
 test coverage =
@@ -8,11 +8,11 @@ branches      44.8%    77.5%
 lines         65.9%    94.7%
 methods       53.0%/52.2%    97.9%
 
+
+
 ==== potentially before merge =====
 
-trouver d'autres icones pour représenter la qualité
-
-corriger problème de reconnaissance des langues syr YouTube
+corriger problème de reconnaissance des langues sur YouTube
 
 ajouter la possibilité de mettre le commentaire à la création du XML
 
@@ -23,14 +23,6 @@ réimplémenter toute la logique twitter: il répond désormais 200 même si le 
 ajouter détection des comments qui font allusion au fait qu'il y a un subtitle alors qu'il n'y en a pas
 
 nettoyer test.xml
-
-gérer
- tag = "CODEROUTINE"
- value = "File: Compare Active File With..."
- violation = "ellipsis is improperly encoded"
- detail = ""File: Compare Active File With..." should not contain "...""
- 
-nettoyer physics.xml
 
 nettoyer coding.xml
 
@@ -120,8 +112,6 @@ mettre lesCODESAMPLE en preformatted !
 certaines des chaines listées dans IncorrectSpaceChecker sons suspectes
 
 corriger le fait qu'on reporte une erreur de type WrongLiveness et qu'on propose une correction de l'URL en cas de redirection
-
-mettre en place plausible
 
 les artciles de https://www.nytimes.com/ devraient être en payed_registration
 
