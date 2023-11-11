@@ -11,6 +11,8 @@ import fr.mazure.homepagemanager.data.linkchecker.XmlGenerator;
 public class UpdateLinkDurationCorrection extends RegexpViolationCorrection {
 
     /**
+     * Constructor
+     *
      * @param badDuration Incorrect duration
      * @param correctDuration Correct Duration
      * @param url URL of the link

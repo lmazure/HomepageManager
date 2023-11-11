@@ -13,6 +13,7 @@ public class AddDotAtCommentEnd extends RegexpViolationCorrection {
 
     /**
      * Constructor
+     *
      * @param commentComponents text components of the comment
      */
     public AddDotAtCommentEnd(final List<String> commentComponents) {
@@ -42,7 +43,7 @@ public class AddDotAtCommentEnd extends RegexpViolationCorrection {
             if (i > 2) {
                 builder.append("$" + i);
             }
-            builder.append(XmlHelper.transform(str));
+            builder.append(escapeReplacementString(XmlHelper.transform(str)));
             i++;
         }
         builder.append("$" + i + ".</COMMENT>");

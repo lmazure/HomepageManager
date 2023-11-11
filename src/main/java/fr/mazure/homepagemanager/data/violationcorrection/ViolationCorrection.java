@@ -4,6 +4,7 @@ package fr.mazure.homepagemanager.data.violationcorrection;
  * Base class for the violation corrections
  */
 public abstract class ViolationCorrection {
+
     private final String _description;
 
     protected ViolationCorrection(final String description) {
@@ -11,6 +12,8 @@ public abstract class ViolationCorrection {
     }
 
     /**
+     * Get the description of the correction
+     *
      * @return description of the correction
      */
     public String getDescription() {
@@ -19,6 +22,7 @@ public abstract class ViolationCorrection {
 
     /**
      * Apply the correction
+     *
      * @param content content to fix
      * @return content fixed
      */
