@@ -21,6 +21,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 200 (success)
     @ParameterizedTest
     @CsvSource({
+        "http://httpbin.org/status/200",
         "https://example.com",
         })
     void direct200(final String url) {
@@ -34,6 +35,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 202 (success)
     @ParameterizedTest
     @CsvSource({
+        "http://httpbin.org/status/202",
         "https://www.semanticscholar.org/paper/The-Native-POSIX-Thread-Library-for-Linux-Drepper-Molnar/ffced47e5604b66736d365030bfe532d11285433?p2df",
         })
     void direct202(final String url) {
@@ -47,7 +49,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 401
     @ParameterizedTest
     @CsvSource({
-        "https://www.uop.edu.jo/download/research/members/csharp_ebook.pdf",
+        "http://httpbin.org/status/401",
         })
     void direct401(final String url) {
         test(url,
@@ -60,6 +62,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 403
     @ParameterizedTest
     @CsvSource({
+        "http://httpbin.org/status/403",
         "https://www.pnas.org/doi/pdf/10.1073/pnas.1810141115",
         })
     void direct403(final String url) {
@@ -73,6 +76,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 404
     @ParameterizedTest
     @CsvSource({
+        "http://httpbin.org/status/404",
         "https://scienceetonnante.com/2017/11/12/glyphosate-le-nouvel-amiante/",
         })
     void direct404(final String url) {
@@ -86,6 +90,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 409
     @ParameterizedTest
     @CsvSource({
+        "http://httpbin.org/status/409",
         "http://forums.construx.com/forums/t/432.aspx",
         })
     void direct409(final String url) {
@@ -99,6 +104,7 @@ class WellKnownRedirectionsTest {
     // URLs giving directly a 410
     @ParameterizedTest
     @CsvSource({
+        "http://httpbin.org/status/410",
         "https://dzone.com/articles/unit-test-insanity",
         "https://dzone.com/articles/the-developers-guide-to-collections-lists",
         })
@@ -110,9 +116,23 @@ class WellKnownRedirectionsTest {
              Set.of(LinkStatus.DEAD));
     }
 
+    // URLs giving directly a 502
+    @ParameterizedTest
+    @CsvSource({
+        "http://httpbin.org/status/502",
+        })
+    void direct502(final String url) {
+        test(url,
+             false,
+             Integer.valueOf(502),
+             "direct failure",
+             Set.of(LinkStatus.DEAD));
+    }
+
     // URLs giving directly a 503
     @ParameterizedTest
     @CsvSource({
+        "http://httpbin.org/status/503",
         "http://www.nplus1executive.com/",
         })
     void direct503(final String url) {
@@ -199,19 +219,8 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://twitter.com/3blue1brown"
-        })
-    void twitter(final String url) {
-        test(url,
-             true,
-             Integer.valueOf(200),
-             "Twitter",
-             Set.of(LinkStatus.OK));
-    }
-
-    @ParameterizedTest
-    @CsvSource({
         "http://www.linuxdevcenter.com/pub/a/linux/2004/03/04/warp_pipe.html",
+        "http://linux.oreillynet.com/pub/a/linux/2002/05/09/uid.html",
         "http://www.onjava.com/catalog/javaadn/excerpt/javaadn_ch05.pdf",
         "http://www.onjava.com/pub/a/onjava/2003/06/25/commons.html",
         "http://www.onlamp.com/pub/a/onlamp/2005/02/24/pg_buildfarm.html",
@@ -233,6 +242,9 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
+        "https://www.ibm.com/developerworks/aix/library/au-boost_parser/",
+        "https://www.ibm.com/developerworks/architecture/library/ar-cloudaws1/",
+        "https://www.ibm.com/developerworks/cloud/library/cl-json-verification/",
         "https://www.ibm.com/developerworks/java/library/j-mer1022.html",
         "https://www.ibm.com/developerworks/java/library/os-lombok/index.html",
         "https://www.ibm.com/developerworks/java/library/x-simplexobjs/",
@@ -246,9 +258,11 @@ class WellKnownRedirectionsTest {
         "https://www.ibm.com/developerworks/opensource/library/os-ecgui1",
         "https://www.ibm.com/developerworks/power/library/pa-spec14/index.html",
         "https://www.ibm.com/developerworks/rational/library/edge/08/mar08/curran/index.html",
+        "https://www.ibm.com/developerworks/systems/library/es-debug/index.html",
         "https://www.ibm.com/developerworks/tivoli/library/s-csscript/",
         "https://www.ibm.com/developerworks/web/library/wa-mashupsecure/",
         "https://www.ibm.com/developerworks/webservices/library/ws-array/",
+        "https://www.ibm.com/developerworks/websphere/techjournal/1203_noiret/1203_noiret.html",
         "https://www.ibm.com/developerworks/xml/library/x-matters32/index.html",
         })
     void ibm(final String url) {
@@ -261,15 +275,30 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://channel9.msdn.com/Shows/Going+Deep/Erik-Meijer-and-Bart-De-Smet-LINQ-to-Anything",
         "https://channel9.msdn.com/Blogs/David+Gristwood/An-F-Tutorial-with-Don-Syme-2-of-4 ",
+        "https://channel9.msdn.com/Events/Lang-NEXT/Lang-NEXT-2014/CSharp",
+        "https://channel9.msdn.com/Events/Patterns-Practices-Symposium-Online/pattern-practices-symposium-2013/Introducing-Git-Version-Control-into-Your-Team",
         "https://channel9.msdn.com/posts/Mads-Torgersen-Visual-Studio-Async-CTP-SP1-Refresh-Overview",
+        "https://channel9.msdn.com/Series/mvcConf/mvcConf-2-Brandom-Satrom-BDD-in-ASPNET-MVC-using-SpecFlow-WatiN-and-WatiN-Test-Helpers",
+        "https://channel9.msdn.com/Shows/Going+Deep/Erik-Meijer-and-Bart-De-Smet-LINQ-to-Anything",
         })
     void channel9(final String url) {
         test(url,
              true,
              Integer.valueOf(200),
              "removed from Channel 9",
+             Set.of(LinkStatus.REMOVED));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "https://msdn.microsoft.com/en-us/vstudio/dd442479",
+        })
+    void msdn(final String url) {
+        test(url,
+             true,
+             Integer.valueOf(200),
+             "removed from MSDN",
              Set.of(LinkStatus.REMOVED));
     }
 

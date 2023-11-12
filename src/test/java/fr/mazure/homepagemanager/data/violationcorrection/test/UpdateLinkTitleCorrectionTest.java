@@ -133,6 +133,46 @@ public class UpdateLinkTitleCorrectionTest {
 
     @SuppressWarnings("static-method")
     @Test
+    void NewTitleWithDollarIsUpdated() {
+
+        final String content =
+            """
+            <?xml version="1.0"?>\r
+            <?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+            <PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+            <TITLE>test</TITLE>\r
+            <PATH>dummy-dir/test.xml</PATH>\r
+            <DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+            <CONTENT>\r
+            <BLIST><TITLE>Articles and videos</TITLE>\r
+            <ITEM><ARTICLE><X><T>How to Use an LLM in a SaaS Platform</T><A>https://www.youtube.com/watch?v=fH8fJYWfJcg</A><L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>53</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Arjan</FIRSTNAME><LASTNAME>Egges</LASTNAME></AUTHOR><DATE><YEAR>2023</YEAR><MONTH>10</MONTH><DAY>6</DAY></DATE><COMMENT><AUTHOR><FIRSTNAME>Arjan</FIRSTNAME><LASTNAME>Egges</LASTNAME></AUTHOR> describes his first steps to build learntail.com, using OpenAI and Langchain to generates quizzes.</COMMENT></ARTICLE></ITEM>\r
+            </BLIST>\r
+            </CONTENT>\r
+            </PAGE>""";
+
+        final String expected =
+            """
+            <?xml version="1.0"?>\r
+            <?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+            <PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+            <TITLE>test</TITLE>\r
+            <PATH>dummy-dir/test.xml</PATH>\r
+            <DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+            <CONTENT>\r
+            <BLIST><TITLE>Articles and videos</TITLE>\r
+            <ITEM><ARTICLE><X><T>🤬 How the #@%$! do you use an LLM in a $aa$$ platform?</T><A>https://www.youtube.com/watch?v=fH8fJYWfJcg</A><L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>53</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Arjan</FIRSTNAME><LASTNAME>Egges</LASTNAME></AUTHOR><DATE><YEAR>2023</YEAR><MONTH>10</MONTH><DAY>6</DAY></DATE><COMMENT><AUTHOR><FIRSTNAME>Arjan</FIRSTNAME><LASTNAME>Egges</LASTNAME></AUTHOR> describes his first steps to build learntail.com, using OpenAI and Langchain to generates quizzes.</COMMENT></ARTICLE></ITEM>\r
+            </BLIST>\r
+            </CONTENT>\r
+            </PAGE>""";
+
+        final ViolationCorrection correction = new UpdateLinkTitleCorrection("How to Use an LLM in a SaaS Platform",
+                                                                             "🤬 How the #@%$! do you use an LLM in a $aa$$ platform?",
+                                                                             "https://www.youtube.com/watch?v=fH8fJYWfJcg");
+        Assertions.assertEquals(expected, correction.apply(content));
+    }
+
+    @SuppressWarnings("static-method")
+    @Test
     void description() {
         final ViolationCorrection correction = new UpdateLinkTitleCorrection("Real mathematical magic: The king’s algorithm & Sallow’s geomagic",
                                                                              "New magic in magic squares",

@@ -11,6 +11,7 @@ public class RemoveLinkSubtitleCorrection extends RegexpViolationCorrection {
 
     /**
      * Constructor
+     *
      * @param badSubtitle  Bad subtitle
      * @param url URL of the link
      */

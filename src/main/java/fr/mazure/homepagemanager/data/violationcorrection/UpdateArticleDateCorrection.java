@@ -9,8 +9,10 @@ import fr.mazure.homepagemanager.data.linkchecker.XmlGenerator;
  * Correct the date of an article
  */
 public class UpdateArticleDateCorrection extends RegexpViolationCorrection {
+    
     /**
      * Constructor
+     *
      * @param badDate Incorrect article date
      * @param correctDate Correct article date
      * @param url URL of one of the links of the article

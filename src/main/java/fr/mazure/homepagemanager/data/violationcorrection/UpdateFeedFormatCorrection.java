@@ -11,6 +11,7 @@ public class UpdateFeedFormatCorrection extends RegexpViolationCorrection {
 
     /**
      * Constructor
+     *
      * @param badFormat Incorrect format
      * @param correctFormat  Correct format
      * @param feedUrl URL of the feed

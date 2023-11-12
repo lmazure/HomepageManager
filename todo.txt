@@ -1,4 +1,4 @@
-warnings = 146
+warnings = 144
 lines prod = 9514
 lines test = 3939
 test coverage =
@@ -8,23 +8,20 @@ branches      44.8%    77.5%
 lines         65.9%    94.7%
 methods       53.0%/52.2%    97.9%
 
-gérer les redirections de https://msdn.microsoft.com/en-us/vstudio/ee675607.aspx
 
-gérer les redirections de https://channel9.msdn.com/Events/...
+==== potentially before merge =====
 
-réparer test https://www.uop.edu.jo/download/research/members/csharp_ebook.pdf
+corriger problème de reconnaissance des langues sur YouTube
 
-==== potentially after merge =====
+ajouter la possibilité de mettre le commentaire à la création du XML
+
+nettoyer perl.xml
+
+réimplémenter toute la logique twitter: il répond désormais 200 même si le compte n'existe pas
+²
+ajouter détection des comments qui font allusion au fait qu'il y a un subtitle alors qu'il n'y en a pas
 
 nettoyer test.xml
-
-gérer
- tag = "CODEROUTINE"
- value = "File: Compare Active File With..."
- violation = "ellipsis is improperly encoded"
- detail = ""File: Compare Active File With..." should not contain "...""
- 
-nettoyer physics.xml
 
 nettoyer coding.xml
 
@@ -104,7 +101,7 @@ Redirection matcher = redirection ending in success (last URL should be used)
 Redirection matcher expected statuses = 
 Look for article = https://www.google.com/search?q=%22Springer%22
 en ignorant lorsque la chaîne de redirection ramène au point de départ
-je crois que c'est aussi le cas de twitter
+
 
 
 ==== after merge =====
@@ -113,11 +110,7 @@ mettre lesCODESAMPLE en preformatted !
 
 certaines des chaines listées dans IncorrectSpaceChecker sons suspectes
 
-détecter <SECOND>04</SECOND>
-
 corriger le fait qu'on reporte une erreur de type WrongLiveness et qu'on propose une correction de l'URL en cas de redirection
-
-mettre en place plausible
 
 les artciles de https://www.nytimes.com/ devraient être en payed_registration
 
@@ -174,10 +167,6 @@ line 0: the local link "../content/map.html?page=notes/eclipse.html" has an inva
 line 0: the local link "../content/map.html?page=bouffe/095.htm" has an invalid value
 line 0: the local link "../content/content.html?sort=author" has an invalid value
 
-
-support de twitter : requête qui contient l'information
-GET https://twitter.com/i/api/graphql/SAMkL5y_N9pmahSw8yy6gw/UserByScreenName?variables={"screen_name":"gitlabstatus","withSafetyModeUserFields":true}&features={"hidden_profile_likes_enabled":false,"hidden_profile_subscriptions_enabled":true,"responsive_web_graphql_exclude_directive_enabled":true,"verified_phone_label_enabled":false,"subscriptions_verification_info_is_identity_verified_enabled":false,"subscriptions_verification_info_verified_since_enabled":true,"highlights_tweets_tab_ui_enabled":true,"creator_subscriptions_tweet_preview_api_enabled":true,"responsive_web_graphql_skip_user_profile_image_extensions_enabled":false,"responsive_web_graphql_timeline_navigation_enabled":true}&fieldToggles={"withAuxiliaryUserLabels":false}
-l'information est dans data>user>result>legacy>description
 
 nettoyer links/chrome.xml
 
@@ -322,8 +311,6 @@ https://martinfowler.com/bliki/UseCasesAndStories.html
 - vérifier que tous mes fichiers (sauf *.html) sont référencés
 
 - implémenter un système générique de cache
-
-- implémenter le cache pour Twitter
 
 - ranger les fichiers
 design.xml

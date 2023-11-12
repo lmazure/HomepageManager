@@ -13,6 +13,7 @@ public class RegexpViolationCorrection extends ViolationCorrection {
 
     /**
      * Constructor
+     *
      * @param description of the correction
      * @param pattern Searched pattern
      * @param replacement Replacement
@@ -29,5 +30,15 @@ public class RegexpViolationCorrection extends ViolationCorrection {
     public String apply(final String content) {
         final Matcher matcher = _pattern.matcher(content);
         return matcher.replaceAll(_replacement);
+    }
+    
+    /**
+     * Escape the string used as replacement in Matcher.replaceAll().
+     *
+     * @param replacement
+     * @return
+     */
+    protected static String escapeReplacementString(final String replacement) {
+        return replacement.replace("$", "\\$");
     }
 }

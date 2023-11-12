@@ -17,6 +17,7 @@ public class UpdateLinkUrlCorrection extends ViolationCorrection {
 
     /**
      * Constructor
+     *
      * @param badUrl Incorrect URL
      * @param correctUrl  Correct URL
      */

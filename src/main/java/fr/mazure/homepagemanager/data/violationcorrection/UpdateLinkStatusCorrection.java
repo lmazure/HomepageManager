@@ -12,6 +12,7 @@ public class UpdateLinkStatusCorrection extends RegexpViolationCorrection {
 
     /**
      * Constructor
+     *
      * @param badStatus Incorrect status
      * @param correctStatus  Correct status
      * @param url URL of the link

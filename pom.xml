@@ -11,8 +11,8 @@
         <maven.compiler.source>20</maven.compiler.source>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <junit.version>5.9.2</junit.version>
-        <javafx.version>21-ea+5</javafx.version>
+        <junit.version>5.10.0</junit.version>
+        <javafx.version>21.0.1</javafx.version>
     </properties>
 
     <dependencies>
@@ -60,14 +60,9 @@
             <version>${javafx.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.google.apis</groupId>
-            <artifactId>google-api-services-youtube</artifactId>
-            <version>v3-rev222-1.25.0</version>
-        </dependency>
-        <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20230227</version>
+            <version>20231013</version>
         </dependency>
     </dependencies>
 
@@ -76,17 +71,17 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.10.1</version>
+                <version>3.11.0</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M8</version>
+                <version>3.2.1</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.0.0-M8</version>
+                <version>3.2.1</version>
             </plugin>
         </plugins>
     </build>
