@@ -8,19 +8,6 @@ branches      44.8%    77.5%
 lines         65.9%    94.7%
 methods       53.0%/52.2%    97.9%
 
-corriger org.opentest4j.AssertionFailedError: expected: <<ARTICLE><X><T>Enquête inédite : l’enfer des cages pour les pintades du groupe LDC</T><A>https://www.youtube.com/watch?v=iCEe6E9Yr9c</A><L>fr</L><F>MP4</F><DURATION><MINUTE>2</MINUTE><SECOND>19</SECOND></DURATION></X><AUTHOR><GIVENNAME>L214 éthique et animaux</GIVENNAME></AUTHOR><DATE><YEAR>2023</YEAR><MONTH>8</MONTH><DAY>9</DAY></DATE><COMMENT>XXXXX</COMMENT></ARTICLE>> but was: <<ARTICLE><X><T>Enquête inédite : l’enfer des cages pour les pintades du groupe LDC</T><A>https://www.youtube.com/watch?v=iCEe6E9Yr9c</A><L>fr</L><F>MP4</F><DURATION><MINUTE>2</MINUTE><SECOND>19</SECOND></DURATION></X><AUTHOR><GIVENNAME>L214 Éthique &amp; Animaux</GIVENNAME></AUTHOR><DATE><YEAR>2023</YEAR><MONTH>8</MONTH><DAY>9</DAY></DATE><COMMENT>XXXXX</COMMENT></ARTICLE>>
-    at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
-    at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
-    at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
-    at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
-    at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
-    at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1141)
-    at fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.youtubeQueryParametersAreRemoved(LinkDataExtractorTest.java:2417)
-    at java.base/java.lang.reflect.Method.invoke(Method.java:578)
-    at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-    at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-
-
 
 ==== potentially before merge =====
 

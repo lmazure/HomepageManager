@@ -2410,7 +2410,7 @@ public class LinkDataExtractorTest {
                 <ARTICLE><X><T>Enquête inédite : l’enfer des cages pour les pintades du groupe LDC</T>\
                 <A>https://www.youtube.com/watch?v=iCEe6E9Yr9c</A>\
                 <L>fr</L><F>MP4</F><DURATION><MINUTE>2</MINUTE><SECOND>19</SECOND></DURATION></X>\
-                <AUTHOR><GIVENNAME>L214 éthique et animaux</GIVENNAME></AUTHOR>\
+                <AUTHOR><GIVENNAME>L214 Éthique &amp; Animaux</GIVENNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>8</MONTH><DAY>9</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
