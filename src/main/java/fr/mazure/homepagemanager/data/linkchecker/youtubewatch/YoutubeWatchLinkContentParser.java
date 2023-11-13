@@ -715,7 +715,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
             if (title.contains("Inside Java Newscast")) {
                 return buildList(buildAuthor("Nicolai", "Parlog"));
             }
-            if (title.contains("JEP Café")) {
+            if (title.contains("JEP Café") || title.contains("JEP Cafe")) {
                 return buildList(buildAuthor("José", "Paumard"));
             }
         }
