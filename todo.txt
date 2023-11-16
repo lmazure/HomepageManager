@@ -9,11 +9,15 @@ lines         65.9%    94.7%
 methods       53.0%/52.2%    97.9%
 
 
+
+
 ==== potentially before merge =====
 
-corriger problème de reconnaissance des langues sur YouTube
+utilise <PRE> pour les blocs de code
 
-ajouter la possibilité de mettre le commentaire à la création du XML
+navigation par alphabet pour les tables du site
+
+corriger problème de reconnaissance des langues sur YouTube
 
 nettoyer perl.xml
 
