@@ -26,7 +26,9 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
                                                                    "</title>",
                                                                    "GitLab blog",
                                                                    "title");
-    private static final TextParser s_dateParser = new TextParser("//www.facebook.com(?:/sharer)?/sharer.php\\?u=https://about.gitlab.com/blog/",
+    // the next regexp should be "//www.facebook.com(?:/sharer)?/sharer.php\\?u=https://about.gitlab.com/blog/", but GitLab screwed up their site
+    // and used links such as "https://www.facebook.com/sharer/sharer.php?u=https://about.gitlab.com/blog/blog/2020/11/11/gitlab-for-agile-portfolio-planning-project-management/"
+    private static final TextParser s_dateParser = new TextParser("//www.facebook.com(?:/sharer)?/sharer.php\\?u=https://about.gitlab.com(?:/blog)?/blog/",
                                                                   "\\d\\d\\d\\d/\\d\\d/\\d\\d",
                                                                   "/",
                                                                   "GitLab blog",
