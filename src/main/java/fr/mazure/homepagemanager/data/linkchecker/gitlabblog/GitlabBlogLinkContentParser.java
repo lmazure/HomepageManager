@@ -74,6 +74,9 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
         final Optional<String> opt = s_authorParser1.extractOptional(_data);
         final String authors = opt.isPresent() ? opt.get() : s_authorParser2.extract(_data);
         final String cleanedText = HtmlHelper.cleanContent(authors);
+        if (cleanedText.equals("GitLab Security Team")) {
+            return new ArrayList<>(0);
+        }
         return LinkContentParserUtils.getAuthors(cleanedText);
     }
 

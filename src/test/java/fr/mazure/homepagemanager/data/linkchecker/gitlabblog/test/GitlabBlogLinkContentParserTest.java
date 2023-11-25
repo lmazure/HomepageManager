@@ -78,7 +78,7 @@ public class GitlabBlogLinkContentParserTest {
         "https://about.gitlab.com/blog/2021/10/19/top-10-gitlab-hacks/,2021-10-19",
         "https://about.gitlab.com/blog/2021/10/18/improve-cd-workflows-helm-chart-registry/,2021-10-18",
         "https://about.gitlab.com/blog/2023/07/25/rail-m-is-an-imperfectly-good-start-for-ai-model-licenses/,2023-07-25",
-        "https://about.gitlab.com/blog/2023/08/28/sha256-support-in-gitaly/,2023-08-28"
+        "https://about.gitlab.com/blog/2023/08/28/sha256-support-in-gitaly/,2023-08-28",
         })
     void testDate(final String url,
                   final String expectedDate) {
@@ -102,11 +102,34 @@ public class GitlabBlogLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
+        "https://about.gitlab.com/blog/2023/09/28/unmasking-password-attacks-at-gitlab/",
+        })
+    void testNoAuthors(final String url) {
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(url,
+                           (final Boolean b, final FullFetchedLinkData d) -> {
+                               Assertions.assertTrue(d.dataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
+                               final GitlabBlogLinkContentParser parser = new GitlabBlogLinkContentParser(url, data);
+                               try {
+                                   Assertions.assertEquals(0, parser.getSureAuthors().size());
+                                } catch (final ContentParserException e) {
+                                    Assertions.fail("getSureAuthors threw " + e.getMessage());
+                                }
+                               consumerHasBeenCalled.set(true);
+                           },
+                           false);
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
         "https://about.gitlab.com/blog/2021/12/15/devops-adoption/,Orit,,Golowinski",
         "https://about.gitlab.com/blog/2021/08/24/stageless-pipelines/,Dov,,Hershkovitch",
         "https://about.gitlab.com/blog/2021/10/19/top-10-gitlab-hacks/,Michael,,Friedrich",
         "https://about.gitlab.com/blog/2021/10/18/improve-cd-workflows-helm-chart-registry/,Philip,,Welz",
-        "https://about.gitlab.com/blog/2023/08/28/sha256-support-in-gitaly/,John,,Cai"
+        "https://about.gitlab.com/blog/2023/08/28/sha256-support-in-gitaly/,John,,Cai",
         })
     void testAuthor(final String url,
                     final String expectedFirstName,
@@ -140,7 +163,7 @@ public class GitlabBlogLinkContentParserTest {
     @ParameterizedTest
     @CsvSource({
         "https://about.gitlab.com/blog/2021/09/23/best-practices-customer-feature-request/,Christina,,Hupy,Neil,,McCorrison",
-        "https://about.gitlab.com/blog/2021/09/29/why-we-spent-the-last-month-eliminating-postgresql-subtransactions/,Stan,,Hu,Grzegorz,,Bizon"
+        "https://about.gitlab.com/blog/2021/09/29/why-we-spent-the-last-month-eliminating-postgresql-subtransactions/,Stan,,Hu,Grzegorz,,Bizon",
         })
     void testTwoAuthors(final String url,
                         final String expectedFirstName1,

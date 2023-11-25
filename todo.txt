@@ -10,10 +10,22 @@ methods       53.0%/52.2%    97.9%
 
 
 
+Problems sur l'extraction des auteurs de https://arstechnica.com/information-technology/2023/11/report-sutskever-led-board-coup-at-openai-that-ousted-altman-over-ai-safety-concerns/
+
+
+corriger
+https://about.gitlab.com/blog/
+Article should have a creation date
+
+gérer les auteurs de https://about.gitlab.com/blog/2023/09/28/unmasking-password-attacks-at-gitlab/
+
+détecter les caractères de ponctuation dans les composants d'author (ou peut-être ce qui n'est pas une lettre, un tiret ou un escpace)
 
 ==== potentially before merge =====
 
-utilise <PRE> pour les blocs de code
+mettre lesCODESAMPLE en preformatted !
+
++-> utilise <PRE> pour les blocs de code
 
 navigation par alphabet pour les tables du site
 
@@ -28,8 +40,6 @@ ajouter détection des comments qui font allusion au fait qu'il y a un subtitle 
 nettoyer test.xml
 
 nettoyer coding.xml
-
-gérer les auteurs de https://about.gitlab.com/blog/2023/09/28/unmasking-password-attacks-at-gitlab/
 
 nettoyer ide.xml
 
@@ -109,8 +119,6 @@ en ignorant lorsque la chaîne de redirection ramène au point de départ
 
 
 ==== after merge =====
-
-mettre lesCODESAMPLE en preformatted !
 
 certaines des chaines listées dans IncorrectSpaceChecker sons suspectes
 
