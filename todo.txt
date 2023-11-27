@@ -11,25 +11,20 @@ methods       53.0%/52.2%    97.9%
 
 
 
+==== potentially before merge =====
+
+navigation par alphabet pour les tables du site
+
+
 corriger
 https://about.gitlab.com/blog/
 Article should have a creation date
-
-==== potentially before merge =====
-
-mettre les CODESAMPLE en preformatted !
-
-+-> utilise <PRE> pour les blocs de code
-
-navigation par alphabet pour les tables du site
 
 corriger problème de reconnaissance des langues sur YouTube
 
 nettoyer perl.xml
 
 réimplémenter toute la logique twitter: il répond désormais 200 même si le compte n'existe pas
-²
-ajouter détection des comments qui font allusion au fait qu'il y a un subtitle alors qu'il n'y en a pas
 
 nettoyer test.xml
 
@@ -46,7 +41,7 @@ le début du nom des fichiers ne devrait par être présent
 
 nettoyer cracking.xml
 
-nettoyer tous les lisns auntminnie
+nettoyer tous les liens auntminnie
 
 problème de date avec https://developer.ibm.com/articles/os-developers-know-rust/
 

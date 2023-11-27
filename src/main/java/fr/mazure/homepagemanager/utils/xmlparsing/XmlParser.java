@@ -52,7 +52,15 @@ public class XmlParser {
             authors.add(XmlParser.parseAuthorElement(authorNode));
         }
 
-        return new ArticleData(date, authors, links);
+        String comment;
+        final List<Element> commentNodes = XmlHelper.getChildrenByElementType(articleElement, ElementType.COMMENT);
+        if (commentNodes.size() == 1) {
+            comment = commentNodes.get(0).getTextContent();
+        } else {
+            throw new XmlParsingException("Wrong number of COMMENT nodes (" + commentNodes.size() + ")");
+        }
+
+        return new ArticleData(date, authors, links, comment);
     }
 
     /**

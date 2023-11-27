@@ -42,7 +42,7 @@ public class LinkContentCheckerTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
-        final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null);
+        final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null, null);
         retriever.retrieve(url,
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
@@ -71,7 +71,7 @@ public class LinkContentCheckerTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
-        final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null);
+        final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null, null);
         retriever.retrieve(url,
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
@@ -101,7 +101,7 @@ public class LinkContentCheckerTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final LinkData linkData = new LinkData(expectedSubtitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
-        final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null);
+        final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null, null);
         retriever.retrieve(url,
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
@@ -129,7 +129,7 @@ public class LinkContentCheckerTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
-        final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null);
+        final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null, null);
         retriever.retrieve(url,
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
