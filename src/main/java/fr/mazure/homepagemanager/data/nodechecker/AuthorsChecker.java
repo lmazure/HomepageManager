@@ -30,7 +30,7 @@ public class AuthorsChecker extends NodeChecker {
 
     private static final Pattern s_fixControl = Pattern.compile("[ \\.\\p{IsAlphabetic}]+");
     private static final Pattern s_nameControl = Pattern.compile("[- \\.\\p{IsAlphabetic}’]+");
-    private static final Pattern s_givenControl = Pattern.compile("[ \\.\\p{IsAlphabetic}0-9]+");
+    private static final Pattern s_givenControl = Pattern.compile("[ \\.\\*\\p{IsAlphabetic}0-9]+");
 
     /**
     * constructor
