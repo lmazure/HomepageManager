@@ -8,6 +8,9 @@ branches      44.8%    77.5%
 lines         65.9%    94.7%
 methods       53.0%/52.2%    97.9%
 
+le nom est mal formatté dans le popup, pex Sinan Eren "noir"
+
+indiquer les sureauthors dans le dialogue de génération du XML
 
 séparer les modèles LLM
 
