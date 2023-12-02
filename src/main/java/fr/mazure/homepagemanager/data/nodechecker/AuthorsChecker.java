@@ -30,7 +30,7 @@ public class AuthorsChecker extends NodeChecker {
 
     private static final Pattern s_fixControl = Pattern.compile("[ \\.\\p{IsAlphabetic}]+");
     private static final Pattern s_nameControl = Pattern.compile("[- \\.\\p{IsAlphabetic}’]+");
-    private static final Pattern s_givenControl = Pattern.compile("[ \\.\\*\\p{IsAlphabetic}0-9]+");
+    private static final Pattern s_givenControl = Pattern.compile("[ ’\\.\\*\\p{IsAlphabetic}0-9]+");
 
     /**
     * constructor
@@ -39,7 +39,7 @@ public class AuthorsChecker extends NodeChecker {
         super(s_selector,
               AuthorsChecker::checkWellKnownAuthors, "author list contains expected list of well known authors",
               AuthorsChecker::detectDuplicatedAuthor, "author list contains duplicated authors",
-              AuthorsChecker::detectWrongCharacters, "author anme contains illegal characters");
+              AuthorsChecker::detectWrongCharacters, "author name contains illegal characters");
     }
 
     private static CheckStatus checkWellKnownAuthors(final Element e) {

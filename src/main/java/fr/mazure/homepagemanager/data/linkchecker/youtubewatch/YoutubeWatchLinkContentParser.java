@@ -164,7 +164,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     }
 
     final static LocalDate parseDateTimeString(final String str) throws ContentParserException {
-        
+
         // case the date is formatted as YYYY-MM-DD
         if (str.length() == 10) {
             return LocalDate.parse(str);

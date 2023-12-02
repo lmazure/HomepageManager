@@ -12,7 +12,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.XmlParser;
 import fr.mazure.homepagemanager.utils.xmlparsing.XmlParsingException;
 
 /**
- * Check that the comment of an article is consistent with the characteristics of the article 
+ * Check that the comment of an article is consistent with the characteristics of the article
  */
 public class ArticleCommentChecker  extends NodeChecker {
 

@@ -6,7 +6,6 @@ import org.xml.sax.SAXException;
 
 class AuthorsCheckerTest extends NodeValueCheckerTestBase {
 
-
     @SuppressWarnings("static-method")
     @Test
     void correctWellKnownAuthorsAreIgnored() {

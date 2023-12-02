@@ -9,7 +9,7 @@ import fr.mazure.homepagemanager.data.linkchecker.XmlGenerator;
  * Correct the date of an article
  */
 public class UpdateArticleDateCorrection extends RegexpViolationCorrection {
-    
+
     /**
      * Constructor
      *
