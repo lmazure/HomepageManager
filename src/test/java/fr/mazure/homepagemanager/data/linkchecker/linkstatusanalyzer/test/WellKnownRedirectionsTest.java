@@ -275,6 +275,18 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
+        "http://www.rational.com/technotes/devtools_html/Purify_html/technote_14961.html",
+        })
+    void rational(final String url) {
+        test(url,
+             true,
+             Integer.valueOf(200),
+             "removed from Rational",
+             Set.of(LinkStatus.REMOVED));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
         "https://channel9.msdn.com/Blogs/David+Gristwood/An-F-Tutorial-with-Don-Syme-2-of-4 ",
         "https://channel9.msdn.com/Events/Lang-NEXT/Lang-NEXT-2014/CSharp",
         "https://channel9.msdn.com/Events/Patterns-Practices-Symposium-Online/pattern-practices-symposium-2013/Introducing-Git-Version-Control-into-Your-Team",
