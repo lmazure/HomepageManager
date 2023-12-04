@@ -167,6 +167,22 @@ public class WellKnownRedirections {
         }
 
         {
+            final RedirectionMatcher oReillyRemoved4 = new RedirectionMatcher("removed from O’Reilly",
+                                                                              Set.of(LinkStatus.REMOVED));
+            oReillyRemoved4.add("\\Qhttp://www.oreillynet.com/pub/a/wireless/\\E(?<article>.+)",
+                                Set.of(Integer.valueOf(301)),
+                                RedirectionMatcher.Multiplicity.ONE);
+            oReillyRemoved4.add("\\Qhttp://archive.oreilly.com/pub/a/wireless/\\E\\k<article>",
+                                Set.of(Integer.valueOf(301)),
+                                RedirectionMatcher.Multiplicity.ONE);
+            oReillyRemoved4.add("\\Qhttps://www.oreilly.com/\\E",
+                                Set.of(Integer.valueOf(200)),
+                                RedirectionMatcher.Multiplicity.ONE);
+            oReillyRemoved4.compile();
+            _matchers.add(oReillyRemoved4);
+        }
+
+        {
             final RedirectionMatcher ibmRemoved1 = new RedirectionMatcher("removed from IBM",
                                                                           Set.of(LinkStatus.REMOVED));
             ibmRemoved1.add("https://www.ibm.com/developerworks/(architecture|java|linux|opensource|systems|web|webservices|xml)/library/" + RedirectionMatcher.ANY_STRING,

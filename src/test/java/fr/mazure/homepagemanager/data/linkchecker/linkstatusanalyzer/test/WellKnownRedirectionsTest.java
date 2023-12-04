@@ -219,8 +219,8 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
-        "http://www.linuxdevcenter.com/pub/a/linux/2004/03/04/warp_pipe.html",
         "http://linux.oreillynet.com/pub/a/linux/2002/05/09/uid.html",
+        "http://www.linuxdevcenter.com/pub/a/linux/2004/03/04/warp_pipe.html",
         "http://www.onjava.com/catalog/javaadn/excerpt/javaadn_ch05.pdf",
         "http://www.onjava.com/pub/a/onjava/2003/06/25/commons.html",
         "http://www.onlamp.com/pub/a/onlamp/2005/02/24/pg_buildfarm.html",
@@ -230,6 +230,7 @@ class WellKnownRedirectionsTest {
         "http://www.oreillynet.com/onlamp/blog/2005/12/two_things_that_bother_me_abou.html",
         "http://www.oreillynet.com/pub/a/network/2003/05/20/secureprogckbk.html",
         "http://www.oreillynet.com/pub/a/oreilly/security/news/2004/03/08/netsec.html",
+        "http://www.oreillynet.com/pub/a/wireless/2003/12/04/tftp.html",
         "http://www.oreillynet.com/xml/blog/2006/06/understanding_xforms_component.html",
         })
     void oReilly(final String url) {

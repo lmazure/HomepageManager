@@ -9,6 +9,12 @@ lines         65.9%    94.7%
 methods       53.0%/52.2%    97.9%
 
 
+gérer les erreurs de compo.xml, il y a du code à modifier
+
+nettoyer javahistory.xml
+
+nettoyer design.xml
+
 le nom est mal formatté dans le popup, pex Sinan Eren "noir"
 
 
