@@ -28,7 +28,7 @@ public class LinkContentParserUtils {
      */
     public static AuthorData getAuthor(final String str) throws ContentParserException {
         final String s = str.replaceAll("\\(.*\\)", "");
-        final String[] nameParts = HtmlHelper.cleanContent(s).split(" ");
+        final String[] nameParts = HtmlHelper.cleanContent(s).split("( |\u00A0)");
         if (nameParts.length == 2) {
             return new AuthorData(Optional.empty(),
                                   Optional.of(uppercaseFirstCharacter(nameParts[0])),

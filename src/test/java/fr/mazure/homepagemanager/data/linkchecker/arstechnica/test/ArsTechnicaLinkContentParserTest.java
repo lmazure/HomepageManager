@@ -109,7 +109,9 @@ public class ArsTechnicaLinkContentParserTest {
         // the next article ends with Financial Times
         "https://arstechnica.com/tech-policy/2022/12/twitter-rival-mastodon-rejects-funding-to-preserve-nonprofit-status/,Ian,,Johnston",
         // the next article ends with Inside Climate News
-        "https://arstechnica.com/cars/2023/03/why-its-time-to-officially-get-over-your-ev-range-anxiety/,Dan,,Gearino"
+        "https://arstechnica.com/cars/2023/03/why-its-time-to-officially-get-over-your-ev-range-anxiety/,Dan,,Gearino",
+        // the first name and last name are separated by a non breaking space
+        "https://arstechnica.com/gadgets/2023/01/the-generative-ai-revolution-has-begun-how-did-we-get-here/,Haomiao,,Huang",
         })
     void testAuthor(final String url,
                     final String expectedFirstName,
