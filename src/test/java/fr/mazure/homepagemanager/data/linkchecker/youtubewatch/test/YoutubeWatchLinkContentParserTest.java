@@ -384,13 +384,25 @@ public class YoutubeWatchLinkContentParserTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {
-            "https://www.youtube.com/watch?v=-0ErpE8tQbw",
-            "https://www.youtube.com/watch?v=8idr1WZ1A7Q",
-            "https://www.youtube.com/watch?v=aeF-0y9HP9A",
-            "https://www.youtube.com/watch?v=ytuHV2e4c4Q"
-                           })
-    void testEnglishSubtitles(final String url) {
+    @CsvSource({
+            "https://www.youtube.com/watch?v=-0ErpE8tQbw,de",
+            "https://www.youtube.com/watch?v=-JcoFa5ieyA,vi",
+            "https://www.youtube.com/watch?v=8idr1WZ1A7Q,en",
+            "https://www.youtube.com/watch?v=HEfHFsfGXjs,nl",
+            "https://www.youtube.com/watch?v=QAU9psRDPZg,de",
+            "https://www.youtube.com/watch?v=_kGqkxQo-Tw,fr",
+            "https://www.youtube.com/watch?v=aeF-0y9HP9A,en",
+            "https://www.youtube.com/watch?v=atKDrGedg_w,fr",
+            "https://www.youtube.com/watch?v=dQXVn7pFsVI,pt",
+            "https://www.youtube.com/watch?v=d_bHo4nE_tE,nl",
+            "https://www.youtube.com/watch?v=laty3vXKRek,ko",
+            "https://www.youtube.com/watch?v=oJTwQvgfgMM,de",
+            "https://www.youtube.com/watch?v=ohU1tEwxOSE,fr",
+            "https://www.youtube.com/watch?v=thT-RSEBxo8,vi",
+            "https://www.youtube.com/watch?v=ytuHV2e4c4Q,en",
+           })
+    void testSubtitlesLanguage(final String url,
+                               final String expectedLanguage) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
@@ -399,60 +411,7 @@ public class YoutubeWatchLinkContentParserTest {
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
                                try {
-                                   Assertions.assertEquals(Locale.ENGLISH, parser.getSubtitlesLanguage().get());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getSubtitlesLanguage threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
-    }
-
-    @ParameterizedTest
-    @ValueSource(strings = {
-            "https://www.youtube.com/watch?v=_kGqkxQo-Tw",
-            "https://www.youtube.com/watch?v=atKDrGedg_w",
-            "https://www.youtube.com/watch?v=ohU1tEwxOSE"
-                           })
-    void testFrenchSubtitles(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final YoutubeWatchLinkContentParser parser = buildParser(data, url);
-                               try {
-                                   Assertions.assertEquals(Locale.FRENCH, parser.getSubtitlesLanguage().get());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getSubtitlesLanguage threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
-    }
-
-    @ParameterizedTest
-    @CsvSource(value = {
-            "https://www.youtube.com/watch?v=QAU9psRDPZg|German",
-            "https://www.youtube.com/watch?v=laty3vXKRek|Korean",
-            "https://www.youtube.com/watch?v=HEfHFsfGXjs|Dutch",
-            "https://www.youtube.com/watch?v=dQXVn7pFsVI|Portuguese",
-            "https://www.youtube.com/watch?v=-JcoFa5ieyA|Vietnamese",
-              }, delimiter = '|')
-    void testWeirdSubtitles(final String url,
-                            final String expectedLanguage) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final YoutubeWatchLinkContentParser parser = buildParser(data, url);
-                               try {
-                                   Assertions.assertEquals(expectedLanguage, parser.getSubtitlesLanguage().get().getDisplayLanguage(Locale.ENGLISH));
+                                   Assertions.assertEquals(Locale.forLanguageTag(expectedLanguage), parser.getSubtitlesLanguage().get());
                                } catch (final ContentParserException e) {
                                    Assertions.fail("getSubtitlesLanguage threw " + e.getMessage());
                                }

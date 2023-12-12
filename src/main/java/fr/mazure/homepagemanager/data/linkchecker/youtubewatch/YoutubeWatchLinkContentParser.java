@@ -140,9 +140,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         _title = title;
         _description = description;
         _subtitlesLanguage = subtitlesLanguage;
-        if (_subtitlesLanguage.isPresent()) {
-            _language = _subtitlesLanguage.get();
-        } else {
+        {
             final Optional<Locale> lang2 = (description != null) ? StringHelper.guessLanguage(description)
                                                                  : Optional.empty();
             if (lang2.isPresent()) {

@@ -10,28 +10,19 @@ methods       53.0%/52.2%    97.9%
 
 
  
-gérer 
+ réparer test utiniatires
+ - GitlabBlogLinkContentParserTest
+
+
+gérer
  https://arstechnica.com/gaming/2023/01/dd-maker-still-wants-to-revoke-earlier-versions-of-open-gaming-license/
 The list of effective authors is not the effective one.
 The following authors are effectively present but are unexpected: ▭ first=Kyle ▭ last=Orl ▭ ▭
 The following authors are expected but are effectively missing: ▭ first=Kyle ▭ last=Orland ▭ ▭
 
 
-nettoyer javahistory.xml
-
-
-nettoyer design.xml
-
-
 le nom est mal formatté dans le popup, pex Sinan Eren "noir"
 
-
-indiquer les sureauthors dans le dialogue de génération du XML
-
-
-séparer les modèles LLM
-
-==== potentially before merge =====
 
 navigation par alphabet pour les tables du site
 
@@ -39,6 +30,23 @@ navigation par alphabet pour les tables du site
 corriger
 https://about.gitlab.com/blog/
 Article should have a creation date
+
+
+indiquer les sureauthors dans le dialogue de génération du XML
+
+
+séparer les modèles LLM
+
+
+
+
+==== potentially before merge =====
+
+nettoyer javahistory.xml
+
+
+nettoyer design.xml
+
 
 corriger problème de reconnaissance des langues sur YouTube
 
