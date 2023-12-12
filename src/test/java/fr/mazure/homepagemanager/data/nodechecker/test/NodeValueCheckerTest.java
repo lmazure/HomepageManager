@@ -122,7 +122,7 @@ public class NodeValueCheckerTest extends NodeValueCheckerTestBase {
         	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
         	<CONTENT>\r
         	<BLIST><TITLE>My articles</TITLE>\r
-        	<ITEM><ARTICLE><X><T>Fuz  baz</T><A>https://example.com/page</A><L>en</L><F>HTML</F></X></ARTICLE></ITEM>\r
+        	<ITEM><ARTICLE><X><T>Fuz  baz</T><A>https://example.com/page</A><L>en</L><F>HTML</F></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>\r
         	</BLIST>\r
         	</CONTENT>\r
         	</PAGE>""";
