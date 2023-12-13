@@ -28,7 +28,7 @@ public class GitlabBlogLinkContentParserTest {
         "https://about.gitlab.com/blog/2021/10/19/top-10-gitlab-hacks/|Top ten GitLab hacks for all stages of the DevOps Platform",
         "https://about.gitlab.com/blog/2021/10/18/improve-cd-workflows-helm-chart-registry/|Get started with GitLab's Helm Package Registry",
         "https://about.gitlab.com/blog/2023/08/10/learning-rust-with-a-little-help-from-ai-code-suggestions-getting-started/|Learning Rust with a little help from AI",
-        "https://about.gitlab.com/blog/2023/08/28/sha256-support-in-gitaly/|GitLab Gitaly project now supports the SHA-256 hashing algorithm",
+        "https://about.gitlab.com/blog/2023/08/28/sha256-support-in-gitaly/|GitLab Gitaly project now supports the SHA 256 hashing algorithm",
         }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
