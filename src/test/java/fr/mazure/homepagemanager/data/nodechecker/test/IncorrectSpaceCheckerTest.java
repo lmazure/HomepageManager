@@ -15,39 +15,39 @@ public class IncorrectSpaceCheckerTest extends NodeValueCheckerTestBase {
 
         final String content =
             """
-        	<?xml version="1.0"?>\r
-        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
-        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd" xml:lang="en">\r
-        	<TITLE>Test</TITLE>\r
-        	<PATH>HomepageManager/test.xml</PATH>\r
-        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
-        	<CONTENT>\r
-        	<BLIST><TITLE>Aab,xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab, xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab ,xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab , xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab;xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab; xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab ;xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab ; xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab:xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab: xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab :xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab : xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab.xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab. xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab .xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab . xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab!xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab! xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab !xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab ! xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab?xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab? xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab ?xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab ? xyz</TITLE></BLIST>\r
-        	</CONTENT>\r
-        	</PAGE>""";
+            <?xml version="1.0"?>\r
+            <?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+            <PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd" xml:lang="en">\r
+            <TITLE>Test</TITLE>\r
+            <PATH>HomepageManager/test.xml</PATH>\r
+            <DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+            <CONTENT>\r
+            <BLIST><TITLE>Aab,xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab, xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab ,xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab , xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab;xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab; xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab ;xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab ; xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab:xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab: xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab :xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab : xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab.xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab. xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab .xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab . xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab!xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab! xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab !xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab ! xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab?xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab? xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab ?xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab ? xyz</TITLE></BLIST>\r
+            </CONTENT>\r
+            </PAGE>""";
 
         try {
             test(content,
@@ -86,39 +86,39 @@ public class IncorrectSpaceCheckerTest extends NodeValueCheckerTestBase {
 
         final String content =
             """
-        	<?xml version="1.0"?>\r
-        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
-        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd" xml:lang="fr">\r
-        	<TITLE>Test</TITLE>\r
-        	<PATH>HomepageManager/test.xml</PATH>\r
-        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
-        	<CONTENT>\r
-        	<BLIST><TITLE>Aab,xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab, xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab ,xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab , xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab;xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab; xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab ;xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab ; xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab:xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab: xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab :xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab : xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab.xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab. xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab .xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab . xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab!xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab! xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab !xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab ! xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab?xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab? xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab ?xyz</TITLE></BLIST>\r
-        	<BLIST><TITLE>Aab ? xyz</TITLE></BLIST>\r
-        	</CONTENT>\r
-        	</PAGE>""";
+            <?xml version="1.0"?>\r
+            <?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+            <PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd" xml:lang="fr">\r
+            <TITLE>Test</TITLE>\r
+            <PATH>HomepageManager/test.xml</PATH>\r
+            <DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+            <CONTENT>\r
+            <BLIST><TITLE>Aab,xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab, xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab ,xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab , xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab;xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab; xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab ;xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab ; xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab:xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab: xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab :xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab : xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab.xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab. xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab .xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab . xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab!xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab! xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab !xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab ! xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab?xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab? xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab ?xyz</TITLE></BLIST>\r
+            <BLIST><TITLE>Aab ? xyz</TITLE></BLIST>\r
+            </CONTENT>\r
+            </PAGE>""";
 
         try {
             test(content,
@@ -153,25 +153,25 @@ public class IncorrectSpaceCheckerTest extends NodeValueCheckerTestBase {
 
         final String content =
             """
-        	<?xml version="1.0"?>\r
-        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
-        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd" xml:lang="en">\r
-        	<TITLE>Test</TITLE>\r
-        	<PATH>HomepageManager/test.xml</PATH>\r
-        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
-        	<CONTENT>\r
-        	<BLIST><TITLE>He is Bob.She is Alice</TITLE></BLIST>\r
-        	<BLIST><TITLE>The string e.g. .NET should not be reported.</TITLE></BLIST>\r
-        	<BLIST><TITLE>The string (e.g. Node.js) should not be reported.</TITLE></BLIST>\r
-        	<BLIST><TITLE>Take care to not report something before a comma or a dot MANIFEST.MF, P.Anno.</TITLE></BLIST>\r
-        	<BLIST><TITLE>The string 12.34 should not be reported.</TITLE></BLIST>\r
-        	<BLIST><TITLE>The string ".He is bright" should be reported.</TITLE></BLIST>\r
-        	<BLIST><TITLE>The string .He is bright should be reported.</TITLE></BLIST>\r
-        	<BLIST><TITLE>The string (isn't it?) should not be reported.</TITLE></BLIST>\r
-        	<BLIST><TITLE>Two things: a and b.</TITLE></BLIST>\r
-        	<BLIST><TITLE>Hello!</TITLE></BLIST>\r
-        	</CONTENT>\r
-        	</PAGE>""";
+            <?xml version="1.0"?>\r
+            <?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+            <PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd" xml:lang="en">\r
+            <TITLE>Test</TITLE>\r
+            <PATH>HomepageManager/test.xml</PATH>\r
+            <DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+            <CONTENT>\r
+            <BLIST><TITLE>He is Bob.She is Alice</TITLE></BLIST>\r
+            <BLIST><TITLE>The string e.g. .NET should not be reported.</TITLE></BLIST>\r
+            <BLIST><TITLE>The string (e.g. Node.js) should not be reported.</TITLE></BLIST>\r
+            <BLIST><TITLE>Take care to not report something before a comma or a dot MANIFEST.MF, P.Anno.</TITLE></BLIST>\r
+            <BLIST><TITLE>The string 12.34 should not be reported.</TITLE></BLIST>\r
+            <BLIST><TITLE>The string ".He is bright" should be reported.</TITLE></BLIST>\r
+            <BLIST><TITLE>The string .He is bright should be reported.</TITLE></BLIST>\r
+            <BLIST><TITLE>The string (isn't it?) should not be reported.</TITLE></BLIST>\r
+            <BLIST><TITLE>Two things: a and b.</TITLE></BLIST>\r
+            <BLIST><TITLE>Hello!</TITLE></BLIST>\r
+            </CONTENT>\r
+            </PAGE>""";
 
         try {
             test(content,
@@ -190,20 +190,20 @@ public class IncorrectSpaceCheckerTest extends NodeValueCheckerTestBase {
 
         final String content =
             """
-        	<?xml version="1.0"?>\r
-        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
-        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd" xml:lang="en">\r
-        	<TITLE>Test</TITLE>\r
-        	<PATH>HomepageManager/test.xml</PATH>\r
-        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
-        	<CONTENT>\r
-        	<BLIST><TITLE>He is Bob. She is Alice.</TITLE></BLIST>\r
-        	<BLIST><TITLE>He is Boby . She is Alicy.</TITLE></BLIST>\r
-        	<BLIST><TITLE>There are three animals: sheep, pig, and cock.</TITLE></BLIST>\r
-        	<BLIST><TITLE>There are three animals : sheep, pig, and cock.</TITLE></BLIST>\r
-        	<BLIST><TITLE>There are three animals: sheep , pig, and cock.</TITLE></BLIST>\r
-        	</CONTENT>\r
-        	</PAGE>""";
+            <?xml version="1.0"?>\r
+            <?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+            <PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd" xml:lang="en">\r
+            <TITLE>Test</TITLE>\r
+            <PATH>HomepageManager/test.xml</PATH>\r
+            <DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+            <CONTENT>\r
+            <BLIST><TITLE>He is Bob. She is Alice.</TITLE></BLIST>\r
+            <BLIST><TITLE>He is Boby . She is Alicy.</TITLE></BLIST>\r
+            <BLIST><TITLE>There are three animals: sheep, pig, and cock.</TITLE></BLIST>\r
+            <BLIST><TITLE>There are three animals : sheep, pig, and cock.</TITLE></BLIST>\r
+            <BLIST><TITLE>There are three animals: sheep , pig, and cock.</TITLE></BLIST>\r
+            </CONTENT>\r
+            </PAGE>""";
 
         try {
             test(content,
@@ -221,25 +221,25 @@ public class IncorrectSpaceCheckerTest extends NodeValueCheckerTestBase {
 
         final String content =
             """
-        	<?xml version="1.0"?>\r
-        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
-        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd" xml:lang="fr">\r
-        	<TITLE>Test</TITLE>\r
-        	<PATH>HomepageManager/test.xml</PATH>\r
-        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
-        	<CONTENT>\r
-        	<BLIST><TITLE>He is Bob.She is Alice</TITLE></BLIST>\r
-        	<BLIST><TITLE>The string e.g. .NET should not be reported.</TITLE></BLIST>\r
-        	<BLIST><TITLE>The string (e.g. Node.js) should not be reported.</TITLE></BLIST>\r
-        	<BLIST><TITLE>Take care to not report something before a comma or a dot MANIFEST.MF, P.Anno.</TITLE></BLIST>\r
-        	<BLIST><TITLE>The string 12.34 should not be reported.</TITLE></BLIST>\r
-        	<BLIST><TITLE>The string ".He is bright" should be reported.</TITLE></BLIST>\r
-        	<BLIST><TITLE>The string .He is bright should be reported.</TITLE></BLIST>\r
-        	<BLIST><TITLE>The string (isn't it?) should not be reported.</TITLE></BLIST>\r
-        	<BLIST><TITLE>Two things: a and b.</TITLE></BLIST>\r
-        	<BLIST><TITLE>Hello!</TITLE></BLIST>\r
-        	</CONTENT>\r
-        	</PAGE>""";
+            <?xml version="1.0"?>\r
+            <?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+            <PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd" xml:lang="fr">\r
+            <TITLE>Test</TITLE>\r
+            <PATH>HomepageManager/test.xml</PATH>\r
+            <DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+            <CONTENT>\r
+            <BLIST><TITLE>He is Bob.She is Alice</TITLE></BLIST>\r
+            <BLIST><TITLE>The string e.g. .NET should not be reported.</TITLE></BLIST>\r
+            <BLIST><TITLE>The string (e.g. Node.js) should not be reported.</TITLE></BLIST>\r
+            <BLIST><TITLE>Take care to not report something before a comma or a dot MANIFEST.MF, P.Anno.</TITLE></BLIST>\r
+            <BLIST><TITLE>The string 12.34 should not be reported.</TITLE></BLIST>\r
+            <BLIST><TITLE>The string ".He is bright" should be reported.</TITLE></BLIST>\r
+            <BLIST><TITLE>The string .He is bright should be reported.</TITLE></BLIST>\r
+            <BLIST><TITLE>The string (isn't it?) should not be reported.</TITLE></BLIST>\r
+            <BLIST><TITLE>Two things: a and b.</TITLE></BLIST>\r
+            <BLIST><TITLE>Hello!</TITLE></BLIST>\r
+            </CONTENT>\r
+            </PAGE>""";
 
         try {
             test(content,
@@ -259,20 +259,20 @@ public class IncorrectSpaceCheckerTest extends NodeValueCheckerTestBase {
 
         final String content =
             """
-        	<?xml version="1.0"?>\r
-        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
-        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd" xml:lang="fr">\r
-        	<TITLE>Test</TITLE>\r
-        	<PATH>HomepageManager/test.xml</PATH>\r
-        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
-        	<CONTENT>\r
-        	<BLIST><TITLE>He is Bob. She is Alice.</TITLE></BLIST>\r
-        	<BLIST><TITLE>He is Boby . She is Alicy.</TITLE></BLIST>\r
-        	<BLIST><TITLE>There are three animals: sheep, pig, and cock.</TITLE></BLIST>\r
-        	<BLIST><TITLE>There are three animals : sheep, pig, and cock.</TITLE></BLIST>\r
-        	<BLIST><TITLE>There are three animals: sheep , pig, and cock.</TITLE></BLIST>\r
-        	</CONTENT>\r
-        	</PAGE>""";
+            <?xml version="1.0"?>\r
+            <?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+            <PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd" xml:lang="fr">\r
+            <TITLE>Test</TITLE>\r
+            <PATH>HomepageManager/test.xml</PATH>\r
+            <DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+            <CONTENT>\r
+            <BLIST><TITLE>He is Bob. She is Alice.</TITLE></BLIST>\r
+            <BLIST><TITLE>He is Boby . She is Alicy.</TITLE></BLIST>\r
+            <BLIST><TITLE>There are three animals: sheep, pig, and cock.</TITLE></BLIST>\r
+            <BLIST><TITLE>There are three animals : sheep, pig, and cock.</TITLE></BLIST>\r
+            <BLIST><TITLE>There are three animals: sheep , pig, and cock.</TITLE></BLIST>\r
+            </CONTENT>\r
+            </PAGE>""";
 
         try {
             test(content,

@@ -17,33 +17,33 @@ public class UpdateLinkTitleCorrectionTest {
 
         final String content =
             """
-        	<?xml version="1.0"?>\r
-        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
-        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
-        	<TITLE>test</TITLE>\r
-        	<PATH>dummy-dir/test.xml</PATH>\r
-        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
-        	<CONTENT>\r
-        	<BLIST><TITLE>Articles and videos</TITLE>\r
-        	<ITEM><ARTICLE><X><T>Visual Perception with Deep Learning</T><A>https://www.youtube.com/watch?v=3boKlkPBckA</A><L>en</L><F>MP4</F><DURATION><MINUTE>57</MINUTE><SECOND>25</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Yann</FIRSTNAME><LASTNAME>Le Cun</LASTNAME></AUTHOR><DATE><YEAR>2008</YEAR><MONTH>4</MONTH><DAY>10</DAY></DATE><COMMENT>Machine Learning: a description of the structure and learning methodology of a deep multi-layered architecture. Yann gives some examples for real-time video analysis.</COMMENT></ARTICLE></ITEM>\r
-        	</BLIST>\r
-        	</CONTENT>\r
-        	</PAGE>""";
+            <?xml version="1.0"?>\r
+            <?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+            <PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+            <TITLE>test</TITLE>\r
+            <PATH>dummy-dir/test.xml</PATH>\r
+            <DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+            <CONTENT>\r
+            <BLIST><TITLE>Articles and videos</TITLE>\r
+            <ITEM><ARTICLE><X><T>Visual Perception with Deep Learning</T><A>https://www.youtube.com/watch?v=3boKlkPBckA</A><L>en</L><F>MP4</F><DURATION><MINUTE>57</MINUTE><SECOND>25</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Yann</FIRSTNAME><LASTNAME>Le Cun</LASTNAME></AUTHOR><DATE><YEAR>2008</YEAR><MONTH>4</MONTH><DAY>10</DAY></DATE><COMMENT>Machine Learning: a description of the structure and learning methodology of a deep multi-layered architecture. Yann gives some examples for real-time video analysis.</COMMENT></ARTICLE></ITEM>\r
+            </BLIST>\r
+            </CONTENT>\r
+            </PAGE>""";
 
         final String expected =
             """
-        	<?xml version="1.0"?>\r
-        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
-        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
-        	<TITLE>test</TITLE>\r
-        	<PATH>dummy-dir/test.xml</PATH>\r
-        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
-        	<CONTENT>\r
-        	<BLIST><TITLE>Articles and videos</TITLE>\r
-        	<ITEM><ARTICLE><X><T>Visual Perception with Machine Learning</T><A>https://www.youtube.com/watch?v=3boKlkPBckA</A><L>en</L><F>MP4</F><DURATION><MINUTE>57</MINUTE><SECOND>25</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Yann</FIRSTNAME><LASTNAME>Le Cun</LASTNAME></AUTHOR><DATE><YEAR>2008</YEAR><MONTH>4</MONTH><DAY>10</DAY></DATE><COMMENT>Machine Learning: a description of the structure and learning methodology of a deep multi-layered architecture. Yann gives some examples for real-time video analysis.</COMMENT></ARTICLE></ITEM>\r
-        	</BLIST>\r
-        	</CONTENT>\r
-        	</PAGE>""";
+            <?xml version="1.0"?>\r
+            <?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+            <PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+            <TITLE>test</TITLE>\r
+            <PATH>dummy-dir/test.xml</PATH>\r
+            <DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+            <CONTENT>\r
+            <BLIST><TITLE>Articles and videos</TITLE>\r
+            <ITEM><ARTICLE><X><T>Visual Perception with Machine Learning</T><A>https://www.youtube.com/watch?v=3boKlkPBckA</A><L>en</L><F>MP4</F><DURATION><MINUTE>57</MINUTE><SECOND>25</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Yann</FIRSTNAME><LASTNAME>Le Cun</LASTNAME></AUTHOR><DATE><YEAR>2008</YEAR><MONTH>4</MONTH><DAY>10</DAY></DATE><COMMENT>Machine Learning: a description of the structure and learning methodology of a deep multi-layered architecture. Yann gives some examples for real-time video analysis.</COMMENT></ARTICLE></ITEM>\r
+            </BLIST>\r
+            </CONTENT>\r
+            </PAGE>""";
 
         final ViolationCorrection correction = new UpdateLinkTitleCorrection("Visual Perception with Deep Learning",
                                                                              "Visual Perception with Machine Learning",
@@ -57,33 +57,33 @@ public class UpdateLinkTitleCorrectionTest {
 
         final String content =
             """
-        	<?xml version="1.0"?>\r
-        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
-        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
-        	<TITLE>test</TITLE>\r
-        	<PATH>dummy-dir/test.xml</PATH>\r
-        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
-        	<CONTENT>\r
-        	<BLIST><TITLE>Articles and videos</TITLE>\r
-        	<ITEM><ARTICLE><X><T>Nvidia AI plays Minecraft, wins machine-learning conference award</T><ST>NeurIPS 2022 honors MineDojo for playing Minecraft when instructed by written prompts.</ST><A>https://arstechnica.com/information-technology/2022/11/nvidia-wins-award-for-ai-that-can-play-minecraft-on-command/</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Benj</FIRSTNAME><LASTNAME>Edwards</LASTNAME></AUTHOR><DATE><YEAR>2022</YEAR><MONTH>11</MONTH><DAY>28</DAY></DATE><COMMENT>The title says it all.</COMMENT></ARTICLE></ITEM>\r
-        	</BLIST>\r
-        	</CONTENT>\r
-        	</PAGE>""";
+            <?xml version="1.0"?>\r
+            <?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+            <PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+            <TITLE>test</TITLE>\r
+            <PATH>dummy-dir/test.xml</PATH>\r
+            <DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+            <CONTENT>\r
+            <BLIST><TITLE>Articles and videos</TITLE>\r
+            <ITEM><ARTICLE><X><T>Nvidia AI plays Minecraft, wins machine-learning conference award</T><ST>NeurIPS 2022 honors MineDojo for playing Minecraft when instructed by written prompts.</ST><A>https://arstechnica.com/information-technology/2022/11/nvidia-wins-award-for-ai-that-can-play-minecraft-on-command/</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Benj</FIRSTNAME><LASTNAME>Edwards</LASTNAME></AUTHOR><DATE><YEAR>2022</YEAR><MONTH>11</MONTH><DAY>28</DAY></DATE><COMMENT>The title says it all.</COMMENT></ARTICLE></ITEM>\r
+            </BLIST>\r
+            </CONTENT>\r
+            </PAGE>""";
 
         final String expected =
             """
-        	<?xml version="1.0"?>\r
-        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
-        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
-        	<TITLE>test</TITLE>\r
-        	<PATH>dummy-dir/test.xml</PATH>\r
-        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
-        	<CONTENT>\r
-        	<BLIST><TITLE>Articles and videos</TITLE>\r
-        	<ITEM><ARTICLE><X><T>Nvidia AI plays Warcraft, wins machine-learning conference award</T><ST>NeurIPS 2022 honors MineDojo for playing Minecraft when instructed by written prompts.</ST><A>https://arstechnica.com/information-technology/2022/11/nvidia-wins-award-for-ai-that-can-play-minecraft-on-command/</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Benj</FIRSTNAME><LASTNAME>Edwards</LASTNAME></AUTHOR><DATE><YEAR>2022</YEAR><MONTH>11</MONTH><DAY>28</DAY></DATE><COMMENT>The title says it all.</COMMENT></ARTICLE></ITEM>\r
-        	</BLIST>\r
-        	</CONTENT>\r
-        	</PAGE>""";
+            <?xml version="1.0"?>\r
+            <?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+            <PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+            <TITLE>test</TITLE>\r
+            <PATH>dummy-dir/test.xml</PATH>\r
+            <DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+            <CONTENT>\r
+            <BLIST><TITLE>Articles and videos</TITLE>\r
+            <ITEM><ARTICLE><X><T>Nvidia AI plays Warcraft, wins machine-learning conference award</T><ST>NeurIPS 2022 honors MineDojo for playing Minecraft when instructed by written prompts.</ST><A>https://arstechnica.com/information-technology/2022/11/nvidia-wins-award-for-ai-that-can-play-minecraft-on-command/</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Benj</FIRSTNAME><LASTNAME>Edwards</LASTNAME></AUTHOR><DATE><YEAR>2022</YEAR><MONTH>11</MONTH><DAY>28</DAY></DATE><COMMENT>The title says it all.</COMMENT></ARTICLE></ITEM>\r
+            </BLIST>\r
+            </CONTENT>\r
+            </PAGE>""";
 
         final ViolationCorrection correction = new UpdateLinkTitleCorrection("Nvidia AI plays Minecraft, wins machine-learning conference award",
                                                                              "Nvidia AI plays Warcraft, wins machine-learning conference award",
@@ -97,33 +97,33 @@ public class UpdateLinkTitleCorrectionTest {
 
         final String content =
             """
-        	<?xml version="1.0"?>\r
-        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
-        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
-        	<TITLE>test</TITLE>\r
-        	<PATH>dummy-dir/test.xml</PATH>\r
-        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
-        	<CONTENT>\r
-        	<BLIST><TITLE>Articles and videos</TITLE>\r
-        	<ITEM><ARTICLE><X><T>Real mathematical magic: The king’s algorithm &amp; Sallow’s geomagic</T><A>https://www.youtube.com/watch?v=FANbncTMCGc</A><L>en</L><F>MP4</F><DURATION><MINUTE>33</MINUTE><SECOND>24</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Burkard</FIRSTNAME><LASTNAME>Polster</LASTNAME></AUTHOR><DATE><YEAR>2023</YEAR><MONTH>2</MONTH><DAY>4</DAY></DATE><COMMENT>A "proof" that <AUTHOR><FIRSTNAME>Claude-Gaspar</FIRSTNAME><LASTNAME>Bachet de Méziriac</LASTNAME></AUTHOR>’s method generates a magic square and applying magic squares to geometrical shapes.</COMMENT></ARTICLE></ITEM>\r
-        	</BLIST>\r
-        	</CONTENT>\r
-        	</PAGE>""";
+            <?xml version="1.0"?>\r
+            <?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+            <PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+            <TITLE>test</TITLE>\r
+            <PATH>dummy-dir/test.xml</PATH>\r
+            <DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+            <CONTENT>\r
+            <BLIST><TITLE>Articles and videos</TITLE>\r
+            <ITEM><ARTICLE><X><T>Real mathematical magic: The king’s algorithm &amp; Sallow’s geomagic</T><A>https://www.youtube.com/watch?v=FANbncTMCGc</A><L>en</L><F>MP4</F><DURATION><MINUTE>33</MINUTE><SECOND>24</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Burkard</FIRSTNAME><LASTNAME>Polster</LASTNAME></AUTHOR><DATE><YEAR>2023</YEAR><MONTH>2</MONTH><DAY>4</DAY></DATE><COMMENT>A "proof" that <AUTHOR><FIRSTNAME>Claude-Gaspar</FIRSTNAME><LASTNAME>Bachet de Méziriac</LASTNAME></AUTHOR>’s method generates a magic square and applying magic squares to geometrical shapes.</COMMENT></ARTICLE></ITEM>\r
+            </BLIST>\r
+            </CONTENT>\r
+            </PAGE>""";
 
         final String expected =
             """
-        	<?xml version="1.0"?>\r
-        	<?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
-        	<PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
-        	<TITLE>test</TITLE>\r
-        	<PATH>dummy-dir/test.xml</PATH>\r
-        	<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
-        	<CONTENT>\r
-        	<BLIST><TITLE>Articles and videos</TITLE>\r
-        	<ITEM><ARTICLE><X><T>New magic in magic squares</T><A>https://www.youtube.com/watch?v=FANbncTMCGc</A><L>en</L><F>MP4</F><DURATION><MINUTE>33</MINUTE><SECOND>24</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Burkard</FIRSTNAME><LASTNAME>Polster</LASTNAME></AUTHOR><DATE><YEAR>2023</YEAR><MONTH>2</MONTH><DAY>4</DAY></DATE><COMMENT>A "proof" that <AUTHOR><FIRSTNAME>Claude-Gaspar</FIRSTNAME><LASTNAME>Bachet de Méziriac</LASTNAME></AUTHOR>’s method generates a magic square and applying magic squares to geometrical shapes.</COMMENT></ARTICLE></ITEM>\r
-        	</BLIST>\r
-        	</CONTENT>\r
-        	</PAGE>""";
+            <?xml version="1.0"?>\r
+            <?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+            <PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd">\r
+            <TITLE>test</TITLE>\r
+            <PATH>dummy-dir/test.xml</PATH>\r
+            <DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+            <CONTENT>\r
+            <BLIST><TITLE>Articles and videos</TITLE>\r
+            <ITEM><ARTICLE><X><T>New magic in magic squares</T><A>https://www.youtube.com/watch?v=FANbncTMCGc</A><L>en</L><F>MP4</F><DURATION><MINUTE>33</MINUTE><SECOND>24</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Burkard</FIRSTNAME><LASTNAME>Polster</LASTNAME></AUTHOR><DATE><YEAR>2023</YEAR><MONTH>2</MONTH><DAY>4</DAY></DATE><COMMENT>A "proof" that <AUTHOR><FIRSTNAME>Claude-Gaspar</FIRSTNAME><LASTNAME>Bachet de Méziriac</LASTNAME></AUTHOR>’s method generates a magic square and applying magic squares to geometrical shapes.</COMMENT></ARTICLE></ITEM>\r
+            </BLIST>\r
+            </CONTENT>\r
+            </PAGE>""";
 
         final ViolationCorrection correction = new UpdateLinkTitleCorrection("Real mathematical magic: The king’s algorithm & Sallow’s geomagic",
                                                                              "New magic in magic squares",
