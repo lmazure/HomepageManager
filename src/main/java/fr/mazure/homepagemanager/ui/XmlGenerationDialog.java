@@ -166,9 +166,12 @@ public class XmlGenerationDialog extends Dialog<Void> {
             return;
         }
 
-        if ((_probableAuthors.size() == 0) && (_possibleAuthors.size() == 0)) {
+        if ((_sureAuthors.size() == 0) && (_probableAuthors.size() == 0) && (_possibleAuthors.size() == 0)) {
             _authors.getChildren().add(new Label("No authors"));
         } else {
+            for (final AuthorData author: _sureAuthors) {
+                _authors.getChildren().add(new Label(authorAsString(author)));
+            }
             for (final AuthorData author: _probableAuthors) {
                 final CheckBox cb = new CheckBox(authorAsString(author));
                 cb.setSelected(true);

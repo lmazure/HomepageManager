@@ -32,15 +32,21 @@ https://about.gitlab.com/blog/
 Article should have a creation date
 
 
-indiquer les sureauthors dans le dialogue de génération du XML
-
-
-séparer les modèles LLM
-
-
 
 
 ==== potentially before merge =====
+
+gérer
+value = "As 1littlecoder says himself, he is not enough competent to criticize this paper (TinyGSM: achieving > 80% on GSM8k with small language models)https://arxiv.org/abs/2312.09241enHTML."
+ violation = "a COMMENT must not contain US syntax"
+ detail = "COMMENT "As 1littlecoder says himself, he is not enough competent to criticize this paper (TinyGSM: achieving > 80% on GSM8k with small language models)https://arxiv.org/abs/2312.09241enHTML." contains american word " criticize "  matching regexp "\W\p{Ll}{2,}ize[sd]?\W", it should be "ise""
+
+gérer
+ tag = "COMMENT"
+ value = "A funny video: the guy is not here to speak about the fake books he is selling (this seems to be Mojobak.com), but for branding himself and sell his bullshit of "AI Publisher Pro" business advice."
+ violation = "space is missing after punctuation"
+ detail = ""A funny video: the guy is not here to speak about the fake books he is selling (this seems to be Mojobak.com), but for branding himself and sell his bullshit of "AI Publisher Pro" business advice." is missing a space after punctuation"
+
 
 nettoyer javahistory.xml
 
