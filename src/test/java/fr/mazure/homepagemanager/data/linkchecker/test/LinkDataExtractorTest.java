@@ -249,6 +249,22 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchAndrejKarpathyIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=VMj-3S1tku0";
+        final String expectedXml = """
+                <ARTICLE><X><T>The spelled-out intro to neural networks and backpropagation: building micrograd</T>\
+                <A>https://www.youtube.com/watch?v=VMj-3S1tku0</A>\
+                <L>en</L><F>MP4</F><DURATION><HOUR>2</HOUR><MINUTE>25</MINUTE><SECOND>51</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Andrej</FIRSTNAME><LASTNAME>Karpathy</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>8</MONTH><DAY>16</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeWatchArjanCodesIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=pxuXaaT1u3k";
         final String expectedXml = """
