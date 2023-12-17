@@ -107,6 +107,9 @@ public class XmlGenerationDialog extends Dialog<Void> {
         final List<AuthorData> authors = new ArrayList<>(_sureAuthors);
 
         int i = 0;
+        for (@SuppressWarnings("unused") final AuthorData author: _sureAuthors) {
+            i++;
+        }
         for (final AuthorData author: _probableAuthors) {
             if (((CheckBox)_authors.getChildren().get(i++)).isSelected()) {
                 authors.add(author);
