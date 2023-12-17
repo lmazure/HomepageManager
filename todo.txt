@@ -9,17 +9,6 @@ lines         65.9%    94.7%
 methods       53.0%/52.2%    97.9%
 
 
- 
- réparer test utiniatires
- - GitlabBlogLinkContentParserTest
-
-
-gérer
- https://arstechnica.com/gaming/2023/01/dd-maker-still-wants-to-revoke-earlier-versions-of-open-gaming-license/
-The list of effective authors is not the effective one.
-The following authors are effectively present but are unexpected: ▭ first=Kyle ▭ last=Orl ▭ ▭
-The following authors are expected but are effectively missing: ▭ first=Kyle ▭ last=Orland ▭ ▭
-
 
 le nom est mal formatté dans le popup, pex Sinan Eren "noir"
 
@@ -27,14 +16,13 @@ le nom est mal formatté dans le popup, pex Sinan Eren "noir"
 navigation par alphabet pour les tables du site
 
 
+
+==== potentially before merge =====
+
 corriger
 https://about.gitlab.com/blog/
 Article should have a creation date
 
-
-
-
-==== potentially before merge =====
 
 gérer
 value = "As 1littlecoder says himself, he is not enough competent to criticize this paper (TinyGSM: achieving > 80% on GSM8k with small language models)https://arxiv.org/abs/2312.09241enHTML."
