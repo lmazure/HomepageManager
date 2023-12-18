@@ -23,12 +23,14 @@ public class XmlGenerator {
      * @param date creation date of the article
      * @param authors authors of the article
      * @param quality quality of the lik (between -2 and 2)
+     * @param comment comment of the article
      * @return XML describing the article
      */
     public static String generateXml(final List<ExtractedLinkData> links,
                                      final Optional<TemporalAccessor> date,
                                      final List<AuthorData> authors,
-                                     final int quality) {
+                                     final int quality,
+                                     final String comment) {
         final StringBuilder builder = new StringBuilder();
         builder.append("<ARTICLE>");
         for (final ExtractedLinkData linkData: links) {
@@ -74,7 +76,9 @@ public class XmlGenerator {
         if (date.isPresent()) {
             builder.append(generateDate(date.get()));
         }
-        builder.append("<COMMENT>XXXXX</COMMENT>");
+        builder.append("<COMMENT>");
+        builder.append(XmlHelper.transform(comment));
+        builder.append("</COMMENT>");
         builder.append("</ARTICLE>");
         return builder.toString();
     }

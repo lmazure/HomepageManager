@@ -20,9 +20,9 @@ public abstract class GenericBackgroundUiController extends GenericUiController 
 
     @Override
     public void handleUpdate(final Path file,
-    		                 final Status status,
-    		                 final Path outputFile,
-    		                 final Path reportFile) {
+                             final Status status,
+                             final Path outputFile,
+                             final Path reportFile) {
         callCallback(file, status, outputFile, reportFile);
     }
 }

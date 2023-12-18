@@ -51,7 +51,7 @@ public class LinkDataExtractorFactory {
         if (u.startsWith("https://arstechnica.com/")) {
             constructor = ArsTechnicaLinkContentParser::new;
         } else if (u.startsWith("https://www.baeldung.com/") &&
-        		   !u.equals("https://www.baeldung.com/")) {
+                   !u.equals("https://www.baeldung.com/")) {
             constructor = BaeldungLinkContentParser::new;
         } else if (url.startsWith("https://github.blog/")) {
             constructor = GithubBlogLinkContentParser::new;

@@ -89,7 +89,7 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
     public List<AuthorData> getSureAuthors() throws ContentParserException {
         final List<AuthorData> list = new ArrayList<>(1);
         final String extracted = s_authorParser.extract(_data);
-        final String[] components = extracted.split(" *(, and|and|,) *");
+        final String[] components = extracted.split("(, and | and |, )");
         for (final String author: components) {
             if (parternSites.contains(author)) {
                 continue;

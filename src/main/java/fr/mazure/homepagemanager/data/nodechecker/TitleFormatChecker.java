@@ -42,6 +42,7 @@ public class TitleFormatChecker extends NodeChecker {
                                                                             "m4",
                                                                             "make",
                                                                             "npm",
+                                                                            "pip",
                                                                             "quantum.country",
                                                                             "rpm",
                                                                             "sed",

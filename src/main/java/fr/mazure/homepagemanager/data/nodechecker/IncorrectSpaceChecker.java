@@ -48,6 +48,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "Intro.js",
             "Java.Next",
             "Kosmopoli:t",
+            "llama.cpp",
             "learntail.com",
             "MANIFEST.MF",
             "M.A.R.I.",

@@ -1,6 +1,7 @@
 package fr.mazure.homepagemanager.data.linkchecker.test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -17,6 +18,7 @@ import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentCheck;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
+import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
@@ -42,7 +44,7 @@ public class LinkContentCheckerTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
-        final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null);
+        final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null, null);
         retriever.retrieve(url,
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
@@ -71,7 +73,7 @@ public class LinkContentCheckerTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
-        final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null);
+        final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null, null);
         retriever.retrieve(url,
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
@@ -101,7 +103,7 @@ public class LinkContentCheckerTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final LinkData linkData = new LinkData(expectedSubtitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
-        final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null);
+        final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null, null);
         retriever.retrieve(url,
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
@@ -129,7 +131,7 @@ public class LinkContentCheckerTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
-        final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null);
+        final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null, null);
         retriever.retrieve(url,
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
@@ -147,4 +149,66 @@ public class LinkContentCheckerTest {
                            false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
-}
+
+    @ParameterizedTest
+    @CsvSource(value = {
+            "https://blog.google/technology/ai/google-gemini-ai/|en|Introducing Gemini: our largest and most capable AI model|Milad|Nasr"
+            }, delimiter = '|')
+    void testAuthor(final String url,
+                    final String locale,
+                    final String title,
+                    final String firstName,
+                    final String lastName) {
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        final LinkData linkData = new LinkData(title, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
+        final AuthorData author = new AuthorData(Optional.empty(), Optional.of(firstName), Optional.empty(), Optional.of(lastName), Optional.empty(), Optional.empty());
+        final ArticleData articleData = new ArticleData(Optional.empty(), Collections.singletonList(author), null, null);
+        retriever.retrieve(url,
+                           (final Boolean b, final FullFetchedLinkData d) -> {
+                               Assertions.assertTrue(d.dataFileSection().isPresent());
+                               final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.dataFileSection().get());
+                               try {
+                                   final List<LinkContentCheck> checks = checker.check();
+                                   Assertions.assertEquals(1, checks.size());
+                                   Assertions.assertEquals("author \"" + lastName + "\" does not appear in the page",
+                                                           checks.get(0).getDescription());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getTitle threw " + e.getMessage());
+                               }
+                               consumerHasBeenCalled.set(true);
+                           },
+                           false);
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+            // check proper management of ' and ’ (the two characters should be considered the same)
+            "https://www.assemblyai.com/blog/emergent-abilities-of-large-language-models/|en|Emergent Abilities of Large Language Models|Ryan|O’Connor"
+            }, delimiter = '|')
+    void testAuthorPresent(final String url,
+                           final String locale,
+                           final String title,
+                           final String firstName,
+                           final String lastName) {
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        final LinkData linkData = new LinkData(title, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
+        final AuthorData author = new AuthorData(Optional.empty(), Optional.of(firstName), Optional.empty(), Optional.of(lastName), Optional.empty(), Optional.empty());
+        final ArticleData articleData = new ArticleData(Optional.empty(), Collections.singletonList(author), null, null);
+        retriever.retrieve(url,
+                           (final Boolean b, final FullFetchedLinkData d) -> {
+                               Assertions.assertTrue(d.dataFileSection().isPresent());
+                               final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.dataFileSection().get());
+                               try {
+                                   final List<LinkContentCheck> checks = checker.check();
+                                   Assertions.assertEquals(0, checks.size());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getTitle threw " + e.getMessage());
+                               }
+                               consumerHasBeenCalled.set(true);
+                           },
+                           false);
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }}

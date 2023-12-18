@@ -1,6 +1,6 @@
 package fr.mazure.homepagemanager.data.linkchecker.gitlabblog;
 
-import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,20 +22,26 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 public class GitlabBlogLinkContentParser extends LinkDataExtractor {
 
     private final String _data;
-    private static final TextParser s_titleParser = new TextParser("<meta content='",
-                                                                   "[^']+",
-                                                                   "' property='og:title'/>",
+    private static final TextParser s_titleParser = new TextParser("<title>",
+                                                                   "</title>",
                                                                    "GitLab blog",
                                                                    "title");
-    private static final TextParser s_dateParser = new TextParser("<meta content='blog/blog-posts/",
-                                                                  "[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]",
-                                                                  "-[^']+' property='og:relative_path'/>",
+    // the next regexp should be "//www.facebook.com(?:/sharer)?/sharer.php\\?u=https://about.gitlab.com/blog/", but GitLab screwed up their site
+    // and used links such as "https://www.facebook.com/sharer/sharer.php?u=https://about.gitlab.com/blog/blog/2020/11/11/gitlab-for-agile-portfolio-planning-project-management/"
+    private static final TextParser s_dateParser = new TextParser("//www.facebook.com(?:/sharer)?/sharer.php\\?u=https://about.gitlab.com(?:/blog)?/blog/",
+                                                                  "\\d\\d\\d\\d/\\d\\d/\\d\\d",
+                                                                  "/",
                                                                   "GitLab blog",
                                                                   "date");
-    private static final TextParser s_authorParser = new TextParser("<div class=\"slp-flex-initial slp-order-last sm:slp-order-first\">",
-                                                                    "<span class=\"slp-mr-2 slp-hidden sm:slp-inline-block\">·</span>",
-                                                                    "GitLab blog",
-                                                                    "author");
+    private static final TextParser s_authorParser1 = new TextParser("<div class=\"slp-flex-initial slp-order-last sm:slp-order-first\">",
+                                                                     "<span class=\"slp-mr-2 slp-hidden sm:slp-inline-block\">",
+                                                                     "GitLab blog",
+                                                                     "author");
+    private static final TextParser s_authorParser2 = new TextParser("<div class=\"author\" [^>]+>",
+                                                                     "</div>",
+                                                                     "GitLab blog",
+                                                                     "author");
+    private static final DateTimeFormatter s_dateFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd", Locale.ENGLISH);
 
     /**
      * @param url URL of the link
@@ -49,7 +55,8 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
 
     @Override
     public String getTitle() throws ContentParserException {
-        return HtmlHelper.cleanContent(s_titleParser.extract(_data));
+        return HtmlHelper.cleanContent(s_titleParser.extract(_data))
+                         .replaceFirst(" \\| GitLab$", "");
     }
 
     @Override
@@ -59,13 +66,18 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
 
     @Override
     public Optional<TemporalAccessor> getDate() throws ContentParserException {
-        return Optional.of(LocalDate.parse(HtmlHelper.cleanContent(s_dateParser.extract(_data))));
+        return Optional.of(s_dateFormat.parse(HtmlHelper.cleanContent(s_dateParser.extract(_data))));
     }
 
     @Override
     public List<AuthorData> getSureAuthors() throws ContentParserException {
-        final String authors = s_authorParser.extract(_data);
-        return LinkContentParserUtils.getAuthors(authors);
+        final Optional<String> opt = s_authorParser1.extractOptional(_data);
+        final String authors = opt.isPresent() ? opt.get() : s_authorParser2.extract(_data);
+        final String cleanedText = HtmlHelper.cleanContent(authors);
+        if (cleanedText.equals("GitLab Security Team")) {
+            return new ArrayList<>(0);
+        }
+        return LinkContentParserUtils.getAuthors(cleanedText);
     }
 
     @Override

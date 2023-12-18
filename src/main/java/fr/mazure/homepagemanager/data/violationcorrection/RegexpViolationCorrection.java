@@ -31,7 +31,7 @@ public class RegexpViolationCorrection extends ViolationCorrection {
         final Matcher matcher = _pattern.matcher(content);
         return matcher.replaceAll(_replacement);
     }
-    
+
     /**
      * Escape the string used as replacement in Matcher.replaceAll().
      *

@@ -235,16 +235,19 @@ public class LinkContentChecker implements Checker {
     protected static LinkContentCheck simpleCheckLinkAuthors(final List<AuthorData> effectiveAuthors,
                                                              final List<AuthorData> expectedAuthors)
     {
+        final List<AuthorData> normalizedEffectiveAuthors = normalizeAuthorList(effectiveAuthors);
+        final List<AuthorData> normalizedExpectedAuthors = normalizeAuthorList(expectedAuthors);
+
         final List<AuthorData> unexpectedAuthors = new ArrayList<>();
-        for (final AuthorData author: effectiveAuthors) {
-            if (!expectedAuthors.contains(author)) {
+        for (final AuthorData author: normalizedEffectiveAuthors) {
+            if (!normalizedExpectedAuthors.contains(author)) {
                 unexpectedAuthors.add(author);
             }
         }
 
         final List<AuthorData> missingAuthors = new ArrayList<>();
-        for (final AuthorData author: expectedAuthors) {
-            if (!effectiveAuthors.contains(author)) {
+        for (final AuthorData author: normalizedExpectedAuthors) {
+            if (!normalizedEffectiveAuthors.contains(author)) {
                 missingAuthors.add(author);
             }
         }
@@ -259,8 +262,8 @@ public class LinkContentChecker implements Checker {
 
         }
 
-        for (int i = 0; i < expectedAuthors.size(); i++) {
-            if (!expectedAuthors.get(i).equals(effectiveAuthors.get(i))) {
+        for (int i = 0; i < normalizedExpectedAuthors.size(); i++) {
+            if (!normalizedExpectedAuthors.get(i).equals(normalizedEffectiveAuthors.get(i))) {
                 final String message = "The list of effective authors is not ordered as the effective one."
                         + "\nexpected authors: " + expectedAuthors.stream().map(AuthorData::toString).collect(Collectors.joining(","))
                         + "\neffective authors: " + effectiveAuthors.stream().map(AuthorData::toString).collect(Collectors.joining(","));
@@ -326,11 +329,13 @@ public class LinkContentChecker implements Checker {
 
     private static LinkContentCheck checkAuthor(final String data,
                                                 final AuthorData author) {
-        final String d = HtmlHelper.cleanContent(data);
+        final String d = HtmlHelper.cleanContent(data)
+                                   .replace("’", "'");
         final String authorStr = author.getLastName().isPresent() ? author.getLastName().get()
                                                                   : author.getFirstName().isPresent() ? author.getFirstName().get()
                                                                                                       : author.getGivenName().get();
-        if (StringHelper.generalizedIndex(d, authorStr, true, false) < 0) {
+        final String cleanedAuthorStr = authorStr.replace("’", "'");
+        if (StringHelper.generalizedIndex(d, cleanedAuthorStr, true, false) < 0) {
             return new LinkContentCheck("WrongAuthors",
                                         "author \"" + authorStr + "\" does not appear in the page",
                                         Optional.empty());
@@ -358,5 +363,23 @@ public class LinkContentChecker implements Checker {
                                     "\" but this one is unexpected, the expected languages are: " +
                                     expectedLanguagesAsString,
                                     correction);
+    }
+
+    private static List<AuthorData> normalizeAuthorList(final List<AuthorData> authors) {
+        final List<AuthorData> normalizedList = new ArrayList<>(authors.size());
+        for (final AuthorData author: authors) {
+            normalizedList.add(normalizeAuthor(author));
+        }
+        return normalizedList;
+    }
+
+    private static AuthorData normalizeAuthor(final AuthorData author) {
+        final Optional<String> namePrefix = author.getNamePrefix();
+        final Optional<String> firstName = author.getFirstName();
+        final Optional<String> middleName = author.getMiddleName();
+        final Optional<String> lastName = author.getLastName().map(s -> s.replace("’", "'"));
+        final Optional<String> nameSuffix = author.getNameSuffix();
+        final Optional<String> givenName = author.getGivenName();
+        return new AuthorData(namePrefix, firstName, middleName, lastName, nameSuffix, givenName);
     }
 }

@@ -17,7 +17,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.XmlParser;
 import fr.mazure.homepagemanager.utils.xmlparsing.XmlParsingException;
 
 /**
- *
+ * Check the dates of an article
  */
 public class ArticleDateChecker extends NodeChecker {
 

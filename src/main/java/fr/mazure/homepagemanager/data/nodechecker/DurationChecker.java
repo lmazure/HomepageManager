@@ -10,7 +10,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.ElementType;
 import fr.mazure.homepagemanager.utils.xmlparsing.XmlHelper;
 
 /**
-*
+* Check duration values
 */
 public class DurationChecker extends NodeChecker {
 

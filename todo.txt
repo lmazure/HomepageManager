@@ -9,23 +9,48 @@ lines         65.9%    94.7%
 methods       53.0%/52.2%    97.9%
 
 
+
+le nom est mal formatté dans le popup, pex Sinan Eren "noir"
+
+
+navigation par alphabet pour les tables du site
+
+
+
 ==== potentially before merge =====
 
-corriger problème de reconnaissance des langues sur YouTube
+corriger
+https://about.gitlab.com/blog/
+Article should have a creation date
 
-ajouter la possibilité de mettre le commentaire à la création du XML
+
+gérer
+value = "As 1littlecoder says himself, he is not enough competent to criticize this paper (TinyGSM: achieving > 80% on GSM8k with small language models)https://arxiv.org/abs/2312.09241enHTML."
+ violation = "a COMMENT must not contain US syntax"
+ detail = "COMMENT "As 1littlecoder says himself, he is not enough competent to criticize this paper (TinyGSM: achieving > 80% on GSM8k with small language models)https://arxiv.org/abs/2312.09241enHTML." contains american word " criticize "  matching regexp "\W\p{Ll}{2,}ize[sd]?\W", it should be "ise""
+
+gérer
+ tag = "COMMENT"
+ value = "A funny video: the guy is not here to speak about the fake books he is selling (this seems to be Mojobak.com), but for branding himself and sell his bullshit of "AI Publisher Pro" business advice."
+ violation = "space is missing after punctuation"
+ detail = ""A funny video: the guy is not here to speak about the fake books he is selling (this seems to be Mojobak.com), but for branding himself and sell his bullshit of "AI Publisher Pro" business advice." is missing a space after punctuation"
+
+
+nettoyer javahistory.xml
+
+
+nettoyer design.xml
+
+
+corriger problème de reconnaissance des langues sur YouTube
 
 nettoyer perl.xml
 
 réimplémenter toute la logique twitter: il répond désormais 200 même si le compte n'existe pas
-²
-ajouter détection des comments qui font allusion au fait qu'il y a un subtitle alors qu'il n'y en a pas
 
 nettoyer test.xml
 
 nettoyer coding.xml
-
-gérer les auteurs de https://about.gitlab.com/blog/2023/09/28/unmasking-password-attacks-at-gitlab/
 
 nettoyer ide.xml
 
@@ -38,7 +63,7 @@ le début du nom des fichiers ne devrait par être présent
 
 nettoyer cracking.xml
 
-nettoyer tous les lisns auntminnie
+nettoyer tous les liens auntminnie
 
 problème de date avec https://developer.ibm.com/articles/os-developers-know-rust/
 
@@ -105,8 +130,6 @@ en ignorant lorsque la chaîne de redirection ramène au point de départ
 
 
 ==== after merge =====
-
-mettre lesCODESAMPLE en preformatted !
 
 certaines des chaines listées dans IncorrectSpaceChecker sons suspectes
 

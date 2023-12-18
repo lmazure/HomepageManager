@@ -9,10 +9,12 @@ import java.util.Optional;
  * @param date Date of the article
  * @param authors Authors of the article
  * @param links Links toward instances of the article
+ * @param comment Comment of the article
  *
  */
 public record ArticleData(Optional<TemporalAccessor> date,
                           List<AuthorData> authors,
-                          List<LinkData> links) {
+                          List<LinkData> links,
+                          String comment) {
     // EMPTY
 }
