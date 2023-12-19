@@ -532,6 +532,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                                             match("Eisenbud", buildAuthor("David", "Eisenbud")),
                                                                             match("Frenkel", buildAuthor("Edward", "Frenkel")),
                                                                             match("Grime", buildAuthor("James", "Grime")),
+                                                                            match("Krieger", buildAuthor("Holly", "Krieger")),
                                                                             match("Lichtman", buildAuthor("Jared", "Duker", "Lichtman")),
                                                                             match("MacDonald", buildAuthor("Ayliean", "MacDonald")),
                                                                             match("Grant", buildAuthor("Grant", "Sanderson")),
