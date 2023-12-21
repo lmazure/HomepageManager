@@ -13,12 +13,6 @@ methods       53.0%/52.2%    97.9%
 le nom est mal formatté dans le popup, pex Sinan Eren "noir"
 
 
-navigation par alphabet pour les tables du site
-
-
-
-==== potentially before merge =====
-
 corriger
 https://about.gitlab.com/blog/
 Article should have a creation date
@@ -34,6 +28,13 @@ gérer
  value = "A funny video: the guy is not here to speak about the fake books he is selling (this seems to be Mojobak.com), but for branding himself and sell his bullshit of "AI Publisher Pro" business advice."
  violation = "space is missing after punctuation"
  detail = ""A funny video: the guy is not here to speak about the fake books he is selling (this seems to be Mojobak.com), but for branding himself and sell his bullshit of "AI Publisher Pro" business advice." is missing a space after punctuation"
+
+
+découper la page links/ai.xml
+
+
+
+==== potentially before merge =====
 
 
 nettoyer javahistory.xml

@@ -93,7 +93,7 @@ public class Author extends AuthorData implements Comparable<Author> {
     }
 
     /**
-     * @param article
+     * @param article add an article written by the author
      */
     public void addArticle(final Article article) {
         _articles.add(article);
@@ -107,7 +107,7 @@ public class Author extends AuthorData implements Comparable<Author> {
     }
 
     /**
-     * @param link
+     * @param link add a link containing information about the author
      */
     public void addLink(final Link link) {
         _links.add(link);
