@@ -12,6 +12,7 @@ import fr.mazure.homepagemanager.data.linkchecker.gitlabblog.GitlabBlogLinkConte
 import fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.oracleblogs.OracleBlogsLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.quantamagazine.QuantaMagazineLinkContentParser;
+import fr.mazure.homepagemanager.data.linkchecker.spectrum.SpectrumLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.stackoverflowblog.StackOverflowBlogContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.wired.WiredLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser;
@@ -64,6 +65,8 @@ public class LinkDataExtractorFactory {
             constructor = QuantaMagazineLinkContentParser::new;
         } else if (u.startsWith("https://stackoverflow.blog/")) {
             constructor = StackOverflowBlogContentParser::new;
+        } else if (u.startsWith("https://spectrum.ieee.org/")) {
+            constructor = SpectrumLinkContentParser::new;
         } else if (u.startsWith("https://www.youtube.com/watch?")) {
             constructor = YoutubeWatchLinkContentParser::new;
         } else if (u.startsWith("https://about.gitlab.com/blog/")) {

@@ -26,7 +26,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
 /**
  * Data extractor for Medium
-*/
+ */
 public class MediumLinkContentParser extends LinkDataExtractor {
 
     private final String _data;

@@ -10,6 +10,16 @@ methods       53.0%/52.2%    97.9%
 
 
 
+nettoyer javabasic.html
+1 gérer  http://developer.java.sun.com
+2 gérer http://java.sun.com/developer/JDCTechTips
+
+
+gérer
+https://blogs.oracle.com/javamagazine/post/modern-java-toys-that-boost-productivity-from-type-inference-to-text-blocks
+subtitle "Developers using older versions of the Java platform are missing out." should not be present
+
+
 le nom est mal formatté dans le popup, pex Sinan Eren "noir"
 
 
@@ -17,11 +27,6 @@ corriger
 https://about.gitlab.com/blog/
 Article should have a creation date
 
-
-gérer
-value = "As 1littlecoder says himself, he is not enough competent to criticize this paper (TinyGSM: achieving > 80% on GSM8k with small language models)https://arxiv.org/abs/2312.09241enHTML."
- violation = "a COMMENT must not contain US syntax"
- detail = "COMMENT "As 1littlecoder says himself, he is not enough competent to criticize this paper (TinyGSM: achieving > 80% on GSM8k with small language models)https://arxiv.org/abs/2312.09241enHTML." contains american word " criticize "  matching regexp "\W\p{Ll}{2,}ize[sd]?\W", it should be "ise""
 
 gérer
  tag = "COMMENT"

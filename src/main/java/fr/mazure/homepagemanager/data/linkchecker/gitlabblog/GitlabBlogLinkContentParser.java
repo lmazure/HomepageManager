@@ -18,7 +18,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
 /**
  * Data extractor for GitLab blog
-*/
+ */
 public class GitlabBlogLinkContentParser extends LinkDataExtractor {
 
     private final String _data;

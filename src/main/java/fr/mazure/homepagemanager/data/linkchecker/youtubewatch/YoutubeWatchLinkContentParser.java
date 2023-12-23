@@ -30,7 +30,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
 /**
-* Data extractor for YouTube videos
+ * Data extractor for YouTube videos
  */
 public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
 

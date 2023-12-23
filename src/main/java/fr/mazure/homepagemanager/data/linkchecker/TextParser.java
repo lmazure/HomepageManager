@@ -1,5 +1,7 @@
 package fr.mazure.homepagemanager.data.linkchecker;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -73,4 +75,18 @@ public class TextParser {
 
         return Optional.empty();
     }
-}
+
+    /**
+     * Extract strings from data
+     *
+     * @param data Data
+     * @return Extracted strings corresponding to all matches
+     */
+    public List<String> extractMulti(final String data) {
+        final List<String> matches = new ArrayList<>();
+        final Matcher m = _pattern.matcher(data);
+        while (m.find()) {
+            matches.add(m.group(1));
+         }
+        return matches;
+    }}

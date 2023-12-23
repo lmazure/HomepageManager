@@ -20,7 +20,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
 /**
  * Data extractor for Quanta Magazine articles
-*/
+ */
 public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
 
     private final String _data;
