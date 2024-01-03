@@ -111,7 +111,7 @@ public class LinkContentCheckerFactory {
             return new BaeldungLinkContentChecker(url, linkData, articleData, file);
         }
 
-        if (url.startsWith("https://about.gitlab.com/blog/")) {
+        if (url.startsWith("https://about.gitlab.com/blog/")&& !url.equals("https://about.gitlab.com/blog/")) {
             return new GitlabBlogLinkContentChecker(url, linkData, articleData, file);
         }
 

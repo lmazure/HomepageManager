@@ -287,6 +287,28 @@ public class WellKnownRedirections {
         }
 
         {
+            final RedirectionMatcher sun = new RedirectionMatcher("removed from java.sun.com",
+                                                                  Set.of(LinkStatus.REMOVED));
+            sun.add("\\Qhttp://java.sun.com/developer/JDCTechTips/\\E" + RedirectionMatcher.ANY_STRING,
+                    Set.of(Integer.valueOf(301)),
+                    RedirectionMatcher.Multiplicity.ONE);
+            sun.add("\\Qhttps://java.sun.com/developer/JDCTechTips/\\E" + RedirectionMatcher.ANY_STRING,
+                    Set.of(Integer.valueOf(301)),
+                    RedirectionMatcher.Multiplicity.ONE);
+            sun.add("\\Qhttp://www.oracle.com/technetwork/java/index.html\\E",
+                    Set.of(Integer.valueOf(301)),
+                    RedirectionMatcher.Multiplicity.ONE);
+            sun.add("\\Qhttps://www.oracle.com/technetwork/java/index.html\\E",
+                    Set.of(Integer.valueOf(301)),
+                    RedirectionMatcher.Multiplicity.ONE);
+            sun.add("\\Qhttps://www.oracle.com/java/technologies/\\E",
+                    Set.of(Integer.valueOf(200)),
+                    RedirectionMatcher.Multiplicity.ONE);
+            sun.compile();
+            _matchers.add(sun);
+        }
+
+        {
             final RedirectionMatcher channel9Removed1 = new RedirectionMatcher("removed from Channel 9",
                                                                                Set.of(LinkStatus.REMOVED));
             channel9Removed1.add("\\Qhttps://channel9.msdn.com/\\E(Blogs|Series|Shows)" + RedirectionMatcher.ANY_STRING,

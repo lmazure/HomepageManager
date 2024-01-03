@@ -109,6 +109,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                     case "English (auto-generated)" -> Optional.of(Locale.ENGLISH);
                     case "French (auto-generated)" -> Optional.of(Locale.FRENCH);
                     case "German (auto-generated)" -> Optional.of(Locale.GERMAN);
+                    case "Hindi (auto-generated)" -> Optional.of(new Locale.Builder().setLanguage("hi").build());
                     case "Korean (auto-generated)" -> Optional.of(Locale.KOREAN);
                     case "Portuguese (auto-generated)" -> Optional.of(new Locale.Builder().setLanguage("pt").build());
                     case "Vietnamese (auto-generated)" -> Optional.of(new Locale.Builder().setLanguage("vi").build());

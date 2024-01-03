@@ -315,6 +315,18 @@ class WellKnownRedirectionsTest {
              Set.of(LinkStatus.REMOVED));
     }
 
+    @ParameterizedTest
+    @CsvSource({
+        "http://java.sun.com/developer/JDCTechTips/2003/tt0422.html#2",
+        })
+    void sun(final String url) {
+        test(url,
+             true,
+             Integer.valueOf(200),
+             "removed from java.sun.com",
+             Set.of(LinkStatus.REMOVED));
+    }
+
     private void test(final String url,
                       final boolean redirectionIsExpected,  // use to ensure that test data is up-to-date
                       final Integer expectedCode,           // use to ensure that test data is up-to-date

@@ -69,7 +69,7 @@ public class LinkDataExtractorFactory {
             constructor = SpectrumLinkContentParser::new;
         } else if (u.startsWith("https://www.youtube.com/watch?")) {
             constructor = YoutubeWatchLinkContentParser::new;
-        } else if (u.startsWith("https://about.gitlab.com/blog/")) {
+        } else if (u.startsWith("https://about.gitlab.com/blog/") && !u.equals("https://about.gitlab.com/blog/")) {
             constructor = GitlabBlogLinkContentParser::new;
         } else if (u.startsWith("https://www.wired.com/")) {
             constructor = WiredLinkContentParser::new;

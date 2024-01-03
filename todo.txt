@@ -12,31 +12,9 @@ methods       53.0%/52.2%    97.9%
 
 nettoyer javabasic.html
 1 gérer  http://developer.java.sun.com
-2 gérer http://java.sun.com/developer/JDCTechTips
 
 
-gérer
-https://blogs.oracle.com/javamagazine/post/modern-java-toys-that-boost-productivity-from-type-inference-to-text-blocks
-subtitle "Developers using older versions of the Java platform are missing out." should not be present
-
-
-le nom est mal formatté dans le popup, pex Sinan Eren "noir"
-
-
-corriger
-https://about.gitlab.com/blog/
-Article should have a creation date
-
-
-gérer
- tag = "COMMENT"
- value = "A funny video: the guy is not here to speak about the fake books he is selling (this seems to be Mojobak.com), but for branding himself and sell his bullshit of "AI Publisher Pro" business advice."
- violation = "space is missing after punctuation"
- detail = ""A funny video: the guy is not here to speak about the fake books he is selling (this seems to be Mojobak.com), but for branding himself and sell his bullshit of "AI Publisher Pro" business advice." is missing a space after punctuation"
-
-
-découper la page links/ai.xml
-
+analyser les problèmes d'auteurs GitLa dans cloudforges.xml
 
 
 ==== potentially before merge =====

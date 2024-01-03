@@ -15,6 +15,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 public class LinkContentParserUtils {
 
     private static final Map<String, String> _particles = Map.of("de", "De",
+                                                                 "del", "Del",
                                                                  "von", "von",
                                                                  "van", "van"
                                                                 );
