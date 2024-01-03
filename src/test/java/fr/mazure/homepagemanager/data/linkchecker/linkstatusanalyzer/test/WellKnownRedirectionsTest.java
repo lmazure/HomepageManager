@@ -170,7 +170,11 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://www.gamasutra.com/view/feature/3413/orphans_preferred.php",
+        "http://weblogs.java.net/blog/arnold/archive/2005/06/generics_consid_1.html",
+        "http://www.hays.lu/prd_consump/groups/hays_common/@fr/@content/documents/digitalasset/hays_714488.pdf",
+        "http://www.ineris.fr/centredoc/Communication_site_web_INERIS.pdf",
+        "https://www.reddit.com/r/gitlab/",
+        
         })
     void redirectionsEndingWith404(final String url) {
         test(url,

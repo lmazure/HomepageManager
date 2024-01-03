@@ -14,7 +14,7 @@ nettoyer javabasic.html
 1 gérer  http://developer.java.sun.com
 
 
-analyser les problèmes d'auteurs GitLa dans cloudforges.xml
+analyser les problèmes d'auteurs GitLab dans cloudforges.xml
 
 
 ==== potentially before merge =====
