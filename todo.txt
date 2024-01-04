@@ -10,9 +10,6 @@ methods       53.0%/52.2%    97.9%
 
 
 
-nettoyer javabasic.html
-1 gérer  http://developer.java.sun.com
-
 
 analyser les problèmes d'auteurs GitLab dans cloudforges.xml
 

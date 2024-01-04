@@ -322,6 +322,7 @@ class WellKnownRedirectionsTest {
     @ParameterizedTest
     @CsvSource({
         "http://java.sun.com/developer/JDCTechTips/2003/tt0422.html#2",
+        "http://java.sun.com/developer/technicalArticles/releases/data/",
         })
     void sun(final String url) {
         test(url,
