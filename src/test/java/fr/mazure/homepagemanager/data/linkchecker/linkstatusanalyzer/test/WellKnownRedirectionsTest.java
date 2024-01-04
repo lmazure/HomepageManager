@@ -231,6 +231,7 @@ class WellKnownRedirectionsTest {
         "http://www.onlamp.com/pub/a/php/2005/12/20/php_ant.html",
         "http://www.onlamp.com/pub/a/python/2001/07/19/pythonnews.html",
         "http://www.onlamp.com/pub/a/security/2004/09/16/open_source_security_myths.html",
+        "http://www.oreillynet.com/mac/blog/2005/12/jmf_a_mistake_asking_to_be_rem.html",
         "http://www.oreillynet.com/onlamp/blog/2005/12/two_things_that_bother_me_abou.html",
         "http://www.oreillynet.com/pub/a/network/2003/05/20/secureprogckbk.html",
         "http://www.oreillynet.com/pub/a/oreilly/security/news/2004/03/08/netsec.html",

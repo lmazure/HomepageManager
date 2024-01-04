@@ -153,7 +153,7 @@ public class WellKnownRedirections {
         {
             final RedirectionMatcher oReillyRemoved3 = new RedirectionMatcher("removed from O’Reilly",
                                                                               Set.of(LinkStatus.REMOVED));
-            oReillyRemoved3.add("\\Qhttp://www.oreillynet.com/\\E(pub/a/(network|oreilly/security/news)|(onlamp|xml)/blog)/" + RedirectionMatcher.ANY_STRING,
+            oReillyRemoved3.add("\\Qhttp://www.oreillynet.com/\\E(pub/a/(network|oreilly/security/news)|(mac|onlamp|xml)/blog)/" + RedirectionMatcher.ANY_STRING,
                                 Set.of(Integer.valueOf(301)),
                                 RedirectionMatcher.Multiplicity.ONE);
             oReillyRemoved3.add("\\Qhttp://archive.oreilly.com/pub/\\E(a/(network|oreilly/security/news)|post)/" + RedirectionMatcher.ANY_STRING,
