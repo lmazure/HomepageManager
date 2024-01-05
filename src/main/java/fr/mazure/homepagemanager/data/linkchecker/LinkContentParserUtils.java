@@ -15,6 +15,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 public class LinkContentParserUtils {
 
     private static final Map<String, String> _particles = Map.of("de", "De",
+                                                                 "del", "Del",
                                                                  "von", "von",
                                                                  "van", "van"
                                                                 );
@@ -68,6 +69,16 @@ public class LinkContentParserUtils {
                                   Optional.of(properCaseParticle(nameParts[2]) + " " + uppercaseFirstCharacter(nameParts[3])),
                                   Optional.empty(),
                                   Optional.empty());
+        }
+        if ((nameParts.length == 4) &&
+             (nameParts[2].startsWith("\"") || nameParts[2].startsWith("“")) &&
+             (nameParts[2].endsWith("\"") || nameParts[2].endsWith("”"))) {
+            return new AuthorData(Optional.empty(),
+                                  Optional.of(uppercaseFirstCharacter(nameParts[0])),
+                                  Optional.of(uppercaseFirstCharacter(nameParts[1])),
+                                  Optional.of(uppercaseFirstCharacter(nameParts[3])),
+                                  Optional.empty(),
+                                  Optional.of(uppercaseFirstCharacter(nameParts[2].substring(1, nameParts[2].length() - 1))));
         }
 
         throw new ContentParserException("Failed to parse author name (author name has " + nameParts.length + " parts)");

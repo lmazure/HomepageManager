@@ -153,7 +153,7 @@ public class WellKnownRedirections {
         {
             final RedirectionMatcher oReillyRemoved3 = new RedirectionMatcher("removed from O’Reilly",
                                                                               Set.of(LinkStatus.REMOVED));
-            oReillyRemoved3.add("\\Qhttp://www.oreillynet.com/\\E(pub/a/(network|oreilly/security/news)|(onlamp|xml)/blog)/" + RedirectionMatcher.ANY_STRING,
+            oReillyRemoved3.add("\\Qhttp://www.oreillynet.com/\\E(pub/a/(network|oreilly/security/news)|(mac|onlamp|xml)/blog)/" + RedirectionMatcher.ANY_STRING,
                                 Set.of(Integer.valueOf(301)),
                                 RedirectionMatcher.Multiplicity.ONE);
             oReillyRemoved3.add("\\Qhttp://archive.oreilly.com/pub/\\E(a/(network|oreilly/security/news)|post)/" + RedirectionMatcher.ANY_STRING,
@@ -284,6 +284,28 @@ public class WellKnownRedirections {
                            RedirectionMatcher.Multiplicity.ONE);
             rational.compile();
             _matchers.add(rational);
+        }
+
+        {
+            final RedirectionMatcher sun = new RedirectionMatcher("removed from java.sun.com",
+                                                                  Set.of(LinkStatus.REMOVED));
+            sun.add("\\Qhttp://java.sun.com/developer/\\E" + RedirectionMatcher.ANY_STRING,
+                    Set.of(Integer.valueOf(301)),
+                    RedirectionMatcher.Multiplicity.ONE);
+            sun.add("\\Qhttps://java.sun.com/developer/\\E" + RedirectionMatcher.ANY_STRING,
+                    Set.of(Integer.valueOf(301)),
+                    RedirectionMatcher.Multiplicity.ONE);
+            sun.add("\\Qhttp://www.oracle.com/technetwork/java/index.html\\E",
+                    Set.of(Integer.valueOf(301)),
+                    RedirectionMatcher.Multiplicity.ONE);
+            sun.add("\\Qhttps://www.oracle.com/technetwork/java/index.html\\E",
+                    Set.of(Integer.valueOf(301)),
+                    RedirectionMatcher.Multiplicity.ONE);
+            sun.add("\\Qhttps://www.oracle.com/java/technologies/\\E",
+                    Set.of(Integer.valueOf(200)),
+                    RedirectionMatcher.Multiplicity.ONE);
+            sun.compile();
+            _matchers.add(sun);
         }
 
         {

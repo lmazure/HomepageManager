@@ -387,6 +387,7 @@ public class YoutubeWatchLinkContentParserTest {
     @CsvSource({
             "https://www.youtube.com/watch?v=-0ErpE8tQbw,de",
             "https://www.youtube.com/watch?v=-JcoFa5ieyA,vi",
+            "https://www.youtube.com/watch?v=5NqbqTS9Ve0,hi",
             "https://www.youtube.com/watch?v=8idr1WZ1A7Q,en",
             "https://www.youtube.com/watch?v=HEfHFsfGXjs,nl",
             "https://www.youtube.com/watch?v=QAU9psRDPZg,de",

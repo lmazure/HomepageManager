@@ -22,8 +22,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
 /**
-* Data extractor for Wired articles
-*/
+ * Data extractor for Wired articles
+ */
 public class WiredLinkContentParser extends LinkDataExtractor {
 
     private static final TextParser s_jsonParser

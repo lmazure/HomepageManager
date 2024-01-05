@@ -64,6 +64,7 @@ public class BritishCheckerTest extends NodeValueCheckerTestBase {
             <ITEM><ARTICLE><X><T>When are two strings equal?</T><A>http://java.sun.com</A><L>en</L><F>HTML</F></X><COMMENT>A simplified story of HenriPoincaré’s Uniformization Theorem and GrigoriPerelman’s proof of Thurston’s Geometrisation Conjecture.</COMMENT></ARTICLE></ITEM>
             <ITEM><ARTICLE><X><T>When are two strings equal?</T><A>http://java.sun.com</A><L>en</L><F>HTML</F></X><COMMENT>It is amazing how much Perl stuff the author has been able to cram in this paper.</COMMENT></ARTICLE></ITEM>
             <ITEM><ARTICLE><X><T>When are two strings equal?</T><A>http://java.sun.com</A><L>en</L><F>HTML</F></X><COMMENT>fulfilling.</COMMENT></ARTICLE></ITEM>
+            <ITEM><ARTICLE><X><T>When are two strings equal?</T><A>http://java.sun.com</A><L>en</L><F>HTML</F></X><COMMENT>He is not enough competent to criticize this.</COMMENT></ARTICLE></ITEM>
             </BLIST>
             </CONTENT>
             </PAGE>""";

@@ -125,7 +125,7 @@ public class FileTable extends Application {
 
         final TableColumn<ObservableFile, String> fileColumn = new TableColumn<>("File");
         fileColumn.setCellValueFactory(cellData -> cellData.getValue().getNameProperty());
-        fileColumn.setPrefWidth(230);
+        fileColumn.setPrefWidth(350);
         table.getColumns().add(fileColumn);
 
         final TableColumn<ObservableFile, String> modificationDateTimeColumn = new TableColumn<>("Modified on");

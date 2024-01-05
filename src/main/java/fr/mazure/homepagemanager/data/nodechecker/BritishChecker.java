@@ -1,10 +1,9 @@
 package fr.mazure.homepagemanager.data.nodechecker;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,7 +18,9 @@ import fr.mazure.homepagemanager.utils.xmlparsing.XmlHelper;
 */
 public class BritishChecker extends NodeChecker {
 
-    private static final Set<Traduction> s_americanWords = new HashSet<>(Arrays.asList(
+    private static final Predicate<String> s_whiteList;
+
+    private static final List<Traduction> s_americanWords = Arrays.asList(
             new Traduction("analyze", "analyse"),
             new Traduction("anemia", "anaemia"),
             new Traduction("catalog[^u]", "catalogue"),
@@ -37,12 +38,23 @@ public class BritishChecker extends NodeChecker {
             new Traduction("liters+\\s", "litre"),
             new Traduction("modeling", "modelling"),
             new Traduction("paralyze", "paralyse"),
-            new Traduction("traveler", "traveller")));
+            new Traduction("traveler", "traveller"
+            ));
 
     private static final InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.COMMENT,
             ElementType.DESC
             });
+
+    static {
+        final List<Predicate<String>> list = Arrays.asList(
+                Pattern.compile("criticize[sd]?").asPredicate()
+                );
+
+        s_whiteList = list.stream()
+                          .reduce(Predicate::or)
+                          .orElse(s -> false);
+    }
 
     /**
     * constructor
@@ -58,6 +70,9 @@ public class BritishChecker extends NodeChecker {
             return null;
         }
         for (final String l: list ) {
+            if (s_whiteList.test(l)) {
+                continue;
+            }
             for (final Traduction traduction: s_americanWords) {
                 final String match = traduction.matchesAmerican(l);
                 if (match != null) {

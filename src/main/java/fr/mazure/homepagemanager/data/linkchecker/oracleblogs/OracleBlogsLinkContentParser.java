@@ -34,7 +34,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
 /**
  * Data extractor for Oracle blog
-*/
+ */
 public class OracleBlogsLinkContentParser extends LinkDataExtractor {
 
     private static final String s_htmlTemplate = """

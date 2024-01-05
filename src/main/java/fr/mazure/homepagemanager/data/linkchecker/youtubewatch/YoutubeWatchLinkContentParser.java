@@ -30,7 +30,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
 /**
-* Data extractor for YouTube videos
+ * Data extractor for YouTube videos
  */
 public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
 
@@ -109,6 +109,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                     case "English (auto-generated)" -> Optional.of(Locale.ENGLISH);
                     case "French (auto-generated)" -> Optional.of(Locale.FRENCH);
                     case "German (auto-generated)" -> Optional.of(Locale.GERMAN);
+                    case "Hindi (auto-generated)" -> Optional.of(new Locale.Builder().setLanguage("hi").build());
                     case "Korean (auto-generated)" -> Optional.of(Locale.KOREAN);
                     case "Portuguese (auto-generated)" -> Optional.of(new Locale.Builder().setLanguage("pt").build());
                     case "Vietnamese (auto-generated)" -> Optional.of(new Locale.Builder().setLanguage("vi").build());
@@ -532,6 +533,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                                             match("Eisenbud", buildAuthor("David", "Eisenbud")),
                                                                             match("Frenkel", buildAuthor("Edward", "Frenkel")),
                                                                             match("Grime", buildAuthor("James", "Grime")),
+                                                                            match("Krieger", buildAuthor("Holly", "Krieger")),
                                                                             match("Lichtman", buildAuthor("Jared", "Duker", "Lichtman")),
                                                                             match("MacDonald", buildAuthor("Ayliean", "MacDonald")),
                                                                             match("Grant", buildAuthor("Grant", "Sanderson")),

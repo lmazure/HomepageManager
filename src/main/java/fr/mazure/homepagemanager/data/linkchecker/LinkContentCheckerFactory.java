@@ -11,6 +11,7 @@ import fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.oracleblogs.OracleBlogsLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.quantamagazine.QuantaMagazineLinkContentChecker;
+import fr.mazure.homepagemanager.data.linkchecker.spectrum.SpectrumLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.stackoverflowblog.StackOverflowBlogContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.wired.WiredLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.youtubechanneluser.YoutubeChannelUserLinkContentChecker;
@@ -93,6 +94,10 @@ public class LinkContentCheckerFactory {
             return new StackOverflowBlogContentChecker(url, linkData, articleData, file);
         }
 
+        if (url.startsWith("https://spectrum.ieee.org/")) {
+            return new SpectrumLinkContentChecker(url, linkData, articleData, file);
+        }
+
         if (url.startsWith("https://www.youtube.com/user/")) {
             return new YoutubeChannelUserLinkContentChecker(url, linkData, articleData, file);
         }
@@ -106,7 +111,7 @@ public class LinkContentCheckerFactory {
             return new BaeldungLinkContentChecker(url, linkData, articleData, file);
         }
 
-        if (url.startsWith("https://about.gitlab.com/blog/")) {
+        if (url.startsWith("https://about.gitlab.com/blog/")&& !url.equals("https://about.gitlab.com/blog/")) {
             return new GitlabBlogLinkContentChecker(url, linkData, articleData, file);
         }
 

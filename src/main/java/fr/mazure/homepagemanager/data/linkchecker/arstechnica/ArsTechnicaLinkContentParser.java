@@ -23,8 +23,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
 /**
-*  * Data extractor for Ars Technica articles
-*/
+ * Data extractor for Ars Technica articles
+ */
 public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
 
     private final String _data;
