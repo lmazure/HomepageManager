@@ -1,4 +1,4 @@
-warnings = 144
+warnings = 142
 lines prod = 9514
 lines test = 3939
 test coverage =
@@ -10,11 +10,13 @@ methods       53.0%/52.2%    97.9%
 
 
 
+==== potentially before merge =====
+
+
+nettoyer management.xml
+
 
 analyser les problèmes d'auteurs GitLab dans cloudforges.xml
-
-
-==== potentially before merge =====
 
 
 nettoyer javahistory.xml

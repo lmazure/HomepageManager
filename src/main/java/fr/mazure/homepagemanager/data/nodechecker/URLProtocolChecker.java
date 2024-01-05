@@ -8,8 +8,8 @@ import fr.mazure.homepagemanager.data.nodechecker.tagselection.InclusionTagSelec
 import fr.mazure.homepagemanager.utils.xmlparsing.ElementType;
 
 /**
-*
-*/
+ *
+ */
 public class URLProtocolChecker extends NodeChecker {
 
     private static final InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {

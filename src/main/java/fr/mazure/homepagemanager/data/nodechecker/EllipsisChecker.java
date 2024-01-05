@@ -10,8 +10,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.ElementType;
 import fr.mazure.homepagemanager.utils.xmlparsing.XmlHelper;
 
 /**
-*
-*/
+ *
+ */
 public class EllipsisChecker extends NodeChecker {
 
     private static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new ElementType[] {

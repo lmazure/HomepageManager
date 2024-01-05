@@ -8,8 +8,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 
 /**
-* Check data of an Ars Technical link
-*/
+ * Check data of an Ars Technical link
+ */
 public class ArsTechnicaLinkContentChecker extends ExtractorBasedLinkContentChecker {
 
     /**

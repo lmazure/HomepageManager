@@ -18,8 +18,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 
 /**
-*
-*/
+ *
+ */
 public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChecker {
 
     private YoutubeWatchLinkContentParser _parser;

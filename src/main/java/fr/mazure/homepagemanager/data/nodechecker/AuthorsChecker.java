@@ -20,8 +20,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.XmlParser;
 import fr.mazure.homepagemanager.utils.xmlparsing.XmlParsingException;
 
 /**
-*
-*/
+ *
+ */
 public class AuthorsChecker extends NodeChecker {
 
     private static final InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {

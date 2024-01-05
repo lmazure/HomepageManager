@@ -12,8 +12,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.ElementType;
 import fr.mazure.homepagemanager.utils.xmlparsing.XmlHelper;
 
 /**
-*
-*/
+ *
+ */
 public class TableSortChecker extends NodeChecker {
 
     private static final InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {

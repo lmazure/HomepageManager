@@ -8,8 +8,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 
 /**
-* Check data for a link toward a Quanta Magazine article
-*/
+ * Check data for a link toward a Quanta Magazine article
+ */
 public class QuantaMagazineLinkContentChecker extends ExtractorBasedLinkContentChecker {
 
     /**

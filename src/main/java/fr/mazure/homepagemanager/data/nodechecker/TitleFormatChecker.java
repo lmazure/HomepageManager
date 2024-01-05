@@ -13,8 +13,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.ElementType;
 import fr.mazure.homepagemanager.utils.xmlparsing.XmlHelper;
 
 /**
-*
-*/
+ *
+ */
 public class TitleFormatChecker extends NodeChecker {
 
     private static final Set<String> s_authorizedList = new HashSet<>(Arrays.asList(

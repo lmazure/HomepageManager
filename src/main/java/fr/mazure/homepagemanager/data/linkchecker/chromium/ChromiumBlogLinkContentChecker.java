@@ -13,8 +13,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 
 /**
-*
-*/
+ *
+ */
 public class ChromiumBlogLinkContentChecker extends LinkContentChecker {
 
     private ChromiumBlogLinkContentParser _parser;

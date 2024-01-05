@@ -23,8 +23,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
 /**
-* Data extractor for Github blog
-*/
+ * Data extractor for Github blog
+ */
 public class GithubBlogLinkContentParser extends LinkDataExtractor {
 
     private final String _data;

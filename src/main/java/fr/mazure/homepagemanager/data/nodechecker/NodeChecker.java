@@ -10,8 +10,8 @@ import fr.mazure.homepagemanager.data.nodechecker.tagselection.TagSelector;
 import fr.mazure.homepagemanager.utils.xmlparsing.XmlHelper;
 
 /**
-*
-*/
+ *
+ */
 public class NodeChecker {
 
     private final TagSelector _tagSelector;

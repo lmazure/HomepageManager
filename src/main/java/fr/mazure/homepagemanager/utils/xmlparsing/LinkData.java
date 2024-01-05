@@ -6,8 +6,8 @@ import java.util.Locale;
 import java.util.Optional;
 
 /**
-* Data of a link
-*/
+ * Data of a link
+ */
 public class LinkData {
 
     private final String _title;

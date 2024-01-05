@@ -12,8 +12,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
-*
-*/
+ *
+ */
 public class ObservableFileList implements FileExistenceHandler {
 
     private final ObservableList<ObservableFile> _data;

@@ -10,8 +10,8 @@ import fr.mazure.homepagemanager.data.nodechecker.tagselection.InclusionTagSelec
 import fr.mazure.homepagemanager.utils.xmlparsing.ElementType;
 
 /**
-*
-*/
+ *
+ */
 public class KeyChecker extends NodeChecker {
     // TODO do we really need this checker? this should be verified by the schema
 

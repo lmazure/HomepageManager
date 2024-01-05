@@ -14,8 +14,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.ElementType;
 import fr.mazure.homepagemanager.utils.xmlparsing.XmlHelper;
 
 /**
-*
-*/
+ *
+ */
 public class BritishChecker extends NodeChecker {
 
     private static final Predicate<String> s_whiteList;

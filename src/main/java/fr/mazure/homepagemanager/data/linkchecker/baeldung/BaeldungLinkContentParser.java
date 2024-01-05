@@ -19,8 +19,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
 /**
-* Data extractor for Baeldung articles
-*/
+ * Data extractor for Baeldung articles
+ */
 public class BaeldungLinkContentParser extends LinkDataExtractor {
 
     private final String _data;

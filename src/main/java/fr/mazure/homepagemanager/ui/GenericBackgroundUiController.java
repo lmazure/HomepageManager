@@ -7,8 +7,8 @@ import fr.mazure.homepagemanager.data.FileHandler.Status;
 import fr.mazure.homepagemanager.utils.QuadriConsumer;
 
 /**
-*
-*/
+ *
+ */
 public abstract class GenericBackgroundUiController extends GenericUiController implements BackgroundDataController {
 
     /**

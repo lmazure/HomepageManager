@@ -19,8 +19,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 
 /**
-*
-*/
+ *
+ */
 public class IbmLinkContentChecker extends LinkContentChecker {
 
     private IbmLinkContentParser _parser;

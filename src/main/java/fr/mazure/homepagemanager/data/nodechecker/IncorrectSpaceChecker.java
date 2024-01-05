@@ -14,8 +14,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.ElementType;
 import fr.mazure.homepagemanager.utils.xmlparsing.XmlHelper;
 
 /**
-*
-*/
+ *
+ */
 public class IncorrectSpaceChecker extends NodeChecker {
 
     //TODO ajouter l'ellipsis

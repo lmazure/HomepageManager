@@ -8,8 +8,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 
 /**
-* Check data of Baeldung link
-*/
+ * Check data of Baeldung link
+ */
 public class BaeldungLinkContentChecker extends ExtractorBasedLinkContentChecker {
 
     /**

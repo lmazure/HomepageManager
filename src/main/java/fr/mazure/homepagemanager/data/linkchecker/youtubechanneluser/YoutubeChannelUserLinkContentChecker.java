@@ -11,8 +11,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 
 /**
-*
-*/
+ *
+ */
 public class YoutubeChannelUserLinkContentChecker extends LinkContentChecker {
 
     private YoutubeChannelUserLinkContentParser _parser;

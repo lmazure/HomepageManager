@@ -1,8 +1,8 @@
 package fr.mazure.homepagemanager.utils.xmlparsing;
 
 /**
-* Status of a link
-*/
+ * Status of a link
+ */
 public enum LinkStatus {
     /**
      * the article has been removed

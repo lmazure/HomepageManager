@@ -7,8 +7,8 @@ import org.junit.jupiter.params.provider.CsvSource;
 import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 
 /**
-*
-*/
+ *
+ */
 public class UrlHelperTest {
 
     @SuppressWarnings("static-method")

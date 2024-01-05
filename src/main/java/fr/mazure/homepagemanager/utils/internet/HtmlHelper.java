@@ -14,8 +14,8 @@ import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.Logger;
 
 /**
-*
-*/
+ *
+ */
 public class HtmlHelper {
 
     // from https://html.spec.whatwg.org/multipage/named-characters.html
