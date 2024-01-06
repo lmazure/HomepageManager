@@ -1,6 +1,7 @@
 package fr.mazure.homepagemanager.data.linkchecker;
 
 import java.nio.file.Path;
+import java.util.regex.Pattern;
 
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.dataretriever.SiteDataPersister;
@@ -48,6 +49,7 @@ public class LinkDataExtractorFactory {
                                                               "utm_term");
 
         ThrowingLinkDataExtractor constructor = null;
+        final Pattern mediumUrl = Pattern.compile("https://(.+\\.)?medium.com/.+");
 
         if (u.startsWith("https://arstechnica.com/")) {
             constructor = ArsTechnicaLinkContentParser::new;
@@ -56,7 +58,7 @@ public class LinkDataExtractorFactory {
             constructor = BaeldungLinkContentParser::new;
         } else if (url.startsWith("https://github.blog/")) {
             constructor = GithubBlogLinkContentParser::new;
-        } else if (u.startsWith("https://medium.com/")) {
+        } else if (mediumUrl.matcher(u).matches()) {
             constructor = MediumLinkContentParser::new;
         } else if (u.matches("https://blogs.oracle.com/javamagazine/.+") ||
                    u.matches("https://blogs.oracle.com/java/.+")) {

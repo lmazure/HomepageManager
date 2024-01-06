@@ -9,6 +9,8 @@ lines         65.9%    94.7%
 methods       53.0%/52.2%    97.9%
 
 
+nettoyer design.xml
+
 
 ==== potentially before merge =====
 

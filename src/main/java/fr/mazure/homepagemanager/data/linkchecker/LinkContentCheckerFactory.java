@@ -1,6 +1,7 @@
 package fr.mazure.homepagemanager.data.linkchecker;
 
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 import fr.mazure.homepagemanager.data.linkchecker.arstechnica.ArsTechnicaLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.baeldung.BaeldungLinkContentChecker;
@@ -74,7 +75,8 @@ public class LinkContentCheckerFactory {
             return new GithubBlogLinkContentChecker(url, linkData, articleData, file);
         }
 
-        if (url.startsWith("https://medium.com/")) {
+        final Pattern mediumUrl = Pattern.compile("https://(.+\\.)?medium.com/.+");
+        if (mediumUrl.matcher(url).matches()) {
             return new MediumLinkContentChecker(url, linkData, articleData, file);
         }
 
