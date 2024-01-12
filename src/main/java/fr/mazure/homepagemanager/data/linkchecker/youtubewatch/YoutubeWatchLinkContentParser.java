@@ -299,6 +299,10 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     }
 
     private static final Map<String, ChannelData> _channelData = Map.ofEntries(
+            new AbstractMap.SimpleEntry<>("1littlecoder",
+                                          new ChannelData(buildList(buildAuthor("Abdul Majed", "Raja")),
+                                                          buildMatchingList(),
+                                                          Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("3Blue1Brown",
                                           new ChannelData(buildList(buildAuthor("Grant", "Sanderson")),
                                                           buildMatchingList(),
