@@ -1,7 +1,8 @@
 package fr.mazure.homepagemanager.data.linkchecker;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.regex.Pattern;
+import java.util.function.Predicate;
 
 import fr.mazure.homepagemanager.data.linkchecker.arstechnica.ArsTechnicaLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.baeldung.BaeldungLinkContentChecker;
@@ -26,6 +27,29 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
  */
 public class LinkContentCheckerFactory {
 
+    @FunctionalInterface
+    private interface ThrowingLinkContentChecker {
+        LinkContentChecker apply(final String url, final LinkData linkData, final Optional<ArticleData> articleData, final FileSection file);
+    }
+
+    private record CheckerData(Predicate<String> predicate, ThrowingLinkContentChecker constructor) {}
+    
+    private static final List<CheckerData> s_extractors = List.of(new CheckerData(ArsTechnicaLinkContentChecker::isUrlManaged, ArsTechnicaLinkContentChecker::new),
+                                                                  new CheckerData(ChromiumBlogLinkContentChecker::isUrlManaged, ChromiumBlogLinkContentChecker::new),
+                                                                  new CheckerData(OracleBlogsLinkContentChecker::isUrlManaged, OracleBlogsLinkContentChecker::new),
+                                                                  new CheckerData(IbmLinkContentChecker::isUrlManaged, IbmLinkContentChecker::new),
+                                                                  new CheckerData(GithubBlogLinkContentChecker::isUrlManaged, GithubBlogLinkContentChecker::new),
+                                                                  new CheckerData(MediumLinkContentChecker::isUrlManaged, MediumLinkContentChecker::new),
+                                                                  new CheckerData(WiredLinkContentChecker::isUrlManaged, WiredLinkContentChecker::new),
+                                                                  new CheckerData(QuantaMagazineLinkContentChecker::isUrlManaged, QuantaMagazineLinkContentChecker::new),
+                                                                  new CheckerData(YoutubeChannelUserLinkContentChecker::isUrlManaged, YoutubeChannelUserLinkContentChecker::new),
+                                                                  new CheckerData(StackOverflowBlogContentChecker::isUrlManaged, StackOverflowBlogContentChecker::new),
+                                                                  new CheckerData(SpectrumLinkContentChecker::isUrlManaged, SpectrumLinkContentChecker::new),
+                                                                  new CheckerData(YoutubeChannelUserLinkContentChecker::isUrlManaged, YoutubeChannelUserLinkContentChecker::new),
+                                                                  new CheckerData(YoutubeWatchLinkContentChecker::isUrlManaged, YoutubeWatchLinkContentChecker::new),
+                                                                  new CheckerData(BaeldungLinkContentChecker::isUrlManaged, BaeldungLinkContentChecker::new),
+                                                                  new CheckerData(GitlabBlogLinkContentChecker::isUrlManaged, GitlabBlogLinkContentChecker::new)
+                                                                 );
     /**
      * @param url URL of the link to check
      * @param linkData expected link data
@@ -53,68 +77,11 @@ public class LinkContentCheckerFactory {
             return new NoCheckContentChecker(url, linkData, articleData, file);
         }
 
-        if (url.startsWith("https://arstechnica.com/")) {
-            return new ArsTechnicaLinkContentChecker(url, linkData, articleData, file);
-        }
-
-        if (url.startsWith("https://blog.chromium.org/")) {
-            return new ChromiumBlogLinkContentChecker(url, linkData, articleData, file);
-        }
-
-        if (url.matches("https://blogs.oracle.com/javamagazine/.+") ||
-            url.matches("https://blogs.oracle.com/java/.+")) {
-            return new OracleBlogsLinkContentChecker(url, linkData, articleData, file);
-        }
-
-        if (url.startsWith("https://developer.ibm.com/articles/") ||
-            url.startsWith("https://developer.ibm.com/tutorials/")) {
-            return new IbmLinkContentChecker(url, linkData, articleData, file);
-        }
-
-        if (url.startsWith("https://github.blog/")) {
-            return new GithubBlogLinkContentChecker(url, linkData, articleData, file);
-        }
-
-        final Pattern mediumUrl = Pattern.compile("https://(.+\\.)?medium.com/.+");
-        if (mediumUrl.matcher(url).matches()) {
-            return new MediumLinkContentChecker(url, linkData, articleData, file);
-        }
-
-        if (url.startsWith("https://www.wired.com/")) {
-            return new WiredLinkContentChecker(url, linkData, articleData, file);
-        }
-
-        if (url.startsWith("https://www.quantamagazine.org/")) {
-            return new QuantaMagazineLinkContentChecker(url, linkData, articleData, file);
-        }
-
-        if (url.startsWith("https://www.youtube.com/channel/")) {
-            return new YoutubeChannelUserLinkContentChecker(url, linkData, articleData, file);
-        }
-
-        if (url.startsWith("https://stackoverflow.blog/")) {
-            return new StackOverflowBlogContentChecker(url, linkData, articleData, file);
-        }
-
-        if (url.startsWith("https://spectrum.ieee.org/")) {
-            return new SpectrumLinkContentChecker(url, linkData, articleData, file);
-        }
-
-        if (url.startsWith("https://www.youtube.com/user/")) {
-            return new YoutubeChannelUserLinkContentChecker(url, linkData, articleData, file);
-        }
-
-        if (url.startsWith("https://www.youtube.com/watch?v=")) {
-            return new YoutubeWatchLinkContentChecker(url, linkData, articleData, file);
-            //return new YoutubeWatchLinkContentChecker2(url, linkData, articleData, file);
-        }
-
-        if (url.matches("https://www.baeldung.com/.+")) {
-            return new BaeldungLinkContentChecker(url, linkData, articleData, file);
-        }
-
-        if (url.startsWith("https://about.gitlab.com/blog/")&& !url.equals("https://about.gitlab.com/blog/")) {
-            return new GitlabBlogLinkContentChecker(url, linkData, articleData, file);
+        for (final CheckerData extractorData: s_extractors) {
+            if (extractorData.predicate.test(url)) {
+                return extractorData.constructor.apply(url, linkData, articleData, file);
+                
+            }
         }
 
         if (url.startsWith("https://spectrum.ieee.org/")) {

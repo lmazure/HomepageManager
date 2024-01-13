@@ -37,6 +37,17 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
         super(url, linkData, articleData, file, (LinkDataExtractorBuilder)YoutubeWatchLinkContentParser::new);
     }
 
+
+    /**
+     * Determine if the link is managed
+     *
+     * @param url link 
+     * @return true if the link is managed
+     */
+    public static boolean isUrlManaged(final String url) {
+        return url.startsWith("https://www.youtube.com/watch?v=");
+    }
+
     @Override
     protected LinkContentCheck checkGlobalData(final String data) throws ContentParserException {
         super.checkGlobalData(data);

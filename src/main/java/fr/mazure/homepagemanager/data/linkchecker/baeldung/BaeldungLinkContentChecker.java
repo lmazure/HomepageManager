@@ -24,4 +24,14 @@ public class BaeldungLinkContentChecker extends ExtractorBasedLinkContentChecker
                                       final FileSection file) {
         super(url, linkData, articleData, file, (LinkDataExtractorBuilder)BaeldungLinkContentParser::new);
     }
+
+    /**
+     * Determine if the link is managed
+     *
+     * @param url link 
+     * @return true if the link is managed
+     */
+    public static boolean isUrlManaged(final String url) {
+        return BaeldungLinkContentParser.isUrlManaged(url);
+    }
 }

@@ -32,6 +32,16 @@ public class ChromiumBlogLinkContentChecker extends LinkContentChecker {
         super(url, linkData, articleData, file);
     }
 
+    /**
+     * Determine if the link is managed
+     *
+     * @param url link 
+     * @return true if the link is managed
+     */
+    public static boolean isUrlManaged(final String url) {
+        return url.startsWith("https://blog.chromium.org/");
+    }
+
     @Override
     protected LinkContentCheck checkGlobalData(final String data) {
         _parser = new ChromiumBlogLinkContentParser(data);
