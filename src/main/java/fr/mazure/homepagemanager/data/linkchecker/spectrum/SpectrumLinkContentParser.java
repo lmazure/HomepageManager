@@ -60,7 +60,16 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
         _data = data;
     }
 
-    @Override
+    /**
+     * Determine if the link is managed
+     *
+     * @param url link 
+     * @return true if the link is managed
+     */
+    public static boolean isUrlManaged(final String url) {
+        return url.startsWith("https://spectrum.ieee.org/");
+    }    @Override
+
     public String getTitle() throws ContentParserException {
         return HtmlHelper.cleanContent(s_titleParser.extract(_data));
     }

@@ -53,6 +53,16 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
         _data = data;
     }
 
+    /**
+     * Determine if the link is managed
+     *
+     * @param url link 
+     * @return true if the link is managed
+     */
+      public static boolean isUrlManaged(final String url) {
+        return url.startsWith("https://about.gitlab.com/blog/") && !url.equals("https://about.gitlab.com/blog/");
+    }
+
     @Override
     public String getTitle() throws ContentParserException {
         return HtmlHelper.cleanContent(s_titleParser.extract(_data))

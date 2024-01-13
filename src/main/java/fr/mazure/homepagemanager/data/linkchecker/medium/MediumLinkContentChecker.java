@@ -19,9 +19,9 @@ public class MediumLinkContentChecker extends ExtractorBasedLinkContentChecker {
      * @param file effective retrieved link data
      */
         public MediumLinkContentChecker(final String url,
-                                    final LinkData linkData,
-                                    final Optional<ArticleData> articleData,
-                                    final FileSection file) {
+                                        final LinkData linkData,
+                                        final Optional<ArticleData> articleData,
+                                        final FileSection file) {
         super(url, linkData, articleData, file, (LinkDataExtractorBuilder)MediumLinkContentParser::new);
     }
 }

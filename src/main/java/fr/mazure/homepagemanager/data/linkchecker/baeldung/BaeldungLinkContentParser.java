@@ -52,6 +52,16 @@ public class BaeldungLinkContentParser extends LinkDataExtractor {
         _data = data;
     }
 
+    /**
+     * Determine if the link is managed
+     *
+     * @param url link 
+     * @return true if the link is managed
+     */
+    public static boolean isUrlManaged(final String url) {
+        return url.startsWith("https://www.baeldung.com/") && !url.equals("https://www.baeldung.com/");
+    }
+
     @Override
     public String getTitle() throws ContentParserException {
         return HtmlHelper.cleanContent(s_titleParser.extract(_data));

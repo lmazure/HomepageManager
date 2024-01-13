@@ -1,7 +1,8 @@
 package fr.mazure.homepagemanager.data.linkchecker;
 
 import java.nio.file.Path;
-import java.util.regex.Pattern;
+import java.util.List;
+import java.util.function.Predicate;
 
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.dataretriever.SiteDataPersister;
@@ -27,6 +28,26 @@ public class LinkDataExtractorFactory {
 
     private String _content;
 
+    @FunctionalInterface
+    private interface ThrowingLinkDataExtractor {
+        LinkDataExtractor apply(final String url, final String data) throws ContentParserException;
+    }
+
+    private record ExtractorData(Predicate<String> predicate, ThrowingLinkDataExtractor constructor) {}
+
+    private static final List<ExtractorData> s_extractors = List.of(new ExtractorData(ArsTechnicaLinkContentParser::isUrlManaged, ArsTechnicaLinkContentParser::new),
+                                                                    new ExtractorData(BaeldungLinkContentParser::isUrlManaged, BaeldungLinkContentParser::new),
+                                                                    new ExtractorData(GithubBlogLinkContentParser::isUrlManaged, GithubBlogLinkContentParser::new),
+                                                                    new ExtractorData(MediumLinkContentParser::isUrlManaged, MediumLinkContentParser::new),
+                                                                    new ExtractorData(OracleBlogsLinkContentParser::isUrlManaged, OracleBlogsLinkContentParser::new),
+                                                                    new ExtractorData(QuantaMagazineLinkContentParser::isUrlManaged, QuantaMagazineLinkContentParser::new),
+                                                                    new ExtractorData(StackOverflowBlogContentParser::isUrlManaged, StackOverflowBlogContentParser::new),
+                                                                    new ExtractorData(SpectrumLinkContentParser::isUrlManaged, SpectrumLinkContentParser::new),
+                                                                    new ExtractorData(YoutubeWatchLinkContentParser::isUrlManaged, YoutubeWatchLinkContentParser::new),
+                                                                    new ExtractorData(GitlabBlogLinkContentParser::isUrlManaged, GitlabBlogLinkContentParser::new),
+                                                                    new ExtractorData(WiredLinkContentParser::isUrlManaged, WiredLinkContentParser::new)
+                                                                   );
+            
     /**
      * @param cacheDirectory directory where the persistence files should be written
      * @param url URL to check
@@ -48,44 +69,17 @@ public class LinkDataExtractorFactory {
                                                               "utm_content",
                                                               "utm_term");
 
-        ThrowingLinkDataExtractor constructor = null;
-        final Pattern mediumUrl = Pattern.compile("https://(.+\\.)?medium.com/.+");
-
-        if (u.startsWith("https://arstechnica.com/")) {
-            constructor = ArsTechnicaLinkContentParser::new;
-        } else if (u.startsWith("https://www.baeldung.com/") &&
-                   !u.equals("https://www.baeldung.com/")) {
-            constructor = BaeldungLinkContentParser::new;
-        } else if (url.startsWith("https://github.blog/")) {
-            constructor = GithubBlogLinkContentParser::new;
-        } else if (mediumUrl.matcher(u).matches()) {
-            constructor = MediumLinkContentParser::new;
-        } else if (u.matches("https://blogs.oracle.com/javamagazine/.+") ||
-                   u.matches("https://blogs.oracle.com/java/.+")) {
-            constructor = OracleBlogsLinkContentParser::new;
-        } else if (u.startsWith("https://www.quantamagazine.org/")) {
-            constructor = QuantaMagazineLinkContentParser::new;
-        } else if (u.startsWith("https://stackoverflow.blog/")) {
-            constructor = StackOverflowBlogContentParser::new;
-        } else if (u.startsWith("https://spectrum.ieee.org/")) {
-            constructor = SpectrumLinkContentParser::new;
-        } else if (u.startsWith("https://www.youtube.com/watch?")) {
-            constructor = YoutubeWatchLinkContentParser::new;
-        } else if (u.startsWith("https://about.gitlab.com/blog/") && !u.equals("https://about.gitlab.com/blog/")) {
-            constructor = GitlabBlogLinkContentParser::new;
-        } else if (u.startsWith("https://www.wired.com/")) {
-            constructor = WiredLinkContentParser::new;
+        for (final ExtractorData extractorData: s_extractors){
+            if (extractorData.predicate.test(u)) {
+                final SiteDataPersister persister = new SiteDataPersister(cacheDirectory);
+                final SynchronousSiteDataRetriever retriever = new SynchronousSiteDataRetriever(persister);
+                retriever.retrieve(url, this::handleLinkData, false);
+                return extractorData.constructor.apply(u, _content);
+                
+            }
         }
 
-        if (constructor == null) {
-            return null;
-        }
-
-        final SiteDataPersister persister = new SiteDataPersister(cacheDirectory);
-        final SynchronousSiteDataRetriever retriever = new SynchronousSiteDataRetriever(persister);
-        retriever.retrieve(url, this::handleLinkData, false);
-
-        return constructor.apply(u, _content);
+        return null;
     }
 
     private void handleLinkData(@SuppressWarnings("unused") final Boolean isDataFresh,
@@ -95,8 +89,5 @@ public class LinkDataExtractorFactory {
         }
     }
 
-    @FunctionalInterface
-    private interface ThrowingLinkDataExtractor {
-        LinkDataExtractor apply(final String url, final String data) throws ContentParserException;
-    }
+
 }

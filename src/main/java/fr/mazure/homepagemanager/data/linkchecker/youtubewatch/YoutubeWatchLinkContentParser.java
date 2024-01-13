@@ -160,6 +160,16 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         _exception = exception;
     }
 
+    /**
+     * Determine if the link is managed
+     *
+     * @param url link 
+     * @return true if the link is managed
+     */
+      public static boolean isUrlManaged(final String url) {
+        return url.startsWith("https://www.youtube.com/watch?");
+    }
+
     final static LocalDate parseDateTimeString(final String str) throws ContentParserException {
 
         // case the date is formatted as YYYY-MM-DD

@@ -229,6 +229,16 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
         _authorException = null;
     }
 
+    /**
+     * Determine if the link is managed
+     *
+     * @param url link 
+     * @return true if the link is managed
+     */
+    public static boolean isUrlManaged(final String url) {
+        return url.matches("https://blogs.oracle.com/javamagazine/.+") || url.matches("https://blogs.oracle.com/java/.+");
+    }
+
     @Override
     public String getTitle() {
         if (_exception != null) {

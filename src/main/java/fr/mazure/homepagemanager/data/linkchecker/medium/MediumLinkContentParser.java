@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -62,6 +63,8 @@ public class MediumLinkContentParser extends LinkDataExtractor {
                         "Medium",
                         "Netflix authors");
 
+    private static final Pattern s_mediumUrl = Pattern.compile("https://(.+\\.)?medium.com/.+");
+
     /**
      * @param url URL of the link
      * @param data retrieved link data
@@ -71,6 +74,16 @@ public class MediumLinkContentParser extends LinkDataExtractor {
         super(url);
         _data = data;
         _code = url.substring(url.lastIndexOf("-") + 1);
+    }
+
+    /**
+     * Determine if the link is managed
+     *
+     * @param url link 
+     * @return true if the link is managed
+     */
+    public static boolean isUrlManaged(final String url) {
+        return s_mediumUrl.matcher(url).matches();
     }
 
     @Override
