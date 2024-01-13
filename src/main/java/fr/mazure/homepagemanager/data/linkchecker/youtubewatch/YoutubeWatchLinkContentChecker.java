@@ -4,9 +4,11 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAccessor;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker;
@@ -22,8 +24,6 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
  */
 public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChecker {
 
-    private YoutubeWatchLinkContentParser _parser;
-
     /**
      * @param url URL of the link to check
      * @param linkData expected link data
@@ -37,7 +37,6 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
         super(url, linkData, articleData, file, (LinkDataExtractorBuilder)YoutubeWatchLinkContentParser::new);
     }
 
-
     /**
      * Determine if the link is managed
      *
@@ -45,19 +44,18 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return url.startsWith("https://www.youtube.com/watch?v=");
+        return YoutubeWatchLinkContentParser.isUrlManaged(url);
     }
 
     @Override
     protected LinkContentCheck checkGlobalData(final String data) throws ContentParserException {
         super.checkGlobalData(data);
-        _parser = (YoutubeWatchLinkContentParser)(getParser()); // TODO cleanup this crap
-        if (_parser.isPrivate()) {
+        if (getYoutubeWatchLinkContentParser().isPrivate()) {
             return new LinkContentCheck("VideoNotPlayable",
                                         "video is private",
                                         Optional.empty());
         }
-        if (!_parser.isPlayable()) {
+        if (!getYoutubeWatchLinkContentParser().isPlayable()) {
             return new LinkContentCheck("VideoNotPlayable",
                                         "video is not playable",
                                         Optional.empty());
@@ -68,17 +66,32 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
 
     @Override
     protected LinkContentCheck checkLinkAuthors(final String data,
-                                                final List<AuthorData> authors)
+                                                final List<AuthorData> authors) throws ContentParserException
     {
-        return null; //TODO We will have to check YT authors sometime in the future
+        final List<AuthorData> missingAuthors = new ArrayList<>();
+        for (final AuthorData author: getYoutubeWatchLinkContentParser().getSureAuthors()) {
+            if (!authors.contains(author)) {
+                missingAuthors.add(author);
+            }
+        }
+
+        if (!missingAuthors.isEmpty()) {
+            final String message = "The following authors are expected but are effectively missing: " + missingAuthors.stream().map(AuthorData::toString).collect(Collectors.joining(","));
+            return new LinkContentCheck("WrongAuthors",
+                                        message,
+                                        Optional.empty());
+
+        }
+
+        return null;
     }
 
     @Override
     public LinkContentCheck checkLinkDuration(final String data,
                                               final Duration expectedDuration) throws ContentParserException {
 
-        final Duration effectiveMinDuration = _parser.getMinDuration().truncatedTo(ChronoUnit.SECONDS);
-        final Duration effectiveMaxDuration = _parser.getMaxDuration().truncatedTo(ChronoUnit.SECONDS).plusSeconds(1);
+        final Duration effectiveMinDuration = getYoutubeWatchLinkContentParser().getMinDuration().truncatedTo(ChronoUnit.SECONDS);
+        final Duration effectiveMaxDuration = getYoutubeWatchLinkContentParser().getMaxDuration().truncatedTo(ChronoUnit.SECONDS).plusSeconds(1);
 
         if ((expectedDuration.compareTo(effectiveMinDuration) < 0) ||
             (expectedDuration.compareTo(effectiveMaxDuration) > 0)) {
@@ -101,7 +114,6 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
                                                 final Optional<TemporalAccessor> publicationDate,
                                                 final Optional<TemporalAccessor> creationDate) throws ContentParserException
     {
-
         if (creationDate.isEmpty() && publicationDate.isEmpty()) {
             return new LinkContentCheck("MissingDate",
                                         "YouTube link with neither creation date not publication date",
@@ -116,8 +128,8 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
                                         Optional.empty());
        }
 
-        final LocalDate effectivePublishDate = _parser.getPublishDateInternal();
-        final LocalDate effectiveUploadDate = _parser.getUploadDateInternal();
+        final LocalDate effectivePublishDate = getYoutubeWatchLinkContentParser().getPublishDateInternal();
+        final LocalDate effectiveUploadDate = getYoutubeWatchLinkContentParser().getUploadDateInternal();
 
         if (!expectedDate.equals(effectivePublishDate)) {
             return new LinkContentCheck("WrongDate",
@@ -144,8 +156,12 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
     protected LinkContentCheck checkLinkLanguages(final String data,
                                                   final Locale[] expectedLanguages) throws ContentParserException
     {
-        final Locale effectiveLanguage = _parser.getLanguage();
+        final Locale effectiveLanguage = getYoutubeWatchLinkContentParser().getLanguage();
 
         return checkLinkLanguagesHelper(effectiveLanguage, expectedLanguages);
+    }
+
+    private YoutubeWatchLinkContentParser getYoutubeWatchLinkContentParser() {
+        return (YoutubeWatchLinkContentParser)getParser();
     }
 }

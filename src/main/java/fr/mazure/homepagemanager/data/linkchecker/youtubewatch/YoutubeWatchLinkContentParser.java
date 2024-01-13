@@ -10,6 +10,7 @@ import java.time.temporal.TemporalAccessor;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -744,9 +745,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                 return buildList(buildAuthor("José", "Paumard"));
             }
         }
-        final List<AuthorData> list = new ArrayList<>();
-        list.add(buildAuthorFromGivenName(channel));
-        return list;
+        return Collections.emptyList();
     }
 
     @Override
@@ -760,6 +759,9 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                    authors.add(match.getAuthor());
                  }
             }
+        }
+        if (authors.isEmpty()) {
+            authors.add(buildAuthorFromGivenName(channel));
         }
         return authors;
     }
