@@ -44,7 +44,7 @@ public class LinkDataExtractorTest {
                 <A>https://www.baeldung.com/java-unit-testing-best-practices</A>\
                 <L>en</L><F>HTML</F></X>\
                 <AUTHOR><FIRSTNAME>Anshul</FIRSTNAME><LASTNAME>Bansal</LASTNAME></AUTHOR>\
-                <DATE><YEAR>2023</YEAR><MONTH>5</MONTH><DAY>5</DAY></DATE>\
+                <DATE><YEAR>2024</YEAR><MONTH>1</MONTH><DAY>8</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));

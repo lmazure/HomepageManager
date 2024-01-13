@@ -27,6 +27,9 @@ Gérer
 Les mauvais auteurs YouTube ne sont pas détectés
 
 
+afficher les métadonnées des articles dans les tables
+
+
 ==== potentially before merge =====
 
 
