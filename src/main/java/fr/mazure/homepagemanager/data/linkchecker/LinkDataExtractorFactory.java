@@ -1,5 +1,8 @@
 package fr.mazure.homepagemanager.data.linkchecker;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.function.Predicate;
@@ -18,6 +21,7 @@ import fr.mazure.homepagemanager.data.linkchecker.spectrum.SpectrumLinkContentPa
 import fr.mazure.homepagemanager.data.linkchecker.stackoverflowblog.StackOverflowBlogContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.wired.WiredLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser;
+import fr.mazure.homepagemanager.utils.ExitHelper;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 
@@ -35,19 +39,49 @@ public class LinkDataExtractorFactory {
 
     private record ExtractorData(Predicate<String> predicate, ThrowingLinkDataExtractor constructor) {}
 
-    private static final List<ExtractorData> s_extractors = List.of(new ExtractorData(ArsTechnicaLinkContentParser::isUrlManaged, ArsTechnicaLinkContentParser::new),
-                                                                    new ExtractorData(BaeldungLinkContentParser::isUrlManaged, BaeldungLinkContentParser::new),
-                                                                    new ExtractorData(GithubBlogLinkContentParser::isUrlManaged, GithubBlogLinkContentParser::new),
-                                                                    new ExtractorData(MediumLinkContentParser::isUrlManaged, MediumLinkContentParser::new),
-                                                                    new ExtractorData(OracleBlogsLinkContentParser::isUrlManaged, OracleBlogsLinkContentParser::new),
-                                                                    new ExtractorData(QuantaMagazineLinkContentParser::isUrlManaged, QuantaMagazineLinkContentParser::new),
-                                                                    new ExtractorData(StackOverflowBlogContentParser::isUrlManaged, StackOverflowBlogContentParser::new),
-                                                                    new ExtractorData(SpectrumLinkContentParser::isUrlManaged, SpectrumLinkContentParser::new),
-                                                                    new ExtractorData(YoutubeWatchLinkContentParser::isUrlManaged, YoutubeWatchLinkContentParser::new),
-                                                                    new ExtractorData(GitlabBlogLinkContentParser::isUrlManaged, GitlabBlogLinkContentParser::new),
-                                                                    new ExtractorData(WiredLinkContentParser::isUrlManaged, WiredLinkContentParser::new)
-                                                                   );
-            
+
+    private static final List<ExtractorData> s_extractors = new java.util.ArrayList<>();
+
+    static {
+        final List<Class<?>> extractors = List.of(
+                ArsTechnicaLinkContentParser.class,
+                BaeldungLinkContentParser.class,
+                GithubBlogLinkContentParser.class,
+                MediumLinkContentParser.class,
+                OracleBlogsLinkContentParser.class,
+                QuantaMagazineLinkContentParser.class,
+                StackOverflowBlogContentParser.class,
+                SpectrumLinkContentParser.class,
+                YoutubeWatchLinkContentParser.class,
+                GitlabBlogLinkContentParser.class,
+                WiredLinkContentParser.class
+               );
+        for (final Class<?> clazz: extractors) {
+            try {
+                final Method method = clazz.getDeclaredMethod("isUrlManaged", String.class);
+                final Constructor<?> cons = clazz.getConstructor(String.class, String.class);
+                s_extractors.add(new ExtractorData((final String url) -> {
+                                                       try {
+                                                           return ((Boolean)method.invoke(null, url)).booleanValue();
+                                                       } catch (final IllegalAccessException | InvocationTargetException e) {
+                                                           ExitHelper.exit(e);
+                                                           // NOTREACHED
+                                                           return false;
+                                                       }},
+                                                   (final String url, final String data) -> {
+                                                       try {
+                                                           return (LinkDataExtractor)cons.newInstance(url, data);
+                                                       } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+                                                           ExitHelper.exit(e);
+                                                           // NOTREACHED
+                                                           return null;
+                                                       }}));
+            } catch (final NoSuchMethodException e) {
+                ExitHelper.exit(e);
+            }
+        }
+    }
+
     /**
      * @param cacheDirectory directory where the persistence files should be written
      * @param url URL to check

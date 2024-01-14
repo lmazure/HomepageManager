@@ -1,5 +1,8 @@
 package fr.mazure.homepagemanager.data.linkchecker;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -18,6 +21,7 @@ import fr.mazure.homepagemanager.data.linkchecker.stackoverflowblog.StackOverflo
 import fr.mazure.homepagemanager.data.linkchecker.wired.WiredLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.youtubechanneluser.YoutubeChannelUserLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentChecker;
+import fr.mazure.homepagemanager.utils.ExitHelper;
 import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
@@ -33,23 +37,52 @@ public class LinkContentCheckerFactory {
     }
 
     private record CheckerData(Predicate<String> predicate, ThrowingLinkContentChecker constructor) {}
-    
-    private static final List<CheckerData> s_extractors = List.of(new CheckerData(ArsTechnicaLinkContentChecker::isUrlManaged, ArsTechnicaLinkContentChecker::new),
-                                                                  new CheckerData(ChromiumBlogLinkContentChecker::isUrlManaged, ChromiumBlogLinkContentChecker::new),
-                                                                  new CheckerData(OracleBlogsLinkContentChecker::isUrlManaged, OracleBlogsLinkContentChecker::new),
-                                                                  new CheckerData(IbmLinkContentChecker::isUrlManaged, IbmLinkContentChecker::new),
-                                                                  new CheckerData(GithubBlogLinkContentChecker::isUrlManaged, GithubBlogLinkContentChecker::new),
-                                                                  new CheckerData(MediumLinkContentChecker::isUrlManaged, MediumLinkContentChecker::new),
-                                                                  new CheckerData(WiredLinkContentChecker::isUrlManaged, WiredLinkContentChecker::new),
-                                                                  new CheckerData(QuantaMagazineLinkContentChecker::isUrlManaged, QuantaMagazineLinkContentChecker::new),
-                                                                  new CheckerData(YoutubeChannelUserLinkContentChecker::isUrlManaged, YoutubeChannelUserLinkContentChecker::new),
-                                                                  new CheckerData(StackOverflowBlogContentChecker::isUrlManaged, StackOverflowBlogContentChecker::new),
-                                                                  new CheckerData(SpectrumLinkContentChecker::isUrlManaged, SpectrumLinkContentChecker::new),
-                                                                  new CheckerData(YoutubeChannelUserLinkContentChecker::isUrlManaged, YoutubeChannelUserLinkContentChecker::new),
-                                                                  new CheckerData(YoutubeWatchLinkContentChecker::isUrlManaged, YoutubeWatchLinkContentChecker::new),
-                                                                  new CheckerData(BaeldungLinkContentChecker::isUrlManaged, BaeldungLinkContentChecker::new),
-                                                                  new CheckerData(GitlabBlogLinkContentChecker::isUrlManaged, GitlabBlogLinkContentChecker::new)
-                                                                 );
+
+    private static final List<CheckerData> s_checkers = new java.util.ArrayList<>();
+
+    static {
+        final List<Class<?>> checkers = List.of(
+                ArsTechnicaLinkContentChecker.class,
+                ChromiumBlogLinkContentChecker.class,
+                OracleBlogsLinkContentChecker.class,
+                IbmLinkContentChecker.class,
+                GithubBlogLinkContentChecker.class,
+                MediumLinkContentChecker.class,
+                WiredLinkContentChecker.class,
+                QuantaMagazineLinkContentChecker.class,
+                StackOverflowBlogContentChecker.class,
+                SpectrumLinkContentChecker.class,
+                YoutubeChannelUserLinkContentChecker.class,
+                YoutubeWatchLinkContentChecker.class,
+                BaeldungLinkContentChecker.class,
+                GitlabBlogLinkContentChecker.class
+               );
+        for (final Class<?> clazz: checkers) {
+            try {
+                final Method method = clazz.getDeclaredMethod("isUrlManaged", String.class);
+                final Constructor<?> cons = clazz.getConstructor(String.class, LinkData.class, Optional.class, FileSection.class);
+                s_checkers.add(new CheckerData((final String url) -> {
+                                                   try {
+                                                       return ((Boolean)method.invoke(null, url)).booleanValue();
+                                                   } catch (final IllegalAccessException | InvocationTargetException e) {
+                                                       ExitHelper.exit(e);
+                                                       // NOTREACHED
+                                                       return false;
+                                                   }},
+                                               (final String url, final LinkData linkData, final Optional<ArticleData> articleData, final FileSection file) -> {
+                                                   try {
+                                                       return (LinkContentChecker)cons.newInstance(url, linkData, articleData, file);
+                                                   } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+                                                       ExitHelper.exit(e);
+                                                       // NOTREACHED
+                                                       return null;
+                                                   }}));
+            } catch (final NoSuchMethodException e) {
+                ExitHelper.exit(e);
+            }
+        }
+    }
+
     /**
      * @param url URL of the link to check
      * @param linkData expected link data
@@ -77,10 +110,9 @@ public class LinkContentCheckerFactory {
             return new NoCheckContentChecker(url, linkData, articleData, file);
         }
 
-        for (final CheckerData extractorData: s_extractors) {
-            if (extractorData.predicate.test(url)) {
-                return extractorData.constructor.apply(url, linkData, articleData, file);
-                
+        for (final CheckerData checkerData: s_checkers) {
+            if (checkerData.predicate.test(url)) {
+                return checkerData.constructor.apply(url, linkData, articleData, file);
             }
         }
 
