@@ -167,7 +167,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
      * @param url link 
      * @return true if the link is managed
      */
-      public static boolean isUrlManaged(final String url) {
+    public static boolean isUrlManaged(final String url) {
         return url.startsWith("https://www.youtube.com/watch?");
     }
 
@@ -760,7 +760,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                  }
             }
         }
-        if (authors.isEmpty()) {
+        if (authors.isEmpty() && getSureAuthors().isEmpty() && getPossibleAuthors().isEmpty()) {
             authors.add(buildAuthorFromGivenName(channel));
         }
         return authors;

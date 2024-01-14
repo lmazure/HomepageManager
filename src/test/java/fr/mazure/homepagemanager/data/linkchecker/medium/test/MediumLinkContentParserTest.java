@@ -143,7 +143,7 @@ public class MediumLinkContentParserTest {
     @ParameterizedTest
     @CsvSource(value = {
         // articles with a long subtitle that is truncated in the JSON payload
-        "https://medium.com/devops-with-valentine/send-gitlab-ci-reports-artifacts-via-e-mail-86bc96e66511|Most users migrating from Jenkins to Gitlab CI are looking for a way to send emails with the reports when a test fails. While Gitlab CI can notify you that a job has failed (or was successful) it will not attach any files or reports to that email.",
+        "https://medium.com/devops-with-valentine/send-gitlab-ci-reports-artifacts-via-e-mail-86bc96e66511|Most users migrating from Jenkins to GitLab CI are looking for a way to send emails with the reports when a test fails. While Gitlab CI can notify you that a job has failed (or was successful) it will not attach any files or reports to that email.",
         // the next articles seem to be old ones one where the paragraph IDs where not 4 hexadecimal numbers
         "https://medium.com/@docjamesw/the-anti-meeting-culture-c209bab5a16d|Kill wasteful meetings before they kill you",
         "https://medium.com/@docjamesw/work-hard-youll-get-there-eventually-d4f4fc704820|(Hint: No You Won’t)"
