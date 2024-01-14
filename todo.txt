@@ -10,6 +10,9 @@ methods       53.0%/52.2%    97.9%
 
 
 
+nettoyer javabasics.xml
+
+
 gérer les vidéo youtube miss à privé
 pex https://www.youtube.com/watch?v=OW1J61jg-3U
 les mettre en removed

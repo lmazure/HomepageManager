@@ -32,13 +32,8 @@ public class LinkDataExtractorFactory {
 
     private String _content;
 
-    @FunctionalInterface
-    private interface ThrowingLinkDataExtractor {
-        LinkDataExtractor apply(final String url, final String data) throws ContentParserException;
-    }
 
-    private record ExtractorData(Predicate<String> predicate, ThrowingLinkDataExtractor constructor) {}
-
+    private record ExtractorData(Predicate<String> predicate, Constructor<LinkDataExtractor> constructor) {}
 
     private static final List<ExtractorData> s_extractors = new java.util.ArrayList<>();
 
@@ -59,7 +54,7 @@ public class LinkDataExtractorFactory {
         for (final Class<?> clazz: extractors) {
             try {
                 final Method method = clazz.getDeclaredMethod("isUrlManaged", String.class);
-                final Constructor<?> cons = clazz.getConstructor(String.class, String.class);
+                final Constructor<LinkDataExtractor> cons = (Constructor<LinkDataExtractor>)clazz.getConstructor(String.class, String.class);
                 s_extractors.add(new ExtractorData((final String url) -> {
                                                        try {
                                                            return ((Boolean)method.invoke(null, url)).booleanValue();
@@ -68,14 +63,7 @@ public class LinkDataExtractorFactory {
                                                            // NOTREACHED
                                                            return false;
                                                        }},
-                                                   (final String url, final String data) -> {
-                                                       try {
-                                                           return (LinkDataExtractor)cons.newInstance(url, data);
-                                                       } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-                                                           ExitHelper.exit(e);
-                                                           // NOTREACHED
-                                                           return null;
-                                                       }}));
+                                                   cons));
             } catch (final NoSuchMethodException e) {
                 ExitHelper.exit(e);
             }
@@ -95,7 +83,7 @@ public class LinkDataExtractorFactory {
     }
 
     private LinkDataExtractor create(final Path cacheDirectory,
-                                     final String url) throws ContentParserException {
+                                     final String url) {
 
         final String u = UrlHelper.removeQueryParameters(url, "utm_source",
                                                               "utm_medium",
@@ -108,7 +96,13 @@ public class LinkDataExtractorFactory {
                 final SiteDataPersister persister = new SiteDataPersister(cacheDirectory);
                 final SynchronousSiteDataRetriever retriever = new SynchronousSiteDataRetriever(persister);
                 retriever.retrieve(url, this::handleLinkData, false);
-                return extractorData.constructor.apply(u, _content);
+                try {
+                    return extractorData.constructor.newInstance(u, _content);
+                } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException| InvocationTargetException e) {
+                    ExitHelper.exit(e);
+                    // NOTREACHED
+                    return null;
+                }
                 
             }
         }

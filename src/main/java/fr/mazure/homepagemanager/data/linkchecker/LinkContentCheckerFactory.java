@@ -31,12 +31,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
  */
 public class LinkContentCheckerFactory {
 
-    @FunctionalInterface
-    private interface ThrowingLinkContentChecker {
-        LinkContentChecker apply(final String url, final LinkData linkData, final Optional<ArticleData> articleData, final FileSection file);
-    }
-
-    private record CheckerData(Predicate<String> predicate, ThrowingLinkContentChecker constructor) {}
+    private record CheckerData(Predicate<String> predicate, Constructor<LinkContentChecker> constructor) {}
 
     private static final List<CheckerData> s_checkers = new java.util.ArrayList<>();
 
@@ -60,7 +55,7 @@ public class LinkContentCheckerFactory {
         for (final Class<?> clazz: checkers) {
             try {
                 final Method method = clazz.getDeclaredMethod("isUrlManaged", String.class);
-                final Constructor<?> cons = clazz.getConstructor(String.class, LinkData.class, Optional.class, FileSection.class);
+                final Constructor<LinkContentChecker> cons = (Constructor<LinkContentChecker>)clazz.getConstructor(String.class, LinkData.class, Optional.class, FileSection.class);
                 s_checkers.add(new CheckerData((final String url) -> {
                                                    try {
                                                        return ((Boolean)method.invoke(null, url)).booleanValue();
@@ -69,14 +64,7 @@ public class LinkContentCheckerFactory {
                                                        // NOTREACHED
                                                        return false;
                                                    }},
-                                               (final String url, final LinkData linkData, final Optional<ArticleData> articleData, final FileSection file) -> {
-                                                   try {
-                                                       return (LinkContentChecker)cons.newInstance(url, linkData, articleData, file);
-                                                   } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-                                                       ExitHelper.exit(e);
-                                                       // NOTREACHED
-                                                       return null;
-                                                   }}));
+                                               cons));
             } catch (final NoSuchMethodException e) {
                 ExitHelper.exit(e);
             }
@@ -112,7 +100,13 @@ public class LinkContentCheckerFactory {
 
         for (final CheckerData checkerData: s_checkers) {
             if (checkerData.predicate.test(url)) {
-                return checkerData.constructor.apply(url, linkData, articleData, file);
+                try {
+                    return checkerData.constructor.newInstance(url, linkData, articleData, file);
+                } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+                    ExitHelper.exit(e);
+                    // NOTREACHED
+                    return null;
+                }
             }
         }
 
