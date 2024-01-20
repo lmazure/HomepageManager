@@ -10,7 +10,7 @@ methods       53.0%/52.2%    97.9%
 
 
 
-nettoyer javabasics.xml
+corriger les problème d'auteurs sur javanews.xml
 
 
 gérer les vidéo youtube miss à privé

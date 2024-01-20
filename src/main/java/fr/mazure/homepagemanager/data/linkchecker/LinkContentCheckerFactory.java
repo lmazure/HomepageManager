@@ -36,7 +36,7 @@ public class LinkContentCheckerFactory {
     private static final List<CheckerData> s_checkers = new java.util.ArrayList<>();
 
     static {
-        final List<Class<?>> checkers = List.of(
+        final List<Class<? extends LinkContentChecker>> checkers = List.of(
                 ArsTechnicaLinkContentChecker.class,
                 ChromiumBlogLinkContentChecker.class,
                 OracleBlogsLinkContentChecker.class,
@@ -55,6 +55,7 @@ public class LinkContentCheckerFactory {
         for (final Class<?> clazz: checkers) {
             try {
                 final Method method = clazz.getDeclaredMethod("isUrlManaged", String.class);
+                @SuppressWarnings("unchecked")
                 final Constructor<LinkContentChecker> cons = (Constructor<LinkContentChecker>)clazz.getConstructor(String.class, LinkData.class, Optional.class, FileSection.class);
                 s_checkers.add(new CheckerData((final String url) -> {
                                                    try {

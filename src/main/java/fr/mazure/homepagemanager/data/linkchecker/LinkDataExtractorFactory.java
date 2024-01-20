@@ -38,7 +38,7 @@ public class LinkDataExtractorFactory {
     private static final List<ExtractorData> s_extractors = new java.util.ArrayList<>();
 
     static {
-        final List<Class<?>> extractors = List.of(
+        final List<Class<? extends LinkDataExtractor>> extractors = List.of(
                 ArsTechnicaLinkContentParser.class,
                 BaeldungLinkContentParser.class,
                 GithubBlogLinkContentParser.class,
@@ -54,6 +54,7 @@ public class LinkDataExtractorFactory {
         for (final Class<?> clazz: extractors) {
             try {
                 final Method method = clazz.getDeclaredMethod("isUrlManaged", String.class);
+                @SuppressWarnings("unchecked")
                 final Constructor<LinkDataExtractor> cons = (Constructor<LinkDataExtractor>)clazz.getConstructor(String.class, String.class);
                 s_extractors.add(new ExtractorData((final String url) -> {
                                                        try {
