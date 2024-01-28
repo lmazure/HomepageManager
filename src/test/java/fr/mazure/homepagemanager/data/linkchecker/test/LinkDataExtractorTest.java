@@ -817,7 +817,7 @@ public class LinkDataExtractorTest {
                 <ARTICLE><X><T>J'ai regardé 43 films et séries Marvel Studios et j'y ai trouvé... des maths ! - Ccc #08</T>\
                 <A>https://www.youtube.com/watch?v=qZWbgBSfTUI</A>\
                 <L>fr</L><F>MP4</F><DURATION><MINUTE>26</MINUTE><SECOND>42</SECOND></DURATION></X>\
-                <AUTHOR><FIRSTNAME>Jérôme</FIRSTNAME><LASTNAME>Cottanceau</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Jérôme</FIRSTNAME><LASTNAME>Cottanceau</LASTNAME><GIVENNAME>El Jj</GIVENNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>8</MONTH><DAY>30</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
