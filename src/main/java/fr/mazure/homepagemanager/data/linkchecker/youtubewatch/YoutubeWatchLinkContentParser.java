@@ -95,7 +95,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
             if (payload.has("captions")) {
                 final JSONArray captions = payload.getJSONObject("captions").getJSONObject("playerCaptionsTracklistRenderer").getJSONArray("captionTracks");
                 String language = null;
-                for (int i =0; i < captions.length(); i++) {
+                for (int i = 0; i < captions.length(); i++) {
                     final String lang = captions.getJSONObject(i).getJSONObject("name").getString("simpleText");
                     if (lang.endsWith(" (auto-generated)")) {
                         if (language != null) {
