@@ -23,8 +23,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
 /**
-* Data extractor for Github blog
-*/
+ * Data extractor for Github blog
+ */
 public class GithubBlogLinkContentParser extends LinkDataExtractor {
 
     private final String _data;
@@ -65,6 +65,16 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
                                        final String data) {
         super(url);
         _data = data;
+    }
+
+    /**
+     * Determine if the link is managed
+     *
+     * @param url link 
+     * @return true if the link is managed
+     */
+    public static boolean isUrlManaged(final String url) {
+        return url.startsWith("https://github.blog/");
     }
 
     @Override

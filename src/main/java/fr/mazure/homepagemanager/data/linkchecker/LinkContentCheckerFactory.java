@@ -1,6 +1,11 @@
 package fr.mazure.homepagemanager.data.linkchecker;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import fr.mazure.homepagemanager.data.linkchecker.arstechnica.ArsTechnicaLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.baeldung.BaeldungLinkContentChecker;
@@ -16,6 +21,7 @@ import fr.mazure.homepagemanager.data.linkchecker.stackoverflowblog.StackOverflo
 import fr.mazure.homepagemanager.data.linkchecker.wired.WiredLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.youtubechanneluser.YoutubeChannelUserLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentChecker;
+import fr.mazure.homepagemanager.utils.ExitHelper;
 import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
@@ -24,6 +30,47 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
  * Factory returning the LinkContentChecker able to check a given URL
  */
 public class LinkContentCheckerFactory {
+
+    private record CheckerData(Predicate<String> predicate, Constructor<LinkContentChecker> constructor) {}
+
+    private static final List<CheckerData> s_checkers = new java.util.ArrayList<>();
+
+    static {
+        final List<Class<? extends LinkContentChecker>> checkers = List.of(
+                ArsTechnicaLinkContentChecker.class,
+                ChromiumBlogLinkContentChecker.class,
+                OracleBlogsLinkContentChecker.class,
+                IbmLinkContentChecker.class,
+                GithubBlogLinkContentChecker.class,
+                MediumLinkContentChecker.class,
+                WiredLinkContentChecker.class,
+                QuantaMagazineLinkContentChecker.class,
+                StackOverflowBlogContentChecker.class,
+                SpectrumLinkContentChecker.class,
+                YoutubeChannelUserLinkContentChecker.class,
+                YoutubeWatchLinkContentChecker.class,
+                BaeldungLinkContentChecker.class,
+                GitlabBlogLinkContentChecker.class
+               );
+        for (final Class<?> clazz: checkers) {
+            try {
+                final Method method = clazz.getDeclaredMethod("isUrlManaged", String.class);
+                @SuppressWarnings("unchecked")
+                final Constructor<LinkContentChecker> cons = (Constructor<LinkContentChecker>)clazz.getConstructor(String.class, LinkData.class, Optional.class, FileSection.class);
+                s_checkers.add(new CheckerData((final String url) -> {
+                                                   try {
+                                                       return ((Boolean)method.invoke(null, url)).booleanValue();
+                                                   } catch (final IllegalAccessException | InvocationTargetException e) {
+                                                       ExitHelper.exit(e);
+                                                       // NOTREACHED
+                                                       return false;
+                                                   }},
+                                               cons));
+            } catch (final NoSuchMethodException e) {
+                ExitHelper.exit(e);
+            }
+        }
+    }
 
     /**
      * @param url URL of the link to check
@@ -52,67 +99,16 @@ public class LinkContentCheckerFactory {
             return new NoCheckContentChecker(url, linkData, articleData, file);
         }
 
-        if (url.startsWith("https://arstechnica.com/")) {
-            return new ArsTechnicaLinkContentChecker(url, linkData, articleData, file);
-        }
-
-        if (url.startsWith("https://blog.chromium.org/")) {
-            return new ChromiumBlogLinkContentChecker(url, linkData, articleData, file);
-        }
-
-        if (url.matches("https://blogs.oracle.com/javamagazine/.+") ||
-            url.matches("https://blogs.oracle.com/java/.+")) {
-            return new OracleBlogsLinkContentChecker(url, linkData, articleData, file);
-        }
-
-        if (url.startsWith("https://developer.ibm.com/articles/") ||
-            url.startsWith("https://developer.ibm.com/tutorials/")) {
-            return new IbmLinkContentChecker(url, linkData, articleData, file);
-        }
-
-        if (url.startsWith("https://github.blog/")) {
-            return new GithubBlogLinkContentChecker(url, linkData, articleData, file);
-        }
-
-        if (url.startsWith("https://medium.com/")) {
-            return new MediumLinkContentChecker(url, linkData, articleData, file);
-        }
-
-        if (url.startsWith("https://www.wired.com/")) {
-            return new WiredLinkContentChecker(url, linkData, articleData, file);
-        }
-
-        if (url.startsWith("https://www.quantamagazine.org/")) {
-            return new QuantaMagazineLinkContentChecker(url, linkData, articleData, file);
-        }
-
-        if (url.startsWith("https://www.youtube.com/channel/")) {
-            return new YoutubeChannelUserLinkContentChecker(url, linkData, articleData, file);
-        }
-
-        if (url.startsWith("https://stackoverflow.blog/")) {
-            return new StackOverflowBlogContentChecker(url, linkData, articleData, file);
-        }
-
-        if (url.startsWith("https://spectrum.ieee.org/")) {
-            return new SpectrumLinkContentChecker(url, linkData, articleData, file);
-        }
-
-        if (url.startsWith("https://www.youtube.com/user/")) {
-            return new YoutubeChannelUserLinkContentChecker(url, linkData, articleData, file);
-        }
-
-        if (url.startsWith("https://www.youtube.com/watch?v=")) {
-            return new YoutubeWatchLinkContentChecker(url, linkData, articleData, file);
-            //return new YoutubeWatchLinkContentChecker2(url, linkData, articleData, file);
-        }
-
-        if (url.matches("https://www.baeldung.com/.+")) {
-            return new BaeldungLinkContentChecker(url, linkData, articleData, file);
-        }
-
-        if (url.startsWith("https://about.gitlab.com/blog/")&& !url.equals("https://about.gitlab.com/blog/")) {
-            return new GitlabBlogLinkContentChecker(url, linkData, articleData, file);
+        for (final CheckerData checkerData: s_checkers) {
+            if (checkerData.predicate.test(url)) {
+                try {
+                    return checkerData.constructor.newInstance(url, linkData, articleData, file);
+                } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+                    ExitHelper.exit(e);
+                    // NOTREACHED
+                    return null;
+                }
+            }
         }
 
         if (url.startsWith("https://spectrum.ieee.org/")) {

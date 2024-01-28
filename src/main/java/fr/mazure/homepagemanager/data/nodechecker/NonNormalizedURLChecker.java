@@ -8,8 +8,8 @@ import fr.mazure.homepagemanager.data.nodechecker.tagselection.InclusionTagSelec
 import fr.mazure.homepagemanager.utils.xmlparsing.ElementType;
 
 /**
-*
-*/
+ *
+ */
 public class NonNormalizedURLChecker extends NodeChecker {
 
     private static final InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
@@ -41,8 +41,8 @@ public class NonNormalizedURLChecker extends NodeChecker {
             return new CheckStatus("ImproperUrlEncoding", "\"google.fr\" should be \"google.com\"", Optional.empty());
         }
 
-        if (url.contains("www-128.ibm.com")) {
-            return new CheckStatus("ImproperUrlEncoding", "\"www-128.ibm.com\" should be \"www.ibm.com\"", Optional.empty());
+        if (url.contains("www.martinfowler.com")) {
+            return new CheckStatus("ImproperUrlEncoding", "\"www.martinfowler.com\" should be \"martinfowler.com\"", Optional.empty());
         }
 
         if (url.contains("blogs.oracle.com/javamagazine") && !url.contains("/post/") && !url.endsWith("/javamagazine/")) {

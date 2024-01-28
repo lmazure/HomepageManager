@@ -4,8 +4,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
-* Helper to manager URLs
-*/
+ * Helper to manager URLs
+ */
 public class UrlHelper {
 
     /**

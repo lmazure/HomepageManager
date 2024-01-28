@@ -16,8 +16,8 @@ import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 
 /**
-*
-*/
+ *
+ */
 public class HtmlHelperTest {
 
     @SuppressWarnings("static-method")

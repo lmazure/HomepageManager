@@ -77,7 +77,17 @@ public class WiredLinkContentParser extends LinkDataExtractor {
         _exception = exception;
     }
 
-    @Override
+    /**
+     * Determine if the link is managed
+     *
+     * @param url link 
+     * @return true if the link is managed
+     */
+      public static boolean isUrlManaged(final String url) {
+        return url.startsWith("https://www.wired.com/");
+    }
+
+      @Override
     public String getTitle() throws ContentParserException {
         if (_exception != null) {
             throw _exception;

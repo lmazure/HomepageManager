@@ -6,8 +6,8 @@ import fr.mazure.homepagemanager.data.FileHandler.Status;
 import javafx.scene.control.TableColumn;
 
 /**
-*
-*/
+ *
+ */
 public class NodeValueCheckController extends GenericUiController {
 
     /**

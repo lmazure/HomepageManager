@@ -9,8 +9,8 @@ import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.utils.StringHelper;
 
 /**
-* Data extractor for YouTube channels
-*/
+ * Data extractor for YouTube channels
+ */
 public class YoutubeChannelUserLinkContentParser {
 
     private static final Pattern PATTERN = Pattern.compile("\"alerts\":\\[\\{\"alertRenderer\":\\{\"type\":\"ERROR\",\"text\":\\{\"simpleText\":\"([^\\\"]*)\"\\}\\}\\}\\]");

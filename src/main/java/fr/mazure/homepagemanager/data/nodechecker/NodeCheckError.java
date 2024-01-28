@@ -11,8 +11,8 @@ import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
  * @param checkName name of the check
  * @param detail details of the violation
  * @param correction correctio of the violation
-*
-*/
+ *
+ */
 public record NodeCheckError(String tag,
                              String value,
                              String violation,

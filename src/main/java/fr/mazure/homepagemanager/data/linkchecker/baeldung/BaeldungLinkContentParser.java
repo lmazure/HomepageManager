@@ -19,8 +19,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
 /**
-* Data extractor for Baeldung articles
-*/
+ * Data extractor for Baeldung articles
+ */
 public class BaeldungLinkContentParser extends LinkDataExtractor {
 
     private final String _data;
@@ -50,6 +50,16 @@ public class BaeldungLinkContentParser extends LinkDataExtractor {
                                      final String data) {
         super(url);
         _data = data;
+    }
+
+    /**
+     * Determine if the link is managed
+     *
+     * @param url link 
+     * @return true if the link is managed
+     */
+    public static boolean isUrlManaged(final String url) {
+        return url.startsWith("https://www.baeldung.com/") && !url.equals("https://www.baeldung.com/");
     }
 
     @Override

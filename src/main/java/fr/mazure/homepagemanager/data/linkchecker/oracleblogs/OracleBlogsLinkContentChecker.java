@@ -8,8 +8,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 
 /**
-*
-*/
+ *
+ */
 public class OracleBlogsLinkContentChecker extends ExtractorBasedLinkContentChecker {
 
     /**
@@ -23,5 +23,15 @@ public class OracleBlogsLinkContentChecker extends ExtractorBasedLinkContentChec
                                          final Optional<ArticleData> articleData,
                                          final FileSection file) {
         super(url, linkData, articleData, file, (LinkDataExtractorBuilder)OracleBlogsLinkContentParser::new);
+    }
+
+    /**
+     * Determine if the link is managed
+     *
+     * @param url link 
+     * @return true if the link is managed
+     */
+    public static boolean isUrlManaged(final String url) {
+        return OracleBlogsLinkContentParser.isUrlManaged(url);
     }
 }

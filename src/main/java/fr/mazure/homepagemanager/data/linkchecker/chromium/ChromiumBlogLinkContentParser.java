@@ -10,8 +10,8 @@ import fr.mazure.homepagemanager.data.linkchecker.TextParser;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 
 /**
-* Data extractor from Chromium blog
-*/
+ * Data extractor from Chromium blog
+ */
 public class ChromiumBlogLinkContentParser {
 
     private final String _data;

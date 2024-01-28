@@ -18,7 +18,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 
 /**
  * Data extractor for IBM articles
-*/
+ */
 public class IbmLinkContentParser {
 
     private final String _title;

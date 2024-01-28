@@ -8,8 +8,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 
 /**
-* Check data for a link toward a Quanta Magazine article
-*/
+ * Check data for a link toward a Quanta Magazine article
+ */
 public class QuantaMagazineLinkContentChecker extends ExtractorBasedLinkContentChecker {
 
     /**
@@ -23,5 +23,15 @@ public class QuantaMagazineLinkContentChecker extends ExtractorBasedLinkContentC
                                             final Optional<ArticleData> articleData,
                                             final FileSection file) {
         super(url, linkData, articleData, file, (LinkDataExtractorBuilder)QuantaMagazineLinkContentParser::new);
+    }
+
+    /**
+     * Determine if the link is managed
+     *
+     * @param url link 
+     * @return true if the link is managed
+     */
+    public static boolean isUrlManaged(final String url) {
+        return QuantaMagazineLinkContentParser.isUrlManaged(url);
     }
 }

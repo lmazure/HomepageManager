@@ -8,8 +8,8 @@ import fr.mazure.homepagemanager.data.nodechecker.tagselection.InclusionTagSelec
 import fr.mazure.homepagemanager.utils.xmlparsing.ElementType;
 
 /**
-*
-*/
+ *
+ */
 public class NonNormalizedAuthorChecker extends NodeChecker {
     // TODO add a unit test for this because I am pretty sure this does not work anymore
 

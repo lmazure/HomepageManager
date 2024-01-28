@@ -51,7 +51,7 @@ public class YoutubeWatchLinkContentParserTest {
     void testPlayabilityStatusUnplayable() {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        final String url = "https://www.youtube.com/watch?v=dM_JivN3HvI";
+        final String url = "https://www.youtube.com/watch?v=77nb34DB6Gs";
         retriever.retrieve(url,
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
@@ -385,22 +385,21 @@ public class YoutubeWatchLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-            "https://www.youtube.com/watch?v=-0ErpE8tQbw,de",
-            "https://www.youtube.com/watch?v=-JcoFa5ieyA,vi",
-            "https://www.youtube.com/watch?v=5NqbqTS9Ve0,hi",
-            "https://www.youtube.com/watch?v=8idr1WZ1A7Q,en",
-            "https://www.youtube.com/watch?v=HEfHFsfGXjs,nl",
-            "https://www.youtube.com/watch?v=QAU9psRDPZg,de",
-            "https://www.youtube.com/watch?v=_kGqkxQo-Tw,fr",
-            "https://www.youtube.com/watch?v=aeF-0y9HP9A,en",
-            "https://www.youtube.com/watch?v=atKDrGedg_w,fr",
-            "https://www.youtube.com/watch?v=dQXVn7pFsVI,pt",
-            "https://www.youtube.com/watch?v=d_bHo4nE_tE,nl",
-            "https://www.youtube.com/watch?v=laty3vXKRek,ko",
-            "https://www.youtube.com/watch?v=oJTwQvgfgMM,de",
-            "https://www.youtube.com/watch?v=ohU1tEwxOSE,fr",
-            "https://www.youtube.com/watch?v=thT-RSEBxo8,vi",
-            "https://www.youtube.com/watch?v=ytuHV2e4c4Q,en",
+           "https://www.youtube.com/watch?v=_kGqkxQo-Tw,fr",
+           "https://www.youtube.com/watch?v=-0ErpE8tQbw,de",
+           "https://www.youtube.com/watch?v=-JcoFa5ieyA,vi",
+           "https://www.youtube.com/watch?v=5NqbqTS9Ve0,hi",
+           "https://www.youtube.com/watch?v=aeF-0y9HP9A,en",
+           "https://www.youtube.com/watch?v=atKDrGedg_w,fr",
+           "https://www.youtube.com/watch?v=d_bHo4nE_tE,nl",
+           "https://www.youtube.com/watch?v=dQXVn7pFsVI,pt",
+           "https://www.youtube.com/watch?v=HEfHFsfGXjs,nl",
+           "https://www.youtube.com/watch?v=laty3vXKRek,ko",
+           "https://www.youtube.com/watch?v=ohU1tEwxOSE,fr",
+           "https://www.youtube.com/watch?v=oJTwQvgfgMM,de",
+           "https://www.youtube.com/watch?v=QAU9psRDPZg,de",
+           "https://www.youtube.com/watch?v=thT-RSEBxo8,vi",
+           "https://www.youtube.com/watch?v=ytuHV2e4c4Q,en",
            })
     void testSubtitlesLanguage(final String url,
                                final String expectedLanguage) {

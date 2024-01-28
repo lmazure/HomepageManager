@@ -10,6 +10,7 @@ import java.time.temporal.TemporalAccessor;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -94,7 +95,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
             if (payload.has("captions")) {
                 final JSONArray captions = payload.getJSONObject("captions").getJSONObject("playerCaptionsTracklistRenderer").getJSONArray("captionTracks");
                 String language = null;
-                for (int i =0; i < captions.length(); i++) {
+                for (int i = 0; i < captions.length(); i++) {
                     final String lang = captions.getJSONObject(i).getJSONObject("name").getString("simpleText");
                     if (lang.endsWith(" (auto-generated)")) {
                         if (language != null) {
@@ -119,7 +120,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
             }
             if (payload.has("streamingData")) {
                 final JSONArray formats = payload.getJSONObject("streamingData").getJSONArray("formats");
-                for (int i =0; i < formats.length(); i++) {
+                for (int i = 0; i < formats.length(); i++) {
                     final int duration = formats.getJSONObject(i).getInt("approxDurationMs");
                     if (duration < minDuration) {
                         minDuration = duration;
@@ -158,6 +159,16 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         _isPlayable = isPlayable;
 
         _exception = exception;
+    }
+
+    /**
+     * Determine if the link is managed
+     *
+     * @param url link 
+     * @return true if the link is managed
+     */
+    public static boolean isUrlManaged(final String url) {
+        return url.startsWith("https://www.youtube.com/watch?");
     }
 
     final static LocalDate parseDateTimeString(final String str) throws ContentParserException {
@@ -299,8 +310,16 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     }
 
     private static final Map<String, ChannelData> _channelData = Map.ofEntries(
+            new AbstractMap.SimpleEntry<>("1littlecoder",
+                                          new ChannelData(buildList(buildAuthor("Abdul Majed", "Raja")),
+                                                          buildMatchingList(),
+                                                          Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("3Blue1Brown",
                                           new ChannelData(buildList(buildAuthor("Grant", "Sanderson")),
+                                                          buildMatchingList(),
+                                                          Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("AI Coffee Break with Letitia",
+                                          new ChannelData(buildList(buildAuthor("Letitia", "Parcalabescu")),
                                                           buildMatchingList(),
                                                           Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Ai Flux",
@@ -398,7 +417,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                           buildMatchingList(),
                                                           Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("El Jj",
-                                          new ChannelData(buildList(buildAuthor("Jérôme", "Cottanceau")),
+                                          new ChannelData(buildList(buildAuthorWithGivenName("Jérôme", "Cottanceau", "El Jj")),
                                                           buildMatchingList(),
                                                           Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("Fireship",
@@ -730,9 +749,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                 return buildList(buildAuthor("José", "Paumard"));
             }
         }
-        final List<AuthorData> list = new ArrayList<>();
-        list.add(buildAuthorFromGivenName(channel));
-        return list;
+        return Collections.emptyList();
     }
 
     @Override
@@ -746,6 +763,9 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                    authors.add(match.getAuthor());
                  }
             }
+        }
+        if (authors.isEmpty() && getSureAuthors().isEmpty() && getPossibleAuthors().isEmpty()) {
+            authors.add(buildAuthorFromGivenName(channel));
         }
         return authors;
     }
@@ -811,6 +831,17 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                               Optional.of(lastName),
                               Optional.empty(),
                               Optional.empty());
+    }
+
+    private static AuthorData buildAuthorWithGivenName(final String firstName,
+                                                       final String lastName,
+                                                       final String givenName) {
+        return new AuthorData(Optional.empty(),
+                              Optional.of(firstName),
+                              Optional.empty(),
+                              Optional.of(lastName),
+                              Optional.empty(),
+                              Optional.of(givenName));
     }
 
     private static AuthorData buildAuthorFromGivenName(final String givenName) {

@@ -1,8 +1,8 @@
 package fr.mazure.homepagemanager.utils.xmlparsing;
 
 /**
-* Protection of a link
-*/
+ * Protection of a link
+ */
 public enum LinkProtection {
     /**
      * accessing the link requires a free account

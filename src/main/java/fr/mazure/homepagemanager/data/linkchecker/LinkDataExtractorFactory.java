@@ -1,6 +1,11 @@
 package fr.mazure.homepagemanager.data.linkchecker;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.nio.file.Path;
+import java.util.List;
+import java.util.function.Predicate;
 
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.dataretriever.SiteDataPersister;
@@ -16,6 +21,7 @@ import fr.mazure.homepagemanager.data.linkchecker.spectrum.SpectrumLinkContentPa
 import fr.mazure.homepagemanager.data.linkchecker.stackoverflowblog.StackOverflowBlogContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.wired.WiredLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser;
+import fr.mazure.homepagemanager.utils.ExitHelper;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 
@@ -25,6 +31,45 @@ import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 public class LinkDataExtractorFactory {
 
     private String _content;
+
+
+    private record ExtractorData(Predicate<String> predicate, Constructor<LinkDataExtractor> constructor) {}
+
+    private static final List<ExtractorData> s_extractors = new java.util.ArrayList<>();
+
+    static {
+        final List<Class<? extends LinkDataExtractor>> extractors = List.of(
+                ArsTechnicaLinkContentParser.class,
+                BaeldungLinkContentParser.class,
+                GithubBlogLinkContentParser.class,
+                MediumLinkContentParser.class,
+                OracleBlogsLinkContentParser.class,
+                QuantaMagazineLinkContentParser.class,
+                StackOverflowBlogContentParser.class,
+                SpectrumLinkContentParser.class,
+                YoutubeWatchLinkContentParser.class,
+                GitlabBlogLinkContentParser.class,
+                WiredLinkContentParser.class
+               );
+        for (final Class<?> clazz: extractors) {
+            try {
+                final Method method = clazz.getDeclaredMethod("isUrlManaged", String.class);
+                @SuppressWarnings("unchecked")
+                final Constructor<LinkDataExtractor> cons = (Constructor<LinkDataExtractor>)clazz.getConstructor(String.class, String.class);
+                s_extractors.add(new ExtractorData((final String url) -> {
+                                                       try {
+                                                           return ((Boolean)method.invoke(null, url)).booleanValue();
+                                                       } catch (final IllegalAccessException | InvocationTargetException e) {
+                                                           ExitHelper.exit(e);
+                                                           // NOTREACHED
+                                                           return false;
+                                                       }},
+                                                   cons));
+            } catch (final NoSuchMethodException e) {
+                ExitHelper.exit(e);
+            }
+        }
+    }
 
     /**
      * @param cacheDirectory directory where the persistence files should be written
@@ -39,7 +84,7 @@ public class LinkDataExtractorFactory {
     }
 
     private LinkDataExtractor create(final Path cacheDirectory,
-                                     final String url) throws ContentParserException {
+                                     final String url) {
 
         final String u = UrlHelper.removeQueryParameters(url, "utm_source",
                                                               "utm_medium",
@@ -47,43 +92,23 @@ public class LinkDataExtractorFactory {
                                                               "utm_content",
                                                               "utm_term");
 
-        ThrowingLinkDataExtractor constructor = null;
-
-        if (u.startsWith("https://arstechnica.com/")) {
-            constructor = ArsTechnicaLinkContentParser::new;
-        } else if (u.startsWith("https://www.baeldung.com/") &&
-                   !u.equals("https://www.baeldung.com/")) {
-            constructor = BaeldungLinkContentParser::new;
-        } else if (url.startsWith("https://github.blog/")) {
-            constructor = GithubBlogLinkContentParser::new;
-        } else if (u.startsWith("https://medium.com/")) {
-            constructor = MediumLinkContentParser::new;
-        } else if (u.matches("https://blogs.oracle.com/javamagazine/.+") ||
-                   u.matches("https://blogs.oracle.com/java/.+")) {
-            constructor = OracleBlogsLinkContentParser::new;
-        } else if (u.startsWith("https://www.quantamagazine.org/")) {
-            constructor = QuantaMagazineLinkContentParser::new;
-        } else if (u.startsWith("https://stackoverflow.blog/")) {
-            constructor = StackOverflowBlogContentParser::new;
-        } else if (u.startsWith("https://spectrum.ieee.org/")) {
-            constructor = SpectrumLinkContentParser::new;
-        } else if (u.startsWith("https://www.youtube.com/watch?")) {
-            constructor = YoutubeWatchLinkContentParser::new;
-        } else if (u.startsWith("https://about.gitlab.com/blog/") && !u.equals("https://about.gitlab.com/blog/")) {
-            constructor = GitlabBlogLinkContentParser::new;
-        } else if (u.startsWith("https://www.wired.com/")) {
-            constructor = WiredLinkContentParser::new;
+        for (final ExtractorData extractorData: s_extractors){
+            if (extractorData.predicate.test(u)) {
+                final SiteDataPersister persister = new SiteDataPersister(cacheDirectory);
+                final SynchronousSiteDataRetriever retriever = new SynchronousSiteDataRetriever(persister);
+                retriever.retrieve(url, this::handleLinkData, false);
+                try {
+                    return extractorData.constructor.newInstance(u, _content);
+                } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException| InvocationTargetException e) {
+                    ExitHelper.exit(e);
+                    // NOTREACHED
+                    return null;
+                }
+                
+            }
         }
 
-        if (constructor == null) {
-            return null;
-        }
-
-        final SiteDataPersister persister = new SiteDataPersister(cacheDirectory);
-        final SynchronousSiteDataRetriever retriever = new SynchronousSiteDataRetriever(persister);
-        retriever.retrieve(url, this::handleLinkData, false);
-
-        return constructor.apply(u, _content);
+        return null;
     }
 
     private void handleLinkData(@SuppressWarnings("unused") final Boolean isDataFresh,
@@ -93,8 +118,5 @@ public class LinkDataExtractorFactory {
         }
     }
 
-    @FunctionalInterface
-    private interface ThrowingLinkDataExtractor {
-        LinkDataExtractor apply(final String url, final String data) throws ContentParserException;
-    }
+
 }

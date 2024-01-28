@@ -12,8 +12,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 
 /**
-* Dummy link data checkercthat cjheck nothing (i.e. it does not report any violation)
-*/
+ * Dummy link data checkercthat cjheck nothing (i.e. it does not report any violation)
+ */
 public class NoCheckContentChecker extends LinkContentChecker {
 
     /**

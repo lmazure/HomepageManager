@@ -10,8 +10,8 @@ import fr.mazure.homepagemanager.data.nodechecker.tagselection.ExclusionTagSelec
 import fr.mazure.homepagemanager.utils.xmlparsing.ElementType;
 
 /**
-*
-*/
+ *
+ */
 public class ExtremitySpaceChecker extends NodeChecker {
 
     private static final ExclusionTagSelector s_selector = new ExclusionTagSelector(new ElementType[] {

@@ -7,8 +7,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
-* Helper to extract a string from some data
-*/
+ * Helper to extract a string from some data
+ */
 public class TextParser {
 
     private final Pattern _pattern;

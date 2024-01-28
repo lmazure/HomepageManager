@@ -19,8 +19,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 
 /**
-*
-*/
+ *
+ */
 public class IbmLinkContentChecker extends LinkContentChecker {
 
     private IbmLinkContentParser _parser;
@@ -38,6 +38,16 @@ public class IbmLinkContentChecker extends LinkContentChecker {
                                  final FileSection file) {
         super(url, linkData, articleData, file);
         _url = url;
+    }
+
+    /**
+     * Determine if the link is managed
+     *
+     * @param url link 
+     * @return true if the link is managed
+     */
+    public static boolean isUrlManaged(final String url) {
+        return url.startsWith("https://developer.ibm.com/articles/") || url.startsWith("https://developer.ibm.com/tutorials/");
     }
 
     @Override

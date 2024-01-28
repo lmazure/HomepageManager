@@ -8,8 +8,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 
 /**
-*
-*/
+ *
+ */
 public class MediumLinkContentChecker extends ExtractorBasedLinkContentChecker {
 
     /**
@@ -19,9 +19,19 @@ public class MediumLinkContentChecker extends ExtractorBasedLinkContentChecker {
      * @param file effective retrieved link data
      */
         public MediumLinkContentChecker(final String url,
-                                    final LinkData linkData,
-                                    final Optional<ArticleData> articleData,
-                                    final FileSection file) {
+                                        final LinkData linkData,
+                                        final Optional<ArticleData> articleData,
+                                        final FileSection file) {
         super(url, linkData, articleData, file, (LinkDataExtractorBuilder)MediumLinkContentParser::new);
     }
+
+        /**
+         * Determine if the link is managed
+         *
+         * @param url link 
+         * @return true if the link is managed
+         */
+        public static boolean isUrlManaged(final String url) {
+            return MediumLinkContentParser.isUrlManaged(url);
+        }
 }

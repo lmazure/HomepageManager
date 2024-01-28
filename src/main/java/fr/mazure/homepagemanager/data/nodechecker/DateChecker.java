@@ -15,8 +15,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.ElementType;
 import fr.mazure.homepagemanager.utils.xmlparsing.XmlHelper;
 
 /**
-* Check date values
-*/
+ * Check date values
+ */
 public class DateChecker extends NodeChecker {
 
     private static final Calendar s_now = Calendar.getInstance();

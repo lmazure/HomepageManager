@@ -1,8 +1,8 @@
 package fr.mazure.homepagemanager.utils.xmlparsing;
 
 /**
-* Exception indicating that an XML file is incorrect
-*/
+*  Exception indicating that an XML file is incorrect
+ */
 @SuppressWarnings("serial")
 public class XmlParsingException extends Exception {
 

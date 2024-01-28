@@ -1,8 +1,8 @@
 package fr.mazure.homepagemanager.utils.xmlparsing;
 
 /**
-*
-*/
+ *
+ */
 @SuppressWarnings("javadoc")
 public enum FeedFormat {
     RSS,

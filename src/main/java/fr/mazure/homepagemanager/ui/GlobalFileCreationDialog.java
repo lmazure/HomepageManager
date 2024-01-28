@@ -14,8 +14,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
-*
-*/
+ *
+ */
 public class GlobalFileCreationDialog extends Dialog<Void> {
 
     /**
