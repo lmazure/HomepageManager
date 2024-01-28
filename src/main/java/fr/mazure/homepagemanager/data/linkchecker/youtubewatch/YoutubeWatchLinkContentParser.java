@@ -120,7 +120,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
             }
             if (payload.has("streamingData")) {
                 final JSONArray formats = payload.getJSONObject("streamingData").getJSONArray("formats");
-                for (int i =0; i < formats.length(); i++) {
+                for (int i = 0; i < formats.length(); i++) {
                     final int duration = formats.getJSONObject(i).getInt("approxDurationMs");
                     if (duration < minDuration) {
                         minDuration = duration;
