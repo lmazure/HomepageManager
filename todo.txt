@@ -15,6 +15,7 @@ methods       53.0%/52.2%    97.9%
 
 ==== potentially before merge =====
 
+mettre une scrollbar dans le dialogue de génération du XML
 
 gérer
 Title = "How Do I: Use Visual Studio 2008 Code Metrics to Evaluate Code Complexity?"
