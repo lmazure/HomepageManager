@@ -17,7 +17,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 
 /**
- * 
+ * Dialog displaying statistics
  */
 public class StatisticsDialog extends Dialog<Void> {
 
@@ -82,8 +82,8 @@ public class StatisticsDialog extends Dialog<Void> {
     /**
      * compute the number of occurrences of the string "<ARTICLE>" in the file
      *
-     * @param file the file
-     * @return the number of occurrences
+     * @param file file
+     * @return number of occurrences
      */
     static int getNumberOfArticles(final Path file) {
 

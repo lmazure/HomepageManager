@@ -7,7 +7,7 @@ import java.util.List;
 import fr.mazure.homepagemanager.utils.Logger;
 
 /**
- *
+ * Dialog indicating the progress of the generation of the JSON files
  */
 public class JsonGenerator {
 
