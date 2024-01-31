@@ -1,7 +1,6 @@
 package fr.mazure.homepagemanager.ui;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -12,7 +11,8 @@ import fr.mazure.homepagemanager.utils.ExitHelper;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.XYChart.Data;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 
@@ -23,7 +23,7 @@ public class StatisticsDialog extends Dialog<Void> {
 
     private static final int s_numberOfBuckets = 25;
     private static final int s_bucketSize = 20;
-    private static final String s_linksDirectoryFileName = "links";
+    private static final String s_linksDirectoryFileName = "links"; // TODO should not appear in the UI code!
 
     /**
      * Constructor
@@ -37,11 +37,11 @@ public class StatisticsDialog extends Dialog<Void> {
         final BarChart<String, Number> barChart = new BarChart<>(new CategoryAxis(), new NumberAxis());
 
         // Adding data to the BarChart
-        final XYChart.Series series = new XYChart.Series();
+        final Series<String, Number> series = new Series<>();
         series.setName("Number of articles");
         List<HistogramData> histogramData = generateHistogram(homepage, files);
         for (final HistogramData data: histogramData) {
-            series.getData().add(new XYChart.Data(data.name(), data.count()));
+            series.getData().add(new Data<>(data.name(), Integer.valueOf(data.count())));
         }
 
         barChart.getData().add(series);
