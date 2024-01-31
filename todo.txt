@@ -15,7 +15,17 @@ methods       53.0%/52.2%    97.9%
 
 ==== potentially before merge =====
 
+
+bug : les boutons de fermeture des dialogues sont en français
+
+
+corriger affichage du popup author sur téléphone
+
+
 mettre une scrollbar dans le dialogue de génération du XML
+en fait le problème est présent quand on utilise le bouton "Paste URL"
+
+
 
 gérer
 Title = "How Do I: Use Visual Studio 2008 Code Metrics to Evaluate Code Complexity?"
@@ -30,7 +40,7 @@ Look for article = https://www.google.com/search?q=%22How+Do+I%3A+Use+Visual+Stu
 
 
 
-corriger les problème d'auteurs sur javanews.xml
+corriger les problèmes d'auteurs sur javanews.xml
 
 
 gérer les vidéo youtube miss à privé

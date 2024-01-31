@@ -23,7 +23,7 @@ public class GlobalFileCreationDialog extends Dialog<Void> {
      * The constructor is displaying the progress dialog and launch the file generation
      *
      * @param homepage path of the homepage directory
-     * @param files list of the paths of all files
+     * @param list of the paths of all files
      */
     public GlobalFileCreationDialog(final Path homepage,
                                     final List<Path> files) {
