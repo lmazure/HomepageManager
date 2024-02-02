@@ -14,36 +14,11 @@ methods       53.0%/52.2%    97.9%
 
 
 
-refaire tourner les test unitaires
 
-
-Title = "How Do I: Use Visual Studio 2008 Code Metrics to Evaluate Code Complexity?"
-URL = https://msdn.microsoft.com/en-us/vstudio/bb892758
-Expected status = ZOMBIE
-Effective HTTP code = 301 Moved Permanently
-Effective HTTP code of last redirection = 200 OK
-Redirection chain = https://msdn.microsoft.com/en-us/vstudio/bb892758 → https://learn.microsoft.com → https://learn.microsoft.com/en-us/
-Redirection matcher = redirection ending in success (last URL should be used)
-Redirection matcher expected statuses = 
-Look for article = https://www.google.com/search?q=%22How+Do+I%3A+Use+Visual+Studio+2008+Code+Metrics+to+Evaluate+Code+Complexity%3F%22
-
-
-Title = "Build GUIs with the Eclipse Visual Editor project"
-Subtitle = "A graphical tool for building graphical interfaces"
-URL = http://www-106.ibm.com/developerworks/opensource/library/os-ecvisual/
-Expected status = OK
-Effective HTTP code = 301 Moved Permanently
-Effective HTTP code of last redirection = 200 OK
-Redirection chain = http://www-106.ibm.com/developerworks/opensource/library/os-ecvisual/ → https://www.ibm.com/developerworks/opensource/library/os-ecvisual/ → https://developer.ibm.com/technologies/
-Redirection matcher = redirection ending in success (last URL should be used)
-Redirection matcher expected statuses = 
-Look for article = https://www.google.com/search?q=%22Build+GUIs+with+the+Eclipse+Visual+Editor+project%22+%22A+graphical+tool+for+building+graphical+interfaces%22
 
 
 nettoyer perl.xml
 
-
-nettoyer ide.xml
 
 
 

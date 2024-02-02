@@ -397,22 +397,38 @@ public class WellKnownRedirections {
         }
 
         {
-            final RedirectionMatcher msdnRemoved = new RedirectionMatcher("removed from MSDN",
-                                                                          Set.of(LinkStatus.REMOVED));
-            msdnRemoved.add("\\Qhttps://msdn.microsoft.com/en-us/vstudio/\\E" + RedirectionMatcher.ANY_STRING,
-                            Set.of(Integer.valueOf(301)),
-                            RedirectionMatcher.Multiplicity.ONE);
-            msdnRemoved.add("\\Qhttp://www.visualstudio.com\\E",
-                            Set.of(Integer.valueOf(301)),
-                            RedirectionMatcher.Multiplicity.ONE);
-            msdnRemoved.add("\\Qhttps://www.visualstudio.com/\\E",
-                            Set.of(Integer.valueOf(301)),
-                            RedirectionMatcher.Multiplicity.ONE);
-            msdnRemoved.add("\\Qhttps://visualstudio.microsoft.com/\\E",
-                            Set.of(Integer.valueOf(200)),
-                            RedirectionMatcher.Multiplicity.ONE);
-            msdnRemoved.compile();
-            _matchers.add(msdnRemoved);
+            final RedirectionMatcher msdnRemoved1 = new RedirectionMatcher("removed from MSDN",
+                                                                           Set.of(LinkStatus.REMOVED));
+            msdnRemoved1.add("\\Qhttps://msdn.microsoft.com/en-us/vstudio/\\E" + RedirectionMatcher.ANY_STRING,
+                             Set.of(Integer.valueOf(301)),
+                             RedirectionMatcher.Multiplicity.ONE);
+            msdnRemoved1.add("\\Qhttp://www.visualstudio.com\\E",
+                             Set.of(Integer.valueOf(301)),
+                             RedirectionMatcher.Multiplicity.ONE);
+            msdnRemoved1.add("\\Qhttps://www.visualstudio.com/\\E",
+                             Set.of(Integer.valueOf(301)),
+                             RedirectionMatcher.Multiplicity.ONE);
+            msdnRemoved1.add("\\Qhttps://visualstudio.microsoft.com/\\E",
+                             Set.of(Integer.valueOf(200)),
+                             RedirectionMatcher.Multiplicity.ONE);
+            msdnRemoved1.compile();
+            _matchers.add(msdnRemoved1);
+        }
+
+        {
+            final RedirectionMatcher msdnRemoved2 = new RedirectionMatcher("removed from MSDN",
+                                                                           Set.of(LinkStatus.REMOVED));
+            msdnRemoved2.add("\\Qhttps://msdn.microsoft.com/en-us/vstudio/\\E" + RedirectionMatcher.ANY_STRING,
+                             Set.of(Integer.valueOf(301)),
+                             RedirectionMatcher.Multiplicity.ONE);
+            msdnRemoved2.add("\\Qhttps://learn.microsoft.com\\E",
+                             Set.of(Integer.valueOf(301)),
+                             RedirectionMatcher.Multiplicity.ONE);
+            msdnRemoved2.add("\\Qhttps://learn.microsoft.com/en-us/\\E",
+                             Set.of(Integer.valueOf(200)),
+                             RedirectionMatcher.Multiplicity.ONE);
+            msdnRemoved2.compile();
+            _matchers.add(msdnRemoved2);
         }
 
         {

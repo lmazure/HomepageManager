@@ -310,6 +310,7 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
+        "https://msdn.microsoft.com/en-us/vstudio/bb892758",
         "https://msdn.microsoft.com/en-us/vstudio/dd442479",
         })
     void msdn(final String url) {
