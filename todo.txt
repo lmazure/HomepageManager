@@ -13,6 +13,40 @@ methods       53.0%/52.2%    97.9%
 ==== before merge =====
 
 
+
+refaire tourner les test unitaires
+
+
+Title = "How Do I: Use Visual Studio 2008 Code Metrics to Evaluate Code Complexity?"
+URL = https://msdn.microsoft.com/en-us/vstudio/bb892758
+Expected status = ZOMBIE
+Effective HTTP code = 301 Moved Permanently
+Effective HTTP code of last redirection = 200 OK
+Redirection chain = https://msdn.microsoft.com/en-us/vstudio/bb892758 → https://learn.microsoft.com → https://learn.microsoft.com/en-us/
+Redirection matcher = redirection ending in success (last URL should be used)
+Redirection matcher expected statuses = 
+Look for article = https://www.google.com/search?q=%22How+Do+I%3A+Use+Visual+Studio+2008+Code+Metrics+to+Evaluate+Code+Complexity%3F%22
+
+
+Title = "Build GUIs with the Eclipse Visual Editor project"
+Subtitle = "A graphical tool for building graphical interfaces"
+URL = http://www-106.ibm.com/developerworks/opensource/library/os-ecvisual/
+Expected status = OK
+Effective HTTP code = 301 Moved Permanently
+Effective HTTP code of last redirection = 200 OK
+Redirection chain = http://www-106.ibm.com/developerworks/opensource/library/os-ecvisual/ → https://www.ibm.com/developerworks/opensource/library/os-ecvisual/ → https://developer.ibm.com/technologies/
+Redirection matcher = redirection ending in success (last URL should be used)
+Redirection matcher expected statuses = 
+Look for article = https://www.google.com/search?q=%22Build+GUIs+with+the+Eclipse+Visual+Editor+project%22+%22A+graphical+tool+for+building+graphical+interfaces%22
+
+
+nettoyer perl.xml
+
+
+nettoyer ide.xml
+
+
+
 ==== potentially before merge =====
 
 
@@ -38,9 +72,6 @@ Look for article = https://www.google.com/search?q=%22How+Do+I%3A+Use+Visual+Stu
 
 
 
-corriger les problèmes d'auteurs sur javanews.xml
-
-
 gérer les vidéo youtube miss à privé
 pex https://www.youtube.com/watch?v=OW1J61jg-3U
 les mettre en removed
@@ -53,12 +84,7 @@ Gérer
  detail = ""GitHub will now automatically generate Go and .Net SDKs by running Kiota on the OpenAPI description of GitHub API." is missing a space after punctuation"
 
 
-Les mauvais auteurs YouTube ne sont pas détectés
-
-
 afficher les métadonnées des articles dans les tables
-
-
 
 
 
@@ -79,15 +105,11 @@ nettoyer javahistory.xml
 
 corriger problème de reconnaissance des langues sur YouTube
 
-nettoyer perl.xml
-
 réimplémenter toute la logique twitter: il répond désormais 200 même si le compte n'existe pas
 
 nettoyer test.xml
 
 nettoyer coding.xml
-
-nettoyer ide.xml
 
 indiquer tous les HTTP codes de redirection
 et en déduire quand la correction de l'URL devrait aussi être proposée
