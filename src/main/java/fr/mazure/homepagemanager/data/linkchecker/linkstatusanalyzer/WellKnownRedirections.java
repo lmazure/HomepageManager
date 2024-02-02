@@ -118,7 +118,7 @@ public class WellKnownRedirections {
         {
             final RedirectionMatcher oReillyRemoved1 = new RedirectionMatcher("removed from O’Reilly",
                                                                               Set.of(LinkStatus.REMOVED));
-            oReillyRemoved1.add("(\\Qhttp://www.linuxdevcenter.com/pub/a/linux/\\E|\\Qhttp://www.onjava.com/pub/a/onjava/\\E|\\Qhttp://www.onlamp.com/pub/a/\\E(onlamp|php|python|security)/|\\Qhttp://www.onjava.com/catalog/javaadn\\E)" + RedirectionMatcher.ANY_STRING,
+            oReillyRemoved1.add("(\\Qhttp://www.linuxdevcenter.com/pub/a/linux/\\E|\\Qhttp://www.onjava.com/pub/a/onjava/\\E|\\Qhttp://www.onlamp.com/\\E(lpt|pub)/a/(apache|onlamp|php|python|security)/|\\Qhttp://www.onjava.com/catalog/javaadn\\E)" + RedirectionMatcher.ANY_STRING,
                                 Set.of(Integer.valueOf(301)),
                                 RedirectionMatcher.Multiplicity.ONE);
             oReillyRemoved1.add("\\Qhttps://www.oreilly.com/ideas\\E",
@@ -169,10 +169,10 @@ public class WellKnownRedirections {
         {
             final RedirectionMatcher oReillyRemoved4 = new RedirectionMatcher("removed from O’Reilly",
                                                                               Set.of(LinkStatus.REMOVED));
-            oReillyRemoved4.add("\\Qhttp://www.oreillynet.com/pub/a/wireless/\\E(?<article>.+)",
+            oReillyRemoved4.add("\\Qhttp://www.oreillynet.com/pub/a/\\E(linux|wireless)/(?<article>.+)",
                                 Set.of(Integer.valueOf(301)),
                                 RedirectionMatcher.Multiplicity.ONE);
-            oReillyRemoved4.add("\\Qhttp://archive.oreilly.com/pub/a/wireless/\\E\\k<article>",
+            oReillyRemoved4.add("\\Qhttp://archive.oreilly.com/pub/a/\\E(linux|wireless)/\\k<article>",
                                 Set.of(Integer.valueOf(301)),
                                 RedirectionMatcher.Multiplicity.ONE);
             oReillyRemoved4.add("\\Qhttps://www.oreilly.com/\\E",
