@@ -89,8 +89,6 @@ corriger les liens de fda.org
 
 le début du nom des fichiers ne devrait par être présent
 
-nettoyer cracking.xml
-
 nettoyer tous les liens auntminnie
 
 problème de date avec https://developer.ibm.com/articles/os-developers-know-rust/
@@ -143,17 +141,6 @@ java.lang.UnsupportedOperationException: https://www.esgi.fr|504→
     at java.base/java.lang.Thread.run(Thread.java:1589)
 
 
-on peut gérer ces cas
-Title = "Springer"
-URL = https://link.springer.com/
-Expected status = OK
-Effective HTTP code = 302 Found
-Effective HTTP code of last redirection = 200 OK
-Redirection chain = https://link.springer.com/ → https://idp.springer.com/authorize?redirect_uri=https://link.springer.com/&client_id=springerlink&response_type=cookie → https://idp.springer.com/transit?redirect_uri=https%3A%2F%2Flink.springer.com%2F&code=563545a8-7caf-448e-9b4e-1ec566f4754c → https://link.springer.com/
-Redirection matcher = redirection ending in success (last URL should be used)
-Redirection matcher expected statuses = 
-Look for article = https://www.google.com/search?q=%22Springer%22
-en ignorant lorsque la chaîne de redirection ramène au point de départ
 
 
 
@@ -226,13 +213,7 @@ réparer testSimultaneousRetrieval
 chaque redirection matcher recompile la chaine de redirections, ce n'est pas performant
 en plus cela est recalculé plusieurs fois dans LinkCheckRunner.isDataExpected
 
-détecter les articles dont le commentaire contient subtitle, mais qui n'ont pas de subtitle
-
-filtrer les redirections parasites (ibm, onlamp…)
-
 si le programme passe minuit, la vérification de la date de la page croit toujours que nous sommes la veille
-
-nettoyer links/test.xml
 
 Title = "ChatGPT"
 URL = https://chat.openai.com

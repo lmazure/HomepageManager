@@ -40,7 +40,7 @@ public class WellKnownRedirections {
         errorCodes.add(Integer.valueOf(500));
         errorCodes.add(Integer.valueOf(502));
         errorCodes.add(Integer.valueOf(503));
-        errorCodes.add(Integer.valueOf(504));
+        //errorCodes.add(Integer.valueOf(504)); ignored for the time being
         errorCodes.add(Integer.valueOf(999));  // TODO handle fucking LinkedIn
 
         final Set<Integer> redirectionCodes = new HashSet<>();
@@ -429,6 +429,22 @@ public class WellKnownRedirections {
                              RedirectionMatcher.Multiplicity.ONE);
             msdnRemoved2.compile();
             _matchers.add(msdnRemoved2);
+        }
+
+        {
+            final RedirectionMatcher redirectionToItself = new RedirectionMatcher("redirection to itself",
+                                                                                  Set.of(LinkStatus.OK));
+            redirectionToItself.add("(?<site>https?://.*)",
+                                    redirectionCodes,
+                                    RedirectionMatcher.Multiplicity.ONE);
+            redirectionToItself.add("https?://.*",
+                                    redirectionCodes,
+                                    RedirectionMatcher.Multiplicity.ONE_OR_MANY);
+            redirectionToItself.add("\\k<site>",
+                                    successCodes,
+                                    RedirectionMatcher.Multiplicity.ONE);
+            redirectionToItself.compile();
+            _matchers.add(redirectionToItself);
         }
 
         {

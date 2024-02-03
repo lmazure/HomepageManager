@@ -158,6 +158,18 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
+        "https://link.springer.com/",
+        })
+    void redirectionsToItself(final String url) {
+        test(url,
+             true,
+             Integer.valueOf(200),
+             "redirection to itself",
+             Set.of(LinkStatus.OK));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
         "http://blogs.msdn.com/b/jw_on_tech/archive/2012/03/14/why-i-joined-microsoft.aspx",
         })
     void redirectionsEndingWith403(final String url) {
