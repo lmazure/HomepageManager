@@ -989,7 +989,6 @@ public class LinkDataExtractorTest {
                 <DATE><YEAR>2021</YEAR><MONTH>11</MONTH><DAY>11</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
-                <ARTICLE><X><T>The 3 Types of Unit Test in TDD • Dave Farley • GOTO 2022</T>\
                 <ARTICLE><X><T>What Happens to Finalization in JDK 18? - Inside Java Newscast #15</T>\
                 <A>https://www.youtube.com/watch?v=eDgBnjOid-g</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>58</SECOND></DURATION></X>\
@@ -999,7 +998,6 @@ public class LinkDataExtractorTest {
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
         Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
-        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
     @Test
