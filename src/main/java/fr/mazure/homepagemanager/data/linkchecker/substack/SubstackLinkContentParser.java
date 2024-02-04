@@ -9,6 +9,8 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
@@ -65,7 +67,7 @@ private static final TextParser s_authorParser
     /**
      * Determine if the link is managed
      *
-     * @param url link 
+     * @param url link
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
@@ -97,7 +99,19 @@ private static final TextParser s_authorParser
         final List<AuthorData> list = new ArrayList<>(1);
         final String extracted = s_authorParser.extract(_data);
         final JSONObject payload = new JSONObject(extracted);
-        final String channelName = payload.getJSONArray("author").getJSONObject(0).getString("name");
+        String channelName = null;
+        try {
+            final Object authorNode = payload.get("author");
+            if (authorNode instanceof JSONArray) {
+                channelName = ((JSONArray)authorNode).getJSONObject(0).getString("name");
+            } else if (authorNode instanceof JSONObject) {
+                channelName = ((JSONObject)authorNode).getString("name");
+            } else {
+                throw new ContentParserException("Error while parsing JSON, author node is of type " + authorNode.getClass().getName());
+            }
+        } catch (final JSONException e) {
+            throw new ContentParserException("Error while parsing JSON", e);
+        }
 
         final AuthorData author =
             getWellKnownAuthor(channelName);
@@ -115,7 +129,8 @@ private static final TextParser s_authorParser
 
     static private AuthorData getWellKnownAuthor(final String authorName) {
         return switch (authorName) {
-            case "Sebastian Raschka, PhD" -> new AuthorData(Optional.empty(),
+            case "Sebastian Raschka, PhD",
+                 "Ahead of AI"             -> new AuthorData(Optional.empty(),
                                                             Optional.of("Sebastian"),
                                                             Optional.empty(),
                                                             Optional.of("Raschka"),
