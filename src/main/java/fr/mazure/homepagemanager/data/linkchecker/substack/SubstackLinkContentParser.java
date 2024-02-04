@@ -28,7 +28,6 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
  */
 public class SubstackLinkContentParser extends LinkDataExtractor {
 
-
     private final String _data;
 
     private static final TextParser s_titleParser

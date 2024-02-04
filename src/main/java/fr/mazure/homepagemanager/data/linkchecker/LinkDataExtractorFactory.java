@@ -33,7 +33,6 @@ public class LinkDataExtractorFactory {
 
     private String _content;
 
-
     private record ExtractorData(Predicate<String> predicate, Constructor<LinkDataExtractor> constructor) {}
 
     private static final List<ExtractorData> s_extractors = new java.util.ArrayList<>();
@@ -106,7 +105,6 @@ public class LinkDataExtractorFactory {
                     // NOTREACHED
                     return null;
                 }
-
             }
         }
 
@@ -119,6 +117,4 @@ public class LinkDataExtractorFactory {
             _content = HtmlHelper.slurpFile(siteData.dataFileSection().get());
         }
     }
-
-
 }
