@@ -18,6 +18,7 @@ import fr.mazure.homepagemanager.data.linkchecker.oracleblogs.OracleBlogsLinkCon
 import fr.mazure.homepagemanager.data.linkchecker.quantamagazine.QuantaMagazineLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.spectrum.SpectrumLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.stackoverflowblog.StackOverflowBlogContentChecker;
+import fr.mazure.homepagemanager.data.linkchecker.substack.SubstackLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.wired.WiredLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.youtubechanneluser.YoutubeChannelUserLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentChecker;
@@ -38,19 +39,20 @@ public class LinkContentCheckerFactory {
     static {
         final List<Class<? extends LinkContentChecker>> checkers = List.of(
                 ArsTechnicaLinkContentChecker.class,
-                ChromiumBlogLinkContentChecker.class,
-                OracleBlogsLinkContentChecker.class,
-                IbmLinkContentChecker.class,
-                GithubBlogLinkContentChecker.class,
-                MediumLinkContentChecker.class,
-                WiredLinkContentChecker.class,
-                QuantaMagazineLinkContentChecker.class,
-                StackOverflowBlogContentChecker.class,
-                SpectrumLinkContentChecker.class,
-                YoutubeChannelUserLinkContentChecker.class,
-                YoutubeWatchLinkContentChecker.class,
                 BaeldungLinkContentChecker.class,
-                GitlabBlogLinkContentChecker.class
+                ChromiumBlogLinkContentChecker.class,
+                GithubBlogLinkContentChecker.class,
+                GitlabBlogLinkContentChecker.class,
+                IbmLinkContentChecker.class,
+                MediumLinkContentChecker.class,
+                OracleBlogsLinkContentChecker.class,
+                QuantaMagazineLinkContentChecker.class,
+                SpectrumLinkContentChecker.class,
+                StackOverflowBlogContentChecker.class,
+                SubstackLinkContentChecker.class,
+                WiredLinkContentChecker.class,
+                YoutubeChannelUserLinkContentChecker.class,
+                YoutubeWatchLinkContentChecker.class
                );
         for (final Class<?> clazz: checkers) {
             try {

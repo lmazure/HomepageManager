@@ -14,6 +14,10 @@ methods       53.0%/52.2%    97.9%
 
 
 
+cleaner les nouveaux warnings et mettre le nombre total à jour
+
+
+
 https://www.nextinpact.com/article/70628/a-decouverte-jupyter-logiciel-scientifique-libre-aux-millions-dutilisateurs
 title "À la découverte de Jupyter, un logiciel scientifique libre aux millions d'utilisateurs" does not appear in the page
 

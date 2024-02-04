@@ -19,6 +19,7 @@ import fr.mazure.homepagemanager.data.linkchecker.oracleblogs.OracleBlogsLinkCon
 import fr.mazure.homepagemanager.data.linkchecker.quantamagazine.QuantaMagazineLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.spectrum.SpectrumLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.stackoverflowblog.StackOverflowBlogContentParser;
+import fr.mazure.homepagemanager.data.linkchecker.substack.SubstackLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.wired.WiredLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser;
 import fr.mazure.homepagemanager.utils.ExitHelper;
@@ -42,14 +43,15 @@ public class LinkDataExtractorFactory {
                 ArsTechnicaLinkContentParser.class,
                 BaeldungLinkContentParser.class,
                 GithubBlogLinkContentParser.class,
+                GitlabBlogLinkContentParser.class,
                 MediumLinkContentParser.class,
                 OracleBlogsLinkContentParser.class,
                 QuantaMagazineLinkContentParser.class,
-                StackOverflowBlogContentParser.class,
                 SpectrumLinkContentParser.class,
-                YoutubeWatchLinkContentParser.class,
-                GitlabBlogLinkContentParser.class,
-                WiredLinkContentParser.class
+                StackOverflowBlogContentParser.class,
+                SubstackLinkContentParser.class,
+                WiredLinkContentParser.class,
+                YoutubeWatchLinkContentParser.class
                );
         for (final Class<?> clazz: extractors) {
             try {
