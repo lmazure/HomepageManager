@@ -37,8 +37,8 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
                      "Substack",
                      "title");
 private static final TextParser s_subtitleParser
-    = new TextParser("<meta data-preact-helmet name=\"description\" content=\"",
-                     "\">",
+    = new TextParser("<h3 class=\"subtitle\">",
+                     "</h3>",
                      "Substack",
                      "subtitle");
 private static final TextParser s_dateParser
@@ -77,7 +77,6 @@ private static final TextParser s_authorParser
         return s_mediumUrl.matcher(url).matches();
     }
 
-
     @Override
     public String getTitle() throws ContentParserException {
         return HtmlHelper.cleanContent(s_titleParser.extract(_data));
@@ -85,6 +84,10 @@ private static final TextParser s_authorParser
 
     @Override
     public Optional<String> getSubtitle() throws ContentParserException {
+        final Optional<String> subtitle = s_subtitleParser.extractOptional(_data);
+        if (subtitle.isEmpty()) {
+            return Optional.empty();
+        }
         return Optional.of(HtmlHelper.cleanContent(s_subtitleParser.extract(_data)));
     }
 

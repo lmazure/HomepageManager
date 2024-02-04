@@ -53,6 +53,7 @@ public class SubstackLinkContentParserTest {
     @ParameterizedTest
     @CsvSource(value = {
         "https://magazine.sebastianraschka.com/p/research-papers-in-january-2024|Model Merging, Mixtures of Experts, and Towards Smaller LLMs",
+        "https://magazine.sebastianraschka.com/p/ahead-of-ai-12-llm-businesses|Discussing Recent Company Investments and AI Adoption, New Small Openly Available LLMs, and LoRA Research",
         "https://promptarmor.substack.com/p/data-exfiltration-from-writercom|Authors: PromptArmor and Kai Greshake",
         "https://scienceetonnante.substack.com/p/grokking-les-modeles-dia-sont-ils|Ce phénomène étonnant, découvert récemment, pourrait changer notre compréhension de l'apprentissage et de la cognition dans les réseaux de neurones...",
         "https://tidyfirst.substack.com/p/eventual-business-consistency|Executive Summary of Bi-temporality",
@@ -68,6 +69,31 @@ public class SubstackLinkContentParserTest {
                                final SubstackLinkContentParser parser = new SubstackLinkContentParser(url, data);
                                try {
                                    Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getSubtitle threw " + e.getMessage());
+                               }
+                               consumerHasBeenCalled.set(true);
+                           },
+                           false);
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+        "https://magazine.sebastianraschka.com/p/llm-training-rlhf-and-its-alternatives",
+        "https://magazine.sebastianraschka.com/p/understanding-and-coding-self-attention",
+        "https://magazine.sebastianraschka.com/p/understanding-encoder-and-decoder",
+        }, delimiter = '|')
+    void testNoSubtitle(final String url) {
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(url,
+                           (final Boolean b, final FullFetchedLinkData d) -> {
+                               Assertions.assertTrue(d.dataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
+                               final SubstackLinkContentParser parser = new SubstackLinkContentParser(url, data);
+                               try {
+                                   Assertions.assertFalse(parser.getSubtitle().isPresent());
                                } catch (final ContentParserException e) {
                                    Assertions.fail("getSubtitle threw " + e.getMessage());
                                }
