@@ -7,7 +7,7 @@ import java.util.List;
 import fr.mazure.homepagemanager.utils.Logger;
 
 /**
- *
+ * Dialog indicating the progress of the generation of the JSON files
  */
 public class JsonGenerator {
 
@@ -41,18 +41,18 @@ public class JsonGenerator {
     public static void generate(final Path homepage,
                                 final List<Path> files) throws Exception {
 
-        final JsonGenerator main = new JsonGenerator();
+        final JsonGenerator generator = new JsonGenerator();
 
         final String homepagePath = homepage.toString();
 
         // parse the XML files
         for (final Path file: files) {
-            main.scanFile(file.toFile());
+            generator.scanFile(file.toFile());
         }
-        main.scanPersonFile(new File(homepagePath + File.separator + s_linksDirectoryFileName + File.separator + s_personFileName));
+        generator.scanPersonFile(new File(homepagePath + File.separator + s_linksDirectoryFileName + File.separator + s_personFileName));
 
         // generate content files
-        main.generateReports(homepagePath);
+        generator.generateReports(homepagePath);
 
         Logger.log(Logger.Level.INFO)
               .append("done! ")

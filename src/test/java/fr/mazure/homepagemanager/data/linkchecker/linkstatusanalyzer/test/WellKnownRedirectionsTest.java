@@ -158,6 +158,18 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
+        "https://link.springer.com/",
+        })
+    void redirectionsToItself(final String url) {
+        test(url,
+             true,
+             Integer.valueOf(200),
+             "redirection to itself",
+             Set.of(LinkStatus.OK));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
         "http://blogs.msdn.com/b/jw_on_tech/archive/2012/03/14/why-i-joined-microsoft.aspx",
         })
     void redirectionsEndingWith403(final String url) {
@@ -174,7 +186,7 @@ class WellKnownRedirectionsTest {
         "http://www.hays.lu/prd_consump/groups/hays_common/@fr/@content/documents/digitalasset/hays_714488.pdf",
         "http://www.ineris.fr/centredoc/Communication_site_web_INERIS.pdf",
         "https://www.reddit.com/r/gitlab/",
-        
+
         })
     void redirectionsEndingWith404(final String url) {
         test(url,
@@ -227,12 +239,14 @@ class WellKnownRedirectionsTest {
         "http://www.linuxdevcenter.com/pub/a/linux/2004/03/04/warp_pipe.html",
         "http://www.onjava.com/catalog/javaadn/excerpt/javaadn_ch05.pdf",
         "http://www.onjava.com/pub/a/onjava/2003/06/25/commons.html",
+        "http://www.onlamp.com/lpt/a/apache/2001/08/16/code_red.htm",
         "http://www.onlamp.com/pub/a/onlamp/2005/02/24/pg_buildfarm.html",
         "http://www.onlamp.com/pub/a/php/2005/12/20/php_ant.html",
         "http://www.onlamp.com/pub/a/python/2001/07/19/pythonnews.html",
         "http://www.onlamp.com/pub/a/security/2004/09/16/open_source_security_myths.html",
         "http://www.oreillynet.com/mac/blog/2005/12/jmf_a_mistake_asking_to_be_rem.html",
         "http://www.oreillynet.com/onlamp/blog/2005/12/two_things_that_bother_me_abou.html",
+        "http://www.oreillynet.com/pub/a/linux/rt/07282000/transcript.html",
         "http://www.oreillynet.com/pub/a/network/2003/05/20/secureprogckbk.html",
         "http://www.oreillynet.com/pub/a/oreilly/security/news/2004/03/08/netsec.html",
         "http://www.oreillynet.com/pub/a/wireless/2003/12/04/tftp.html",
@@ -310,6 +324,7 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
+        "https://msdn.microsoft.com/en-us/vstudio/bb892758",
         "https://msdn.microsoft.com/en-us/vstudio/dd442479",
         })
     void msdn(final String url) {

@@ -164,7 +164,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     /**
      * Determine if the link is managed
      *
-     * @param url link 
+     * @param url link
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
@@ -555,6 +555,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                                             match("Krieger", buildAuthor("Holly", "Krieger")),
                                                                             match("Lichtman", buildAuthor("Jared", "Duker", "Lichtman")),
                                                                             match("MacDonald", buildAuthor("Ayliean", "MacDonald")),
+                                                                            match("Maclean", buildAuthor("Sophie", "Maclean")),
                                                                             match("Grant", buildAuthor("Grant", "Sanderson")),
                                                                             match("Segerman", buildAuthor("Henry", "Segerman")),
                                                                             match("Padilla", buildAuthor("Tony", "Padilla")),
@@ -740,6 +741,13 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         if (_channelData.containsKey(channel)) {
             return _channelData.get(channel).getAuthors();
         }
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<AuthorData> getProbableAuthors() throws ContentParserException {
+        final List<AuthorData> authors = new ArrayList<>();
+        final String channel = getChannel();
         if (channel.equals("Java")) {
             final String title = getTitle();
             if (title.contains("Inside Java Newscast")) {
@@ -749,13 +757,6 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                 return buildList(buildAuthor("José", "Paumard"));
             }
         }
-        return Collections.emptyList();
-    }
-
-    @Override
-    public List<AuthorData> getProbableAuthors() throws ContentParserException {
-        final List<AuthorData> authors = new ArrayList<>();
-        final String channel = getChannel();
         if (_channelData.containsKey(channel)) {
             for (final MatchingAuthor match: _channelData.get(channel).getMatchingAuthors()) {
                 final Matcher m = match.getPattern().matcher(getDescription());
@@ -774,6 +775,13 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     public List<AuthorData> getPossibleAuthors() throws ContentParserException {
         final List<AuthorData> authors = new ArrayList<>();
         final String channel = getChannel();
+        if (channel.equals("Java")) {
+            final String title = getTitle();
+            if (title.contains("Inside Java Newscast")) {
+                return buildList(buildAuthor("Ana-Maria", "Mihalceanu"),
+                                 buildAuthor("Billy", "Korando"));
+            }
+        }
         if (_channelData.containsKey(channel)) {
             for (final MatchingAuthor match: _channelData.get(channel).getMatchingAuthors()) {
                 final Matcher m = match.getPattern().matcher(getDescription());

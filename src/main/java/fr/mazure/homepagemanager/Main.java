@@ -2,6 +2,7 @@ package fr.mazure.homepagemanager;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Locale;
 import java.util.Optional;
 
 import fr.mazure.homepagemanager.ui.FileTable;
@@ -50,6 +51,9 @@ public class Main {
         if (serverIsEnabled) {
             WebServer.start(homepagePath, tmpPath);
         }
+
+        Locale.setDefault(Locale.UK);
+
         FileTable.display(homepagePath, tmpPath, internetAccessIsEnabled);
     }
 

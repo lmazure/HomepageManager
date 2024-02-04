@@ -1,4 +1,4 @@
-warnings = 142
+warnings = 135
 lines prod = 9514
 lines test = 3939
 test coverage =
@@ -13,7 +13,31 @@ methods       53.0%/52.2%    97.9%
 ==== before merge =====
 
 
+
+cleaner les nouveaux warnings et mettre le nombre total à jour
+
+
+
+https://www.nextinpact.com/article/70628/a-decouverte-jupyter-logiciel-scientifique-libre-aux-millions-dutilisateurs
+title "À la découverte de Jupyter, un logiciel scientifique libre aux millions d'utilisateurs" does not appear in the page
+
+
+ tag = "COMMENT"
+ value = "GitHub will now automatically generate Go and .Net SDKs by running Kiota on the OpenAPI description of GitHub API."
+ violation = "invalid space is present before punctuation"
+ detail = ""GitHub will now automatically generate Go and .Net SDKs by running Kiota on the OpenAPI description of GitHub API." has a space before a punctuation (at index 46)"
+ 
+ 
 ==== potentially before merge =====
+
+
+
+corriger affichage du popup author sur téléphone
+
+
+mettre une scrollbar dans le dialogue de génération du XML
+en fait le problème est présent quand on utilise le bouton "Paste URL"
+
 
 
 gérer
@@ -29,9 +53,6 @@ Look for article = https://www.google.com/search?q=%22How+Do+I%3A+Use+Visual+Stu
 
 
 
-corriger les problème d'auteurs sur javanews.xml
-
-
 gérer les vidéo youtube miss à privé
 pex https://www.youtube.com/watch?v=OW1J61jg-3U
 les mettre en removed
@@ -44,12 +65,7 @@ Gérer
  detail = ""GitHub will now automatically generate Go and .Net SDKs by running Kiota on the OpenAPI description of GitHub API." is missing a space after punctuation"
 
 
-Les mauvais auteurs YouTube ne sont pas détectés
-
-
 afficher les métadonnées des articles dans les tables
-
-
 
 
 
@@ -70,15 +86,11 @@ nettoyer javahistory.xml
 
 corriger problème de reconnaissance des langues sur YouTube
 
-nettoyer perl.xml
-
 réimplémenter toute la logique twitter: il répond désormais 200 même si le compte n'existe pas
 
 nettoyer test.xml
 
 nettoyer coding.xml
-
-nettoyer ide.xml
 
 indiquer tous les HTTP codes de redirection
 et en déduire quand la correction de l'URL devrait aussi être proposée
@@ -86,8 +98,6 @@ et en déduire quand la correction de l'URL devrait aussi être proposée
 corriger les liens de fda.org
 
 le début du nom des fichiers ne devrait par être présent
-
-nettoyer cracking.xml
 
 nettoyer tous les liens auntminnie
 
@@ -141,17 +151,6 @@ java.lang.UnsupportedOperationException: https://www.esgi.fr|504→
     at java.base/java.lang.Thread.run(Thread.java:1589)
 
 
-on peut gérer ces cas
-Title = "Springer"
-URL = https://link.springer.com/
-Expected status = OK
-Effective HTTP code = 302 Found
-Effective HTTP code of last redirection = 200 OK
-Redirection chain = https://link.springer.com/ → https://idp.springer.com/authorize?redirect_uri=https://link.springer.com/&client_id=springerlink&response_type=cookie → https://idp.springer.com/transit?redirect_uri=https%3A%2F%2Flink.springer.com%2F&code=563545a8-7caf-448e-9b4e-1ec566f4754c → https://link.springer.com/
-Redirection matcher = redirection ending in success (last URL should be used)
-Redirection matcher expected statuses = 
-Look for article = https://www.google.com/search?q=%22Springer%22
-en ignorant lorsque la chaîne de redirection ramène au point de départ
 
 
 
@@ -224,13 +223,7 @@ réparer testSimultaneousRetrieval
 chaque redirection matcher recompile la chaine de redirections, ce n'est pas performant
 en plus cela est recalculé plusieurs fois dans LinkCheckRunner.isDataExpected
 
-détecter les articles dont le commentaire contient subtitle, mais qui n'ont pas de subtitle
-
-filtrer les redirections parasites (ibm, onlamp…)
-
 si le programme passe minuit, la vérification de la date de la page croit toujours que nous sommes la veille
-
-nettoyer links/test.xml
 
 Title = "ChatGPT"
 URL = https://chat.openai.com

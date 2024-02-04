@@ -1,4 +1,4 @@
-package fr.mazure.homepagemanager.data.linkchecker.specturm.test;
+package fr.mazure.homepagemanager.data.linkchecker.spectrum.test;
 
 import java.util.Collections;
 import java.util.Optional;

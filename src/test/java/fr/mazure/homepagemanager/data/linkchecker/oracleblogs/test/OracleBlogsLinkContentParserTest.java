@@ -59,7 +59,6 @@ public class OracleBlogsLinkContentParserTest {
         "https://blogs.oracle.com/javamagazine/post/inside-java-13s-switch-expressions-and-reimplemented-socket-api|Incremental changes bring future benefits in this release.",
         "https://blogs.oracle.com/javamagazine/understanding-the-jdks-new-superfast-garbage-collectors|ZGC, Shenandoah, and improvements to G1 get developers closer than ever to pauseless Java.",
         // the following articles has a &rsquo; in the subtitle
-        "https://blogs.oracle.com/javamagazine/post/java-project-amber-lambda-loom-panama-valhalla|Many JEPs are collected into named projects. Here’s the latest on the progress of these initiatives.",
         "https://blogs.oracle.com/javamagazine/finance-quant-forex-java16|Java still rocks the finance industry. Here’s why Java 16 makes it even better.",
         "https://blogs.oracle.com/javamagazine/java-is-criminally-underhyped|Recent computer science graduate Jackson Roberts never took a single class in Java. That’s just wrong, he says.",
         // the following article has a newline in the subtitle

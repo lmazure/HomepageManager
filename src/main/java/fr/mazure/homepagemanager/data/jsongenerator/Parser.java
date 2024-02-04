@@ -32,10 +32,12 @@ public class Parser {
     private final KeywordFactory _keywordFactory;
 
     /**
-     * @param articleFactory
-     * @param linkFactory
-     * @param authorFactory
-     * @param keywordFactory
+     * Constructor
+     *
+     * @param articleFactory article factory
+     * @param linkFactory link factory
+     * @param authorFactory author factory
+     * @param keywordFactory keyword factory
      */
     public Parser(final ArticleFactory articleFactory,
                   final LinkFactory linkFactory,
@@ -135,7 +137,7 @@ public class Parser {
     }
 
        /**
-     * @param file file conaining a list of persons
+     * @param file file containing a list of persons
      * @throws Exception exception if any
      */
     public void parsePersonFile(final File file) throws Exception {

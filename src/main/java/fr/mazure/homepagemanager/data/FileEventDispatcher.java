@@ -36,7 +36,7 @@ public class FileEventDispatcher {
     private final FileEventQueue _fileEventQueue;
 
     /**
-     * @param homepagePath
+     * @param homepagePath path to the directory containing the pages
      * @param handler
      * @param fileHandlers
      */

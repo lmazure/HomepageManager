@@ -51,7 +51,7 @@ public class ActionHelper {
 
     /**
      * @param file
-     * @param homepagePath
+     * @param homepagePath path to the directory containing the pages
      */
     public static void displayHtmlFile(final Path file,
                                        final Path homepagePath) {

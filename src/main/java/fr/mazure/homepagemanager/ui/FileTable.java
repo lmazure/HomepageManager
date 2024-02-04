@@ -88,6 +88,10 @@ public class FileTable extends Application {
         generateXml.setAccelerator(new KeyCodeCombination(KeyCode.L, KeyCombination.CONTROL_DOWN));
         generateXml.setOnAction(e -> displayLinkXmlGenerator());
         menu.getItems().add(generateXml);
+        final MenuItem displayStatistics = new MenuItem("Display statistics");
+        displayStatistics.setAccelerator(new KeyCodeCombination(KeyCode.T, KeyCombination.CONTROL_DOWN));
+        displayStatistics.setOnAction(e -> displayStatisticsDialog());
+        menu.getItems().add(displayStatistics);
         final MenuItem exit = new MenuItem("Exit");
         exit.setAccelerator(new KeyCodeCombination(KeyCode.Q, KeyCombination.CONTROL_DOWN));
         exit.setOnAction(e -> exit());
@@ -189,6 +193,11 @@ public class FileTable extends Application {
        final XmlGenerationDialog dialog = new XmlGenerationDialog(s_tmpPath.resolve(s_cacheFolderName));
        dialog.showAndWait();
     }
+
+    private static void displayStatisticsDialog() {
+        final StatisticsDialog dialog = new StatisticsDialog(s_homepagePath, s_list.getFileList());
+        dialog.showAndWait();
+     }
 
     private static void exit() {
         System.exit(0);

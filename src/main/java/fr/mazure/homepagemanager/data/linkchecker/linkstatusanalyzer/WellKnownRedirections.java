@@ -40,7 +40,7 @@ public class WellKnownRedirections {
         errorCodes.add(Integer.valueOf(500));
         errorCodes.add(Integer.valueOf(502));
         errorCodes.add(Integer.valueOf(503));
-        errorCodes.add(Integer.valueOf(504));
+        //errorCodes.add(Integer.valueOf(504)); ignored for the time being
         errorCodes.add(Integer.valueOf(999));  // TODO handle fucking LinkedIn
 
         final Set<Integer> redirectionCodes = new HashSet<>();
@@ -118,7 +118,7 @@ public class WellKnownRedirections {
         {
             final RedirectionMatcher oReillyRemoved1 = new RedirectionMatcher("removed from O’Reilly",
                                                                               Set.of(LinkStatus.REMOVED));
-            oReillyRemoved1.add("(\\Qhttp://www.linuxdevcenter.com/pub/a/linux/\\E|\\Qhttp://www.onjava.com/pub/a/onjava/\\E|\\Qhttp://www.onlamp.com/pub/a/\\E(onlamp|php|python|security)/|\\Qhttp://www.onjava.com/catalog/javaadn\\E)" + RedirectionMatcher.ANY_STRING,
+            oReillyRemoved1.add("(\\Qhttp://www.linuxdevcenter.com/pub/a/linux/\\E|\\Qhttp://www.onjava.com/pub/a/onjava/\\E|\\Qhttp://www.onlamp.com/\\E(lpt|pub)/a/(apache|onlamp|php|python|security)/|\\Qhttp://www.onjava.com/catalog/javaadn\\E)" + RedirectionMatcher.ANY_STRING,
                                 Set.of(Integer.valueOf(301)),
                                 RedirectionMatcher.Multiplicity.ONE);
             oReillyRemoved1.add("\\Qhttps://www.oreilly.com/ideas\\E",
@@ -169,10 +169,10 @@ public class WellKnownRedirections {
         {
             final RedirectionMatcher oReillyRemoved4 = new RedirectionMatcher("removed from O’Reilly",
                                                                               Set.of(LinkStatus.REMOVED));
-            oReillyRemoved4.add("\\Qhttp://www.oreillynet.com/pub/a/wireless/\\E(?<article>.+)",
+            oReillyRemoved4.add("\\Qhttp://www.oreillynet.com/pub/a/\\E(linux|wireless)/(?<article>.+)",
                                 Set.of(Integer.valueOf(301)),
                                 RedirectionMatcher.Multiplicity.ONE);
-            oReillyRemoved4.add("\\Qhttp://archive.oreilly.com/pub/a/wireless/\\E\\k<article>",
+            oReillyRemoved4.add("\\Qhttp://archive.oreilly.com/pub/a/\\E(linux|wireless)/\\k<article>",
                                 Set.of(Integer.valueOf(301)),
                                 RedirectionMatcher.Multiplicity.ONE);
             oReillyRemoved4.add("\\Qhttps://www.oreilly.com/\\E",
@@ -397,22 +397,54 @@ public class WellKnownRedirections {
         }
 
         {
-            final RedirectionMatcher msdnRemoved = new RedirectionMatcher("removed from MSDN",
-                                                                          Set.of(LinkStatus.REMOVED));
-            msdnRemoved.add("\\Qhttps://msdn.microsoft.com/en-us/vstudio/\\E" + RedirectionMatcher.ANY_STRING,
-                            Set.of(Integer.valueOf(301)),
-                            RedirectionMatcher.Multiplicity.ONE);
-            msdnRemoved.add("\\Qhttp://www.visualstudio.com\\E",
-                            Set.of(Integer.valueOf(301)),
-                            RedirectionMatcher.Multiplicity.ONE);
-            msdnRemoved.add("\\Qhttps://www.visualstudio.com/\\E",
-                            Set.of(Integer.valueOf(301)),
-                            RedirectionMatcher.Multiplicity.ONE);
-            msdnRemoved.add("\\Qhttps://visualstudio.microsoft.com/\\E",
-                            Set.of(Integer.valueOf(200)),
-                            RedirectionMatcher.Multiplicity.ONE);
-            msdnRemoved.compile();
-            _matchers.add(msdnRemoved);
+            final RedirectionMatcher msdnRemoved1 = new RedirectionMatcher("removed from MSDN",
+                                                                           Set.of(LinkStatus.REMOVED));
+            msdnRemoved1.add("\\Qhttps://msdn.microsoft.com/en-us/vstudio/\\E" + RedirectionMatcher.ANY_STRING,
+                             Set.of(Integer.valueOf(301)),
+                             RedirectionMatcher.Multiplicity.ONE);
+            msdnRemoved1.add("\\Qhttp://www.visualstudio.com\\E",
+                             Set.of(Integer.valueOf(301)),
+                             RedirectionMatcher.Multiplicity.ONE);
+            msdnRemoved1.add("\\Qhttps://www.visualstudio.com/\\E",
+                             Set.of(Integer.valueOf(301)),
+                             RedirectionMatcher.Multiplicity.ONE);
+            msdnRemoved1.add("\\Qhttps://visualstudio.microsoft.com/\\E",
+                             Set.of(Integer.valueOf(200)),
+                             RedirectionMatcher.Multiplicity.ONE);
+            msdnRemoved1.compile();
+            _matchers.add(msdnRemoved1);
+        }
+
+        {
+            final RedirectionMatcher msdnRemoved2 = new RedirectionMatcher("removed from MSDN",
+                                                                           Set.of(LinkStatus.REMOVED));
+            msdnRemoved2.add("\\Qhttps://msdn.microsoft.com/en-us/vstudio/\\E" + RedirectionMatcher.ANY_STRING,
+                             Set.of(Integer.valueOf(301)),
+                             RedirectionMatcher.Multiplicity.ONE);
+            msdnRemoved2.add("\\Qhttps://learn.microsoft.com\\E",
+                             Set.of(Integer.valueOf(301)),
+                             RedirectionMatcher.Multiplicity.ONE);
+            msdnRemoved2.add("\\Qhttps://learn.microsoft.com/en-us/\\E",
+                             Set.of(Integer.valueOf(200)),
+                             RedirectionMatcher.Multiplicity.ONE);
+            msdnRemoved2.compile();
+            _matchers.add(msdnRemoved2);
+        }
+
+        {
+            final RedirectionMatcher redirectionToItself = new RedirectionMatcher("redirection to itself",
+                                                                                  Set.of(LinkStatus.OK));
+            redirectionToItself.add("(?<site>https?://.*)",
+                                    redirectionCodes,
+                                    RedirectionMatcher.Multiplicity.ONE);
+            redirectionToItself.add("https?://.*",
+                                    redirectionCodes,
+                                    RedirectionMatcher.Multiplicity.ONE_OR_MANY);
+            redirectionToItself.add("\\k<site>",
+                                    successCodes,
+                                    RedirectionMatcher.Multiplicity.ONE);
+            redirectionToItself.compile();
+            _matchers.add(redirectionToItself);
         }
 
         {
