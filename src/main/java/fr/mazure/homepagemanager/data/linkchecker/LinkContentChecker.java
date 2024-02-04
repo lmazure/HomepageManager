@@ -36,7 +36,7 @@ public class LinkContentChecker implements Checker {
     private final Optional<ArticleData> _articleData;
     private final FileSection _file;
     private LinkContentParser _parser;
-    
+
     private enum Type {
         TITLE,
         SUBTTITLE
@@ -317,7 +317,7 @@ public class LinkContentChecker implements Checker {
         };
     }
 
-        
+
     private LinkContentCheck generateCheckTitleErrorForTitle(final String message,
                                                              final String expectedTitle,
                                                              final String effectiveTitle) {

@@ -27,7 +27,7 @@ public class StatisticsDialog extends Dialog<Void> {
 
     /**
      * Constructor
-     * 
+     *
      * @param homepage directory where the XML files are located
      * @param files list of the paths of all files
      */
@@ -97,7 +97,7 @@ public class StatisticsDialog extends Dialog<Void> {
                     count++;
                 }
             }
-            
+
         } catch (final IOException e) {
             ExitHelper.exit(e);
         }

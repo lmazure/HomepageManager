@@ -79,6 +79,7 @@ public class SubstackLinkContentParserTest {
     @ParameterizedTest
     @CsvSource(value = {
         "https://magazine.sebastianraschka.com/p/research-papers-in-january-2024|Sebastian||Raschka",
+        "https://magazine.sebastianraschka.com/p/understanding-and-coding-self-attention|Sebastian||Raschka",
         "https://scienceetonnante.substack.com/p/grokking-les-modeles-dia-sont-ils|David||Louapre",
         "https://tidyfirst.substack.com/p/eventual-business-consistency|Kent||Beck",
         }, delimiter = '|')

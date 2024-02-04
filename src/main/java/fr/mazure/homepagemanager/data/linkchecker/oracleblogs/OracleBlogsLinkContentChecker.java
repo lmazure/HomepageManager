@@ -28,7 +28,7 @@ public class OracleBlogsLinkContentChecker extends ExtractorBasedLinkContentChec
     /**
      * Determine if the link is managed
      *
-     * @param url link 
+     * @param url link
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {

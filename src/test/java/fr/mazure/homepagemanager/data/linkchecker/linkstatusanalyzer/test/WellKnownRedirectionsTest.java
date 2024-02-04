@@ -186,7 +186,7 @@ class WellKnownRedirectionsTest {
         "http://www.hays.lu/prd_consump/groups/hays_common/@fr/@content/documents/digitalasset/hays_714488.pdf",
         "http://www.ineris.fr/centredoc/Communication_site_web_INERIS.pdf",
         "https://www.reddit.com/r/gitlab/",
-        
+
         })
     void redirectionsEndingWith404(final String url) {
         test(url,

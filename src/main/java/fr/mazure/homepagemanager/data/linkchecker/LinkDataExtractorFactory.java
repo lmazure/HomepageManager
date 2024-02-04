@@ -106,7 +106,7 @@ public class LinkDataExtractorFactory {
                     // NOTREACHED
                     return null;
                 }
-                
+
             }
         }
 
