@@ -14,7 +14,7 @@ public class HtmlGenerationController extends GenericUiController {
 
     /**
      * @param list
-     * @param homepagePath
+     * @param homepagePath path to the directory containing the pages
      */
     public HtmlGenerationController(final ObservableFileList list,
                                     final Path homepagePath) {
