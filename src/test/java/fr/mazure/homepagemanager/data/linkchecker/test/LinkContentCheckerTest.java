@@ -62,10 +62,10 @@ public class LinkContentCheckerTest {
     }
 
     @ParameterizedTest
-    @CsvSource({
-        "https://blog.chromium.org/2009/01/tabbed-browsing-in-google-chrome.html,en,Tabbed browsing in Google Chrome,Tabbed Browsing in Google Chrome",
-        "https://www.eiffel.com/values/design-by-contract/introduction/,en,Building bug-free O-O software: An introduction to Design by Contract,Building bug-free O-O software: An Introduction to Design by Contract"
-        })
+    @CsvSource(value = {
+        "https://blog.chromium.org/2009/01/tabbed-browsing-in-google-chrome.html|en|Tabbed browsing in Google Chrome|Tabbed Browsing in Google Chrome",
+        "https://www.eiffel.com/values/design-by-contract/introduction/|en|Building bug-free O-O software: An introduction to Design by Contract|Building bug-free O-O software: An Introduction to Design by Contract"
+        }, delimiter = '|')
     void detectBadlyCasedTitle(final String url,
                                final String locale,
                                final String expectedTitle,
@@ -81,7 +81,7 @@ public class LinkContentCheckerTest {
                                try {
                                    final List<LinkContentCheck> checks = checker.check();
                                    Assertions.assertEquals(1, checks.size());
-                                   Assertions.assertEquals("title \"" + expectedTitle +"\" does not appear in the page, this is a problem of casing, the real title is \"" + realTitle + "\"",
+                                   Assertions.assertEquals("Title \"" + expectedTitle +"\" does not appear in the page, this is a problem of casing, the real title is \"" + realTitle + "\"",
                                                            checks.get(0).getDescription());
                                } catch (final ContentParserException e) {
                                    Assertions.fail("getTitle threw " + e.getMessage());
@@ -121,9 +121,9 @@ public class LinkContentCheckerTest {
     }
 
     @ParameterizedTest
-    @CsvSource({
-        "https://www.liberation.fr/checknews/2020/04/16/covid-19-les-personnes-gueries-sont-elles-immunisees_1785420,fr,Covid-19 : les personnes guéries sont-elles immunisées ?,Covid-19 : les personnes guéries sont-elles immunisées ?"
-        })
+    @CsvSource(value = {
+        "https://www.liberation.fr/checknews/2020/04/16/covid-19-les-personnes-gueries-sont-elles-immunisees_1785420|fr|Covid-19 : les personnes guéries sont-elles immunisées ?|Covid-19 : les personnes guéries sont-elles immunisées ?"
+        }, delimiter = '|')
     void detectBadlySpacedTitle(final String url,
                                 final String locale,
                                 final String expectedTitle,
@@ -139,7 +139,38 @@ public class LinkContentCheckerTest {
                                try {
                                    final List<LinkContentCheck> checks = checker.check();
                                    Assertions.assertEquals(1, checks.size());
-                                   Assertions.assertEquals("title \"" + expectedTitle +"\" does not appear in the page, this is a problem of space, the real title is \"" + realTitle + "\"",
+                                   Assertions.assertEquals("Title \"" + expectedTitle +"\" does not appear in the page, this is a problem of space, the real title is \"" + realTitle + "\"",
+                                                           checks.get(0).getDescription());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getTitle threw " + e.getMessage());
+                               }
+                               consumerHasBeenCalled.set(true);
+                           },
+                           false);
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
+        "https://jml.io/your-code-sucks-and-i-hate-you/|en|Your code sucks, and I hate you|The Social Dynamics of Code Reviews|The Social Dynamics of Code Reviews"
+        }, delimiter = '|')
+    void detectBadlySpacedSubtitle(final String url,
+                                   final String locale,
+                                   final String expectedTitle,
+                                   final String expectedSubtitle,
+                                   final String realSubtitle) {
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        final LinkData linkData = new LinkData(expectedTitle, new String[] { expectedSubtitle }, url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
+        final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null, null);
+        retriever.retrieve(url,
+                           (final Boolean b, final FullFetchedLinkData d) -> {
+                               Assertions.assertTrue(d.dataFileSection().isPresent());
+                               final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.dataFileSection().get());
+                               try {
+                                   final List<LinkContentCheck> checks = checker.check();
+                                   Assertions.assertEquals(1, checks.size());
+                                   Assertions.assertEquals("Subtitle \"" + expectedSubtitle +"\" does not appear in the page, this is a problem of space, the real subtitle is \"" + realSubtitle + "\"",
                                                            checks.get(0).getDescription());
                                } catch (final ContentParserException e) {
                                    Assertions.fail("getTitle threw " + e.getMessage());

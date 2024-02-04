@@ -14,10 +14,16 @@ methods       53.0%/52.2%    97.9%
 
 
 
+https://www.nextinpact.com/article/70628/a-decouverte-jupyter-logiciel-scientifique-libre-aux-millions-dutilisateurs
+title "À la découverte de Jupyter, un logiciel scientifique libre aux millions d'utilisateurs" does not appear in the page
 
 
-
-
+ tag = "COMMENT"
+ value = "GitHub will now automatically generate Go and .Net SDKs by running Kiota on the OpenAPI description of GitHub API."
+ violation = "invalid space is present before punctuation"
+ detail = ""GitHub will now automatically generate Go and .Net SDKs by running Kiota on the OpenAPI description of GitHub API." has a space before a punctuation (at index 46)"
+ 
+ 
 ==== potentially before merge =====
 
 

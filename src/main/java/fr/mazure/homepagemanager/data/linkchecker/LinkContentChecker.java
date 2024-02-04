@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthors;
 import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthorsOfLink;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkLanguageCorrection;
+import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkSubtitleCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkTitleCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
 import fr.mazure.homepagemanager.utils.FileSection;
@@ -35,6 +36,11 @@ public class LinkContentChecker implements Checker {
     private final Optional<ArticleData> _articleData;
     private final FileSection _file;
     private LinkContentParser _parser;
+    
+    private enum Type {
+        TITLE,
+        SUBTTITLE
+    }
 
     /**
      * @param url URL of the link to check
@@ -152,7 +158,7 @@ public class LinkContentChecker implements Checker {
     protected LinkContentCheck checkLinkTitle(final String data,
                                               final String title) throws ContentParserException
     {
-        return checkTitle(data, title, "title");
+        return checkTitle(data, title, Type.TITLE);
     }
 
     /**
@@ -162,7 +168,7 @@ public class LinkContentChecker implements Checker {
                                                   final String[] subtitles) throws ContentParserException
     {
         for (final String subtitle: subtitles) {
-            final LinkContentCheck check = checkTitle(data, subtitle, "subtitle");
+            final LinkContentCheck check = checkTitle(data, subtitle, Type.SUBTTITLE);
             if (check != null) {
                 return check;
             }
@@ -278,53 +284,86 @@ public class LinkContentChecker implements Checker {
 
     private LinkContentCheck checkTitle(final String data,
                                         final String expectedTitle,
-                                        final String description) {
+                                        final Type type) {
         final String d = HtmlHelper.cleanContent(data);
         if (StringHelper.generalizedIndex(d, expectedTitle, false, false) < 0) {
             final int i1 = StringHelper.generalizedIndex(d, expectedTitle, true, false);
             if (i1 >= 0) {
                 final String effectiveTitle = d.substring(i1, i1 + expectedTitle.length());
-                return new LinkContentCheck("WrongTitle",
-                                            description +
-                                            " \"" +
-                                            expectedTitle +
-                                            "\" does not appear in the page, this is a problem of casing, the real title is \"" +
-                                            effectiveTitle +
-                                            "\"",
-                                            Optional.of(new UpdateLinkTitleCorrection(expectedTitle, effectiveTitle, _url)));
+                return generateCheckTitleError("this is a problem of casing", expectedTitle, effectiveTitle, type);
             }
             final int i2 = StringHelper.generalizedIndex(d, expectedTitle, false, true);
             if (i2 >= 0) {
                 final String effectiveTitle = d.substring(i2, i2 + expectedTitle.length());
-                return new LinkContentCheck("WrongTitle",
-                                            description +
-                                            " \"" +
-                                            expectedTitle +
-                                            "\" does not appear in the page, this is a problem of space, the real title is \"" +
-                                            effectiveTitle +
-                                            "\"",
-                                            Optional.of(new UpdateLinkTitleCorrection(expectedTitle, effectiveTitle, _url)));
+                return generateCheckTitleError("this is a problem of space", expectedTitle, effectiveTitle, type);
             }
             final int i3 = StringHelper.generalizedIndex(d, expectedTitle, false, true);
             if (i3 >= 0) {
                 final String effectiveTitle = d.substring(i3, i3 + expectedTitle.length());
-                return new LinkContentCheck("WrongTitle",
-                                            description +
-                                            " \"" +
-                                            expectedTitle +
-                                            "\" does not appear in the page, this is a problem of casing and space, the real title is \"" +
-                                            effectiveTitle +
-                                            "\"",
-                                            Optional.of(new UpdateLinkTitleCorrection(expectedTitle, effectiveTitle, _url)));
+                return generateCheckTitleError("this is a problem of casing and space", expectedTitle, effectiveTitle, type);
             }
-            return new LinkContentCheck("WrongTitle",
-                                        description +
-                                        " \"" +
-                                        expectedTitle +
-                                        "\" does not appear in the page",
-                                        Optional.empty());
+            return generateCheckTitleError(null, expectedTitle, null, type);
         }
         return null;
+    }
+
+    private LinkContentCheck generateCheckTitleError(final String message,
+                                                     final String expectedTitle,
+                                                     final String effectiveTitle,
+                                                     final Type type) {
+        return switch (type) {
+            case Type.TITLE -> generateCheckTitleErrorForTitle(message, expectedTitle, effectiveTitle);
+            case Type.SUBTTITLE -> generateCheckTitleErrorForSubtitle(message, expectedTitle, effectiveTitle);
+        };
+    }
+
+        
+    private LinkContentCheck generateCheckTitleErrorForTitle(final String message,
+                                                             final String expectedTitle,
+                                                             final String effectiveTitle) {
+        if (effectiveTitle != null) {
+            return new LinkContentCheck("WrongTitle",
+                                        "Title \"" +
+                                        expectedTitle +
+                                        "\" does not appear in the page" +
+                                        ((message == null) ? ""
+                                                           : (", " + message)) +
+                                        ", the real title is \"" +
+                                        effectiveTitle +
+                                        "\"",
+                                        Optional.of(new UpdateLinkTitleCorrection(expectedTitle, effectiveTitle, _url)));
+        }
+        return new LinkContentCheck("WrongTitle",
+                                    "Title \"" +
+                                    expectedTitle +
+                                    "\" does not appear in the page" +
+                                    ((message == null) ? ""
+                                                       : (", " + message)),
+                                    Optional.empty());
+    }
+
+    private LinkContentCheck generateCheckTitleErrorForSubtitle(final String message,
+                                                                final String expectedSubitle,
+                                                                final String effectiveSubtitle) {
+        if (effectiveSubtitle != null) {
+            return new LinkContentCheck("WrongSubtitle",
+                                        "Subtitle \"" +
+                                        expectedSubitle +
+                                        "\" does not appear in the page" +
+                                        ((message == null) ? ""
+                                                           : (", " + message)) +
+                                        ", the real subtitle is \"" +
+                                        effectiveSubtitle +
+                                        "\"",
+                                        Optional.of(new UpdateLinkSubtitleCorrection(expectedSubitle, effectiveSubtitle, _url)));
+        }
+        return new LinkContentCheck("WrongSubtitle",
+                                    "Subtitle \"" +
+                                    expectedSubitle +
+                                    "\" does not appear in the page" +
+                                    ((message == null) ? ""
+                                                       : (", " + message)),
+                                    Optional.empty());
     }
 
     private static LinkContentCheck checkAuthor(final String data,
