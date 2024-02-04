@@ -32,8 +32,8 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
     private final String _data;
 
     private static final TextParser s_titleParser
-    = new TextParser("<meta data-preact-helmet name=\"twitter:title\" content=\"",
-                     "\">",
+    = new TextParser("<h1 class=\"post-title unpublished\">",
+                     "</h1>",
                      "Substack",
                      "title");
 private static final TextParser s_subtitleParser
@@ -113,8 +113,7 @@ private static final TextParser s_authorParser
             throw new ContentParserException("Error while parsing JSON", e);
         }
 
-        final AuthorData author =
-            getWellKnownAuthor(channelName);
+        final AuthorData author = getWellKnownAuthor(channelName);
         if (author != null) {
             list.add(author);
             return list;

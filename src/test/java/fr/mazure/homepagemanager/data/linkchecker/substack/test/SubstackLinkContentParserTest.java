@@ -25,6 +25,7 @@ public class SubstackLinkContentParserTest {
     @ParameterizedTest
     @CsvSource(value = {
         "https://magazine.sebastianraschka.com/p/research-papers-in-january-2024|Research Papers in January 2024",
+        "https://magazine.sebastianraschka.com/p/ahead-of-ai-12-llm-businesses|Ahead of AI #12: LLM Business and Busyness",
         "https://promptarmor.substack.com/p/data-exfiltration-from-writercom|Data exfiltration from Writer.com with indirect prompt injection",
         "https://scienceetonnante.substack.com/p/grokking-les-modeles-dia-sont-ils|\"Grokking\" : les modèles d'IA sont-ils capables de piger ?",
         "https://tidyfirst.substack.com/p/eventual-business-consistency|Eventual Business Consistency",
