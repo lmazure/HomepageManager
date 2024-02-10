@@ -143,6 +143,20 @@ class WellKnownRedirectionsTest {
              Set.of(LinkStatus.DEAD));
     }
 
+    // URLs giving directly a 503
+    @ParameterizedTest
+    @CsvSource({
+        "http://httpbin.org/status/522",
+        "http://ganttproject.biz",
+        })
+    void direct522(final String url) {
+        test(url,
+             false,
+             Integer.valueOf(522),
+             "direct failure",
+             Set.of(LinkStatus.DEAD));
+    }
+
     @ParameterizedTest
     @CsvSource({
         "https://www.4d.com",

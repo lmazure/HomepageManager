@@ -89,7 +89,7 @@ public class HtmlTableCell<S> extends TableCell<S, String> {
             setGraphic(_stackPane);
             _webView.getEngine().documentProperty().addListener((final ObservableValue<? extends Document>obj, final Document prev, final Document newv) -> {
                 final Integer heightText = (Integer)_webView.getEngine().executeScript(
-                        "Math.max( document.body.scrollHeight , document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);"
+                        "Math.max( document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);"
                 );
                 final int height = heightText.intValue() + 10;
                 //System.out.println("document.body.scrollHeight = " + getJavaScriptIntegerValue("document.body.scrollHeight"));
