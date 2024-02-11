@@ -14,36 +14,20 @@ methods       53.0%/52.2%    97.9%
 
 
 
+==== potentially before merge =====
+
+
+
+nettoyer links:Java.xml
+
+
 nettoyer livingbeing.xml
 
 https://www.nextinpact.com/article/70628/a-decouverte-jupyter-logiciel-scientifique-libre-aux-millions-dutilisateurs
 title "À la découverte de Jupyter, un logiciel scientifique libre aux millions d'utilisateurs" does not appear in the page
 
  
- 
- gérer
- Title = "Model-Driven Development"
-URL = https://msdn.microsoft.com/en-us/library/aa964145.aspx
-Expected status = ZOMBIE
-Effective HTTP code = 301 Moved Permanently
-Effective HTTP code of last redirection = 200 OK
-Redirection chain = https://msdn.microsoft.com/en-us/library/aa964145.aspx → https://learn.microsoft.com → https://learn.microsoft.com/en-us/
-Redirection matcher = redirection ending in success (last URL should be used)
-Redirection matcher expected statuses = 
-Look for article = https://www.google.com/search?q=%22Model-Driven+Development%22
- 
- 
- gérer
- Title = "History-making components"
-URL = https://www.ibm.com/developerworks/java/library/co-tmline/index.html
-Expected status = REMOVED
-Effective HTTP code = 301 Moved Permanently
-Effective HTTP code of last redirection = 200 OK
-Redirection chain = https://www.ibm.com/developerworks/java/library/co-tmline/index.html → https://developer.ibm.com/product-doclinks/
-Redirection matcher = redirection ending in success (last URL should be used)
-Redirection matcher expected statuses = 
-Look for article = https://www.google.com/search?q=%22History-making+components%22
- 
+
  
  gérer
          if (url.startsWith("https://netflixtechblog.com/")) {
@@ -62,23 +46,6 @@ Redirection chain = https://www.techrepublic.com/article/10-things-you-should-kn
 Redirection matcher = redirection ending in success (last URL should be used)
 Redirection matcher expected statuses = 
 Look for article = https://www.google.com/search?q=%2210+things+you+should+know+about+NoSQL+databases%22+%22The+relational+database+model+has+prevailed+for+decades%2C+but+a+new+type+of+database+--+known+as+NoSQL+--+is+gaining+attention+in+the+enterprise.+Here%27s+an+overview+of+its+pros+and+cons.%22
-
-
-java.lang.UnsupportedOperationException: https://www.esgi.fr|504→
-    at fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.getMatch(WellKnownRedirections.java:175)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.getPossibleStatuses(LinkStatusAnalyzer.java:79)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.doesEffectiveDataMatchesExpectedData(LinkStatusAnalyzer.java:34)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.writeOutputFile(LinkCheckRunner.java:410)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:354)
-    at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-    at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-    at fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:34)
-    at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
-    at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
-    at java.base/java.lang.Thread.run(Thread.java:1589)
-
-
-==== potentially before merge =====
 
 
 

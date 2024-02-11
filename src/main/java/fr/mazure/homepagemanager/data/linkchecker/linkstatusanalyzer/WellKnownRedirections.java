@@ -212,7 +212,7 @@ public class WellKnownRedirections {
         {
             final RedirectionMatcher ibmRemoved3 = new RedirectionMatcher("removed from IBM",
                                                                           Set.of(LinkStatus.REMOVED));
-            ibmRemoved3.add("\\Qhttps://www.ibm.com/developerworks/tivoli/library/\\E" + RedirectionMatcher.ANY_STRING,
+            ibmRemoved3.add("\\Qhttps://www.ibm.com/developerworks/\\E(tivoli/library/|java/library/co-tmline/)" + RedirectionMatcher.ANY_STRING,
                            Set.of(Integer.valueOf(301)),
                            RedirectionMatcher.Multiplicity.ONE);
             ibmRemoved3.add("\\Qhttps://developer.ibm.com/product-doclinks/\\E",
@@ -419,7 +419,7 @@ public class WellKnownRedirections {
         {
             final RedirectionMatcher msdnRemoved2 = new RedirectionMatcher("removed from MSDN",
                                                                            Set.of(LinkStatus.REMOVED));
-            msdnRemoved2.add("\\Qhttps://msdn.microsoft.com/en-us/vstudio/\\E" + RedirectionMatcher.ANY_STRING,
+            msdnRemoved2.add("\\Qhttps://msdn.microsoft.com/en-us/\\E(vstudio|library)/" + RedirectionMatcher.ANY_STRING,
                              Set.of(Integer.valueOf(301)),
                              RedirectionMatcher.Multiplicity.ONE);
             msdnRemoved2.add("\\Qhttps://learn.microsoft.com\\E",

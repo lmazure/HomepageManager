@@ -279,6 +279,7 @@ class WellKnownRedirectionsTest {
         "https://www.ibm.com/developerworks/aix/library/au-boost_parser/",
         "https://www.ibm.com/developerworks/architecture/library/ar-cloudaws1/",
         "https://www.ibm.com/developerworks/cloud/library/cl-json-verification/",
+        "https://www.ibm.com/developerworks/java/library/co-tmline/index.html",
         "https://www.ibm.com/developerworks/java/library/j-mer1022.html",
         "https://www.ibm.com/developerworks/java/library/os-lombok/index.html",
         "https://www.ibm.com/developerworks/java/library/x-simplexobjs/",
@@ -338,6 +339,7 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
+        "https://msdn.microsoft.com/en-us/library/aa964145.aspx",
         "https://msdn.microsoft.com/en-us/vstudio/bb892758",
         "https://msdn.microsoft.com/en-us/vstudio/dd442479",
         })
