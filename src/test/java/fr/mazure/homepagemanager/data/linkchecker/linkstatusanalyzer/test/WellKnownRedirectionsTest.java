@@ -214,24 +214,27 @@ class WellKnownRedirectionsTest {
     @CsvSource({
         "https://www.youtube.com/channel/UCUHW94eEFW7hkUMVaZz4eDg",
         "https://www.youtube.com/channel/UC1Ue7TuX3iH4y8-Qrjj-hyg",
+        "https://www.youtube.com/c/QuantaScienceChannel",
+        "https://www.youtube.com/c/Tumourrasmoinsb%C3%AAteARTE",
         })
     void youtubeChannel(final String url) {
         test(url,
              true,
              Integer.valueOf(200),
-             "from Youtube channel to cookies configuration",
+             "from YouTube channel to YouTube channel",
              Set.of(LinkStatus.OK));
     }
 
     @ParameterizedTest
     @CsvSource({
         "https://www.youtube.com/user/dirtybiology",
+        "https://www.youtube.com/user/TheWandida",
         })
     void youtubeUser(final String url) {
         test(url,
              true,
              Integer.valueOf(200),
-             "from Youtube user to cookies configuration",
+             "from YouTube user to YouTube user",
              Set.of(LinkStatus.OK));
     }
 
