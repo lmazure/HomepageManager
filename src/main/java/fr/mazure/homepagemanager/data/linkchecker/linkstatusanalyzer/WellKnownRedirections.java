@@ -69,7 +69,7 @@ public class WellKnownRedirections {
 
         {
             final RedirectionMatcher fromYoutubeChannelToYoutubeChannel = new RedirectionMatcher("from YouTube channel to YouTube channel",
-                                                                                                 Set.of(LinkStatus.OK));
+                                                                                                 Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
             fromYoutubeChannelToYoutubeChannel.add("\\Qhttps://www.youtube.com/channel/\\E" + RedirectionMatcher.ANY_STRING,
                                                    Set.of(Integer.valueOf(302)),
                                                    RedirectionMatcher.Multiplicity.ONE);
@@ -464,6 +464,58 @@ public class WellKnownRedirections {
                              RedirectionMatcher.Multiplicity.ONE);
             msdnRemoved2.compile();
             _matchers.add(msdnRemoved2);
+        }
+
+        {
+            final RedirectionMatcher techrepublic1 = new RedirectionMatcher("removed from TechRepublic",
+                                                                            Set.of(LinkStatus.REMOVED));
+            techrepublic1.add("\\Qhttps://www.techrepublic.com/article/\\E" + RedirectionMatcher.ANY_STRING,
+                              Set.of(Integer.valueOf(301)),
+                              RedirectionMatcher.Multiplicity.ONE);
+            techrepublic1.add("\\Qhttps://www.techrepublic.com/topic/\\E(cxo|developer|hardware|microsoft|security)/",
+                              Set.of(Integer.valueOf(200)),
+                              RedirectionMatcher.Multiplicity.ONE);
+            techrepublic1.compile();
+            _matchers.add(techrepublic1);
+        }
+
+        {
+            final RedirectionMatcher techrepublic2 = new RedirectionMatcher("removed from TechRepublic",
+                                                                            Set.of(LinkStatus.REMOVED));
+            techrepublic2.add("\\Qhttps://www.techrepublic.com/blog/\\E" + RedirectionMatcher.ANY_STRING,
+                              Set.of(Integer.valueOf(301)),
+                              RedirectionMatcher.Multiplicity.ONE);
+            techrepublic2.add("\\Qhttps://www.techrepublic.com/article/\\E" + RedirectionMatcher.ANY_STRING,
+                              Set.of(Integer.valueOf(301)),
+                              RedirectionMatcher.Multiplicity.ONE);
+            techrepublic2.add("\\Qhttps://www.techrepublic.com/topic/\\E(cxo|developer|hardware|microsoft)/",
+                              Set.of(Integer.valueOf(200)),
+                              RedirectionMatcher.Multiplicity.ONE);
+            techrepublic2.compile();
+            _matchers.add(techrepublic2);
+        }
+
+        {
+            final RedirectionMatcher techrepublic3 = new RedirectionMatcher("removed from TechRepublic",
+                                                                            Set.of(LinkStatus.REMOVED));
+            techrepublic3.add("\\Qhttps://www.techrepublic.com/blog/\\E" + RedirectionMatcher.ANY_STRING,
+                              Set.of(Integer.valueOf(301)),
+                              RedirectionMatcher.Multiplicity.ONE);
+            techrepublic3.add("\\Qhttps://www.techrepublic.com/article/\\E" + RedirectionMatcher.ANY_STRING,
+                              Set.of(Integer.valueOf(404)),
+                              RedirectionMatcher.Multiplicity.ONE);
+            techrepublic3.compile();
+            _matchers.add(techrepublic3);
+        }
+
+        {
+            final RedirectionMatcher techrepublic4 = new RedirectionMatcher("removed from TechRepublic",
+                                                                           Set.of(LinkStatus.REMOVED));
+            techrepublic4.add("\\Qhttps://www.techrepublic.com/article/\\E" + RedirectionMatcher.ANY_STRING,
+                              Set.of(Integer.valueOf(404)),
+                              RedirectionMatcher.Multiplicity.ONE);
+            techrepublic4.compile();
+            _matchers.add(techrepublic4);
         }
 
         {

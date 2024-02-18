@@ -15,7 +15,7 @@ public class WellKnownAuthorsOfLink {
 
     private static final Map<String, WellKnownAuthors> s_knownUrls = Map.of(
         "automathssite.wordpress.com",            buildWellKnownAuthors("Jason", "Lapeyronnie", null, false),
-        "eljjdx.canalblog.com",                   buildWellKnownAuthors("Jérôme", "Cottanceau", "El Jj", false),
+        "eljjdx.canalblog.com",                   buildWellKnownAuthors("Jérôme", "Cottanceau", null, false),
         "lexfridman.com",                         buildWellKnownAuthors("Lex", "Fridman", null, true),
         "mkyong.com",                             buildWellKnownAuthors("Yong", "Mook Kim", null, true),
         "nipafx.dev",                             buildWellKnownAuthors("Nicolai", "Parlog", null, true),

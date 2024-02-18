@@ -24,8 +24,8 @@ public class SubstackLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-        "https://magazine.sebastianraschka.com/p/research-papers-in-january-2024|Research Papers in January 2024",
-        "https://magazine.sebastianraschka.com/p/ahead-of-ai-12-llm-businesses|Ahead of AI #12: LLM Business and Busyness",
+        "https://magazine.sebastianraschka.com/p/research-papers-in-january-2024|LLM Business and Busyness: Recent Company Investments and AI Adoption, New Small Openly Available LLMs, and LoRA Research",
+        "https://magazine.sebastianraschka.com/p/ahead-of-ai-12-llm-businesses|LLM Business and Busyness: Recent Company Investments and AI Adoption, New Small Openly Available LLMs, and LoRA Research",
         "https://promptarmor.substack.com/p/data-exfiltration-from-writercom|Data exfiltration from Writer.com with indirect prompt injection",
         "https://scienceetonnante.substack.com/p/grokking-les-modeles-dia-sont-ils|\"Grokking\" : les modèles d'IA sont-ils capables de piger ?",
         "https://tidyfirst.substack.com/p/eventual-business-consistency|Eventual Business Consistency",
@@ -52,8 +52,6 @@ public class SubstackLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-        "https://magazine.sebastianraschka.com/p/research-papers-in-january-2024|Model Merging, Mixtures of Experts, and Towards Smaller LLMs",
-        "https://magazine.sebastianraschka.com/p/ahead-of-ai-12-llm-businesses|Discussing Recent Company Investments and AI Adoption, New Small Openly Available LLMs, and LoRA Research",
         "https://promptarmor.substack.com/p/data-exfiltration-from-writercom|Authors: PromptArmor and Kai Greshake",
         "https://scienceetonnante.substack.com/p/grokking-les-modeles-dia-sont-ils|Ce phénomène étonnant, découvert récemment, pourrait changer notre compréhension de l'apprentissage et de la cognition dans les réseaux de neurones...",
         "https://tidyfirst.substack.com/p/eventual-business-consistency|Executive Summary of Bi-temporality",

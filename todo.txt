@@ -14,16 +14,6 @@ methods       53.0%/52.2%    97.9%
 
 
 
-gérer (problèmle d'encodage de nouveau)
-Title = "Minecraft Zephirr"
-URL = https://www.youtube.com/channel/UCxbFOHgBBWOsUjJ49M7g0TA
-Expected status = OBSOLETE
-Effective HTTP code = 302 Found
-Effective HTTP code of last redirection = 200 OK
-Redirection chain = https://www.youtube.com/channel/UCxbFOHgBBWOsUjJ49M7g0TA → https://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fchannel%2FUCxbFOHgBBWOsUjJ49M7g0TA%3Fcbrd%3D1&gl=FR&m=0&pc=yt&cm=2&hl=en&src=1 → https://www.youtube.com/channel/UCxbFOHgBBWOsUjJ49M7g0TA?cbrd=1&ucbcb=1
-Redirection matcher = from YouTube channel to YouTube channel
-Redirection matcher expected statuses = OK
-Look for article = https://www.google.com/search?q=%22Minecraft+Zephirr%22
 
 
 
@@ -32,40 +22,8 @@ Look for article = https://www.google.com/search?q=%22Minecraft+Zephirr%22
 
 
 
-mettoyer links/physics.xml
-
-
-
-nettoyer links/math.xml
-
-
-
 gérer le problème de langue sur youtube, notamment links/games.xml
 
-
-
- 
-gérer
-Title = "official site"
-URL = https://www.wbkidsgo.com/
-Expected status = OK
-Effective HTTP code = 301 Moved Permanently
-Effective HTTP code of last redirection = 200 OK
-Redirection chain = https://www.wbkidsgo.com/ → https://www.youtube.com/channel/UC9trsD1jCTXXtN3xIOIU8gg → https://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fchannel%2FUC9trsD1jCTXXtN3xIOIU8gg%3Fcbrd%3D1&gl=FR&m=0&pc=yt&cm=2&hl=en&src=1 → https://consent.youtube.com/ml?continue=https://www.youtube.com/channel/UC9trsD1jCTXXtN3xIOIU8gg?cbrd%3D1&gl=FR&hl=en&cm=2&pc=yt&src=1
-Redirection matcher = redirection ending in success (last URL should be used)
-Redirection matcher expected statuses = 
-Look for article = https://www.google.com/search?q=%22official+site%22
-
-
-
-nettoyer links/chemistry.xml
-
-
-nettoyer links/autotest.xml
-
-
-
-nettoyer links/photo.xml
 
 
 

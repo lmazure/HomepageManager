@@ -367,6 +367,51 @@ class WellKnownRedirectionsTest {
              Set.of(LinkStatus.REMOVED));
     }
 
+    @ParameterizedTest
+    @CsvSource({
+        "https://www.techrepublic.com/article/10-stupid-user-stories-the-madness-persists/",
+        "https://www.techrepublic.com/article/10-things-you-should-know-about-nosql-databases/",
+        "https://www.techrepublic.com/article/10-traits-to-look-for-when-youre-hiring-a-programmer/",
+        "https://www.techrepublic.com/article/anatomy-of-word-using-excel-information-in-word-documents/",
+        "https://www.techrepublic.com/article/a-quick-word-trick-for-typing-text-into-a-scanned-document/",
+        "https://www.techrepublic.com/blog/cio-insights/windows-8-cheat-sheet/236/",
+        "https://www.techrepublic.com/blog/tr-dojo/five-windows-command-prompt-tips-every-it-pro-should-know/",
+        "https://www.techrepublic.com/article/10-common-network-security-design-flaws/",
+        })
+    void techRepublitcRedirect(final String url) {
+        test(url,
+             true,
+             Integer.valueOf(200),
+             "removed from TechRepublic",
+             Set.of(LinkStatus.REMOVED));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "https://www.techrepublic.com/article/34-timesaving-mouse-tricks-for-word-users/",
+        })
+    void techRepublicDirect404(final String url) {
+        test(url,
+             false,
+             Integer.valueOf(404),
+             "removed from TechRepublic",
+             Set.of(LinkStatus.REMOVED));
+    }
+
+
+    @ParameterizedTest
+    @CsvSource({
+        "https://www.techrepublic.com/blog/windows-and-office/determine-if-your-hardware-can-support-windows-xp-mode-in-windows-7/",
+        "https://www.techrepublic.com/blog/windows-and-office/quick-tip-ensure-services-restart-upon-failure-in-windows-7/",
+        })
+    void techRepublicRedirect404(final String url) {
+        test(url,
+             true,
+             Integer.valueOf(404),
+             "removed from TechRepublic",
+             Set.of(LinkStatus.REMOVED));
+    }
+ 
     private void test(final String url,
                       final boolean redirectionIsExpected,  // use to ensure that test data is up-to-date
                       final Integer expectedCode,           // use to ensure that test data is up-to-date
