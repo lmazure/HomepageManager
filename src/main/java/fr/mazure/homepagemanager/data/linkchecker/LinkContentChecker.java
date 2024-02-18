@@ -187,7 +187,10 @@ public class LinkContentChecker implements Checker {
         for (final AuthorData author: authors) {
             if (wellKnownAuthors.isPresent() &&
                 wellKnownAuthors.get().getCompulsoryAuthors().contains(author)) {
-                // well known author does not appear most of the time so we ignore them
+                // given that
+                //   1) well known author does not appear most of the time
+                //   2) this is checked by a NodeChecker
+                // we ignore them here
                 continue;
             }
             final LinkContentCheck check = checkAuthor(data, author);

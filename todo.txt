@@ -68,30 +68,6 @@ title "À la découverte de Jupyter, un logiciel scientifique libre aux millions
         }
 
 
-gérer
-Title = "10 things you should know about NoSQL databases"
-Subtitle = "The relational database model has prevailed for decades, but a new type of database -- known as NoSQL -- is gaining attention in the enterprise. Here's an overview of its pros and cons."
-URL = https://www.techrepublic.com/article/10-things-you-should-know-about-nosql-databases/
-Expected status = ZOMBIE
-Effective HTTP code = 301 Moved Permanently
-Effective HTTP code of last redirection = 200 OK
-Redirection chain = https://www.techrepublic.com/article/10-things-you-should-know-about-nosql-databases/ → https://www.techrepublic.com/topic/developer/
-Redirection matcher = redirection ending in success (last URL should be used)
-Redirection matcher expected statuses = 
-Look for article = https://www.google.com/search?q=%2210+things+you+should+know+about+NoSQL+databases%22+%22The+relational+database+model+has+prevailed+for+decades%2C+but+a+new+type+of+database+--+known+as+NoSQL+--+is+gaining+attention+in+the+enterprise.+Here%27s+an+overview+of+its+pros+and+cons.%22
-
-
-gérer
-Title = "10 stupid user stories: The madness persists"
-URL = https://www.techrepublic.com/article/10-stupid-user-stories-the-madness-persists/
-Expected status = ZOMBIE
-Effective HTTP code = 301 Moved Permanently
-Effective HTTP code of last redirection = 200 OK
-Redirection chain = https://www.techrepublic.com/article/10-stupid-user-stories-the-madness-persists/ → https://www.techrepublic.com/topic/hardware/
-Redirection matcher = redirection ending in success (last URL should be used)
-Redirection matcher expected statuses = 
-Look for article = https://www.google.com/search?q=%2210+stupid+user+stories%3A+The+madness+persists%22
-
 
 
 corriger affichage du popup author sur téléphone

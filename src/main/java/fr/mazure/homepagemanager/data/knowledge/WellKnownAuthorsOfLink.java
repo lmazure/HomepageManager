@@ -14,15 +14,16 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 public class WellKnownAuthorsOfLink {
 
     private static final Map<String, WellKnownAuthors> s_knownUrls = Map.of(
-        "automathssite.wordpress.com",            buildWellKnownAuthors("Jason", "Lapeyronnie", null, false),
-        "eljjdx.canalblog.com",                   buildWellKnownAuthors("Jérôme", "Cottanceau", null, false),
-        "lexfridman.com",                         buildWellKnownAuthors("Lex", "Fridman", null, true),
-        "mkyong.com",                             buildWellKnownAuthors("Yong", "Mook Kim", null, true),
-        "nipafx.dev",                             buildWellKnownAuthors("Nicolai", "Parlog", null, true),
-        "scienceetonnante.substack.com",          buildWellKnownAuthors("David", "Louapre", null, false),
-        "www.inspiredtester.com",                 buildWellKnownAuthors("Leah", "Stockley", null, false),
-        "www.jwz.org",                            buildWellKnownAuthors("Jamie", "Zawinski", null, false),
-        "www.numberphile.com",                    buildWellKnownAuthors("Brady", "Haran", null, true));
+        "automathssite.wordpress.com",            buildWellKnownAuthors("Jason",   "Lapeyronnie", null, false),
+        "eljjdx.canalblog.com",                   buildWellKnownAuthors("Jérôme",  "Cottanceau",  null, false),
+        "lexfridman.com",                         buildWellKnownAuthors("Lex",     "Fridman",     null, true),
+        "mydeveloperplanet.com",                  buildWellKnownAuthors("Gunter",  "Rotsaert",    null, false),
+        "mkyong.com",                             buildWellKnownAuthors("Yong",    "Mook Kim",    null, true),
+        "nipafx.dev",                             buildWellKnownAuthors("Nicolai", "Parlog",      null, true),
+        "scienceetonnante.substack.com",          buildWellKnownAuthors("David",   "Louapre",     null, false),
+        "www.inspiredtester.com",                 buildWellKnownAuthors("Leah",    "Stockley",    null, false),
+        "www.jwz.org",                            buildWellKnownAuthors("Jamie",   "Zawinski",    null, false),
+        "www.numberphile.com",                    buildWellKnownAuthors("Brady",   "Haran",       null, true));
 
     /**
      * @param url site URL
