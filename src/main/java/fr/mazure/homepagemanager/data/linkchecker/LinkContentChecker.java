@@ -11,7 +11,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthors;
 import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthorsOfLink;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkLanguageCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkSubtitleCorrection;
@@ -182,11 +181,11 @@ public class LinkContentChecker implements Checker {
     protected LinkContentCheck checkLinkAuthors(final String data,
                                                 final List<AuthorData> authors) throws ContentParserException
     {
-        final Optional<WellKnownAuthors> wellKnownAuthors = WellKnownAuthorsOfLink.getWellKnownAuthors(_url);
+        final Optional<WellKnownAuthorsOfLink.KnownAuthors> wellKnownAuthors = WellKnownAuthorsOfLink.getWellKnownAuthors(_url);
 
         for (final AuthorData author: authors) {
             if (wellKnownAuthors.isPresent() &&
-                wellKnownAuthors.get().getCompulsoryAuthors().contains(author)) {
+                wellKnownAuthors.get().compulsoryAuthors().contains(author)) {
                 // given that
                 //   1) well known author does not appear most of the time
                 //   2) this is checked by a NodeChecker

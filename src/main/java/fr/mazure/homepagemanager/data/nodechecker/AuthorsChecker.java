@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 
 import org.w3c.dom.Element;
 
-import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthors;
 import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthorsOfLink;
 import fr.mazure.homepagemanager.data.nodechecker.tagselection.InclusionTagSelector;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
@@ -54,29 +53,29 @@ public class AuthorsChecker extends NodeChecker {
         }
 
         for (final LinkData link: articleData.links()) {
-            final Optional<WellKnownAuthors> expectedWellKnownAuthors = WellKnownAuthorsOfLink.getWellKnownAuthors(link.getUrl());
+            final Optional<WellKnownAuthorsOfLink.KnownAuthors> expectedWellKnownAuthors = WellKnownAuthorsOfLink.getWellKnownAuthors(link.getUrl());
             if (expectedWellKnownAuthors.isPresent()) {
                 if (expectedWellKnownAuthors.get().canHaveOtherAuthors()) {
-                    if (!articleData.authors().containsAll(expectedWellKnownAuthors.get().getCompulsoryAuthors())) {
+                    if (!articleData.authors().containsAll(expectedWellKnownAuthors.get().compulsoryAuthors())) {
                         return new CheckStatus("IncorrectAuthorList",
                                                "The list of authors of article \"" +
                                                link.getUrl() +
                                                "\" (" +
                                                formatAuthorList(articleData.authors()) +
                                                ") does not contain the expected list for the site (" +
-                                               formatAuthorList(expectedWellKnownAuthors.get().getCompulsoryAuthors()) +
+                                               formatAuthorList(expectedWellKnownAuthors.get().compulsoryAuthors()) +
                                                ")",
                                                Optional.empty());
                     }
-                } else if (!articleData.authors().containsAll(expectedWellKnownAuthors.get().getCompulsoryAuthors()) ||
-                           !expectedWellKnownAuthors.get().getCompulsoryAuthors().containsAll(articleData.authors())) {
+                } else if (!articleData.authors().containsAll(expectedWellKnownAuthors.get().compulsoryAuthors()) ||
+                           !expectedWellKnownAuthors.get().compulsoryAuthors().containsAll(articleData.authors())) {
                     return new CheckStatus("IncorrectAuthorList",
                                            "The list of authors of article \"" +
                                            link.getUrl() +
                                            "\" (" +
                                            formatAuthorList(articleData.authors()) +
                                            ") is not equal to the expected list for the site (" +
-                                           formatAuthorList(expectedWellKnownAuthors.get().getCompulsoryAuthors()) +
+                                           formatAuthorList(expectedWellKnownAuthors.get().compulsoryAuthors()) +
                                            ")",
                                            Optional.empty());
                 }

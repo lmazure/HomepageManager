@@ -16,9 +16,12 @@ methods       53.0%/52.2%    97.9%
 
 
 
-
-
 ==== potentially before merge =====
+
+
+
+voir coment exploiter WellKnownAuthors dans la génération XML
+
 
 
 
@@ -91,7 +94,7 @@ Look for article = https://www.google.com/search?q=%22How+Do+I%3A+Use+Visual+Stu
 
 
 
-gérer les vidéo youtube miss à privé
+gérer les vidéo youtube mises à privé
 pex https://www.youtube.com/watch?v=OW1J61jg-3U
 les mettre en removed
 

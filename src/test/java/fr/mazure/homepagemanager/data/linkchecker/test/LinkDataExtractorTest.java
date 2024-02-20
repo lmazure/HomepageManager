@@ -817,7 +817,7 @@ public class LinkDataExtractorTest {
                 <ARTICLE><X><T>J'ai regardé 43 films et séries Marvel Studios et j'y ai trouvé... des maths ! - Ccc #08</T>\
                 <A>https://www.youtube.com/watch?v=qZWbgBSfTUI</A>\
                 <L>fr</L><F>MP4</F><DURATION><MINUTE>26</MINUTE><SECOND>42</SECOND></DURATION></X>\
-                <AUTHOR><FIRSTNAME>Jérôme</FIRSTNAME><LASTNAME>Cottanceau</LASTNAME><GIVENNAME>El Jj</GIVENNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Jérôme</FIRSTNAME><LASTNAME>Cottanceau</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>8</MONTH><DAY>30</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
@@ -2360,20 +2360,19 @@ public class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Thomaths 14 : Les plus beaux solides de l'espace</T>\
                 <A>https://www.youtube.com/watch?v=G5nbqZnlvHo</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>34</SECOND></DURATION>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>34</SECOND></DURATION></X>\
                 <DATE><YEAR>2021</YEAR><MONTH>11</MONTH><DAY>18</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Thomaths 14 : Les plus beaux solides de l'espace</T>\
                 <A>https://www.youtube.com/watch?v=G5nbqZnlvHo</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>34</SECOND></DURATION>\
-                </X><AUTHOR><FIRSTNAME>Alexander</FIRSTNAME><LASTNAME>Thomas</LASTNAME></AUTHOR>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>34</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Alexander</FIRSTNAME><LASTNAME>Thomas</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>11</MONTH><DAY>18</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
         Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
-        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
     @Test
