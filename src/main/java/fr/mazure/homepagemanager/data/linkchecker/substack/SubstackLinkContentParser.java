@@ -156,7 +156,8 @@ private static final TextParser s_authorParser
     @Override
     public List<ExtractedLinkData> getLinks() throws ContentParserException {
         final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
-                                                                 new String[] { getSubtitle().get() },
+                                                                 getSubtitle().isPresent() ? new String[] { getSubtitle().get() }
+                                                                                           : new String[0],
                                                                  getUrl().toString(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
