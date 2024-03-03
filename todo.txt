@@ -20,6 +20,9 @@ methods       53.0%/52.2%    97.9%
 
 
 
+
+nettoyer links/boardgame.xml
+
 voir coment exploiter WellKnownAuthors dans la génération XML
 
 

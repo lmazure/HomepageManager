@@ -290,6 +290,7 @@ class WellKnownRedirectionsTest {
         "https://www.ibm.com/developerworks/library/j-jtp07265/",
         "https://www.ibm.com/developerworks/library/l-psyco/index.html",
         "https://www.ibm.com/developerworks/library/l-sp2/index.html",
+        "https://www.ibm.com/developerworks/library/mo-jquery-responsive-design/",
         "https://www.ibm.com/developerworks/library/os-imagemagick/",
         "https://www.ibm.com/developerworks/library/x-javaxmlvalidapi/index.html",
         "https://www.ibm.com/developerworks/linux/library/l-perl-2-python",
@@ -308,6 +309,22 @@ class WellKnownRedirectionsTest {
              true,
              Integer.valueOf(200),
              "removed from IBM",
+             Set.of(LinkStatus.REMOVED));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "https://developer.ibm.com/articles/j-javaee8-json-binding-1/",
+        "https://developer.ibm.com/articles/wa-sailsjs3/",
+        "https://developer.ibm.com/tutorials/wa-build-deploy-web-app-sailsjs-2-bluemix",
+        "https://developer.ibm.com/tutorials/wa-implement-a-single-page-application-with-angular2/",
+        "https://developer.ibm.com/tutorials/wa-manage-state-with-redux-p1-david-geary/",
+        })
+    void developerIbm(final String url) {
+        test(url,
+             true,
+             Integer.valueOf(200),
+             "removed from developer.ibm.com",
              Set.of(LinkStatus.REMOVED));
     }
 
