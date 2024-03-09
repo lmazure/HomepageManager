@@ -17,6 +17,7 @@ import fr.mazure.homepagemanager.data.linkchecker.gitlabblog.GitlabBlogLinkConte
 import fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.oracleblogs.OracleBlogsLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.quantamagazine.QuantaMagazineLinkContentParser;
+import fr.mazure.homepagemanager.data.linkchecker.simonwillison.SimonWillisonLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.spectrum.SpectrumLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.stackoverflowblog.StackOverflowBlogContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.substack.SubstackLinkContentParser;
@@ -50,7 +51,8 @@ public class LinkDataExtractorFactory {
                 StackOverflowBlogContentParser.class,
                 SubstackLinkContentParser.class,
                 WiredLinkContentParser.class,
-                YoutubeWatchLinkContentParser.class
+                YoutubeWatchLinkContentParser.class,
+                SimonWillisonLinkContentParser.class
                );
         for (final Class<?> clazz: extractors) {
             try {

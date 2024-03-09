@@ -19,7 +19,6 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 
 /**
  * Tests of MediumLinkContentParser
- *
  */
 public class MediumLinkContentParserTest {
 

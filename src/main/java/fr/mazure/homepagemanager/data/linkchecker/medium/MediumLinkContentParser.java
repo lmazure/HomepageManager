@@ -61,7 +61,7 @@ public class MediumLinkContentParser extends LinkDataExtractor {
         = new TextParser("<p id=\"\\p{XDigit}{4}\" class=\"pw-post-body-paragraph(?: \\p{Lower}{1,2})+\"><em class=\"\\p{Lower}{2}\">by ",
                          "</p>",
                         "Medium",
-                        "Netflix authors");
+                        "authors");
 
     private static final Pattern s_mediumUrl = Pattern.compile("https://(.+\\.)?medium.com/.+");
 

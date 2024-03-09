@@ -169,6 +169,23 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void SimonWillisonIsManaged() throws ContentParserException {
+        final String url = "https://simonwillison.net/2024/Mar/8/gpt-4-barrier/";
+        final String expectedXml = """
+                <ARTICLE><X><T>The GPT-4 barrier has finally been broken</T>\
+                <A>https://simonwillison.net/2024/Mar/8/gpt-4-barrier/</A>\
+                <L>en</L><F>HTML</F></X>\
+                <AUTHOR><FIRSTNAME>Simon</FIRSTNAME><LASTNAME>Willison</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2024</YEAR><MONTH>3</MONTH><DAY>8</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+
+    @Test
     void quantaMagazineIsManaged() throws ContentParserException {
         final String url = "https://www.quantamagazine.org/mathematician-answers-chess-problem-about-attacking-queens-20210921/";
         final String expectedXml = """
