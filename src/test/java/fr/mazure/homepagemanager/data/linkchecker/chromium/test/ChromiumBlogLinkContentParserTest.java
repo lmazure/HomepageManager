@@ -15,7 +15,6 @@ import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 
 /**
  * Tests of ChromiumBlogLinkContentParser
- *
  */
 public class ChromiumBlogLinkContentParserTest {
 

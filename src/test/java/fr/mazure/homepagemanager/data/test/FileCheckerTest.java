@@ -16,7 +16,6 @@ import fr.mazure.homepagemanager.utils.FileHelper;
 
 /**
  * Tests of FileChecker
- *
  */
 public class FileCheckerTest {
 

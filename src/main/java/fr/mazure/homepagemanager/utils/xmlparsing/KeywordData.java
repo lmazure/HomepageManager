@@ -7,7 +7,6 @@ import java.util.List;
  * @param keyText
  * @param article
  * @param links
- *
  */
 public record KeywordData(String keyId,
                           String keyText,

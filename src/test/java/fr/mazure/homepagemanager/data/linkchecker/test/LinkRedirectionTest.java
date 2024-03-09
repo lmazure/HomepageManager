@@ -11,7 +11,6 @@ import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 
 /**
  * Tests to ensure that SynchronousSiteDataRetriever properly handles redirections
- *
  */
 public class LinkRedirectionTest {
 

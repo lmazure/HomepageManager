@@ -18,7 +18,6 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 
 /**
  * Tests of QuantaMagazineLinkContentParser
- *
  */
 public class QuantaMagazineLinkContentParserTest {
 

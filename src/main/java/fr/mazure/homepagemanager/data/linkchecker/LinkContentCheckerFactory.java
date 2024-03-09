@@ -17,7 +17,7 @@ import fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentChecke
 import fr.mazure.homepagemanager.data.linkchecker.oracleblogs.OracleBlogsLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.quantamagazine.QuantaMagazineLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.spectrum.SpectrumLinkContentChecker;
-import fr.mazure.homepagemanager.data.linkchecker.stackoverflowblog.StackOverflowBlogContentChecker;
+import fr.mazure.homepagemanager.data.linkchecker.stackoverflowblog.StackOverflowBlogLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.substack.SubstackLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.wired.WiredLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.youtubechanneluser.YoutubeChannelUserLinkContentChecker;
@@ -48,7 +48,7 @@ public class LinkContentCheckerFactory {
                 OracleBlogsLinkContentChecker.class,
                 QuantaMagazineLinkContentChecker.class,
                 SpectrumLinkContentChecker.class,
-                StackOverflowBlogContentChecker.class,
+                StackOverflowBlogLinkContentChecker.class,
                 SubstackLinkContentChecker.class,
                 WiredLinkContentChecker.class,
                 YoutubeChannelUserLinkContentChecker.class,

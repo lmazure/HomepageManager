@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 
 /**
- *
+ * Test of UrlHelper class
  */
 public class UrlHelperTest {
 

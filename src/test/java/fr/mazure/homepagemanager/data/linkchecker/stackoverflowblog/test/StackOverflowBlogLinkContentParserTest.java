@@ -12,15 +12,15 @@ import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
-import fr.mazure.homepagemanager.data.linkchecker.stackoverflowblog.StackOverflowBlogContentParser;
+import fr.mazure.homepagemanager.data.linkchecker.stackoverflowblog.StackOverflowBlogLinkContentParser;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 
 /**
- * Tests of StackOverflowBlogContentParser class
+ * Tests of StackOverflowBlogLinkContentParser class
  *
  */
-public class StackOverflowBlogContentParserTest {
+public class StackOverflowBlogLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
@@ -34,7 +34,7 @@ public class StackOverflowBlogContentParserTest {
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final StackOverflowBlogContentParser parser = new StackOverflowBlogContentParser(url, data);
+                               final StackOverflowBlogLinkContentParser parser = new StackOverflowBlogLinkContentParser(url, data);
                                try {
                                    Assertions.assertEquals(expectedTitle, parser.getTitle());
                                } catch (final ContentParserException e) {
@@ -58,7 +58,7 @@ public class StackOverflowBlogContentParserTest {
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final StackOverflowBlogContentParser parser = new StackOverflowBlogContentParser(url, data);
+                               final StackOverflowBlogLinkContentParser parser = new StackOverflowBlogLinkContentParser(url, data);
                                try {
                                    Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
                                } catch (final ContentParserException e) {
@@ -82,7 +82,7 @@ public class StackOverflowBlogContentParserTest {
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final StackOverflowBlogContentParser parser = new StackOverflowBlogContentParser(url, data);
+                               final StackOverflowBlogLinkContentParser parser = new StackOverflowBlogLinkContentParser(url, data);
                                try {
                                    Assertions.assertTrue(parser.getDate().isPresent());
                                    Assertions.assertEquals(expectedDate, parser.getDate().get().toString());
@@ -116,7 +116,7 @@ public class StackOverflowBlogContentParserTest {
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final StackOverflowBlogContentParser parser = new StackOverflowBlogContentParser(url, data);
+                               final StackOverflowBlogLinkContentParser parser = new StackOverflowBlogLinkContentParser(url, data);
                                try {
                                    Assertions.assertEquals(Collections.singletonList(expectedAuthor), parser.getSureAuthors());
                                 } catch (final ContentParserException e) {
