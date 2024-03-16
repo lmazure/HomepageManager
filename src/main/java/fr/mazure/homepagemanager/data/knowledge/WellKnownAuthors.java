@@ -9,16 +9,22 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
  */
 public class WellKnownAuthors {
 
+    @SuppressWarnings("javadoc") public static final AuthorData ALESSANDRO_ROUSSEL = WellKnownAuthors.buildAuthor("Alessandro", "Roussel");
     @SuppressWarnings("javadoc") public static final AuthorData AYLIEAN_MACDONALD = WellKnownAuthors.buildAuthor("Ayliean", "MacDonald");
     @SuppressWarnings("javadoc") public static final AuthorData BEN_SPARKS = WellKnownAuthors.buildAuthor("Ben", "Sparks");
     @SuppressWarnings("javadoc") public static final AuthorData BRADY_HARAN = WellKnownAuthors.buildAuthor("Brady", "Haran");
+    @SuppressWarnings("javadoc") public static final AuthorData BURKARD_POLSTER = WellKnownAuthors.buildAuthor("Burkard", "Polster");
+    @SuppressWarnings("javadoc") public static final AuthorData DAVID_KELLY = WellKnownAuthors.buildAuthor("David", "Kelly");
     @SuppressWarnings("javadoc") public static final AuthorData DAVID_LOUAPRE = WellKnownAuthors.buildAuthor("David", "Louapre");
     @SuppressWarnings("javadoc") public static final AuthorData GUNTER_ROTSAERT = WellKnownAuthors.buildAuthor("Gunter", "Rotsaert");
     @SuppressWarnings("javadoc") public static final AuthorData JAMIE_ZAWINSKI = WellKnownAuthors.buildAuthor("Jamie", "Zawinski");
     @SuppressWarnings("javadoc") public static final AuthorData JASON_LAPERONNIE = WellKnownAuthors.buildAuthor("Jason", "Lapeyronnie");
     @SuppressWarnings("javadoc") public static final AuthorData JEROME_COTTANCEAU = WellKnownAuthors.buildAuthor("Jérôme", "Cottanceau");
     @SuppressWarnings("javadoc") public static final AuthorData LEAH_STOCKLEY = WellKnownAuthors.buildAuthor("Leah", "Stockley");
+    @SuppressWarnings("javadoc") public static final AuthorData LEILA_BATTISON = WellKnownAuthors.buildAuthor("Leila", "Battison");
     @SuppressWarnings("javadoc") public static final AuthorData LEX_FRIDMAN = WellKnownAuthors.buildAuthor("Lex", "Fridman");
+    @SuppressWarnings("javadoc") public static final AuthorData MATT_PARKER = WellKnownAuthors.buildAuthor("Matt", "Parker");
+    @SuppressWarnings("javadoc") public static final AuthorData MICHAEL_MERRIFIELD = WellKnownAuthors.buildAuthor("Michael", "Merrifield");
     @SuppressWarnings("javadoc") public static final AuthorData NICOLAI_PARLOG = WellKnownAuthors.buildAuthor("Nicolai", "Parlog");
     @SuppressWarnings("javadoc") public static final AuthorData SIMON_WILLISON = WellKnownAuthors.buildAuthor("Simon", "Willison");
     @SuppressWarnings("javadoc") public static final AuthorData TONY_PADILLA = WellKnownAuthors.buildAuthor("Tony", "Padilla");
@@ -27,7 +33,7 @@ public class WellKnownAuthors {
     /**
      * Create an author from a first and last names
      *
-     * @param firstName first name 
+     * @param firstName first name
      * @param lastName last name
      * @return created author
      */
@@ -44,7 +50,7 @@ public class WellKnownAuthors {
     /**
      * Create an author from a first, middle, and last names
      *
-     * @param firstName first name 
+     * @param firstName first name
      * @param middleName middle name
      * @param lastName last name
      * @return created author
@@ -63,9 +69,9 @@ public class WellKnownAuthors {
    /**
     *  Create an author from a first, last, and given names
     *
-    * @param firstName first name 
+    * @param firstName first name
     * @param lastName last name
-    * @param givenName given name 
+    * @param givenName given name
     * @return created author
     */
     public static AuthorData buildAuthorWithGivenName(final String firstName,
@@ -82,7 +88,7 @@ public class WellKnownAuthors {
     /**
      *  Create an author from a given name
      *
-     * @param givenName given name 
+     * @param givenName given name
      * @return created author
      */
     public static AuthorData buildAuthorFromGivenName(final String givenName) {
@@ -97,7 +103,7 @@ public class WellKnownAuthors {
     /**
      *  Create an author from a first name
      *
-     * @param firstName first name 
+     * @param firstName first name
      * @return created author
      */
     public static AuthorData buildAuthorFromFirstName(final String firstName) {

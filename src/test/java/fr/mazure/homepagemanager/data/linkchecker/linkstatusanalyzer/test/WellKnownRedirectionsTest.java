@@ -428,7 +428,7 @@ class WellKnownRedirectionsTest {
              "removed from TechRepublic",
              Set.of(LinkStatus.REMOVED));
     }
- 
+
     private void test(final String url,
                       final boolean redirectionIsExpected,  // use to ensure that test data is up-to-date
                       final Integer expectedCode,           // use to ensure that test data is up-to-date

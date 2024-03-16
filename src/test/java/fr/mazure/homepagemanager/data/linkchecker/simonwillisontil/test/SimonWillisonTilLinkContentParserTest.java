@@ -1,4 +1,4 @@
-package fr.mazure.homepagemanager.data.linkchecker.medium.test;
+package fr.mazure.homepagemanager.data.linkchecker.simonwillisontil.test;
 
 import java.util.Locale;
 import java.util.Optional;
@@ -12,19 +12,18 @@ import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
-import fr.mazure.homepagemanager.data.linkchecker.simonwillison.SimonWillisonLinkContentParser;
+import fr.mazure.homepagemanager.data.linkchecker.simonwillisontil.SimonWillisonTilLinkContentParser;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 
 /**
- * Tests of SimonWillisonLinkContentParser
+ * 
  */
-public class SimonWillisonLinkContentParserTest {
-
+public class SimonWillisonTilLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "hhttps://simonwillison.net/2024/Mar/8/gpt-4-barrier/,Simon,Willison,",
+        "https://til.simonwillison.net/google/gmail-compose-url,Simon,Willison,",
         })
     void testAuthor(final String url,
                     final String expectedFirstName,
@@ -42,7 +41,7 @@ public class SimonWillisonLinkContentParserTest {
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final SimonWillisonLinkContentParser parser = new SimonWillisonLinkContentParser(url, data);
+                               final SimonWillisonTilLinkContentParser parser = new SimonWillisonTilLinkContentParser(url, data);
                                try {
                                    Assertions.assertEquals(1, parser.getSureAuthors().size());
                                    Assertions.assertEquals(expectedAuthor, parser.getSureAuthors().get(0));
@@ -57,7 +56,7 @@ public class SimonWillisonLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-        "https://simonwillison.net/2024/Mar/8/gpt-4-barrier/|The GPT-4 barrier has finally been broken",
+        "https://til.simonwillison.net/google/gmail-compose-url|Generating URLs to a Gmail compose window",
         }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
@@ -67,7 +66,7 @@ public class SimonWillisonLinkContentParserTest {
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final SimonWillisonLinkContentParser parser = new SimonWillisonLinkContentParser(url, data);
+                               final SimonWillisonTilLinkContentParser parser = new SimonWillisonTilLinkContentParser(url, data);
                                try {
                                    Assertions.assertEquals(expectedTitle, parser.getTitle());
                                } catch (final ContentParserException e) {
@@ -81,7 +80,7 @@ public class SimonWillisonLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-            "https://simonwillison.net/2024/Mar/8/gpt-4-barrier/",
+            "https://til.simonwillison.net/google/gmail-compose-url",
         }, delimiter = '|')
     void testNoSubtitle(final String url) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
@@ -90,7 +89,7 @@ public class SimonWillisonLinkContentParserTest {
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final SimonWillisonLinkContentParser parser = new SimonWillisonLinkContentParser(url, data);
+                               final SimonWillisonTilLinkContentParser parser = new SimonWillisonTilLinkContentParser(url, data);
                                try {
                                    Assertions.assertFalse(parser.getSubtitle().isPresent());
                                } catch (final ContentParserException e) {
@@ -104,7 +103,7 @@ public class SimonWillisonLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://simonwillison.net/2024/Mar/8/gpt-4-barrier/,2024-03-08"
+        "https://til.simonwillison.net/google/gmail-compose-url,2024-03-12",
         })
     void testPublishDate(final String url,
                          final String expectedPublicationDate) {
@@ -114,7 +113,7 @@ public class SimonWillisonLinkContentParserTest {
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final SimonWillisonLinkContentParser parser = new SimonWillisonLinkContentParser(url, data);
+                               final SimonWillisonTilLinkContentParser parser = new SimonWillisonTilLinkContentParser(url, data);
                                try {
                                    Assertions.assertEquals(expectedPublicationDate, parser.getDate().get().toString());
                                 } catch (final ContentParserException e) {
@@ -128,7 +127,7 @@ public class SimonWillisonLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-        "https://simonwillison.net/2024/Mar/8/gpt-4-barrier/|en",
+        "https://til.simonwillison.net/google/gmail-compose-url|en"
         }, delimiter = '|')
     void testLanguage(final String url,
                       final String expectedLanguage) {
@@ -138,7 +137,7 @@ public class SimonWillisonLinkContentParserTest {
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final SimonWillisonLinkContentParser parser = new SimonWillisonLinkContentParser(url, data);
+                               final SimonWillisonTilLinkContentParser parser = new SimonWillisonTilLinkContentParser(url, data);
                                try {
                                    Assertions.assertEquals(Locale.of(expectedLanguage), parser.getLanguage());
                                } catch (final ContentParserException e) {

@@ -1,4 +1,4 @@
-package fr.mazure.homepagemanager.data.linkchecker.simonwillison;
+package fr.mazure.homepagemanager.data.linkchecker.simonwillisontil;
 
 import java.util.Optional;
 
@@ -8,9 +8,9 @@ import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 
 /**
- *
+ * 
  */
-public class SimonWillisonLinkContentChecker extends ExtractorBasedLinkContentChecker {
+public class SimonWillisonTilLinkContentChecker extends ExtractorBasedLinkContentChecker {
 
     /**
      * @param url URL of the link to check
@@ -18,11 +18,11 @@ public class SimonWillisonLinkContentChecker extends ExtractorBasedLinkContentCh
      * @param articleData expected article data
      * @param file effective retrieved link data
      */
-    public SimonWillisonLinkContentChecker(final String url,
-                                           final LinkData linkData,
-                                           final Optional<ArticleData> articleData,
-                                           final FileSection file) {
-        super(url, linkData, articleData, file, (LinkDataExtractorBuilder)SimonWillisonLinkContentParser::new);
+    public SimonWillisonTilLinkContentChecker(final String url,
+                                              final LinkData linkData,
+                                              final Optional<ArticleData> articleData,
+                                              final FileSection file) {
+        super(url, linkData, articleData, file, (LinkDataExtractorBuilder)SimonWillisonTilLinkContentParser::new);
     }
 
     /**
@@ -32,6 +32,6 @@ public class SimonWillisonLinkContentChecker extends ExtractorBasedLinkContentCh
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return SimonWillisonLinkContentParser.isUrlManaged(url);
+        return SimonWillisonTilLinkContentParser.isUrlManaged(url);
     }
 }
