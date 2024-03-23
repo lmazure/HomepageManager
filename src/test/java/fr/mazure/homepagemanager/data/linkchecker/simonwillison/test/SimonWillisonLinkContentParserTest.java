@@ -104,6 +104,7 @@ public class SimonWillisonLinkContentParserTest {
     @ParameterizedTest
     @CsvSource({
         "https://simonwillison.net/2024/Mar/8/gpt-4-barrier/,2024-03-08",
+        "https://simonwillison.net/2024/Mar/22/claude-and-chatgpt-case-study/,2024-03-22",
         })
     void testPublishDate(final String url,
                          final String expectedPublicationDate) {

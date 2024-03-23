@@ -1,6 +1,7 @@
 package fr.mazure.homepagemanager.data.linkchecker.simonwillison;
 
-import java.time.LocalDate;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,8 +30,8 @@ public class SimonWillisonLinkContentParser extends LinkDataExtractor {
                          "title");
 
     private static final TextParser s_dateParser
-        = new TextParser("\\Q<meta property=\"og:updated_time\" content=\"&lt;bound method Arrow.timestamp of &lt;Arrow [\\E",
-                         "T\\d\\d:\\d\\d:\\d\\d\\+\\d\\d:\\d\\d\\Q]&gt;&gt;\\E",
+        = new TextParser("\\Q<meta property=\"og:updated_time\" content=\"\\E",
+                         "\\Q\">\\E",
                          "simonwillison.net",
                          "date");
 
@@ -68,7 +69,9 @@ public class SimonWillisonLinkContentParser extends LinkDataExtractor {
 
     @Override
     public Optional<TemporalAccessor> getDate() throws ContentParserException {
-        return Optional.of(LocalDate.parse(s_dateParser.extract(_data)));
+        final int timestamp = Integer.parseInt(s_dateParser.extract(_data));
+        final Instant instant = Instant.ofEpochSecond(timestamp);
+        return Optional.of(instant.atZone(ZoneId.of("UTC")).toLocalDate());
     }
 
     @Override
