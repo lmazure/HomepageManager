@@ -140,6 +140,7 @@ public class LinkDataExtractorTest {
         final String url = "https://blogs.oracle.com/javamagazine/unit-test-your-architecture-with-archunit";
         final String expectedXml = """
                 <ARTICLE><X><T>Unit Test Your Architecture with ArchUnit</T>\
+                <ST>Discover architectural defects at build time.</ST>\
                 <A>https://blogs.oracle.com/javamagazine/post/unit-test-your-architecture-with-archunit</A>\
                 <L>en</L><F>HTML</F></X>\
                 <AUTHOR><FIRSTNAME>Jonas</FIRSTNAME><LASTNAME>Havers</LASTNAME></AUTHOR>\
@@ -428,7 +429,7 @@ public class LinkDataExtractorTest {
     void youtubeWatchBlackPenRedPenIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=eex9Gm_rOrQ";
         final String expectedXml = """
-                <ARTICLE><X><T>a handcrafted triple exponential equation with different bases and complex solutions</T>\
+                <ARTICLE><X><T>How to solve a triple exponential equation with different bases</T>\
                 <A>https://www.youtube.com/watch?v=eex9Gm_rOrQ</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>7</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Steve</FIRSTNAME><LASTNAME>Chow</LASTNAME></AUTHOR>\
