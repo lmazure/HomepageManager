@@ -131,7 +131,9 @@ public class SpectrumLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-            "https://spectrum.ieee.org/winner-multicore-made-simple|Brian||Santo|Sally||Adee"
+            "https://spectrum.ieee.org/winner-multicore-made-simple|Brian||Santo|Sally||Adee",
+            "https://spectrum.ieee.org/everything-you-need-to-know-about-5g|Amy||Nordrum|Kristen||Clark"
+            + "",
     }, delimiter = '|')
     void test2Authors(final String url,
                       final String expectedFirstName1,
