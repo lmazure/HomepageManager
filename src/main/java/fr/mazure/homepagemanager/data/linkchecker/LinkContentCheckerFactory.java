@@ -10,6 +10,7 @@ import java.util.function.Predicate;
 import fr.mazure.homepagemanager.data.linkchecker.arstechnica.ArsTechnicaLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.baeldung.BaeldungLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.chromium.ChromiumBlogLinkContentChecker;
+import fr.mazure.homepagemanager.data.linkchecker.dzone.DZoneLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.githubblog.GithubBlogLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.gitlabblog.GitlabBlogLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentChecker;
@@ -45,6 +46,7 @@ public class LinkContentCheckerFactory {
                 GitlabBlogLinkContentChecker.class,
                 IbmLinkContentChecker.class,
                 MediumLinkContentChecker.class,
+                DZoneLinkContentChecker.class,
                 OracleBlogsLinkContentChecker.class,
                 QuantaMagazineLinkContentChecker.class,
                 SpectrumLinkContentChecker.class,

@@ -53,6 +53,23 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void dzoneIsManaged() throws ContentParserException {
+        final String url = "https://dzone.com/articles/explore-annotations-in-java-8";
+        final String expectedXml = """
+                <ARTICLE><X><T>Explore Annotations in Java 8</T>\
+                <ST>Explore the evolution of annotations in Java 8 and how they are being used today!</ST>\
+                <A>https://dzone.com/articles/explore-annotations-in-java-8</A>\
+                <L>en</L><F>HTML</F></X>\
+                <AUTHOR><FIRSTNAME>Niamul</FIRSTNAME><LASTNAME>Sanjavi</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2019</YEAR><MONTH>10</MONTH><DAY>22</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void gitHubBlogIsManaged() throws ContentParserException {
         final String url = "https://github.blog/2022-10-03-highlights-from-git-2-38/";
         final String expectedXml = """

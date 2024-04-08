@@ -20,15 +20,11 @@ methods       53.0%/52.2%    97.9%
 
 
 
-
-gérer
-https://automathssite.wordpress.com/2019/08/08/suites-de-diviseurs/
-author "Lapeyronnie" does not appear in the page
-
-
 nettoyer links/boardgame.xml
 
-voir coment exploiter WellKnownAuthors dans la génération XML
+
+
+voir comment exploiter WellKnownAuthors dans la génération XML
 
 
 

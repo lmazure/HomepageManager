@@ -12,6 +12,7 @@ import fr.mazure.homepagemanager.data.dataretriever.SiteDataPersister;
 import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.linkchecker.arstechnica.ArsTechnicaLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.baeldung.BaeldungLinkContentParser;
+import fr.mazure.homepagemanager.data.linkchecker.dzone.DZoneLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.githubblog.GithubBlogLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.gitlabblog.GitlabBlogLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentParser;
@@ -46,6 +47,7 @@ public class LinkDataExtractorFactory {
                 GithubBlogLinkContentParser.class,
                 GitlabBlogLinkContentParser.class,
                 MediumLinkContentParser.class,
+                DZoneLinkContentParser.class,
                 OracleBlogsLinkContentParser.class,
                 QuantaMagazineLinkContentParser.class,
                 SpectrumLinkContentParser.class,
