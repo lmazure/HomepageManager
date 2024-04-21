@@ -13,14 +13,19 @@ methods       53.0%/52.2%    97.9%
 ==== before merge =====
 
 
-
-
+g
 
 ==== potentially before merge =====
 
 
 
+
 oorriger https://about.gitlab.com/blog/2024/02/14/new-report-on-ai-assisted-tools-points-to-rising-stakes-for-devsecops/?utm_source=pocket_mylist qui retourne Guest Contributor
+
+
+
+extraction des deux auteurs de https://generatingconversation.substack.com/p/you-cant-build-a-moat-with-ai?utm_source=pocket_mylist
+
 
 
 

@@ -97,18 +97,20 @@ public class StackOverflowBlogLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://stackoverflow.blog/2023/01/24/ai-applications-open-new-security-vulnerabilities/,Taimur,,Ijlal",
-        "https://stackoverflow.blog/2021/09/21/podcast-377-you-dont-need-a-math-phd-to-play-dwarf-fortress-just-to-code-it/,Ryan,,Donovan"
+        "https://stackoverflow.blog/2023/01/24/ai-applications-open-new-security-vulnerabilities/,Taimur,,Ijlal,",
+        "https://stackoverflow.blog/2021/09/21/podcast-377-you-dont-need-a-math-phd-to-play-dwarf-fortress-just-to-code-it/,Ryan,,Donovan,",
+        "https://stackoverflow.blog/2024/04/04/how-do-mixture-of-experts-layers-affect-transformer-models/,Cameron,R.,Wolfe,PhD",
         })
     void testAuthor(final String url,
                     final String expectedFirstName,
                     final String expectedMiddleName,
-                    final String expectedLastName) {
+                    final String expectedLastName,
+                    final String expectedNameSuffix) {
         final AuthorData expectedAuthor = new AuthorData(Optional.empty(),
                                                          Optional.of(expectedFirstName),
                                                          Optional.ofNullable(expectedMiddleName),
                                                          Optional.of(expectedLastName),
-                                                         Optional.empty(),
+                                                         Optional.ofNullable(expectedNameSuffix),
                                                          Optional.empty());
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);

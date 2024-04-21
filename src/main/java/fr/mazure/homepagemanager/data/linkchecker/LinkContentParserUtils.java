@@ -28,7 +28,15 @@ public class LinkContentParserUtils {
      * @throws ContentParserException failure to extract an author name from the string
      */
     public static AuthorData getAuthor(final String str) throws ContentParserException {
-        final String s = str.replaceAll("\\(.*\\)", "");
+        Optional<String> nameSuffix = Optional.empty();
+        String s2;
+        if (str.endsWith(", PhD")) {
+            nameSuffix = Optional.of("PhD");
+            s2 = str.substring(0, str.length() - 5);
+        } else {
+            s2 = str;
+        }
+        final String s = s2.replaceAll("\\(.*\\)", "");
         final String[] nameParts = HtmlHelper.cleanContent(s).split("( |\u00A0)");
         if (nameParts.length == 2) {
             return new AuthorData(Optional.empty(),
@@ -59,7 +67,7 @@ public class LinkContentParserUtils {
                                   Optional.of(uppercaseFirstCharacter(nameParts[0])),
                                   Optional.of(uppercaseFirstCharacter(nameParts[1])),
                                   Optional.of(uppercaseFirstCharacter(nameParts[2])),
-                                  Optional.empty(),
+                                  nameSuffix,
                                   Optional.empty());
         }
         if ((nameParts.length == 4) && isParticle(nameParts[2])) {
