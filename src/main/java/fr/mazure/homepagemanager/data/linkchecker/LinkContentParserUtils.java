@@ -20,6 +20,9 @@ public class LinkContentParserUtils {
                                                                  "van", "van"
                                                                 );
 
+    private static final Map<String, String> _doubleParticles = Map.of("van den", "van den"
+                                                                      );
+
     /**
      * Extract an author name from a string
      *
@@ -70,30 +73,43 @@ public class LinkContentParserUtils {
                                   nameSuffix,
                                   Optional.empty());
         }
-        if ((nameParts.length == 4) && isParticle(nameParts[2])) {
-            return new AuthorData(Optional.empty(),
-                                  Optional.of(uppercaseFirstCharacter(nameParts[0])),
-                                  Optional.of(uppercaseFirstCharacter(nameParts[1])),
-                                  Optional.of(properCaseParticle(nameParts[2]) + " " + uppercaseFirstCharacter(nameParts[3])),
-                                  Optional.empty(),
-                                  Optional.empty());
+        if ((nameParts.length == 4)) {
+            if (isParticle(nameParts[2])) {
+                return new AuthorData(Optional.empty(),
+                                      Optional.of(uppercaseFirstCharacter(nameParts[0])),
+                                      Optional.of(uppercaseFirstCharacter(nameParts[1])),
+                                      Optional.of(properCaseParticle(nameParts[2]) + " " + uppercaseFirstCharacter(nameParts[3])),
+                                      Optional.empty(),
+                                      Optional.empty());
+            }
+            if (isDoubleParticle(nameParts[1], nameParts[2])) {
+                return new AuthorData(Optional.empty(),
+                                      Optional.of(uppercaseFirstCharacter(nameParts[0])),
+                                      Optional.empty(),
+                                      Optional.of(nameParts[1].toLowerCase() + " " + nameParts[2].toLowerCase() + " " + uppercaseFirstCharacter(nameParts[3])),
+                                      Optional.empty(),
+                                      Optional.empty());
+            }
+            if ((nameParts[2].startsWith("\"") || nameParts[2].startsWith("“")) &&
+                (nameParts[2].endsWith("\"") || nameParts[2].endsWith("”"))) {
+                return new AuthorData(Optional.empty(),
+                                      Optional.of(uppercaseFirstCharacter(nameParts[0])),
+                                      Optional.of(uppercaseFirstCharacter(nameParts[1])),
+                                      Optional.of(uppercaseFirstCharacter(nameParts[3])),
+                                      Optional.empty(),
+                                      Optional.of(uppercaseFirstCharacter(nameParts[2].substring(1, nameParts[2].length() - 1))));
+            }
         }
-        if ((nameParts.length == 4) &&
-             (nameParts[2].startsWith("\"") || nameParts[2].startsWith("“")) &&
-             (nameParts[2].endsWith("\"") || nameParts[2].endsWith("”"))) {
-            return new AuthorData(Optional.empty(),
-                                  Optional.of(uppercaseFirstCharacter(nameParts[0])),
-                                  Optional.of(uppercaseFirstCharacter(nameParts[1])),
-                                  Optional.of(uppercaseFirstCharacter(nameParts[3])),
-                                  Optional.empty(),
-                                  Optional.of(uppercaseFirstCharacter(nameParts[2].substring(1, nameParts[2].length() - 1))));
-        }
-
         throw new ContentParserException("Failed to parse author name (author name has " + nameParts.length + " parts)");
     }
 
-    private static boolean isParticle(final String name) {
-        return _particles.containsKey(name.toLowerCase());
+    private static boolean isParticle(final String str) {
+        return _particles.containsKey(str.toLowerCase());
+    }
+
+    private static boolean isDoubleParticle(final String str1,
+                                            final String str2) {
+        return _doubleParticles.containsKey(str1.toLowerCase() + " " + str2.toLowerCase());
     }
 
     private static String properCaseParticle(final String particle) {

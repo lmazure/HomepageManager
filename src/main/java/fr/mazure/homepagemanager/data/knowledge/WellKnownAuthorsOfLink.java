@@ -32,12 +32,11 @@ public class WellKnownAuthorsOfLink {
         s_knownUrls.put("mkyong.com",                     buildKnownAuthors(WellKnownAuthors.YONG_MOOK_KIM,     false));
         s_knownUrls.put("nipafx.dev",                     buildKnownAuthors(WellKnownAuthors.NICOLAI_PARLOG,    false));
         s_knownUrls.put("scienceetonnante.substack.com",  buildKnownAuthors(WellKnownAuthors.DAVID_LOUAPRE,     false));
+        s_knownUrls.put("simonwillison.net",              buildKnownAuthors(WellKnownAuthors.SIMON_WILLISON,    false));
+        s_knownUrls.put("til.simonwillison.net",          buildKnownAuthors(WellKnownAuthors.SIMON_WILLISON,    false));
         s_knownUrls.put("www.inspiredtester.com",         buildKnownAuthors(WellKnownAuthors.LEAH_STOCKLEY,     false));
         s_knownUrls.put("www.jwz.org",                    buildKnownAuthors(WellKnownAuthors.JAMIE_ZAWINSKI,    false));
         s_knownUrls.put("www.numberphile.com",            buildKnownAuthors(WellKnownAuthors.BRADY_HARAN,       true));
-        s_knownUrls.put("simonwillison.net",              buildKnownAuthors(WellKnownAuthors.SIMON_WILLISON,    false));
-        s_knownUrls.put("til.simonwillison.net",          buildKnownAuthors(WellKnownAuthors.SIMON_WILLISON,    false));
-        s_knownUrls.put("til.simonwillison.net",          buildKnownAuthors(WellKnownAuthors.SIMON_WILLISON,    false));
     }
 
     /**

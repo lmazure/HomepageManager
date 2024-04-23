@@ -19,6 +19,12 @@ g
 
 
 
+https://www.techrepublic.com/article/10-common-network-security-design-flaws/
+Title "10 common network security design flaws" does not appear in the page
+author "Posey" does not appear in the page
+
+
+
 
 oorriger https://about.gitlab.com/blog/2024/02/14/new-report-on-ai-assisted-tools-points-to-rising-stakes-for-devsecops/?utm_source=pocket_mylist qui retourne Guest Contributor
 
