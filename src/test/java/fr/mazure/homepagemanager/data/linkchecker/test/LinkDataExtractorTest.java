@@ -1320,7 +1320,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchMathParker2IsManaged() throws ContentParserException {
+    void youtubeWatchMattParker2IsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=gusXBTyg1O4";
         final String expectedXml = """
                 <ARTICLE><X><T>My response to being reverse-Dereked</T>\
@@ -1328,6 +1328,22 @@ public class LinkDataExtractorTest {
                 <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>35</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Matt</FIRSTNAME><LASTNAME>Parker</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>7</MONTH><DAY>2</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
+    void youtubeWatchMatthewBermanIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=3BDboYfjWE8";
+        final String expectedXml = """
+                <ARTICLE><X><T>Did OpenAI Just Secretly Release GPT-5?! ("GPT2-Chatbot")</T>\
+                <A>https://www.youtube.com/watch?v=3BDboYfjWE8</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>17</MINUTE><SECOND>11</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Matthew</FIRSTNAME><LASTNAME>Berman</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2024</YEAR><MONTH>4</MONTH><DAY>30</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));

@@ -13,15 +13,18 @@ methods       53.0%/52.2%    97.9%
 ==== before merge =====
 
 
-g
+
 
 ==== potentially before merge =====
 
 
 
-https://www.techrepublic.com/article/10-common-network-security-design-flaws/
-Title "10 common network security design flaws" does not appear in the page
-author "Posey" does not appear in the page
+
+gérer
+https://about.gitlab.com/blog/2024/02/14/new-report-on-ai-assisted-tools-points-to-rising-stakes-for-devsecops/
+The list of effective authors is not the effective one.
+The following authors are effectively present but are unexpected: ▭ first=Guest ▭ last=Contributor ▭ ▭
+The following authors are expected but are effectively missing: 
 
 
 
