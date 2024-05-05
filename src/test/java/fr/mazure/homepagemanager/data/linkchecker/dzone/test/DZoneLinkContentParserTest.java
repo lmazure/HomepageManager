@@ -25,6 +25,7 @@ public class DZoneLinkContentParserTest {
     @CsvSource({
         "https://dzone.com/articles/how-fix-memory-leaks-java,Veljko,Krunic,",
         "https://dzone.com/articles/explore-annotations-in-java-8,Niamul,Sanjavi,",
+        "https://dzone.com/articles/clean-code-tips,Rajeev,Bera,",
         })
     void testAuthor(final String url,
                     final String expectedFirstName,
