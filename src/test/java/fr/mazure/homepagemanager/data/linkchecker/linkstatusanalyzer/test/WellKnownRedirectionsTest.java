@@ -142,7 +142,7 @@ class WellKnownRedirectionsTest {
              Set.of(LinkStatus.DEAD));
     }
 
-    // URLs giving directly a 503
+    // URLs giving directly a 522
     @ParameterizedTest
     @CsvSource({
         "http://httpbin.org/status/522",
@@ -152,6 +152,20 @@ class WellKnownRedirectionsTest {
         test(url,
              false,
              Integer.valueOf(522),
+             "direct failure",
+             Set.of(LinkStatus.DEAD));
+    }
+
+    // URLs giving directly a 525
+    @ParameterizedTest
+    @CsvSource({
+        "http://httpbin.org/status/525",
+        "https://bitrise.io",
+        })
+    void direct525(final String url) {
+        test(url,
+             false,
+             Integer.valueOf(525),
              "direct failure",
              Set.of(LinkStatus.DEAD));
     }
