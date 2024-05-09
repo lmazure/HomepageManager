@@ -2612,6 +2612,23 @@ public class LinkDataExtractorTest {
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
+
+    @Test
+    void youtubeWelchLabsWhyIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=Phscjl0u6TI";
+        final String expectedXml = """
+                <ARTICLE><X><T>Kepler's War on Mars</T>\
+                <A>https://www.youtube.com/watch?v=Phscjl0u6TI</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>39</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Stephen</FIRSTNAME><LASTNAME>Welch</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2024</YEAR><MONTH>5</MONTH><DAY>8</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
     @Test
     void youtubeWatchYannicKilcherWhyIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=2zW33LfffPc";

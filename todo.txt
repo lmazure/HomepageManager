@@ -19,6 +19,23 @@ methods       53.0%/52.2%    97.9%
 
 
 
+
+
+gérer
+Title = "The Linux Security "State of the Union""
+URL = http://www-1.ibm.com/linux/news/LTCWhitepaper.shtml
+Expected status = DEAD
+Effective error = "Failed to get input stream: java.io.FileNotFoundException: https://www.ibm.com/linux/news/LTCWhitepaper.shtml"
+Effective HTTP code = 301 Moved Permanently
+Effective HTTP code of last redirection = 404 Not Found
+Redirection chain = http://www-1.ibm.com/linux/news/LTCWhitepaper.shtml → https://www-1.ibm.com/linux/news/LTCWhitepaper.shtml → https://www.ibm.com/linux/news/LTCWhitepaper.shtml
+Redirection matcher = redirection ending with an error code
+Redirection matcher expected statuses = DEAD
+Look for article = https://www.google.com/search?q=%22The+Linux+Security+%22State+of+the+Union%22%22
+
+
+
+
 gérer
 https://www.quantamagazine.org/what-is-quantum-field-theory-and-why-is-it-incomplete-20220810/
 The list of effective authors is not the effective one.
@@ -31,10 +48,6 @@ The following authors are effectively present but are unexpected: ▭ ▭ ▭ �
 The following authors are expected but are effectively missing: 
 
 
-
-
-
-oorriger https://about.gitlab.com/blog/2024/02/14/new-report-on-ai-assisted-tools-points-to-rising-stakes-for-devsecops/?utm_source=pocket_mylist qui retourne Guest Contributor
 
 
 
