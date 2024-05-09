@@ -19,12 +19,17 @@ methods       53.0%/52.2%    97.9%
 
 
 
-
 gérer
-https://about.gitlab.com/blog/2024/02/14/new-report-on-ai-assisted-tools-points-to-rising-stakes-for-devsecops/
+https://www.quantamagazine.org/what-is-quantum-field-theory-and-why-is-it-incomplete-20220810/
 The list of effective authors is not the effective one.
-The following authors are effectively present but are unexpected: ▭ first=Guest ▭ last=Contributor ▭ ▭
+The following authors are effectively present but are unexpected: ▭ ▭ ▭ ▭ ▭ given=Video
 The following authors are expected but are effectively missing: 
+
+https://www.quantamagazine.org/what-is-quantum-teleportation-20240314/
+The list of effective authors is not the effective one.
+The following authors are effectively present but are unexpected: ▭ ▭ ▭ ▭ ▭ given=J
+The following authors are expected but are effectively missing: 
+
 
 
 

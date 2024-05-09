@@ -129,6 +129,7 @@ public class GitlabBlogLinkContentParserTest {
         "https://about.gitlab.com/blog/2021/10/19/top-10-gitlab-hacks/,Michael,,Friedrich",
         "https://about.gitlab.com/blog/2021/10/18/improve-cd-workflows-helm-chart-registry/,Philip,,Welz",
         "https://about.gitlab.com/blog/2023/08/28/sha256-support-in-gitaly/,John,,Cai",
+        "https://about.gitlab.com/blog/2024/02/14/new-report-on-ai-assisted-tools-points-to-rising-stakes-for-devsecops/,Rusty,,Weston",
         })
     void testAuthor(final String url,
                     final String expectedFirstName,
