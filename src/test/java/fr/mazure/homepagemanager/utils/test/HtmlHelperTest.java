@@ -16,7 +16,7 @@ import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 
 /**
- *
+ * Test of UrlHelper class
  */
 public class HtmlHelperTest {
 

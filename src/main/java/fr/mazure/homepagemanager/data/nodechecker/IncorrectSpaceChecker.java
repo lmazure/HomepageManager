@@ -56,6 +56,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "MVC.NET",
             "Mojobak.com",
             "NaturalNews.com",
+            ".Net",
             ".NET",
             "Node.js",
             "Normalize.css",
@@ -82,6 +83,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "xsl:key"));
 
     private static final Set<String> s_authorizedMissingPrecedingSpaceList = new HashSet<>(Arrays.asList(
+            ".Net",
             ".NET"));
 
     private static final InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {

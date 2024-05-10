@@ -14,21 +14,107 @@ methods       53.0%/52.2%    97.9%
 
 
 
-cleaner les nouveaux warnings et mettre le nombre total à jour
+
+==== potentially before merge =====
 
 
+
+
+gérer les redirections vers la locale (pex companies.xml)
+
+
+
+
+
+gérer
+Title = "The Linux Security "State of the Union""
+URL = http://www-1.ibm.com/linux/news/LTCWhitepaper.shtml
+Expected status = DEAD
+Effective error = "Failed to get input stream: java.io.FileNotFoundException: https://www.ibm.com/linux/news/LTCWhitepaper.shtml"
+Effective HTTP code = 301 Moved Permanently
+Effective HTTP code of last redirection = 404 Not Found
+Redirection chain = http://www-1.ibm.com/linux/news/LTCWhitepaper.shtml → https://www-1.ibm.com/linux/news/LTCWhitepaper.shtml → https://www.ibm.com/linux/news/LTCWhitepaper.shtml
+Redirection matcher = redirection ending with an error code
+Redirection matcher expected statuses = DEAD
+Look for article = https://www.google.com/search?q=%22The+Linux+Security+%22State+of+the+Union%22%22
+
+
+
+
+gérer
+https://www.quantamagazine.org/what-is-quantum-field-theory-and-why-is-it-incomplete-20220810/
+The list of effective authors is not the effective one.
+The following authors are effectively present but are unexpected: ▭ ▭ ▭ ▭ ▭ given=Video
+The following authors are expected but are effectively missing: 
+
+https://www.quantamagazine.org/what-is-quantum-teleportation-20240314/
+The list of effective authors is not the effective one.
+The following authors are effectively present but are unexpected: ▭ ▭ ▭ ▭ ▭ given=J
+The following authors are expected but are effectively missing: 
+
+
+
+
+
+extraction des deux auteurs de https://generatingconversation.substack.com/p/you-cant-build-a-moat-with-ai?utm_source=pocket_mylist
+
+
+
+
+nettoyer links/boardgame.xml
+
+
+
+voir comment exploiter WellKnownAuthors dans la génération XML
+
+
+
+
+gérer le problème de langue sur youtube, notamment links/games.xml
+
+
+
+
+gérer
+ tag = "TITLE"
+ value = "blackpenredpen (SteveChow)"
+ violation = "a TITLE must start with an uppercase letter"
+ detail = "TITLE "blackpenredpen (SteveChow)" must start with an uppercase"
+
+
+
+
+
+gérer
+https://blogs.oracle.com/javamagazine/post/java-switch-primitive-types
+The list of effective authors is not the effective one.
+The following authors are effectively present but are unexpected: ▭ first=Mikalai middle=Zaikin,Simon last=Roberts ▭ ▭
+The following authors are expected but are effectively missing: ▭ first=Mikalai ▭ last=Zaikin ▭ ▭,▭ first=Simon ▭ last=Roberts ▭ ▭
+
+https://blogs.oracle.com/javamagazine/post/java-text-block-string-indent-whitespace
+subtitle "Text blocks ease programming long string literals, but you need to know the details." should not be present
+The list of effective authors is not the effective one.
+The following authors are effectively present but are unexpected: ▭ first=Mikalai middle=Zaikin,Simon last=Roberts ▭ ▭
+The following authors are expected but are effectively missing: ▭ first=Mikalai ▭ last=Zaikin ▭ ▭,▭ first=Simon ▭ last=Roberts ▭ ▭
+
+
+
+nettoyer links:Java.xml
+
+
+nettoyer livingbeing.xml
 
 https://www.nextinpact.com/article/70628/a-decouverte-jupyter-logiciel-scientifique-libre-aux-millions-dutilisateurs
 title "À la découverte de Jupyter, un logiciel scientifique libre aux millions d'utilisateurs" does not appear in the page
 
+ 
 
- tag = "COMMENT"
- value = "GitHub will now automatically generate Go and .Net SDKs by running Kiota on the OpenAPI description of GitHub API."
- violation = "invalid space is present before punctuation"
- detail = ""GitHub will now automatically generate Go and .Net SDKs by running Kiota on the OpenAPI description of GitHub API." has a space before a punctuation (at index 46)"
  
- 
-==== potentially before merge =====
+ gérer
+         if (url.startsWith("https://netflixtechblog.com/")) {
+            return true;
+        }
+
 
 
 
@@ -53,16 +139,9 @@ Look for article = https://www.google.com/search?q=%22How+Do+I%3A+Use+Visual+Stu
 
 
 
-gérer les vidéo youtube miss à privé
+gérer les vidéo youtube mises à privé
 pex https://www.youtube.com/watch?v=OW1J61jg-3U
 les mettre en removed
-
-
-Gérer
- tag = "COMMENT"
- value = "GitHub will now automatically generate Go and .Net SDKs by running Kiota on the OpenAPI description of GitHub API."
- violation = "space is missing after punctuation"
- detail = ""GitHub will now automatically generate Go and .Net SDKs by running Kiota on the OpenAPI description of GitHub API." is missing a space after punctuation"
 
 
 afficher les métadonnées des articles dans les tables
@@ -70,12 +149,6 @@ afficher les métadonnées des articles dans les tables
 
 
 netoyer build.xml
-
-
-nettoyer design.xml
-
-
-nettoyer life.xml
 
 
 analyser les problèmes d'auteurs GitLab dans cloudforges.xml
@@ -108,53 +181,13 @@ il manque le sous-titre pour https://stackoverflow.blog/2022/09/08/this-is-not-y
 faire que java.xml soit propre
 
    
-Exception in thread "pool-2-thread-19" java.lang.IllegalStateException: Exception while retrieving http://ganttproject.biz
-    at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:79)
-    at fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:34)
-    at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
-    at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
-    at java.base/java.lang.Thread.run(Thread.java:1589)
-Caused by: java.lang.UnsupportedOperationException: http://ganttproject.biz|522?
-    at fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.getMatch(WellKnownRedirections.java:175)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.getPossibleStatuses(LinkStatusAnalyzer.java:79)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.doesEffectiveDataMatchesExpectedData(LinkStatusAnalyzer.java:34)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.isDataExpected(LinkCheckRunner.java:556)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:340)
-    at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-    at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-    ... 4 more
-
-java.lang.UnsupportedOperationException: https://polycom-recrutement.fr|508→
-    at fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.getMatch(WellKnownRedirections.java:175)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.getPossibleStatuses(LinkStatusAnalyzer.java:79)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.doesEffectiveDataMatchesExpectedData(LinkStatusAnalyzer.java:34)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.writeOutputFile(LinkCheckRunner.java:410)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:354)
-    at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-    at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-    at fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:34)
-    at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
-    at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
-    at java.base/java.lang.Thread.run(Thread.java:1589)
-
-java.lang.UnsupportedOperationException: https://www.esgi.fr|504→
-    at fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.getMatch(WellKnownRedirections.java:175)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.getPossibleStatuses(LinkStatusAnalyzer.java:79)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.doesEffectiveDataMatchesExpectedData(LinkStatusAnalyzer.java:34)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.writeOutputFile(LinkCheckRunner.java:410)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:354)
-    at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-    at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-    at fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:34)
-    at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
-    at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
-    at java.base/java.lang.Thread.run(Thread.java:1589)
-
 
 
 
 
 ==== after merge =====
+
+nettoyer links/job.xml
 
 certaines des chaines listées dans IncorrectSpaceChecker sons suspectes
 

@@ -17,7 +17,6 @@ import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 
 /**
  * Tests of YoutubeChannelUserLinkContentParser
- *
  */
 public class YoutubeChannelUserLinkContentParserTest {
 

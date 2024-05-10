@@ -21,7 +21,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 /**
  * Data extractor for StackOverflow blog
  */
-public class StackOverflowBlogContentParser extends LinkDataExtractor {
+public class StackOverflowBlogLinkContentParser extends LinkDataExtractor {
 
     private final String _data;
 
@@ -51,8 +51,8 @@ public class StackOverflowBlogContentParser extends LinkDataExtractor {
      * @param url URL of the link
      * @param data retrieved link data
      */
-    public StackOverflowBlogContentParser(final String url,
-                                          final String data) {
+    public StackOverflowBlogLinkContentParser(final String url,
+                                              final String data) {
         super(url);
         _data = data;
     }
@@ -88,7 +88,7 @@ public class StackOverflowBlogContentParser extends LinkDataExtractor {
     public List<AuthorData> getSureAuthors() throws ContentParserException {
         final List<AuthorData> list = new ArrayList<>(1);
         final String extracted = s_authorParser.extract(_data);
-        list.add(LinkContentParserUtils.getAuthor(extracted));
+        list.add(LinkContentParserUtils.getAuthor(HtmlHelper.cleanContent(extracted)));
         return list;
     }
 

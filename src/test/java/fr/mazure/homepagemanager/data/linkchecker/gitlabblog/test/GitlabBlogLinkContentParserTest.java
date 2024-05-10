@@ -17,7 +17,6 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 
 /**
  * Tests of GitlabBlogLinkContentParser
- *
  */
 public class GitlabBlogLinkContentParserTest {
 
@@ -130,6 +129,7 @@ public class GitlabBlogLinkContentParserTest {
         "https://about.gitlab.com/blog/2021/10/19/top-10-gitlab-hacks/,Michael,,Friedrich",
         "https://about.gitlab.com/blog/2021/10/18/improve-cd-workflows-helm-chart-registry/,Philip,,Welz",
         "https://about.gitlab.com/blog/2023/08/28/sha256-support-in-gitaly/,John,,Cai",
+        "https://about.gitlab.com/blog/2024/02/14/new-report-on-ai-assisted-tools-points-to-rising-stakes-for-devsecops/,Rusty,,Weston",
         })
     void testAuthor(final String url,
                     final String expectedFirstName,
@@ -164,6 +164,7 @@ public class GitlabBlogLinkContentParserTest {
     @CsvSource({
         "https://about.gitlab.com/blog/2021/09/23/best-practices-customer-feature-request/,Christina,,Hupy,Neil,,McCorrison",
         "https://about.gitlab.com/blog/2021/09/29/why-we-spent-the-last-month-eliminating-postgresql-subtransactions/,Stan,,Hu,Grzegorz,,Bizon",
+        "https://about.gitlab.com/blog/2024/03/20/oxeye-joins-gitlab-to-advance-application-security-capabilities/,David,,DeSanto,Dean,,Agron"
         })
     void testTwoAuthors(final String url,
                         final String expectedFirstName1,

@@ -63,7 +63,6 @@ class WellKnownRedirectionsTest {
     @ParameterizedTest
     @CsvSource({
         "http://httpbin.org/status/403",
-        "https://www.pnas.org/doi/pdf/10.1073/pnas.1810141115",
         })
     void direct403(final String url) {
         test(url,
@@ -143,6 +142,33 @@ class WellKnownRedirectionsTest {
              Set.of(LinkStatus.DEAD));
     }
 
+    // URLs giving directly a 522
+    @ParameterizedTest
+    @CsvSource({
+        "http://httpbin.org/status/522",
+        "http://ganttproject.biz",
+        })
+    void direct522(final String url) {
+        test(url,
+             false,
+             Integer.valueOf(522),
+             "direct failure",
+             Set.of(LinkStatus.DEAD));
+    }
+
+    // URLs giving directly a 525
+    @ParameterizedTest
+    @CsvSource({
+        "http://httpbin.org/status/525",
+        })
+    void direct525(final String url) {
+        test(url,
+             false,
+             Integer.valueOf(525),
+             "direct failure",
+             Set.of(LinkStatus.DEAD));
+    }
+
     @ParameterizedTest
     @CsvSource({
         "https://www.4d.com",
@@ -200,24 +226,27 @@ class WellKnownRedirectionsTest {
     @CsvSource({
         "https://www.youtube.com/channel/UCUHW94eEFW7hkUMVaZz4eDg",
         "https://www.youtube.com/channel/UC1Ue7TuX3iH4y8-Qrjj-hyg",
+        "https://www.youtube.com/c/QuantaScienceChannel",
+        "https://www.youtube.com/c/Tumourrasmoinsb%C3%AAteARTE",
         })
     void youtubeChannel(final String url) {
         test(url,
              true,
              Integer.valueOf(200),
-             "from Youtube channel to cookies configuration",
+             "from YouTube channel to YouTube channel",
              Set.of(LinkStatus.OK));
     }
 
     @ParameterizedTest
     @CsvSource({
         "https://www.youtube.com/user/dirtybiology",
+        "https://www.youtube.com/user/TheWandida",
         })
     void youtubeUser(final String url) {
         test(url,
              true,
              Integer.valueOf(200),
-             "from Youtube user to cookies configuration",
+             "from YouTube user to YouTube user",
              Set.of(LinkStatus.OK));
     }
 
@@ -265,6 +294,7 @@ class WellKnownRedirectionsTest {
         "https://www.ibm.com/developerworks/aix/library/au-boost_parser/",
         "https://www.ibm.com/developerworks/architecture/library/ar-cloudaws1/",
         "https://www.ibm.com/developerworks/cloud/library/cl-json-verification/",
+        "https://www.ibm.com/developerworks/java/library/co-tmline/index.html",
         "https://www.ibm.com/developerworks/java/library/j-mer1022.html",
         "https://www.ibm.com/developerworks/java/library/os-lombok/index.html",
         "https://www.ibm.com/developerworks/java/library/x-simplexobjs/",
@@ -272,6 +302,7 @@ class WellKnownRedirectionsTest {
         "https://www.ibm.com/developerworks/library/j-jtp07265/",
         "https://www.ibm.com/developerworks/library/l-psyco/index.html",
         "https://www.ibm.com/developerworks/library/l-sp2/index.html",
+        "https://www.ibm.com/developerworks/library/mo-jquery-responsive-design/",
         "https://www.ibm.com/developerworks/library/os-imagemagick/",
         "https://www.ibm.com/developerworks/library/x-javaxmlvalidapi/index.html",
         "https://www.ibm.com/developerworks/linux/library/l-perl-2-python",
@@ -290,6 +321,22 @@ class WellKnownRedirectionsTest {
              true,
              Integer.valueOf(200),
              "removed from IBM",
+             Set.of(LinkStatus.REMOVED));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "https://developer.ibm.com/articles/j-javaee8-json-binding-1/",
+        "https://developer.ibm.com/articles/wa-sailsjs3/",
+        "https://developer.ibm.com/tutorials/wa-build-deploy-web-app-sailsjs-2-bluemix",
+        "https://developer.ibm.com/tutorials/wa-implement-a-single-page-application-with-angular2/",
+        "https://developer.ibm.com/tutorials/wa-manage-state-with-redux-p1-david-geary/",
+        })
+    void developerIbm(final String url) {
+        test(url,
+             true,
+             Integer.valueOf(200),
+             "removed from developer.ibm.com",
              Set.of(LinkStatus.REMOVED));
     }
 
@@ -324,6 +371,7 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
+        "https://msdn.microsoft.com/en-us/library/aa964145.aspx",
         "https://msdn.microsoft.com/en-us/vstudio/bb892758",
         "https://msdn.microsoft.com/en-us/vstudio/dd442479",
         })
@@ -345,6 +393,51 @@ class WellKnownRedirectionsTest {
              true,
              Integer.valueOf(200),
              "removed from java.sun.com",
+             Set.of(LinkStatus.REMOVED));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "https://www.techrepublic.com/article/10-stupid-user-stories-the-madness-persists/",
+        "https://www.techrepublic.com/article/10-things-you-should-know-about-nosql-databases/",
+        "https://www.techrepublic.com/article/10-traits-to-look-for-when-youre-hiring-a-programmer/",
+        "https://www.techrepublic.com/article/anatomy-of-word-using-excel-information-in-word-documents/",
+        "https://www.techrepublic.com/article/a-quick-word-trick-for-typing-text-into-a-scanned-document/",
+        "https://www.techrepublic.com/blog/cio-insights/windows-8-cheat-sheet/236/",
+        "https://www.techrepublic.com/blog/tr-dojo/five-windows-command-prompt-tips-every-it-pro-should-know/",
+        "https://www.techrepublic.com/article/10-common-network-security-design-flaws/",
+        })
+    void techRepublitcRedirect(final String url) {
+        test(url,
+             true,
+             Integer.valueOf(200),
+             "removed from TechRepublic",
+             Set.of(LinkStatus.REMOVED));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "https://www.techrepublic.com/article/34-timesaving-mouse-tricks-for-word-users/",
+        })
+    void techRepublicDirect404(final String url) {
+        test(url,
+             false,
+             Integer.valueOf(404),
+             "removed from TechRepublic",
+             Set.of(LinkStatus.REMOVED));
+    }
+
+
+    @ParameterizedTest
+    @CsvSource({
+        "https://www.techrepublic.com/blog/windows-and-office/determine-if-your-hardware-can-support-windows-xp-mode-in-windows-7/",
+        "https://www.techrepublic.com/blog/windows-and-office/quick-tip-ensure-services-restart-upon-failure-in-windows-7/",
+        })
+    void techRepublicRedirect404(final String url) {
+        test(url,
+             true,
+             Integer.valueOf(404),
+             "removed from TechRepublic",
              Set.of(LinkStatus.REMOVED));
     }
 

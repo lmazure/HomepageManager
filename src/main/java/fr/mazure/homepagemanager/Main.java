@@ -52,7 +52,7 @@ public class Main {
             WebServer.start(homepagePath, tmpPath);
         }
 
-        Locale.setDefault(Locale.UK);
+        Locale.setDefault(Locale.ENGLISH);
 
         FileTable.display(homepagePath, tmpPath, internetAccessIsEnabled);
     }

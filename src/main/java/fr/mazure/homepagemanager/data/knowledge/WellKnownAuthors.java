@@ -1,6 +1,6 @@
 package fr.mazure.homepagemanager.data.knowledge;
 
-import java.util.List;
+import java.util.Optional;
 
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 
@@ -9,26 +9,112 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
  */
 public class WellKnownAuthors {
 
-    private final List<AuthorData> _compulsoryAuthors;
-    private final boolean _canHaveOtherAuthors;
+    @SuppressWarnings("javadoc") public static final AuthorData ALESSANDRO_ROUSSEL = WellKnownAuthors.buildAuthor("Alessandro", "Roussel");
+    @SuppressWarnings("javadoc") public static final AuthorData AYLIEAN_MACDONALD = WellKnownAuthors.buildAuthor("Ayliean", "MacDonald");
+    @SuppressWarnings("javadoc") public static final AuthorData BEN_SPARKS = WellKnownAuthors.buildAuthor("Ben", "Sparks");
+    @SuppressWarnings("javadoc") public static final AuthorData BRADY_HARAN = WellKnownAuthors.buildAuthor("Brady", "Haran");
+    @SuppressWarnings("javadoc") public static final AuthorData BURKARD_POLSTER = WellKnownAuthors.buildAuthor("Burkard", "Polster");
+    @SuppressWarnings("javadoc") public static final AuthorData DAVID_KELLY = WellKnownAuthors.buildAuthor("David", "Kelly");
+    @SuppressWarnings("javadoc") public static final AuthorData DAVID_LOUAPRE = WellKnownAuthors.buildAuthor("David", "Louapre");
+    @SuppressWarnings("javadoc") public static final AuthorData GUNTER_ROTSAERT = WellKnownAuthors.buildAuthor("Gunter", "Rotsaert");
+    @SuppressWarnings("javadoc") public static final AuthorData JAMIE_ZAWINSKI = WellKnownAuthors.buildAuthor("Jamie", "Zawinski");
+    @SuppressWarnings("javadoc") public static final AuthorData JANNA_LEVIN = WellKnownAuthors.buildAuthor("Janna", "Levin");
+    @SuppressWarnings("javadoc") public static final AuthorData JASON_LAPERONNIE = WellKnownAuthors.buildAuthor("Jason", "Lapeyronnie");
+    @SuppressWarnings("javadoc") public static final AuthorData JEFF_DELANEY = WellKnownAuthors.buildAuthor("Jeff", "Delaney");
+    @SuppressWarnings("javadoc") public static final AuthorData JEROME_COTTANCEAU = WellKnownAuthors.buildAuthor("Jérôme", "Cottanceau");
+    @SuppressWarnings("javadoc") public static final AuthorData LEAH_STOCKLEY = WellKnownAuthors.buildAuthor("Leah", "Stockley");
+    @SuppressWarnings("javadoc") public static final AuthorData LEILA_BATTISON = WellKnownAuthors.buildAuthor("Leila", "Battison");
+    @SuppressWarnings("javadoc") public static final AuthorData LEX_FRIDMAN = WellKnownAuthors.buildAuthor("Lex", "Fridman");
+    @SuppressWarnings("javadoc") public static final AuthorData MATT_PARKER = WellKnownAuthors.buildAuthor("Matt", "Parker");
+    @SuppressWarnings("javadoc") public static final AuthorData MICHAEL_MERRIFIELD = WellKnownAuthors.buildAuthor("Michael", "Merrifield");
+    @SuppressWarnings("javadoc") public static final AuthorData NICOLAI_PARLOG = WellKnownAuthors.buildAuthor("Nicolai", "Parlog");
+    @SuppressWarnings("javadoc") public static final AuthorData SIMON_WILLISON = WellKnownAuthors.buildAuthor("Simon", "Willison");
+    @SuppressWarnings("javadoc") public static final AuthorData STEVEN_STROGATZ = WellKnownAuthors.buildAuthor("Steven", "Strogatz");
+    @SuppressWarnings("javadoc") public static final AuthorData TONY_PADILLA = WellKnownAuthors.buildAuthor("Tony", "Padilla");
+    @SuppressWarnings("javadoc") public static final AuthorData YONG_MOOK_KIM = WellKnownAuthors.buildAuthor("Yong", "Mook Kim");
 
-    WellKnownAuthors(final List<AuthorData> compulsoryAuthors,
-                     final boolean canHaveOtherAuthors) {
-        _compulsoryAuthors = compulsoryAuthors;
-        _canHaveOtherAuthors = canHaveOtherAuthors;
+    /**
+     * Create an author from a first and last names
+     *
+     * @param firstName first name
+     * @param lastName last name
+     * @return created author
+     */
+    public static AuthorData buildAuthor(final String firstName,
+                                         final String lastName) {
+        return new AuthorData(Optional.empty(),
+                              Optional.of(firstName),
+                              Optional.empty(),
+                              Optional.of(lastName),
+                              Optional.empty(),
+                              Optional.empty());
     }
 
     /**
-     * @return list of authors that must be present as authors of this link
+     * Create an author from a first, middle, and last names
+     *
+     * @param firstName first name
+     * @param middleName middle name
+     * @param lastName last name
+     * @return created author
      */
-    public List<AuthorData> getCompulsoryAuthors() {
-        return _compulsoryAuthors;
+    public static AuthorData buildAuthor(final String firstName,
+                                         final String middleName,
+                                         final String lastName) {
+        return new AuthorData(Optional.empty(),
+                              Optional.of(firstName),
+                              Optional.of(middleName),
+                              Optional.of(lastName),
+                              Optional.empty(),
+                              Optional.empty());
+    }
+
+   /**
+    *  Create an author from a first, last, and given names
+    *
+    * @param firstName first name
+    * @param lastName last name
+    * @param givenName given name
+    * @return created author
+    */
+    public static AuthorData buildAuthorWithGivenName(final String firstName,
+                                                      final String lastName,
+                                                      final String givenName) {
+        return new AuthorData(Optional.empty(),
+                              Optional.of(firstName),
+                              Optional.empty(),
+                              Optional.of(lastName),
+                              Optional.empty(),
+                              Optional.of(givenName));
     }
 
     /**
-     * @return indicates if some other authors are possinble
+     *  Create an author from a given name
+     *
+     * @param givenName given name
+     * @return created author
      */
-    public boolean canHaveOtherAuthors() {
-        return _canHaveOtherAuthors;
+    public static AuthorData buildAuthorFromGivenName(final String givenName) {
+        return new AuthorData(Optional.empty(),
+                              Optional.empty(),
+                              Optional.empty(),
+                              Optional.empty(),
+                              Optional.empty(),
+                              Optional.of(givenName));
+    }
+
+    /**
+     *  Create an author from a first name
+     *
+     * @param firstName first name
+     * @return created author
+     */
+    public static AuthorData buildAuthorFromFirstName(final String firstName) {
+        return new AuthorData(Optional.empty(),
+                              Optional.of(firstName),
+                              Optional.empty(),
+                              Optional.empty(),
+                              Optional.empty(),
+                              Optional.empty());
     }
 }

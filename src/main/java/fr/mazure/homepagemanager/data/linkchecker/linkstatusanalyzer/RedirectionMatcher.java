@@ -146,6 +146,12 @@ public class RedirectionMatcher {
             throw new UnsupportedOperationException("Cannot apply a non-compiled pattern");
         }
         final String encoded = encode(effectiveData);
+        //if (encoded.contains("TheWandida")) {
+        //    System.out.println("<<<");
+        //   System.out.println(encoded);
+        //   System.out.println(_pattern);
+        //   System.out.println(">>>");
+        //}
         return _pattern.matcher(encoded).matches();
     }
 

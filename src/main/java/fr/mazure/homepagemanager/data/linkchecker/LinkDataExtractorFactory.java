@@ -12,13 +12,16 @@ import fr.mazure.homepagemanager.data.dataretriever.SiteDataPersister;
 import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.linkchecker.arstechnica.ArsTechnicaLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.baeldung.BaeldungLinkContentParser;
+import fr.mazure.homepagemanager.data.linkchecker.dzone.DZoneLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.githubblog.GithubBlogLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.gitlabblog.GitlabBlogLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.oracleblogs.OracleBlogsLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.quantamagazine.QuantaMagazineLinkContentParser;
+import fr.mazure.homepagemanager.data.linkchecker.simonwillison.SimonWillisonLinkContentParser;
+import fr.mazure.homepagemanager.data.linkchecker.simonwillisontil.SimonWillisonTilLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.spectrum.SpectrumLinkContentParser;
-import fr.mazure.homepagemanager.data.linkchecker.stackoverflowblog.StackOverflowBlogContentParser;
+import fr.mazure.homepagemanager.data.linkchecker.stackoverflowblog.StackOverflowBlogLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.substack.SubstackLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.wired.WiredLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser;
@@ -44,13 +47,16 @@ public class LinkDataExtractorFactory {
                 GithubBlogLinkContentParser.class,
                 GitlabBlogLinkContentParser.class,
                 MediumLinkContentParser.class,
+                DZoneLinkContentParser.class,
                 OracleBlogsLinkContentParser.class,
                 QuantaMagazineLinkContentParser.class,
                 SpectrumLinkContentParser.class,
-                StackOverflowBlogContentParser.class,
+                StackOverflowBlogLinkContentParser.class,
                 SubstackLinkContentParser.class,
                 WiredLinkContentParser.class,
-                YoutubeWatchLinkContentParser.class
+                YoutubeWatchLinkContentParser.class,
+                SimonWillisonLinkContentParser.class,
+                SimonWillisonTilLinkContentParser.class
                );
         for (final Class<?> clazz: extractors) {
             try {

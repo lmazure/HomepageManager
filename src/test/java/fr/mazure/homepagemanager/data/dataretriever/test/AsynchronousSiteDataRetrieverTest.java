@@ -10,7 +10,6 @@ import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 
 /**
  * Tests of AsynchronousSiteDataRetriever
- *
  */
 public class AsynchronousSiteDataRetrieverTest {
 

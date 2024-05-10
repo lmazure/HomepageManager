@@ -15,7 +15,6 @@ import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 
 /**
  * Tests of CachedSiteDataRetriever
- *
  */
 public class CachedSiteDataRetrieverTest {
 

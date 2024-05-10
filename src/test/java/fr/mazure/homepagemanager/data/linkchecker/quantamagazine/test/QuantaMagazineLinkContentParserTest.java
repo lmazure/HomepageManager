@@ -18,7 +18,6 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 
 /**
  * Tests of QuantaMagazineLinkContentParser
- *
  */
 public class QuantaMagazineLinkContentParserTest {
 
@@ -285,6 +284,104 @@ public class QuantaMagazineLinkContentParserTest {
                                    Assertions.assertEquals(2, parser.getSureAuthors().size());
                                    Assertions.assertEquals(expectedAuthor1, parser.getSureAuthors().get(0));
                                    Assertions.assertEquals(expectedAuthor2, parser.getSureAuthors().get(1));
+                                } catch (final ContentParserException e) {
+                                    Assertions.fail("getSureAuthors threw " + e.getMessage());
+                                }
+                               consumerHasBeenCalled.set(true);
+                           },
+                           false);
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "https://www.quantamagazine.org/what-causes-giant-rogue-waves-20230614/,Steven,,Strogatz,Ton,,van den Bremer",
+        "https://www.quantamagazine.org/what-is-the-nature-of-time-20240229/,Steven,,Strogatz,Frank,,Wilczek",
+        "https://www.quantamagazine.org/how-did-altruism-evolve-20240215/,Janna,,Levin,Stephanie,,Preston",
+        })
+    void testAuthorJoyOfWhy(final String url,
+                            final String expectedHostFirstName,
+                            final String expectedHostMiddleName,
+                            final String expectedHostLastName,
+                            final String expectedFirstName,
+                            final String expectedMiddleName,
+                            final String expectedLastName) {
+        final AuthorData expectedHost = new AuthorData(Optional.empty(),
+                                                       Optional.of(expectedHostFirstName),
+                                                       Optional.ofNullable(expectedHostMiddleName),
+                                                       Optional.of(expectedHostLastName),
+                                                       Optional.empty(),
+                                                       Optional.empty());
+        final AuthorData expectedAuthor = new AuthorData(Optional.empty(),
+                                                         Optional.of(expectedFirstName),
+                                                         Optional.ofNullable(expectedMiddleName),
+                                                         Optional.of(expectedLastName),
+                                                         Optional.empty(),
+                                                         Optional.empty());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(url,
+                           (final Boolean b, final FullFetchedLinkData d) -> {
+                               Assertions.assertTrue(d.dataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
+                               final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data);
+                               try {
+                                   Assertions.assertEquals(2, parser.getSureAuthors().size());
+                                   Assertions.assertEquals(expectedAuthor, parser.getSureAuthors().get(0));
+                                   Assertions.assertEquals(expectedHost, parser.getSureAuthors().get(1));
+                                } catch (final ContentParserException e) {
+                                    Assertions.fail("getSureAuthors threw " + e.getMessage());
+                                }
+                               consumerHasBeenCalled.set(true);
+                           },
+                           false);
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "https://www.quantamagazine.org/why-do-we-get-old-and-can-aging-be-reversed-20220727/,Steven,,Strogatz,Judith,,Campisi,Dena,,Dubal",
+        })
+    void testTwoAuthorsJoyOfWhy(final String url,
+                                final String expectedHostFirstName,
+                                final String expectedHostMiddleName,
+                                final String expectedHostLastName,
+                                final String expectedFirstName1,
+                                final String expectedMiddleName1,
+                                final String expectedLastName1,
+                                final String expectedFirstName2,
+                                final String expectedMiddleName2,
+                                final String expectedLastName2) {
+        final AuthorData expectedHost = new AuthorData(Optional.empty(),
+                                                       Optional.of(expectedHostFirstName),
+                                                       Optional.ofNullable(expectedHostMiddleName),
+                                                       Optional.of(expectedHostLastName),
+                                                       Optional.empty(),
+                                                       Optional.empty());
+        final AuthorData expectedAuthor1 = new AuthorData(Optional.empty(),
+                                                          Optional.of(expectedFirstName1),
+                                                          Optional.ofNullable(expectedMiddleName1),
+                                                          Optional.of(expectedLastName1),
+                                                          Optional.empty(),
+                                                          Optional.empty());
+        final AuthorData expectedAuthor2 = new AuthorData(Optional.empty(),
+                                                          Optional.of(expectedFirstName2),
+                                                          Optional.ofNullable(expectedMiddleName2),
+                                                          Optional.of(expectedLastName2),
+                                                          Optional.empty(),
+                                                          Optional.empty());
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(url,
+                           (final Boolean b, final FullFetchedLinkData d) -> {
+                               Assertions.assertTrue(d.dataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
+                               final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data);
+                               try {
+                                   Assertions.assertEquals(3, parser.getSureAuthors().size());
+                                   Assertions.assertEquals(expectedAuthor1, parser.getSureAuthors().get(0));
+                                   Assertions.assertEquals(expectedAuthor2, parser.getSureAuthors().get(1));
+                                   Assertions.assertEquals(expectedHost, parser.getSureAuthors().get(2));
                                 } catch (final ContentParserException e) {
                                     Assertions.fail("getSureAuthors threw " + e.getMessage());
                                 }

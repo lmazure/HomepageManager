@@ -17,7 +17,6 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 
 /**
  * Tests of WiredLinkContentParser
- *
  */
 public class WiredLinkContentParserTest {
 

@@ -82,12 +82,26 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
     @Override
     public List<AuthorData> getSureAuthors() throws ContentParserException {
         final Optional<String> opt = s_authorParser1.extractOptional(_data);
-        final String authors = opt.isPresent() ? opt.get() : s_authorParser2.extract(_data);
-        final String cleanedText = HtmlHelper.cleanContent(authors);
-        if (cleanedText.equals("GitLab Security Team")) {
-            return new ArrayList<>(0);
+
+        // old blog entry
+        if (opt.isPresent()) {
+            final String cleanedText = HtmlHelper.cleanContent(opt.get());
+            return LinkContentParserUtils.getAuthors(cleanedText);
         }
-        return LinkContentParserUtils.getAuthors(cleanedText);
+
+        // new blog entry
+        final List<AuthorData> authors = new ArrayList<>(1);
+        final List<String> extracted = s_authorParser2.extractMulti(_data);
+        for (final String extract: extracted) {
+            final String cleanedText = HtmlHelper.cleanContent(extract);
+            if (cleanedText.equals("GitLab Security Team")) {
+                continue;
+            }
+            final String removedTitle = cleanedText.replaceFirst(", (Chief Product Officer|co-founder|Guest Contributor).*$", "");
+            final List<AuthorData> author = LinkContentParserUtils.getAuthors(removedTitle);
+            authors.addAll(author);
+        }
+        return authors;
     }
 
     @Override

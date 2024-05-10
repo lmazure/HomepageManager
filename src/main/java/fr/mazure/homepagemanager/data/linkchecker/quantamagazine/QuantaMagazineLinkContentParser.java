@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthors;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
@@ -42,6 +43,18 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
                          "date");
     private static final Pattern s_authorPattern
         = Pattern.compile("<a (class=\"[^\"]+\" )?href=\"/authors/[^/]+/\"><span [^>]+>([^<]+)</span></a>");
+    private static final TextParser s_joyOfWhyAuthors1
+        = new TextParser("<p[^>]*><strong>",
+                         "[^<:]*[^: ]",
+                         ":? ?</strong>",
+                         "QuantaMagazine",
+                         "The Joy Of Why authors");
+    private static final TextParser s_joyOfWhyAuthors2
+    = new TextParser("<p><b>",
+                     "[^<]*",
+                     "</b>",
+                     "QuantaMagazine",
+                     "The Joy Of Why authors");
 
     /**
      * @param url URL of the link
@@ -80,6 +93,9 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
 
     @Override
     public List<AuthorData> getSureAuthors() throws ContentParserException {
+        if (_data.contains("<div class=\"mb1 pb025 mt0 h6t post__title__kicker\"><a class=\"kicker theme__accent theme__text-hover uppercase\" href=\"/tag/the-joy-of-why/\">The Joy of Why</a></div>")) {
+            return getTheJoyOfWhyAuthors();
+        }
         final List<AuthorData> authors = new ArrayList<>();
         final Matcher m = s_authorPattern.matcher(_data);
         while (m.find()) {
@@ -88,6 +104,62 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
         if (authors.size() == 0) {
             throw new ContentParserException("Failed to find author in QuantaMagazine");
         }
+        return authors;
+    }
+
+    private List<AuthorData> getTheJoyOfWhyAuthors() throws ContentParserException {
+
+        boolean hostIsStrogatz = false;
+        boolean hostIsLevin = false;
+
+        List<String> names = s_joyOfWhyAuthors1.extractMulti(_data.replaceAll("</strong> <strong>", " "));
+        if (names.size() == 0) {
+            names = s_joyOfWhyAuthors2.extractMulti(_data);
+        }
+        final List <String> uniqueNames = new ArrayList<>();
+        nameLoop:
+        for (final String rawName : names) {
+            final String name = toTitleCase(rawName); 
+            if (uniqueNames.contains(name)) {
+                continue;
+            }
+            for (final String n: uniqueNames) {
+                if (n.contains(name)) {
+                    continue nameLoop;
+                }
+            }
+            if (name.equals("Announcer")) {
+                continue;
+            }
+            if (name.contains("Strogatz")) {
+                hostIsStrogatz = true;
+                continue;
+            }
+            if (name.contains("Levin")) {
+                hostIsLevin = true;
+                continue;
+            }
+            if (name.equals("(")) {
+                continue;
+            }
+            uniqueNames.add(name);
+        }
+
+        if (uniqueNames.size() == 0) {
+            throw new ContentParserException("Failed to find author in QuantaMagazine");
+        }
+
+        final List<AuthorData> authors = new ArrayList<>();
+        for (final String name : uniqueNames) {
+            authors.add(LinkContentParserUtils.getAuthor(name));
+        }
+        if (hostIsStrogatz) {
+            authors.add(WellKnownAuthors.STEVEN_STROGATZ);
+        }
+        if (hostIsLevin) {
+            authors.add(WellKnownAuthors.JANNA_LEVIN);
+        }
+
         return authors;
     }
 
@@ -110,5 +182,24 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
     @Override
     public Locale getLanguage() {
         return Locale.ENGLISH;
+    }
+
+    private static String toTitleCase(String str) {
+        StringBuilder titleCase = new StringBuilder();
+        boolean nextTitleCase = true;
+
+        for (final char c : str.toCharArray()) {
+            if (Character.isSpaceChar(c)) {
+                nextTitleCase = true;
+                titleCase.append(c);
+            } else if (nextTitleCase) {
+                titleCase.append(Character.toTitleCase(c));
+                nextTitleCase = false;
+            } else {
+                titleCase.append(Character.toLowerCase(c));
+            }
+        }
+
+        return titleCase.toString();
     }
 }

@@ -10,7 +10,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 /**
  * * Check data for a link toward a StackOverflow blog
  */
-public class StackOverflowBlogContentChecker extends ExtractorBasedLinkContentChecker {
+public class StackOverflowBlogLinkContentChecker extends ExtractorBasedLinkContentChecker {
 
     /**
      * @param url URL of the link to check
@@ -18,11 +18,11 @@ public class StackOverflowBlogContentChecker extends ExtractorBasedLinkContentCh
      * @param articleData expected article data
      * @param file effective retrieved link data
      */
-    public StackOverflowBlogContentChecker(final String url,
-                                           final LinkData linkData,
-                                           final Optional<ArticleData> articleData,
-                                           final FileSection file) {
-        super(url, linkData, articleData, file, (LinkDataExtractorBuilder)StackOverflowBlogContentParser::new);
+    public StackOverflowBlogLinkContentChecker(final String url,
+                                               final LinkData linkData,
+                                               final Optional<ArticleData> articleData,
+                                               final FileSection file) {
+        super(url, linkData, articleData, file, (LinkDataExtractorBuilder)StackOverflowBlogLinkContentParser::new);
     }
 
     /**
@@ -32,6 +32,6 @@ public class StackOverflowBlogContentChecker extends ExtractorBasedLinkContentCh
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return StackOverflowBlogContentParser.isUrlManaged(url);
+        return StackOverflowBlogLinkContentParser.isUrlManaged(url);
     }
 }

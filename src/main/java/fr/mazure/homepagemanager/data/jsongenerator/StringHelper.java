@@ -4,16 +4,18 @@ import java.text.Collator;
 import java.util.Locale;
 
 /**
- *
+ * Helpers to manipulate strings
  */
 public class StringHelper {
 
-    private static final Collator s_collator = Collator.getInstance(Locale.UK);
+    private static final Collator s_collator = Collator.getInstance(Locale.ENGLISH);
 
     /**
-     * @param str1
-     * @param str2
-     * @return
+     * Compare two strings in Locale.ENGLISH
+     *
+     * @param str1 first string
+     * @param str2 second string
+     * @return -1 if str1 < str2, 0 if str1 == str2, 1 if str1 > str2
      */
     public static int compare(final String str1,
                               final String str2) {

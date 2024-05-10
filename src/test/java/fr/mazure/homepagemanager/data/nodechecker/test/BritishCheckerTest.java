@@ -6,7 +6,6 @@ import org.xml.sax.SAXException;
 
 /**
  * Tests of BritishChecker class
- *
  */
 public class BritishCheckerTest extends NodeValueCheckerTestBase {
 

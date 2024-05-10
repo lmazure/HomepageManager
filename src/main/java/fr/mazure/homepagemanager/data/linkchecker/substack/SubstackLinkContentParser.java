@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthors;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
@@ -137,12 +138,7 @@ private static final TextParser s_authorParser
                                                             Optional.of("Raschka"),
                                                             Optional.empty(),
                                                             Optional.empty());
-            case "Science étonnante" -> new AuthorData(Optional.empty(),
-                                                       Optional.of("David"),
-                                                       Optional.empty(),
-                                                       Optional.of("Louapre"),
-                                                       Optional.empty(),
-                                                       Optional.empty());
+            case "Science étonnante" -> WellKnownAuthors.DAVID_LOUAPRE;
              default -> null;
         };
     }
@@ -160,7 +156,8 @@ private static final TextParser s_authorParser
     @Override
     public List<ExtractedLinkData> getLinks() throws ContentParserException {
         final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
-                                                                 new String[] { getSubtitle().get() },
+                                                                 getSubtitle().isPresent() ? new String[] { getSubtitle().get() }
+                                                                                           : new String[0],
                                                                  getUrl().toString(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),

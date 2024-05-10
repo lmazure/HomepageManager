@@ -41,6 +41,8 @@ public class WellKnownRedirections {
         errorCodes.add(Integer.valueOf(502));
         errorCodes.add(Integer.valueOf(503));
         //errorCodes.add(Integer.valueOf(504)); ignored for the time being
+        errorCodes.add(Integer.valueOf(522));
+        errorCodes.add(Integer.valueOf(525));
         errorCodes.add(Integer.valueOf(999));  // TODO handle fucking LinkedIn
 
         final Set<Integer> redirectionCodes = new HashSet<>();
@@ -51,40 +53,24 @@ public class WellKnownRedirections {
         redirectionCodes.add(Integer.valueOf(308));
 
         {
-            final RedirectionMatcher fromYoutubeChannelToCookiesConfiguration = new RedirectionMatcher("from Youtube channel to cookies configuration",
-                                                                                                       Set.of(LinkStatus.OK));
-            fromYoutubeChannelToCookiesConfiguration.add("\\Qhttps://www.youtube.com/channel/\\E" + RedirectionMatcher.ANY_STRING,
-                                                         Set.of(Integer.valueOf(302)),
-                                                         RedirectionMatcher.Multiplicity.ONE);
-            fromYoutubeChannelToCookiesConfiguration.add("\\Qhttps://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fchannel%2F\\E" + RedirectionMatcher.ANY_STRING,
-                                                         Set.of(Integer.valueOf(302)),
-                                                         RedirectionMatcher.Multiplicity.ONE);
-            fromYoutubeChannelToCookiesConfiguration.add("\\Qhttps://consent.youtube.com/ml?continue=https://www.youtube.com/channel/\\E"  + RedirectionMatcher.ANY_STRING,
-                                                         Set.of(Integer.valueOf(200)),
-                                                         RedirectionMatcher.Multiplicity.ONE);
-            fromYoutubeChannelToCookiesConfiguration.compile();
-            _matchers.add(fromYoutubeChannelToCookiesConfiguration);
+            final RedirectionMatcher fromYoutubeChannelToYoutubeChannel1 = new RedirectionMatcher("from YouTube channel to YouTube channel",
+                                                                                                  Set.of(LinkStatus.OK));
+            fromYoutubeChannelToYoutubeChannel1.add("\\Qhttps://www.youtube.com/channel/\\E" + RedirectionMatcher.ANY_STRING,
+                                                    Set.of(Integer.valueOf(302)),
+                                                    RedirectionMatcher.Multiplicity.ONE);
+            fromYoutubeChannelToYoutubeChannel1.add("\\Qhttps://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fchannel%2F\\E" + RedirectionMatcher.ANY_STRING,
+                                                    Set.of(Integer.valueOf(302)),
+                                                    RedirectionMatcher.Multiplicity.ONE);
+            fromYoutubeChannelToYoutubeChannel1.add("\\Qhttps://consent.youtube.com/ml?continue=https://www.youtube.com/channel/\\E"  + RedirectionMatcher.ANY_STRING,
+                                                    Set.of(Integer.valueOf(200)),
+                                                    RedirectionMatcher.Multiplicity.ONE);
+            fromYoutubeChannelToYoutubeChannel1.compile();
+            _matchers.add(fromYoutubeChannelToYoutubeChannel1);
         }
 
         {
-            final RedirectionMatcher fromYoutubeUserToCookiesConfiguration = new RedirectionMatcher("from Youtube user to cookies configuration",
-                                                                                                    Set.of(LinkStatus.OK));
-            fromYoutubeUserToCookiesConfiguration.add("\\Qhttps://www.youtube.com/user/\\E" + RedirectionMatcher.ANY_STRING,
-                                                      Set.of(Integer.valueOf(302)),
-                                                      RedirectionMatcher.Multiplicity.ONE);
-            fromYoutubeUserToCookiesConfiguration.add("\\Qhttps://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fuser%2F\\E" + RedirectionMatcher.ANY_STRING,
-                                                      Set.of(Integer.valueOf(302)),
-                                                      RedirectionMatcher.Multiplicity.ONE);
-            fromYoutubeUserToCookiesConfiguration.add("\\Qhttps://consent.youtube.com/ml?continue=https://www.youtube.com/user/\\E"  + RedirectionMatcher.ANY_STRING,
-                                                      Set.of(Integer.valueOf(200)),
-                                                      RedirectionMatcher.Multiplicity.ONE);
-            fromYoutubeUserToCookiesConfiguration.compile();
-            _matchers.add(fromYoutubeUserToCookiesConfiguration);
-        }
-
-        {
-            final RedirectionMatcher fromYoutubeChannelToYoutubeChannel = new RedirectionMatcher("from Youtube channel to Youtube channel",
-                                                                                                 Set.of(LinkStatus.OK));
+            final RedirectionMatcher fromYoutubeChannelToYoutubeChannel = new RedirectionMatcher("from YouTube channel to YouTube channel",
+                                                                                                 Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
             fromYoutubeChannelToYoutubeChannel.add("\\Qhttps://www.youtube.com/channel/\\E" + RedirectionMatcher.ANY_STRING,
                                                    Set.of(Integer.valueOf(302)),
                                                    RedirectionMatcher.Multiplicity.ONE);
@@ -96,6 +82,56 @@ public class WellKnownRedirections {
                                                    RedirectionMatcher.Multiplicity.ONE);
             fromYoutubeChannelToYoutubeChannel.compile();
             _matchers.add(fromYoutubeChannelToYoutubeChannel);
+        }
+
+        {
+            final RedirectionMatcher fromYoutubeChannelToYoutubeChannel2 = new RedirectionMatcher("from YouTube channel to YouTube channel",
+                                                                                                  Set.of(LinkStatus.OK));
+            // we cannot use a named group because the parameter of the last step contains an encoded version of the channel name
+            // for example, https://www.youtube.com/c/Tumourrasmoinsb%C3%AAteARTE is encoded into https://www.youtube.com/c/Tumourrasmoinsb%25C3%25AAteARTE
+            fromYoutubeChannelToYoutubeChannel2.add("\\Qhttps://www.youtube.com/c/\\E.*",
+                                                    Set.of(Integer.valueOf(302)),
+                                                    RedirectionMatcher.Multiplicity.ONE);
+            fromYoutubeChannelToYoutubeChannel2.add("\\Qhttps://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fc%2F\\E" + RedirectionMatcher.ANY_STRING,
+                                                    Set.of(Integer.valueOf(302)),
+                                                    RedirectionMatcher.Multiplicity.ONE);
+            fromYoutubeChannelToYoutubeChannel2.add("\\Qhttps://consent.youtube.com/ml?continue=https://www.youtube.com/c/\\E.*\\Q?cbrd%3D1&gl=FR&hl=en&cm=2&pc=yt&src=1\\E",
+                                                    Set.of(Integer.valueOf(200)),
+                                                    RedirectionMatcher.Multiplicity.ONE);
+            fromYoutubeChannelToYoutubeChannel2.compile();
+            _matchers.add(fromYoutubeChannelToYoutubeChannel2);
+        }
+
+        {
+            final RedirectionMatcher fromYoutubeUserToYoutubeUser1 = new RedirectionMatcher("from YouTube user to YouTube user",
+                                                                                            Set.of(LinkStatus.OK));
+            fromYoutubeUserToYoutubeUser1.add("\\Qhttps://www.youtube.com/user/\\E" + RedirectionMatcher.ANY_STRING,
+                                              Set.of(Integer.valueOf(302)),
+                                              RedirectionMatcher.Multiplicity.ONE);
+            fromYoutubeUserToYoutubeUser1.add("\\Qhttps://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fuser%2F\\E" + RedirectionMatcher.ANY_STRING,
+                                              Set.of(Integer.valueOf(302)),
+                                              RedirectionMatcher.Multiplicity.ONE);
+            fromYoutubeUserToYoutubeUser1.add("\\Qhttps://consent.youtube.com/ml?continue=https://www.youtube.com/user/\\E"  + RedirectionMatcher.ANY_STRING,
+                                              Set.of(Integer.valueOf(200)),
+                                              RedirectionMatcher.Multiplicity.ONE);
+            fromYoutubeUserToYoutubeUser1.compile();
+            _matchers.add(fromYoutubeUserToYoutubeUser1);
+        }
+
+        {
+            final RedirectionMatcher fromYoutubeUserToYoutubeUser2 = new RedirectionMatcher("from YouTube user to YouTube user",
+                                                                                            Set.of(LinkStatus.OK));
+            fromYoutubeUserToYoutubeUser2.add("\\Qhttps://www.youtube.com/user/\\E(?<user>.*)",
+                                              Set.of(Integer.valueOf(302)),
+                                              RedirectionMatcher.Multiplicity.ONE);
+            fromYoutubeUserToYoutubeUser2.add("\\Qhttps://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fuser%2F\\E" + RedirectionMatcher.ANY_STRING,
+                                              Set.of(Integer.valueOf(303)),
+                                              RedirectionMatcher.Multiplicity.ONE);
+            fromYoutubeUserToYoutubeUser2.add("\\Qhttps://www.youtube.com/user/\\E\\k<user>\\Q?cbrd=1&ucbcb=1\\E",
+                                              Set.of(Integer.valueOf(200)),
+                                              RedirectionMatcher.Multiplicity.ONE);
+            fromYoutubeUserToYoutubeUser2.compile();
+            _matchers.add(fromYoutubeUserToYoutubeUser2);
         }
 
         {
@@ -201,7 +237,7 @@ public class WellKnownRedirections {
             ibmRemoved2.add("\\Qhttps://www.ibm.com/developerworks/library/\\E" + RedirectionMatcher.ANY_STRING,
                            Set.of(Integer.valueOf(301)),
                            RedirectionMatcher.Multiplicity.ONE);
-            ibmRemoved2.add("https://developer.ibm.com/(|devpractices/devops/|technologies/(|linux/|linux/tutorials/|web-development/))",
+            ibmRemoved2.add("https://developer.ibm.com/(|devpractices/devops/|technologies(|/linux|/linux/tutorials|/mobile|/web-development)/)",
                            Set.of(Integer.valueOf(200)),
                            RedirectionMatcher.Multiplicity.ONE);
             ibmRemoved2.compile();
@@ -211,7 +247,7 @@ public class WellKnownRedirections {
         {
             final RedirectionMatcher ibmRemoved3 = new RedirectionMatcher("removed from IBM",
                                                                           Set.of(LinkStatus.REMOVED));
-            ibmRemoved3.add("\\Qhttps://www.ibm.com/developerworks/tivoli/library/\\E" + RedirectionMatcher.ANY_STRING,
+            ibmRemoved3.add("\\Qhttps://www.ibm.com/developerworks/\\E(tivoli/library/|java/library/co-tmline/)" + RedirectionMatcher.ANY_STRING,
                            Set.of(Integer.valueOf(301)),
                            RedirectionMatcher.Multiplicity.ONE);
             ibmRemoved3.add("\\Qhttps://developer.ibm.com/product-doclinks/\\E",
@@ -271,6 +307,19 @@ public class WellKnownRedirections {
                            RedirectionMatcher.Multiplicity.ONE);
             ibmRemoved7.compile();
             _matchers.add(ibmRemoved7);
+        }
+
+        {
+            final RedirectionMatcher developerIbmRemoved = new RedirectionMatcher("removed from developer.ibm.com",
+                                                                          Set.of(LinkStatus.REMOVED));
+            developerIbmRemoved.add("\\Qhttps://developer.ibm.com/\\E(articles|tutorials)/" + RedirectionMatcher.ANY_STRING,
+                           Set.of(Integer.valueOf(302)),
+                           RedirectionMatcher.Multiplicity.ONE);
+            developerIbmRemoved.add("\\Qhttps://developer.ibm.com/\\E(languages/(java|javascript)|technologies/web-development(/tutorials)?)/",
+                           Set.of(Integer.valueOf(200)),
+                           RedirectionMatcher.Multiplicity.ONE);
+            developerIbmRemoved.compile();
+            _matchers.add(developerIbmRemoved);
         }
 
         {
@@ -418,7 +467,7 @@ public class WellKnownRedirections {
         {
             final RedirectionMatcher msdnRemoved2 = new RedirectionMatcher("removed from MSDN",
                                                                            Set.of(LinkStatus.REMOVED));
-            msdnRemoved2.add("\\Qhttps://msdn.microsoft.com/en-us/vstudio/\\E" + RedirectionMatcher.ANY_STRING,
+            msdnRemoved2.add("\\Qhttps://msdn.microsoft.com/en-us/\\E(vstudio|library)/" + RedirectionMatcher.ANY_STRING,
                              Set.of(Integer.valueOf(301)),
                              RedirectionMatcher.Multiplicity.ONE);
             msdnRemoved2.add("\\Qhttps://learn.microsoft.com\\E",
@@ -429,6 +478,58 @@ public class WellKnownRedirections {
                              RedirectionMatcher.Multiplicity.ONE);
             msdnRemoved2.compile();
             _matchers.add(msdnRemoved2);
+        }
+
+        {
+            final RedirectionMatcher techrepublic1 = new RedirectionMatcher("removed from TechRepublic",
+                                                                            Set.of(LinkStatus.REMOVED));
+            techrepublic1.add("\\Qhttps://www.techrepublic.com/article/\\E" + RedirectionMatcher.ANY_STRING,
+                              Set.of(Integer.valueOf(301)),
+                              RedirectionMatcher.Multiplicity.ONE);
+            techrepublic1.add("\\Qhttps://www.techrepublic.com/topic/\\E(cxo|developer|hardware|microsoft|security)/",
+                              Set.of(Integer.valueOf(200)),
+                              RedirectionMatcher.Multiplicity.ONE);
+            techrepublic1.compile();
+            _matchers.add(techrepublic1);
+        }
+
+        {
+            final RedirectionMatcher techrepublic2 = new RedirectionMatcher("removed from TechRepublic",
+                                                                            Set.of(LinkStatus.REMOVED));
+            techrepublic2.add("\\Qhttps://www.techrepublic.com/blog/\\E" + RedirectionMatcher.ANY_STRING,
+                              Set.of(Integer.valueOf(301)),
+                              RedirectionMatcher.Multiplicity.ONE);
+            techrepublic2.add("\\Qhttps://www.techrepublic.com/article/\\E" + RedirectionMatcher.ANY_STRING,
+                              Set.of(Integer.valueOf(301)),
+                              RedirectionMatcher.Multiplicity.ONE);
+            techrepublic2.add("\\Qhttps://www.techrepublic.com/topic/\\E(cxo|developer|hardware|microsoft)/",
+                              Set.of(Integer.valueOf(200)),
+                              RedirectionMatcher.Multiplicity.ONE);
+            techrepublic2.compile();
+            _matchers.add(techrepublic2);
+        }
+
+        {
+            final RedirectionMatcher techrepublic3 = new RedirectionMatcher("removed from TechRepublic",
+                                                                            Set.of(LinkStatus.REMOVED));
+            techrepublic3.add("\\Qhttps://www.techrepublic.com/blog/\\E" + RedirectionMatcher.ANY_STRING,
+                              Set.of(Integer.valueOf(301)),
+                              RedirectionMatcher.Multiplicity.ONE);
+            techrepublic3.add("\\Qhttps://www.techrepublic.com/article/\\E" + RedirectionMatcher.ANY_STRING,
+                              Set.of(Integer.valueOf(404)),
+                              RedirectionMatcher.Multiplicity.ONE);
+            techrepublic3.compile();
+            _matchers.add(techrepublic3);
+        }
+
+        {
+            final RedirectionMatcher techrepublic4 = new RedirectionMatcher("removed from TechRepublic",
+                                                                           Set.of(LinkStatus.REMOVED));
+            techrepublic4.add("\\Qhttps://www.techrepublic.com/article/\\E" + RedirectionMatcher.ANY_STRING,
+                              Set.of(Integer.valueOf(404)),
+                              RedirectionMatcher.Multiplicity.ONE);
+            techrepublic4.compile();
+            _matchers.add(techrepublic4);
         }
 
         {

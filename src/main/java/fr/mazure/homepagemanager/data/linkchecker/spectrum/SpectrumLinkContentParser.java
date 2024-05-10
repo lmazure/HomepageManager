@@ -44,8 +44,8 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
                          "IEEE Spectrum",
                          "date");
     private static final TextParser s_authorParser
-        = new TextParser("<a class=\"social-author__name\" [^>]+>",
-                         "</a>",
+        = new TextParser(",\"name\":\"",
+                         "\"",
                          "IEEE Spectrum",
                          "author");
 
@@ -92,8 +92,11 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
             return _authors;
         }
         _authors = new ArrayList<>(1);
-        final List<String> extracted = s_authorParser.extractMulti(_data);
+        final List<String> extracted = s_authorParser.extractMulti(_data.split("\\n")[0]);
         for (final String extract: extracted) {
+            if (extract.equals("IEEE Spectrum")) {
+                continue;
+            }
             final AuthorData author = LinkContentParserUtils.getAuthor(extract);
             if (!_authors.contains(author)) {
                 _authors.add(author);

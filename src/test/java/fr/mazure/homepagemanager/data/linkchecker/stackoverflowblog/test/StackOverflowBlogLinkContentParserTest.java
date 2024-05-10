@@ -12,15 +12,15 @@ import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
-import fr.mazure.homepagemanager.data.linkchecker.stackoverflowblog.StackOverflowBlogContentParser;
+import fr.mazure.homepagemanager.data.linkchecker.stackoverflowblog.StackOverflowBlogLinkContentParser;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 
 /**
- * Tests of StackOverflowBlogContentParser class
+ * Tests of StackOverflowBlogLinkContentParser class
  *
  */
-public class StackOverflowBlogContentParserTest {
+public class StackOverflowBlogLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
@@ -34,7 +34,7 @@ public class StackOverflowBlogContentParserTest {
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final StackOverflowBlogContentParser parser = new StackOverflowBlogContentParser(url, data);
+                               final StackOverflowBlogLinkContentParser parser = new StackOverflowBlogLinkContentParser(url, data);
                                try {
                                    Assertions.assertEquals(expectedTitle, parser.getTitle());
                                } catch (final ContentParserException e) {
@@ -58,7 +58,7 @@ public class StackOverflowBlogContentParserTest {
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final StackOverflowBlogContentParser parser = new StackOverflowBlogContentParser(url, data);
+                               final StackOverflowBlogLinkContentParser parser = new StackOverflowBlogLinkContentParser(url, data);
                                try {
                                    Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
                                } catch (final ContentParserException e) {
@@ -82,7 +82,7 @@ public class StackOverflowBlogContentParserTest {
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final StackOverflowBlogContentParser parser = new StackOverflowBlogContentParser(url, data);
+                               final StackOverflowBlogLinkContentParser parser = new StackOverflowBlogLinkContentParser(url, data);
                                try {
                                    Assertions.assertTrue(parser.getDate().isPresent());
                                    Assertions.assertEquals(expectedDate, parser.getDate().get().toString());
@@ -97,18 +97,20 @@ public class StackOverflowBlogContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://stackoverflow.blog/2023/01/24/ai-applications-open-new-security-vulnerabilities/,Taimur,,Ijlal",
-        "https://stackoverflow.blog/2021/09/21/podcast-377-you-dont-need-a-math-phd-to-play-dwarf-fortress-just-to-code-it/,Ryan,,Donovan"
+        "https://stackoverflow.blog/2023/01/24/ai-applications-open-new-security-vulnerabilities/,Taimur,,Ijlal,",
+        "https://stackoverflow.blog/2021/09/21/podcast-377-you-dont-need-a-math-phd-to-play-dwarf-fortress-just-to-code-it/,Ryan,,Donovan,",
+        "https://stackoverflow.blog/2024/04/04/how-do-mixture-of-experts-layers-affect-transformer-models/,Cameron,R.,Wolfe,PhD",
         })
     void testAuthor(final String url,
                     final String expectedFirstName,
                     final String expectedMiddleName,
-                    final String expectedLastName) {
+                    final String expectedLastName,
+                    final String expectedNameSuffix) {
         final AuthorData expectedAuthor = new AuthorData(Optional.empty(),
                                                          Optional.of(expectedFirstName),
                                                          Optional.ofNullable(expectedMiddleName),
                                                          Optional.of(expectedLastName),
-                                                         Optional.empty(),
+                                                         Optional.ofNullable(expectedNameSuffix),
                                                          Optional.empty());
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
@@ -116,7 +118,7 @@ public class StackOverflowBlogContentParserTest {
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final StackOverflowBlogContentParser parser = new StackOverflowBlogContentParser(url, data);
+                               final StackOverflowBlogLinkContentParser parser = new StackOverflowBlogLinkContentParser(url, data);
                                try {
                                    Assertions.assertEquals(Collections.singletonList(expectedAuthor), parser.getSureAuthors());
                                 } catch (final ContentParserException e) {
