@@ -20,6 +20,11 @@ methods       53.0%/52.2%    97.9%
 
 
 
+gérer les redirections vers la locale (pex companies.xml)
+
+
+
+
 
 gérer
 Title = "The Linux Security "State of the Union""

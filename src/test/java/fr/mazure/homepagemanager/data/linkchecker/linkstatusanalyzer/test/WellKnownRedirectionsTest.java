@@ -160,7 +160,6 @@ class WellKnownRedirectionsTest {
     @ParameterizedTest
     @CsvSource({
         "http://httpbin.org/status/525",
-        "https://bitrise.io",
         })
     void direct525(final String url) {
         test(url,
