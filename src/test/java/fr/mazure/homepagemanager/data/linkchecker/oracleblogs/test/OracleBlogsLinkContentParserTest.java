@@ -32,6 +32,7 @@ public class OracleBlogsLinkContentParserTest {
         "https://blogs.oracle.com/java/post/javaone-is-back|JavaOne is Back!",
         "https://blogs.oracle.com/javamagazine/post/everything-you-need-to-know-about-openjdks-move-to-git-and-github|Everything you need to know about OpenJDK’s move to Git and GitHub",
         "https://blogs.oracle.com/javamagazine/understanding-the-jdks-new-superfast-garbage-collectors|Understanding the JDK’s New Superfast Garbage Collectors", // the title finishes with a space
+        "https://blogs.oracle.com/cloud-infrastructure/post/oracle-code-assist-ai-companion-boost-velocity|Oracle Code Assist: AI companion to boost developer velocity",
         }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
@@ -143,6 +144,7 @@ public class OracleBlogsLinkContentParserTest {
         "https://blogs.oracle.com/javamagazine/post/12-recipes-for-using-the-optional-class-as-its-meant-to-be-used,Mohamed,Taman",
         "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se,Donald,Smith",
         "https://blogs.oracle.com/javamagazine/post/everything-you-need-to-know-about-openjdks-move-to-git-and-github,Ian,Darwin",
+        "https://blogs.oracle.com/cloud-infrastructure/post/oracle-code-assist-ai-companion-boost-velocity,Aanand,Krishnan",
         })
     void testAuthor(final String url,
                     final String expectedFirstName,

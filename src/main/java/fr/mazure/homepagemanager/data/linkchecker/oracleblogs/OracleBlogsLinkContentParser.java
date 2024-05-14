@@ -64,8 +64,8 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
                          "Oracle Blog",
                          "date");
     private static final TextParser s_authorParser
-        = new TextParser("<meta name=\"author\" content=\"",
-                         "\">",
+        = new TextParser("<span><a id=\"postAuthorName\" href=\"[^\"]+\">",
+                         "</a>",
                          "Oracle Blog",
                          "author");
     private static DateTimeFormatter s_formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.US);
@@ -117,15 +117,15 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
             }
             _publicationDate = publicationDate;
             final List<AuthorData> list = new ArrayList<>(1);
-            String author;
-            try {
-                author = s_authorParser.extract(data);
-                list.add(LinkContentParserUtils.getAuthor(author));
-            } catch (final ContentParserException e) {
-                _exception = null;
-                _authorException = e;
-                _authors = null;
-                return;
+            for (final String author: s_authorParser.extractMulti(data)) { 
+                try {
+                    list.add(LinkContentParserUtils.getAuthor(author));
+                } catch (final ContentParserException e) {
+                    _exception = null;
+                    _authorException = e;
+                    _authors = null;
+                    return;
+                }
             }
             _authors = list;
             _exception = null;
@@ -236,7 +236,7 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return url.matches("https://blogs.oracle.com/javamagazine/.+") || url.matches("https://blogs.oracle.com/java/.+");
+        return url.matches("https://blogs.oracle.com/(java|javamagazine|cloud-infrastructure)/.+");
     }
 
     @Override
