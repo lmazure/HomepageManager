@@ -23,6 +23,7 @@ public class BritishChecker extends NodeChecker {
     private static final List<Traduction> s_americanWords = Arrays.asList(
             new Traduction("analyze", "analyse"),
             new Traduction("anemia", "anaemia"),
+            new Traduction("behavior", "behaviour"),
             new Traduction("catalog[^u]", "catalogue"),
             new Traduction("center", "centre"),
             new Traduction("color", "colour"),
