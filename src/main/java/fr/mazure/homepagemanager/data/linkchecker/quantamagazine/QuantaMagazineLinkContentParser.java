@@ -44,13 +44,13 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
     private static final Pattern s_authorPattern
         = Pattern.compile("<a (class=\"[^\"]+\" )?href=\"/authors/[^/]+/\"><span [^>]+>([^<]+)</span></a>");
     private static final TextParser s_joyOfWhyAuthors1
-        = new TextParser("<p[^>]*><strong>",
+        = new TextParser("\n<p[^>]*><strong>",
                          "[^<:]*[^: ]",
                          ":? ?</strong>",
                          "QuantaMagazine",
                          "The Joy Of Why authors");
     private static final TextParser s_joyOfWhyAuthors2
-    = new TextParser("<p><b>",
+    = new TextParser("\n<p><b>",
                      "[^<]*",
                      "</b>",
                      "QuantaMagazine",
@@ -112,7 +112,7 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
         boolean hostIsStrogatz = false;
         boolean hostIsLevin = false;
 
-        List<String> names = s_joyOfWhyAuthors1.extractMulti(_data.replaceAll("</strong> <strong>", " "));
+        List<String> names = s_joyOfWhyAuthors1.extractMulti(_data.replaceAll("</strong> ?<strong>", " "));
         if (names.size() == 0) {
             names = s_joyOfWhyAuthors2.extractMulti(_data);
         }

@@ -295,9 +295,11 @@ public class QuantaMagazineLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://www.quantamagazine.org/what-causes-giant-rogue-waves-20230614/,Steven,,Strogatz,Ton,,van den Bremer",
-        "https://www.quantamagazine.org/what-is-the-nature-of-time-20240229/,Steven,,Strogatz,Frank,,Wilczek",
         "https://www.quantamagazine.org/how-did-altruism-evolve-20240215/,Janna,,Levin,Stephanie,,Preston",
+        "https://www.quantamagazine.org/what-causes-giant-rogue-waves-20230614/,Steven,,Strogatz,Ton,,van den Bremer",
+        "https://www.quantamagazine.org/what-is-quantum-field-theory-and-why-is-it-incomplete-20220810/,Steven,,Strogatz,David,,Tong",
+        "https://www.quantamagazine.org/what-is-quantum-teleportation-20240314/,Janna,,Levin,John,,Preskill",
+        "https://www.quantamagazine.org/what-is-the-nature-of-time-20240229/,Steven,,Strogatz,Frank,,Wilczek",
         })
     void testAuthorJoyOfWhy(final String url,
                             final String expectedHostFirstName,
