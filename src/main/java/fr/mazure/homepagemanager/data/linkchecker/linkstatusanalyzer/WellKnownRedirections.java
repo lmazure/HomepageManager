@@ -549,6 +549,22 @@ public class WellKnownRedirections {
         }
 
         {
+            final RedirectionMatcher redirectionToItself = new RedirectionMatcher("redirection to locale",
+                                                                                  Set.of(LinkStatus.OK));
+            redirectionToItself.add("(?<site>https?://.*)",
+                                    redirectionCodes,
+                                    RedirectionMatcher.Multiplicity.ONE);
+            redirectionToItself.add("https?://.*",
+                                    redirectionCodes,
+                                    RedirectionMatcher.Multiplicity.ZERO_OR_MANY);
+            redirectionToItself.add("\\k<site>/(fr|fr-fr|fr_fr|en|us)/?",
+                                    successCodes,
+                                    RedirectionMatcher.Multiplicity.ONE);
+            redirectionToItself.compile();
+            _matchers.add(redirectionToItself);
+        }
+
+        {
             final RedirectionMatcher redirectionEndingInSuccess = new RedirectionMatcher("redirection ending in success (last URL should be used)",
                                                                                          Set.of());
             redirectionEndingInSuccess.add("https?://"  + RedirectionMatcher.ANY_STRING,

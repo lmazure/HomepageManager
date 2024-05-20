@@ -20,8 +20,7 @@ methods       53.0%/52.2%    97.9%
 
 
 
-gérer les redirections vers la locale (pex companies.xml)
-
+bug  : le titre de la fenêtre des authors ne devrait pas être un lien
 
 
 

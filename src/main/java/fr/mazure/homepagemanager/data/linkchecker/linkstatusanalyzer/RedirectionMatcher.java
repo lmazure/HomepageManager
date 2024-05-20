@@ -27,7 +27,11 @@ public class RedirectionMatcher {
         /**
          * one or more
          */
-        ONE_OR_MANY
+        ONE_OR_MANY,
+        /**
+         * zero or more
+         */
+        ZERO_OR_MANY,
     }
 
     private static final char sep1 = '£';
@@ -127,6 +131,9 @@ public class RedirectionMatcher {
                 break;
             case ONE_OR_MANY:
                 builder.append("+");
+                break;
+            case ZERO_OR_MANY:
+                builder.append("*");
                 break;
             default:
                 // impossible
