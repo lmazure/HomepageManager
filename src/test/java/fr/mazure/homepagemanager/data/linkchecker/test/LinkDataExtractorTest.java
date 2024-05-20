@@ -44,7 +44,7 @@ public class LinkDataExtractorTest {
                 <A>https://www.baeldung.com/java-unit-testing-best-practices</A>\
                 <L>en</L><F>HTML</F></X>\
                 <AUTHOR><FIRSTNAME>Anshul</FIRSTNAME><LASTNAME>Bansal</LASTNAME></AUTHOR>\
-                <DATE><YEAR>2024</YEAR><MONTH>1</MONTH><DAY>8</DAY></DATE>\
+                <DATE><YEAR>2024</YEAR><MONTH>5</MONTH><DAY>11</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
@@ -93,8 +93,8 @@ public class LinkDataExtractorTest {
                 <ARTICLE><X><T>A special farewell from GitLab’s Dmitriy Zaporozhets</T>\
                 <A>https://about.gitlab.com/blog/2021/11/10/a-special-farewell-from-gitlab-dmitriy-zaporozhets/</A>\
                 <L>en</L><F>HTML</F></X>\
-                <AUTHOR><FIRSTNAME>Sid</FIRSTNAME><LASTNAME>Sidbrandij</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Dmitriy</FIRSTNAME><LASTNAME>Zaporozhets</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Sid</FIRSTNAME><LASTNAME>Sijbrandij</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>11</MONTH><DAY>10</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
@@ -864,7 +864,7 @@ public class LinkDataExtractorTest {
     void youtubeWatchElJjIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=qZWbgBSfTUI";
         final String expectedXml = """
-                <ARTICLE><X><T>J'ai regardé 43 films et séries Marvel Studios et j'y ai trouvé... des maths ! - Ccc #08</T>\
+                <ARTICLE><X><T>Les mathématiques de Marvel - Ccc #08</T>\
                 <A>https://www.youtube.com/watch?v=qZWbgBSfTUI</A>\
                 <L>fr</L><F>MP4</F><DURATION><MINUTE>26</MINUTE><SECOND>42</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Jérôme</FIRSTNAME><LASTNAME>Cottanceau</LASTNAME></AUTHOR>\
@@ -2617,7 +2617,7 @@ public class LinkDataExtractorTest {
     void youtubeWelchLabsWhyIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=Phscjl0u6TI";
         final String expectedXml = """
-                <ARTICLE><X><T>Kepler's War on Mars</T>\
+                <ARTICLE><X><T>How Kepler Actually Discovered his Laws</T>\
                 <A>https://www.youtube.com/watch?v=Phscjl0u6TI</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>39</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Stephen</FIRSTNAME><LASTNAME>Welch</LASTNAME></AUTHOR>\
