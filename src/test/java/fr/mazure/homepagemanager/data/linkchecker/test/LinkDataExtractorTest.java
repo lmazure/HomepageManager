@@ -2076,6 +2076,22 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchScience4AllIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=sAjm3-IaRtI";
+        final String expectedXml = """
+                <ARTICLE><X><T>Trafiquant d'humains et marchand de haine #FacebookFiles</T>\
+                <A>https://www.youtube.com/watch?v=sAjm3-IaRtI</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>38</MINUTE><SECOND>52</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Lê</FIRSTNAME><LASTNAME>Nguyên Hoang</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2021</YEAR><MONTH>12</MONTH><DAY>6</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeWatchScienceClicIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=EkE229ybABc";
         final String expectedXml = """
@@ -2431,14 +2447,14 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchScience4AllIsManaged() throws ContentParserException {
-        final String url = "https://www.youtube.com/watch?v=sAjm3-IaRtI";
+    void youtubeWatchSuperDataScienceIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=8i5s7DFAjek";
         final String expectedXml = """
-                <ARTICLE><X><T>Trafiquant d'humains et marchand de haine #FacebookFiles</T>\
-                <A>https://www.youtube.com/watch?v=sAjm3-IaRtI</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>38</MINUTE><SECOND>52</SECOND></DURATION></X>\
-                <AUTHOR><FIRSTNAME>Lê</FIRSTNAME><LASTNAME>Nguyên Hoang</LASTNAME></AUTHOR>\
-                <DATE><YEAR>2021</YEAR><MONTH>12</MONTH><DAY>6</DAY></DATE>\
+                <ARTICLE><X><T>778: Mixtral 8x22B: SOTA Open-Source LLM Capabilities at a Fraction of the Compute — with Jon Krohn</T>\
+                <A>https://www.youtube.com/watch?v=8i5s7DFAjek</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>30</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Jon</FIRSTNAME><LASTNAME>Krohn</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2024</YEAR><MONTH>4</MONTH><DAY>26</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
