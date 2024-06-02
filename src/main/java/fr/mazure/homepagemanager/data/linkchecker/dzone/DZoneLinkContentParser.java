@@ -44,7 +44,7 @@ public class DZoneLinkContentParser extends LinkDataExtractor {
                          "date");
 
     private static final TextParser s_authorParser
-        = new TextParser("<span class=\"author-name\">\n        <a (?:href=\"/users/\\d+/\\w+\\.html\" rel=\"nofollow\"|href=\"/authors/\\w+\")>",
+        = new TextParser("<span class=\"author-name\">\n        <a (?:href=\"/users/\\d+/[a-zA-Z_0-9.]+\\.html\" rel=\"nofollow\"|href=\"/authors/[a-zA-Z_0-9-]+\")>",
                          "</a>",
                          "DZone",
                          "author");

@@ -23,20 +23,21 @@ public class DZoneLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://dzone.com/articles/how-fix-memory-leaks-java,Veljko,Krunic,",
-        "https://dzone.com/articles/explore-annotations-in-java-8,Niamul,Sanjavi,",
-        "https://dzone.com/articles/clean-code-tips,Rajeev,Bera,",
+        "https://dzone.com/articles/how-fix-memory-leaks-java,Veljko,Krunic",
+        "https://dzone.com/articles/explore-annotations-in-java-8,Niamul,Sanjavi",
+        "https://dzone.com/articles/clean-code-tips,Rajeev,Bera",
+        "https://dzone.com/articles/java-collections-are-evolving,Trisha,Gee",
+        "https://dzone.com/articles/functional-approach-to-string-manipulation-in-java,Sameer,Shukla"
         })
     void testAuthor(final String url,
                     final String expectedFirstName,
-                    final String expectedLastName,
-                    final String expectedGivenName) {
+                    final String expectedLastName) {
         final AuthorData expectedAuthor = new AuthorData(Optional.empty(),
                                                          Optional.ofNullable(expectedFirstName),
                                                          Optional.empty(),
                                                          Optional.ofNullable(expectedLastName),
                                                          Optional.empty(),
-                                                         Optional.ofNullable(expectedGivenName));
+                                                         Optional.empty());
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
