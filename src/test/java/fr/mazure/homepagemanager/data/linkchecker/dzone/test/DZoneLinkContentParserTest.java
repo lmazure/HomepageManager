@@ -27,7 +27,8 @@ public class DZoneLinkContentParserTest {
         "https://dzone.com/articles/explore-annotations-in-java-8,Niamul,Sanjavi",
         "https://dzone.com/articles/clean-code-tips,Rajeev,Bera",
         "https://dzone.com/articles/java-collections-are-evolving,Trisha,Gee",
-        "https://dzone.com/articles/functional-approach-to-string-manipulation-in-java,Sameer,Shukla"
+        "https://dzone.com/articles/functional-approach-to-string-manipulation-in-java,Sameer,Shukla",
+        "https://dzone.com/articles/dependency-scope-applied,Maksim,Kren"
         })
     void testAuthor(final String url,
                     final String expectedFirstName,
@@ -134,6 +135,7 @@ public class DZoneLinkContentParserTest {
     @CsvSource({
         "https://dzone.com/articles/how-fix-memory-leaks-java,2009-03-18",
         "https://dzone.com/articles/explore-annotations-in-java-8,2019-10-22",
+        "https://dzone.com/articles/leveraging-lambda-expressions-for-lazy-evaluation,2018-07-28",
         })
     void testPublishDate(final String url,
                          final String expectedDate) {
@@ -157,7 +159,7 @@ public class DZoneLinkContentParserTest {
     @ParameterizedTest
     @CsvSource(value = {
         "https://dzone.com/articles/how-fix-memory-leaks-java|en",
-        "https://dzone.com/articles/explore-annotations-in-java-8|en"
+        "https://dzone.com/articles/explore-annotations-in-java-8|en",
         }, delimiter = '|')
     void testLanguage(final String url,
                       final String expectedLanguage) {
