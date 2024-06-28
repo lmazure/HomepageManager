@@ -2044,7 +2044,7 @@ public class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchRobertMilesIsManaged() throws ContentParserException {
+    void youtubeWatchRobertMilesAiSafety() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=zkbPdEHEyEI";
         final String expectedXml = """
                 <ARTICLE><X><T>We Were Right! Real Inner Misalignment</T>\
@@ -2052,6 +2052,22 @@ public class LinkDataExtractorTest {
                 <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>46</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Robert</FIRSTNAME><LASTNAME>Miles</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>10</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
+    void youtubeWatchRobertMiles2() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=eV8F0dz_5y4";
+        final String expectedXml = """
+                <ARTICLE><X><T>Easily Quit Mindless Scrolling</T>\
+                <A>https://www.youtube.com/watch?v=eV8F0dz_5y4</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>32</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Robert</FIRSTNAME><LASTNAME>Miles</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2024</YEAR><MONTH>6</MONTH><DAY>20</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
