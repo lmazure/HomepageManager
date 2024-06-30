@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
@@ -27,6 +30,7 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
     private final String _data;
 
     private List<AuthorData> _authors;
+    private Optional<TemporalAccessor> _publicationDate;
 
     private static final TextParser s_titleParser
         = new TextParser("<h1 class=\"widget__headline h1\">",
@@ -38,17 +42,11 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
                          "</h2>",
                          "IEEE Spectrum",
                          "subtitle");
-    private static final TextParser s_dateParser
-        = new TextParser("\"datePublished\":\"",
-                         "\"",
-                         "IEEE Spectrum",
-                         "date");
-    private static final TextParser s_authorParser
-        = new TextParser(",\"name\":\"",
-                         "\"",
-                         "IEEE Spectrum",
-                         "author");
-
+    private static final TextParser s_jsonParser
+    = new TextParser("<script type=\"application/ld\\+json\">",
+                     "</script>",
+                     "IEEE Spectrum",
+                     "JSON");
     /**
      * @param url URL of the link
      * @param data retrieved link data
@@ -58,6 +56,8 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
         super(UrlHelper.removeQueryParameters(url,"comments",
                                                   "comments-page"));
         _data = data;
+        _authors = null;
+        _publicationDate = null;
     }
 
     /**
@@ -81,9 +81,11 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
 
     @Override
     public Optional<TemporalAccessor> getDate() throws ContentParserException {
-        final String date = HtmlHelper.cleanContent(s_dateParser.extract(_data));
-        final Instant instant = Instant.parse(date);
-        return Optional.of(LocalDate.ofInstant(instant, ZoneId.of("Europe/Paris")));
+        if (_publicationDate != null) {
+            return _publicationDate;
+        }
+        parseJson();
+        return _publicationDate;
     }
 
     @Override
@@ -91,17 +93,7 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
         if (_authors != null) {
             return _authors;
         }
-        _authors = new ArrayList<>(1);
-        final List<String> extracted = s_authorParser.extractMulti(_data.split("\\n")[0]);
-        for (final String extract: extracted) {
-            if (extract.equals("IEEE Spectrum")) {
-                continue;
-            }
-            final AuthorData author = LinkContentParserUtils.getAuthor(extract);
-            if (!_authors.contains(author)) {
-                _authors.add(author);
-            }
-        }
+        parseJson();
         return _authors;
     }
 
@@ -134,5 +126,31 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
     @Override
     public Locale getLanguage() {
         return Locale.ENGLISH;
+    }
+    
+    private void parseJson() throws ContentParserException {
+
+        _authors = new ArrayList<>(1);
+
+        final String json = s_jsonParser.extract(_data);
+        final JSONObject payload = new JSONObject(json);
+        final Object authorNode = payload.get("author");
+        if (authorNode instanceof JSONArray auths) {
+            for (int i = 0; i < auths.length(); i++) {
+                final String name = auths.getJSONObject(i).getString("name");
+                if (name.equals("IEEE Spectrum")) {
+                    continue;
+                }
+                final AuthorData author = LinkContentParserUtils.getAuthor(name);
+                _authors.add(author);
+            }
+        } else if (authorNode instanceof JSONObject auth) {
+            final String name = auth.getString("name");
+            final AuthorData author = LinkContentParserUtils.getAuthor(name);
+            _authors.add(author);
+        }
+        final String date = payload.getString("datePublished");
+        final Instant instant = Instant.parse(date);
+        _publicationDate = Optional.of(LocalDate.ofInstant(instant, ZoneId.of("Europe/Paris")));
     }
 }

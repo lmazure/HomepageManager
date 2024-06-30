@@ -13,7 +13,36 @@ methods       53.0%/52.2%    97.9%
 ==== before merge =====
 
 
+gérer
+java.lang.UnsupportedOperationException: https://www.wired.co.uk/article/5g-coronavirus-conspiracy-theory-attacks|301→https://www.wired.com/story/5g-coronavirus-conspiracy-theory-attacks/|504→
+    at fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.getMatch(WellKnownRedirections.java:629)
+    at fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.getPossibleStatuses(LinkStatusAnalyzer.java:80)
+    at fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.doesEffectiveDataMatchesExpectedData(LinkStatusAnalyzer.java:34)
+    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.writeOutputFile(LinkCheckRunner.java:410)
+    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:354)
+    at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
+    at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
+    at fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:34)
+    at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+    at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+    at java.base/java.lang.Thread.run(Thread.java:1570)
 
+
+
+
+gérer
+ tag = "COMMENT"
+ value = "The story of perplexity.ai, some technology details, and some musing about AI."
+ violation = "space is missing after punctuation"
+ detail = ""The story of perplexity.ai, some technology details, and some musing about AI." is missing a space after punctuation"
+ 
+ 
+ 
+ 
+ extraction des auteurs de https://generatingconversation.substack.com/p/you-cant-build-a-moat-with-ai
+ 
+ 
+ 
 
 ==== potentially before merge =====
 
