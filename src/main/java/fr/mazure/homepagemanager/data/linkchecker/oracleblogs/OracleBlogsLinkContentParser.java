@@ -221,7 +221,7 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
             final String authorUrl = authors.getJSONObject(i).getJSONArray("links").getJSONObject(0).getString("href");
             try {
                 _authors.add(getAuthor(authorUrl));
-            } catch (final IOException | ContentParserException | JSONException | NotGzipException e) {
+            } catch (final IOException | JSONException | NotGzipException e) {
                 _authorException = new ContentParserException("failed to read author JSON data for " + url, e);
                 return;
             }
@@ -276,11 +276,20 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
         return _retriever.getGzippedContent(jsonUrl, false);
     }
 
-    private AuthorData getAuthor(final String url) throws IOException, ContentParserException, NotGzipException {
+    private AuthorData getAuthor(final String url) throws IOException, NotGzipException {
         final String jsonPayload = _retriever.getGzippedContent(url, false);
         final JSONObject obj = new JSONObject(jsonPayload);
-        final String name = obj.getString("name");
-        return LinkContentParserUtils.getAuthor(name);
+        final JSONObject fields = obj.getJSONObject("fields");
+        final String firstName = fields.getString("first_name").trim();
+        final String middleName = fields.isNull("middle_name") ? null
+                                                               : fields.getString("middle_name").trim();
+        final String lastName = fields.getString("last_name").trim();
+        return new AuthorData(Optional.empty(),
+                              Optional.of(firstName),
+                              Optional.ofNullable(middleName),
+                              Optional.of(lastName),
+                              Optional.empty(),
+                              Optional.empty());
     }
 
     @Override
