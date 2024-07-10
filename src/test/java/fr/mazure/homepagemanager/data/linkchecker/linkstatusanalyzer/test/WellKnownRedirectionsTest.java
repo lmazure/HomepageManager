@@ -445,7 +445,6 @@ class WellKnownRedirectionsTest {
              Set.of(LinkStatus.REMOVED));
     }
 
-
     @ParameterizedTest
     @CsvSource({
         "https://www.techrepublic.com/blog/windows-and-office/determine-if-your-hardware-can-support-windows-xp-mode-in-windows-7/",

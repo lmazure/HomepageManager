@@ -201,7 +201,6 @@ public class LinkDataExtractorTest {
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
-
     @Test
     void quantaMagazineIsManaged() throws ContentParserException {
         final String url = "https://www.quantamagazine.org/mathematician-answers-chess-problem-about-attacking-queens-20210921/";
@@ -2659,7 +2658,6 @@ public class LinkDataExtractorTest {
         Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
-
 
     @Test
     void youtubeWelchLabsWhyIsManaged() throws ContentParserException {

@@ -119,7 +119,7 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
         final List <String> uniqueNames = new ArrayList<>();
         nameLoop:
         for (final String rawName : names) {
-            final String name = toTitleCase(rawName); 
+            final String name = toTitleCase(rawName);
             if (uniqueNames.contains(name)) {
                 continue;
             }

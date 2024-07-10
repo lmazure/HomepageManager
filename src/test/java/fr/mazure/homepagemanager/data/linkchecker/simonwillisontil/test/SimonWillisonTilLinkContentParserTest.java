@@ -17,7 +17,7 @@ import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 
 /**
- * 
+ *
  */
 public class SimonWillisonTilLinkContentParserTest {
 

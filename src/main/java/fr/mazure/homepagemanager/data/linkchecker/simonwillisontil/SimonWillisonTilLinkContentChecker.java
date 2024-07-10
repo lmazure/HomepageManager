@@ -8,7 +8,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 
 /**
- * 
+ *
  */
 public class SimonWillisonTilLinkContentChecker extends ExtractorBasedLinkContentChecker {
 

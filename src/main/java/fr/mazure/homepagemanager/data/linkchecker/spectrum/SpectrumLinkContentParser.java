@@ -127,7 +127,7 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
     public Locale getLanguage() {
         return Locale.ENGLISH;
     }
-    
+
     private void parseJson() throws ContentParserException {
 
         _authors = new ArrayList<>(1);
