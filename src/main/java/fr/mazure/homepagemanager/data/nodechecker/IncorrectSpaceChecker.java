@@ -33,6 +33,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "ASP.NET",
             "Bubbl.us",
             "cdn.polyfill.io",
+            "Claude.ai",
             "clinicaltrials.gov",
             "Clipboard.com",
             "Comma.ai",

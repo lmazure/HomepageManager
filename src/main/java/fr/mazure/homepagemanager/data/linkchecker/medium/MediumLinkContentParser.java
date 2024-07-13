@@ -209,7 +209,8 @@ public class MediumLinkContentParser extends LinkDataExtractor {
     @Override
     public List<ExtractedLinkData> getLinks() throws ContentParserException {
         final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
-                                                                 new String[] { },
+                                                                 getSubtitle().isPresent() ? new String[] { getSubtitle().get() }
+                                                                                           : new String[] { },
                                                                  getUrl().toString(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),

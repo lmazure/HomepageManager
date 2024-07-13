@@ -120,6 +120,23 @@ public class LinkDataExtractorTest {
     }
 
     @Test
+    void mediumWithSubtitleIsManaged() throws ContentParserException {
+        final String url = "https://medium.com/rahasak/build-rag-application-using-a-llm-running-on-local-computer-with-gpt4all-and-langchain-13b4b8851db8";
+        final String expectedXml = """
+                <ARTICLE><X><T>Build RAG Application Using a LLM Running on Local Computer with GPT4All and Langchain</T>\
+                <ST>Privacy-preserving LLM without GPU</ST>\
+                <A>https://medium.com/rahasak/build-rag-application-using-a-llm-running-on-local-computer-with-gpt4all-and-langchain-13b4b8851db8</A>\
+                <L>en</L><F>HTML</F></X>\
+                <AUTHOR><GIVENNAME>(λx.x)eranga</GIVENNAME></AUTHOR>\
+                <DATE><YEAR>2024</YEAR><MONTH>3</MONTH><DAY>10</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void oracleBlogsJavaMagazineIsManaged() throws ContentParserException {
         final String url = "https://blogs.oracle.com/javamagazine/post/java-nio-nio2-buffers-channels-async-future-callback";
         final String expectedXml = """
