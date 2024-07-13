@@ -108,11 +108,13 @@ public class StringHelper {
     }
 
     /**
-     * @param string
-     * @param searchedString
-     * @param ignoreCase
-     * @param ignoreSpaceType
-     * @return
+     * search a substring in a string
+     *
+     * @param string string which is looked in
+     * @param searchedString substring which is looked for
+     * @param ignoreCase indicate if casing should be ignored
+     * @param ignoreSpaceType indicate if type of space should be ignored
+     * @return index of the substring in the string
      */
     public static int generalizedIndex(final String string,
                                        final String searchedString,
@@ -126,8 +128,10 @@ public class StringHelper {
     }
 
     /**
-     * @param string
-     * @return
+     * Replace the space characters by ' '
+     *
+     * @param string input string
+     * @return normalized string
      */
     private static String normalizeSpace(final String string) {
         final int length = string.length();
@@ -142,9 +146,11 @@ public class StringHelper {
     }
 
     /**
-     * @param str1
-     * @param str2
-     * @return
+     * EXplain the difference between two strings
+     *
+     * @param str1 first string
+     * @param str2 second string
+     * @return explanation of the difference between two strings, null is the two strings are equal
      */
     public static String compareAndExplainDifference(final String str1,
                                                      final String str2) {

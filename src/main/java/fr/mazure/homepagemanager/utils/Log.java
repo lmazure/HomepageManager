@@ -115,7 +115,6 @@ public class Log {
      * write the logs stderr (for error and fatal levels) and stdoyt (other levels)
      */
     public void submit() {
-        @SuppressWarnings("resource")
         final PrintStream stream = (_level.ordinal() <= Logger.Level.WARN.ordinal()) ? System.err : System.out;
         stream.println(_stringBuilder.toString());
     }
