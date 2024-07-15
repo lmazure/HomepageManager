@@ -26,7 +26,7 @@ public class LinkContentParserTest {
             "https://viterbi-web.usc.edu/~meshkati/tefall99/toki.html",
             "https://www.cultdeadcow.com",
             "https://www.meteor.com/",
-            "https://www.wired.com/1998/04/es-lists/"
+            "https://www.wired.com/1998/04/es-lists/",
             })
     void testLanguageForEnglishArticle(final String url) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
@@ -52,7 +52,7 @@ public class LinkContentParserTest {
             "https://www.france24.com/fr/am%C3%A9riques/20200527-%C3%A9mission-sp%C3%A9ciale-le-br%C3%A9sil-%C3%A9picentre-du-covid-19-en-am%C3%A9rique-latine",
             "https://www.lavoixdunord.fr/752544/article/2020-05-13/coronavirus-les-foyers-de-morts-mysterieuses-se-multiplient-au-nigeria",
             "https://www.lemonde.fr/blog/vidberg/2013/07/20/une-banale-histoire-de-proces-sur-internet/",
-            "https://www.marmiton.org/"
+            "https://www.marmiton.org/",
             })
     void testLanguageForFrenchArticle(final String url) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
@@ -73,7 +73,7 @@ public class LinkContentParserTest {
     @ParameterizedTest
     @ValueSource(strings = {
             "https://www.govinfo.gov/app/collection/cfr",
-            "http://www.openafs.org/"
+            "http://www.openafs.org/",
             })
     void testLanguageForArticleWithNoText(final String url) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());

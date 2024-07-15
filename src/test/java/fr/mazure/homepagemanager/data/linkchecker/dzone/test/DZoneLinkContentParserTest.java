@@ -28,7 +28,7 @@ public class DZoneLinkContentParserTest {
         "https://dzone.com/articles/clean-code-tips,Rajeev,Bera",
         "https://dzone.com/articles/java-collections-are-evolving,Trisha,Gee",
         "https://dzone.com/articles/functional-approach-to-string-manipulation-in-java,Sameer,Shukla",
-        "https://dzone.com/articles/dependency-scope-applied,Maksim,Kren"
+        "https://dzone.com/articles/dependency-scope-applied,Maksim,Kren",
         })
     void testAuthor(final String url,
                     final String expectedFirstName,

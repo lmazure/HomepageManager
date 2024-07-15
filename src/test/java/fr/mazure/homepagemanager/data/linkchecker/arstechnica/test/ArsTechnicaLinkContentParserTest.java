@@ -23,7 +23,7 @@ public class ArsTechnicaLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://arstechnica.com/cars/2021/04/consumer-reports-shows-tesla-autopilot-works-with-no-one-in-the-drivers-seat/,Consumer Reports shows Tesla Autopilot works with no one in the driver’s seat"
+        "https://arstechnica.com/cars/2021/04/consumer-reports-shows-tesla-autopilot-works-with-no-one-in-the-drivers-seat/,Consumer Reports shows Tesla Autopilot works with no one in the driver’s seat",
         })
     void testTitle(final String url,
                    final String expectedTitle) {
@@ -47,7 +47,7 @@ public class ArsTechnicaLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://arstechnica.com/cars/2021/04/consumer-reports-shows-tesla-autopilot-works-with-no-one-in-the-drivers-seat/,Consumer Reports argues Tesla needs a better driver-monitoring system."
+        "https://arstechnica.com/cars/2021/04/consumer-reports-shows-tesla-autopilot-works-with-no-one-in-the-drivers-seat/,Consumer Reports argues Tesla needs a better driver-monitoring system.",
         })
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
@@ -72,7 +72,7 @@ public class ArsTechnicaLinkContentParserTest {
     @ParameterizedTest
     @CsvSource({
         "https://arstechnica.com/cars/2021/04/consumer-reports-shows-tesla-autopilot-works-with-no-one-in-the-drivers-seat/,2021-04-22",
-        "https://arstechnica.com/science/2021/08/with-covid-cases-and-deaths-rising-more-unvaccinated-are-lining-up-for-shots/,2021-08-21"
+        "https://arstechnica.com/science/2021/08/with-covid-cases-and-deaths-rising-more-unvaccinated-are-lining-up-for-shots/,2021-08-21",
         })
     void testDate(final String url,
                   final String expectedDate) {
@@ -143,7 +143,7 @@ public class ArsTechnicaLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://arstechnica.com/information-technology/2023/03/chinese-search-giant-launches-ai-chatbot-with-prerecorded-demo/,Ryan,,McMorrow,Qianer,,Liu"
+        "https://arstechnica.com/information-technology/2023/03/chinese-search-giant-launches-ai-chatbot-with-prerecorded-demo/,Ryan,,McMorrow,Qianer,,Liu",
         })
     void test2Authors(final String url,
                       final String expectedFirstName1,
@@ -187,7 +187,7 @@ public class ArsTechnicaLinkContentParserTest {
     @ParameterizedTest
     @CsvSource({
         "https://arstechnica.com/tech-policy/2022/09/texts-show-roll-call-of-tech-figures-tried-to-help-elon-musk-in-twitter-deal/,Hannah,,Murphy,James,,Fontanella-Khan,Sujeet,,Indap",
-        "https://arstechnica.com/science/2023/03/radio-interference-from-satellites-is-threatening-astronomy/,Christopher,Gordon,De Pree,Christopher,R.,Anderson,Mariya,,Zheleva"
+        "https://arstechnica.com/science/2023/03/radio-interference-from-satellites-is-threatening-astronomy/,Christopher,Gordon,De Pree,Christopher,R.,Anderson,Mariya,,Zheleva",
         })
     void test3Authors(final String url,
                       final String expectedFirstName1,
@@ -240,7 +240,7 @@ public class ArsTechnicaLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://arstechnica.com/information-technology/2012/03/microsoft-announces-cloud-building-with-tfs-feature-packs-for-visual-studio/"
+        "https://arstechnica.com/information-technology/2012/03/microsoft-announces-cloud-building-with-tfs-feature-packs-for-visual-studio/",
         })
     void testAuthorAbsence(final String url) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());

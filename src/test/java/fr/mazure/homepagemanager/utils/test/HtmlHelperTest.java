@@ -108,7 +108,7 @@ public class HtmlHelperTest {
         "http://hesketh.com/publications/inclusive_web_design_for_the_future/|",
         "https://blog.cleancoder.com/uncle-bob/2014/06/17/IsTddDeadFinalThoughts.html|UTF-8",
         "https://www.rigacci.org/docs/biblio/online/CA-2000-02/CA-2000-02.html|",
-        "https://www.liberation.fr/checknews/2020/04/16/covid-19-les-personnes-gueries-sont-elles-immunisees_1785420/|"
+        "https://www.liberation.fr/checknews/2020/04/16/covid-19-les-personnes-gueries-sont-elles-immunisees_1785420/|",
     }, delimiter = '|')
     void testCharsetExtraction(final String url,
                                final String expectedCharsetName) {
