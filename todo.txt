@@ -1,4 +1,4 @@
-warnings = 135
+warnings = 124
 lines prod = 9514
 lines test = 3939
 test coverage =
@@ -15,42 +15,82 @@ methods       53.0%/52.2%    97.9%
 
 
 
+
+maintenir unit tests
+
+
+
+
+
+
+
+gérer
+java.lang.UnsupportedOperationException: https://www.wired.co.uk/article/5g-coronavirus-conspiracy-theory-attacks|301→https://www.wired.com/story/5g-coronavirus-conspiracy-theory-attacks/|504→
+    at fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.getMatch(WellKnownRedirections.java:629)
+    at fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.getPossibleStatuses(LinkStatusAnalyzer.java:80)
+    at fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.doesEffectiveDataMatchesExpectedData(LinkStatusAnalyzer.java:34)
+    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.writeOutputFile(LinkCheckRunner.java:410)
+    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:354)
+    at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
+    at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
+    at fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:34)
+    at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+    at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+    at java.base/java.lang.Thread.run(Thread.java:1570)
+
+
+ 
+ 
+ 
+ 
+ extraction des auteurs de https://generatingconversation.substack.com/p/you-cant-build-a-moat-with-ai
+ 
+ 
+ 
+
 ==== potentially before merge =====
 
 
 
 
-gérer les redirections vers la locale (pex companies.xml)
+je pense qu'il y a un problème entre le matin et l'après-midi
+https://www.youtube.com/watch?v=tdv7r2JSokI
+expected date 2024-04-23 is not equal to the effective publish date 2024-04-22
+
+
 
 
 
 
 
 gérer
-Title = "The Linux Security "State of the Union""
-URL = http://www-1.ibm.com/linux/news/LTCWhitepaper.shtml
-Expected status = DEAD
-Effective error = "Failed to get input stream: java.io.FileNotFoundException: https://www.ibm.com/linux/news/LTCWhitepaper.shtml"
+Title = "Reusing Exceptions"
+URL = http://java.sun.com/developer/JDCTechTips/2003/tt0422.html#2
+Expected status = REMOVED
 Effective HTTP code = 301 Moved Permanently
-Effective HTTP code of last redirection = 404 Not Found
-Redirection chain = http://www-1.ibm.com/linux/news/LTCWhitepaper.shtml → https://www-1.ibm.com/linux/news/LTCWhitepaper.shtml → https://www.ibm.com/linux/news/LTCWhitepaper.shtml
-Redirection matcher = redirection ending with an error code
-Redirection matcher expected statuses = DEAD
-Look for article = https://www.google.com/search?q=%22The+Linux+Security+%22State+of+the+Union%22%22
+Effective HTTP code of last redirection = 200 OK
+Redirection chain = http://java.sun.com/developer/JDCTechTips/2003/tt0422.html#2 → https://java.sun.com/developer/JDCTechTips/2003/tt0422.html → http://www.oracle.com/technetwork/java/index.html → http://www.oracle.com/java/technologies/?er=221886 → https://www.oracle.com/java/technologies/?er=221886
+Redirection matcher = redirection ending in success (last URL should be used)
+Redirection matcher expected statuses = 
+Look for article = https://www.google.com/search?q=%22Reusing+Exceptions%22
+
+Title = "When are two strings equal?"
+URL = http://java.sun.com/developer/JDCTechTips/2004/tt0504.html#2
+Expected status = REMOVED
+Effective HTTP code = 301 Moved Permanently
+Effective HTTP code of last redirection = 200 OK
+Redirection chain = http://java.sun.com/developer/JDCTechTips/2004/tt0504.html#2 → https://java.sun.com/developer/JDCTechTips/2004/tt0504.html → http://www.oracle.com/technetwork/java/index.html → http://www.oracle.com/java/technologies/?er=221886 → https://www.oracle.com/java/technologies/?er=221886
+Redirection matcher = redirection ending in success (last URL should be used)
+Redirection matcher expected statuses = 
+Look for article = https://www.google.com/search?q=%22When+are+two+strings+equal%3F%22
 
 
 
 
-gérer
-https://www.quantamagazine.org/what-is-quantum-field-theory-and-why-is-it-incomplete-20220810/
-The list of effective authors is not the effective one.
-The following authors are effectively present but are unexpected: ▭ ▭ ▭ ▭ ▭ given=Video
-The following authors are expected but are effectively missing: 
 
-https://www.quantamagazine.org/what-is-quantum-teleportation-20240314/
-The list of effective authors is not the effective one.
-The following authors are effectively present but are unexpected: ▭ ▭ ▭ ▭ ▭ given=J
-The following authors are expected but are effectively missing: 
+
+bug  : le titre de la fenêtre des authors ne devrait pas être un lien
+
 
 
 

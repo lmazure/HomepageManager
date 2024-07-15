@@ -64,8 +64,8 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
                          "Oracle Blog",
                          "date");
     private static final TextParser s_authorParser
-        = new TextParser("<meta name=\"author\" content=\"",
-                         "\">",
+        = new TextParser("<span><a id=\"postAuthorName\" href=\"[^\"]+\">",
+                         "</a>",
                          "Oracle Blog",
                          "author");
     private static DateTimeFormatter s_formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.US);
@@ -117,24 +117,24 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
             }
             _publicationDate = publicationDate;
             final List<AuthorData> list = new ArrayList<>(1);
-            String author;
-            try {
-                author = s_authorParser.extract(data);
-                list.add(LinkContentParserUtils.getAuthor(author));
-            } catch (final ContentParserException e) {
-                _exception = null;
-                _authorException = e;
-                _authors = null;
-                return;
+            for (final String author: s_authorParser.extractMulti(data)) {
+                try {
+                    list.add(LinkContentParserUtils.getAuthor(author));
+                } catch (final ContentParserException e) {
+                    _exception = null;
+                    _authorException = e;
+                    _authors = null;
+                    return;
+                }
             }
             _authors = list;
             _exception = null;
             _authorException = null;
             return;
          }
+
         final String site = m.group(1);
         final String caas = m.group(2);
-
         // retrieve channel access token from site structure
         String stuctureJson = null;
         try {
@@ -221,8 +221,11 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
             final String authorUrl = authors.getJSONObject(i).getJSONArray("links").getJSONObject(0).getString("href");
             try {
                 _authors.add(getAuthor(authorUrl));
-            } catch (final IOException | ContentParserException | JSONException | NotGzipException e) {
+            } catch (final IOException | JSONException | NotGzipException e) {
                 _authorException = new ContentParserException("failed to read author JSON data for " + url, e);
+                return;
+            } catch (final ContentParserException e) {
+                _authorException = e;
                 return;
             }
         }
@@ -236,7 +239,7 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return url.matches("https://blogs.oracle.com/javamagazine/.+") || url.matches("https://blogs.oracle.com/java/.+");
+        return url.matches("https://blogs.oracle.com/(java|javamagazine|cloud-infrastructure)/.+");
     }
 
     @Override
@@ -276,11 +279,30 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
         return _retriever.getGzippedContent(jsonUrl, false);
     }
 
-    private AuthorData getAuthor(final String url) throws IOException, ContentParserException, NotGzipException {
+    private AuthorData getAuthor(final String url) throws IOException, NotGzipException, ContentParserException {
         final String jsonPayload = _retriever.getGzippedContent(url, false);
         final JSONObject obj = new JSONObject(jsonPayload);
-        final String name = obj.getString("name");
-        return LinkContentParserUtils.getAuthor(name);
+        final JSONObject fields = obj.getJSONObject("fields");
+        String firstName = fields.getString("first_name").trim();
+        String middleName = fields.isNull("middle_name") ? null
+                                                         : fields.getString("middle_name").trim();
+        final String lastName = fields.getString("last_name").trim();
+        
+        // kludge for working around bad middle name handling
+        if (firstName.matches(".* [A-Z]\\.")) {
+            if (middleName != null) {
+                throw new ContentParserException("first name (" + firstName + ") contains middle name, while middle name (" + middleName + ") is defined");
+            }
+            middleName = firstName.substring(firstName.length() - 2, firstName.length());
+            firstName = firstName.substring(0, firstName.length() - 3);
+        }
+        
+        return new AuthorData(Optional.empty(),
+                              Optional.of(firstName),
+                              Optional.ofNullable(middleName),
+                              Optional.of(lastName),
+                              Optional.empty(),
+                              Optional.empty());
     }
 
     @Override

@@ -32,6 +32,7 @@ public class OracleBlogsLinkContentParserTest {
         "https://blogs.oracle.com/java/post/javaone-is-back|JavaOne is Back!",
         "https://blogs.oracle.com/javamagazine/post/everything-you-need-to-know-about-openjdks-move-to-git-and-github|Everything you need to know about OpenJDK’s move to Git and GitHub",
         "https://blogs.oracle.com/javamagazine/understanding-the-jdks-new-superfast-garbage-collectors|Understanding the JDK’s New Superfast Garbage Collectors", // the title finishes with a space
+        "https://blogs.oracle.com/cloud-infrastructure/post/oracle-code-assist-ai-companion-boost-velocity|Oracle Code Assist: AI companion to boost developer velocity",
         }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
@@ -64,7 +65,7 @@ public class OracleBlogsLinkContentParserTest {
         // the following article has a newline in the subtitle
         "https://blogs.oracle.com/javamagazine/the-largest-survey-ever-of-java-developers|What 10,500 Java developers tell us about their projects, their tools, and themselves",
         // the following article contains <code> in the subtitle
-        "https://blogs.oracle.com/javamagazine/java-enhancedfor-loop-statement|The enhanced for statement operates at a higher level of abstraction than the traditional simple for statement."
+        "https://blogs.oracle.com/javamagazine/java-enhancedfor-loop-statement|The enhanced for statement operates at a higher level of abstraction than the traditional simple for statement.",
         }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
@@ -89,7 +90,7 @@ public class OracleBlogsLinkContentParserTest {
         //"https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update",
         "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se",
         // the following article contains <h2> which is not a subtitle
-        "https://blogs.oracle.com/javamagazine/post/the-top-25-greatest-java-apps-ever-written"
+        "https://blogs.oracle.com/javamagazine/post/the-top-25-greatest-java-apps-ever-written",
         })
     void testNoSubtitle(final String url) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
@@ -139,17 +140,20 @@ public class OracleBlogsLinkContentParserTest {
     @ParameterizedTest
     @CsvSource({
         // the next article is broken
-        //"https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update,David,Delabassee",
-        "https://blogs.oracle.com/javamagazine/post/12-recipes-for-using-the-optional-class-as-its-meant-to-be-used,Mohamed,Taman",
-        "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se,Donald,Smith",
-        "https://blogs.oracle.com/javamagazine/post/everything-you-need-to-know-about-openjdks-move-to-git-and-github,Ian,Darwin",
+        //"https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update,David,,Delabassee",
+        "https://blogs.oracle.com/javamagazine/post/12-recipes-for-using-the-optional-class-as-its-meant-to-be-used,Mohamed,,Taman",
+        "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se,Donald,,Smith",
+        "https://blogs.oracle.com/javamagazine/post/everything-you-need-to-know-about-openjdks-move-to-git-and-github,Ian,,Darwin",
+        "https://blogs.oracle.com/cloud-infrastructure/post/oracle-code-assist-ai-companion-boost-velocity,Aanand,,Krishnan",
+        "https://blogs.oracle.com/javamagazine/post/curly-braces-java-recursion-tail-call-optimization,Eric,J.,Bruno",
         })
     void testAuthor(final String url,
                     final String expectedFirstName,
+                    final String expectedMiddleName,
                     final String expectedLastName) {
         final AuthorData expectedAuthor = new AuthorData(Optional.empty(),
                                                          Optional.of(expectedFirstName),
-                                                         Optional.empty(),
+                                                         Optional.ofNullable(expectedMiddleName),
                                                          Optional.of(expectedLastName),
                                                          Optional.empty(),
                                                          Optional.empty());
@@ -175,7 +179,7 @@ public class OracleBlogsLinkContentParserTest {
     @ParameterizedTest
     @CsvSource({
         "https://blogs.oracle.com/javamagazine/java-for-loop-break-continue,Mikalai,Zaikin,Simon,Roberts",
-        "https://blogs.oracle.com/javamagazine/post/java-for-loop-break-continue,Mikalai,Zaikin,Simon,Roberts"
+        "https://blogs.oracle.com/javamagazine/post/java-for-loop-break-continue,Mikalai,Zaikin,Simon,Roberts",
         })
     void testTwoAuthors(final String url,
                         final String expectedFirstName1,

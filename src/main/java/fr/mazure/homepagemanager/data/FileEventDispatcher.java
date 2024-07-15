@@ -21,6 +21,7 @@ import fr.mazure.homepagemanager.utils.WatchDir;
 public class FileEventDispatcher {
 
     private static final String s_markerFile = "favicon.ico";
+    @SuppressWarnings("resource")
     private static final PathMatcher s_matcher = FileSystems.getDefault().getPathMatcher("glob:**/*.xml");
     static final List<String> _ignoredDirectories = new ArrayList<>(List.of(".svn",
                                                                             ".git",

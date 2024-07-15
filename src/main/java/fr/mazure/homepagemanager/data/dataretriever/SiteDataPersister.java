@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.zip.GZIPInputStream;
 
 import fr.mazure.homepagemanager.utils.ExitHelper;
@@ -185,9 +186,8 @@ public class SiteDataPersister {
             return new ArrayList<>(0);
         }
 
-        try {
-            return Files.list(getOutputDirectory(url))
-                        .map(p -> p.getFileName().toString())
+        try (final Stream<Path> files = Files.list(getOutputDirectory(url))) {
+            return files.map(p -> p.getFileName().toString())
                         .filter(s -> s.startsWith(effectiveFileNamePrefix))
                         .map(s -> s.replace(effectiveFileNamePrefix, ""))
                         .map(s -> Instant.parse(s.replaceAll(";", ":")))

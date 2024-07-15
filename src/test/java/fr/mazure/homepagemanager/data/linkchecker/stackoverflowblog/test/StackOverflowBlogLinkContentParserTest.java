@@ -24,7 +24,7 @@ public class StackOverflowBlogLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://stackoverflow.blog/2023/01/24/ai-applications-open-new-security-vulnerabilities/,AI applications open new security vulnerabilities"
+        "https://stackoverflow.blog/2023/01/24/ai-applications-open-new-security-vulnerabilities/,AI applications open new security vulnerabilities",
         })
     void testTitle(final String url,
                    final String expectedTitle) {
@@ -48,7 +48,7 @@ public class StackOverflowBlogLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://stackoverflow.blog/2023/01/24/ai-applications-open-new-security-vulnerabilities/,Your ML model and AI-as-a-service apps might open new attack surfaces. Here's how to mitigate them."
+        "https://stackoverflow.blog/2023/01/24/ai-applications-open-new-security-vulnerabilities/,Your ML model and AI-as-a-service apps might open new attack surfaces. Here's how to mitigate them.",
         })
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
@@ -72,7 +72,7 @@ public class StackOverflowBlogLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://stackoverflow.blog/2023/01/24/ai-applications-open-new-security-vulnerabilities/,2023-01-24"
+        "https://stackoverflow.blog/2023/01/24/ai-applications-open-new-security-vulnerabilities/,2023-01-24",
         })
     void testDate(final String url,
                   final String expectedDate) {

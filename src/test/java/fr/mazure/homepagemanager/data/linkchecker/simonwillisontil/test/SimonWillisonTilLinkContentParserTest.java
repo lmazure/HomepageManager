@@ -17,7 +17,7 @@ import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 
 /**
- * 
+ *
  */
 public class SimonWillisonTilLinkContentParserTest {
 
@@ -127,7 +127,7 @@ public class SimonWillisonTilLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-        "https://til.simonwillison.net/google/gmail-compose-url|en"
+        "https://til.simonwillison.net/google/gmail-compose-url|en",
         }, delimiter = '|')
     void testLanguage(final String url,
                       final String expectedLanguage) {

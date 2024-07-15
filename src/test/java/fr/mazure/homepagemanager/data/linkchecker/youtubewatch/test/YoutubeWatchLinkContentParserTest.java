@@ -26,7 +26,7 @@ public class YoutubeWatchLinkContentParserTest {
     @ParameterizedTest
     @ValueSource(strings = {
             "https://www.youtube.com/watch?v=_kGqkxQo-Tw",
-            "https://www.youtube.com/watch?v=z34XhE5oRwo"
+            "https://www.youtube.com/watch?v=z34XhE5oRwo",
                             })
     void testPlayabilityStatusOk(final String url) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
@@ -122,7 +122,7 @@ public class YoutubeWatchLinkContentParserTest {
             "https://www.youtube.com/watch?v=_kGqkxQo-Tw|Alain Aspect - Le photon onde ou particule ? L’étrangeté quantique mise en lumière",
             "https://www.youtube.com/watch?v=C2Tw0BeZb8Q|Scott Schiller: Web Audio - HTML5 + Flash (in a tree)",
             "https://www.youtube.com/watch?v=EcPPjZVB2vA|L'INCROYABLE HISTOIRE DE LA CONJECTURE DE FERMAT CMH#14",
-            "https://www.youtube.com/watch?v=hcACC8LXokU|FLIP, L'émission quotidienne - Les Escapes Games"
+            "https://www.youtube.com/watch?v=hcACC8LXokU|FLIP, L'émission quotidienne - Les Escapes Games",
               }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {

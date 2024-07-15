@@ -97,7 +97,7 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
             if (cleanedText.equals("GitLab Security Team")) {
                 continue;
             }
-            final String removedTitle = cleanedText.replaceFirst(", (Chief Product Officer|co-founder|Guest Contributor).*$", "");
+            final String removedTitle = cleanedText.replaceFirst(", (Chief Product Officer|co-founder|Guest Contributor|Ph\\.D\\.).*$", "");
             final List<AuthorData> author = LinkContentParserUtils.getAuthors(removedTitle);
             authors.addAll(author);
         }

@@ -52,7 +52,7 @@ public class GithubBlogLinkContentParserTest {
     @CsvSource(value = {
         "https://github.blog/2022-10-03-highlights-from-git-2-38/|Another new release of Git is here! Take a look at some of our highlights on what's new in Git 2.38.",
         // the following articles have a different subtitle in the JSON payload and the HTML content
-        "https://github.blog/2022-01-24-highlights-from-git-2-35/|The open source Git project just released Git 2.35. Here's GitHub's look at some of the most interesting features and changes introduced since last time."
+        "https://github.blog/2022-01-24-highlights-from-git-2-35/|The open source Git project just released Git 2.35. Here's GitHub's look at some of the most interesting features and changes introduced since last time.",
         }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
@@ -160,7 +160,7 @@ public class GithubBlogLinkContentParserTest {
     @ParameterizedTest
     @CsvSource({
         "https://github.blog/2023-09-12-codeql-team-uses-ai-to-power-vulnerability-detection-in-code/,Walker,,Chabbott,Florin,,Coada",
-        "https://github.blog/2022-02-14-include-diagrams-markdown-files-mermaid/,Martin,,Woodward,Adam,,Biagianti"
+        "https://github.blog/2022-02-14-include-diagrams-markdown-files-mermaid/,Martin,,Woodward,Adam,,Biagianti",
         })
     void testTwoAuthors(final String url,
                         final String expectedFirstName1,

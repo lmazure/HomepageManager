@@ -24,7 +24,7 @@ public class IbmLinkContentParserTest {
     @CsvSource(value = {
             "https://developer.ibm.com/articles/j-java-streams-2-brian-goetz/",
             "https://developer.ibm.com/articles/wa-sailsjs4/",
-            "https://developer.ibm.com/tutorials/wa-build-deploy-web-app-sailsjs-2-bluemix"
+            "https://developer.ibm.com/tutorials/wa-build-deploy-web-app-sailsjs-2-bluemix",
         })
     void testArticleIsLost(final String url) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
@@ -43,7 +43,7 @@ public class IbmLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-            "https://developer.ibm.com/articles/j-java-streams-1-brian-goetz/"
+            "https://developer.ibm.com/articles/j-java-streams-1-brian-goetz/",
         })
     void testArticleIsNotLost(final String url) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
@@ -88,7 +88,7 @@ public class IbmLinkContentParserTest {
     @CsvSource(value = {
             "https://developer.ibm.com/articles/j-java-streams-1-brian-goetz/|Run functional-style queries on collections and other data sets",
             // the next article has a space at the end of the subtitle
-            "https://developer.ibm.com/articles/j-java-streams-3-brian-goetz/|Understand java.util.stream internals"
+            "https://developer.ibm.com/articles/j-java-streams-3-brian-goetz/|Understand java.util.stream internals",
         }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
@@ -136,14 +136,15 @@ public class IbmLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://developer.ibm.com/articles/j-java-streams-1-brian-goetz/,Brian,Goetz",
+        "https://developer.ibm.com/articles/j-java-streams-1-brian-goetz/,Brian,,Goetz",
         })
     void testAuthor(final String url,
                     final String expectedFirstName,
+                    final String expectedMiddleName,
                     final String expectedLastName) {
         final AuthorData expectedAuthor = new AuthorData(Optional.empty(),
                                                          Optional.of(expectedFirstName),
-                                                         Optional.empty(),
+                                                         Optional.ofNullable(expectedMiddleName),
                                                          Optional.of(expectedLastName),
                                                          Optional.empty(),
                                                          Optional.empty());

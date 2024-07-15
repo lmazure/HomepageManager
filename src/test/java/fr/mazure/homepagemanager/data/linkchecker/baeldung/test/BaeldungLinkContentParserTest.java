@@ -62,7 +62,7 @@ public class BaeldungLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://www.baeldung.com/crawler4j,2024-01-11"
+        "https://www.baeldung.com/crawler4j,2024-01-11",
         })
     void testDate(final String url,
                   final String expectedDate) {
@@ -118,7 +118,7 @@ public class BaeldungLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://www.baeldung.com/java-9-reactive-streams"
+        "https://www.baeldung.com/java-9-reactive-streams",
         })
     void testNoAuthor(final String url) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());

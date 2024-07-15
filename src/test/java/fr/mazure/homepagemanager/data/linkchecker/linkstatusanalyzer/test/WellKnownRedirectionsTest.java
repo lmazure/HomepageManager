@@ -172,7 +172,6 @@ class WellKnownRedirectionsTest {
     @ParameterizedTest
     @CsvSource({
         "https://www.4d.com",
-        "https://www.ibm.com",
         })
     void redirectionsEndingInSuccess(final String url) {
         test(url,
@@ -191,6 +190,25 @@ class WellKnownRedirectionsTest {
              true,
              Integer.valueOf(200),
              "redirection to itself",
+             Set.of(LinkStatus.OK));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "https://www.dell.com",      // https://www.dell.com/fr-fr
+        "https://www.ibm.com",       // https://www.ibm.com/fr-fr
+        "https://www.loria.fr",      // https://www.loria.fr/en/
+        "https://www.microsoft.com", // https://www.microsoft.com/fr-fr/
+        "https://www.msn.com",       // https://www.msn.com/fr-fr
+        "https://www.nintendo.com",  // https://www.nintendo.com/us/
+        "https://www.real.com",      // https://www.real.com/fr
+        "https://www.sans.org",      // https://www.sans.org/fr_fr/
+        })
+    void redirectionsToLocale(final String url) {
+        test(url,
+             true,
+             Integer.valueOf(200),
+             "redirection to locale",
              Set.of(LinkStatus.OK));
     }
 
@@ -426,7 +444,6 @@ class WellKnownRedirectionsTest {
              "removed from TechRepublic",
              Set.of(LinkStatus.REMOVED));
     }
-
 
     @ParameterizedTest
     @CsvSource({

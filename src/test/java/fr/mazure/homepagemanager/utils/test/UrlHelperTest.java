@@ -15,7 +15,7 @@ public class UrlHelperTest {
     @ParameterizedTest
     @CsvSource({
         "https://www.youtube.com/watch?app=desktop&v=3bTntGMnzfw&list=WL&index=7,https://www.youtube.com/watch?v=3bTntGMnzfw",
-        "https://www.youtube.com/watch?v=3bTntGMnzfw,https://www.youtube.com/watch?v=3bTntGMnzfw"
+        "https://www.youtube.com/watch?v=3bTntGMnzfw,https://www.youtube.com/watch?v=3bTntGMnzfw",
         })
     void typicalYouTubeCleanUp(final String url,
                                final String expectedCleanedUrl) {

@@ -39,7 +39,7 @@ public class LinkContentParserUtils {
         } else {
             s2 = str;
         }
-        final String s = s2.replaceAll("\\(.*\\)", "");
+        final String s = s2.replaceAll("^(.+)\\(.*\\)", "$1"); // clumsy regexp to remove bracket except for "(λx.x)eranga"
         final String[] nameParts = HtmlHelper.cleanContent(s).split("( |\u00A0)");
         if (nameParts.length == 2) {
             return new AuthorData(Optional.empty(),

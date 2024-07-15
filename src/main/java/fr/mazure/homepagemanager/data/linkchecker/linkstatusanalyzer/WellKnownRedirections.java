@@ -37,6 +37,7 @@ public class WellKnownRedirections {
         errorCodes.add(Integer.valueOf(404));
         errorCodes.add(Integer.valueOf(409));
         errorCodes.add(Integer.valueOf(410));
+        errorCodes.add(Integer.valueOf(429));
         errorCodes.add(Integer.valueOf(500));
         errorCodes.add(Integer.valueOf(502));
         errorCodes.add(Integer.valueOf(503));
@@ -347,10 +348,10 @@ public class WellKnownRedirections {
             sun.add("\\Qhttp://www.oracle.com/technetwork/java/index.html\\E",
                     Set.of(Integer.valueOf(301)),
                     RedirectionMatcher.Multiplicity.ONE);
-            sun.add("\\Qhttps://www.oracle.com/technetwork/java/index.html\\E",
+            sun.add("\\Qhttp://www.oracle.com/java/technologies/?er=221886\\E",
                     Set.of(Integer.valueOf(301)),
                     RedirectionMatcher.Multiplicity.ONE);
-            sun.add("\\Qhttps://www.oracle.com/java/technologies/\\E",
+            sun.add("\\Qhttps://www.oracle.com/java/technologies/?er=221886\\E",
                     Set.of(Integer.valueOf(200)),
                     RedirectionMatcher.Multiplicity.ONE);
             sun.compile();
@@ -471,7 +472,7 @@ public class WellKnownRedirections {
                              Set.of(Integer.valueOf(301)),
                              RedirectionMatcher.Multiplicity.ONE);
             msdnRemoved2.add("\\Qhttps://learn.microsoft.com\\E",
-                             Set.of(Integer.valueOf(301)),
+                             Set.of(Integer.valueOf(302)),
                              RedirectionMatcher.Multiplicity.ONE);
             msdnRemoved2.add("\\Qhttps://learn.microsoft.com/en-us/\\E",
                              Set.of(Integer.valueOf(200)),
@@ -542,6 +543,22 @@ public class WellKnownRedirections {
                                     redirectionCodes,
                                     RedirectionMatcher.Multiplicity.ONE_OR_MANY);
             redirectionToItself.add("\\k<site>",
+                                    successCodes,
+                                    RedirectionMatcher.Multiplicity.ONE);
+            redirectionToItself.compile();
+            _matchers.add(redirectionToItself);
+        }
+
+        {
+            final RedirectionMatcher redirectionToItself = new RedirectionMatcher("redirection to locale",
+                                                                                  Set.of(LinkStatus.OK));
+            redirectionToItself.add("(?<site>https?://.*)",
+                                    redirectionCodes,
+                                    RedirectionMatcher.Multiplicity.ONE);
+            redirectionToItself.add("https?://.*",
+                                    redirectionCodes,
+                                    RedirectionMatcher.Multiplicity.ZERO_OR_MANY);
+            redirectionToItself.add("\\k<site>/(fr|fr-fr|fr_fr|en|us|us-en)/?",
                                     successCodes,
                                     RedirectionMatcher.Multiplicity.ONE);
             redirectionToItself.compile();

@@ -6,13 +6,16 @@
     <artifactId>HomepageManager</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
+    <name>HomepageManager</name>
+    <url>https://github.com/lmazure/HomepageManager</url>
+
     <properties>
-        <maven.compiler.target>21</maven.compiler.target>
-        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>22</maven.compiler.target>
+        <maven.compiler.source>22</maven.compiler.source>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <junit.version>5.10.0</junit.version>
-        <javafx.version>21.0.1</javafx.version>
+        <junit.version>5.10.2</junit.version>
+        <javafx.version>23-ea+20</javafx.version>
     </properties>
 
     <dependencies>
@@ -71,17 +74,17 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>3.13.0</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.1</version>
+                <version>3.2.5</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.2.1</version>
+                <version>3.2.5</version>
             </plugin>
         </plugins>
     </build>
