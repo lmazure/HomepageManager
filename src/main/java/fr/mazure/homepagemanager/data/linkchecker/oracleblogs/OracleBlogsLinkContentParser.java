@@ -132,9 +132,9 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
             _authorException = null;
             return;
          }
+
         final String site = m.group(1);
         final String caas = m.group(2);
-
         // retrieve channel access token from site structure
         String stuctureJson = null;
         try {
@@ -224,6 +224,9 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
             } catch (final IOException | JSONException | NotGzipException e) {
                 _authorException = new ContentParserException("failed to read author JSON data for " + url, e);
                 return;
+            } catch (final ContentParserException e) {
+                _authorException = e;
+                return;
             }
         }
         _authorException = null;
@@ -276,14 +279,24 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
         return _retriever.getGzippedContent(jsonUrl, false);
     }
 
-    private AuthorData getAuthor(final String url) throws IOException, NotGzipException {
+    private AuthorData getAuthor(final String url) throws IOException, NotGzipException, ContentParserException {
         final String jsonPayload = _retriever.getGzippedContent(url, false);
         final JSONObject obj = new JSONObject(jsonPayload);
         final JSONObject fields = obj.getJSONObject("fields");
-        final String firstName = fields.getString("first_name").trim();
-        final String middleName = fields.isNull("middle_name") ? null
-                                                               : fields.getString("middle_name").trim();
+        String firstName = fields.getString("first_name").trim();
+        String middleName = fields.isNull("middle_name") ? null
+                                                         : fields.getString("middle_name").trim();
         final String lastName = fields.getString("last_name").trim();
+        
+        // kludge for working around bad middle name handling
+        if (firstName.matches(".* [A-Z]\\.")) {
+            if (middleName != null) {
+                throw new ContentParserException("first name (" + firstName + ") contains middle name, while middle name (" + middleName + ") is defined");
+            }
+            middleName = firstName.substring(firstName.length() - 2, firstName.length());
+            firstName = firstName.substring(0, firstName.length() - 3);
+        }
+        
         return new AuthorData(Optional.empty(),
                               Optional.of(firstName),
                               Optional.ofNullable(middleName),

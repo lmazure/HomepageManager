@@ -140,18 +140,20 @@ public class OracleBlogsLinkContentParserTest {
     @ParameterizedTest
     @CsvSource({
         // the next article is broken
-        //"https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update,David,Delabassee",
-        "https://blogs.oracle.com/javamagazine/post/12-recipes-for-using-the-optional-class-as-its-meant-to-be-used,Mohamed,Taman",
-        "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se,Donald,Smith",
-        "https://blogs.oracle.com/javamagazine/post/everything-you-need-to-know-about-openjdks-move-to-git-and-github,Ian,Darwin",
-        "https://blogs.oracle.com/cloud-infrastructure/post/oracle-code-assist-ai-companion-boost-velocity,Aanand,Krishnan",
+        //"https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update,David,,Delabassee",
+        "https://blogs.oracle.com/javamagazine/post/12-recipes-for-using-the-optional-class-as-its-meant-to-be-used,Mohamed,,Taman",
+        "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se,Donald,,Smith",
+        "https://blogs.oracle.com/javamagazine/post/everything-you-need-to-know-about-openjdks-move-to-git-and-github,Ian,,Darwin",
+        "https://blogs.oracle.com/cloud-infrastructure/post/oracle-code-assist-ai-companion-boost-velocity,Aanand,,Krishnan",
+        "https://blogs.oracle.com/javamagazine/post/curly-braces-java-recursion-tail-call-optimization,Eric,J.,Bruno",
         })
     void testAuthor(final String url,
                     final String expectedFirstName,
+                    final String expectedMiddleName,
                     final String expectedLastName) {
         final AuthorData expectedAuthor = new AuthorData(Optional.empty(),
                                                          Optional.of(expectedFirstName),
-                                                         Optional.empty(),
+                                                         Optional.ofNullable(expectedMiddleName),
                                                          Optional.of(expectedLastName),
                                                          Optional.empty(),
                                                          Optional.empty());
