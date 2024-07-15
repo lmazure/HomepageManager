@@ -23,7 +23,7 @@ public class QuantaMagazineLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-        "https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/|Universal Method to Sort Complex Information Found"
+        "https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/|Universal Method to Sort Complex Information Found",
         }, delimiter = '|')
     void testTitleWithPostfix(final String url,
                               final String expectedTitle) {
@@ -47,7 +47,7 @@ public class QuantaMagazineLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-        "https://www.quantamagazine.org/mathematician-solves-computer-science-conjecture-in-two-pages-20190725/|Decades-Old Computer Science Conjecture Solved in Two Pages"
+        "https://www.quantamagazine.org/mathematician-solves-computer-science-conjecture-in-two-pages-20190725/|Decades-Old Computer Science Conjecture Solved in Two Pages",
         }, delimiter = '|')
     void testTitleWithoutPostfix(final String url,
                                  final String expectedTitle) {
@@ -161,7 +161,7 @@ public class QuantaMagazineLinkContentParserTest {
     @ParameterizedTest
     @CsvSource({
         "https://www.quantamagazine.org/new-algorithm-solves-cake-cutting-problem-20161006/,2016-10-06",
-        "https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/,2018-08-13"
+        "https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/,2018-08-13",
         })
     void testDate(final String url,
                   final String expectedDate) {
@@ -186,7 +186,7 @@ public class QuantaMagazineLinkContentParserTest {
     @ParameterizedTest
     @CsvSource({
         "https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/,Kevin,,Hartnett",
-        "https://www.quantamagazine.org/long-covid-how-it-keeps-us-sick-20210701/,Tara,C.,Smith"
+        "https://www.quantamagazine.org/long-covid-how-it-keeps-us-sick-20210701/,Tara,C.,Smith",
         })
     void testAuthor(final String url,
                     final String expectedFirstName,
@@ -219,7 +219,7 @@ public class QuantaMagazineLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://www.quantamagazine.org/barbara-liskov-is-the-architect-of-modern-algorithms-20191120/,Susan,,D'Agostino"
+        "https://www.quantamagazine.org/barbara-liskov-is-the-architect-of-modern-algorithms-20191120/,Susan,,D'Agostino",
         })
     void testAuthorWithEncodedCharacter(final String url,
                                         final String expectedFirstName,
@@ -300,6 +300,7 @@ public class QuantaMagazineLinkContentParserTest {
         "https://www.quantamagazine.org/what-is-quantum-field-theory-and-why-is-it-incomplete-20220810/,Steven,,Strogatz,David,,Tong",
         "https://www.quantamagazine.org/what-is-quantum-teleportation-20240314/,Janna,,Levin,John,,Preskill",
         "https://www.quantamagazine.org/what-is-the-nature-of-time-20240229/,Steven,,Strogatz,Frank,,Wilczek",
+        "https://www.quantamagazine.org/will-better-superconductors-transform-the-world-20240509/,Janna,,Levin,Siddharth,Shanker,Saxena",
         })
     void testAuthorJoyOfWhy(final String url,
                             final String expectedHostFirstName,
