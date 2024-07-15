@@ -14,19 +14,19 @@ methods       53.0%/52.2%    97.9%
 
 
 
-
-maintenier unit tests
-
-
-
-
-
-
 gérer
-tag = "ARTICLE"
-value = "Build RAG Application Using a LLM Running on Local Computer with GPT4All and LangchainPrivacy-preserving LLM without GPUhttps://medium.com/rahasak/build-rag-application-using-a-llm-running-on-local-computer-with-gpt4all-and-langchain-13b4b8851db8enHTML(λx.x)eranga2024310A clear explanation with working code of how to scrap an Internet doc, to chunk it, to store it in Chroma, and to use GPT4All to generate the answer."
-violation = "author name contains illegal characters"
-detail = "The given name of author ▭ ▭ ▭ ▭ ▭ given=(λx.x)eranga contains an illegal character"
+https://www.quantamagazine.org/will-better-superconductors-transform-the-world-20240509/
+The list of effective authors is not the effective one.
+The following authors are effectively present but are unexpected: ▭ ▭ ▭ ▭ ▭ given=Transcript
+The following authors are expected but are effectively missing: ▭ first=Siddharth middle=Shanker last=Saxena ▭ ▭
+
+
+
+
+
+
+maintenir unit tests
+
 
 
 
