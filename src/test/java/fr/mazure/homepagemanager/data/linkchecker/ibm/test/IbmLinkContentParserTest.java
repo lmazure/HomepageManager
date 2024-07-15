@@ -136,14 +136,15 @@ public class IbmLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://developer.ibm.com/articles/j-java-streams-1-brian-goetz/,Brian,Goetz",
+        "https://developer.ibm.com/articles/j-java-streams-1-brian-goetz/,Brian,,Goetz",
         })
     void testAuthor(final String url,
                     final String expectedFirstName,
+                    final String expectedMiddleName,
                     final String expectedLastName) {
         final AuthorData expectedAuthor = new AuthorData(Optional.empty(),
                                                          Optional.of(expectedFirstName),
-                                                         Optional.empty(),
+                                                         Optional.ofNullable(expectedMiddleName),
                                                          Optional.of(expectedLastName),
                                                          Optional.empty(),
                                                          Optional.empty());
