@@ -17,15 +17,8 @@ methods       53.0%/52.2%    97.9%
 
  
 
-normaliser le parsing des authos pour éviter que la génération ne donne
- tag = "ARTICLE"
- value = "What Could Explain the Gallium Anomaly?Physicists have ruled out a mundane explanation for the strange findings of an old Soviet experiment, leaving open the possibility that the results point to a new fundamental particle.https://www.quantamagazine.org/what-could-explain-the-gallium-anomaly-20240712enHTMLJonathanO'Callaghan2024712The gallium anomaly is the fact that sending neutrinos on gallium generates less germanium than expected. Some researchers think that another neutrino flavor, the lightweight sterile neutrinos, may be the explanation."
- violation = "author name contains illegal characters"
- detail = "The last name of author ▭ first=Jonathan ▭ last=O'Callaghan ▭ ▭ contains an illegal character"
 
-++ comprendre pourquoi, si on corrige couramment à la main, le problème précédent n'est pas détecté
-
-++ pourquoi les trucs suivants ne sont pas détectés
+pourquoi les trucs suivants ne sont pas détectés
  <ITEM><X><T>O'Reilly</T><A>https://www.oreilly.com/</A><L>en</L><F>HTML</F></X></ITEM>
 <ITEM><ARTICLE><X><T>A Collection of O'rly book Covers</T><A>https://boyter.org/2016/04/collection-orly-book-covers/</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Ben</FIRSTNAME><MIDDLENAME>E. C.</MIDDLENAME><LASTNAME>Boyter</LASTNAME></AUTHOR><DATE><YEAR>2016</YEAR><MONTH>4</MONTH><DAY>22</DAY></DATE><COMMENT>O'Reilly book covers.</COMMENT></ARTICLE></ITEM>
 

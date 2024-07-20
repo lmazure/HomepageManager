@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
@@ -19,6 +18,23 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
  * High level tests of LinkDataExtractors
  */
 public class LinkDataExtractorTest {
+
+    @Test
+    void singleQuoteIsManaged() throws ContentParserException {
+        final String url = "https://www.quantamagazine.org/what-could-explain-the-gallium-anomaly-20240712";
+        final String expectedXml = """
+                <ARTICLE><X><T>What Could Explain the Gallium Anomaly?</T>\
+                <ST>Physicists have ruled out a mundane explanation for the strange findings of an old Soviet experiment, leaving open the possibility that the results point to a new fundamental particle.</ST>\
+                <A>https://www.quantamagazine.org/what-could-explain-the-gallium-anomaly-20240712</A>\
+                <L>en</L><F>HTML</F></X>\
+                <AUTHOR><FIRSTNAME>Jonathan</FIRSTNAME><LASTNAME>O’Callaghan</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2024</YEAR><MONTH>7</MONTH><DAY>12</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
 
     @Test
     void arsTechnicaIsManaged() throws ContentParserException {
@@ -2172,7 +2188,6 @@ public class LinkDataExtractorTest {
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
-    @Disabled("it seems that this YouTube channel has been removed")
     @Test
     void youtubeWatchScienceDeComptoirIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=Y4yeTTOTfO8";
