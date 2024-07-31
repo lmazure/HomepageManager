@@ -14,6 +14,68 @@ methods       53.0%/52.2%    97.9%
 
 
 
+Le parsing de https://github.blog/open-source/git/highlights-from-git-2-45/ ne fonctionne plus
+
+
+
+
+
+The cleaning of https://blogs.oracle.com/javamagazine/post/java-quiz-anonymous-classes?source=:so:tw:or:awr:jav:::&SC=:so:tw:or:awr:jav:::&pcode= does not work.
+
+
+
+
+gérer
+Title = "Synchronizing Networks with NTP"
+URL = http://www.linuxdevcenter.com/pub/a/linux/2003/01/02/ntp.html
+Expected status = REMOVED
+Effective HTTP code = 301 Moved Permanently
+Effective HTTP code of last redirection = 200 OK
+Redirection chain = http://www.linuxdevcenter.com/pub/a/linux/2003/01/02/ntp.html → https://www.oreilly.com/ideas/ → https://www.oreilly.com/radar/
+Redirection matcher = redirection ending in success (last URL should be used)
+Redirection matcher expected statuses = 
+Look for article = https://www.google.com/search?q=%22Synchronizing+Networks+with+NTP%22
+
+
+
+
+
+
+gérer notes/vscode.xml
+ tag = "KEY"
+ value = ""
+ violation = "the KEY is incorrect"
+ detail = "Illegal KEY ("\")"
+
+ tag = "KEY"
+ value = ""
+ violation = "the KEY is incorrect"
+ detail = "Illegal KEY ("[")"
+
+ tag = "KEY"
+ value = ""
+ violation = "the KEY is incorrect"
+ detail = "Illegal KEY ("]")"
+
+
+
+
+
+nettoyer links/chrome.xml
+
+
+
+ 
+ 
+
+la navigation sur la page des authors ne marche plus
+
+
+
+
+
+nettoyer links/windows.xml
+
 
  
 

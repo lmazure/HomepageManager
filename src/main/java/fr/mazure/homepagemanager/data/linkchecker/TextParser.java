@@ -89,4 +89,5 @@ public class TextParser {
             matches.add(m.group(1));
          }
         return matches;
-    }}
+    }
+}

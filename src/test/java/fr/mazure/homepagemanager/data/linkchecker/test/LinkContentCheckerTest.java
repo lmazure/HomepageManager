@@ -242,4 +242,5 @@ public class LinkContentCheckerTest {
                            },
                            false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
-    }}
+    }
+}
