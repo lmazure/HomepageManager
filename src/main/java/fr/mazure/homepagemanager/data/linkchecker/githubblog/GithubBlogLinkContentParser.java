@@ -47,7 +47,7 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
                          "title");
 
     private static final TextParser s_subtitleParser
-        = new TextParser("<p class=\"f4-mktg\">",
+        = new TextParser("<div class=\"f4-mktg\">\\n\\t\\t\\t\\t\\t<p>",
                          "</p>",
                          "GitHub blog",
                          "subtitle");
@@ -122,6 +122,7 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
             final String type = o.getString("@type");
             if (type.equals("WebPage")) {
                 webPage = o;
+                break;
             }
         }
         if (webPage == null) {

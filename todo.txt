@@ -14,11 +14,6 @@ methods       53.0%/52.2%    97.9%
 
 
 
-Le parsing de https://github.blog/open-source/git/highlights-from-git-2-45/ ne fonctionne plus
-
-
-
-
 
 The cleaning of https://blogs.oracle.com/javamagazine/post/java-quiz-anonymous-classes?source=:so:tw:or:awr:jav:::&SC=:so:tw:or:awr:jav:::&pcode= does not work.
 
