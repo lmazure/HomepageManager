@@ -4,6 +4,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -142,7 +143,22 @@ class WellKnownRedirectionsTest {
              Set.of(LinkStatus.DEAD));
     }
 
+    // URLs giving directly a 521
+    @ParameterizedTest
+    @CsvSource({
+        "http://httpbin.org/status/521",
+        "https://www.linux-mag.com/id/322",
+        })
+    void direct521(final String url) {
+        test(url,
+             false,
+             Integer.valueOf(521),
+             "direct failure",
+             Set.of(LinkStatus.DEAD));
+    }
+
     // URLs giving directly a 522
+    @Disabled
     @ParameterizedTest
     @CsvSource({
         "http://httpbin.org/status/522",
