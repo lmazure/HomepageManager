@@ -15,35 +15,6 @@ methods       53.0%/52.2%    97.9%
 
 
 
-gérer
- tag = "COMMENT"
- value = "A description of how Codeium handles code licences: filter out code that is explicitly non-permissively licensed from training data, attribution of generated code…"
- violation = "a COMMENT must not contain US syntax"
- detail = "COMMENT "A description of how Codeium handles code licences: filter out code that is explicitly non-permissively licensed from training data, attribution of generated code…" contains american word "license"  matching regexp "license", it should be "licence""
-
-
-
-
-
-
-
-gérer
-java.lang.UnsupportedOperationException: https://www.linux-mag.com/id/322|521→
-    at fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.getMatch(WellKnownRedirections.java:629)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.getPossibleStatuses(LinkStatusAnalyzer.java:80)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.doesEffectiveDataMatchesExpectedData(LinkStatusAnalyzer.java:34)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.writeOutputFile(LinkCheckRunner.java:410)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:354)
-    at fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:45)
-    at fr.mazure.homepagemanager.data.dataretriever.SiteDataRetriever.retrieve(SiteDataRetriever.java:36)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.launch(LinkCheckRunner.java:159)
-    at fr.mazure.homepagemanager.data.LinkChecker.handleCreation(LinkChecker.java:55)
-    at fr.mazure.homepagemanager.data.FileEventQueue.handleFileCreation(FileEventQueue.java:131)
-    at fr.mazure.homepagemanager.data.FileEventQueue$Consumer.run(FileEventQueue.java:195)
-    at java.base/java.lang.Thread.run(Thread.java:1570)
-
-
-
 
 
 
