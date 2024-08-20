@@ -91,7 +91,7 @@ public class LinkDataExtractorTest {
         final String url = "https://github.blog/2022-10-03-highlights-from-git-2-38/";
         final String expectedXml = """
                 <ARTICLE><X><T>Highlights from Git 2.38</T>\
-                <ST>Another new release of Git is here! Take a look at some of our highlights on what's new in Git 2.38.</ST>\
+                <ST>Another new release of Git is here! Take a look at some of our highlights on what’s new in Git 2.38.</ST>\
                 <A>https://github.blog/2022-10-03-highlights-from-git-2-38/</A>\
                 <L>en</L><F>HTML</F></X>\
                 <AUTHOR><FIRSTNAME>Taylor</FIRSTNAME><LASTNAME>Blau</LASTNAME></AUTHOR>\

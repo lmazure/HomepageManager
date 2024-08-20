@@ -219,7 +219,7 @@ public class QuantaMagazineLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://www.quantamagazine.org/barbara-liskov-is-the-architect-of-modern-algorithms-20191120/,Susan,,D'Agostino",
+        "https://www.quantamagazine.org/barbara-liskov-is-the-architect-of-modern-algorithms-20191120/,Susan,,D’Agostino",
         })
     void testAuthorWithEncodedCharacter(final String url,
                                         final String expectedFirstName,

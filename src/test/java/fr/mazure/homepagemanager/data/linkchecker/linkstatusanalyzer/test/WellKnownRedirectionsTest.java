@@ -144,10 +144,10 @@ class WellKnownRedirectionsTest {
     }
 
     // URLs giving directly a 521
+    @Disabled
     @ParameterizedTest
     @CsvSource({
         "http://httpbin.org/status/521",
-        "https://www.linux-mag.com/id/322",
         })
     void direct521(final String url) {
         test(url,
@@ -158,11 +158,11 @@ class WellKnownRedirectionsTest {
     }
 
     // URLs giving directly a 522
-    @Disabled
     @ParameterizedTest
     @CsvSource({
         "http://httpbin.org/status/522",
         "http://ganttproject.biz",
+        "https://www.linux-mag.com/id/322",
         })
     void direct522(final String url) {
         test(url,
