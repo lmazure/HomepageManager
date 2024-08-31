@@ -26,23 +26,25 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
 
     private final String _data;
     private static final TextParser s_titleParser
-        = new TextParser("<div class=\"ml025 h3 noe mv0\">",
-                         "</div>",
+        = new TextParser("\"disqusTitle\":\"",
+                         "\",\"",
                          "QuantaMagazine",
                          "title");
     private static final TextParser s_subtitleParser
-        = new TextParser("<div class=\"post__title__excerpt wysiwyg p italic mb1 mt025 pr2 o4 theme__text[- a-z]*\">",
+        = new TextParser("<div class='post__title__excerpt [^']+' >\n",
                          "</div>",
                          "QuantaMagazine",
                          "subtitle");
     private static final TextParser s_dateParser
-        = new TextParser(",\"date\":\"",
+        = new TextParser("<meta property=\"article:published_time\" content=\"",
                          "[^\"]*",
-                         "T[0-9][0-9]:[0-9][0-9]:[0-9][0-9]\",\"featured_media_image\":",
+                         "T[0-9][0-9]:[0-9][0-9]\\+00:00\"",
                          "QuantaMagazine",
                          "date");
-    private static final Pattern s_authorPattern
-        = Pattern.compile("<a (class=\"[^\"]+\" )?href=\"/authors/[^/]+/\"><span [^>]+>([^<]+)</span></a>");
+    private static final Pattern s_authorPattern1
+        = Pattern.compile("<div class='h3t mv05'>\n                    <span class='screen-reader-text'>By </span>([^<]+)</div>");
+    private static final Pattern s_authorPattern2
+        = Pattern.compile("<h5 class='sidebar__author__name mb0 mt0'>([^<]+)</h5>");
     private static final TextParser s_joyOfWhyAuthors1
         = new TextParser("\n<p[^>]*><strong>",
                          "[^<:]*[^: ]",
@@ -78,7 +80,7 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
 
     @Override
     public String getTitle() throws ContentParserException {
-        return HtmlHelper.cleanContent(s_titleParser.extract(_data));
+        return HtmlHelper.cleanContent(s_titleParser.extract(_data)).replaceAll(" \\| Quanta Magazine$", "");
     }
 
     @Override
@@ -93,16 +95,25 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
 
     @Override
     public List<AuthorData> getSureAuthors() throws ContentParserException {
-        if (_data.contains("<div class=\"mb1 pb025 mt0 h6t post__title__kicker\"><a class=\"kicker theme__accent theme__text-hover uppercase\" href=\"/tag/the-joy-of-why/\">The Joy of Why</a></div>")) {
+        if (_data.contains("Apple Podcasts")) {
             return getTheJoyOfWhyAuthors();
         }
         final List<AuthorData> authors = new ArrayList<>();
-        final Matcher m = s_authorPattern.matcher(_data);
-        while (m.find()) {
-            authors.add(LinkContentParserUtils.getAuthor(m.group(2)));
+        final Matcher m1 = s_authorPattern1.matcher(_data);
+        while (m1.find()) {
+            final AuthorData a = LinkContentParserUtils.getAuthor(m1.group(1));
+            if (!authors.contains(a)) {
+                authors.add(a);
+            }
         }
         if (authors.size() == 0) {
-            throw new ContentParserException("Failed to find author in QuantaMagazine");
+            final Matcher m2 = s_authorPattern2.matcher(_data);
+            while (m2.find()) {
+                final AuthorData a = LinkContentParserUtils.getAuthor(m2.group(1));
+                if (!authors.contains(a)) {
+                    authors.add(a);
+                }
+            }
         }
         return authors;
     }

@@ -23,10 +23,10 @@ public class QuantaMagazineLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-        "https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/|Universal Method to Sort Complex Information Found",
+            "https://www.quantamagazine.org/tiny-language-models-thrive-with-gpt-4-as-a-teacher-20231005/|Tiny Language Models Come of Age"
         }, delimiter = '|')
-    void testTitleWithPostfix(final String url,
-                              final String expectedTitle) {
+    void testTitleThatHasChanged(final String url,
+                                 final String expectedTitle) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
@@ -48,9 +48,10 @@ public class QuantaMagazineLinkContentParserTest {
     @ParameterizedTest
     @CsvSource(value = {
         "https://www.quantamagazine.org/mathematician-solves-computer-science-conjecture-in-two-pages-20190725/|Decades-Old Computer Science Conjecture Solved in Two Pages",
+        "https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/|Universal Method to Sort Complex Information Found",
         }, delimiter = '|')
-    void testTitleWithoutPostfix(final String url,
-                                 final String expectedTitle) {
+    void testTitle(final String url,
+                   final String expectedTitle) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,

@@ -16,6 +16,40 @@ methods       53.0%/52.2%    97.9%
 
 
 
+seul le premier auteur de https://dzone.com/articles/knowledge-graphs-the-secret-weapon-for-rag-apps est récupéré
+
+
+
+
+
+gérer
+https://stackoverflow.blog/2024/08/15/practical-tips-for-retrieval-augmented-generation-rag/
+The list of effective authors is not the effective one.
+The following authors are effectively present but are unexpected: ▭ first=Cameron middle=R. last=Wolfe suffix=PhD ▭
+The following authors are expected but are effectively missing: ▭ first=Cameron middle=R. last=Wolfe ▭ ▭
+
+
+
+
+
+
+
+gérer
+Title = "The SMAQ stack for big data"
+Subtitle = "Storage, MapReduce and Query are ushering in data-driven products and services."
+URL = http://radar.oreilly.com/2010/09/the-smaq-stack-for-big-data.html
+Expected status = OK
+Effective HTTP code = 301 Moved Permanently
+Effective HTTP code of last redirection = 200 OK
+Redirection chain = http://radar.oreilly.com/2010/09/the-smaq-stack-for-big-data.html → https://www.oreilly.com/radar/
+Redirection matcher = redirection ending in success (last URL should be used)
+Redirection matcher expected statuses = 
+Look for article = https://www.google.com/search?q=%22The+SMAQ+stack+for+big+data%22+%22Storage%2C+MapReduce+and+Query+are+ushering+in+data-driven+products+and+services.%22
+
+
+
+
+
 
 
 détecter les articles avec plusieurs liens qui n'ont pas les mêmes qualités, obsolescence, voir autre chose
