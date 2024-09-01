@@ -23,6 +23,31 @@ public class QuantaMagazineLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource(value = {
+        "https://www.quantamagazine.org/mathematician-solves-computer-science-conjecture-in-two-pages-20190725/|Decades-Old Computer Science Conjecture Solved in Two Pages",
+        "https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/|Universal Method to Sort Complex Information Found",
+        }, delimiter = '|')
+    void testTitle(final String url,
+                   final String expectedTitle) {
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(url,
+                           (final Boolean b, final FullFetchedLinkData d) -> {
+                               Assertions.assertTrue(d.dataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
+                               final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data);
+                               try {
+                                   Assertions.assertEquals(expectedTitle, parser.getTitle());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getTitle threw " + e.getMessage());
+                               }
+                               consumerHasBeenCalled.set(true);
+                           },
+                           false);
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {
             "https://www.quantamagazine.org/tiny-language-models-thrive-with-gpt-4-as-a-teacher-20231005/|Tiny Language Models Come of Age"
         }, delimiter = '|')
     void testTitleThatHasChanged(final String url,
@@ -47,11 +72,10 @@ public class QuantaMagazineLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-        "https://www.quantamagazine.org/mathematician-solves-computer-science-conjecture-in-two-pages-20190725/|Decades-Old Computer Science Conjecture Solved in Two Pages",
-        "https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/|Universal Method to Sort Complex Information Found",
+            "https://www.quantamagazine.org/how-do-machines-grok-data-20240412/|How Do Machines ‘Grok’ Data?"
         }, delimiter = '|')
-    void testTitle(final String url,
-                   final String expectedTitle) {
+    void testTitleWithEncodedCharacters(final String url,
+                                        final String expectedTitle) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,

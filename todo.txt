@@ -16,6 +16,15 @@ methods       53.0%/52.2%    97.9%
 
 
 
+
+ajouter parsing de
+https://www.superdatascience.com/podcast/gradient-boosting-xgboost-lightgbm-and-catboost-with-kirill-eremenko
+Title "SDS 771: Gradient Boosting: XGBoost, LightGBM and CatBoost, with Kirill Eremenko" does not appear in the page
+author "Eremenko" does not appear in the page
+
+
+
+
 seul le premier auteur de https://dzone.com/articles/knowledge-graphs-the-secret-weapon-for-rag-apps est récupéré
 
 
