@@ -16,6 +16,15 @@ methods       53.0%/52.2%    97.9%
 
 
 
+gérer
+https://www.wired.com/story/large-language-model-phishing-scams/
+The list of effective authors is not the effective one.
+The following authors are effectively present but are unexpected: ▭ first=WIRED ▭ last=Ideas ▭ ▭
+The following authors are expected but are effectively missing: ▭ first=Bruce ▭ last=Schneier ▭ ▭,▭ first=Barath ▭ last=Raghavan ▭ ▭
+
+
+
+
 
 ajouter parsing de
 https://www.superdatascience.com/podcast/gradient-boosting-xgboost-lightgbm-and-catboost-with-kirill-eremenko
@@ -62,6 +71,9 @@ Look for article = https://www.google.com/search?q=%22The+SMAQ+stack+for+big+dat
 
 
 détecter les articles avec plusieurs liens qui n'ont pas les mêmes qualités, obsolescence, voir autre chose
+
+
+
 
 
 corriger le fenêtre de création de XML qui ne s'aggrandit pas
@@ -166,16 +178,6 @@ nettoyer links/windows.xml
 
 
 
-
-
-
- 
- 
- 
- extraction des auteurs de https://generatingconversation.substack.com/p/you-cant-build-a-moat-with-ai
- 
- 
- 
 
 ==== potentially before merge =====
 

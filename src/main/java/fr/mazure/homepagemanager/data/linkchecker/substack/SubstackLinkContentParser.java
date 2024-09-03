@@ -99,13 +99,23 @@ private static final TextParser s_authorParser
 
     @Override
     public List<AuthorData> getSureAuthors() throws ContentParserException {
+
         final List<AuthorData> list = new ArrayList<>(1);
+        
         final String extracted = s_authorParser.extract(_data);
         final JSONObject payload = new JSONObject(extracted);
         String channelName = null;
         try {
             final Object authorNode = payload.get("author");
             if (authorNode instanceof JSONArray) {
+                if (((JSONArray)authorNode).length() > 1) {
+                    final List<AuthorData> authors = new ArrayList<>();
+                    for (int i = 0; i < ((JSONArray)authorNode).length(); i++) {
+                        final String name = ((JSONArray)authorNode).getJSONObject(i).getString("name");
+                        authors.add(LinkContentParserUtils.getAuthor(name));
+                    }
+                    return authors;
+                }
                 channelName = ((JSONArray)authorNode).getJSONObject(0).getString("name");
             } else if (authorNode instanceof JSONObject) {
                 channelName = ((JSONObject)authorNode).getString("name");
@@ -139,7 +149,7 @@ private static final TextParser s_authorParser
                                                             Optional.empty(),
                                                             Optional.empty());
             case "Science étonnante" -> WellKnownAuthors.DAVID_LOUAPRE;
-             default -> null;
+            default -> null;
         };
     }
 
