@@ -27,8 +27,8 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
 
     private final String _data;
     private static final TextParser s_titleParser
-        = new TextParser("\"disqusTitle\":\"",
-                         "\",\"",
+        = new TextParser("<h1 class='post__title__title mv025 noe theme__text' >",
+                         "</h1>",
                          "QuantaMagazine",
                          "title");
     private static final TextParser s_subtitleParser
@@ -81,8 +81,7 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
 
     @Override
     public String getTitle() throws ContentParserException {
-        return JsonHelper.unescape(s_titleParser.extract(_data))
-                         .replaceAll(" \\| Quanta Magazine$", "");
+        return HtmlHelper.cleanContent(s_titleParser.extract(_data));
     }
 
     @Override

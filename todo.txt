@@ -15,6 +15,30 @@ methods       53.0%/52.2%    97.9%
 
 
 
+gérer https://www.superdatascience.com/podcast/
+
+
+
+
+
+
+
+clarifier la gestion des vidéos YouTube private (je pense que cela devrait être DEAD)
+et nettoyer geomtry.xml
+et mettre en place l'autocorrection
+
+
+
+
+
+
+modifier WellKnownAuthorsOfLink pour récursze sur les composants de l'URL et l'appliquer à
+https://podcastaddict.com/nota-bene/episode/170614574
+author "Brillaud" does not appear in the page
+
+
+
+
 
 gérer
 https://www.wired.com/story/large-language-model-phishing-scams/
