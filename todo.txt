@@ -15,6 +15,15 @@ methods       53.0%/52.2%    97.9%
 
 
 
+
+mettre à jour fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.test.WellKnownRedirectionsTest.channel9(String)
+
+
+
+
+
+
+
 gérer https://www.superdatascience.com/podcast/
 
 
@@ -28,13 +37,6 @@ et nettoyer geomtry.xml
 et mettre en place l'autocorrection
 
 
-
-
-
-
-modifier WellKnownAuthorsOfLink pour récursze sur les composants de l'URL et l'appliquer à
-https://podcastaddict.com/nota-bene/episode/170614574
-author "Brillaud" does not appear in the page
 
 
 

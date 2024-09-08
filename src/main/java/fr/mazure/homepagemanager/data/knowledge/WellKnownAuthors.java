@@ -10,29 +10,30 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 public class WellKnownAuthors {
 
     @SuppressWarnings("javadoc") public static final AuthorData ALESSANDRO_ROUSSEL = WellKnownAuthors.buildAuthor("Alessandro", "Roussel");
-    @SuppressWarnings("javadoc") public static final AuthorData AYLIEAN_MACDONALD = WellKnownAuthors.buildAuthor("Ayliean", "MacDonald");
-    @SuppressWarnings("javadoc") public static final AuthorData BEN_SPARKS = WellKnownAuthors.buildAuthor("Ben", "Sparks");
-    @SuppressWarnings("javadoc") public static final AuthorData BRADY_HARAN = WellKnownAuthors.buildAuthor("Brady", "Haran");
-    @SuppressWarnings("javadoc") public static final AuthorData BURKARD_POLSTER = WellKnownAuthors.buildAuthor("Burkard", "Polster");
-    @SuppressWarnings("javadoc") public static final AuthorData DAVID_KELLY = WellKnownAuthors.buildAuthor("David", "Kelly");
-    @SuppressWarnings("javadoc") public static final AuthorData DAVID_LOUAPRE = WellKnownAuthors.buildAuthor("David", "Louapre");
-    @SuppressWarnings("javadoc") public static final AuthorData GUNTER_ROTSAERT = WellKnownAuthors.buildAuthor("Gunter", "Rotsaert");
-    @SuppressWarnings("javadoc") public static final AuthorData JAMIE_ZAWINSKI = WellKnownAuthors.buildAuthor("Jamie", "Zawinski");
-    @SuppressWarnings("javadoc") public static final AuthorData JANNA_LEVIN = WellKnownAuthors.buildAuthor("Janna", "Levin");
-    @SuppressWarnings("javadoc") public static final AuthorData JASON_LAPERONNIE = WellKnownAuthors.buildAuthor("Jason", "Lapeyronnie");
-    @SuppressWarnings("javadoc") public static final AuthorData JEFF_DELANEY = WellKnownAuthors.buildAuthor("Jeff", "Delaney");
-    @SuppressWarnings("javadoc") public static final AuthorData JEROME_COTTANCEAU = WellKnownAuthors.buildAuthor("Jérôme", "Cottanceau");
-    @SuppressWarnings("javadoc") public static final AuthorData LEAH_STOCKLEY = WellKnownAuthors.buildAuthor("Leah", "Stockley");
-    @SuppressWarnings("javadoc") public static final AuthorData LEILA_BATTISON = WellKnownAuthors.buildAuthor("Leila", "Battison");
-    @SuppressWarnings("javadoc") public static final AuthorData LEX_FRIDMAN = WellKnownAuthors.buildAuthor("Lex", "Fridman");
-    @SuppressWarnings("javadoc") public static final AuthorData MATT_PARKER = WellKnownAuthors.buildAuthor("Matt", "Parker");
+    @SuppressWarnings("javadoc") public static final AuthorData AYLIEAN_MACDONALD =  WellKnownAuthors.buildAuthor("Ayliean", "MacDonald");
+    @SuppressWarnings("javadoc") public static final AuthorData BEN_SPARKS =         WellKnownAuthors.buildAuthor("Ben", "Sparks");
+    @SuppressWarnings("javadoc") public static final AuthorData BENJAMIN_BRILLAUD =  WellKnownAuthors.buildAuthor("Benjamin", "Brillaud");
+    @SuppressWarnings("javadoc") public static final AuthorData BRADY_HARAN =        WellKnownAuthors.buildAuthor("Brady", "Haran");
+    @SuppressWarnings("javadoc") public static final AuthorData BURKARD_POLSTER =    WellKnownAuthors.buildAuthor("Burkard", "Polster");
+    @SuppressWarnings("javadoc") public static final AuthorData DAVID_KELLY =        WellKnownAuthors.buildAuthor("David", "Kelly");
+    @SuppressWarnings("javadoc") public static final AuthorData DAVID_LOUAPRE =      WellKnownAuthors.buildAuthor("David", "Louapre");
+    @SuppressWarnings("javadoc") public static final AuthorData GUNTER_ROTSAERT =    WellKnownAuthors.buildAuthor("Gunter", "Rotsaert");
+    @SuppressWarnings("javadoc") public static final AuthorData JAMIE_ZAWINSKI =     WellKnownAuthors.buildAuthor("Jamie", "Zawinski");
+    @SuppressWarnings("javadoc") public static final AuthorData JANNA_LEVIN =        WellKnownAuthors.buildAuthor("Janna", "Levin");
+    @SuppressWarnings("javadoc") public static final AuthorData JASON_LAPERONNIE =   WellKnownAuthors.buildAuthor("Jason", "Lapeyronnie");
+    @SuppressWarnings("javadoc") public static final AuthorData JEFF_DELANEY =       WellKnownAuthors.buildAuthor("Jeff", "Delaney");
+    @SuppressWarnings("javadoc") public static final AuthorData JEROME_COTTANCEAU =  WellKnownAuthors.buildAuthor("Jérôme", "Cottanceau");
+    @SuppressWarnings("javadoc") public static final AuthorData LEAH_STOCKLEY =      WellKnownAuthors.buildAuthor("Leah", "Stockley");
+    @SuppressWarnings("javadoc") public static final AuthorData LEILA_BATTISON =     WellKnownAuthors.buildAuthor("Leila", "Battison");
+    @SuppressWarnings("javadoc") public static final AuthorData LEX_FRIDMAN =        WellKnownAuthors.buildAuthor("Lex", "Fridman");
+    @SuppressWarnings("javadoc") public static final AuthorData MATT_PARKER =        WellKnownAuthors.buildAuthor("Matt", "Parker");
     @SuppressWarnings("javadoc") public static final AuthorData MICHAEL_MERRIFIELD = WellKnownAuthors.buildAuthor("Michael", "Merrifield");
-    @SuppressWarnings("javadoc") public static final AuthorData NICOLAI_PARLOG = WellKnownAuthors.buildAuthor("Nicolai", "Parlog");
-    @SuppressWarnings("javadoc") public static final AuthorData ROBERT_MILES = WellKnownAuthors.buildAuthor("Robert", "Miles");
-    @SuppressWarnings("javadoc") public static final AuthorData SIMON_WILLISON = WellKnownAuthors.buildAuthor("Simon", "Willison");
-    @SuppressWarnings("javadoc") public static final AuthorData STEVEN_STROGATZ = WellKnownAuthors.buildAuthor("Steven", "Strogatz");
-    @SuppressWarnings("javadoc") public static final AuthorData TONY_PADILLA = WellKnownAuthors.buildAuthor("Tony", "Padilla");
-    @SuppressWarnings("javadoc") public static final AuthorData YONG_MOOK_KIM = WellKnownAuthors.buildAuthor("Yong", "Mook Kim");
+    @SuppressWarnings("javadoc") public static final AuthorData NICOLAI_PARLOG =     WellKnownAuthors.buildAuthor("Nicolai", "Parlog");
+    @SuppressWarnings("javadoc") public static final AuthorData ROBERT_MILES =       WellKnownAuthors.buildAuthor("Robert", "Miles");
+    @SuppressWarnings("javadoc") public static final AuthorData SIMON_WILLISON =     WellKnownAuthors.buildAuthor("Simon", "Willison");
+    @SuppressWarnings("javadoc") public static final AuthorData STEVEN_STROGATZ =    WellKnownAuthors.buildAuthor("Steven", "Strogatz");
+    @SuppressWarnings("javadoc") public static final AuthorData TONY_PADILLA =       WellKnownAuthors.buildAuthor("Tony", "Padilla");
+    @SuppressWarnings("javadoc") public static final AuthorData YONG_MOOK_KIM =      WellKnownAuthors.buildAuthor("Yong", "Mook Kim");
 
     /**
      * Create an author from a first and last names

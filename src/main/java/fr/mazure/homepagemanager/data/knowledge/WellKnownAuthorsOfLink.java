@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import fr.mazure.homepagemanager.utils.internet.UriHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
@@ -22,6 +21,7 @@ public class WellKnownAuthorsOfLink {
     public record KnownAuthors (List<AuthorData> compulsoryAuthors,
                                 boolean canHaveOtherAuthors) {}
 
+    private static final KnownAuthors s_emptyKnownAuthors = new KnownAuthors(new ArrayList<>(), true);
     private static final Map<String, KnownAuthors> s_knownUrls = new HashMap<>();
 
     static {
@@ -31,6 +31,7 @@ public class WellKnownAuthorsOfLink {
         s_knownUrls.put("mydeveloperplanet.com",          buildKnownAuthors(WellKnownAuthors.GUNTER_ROTSAERT,   false));
         s_knownUrls.put("mkyong.com",                     buildKnownAuthors(WellKnownAuthors.YONG_MOOK_KIM,     false));
         s_knownUrls.put("nipafx.dev",                     buildKnownAuthors(WellKnownAuthors.NICOLAI_PARLOG,    false));
+        s_knownUrls.put("podcastaddict.com/nota-bene",    buildKnownAuthors(WellKnownAuthors.BENJAMIN_BRILLAUD, true));
         s_knownUrls.put("scienceetonnante.substack.com",  buildKnownAuthors(WellKnownAuthors.DAVID_LOUAPRE,     false));
         s_knownUrls.put("simonwillison.net",              buildKnownAuthors(WellKnownAuthors.SIMON_WILLISON,    false));
         s_knownUrls.put("til.simonwillison.net",          buildKnownAuthors(WellKnownAuthors.SIMON_WILLISON,    false));
@@ -43,16 +44,22 @@ public class WellKnownAuthorsOfLink {
      * @param url site URL
      * @return well known authors of the site
      */
-    public static Optional<KnownAuthors> getWellKnownAuthors(final String url) { // TODO should return a set instead of an optional
+    public static KnownAuthors getWellKnownAuthors(final String url) {
         if (!UriHelper.isValidUri(url)) {
-            return Optional.empty();
+            return s_emptyKnownAuthors;
         }
         final String host = UriHelper.getHost(url);
-        if (host == null) {
-            return Optional.empty();
+        String path = UriHelper.getPath(url);
+        while (path.length() > 0) {
+            if (s_knownUrls.containsKey(host + path)) {
+                return s_knownUrls.get(host + path);
+            }
+            path = path.replaceAll("/[^/]*$", "");
         }
-        return s_knownUrls.containsKey(host) ? Optional.of(s_knownUrls.get(host))
-                                             : Optional.empty();
+        if (s_knownUrls.containsKey(host)) {
+            return s_knownUrls.get(host);
+        }
+        return s_emptyKnownAuthors;
     }
 
     private static KnownAuthors buildKnownAuthors(final AuthorData author,
