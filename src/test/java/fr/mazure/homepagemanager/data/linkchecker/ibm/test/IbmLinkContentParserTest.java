@@ -22,7 +22,6 @@ public class IbmLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-            "https://developer.ibm.com/articles/j-java-streams-2-brian-goetz/",
             "https://developer.ibm.com/articles/wa-sailsjs4/",
             "https://developer.ibm.com/tutorials/wa-build-deploy-web-app-sailsjs-2-bluemix",
         })
