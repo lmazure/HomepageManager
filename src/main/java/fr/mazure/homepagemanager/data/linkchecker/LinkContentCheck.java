@@ -46,4 +46,5 @@ public class LinkContentCheck {
      */
     public Optional<ViolationCorrection> getCorrection() {
         return _correction;
-    }}
+    }
+}

@@ -16,7 +16,17 @@ methods       53.0%/52.2%    97.9%
 
 
 
-maintenir unit tests
+gérer https://www.superdatascience.com/podcast/
+
+
+
+
+
+
+
+clarifier la gestion des vidéos YouTube private (je pense que cela devrait être DEAD)
+et nettoyer geomtry.xml
+et mettre en place l'autocorrection
 
 
 
@@ -25,30 +35,177 @@ maintenir unit tests
 
 
 gérer
-java.lang.UnsupportedOperationException: https://www.wired.co.uk/article/5g-coronavirus-conspiracy-theory-attacks|301→https://www.wired.com/story/5g-coronavirus-conspiracy-theory-attacks/|504→
-    at fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.getMatch(WellKnownRedirections.java:629)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.getPossibleStatuses(LinkStatusAnalyzer.java:80)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.doesEffectiveDataMatchesExpectedData(LinkStatusAnalyzer.java:34)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.writeOutputFile(LinkCheckRunner.java:410)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:354)
-    at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-    at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-    at fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:34)
-    at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
-    at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
-    at java.base/java.lang.Thread.run(Thread.java:1570)
+https://www.wired.com/story/large-language-model-phishing-scams/
+The list of effective authors is not the effective one.
+The following authors are effectively present but are unexpected: ▭ first=WIRED ▭ last=Ideas ▭ ▭
+The following authors are expected but are effectively missing: ▭ first=Bruce ▭ last=Schneier ▭ ▭,▭ first=Barath ▭ last=Raghavan ▭ ▭
+
+
+
+
+
+ajouter parsing de
+https://www.superdatascience.com/podcast/gradient-boosting-xgboost-lightgbm-and-catboost-with-kirill-eremenko
+Title "SDS 771: Gradient Boosting: XGBoost, LightGBM and CatBoost, with Kirill Eremenko" does not appear in the page
+author "Eremenko" does not appear in the page
+
+
+
+
+seul le premier auteur de https://dzone.com/articles/knowledge-graphs-the-secret-weapon-for-rag-apps est récupéré
+
+
+
+
+
+gérer
+https://stackoverflow.blog/2024/08/15/practical-tips-for-retrieval-augmented-generation-rag/
+The list of effective authors is not the effective one.
+The following authors are effectively present but are unexpected: ▭ first=Cameron middle=R. last=Wolfe suffix=PhD ▭
+The following authors are expected but are effectively missing: ▭ first=Cameron middle=R. last=Wolfe ▭ ▭
+
+
+
+
+
+
+
+gérer
+Title = "The SMAQ stack for big data"
+Subtitle = "Storage, MapReduce and Query are ushering in data-driven products and services."
+URL = http://radar.oreilly.com/2010/09/the-smaq-stack-for-big-data.html
+Expected status = OK
+Effective HTTP code = 301 Moved Permanently
+Effective HTTP code of last redirection = 200 OK
+Redirection chain = http://radar.oreilly.com/2010/09/the-smaq-stack-for-big-data.html → https://www.oreilly.com/radar/
+Redirection matcher = redirection ending in success (last URL should be used)
+Redirection matcher expected statuses = 
+Look for article = https://www.google.com/search?q=%22The+SMAQ+stack+for+big+data%22+%22Storage%2C+MapReduce+and+Query+are+ushering+in+data-driven+products+and+services.%22
+
+
+
+
+
+
+
+détecter les articles avec plusieurs liens qui n'ont pas les mêmes qualités, obsolescence, voir autre chose
+
+
+
+
+
+corriger le fenêtre de création de XML qui ne s'aggrandit pas
+
+
+
+
+gérer
+https://www.wired.com/story/large-language-model-phishing-scams/
+The list of effective authors is not the effective one.
+The following authors are effectively present but are unexpected: ▭ first=WIRED ▭ last=Ideas ▭ ▭
+The following authors are expected but are effectively missing: ▭ first=Bruce ▭ last=Schneier ▭ ▭,▭ first=Barath ▭ last=Raghavan ▭ ▭
+
+
+
+
+gérer
+Title = "Single-User Subversion"
+URL = http://www.onlamp.com/pub/a/onlamp/2002/10/31/subversion.html
+Expected status = REMOVED
+Effective HTTP code = 301 Moved Permanently
+Effective HTTP code of last redirection = 200 OK
+Redirection chain = http://www.onlamp.com/pub/a/onlamp/2002/10/31/subversion.html → https://www.oreilly.com/ideas/ → https://www.oreilly.com/radar/
+Redirection matcher = redirection ending in success (last URL should be used)
+Redirection matcher expected statuses = 
+Look for article = https://www.google.com/search?q=%22Single-User+Subversion%22
+
+Title = "The New Breed of Version Control Systems"
+URL = http://www.onlamp.com/pub/a/onlamp/2004/01/29/scm_overview.html
+Expected status = REMOVED
+Effective HTTP code = 301 Moved Permanently
+Effective HTTP code of last redirection = 200 OK
+Redirection chain = http://www.onlamp.com/pub/a/onlamp/2004/01/29/scm_overview.html → https://www.oreilly.com/ideas/ → https://www.oreilly.com/radar/
+Redirection matcher = redirection ending in success (last URL should be used)
+Redirection matcher expected statuses = 
+Look for article = https://www.google.com/search?q=%22The+New+Breed+of+Version+Control+Systems%22
+
+
+
+
+
+
+
+The cleaning of https://blogs.oracle.com/javamagazine/post/java-quiz-anonymous-classes?source=:so:tw:or:awr:jav:::&SC=:so:tw:or:awr:jav:::&pcode= does not work.
+
+
+
+
+gérer
+Title = "Synchronizing Networks with NTP"
+URL = http://www.linuxdevcenter.com/pub/a/linux/2003/01/02/ntp.html
+Expected status = REMOVED
+Effective HTTP code = 301 Moved Permanently
+Effective HTTP code of last redirection = 200 OK
+Redirection chain = http://www.linuxdevcenter.com/pub/a/linux/2003/01/02/ntp.html → https://www.oreilly.com/ideas/ → https://www.oreilly.com/radar/
+Redirection matcher = redirection ending in success (last URL should be used)
+Redirection matcher expected statuses = 
+Look for article = https://www.google.com/search?q=%22Synchronizing+Networks+with+NTP%22
+
+
+
+
+
+
+gérer notes/vscode.xml
+ tag = "KEY"
+ value = ""
+ violation = "the KEY is incorrect"
+ detail = "Illegal KEY ("\")"
+
+ tag = "KEY"
+ value = ""
+ violation = "the KEY is incorrect"
+ detail = "Illegal KEY ("[")"
+
+ tag = "KEY"
+ value = ""
+ violation = "the KEY is incorrect"
+ detail = "Illegal KEY ("]")"
+
+
+
+
+
+nettoyer links/chrome.xml
+
+
+
+ 
+ 
+
+la navigation sur la page des authors ne marche plus
+
+
+
+
+
+nettoyer links/windows.xml
 
 
  
- 
- 
- 
- extraction des auteurs de https://generatingconversation.substack.com/p/you-cant-build-a-moat-with-ai
- 
- 
- 
+
+
+
 
 ==== potentially before merge =====
+
+
+
+
+le cancel des checks en cours en cas de nouveau save n'a plus l'air de marcher
+
+
+
 
 
 

@@ -35,7 +35,7 @@ public class BritishChecker extends NodeChecker {
             new Traduction("\\W\\p{Ll}{2,}ization", "isation"),
             new Traduction("\\W\\p{Ll}{2,}izing", "sing"),
             new Traduction("labor\\s", "labour"),
-            new Traduction("license", "licence"),
+            new Traduction("license[^d]", "licence"),
             new Traduction("liters+\\s", "litre"),
             new Traduction("modeling", "modelling"),
             new Traduction("paralyze", "paralyse"),

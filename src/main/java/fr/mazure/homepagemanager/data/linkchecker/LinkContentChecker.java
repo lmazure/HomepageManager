@@ -181,11 +181,10 @@ public class LinkContentChecker implements Checker {
     protected LinkContentCheck checkLinkAuthors(final String data,
                                                 final List<AuthorData> authors) throws ContentParserException
     {
-        final Optional<WellKnownAuthorsOfLink.KnownAuthors> wellKnownAuthors = WellKnownAuthorsOfLink.getWellKnownAuthors(_url);
+        final WellKnownAuthorsOfLink.KnownAuthors wellKnownAuthors = WellKnownAuthorsOfLink.getWellKnownAuthors(_url);
 
         for (final AuthorData author: authors) {
-            if (wellKnownAuthors.isPresent() &&
-                wellKnownAuthors.get().compulsoryAuthors().contains(author)) {
+            if (wellKnownAuthors.compulsoryAuthors().contains(author)) {
                 // given that
                 //   1) well known author does not appear most of the time
                 //   2) this is checked by a NodeChecker

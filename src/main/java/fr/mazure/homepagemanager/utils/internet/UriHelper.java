@@ -27,6 +27,20 @@ public class UriHelper {
     }
 
     /**
+     * Return the path from a URI
+     *
+     * @param uri URI
+     * @return Path
+     */
+    public static String getPath(final String uri) {
+        try  {
+            return new URI(uri).getPath();
+        } catch (@SuppressWarnings("unused") final URISyntaxException e) {
+            return null;
+        }
+    }
+
+    /**
      * Convert a string to URI, exit if the string is an invalid URI
      *
      * @param str string

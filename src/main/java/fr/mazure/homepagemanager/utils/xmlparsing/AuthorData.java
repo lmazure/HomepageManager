@@ -61,7 +61,10 @@ public class AuthorData {
 
     @Override
     public boolean equals(final Object obj) {
-        if ((this == obj) || (obj == null) || (getClass() != obj.getClass())) {
+        if (this == obj) {
+            return true;
+        }
+        if ((obj == null) || (getClass() != obj.getClass())) {
             return false;
         }
 

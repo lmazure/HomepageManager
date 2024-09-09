@@ -42,6 +42,7 @@ public class WellKnownRedirections {
         errorCodes.add(Integer.valueOf(502));
         errorCodes.add(Integer.valueOf(503));
         //errorCodes.add(Integer.valueOf(504)); ignored for the time being
+        //errorCodes.add(Integer.valueOf(521)); ignored for the time being
         errorCodes.add(Integer.valueOf(522));
         errorCodes.add(Integer.valueOf(525));
         errorCodes.add(Integer.valueOf(999));  // TODO handle fucking LinkedIn
@@ -155,10 +156,10 @@ public class WellKnownRedirections {
         {
             final RedirectionMatcher oReillyRemoved1 = new RedirectionMatcher("removed from O’Reilly",
                                                                               Set.of(LinkStatus.REMOVED));
-            oReillyRemoved1.add("(\\Qhttp://www.linuxdevcenter.com/pub/a/linux/\\E|\\Qhttp://www.onjava.com/pub/a/onjava/\\E|\\Qhttp://www.onlamp.com/\\E(lpt|pub)/a/(apache|onlamp|php|python|security)/|\\Qhttp://www.onjava.com/catalog/javaadn\\E)" + RedirectionMatcher.ANY_STRING,
+            oReillyRemoved1.add("(\\Qhttp://www.linuxdevcenter.com/pub/a/linux/\\E|\\Qhttp://www.onlamp.com/\\E(lpt|pub)/a/(apache|onlamp|php|python|security)/)" + RedirectionMatcher.ANY_STRING,
                                 Set.of(Integer.valueOf(301)),
                                 RedirectionMatcher.Multiplicity.ONE);
-            oReillyRemoved1.add("\\Qhttps://www.oreilly.com/ideas\\E",
+            oReillyRemoved1.add("\\Qhttps://www.oreilly.com/ideas/\\E",
                                 Set.of(Integer.valueOf(301)),
                                 RedirectionMatcher.Multiplicity.ONE);
             oReillyRemoved1.add("\\Qhttps://www.oreilly.com/radar/\\E",
@@ -177,7 +178,7 @@ public class WellKnownRedirections {
             oReillyRemoved2.add("\\Qhttp://www.linuxdevcenter.com/pub/a/linux/\\E\\k<article>",
                                 Set.of(Integer.valueOf(301)),
                                 RedirectionMatcher.Multiplicity.ONE);
-            oReillyRemoved2.add("\\Qhttps://www.oreilly.com/ideas\\E",
+            oReillyRemoved2.add("\\Qhttps://www.oreilly.com/ideas/\\E",
                                 Set.of(Integer.valueOf(301)),
                                 RedirectionMatcher.Multiplicity.ONE);
             oReillyRemoved2.add("\\Qhttps://www.oreilly.com/radar/\\E",
@@ -217,6 +218,23 @@ public class WellKnownRedirections {
                                 RedirectionMatcher.Multiplicity.ONE);
             oReillyRemoved4.compile();
             _matchers.add(oReillyRemoved4);
+        }
+
+
+        {
+            final RedirectionMatcher oReillyRemoved5 = new RedirectionMatcher("removed from O’Reilly",
+                                                                              Set.of(LinkStatus.REMOVED));
+            oReillyRemoved5.add("(\\Qhttp://www.onjava.com/pub/a/onjava/\\E|\\Qhttp://www.onjava.com/catalog/javaadn\\E)" + RedirectionMatcher.ANY_STRING,
+                                Set.of(Integer.valueOf(301)),
+                                RedirectionMatcher.Multiplicity.ONE);
+            oReillyRemoved5.add("\\Qhttps://www.oreilly.com/ideas\\E",
+                                Set.of(Integer.valueOf(301)),
+                                RedirectionMatcher.Multiplicity.ONE);
+            oReillyRemoved5.add("\\Qhttps://www.oreilly.com/radar/\\E",
+                                Set.of(Integer.valueOf(200)),
+                                RedirectionMatcher.Multiplicity.ONE);
+            oReillyRemoved5.compile();
+            _matchers.add(oReillyRemoved5);
         }
 
         {
@@ -365,7 +383,7 @@ public class WellKnownRedirections {
                                  Set.of(Integer.valueOf(301)),
                                  RedirectionMatcher.Multiplicity.ONE);
             channel9Removed1.add("\\Qhttps://learn.microsoft.com/shows/\\E" + RedirectionMatcher.ANY_STRING,
-                                 Set.of(Integer.valueOf(301)),
+                                 Set.of(Integer.valueOf(302)),
                                  RedirectionMatcher.Multiplicity.ONE);
             channel9Removed1.add("\\Qhttps://learn.microsoft.com/en-us/shows/\\E" + RedirectionMatcher.ANY_STRING,
                                  Set.of(Integer.valueOf(301)),
@@ -374,7 +392,7 @@ public class WellKnownRedirections {
                                  Set.of(Integer.valueOf(301)),
                                  RedirectionMatcher.Multiplicity.ONE);
             channel9Removed1.add("\\Qhttps://learn.microsoft.com/shows/\\E",
-                                 Set.of(Integer.valueOf(301)),
+                                 Set.of(Integer.valueOf(302)),
                                  RedirectionMatcher.Multiplicity.ONE);
             channel9Removed1.add("\\Qhttps://learn.microsoft.com/en-us/shows/\\E",
                                  Set.of(Integer.valueOf(200)),
@@ -415,7 +433,7 @@ public class WellKnownRedirections {
                                  Set.of(Integer.valueOf(301)),
                                  RedirectionMatcher.Multiplicity.ONE);
             channel9Removed3.add("\\Qhttps://learn.microsoft.com/shows\\E",
-                                 Set.of(Integer.valueOf(301)),
+                                 Set.of(Integer.valueOf(302)),
                                  RedirectionMatcher.Multiplicity.ONE);
             channel9Removed3.add("\\Qhttps://learn.microsoft.com/en-us/shows\\E",
                                  Set.of(Integer.valueOf(301)),
@@ -444,6 +462,32 @@ public class WellKnownRedirections {
                                  RedirectionMatcher.Multiplicity.ONE);
             channel9Removed4.compile();
             _matchers.add(channel9Removed4);
+        }
+
+
+        {
+            final RedirectionMatcher channel9Removed5 = new RedirectionMatcher("removed from Channel 9",
+                                                                               Set.of(LinkStatus.REMOVED));
+            channel9Removed5.add("\\Qhttps://channel9.msdn.com/Events/\\E" + RedirectionMatcher.ANY_STRING,
+                                 Set.of(Integer.valueOf(301)),
+                                 RedirectionMatcher.Multiplicity.ONE);
+            channel9Removed5.add("\\Qhttps://learn.microsoft.com/events/\\E" + RedirectionMatcher.ANY_STRING,
+                                 Set.of(Integer.valueOf(301)),
+                                 RedirectionMatcher.Multiplicity.ONE);
+            channel9Removed5.add("\\Qhttps://learn.microsoft.com/en-us/events/\\E" + RedirectionMatcher.ANY_STRING,
+                                 Set.of(Integer.valueOf(301)),
+                                 RedirectionMatcher.Multiplicity.ONE);
+            channel9Removed5.add("\\Qhttps://aka.ms/Ch9Update\\E",
+                                 Set.of(Integer.valueOf(301)),
+                                 RedirectionMatcher.Multiplicity.ONE);
+            channel9Removed5.add("\\Qhttps://learn.microsoft.com/shows/\\E",
+                                 Set.of(Integer.valueOf(302)),
+                                 RedirectionMatcher.Multiplicity.ONE);
+            channel9Removed5.add("\\Qhttps://learn.microsoft.com/en-us/shows/\\E",
+                                 Set.of(Integer.valueOf(200)),
+                                 RedirectionMatcher.Multiplicity.ONE);
+            channel9Removed5.compile();
+            _matchers.add(channel9Removed5);
         }
 
         {

@@ -29,7 +29,7 @@ public class AuthorsChecker extends NodeChecker {
 
     private static final Pattern s_fixControl = Pattern.compile("[ \\.\\p{IsAlphabetic}]+");
     private static final Pattern s_nameControl = Pattern.compile("[- \\.\\p{IsAlphabetic}’]+");
-    private static final Pattern s_givenControl = Pattern.compile("[-_@() ’\\.\\*\\p{IsAlphabetic}0-9]+");
+    private static final Pattern s_givenControl = Pattern.compile("[-_@&() ’\\.\\*\\p{IsAlphabetic}0-9]+");
 
     /**
     * constructor
@@ -53,32 +53,30 @@ public class AuthorsChecker extends NodeChecker {
         }
 
         for (final LinkData link: articleData.links()) {
-            final Optional<WellKnownAuthorsOfLink.KnownAuthors> expectedWellKnownAuthors = WellKnownAuthorsOfLink.getWellKnownAuthors(link.getUrl());
-            if (expectedWellKnownAuthors.isPresent()) {
-                if (expectedWellKnownAuthors.get().canHaveOtherAuthors()) {
-                    if (!articleData.authors().containsAll(expectedWellKnownAuthors.get().compulsoryAuthors())) {
-                        return new CheckStatus("IncorrectAuthorList",
-                                               "The list of authors of article \"" +
-                                               link.getUrl() +
-                                               "\" (" +
-                                               formatAuthorList(articleData.authors()) +
-                                               ") does not contain the expected list for the site (" +
-                                               formatAuthorList(expectedWellKnownAuthors.get().compulsoryAuthors()) +
-                                               ")",
-                                               Optional.empty());
-                    }
-                } else if (!articleData.authors().containsAll(expectedWellKnownAuthors.get().compulsoryAuthors()) ||
-                           !expectedWellKnownAuthors.get().compulsoryAuthors().containsAll(articleData.authors())) {
+            final WellKnownAuthorsOfLink.KnownAuthors expectedWellKnownAuthors = WellKnownAuthorsOfLink.getWellKnownAuthors(link.getUrl());
+            if (expectedWellKnownAuthors.canHaveOtherAuthors()) {
+                if (!articleData.authors().containsAll(expectedWellKnownAuthors.compulsoryAuthors())) {
                     return new CheckStatus("IncorrectAuthorList",
                                            "The list of authors of article \"" +
                                            link.getUrl() +
                                            "\" (" +
                                            formatAuthorList(articleData.authors()) +
-                                           ") is not equal to the expected list for the site (" +
-                                           formatAuthorList(expectedWellKnownAuthors.get().compulsoryAuthors()) +
+                                           ") does not contain the expected list for the site (" +
+                                           formatAuthorList(expectedWellKnownAuthors.compulsoryAuthors()) +
                                            ")",
                                            Optional.empty());
                 }
+            } else if (!articleData.authors().containsAll(expectedWellKnownAuthors.compulsoryAuthors()) ||
+                       !expectedWellKnownAuthors.compulsoryAuthors().containsAll(articleData.authors())) {
+                return new CheckStatus("IncorrectAuthorList",
+                                       "The list of authors of article \"" +
+                                       link.getUrl() +
+                                       "\" (" +
+                                       formatAuthorList(articleData.authors()) +
+                                       ") is not equal to the expected list for the site (" +
+                                       formatAuthorList(expectedWellKnownAuthors.compulsoryAuthors()) +
+                                       ")",
+                                       Optional.empty());
             }
         }
 

@@ -96,5 +96,6 @@ public class LinkStatusAnalyzer {
         }
         final int code = HttpHelper.getResponseCodeFromHeaders(headers.get());
         return Optional.of(Integer.valueOf(code));
-    }}
+    }
+}
 

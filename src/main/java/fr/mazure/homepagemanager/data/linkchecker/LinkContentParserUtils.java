@@ -43,9 +43,9 @@ public class LinkContentParserUtils {
         final String[] nameParts = HtmlHelper.cleanContent(s).split("( |\u00A0)");
         if (nameParts.length == 2) {
             return new AuthorData(Optional.empty(),
-                                  Optional.of(uppercaseFirstCharacter(nameParts[0])),
+                                  Optional.of(formatName(nameParts[0])),
                                   Optional.empty(),
-                                  Optional.of(uppercaseFirstCharacter(nameParts[1])),
+                                  Optional.of(formatName(nameParts[1])),
                                   Optional.empty(),
                                   Optional.empty());
         }
@@ -60,44 +60,44 @@ public class LinkContentParserUtils {
         if (nameParts.length == 3) {
             if (isParticle(nameParts[1])) {
                 return new AuthorData(Optional.empty(),
-                                      Optional.of(uppercaseFirstCharacter(nameParts[0])),
+                                      Optional.of(formatName(nameParts[0])),
                                       Optional.empty(),
-                                      Optional.of(properCaseParticle(nameParts[1]) + " " + uppercaseFirstCharacter(nameParts[2])),
+                                      Optional.of(properCaseParticle(nameParts[1]) + " " + formatName(nameParts[2])),
                                       Optional.empty(),
                                       Optional.empty());
             }
             return new AuthorData(Optional.empty(),
-                                  Optional.of(uppercaseFirstCharacter(nameParts[0])),
-                                  Optional.of(uppercaseFirstCharacter(nameParts[1])),
-                                  Optional.of(uppercaseFirstCharacter(nameParts[2])),
+                                  Optional.of(formatName(nameParts[0])),
+                                  Optional.of(formatName(nameParts[1])),
+                                  Optional.of(formatName(nameParts[2])),
                                   nameSuffix,
                                   Optional.empty());
         }
         if ((nameParts.length == 4)) {
             if (isParticle(nameParts[2])) {
                 return new AuthorData(Optional.empty(),
-                                      Optional.of(uppercaseFirstCharacter(nameParts[0])),
-                                      Optional.of(uppercaseFirstCharacter(nameParts[1])),
-                                      Optional.of(properCaseParticle(nameParts[2]) + " " + uppercaseFirstCharacter(nameParts[3])),
+                                      Optional.of(formatName(nameParts[0])),
+                                      Optional.of(formatName(nameParts[1])),
+                                      Optional.of(properCaseParticle(nameParts[2]) + " " + formatName(nameParts[3])),
                                       Optional.empty(),
                                       Optional.empty());
             }
             if (isDoubleParticle(nameParts[1], nameParts[2])) {
                 return new AuthorData(Optional.empty(),
-                                      Optional.of(uppercaseFirstCharacter(nameParts[0])),
+                                      Optional.of(formatName(nameParts[0])),
                                       Optional.empty(),
-                                      Optional.of(nameParts[1].toLowerCase() + " " + nameParts[2].toLowerCase() + " " + uppercaseFirstCharacter(nameParts[3])),
+                                      Optional.of(nameParts[1].toLowerCase() + " " + nameParts[2].toLowerCase() + " " + formatName(nameParts[3])),
                                       Optional.empty(),
                                       Optional.empty());
             }
             if ((nameParts[2].startsWith("\"") || nameParts[2].startsWith("“")) &&
                 (nameParts[2].endsWith("\"") || nameParts[2].endsWith("”"))) {
                 return new AuthorData(Optional.empty(),
-                                      Optional.of(uppercaseFirstCharacter(nameParts[0])),
-                                      Optional.of(uppercaseFirstCharacter(nameParts[1])),
-                                      Optional.of(uppercaseFirstCharacter(nameParts[3])),
+                                      Optional.of(formatName(nameParts[0])),
+                                      Optional.of(formatName(nameParts[1])),
+                                      Optional.of(formatName(nameParts[3])),
                                       Optional.empty(),
-                                      Optional.of(uppercaseFirstCharacter(nameParts[2].substring(1, nameParts[2].length() - 1))));
+                                      Optional.of(formatName(nameParts[2].substring(1, nameParts[2].length() - 1))));
             }
         }
         throw new ContentParserException("Failed to parse author name (author name has " + nameParts.length + " parts)");
@@ -116,12 +116,20 @@ public class LinkContentParserUtils {
         return _particles.get(particle.toLowerCase());
     }
 
-    private static String uppercaseFirstCharacter(final String str) {
+    /**
+     * Properlu format the name:
+     * - uppercase the first character
+     * - replace ' with ’
+     *
+     * @param str string to properly format
+     * @return properly formatted string
+     */
+    private static String formatName(final String str) {
         final StringBuilder converted = new StringBuilder();
         for (final char ch : str.toCharArray()) {
             converted.append(converted.isEmpty() ? Character.toUpperCase(ch) : ch);
         }
-        return converted.toString();
+        return converted.toString().replace("'", "’");
     }
 
     /**
