@@ -15,6 +15,13 @@ methods       53.0%/52.2%    97.9%
 
 
 
+comprendre pourquoi fr.mazure.homepagemanager.data.linkchecker.LinkContentCheckerFactory.build(String, LinkData, Optional<ArticleData>, FileSection) contient
+        if (url.startsWith("https://spectrum.ieee.org/")) {
+            return new NoCheckContentChecker(url, linkData, articleData, file);
+        }
+
+
+
 
 gérer https://www.superdatascience.com/podcast/
 
