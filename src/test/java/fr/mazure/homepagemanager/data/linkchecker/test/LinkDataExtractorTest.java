@@ -1062,6 +1062,27 @@ public class LinkDataExtractorTest {
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
+
+    @Test
+    void youtubeIBMTechnologyCedricClyburnIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=00Q0G84kq3M";
+        final String expectedSureXml = """
+                <ARTICLE><X><T>RAG vs. Fine Tuning</T>\
+                <A>https://www.youtube.com/watch?v=00Q0G84kq3M</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>56</SECOND></DURATION></X>\
+                <DATE><YEAR>2024</YEAR><MONTH>9</MONTH><DAY>9</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final String expectedProbableXml = """
+                <ARTICLE><X><T>RAG vs. Fine Tuning</T>\
+                <A>https://www.youtube.com/watch?v=00Q0G84kq3M</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>56</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Cedric</FIRSTNAME><LASTNAME>Clyburn</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2024</YEAR><MONTH>9</MONTH><DAY>9</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
+        Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
+    }
     @Test
     void youtubeWatchJavaInsideJavaNewscastIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=eDgBnjOid-g";
