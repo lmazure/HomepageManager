@@ -123,7 +123,7 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
     public List<ExtractedLinkData> getLinks() throws ContentParserException {
         final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
                                                                  new String[] { getSubtitle().get() },
-                                                                 getUrl().toString(),
+                                                                 getUrl(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
                                                                  new LinkFormat[] { LinkFormat.HTML },

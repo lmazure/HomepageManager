@@ -139,7 +139,7 @@ private static final TextParser s_authorParser
         return list;
     }
 
-    static private AuthorData getWellKnownAuthor(final String authorName) {
+    private static AuthorData getWellKnownAuthor(final String authorName) {
         return switch (authorName) {
             case "Sebastian Raschka, PhD",
                  "Ahead of AI"             -> new AuthorData(Optional.empty(),
@@ -168,7 +168,7 @@ private static final TextParser s_authorParser
         final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
                                                                  getSubtitle().isPresent() ? new String[] { getSubtitle().get() }
                                                                                            : new String[0],
-                                                                 getUrl().toString(),
+                                                                 getUrl(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
                                                                  new LinkFormat[] { LinkFormat.HTML },

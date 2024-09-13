@@ -138,12 +138,12 @@ public class XmlParser {
         if (titleNodes.getLength() != 1) {
             throw new XmlParsingException("Wrong number of T nodes (" + titleNodes.getLength() + ") in \"" + xElement.getTextContent() + "\"");
         }
-        final String title = ((Element)titleNodes.item(0)).getTextContent();
+        final String title = titleNodes.item(0).getTextContent();
 
         final NodeList subtitleNodes = XmlHelper.getDescendantsByElementType(xElement,ElementType.ST);
-        final String subtitles[] = new String[subtitleNodes.getLength()];
+        final String[] subtitles = new String[subtitleNodes.getLength()];
         for (int k = 0; k < subtitleNodes.getLength(); k++) {
-            subtitles[k] = ((Element)subtitleNodes.item(k)).getTextContent();
+            subtitles[k] = subtitleNodes.item(k).getTextContent();
         }
 
         final List<Element> urlNodes = XmlHelper.getChildrenByElementType(xElement, ElementType.A);
@@ -156,16 +156,16 @@ public class XmlParser {
         if (languageNodes.getLength() == 0) {
             throw new XmlParsingException("Wrong number of L nodes (0) in \"" + title + "\"");
         }
-        final Locale languages[] = new Locale[languageNodes.getLength()];
+        final Locale[] languages = new Locale[languageNodes.getLength()];
         for (int k = 0; k < languageNodes.getLength(); k++) {
-            languages[k] = LinkData.parseLanguage(((Element)languageNodes.item(k)).getTextContent());
+            languages[k] = LinkData.parseLanguage(languageNodes.item(k).getTextContent());
         }
 
         final List<Element> formatNodes = XmlHelper.getChildrenByElementType(xElement, ElementType.F);
         if (formatNodes.isEmpty()) {
             throw new XmlParsingException("Wrong number of F nodes (0) in \"" + title + "\"");
         }
-        final LinkFormat formats[] = new LinkFormat[formatNodes.size()];
+        final LinkFormat[] formats = new LinkFormat[formatNodes.size()];
         for (int k = 0; k < formatNodes.size(); k++) {
             formats[k] = LinkData.parseFormat((formatNodes.get(k)).getTextContent());
         }

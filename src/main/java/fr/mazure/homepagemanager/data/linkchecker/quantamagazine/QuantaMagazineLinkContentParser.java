@@ -106,7 +106,7 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
                 authors.add(a);
             }
         }
-        if (authors.size() == 0) {
+        if (authors.isEmpty()) {
             final Matcher m2 = s_authorPattern2.matcher(_data);
             while (m2.find()) {
                 final AuthorData a = LinkContentParserUtils.getAuthor(m2.group(1));
@@ -125,7 +125,7 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
 
         final String cleanedStr =  _data.replaceAll("</strong> ?<strong>", " ");
         List<String> names = s_joyOfWhyAuthors1.extractMulti(cleanedStr);
-        if (names.size() == 0) {
+        if (names.isEmpty()) {
             names = s_joyOfWhyAuthors2.extractMulti(_data);
         }
         final List <String> uniqueNames = new ArrayList<>();
@@ -157,7 +157,7 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
             uniqueNames.add(name);
         }
 
-        if (uniqueNames.size() == 0) {
+        if (uniqueNames.isEmpty()) {
             throw new ContentParserException("Failed to find author in QuantaMagazine");
         }
 
@@ -179,7 +179,7 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
     public List<ExtractedLinkData> getLinks() throws ContentParserException {
         final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
                                                                  new String[] { getSubtitle().get() },
-                                                                 getUrl().toString(),
+                                                                 getUrl(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
                                                                  new LinkFormat[] { LinkFormat.HTML },

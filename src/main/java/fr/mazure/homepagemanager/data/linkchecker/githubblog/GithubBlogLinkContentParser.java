@@ -156,7 +156,7 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
         final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
                                                                  getSubtitle().isPresent() ? new String[] { getSubtitle().get() }
                                                                                            : new String[] {},
-                                                                 getUrl().toString(),
+                                                                 getUrl(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
                                                                  new LinkFormat[] { LinkFormat.HTML },

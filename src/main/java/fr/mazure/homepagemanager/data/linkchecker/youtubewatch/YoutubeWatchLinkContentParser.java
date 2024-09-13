@@ -173,7 +173,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         return url.startsWith("https://www.youtube.com/watch?");
     }
 
-    final static LocalDate parseDateTimeString(final String str) throws ContentParserException {
+    static final LocalDate parseDateTimeString(final String str) throws ContentParserException {
 
         // case the date is formatted as YYYY-MM-DD
         if (str.length() == 10) {
@@ -317,7 +317,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                           buildMatchingList(),
                                                           Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("3Blue1Brown",
-                                          new ChannelData(buildList(WellKnownAuthors.buildAuthor("Grant", "Sanderson")),
+                                          new ChannelData(buildList(WellKnownAuthors.GRANT_SANDERSON),
                                                           buildMatchingList(),
                                                           Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("AI Coffee Break with Letitia",
@@ -391,7 +391,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                                             match("Brailsford", WellKnownAuthors.buildAuthor("David", "F.", "Brailsford")),
                                                                             match("Clegg", WellKnownAuthors.buildAuthor("Richard", "G.", "Clegg")),
                                                                             match("Miles", WellKnownAuthors.buildAuthor("Robert", "Miles")),
-                                                                            match("Muller", WellKnownAuthors.buildAuthor("Tim", "Muller")),
+                                                                            match("Muller", WellKnownAuthors.DEREK_MULLER),
                                                                             match("Mike Pound", WellKnownAuthors.buildAuthor("Mike", "Pound")),
                                                                             match("Laurence Tratt", WellKnownAuthors.buildAuthor("Laurence", "Tratt")),
                                                                             match("Kai Xu", WellKnownAuthors.buildAuthor("Kai", "Xu"))),
@@ -419,7 +419,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                           buildMatchingList(),
                                                           Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Dr. Becky",
-                                          new ChannelData(buildList(WellKnownAuthors.buildAuthor("Becky", "Smethurst")),
+                                          new ChannelData(buildList(WellKnownAuthors.BECKY_SMETHURST),
                                                           buildMatchingList(),
                                                           Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Dr Peyam",
@@ -570,13 +570,13 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                                             match("Eisenbud", WellKnownAuthors.buildAuthor("David", "Eisenbud")),
                                                                             match("Feng", WellKnownAuthors.buildAuthor("Tony", "Feng")),
                                                                             match("Frenkel", WellKnownAuthors.buildAuthor("Edward", "Frenkel")),
-                                                                            match("Grime", WellKnownAuthors.buildAuthor("James", "Grime")),
+                                                                            match("Grime", WellKnownAuthors.JAMES_GRIME),
                                                                             match("Krieger", WellKnownAuthors.buildAuthor("Holly", "Krieger")),
                                                                             match("Lichtman", WellKnownAuthors.buildAuthor("Jared", "Duker", "Lichtman")),
                                                                             match("MacDonald", WellKnownAuthors.AYLIEAN_MACDONALD),
                                                                             match("Maclean", WellKnownAuthors.buildAuthor("Sophie", "Maclean")),
                                                                             match("Parker", WellKnownAuthors.MATT_PARKER),
-                                                                            match("Grant", WellKnownAuthors.buildAuthor("Grant", "Sanderson")),
+                                                                            match("Grant", WellKnownAuthors.GRANT_SANDERSON),
                                                                             match("Segerman", WellKnownAuthors.buildAuthor("Henry", "Segerman")),
                                                                             match("Padilla", WellKnownAuthors.TONY_PADILLA),
                                                                             match("Stoll", WellKnownAuthors.buildAuthor("Cliff", "Stoll")),
@@ -684,7 +684,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                           buildMatchingList(),
                                                           Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("singingbanana",
-                                          new ChannelData(buildList(WellKnownAuthors.buildAuthor("James", "Grime")),
+                                          new ChannelData(buildList(WellKnownAuthors.JAMES_GRIME),
                                                           buildMatchingList(),
                                                           Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Sixty Symbols",
@@ -695,7 +695,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                                             match("Merrifield", WellKnownAuthors.MICHAEL_MERRIFIELD),
                                                                             match("Moriarty", WellKnownAuthors.buildAuthor("Philip", "Moriarty")),
                                                                             match("Padilla", WellKnownAuthors.TONY_PADILLA),
-                                                                            match("Smethurst", WellKnownAuthors.buildAuthor("Becky", "Smethurst")),
+                                                                            match("Smethurst", WellKnownAuthors.BECKY_SMETHURST),
                                                                             match("Unwin", WellKnownAuthors.buildAuthor("James", "Unwin"))),
                                                           Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Stand-up Maths",
@@ -737,7 +737,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                           buildMatchingList(),
                                                           Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("Veritasium",
-                                          new ChannelData(buildList(WellKnownAuthors.buildAuthor("Derek", "Muller")),
+                                          new ChannelData(buildList(WellKnownAuthors.DEREK_MULLER),
                                                           buildMatchingList(),
                                                           Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("VERY MATH TRIP - Manu Houdart",
@@ -840,7 +840,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                                 : getLanguage();
         final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
                                                                  new String[0],
-                                                                 getUrl().toString(),
+                                                                 getUrl(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
                                                                  new LinkFormat[] { LinkFormat.MP4 },

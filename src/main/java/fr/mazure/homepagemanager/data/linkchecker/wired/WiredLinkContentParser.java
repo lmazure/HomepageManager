@@ -128,7 +128,7 @@ public class WiredLinkContentParser extends LinkDataExtractor {
                                                              : new String[0];
         final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
                                                                  subtitles,
-                                                                 getUrl().toString(),
+                                                                 getUrl(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
                                                                  new LinkFormat[] { LinkFormat.HTML },
