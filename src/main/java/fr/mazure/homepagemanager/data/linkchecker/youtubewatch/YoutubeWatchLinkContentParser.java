@@ -107,6 +107,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                 }
                 if (language != null) {
                     subtitlesLanguage = switch (language) {
+                    case "Bulgarian (auto-generated)" -> Optional.of(new Locale.Builder().setLanguage("bg").build());
                     case "Dutch (auto-generated)" -> Optional.of(new Locale.Builder().setLanguage("nl").build());
                     case "English (auto-generated)" -> Optional.of(Locale.ENGLISH);
                     case "French (auto-generated)" -> Optional.of(Locale.FRENCH);

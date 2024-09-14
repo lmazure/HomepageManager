@@ -23,6 +23,31 @@ comprendre pourquoi fr.mazure.homepagemanager.data.linkchecker.LinkContentChecke
 
 
 
+nettoyer les liens des CVs
+
+
+
+
+
+
+
+gérer Oxide and friends
+
+
+
+
+
+
+
+
+
+==== potentially before merge =====
+
+
+
+
+
+
 gérer https://www.superdatascience.com/podcast/
 
 
@@ -200,13 +225,6 @@ nettoyer links/windows.xml
 
 
  
-
-
-
-
-==== potentially before merge =====
-
-
 
 
 le cancel des checks en cours en cas de nouveau save n'a plus l'air de marcher

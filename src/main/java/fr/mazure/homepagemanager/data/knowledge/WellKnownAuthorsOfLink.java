@@ -48,6 +48,10 @@ public class WellKnownAuthorsOfLink {
         if (!UriHelper.isValidUri(url)) {
             return s_emptyKnownAuthors;
         }
+        final String scheme = UriHelper.getScheme(url);
+        if (!scheme.equals("http") && !scheme.equals("https") && !scheme.equals("ftp")) {
+            return s_emptyKnownAuthors;
+        }
         final String host = UriHelper.getHost(url);
         String path = UriHelper.getPath(url);
         while (path.length() > 0) {

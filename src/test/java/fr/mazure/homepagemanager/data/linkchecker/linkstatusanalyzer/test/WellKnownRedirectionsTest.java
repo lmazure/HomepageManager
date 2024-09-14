@@ -4,7 +4,6 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -144,7 +143,6 @@ class WellKnownRedirectionsTest {
     }
 
     // URLs giving directly a 521
-    @Disabled
     @ParameterizedTest
     @CsvSource({
         "http://httpbin.org/status/521",

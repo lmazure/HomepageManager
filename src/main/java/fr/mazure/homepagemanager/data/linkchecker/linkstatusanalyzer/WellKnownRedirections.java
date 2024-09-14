@@ -42,7 +42,7 @@ public class WellKnownRedirections {
         errorCodes.add(Integer.valueOf(502));
         errorCodes.add(Integer.valueOf(503));
         //errorCodes.add(Integer.valueOf(504)); ignored for the time being
-        //errorCodes.add(Integer.valueOf(521)); ignored for the time being
+        errorCodes.add(Integer.valueOf(521));
         errorCodes.add(Integer.valueOf(522));
         errorCodes.add(Integer.valueOf(525));
         errorCodes.add(Integer.valueOf(999));  // TODO handle fucking LinkedIn

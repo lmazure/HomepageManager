@@ -13,6 +13,20 @@ import fr.mazure.homepagemanager.utils.Logger.Level;
 public class UriHelper {
 
     /**
+     * Return the scheme from a URI
+     *
+     * @param uri URI
+     * @return Host
+     */
+    public static String getScheme(final String uri) {
+        if (uri.startsWith("..")) {
+            return null;
+        }
+        final URI u = convertStringToUri(uri);
+        return u.getScheme();
+    }
+
+    /**
      * Return the host from a URI
      *
      * @param uri URI
