@@ -38,6 +38,7 @@ public class WellKnownAuthorsOfLink {
         s_knownUrls.put("www.inspiredtester.com",         buildKnownAuthors(WellKnownAuthors.LEAH_STOCKLEY,     false));
         s_knownUrls.put("www.jwz.org",                    buildKnownAuthors(WellKnownAuthors.JAMIE_ZAWINSKI,    false));
         s_knownUrls.put("www.numberphile.com",            buildKnownAuthors(WellKnownAuthors.BRADY_HARAN,       true));
+        s_knownUrls.put("blog.stephane-robert.info",      buildKnownAuthors(WellKnownAuthors.STEPHANE_ROBERT,   false));
     }
 
     /**
