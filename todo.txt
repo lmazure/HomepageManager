@@ -15,6 +15,18 @@ methods       53.0%/52.2%    97.9%
 
 
 
+faire un spin off de la psychologie
+
+
+
+
+
+marquer https://www.qualitydigest.com/ comme nécessitant un free account
+
+
+
+
+
 
 
 comprendre pourquoi fr.mazure.homepagemanager.data.linkchecker.LinkContentCheckerFactory.build(String, LinkData, Optional<ArticleData>, FileSection) contient
@@ -34,7 +46,7 @@ nettoyer les liens des CVs
 
 
 gérer Oxide and friends
-
+gérer Lex Fridman
 
 
 

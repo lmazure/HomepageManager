@@ -50,6 +50,9 @@ public class WellKnownAuthorsOfLink {
             return s_emptyKnownAuthors;
         }
         final String scheme = UriHelper.getScheme(url);
+        if (scheme == null) {
+	        return s_emptyKnownAuthors;
+        }
         if (!scheme.equals("http") && !scheme.equals("https") && !scheme.equals("ftp")) {
             return s_emptyKnownAuthors;
         }
