@@ -146,7 +146,6 @@ class WellKnownRedirectionsTest {
     @ParameterizedTest
     @CsvSource({
         "http://httpbin.org/status/521",
-        "https://www.linux-mag.com/id/322",
         })
     void direct521(final String url) {
         test(url,

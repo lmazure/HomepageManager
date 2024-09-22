@@ -9,8 +9,49 @@ lines         65.9%    94.7%
 methods       53.0%/52.2%    97.9%
 
 
+              main     test
+instructions  68.8%    92.7%
+branches      47.1%    77.5%
+lines         67.9%    95.2%
+methods       52.1%    98.8%
+→ increase method coverage
+
 
 ==== before merge =====
+
+
+
+
+
+increase test coverage of methods
+
+
+
+
+
+
+repair failing unit tests of fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.test.WellKnownRedirectionsTest.channel9(String)
+
+
+
+
+
+
+
+gérer
+    public static Path getTestDatapath(final Class<?> clazz) {
+        return Paths.get("G:\\Documents\\tmp\\hptmp\\test\\" + clazz.getSimpleName());  // TODO this should not be hard-coded
+    }
+
+
+
+
+
+
+
+nettoyer links/design.xml
+
+
 
 
 
