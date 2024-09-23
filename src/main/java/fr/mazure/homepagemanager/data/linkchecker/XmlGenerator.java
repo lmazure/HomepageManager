@@ -18,11 +18,13 @@ import fr.mazure.homepagemanager.utils.xmlparsing.XmlHelper;
  */
 public class XmlGenerator {
 
+    private static final String s_helpMessage = "@0@, @1@,… @9@ are replaced by the name of the first, second,… tenth author of the article.\n" +
+                                                "@C[foobar]@ is replaced by <CODEROUTINE>foobar</CODEROUTINE>.";
     /**
      * @param links links of the article
      * @param date creation date of the article
      * @param authors authors of the article
-     * @param quality quality of the lik (between -2 and 2)
+     * @param quality quality of the link (between -2 and 2)
      * @param comment comment of the article
      * @return XML describing the article
      */
@@ -44,18 +46,18 @@ public class XmlGenerator {
             if (quality != 0) {
                 builder.append(" quality=\"" + quality + "\"");
             }
-            builder.append(">");
-            builder.append("<T>");
-            builder.append(XmlHelper.transform(linkData.title()));
-            builder.append("</T>");
+            builder.append(">")
+                   .append("<T>")
+                   .append(XmlHelper.transform(linkData.title()))
+                   .append("</T>");
             for (final String subTitle: linkData.subtitles()) {
-                builder.append("<ST>");
-                builder.append(XmlHelper.transform(subTitle));
-                builder.append("</ST>");
+                builder.append("<ST>")
+                       .append(XmlHelper.transform(subTitle))
+                       .append("</ST>");
             }
-            builder.append("<A>");
-            builder.append(XmlHelper.transform(linkData.url()));
-            builder.append("</A>");
+            builder.append("<A>")
+                   .append(XmlHelper.transform(linkData.url()))
+                   .append("</A>");
             for (final Locale language: linkData.languages()) {
                 builder.append(generateLanguage(language));
             }
@@ -77,10 +79,24 @@ public class XmlGenerator {
             builder.append(generateDate(date.get()));
         }
         builder.append("<COMMENT>");
-        builder.append(XmlHelper.transform(comment));
-        builder.append("</COMMENT>");
-        builder.append("</ARTICLE>");
+        String str = XmlHelper.transform(comment);;
+        for (int i = 0; i < authors.size(); i++) {
+            str = str.replaceAll("@" + i + "@", generateAuthor(authors.get(i)));
+        }
+        str = str.replaceAll("@C\\[([^\\]]+)\\]@", "<CODEROUTINE>$1</CODEROUTINE>");
+        builder.append(str)
+               .append("</COMMENT>")
+               .append("</ARTICLE>");
         return builder.toString();
+    }
+
+    /**
+     * return the help message
+     *
+     * @return help message
+     */
+    public static String getHelpMessage() {
+	    return s_helpMessage;
     }
 
     private static String generateAuthor(final AuthorData authorData) {

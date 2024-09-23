@@ -23,6 +23,15 @@ methods       52.1%    98.8%
 
 
 
+
+gérer les vidéos qui demandent confirmation
+https://www.youtube.com/watch?v=EvknN89JoWo
+
+
+
+
+
+
 increase test coverage of methods
 
 
@@ -51,12 +60,6 @@ gérer
 
 nettoyer links/design.xml
 
-
-
-
-
-
-faire un spin off de la psychologie
 
 
 

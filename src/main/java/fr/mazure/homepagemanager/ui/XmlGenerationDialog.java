@@ -75,6 +75,8 @@ public class XmlGenerationDialog extends Dialog<Void> {
         _quality.valueProperty().addListener((final ObservableValue<? extends String> observable, final String oldValue, final String newValue) -> generateXml());
 
         final Label commentLabel = new Label("Comment");
+        final Label commentHelpLabel = new Label(XmlGenerator.getHelpMessage());
+        commentHelpLabel.setStyle("-fx-font-style: italic; -fx-font-size: small;");
 
         _comment = new TextArea();
         _comment.setMinWidth(640);
@@ -92,7 +94,7 @@ public class XmlGenerationDialog extends Dialog<Void> {
         final Button copyXml = new Button("Copy XML");
         copyXml.setOnAction(e -> copyXml());
 
-        final VBox vbox = new VBox(_url, pasteUrl, separator1, authorsLabel, _authors, qualityLabel, _quality, commentLabel, _comment, separator2, _xml, copyXml);
+        final VBox vbox = new VBox(_url, pasteUrl, separator1, authorsLabel, _authors, qualityLabel, _quality, commentLabel, commentHelpLabel, _comment, separator2, _xml, copyXml);
         getDialogPane().setContent(vbox);
         getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
 
@@ -210,43 +212,14 @@ public class XmlGenerationDialog extends Dialog<Void> {
     }
 
     private static String authorAsString(final AuthorData author) {
-        final StringBuilder builder = new StringBuilder();
-        if (author.getNamePrefix().isPresent()) {
-            builder.append(author.getNamePrefix().get());
-        }
-        if (author.getFirstName().isPresent()) {
-            if (builder.length() > 0) {
-                builder.append(' ');
-            }
-            builder.append(author.getFirstName().get());
-        }
-        if (author.getMiddleName().isPresent()) {
-            if (builder.length() > 0) {
-                builder.append(' ');
-            }
-            builder.append(author.getMiddleName().get());
-        }
-        if (author.getLastName().isPresent()) {
-            if (builder.length() > 0) {
-                builder.append(' ');
-            }
-            builder.append(author.getLastName().get());
-        }
-        if (author.getNameSuffix().isPresent()) {
-            if (builder.length() > 0) {
-                builder.append(' ');
-            }
-            builder.append(author.getNameSuffix().get());
-        }
-        if (author.getGivenName().isPresent()) {
-            if (builder.length() > 0) {
-                builder.append(' ');
-            }
-            builder.append('"');
-            builder.append(author.getGivenName().get());
-            builder.append('"');
-        }
-        return builder.toString();
+        final List<String> parts = new ArrayList<>();
+        author.getNamePrefix().ifPresent(parts::add);
+        author.getFirstName().ifPresent(parts::add);
+        author.getMiddleName().ifPresent(parts::add);
+        author.getLastName().ifPresent(parts::add);
+        author.getNameSuffix().ifPresent(parts::add);
+        author.getGivenName().map(name -> '"' + name + '"').ifPresent(parts::add);
+        return String.join(" ", parts);
     }
 
     private void displayError(final String errorMessage) {
