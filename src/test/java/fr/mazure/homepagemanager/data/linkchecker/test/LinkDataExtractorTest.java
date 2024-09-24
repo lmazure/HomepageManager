@@ -17,7 +17,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 /**
  * High level tests of LinkDataExtractors
  */
-public class LinkDataExtractorTest {
+class LinkDataExtractorTest {
 
     @Test
     void singleQuoteIsManaged() throws ContentParserException {
