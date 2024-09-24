@@ -103,34 +103,34 @@ public class XmlGenerator {
         final StringBuilder builder = new StringBuilder();
         builder.append("<AUTHOR>");
         if (authorData.getNamePrefix().isPresent()) {
-            builder.append("<NAMEPREFIX>");
-            builder.append(XmlHelper.transform(authorData.getNamePrefix().get()));
-            builder.append("</NAMEPREFIX>");
+            builder.append("<NAMEPREFIX>")
+                   .append(XmlHelper.transform(authorData.getNamePrefix().get()))
+                   .append("</NAMEPREFIX>");
         }
         if (authorData.getFirstName().isPresent()) {
-            builder.append("<FIRSTNAME>");
-            builder.append(XmlHelper.transform(authorData.getFirstName().get()));
-            builder.append("</FIRSTNAME>");
+            builder.append("<FIRSTNAME>")
+                   .append(XmlHelper.transform(authorData.getFirstName().get()))
+                   .append("</FIRSTNAME>");
         }
         if (authorData.getMiddleName().isPresent()) {
-            builder.append("<MIDDLENAME>");
-            builder.append(XmlHelper.transform(authorData.getMiddleName().get()));
-            builder.append("</MIDDLENAME>");
+            builder.append("<MIDDLENAME>")
+                   .append(XmlHelper.transform(authorData.getMiddleName().get()))
+                   .append("</MIDDLENAME>");
         }
         if (authorData.getLastName().isPresent()) {
-            builder.append("<LASTNAME>");
-            builder.append(XmlHelper.transform(authorData.getLastName().get()));
-            builder.append("</LASTNAME>");
+            builder.append("<LASTNAME>")
+                   .append(XmlHelper.transform(authorData.getLastName().get()))
+                   .append("</LASTNAME>");
         }
         if (authorData.getNameSuffix().isPresent()) {
-            builder.append("<NAMESUFFIX>");
-            builder.append(XmlHelper.transform(authorData.getNameSuffix().get()));
-            builder.append("</NAMESUFFIX>");
+            builder.append("<NAMESUFFIX>")
+                   .append(XmlHelper.transform(authorData.getNameSuffix().get()))
+                   .append("</NAMESUFFIX>");
         }
         if (authorData.getGivenName().isPresent()) {
-            builder.append("<GIVENNAME>");
-            builder.append(XmlHelper.transform(authorData.getGivenName().get()));
-            builder.append("</GIVENNAME>");
+            builder.append("<GIVENNAME>")
+                   .append(XmlHelper.transform(authorData.getGivenName().get()))
+                   .append("</GIVENNAME>");
         }
         builder.append("</AUTHOR>");
         return builder.toString();
@@ -138,7 +138,7 @@ public class XmlGenerator {
 
     /**
      * Generate the XML attribute for the status
-     * @param status statys
+     * @param status status
      * @return XML attribute as a text
      */
     public static String generateStatus(final LinkStatus status) {
@@ -229,18 +229,18 @@ public class XmlGenerator {
      */
     public static String generateDate(final TemporalAccessor date) {
         final StringBuilder builder = new StringBuilder();
-        builder.append("<DATE>");
-        builder.append("<YEAR>");
-        builder.append(date.get(ChronoField.YEAR));
-        builder.append("</YEAR>");
+        builder.append("<DATE>")
+               .append("<YEAR>")
+               .append(date.get(ChronoField.YEAR))
+               .append("</YEAR>");
         if (date.isSupported(ChronoField.MONTH_OF_YEAR)) {
-            builder.append("<MONTH>");
-            builder.append(date.get(ChronoField.MONTH_OF_YEAR));
-            builder.append("</MONTH>");
+            builder.append("<MONTH>")
+                   .append(date.get(ChronoField.MONTH_OF_YEAR))
+                   .append("</MONTH>");
             if (date.isSupported(ChronoField.DAY_OF_MONTH)) {
-                builder.append("<DAY>");
-                builder.append(date.get(ChronoField.DAY_OF_MONTH));
-                builder.append("</DAY>");
+                builder.append("<DAY>")
+                       .append(date.get(ChronoField.DAY_OF_MONTH))
+                       .append("</DAY>");
             }
         }
         builder.append("</DATE>");
@@ -257,18 +257,18 @@ public class XmlGenerator {
         builder.append("<DURATION>");
         if ((duration.toHoursPart() > 0) || (duration.toMinutesPart()) > 0) {
             if (duration.toHoursPart() > 0) {
-                builder.append("<HOUR>");
-                builder.append(duration.toHoursPart());
-                builder.append("</HOUR>");
+                builder.append("<HOUR>")
+                       .append(duration.toHoursPart())
+                       .append("</HOUR>");
             }
-            builder.append("<MINUTE>");
-            builder.append(duration.toMinutesPart());
-            builder.append("</MINUTE>");
+            builder.append("<MINUTE>")
+                   .append(duration.toMinutesPart())
+                   .append("</MINUTE>");
         }
-        builder.append("<SECOND>");
-        builder.append(duration.toSecondsPart());
-        builder.append("</SECOND>");
-        builder.append("</DURATION>");
+        builder.append("<SECOND>")
+               .append(duration.toSecondsPart())
+               .append("</SECOND>")
+               .append("</DURATION>");
         return builder.toString();
     }
 }
