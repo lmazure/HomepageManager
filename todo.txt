@@ -65,13 +65,6 @@ nettoyer links/design.xml
 
 
 
-marquer https://www.qualitydigest.com/ comme nécessitant un free account
-
-
-
-
-
-
 
 comprendre pourquoi fr.mazure.homepagemanager.data.linkchecker.LinkContentCheckerFactory.build(String, LinkData, Optional<ArticleData>, FileSection) contient
         if (url.startsWith("https://spectrum.ieee.org/")) {
@@ -244,23 +237,6 @@ Look for article = https://www.google.com/search?q=%22Synchronizing+Networks+wit
 
 
 
-
-
-gérer notes/vscode.xml
- tag = "KEY"
- value = ""
- violation = "the KEY is incorrect"
- detail = "Illegal KEY ("\")"
-
- tag = "KEY"
- value = ""
- violation = "the KEY is incorrect"
- detail = "Illegal KEY ("[")"
-
- tag = "KEY"
- value = ""
- violation = "the KEY is incorrect"
- detail = "Illegal KEY ("]")"
 
 
 
