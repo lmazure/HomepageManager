@@ -122,7 +122,11 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                 }
             }
             if (payload.has("streamingData")) {
-                final JSONArray formats = payload.getJSONObject("streamingData").getJSONArray("formats");
+                final JSONObject streamingData = payload.getJSONObject("streamingData");
+                if (!streamingData.has("formats")) {
+	                throw new ContentParserException("\"formats\" not found in \"streamingData\": " + streamingData);
+                }
+                final JSONArray formats = streamingData.getJSONArray("formats");
                 for (int i = 0; i < formats.length(); i++) {
                     final int duration = formats.getJSONObject(i).getInt("approxDurationMs");
                     if (duration < minDuration) {

@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.regex.Pattern;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,6 +21,7 @@ import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
 import fr.mazure.homepagemanager.utils.StringHelper;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
+import fr.mazure.homepagemanager.utils.internet.UriHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
@@ -63,8 +63,6 @@ public class MediumLinkContentParser extends LinkDataExtractor {
                         "Medium",
                         "authors");
 
-    private static final Pattern s_mediumUrl = Pattern.compile("https://(.+\\.)?medium.com/.+");
-
     /**
      * @param url URL of the link
      * @param data retrieved link data
@@ -83,7 +81,9 @@ public class MediumLinkContentParser extends LinkDataExtractor {
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return s_mediumUrl.matcher(url).matches();
+        final String host = UriHelper.getHost(url);
+        return host.endsWith("medium.com") ||
+               host.equals("pub.towardsai.net");
     }
 
     @Override

@@ -23,6 +23,51 @@ methods       52.1%    98.8%
 
 
 
+Réucpérer le JSON parser de GTR et l'utiliser pour le parser YouTube
+
+
+
+
+
+
+
+
+gérer en ajountant une nouvelle weel-known redirectinn
+Title = "Companies determined to retain 'secret sauce'"
+URL = http://news.com.com/2009-1022_3-5198605.html
+Expected status = ZOMBIE
+Effective HTTP code = 302 Found
+Effective HTTP code of last redirection = 200 OK
+Redirection chain = http://news.com.com/2009-1022_3-5198605.html → https://gen.xyz/
+Redirection matcher = redirection ending in success (last URL should be used)
+Redirection matcher expected statuses = 
+Look for article = https://www.google.com/search?q=%22Companies+determined+to+retain+%27secret+sauce%27%22
+
+Title = "How India is handling international backlash"
+URL = http://news.com.com/2009-1022_3-5198950.html
+Expected status = ZOMBIE
+Effective HTTP code = 302 Found
+Effective HTTP code of last redirection = 200 OK
+Redirection chain = http://news.com.com/2009-1022_3-5198950.html → https://gen.xyz/
+Redirection matcher = redirection ending in success (last URL should be used)
+Redirection matcher expected statuses = 
+Look for article = https://www.google.com/search?q=%22How+India+is+handling+international+backlash%22
+
+Title = "The next battlefields for advanced technology"
+URL = http://news.com.com/2009-1022_3-5198957.html
+Expected status = ZOMBIE
+Effective HTTP code = 302 Found
+Effective HTTP code of last redirection = 200 OK
+Redirection chain = http://news.com.com/2009-1022_3-5198957.html → https://gen.xyz/
+Redirection matcher = redirection ending in success (last URL should be used)
+Redirection matcher expected statuses = 
+
+
+
+
+
+
+
 
 gérer les vidéos qui demandent confirmation
 https://www.youtube.com/watch?v=EvknN89JoWo
@@ -63,13 +108,6 @@ nettoyer links/design.xml
 
 
 
-
-
-
-comprendre pourquoi fr.mazure.homepagemanager.data.linkchecker.LinkContentCheckerFactory.build(String, LinkData, Optional<ArticleData>, FileSection) contient
-        if (url.startsWith("https://spectrum.ieee.org/")) {
-            return new NoCheckContentChecker(url, linkData, articleData, file);
-        }
 
 
 

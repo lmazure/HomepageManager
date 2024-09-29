@@ -115,10 +115,6 @@ public class LinkContentCheckerFactory {
             }
         }
 
-        if (url.startsWith("https://spectrum.ieee.org/")) {
-            return new NoCheckContentChecker(url, linkData, articleData, file);
-        }
-
         if (url.startsWith("https://www.facebook.com/")) {
             return new NoCheckContentChecker(url, linkData, articleData, file);
         }
