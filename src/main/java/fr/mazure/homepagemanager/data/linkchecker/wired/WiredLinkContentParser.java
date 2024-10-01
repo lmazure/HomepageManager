@@ -18,6 +18,7 @@ import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
+import fr.mazure.homepagemanager.utils.internet.JsonHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
@@ -53,20 +54,22 @@ public class WiredLinkContentParser extends LinkDataExtractor {
         try {
             final String json = s_jsonParser.extract(data);
             final JSONObject payload = new JSONObject(json);
-            title = HtmlHelper.cleanContent(payload.getJSONObject("transformed").getJSONObject("article").getJSONObject("headerProps").getString("dangerousHed"));
-            subtitle = HtmlHelper.cleanContent(payload.getJSONObject("transformed").getJSONObject("article").getJSONObject("headerProps").getString("dangerousDek"));
-            final String pubDate = payload.getJSONObject("transformed").getString("head.firstPublishDate");
+            title = HtmlHelper.cleanContent(JsonHelper.getAsText(payload, "transformed", "article", "headerProps", "dangerousHed"));
+            subtitle = HtmlHelper.cleanContent(JsonHelper.getAsText(payload, "transformed", "article", "headerProps", "dangerousDek"));
+            final String pubDate = JsonHelper.getAsText(payload, "transformed", "head.firstPublishDate");
             publicationDate = ZonedDateTime.parse(pubDate, DateTimeFormatter.ISO_DATE_TIME).toLocalDate();
-            final JSONArray authorArray = payload.getJSONObject("transformed").getJSONArray("head.jsonld").getJSONObject(0).getJSONArray("author");
+            final JSONArray authorArray = JsonHelper.getAsArray(payload, "transformed", "head.jsonld").getJSONObject(0).getJSONArray("author");
             authors = new ArrayList<>(authorArray.length());
             for (int i = 0; i < authorArray.length(); i++) {
                 final String author = authorArray.getJSONObject(i).getString("name");
-                if (!author.equals("WIRED Staff")) {
+                if (!author.equals("WIRED Staff") &&
+                    !author.equals("WIRED Ideas")) {
                     final String cleanedAuthor = author.replaceAll(", Ars Technica$", "");
                     authors.add(LinkContentParserUtils.getAuthor(cleanedAuthor));
                 }
             }
-
+        } catch (final IllegalStateException e) {
+            exception = new ContentParserException("Unexpected JSON", e);
         } catch (final ContentParserException e) {
             exception = e;
         }

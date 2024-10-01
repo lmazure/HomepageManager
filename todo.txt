@@ -22,6 +22,20 @@ methods       52.1%    98.8%
 
 
 
+
+
+
+
+
+
+seul le premier auteur de https://dzone.com/articles/knowledge-graphs-the-secret-weapon-for-rag-apps est récupéré
+
+
+
+
+
+
+
 détecter les vidéos Youtube qui sont marquées "zombie" mais qui ne sont, en fait, pas private
 
 
@@ -129,33 +143,6 @@ gérer Lex Fridman
 
 
 gérer https://www.superdatascience.com/podcast/
-
-
-
-
-
-
-
-
-gérer
-https://www.wired.com/story/large-language-model-phishing-scams/
-The list of effective authors is not the effective one.
-The following authors are effectively present but are unexpected: ▭ first=WIRED ▭ last=Ideas ▭ ▭
-The following authors are expected but are effectively missing: ▭ first=Bruce ▭ last=Schneier ▭ ▭,▭ first=Barath ▭ last=Raghavan ▭ ▭
-
-
-
-
-
-ajouter parsing de
-https://www.superdatascience.com/podcast/gradient-boosting-xgboost-lightgbm-and-catboost-with-kirill-eremenko
-Title "SDS 771: Gradient Boosting: XGBoost, LightGBM and CatBoost, with Kirill Eremenko" does not appear in the page
-author "Eremenko" does not appear in the page
-
-
-
-
-seul le premier auteur de https://dzone.com/articles/knowledge-graphs-the-secret-weapon-for-rag-apps est récupéré
 
 
 
