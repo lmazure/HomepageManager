@@ -12,7 +12,7 @@ import fr.mazure.homepagemanager.utils.internet.HttpHelper;
 /**
  * Tests of SynchronousSiteDataRetriever
  */
-public class SynchronousSiteDataRetrieverTest {
+class SynchronousSiteDataRetrieverTest {
 
     @Test
     void basicHttpRequest() {

@@ -19,7 +19,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 /**
  * Tests of SimonWillisonLinkContentParser
  */
-public class SimonWillisonLinkContentParserTest {
+class SimonWillisonLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({

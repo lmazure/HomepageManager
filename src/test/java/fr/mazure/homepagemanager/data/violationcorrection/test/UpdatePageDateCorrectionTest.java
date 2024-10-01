@@ -11,7 +11,7 @@ import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
 /**
  * Test of UpdatePageDateCorrection class
  */
-public class UpdatePageDateCorrectionTest {
+class UpdatePageDateCorrectionTest {
 
     private static final Calendar s_now = Calendar.getInstance();
     private static final int s_now_year = s_now.get(Calendar.YEAR);

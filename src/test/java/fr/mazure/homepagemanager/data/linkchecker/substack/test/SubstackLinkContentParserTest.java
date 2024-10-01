@@ -20,7 +20,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 /**
  *  Tests of SubstackLinkContentParser class
  */
-public class SubstackLinkContentParserTest {
+class SubstackLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource(value = {

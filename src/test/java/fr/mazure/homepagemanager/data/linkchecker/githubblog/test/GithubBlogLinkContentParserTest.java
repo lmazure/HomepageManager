@@ -19,7 +19,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 /**
  * Tests of GithubBlogLinkContentParser
  */
-public class GithubBlogLinkContentParserTest {
+class GithubBlogLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource(value = {

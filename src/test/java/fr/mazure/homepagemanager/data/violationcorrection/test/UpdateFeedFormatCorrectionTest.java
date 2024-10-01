@@ -10,7 +10,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.FeedFormat;
 /**
  * Test of UpdateFeedFormatCorrection class
  */
-public class UpdateFeedFormatCorrectionTest {
+class UpdateFeedFormatCorrectionTest {
 
     @SuppressWarnings("static-method")
     @Test

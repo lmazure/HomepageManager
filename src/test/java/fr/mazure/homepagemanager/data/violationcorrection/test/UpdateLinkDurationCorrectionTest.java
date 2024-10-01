@@ -11,7 +11,7 @@ import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
 /**
  * Test of UpdateLinkDurationCorrection class
  */
-public class UpdateLinkDurationCorrectionTest {
+class UpdateLinkDurationCorrectionTest {
 
     @SuppressWarnings("static-method")
     @Test

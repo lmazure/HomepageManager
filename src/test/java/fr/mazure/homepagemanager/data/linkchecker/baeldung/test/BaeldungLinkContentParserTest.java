@@ -20,7 +20,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 /**
  * Tests of BaeldungLinkContentParser
  */
-public class BaeldungLinkContentParserTest {
+class BaeldungLinkContentParserTest {
 
     @Test
     void testTitle() {

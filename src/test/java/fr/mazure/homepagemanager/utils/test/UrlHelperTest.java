@@ -9,7 +9,7 @@ import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 /**
  * Test of UrlHelper class
  */
-public class UrlHelperTest {
+class UrlHelperTest {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest

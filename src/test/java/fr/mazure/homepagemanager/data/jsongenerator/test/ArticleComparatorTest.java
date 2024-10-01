@@ -16,7 +16,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 /**
  *
  */
-public class ArticleComparatorTest {
+class ArticleComparatorTest {
 
     @SuppressWarnings("static-method")
     @Test

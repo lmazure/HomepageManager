@@ -19,7 +19,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 /**
  * Tests of DZoneLinkContentParser
  */
-public class DZoneLinkContentParserTest {
+class DZoneLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({

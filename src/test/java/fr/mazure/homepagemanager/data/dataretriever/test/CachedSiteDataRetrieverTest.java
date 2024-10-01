@@ -16,7 +16,7 @@ import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 /**
  * Tests of CachedSiteDataRetriever
  */
-public class CachedSiteDataRetrieverTest {
+class CachedSiteDataRetrieverTest {
 
     @Test
     void properlyCached() {

@@ -18,7 +18,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 /**
  * Tests of IbmLinkContentParser
  */
-public class IbmLinkContentParserTest {
+class IbmLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource(value = {

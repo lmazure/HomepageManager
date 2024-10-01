@@ -21,7 +21,7 @@ import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 /**
  * Tests of YoutubeWatchLinkContentParser
  */
-public class YoutubeWatchLinkContentParserTest {
+class YoutubeWatchLinkContentParserTest {
 
     @ParameterizedTest
     @ValueSource(strings = {

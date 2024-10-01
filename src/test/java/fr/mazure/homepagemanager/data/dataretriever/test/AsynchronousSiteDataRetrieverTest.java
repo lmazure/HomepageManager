@@ -11,7 +11,7 @@ import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 /**
  * Tests of AsynchronousSiteDataRetriever
  */
-public class AsynchronousSiteDataRetrieverTest {
+class AsynchronousSiteDataRetrieverTest {
 
     @Test
     void basicHttpRequest() {
