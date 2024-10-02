@@ -17,7 +17,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkProtection;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkStatus;
 
 /**
- * 
+ *  Tests of XmlGenerator class
  */
 class XmlGeneratorTest {
 

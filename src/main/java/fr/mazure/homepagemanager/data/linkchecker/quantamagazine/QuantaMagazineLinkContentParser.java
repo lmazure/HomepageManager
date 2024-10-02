@@ -101,7 +101,7 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
         final List<AuthorData> authors = new ArrayList<>();
         final Matcher m1 = s_authorPattern1.matcher(_data);
         while (m1.find()) {
-            final AuthorData a = LinkContentParserUtils.getAuthor(m1.group(1));
+            final AuthorData a = LinkContentParserUtils.parseAuthorName(m1.group(1));
             if (!authors.contains(a)) {
                 authors.add(a);
             }
@@ -109,7 +109,7 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
         if (authors.isEmpty()) {
             final Matcher m2 = s_authorPattern2.matcher(_data);
             while (m2.find()) {
-                final AuthorData a = LinkContentParserUtils.getAuthor(m2.group(1));
+                final AuthorData a = LinkContentParserUtils.parseAuthorName(m2.group(1));
                 if (!authors.contains(a)) {
                     authors.add(a);
                 }
@@ -163,7 +163,7 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
 
         final List<AuthorData> authors = new ArrayList<>();
         for (final String name : uniqueNames) {
-            authors.add(LinkContentParserUtils.getAuthor(name));
+            authors.add(LinkContentParserUtils.parseAuthorName(name));
         }
         if (hostIsStrogatz) {
             authors.add(WellKnownAuthors.STEVEN_STROGATZ);

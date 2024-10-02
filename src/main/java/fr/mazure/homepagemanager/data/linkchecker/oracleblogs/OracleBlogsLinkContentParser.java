@@ -119,7 +119,7 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
             final List<AuthorData> list = new ArrayList<>(1);
             for (final String author: s_authorParser.extractMulti(data)) {
                 try {
-                    list.add(LinkContentParserUtils.getAuthor(author));
+                    list.add(LinkContentParserUtils.parseAuthorName(author));
                 } catch (final ContentParserException e) {
                     _exception = null;
                     _authorException = e;

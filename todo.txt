@@ -26,16 +26,6 @@ methods       52.1%    98.8%
 
 
 
-
-
-seul le premier auteur de https://dzone.com/articles/knowledge-graphs-the-secret-weapon-for-rag-apps est récupéré
-
-
-
-
-
-
-
 détecter les vidéos Youtube qui sont marquées "zombie" mais qui ne sont, en fait, pas private
 
 

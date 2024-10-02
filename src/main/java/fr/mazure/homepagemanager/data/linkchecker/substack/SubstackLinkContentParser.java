@@ -112,7 +112,7 @@ private static final TextParser s_authorParser
                     final List<AuthorData> authors = new ArrayList<>();
                     for (int i = 0; i < ((JSONArray)authorNode).length(); i++) {
                         final String name = ((JSONArray)authorNode).getJSONObject(i).getString("name");
-                        authors.add(LinkContentParserUtils.getAuthor(name));
+                        authors.add(LinkContentParserUtils.parseAuthorName(name));
                     }
                     return authors;
                 }
@@ -134,7 +134,7 @@ private static final TextParser s_authorParser
 
         final String[] components = channelName.split("(, and | and |, )");
         for (final String component: components) {
-            list.add(LinkContentParserUtils.getAuthor(component));
+            list.add(LinkContentParserUtils.parseAuthorName(component));
         }
         return list;
     }

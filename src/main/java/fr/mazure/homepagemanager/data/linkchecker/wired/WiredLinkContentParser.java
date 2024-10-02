@@ -65,7 +65,7 @@ public class WiredLinkContentParser extends LinkDataExtractor {
                 if (!author.equals("WIRED Staff") &&
                     !author.equals("WIRED Ideas")) {
                     final String cleanedAuthor = author.replaceAll(", Ars Technica$", "");
-                    authors.add(LinkContentParserUtils.getAuthor(cleanedAuthor));
+                    authors.add(LinkContentParserUtils.parseAuthorName(cleanedAuthor));
                 }
             }
         } catch (final IllegalStateException e) {

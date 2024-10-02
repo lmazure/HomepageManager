@@ -104,7 +104,7 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
             if (parternSites.contains(author)) {
                 continue;
             }
-            list.add(LinkContentParserUtils.getAuthor(author));
+            list.add(LinkContentParserUtils.parseAuthorName(author));
         }
         return list;
     }

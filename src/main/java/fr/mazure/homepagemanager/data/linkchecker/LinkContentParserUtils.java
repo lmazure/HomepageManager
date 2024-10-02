@@ -30,7 +30,7 @@ public class LinkContentParserUtils {
      * @return extracted author name
      * @throws ContentParserException failure to extract an author name from the string
      */
-    public static AuthorData getAuthor(final String str) throws ContentParserException {
+    public static AuthorData parseAuthorName(final String str) throws ContentParserException {
         Optional<String> nameSuffix = Optional.empty();
         String s2;
         if (str.endsWith(", PhD")) {
@@ -99,6 +99,12 @@ public class LinkContentParserUtils {
                                       Optional.empty(),
                                       Optional.of(formatName(nameParts[2].substring(1, nameParts[2].length() - 1))));
             }
+            return new AuthorData(Optional.empty(),
+                                  Optional.of(formatName(nameParts[0])),
+                                  Optional.of(formatName(nameParts[1])),
+                                  Optional.of(formatName(nameParts[2]) + " " + formatName(nameParts[3])),
+                                  Optional.empty(),
+                                  Optional.empty());
         }
         throw new ContentParserException("Failed to parse author name (author name has " + nameParts.length + " parts)");
     }
@@ -117,7 +123,7 @@ public class LinkContentParserUtils {
     }
 
     /**
-     * Properlu format the name:
+     * Properly format the name:
      * - uppercase the first character
      * - replace ' with ’
      *
@@ -143,7 +149,7 @@ public class LinkContentParserUtils {
         final List<AuthorData> authorList = new ArrayList<>();
         final String[] splits = str.split(", and | and |, ");
         for (final String s: splits) {
-            authorList.add(LinkContentParserUtils.getAuthor(s));
+            authorList.add(LinkContentParserUtils.parseAuthorName(s));
         }
         return authorList;
     }
