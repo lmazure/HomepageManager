@@ -23,6 +23,30 @@ methods       52.1%    98.8%
 
 
 
+centraliser ZoneId.of("Europe/Paris")
+
+
+
+
+
+
+
+ajouter UT pour       <ITEM><ARTICLE><X><T>Practical tips for retrieval-augmented generation (RAG)</T><ST>Retrieval-augmented generation (RAG) is one of the best (and easiest) ways to specialize an LLM over your own data, but successfully applying RAG in practice involves more than just stitching together pretrained models.</ST><A>https://stackoverflow.blog/2024/08/15/practical-tips-for-retrieval-augmented-generation-rag/</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Cameron</FIRSTNAME><MIDDLENAME>R.</MIDDLENAME><LASTNAME>Wolfe</LASTNAME><NAMESUFFIX>PhD</NAMESUFFIX></AUTHOR><DATE><YEAR>2024</YEAR><MONTH>8</MONTH><DAY>15</DAY></DATE><COMMENT>Some high level advice on how to implement RAG.</COMMENT></ARTICLE></ITEM>
+
+
+
+
+
+
+
+gérer Oxide and friends
+gérer Lex Fridman
+
+
+
+
+
+
 
 
 
@@ -108,16 +132,6 @@ gérer
 
 
 nettoyer links/design.xml
-
-
-
-
-
-
-
-gérer Oxide and friends
-gérer Lex Fridman
-
 
 
 
