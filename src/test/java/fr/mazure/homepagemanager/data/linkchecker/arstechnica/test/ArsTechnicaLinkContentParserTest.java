@@ -13,42 +13,32 @@ import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.arstechnica.ArsTechnicaLinkContentParser;
+import fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 
 /**
  * Tests of ArsTechnicaLinkContentParser
  */
-class ArsTechnicaLinkContentParserTest {
+class ArsTechnicaLinkContentParserTest extends LinkDataExtractorTestBase {
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://arstechnica.com/cars/2021/04/consumer-reports-shows-tesla-autopilot-works-with-no-one-in-the-drivers-seat/,Consumer Reports shows Tesla Autopilot works with no one in the driver’s seat",
-        })
+    @CsvSource(value = {
+        "https://arstechnica.com/cars/2021/04/consumer-reports-shows-tesla-autopilot-works-with-no-one-in-the-drivers-seat/|Consumer Reports shows Tesla Autopilot works with no one in the driver’s seat",
+        "https://arstechnica.com/information-technology/2022/09/uber-was-hacked-to-its-core-purportedly-by-an-18-year-old-here-are-the-basics/|Uber was breached to its core, purportedly by an 18-year-old. Here’s what’s known",
+    }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final ArsTechnicaLinkContentParser parser = new ArsTechnicaLinkContentParser(url, data);
-                               try {
-                                   Assertions.assertEquals(expectedTitle, parser.getTitle());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getTitle threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkTitle(ArsTechnicaLinkContentParser.class, url, expectedTitle);
     }
 
+    
     @ParameterizedTest
-    @CsvSource({
-        "https://arstechnica.com/cars/2021/04/consumer-reports-shows-tesla-autopilot-works-with-no-one-in-the-drivers-seat/,Consumer Reports argues Tesla needs a better driver-monitoring system.",
-        })
+    @CsvSource(value = {
+        "https://arstechnica.com/cars/2021/04/consumer-reports-shows-tesla-autopilot-works-with-no-one-in-the-drivers-seat/|Consumer Reports argues Tesla needs a better driver-monitoring system.",
+        "https://arstechnica.com/science/2023/03/brightest-ever-gamma-ray-burst-the-boat-continues-to-puzzle-astronomers/|No evidence of associated supernova, and afterglow radio data contradicts current models."
+    }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());

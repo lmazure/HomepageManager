@@ -18,7 +18,7 @@ public abstract class LinkDataExtractor {
     /**
      * @param url URL of the link
      */
-    public LinkDataExtractor(final String url) {
+    protected LinkDataExtractor(final String url) {
         _url = url;
     }
 

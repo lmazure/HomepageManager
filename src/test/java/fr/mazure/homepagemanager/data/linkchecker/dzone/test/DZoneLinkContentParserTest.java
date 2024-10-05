@@ -13,13 +13,14 @@ import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.dzone.DZoneLinkContentParser;
+import fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 
 /**
  * Tests of DZoneLinkContentParser
  */
-class DZoneLinkContentParserTest {
+class DZoneLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @ParameterizedTest
     @CsvSource({
@@ -112,6 +113,7 @@ class DZoneLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
         "https://dzone.com/articles/how-fix-memory-leaks-java|How to Fix Memory Leaks in Java",
@@ -119,22 +121,7 @@ class DZoneLinkContentParserTest {
         }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final DZoneLinkContentParser parser = new DZoneLinkContentParser(url, data);
-                               try {
-                                   Assertions.assertEquals(expectedTitle, parser.getTitle());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getTitle threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkTitle(DZoneLinkContentParser.class, url, expectedTitle);
     }
 
     @ParameterizedTest
