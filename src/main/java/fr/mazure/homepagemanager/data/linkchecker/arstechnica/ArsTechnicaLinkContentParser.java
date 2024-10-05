@@ -42,7 +42,7 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
                          "Ars Technica",
                          "title");
     private static final TextParser s_subtitleParser
-        = new TextParser("<p class=\"my-3 text-2xl leading-\\[1\\.1\\] text-gray-300 md:leading-\\[1\\.2\\]\">",
+        = new TextParser("<p class=\"my-3 text-2xl leading-\\[1\\.1\\] text-gray-300 (?:md:mt-7 )?md:leading-\\[1\\.2\\]\">",
                          "</p>",
                          "Ars Technica",
                          "subtitle");
