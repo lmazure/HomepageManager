@@ -3,6 +3,7 @@ package fr.mazure.homepagemanager.data.linkchecker.test;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Consumer;
 
 import org.junit.jupiter.api.Assertions;
 
@@ -21,18 +22,44 @@ public class LinkDataExtractorTestBase {
     protected static void checkTitle(final Class<? extends LinkDataExtractor> clazz,
                                      final String url,
                                      final String expectedTitle) {
+        perform(clazz,
+                url,
+                (LinkDataExtractor p) ->
+                    {
+                        try {
+                            Assertions.assertEquals(expectedTitle, p.getTitle());
+                        } catch (final ContentParserException e) {
+                            Assertions.fail("getTitle threw " + e.getMessage());
+                        }
+                    });
+    }
+
+    protected static void checkSubtitle(final Class<? extends LinkDataExtractor> clazz,
+                                        final String url,
+                                        final String expectedSubtitle) {
+        perform(clazz,
+                url,
+                (LinkDataExtractor p) ->
+                    {
+                        try {
+                            Assertions.assertEquals(expectedSubtitle, p.getSubtitle().get());
+                        } catch (final ContentParserException e) {
+                            Assertions.fail("getTitle threw " + e.getMessage());
+                        }
+                    });
+    }
+
+    protected static void perform(final Class<? extends LinkDataExtractor> clazz,
+                                  final String url,
+                                  final Consumer<LinkDataExtractor> assertor) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(clazz);
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final Boolean b, final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               try {
-                                   final LinkDataExtractor parser = construct(clazz, url, data);
-                                   Assertions.assertEquals(expectedTitle, parser.getTitle());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getTitle threw " + e.getMessage());
-                               }
+                               final LinkDataExtractor parser = construct(clazz, url, data);
+                               assertor.accept(parser);
                                consumerHasBeenCalled.set(true);
                            },
                            false);

@@ -34,6 +34,7 @@ class ArsTechnicaLinkContentParserTest extends LinkDataExtractorTestBase {
     }
 
     
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
         "https://arstechnica.com/cars/2021/04/consumer-reports-shows-tesla-autopilot-works-with-no-one-in-the-drivers-seat/|Consumer Reports argues Tesla needs a better driver-monitoring system.",
@@ -41,22 +42,7 @@ class ArsTechnicaLinkContentParserTest extends LinkDataExtractorTestBase {
     }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final ArsTechnicaLinkContentParser parser = new ArsTechnicaLinkContentParser(url, data);
-                               try {
-                                   Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getSubtitle threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkSubtitle(ArsTechnicaLinkContentParser.class, url, expectedSubtitle);
     }
 
     @ParameterizedTest
