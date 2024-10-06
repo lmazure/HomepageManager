@@ -408,7 +408,7 @@ public class WellKnownRedirections {
                                  Set.of(Integer.valueOf(301)),
                                  RedirectionMatcher.Multiplicity.ONE);
             channel9Removed2.add("\\Qhttps://learn.microsoft.com/events/\\E" + RedirectionMatcher.ANY_STRING,
-                                 Set.of(Integer.valueOf(301)),
+                                 Set.of(Integer.valueOf(302)),
                                  RedirectionMatcher.Multiplicity.ONE);
             channel9Removed2.add("\\Qhttps://learn.microsoft.com/en-us/events/\\E" + RedirectionMatcher.ANY_STRING,
                                  Set.of(Integer.valueOf(301)),
@@ -417,7 +417,7 @@ public class WellKnownRedirections {
                                  Set.of(Integer.valueOf(301)),
                                  RedirectionMatcher.Multiplicity.ONE);
             channel9Removed2.add("\\Qhttps://learn.microsoft.com/shows/\\E",
-                                 Set.of(Integer.valueOf(301)),
+                                 Set.of(Integer.valueOf(302)),
                                  RedirectionMatcher.Multiplicity.ONE);
             channel9Removed2.add("\\Qhttps://learn.microsoft.com/en-us/shows/\\E",
                                  Set.of(Integer.valueOf(200)),
@@ -452,7 +452,7 @@ public class WellKnownRedirections {
                                  Set.of(Integer.valueOf(301)),
                                  RedirectionMatcher.Multiplicity.ONE);
             channel9Removed4.add("\\Qhttps://learn.microsoft.com/events/\\E" + RedirectionMatcher.ANY_STRING,
-                                 Set.of(Integer.valueOf(301)),
+                                 Set.of(Integer.valueOf(302)),
                                  RedirectionMatcher.Multiplicity.ONE);
             channel9Removed4.add("\\Qhttps://learn.microsoft.com/en-us/events/\\E" + RedirectionMatcher.ANY_STRING,
                                  Set.of(Integer.valueOf(301)),

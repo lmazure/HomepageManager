@@ -479,7 +479,7 @@ class LinkDataExtractorTest {
     void youtubeWatchBlackPenRedPenIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=eex9Gm_rOrQ";
         final String expectedXml = """
-                <ARTICLE><X><T>How to solve a triple exponential equation with different bases</T>\
+                <ARTICLE><X><T>ALL solution to a triple exponential equation 8^x+4^x+2^x=14</T>\
                 <A>https://www.youtube.com/watch?v=eex9Gm_rOrQ</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>7</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Steve</FIRSTNAME><LASTNAME>Chow</LASTNAME></AUTHOR>\
@@ -2921,7 +2921,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Capital One's $200M Cloud Data Breach</T>\
                 <A>https://www.youtube.com/watch?v=r7HV4s-4ksQ</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>18</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>23</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Kevin</FIRSTNAME><LASTNAME>Fang</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>4</MONTH><DAY>13</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
