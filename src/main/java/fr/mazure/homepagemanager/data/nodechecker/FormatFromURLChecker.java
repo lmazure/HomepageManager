@@ -65,8 +65,8 @@ public class FormatFromURLChecker extends NodeChecker {
             return new CheckStatus("ImproperFormat", "\"" + url + "\" is not indicated as being Flash Video format", Optional.empty());
         }
 
-        if ((url.startsWith("https://medium.com/") ||
-             url.startsWith("https://www.ibm.com/")) && (!format.equals("HTML") && !format.equals("MP3"))) {
+        if ((url.startsWith("https://medium.com/") || url.startsWith("https://www.ibm.com/")) &&
+            (!format.equals("HTML") && !format.equals("MP3"))) {
             return new CheckStatus("ImproperFormat", "\"" + url + "\" is not indicated as being HTML format", Optional.empty());
         }
 

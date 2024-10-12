@@ -137,6 +137,39 @@ class LinkDataExtractorTest {
     }
 
     @Test
+    void mediumTowardsAIIsManaged() throws ContentParserException {
+        final String url = "https://pub.towardsai.net/understanding-1-58-bit-large-language-models-88373010974a";
+        final String expectedXml = """
+                <ARTICLE><X><T>Understanding 1.58-bit Large Language Models</T>\
+                <A>https://pub.towardsai.net/understanding-1-58-bit-large-language-models-88373010974a</A>\
+                <L>en</L><F>HTML</F></X>\
+                <AUTHOR><FIRSTNAME>Arun</FIRSTNAME><LASTNAME>Nanda</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2024</YEAR><MONTH>9</MONTH><DAY>7</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
+    void mediumLevelUpGitConnectedIsManaged() throws ContentParserException {
+        final String url = "https://levelup.gitconnected.com/whats-wrong-with-openapi-771e67e2bf6f";
+        final String expectedXml = """
+                <ARTICLE><X><T>What’s Wrong With OpenAPI?</T>\
+                <ST>How we struggled with API documentation on our projects and went a bit crazy</ST>\
+                <A>https://levelup.gitconnected.com/whats-wrong-with-openapi-771e67e2bf6f</A>\
+                <L>en</L><F>HTML</F></X>\
+                <AUTHOR><FIRSTNAME>Konstantin</FIRSTNAME><LASTNAME>Malyshev</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2023</YEAR><MONTH>6</MONTH><DAY>21</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void mediumWithSubtitleIsManaged() throws ContentParserException {
         final String url = "https://medium.com/rahasak/build-rag-application-using-a-llm-running-on-local-computer-with-gpt4all-and-langchain-13b4b8851db8";
         final String expectedXml = """
