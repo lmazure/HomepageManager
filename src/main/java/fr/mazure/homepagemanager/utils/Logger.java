@@ -38,8 +38,10 @@ public class Logger {
     }
 
     /**
-     * @param level
-     * @return
+     * Create a new log
+     *
+     * @param level Level of the log
+     * @return The created log
      */
     public static Log log(final Level level) {
         final Thread thread = Thread.currentThread();

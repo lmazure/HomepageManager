@@ -171,7 +171,7 @@ public class XmlGenerationDialog extends Dialog<Void> {
             return;
         }
 
-        if ((_sureAuthors.size() == 0) && (_probableAuthors.size() == 0) && (_possibleAuthors.size() == 0)) {
+        if (_sureAuthors.isEmpty() && _probableAuthors.isEmpty() && _possibleAuthors.isEmpty()) {
             _authors.getChildren().add(new Label("No authors"));
         } else {
             for (final AuthorData author: _sureAuthors) {
