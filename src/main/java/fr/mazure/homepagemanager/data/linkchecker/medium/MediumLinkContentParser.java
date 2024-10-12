@@ -82,6 +82,9 @@ public class MediumLinkContentParser extends LinkDataExtractor {
      */
     public static boolean isUrlManaged(final String url) {
         final String host = UriHelper.getHost(url);
+        if (host == null) {
+            return false;
+        }
         return host.endsWith("medium.com") ||
                host.equals("pub.towardsai.net") ||
                host.equals("levelup.gitconnected.com");

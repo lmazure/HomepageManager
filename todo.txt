@@ -29,13 +29,6 @@ Regarder de nouveau si je peux récupérer le sous-titre de https://about.gitlab
 
 
 
-mettre "toto" dans le buffer de copier/coller cliquer sur "Paster url" → crash
-
-
-
-
-
-
 détecter les indentations incorrectes
 
 
