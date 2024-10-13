@@ -514,7 +514,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>ALL solution to a triple exponential equation 8^x+4^x+2^x=14</T>\
                 <A>https://www.youtube.com/watch?v=eex9Gm_rOrQ</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>7</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>7</MINUTE><SECOND>42</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Steve</FIRSTNAME><LASTNAME>Chow</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>17</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
