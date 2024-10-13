@@ -17,6 +17,7 @@ import fr.mazure.homepagemanager.data.linkchecker.githubblog.GithubBlogLinkConte
 import fr.mazure.homepagemanager.data.linkchecker.gitlabblog.GitlabBlogLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.oracleblogs.OracleBlogsLinkContentParser;
+import fr.mazure.homepagemanager.data.linkchecker.oxideandfriends.OxideAndFriendsLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.quantamagazine.QuantaMagazineLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.simonwillison.SimonWillisonLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.simonwillisontil.SimonWillisonTilLinkContentParser;
@@ -44,19 +45,20 @@ public class LinkDataExtractorFactory {
         final List<Class<? extends LinkDataExtractor>> extractors = List.of(
                 ArsTechnicaLinkContentParser.class,
                 BaeldungLinkContentParser.class,
+                DZoneLinkContentParser.class,
                 GithubBlogLinkContentParser.class,
                 GitlabBlogLinkContentParser.class,
                 MediumLinkContentParser.class,
-                DZoneLinkContentParser.class,
                 OracleBlogsLinkContentParser.class,
+                OxideAndFriendsLinkContentParser.class,
                 QuantaMagazineLinkContentParser.class,
+                SimonWillisonLinkContentParser.class,
+                SimonWillisonTilLinkContentParser.class,
                 SpectrumLinkContentParser.class,
                 StackOverflowBlogLinkContentParser.class,
                 SubstackLinkContentParser.class,
                 WiredLinkContentParser.class,
-                YoutubeWatchLinkContentParser.class,
-                SimonWillisonLinkContentParser.class,
-                SimonWillisonTilLinkContentParser.class
+                YoutubeWatchLinkContentParser.class
                );
         for (final Class<?> clazz: extractors) {
             try {

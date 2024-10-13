@@ -48,11 +48,24 @@ public class LinkDataExtractorTestBase {
                         try {
                             Assertions.assertEquals(expectedSubtitle, p.getSubtitle().get());
                         } catch (final ContentParserException e) {
-                            Assertions.fail("getTitle threw " + e.getMessage());
+                            Assertions.fail("getSubtitle threw " + e.getMessage());
                         }
                     });
     }
 
+    protected static void checkNoSubtitle(final Class<? extends LinkDataExtractor> clazz,
+                                          final String url) {
+        perform(clazz,
+                url,
+                (LinkDataExtractor p) ->
+                    {
+                        try {
+                            Assertions.assertFalse(p.getSubtitle().isPresent());
+                        } catch (final ContentParserException e) {
+                            Assertions.fail("getSubtitle threw " + e.getMessage());
+                        }
+                    });
+    }
 
     protected static void checkDate(final Class<? extends LinkDataExtractor> clazz,
                                     final String url,
@@ -65,7 +78,23 @@ public class LinkDataExtractorTestBase {
                             Assertions.assertTrue(p.getDate().isPresent());
                             Assertions.assertEquals(expectedDate, p.getDate().get().toString());
                         } catch (final ContentParserException e) {
-                            Assertions.fail("getTitle threw " + e.getMessage());
+                            Assertions.fail("getDate threw " + e.getMessage());
+                        }
+                    });
+    }
+
+    protected static void checkDuration(final Class<? extends LinkDataExtractor> clazz,
+                                        final String url,
+                                        final String expectedDuration) {
+        perform(clazz,
+                url,
+                (LinkDataExtractor p) ->
+                    {
+                        try {
+                            Assertions.assertTrue(p.getDate().isPresent());
+                            Assertions.assertEquals(expectedDuration, p.getDuration().get().toString());
+                        } catch (final ContentParserException e) {
+                            Assertions.fail("getDuration threw " + e.getMessage());
                         }
                     });
     }
