@@ -42,6 +42,7 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
                          "</span>",
                          "Oxide and Friends",
                          "duration");
+
     private static final DateTimeFormatter s_dateformatter = DateTimeFormatter.ofPattern("d MMM yyyy", Locale.ENGLISH);
 
     private static final List<AuthorData> s_authors = new ArrayList<>(Arrays.asList(

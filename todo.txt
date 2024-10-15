@@ -22,7 +22,26 @@ methods       52.1%    98.8%
 
 
 
+
+
+
+gérer Oxide and friends
+gérer Lex Fridman
+
+
+
+
+
+détecter les liens arxiv mal formattés
+
+
+
+
+
+
+
 Regarder de nouveau si je peux récupérer le sous-titre de https://about.gitlab.com/blog/2024/10/07/whats-new-in-git-2-47-0/
+
 
 
 
@@ -36,17 +55,8 @@ détecter les indentations incorrectes
 
 
 
+
 centraliser ZoneId.of("Europe/Paris")
-
-
-
-
-
-
-gérer Oxide and friends
-gérer Lex Fridman
-
-
 
 
 
