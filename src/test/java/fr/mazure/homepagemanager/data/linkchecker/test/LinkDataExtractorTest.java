@@ -2788,7 +2788,7 @@ class LinkDataExtractorTest {
     void youtubeWelchLabsWhyIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=Phscjl0u6TI";
         final String expectedXml = """
-                <ARTICLE><X><T>How Kepler Actually Discovered his Laws</T>\
+                <ARTICLE><X><T>How the Bizarre Path of Mars Reshaped Astronomy [Kepler's Laws Part 1]</T>\
                 <A>https://www.youtube.com/watch?v=Phscjl0u6TI</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>39</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Stephen</FIRSTNAME><LASTNAME>Welch</LASTNAME></AUTHOR>\
