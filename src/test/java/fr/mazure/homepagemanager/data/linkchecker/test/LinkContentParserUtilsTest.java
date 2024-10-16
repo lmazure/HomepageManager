@@ -18,7 +18,7 @@ class LinkContentParserUtilsTest {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        " Tharakarama Reddy Yernapalli Sreenivasulu||Tharakarama|Reddy|Yernapalli Sreenivasulu||",
+        "Tharakarama Reddy Yernapalli Sreenivasulu||Tharakarama|Reddy|Yernapalli Sreenivasulu||",
         "Cameron R. Wolfe, PhD||Cameron|R.|Wolfe|PhD|",
         }, delimiter = '|')
     void testAuthorNameParsing(final String str,

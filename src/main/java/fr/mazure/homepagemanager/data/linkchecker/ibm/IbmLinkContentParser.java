@@ -27,7 +27,6 @@ public class IbmLinkContentParser {
     private final List<AuthorData> _authors;
     private final ContentParserException _exception;
     private final ContentParserException _authorException;
-    private final SynchronousSiteDataRetriever _retriever;
     private final boolean _articleIsLost;
 
     /**
@@ -36,8 +35,6 @@ public class IbmLinkContentParser {
      */
     public IbmLinkContentParser(final String data,
                                 final String url) {
-
-        _retriever = new SynchronousSiteDataRetriever(null);
 
         String json = null;
         try {
@@ -151,10 +148,10 @@ public class IbmLinkContentParser {
         return _authors;
     }
 
-    private String getStructureJson(final String url) throws IOException, NotGzipException {
+    private static String getStructureJson(final String url) throws IOException, NotGzipException {
         final String urlJsonStructure = url.replaceFirst("//developer.ibm.com/articles/", "//developer.ibm.com/middleware/v1/contents/articles/")
                                            .replaceFirst("//developer.ibm.com/tutorials/", "//developer.ibm.com/middleware/v1/contents/tutorials/")
                                            .replaceFirst("/$", "");
-        return _retriever.getGzippedContent(urlJsonStructure, false);
+        return SynchronousSiteDataRetriever.getGzippedContent(urlJsonStructure, false);
     }
 }

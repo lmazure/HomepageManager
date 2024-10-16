@@ -11,7 +11,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import fr.mazure.homepagemanager.utils.internet.YouTubeHelper;
 
 /**
- * Test of the YouTubeHelper class
+ * Tests of the YouTubeHelper class
  */
 class YouTubeHelperTest {
 
@@ -20,14 +20,11 @@ class YouTubeHelperTest {
     @CsvSource(value = {
         "Oxide Computer Company|Querying Metrics with OxQL|https://www.youtube.com/watch?v=RTsXM3kcAaI",
     }, delimiter = '|')
-    void testVideoUrlRetrieval(final String channelName, final String videoTitle, final String expectedUrl) {
-		Optional<String> url = null;
-		try {
-			url = YouTubeHelper.getVideoURL(channelName, videoTitle);
-			assertEquals(expectedUrl, url.get());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    void testVideoUrlRetrieval(final String channelName,
+                               final String videoTitle,
+                               final String expectedUrl) throws IOException {
+        final Optional<String> url = YouTubeHelper.getVideoURL(channelName, videoTitle);
+        assertEquals(expectedUrl, url.get());
+    }
 
 }
