@@ -116,7 +116,7 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
     @Override
     public List<ExtractedLinkData> getLinks() throws ContentParserException {
         final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
-                                                                 new String[] { getSubtitle().get() },
+                                                                 new String[] {},
                                                                  getUrl(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
