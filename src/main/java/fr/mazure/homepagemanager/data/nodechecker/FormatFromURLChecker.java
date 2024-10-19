@@ -72,7 +72,10 @@ public class FormatFromURLChecker extends NodeChecker {
 
         if ((url.startsWith("https://www.numberphile.com/podcast/") ||
              url.startsWith("https://play.acast.com") ||
-             url.startsWith("https://podcastaddict.com")) && !format.equals("MP3")) {
+             url.startsWith("https://www.thoughtworks.com/insights/podcasts/") ||
+             url.startsWith("https://podcastaddict.com/") ||
+             url.startsWith("https://www.superdatascience.com/podcast/") ||
+             url.startsWith("https://oxide.computer/podcasts/oxide-and-friends/")) && !format.equals("MP3")) {
             return new CheckStatus("ImproperFormat", "\"" + url + "\" is not indicated as being MP3 format", Optional.empty());
         }
 
