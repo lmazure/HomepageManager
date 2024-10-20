@@ -2806,7 +2806,7 @@ class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWelchLabsWhyIsManaged() throws ContentParserException {
+    void youtubeWelchLabsIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=Phscjl0u6TI";
         final String expectedXml = """
                 <ARTICLE><X><T>How the Bizarre Path of Mars Reshaped Astronomy [Kepler's Laws Part 1]</T>\
@@ -2822,7 +2822,23 @@ class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchYannicKilcherWhyIsManaged() throws ContentParserException {
+    void youtubeWesRothIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=oSuXs0w1PPY";
+        final String expectedXml = """
+                <ARTICLE><X><T>Google's UNREAL AI Gets an UPGRADE...</T>\
+                <A>https://www.youtube.com/watch?v=oSuXs0w1PPY</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>34</MINUTE><SECOND>24</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Wes</FIRSTNAME><LASTNAME>Roth</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2024</YEAR><MONTH>10</MONTH><DAY>18</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
+    void youtubeWatchYannicKilcherIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=2zW33LfffPc";
         final String expectedXml = """
                 <ARTICLE><X><T>GPT-4 is here! What we know so far (Full Analysis)</T>\

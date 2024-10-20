@@ -24,7 +24,6 @@ methods       52.1%    98.8%
 
 
 
-
 gérer Oxide and friends
 gérer Lex Fridman
 
@@ -33,6 +32,14 @@ gérer Lex Fridman
 
 
 détecter les liens arxiv mal formattés
+
+
+
+
+
+
+comprendre pourquoi la langue de https://www.youtube.com/watch?v=vGP4pQdCocw n'est pas reconnue
+
 
 
 
