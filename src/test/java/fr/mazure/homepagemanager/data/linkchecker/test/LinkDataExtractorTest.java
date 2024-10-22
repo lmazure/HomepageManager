@@ -402,7 +402,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Quand la désinformation de l'industrie du tabac inspire Big🚬Tech ?</T>\
                 <A>https://www.youtube.com/watch?v=vOOxi9MfgNE</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>35</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>35</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Jean-Lou</FIRSTNAME><LASTNAME>Fourquet</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>10</MONTH><DAY>18</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
