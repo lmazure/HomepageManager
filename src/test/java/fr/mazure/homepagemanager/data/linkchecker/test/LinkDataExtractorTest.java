@@ -253,6 +253,26 @@ class LinkDataExtractorTest {
     }
 
     @Test
+    void oxideAndFriendsIsManaged() throws ContentParserException {
+        final String url = "https://oxide.computer/podcasts/oxide-and-friends/2135944";
+        final String expectedXml = """
+                <ARTICLE><X><T>Unshrouding Turin (or Benvenuto a Torino)</T>\
+                <A>https://oxide.computer/podcasts/oxide-and-friends/2135944</A>\
+                <L>en</L><F>MP3</F><DURATION><HOUR>1</HOUR><MINUTE>53</MINUTE><SECOND>36</SECOND></DURATION></X>\
+                <X><T>Oxide and Friends 10/14/2024 -- Unshrouding Turin (or Benvenuto a Torino)</T>\
+                <A>https://www.youtube.com/watch?v=xcMMficnQwo</A>\
+                <L>en</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>53</MINUTE><SECOND>35</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Bryan</FIRSTNAME><LASTNAME>Cantrill</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Adam</FIRSTNAME><LASTNAME>Leventhal</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2024</YEAR><MONTH>10</MONTH><DAY>16</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void SimonWillisonIsManaged() throws ContentParserException {
         final String url = "https://simonwillison.net/2024/Mar/8/gpt-4-barrier/";
         final String expectedXml = """

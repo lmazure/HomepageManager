@@ -1,5 +1,6 @@
 package fr.mazure.homepagemanager.data.linkchecker.oxideandfriends;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -10,12 +11,17 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
+import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthors;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
+import fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser;
+import fr.mazure.homepagemanager.utils.Logger;
+import fr.mazure.homepagemanager.utils.Logger.Level;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
+import fr.mazure.homepagemanager.utils.internet.YouTubeHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
@@ -113,6 +119,49 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
         return new ArrayList<>(0);
     }
 
+    private Optional<ExtractedLinkData> getOtherLink() throws ContentParserException { // TODO we need to cache in memory and on disk
+
+        // get YouTube link
+        Optional<String> youtubeLink = Optional.empty();
+        try {
+            youtubeLink = YouTubeHelper.getVideoURL("Oxide Computer Company", getTitle());
+        } catch (final IOException e) {
+            Logger.log(Level.ERROR)
+                  .append("Failed to get YouTube link")
+                  .append(e)
+                  .submit();
+            return Optional.empty();
+        }
+        if (youtubeLink.isEmpty()) {
+            return Optional.empty();
+        }
+
+        // get YouTube payload
+        String payload = null;
+        try {
+            payload = SynchronousSiteDataRetriever.getContent(youtubeLink.get(), false);
+        } catch (final IOException e) {
+            Logger.log(Level.ERROR)
+                  .append("Failed to get YouTube payload")
+                  .append(e)
+                  .submit();
+            return Optional.empty();
+        }
+
+        // extract the link data
+        final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(youtubeLink.get(), payload);
+        final ExtractedLinkData linkData = new ExtractedLinkData(parser.getTitle(),
+                                                                 new String[] { },
+                                                                 youtubeLink.get(),
+                                                                 Optional.empty(),
+                                                                 Optional.empty(),
+                                                                 new LinkFormat[] { LinkFormat.MP4 },
+                                                                 new Locale[] { parser.getLanguage() },
+                                                                 parser.getDuration(),
+                                                                 Optional.empty());
+        return Optional.of(linkData);
+    }
+
     @Override
     public List<ExtractedLinkData> getLinks() throws ContentParserException {
         final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
@@ -124,8 +173,12 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
                                                                  new Locale[] { getLanguage() },
                                                                  getDuration(),
                                                                  Optional.empty());
-        final List<ExtractedLinkData> list = new ArrayList<>(1);
+        final List<ExtractedLinkData> list = new ArrayList<>(2);
         list.add(linkData);
+        final Optional<ExtractedLinkData> otherLink = getOtherLink();
+        if (otherLink.isPresent()) {
+            list.add(otherLink.get());
+        }
         return list;
     }
 

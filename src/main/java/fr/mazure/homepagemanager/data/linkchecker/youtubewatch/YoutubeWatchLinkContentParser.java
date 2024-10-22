@@ -280,6 +280,20 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     }
 
     /**
+     * return the duration of the video (we return the min value)
+     *
+     * @return duration of the video
+     * @throws ContentParserException Failure to extract the information
+     */
+    @Override
+    public Optional<Duration> getDuration() throws ContentParserException {
+        if (_exception != null) {
+            throw _exception;
+        }
+        return Optional.of(getMinDuration());
+    }
+
+    /**
      * @return minimum duration of the video
      * @throws ContentParserException Failure to extract the information
      */
@@ -868,7 +882,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                                  Optional.empty(),
                                                                  new LinkFormat[] { LinkFormat.MP4 },
                                                                  new Locale[] { lang },
-                                                                 Optional.of(getMinDuration()),
+                                                                 getDuration(),
                                                                  Optional.empty());
         final List<ExtractedLinkData> list = new ArrayList<>(1);
         list.add(linkData);

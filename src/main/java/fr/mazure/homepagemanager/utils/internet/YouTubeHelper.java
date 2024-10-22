@@ -34,7 +34,7 @@ public class YouTubeHelper {
 
         final String payload = SynchronousSiteDataRetriever.getContent(searchURL, true);
         final String[] lines = payload.split("\n");
-            for (String line : lines) {
+            for (final String line : lines) {
             final Matcher matcher = _pattern.matcher(line);
             if (matcher.find()) {
                 return Optional.of("https://www.youtube.com/watch?v=" + matcher.group(1));
