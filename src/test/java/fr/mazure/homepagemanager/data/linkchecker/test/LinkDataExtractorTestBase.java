@@ -2,6 +2,7 @@ package fr.mazure.homepagemanager.data.linkchecker.test;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +16,7 @@ import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
+import fr.mazure.homepagemanager.utils.DateTimeHelper;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 
@@ -28,7 +30,7 @@ public class LinkDataExtractorTestBase {
                                      final String expectedTitle) {
         perform(clazz,
                 url,
-                (LinkDataExtractor p) ->
+                (final LinkDataExtractor p) ->
                     {
                         try {
                             Assertions.assertEquals(expectedTitle, p.getTitle());
@@ -43,7 +45,7 @@ public class LinkDataExtractorTestBase {
                                         final String expectedSubtitle) {
         perform(clazz,
                 url,
-                (LinkDataExtractor p) ->
+                (final LinkDataExtractor p) ->
                     {
                         try {
                             Assertions.assertEquals(expectedSubtitle, p.getSubtitle().get());
@@ -57,7 +59,7 @@ public class LinkDataExtractorTestBase {
                                           final String url) {
         perform(clazz,
                 url,
-                (LinkDataExtractor p) ->
+                (final LinkDataExtractor p) ->
                     {
                         try {
                             Assertions.assertFalse(p.getSubtitle().isPresent());
@@ -72,7 +74,7 @@ public class LinkDataExtractorTestBase {
                                     final String expectedDate) {
         perform(clazz,
                 url,
-                (LinkDataExtractor p) ->
+                (final LinkDataExtractor p) ->
                     {
                         try {
                             Assertions.assertTrue(p.getDate().isPresent());
@@ -88,11 +90,11 @@ public class LinkDataExtractorTestBase {
                                         final String expectedDuration) {
         perform(clazz,
                 url,
-                (LinkDataExtractor p) ->
+                (final LinkDataExtractor p) ->
                     {
                         try {
                             Assertions.assertTrue(p.getDate().isPresent());
-                            Assertions.assertEquals(expectedDuration, p.getDuration().get().toString());
+                            Assertions.assertEquals(DateTimeHelper.roundDuration(Duration.parse(expectedDuration)), DateTimeHelper.roundDuration(p.getDuration().get()));
                         } catch (final ContentParserException e) {
                             Assertions.fail("getDuration threw " + e.getMessage());
                         }
@@ -201,7 +203,7 @@ public class LinkDataExtractorTestBase {
                                      final List<AuthorData> expectedAuthors) {
         perform(clazz,
                 url,
-                (LinkDataExtractor p) ->
+                (final LinkDataExtractor p) ->
                     {
                         try {
                             Assertions.assertEquals(expectedAuthors, p.getSureAuthors());

@@ -121,6 +121,25 @@ class LinkDataExtractorTest {
     }
 
     @Test
+    void lexFridmanIsManaged() throws ContentParserException {
+        final String url = "https://lexfridman.com/graham-hancock";
+        final String expectedXml = """
+                <ARTICLE><X><T>#449 – Graham Hancock: Lost Civilization of the Ice Age &amp; Ancient Human History</T>\
+                <A>https://lexfridman.com/graham-hancock</A>\
+                <L>en</L><F>MP3</F><DURATION><HOUR>2</HOUR><MINUTE>33</MINUTE><SECOND>1</SECOND></DURATION></X>\
+                <X><T>Graham Hancock: Lost Civilization of the Ice Age &amp; Ancient Human History | Lex Fridman Podcast #449</T>\
+                <A>https://www.youtube.com/watch?v=NMHiLvirCb0</A>\
+                <L>en</L><F>MP4</F><DURATION><HOUR>2</HOUR><MINUTE>33</MINUTE><SECOND>1</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Lex</FIRSTNAME><LASTNAME>Fridman</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2024</YEAR><MONTH>10</MONTH><DAY>16</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void mediumIsManaged() throws ContentParserException {
         final String url = "https://medium.com/@kentbeck_7670/limbo-scaling-software-collaboration-afd4f00db4b";
         final String expectedXml = """

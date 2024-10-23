@@ -12,7 +12,7 @@ import fr.mazure.homepagemanager.data.violationcorrection.UpdateArticleDateCorre
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkSubtitleCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkTitleCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
-import fr.mazure.homepagemanager.utils.DateHelper;
+import fr.mazure.homepagemanager.utils.DateTimeHelper;
 import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.StringHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
@@ -145,10 +145,10 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
         final TemporalAccessor date =  publicationDate.isPresent() ? publicationDate.get()
                                                                    : creationDate.get();
 
-        final LocalDate effectiveDate = DateHelper.convertTemporalAccessorToLocalDate(_parser.getDate().get()).get();
+        final LocalDate effectiveDate = DateTimeHelper.convertTemporalAccessorToLocalDate(_parser.getDate().get()).get();
 
         if (!date.equals(effectiveDate)) {
-            final Optional<ViolationCorrection> correction = DateHelper.convertTemporalAccessorToLocalDate(date)
+            final Optional<ViolationCorrection> correction = DateTimeHelper.convertTemporalAccessorToLocalDate(date)
                                                                        .map(dat -> new UpdateArticleDateCorrection(dat, effectiveDate, getUrl()));
             return new LinkContentCheck("WrongDate",
                                         "The expected date " +

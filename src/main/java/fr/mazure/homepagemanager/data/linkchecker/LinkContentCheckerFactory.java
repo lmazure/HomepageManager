@@ -14,6 +14,7 @@ import fr.mazure.homepagemanager.data.linkchecker.dzone.DZoneLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.githubblog.GithubBlogLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.gitlabblog.GitlabBlogLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentChecker;
+import fr.mazure.homepagemanager.data.linkchecker.lexfridman.LexFridmanLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.oracleblogs.OracleBlogsLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.oxideandfriends.OxideAndFriendsLinkContentChecker;
@@ -49,6 +50,7 @@ public class LinkContentCheckerFactory {
                 GithubBlogLinkContentChecker.class,
                 GitlabBlogLinkContentChecker.class,
                 IbmLinkContentChecker.class,
+                LexFridmanLinkContentChecker.class,
                 MediumLinkContentChecker.class,
                 OracleBlogsLinkContentChecker.class,
                 OxideAndFriendsLinkContentChecker.class,

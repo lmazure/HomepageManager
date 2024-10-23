@@ -15,6 +15,7 @@ import fr.mazure.homepagemanager.data.linkchecker.baeldung.BaeldungLinkContentPa
 import fr.mazure.homepagemanager.data.linkchecker.dzone.DZoneLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.githubblog.GithubBlogLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.gitlabblog.GitlabBlogLinkContentParser;
+import fr.mazure.homepagemanager.data.linkchecker.lexfridman.LexFridmanLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.oracleblogs.OracleBlogsLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.oxideandfriends.OxideAndFriendsLinkContentParser;
@@ -48,6 +49,7 @@ public class LinkDataExtractorFactory {
                 DZoneLinkContentParser.class,
                 GithubBlogLinkContentParser.class,
                 GitlabBlogLinkContentParser.class,
+                LexFridmanLinkContentParser.class,
                 MediumLinkContentParser.class,
                 OracleBlogsLinkContentParser.class,
                 OxideAndFriendsLinkContentParser.class,
