@@ -1,6 +1,3 @@
-/**
- * 
- */
 package fr.mazure.homepagemanager.utils.internet;
 
 import java.io.IOException;
@@ -11,7 +8,7 @@ import java.util.regex.Pattern;
 import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 
 /**
- * 
+ * Helper methods to manage YouTube videos
  */
 public class YouTubeHelper {
 

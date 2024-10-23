@@ -22,7 +22,6 @@ class ArsTechnicaLinkContentParserTest extends LinkDataExtractorTestBase {
         checkTitle(ArsTechnicaLinkContentParser.class, url, expectedTitle);
     }
 
-    
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {

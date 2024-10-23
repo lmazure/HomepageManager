@@ -22,7 +22,6 @@ class OxideAndFriendsLinkContentParserTest extends LinkDataExtractorTestBase {
         checkTitle(OxideAndFriendsLinkContentParser.class, url, expectedTitle);
     }
 
-    
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
@@ -50,7 +49,7 @@ class OxideAndFriendsLinkContentParserTest extends LinkDataExtractorTestBase {
     void testDuration(final String url,
                       final String expectedDuration) {
         checkDuration(OxideAndFriendsLinkContentParser.class, url, expectedDuration);
-    }    
+    }
 
     @SuppressWarnings("static-method")
     @ParameterizedTest

@@ -123,7 +123,6 @@ public class LinkDataExtractorTestBase {
                                            Optional.ofNullable(expectedNameSuffix),
                                            Optional.ofNullable(expectedGivenName)));
         checkAuthors(clazz, url, expectedAuthors);
-   
    }
 
     protected static void check2Authors(final Class<? extends LinkDataExtractor> clazz,
@@ -142,17 +141,17 @@ public class LinkDataExtractorTestBase {
                                         final String expectedGivenName2) {
         final List<AuthorData> expectedAuthors = new ArrayList<>();
         expectedAuthors.add(new AuthorData(Optional.ofNullable(expectedNamePrefix1),
-                                                            Optional.ofNullable(expectedFirstName1),
-                                                            Optional.ofNullable(expectedMiddleName1),
-                                                            Optional.ofNullable(expectedLastName1),
-                                                            Optional.ofNullable(expectedNameSuffix1),
-                                                            Optional.ofNullable(expectedGivenName1)));
+                                           Optional.ofNullable(expectedFirstName1),
+                                           Optional.ofNullable(expectedMiddleName1),
+                                           Optional.ofNullable(expectedLastName1),
+                                           Optional.ofNullable(expectedNameSuffix1),
+                                           Optional.ofNullable(expectedGivenName1)));
         expectedAuthors.add(new AuthorData(Optional.ofNullable(expectedNamePrefix2),
-                                                            Optional.ofNullable(expectedFirstName2),
-                                                            Optional.ofNullable(expectedMiddleName2),
-                                                            Optional.ofNullable(expectedLastName2),
-                                                            Optional.ofNullable(expectedNameSuffix2),
-                                                            Optional.ofNullable(expectedGivenName2)));
+                                           Optional.ofNullable(expectedFirstName2),
+                                           Optional.ofNullable(expectedMiddleName2),
+                                           Optional.ofNullable(expectedLastName2),
+                                           Optional.ofNullable(expectedNameSuffix2),
+                                           Optional.ofNullable(expectedGivenName2)));
         checkAuthors(clazz, url, expectedAuthors);
     }
 
@@ -178,23 +177,23 @@ public class LinkDataExtractorTestBase {
                                         final String expectedGivenName3) {
         final List<AuthorData> expectedAuthors = new ArrayList<>();
         expectedAuthors.add(new AuthorData(Optional.ofNullable(expectedNamePrefix1),
-                                                          Optional.ofNullable(expectedFirstName1),
-                                                          Optional.ofNullable(expectedMiddleName1),
-                                                          Optional.ofNullable(expectedLastName1),
-                                                          Optional.ofNullable(expectedNameSuffix1),
-                                                          Optional.ofNullable(expectedGivenName1)));
+                                           Optional.ofNullable(expectedFirstName1),
+                                           Optional.ofNullable(expectedMiddleName1),
+                                           Optional.ofNullable(expectedLastName1),
+                                           Optional.ofNullable(expectedNameSuffix1),
+                                           Optional.ofNullable(expectedGivenName1)));
         expectedAuthors.add(new AuthorData(Optional.ofNullable(expectedNamePrefix2),
-                                                          Optional.ofNullable(expectedFirstName2),
-                                                          Optional.ofNullable(expectedMiddleName2),
-                                                          Optional.ofNullable(expectedLastName2),
-                                                          Optional.ofNullable(expectedNameSuffix2),
-                                                          Optional.ofNullable(expectedGivenName2)));
+                                           Optional.ofNullable(expectedFirstName2),
+                                           Optional.ofNullable(expectedMiddleName2),
+                                           Optional.ofNullable(expectedLastName2),
+                                           Optional.ofNullable(expectedNameSuffix2),
+                                           Optional.ofNullable(expectedGivenName2)));
         expectedAuthors.add(new AuthorData(Optional.ofNullable(expectedNamePrefix3),
-                                                          Optional.ofNullable(expectedFirstName3),
-                                                          Optional.ofNullable(expectedMiddleName3),
-                                                          Optional.ofNullable(expectedLastName3),
-                                                          Optional.ofNullable(expectedNameSuffix3),
-                                                          Optional.ofNullable(expectedGivenName3)));
+                                           Optional.ofNullable(expectedFirstName3),
+                                           Optional.ofNullable(expectedMiddleName3),
+                                           Optional.ofNullable(expectedLastName3),
+                                           Optional.ofNullable(expectedNameSuffix3),
+                                           Optional.ofNullable(expectedGivenName3)));
         checkAuthors(clazz, url, expectedAuthors);
     }
 

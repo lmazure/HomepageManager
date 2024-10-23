@@ -285,7 +285,7 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
         String middleName = fields.isNull("middle_name") ? null
                                                          : fields.getString("middle_name").trim();
         final String lastName = fields.getString("last_name").trim();
-        
+
         // kludge for working around bad middle name handling
         if (firstName.matches(".* [A-Z]\\.")) {
             if (middleName != null) {
@@ -294,7 +294,7 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
             middleName = firstName.substring(firstName.length() - 2, firstName.length());
             firstName = firstName.substring(0, firstName.length() - 3);
         }
-        
+
         return new AuthorData(Optional.empty(),
                               Optional.of(firstName),
                               Optional.ofNullable(middleName),

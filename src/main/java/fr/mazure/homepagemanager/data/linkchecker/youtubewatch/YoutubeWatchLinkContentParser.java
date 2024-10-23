@@ -143,7 +143,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
             }
             final String status = JsonHelper.getAsText(payload, "playabilityStatus", "status");
             isPlayable = status.equals("OK") ||
-                         status.equals("LOGIN_REQUIRED"); // this is the status for sensible videos 
+                         status.equals("LOGIN_REQUIRED"); // this is the status for sensible videos
         } catch (final IllegalStateException e) {
             exception = new ContentParserException("Unexpected JSON", e);
         } catch (final ContentParserException e) {

@@ -101,7 +101,7 @@ private static final TextParser s_authorParser
     public List<AuthorData> getSureAuthors() throws ContentParserException {
 
         final List<AuthorData> list = new ArrayList<>(1);
-        
+
         final String extracted = s_authorParser.extract(_data);
         final JSONObject payload = new JSONObject(extracted);
         String channelName = null;

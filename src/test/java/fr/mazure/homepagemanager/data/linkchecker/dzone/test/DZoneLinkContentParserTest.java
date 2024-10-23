@@ -91,7 +91,7 @@ class DZoneLinkContentParserTest extends LinkDataExtractorTestBase {
                                                           Optional.ofNullable(expectedLastName3),
                                                           Optional.empty(),
                                                           Optional.empty());
-        
+
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
