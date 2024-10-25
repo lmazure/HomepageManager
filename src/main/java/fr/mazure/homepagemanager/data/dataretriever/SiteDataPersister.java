@@ -30,6 +30,7 @@ import fr.mazure.homepagemanager.utils.ExitHelper;
 import fr.mazure.homepagemanager.utils.FileNameHelper;
 import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.Logger;
+import fr.mazure.homepagemanager.utils.internet.HttpHelper;
 import fr.mazure.homepagemanager.utils.internet.UriHelper;
 
 /**
@@ -334,14 +335,6 @@ public class SiteDataPersister {
             return false;
         }
 
-        if (headers.get().containsKey("Content-Encoding")) {
-            return headers.get().get("Content-Encoding").get(0).equals("gzip");
-        }
-
-        if (headers.get().containsKey("content-encoding")) {
-            return headers.get().get("content-encoding").get(0).equals("gzip");
-        }
-
-        return false;
+        return HttpHelper.isEncodedWithGzip(headers.get());
     }
 }

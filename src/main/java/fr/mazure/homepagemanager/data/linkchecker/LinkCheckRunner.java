@@ -288,6 +288,7 @@ public class LinkCheckRunner {
 
     /**
      * Callback when the data of a link has been retrieved
+     *
      * @param isDataFresh
      * @param effectiveSiteData
      */

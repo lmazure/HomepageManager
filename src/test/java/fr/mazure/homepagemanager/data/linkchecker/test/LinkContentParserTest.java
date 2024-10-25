@@ -17,7 +17,7 @@ import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 /**
  * Tests of LinkContentParser
  */
-public class LinkContentParserTest {
+class LinkContentParserTest {
 
     @ParameterizedTest
     @ValueSource(strings = {

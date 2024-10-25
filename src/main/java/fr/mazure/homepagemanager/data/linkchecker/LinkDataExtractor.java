@@ -1,5 +1,6 @@
 package fr.mazure.homepagemanager.data.linkchecker;
 
+import java.time.Duration;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ public abstract class LinkDataExtractor {
     /**
      * @param url URL of the link
      */
-    public LinkDataExtractor(final String url) {
+    protected LinkDataExtractor(final String url) {
         _url = url;
     }
 
@@ -77,8 +78,17 @@ public abstract class LinkDataExtractor {
     }
 
     /**
-     * @return the list of lonks
+     * @return the list of links
      * @throws ContentParserException Failure to extract the information
      */
     public abstract List<ExtractedLinkData> getLinks() throws ContentParserException;
+
+    /**
+     * @return the duration
+     * @throws ContentParserException Failure to extract the information
+     */
+    @SuppressWarnings("static-method")
+    public Optional<Duration> getDuration()  throws ContentParserException{
+        return Optional.empty();
+    }
 }

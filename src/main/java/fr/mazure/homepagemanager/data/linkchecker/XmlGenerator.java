@@ -18,11 +18,13 @@ import fr.mazure.homepagemanager.utils.xmlparsing.XmlHelper;
  */
 public class XmlGenerator {
 
+    private static final String s_helpMessage = "@0@, @1@,… @9@ are replaced by the name of the first, second,… tenth author of the article.\n" +
+                                                "@C[foobar]@ is replaced by <CODEROUTINE>foobar</CODEROUTINE>.";
     /**
      * @param links links of the article
      * @param date creation date of the article
      * @param authors authors of the article
-     * @param quality quality of the lik (between -2 and 2)
+     * @param quality quality of the link (between -2 and 2)
      * @param comment comment of the article
      * @return XML describing the article
      */
@@ -44,18 +46,18 @@ public class XmlGenerator {
             if (quality != 0) {
                 builder.append(" quality=\"" + quality + "\"");
             }
-            builder.append(">");
-            builder.append("<T>");
-            builder.append(XmlHelper.transform(linkData.title()));
-            builder.append("</T>");
+            builder.append(">")
+                   .append("<T>")
+                   .append(XmlHelper.transform(linkData.title()))
+                   .append("</T>");
             for (final String subTitle: linkData.subtitles()) {
-                builder.append("<ST>");
-                builder.append(XmlHelper.transform(subTitle));
-                builder.append("</ST>");
+                builder.append("<ST>")
+                       .append(XmlHelper.transform(subTitle))
+                       .append("</ST>");
             }
-            builder.append("<A>");
-            builder.append(XmlHelper.transform(linkData.url()));
-            builder.append("</A>");
+            builder.append("<A>")
+                   .append(XmlHelper.transform(linkData.url()))
+                   .append("</A>");
             for (final Locale language: linkData.languages()) {
                 builder.append(generateLanguage(language));
             }
@@ -77,44 +79,58 @@ public class XmlGenerator {
             builder.append(generateDate(date.get()));
         }
         builder.append("<COMMENT>");
-        builder.append(XmlHelper.transform(comment));
-        builder.append("</COMMENT>");
-        builder.append("</ARTICLE>");
+        String str = XmlHelper.transform(comment);;
+        for (int i = 0; i < authors.size(); i++) {
+            str = str.replaceAll("@" + i + "@", generateAuthor(authors.get(i)));
+        }
+        str = str.replaceAll("@C\\[([^\\]]+)\\]@", "<CODEROUTINE>$1</CODEROUTINE>");
+        builder.append(str)
+               .append("</COMMENT>")
+               .append("</ARTICLE>");
         return builder.toString();
+    }
+
+    /**
+     * return the help message
+     *
+     * @return help message
+     */
+    public static String getHelpMessage() {
+	    return s_helpMessage;
     }
 
     private static String generateAuthor(final AuthorData authorData) {
         final StringBuilder builder = new StringBuilder();
         builder.append("<AUTHOR>");
         if (authorData.getNamePrefix().isPresent()) {
-            builder.append("<NAMEPREFIX>");
-            builder.append(XmlHelper.transform(authorData.getNamePrefix().get()));
-            builder.append("</NAMEPREFIX>");
+            builder.append("<NAMEPREFIX>")
+                   .append(XmlHelper.transform(authorData.getNamePrefix().get()))
+                   .append("</NAMEPREFIX>");
         }
         if (authorData.getFirstName().isPresent()) {
-            builder.append("<FIRSTNAME>");
-            builder.append(XmlHelper.transform(authorData.getFirstName().get()));
-            builder.append("</FIRSTNAME>");
+            builder.append("<FIRSTNAME>")
+                   .append(XmlHelper.transform(authorData.getFirstName().get()))
+                   .append("</FIRSTNAME>");
         }
         if (authorData.getMiddleName().isPresent()) {
-            builder.append("<MIDDLENAME>");
-            builder.append(XmlHelper.transform(authorData.getMiddleName().get()));
-            builder.append("</MIDDLENAME>");
+            builder.append("<MIDDLENAME>")
+                   .append(XmlHelper.transform(authorData.getMiddleName().get()))
+                   .append("</MIDDLENAME>");
         }
         if (authorData.getLastName().isPresent()) {
-            builder.append("<LASTNAME>");
-            builder.append(XmlHelper.transform(authorData.getLastName().get()));
-            builder.append("</LASTNAME>");
+            builder.append("<LASTNAME>")
+                   .append(XmlHelper.transform(authorData.getLastName().get()))
+                   .append("</LASTNAME>");
         }
         if (authorData.getNameSuffix().isPresent()) {
-            builder.append("<NAMESUFFIX>");
-            builder.append(XmlHelper.transform(authorData.getNameSuffix().get()));
-            builder.append("</NAMESUFFIX>");
+            builder.append("<NAMESUFFIX>")
+                   .append(XmlHelper.transform(authorData.getNameSuffix().get()))
+                   .append("</NAMESUFFIX>");
         }
         if (authorData.getGivenName().isPresent()) {
-            builder.append("<GIVENNAME>");
-            builder.append(XmlHelper.transform(authorData.getGivenName().get()));
-            builder.append("</GIVENNAME>");
+            builder.append("<GIVENNAME>")
+                   .append(XmlHelper.transform(authorData.getGivenName().get()))
+                   .append("</GIVENNAME>");
         }
         builder.append("</AUTHOR>");
         return builder.toString();
@@ -122,7 +138,7 @@ public class XmlGenerator {
 
     /**
      * Generate the XML attribute for the status
-     * @param status statys
+     * @param status status
      * @return XML attribute as a text
      */
     public static String generateStatus(final LinkStatus status) {
@@ -213,18 +229,18 @@ public class XmlGenerator {
      */
     public static String generateDate(final TemporalAccessor date) {
         final StringBuilder builder = new StringBuilder();
-        builder.append("<DATE>");
-        builder.append("<YEAR>");
-        builder.append(date.get(ChronoField.YEAR));
-        builder.append("</YEAR>");
+        builder.append("<DATE>")
+               .append("<YEAR>")
+               .append(date.get(ChronoField.YEAR))
+               .append("</YEAR>");
         if (date.isSupported(ChronoField.MONTH_OF_YEAR)) {
-            builder.append("<MONTH>");
-            builder.append(date.get(ChronoField.MONTH_OF_YEAR));
-            builder.append("</MONTH>");
+            builder.append("<MONTH>")
+                   .append(date.get(ChronoField.MONTH_OF_YEAR))
+                   .append("</MONTH>");
             if (date.isSupported(ChronoField.DAY_OF_MONTH)) {
-                builder.append("<DAY>");
-                builder.append(date.get(ChronoField.DAY_OF_MONTH));
-                builder.append("</DAY>");
+                builder.append("<DAY>")
+                       .append(date.get(ChronoField.DAY_OF_MONTH))
+                       .append("</DAY>");
             }
         }
         builder.append("</DATE>");
@@ -241,18 +257,18 @@ public class XmlGenerator {
         builder.append("<DURATION>");
         if ((duration.toHoursPart() > 0) || (duration.toMinutesPart()) > 0) {
             if (duration.toHoursPart() > 0) {
-                builder.append("<HOUR>");
-                builder.append(duration.toHoursPart());
-                builder.append("</HOUR>");
+                builder.append("<HOUR>")
+                       .append(duration.toHoursPart())
+                       .append("</HOUR>");
             }
-            builder.append("<MINUTE>");
-            builder.append(duration.toMinutesPart());
-            builder.append("</MINUTE>");
+            builder.append("<MINUTE>")
+                   .append(duration.toMinutesPart())
+                   .append("</MINUTE>");
         }
-        builder.append("<SECOND>");
-        builder.append(duration.toSecondsPart());
-        builder.append("</SECOND>");
-        builder.append("</DURATION>");
+        builder.append("<SECOND>")
+               .append(duration.toSecondsPart())
+               .append("</SECOND>")
+               .append("</DURATION>");
         return builder.toString();
     }
 }

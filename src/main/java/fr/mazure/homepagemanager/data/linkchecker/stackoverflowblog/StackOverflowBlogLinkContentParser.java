@@ -88,7 +88,7 @@ public class StackOverflowBlogLinkContentParser extends LinkDataExtractor {
     public List<AuthorData> getSureAuthors() throws ContentParserException {
         final List<AuthorData> list = new ArrayList<>(1);
         final String extracted = s_authorParser.extract(_data);
-        list.add(LinkContentParserUtils.getAuthor(HtmlHelper.cleanContent(extracted)));
+        list.add(LinkContentParserUtils.parseAuthorName(HtmlHelper.cleanContent(extracted)));
         return list;
     }
 
@@ -106,7 +106,7 @@ public class StackOverflowBlogLinkContentParser extends LinkDataExtractor {
     public List<ExtractedLinkData> getLinks() throws ContentParserException {
         final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
                                                                  new String[] { getSubtitle().get() },
-                                                                 getUrl().toString(),
+                                                                 getUrl(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
                                                                  new LinkFormat[] { LinkFormat.HTML },

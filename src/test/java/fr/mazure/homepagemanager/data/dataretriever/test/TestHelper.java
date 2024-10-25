@@ -84,6 +84,6 @@ public class TestHelper {
      * @return Directory
      */
     public static Path getTestDatapath(final Class<?> clazz) {
-        return Paths.get("F:\\Documents\\tmp\\hptmp\\test\\" + clazz.getSimpleName());
+        return Paths.get("G:\\Documents\\tmp\\hptmp\\test\\" + clazz.getSimpleName());  // TODO this should not be hard-coded
     }
 }

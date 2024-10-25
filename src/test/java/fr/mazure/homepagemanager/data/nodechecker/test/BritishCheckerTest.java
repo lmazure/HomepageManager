@@ -7,7 +7,7 @@ import org.xml.sax.SAXException;
 /**
  * Tests of BritishChecker class
  */
-public class BritishCheckerTest extends NodeValueCheckerTestBase {
+class BritishCheckerTest extends NodeValueCheckerTestBase {
 
     @SuppressWarnings("static-method")
     @Test

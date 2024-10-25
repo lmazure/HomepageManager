@@ -24,7 +24,7 @@ import fr.mazure.homepagemanager.utils.ExitHelper;
 /**
  * base class for all the tests of NodeChecker subclasses
  */
-public class NodeValueCheckerTestBase {
+class NodeValueCheckerTestBase {
 
     protected static void test(final String content,
                                final String... details) throws SAXException {

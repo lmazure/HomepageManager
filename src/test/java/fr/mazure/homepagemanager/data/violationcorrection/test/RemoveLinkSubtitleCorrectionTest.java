@@ -9,7 +9,7 @@ import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
 /**
  * Tests of RemoveLinkSubtitleCorrection class
  */
-public class RemoveLinkSubtitleCorrectionTest {
+class RemoveLinkSubtitleCorrectionTest {
 
     @SuppressWarnings("static-method")
     @Test

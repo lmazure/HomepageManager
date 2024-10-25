@@ -5,6 +5,7 @@ import java.time.temporal.TemporalAccessor;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import fr.mazure.homepagemanager.data.violationcorrection.AddLinkSubtitleCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.RemoveLinkSubtitleCorrection;
@@ -12,7 +13,8 @@ import fr.mazure.homepagemanager.data.violationcorrection.UpdateArticleDateCorre
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkSubtitleCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkTitleCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
-import fr.mazure.homepagemanager.utils.DateHelper;
+import fr.mazure.homepagemanager.utils.DateTimeHelper;
+import fr.mazure.homepagemanager.utils.ExitHelper;
 import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.StringHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
@@ -145,10 +147,10 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
         final TemporalAccessor date =  publicationDate.isPresent() ? publicationDate.get()
                                                                    : creationDate.get();
 
-        final LocalDate effectiveDate = DateHelper.convertTemporalAccessorToLocalDate(_parser.getDate().get()).get();
+        final LocalDate effectiveDate = DateTimeHelper.convertTemporalAccessorToLocalDate(_parser.getDate().get()).get();
 
         if (!date.equals(effectiveDate)) {
-            final Optional<ViolationCorrection> correction = DateHelper.convertTemporalAccessorToLocalDate(date)
+            final Optional<ViolationCorrection> correction = DateTimeHelper.convertTemporalAccessorToLocalDate(date)
                                                                        .map(dat -> new UpdateArticleDateCorrection(dat, effectiveDate, getUrl()));
             return new LinkContentCheck("WrongDate",
                                         "The expected date " +
@@ -162,12 +164,49 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
     }
 
     @Override
-    protected LinkContentCheck checkLinkAuthors(final String data,
-                                                final List<AuthorData> expectedAuthors) throws ContentParserException
+    protected LinkContentCheck checkArticleAuthors(final String data,
+                                                   final List<AuthorData> expectedAuthors) throws ContentParserException
     {
         final List<AuthorData> effectiveAuthor = _parser.getSureAuthors();
 
         return simpleCheckLinkAuthors(effectiveAuthor, expectedAuthors);
+    }
+
+    @Override
+    protected LinkContentCheck checkArticleLinks(final String data,
+                                                 final List<LinkData> expectedLinks) throws ContentParserException
+    {
+        final List<ExtractedLinkData> effectiveLinks = _parser.getLinks();
+
+        // for parsers that support only one link, we just do a quick assertion
+        if (effectiveLinks.size() == 1) {
+            if (expectedLinks.stream().noneMatch(link -> link.getUrl().equals(effectiveLinks.get(0).url()))) {
+                ExitHelper.exit("Internal error: expected link " + expectedLinks.get(0) + " but got " + effectiveLinks.get(0));
+            }
+            return null;
+        }
+
+        if (effectiveLinks.size() != expectedLinks.size()) {
+            final String expectedLinksMsg = expectedLinks.stream()
+                                                         .map(LinkData::getUrl)
+                                                         .collect(Collectors.joining(", "));
+            final String effectiveLinksMsg = effectiveLinks.stream()
+                                                           .map(ExtractedLinkData::url)
+                                                           .collect(Collectors.joining(", "));
+            return new LinkContentCheck("WrongLinkCount",
+                                        "Expected " + expectedLinks.size() + " links (" + expectedLinksMsg + "), got " + effectiveLinks.size() + " links (" + effectiveLinksMsg + ")",
+                                        Optional.empty());
+        }
+
+        for (int i = 0; i < effectiveLinks.size(); i++) {
+            if (!effectiveLinks.get(i).url().equals(expectedLinks.get(i).getUrl())) {
+                return new LinkContentCheck("WrongLink",
+                                            "Expected link number " + i + " to be " + expectedLinks.get(i) + ", got " + effectiveLinks.get(i),
+                                            Optional.empty());
+            }
+        }
+
+        return null;
     }
 
     @FunctionalInterface

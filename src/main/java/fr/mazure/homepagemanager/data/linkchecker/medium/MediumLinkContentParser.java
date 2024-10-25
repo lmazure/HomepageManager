@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.regex.Pattern;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,6 +21,7 @@ import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
 import fr.mazure.homepagemanager.utils.StringHelper;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
+import fr.mazure.homepagemanager.utils.internet.UriHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
@@ -63,8 +63,6 @@ public class MediumLinkContentParser extends LinkDataExtractor {
                         "Medium",
                         "authors");
 
-    private static final Pattern s_mediumUrl = Pattern.compile("https://(.+\\.)?medium.com/.+");
-
     /**
      * @param url URL of the link
      * @param data retrieved link data
@@ -83,7 +81,13 @@ public class MediumLinkContentParser extends LinkDataExtractor {
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return s_mediumUrl.matcher(url).matches();
+        final String host = UriHelper.getHost(url);
+        if (host == null) {
+            return false;
+        }
+        return host.endsWith("medium.com") ||
+               host.equals("pub.towardsai.net") ||
+               host.equals("levelup.gitconnected.com");
     }
 
     @Override
@@ -171,7 +175,7 @@ public class MediumLinkContentParser extends LinkDataExtractor {
                 _authors = new ArrayList<>();
             }
         } else {
-            _authors = Collections.singletonList(LinkContentParserUtils.getAuthor(name));
+            _authors = Collections.singletonList(LinkContentParserUtils.parseAuthorName(name));
         }
 
         /* does not work, the subtitle in the FSON payload is not the subtitle, but the first paragraph, whatever is is this one
@@ -211,7 +215,7 @@ public class MediumLinkContentParser extends LinkDataExtractor {
         final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
                                                                  getSubtitle().isPresent() ? new String[] { getSubtitle().get() }
                                                                                            : new String[] { },
-                                                                 getUrl().toString(),
+                                                                 getUrl(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
                                                                  new LinkFormat[] { LinkFormat.HTML },

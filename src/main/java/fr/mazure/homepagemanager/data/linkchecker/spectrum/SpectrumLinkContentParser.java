@@ -111,7 +111,7 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
     public List<ExtractedLinkData> getLinks() throws ContentParserException {
         final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
                                                                  new String[] { getSubtitle().get() },
-                                                                 getUrl().toString(),
+                                                                 getUrl(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
                                                                  new LinkFormat[] { LinkFormat.HTML },
@@ -141,12 +141,12 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
                 if (name.equals("IEEE Spectrum")) {
                     continue;
                 }
-                final AuthorData author = LinkContentParserUtils.getAuthor(name);
+                final AuthorData author = LinkContentParserUtils.parseAuthorName(name);
                 _authors.add(author);
             }
         } else if (authorNode instanceof JSONObject auth) {
             final String name = auth.getString("name");
-            final AuthorData author = LinkContentParserUtils.getAuthor(name);
+            final AuthorData author = LinkContentParserUtils.parseAuthorName(name);
             _authors.add(author);
         }
         final String date = payload.getString("datePublished");

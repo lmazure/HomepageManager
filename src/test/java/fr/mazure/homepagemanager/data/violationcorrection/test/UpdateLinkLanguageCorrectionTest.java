@@ -11,7 +11,7 @@ import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
 /**
  * Test of UpdateLinkLanguageCorrection class
  */
-public class UpdateLinkLanguageCorrectionTest {
+class UpdateLinkLanguageCorrectionTest {
 
     @SuppressWarnings("static-method")
     @Test

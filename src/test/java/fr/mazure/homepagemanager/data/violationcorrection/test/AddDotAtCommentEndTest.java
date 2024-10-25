@@ -11,7 +11,7 @@ import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
 /**
  * Tests of the AddDotAtCommentEnd class
  */
-public class AddDotAtCommentEndTest {
+class AddDotAtCommentEndTest {
 
     @SuppressWarnings("static-method")
     @Test

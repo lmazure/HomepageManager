@@ -17,7 +17,7 @@ import fr.mazure.homepagemanager.utils.FileHelper;
 /**
  * Tests of FileChecker
  */
-public class FileCheckerTest {
+class FileCheckerTest {
 
     private static final String s_dirname = "dummy_dir";
     private static final String s_bad_dirname = "dammy_dir";

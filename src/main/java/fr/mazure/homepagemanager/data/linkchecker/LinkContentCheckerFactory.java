@@ -14,9 +14,13 @@ import fr.mazure.homepagemanager.data.linkchecker.dzone.DZoneLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.githubblog.GithubBlogLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.gitlabblog.GitlabBlogLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentChecker;
+import fr.mazure.homepagemanager.data.linkchecker.lexfridman.LexFridmanLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.oracleblogs.OracleBlogsLinkContentChecker;
+import fr.mazure.homepagemanager.data.linkchecker.oxideandfriends.OxideAndFriendsLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.quantamagazine.QuantaMagazineLinkContentChecker;
+import fr.mazure.homepagemanager.data.linkchecker.simonwillison.SimonWillisonLinkContentChecker;
+import fr.mazure.homepagemanager.data.linkchecker.simonwillisontil.SimonWillisonTilLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.spectrum.SpectrumLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.stackoverflowblog.StackOverflowBlogLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.substack.SubstackLinkContentChecker;
@@ -42,13 +46,17 @@ public class LinkContentCheckerFactory {
                 ArsTechnicaLinkContentChecker.class,
                 BaeldungLinkContentChecker.class,
                 ChromiumBlogLinkContentChecker.class,
+                DZoneLinkContentChecker.class,
                 GithubBlogLinkContentChecker.class,
                 GitlabBlogLinkContentChecker.class,
                 IbmLinkContentChecker.class,
+                LexFridmanLinkContentChecker.class,
                 MediumLinkContentChecker.class,
-                DZoneLinkContentChecker.class,
                 OracleBlogsLinkContentChecker.class,
+                OxideAndFriendsLinkContentChecker.class,
                 QuantaMagazineLinkContentChecker.class,
+                SimonWillisonLinkContentChecker.class,
+                SimonWillisonTilLinkContentChecker.class,
                 SpectrumLinkContentChecker.class,
                 StackOverflowBlogLinkContentChecker.class,
                 SubstackLinkContentChecker.class,
@@ -113,10 +121,6 @@ public class LinkContentCheckerFactory {
                     return null;
                 }
             }
-        }
-
-        if (url.startsWith("https://spectrum.ieee.org/")) {
-            return new NoCheckContentChecker(url, linkData, articleData, file);
         }
 
         if (url.startsWith("https://www.facebook.com/")) {

@@ -9,7 +9,7 @@ import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
 /**
  * Test of UpdateLinkUrlCorrection class
  */
-public class UpdateLinkUrlCorrectionTest {
+class UpdateLinkUrlCorrectionTest {
 
     @SuppressWarnings("static-method")
     @Test

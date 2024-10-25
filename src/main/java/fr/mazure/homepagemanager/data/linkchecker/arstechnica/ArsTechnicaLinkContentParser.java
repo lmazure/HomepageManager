@@ -1,8 +1,8 @@
 package fr.mazure.homepagemanager.data.linkchecker.arstechnica;
 
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,23 +37,23 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
                                       "The Conversation",
                                       "Inside Climate News"));
     private static final TextParser s_titleParser
-        = new TextParser("<h1 itemprop=\"headline\">",
+        = new TextParser("<h1 class=\"mb-3 font-serif text-4xl font-bold text-gray-100 md:text-6xl md:leading-\\[1\\.05\\]\">",
                          "</h1>",
                          "Ars Technica",
                          "title");
     private static final TextParser s_subtitleParser
-        = new TextParser("<h2 itemprop=\"description\">",
-                         "</h2>",
+        = new TextParser("<p class=\"my-3 text-2xl leading-\\[1\\.1\\] text-gray-300 (?:md:mt-7 )?md:leading-\\[1\\.2\\]\">",
+                         "</p>",
                          "Ars Technica",
                          "subtitle");
     private static final TextParser s_dateParser
-        = new TextParser("<time class=\"date\" data-time=\"",
-                         "\" datetime=\".*?\">",
+        = new TextParser("<meta property=\"article:published_time\" content=\"",
+                         "\" />",
                          "Ars Technica",
                          "date");
     private static final TextParser s_authorParser
-        = new TextParser("<p class=\"byline\" itemprop=\"author creator\" itemscope itemtype=\"http://schema.org/Person\">.      <a itemprop=\"url\" href=\"https://arstechnica.com/author/[a-z0-9_-]+/\"  rel=\"author\" ><span itemprop=\"name\">",
-                         "</span></a>",
+        = new TextParser("<a class=\"text-orange-400 hover:text-orange-500\" href=\"https://arstechnica.com/author/[-_a-z0-9]+/\">",
+                         "</a>",
                          "Ars Technica",
                          "author");
 
@@ -90,9 +90,9 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
 
     @Override
     public Optional<TemporalAccessor> getDate() throws ContentParserException {
-        final String date = HtmlHelper.cleanContent(s_dateParser.extract(_data));
-        final Instant instant = Instant.ofEpochSecond(Long.parseLong(date));
-        return Optional.of(LocalDate.ofInstant(instant, ZoneId.of("Europe/Paris")));
+        final ZonedDateTime inputDateTime = ZonedDateTime.parse(s_dateParser.extract(_data), DateTimeFormatter.ISO_DATE_TIME);
+        final ZoneId franceZoneId = ZoneId.of("Europe/Paris");
+        return Optional.of(inputDateTime.withZoneSameInstant(franceZoneId).toLocalDate());
     }
 
     @Override
@@ -101,10 +101,11 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
         final String extracted = s_authorParser.extract(_data);
         final String[] components = extracted.split("(, and | and |, )");
         for (final String author: components) {
-            if (parternSites.contains(author)) {
+            final String cleanedAuthor = HtmlHelper.cleanContent(author);
+            if (parternSites.contains(cleanedAuthor)) {
                 continue;
             }
-            list.add(LinkContentParserUtils.getAuthor(author));
+            list.add(LinkContentParserUtils.parseAuthorName(cleanedAuthor));
         }
         return list;
     }
@@ -123,7 +124,7 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
     public List<ExtractedLinkData> getLinks() throws ContentParserException {
         final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
                                                                  new String[] { getSubtitle().get() },
-                                                                 getUrl().toString(),
+                                                                 getUrl(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
                                                                  new LinkFormat[] { LinkFormat.HTML },

@@ -38,6 +38,7 @@ public class WellKnownAuthorsOfLink {
         s_knownUrls.put("www.inspiredtester.com",         buildKnownAuthors(WellKnownAuthors.LEAH_STOCKLEY,     false));
         s_knownUrls.put("www.jwz.org",                    buildKnownAuthors(WellKnownAuthors.JAMIE_ZAWINSKI,    false));
         s_knownUrls.put("www.numberphile.com",            buildKnownAuthors(WellKnownAuthors.BRADY_HARAN,       true));
+        s_knownUrls.put("blog.stephane-robert.info",      buildKnownAuthors(WellKnownAuthors.STEPHANE_ROBERT,   false));
     }
 
     /**
@@ -46,6 +47,13 @@ public class WellKnownAuthorsOfLink {
      */
     public static KnownAuthors getWellKnownAuthors(final String url) {
         if (!UriHelper.isValidUri(url)) {
+            return s_emptyKnownAuthors;
+        }
+        final String scheme = UriHelper.getScheme(url);
+        if (scheme == null) {
+	        return s_emptyKnownAuthors;
+        }
+        if (!scheme.equals("http") && !scheme.equals("https") && !scheme.equals("ftp")) {
             return s_emptyKnownAuthors;
         }
         final String host = UriHelper.getHost(url);

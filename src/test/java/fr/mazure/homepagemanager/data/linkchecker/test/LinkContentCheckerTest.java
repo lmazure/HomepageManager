@@ -25,7 +25,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 /**
  * Tests of LinkContentParser
  */
-public class LinkContentCheckerTest {
+class LinkContentCheckerTest {
 
     @ParameterizedTest
     @CsvSource(value = {

@@ -3,7 +3,6 @@ package fr.mazure.homepagemanager.data.linkchecker.dzone;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -98,8 +97,12 @@ public class DZoneLinkContentParser extends LinkDataExtractor {
 
     @Override
     public List<AuthorData> getSureAuthors() throws ContentParserException {
-        final String author = s_authorParser.extract(_data);
-        return Collections.singletonList(LinkContentParserUtils.getAuthor(author));
+        final List<String> authors = s_authorParser.extractMulti(_data);
+        final List<AuthorData> list = new ArrayList<>(authors.size());
+        for (final String author : authors) {
+            list.add(LinkContentParserUtils.parseAuthorName(author));
+        }
+        return list;
     }
 
     @Override
@@ -107,7 +110,7 @@ public class DZoneLinkContentParser extends LinkDataExtractor {
         final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
                                                                  getSubtitle().isPresent() ? new String[] { getSubtitle().get() }
                                                                                            : new String[] {},
-                                                                 getUrl().toString(),
+                                                                 getUrl(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
                                                                  new LinkFormat[] { LinkFormat.HTML },

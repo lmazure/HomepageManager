@@ -18,7 +18,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 /**
  * Tests of OracleBlogsLinkContentParser
  */
-public class OracleBlogsLinkContentParserTest {
+class OracleBlogsLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource(value = {

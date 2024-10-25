@@ -76,7 +76,6 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
     private final List<AuthorData> _authors;
     private final ContentParserException _exception;
     private final ContentParserException _authorException;
-    private final SynchronousSiteDataRetriever _retriever;
 
     /**
      * @param url URL of the link
@@ -85,7 +84,6 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
     public OracleBlogsLinkContentParser(final String url,
                                         final String data) {
         super(cleanUrl(url));
-        _retriever = new SynchronousSiteDataRetriever(null);
 
         // retrieve site and caas from initial HTML
         final Matcher m = s_htmlPattern.matcher(data);
@@ -119,7 +117,7 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
             final List<AuthorData> list = new ArrayList<>(1);
             for (final String author: s_authorParser.extractMulti(data)) {
                 try {
-                    list.add(LinkContentParserUtils.getAuthor(author));
+                    list.add(LinkContentParserUtils.parseAuthorName(author));
                 } catch (final ContentParserException e) {
                     _exception = null;
                     _authorException = e;
@@ -258,16 +256,16 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
         return _subtitle;
     }
 
-    private String getStructureJson(final String url,
-                                    final String site) throws IOException, NotGzipException {
+    private static String getStructureJson(final String url,
+                                           final String site) throws IOException, NotGzipException {
         final String urlJsonStructure = url.replaceFirst("/post/", "/")
                                            .replaceFirst("/[^/]*$", "/" + site + "/structure.json");
-        return _retriever.getGzippedContent(urlJsonStructure, false);
+        return SynchronousSiteDataRetriever.getGzippedContent(urlJsonStructure, false);
     }
 
-    private String getJsonPayload(final String url,
-                                  final String channelAccessToken,
-                                  final String caas) throws IOException, NotGzipException {
+    private static String getJsonPayload(final String url,
+                                         final String channelAccessToken,
+                                         final String caas) throws IOException, NotGzipException {
         final URI u = UriHelper.convertStringToUri(url);
         final String slug = Path.of(u.getPath()).getFileName().toString();
         final String jsonUrl = "https://blogs.oracle.com/content/published/api/v1.1/items?fields=ALL&orderBy=name%3Aasc&limit=1&q=((type%20eq%20%22Blog-Post%22)%20and%20(language%20eq%20%22en-US%22%20or%20translatable%20eq%20%22false%22)%20and%20(slug%20eq%20%22"
@@ -276,18 +274,18 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
                                + channelAccessToken
                                + "&cb="
                                + caas;
-        return _retriever.getGzippedContent(jsonUrl, false);
+        return SynchronousSiteDataRetriever.getGzippedContent(jsonUrl, false);
     }
 
-    private AuthorData getAuthor(final String url) throws IOException, NotGzipException, ContentParserException {
-        final String jsonPayload = _retriever.getGzippedContent(url, false);
+    private static AuthorData getAuthor(final String url) throws IOException, NotGzipException, ContentParserException {
+        final String jsonPayload = SynchronousSiteDataRetriever.getGzippedContent(url, false);
         final JSONObject obj = new JSONObject(jsonPayload);
         final JSONObject fields = obj.getJSONObject("fields");
         String firstName = fields.getString("first_name").trim();
         String middleName = fields.isNull("middle_name") ? null
                                                          : fields.getString("middle_name").trim();
         final String lastName = fields.getString("last_name").trim();
-        
+
         // kludge for working around bad middle name handling
         if (firstName.matches(".* [A-Z]\\.")) {
             if (middleName != null) {
@@ -296,7 +294,7 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
             middleName = firstName.substring(firstName.length() - 2, firstName.length());
             firstName = firstName.substring(0, firstName.length() - 3);
         }
-        
+
         return new AuthorData(Optional.empty(),
                               Optional.of(firstName),
                               Optional.ofNullable(middleName),
@@ -326,7 +324,7 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
         final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
                                                                  getSubtitle().isPresent() ? new String[] { getSubtitle().get() }
                                                                                            : new String[] { },
-                                                                 getUrl().toString(),
+                                                                 getUrl(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
                                                                  new LinkFormat[] { LinkFormat.HTML },

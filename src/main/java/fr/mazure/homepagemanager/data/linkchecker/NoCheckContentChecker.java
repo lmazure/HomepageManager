@@ -50,8 +50,8 @@ public class NoCheckContentChecker extends LinkContentChecker {
     }
 
     @Override
-    protected LinkContentCheck checkLinkAuthors(final String data,
-                                                final List<AuthorData> authors) throws ContentParserException
+    protected LinkContentCheck checkArticleAuthors(final String data,
+                                                   final List<AuthorData> authors) throws ContentParserException
     {
         return null;
     }

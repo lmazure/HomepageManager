@@ -20,7 +20,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
  * Tests of StackOverflowBlogLinkContentParser class
  *
  */
-public class StackOverflowBlogLinkContentParserTest {
+class StackOverflowBlogLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({

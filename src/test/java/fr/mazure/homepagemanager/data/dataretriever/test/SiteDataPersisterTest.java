@@ -16,7 +16,7 @@ import fr.mazure.homepagemanager.data.dataretriever.SiteDataPersister;
  * Tests of SiteDataPersister
  *
  */
-public class SiteDataPersisterTest {
+class SiteDataPersisterTest {
 
     private static String url = "http://example.com";
     private static Instant now = Instant.now();

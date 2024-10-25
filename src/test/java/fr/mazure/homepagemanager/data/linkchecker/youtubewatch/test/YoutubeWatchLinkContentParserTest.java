@@ -21,7 +21,7 @@ import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 /**
  * Tests of YoutubeWatchLinkContentParser
  */
-public class YoutubeWatchLinkContentParserTest {
+class YoutubeWatchLinkContentParserTest {
 
     @ParameterizedTest
     @ValueSource(strings = {
@@ -29,6 +29,29 @@ public class YoutubeWatchLinkContentParserTest {
             "https://www.youtube.com/watch?v=z34XhE5oRwo",
                             })
     void testPlayabilityStatusOk(final String url) {
+        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(url,
+                           (final Boolean b, final FullFetchedLinkData d) -> {
+                               Assertions.assertTrue(d.dataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
+                               final YoutubeWatchLinkContentParser parser = buildParser(data, url);
+                               try {
+                                   Assertions.assertTrue(parser.isPlayable());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("isPlayable threw " + e.getMessage());
+                               }
+                               consumerHasBeenCalled.set(true);
+                           },
+                           false);
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "https://www.youtube.com/watch?v=EvknN89JoWo",
+                            })
+    void testPlayabilitySensibleVideo(final String url) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
@@ -81,7 +104,7 @@ public class YoutubeWatchLinkContentParserTest {
                                try {
                                    Assertions.assertTrue(parser.isPrivate());
                                } catch (final ContentParserException e) {
-                                   Assertions.fail("isPlayable threw " + e.getMessage());
+                                   Assertions.fail("isPrivate threw " + e.getMessage());
                                }
                                consumerHasBeenCalled.set(true);
                            },

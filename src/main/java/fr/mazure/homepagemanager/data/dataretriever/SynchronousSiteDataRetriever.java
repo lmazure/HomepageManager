@@ -1,7 +1,9 @@
 package fr.mazure.homepagemanager.data.dataretriever;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.CookieManager;
 import java.net.HttpCookie;
 import java.net.HttpURLConnection;
@@ -40,8 +42,8 @@ import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 public class SynchronousSiteDataRetriever {
 
     private final SiteDataPersister _persister;
-    private final SSLSocketFactory _sslSocketFactory;
 
+    private static final SSLSocketFactory _sslSocketFactory = getDisabledPKIXCheck();
     private static final int s_connectTimeout = 30000;
     private static final int s_readTimeout = 60000;
     private static final int s_maxNbRedirects = 40;
@@ -53,7 +55,6 @@ public class SynchronousSiteDataRetriever {
      */
     public SynchronousSiteDataRetriever(final SiteDataPersister persister) {
         _persister = persister;
-        _sslSocketFactory = getDisabledPKIXCheck();
     }
 
     /**
@@ -145,6 +146,36 @@ public class SynchronousSiteDataRetriever {
     }
 
     /**
+     * get the content of a link
+     *
+     * @param url URL of the link to retrieve
+     * @param doNotUseCookies if true, cookies will not be recorded and resend while following redirections
+     * @return payload
+     * @throws IOException exception if the payload could not be retrieved
+     */
+    public static String getContent(final String url,
+                                    final boolean doNotUseCookies) throws IOException {
+        final HttpURLConnection httpConnection = httpConnect(url, doNotUseCookies ? null : new CookieManager());
+        final Map<String, List<String>> headers = httpConnection.getHeaderFields();
+        if (headers.size() == 0) {
+            throw new IOException("No headers for " + url);
+        }
+
+        final int responseCode = HttpHelper.getResponseCodeFromHeaders(headers);
+        if (responseCode != HttpURLConnection.HTTP_OK) {
+            throw new IOException("Received HTTP code " + responseCode + " for " + url);
+        }
+
+        try (final InputStream reader = HttpHelper.isEncodedWithGzip(headers) ? new GZIPInputStream(httpConnection.getInputStream())
+                                                                              : httpConnection.getInputStream()) {
+            final byte[] data = reader.readAllBytes();
+            return new String(data, StandardCharsets.UTF_8);
+        } catch (final IOException e) {
+            throw new IOException("Failed to get gzipped payload from " + url, e);
+        }
+    }
+
+    /**
      * get the content of a link whose payload is gzipped
      *
      * @param url URL of the link to retrieve
@@ -153,8 +184,8 @@ public class SynchronousSiteDataRetriever {
      * @throws IOException exception if the payload could not be retrieved
      * @throws NotGzipException The payload is not gzipped
      */
-    public String getGzippedContent(final String url,
-                                    final boolean doNotUseCookies) throws IOException, NotGzipException {
+    public static String getGzippedContent(final String url,
+                                           final boolean doNotUseCookies) throws IOException, NotGzipException {
         final HttpURLConnection httpConnection = httpConnect(url, doNotUseCookies ? null : new CookieManager());
         final Map<String, List<String>> headers = httpConnection.getHeaderFields();
         if (headers.size() == 0) {
@@ -195,8 +226,8 @@ public class SynchronousSiteDataRetriever {
         }
     }
 
-    private HttpURLConnection httpConnect(final String urlString,
-                                          final CookieManager cookieManager) throws IOException {
+    private static HttpURLConnection httpConnect(final String urlString,
+                                                 final CookieManager cookieManager) throws IOException {
         final URL url = UrlHelper.convertStringToUrl(urlString);
         final URLConnection connection = url.openConnection();
         final HttpURLConnection httpConnection = (HttpURLConnection)connection;

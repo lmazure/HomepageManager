@@ -128,4 +128,22 @@ public class HttpHelper {
         }
         return null;
     }
-}
+
+    /**
+     * Determinate from the header is the payload is gzipped or not
+     *
+     * @param headers headers
+     * @return true if the payload is gzipped
+     */
+    public static boolean isEncodedWithGzip(final Map<String, List<String>> headers) {
+
+        if (headers.containsKey("Content-Encoding")) {
+            return headers.get("Content-Encoding").get(0).equals("gzip");
+        }
+
+        if (headers.containsKey("content-encoding")) {
+            return headers.get("content-encoding").get(0).equals("gzip");
+        }
+
+        return false;
+    }}

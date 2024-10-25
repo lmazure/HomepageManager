@@ -7,7 +7,9 @@ package fr.mazure.homepagemanager.utils.internet;
 public class InvalidHttpCodeException extends Exception {
 
     /**
-     * @param message
+     * Constructor
+     *
+     * @param message Message of the exception
      */
     public InvalidHttpCodeException(final String message) {
         super(message);

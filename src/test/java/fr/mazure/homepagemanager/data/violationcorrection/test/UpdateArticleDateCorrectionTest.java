@@ -13,7 +13,7 @@ import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
 /**
  * Test of UpdateArticleDateCorrection class
  */
-public class UpdateArticleDateCorrectionTest {
+class UpdateArticleDateCorrectionTest {
 
     @SuppressWarnings("static-method")
     @Test

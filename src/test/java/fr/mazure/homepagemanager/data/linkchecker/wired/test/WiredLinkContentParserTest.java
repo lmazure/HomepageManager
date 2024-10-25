@@ -18,7 +18,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 /**
  * Tests of WiredLinkContentParser
  */
-public class WiredLinkContentParserTest {
+class WiredLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource(value = {
@@ -188,7 +188,10 @@ public class WiredLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
+        // author WIRED Staff
         "https://www.wired.com/2006/01/anonymity-wont-kill-the-internet/",
+        // author WIRED Ideas
+        "https://www.wired.com/story/large-language-model-phishing-scams/",
         })
     void testNoAuthor(final String url) {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());

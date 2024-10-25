@@ -10,7 +10,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkStatus;
 /**
  * Test of UpdateLinkStatusCorrection class
  */
-public class UpdateLinkStatusCorrectionTest {
+class UpdateLinkStatusCorrectionTest {
 
     @SuppressWarnings("static-method")
     @Test

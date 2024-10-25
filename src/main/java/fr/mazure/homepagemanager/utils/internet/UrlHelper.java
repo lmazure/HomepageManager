@@ -1,12 +1,32 @@
 package fr.mazure.homepagemanager.utils.internet;
 
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
+import fr.mazure.homepagemanager.utils.ExitHelper;
 
 /**
  * Helper to manager URLs
  */
 public class UrlHelper {
+
+    /**
+     * Encode a string to be included in a URL
+     *
+     * @param part String to encode
+     * @return Encoded string
+     */
+    public static String encodeUrlPart(final String part) {
+	    try {
+            return  URLEncoder.encode(part, StandardCharsets.UTF_8.toString());
+        } catch (final UnsupportedEncodingException e) {
+            ExitHelper.exit(e);
+            return null;
+        }
+    }
 
     /**
      * Remove some query parameters from a URL

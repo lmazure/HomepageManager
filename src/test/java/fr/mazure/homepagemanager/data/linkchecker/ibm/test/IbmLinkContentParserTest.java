@@ -18,7 +18,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 /**
  * Tests of IbmLinkContentParser
  */
-public class IbmLinkContentParserTest {
+class IbmLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource(value = {
@@ -135,7 +135,7 @@ public class IbmLinkContentParserTest {
 
     @ParameterizedTest
     @CsvSource({
-        "https://developer.ibm.com/articles/j-java-streams-1-brian-goetz/,Brian,,Goetz",
+        "https://developer.ibm.com/articles/j-java8idioms3/,Venkat,,Subramaniam",
         })
     void testAuthor(final String url,
                     final String expectedFirstName,

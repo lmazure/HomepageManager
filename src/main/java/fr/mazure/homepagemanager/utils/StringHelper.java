@@ -39,7 +39,7 @@ public class StringHelper {
             "map",
             "sky",
             "history", "story",
-            "iron",
+            "iron", "group", "subject",
             "japan"
         ));
 
@@ -70,7 +70,7 @@ public class StringHelper {
             "nouveau", "nouveaux", "nouvelle", "nouvelles",
             "carte",
             "ciel",
-            "histoire",
+            "histoire", "groupe", "sujet",
             "fer",
             "japon"
         ));

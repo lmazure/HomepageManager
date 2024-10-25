@@ -87,7 +87,7 @@ public class BaeldungLinkContentParser extends LinkDataExtractor {
         final List<AuthorData> list = new ArrayList<>(1);
         final String author = s_authorParser.extract(_data);
         if (!author.equals("baeldung")) {
-            list.add(LinkContentParserUtils.getAuthor(author));
+            list.add(LinkContentParserUtils.parseAuthorName(author));
         }
         return list;
     }
@@ -96,7 +96,7 @@ public class BaeldungLinkContentParser extends LinkDataExtractor {
     public List<ExtractedLinkData> getLinks() throws ContentParserException {
         final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
                                                                  new String[] { },
-                                                                 getUrl().toString(),
+                                                                 getUrl(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
                                                                  new LinkFormat[] { LinkFormat.HTML },

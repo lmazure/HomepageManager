@@ -3,6 +3,7 @@ package fr.mazure.homepagemanager.data.jsongenerator;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
@@ -23,6 +24,26 @@ public class Author extends AuthorData implements Comparable<Author> {
 
         private static final Collator s_collator = Collator.getInstance(Locale.UK);
         private final String _normalizedName;
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(_normalizedName);
+        }
+
+        @Override
+        public boolean equals(final Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final SortingKey other = (SortingKey) obj;
+            return Objects.equals(_normalizedName, other._normalizedName);
+        }
 
         SortingKey(final Optional<String> namePrefix,
                    final Optional<String> firstName,
@@ -60,8 +81,20 @@ public class Author extends AuthorData implements Comparable<Author> {
             }
 
             if (app.isPresent()) {
-                builder.append(app.get());
+                builder.append(normalize(app.get()));
             }
+        }
+
+        private static String normalize(final String str) {
+            final StringBuilder result = new StringBuilder(str.length());
+
+            for (final char c : str.toCharArray()) {
+                if (Character.isLetterOrDigit(c)) {
+                    result.append(c);
+                }
+            }
+
+            return result.toString();
         }
     }
 
@@ -121,6 +154,22 @@ public class Author extends AuthorData implements Comparable<Author> {
     }
 
     @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if ((obj == null) || (getClass() != obj.getClass())) {
+            return false;
+        }
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+	@Override
     public int compareTo(final Author o) {
         return getSortingKey().compareTo(o.getSortingKey());
     }

@@ -7,7 +7,7 @@ import org.xml.sax.SAXException;
 /**
  * Tests of IncorrectSpaceChecker class
  */
-public class IncorrectSpaceCheckerTest extends NodeValueCheckerTestBase {
+class IncorrectSpaceCheckerTest extends NodeValueCheckerTestBase {
 
     @SuppressWarnings("static-method")
     @Test

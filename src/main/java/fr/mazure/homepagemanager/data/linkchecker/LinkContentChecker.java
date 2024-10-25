@@ -36,6 +36,8 @@ public class LinkContentChecker implements Checker {
     private final FileSection _file;
     private LinkContentParser _parser;
 
+    private static final Pattern s_htmlCheckPattern = Pattern.compile("</HTML>\\p{Space}*$", Pattern.CASE_INSENSITIVE);
+
     private enum Type {
         TITLE,
         SUBTTITLE
@@ -66,9 +68,8 @@ public class LinkContentChecker implements Checker {
     @Override
     public final List<LinkContentCheck> check() throws ContentParserException {
         final String content = HtmlHelper.slurpFile(_file);
-        final Pattern p = Pattern.compile("</HTML>\\p{Space}*$", Pattern.CASE_INSENSITIVE);
-        final Matcher m = p.matcher(content);
 
+        final Matcher m = s_htmlCheckPattern.matcher(content);
         if (!m.find()) {
             Logger.log(Logger.Level.WARN).append("File " + _file + " does not end with </HTML>");
         }
@@ -106,8 +107,15 @@ public class LinkContentChecker implements Checker {
             }
         }
 
-        if (_articleData.isPresent()) {
-            final LinkContentCheck check = checkLinkAuthors(data, _articleData.get().authors());
+        if (_articleData.isPresent()) { //check authors only for articles
+            final LinkContentCheck check = checkArticleAuthors(data, _articleData.get().authors());
+            if (check != null) {
+                checks.add(check);
+            }
+        }
+
+        if (_articleData.isPresent()) { //check links only for articles
+            final LinkContentCheck check = checkArticleLinks(data, _articleData.get().links());
             if (check != null) {
                 checks.add(check);
             }
@@ -126,7 +134,6 @@ public class LinkContentChecker implements Checker {
             if (check != null) {
                 checks.add(check);
             }
-
         }
 
         {
@@ -178,8 +185,8 @@ public class LinkContentChecker implements Checker {
     /**
      * @throws ContentParserException Failure to extract the information
      */
-    protected LinkContentCheck checkLinkAuthors(final String data,
-                                                final List<AuthorData> authors) throws ContentParserException
+    protected LinkContentCheck checkArticleAuthors(final String data,
+                                                   final List<AuthorData> authors) throws ContentParserException
     {
         final WellKnownAuthorsOfLink.KnownAuthors wellKnownAuthors = WellKnownAuthorsOfLink.getWellKnownAuthors(_url);
 
@@ -236,6 +243,15 @@ public class LinkContentChecker implements Checker {
                                                 @SuppressWarnings("unused") final Optional<TemporalAccessor> publicationDate,
                                                 @SuppressWarnings("unused") final Optional<TemporalAccessor> creationDate) throws ContentParserException
     {
+        return null;
+    }
+
+    /**
+     * @throws ContentParserException Failure to extract the information
+     */
+    @SuppressWarnings("static-method")
+    protected LinkContentCheck checkArticleLinks(@SuppressWarnings("unused") final String data,
+                                                 @SuppressWarnings("unused") final List<LinkData> expectedLinks) throws ContentParserException {
         return null;
     }
 
