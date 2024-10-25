@@ -65,8 +65,8 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
     }
 
     @Override
-    protected LinkContentCheck checkLinkAuthors(final String data,
-                                                final List<AuthorData> authors) throws ContentParserException
+    protected LinkContentCheck checkArticleAuthors(final String data,
+                                                   final List<AuthorData> authors) throws ContentParserException
     {
         final List<AuthorData> missingAuthors = new ArrayList<>();
         for (final AuthorData author: getYoutubeWatchLinkContentParser().getSureAuthors()) {
