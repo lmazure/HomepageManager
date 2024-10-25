@@ -22,6 +22,24 @@ methods       52.1%    98.8%
 
 
 
+analyse echec fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.test.WellKnownRedirectionsTest.redirectionsEndingWith404(String)
+
+
+
+
+
+
+
+
+crash si paste de <ARTICLE><X><T>What do we know about Asteroid 314159 aka ‘Mattparker’?</T><A>https://www.youtube.com/watch?v=GyNbLtiAgj4</A><L>en</L><F>MP4</F><DURATION><MINUTE>40</MINUTE><SECOND>34</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Matt</FIRSTNAME><LASTNAME>Parker</LASTNAME></AUTHOR><DATE><YEAR>2024</YEAR><MONTH>10</MONTH><DAY>25</DAY></DATE><COMMENT>Some information about Asteroid 314159 (2005 FW1).</COMMENT></ARTICLE>
+
+
+
+
+
+
+
+
 
 
 améliorer la performance
