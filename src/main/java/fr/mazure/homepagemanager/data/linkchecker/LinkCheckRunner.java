@@ -1,6 +1,5 @@
 package fr.mazure.homepagemanager.data.linkchecker;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -296,15 +295,15 @@ public class LinkCheckRunner {
             return;
         }
 
-        _effectiveData.put(effectiveSiteData.url().toString(), effectiveSiteData);
+        _effectiveData.put(effectiveSiteData.url(), effectiveSiteData);
         if (!effectiveSiteData.error().isPresent()) {
             Checker checker = null;
             if (_expectedLinkData.containsKey(effectiveSiteData.url())) {
                 // this is a link
                 if (_expectedLinkData.get(effectiveSiteData.url()).getStatus() == LinkStatus.OK) {
                     checker = LinkContentCheckerFactory.build(effectiveSiteData.url(),
-                                                              _expectedLinkData.get(effectiveSiteData.url().toString()),
-                                                              Optional.ofNullable(_articles.get(effectiveSiteData.url().toString())),
+                                                              _expectedLinkData.get(effectiveSiteData.url()),
+                                                              Optional.ofNullable(_articles.get(effectiveSiteData.url())),
                                                               effectiveSiteData.dataFileSection().get());
                 }
             } else if (_expectedFeedData.containsKey(effectiveSiteData.url())) {
@@ -363,7 +362,7 @@ public class LinkCheckRunner {
 
     }
 
-    private void writeOutputFile() throws FileNotFoundException, IOException {
+    private void writeOutputFile() throws IOException {
 
         final StringBuilder ok = new StringBuilder();
         final StringBuilder ko = new StringBuilder();

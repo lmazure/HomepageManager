@@ -12,7 +12,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
-import java.time.Instant;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -135,9 +134,8 @@ public class SynchronousSiteDataRetriever {
             final HeaderFetchedLinkData d = redirectionsData.pop();
             previous = new HeaderFetchedLinkData(d.url(), d.headers(), previous);
         } while (!redirectionsData.isEmpty());
-        final Instant timestamp = Instant.now();
-        _persister.persist(previous, dataStream, error, timestamp);
-        final FullFetchedLinkData siteData = _persister.retrieve(initialUrl, timestamp);
+        _persister.persist(previous, dataStream, error);
+        final FullFetchedLinkData siteData = _persister.retrieve(initialUrl);
         consumer.accept(siteData);
     }
 

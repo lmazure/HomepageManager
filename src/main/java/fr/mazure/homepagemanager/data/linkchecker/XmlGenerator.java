@@ -79,7 +79,7 @@ public class XmlGenerator {
             builder.append(generateDate(date.get()));
         }
         builder.append("<COMMENT>");
-        String str = XmlHelper.transform(comment);;
+        String str = XmlHelper.transform(comment);
         for (int i = 0; i < authors.size(); i++) {
             str = str.replaceAll("@" + i + "@", generateAuthor(authors.get(i)));
         }

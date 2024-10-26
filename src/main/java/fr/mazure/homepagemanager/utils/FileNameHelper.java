@@ -11,17 +11,19 @@ import java.nio.file.Paths;
  */
 public class FileNameHelper {
 
+    private static final int s_max_filename_length = 245;
+
     /**
      * Generate a new name from a file sourceFile which is in a directory sourceDirectory
      * The new name is in directory targetDirectory has the same name as the sourceFile except
      * with a suffix suffix and an extension extension
      *
-     * @param sourceDirectory
-     * @param targetDirectory
-     * @param sourceFile
-     * @param suffix
-     * @param extension
-     * @return
+     * @param sourceDirectory directory where is the source file
+     * @param targetDirectory target where to put the new file
+     * @param sourceFile name of source file
+     * @param suffix suffix to add to the new file name
+     * @param extension extension to add to the new file name
+     * @return name of the new file
      */
     public static Path computeTargetFile(final Path sourceDirectory,
                                          final Path targetDirectory,
@@ -53,12 +55,13 @@ public class FileNameHelper {
     /**
      * Generate a file name from a URL
      *
+     * @param prefix filename prefix
      * @param url URL
-     * @return file name
+     *
+     * @return filename
      */
-    public static String generateFileNameFromURL(final String url) {
-
-        final int MAX_FILENAME_LENGTH = 245;
+    public static String generateFileNameFromURL(final String prefix,
+                                                 final String url) {
 
         String s;
         try {
@@ -69,9 +72,10 @@ public class FileNameHelper {
             return null;
         }
 
-        if (s.length() > MAX_FILENAME_LENGTH) {
+        final int prefixLength = prefix.length();
+        if ((prefixLength + s.length()) > s_max_filename_length) {
             // avoid crash on Windows due to too long file name
-            return s.substring(0, MAX_FILENAME_LENGTH - 9) + "_" + Integer.toHexString(s.hashCode());
+            return prefix + s.substring(0, s_max_filename_length - (prefixLength + 9)) + "_" + Integer.toHexString(s.hashCode());
         }
 
         return s;

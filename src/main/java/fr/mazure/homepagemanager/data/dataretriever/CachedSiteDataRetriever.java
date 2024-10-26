@@ -1,7 +1,5 @@
 package fr.mazure.homepagemanager.data.dataretriever;
 
-import java.time.Instant;
-import java.util.List;
 import java.util.function.Consumer;
 
 /**
@@ -29,15 +27,10 @@ public class CachedSiteDataRetriever {
                          final Consumer<FullFetchedLinkData> consumer,
                          final boolean doNotUseCookies) {
 
-        final List<Instant> timestamps = _persister.getTimestampList(url);
+		final FullFetchedLinkData data = _persister.retrieve(url);
 
-        if (!timestamps.isEmpty()) {
-
-            final Instant lastTimestamp = timestamps.get(0);
-
-            // call the consumer with the cached data
-            consumer.accept(_persister.retrieve(url, lastTimestamp));
-
+        if (data != null) {
+            consumer.accept(data);
             return;
         }
 

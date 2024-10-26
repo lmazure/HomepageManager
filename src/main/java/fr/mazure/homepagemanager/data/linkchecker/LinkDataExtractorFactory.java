@@ -74,7 +74,8 @@ public class LinkDataExtractorFactory {
                                                            ExitHelper.exit(e);
                                                            // NOTREACHED
                                                            return false;
-                                                       }},
+                                                       }
+                                                   },
                                                    cons));
             } catch (final NoSuchMethodException e) {
                 ExitHelper.exit(e);

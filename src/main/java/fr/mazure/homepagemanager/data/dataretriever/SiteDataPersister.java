@@ -13,17 +13,13 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import java.util.zip.GZIPInputStream;
 
 import fr.mazure.homepagemanager.utils.ExitHelper;
@@ -43,8 +39,8 @@ public class SiteDataPersister {
     private static final int s_max_content_size = 8 * 1024 * 1024;
 
     private static final Charset s_charset_utf8 = StandardCharsets.UTF_8;
-    private static final String effectiveFileNamePrefix = "cache_";
-    private static final String tempoFileNamePrefix = "temp_";
+    private static final String s_effectiveFileNamePrefix = "cache_";
+    private static final String s_tempoFileNamePrefix = "temp_";
 
     /**
      * @param path directory where the persistence files should be written
@@ -57,12 +53,10 @@ public class SiteDataPersister {
      * @param siteData link data
      * @param dataStream stream to download the HTTP payload
      * @param error error description, empty if no error
-     * @param timestamp timestamp of the visit
      */
     public void persist(final HeaderFetchedLinkData siteData,
                         final Optional<InputStream> dataStream,
-                        final Optional<String> error,
-                        final Instant timestamp) {
+                        final Optional<String> error) {
 
         getOutputDirectory(siteData.url()).toFile().mkdirs();
 
@@ -82,8 +76,8 @@ public class SiteDataPersister {
         final byte[] byteErrorArray = dataErrorString.getBytes(s_charset_utf8);
         sumOfSizes += byteErrorArray.length;
 
-        final File tempoFile = getTempoPersistedFile(siteData.url(), timestamp);
-        final File effectiveFile = getEffectivePersistedFile(siteData.url(), timestamp);
+        final File tempoFile = getTempoPersistedFile(siteData.url());
+        final File effectiveFile = getEffectivePersistedFile(siteData.url());
         try (final FileOutputStream fos = new FileOutputStream(tempoFile)) {
             final String siz = String.format("%9d\n", Integer.valueOf(sumOfSizes + 20));
             fos.write(siz.getBytes(s_charset_utf8));
@@ -179,39 +173,14 @@ public class SiteDataPersister {
 
     /**
      * @param url URL of the link to retrieve
-     * @return timestamps of the cached visits (in reverse order, the first in the younger one)
-     */
-    public List<Instant> getTimestampList(final String url) {
-
-        if (!Files.exists(getOutputDirectory(url))) {
-            return new ArrayList<>(0);
-        }
-
-        try (final Stream<Path> files = Files.list(getOutputDirectory(url))) {
-            return files.map(p -> p.getFileName().toString())
-                        .filter(s -> s.startsWith(effectiveFileNamePrefix))
-                        .map(s -> s.replace(effectiveFileNamePrefix, ""))
-                        .map(s -> Instant.parse(s.replaceAll(";", ":")))
-                        .sorted(Comparator.reverseOrder())
-                        .collect(Collectors.toList());
-        } catch (final IOException e) {
-            ExitHelper.exit(e);
-            return null;
-        }
-    }
-
-    /**
-     * @param url URL of the link to retrieve
-     * @param timestamp timestamp of the visit to retrieve
      * @return link data
      */
-    public FullFetchedLinkData retrieve(final String url,
-                                        final Instant timestamp) {
+    public FullFetchedLinkData retrieve(final String url) {
 
-        final File file = getEffectivePersistedFile(url, timestamp);
-
+        final File file = getEffectivePersistedFile(url);
+        
         if (!Files.exists(file.toPath())) {
-            ExitHelper.exit("status file " + file + " does not exist");
+            return null;
         }
 
         try (final FileInputStream fileInputStream = new FileInputStream(file);
@@ -290,12 +259,10 @@ public class SiteDataPersister {
 
     /**
      * @param url URL of the link to retrieve
-     * @param timestamp timestamp of the visit to retrieve
      * @return file section containing the HTTP payload, empty if the retrieval failed
      */
-    public FileSection getDataFileSection(final String url,
-                                          final Instant timestamp) {
-        final File statusFile = getEffectivePersistedFile(url, timestamp);
+    public FileSection getDataFileSection(final String url) {
+        final File statusFile = getEffectivePersistedFile(url);
         try (final BufferedReader reader = new BufferedReader(new FileReader(statusFile))) {
             final int size = Integer.parseInt(reader.readLine().trim());
             return new FileSection(statusFile, size, statusFile.length() - size);
@@ -304,21 +271,24 @@ public class SiteDataPersister {
         }
     }
 
-    private File getTempoPersistedFile(final String url,
-                                       final Instant timestamp) {
-        return getOutputDirectory(url).resolve(tempoFileNamePrefix + UUID.randomUUID() + "_" + timestamp.toString().replaceAll(":", ";")).toFile();
+    private File getTempoPersistedFile(final String url) {
+        return getPersistedFile(url, s_tempoFileNamePrefix + UUID.randomUUID());
     }
 
-    private File getEffectivePersistedFile(final String url,
-                                           final Instant timestamp) {
-        return getOutputDirectory(url).resolve(effectiveFileNamePrefix + timestamp.toString().replaceAll(":", ";")).toFile();
+    private File getEffectivePersistedFile(final String url) {
+        return getPersistedFile(url, s_effectiveFileNamePrefix );
+    }
+
+    private File getPersistedFile(final String url,
+                                   final String prefix) {
+        return getOutputDirectory(url).resolve(FileNameHelper.generateFileNameFromURL(prefix, url))
+                                      .toFile();
     }
 
     private Path getOutputDirectory(final String url) {
         final String host = UriHelper.isValidUri(url) ? UriHelper.getHost(url)
                                                       : "_invalid_URL";
-        return _path.resolve(FileNameHelper.generateDirectoryNameFromHostName(host))
-                    .resolve(FileNameHelper.generateFileNameFromURL(url));
+        return _path.resolve(FileNameHelper.generateDirectoryNameFromHostName(host));
     }
 
     private static Optional<Map<String, List<String>>> getHeadersOfLastRedirection(final HeaderFetchedLinkData siteData) {
