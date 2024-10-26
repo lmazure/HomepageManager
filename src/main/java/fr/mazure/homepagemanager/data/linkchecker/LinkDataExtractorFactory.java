@@ -121,8 +121,7 @@ public class LinkDataExtractorFactory {
         return null;
     }
 
-    private void handleLinkData(@SuppressWarnings("unused") final Boolean isDataFresh,
-                                final FullFetchedLinkData siteData) {
+    private void handleLinkData(final FullFetchedLinkData siteData) {
         if (siteData.dataFileSection().isPresent()) {
             _content = HtmlHelper.slurpFile(siteData.dataFileSection().get());
         }

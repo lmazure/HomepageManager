@@ -31,7 +31,7 @@ class QuantaMagazineLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data);
@@ -55,7 +55,7 @@ class QuantaMagazineLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data);
@@ -79,7 +79,7 @@ class QuantaMagazineLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data);
@@ -100,7 +100,7 @@ class QuantaMagazineLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String url = "https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/";
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data);
@@ -121,7 +121,7 @@ class QuantaMagazineLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String url = "https://www.quantamagazine.org/mathematician-solves-computer-science-conjecture-in-two-pages-20190725/";
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data);
@@ -142,7 +142,7 @@ class QuantaMagazineLinkContentParserTest {
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String url = "https://www.quantamagazine.org/yitang-zhang-proves-landmark-theorem-in-distribution-of-prime-numbers-20130519/";
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data);
@@ -168,7 +168,7 @@ class QuantaMagazineLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data);
@@ -193,7 +193,7 @@ class QuantaMagazineLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data);
@@ -226,7 +226,7 @@ class QuantaMagazineLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data);
@@ -259,7 +259,7 @@ class QuantaMagazineLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data);
@@ -301,7 +301,7 @@ class QuantaMagazineLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data);
@@ -349,7 +349,7 @@ class QuantaMagazineLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data);
@@ -401,7 +401,7 @@ class QuantaMagazineLinkContentParserTest {
         final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data);

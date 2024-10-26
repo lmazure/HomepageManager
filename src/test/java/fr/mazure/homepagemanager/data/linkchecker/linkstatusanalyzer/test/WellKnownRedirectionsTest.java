@@ -479,7 +479,7 @@ class WellKnownRedirectionsTest {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                (final Boolean b, final FullFetchedLinkData d) -> {
+                (final FullFetchedLinkData d) -> {
                     consumerHasBeenCalled.set(true);
                     if (redirectionIsExpected) {
                         Assertions.assertNotNull(d.previousRedirection(), "the test data is out-of-date: a redirection was expected");

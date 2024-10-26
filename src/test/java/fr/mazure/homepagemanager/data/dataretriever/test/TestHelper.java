@@ -61,16 +61,18 @@ public class TestHelper {
     }
 
     /**
-     * @param clazz
-     * @return
+     * @param clazz test class
+     *
+     * @return SynchronousSiteDataRetriever to be used for testing the class
      */
     public static SynchronousSiteDataRetriever buildDataSiteRetriever(final Class<?> clazz) {
         return new SynchronousSiteDataRetriever(buildSiteDataPersister(clazz));
     }
 
     /**
-     * @param clazz
-     * @return
+     * @param clazz test class
+     *
+     * @return SiteDataPersister to be used for testing the class
      */
     public static SiteDataPersister buildSiteDataPersister(final Class<?> clazz) {
         final Path cachePath = getTestDatapath(clazz);

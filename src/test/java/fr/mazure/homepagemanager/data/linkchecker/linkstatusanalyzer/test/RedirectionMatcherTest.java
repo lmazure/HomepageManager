@@ -56,7 +56,7 @@ class RedirectionMatcherTest {
         final SynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                (final Boolean b, final FullFetchedLinkData d) -> {
+                (final FullFetchedLinkData d) -> {
                     consumerHasBeenCalled.set(true);
                     if (expectedMatch) {
                         Assertions.assertTrue(matcher.doesRedirectionMatch(d));

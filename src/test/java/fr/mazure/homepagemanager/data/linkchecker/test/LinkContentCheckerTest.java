@@ -46,7 +46,7 @@ class LinkContentCheckerTest {
         final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null, null);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.dataFileSection().get());
                                try {
@@ -75,7 +75,7 @@ class LinkContentCheckerTest {
         final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null, null);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.dataFileSection().get());
                                try {
@@ -105,7 +105,7 @@ class LinkContentCheckerTest {
         final LinkData linkData = new LinkData(expectedSubtitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null, null);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.dataFileSection().get());
                                try {
@@ -133,7 +133,7 @@ class LinkContentCheckerTest {
         final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null, null);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.dataFileSection().get());
                                try {
@@ -164,7 +164,7 @@ class LinkContentCheckerTest {
         final LinkData linkData = new LinkData(expectedTitle, new String[] { expectedSubtitle }, url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null, null);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.dataFileSection().get());
                                try {
@@ -196,7 +196,7 @@ class LinkContentCheckerTest {
         final AuthorData author = new AuthorData(Optional.empty(), Optional.of(firstName), Optional.empty(), Optional.of(lastName), Optional.empty(), Optional.empty());
         final ArticleData articleData = new ArticleData(Optional.empty(), Collections.singletonList(author), null, null);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.dataFileSection().get());
                                try {
@@ -229,7 +229,7 @@ class LinkContentCheckerTest {
         final AuthorData author = new AuthorData(Optional.empty(), Optional.of(firstName), Optional.empty(), Optional.of(lastName), Optional.empty(), Optional.empty());
         final ArticleData articleData = new ArticleData(Optional.empty(), Collections.singletonList(author), null, null);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.dataFileSection().get());
                                try {

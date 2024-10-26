@@ -56,7 +56,6 @@ import fr.mazure.homepagemanager.utils.xmlparsing.XmlParsingException;
  */
 public class LinkCheckRunner {
 
-    private static final int s_max_cache_age = 30*24*60*60;
     private final Path _file;
     private final Map<String, FullFetchedLinkData> _effectiveData;
     private final Map<String, LinkData> _expectedLinkData;
@@ -156,7 +155,7 @@ public class LinkCheckRunner {
             return;
         }
         for (final String url: linksToBeChecked) {
-            _retriever.retrieve(url, this::handleLinkData, s_max_cache_age, doNotUseCookies(url));
+            _retriever.retrieve(url, this::handleLinkData, doNotUseCookies(url));
         }
     }
 
@@ -289,11 +288,9 @@ public class LinkCheckRunner {
     /**
      * Callback when the data of a link has been retrieved
      *
-     * @param isDataFresh
      * @param effectiveSiteData
      */
-    private synchronized void handleLinkData(final Boolean isDataFresh,
-                                             final FullFetchedLinkData effectiveSiteData) {
+    private synchronized void handleLinkData(final FullFetchedLinkData effectiveSiteData) {
 
         if (_isCancelled) {
             return;
@@ -334,9 +331,7 @@ public class LinkCheckRunner {
             }
         }
 
-        if (isDataFresh.booleanValue()) {
-            _nbSitesRemainingToBeChecked--;
-        }
+        _nbSitesRemainingToBeChecked--;
 
         final Status status = isDataExpected() ? ((_nbSitesRemainingToBeChecked == 0) ? Status.HANDLED_WITH_SUCCESS : Status.HANDLING_NO_ERROR)
                                                : ((_nbSitesRemainingToBeChecked == 0) ? Status.HANDLED_WITH_ERROR : Status.HANDLING_WITH_ERROR);

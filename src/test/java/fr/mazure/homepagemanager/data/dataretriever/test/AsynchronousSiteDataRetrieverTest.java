@@ -19,10 +19,9 @@ class AsynchronousSiteDataRetrieverTest {
         final AsynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve("http://example.com",
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertFalse(consumerHasBeenCalled.get());
                                consumerHasBeenCalled.set(true);
-                               Assertions.assertTrue(b.booleanValue());
                                TestHelper.assertData(d);
                            },
                            false);
@@ -43,10 +42,9 @@ class AsynchronousSiteDataRetrieverTest {
         final AsynchronousSiteDataRetriever retriever = buildDataSiteRetriever();
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve("https://example.com",
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertFalse(consumerHasBeenCalled.get());
                                consumerHasBeenCalled.set(true);
-                               Assertions.assertTrue(b.booleanValue());
                                TestHelper.assertData(d);
                            },
                            false);

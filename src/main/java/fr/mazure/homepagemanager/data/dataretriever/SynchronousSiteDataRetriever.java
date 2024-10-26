@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Stack;
-import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
 
@@ -64,13 +64,11 @@ public class SynchronousSiteDataRetriever {
 
     /**
      * @param url URL of the link to retrieve
-     * @param consumer
-     *   - its first argument is always true since the data is always fresh
-     *   - its second argument is the site data
+     * @param consumer consume of the site data
      * @param doNotUseCookies if true, cookies will not be recorded and resend while following redirections
      */
     public void retrieve(final String url,
-                         final BiConsumer<Boolean, FullFetchedLinkData> consumer,
+                         final Consumer<FullFetchedLinkData> consumer,
                          final boolean doNotUseCookies) {
         try {
             retrieveInternal(url, url, new Stack<>(), consumer, 0, doNotUseCookies ? null : new CookieManager());
@@ -82,7 +80,7 @@ public class SynchronousSiteDataRetriever {
     private void retrieveInternal(final String initialUrl,
                                   final String currentUrl,
                                   final Stack<HeaderFetchedLinkData> redirectionsData,
-                                  final BiConsumer<Boolean, FullFetchedLinkData> consumer,
+                                  final Consumer<FullFetchedLinkData> consumer,
                                   final int depth,
                                   final CookieManager cookieManager) {
 
@@ -140,7 +138,7 @@ public class SynchronousSiteDataRetriever {
         final Instant timestamp = Instant.now();
         _persister.persist(previous, dataStream, error, timestamp);
         final FullFetchedLinkData siteData = _persister.retrieve(initialUrl, timestamp);
-        consumer.accept(Boolean.TRUE, siteData);
+        consumer.accept(siteData);
     }
 
     /**

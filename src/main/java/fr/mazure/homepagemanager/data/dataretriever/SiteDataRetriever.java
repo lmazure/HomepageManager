@@ -1,37 +1,32 @@
 package fr.mazure.homepagemanager.data.dataretriever;
 
 import java.nio.file.Path;
-import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 /**
  * Facade class for retrieving site data
  */
 public class SiteDataRetriever {
 
-    private final CachedSiteDataRetriever _retriever;
+    private final AsynchronousSiteDataRetriever _retriever;
 
     /**
      * @param path directory where the persistence files should be written
      */
     public SiteDataRetriever(final Path path) {
         final SiteDataPersister persister = new SiteDataPersister(path);
-        _retriever = new CachedSiteDataRetriever(persister);
+        _retriever = new AsynchronousSiteDataRetriever(persister);
     }
 
     /**
      * @param url URL of the link to retrieve
-     * @param consumer
-     *   - its first argument is true is the data is fresh
-     *     (if the data is not fresh, it will be called a second time with fresh data)
-     *   - its second argument is the site data
-     * @param maxAge maximum age in seconds
+     * @param consumer consumer of the site data
      * @param doNotUseCookies if true, cookies will not be recorded and resend while following redirections
      */
     public void retrieve(final String url,
-                         final BiConsumer<Boolean, FullFetchedLinkData> consumer,
-                         final long maxAge,
+                         final Consumer<FullFetchedLinkData> consumer,
                          final boolean doNotUseCookies) {
 
-        _retriever.retrieve(url, consumer, maxAge, doNotUseCookies);
+        _retriever.retrieve(url, consumer, doNotUseCookies);
     }
 }
