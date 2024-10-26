@@ -136,7 +136,6 @@ public class XmlGenerationDialog extends Dialog<Void> {
         if (!clipboard.hasString()) {
             return;
         }
-
         _links = null;
         _date = null;
         _sureAuthors = null;
@@ -147,6 +146,11 @@ public class XmlGenerationDialog extends Dialog<Void> {
         _url.setText(url);
         _xml.clear();
         _authors.getChildren().clear();
+
+        if (!UriHelper.isValidUri(url)) {
+            displayError("Invalid URL");
+            return;
+        }
 
         LinkDataExtractor extractor;
         try {

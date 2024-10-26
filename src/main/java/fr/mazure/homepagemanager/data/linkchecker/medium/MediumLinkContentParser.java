@@ -81,6 +81,11 @@ public class MediumLinkContentParser extends LinkDataExtractor {
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
+
+        if (!UriHelper.isValidUri(url)) {
+	        return false;
+        }
+
         final String host = UriHelper.getHost(url);
         if (host == null) {
             return false;
