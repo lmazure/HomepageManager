@@ -20,7 +20,7 @@ public class UrlHelper {
      * @return Encoded string
      */
     public static String encodeUrlPart(final String part) {
-	    try {
+        try {
             return  URLEncoder.encode(part, StandardCharsets.UTF_8.toString());
         } catch (final UnsupportedEncodingException e) {
             ExitHelper.exit(e);

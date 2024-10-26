@@ -23,16 +23,18 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
  */
 public class SimonWillisonLinkContentParser extends LinkDataExtractor {
 
+    private static final String s_sourceName = "simonwillison.net";
+
     private static final TextParser s_titleParser
         = new TextParser("<title>",
                          "</title>",
-                         "simonwillison.net",
+                         s_sourceName,
                          "title");
 
     private static final TextParser s_dateParser
         = new TextParser("\\Q<meta property=\"og:updated_time\" content=\"\\E",
                          "\\Q\">\\E",
-                         "simonwillison.net",
+                         s_sourceName,
                          "date");
 
     private final String _data;

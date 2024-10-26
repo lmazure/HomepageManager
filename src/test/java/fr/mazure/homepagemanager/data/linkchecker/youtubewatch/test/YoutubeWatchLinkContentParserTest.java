@@ -242,9 +242,9 @@ class YoutubeWatchLinkContentParserTest {
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
                                try {
                                    Assertions.assertEquals("""
-                                	Ce soir, on joue ensemble autour de quelques énigmes mathématiques.
+                                    Ce soir, on joue ensemble autour de quelques énigmes mathématiques.
 
-                                	La chaîne Myriogon : https://www.youtube.com/channel/UCvYEpQbJ81n2pjrQrKUrRog/""", parser.getDescription());
+                                    La chaîne Myriogon : https://www.youtube.com/channel/UCvYEpQbJ81n2pjrQrKUrRog/""", parser.getDescription());
                                } catch (final ContentParserException e) {
                                    Assertions.fail("getDescription threw " + e.getMessage());
                                }
@@ -266,19 +266,19 @@ class YoutubeWatchLinkContentParserTest {
                                final YoutubeWatchLinkContentParser parser = buildParser(data, url);
                                try {
                                    Assertions.assertEquals("""
-                                	Watch Metallica perform "Master of Puppets" live on the Howard Stern Show.
+                                    Watch Metallica perform "Master of Puppets" live on the Howard Stern Show.
 
-                                	Metallica's new album "Hardwired… to Self-Destruct" is available on Nov. 18.
+                                    Metallica's new album "Hardwired… to Self-Destruct" is available on Nov. 18.
 
-                                	Want to know what's going on with Howard Stern in the future?
+                                    Want to know what's going on with Howard Stern in the future?
 
-                                	Follow us on Twitter: http://bit.ly/1RzxGPD
-                                	On Facebook: http://on.fb.me/1JELtz3
-                                	On Instagram: https://goo.gl/VsWTND
+                                    Follow us on Twitter: http://bit.ly/1RzxGPD
+                                    On Facebook: http://on.fb.me/1JELtz3
+                                    On Instagram: https://goo.gl/VsWTND
 
-                                	For more great content from the Howard Stern Show visit our official website: http://www.HowardStern.com
+                                    For more great content from the Howard Stern Show visit our official website: http://www.HowardStern.com
 
-                                	Hear more Howard Stern by signing up for a free SiriusXM trial: https://goo.gl/uNL0Du""", parser.getDescription());
+                                    Hear more Howard Stern by signing up for a free SiriusXM trial: https://goo.gl/uNL0Du""", parser.getDescription());
                                } catch (final ContentParserException e) {
                                    Assertions.fail("getDescription threw " + e.getMessage());
                                }

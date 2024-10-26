@@ -27,6 +27,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
  */
 public class GithubBlogLinkContentParser extends LinkDataExtractor {
 
+    private static final String s_sourceName = "GitHub blog";
+
     private final String _data;
     private boolean _dataIsLoaded;
     private String _title;
@@ -37,25 +39,25 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
     private static final TextParser s_jsonParser
         = new TextParser("<script type=\"application/ld\\+json\" class=\"yoast-schema-graph\">",
                          "</script>",
-                         "GitHub blog",
+                         s_sourceName,
                          "JSON");
 
     private static final TextParser s_titleParser
         = new TextParser("<h1 class=\"h3-mktg lh-condensed mb-3 color-fg-default\">",
                          "</h1>",
-                         "GitHub blog",
+                         s_sourceName,
                          "title");
 
     private static final TextParser s_subtitleParser
         = new TextParser("<div class=\"f4-mktg\">\\n\\t\\t\\t\\t\\t<p>",
                          "</p>",
-                         "GitHub blog",
+                         s_sourceName,
                          "subtitle");
 
     private static final TextParser s_authorParser
         = new TextParser("<meta name=\"author\" content=\"",
                          "\" />",
-                         "GitHub blog",
+                         s_sourceName,
                          "author");
     /**
      * @param url URL of the link

@@ -29,22 +29,28 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
  */
 public class LexFridmanLinkContentParser extends LinkDataExtractor {
 
+    private static final String s_sourceName = "Lex Fridman podcast";
+
     private final String _data;
+    private String _title;
+    private Optional<TemporalAccessor> _date;
+    private Optional<Duration> _duration;
+    private Optional<ExtractedLinkData> _otherLinks;
 
     private static final TextParser s_titleParser
         = new TextParser("<h1 class=\"entry-title\">",
                          "</h1>",
-                         "Lex Fridman podcast",
+                         s_sourceName,
                          "title");
     private static final TextParser s_dateParser
         = new TextParser("<meta property=\"article:published_time\" content=\"",
                          "T",
-                         "Lex Fridman podcast",
+                         s_sourceName,
                          "date");
     private static final TextParser s_youtubeLinkParser
         = new TextParser("\"https://www.youtube.com/embed/",
                          "\"",
-                         "Lex Fridman podcast",
+                         s_sourceName,
                          "duration");
 
     private static final DateTimeFormatter s_dateformatter = DateTimeFormatter.ISO_LOCAL_DATE;
@@ -61,6 +67,10 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
                                        final String data) {
         super(url);
         _data = data;
+        _title = null;
+        _date = null;
+        _duration = null;
+        _otherLinks = null;
     }
 
     /**
@@ -75,7 +85,10 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
 
     @Override
     public String getTitle() throws ContentParserException {
-        return HtmlHelper.cleanContent(s_titleParser.extract(_data));
+        if (_title == null) {
+            _title = HtmlHelper.cleanContent(s_titleParser.extract(_data));
+        }
+        return _title;
     }
 
     @Override
@@ -85,12 +98,18 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
 
     @Override
     public Optional<TemporalAccessor> getDate() throws ContentParserException {
-        return Optional.of(LocalDate.parse(s_dateParser.extract(_data), s_dateformatter));
+        if (_date == null) {
+            _date = Optional.of(LocalDate.parse(s_dateParser.extract(_data), s_dateformatter));
+        }
+        return _date;
     }
 
     @Override
     public Optional<Duration> getDuration() throws ContentParserException {
-        return getOtherLink().map(d -> d.duration().orElse(null));
+        if (_duration == null) {
+            _duration = getOtherLink().map(d -> d.duration().orElse(null));
+        }
+        return _duration;
     }
 
     @Override
@@ -114,36 +133,40 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
 
     private Optional<ExtractedLinkData> getOtherLink() throws ContentParserException { // TODO we need to cache in memory and on disk
 
-        // get YouTube link
-        Optional<String> youtubeLink = getYoutubeLink();
-        if (youtubeLink.isEmpty()) {
-            return Optional.empty();
+        if (_otherLinks == null) {
+            // get YouTube link
+            Optional<String> youtubeLink = getYoutubeLink();
+            if (youtubeLink.isEmpty()) {
+                return Optional.empty();
+            }
+    
+            // get YouTube payload
+            String payload = null;
+            try {
+                payload = SynchronousSiteDataRetriever.getContent(youtubeLink.get(), false);
+            } catch (final IOException e) {
+                Logger.log(Level.ERROR)
+                      .append("Failed to get YouTube payload")
+                      .append(e)
+                      .submit();
+                return Optional.empty();
+            }
+    
+            // extract the link data
+            final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(youtubeLink.get(), payload);
+            final ExtractedLinkData linkData = new ExtractedLinkData(parser.getTitle(),
+                                                                     new String[] { },
+                                                                     youtubeLink.get(),
+                                                                     Optional.empty(),
+                                                                     Optional.empty(),
+                                                                     new LinkFormat[] { LinkFormat.MP4 },
+                                                                     new Locale[] { parser.getLanguage() },
+                                                                     parser.getDuration(),
+                                                                     Optional.empty());
+            _otherLinks = Optional.of(linkData);
         }
 
-        // get YouTube payload
-        String payload = null;
-        try {
-            payload = SynchronousSiteDataRetriever.getContent(youtubeLink.get(), false);
-        } catch (final IOException e) {
-            Logger.log(Level.ERROR)
-                  .append("Failed to get YouTube payload")
-                  .append(e)
-                  .submit();
-            return Optional.empty();
-        }
-
-        // extract the link data
-        final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(youtubeLink.get(), payload);
-        final ExtractedLinkData linkData = new ExtractedLinkData(parser.getTitle(),
-                                                                 new String[] { },
-                                                                 youtubeLink.get(),
-                                                                 Optional.empty(),
-                                                                 Optional.empty(),
-                                                                 new LinkFormat[] { LinkFormat.MP4 },
-                                                                 new Locale[] { parser.getLanguage() },
-                                                                 parser.getDuration(),
-                                                                 Optional.empty());
-        return Optional.of(linkData);
+        return _otherLinks;
     }
 
     @Override

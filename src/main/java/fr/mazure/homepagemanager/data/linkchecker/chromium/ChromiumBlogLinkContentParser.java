@@ -14,16 +14,19 @@ import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
  */
 public class ChromiumBlogLinkContentParser {
 
+    private static final String s_sourceName = "Chromium Blog";
+
     private final String _data;
+
     private static final TextParser s_titleParser
         = new TextParser("<title>\\nChromium Blog: ",
                          "</title>",
-                         "Chromium Blog",
+                         s_sourceName,
                          "title");
     private static final TextParser s_dateParser
         = new TextParser("<span class='publishdate' itemprop='datePublished'>",
                          "</span>",
-                         "Chromium Blog",
+                         s_sourceName,
                          "date");
     private static final DateTimeFormatter s_formatter = DateTimeFormatter.ofPattern("EEEE, MMMM d, u", Locale.ENGLISH);
 

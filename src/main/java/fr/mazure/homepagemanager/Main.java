@@ -15,9 +15,9 @@ import fr.mazure.homepagemanager.utils.internet.WebServer;
  */
 public class Main {
 
-    private static final String enableInternetAccessOption  = "-enableInternetAccess";
-    private static final String disableInternetAccessOption = "-disableInternetAccess";
-    private static final String enableServer = "-serve";
+    private static final String s_enableInternetAccessOption  = "-enableInternetAccess";
+    private static final String s_disableInternetAccessOption = "-disableInternetAccess";
+    private static final String s_enableServer = "-serve";
 
     /**
      * Entry point of the program
@@ -35,11 +35,11 @@ public class Main {
 
         for (int i = 0; i < args.length - 2; i++) {
             final String arg = args[i];
-            if (arg.equals(enableInternetAccessOption)) {
+            if (arg.equals(s_enableInternetAccessOption)) {
                 internetAccessIsEnabled = true;
-            } else if (arg.equals(disableInternetAccessOption)) {
+            } else if (arg.equals(s_disableInternetAccessOption)) {
                 internetAccessIsEnabled = false;
-            } else if (arg.equals(enableServer)) {
+            } else if (arg.equals(s_enableServer)) {
                 serverIsEnabled = true;
             } else {
                 exitOnSyntaxError(Optional.of(arg));
@@ -61,11 +61,11 @@ public class Main {
         final String message1 = unknownParameter.isPresent() ? ("Unknown parameter: " + unknownParameter.get() + " -- ")
                                                              : "";
         final String message2 = "Syntax: HomepageManager [" +
-                                enableInternetAccessOption +
+                                s_enableInternetAccessOption +
                                 "|" +
-                                disableInternetAccessOption +
+                                s_disableInternetAccessOption +
                                 "] [" +
-                                enableServer +
+                                s_enableServer +
                                 "] <homepage directory> <tmp directory>";
         ExitHelper.exit(message1 + message2);
     }

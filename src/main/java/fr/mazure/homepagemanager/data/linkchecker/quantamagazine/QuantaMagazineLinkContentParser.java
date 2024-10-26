@@ -24,22 +24,25 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
  */
 public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
 
+    private static final String s_sourceName = "QuantaMagazine";
+
     private final String _data;
+
     private static final TextParser s_titleParser
         = new TextParser("<h1 class='post__title__title mv025 noe theme__text' >",
                          "</h1>",
-                         "QuantaMagazine",
+                         s_sourceName,
                          "title");
     private static final TextParser s_subtitleParser
         = new TextParser("<div class='post__title__excerpt [^']+' >\n",
                          "</div>",
-                         "QuantaMagazine",
+                         s_sourceName,
                          "subtitle");
     private static final TextParser s_dateParser
         = new TextParser("<meta property=\"article:published_time\" content=\"",
                          "[^\"]*",
                          "T[0-9][0-9]:[0-9][0-9]\\+00:00\"",
-                         "QuantaMagazine",
+                         s_sourceName,
                          "date");
     private static final Pattern s_authorPattern1
         = Pattern.compile("<div class='h3t mv05'>\n                    <span class='screen-reader-text'>By </span>([^<]+)</div>");
@@ -49,14 +52,14 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
         = new TextParser("\n<p[^>]*><strong>",
                          "[^<:]*[^: ]",
                          " ?:? ?</strong>",
-                         "QuantaMagazine",
+                         s_sourceName,
                          "The Joy Of Why authors");
     private static final TextParser s_joyOfWhyAuthors2
-    = new TextParser("\n<p><b>",
-                     "[^<]*",
-                     "</b>",
-                     "QuantaMagazine",
-                     "The Joy Of Why authors");
+        = new TextParser("\n<p><b>",
+                         "[^<]*",
+                         "</b>",
+                         s_sourceName,
+                         "The Joy Of Why authors");
 
     /**
      * @param url URL of the link

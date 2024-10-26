@@ -27,6 +27,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
  */
 public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
 
+    private static final String s_sourceName = "Ars Technica";
+
     private final String _data;
 
     private static final Set<String> parternSites
@@ -39,22 +41,22 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
     private static final TextParser s_titleParser
         = new TextParser("<h1 class=\"mb-3 font-serif text-4xl font-bold text-gray-100 md:text-6xl md:leading-\\[1\\.05\\]\">",
                          "</h1>",
-                         "Ars Technica",
+                         s_sourceName,
                          "title");
     private static final TextParser s_subtitleParser
         = new TextParser("<p class=\"my-3 text-2xl leading-\\[1\\.1\\] text-gray-300 (?:md:mt-7 )?md:leading-\\[1\\.2\\]\">",
                          "</p>",
-                         "Ars Technica",
+                         s_sourceName,
                          "subtitle");
     private static final TextParser s_dateParser
         = new TextParser("<meta property=\"article:published_time\" content=\"",
                          "\" />",
-                         "Ars Technica",
+                         s_sourceName,
                          "date");
     private static final TextParser s_authorParser
         = new TextParser("<a class=\"text-orange-400 hover:text-orange-500\" href=\"https://arstechnica.com/author/[-_a-z0-9]+/\">",
                          "</a>",
-                         "Ars Technica",
+                         s_sourceName,
                          "author");
 
     /**

@@ -22,16 +22,18 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
  */
 public class SimonWillisonTilLinkContentParser extends LinkDataExtractor {
 
+    private static final String s_sourceName = "til.simonwillison.net";
+
     private static final TextParser s_titleParser
         = new TextParser("<title>",
                          "</title>",
-                         "til.simonwillison.net",
+                         s_sourceName,
                          "title");
 
     private static final TextParser s_dateParser
         = new TextParser("\\Q<p class=\"created\">Created \\E",
                          "T\\d\\d:\\d\\d:\\d\\d\\-\\d\\d:\\d\\d\\Q, updated \\E",
-                         "til.simonwillison.net",
+                         s_sourceName,
                          "date");
 
     private final String _data;

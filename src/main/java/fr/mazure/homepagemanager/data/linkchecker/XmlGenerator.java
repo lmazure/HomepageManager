@@ -96,7 +96,7 @@ public class XmlGenerator {
      * @return help message
      */
     public static String getHelpMessage() {
-	    return s_helpMessage;
+        return s_helpMessage;
     }
 
     private static String generateAuthor(final AuthorData authorData) {

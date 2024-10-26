@@ -27,10 +27,12 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
  */
 public class WiredLinkContentParser extends LinkDataExtractor {
 
+    private static final String s_sourceName = "Wired";
+
     private static final TextParser s_jsonParser
         = new TextParser("<script type=\"text/javascript\">window.__PRELOADED_STATE__ =",
                          "</script>",
-                         "Wired",
+                         s_sourceName,
                          "JSON");
 
     private final ContentParserException _exception;
