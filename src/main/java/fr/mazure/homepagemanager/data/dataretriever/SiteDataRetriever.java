@@ -9,14 +9,13 @@ import java.util.function.BiConsumer;
 public class SiteDataRetriever {
 
     private final CachedSiteDataRetriever _retriever;
-    private final SiteDataPersister _persister;
 
     /**
      * @param path directory where the persistence files should be written
      */
     public SiteDataRetriever(final Path path) {
-        _persister = new SiteDataPersister(path);
-        _retriever = new CachedSiteDataRetriever(_persister);
+        final SiteDataPersister persister = new SiteDataPersister(path);
+        _retriever = new CachedSiteDataRetriever(persister);
     }
 
     /**

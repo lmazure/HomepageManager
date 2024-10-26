@@ -139,7 +139,7 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
             if (youtubeLink.isEmpty()) {
                 return Optional.empty();
             }
-    
+
             // get YouTube payload
             String payload = null;
             try {
@@ -151,7 +151,7 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
                       .submit();
                 return Optional.empty();
             }
-    
+
             // extract the link data
             final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(youtubeLink.get(), payload);
             final ExtractedLinkData linkData = new ExtractedLinkData(parser.getTitle(),

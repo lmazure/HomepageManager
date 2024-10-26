@@ -1,9 +1,7 @@
 package fr.mazure.homepagemanager.data.dataretriever;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.CookieManager;
 import java.net.HttpCookie;
 import java.net.HttpURLConnection;
@@ -58,7 +56,7 @@ public class SynchronousSiteDataRetriever {
     }
 
     /**
-     * @return maximum number of redirections supported
+     * @return maximum number of supported redirections
      */
     public static int getMaximumNumberOfRedirections() {
         return s_maxNbRedirects;
