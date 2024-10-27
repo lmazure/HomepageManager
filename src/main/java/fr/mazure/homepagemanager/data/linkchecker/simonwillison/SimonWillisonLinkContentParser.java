@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthors;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
@@ -23,16 +24,18 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
  */
 public class SimonWillisonLinkContentParser extends LinkDataExtractor {
 
+    private static final String s_sourceName = "simonwillison.net";
+
     private static final TextParser s_titleParser
         = new TextParser("<title>",
                          "</title>",
-                         "simonwillison.net",
+                         s_sourceName,
                          "title");
 
     private static final TextParser s_dateParser
         = new TextParser("\\Q<meta property=\"og:updated_time\" content=\"\\E",
                          "\\Q\">\\E",
-                         "simonwillison.net",
+                         s_sourceName,
                          "date");
 
     private final String _data;
@@ -40,10 +43,12 @@ public class SimonWillisonLinkContentParser extends LinkDataExtractor {
     /**
      * @param url URL of the link
      * @param data retrieved link data
+     * @param retriever cache data retriever
      */
     public SimonWillisonLinkContentParser(final String url,
-                                          final String data) {
-        super(url);
+                                          final String data,
+                                          final CachedSiteDataRetriever retriever) {
+        super(url, retriever);
         _data = data;
     }
 

@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.simonwillison.SimonWillisonLinkContentParser;
@@ -35,13 +35,13 @@ class SimonWillisonLinkContentParserTest {
                                                          Optional.ofNullable(expectedLastName),
                                                          Optional.empty(),
                                                          Optional.ofNullable(expectedGivenName));
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final SimonWillisonLinkContentParser parser = new SimonWillisonLinkContentParser(url, data);
+                               final SimonWillisonLinkContentParser parser = new SimonWillisonLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(1, parser.getSureAuthors().size());
                                    Assertions.assertEquals(expectedAuthor, parser.getSureAuthors().get(0));
@@ -60,13 +60,13 @@ class SimonWillisonLinkContentParserTest {
         }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final SimonWillisonLinkContentParser parser = new SimonWillisonLinkContentParser(url, data);
+                               final SimonWillisonLinkContentParser parser = new SimonWillisonLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(expectedTitle, parser.getTitle());
                                } catch (final ContentParserException e) {
@@ -83,13 +83,13 @@ class SimonWillisonLinkContentParserTest {
             "https://simonwillison.net/2024/Mar/8/gpt-4-barrier/",
         }, delimiter = '|')
     void testNoSubtitle(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final SimonWillisonLinkContentParser parser = new SimonWillisonLinkContentParser(url, data);
+                               final SimonWillisonLinkContentParser parser = new SimonWillisonLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertFalse(parser.getSubtitle().isPresent());
                                } catch (final ContentParserException e) {
@@ -108,13 +108,13 @@ class SimonWillisonLinkContentParserTest {
         })
     void testPublishDate(final String url,
                          final String expectedPublicationDate) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final SimonWillisonLinkContentParser parser = new SimonWillisonLinkContentParser(url, data);
+                               final SimonWillisonLinkContentParser parser = new SimonWillisonLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(expectedPublicationDate, parser.getDate().get().toString());
                                 } catch (final ContentParserException e) {
@@ -132,13 +132,13 @@ class SimonWillisonLinkContentParserTest {
         }, delimiter = '|')
     void testLanguage(final String url,
                       final String expectedLanguage) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final SimonWillisonLinkContentParser parser = new SimonWillisonLinkContentParser(url, data);
+                               final SimonWillisonLinkContentParser parser = new SimonWillisonLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(Locale.of(expectedLanguage), parser.getLanguage());
                                } catch (final ContentParserException e) {

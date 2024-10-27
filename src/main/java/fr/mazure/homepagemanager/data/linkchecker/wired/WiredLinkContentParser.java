@@ -12,6 +12,7 @@ import java.util.Optional;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
@@ -27,10 +28,12 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
  */
 public class WiredLinkContentParser extends LinkDataExtractor {
 
+    private static final String s_sourceName = "Wired";
+
     private static final TextParser s_jsonParser
         = new TextParser("<script type=\"text/javascript\">window.__PRELOADED_STATE__ =",
                          "</script>",
-                         "Wired",
+                         s_sourceName,
                          "JSON");
 
     private final ContentParserException _exception;
@@ -42,10 +45,12 @@ public class WiredLinkContentParser extends LinkDataExtractor {
     /**
      * @param url URL of the link
      * @param data retrieved link data
+     * @param retriever cache data retriever
      */
     public WiredLinkContentParser(final String url,
-                                  final String data) {
-        super(url);
+                                  final String data,
+                                  final CachedSiteDataRetriever retriever) {
+        super(url, retriever);
         ContentParserException exception = null;
         String title = null;
         String subtitle = null;

@@ -169,7 +169,7 @@ public class Author extends AuthorData implements Comparable<Author> {
         return super.hashCode();
     }
 
-	@Override
+    @Override
     public int compareTo(final Author o) {
         return getSortingKey().compareTo(o.getSortingKey());
     }

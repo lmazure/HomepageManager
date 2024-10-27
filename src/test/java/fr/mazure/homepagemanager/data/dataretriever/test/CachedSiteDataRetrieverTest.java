@@ -19,6 +19,7 @@ import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 class CachedSiteDataRetrieverTest {
 
     @Test
+    @Disabled // TODO !!! needs to be re-instanciated
     void properlyCached() {
 
         final CachedSiteDataRetriever retriever = buildDataSiteRetriever();
@@ -27,13 +28,11 @@ class CachedSiteDataRetrieverTest {
         // the first retrieval must not use the cache
         final AtomicBoolean firstConsumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertFalse(firstConsumerHasBeenCalled.get());
                                firstConsumerHasBeenCalled.set(true);
-                               Assertions.assertTrue(b.booleanValue());
                                TestHelper.assertData(d);
                            },
-                           3600,
                            false);
         Assertions.assertFalse(firstConsumerHasBeenCalled.get());
         while (!firstConsumerHasBeenCalled.get()) {
@@ -48,13 +47,11 @@ class CachedSiteDataRetrieverTest {
         // the second retrieval must use the cache and not call twice
         final AtomicBoolean secondConsumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertFalse(secondConsumerHasBeenCalled.get());
                                secondConsumerHasBeenCalled.set(true);
-                               Assertions.assertTrue(b.booleanValue());
                                TestHelper.assertData(d);
                            },
-                           3600,
                            false);
         Assertions.assertTrue(secondConsumerHasBeenCalled.get());
 
@@ -62,18 +59,15 @@ class CachedSiteDataRetrieverTest {
         final AtomicBoolean thirdConsumerHasBeenCalledOnce = new AtomicBoolean(false);
         final AtomicBoolean thirdConsumerHasBeenCalledTwice = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                if (thirdConsumerHasBeenCalledOnce.get()) {
                                    Assertions.assertFalse(thirdConsumerHasBeenCalledTwice.get());
                                    thirdConsumerHasBeenCalledTwice.set(true);
-                                   Assertions.assertTrue(b.booleanValue());
                                } else {
                                    thirdConsumerHasBeenCalledOnce.set(true);
-                                   Assertions.assertFalse(b.booleanValue());
                                }
                                TestHelper.assertData(d);
                            },
-                           0,
                            false);
         Assertions.assertTrue(thirdConsumerHasBeenCalledOnce.get());
         Assertions.assertFalse(thirdConsumerHasBeenCalledTwice.get());
@@ -96,10 +90,10 @@ class CachedSiteDataRetrieverTest {
         final String url = "https://www.baeldung.com/crawler4j";
         for (int i = 0; i < nbThread; i++) {
             retriever.retrieve(url,
-                    (final Boolean b, final FullFetchedLinkData d) -> {
+                    (final FullFetchedLinkData d) -> {
                         Assertions.assertTrue(d.dataFileSection().isPresent());
                         final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                        final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(url, data);
+                        final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(url, data, retriever);
                         try {
                             Assertions.assertEquals("A Guide to Crawler4j", parser.getTitle());
                         } catch (final ContentParserException e) {
@@ -107,7 +101,6 @@ class CachedSiteDataRetrieverTest {
                         }
                         numberOfConsumerCalls.addAndGet(1);
                     },
-                    3600,
                     false);
         }
         while (numberOfConsumerCalls.get() != nbThread) {

@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.wired.WiredLinkContentParser;
@@ -29,13 +29,13 @@ class WiredLinkContentParserTest {
         }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final WiredLinkContentParser parser = new WiredLinkContentParser(url, data);
+                               final WiredLinkContentParser parser = new WiredLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(expectedTitle, parser.getTitle());
                                } catch (final ContentParserException e) {
@@ -56,13 +56,13 @@ class WiredLinkContentParserTest {
         }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final WiredLinkContentParser parser = new WiredLinkContentParser(url, data);
+                               final WiredLinkContentParser parser = new WiredLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertTrue(parser.getSubtitle().isPresent());
                                    Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
@@ -82,13 +82,13 @@ class WiredLinkContentParserTest {
             "https://www.wired.com/2007/09/ff-allen/",
         })
     void testNoSubtitle(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final WiredLinkContentParser parser = new WiredLinkContentParser(url, data);
+                               final WiredLinkContentParser parser = new WiredLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertFalse(parser.getSubtitle().isPresent());
                                } catch (final ContentParserException e) {
@@ -107,13 +107,13 @@ class WiredLinkContentParserTest {
             "https://www.wired.com/1999/01/amish/",
         })
     void testSubtitleWhichIsAnExtractOfTheArticleIsIgnored(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final WiredLinkContentParser parser = new WiredLinkContentParser(url, data);
+                               final WiredLinkContentParser parser = new WiredLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertFalse(parser.getSubtitle().isPresent());
                                } catch (final ContentParserException e) {
@@ -133,13 +133,13 @@ class WiredLinkContentParserTest {
         })
     void testDate(final String url,
                   final String expectedDate) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final WiredLinkContentParser parser = new WiredLinkContentParser(url, data);
+                               final WiredLinkContentParser parser = new WiredLinkContentParser(url, data, retriever);
                                try {
                                    TestHelper.assertDate(expectedDate, parser.getDate());
                                } catch (final ContentParserException e) {
@@ -167,13 +167,13 @@ class WiredLinkContentParserTest {
                                                          Optional.of(expectedLastName),
                                                          Optional.empty(),
                                                          Optional.empty());
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                          (final Boolean b, final FullFetchedLinkData d) -> {
+                          (final FullFetchedLinkData d) -> {
                               Assertions.assertTrue(d.dataFileSection().isPresent());
                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                              final WiredLinkContentParser parser = new WiredLinkContentParser(url, data);
+                              final WiredLinkContentParser parser = new WiredLinkContentParser(url, data, retriever);
                               try {
                                   Assertions.assertEquals(1, parser.getSureAuthors().size());
                                   Assertions.assertEquals(expectedAuthor, parser.getSureAuthors().get(0));
@@ -194,13 +194,13 @@ class WiredLinkContentParserTest {
         "https://www.wired.com/story/large-language-model-phishing-scams/",
         })
     void testNoAuthor(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                          (final Boolean b, final FullFetchedLinkData d) -> {
+                          (final FullFetchedLinkData d) -> {
                               Assertions.assertTrue(d.dataFileSection().isPresent());
                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                              final WiredLinkContentParser parser = new WiredLinkContentParser(url, data);
+                              final WiredLinkContentParser parser = new WiredLinkContentParser(url, data, retriever);
                               try {
                                   Assertions.assertEquals(0, parser.getSureAuthors().size());
                               } catch (final ContentParserException e) {

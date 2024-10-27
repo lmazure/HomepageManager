@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.oracleblogs.OracleBlogsLinkContentParser;
@@ -36,13 +36,13 @@ class OracleBlogsLinkContentParserTest {
         }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data);
+                               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data, retriever);
                                Assertions.assertEquals(expectedTitle, parser.getTitle());
                                consumerHasBeenCalled.set(true);
                            },
@@ -69,13 +69,13 @@ class OracleBlogsLinkContentParserTest {
         }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data);
+                               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data, retriever);
                                Assertions.assertTrue(parser.getSubtitle().isPresent());
                                Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
                                consumerHasBeenCalled.set(true);
@@ -93,13 +93,13 @@ class OracleBlogsLinkContentParserTest {
         "https://blogs.oracle.com/javamagazine/post/the-top-25-greatest-java-apps-ever-written",
         })
     void testNoSubtitle(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data);
+                               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data, retriever);
                                Assertions.assertFalse(parser.getSubtitle().isPresent());
                                consumerHasBeenCalled.set(true);
                            },
@@ -119,13 +119,13 @@ class OracleBlogsLinkContentParserTest {
         })
     void testDate(final String url,
                   final String expectedDate) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data);
+                               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data, retriever);
                                try {
                                    TestHelper.assertDate(expectedDate, parser.getDate());
                                } catch (final ContentParserException e) {
@@ -157,13 +157,13 @@ class OracleBlogsLinkContentParserTest {
                                                          Optional.of(expectedLastName),
                                                          Optional.empty(),
                                                          Optional.empty());
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data);
+                               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(1, parser.getSureAuthors().size());
                                    Assertions.assertEquals(expectedAuthor, parser.getSureAuthors().get(0));
@@ -198,13 +198,13 @@ class OracleBlogsLinkContentParserTest {
                                                           Optional.of(expectedLastName2),
                                                           Optional.empty(),
                                                           Optional.empty());
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data);
+                               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(2, parser.getSureAuthors().size());
                                    Assertions.assertEquals(expectedAuthor1, parser.getSureAuthors().get(0));
@@ -223,14 +223,14 @@ class OracleBlogsLinkContentParserTest {
         "https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update,David,Delabassee",
         })
     void doesNotCrashOnCorruptedArticle(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String expectedDate = "1970-01-01";
         retriever.retrieve(url,
-                          (final Boolean b, final FullFetchedLinkData d) -> {
+                          (final FullFetchedLinkData d) -> {
                               Assertions.assertTrue(d.dataFileSection().isPresent());
                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                              final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data);
+                              final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data, retriever);
                               Assertions.assertEquals("", parser.getTitle());
                               Assertions.assertTrue(parser.getSubtitle().isEmpty());
                               try {

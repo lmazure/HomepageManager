@@ -1,6 +1,5 @@
 package fr.mazure.homepagemanager.data.linkchecker.oxideandfriends;
 
-import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -11,7 +10,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
+import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthors;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
@@ -30,23 +30,28 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
  */
 public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
 
+    private static final String s_sourceName = "Oxide and Friends";
 
     private final String _data;
+    private String _title;
+    private Optional<TemporalAccessor> _date;
+    private Optional<Duration> _duration;
+    private Optional<ExtractedLinkData> _otherLink;
 
     private static final TextParser s_titleParser
         = new TextParser("<h1 class=\"text-sans-3xl 800:text-sans-3xl 1000:text-sans-4xl text-default my-3\">",
                          "</h1>",
-                         "Oxide and Friends",
+                         s_sourceName,
                          "title");
     private static final TextParser s_dateParser
         = new TextParser("<div class=\"block uppercase text-mono-sm text-tertiary\"><span class=\"inline-block\">",
                          "</span>",
-                         "Oxide and Friends",
+                         s_sourceName,
                          "date");
     private static final TextParser s_durationParser
         = new TextParser("<span class=\"ml-2 inline-block\">",
                          "</span>",
-                         "Oxide and Friends",
+                         s_sourceName,
                          "duration");
 
     private static final DateTimeFormatter s_dateformatter = DateTimeFormatter.ofPattern("d MMM yyyy", Locale.ENGLISH);
@@ -59,11 +64,17 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
     /**
      * @param url URL of the link
      * @param data retrieved link data
+     * @param retriever cache data retriever
      */
     public OxideAndFriendsLinkContentParser(final String url,
-                                            final String data) {
-        super(url);
+                                            final String data,
+                                            final CachedSiteDataRetriever retriever) {
+        super(url, retriever);
         _data = data;
+        _title = null;
+        _date = null;
+        _duration = null;
+        _otherLink = null;
     }
 
     /**
@@ -78,7 +89,10 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
 
     @Override
     public String getTitle() throws ContentParserException {
-        return HtmlHelper.cleanContent(s_titleParser.extract(_data));
+        if (_title == null) {
+            _title = HtmlHelper.cleanContent(s_titleParser.extract(_data));
+        }
+        return _title;
     }
 
     @Override
@@ -88,20 +102,25 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
 
     @Override
     public Optional<TemporalAccessor> getDate() throws ContentParserException {
-        return Optional.of(LocalDate.parse(s_dateParser.extract(_data), s_dateformatter));
+        if (_date == null) {
+            _date = Optional.of(LocalDate.parse(s_dateParser.extract(_data), s_dateformatter));
+        }
+        return _date;
     }
-
 
     @Override
     public Optional<Duration> getDuration() throws ContentParserException {
-        final String timeString = s_durationParser.extract(_data);
-        final String[] parts = timeString.split(":");
-        final int hours = Integer.parseInt(parts[0]);
-        final int minutes = Integer.parseInt(parts[1]);
-        final int seconds = Integer.parseInt(parts[2]);
-        return Optional.of(Duration.ofHours(hours)
-                                   .plusMinutes(minutes)
-                                   .plusSeconds(seconds));
+        if (_duration == null) {
+            final String timeString = s_durationParser.extract(_data);
+            final String[] parts = timeString.split(":");
+            final int hours = Integer.parseInt(parts[0]);
+            final int minutes = Integer.parseInt(parts[1]);
+            final int seconds = Integer.parseInt(parts[2]);
+            _duration = Optional.of(Duration.ofHours(hours)
+                                            .plusMinutes(minutes)
+                                            .plusSeconds(seconds));
+        }
+        return _duration;
     }
 
     @Override
@@ -119,47 +138,48 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
         return new ArrayList<>(0);
     }
 
-    private Optional<ExtractedLinkData> getOtherLink() throws ContentParserException { // TODO we need to cache in memory and on disk
+    private Optional<ExtractedLinkData> getOtherLink() throws ContentParserException {
 
-        // get YouTube link
-        Optional<String> youtubeLink = Optional.empty();
-        try {
-            youtubeLink = YouTubeHelper.getVideoURL("Oxide Computer Company", getTitle());
-        } catch (final IOException e) {
-            Logger.log(Level.ERROR)
-                  .append("Failed to get YouTube link")
-                  .append(e)
-                  .submit();
-            return Optional.empty();
-        }
-        if (youtubeLink.isEmpty()) {
-            return Optional.empty();
+        if (_otherLink == null) {
+            // get YouTube link
+            final YouTubeHelper helper = new YouTubeHelper();
+            final Optional<String> youtubeLink = helper.getVideoURL("Oxide Computer Company", getTitle(), getRetriever());
+            if (youtubeLink.isEmpty()) {
+                _otherLink = Optional.empty();
+                return _otherLink;
+            }
+
+            // get YouTube payload
+            getRetriever().retrieve(youtubeLink.get(), this::consumeYouTubeData, false);
         }
 
-        // get YouTube payload
-        String payload = null;
-        try {
-            payload = SynchronousSiteDataRetriever.getContent(youtubeLink.get(), false);
-        } catch (final IOException e) {
-            Logger.log(Level.ERROR)
-                  .append("Failed to get YouTube payload")
-                  .append(e)
-                  .submit();
-            return Optional.empty();
-        }
+        return _otherLink;
+    }
+
+    private void consumeYouTubeData(final FullFetchedLinkData siteData) {
+        final String payload = HtmlHelper.slurpFile(siteData.dataFileSection().get());
 
         // extract the link data
-        final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(youtubeLink.get(), payload);
-        final ExtractedLinkData linkData = new ExtractedLinkData(parser.getTitle(),
-                                                                 new String[] { },
-                                                                 youtubeLink.get(),
-                                                                 Optional.empty(),
-                                                                 Optional.empty(),
-                                                                 new LinkFormat[] { LinkFormat.MP4 },
-                                                                 new Locale[] { parser.getLanguage() },
-                                                                 parser.getDuration(),
-                                                                 Optional.empty());
-        return Optional.of(linkData);
+        try {
+            final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(siteData.url(), payload, getRetriever());
+            final ExtractedLinkData linkData = new ExtractedLinkData(parser.getTitle(),
+                                                                     new String[] { },
+                                                                     siteData.url(),
+                                                                     Optional.empty(),
+                                                                     Optional.empty(),
+                                                                     new LinkFormat[] { LinkFormat.MP4 },
+                                                                     new Locale[] { parser.getLanguage() },
+                                                                     parser.getDuration(),
+                                                                     Optional.empty());
+            _otherLink = Optional.of(linkData);
+        } catch (ContentParserException e) {
+            Logger.log(Level.ERROR)
+                  .append("Failed to get YouTube link data")
+                  .append(e)
+                  .submit();
+
+            _otherLink = Optional.empty();
+        }
     }
 
     @Override

@@ -1,12 +1,12 @@
 package fr.mazure.homepagemanager.data.linkchecker.test;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
@@ -2409,7 +2409,7 @@ class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchSciHankGreenShowIsManaged() throws ContentParserException {
+    void youtubeWatchHankGreenSciShowIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=z2bmOGCh1Q8";
         final String expectedSureXml = """
                 <ARTICLE><X><T>This Molecule Has Saved Billions of Lives, How Do We Make It Without Killing Ourselves?</T>\
@@ -2429,8 +2429,30 @@ class LinkDataExtractorTest {
         Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
     }
 
+
     @Test
-    void youtubeWatchSciStefanChinShowIsManaged() throws ContentParserException {
+    void youtubeWatchJaidaElcockSciShowIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=OwYPzeD3TJc";
+        final String expectedSureXml = """
+                <ARTICLE><X><T>How a Die-Off of Vultures Cost a Country Billions</T>\
+                <A>https://www.youtube.com/watch?v=OwYPzeD3TJc</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>4</MINUTE><SECOND>13</SECOND></DURATION></X>\
+                <DATE><YEAR>2024</YEAR><MONTH>10</MONTH><DAY>25</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final String expectedProbableXml = """
+                <ARTICLE><X><T>How a Die-Off of Vultures Cost a Country Billions</T>\
+                <A>https://www.youtube.com/watch?v=OwYPzeD3TJc</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>4</MINUTE><SECOND>13</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Jaida</FIRSTNAME><LASTNAME>Elcock</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2024</YEAR><MONTH>10</MONTH><DAY>25</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
+        Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
+    }
+
+    @Test
+    void youtubeWatchStefanChinZSciShowIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=i3_3ga2E8vw";
         final String expectedSureXml = """
                 <ARTICLE><X><T>The Future of Particle Accelerators Looks Wild</T>\
@@ -3095,8 +3117,8 @@ class LinkDataExtractorTest {
     }
 
     private LinkDataExtractor getExtractor(final String url) throws ContentParserException {
-        final Path path = TestHelper.getTestDatapath(getClass());
-        return LinkDataExtractorFactory.build(path, url);
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        return LinkDataExtractorFactory.build(url, retriever);
     }
 
     private static String generateSureXml(final LinkDataExtractor extractor) throws ContentParserException {

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
+import fr.mazure.homepagemanager.data.dataretriever.SiteDataPersister;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
@@ -136,7 +138,6 @@ public class XmlGenerationDialog extends Dialog<Void> {
         if (!clipboard.hasString()) {
             return;
         }
-
         _links = null;
         _date = null;
         _sureAuthors = null;
@@ -148,9 +149,15 @@ public class XmlGenerationDialog extends Dialog<Void> {
         _xml.clear();
         _authors.getChildren().clear();
 
+        if (!UriHelper.isValidUri(url)) {
+            displayError("Invalid URL");
+            return;
+        }
+
+        final CachedSiteDataRetriever retriever = new CachedSiteDataRetriever(new SiteDataPersister(_cacheDirectory));
         LinkDataExtractor extractor;
         try {
-            extractor = LinkDataExtractorFactory.build(_cacheDirectory, url);
+            extractor = LinkDataExtractorFactory.build(url, retriever);
         } catch (final ContentParserException e) {
             displayError("Failed to extract data from that URL:\n" + e.getMessage());
             return;

@@ -19,6 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.NotGzipException;
 import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
@@ -37,6 +38,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
  */
 public class OracleBlogsLinkContentParser extends LinkDataExtractor {
 
+    private static final String s_sourceName = "Oracle Blog";
+
     private static final String s_htmlTemplate = """
             <html>\r
             <head>
@@ -49,6 +52,7 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
             \tcaas: '(_cache_\\p{XDigit}\\p{XDigit}\\p{XDigit}\\p{XDigit})'
             \\};
             """;
+
     private static final Pattern s_htmlPattern = Pattern.compile(s_htmlTemplate);
 
     private static final Pattern s_subtitlePattern = Pattern.compile("^(<!DOCTYPE html>)?<h2>(.*?)</h2>", Pattern.DOTALL);
@@ -56,17 +60,17 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
     private static final TextParser s_titleParser
         = new TextParser("<meta name=\"title\" content=\"",
                          "\">",
-                         "Oracle Blog",
+                         s_sourceName,
                          "title");
     private static final TextParser s_dateParser
         = new TextParser("<meta name=\"publish_date\" content=\"",
                          "\">",
-                         "Oracle Blog",
+                         s_sourceName,
                          "date");
     private static final TextParser s_authorParser
         = new TextParser("<span><a id=\"postAuthorName\" href=\"[^\"]+\">",
                          "</a>",
-                         "Oracle Blog",
+                         s_sourceName,
                          "author");
     private static DateTimeFormatter s_formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.US);
 
@@ -80,10 +84,12 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
     /**
      * @param url URL of the link
      * @param data retrieved link data
+     * @param retriever cache data retriever
      */
     public OracleBlogsLinkContentParser(final String url,
-                                        final String data) {
-        super(cleanUrl(url));
+                                        final String data,
+                                        final CachedSiteDataRetriever retriever) {
+        super(cleanUrl(url), retriever);
 
         // retrieve site and caas from initial HTML
         final Matcher m = s_htmlPattern.matcher(data);

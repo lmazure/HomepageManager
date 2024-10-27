@@ -11,9 +11,9 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.dataretriever.SiteDataPersister;
-import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.utils.FileHelper;
 import fr.mazure.homepagemanager.utils.internet.HttpHelper;
 
@@ -61,16 +61,18 @@ public class TestHelper {
     }
 
     /**
-     * @param clazz
-     * @return
+     * @param clazz test class
+     *
+     * @return SynchronousSiteDataRetriever to be used for testing the class
      */
-    public static SynchronousSiteDataRetriever buildDataSiteRetriever(final Class<?> clazz) {
-        return new SynchronousSiteDataRetriever(buildSiteDataPersister(clazz));
+    public static CachedSiteDataRetriever buildDataSiteRetriever(final Class<?> clazz) {
+        return new CachedSiteDataRetriever(buildSiteDataPersister(clazz));
     }
 
     /**
-     * @param clazz
-     * @return
+     * @param clazz test class
+     *
+     * @return SiteDataPersister to be used for testing the class
      */
     public static SiteDataPersister buildSiteDataPersister(final Class<?> clazz) {
         final Path cachePath = getTestDatapath(clazz);

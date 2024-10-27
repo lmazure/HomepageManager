@@ -7,6 +7,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.violationcorrection.AddLinkSubtitleCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.RemoveLinkSubtitleCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateArticleDateCorrection;
@@ -35,13 +36,15 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
      * @param articleData expected article data
      * @param file effective retrieved link data
      * @param extractorBuilder function that returns a link data extractor
+     * @param retriever data retriever
      */
     public ExtractorBasedLinkContentChecker(final String url,
                                             final LinkData linkData,
                                             final Optional<ArticleData> articleData,
                                             final FileSection file,
-                                            final LinkDataExtractorBuilder extractorBuilder) {
-        super(url, linkData, articleData, file);
+                                            final LinkDataExtractorBuilder extractorBuilder,
+                                            final CachedSiteDataRetriever retriever) {
+        super(url, linkData, articleData, file, retriever);
         _extractorBuilder = extractorBuilder;
     }
 
@@ -52,7 +55,7 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
     @Override
     protected LinkContentCheck checkGlobalData(final String data) throws ContentParserException
     {
-        _parser = _extractorBuilder.buildExtractor(getUrl(), data);
+        _parser = _extractorBuilder.buildExtractor(getUrl(), data, getRetriever());
         return null;
     }
 
@@ -178,14 +181,6 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
     {
         final List<ExtractedLinkData> effectiveLinks = _parser.getLinks();
 
-        // for parsers that support only one link, we just do a quick assertion
-        if (effectiveLinks.size() == 1) {
-            if (expectedLinks.stream().noneMatch(link -> link.getUrl().equals(effectiveLinks.get(0).url()))) {
-                ExitHelper.exit("Internal error: expected link " + expectedLinks.get(0) + " but got " + effectiveLinks.get(0));
-            }
-            return null;
-        }
-
         if (effectiveLinks.size() != expectedLinks.size()) {
             final String expectedLinksMsg = expectedLinks.stream()
                                                          .map(LinkData::getUrl)
@@ -194,14 +189,14 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
                                                            .map(ExtractedLinkData::url)
                                                            .collect(Collectors.joining(", "));
             return new LinkContentCheck("WrongLinkCount",
-                                        "Expected " + expectedLinks.size() + " links (" + expectedLinksMsg + "), got " + effectiveLinks.size() + " links (" + effectiveLinksMsg + ")",
+                                        "Expected " + expectedLinks.size() + " links (" + expectedLinksMsg + "), but got " + effectiveLinks.size() + " links (" + effectiveLinksMsg + ")",
                                         Optional.empty());
         }
 
         for (int i = 0; i < effectiveLinks.size(); i++) {
             if (!effectiveLinks.get(i).url().equals(expectedLinks.get(i).getUrl())) {
                 return new LinkContentCheck("WrongLink",
-                                            "Expected link number " + i + " to be " + expectedLinks.get(i) + ", got " + effectiveLinks.get(i),
+                                            "Expected link number " + (i + 1) + " to be " + expectedLinks.get(i).getUrl() + ", but got " + effectiveLinks.get(i).url(),
                                             Optional.empty());
             }
         }
@@ -211,6 +206,6 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
 
     @FunctionalInterface
     protected interface LinkDataExtractorBuilder {
-        LinkDataExtractor buildExtractor(final String url, final String data) throws ContentParserException;
+        LinkDataExtractor buildExtractor(final String url, final String data, final CachedSiteDataRetriever retriever) throws ContentParserException;
     }
 }

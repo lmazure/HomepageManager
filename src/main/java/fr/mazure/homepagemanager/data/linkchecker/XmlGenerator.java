@@ -79,7 +79,7 @@ public class XmlGenerator {
             builder.append(generateDate(date.get()));
         }
         builder.append("<COMMENT>");
-        String str = XmlHelper.transform(comment);;
+        String str = XmlHelper.transform(comment);
         for (int i = 0; i < authors.size(); i++) {
             str = str.replaceAll("@" + i + "@", generateAuthor(authors.get(i)));
         }
@@ -96,7 +96,7 @@ public class XmlGenerator {
      * @return help message
      */
     public static String getHelpMessage() {
-	    return s_helpMessage;
+        return s_helpMessage;
     }
 
     private static String generateAuthor(final AuthorData authorData) {

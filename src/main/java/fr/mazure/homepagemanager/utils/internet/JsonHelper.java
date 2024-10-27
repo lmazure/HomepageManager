@@ -64,7 +64,7 @@ public class JsonHelper {
                                    final String... fields) {
         final Object n = getAsObject(node, fields);
         if (!(n instanceof String)) {
-        	throw new IllegalStateException("Field '" + fields[fields.length - 1] + "' in '" + node.toString() + "' is not a String.");
+            throw new IllegalStateException("Field '" + fields[fields.length - 1] + "' in '" + node.toString() + "' is not a String.");
         }
         return (String)n;
     }
@@ -85,7 +85,6 @@ public class JsonHelper {
         return ((Integer)n).intValue();
     }
 
-
     /**
      * Return the value of an integer text field of a field of ...
      *
@@ -99,8 +98,8 @@ public class JsonHelper {
         try {
             return Integer.parseInt(str);
         } catch (@SuppressWarnings("unused") final NumberFormatException e) {
-			throw new IllegalStateException("Field '" + fields[fields.length - 1] + "' in '" + node.toString() + "' is not an Integer String.");
-		}
+            throw new IllegalStateException("Field '" + fields[fields.length - 1] + "' in '" + node.toString() + "' is not an Integer String.");
+        }
     }
 
     private static Object getAsObject(final JSONObject node,

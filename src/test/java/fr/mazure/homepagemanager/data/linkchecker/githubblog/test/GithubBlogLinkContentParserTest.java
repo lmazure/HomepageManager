@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.githubblog.GithubBlogLinkContentParser;
@@ -43,13 +43,13 @@ class GithubBlogLinkContentParserTest extends LinkDataExtractorTestBase {
         }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(url, data);
+                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
                                } catch (final ContentParserException e) {
@@ -68,13 +68,13 @@ class GithubBlogLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/",
         })
     void testNoSubtitle(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(url, data);
+                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertTrue(parser.getSubtitle().isEmpty());
                                } catch (final ContentParserException e) {
@@ -92,13 +92,13 @@ class GithubBlogLinkContentParserTest extends LinkDataExtractorTestBase {
         })
     void testDate(final String url,
                   final String expectedDate) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(url, data);
+                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(expectedDate, parser.getPublicationDate().toString());
                                 } catch (final ContentParserException e) {
@@ -126,13 +126,13 @@ class GithubBlogLinkContentParserTest extends LinkDataExtractorTestBase {
                                                          Optional.of(expectedLastName),
                                                          Optional.empty(),
                                                          Optional.empty());
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(url, data);
+                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(Collections.singletonList(expectedAuthor), parser.getSureAuthors());
                                 } catch (final ContentParserException e) {
@@ -168,13 +168,13 @@ class GithubBlogLinkContentParserTest extends LinkDataExtractorTestBase {
                                                           Optional.of(expectedLastName2),
                                                           Optional.empty(),
                                                           Optional.empty());
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(url, data);
+                               final GithubBlogLinkContentParser parser = new GithubBlogLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(2, parser.getSureAuthors().size());
                                    Assertions.assertEquals(expectedAuthor1, parser.getSureAuthors().get(0));

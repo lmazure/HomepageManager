@@ -13,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthors;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
@@ -29,38 +30,42 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
  */
 public class SubstackLinkContentParser extends LinkDataExtractor {
 
+    private static final String s_sourceName = "Substack";
+
     private final String _data;
 
     private static final TextParser s_titleParser
-    = new TextParser("<h1 class=\"post-title unpublished\">",
-                     "</h1>",
-                     "Substack",
-                     "title");
-private static final TextParser s_subtitleParser
-    = new TextParser("<h3 class=\"subtitle\">",
-                     "</h3>",
-                     "Substack",
-                     "subtitle");
-private static final TextParser s_dateParser
-    = new TextParser(",\"datePublished\":\"",
-                     "\"",
-                     "Substack",
-                     "date");
-private static final TextParser s_authorParser
-    = new TextParser("<script type=\"application/ld\\+json\">",
-                     "</script>",
-                     "Substack",
-                     "author");
+        = new TextParser("<h1 class=\"post-title unpublished\">",
+                         "</h1>",
+                         s_sourceName,
+                         "title");
+    private static final TextParser s_subtitleParser
+        = new TextParser("<h3 class=\"subtitle\">",
+                         "</h3>",
+                         s_sourceName,
+                         "subtitle");
+    private static final TextParser s_dateParser
+        = new TextParser(",\"datePublished\":\"",
+                         "\"",
+                         s_sourceName,
+                         "date");
+    private static final TextParser s_authorParser
+        = new TextParser("<script type=\"application/ld\\+json\">",
+                         "</script>",
+                         s_sourceName,
+                         "author");
 
     private static final Pattern s_mediumUrl = Pattern.compile("https://[^/]+\\.substack\\.com/.+");
 
     /**
      * @param url URL of the link
      * @param data retrieved link data
+     * @param retriever cache data retriever
      */
     public SubstackLinkContentParser(final String url,
-                                     final String data) {
-        super(url);
+                                     final String data,
+                                     final CachedSiteDataRetriever retriever) {
+        super(url, retriever);
         _data = data;
     }
 

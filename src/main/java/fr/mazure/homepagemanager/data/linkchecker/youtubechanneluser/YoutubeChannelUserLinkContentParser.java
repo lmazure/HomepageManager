@@ -13,7 +13,8 @@ import fr.mazure.homepagemanager.utils.StringHelper;
  */
 public class YoutubeChannelUserLinkContentParser {
 
-    private static final Pattern PATTERN = Pattern.compile("\"alerts\":\\[\\{\"alertRenderer\":\\{\"type\":\"ERROR\",\"text\":\\{\"simpleText\":\"([^\\\"]*)\"\\}\\}\\}\\]");
+    private static final Pattern s_errorMessagePattern = Pattern.compile("\"alerts\":\\[\\{\"alertRenderer\":\\{\"type\":\"ERROR\",\"text\":\\{\"simpleText\":\"([^\\\"]*)\"\\}\\}\\}\\]");
+    private static final Pattern s_descriptionPattern = Pattern.compile("<meta name=\"description\" content=\"([^\"]*)\">"); 
 
     private final String _data;
     private Optional<Locale> _language;
@@ -52,7 +53,7 @@ public class YoutubeChannelUserLinkContentParser {
 
     private Optional<String> extractErrorMessage() {
 
-        final Matcher m = PATTERN.matcher(_data);
+        final Matcher m = s_errorMessagePattern.matcher(_data);
         if (m.find()) {
             return Optional.of(m.group(1));
         }
@@ -62,8 +63,7 @@ public class YoutubeChannelUserLinkContentParser {
 
     private String extractDescription() throws ContentParserException {
 
-        final Pattern p = Pattern.compile("<meta name=\"description\" content=\"([^\"]*)\">"); // TODO should be static
-        final Matcher m = p.matcher(_data);
+        final Matcher m = s_descriptionPattern.matcher(_data);
         if (m.find()) {
             return m.group(1);
         }

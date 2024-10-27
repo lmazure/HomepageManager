@@ -2,6 +2,7 @@ package fr.mazure.homepagemanager.data.linkchecker.simonwillisontil;
 
 import java.util.Optional;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker;
 import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
@@ -17,12 +18,14 @@ public class SimonWillisonTilLinkContentChecker extends ExtractorBasedLinkConten
      * @param linkData expected link data
      * @param articleData expected article data
      * @param file effective retrieved link data
+     * @param retriever data retriever
      */
     public SimonWillisonTilLinkContentChecker(final String url,
                                               final LinkData linkData,
                                               final Optional<ArticleData> articleData,
-                                              final FileSection file) {
-        super(url, linkData, articleData, file, (LinkDataExtractorBuilder)SimonWillisonTilLinkContentParser::new);
+                                              final FileSection file,
+                                              final CachedSiteDataRetriever retriever) {
+        super(url, linkData, articleData, file, (LinkDataExtractorBuilder)SimonWillisonTilLinkContentParser::new, retriever);
     }
 
     /**

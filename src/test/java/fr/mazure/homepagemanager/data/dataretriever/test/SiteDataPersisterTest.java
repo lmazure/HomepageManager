@@ -1,6 +1,5 @@
 package fr.mazure.homepagemanager.data.dataretriever.test;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -19,7 +18,7 @@ import fr.mazure.homepagemanager.data.dataretriever.SiteDataPersister;
 class SiteDataPersisterTest {
 
     private static String url = "http://example.com";
-    private static Instant now = Instant.now();
+
     private static Optional<Map<String, List<String>>> headers = Optional.of(Map.of("header1", List.of("val11"),
                                                                                     "header2", List.of("val21", "val22"),
                                                                                     "header3", List.of(),
@@ -46,8 +45,8 @@ class SiteDataPersisterTest {
 
         final SiteDataPersister persister = buildSiteDataPersister();
         final HeaderFetchedLinkData dto = new HeaderFetchedLinkData(url, headers, null);
-        persister.persist(dto, Optional.empty(), error, now);
-        final FullFetchedLinkData effectiveData = persister.retrieve(url, now);
+        persister.persist(dto, Optional.empty(), error);
+        final FullFetchedLinkData effectiveData = persister.retrieve(url);
 
         Assertions.assertEquals(url, effectiveData.url());
         Assertions.assertEquals(headers, effectiveData.headers());
@@ -60,8 +59,8 @@ class SiteDataPersisterTest {
 
         final SiteDataPersister persister = buildSiteDataPersister();
         final HeaderFetchedLinkData dto = new HeaderFetchedLinkData(url, Optional.empty(), null);
-        persister.persist(dto, Optional.empty(), error, now);
-        final FullFetchedLinkData effectiveData = persister.retrieve(url, now);
+        persister.persist(dto, Optional.empty(), error);
+        final FullFetchedLinkData effectiveData = persister.retrieve(url);
 
         Assertions.assertEquals(url, effectiveData.url());
         Assertions.assertEquals(Optional.empty(), effectiveData.headers());
@@ -74,8 +73,8 @@ class SiteDataPersisterTest {
 
         final SiteDataPersister persister = buildSiteDataPersister();
         final HeaderFetchedLinkData dto = new HeaderFetchedLinkData(url, headers, null);
-        persister.persist(dto, Optional.empty(), Optional.empty(), now);
-        final FullFetchedLinkData effectiveData = persister.retrieve(url, now);
+        persister.persist(dto, Optional.empty(), Optional.empty());
+        final FullFetchedLinkData effectiveData = persister.retrieve(url);
 
         Assertions.assertEquals(url, effectiveData.url());
         Assertions.assertEquals(headers, effectiveData.headers());
@@ -88,8 +87,8 @@ class SiteDataPersisterTest {
 
         final SiteDataPersister persister = buildSiteDataPersister();
         final HeaderFetchedLinkData dto = new HeaderFetchedLinkData(url, Optional.empty(), null);
-        persister.persist(dto, Optional.empty(), Optional.empty(), now);
-        final FullFetchedLinkData effectiveData = persister.retrieve(url, now);
+        persister.persist(dto, Optional.empty(), Optional.empty());
+        final FullFetchedLinkData effectiveData = persister.retrieve(url);
 
         Assertions.assertEquals(url, effectiveData.url());
         Assertions.assertEquals(Optional.empty(), effectiveData.headers());
@@ -103,8 +102,8 @@ class SiteDataPersisterTest {
         final SiteDataPersister persister = buildSiteDataPersister();
         final HeaderFetchedLinkData dto2 = new HeaderFetchedLinkData(url2, headers2, null);
         final HeaderFetchedLinkData dto = new HeaderFetchedLinkData(url, headers, dto2);
-        persister.persist(dto, Optional.empty(), error, now);
-        final FullFetchedLinkData effectiveData = persister.retrieve(url, now);
+        persister.persist(dto, Optional.empty(), error);
+        final FullFetchedLinkData effectiveData = persister.retrieve(url);
 
         Assertions.assertEquals(url, effectiveData.url());
         Assertions.assertEquals(headers, effectiveData.headers());
@@ -122,8 +121,8 @@ class SiteDataPersisterTest {
         final HeaderFetchedLinkData dto3 = new HeaderFetchedLinkData(url3, headers3, null);
         final HeaderFetchedLinkData dto2 = new HeaderFetchedLinkData(url2, headers2, dto3);
         final HeaderFetchedLinkData dto = new HeaderFetchedLinkData(url, headers, dto2);
-        persister.persist(dto, Optional.empty(), error, now);
-        final FullFetchedLinkData effectiveData = persister.retrieve(url, now);
+        persister.persist(dto, Optional.empty(), error);
+        final FullFetchedLinkData effectiveData = persister.retrieve(url);
 
         Assertions.assertEquals(url, effectiveData.url());
         Assertions.assertEquals(headers, effectiveData.headers());

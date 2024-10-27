@@ -11,7 +11,6 @@ import fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase
  */
 class OxideAndFriendsLinkContentParserTest extends LinkDataExtractorTestBase {
 
-
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
@@ -65,12 +64,14 @@ class OxideAndFriendsLinkContentParserTest extends LinkDataExtractorTestBase {
                       final String expectedLastName2) {
         check2Authors(OxideAndFriendsLinkContentParser.class,
                       url,
+                      // author 1
                       null,
                       expectedFirstName1,
                       expectedMiddleName1,
                       expectedLastName1,
                       null,
                       null,
+                      // author 2
                       null,
                       expectedFirstName2,
                       expectedMiddleName2,

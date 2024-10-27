@@ -11,8 +11,8 @@ import java.util.function.Consumer;
 
 import org.junit.jupiter.api.Assertions;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
@@ -215,13 +215,13 @@ public class LinkDataExtractorTestBase {
     protected static void perform(final Class<? extends LinkDataExtractor> clazz,
                                   final String url,
                                   final Consumer<LinkDataExtractor> assertor) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(clazz);
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(clazz);
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final LinkDataExtractor parser = construct(clazz, url, data);
+                               final LinkDataExtractor parser = construct(clazz, url, data, retriever);
                                assertor.accept(parser);
                                consumerHasBeenCalled.set(true);
                            },
@@ -231,11 +231,12 @@ public class LinkDataExtractorTestBase {
 
     private static LinkDataExtractor construct(final Class<? extends LinkDataExtractor> clazz,
                                                final String url,
-                                               final String data) {
+                                               final String data,
+                                               final CachedSiteDataRetriever retriever) {
         try {
             @SuppressWarnings("unchecked")
-            final Constructor<LinkDataExtractor> constructor = (Constructor<LinkDataExtractor>)clazz.getConstructor(String.class, String.class);
-            return constructor.newInstance(url, data);
+            final Constructor<LinkDataExtractor> constructor = (Constructor<LinkDataExtractor>)clazz.getConstructor(String.class, String.class, CachedSiteDataRetriever.class);
+            return constructor.newInstance(url, data, retriever);
         } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
             Assertions.fail("Error in reflexion code " + e.getMessage());
             return null;

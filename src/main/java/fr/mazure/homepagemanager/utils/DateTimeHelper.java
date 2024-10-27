@@ -33,6 +33,6 @@ public class DateTimeHelper {
      * @return rounded duration
      */
     public static Duration roundDuration(final Duration duration) {
-		return Duration.ofSeconds(duration.plus(Duration.ofMillis(500)).getSeconds());
-	}
+        return Duration.ofSeconds(duration.plus(Duration.ofMillis(500)).getSeconds());
+    }
 }

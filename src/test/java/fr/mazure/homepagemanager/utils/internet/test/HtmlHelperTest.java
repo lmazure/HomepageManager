@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
@@ -112,10 +112,10 @@ class HtmlHelperTest {
     }, delimiter = '|')
     void testCharsetExtraction(final String url,
                                final String expectedCharsetName) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final FileSection file = d.dataFileSection().get();
                                final Optional<Charset> effectiveCharset = HtmlHelper.getCharset(file);

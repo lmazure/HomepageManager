@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
@@ -20,41 +21,45 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
  */
 public class DZoneLinkContentParser extends LinkDataExtractor {
 
+    private static final String s_sourceName = "DZone";
+
     private final String _data;
 
     private static final TextParser s_titleParser
         = new TextParser("<div class=\"title\">\n                        <h1 class=\"article-title\">",
                          "[^>]*",
                          "</h1>",
-                         "DZone",
+                         s_sourceName,
                          "title");
 
     private static final TextParser s_subtitleParser
         = new TextParser("<div class=\"subhead\">\n                        <h3>",
                          "[^>]*",
                          "</h3>",
-                         "DZone",
+                         s_sourceName,
                          "subtitle");
 
     private static final TextParser s_dateParser
         = new TextParser("\"datePublished\": \"",
                          "T00:00:00Z\"",
-                         "DZone",
+                         s_sourceName,
                          "date");
 
     private static final TextParser s_authorParser
         = new TextParser("<span class=\"author-name\">\n        <a (?:href=\"/users/\\d+/[a-zA-Z_0-9.-]+\\.html\" rel=\"nofollow\"|href=\"/authors/[a-zA-Z_0-9-]+\")>",
                          "</a>",
-                         "DZone",
+                         s_sourceName,
                          "author");
 
     /**
      * @param url URL of the link
      * @param data retrieved link data
+     * @param retriever cache data retriever
      */
     public DZoneLinkContentParser(final String url,
-                                  final String data) {
-        super(url);
+                                  final String data,
+                                  final CachedSiteDataRetriever retriever) {
+        super(url, retriever);
         _data = data;
     }
 

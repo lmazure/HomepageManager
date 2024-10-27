@@ -1,9 +1,7 @@
 package fr.mazure.homepagemanager.data.dataretriever;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.CookieManager;
 import java.net.HttpCookie;
 import java.net.HttpURLConnection;
@@ -14,13 +12,12 @@ import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
-import java.time.Instant;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Stack;
-import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
 
@@ -58,7 +55,7 @@ public class SynchronousSiteDataRetriever {
     }
 
     /**
-     * @return maximum number of redirections supported
+     * @return maximum number of supported redirections
      */
     public static int getMaximumNumberOfRedirections() {
         return s_maxNbRedirects;
@@ -66,13 +63,11 @@ public class SynchronousSiteDataRetriever {
 
     /**
      * @param url URL of the link to retrieve
-     * @param consumer
-     *   - its first argument is always true since the data is always fresh
-     *   - its second argument is the site data
+     * @param consumer consume of the site data
      * @param doNotUseCookies if true, cookies will not be recorded and resend while following redirections
      */
     public void retrieve(final String url,
-                         final BiConsumer<Boolean, FullFetchedLinkData> consumer,
+                         final Consumer<FullFetchedLinkData> consumer,
                          final boolean doNotUseCookies) {
         try {
             retrieveInternal(url, url, new Stack<>(), consumer, 0, doNotUseCookies ? null : new CookieManager());
@@ -84,7 +79,7 @@ public class SynchronousSiteDataRetriever {
     private void retrieveInternal(final String initialUrl,
                                   final String currentUrl,
                                   final Stack<HeaderFetchedLinkData> redirectionsData,
-                                  final BiConsumer<Boolean, FullFetchedLinkData> consumer,
+                                  final Consumer<FullFetchedLinkData> consumer,
                                   final int depth,
                                   final CookieManager cookieManager) {
 
@@ -139,40 +134,9 @@ public class SynchronousSiteDataRetriever {
             final HeaderFetchedLinkData d = redirectionsData.pop();
             previous = new HeaderFetchedLinkData(d.url(), d.headers(), previous);
         } while (!redirectionsData.isEmpty());
-        final Instant timestamp = Instant.now();
-        _persister.persist(previous, dataStream, error, timestamp);
-        final FullFetchedLinkData siteData = _persister.retrieve(initialUrl, timestamp);
-        consumer.accept(Boolean.TRUE, siteData);
-    }
-
-    /**
-     * get the content of a link
-     *
-     * @param url URL of the link to retrieve
-     * @param doNotUseCookies if true, cookies will not be recorded and resend while following redirections
-     * @return payload
-     * @throws IOException exception if the payload could not be retrieved
-     */
-    public static String getContent(final String url,
-                                    final boolean doNotUseCookies) throws IOException {
-        final HttpURLConnection httpConnection = httpConnect(url, doNotUseCookies ? null : new CookieManager());
-        final Map<String, List<String>> headers = httpConnection.getHeaderFields();
-        if (headers.size() == 0) {
-            throw new IOException("No headers for " + url);
-        }
-
-        final int responseCode = HttpHelper.getResponseCodeFromHeaders(headers);
-        if (responseCode != HttpURLConnection.HTTP_OK) {
-            throw new IOException("Received HTTP code " + responseCode + " for " + url);
-        }
-
-        try (final InputStream reader = HttpHelper.isEncodedWithGzip(headers) ? new GZIPInputStream(httpConnection.getInputStream())
-                                                                              : httpConnection.getInputStream()) {
-            final byte[] data = reader.readAllBytes();
-            return new String(data, StandardCharsets.UTF_8);
-        } catch (final IOException e) {
-            throw new IOException("Failed to get gzipped payload from " + url, e);
-        }
+        _persister.persist(previous, dataStream, error);
+        final FullFetchedLinkData siteData = _persister.retrieve(initialUrl);
+        consumer.accept(siteData);
     }
 
     /**
@@ -185,7 +149,7 @@ public class SynchronousSiteDataRetriever {
      * @throws NotGzipException The payload is not gzipped
      */
     public static String getGzippedContent(final String url,
-                                           final boolean doNotUseCookies) throws IOException, NotGzipException {
+                                           final boolean doNotUseCookies) throws IOException, NotGzipException { // TODO !! can we get rid of this method since a CacheRetriever is communicated to all Parsers?
         final HttpURLConnection httpConnection = httpConnect(url, doNotUseCookies ? null : new CookieManager());
         final Map<String, List<String>> headers = httpConnection.getHeaderFields();
         if (headers.size() == 0) {

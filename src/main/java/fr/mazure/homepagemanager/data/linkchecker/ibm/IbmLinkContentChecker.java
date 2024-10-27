@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentCheck;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker;
@@ -31,12 +32,14 @@ public class IbmLinkContentChecker extends LinkContentChecker {
      * @param linkData expected link data
      * @param articleData expected article data
      * @param file effective retrieved link data
+     * @param retriever data retriever
      */
     public IbmLinkContentChecker(final String url,
                                  final LinkData linkData,
                                  final Optional<ArticleData> articleData,
-                                 final FileSection file) {
-        super(url, linkData, articleData, file);
+                                 final FileSection file,
+                                 final CachedSiteDataRetriever retriever) {
+        super(url, linkData, articleData, file, retriever);
         _url = url;
     }
 

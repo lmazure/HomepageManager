@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParser;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
@@ -29,10 +29,10 @@ class LinkContentParserTest {
             "https://www.wired.com/1998/04/es-lists/",
             })
     void testLanguageForEnglishArticle(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                             Assertions.assertTrue(d.dataFileSection().isPresent());
                             final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                             final LinkContentParser parser = new LinkContentParser(data);
@@ -55,10 +55,10 @@ class LinkContentParserTest {
             "https://www.marmiton.org/",
             })
     void testLanguageForFrenchArticle(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                             Assertions.assertTrue(d.dataFileSection().isPresent());
                             final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                             final LinkContentParser parser = new LinkContentParser(data);
@@ -76,10 +76,10 @@ class LinkContentParserTest {
             "http://www.openafs.org/",
             })
     void testLanguageForArticleWithNoText(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                             Assertions.assertTrue(d.dataFileSection().isPresent());
                             final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                             final LinkContentParser parser = new LinkContentParser(data);
@@ -92,10 +92,10 @@ class LinkContentParserTest {
 
     @Test
     void testLanguageForEnglishMedium() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve("https://medium.com/@kentbeck_7670/bs-changes-e574bc396aaa",
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                             Assertions.assertTrue(d.dataFileSection().isPresent());
                             final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                             final LinkContentParser parser = new LinkContentParser(data);
@@ -109,10 +109,10 @@ class LinkContentParserTest {
 
     @Test
     void testLanguageForFrenchMedium() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve("https://medium.com/france/praha-8e7086a6c1fe",
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                             Assertions.assertTrue(d.dataFileSection().isPresent());
                             final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                             final LinkContentParser parser = new LinkContentParser(data);

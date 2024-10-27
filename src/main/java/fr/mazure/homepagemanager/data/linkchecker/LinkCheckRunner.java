@@ -1,6 +1,5 @@
 package fr.mazure.homepagemanager.data.linkchecker;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -29,9 +28,11 @@ import fr.mazure.homepagemanager.data.FileHandler.Status;
 import fr.mazure.homepagemanager.data.Violation;
 import fr.mazure.homepagemanager.data.ViolationDataController;
 import fr.mazure.homepagemanager.data.ViolationLocationUnknown;
+import fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever;
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.dataretriever.HeaderFetchedLinkData;
-import fr.mazure.homepagemanager.data.dataretriever.SiteDataRetriever;
+import fr.mazure.homepagemanager.data.dataretriever.SiteDataPersister;
 import fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections;
 import fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.Match;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkUrlCorrection;
@@ -56,7 +57,6 @@ import fr.mazure.homepagemanager.utils.xmlparsing.XmlParsingException;
  */
 public class LinkCheckRunner {
 
-    private static final int s_max_cache_age = 30*24*60*60;
     private final Path _file;
     private final Map<String, FullFetchedLinkData> _effectiveData;
     private final Map<String, LinkData> _expectedLinkData;
@@ -68,7 +68,8 @@ public class LinkCheckRunner {
     private final BackgroundDataController _controller;
     private final ViolationDataController _violationController;
     private final String _checkType;
-    private final SiteDataRetriever _retriever;
+    private final AsynchronousSiteDataRetriever _siteDataRetriever;
+    private final CachedSiteDataRetriever _cachedSiteDataRetriever;
     private final DocumentBuilder _builder;
     private final Path _outputFile;
     private final Path _reportFile;
@@ -98,7 +99,9 @@ public class LinkCheckRunner {
         _checks = new HashMap<>();
         _isCancelled = false;
         _builder = XmlHelper.buildDocumentBuilder();
-        _retriever = new SiteDataRetriever(cachePath);
+        final SiteDataPersister siteDataPersister = new SiteDataPersister(cachePath);
+        _siteDataRetriever = new AsynchronousSiteDataRetriever(siteDataPersister);
+        _cachedSiteDataRetriever = new CachedSiteDataRetriever(siteDataPersister);
         _controller = controller;
         _violationController = violationController;
         _checkType = checkType;
@@ -156,7 +159,7 @@ public class LinkCheckRunner {
             return;
         }
         for (final String url: linksToBeChecked) {
-            _retriever.retrieve(url, this::handleLinkData, s_max_cache_age, doNotUseCookies(url));
+            _siteDataRetriever.retrieve(url, this::handleLinkData, doNotUseCookies(url));
         }
     }
 
@@ -289,26 +292,25 @@ public class LinkCheckRunner {
     /**
      * Callback when the data of a link has been retrieved
      *
-     * @param isDataFresh
      * @param effectiveSiteData
      */
-    private synchronized void handleLinkData(final Boolean isDataFresh,
-                                             final FullFetchedLinkData effectiveSiteData) {
+    private synchronized void handleLinkData(final FullFetchedLinkData effectiveSiteData) {
 
         if (_isCancelled) {
             return;
         }
 
-        _effectiveData.put(effectiveSiteData.url().toString(), effectiveSiteData);
+        _effectiveData.put(effectiveSiteData.url(), effectiveSiteData);
         if (!effectiveSiteData.error().isPresent()) {
             Checker checker = null;
             if (_expectedLinkData.containsKey(effectiveSiteData.url())) {
                 // this is a link
                 if (_expectedLinkData.get(effectiveSiteData.url()).getStatus() == LinkStatus.OK) {
                     checker = LinkContentCheckerFactory.build(effectiveSiteData.url(),
-                                                              _expectedLinkData.get(effectiveSiteData.url().toString()),
-                                                              Optional.ofNullable(_articles.get(effectiveSiteData.url().toString())),
-                                                              effectiveSiteData.dataFileSection().get());
+                                                              _expectedLinkData.get(effectiveSiteData.url()),
+                                                              Optional.ofNullable(_articles.get(effectiveSiteData.url())),
+                                                              effectiveSiteData.dataFileSection().get(),
+                                                              _cachedSiteDataRetriever);
                 }
             } else if (_expectedFeedData.containsKey(effectiveSiteData.url())) {
                 // this is a feed
@@ -334,9 +336,7 @@ public class LinkCheckRunner {
             }
         }
 
-        if (isDataFresh.booleanValue()) {
-            _nbSitesRemainingToBeChecked--;
-        }
+        _nbSitesRemainingToBeChecked--;
 
         final Status status = isDataExpected() ? ((_nbSitesRemainingToBeChecked == 0) ? Status.HANDLED_WITH_SUCCESS : Status.HANDLING_NO_ERROR)
                                                : ((_nbSitesRemainingToBeChecked == 0) ? Status.HANDLED_WITH_ERROR : Status.HANDLING_WITH_ERROR);
@@ -368,7 +368,7 @@ public class LinkCheckRunner {
 
     }
 
-    private void writeOutputFile() throws FileNotFoundException, IOException {
+    private void writeOutputFile() throws IOException {
 
         final StringBuilder ok = new StringBuilder();
         final StringBuilder ko = new StringBuilder();

@@ -12,6 +12,7 @@ import java.util.Optional;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
@@ -27,6 +28,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
  */
 public class SpectrumLinkContentParser extends LinkDataExtractor {
 
+    private static final String s_sourceName = "IEEE Spectrum";
+
     private final String _data;
 
     private List<AuthorData> _authors;
@@ -35,26 +38,30 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
     private static final TextParser s_titleParser
         = new TextParser("<h1 class=\"widget__headline h1\">",
                          "</h1>",
-                         "IEEE Spectrum",
+                         s_sourceName,
                          "title");
     private static final TextParser s_subtitleParser
         = new TextParser("<h2 class=\"widget__subheadline-text h2\" data-type=\"text\">",
                          "</h2>",
-                         "IEEE Spectrum",
+                         s_sourceName,
                          "subtitle");
     private static final TextParser s_jsonParser
-    = new TextParser("<script type=\"application/ld\\+json\">",
-                     "</script>",
-                     "IEEE Spectrum",
-                     "JSON");
+        = new TextParser("<script type=\"application/ld\\+json\">",
+                         "</script>",
+                         s_sourceName,
+                        "JSON");
+
     /**
      * @param url URL of the link
      * @param data retrieved link data
+     * @param retriever cache data retriever
      */
     public SpectrumLinkContentParser(final String url,
-                                     final String data) {
+                                     final String data,
+                                     final CachedSiteDataRetriever retriever) {
         super(UrlHelper.removeQueryParameters(url,"comments",
-                                                  "comments-page"));
+                                                  "comments-page"),
+              retriever);
         _data = data;
         _authors = null;
         _publicationDate = null;
@@ -138,7 +145,7 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
         if (authorNode instanceof JSONArray auths) {
             for (int i = 0; i < auths.length(); i++) {
                 final String name = auths.getJSONObject(i).getString("name");
-                if (name.equals("IEEE Spectrum")) {
+                if (name.equals(s_sourceName)) {
                     continue;
                 }
                 final AuthorData author = LinkContentParserUtils.parseAuthorName(name);

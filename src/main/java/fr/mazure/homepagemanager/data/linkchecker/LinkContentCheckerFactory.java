@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.linkchecker.arstechnica.ArsTechnicaLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.baeldung.BaeldungLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.chromium.ChromiumBlogLinkContentChecker;
@@ -68,7 +69,7 @@ public class LinkContentCheckerFactory {
             try {
                 final Method method = clazz.getDeclaredMethod("isUrlManaged", String.class);
                 @SuppressWarnings("unchecked")
-                final Constructor<LinkContentChecker> cons = (Constructor<LinkContentChecker>)clazz.getConstructor(String.class, LinkData.class, Optional.class, FileSection.class);
+                final Constructor<LinkContentChecker> cons = (Constructor<LinkContentChecker>)clazz.getConstructor(String.class, LinkData.class, Optional.class, FileSection.class, CachedSiteDataRetriever.class);
                 s_checkers.add(new CheckerData((final String url) -> {
                                                    try {
                                                        return ((Boolean)method.invoke(null, url)).booleanValue();
@@ -89,32 +90,34 @@ public class LinkContentCheckerFactory {
      * @param linkData expected link data
      * @param articleData expected article data
      * @param file effective retrieved link data
+     * @param retriever data retriever
      * @return LinkContentChecker able to check the link
      */
     public static LinkContentChecker build(final String url,
                                            final LinkData linkData, // TODO we should not have to provide linkData and articleData to the factory
                                            final Optional<ArticleData> articleData,
-                                           final FileSection file) {
+                                           final FileSection file,
+                                           final CachedSiteDataRetriever retriever) {
 
         if (url.matches(".*[\\.=]pdf")) {
             // PDF files are ignored for the time being
-            return new NoCheckContentChecker(url, linkData, articleData, file);
+            return new NoCheckContentChecker(url, linkData, articleData, file, retriever);
         }
 
         if (url.endsWith(".ps")) {
             // PostScript files are ignored
-            return new NoCheckContentChecker(url, linkData, articleData, file);
+            return new NoCheckContentChecker(url, linkData, articleData, file, retriever);
         }
 
         if (url.endsWith(".gz")) {
             // GZIP files are ignored
-            return new NoCheckContentChecker(url, linkData, articleData, file);
+            return new NoCheckContentChecker(url, linkData, articleData, file, retriever);
         }
 
         for (final CheckerData checkerData: s_checkers) {
             if (checkerData.predicate.test(url)) {
                 try {
-                    return checkerData.constructor.newInstance(url, linkData, articleData, file);
+                    return checkerData.constructor.newInstance(url, linkData, articleData, file, retriever);
                 } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
                     ExitHelper.exit(e);
                     // NOTREACHED
@@ -124,13 +127,13 @@ public class LinkContentCheckerFactory {
         }
 
         if (url.startsWith("https://www.facebook.com/")) {
-            return new NoCheckContentChecker(url, linkData, articleData, file);
+            return new NoCheckContentChecker(url, linkData, articleData, file, retriever);
         }
 
         if (url.startsWith("https://www.linkedin.com/")) {
-            return new NoCheckContentChecker(url, linkData, articleData, file);
+            return new NoCheckContentChecker(url, linkData, articleData, file, retriever);
         }
 
-        return new LinkContentChecker(url, linkData, articleData, file);
+        return new LinkContentChecker(url, linkData, articleData, file, retriever);
     }
 }

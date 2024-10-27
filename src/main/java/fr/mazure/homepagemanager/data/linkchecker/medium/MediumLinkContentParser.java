@@ -14,6 +14,7 @@ import java.util.Optional;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
@@ -30,6 +31,8 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
  */
 public class MediumLinkContentParser extends LinkDataExtractor {
 
+    private static final String s_sourceName = "Medium";
+
     private final String _data;
     private final String _code;
     private boolean _dataIsLoaded;
@@ -42,34 +45,36 @@ public class MediumLinkContentParser extends LinkDataExtractor {
     private static final TextParser s_jsonParser
         = new TextParser("<script>window.__APOLLO_STATE__ = ",
                          "</script>",
-                         "Medium",
+                         s_sourceName,
                          "JSON preloaded state");
 
     private static final TextParser s_jsonTitle
         = new TextParser("<h1 id=\"(?:\\p{XDigit}{4}|title)\" class=\"pw-post-title(?: \\p{Lower}{1,2})+\" data-testid=\"storyTitle\">",
                          "</h1>",
-                         "Medium",
+                         s_sourceName,
                          "title");
 
     private static final TextParser s_jsonSubtitle
         = new TextParser("<h2 id=\"(?:\\p{XDigit}{4}|subtitle)\" class=\"pw-subtitle-paragraph(?: \\p{Lower}{1,2})+\">",
                          "</h2>",
-                         "Medium",
+                         s_sourceName,
                          "subtitle");
 
     private static final TextParser s_netflixAuthors
         = new TextParser("<p id=\"\\p{XDigit}{4}\" class=\"pw-post-body-paragraph(?: \\p{Lower}{1,2})+\"><em class=\"\\p{Lower}{2}\">by ",
                          "</p>",
-                        "Medium",
+                        s_sourceName,
                         "authors");
 
     /**
      * @param url URL of the link
      * @param data retrieved link data
+     * @param retriever cache data retriever
      */
     public MediumLinkContentParser(final String url,
-                                   final String data) {
-        super(url);
+                                   final String data,
+                                   final CachedSiteDataRetriever retriever) {
+        super(url, retriever);
         _data = data;
         _code = url.substring(url.lastIndexOf("-") + 1);
     }
@@ -81,6 +86,11 @@ public class MediumLinkContentParser extends LinkDataExtractor {
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
+
+        if (!UriHelper.isValidUri(url)) {
+            return false;
+        }
+
         final String host = UriHelper.getHost(url);
         if (host == null) {
             return false;

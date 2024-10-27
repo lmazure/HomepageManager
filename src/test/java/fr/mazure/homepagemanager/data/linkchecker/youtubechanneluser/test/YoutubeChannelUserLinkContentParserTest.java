@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.youtubechanneluser.YoutubeChannelUserLinkContentParser;
@@ -22,10 +22,10 @@ class YoutubeChannelUserLinkContentParserTest {
 
     @Test
     void testErrorMessagePresent() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve("https://www.youtube.com/channel/UCwBn4dgV3kxzvcCKN3TbQOQ",
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                             Assertions.assertTrue(d.dataFileSection().isPresent());
                             final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                             final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
@@ -39,10 +39,10 @@ class YoutubeChannelUserLinkContentParserTest {
 
     @Test
     void testErrorMessageAbsent() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve("https://www.youtube.com/channel/UC6nSFpj9HTCZ5t-N3Rm3-HA",
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                             Assertions.assertTrue(d.dataFileSection().isPresent());
                             final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                             final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
@@ -62,10 +62,10 @@ class YoutubeChannelUserLinkContentParserTest {
             "https://www.youtube.com/user/Vsauce3",
                            })
     void testEnglish(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                             Assertions.assertTrue(d.dataFileSection().isPresent());
                             final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                             final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
@@ -86,10 +86,10 @@ class YoutubeChannelUserLinkContentParserTest {
             "https://www.youtube.com/user/TheWandida",
                            })
     void testFrench(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
-                           (final Boolean b, final FullFetchedLinkData d) -> {
+                           (final FullFetchedLinkData d) -> {
                             Assertions.assertTrue(d.dataFileSection().isPresent());
                             final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                             final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);

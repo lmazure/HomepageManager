@@ -11,6 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthorsOfLink;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkLanguageCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkSubtitleCorrection;
@@ -35,6 +36,7 @@ public class LinkContentChecker implements Checker {
     private final Optional<ArticleData> _articleData;
     private final FileSection _file;
     private LinkContentParser _parser;
+    private CachedSiteDataRetriever _retriever;
 
     private static final Pattern s_htmlCheckPattern = Pattern.compile("</HTML>\\p{Space}*$", Pattern.CASE_INSENSITIVE);
 
@@ -48,15 +50,22 @@ public class LinkContentChecker implements Checker {
      * @param linkData expected link data
      * @param articleData expected article data
      * @param file effective retrieved link data
+     * @param retriever data retriever
      */
     public LinkContentChecker(final String url,
                               final LinkData linkData,
                               final Optional<ArticleData> articleData,
-                              final FileSection file) {
+                              final FileSection file,
+                              final CachedSiteDataRetriever retriever) {
         _url = url;
         _linkData = linkData;
         _articleData = articleData;
         _file = file;
+        _retriever = retriever;
+    }
+
+    protected CachedSiteDataRetriever getRetriever() {
+        return _retriever;
     }
 
     /**

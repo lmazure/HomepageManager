@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
@@ -23,32 +24,36 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
  */
 public class BaeldungLinkContentParser extends LinkDataExtractor {
 
+    private static final String s_sourceName = "Baeldung";
+
     private final String _data;
 
     private static final TextParser s_titleParser
         = new TextParser("<h1 class=\"single-title entry-title\" itemprop=\"headline\">",
                          "</h1>",
-                         "Baeldung",
+                         s_sourceName,
                          "title");
     private static final TextParser s_dateParser
         = new TextParser("<p class=\"post-modified\">Last updated: <span class=\"updated\">",
                          "</span></p>",
-                         "Baeldung",
+                         s_sourceName,
                          "date");
     private static final TextParser s_authorParser
         = new TextParser("<a href=\"https://www.baeldung.com(?:/ops)?/author/[^/]*\" title=\"Posts by [^\"]*\" rel=\"author\">",
                          "</a>",
-                         "Baeldung",
+                         s_sourceName,
                          "author");
     private static final DateTimeFormatter s_formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.US);
 
     /**
      * @param url URL of the link
      * @param data retrieved link data
+     * @param retriever cache data retriever
      */
     public BaeldungLinkContentParser(final String url,
-                                     final String data) {
-        super(url);
+                                     final String data,
+                                     final CachedSiteDataRetriever retriever) {
+        super(url, retriever);
         _data = data;
     }
 
