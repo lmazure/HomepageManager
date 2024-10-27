@@ -117,7 +117,7 @@ public class LinkContentCheckerFactory {
         for (final CheckerData checkerData: s_checkers) {
             if (checkerData.predicate.test(url)) {
                 try {
-                    return checkerData.constructor.newInstance(url, linkData, articleData, file);
+                    return checkerData.constructor.newInstance(url, linkData, articleData, file, retriever);
                 } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
                     ExitHelper.exit(e);
                     // NOTREACHED
