@@ -138,7 +138,7 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
         return new ArrayList<>(0);
     }
 
-    private Optional<ExtractedLinkData> getOtherLink() throws ContentParserException { // TODO we need to cache in memory and on disk
+    private Optional<ExtractedLinkData> getOtherLink() throws ContentParserException {
 
         if (_otherLink == null) {
             // get YouTube link

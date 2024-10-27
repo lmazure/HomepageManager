@@ -181,14 +181,6 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
     {
         final List<ExtractedLinkData> effectiveLinks = _parser.getLinks();
 
-        // for parsers that support only one link, we just do a quick assertion
-        if (effectiveLinks.size() == 1) {
-            if (expectedLinks.stream().noneMatch(link -> link.getUrl().equals(effectiveLinks.get(0).url()))) {
-                ExitHelper.exit("Internal error: expected link " + expectedLinks.get(0) + " but got " + effectiveLinks.get(0));
-            }
-            return null;
-        }
-
         if (effectiveLinks.size() != expectedLinks.size()) {
             final String expectedLinksMsg = expectedLinks.stream()
                                                          .map(LinkData::getUrl)
@@ -197,14 +189,14 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
                                                            .map(ExtractedLinkData::url)
                                                            .collect(Collectors.joining(", "));
             return new LinkContentCheck("WrongLinkCount",
-                                        "Expected " + expectedLinks.size() + " links (" + expectedLinksMsg + "), got " + effectiveLinks.size() + " links (" + effectiveLinksMsg + ")",
+                                        "Expected " + expectedLinks.size() + " links (" + expectedLinksMsg + "), but got " + effectiveLinks.size() + " links (" + effectiveLinksMsg + ")",
                                         Optional.empty());
         }
 
         for (int i = 0; i < effectiveLinks.size(); i++) {
             if (!effectiveLinks.get(i).url().equals(expectedLinks.get(i).getUrl())) {
                 return new LinkContentCheck("WrongLink",
-                                            "Expected link number " + i + " to be " + expectedLinks.get(i) + ", got " + effectiveLinks.get(i),
+                                            "Expected link number " + (i + 1) + " to be " + expectedLinks.get(i).getUrl() + ", but got " + effectiveLinks.get(i).url(),
                                             Optional.empty());
             }
         }
