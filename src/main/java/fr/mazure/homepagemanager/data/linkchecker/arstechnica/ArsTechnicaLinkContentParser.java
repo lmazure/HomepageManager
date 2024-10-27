@@ -12,6 +12,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
@@ -62,11 +63,14 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
     /**
      * @param url URL of the link
      * @param data retrieved link data
+     * @param retriever cache data retriever
      */
     public ArsTechnicaLinkContentParser(final String url,
-                                        final String data) {
+                                        final String data,
+                                        final CachedSiteDataRetriever retriever) {
         super(UrlHelper.removeQueryParameters(url,"comments",
-                                                  "comments-page"));
+                                                  "comments-page"),
+              retriever);
         _data = data;
     }
 

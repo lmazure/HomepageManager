@@ -27,7 +27,7 @@ public class CachedSiteDataRetriever {
                          final Consumer<FullFetchedLinkData> consumer,
                          final boolean doNotUseCookies) {
 
-		final FullFetchedLinkData data = _persister.retrieve(url);
+        final FullFetchedLinkData data = _persister.retrieve(url);
 
         if (data != null) {
             consumer.accept(data);

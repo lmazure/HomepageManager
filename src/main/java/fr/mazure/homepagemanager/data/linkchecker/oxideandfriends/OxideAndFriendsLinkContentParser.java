@@ -1,6 +1,5 @@
 package fr.mazure.homepagemanager.data.linkchecker.oxideandfriends;
 
-import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -11,7 +10,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
+import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthors;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
@@ -36,7 +36,7 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
     private String _title;
     private Optional<TemporalAccessor> _date;
     private Optional<Duration> _duration;
-    private Optional<ExtractedLinkData> _otherLinks;
+    private Optional<ExtractedLinkData> _otherLink;
 
     private static final TextParser s_titleParser
         = new TextParser("<h1 class=\"text-sans-3xl 800:text-sans-3xl 1000:text-sans-4xl text-default my-3\">",
@@ -64,15 +64,17 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
     /**
      * @param url URL of the link
      * @param data retrieved link data
+     * @param retriever cache data retriever
      */
     public OxideAndFriendsLinkContentParser(final String url,
-                                            final String data) {
-        super(url);
+                                            final String data,
+                                            final CachedSiteDataRetriever retriever) {
+        super(url, retriever);
         _data = data;
         _title = null;
         _date = null;
         _duration = null;
-        _otherLinks = null;
+        _otherLink = null;
     }
 
     /**
@@ -138,49 +140,46 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
 
     private Optional<ExtractedLinkData> getOtherLink() throws ContentParserException { // TODO we need to cache in memory and on disk
 
-        if (_otherLinks == null) {
+        if (_otherLink == null) {
             // get YouTube link
-            Optional<String> youtubeLink = Optional.empty();
-            try {
-                youtubeLink = YouTubeHelper.getVideoURL("Oxide Computer Company", getTitle());
-            } catch (final IOException e) {
-                Logger.log(Level.ERROR)
-                      .append("Failed to get YouTube link")
-                      .append(e)
-                      .submit();
-                return Optional.empty();
-            }
+            final YouTubeHelper helper = new YouTubeHelper();
+            final Optional<String> youtubeLink = helper.getVideoURL("Oxide Computer Company", getTitle(), getRetriever());
             if (youtubeLink.isEmpty()) {
-                return Optional.empty();
+                _otherLink = Optional.empty();
+                return _otherLink;
             }
 
             // get YouTube payload
-            String payload = null;
-            try {
-                payload = SynchronousSiteDataRetriever.getContent(youtubeLink.get(), false);
-            } catch (final IOException e) {
-                Logger.log(Level.ERROR)
-                      .append("Failed to get YouTube payload")
-                      .append(e)
-                      .submit();
-                return Optional.empty();
-            }
+            getRetriever().retrieve(youtubeLink.get(), this::consumeYouTubeData, false);
+        }
 
-            // extract the link data
-            final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(youtubeLink.get(), payload);
+        return _otherLink;
+    }
+
+    private void consumeYouTubeData(final FullFetchedLinkData siteData) {
+        final String payload = HtmlHelper.slurpFile(siteData.dataFileSection().get());
+
+        // extract the link data
+        try {
+            final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(siteData.url(), payload, getRetriever());
             final ExtractedLinkData linkData = new ExtractedLinkData(parser.getTitle(),
                                                                      new String[] { },
-                                                                     youtubeLink.get(),
+                                                                     siteData.url(),
                                                                      Optional.empty(),
                                                                      Optional.empty(),
                                                                      new LinkFormat[] { LinkFormat.MP4 },
                                                                      new Locale[] { parser.getLanguage() },
                                                                      parser.getDuration(),
                                                                      Optional.empty());
-            _otherLinks = Optional.of(linkData);
-        }
+            _otherLink = Optional.of(linkData);
+        } catch (ContentParserException e) {
+            Logger.log(Level.ERROR)
+                  .append("Failed to get YouTube link data")
+                  .append(e)
+                  .submit();
 
-        return _otherLinks;
+            _otherLink = Optional.empty();
+        }
     }
 
     @Override

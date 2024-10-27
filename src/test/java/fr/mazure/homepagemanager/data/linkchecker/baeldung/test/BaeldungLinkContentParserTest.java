@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.baeldung.BaeldungLinkContentParser;
@@ -33,14 +33,14 @@ class BaeldungLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @Test
     void testNoSubtitle() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String url = "https://www.baeldung.com/crawler4j";
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(url, data);
+                               final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(url, data, retriever);
                                Assertions.assertFalse(parser.getSubtitle().isPresent());
                                consumerHasBeenCalled.set(true);
                            },
@@ -54,13 +54,13 @@ class BaeldungLinkContentParserTest extends LinkDataExtractorTestBase {
         })
     void testDate(final String url,
                   final String expectedDate) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                           (final FullFetchedLinkData d) -> {
                               Assertions.assertTrue(d.dataFileSection().isPresent());
                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                              final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(url, data);
+                              final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(url, data, retriever);
                               try {
                                   TestHelper.assertDate(expectedDate, parser.getDate());
                                } catch (final ContentParserException e) {
@@ -86,13 +86,13 @@ class BaeldungLinkContentParserTest extends LinkDataExtractorTestBase {
                                                          Optional.of(expectedLastName),
                                                          Optional.empty(),
                                                          Optional.empty());
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(url, data);
+                               final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(Collections.singletonList(expectedAuthor), parser.getSureAuthors());
                                 } catch (final ContentParserException e) {
@@ -109,13 +109,13 @@ class BaeldungLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://www.baeldung.com/java-9-reactive-streams",
         })
     void testNoAuthor(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                           (final FullFetchedLinkData d) -> {
                               Assertions.assertTrue(d.dataFileSection().isPresent());
                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                              final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(url, data);
+                              final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(url, data, retriever);
                               try {
                                   Assertions.assertEquals(0, parser.getSureAuthors().size());
                                } catch (final ContentParserException e) {

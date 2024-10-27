@@ -93,7 +93,7 @@ class CachedSiteDataRetrieverTest {
                     (final FullFetchedLinkData d) -> {
                         Assertions.assertTrue(d.dataFileSection().isPresent());
                         final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                        final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(url, data);
+                        final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(url, data, retriever);
                         try {
                             Assertions.assertEquals("A Guide to Crawler4j", parser.getTitle());
                         } catch (final ContentParserException e) {

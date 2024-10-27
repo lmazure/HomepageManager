@@ -3,13 +3,11 @@ package fr.mazure.homepagemanager.data.linkchecker;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.nio.file.Path;
 import java.util.List;
-import java.util.function.Predicate;
+import java.util.function.BiPredicate;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.dataretriever.SiteDataPersister;
-import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.linkchecker.arstechnica.ArsTechnicaLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.baeldung.BaeldungLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.dzone.DZoneLinkContentParser;
@@ -38,7 +36,7 @@ public class LinkDataExtractorFactory {
 
     private String _content;
 
-    private record ExtractorData(Predicate<String> predicate, Constructor<LinkDataExtractor> constructor) {}
+    private record ExtractorData(BiPredicate<String, CachedSiteDataRetriever> predicate, Constructor<LinkDataExtractor> constructor) {}
 
     private static final List<ExtractorData> s_extractors = new java.util.ArrayList<>();
 
@@ -66,8 +64,8 @@ public class LinkDataExtractorFactory {
             try {
                 final Method method = clazz.getDeclaredMethod("isUrlManaged", String.class);
                 @SuppressWarnings("unchecked")
-                final Constructor<LinkDataExtractor> cons = (Constructor<LinkDataExtractor>)clazz.getConstructor(String.class, String.class);
-                s_extractors.add(new ExtractorData((final String url) -> {
+                final Constructor<LinkDataExtractor> cons = (Constructor<LinkDataExtractor>)clazz.getConstructor(String.class, String.class, CachedSiteDataRetriever.class);
+                s_extractors.add(new ExtractorData((final String url, final CachedSiteDataRetriever retriever) -> {
                                                        try {
                                                            return ((Boolean)method.invoke(null, url)).booleanValue();
                                                        } catch (final IllegalAccessException | InvocationTargetException e) {
@@ -84,19 +82,19 @@ public class LinkDataExtractorFactory {
     }
 
     /**
-     * @param cacheDirectory directory where the persistence files should be written
      * @param url URL to check
+     * @param retriever data retriever
      * @return LinkDataExtractor able to extract data from the link, null if there is no such LinkDataExtractor
      * @throws ContentParserException Failure to extract the information
      */
-    public static LinkDataExtractor build(final Path cacheDirectory,
-                                          final String url) throws ContentParserException {
+    public static LinkDataExtractor build(final String url,
+                                          final CachedSiteDataRetriever retriever) throws ContentParserException {
         final LinkDataExtractorFactory factory = new LinkDataExtractorFactory();
-        return factory.create(cacheDirectory, url);
+        return factory.create(url, retriever);
     }
 
-    private LinkDataExtractor create(final Path cacheDirectory,
-                                     final String url) {
+    private LinkDataExtractor create(final String url,
+                                     final CachedSiteDataRetriever retriever) {
 
         final String u = UrlHelper.removeQueryParameters(url, "utm_source",
                                                               "utm_medium",
@@ -105,12 +103,10 @@ public class LinkDataExtractorFactory {
                                                               "utm_term");
 
         for (final ExtractorData extractorData: s_extractors){
-            if (extractorData.predicate.test(u)) {
-                final SiteDataPersister persister = new SiteDataPersister(cacheDirectory);
-                final SynchronousSiteDataRetriever retriever = new SynchronousSiteDataRetriever(persister);
+            if (extractorData.predicate.test(u, retriever)) {
                 retriever.retrieve(url, this::handleLinkData, false);
                 try {
-                    return extractorData.constructor.newInstance(u, _content);
+                    return extractorData.constructor.newInstance(u, _content, retriever);
                 } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException| InvocationTargetException e) {
                     ExitHelper.exit(e);
                     // NOTREACHED

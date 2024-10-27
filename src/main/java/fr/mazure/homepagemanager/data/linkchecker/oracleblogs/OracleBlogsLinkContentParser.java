@@ -19,6 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.NotGzipException;
 import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
@@ -83,10 +84,12 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
     /**
      * @param url URL of the link
      * @param data retrieved link data
+     * @param retriever cache data retriever
      */
     public OracleBlogsLinkContentParser(final String url,
-                                        final String data) {
-        super(cleanUrl(url));
+                                        final String data,
+                                        final CachedSiteDataRetriever retriever) {
+        super(cleanUrl(url), retriever);
 
         // retrieve site and caas from initial HTML
         final Matcher m = s_htmlPattern.matcher(data);

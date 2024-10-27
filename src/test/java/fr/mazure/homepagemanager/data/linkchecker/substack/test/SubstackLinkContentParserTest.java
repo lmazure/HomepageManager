@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.substack.SubstackLinkContentParser;
@@ -32,13 +32,13 @@ class SubstackLinkContentParserTest {
         }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final SubstackLinkContentParser parser = new SubstackLinkContentParser(url, data);
+                               final SubstackLinkContentParser parser = new SubstackLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(expectedTitle, parser.getTitle());
                                } catch (final ContentParserException e) {
@@ -58,13 +58,13 @@ class SubstackLinkContentParserTest {
         }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final SubstackLinkContentParser parser = new SubstackLinkContentParser(url, data);
+                               final SubstackLinkContentParser parser = new SubstackLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
                                } catch (final ContentParserException e) {
@@ -83,13 +83,13 @@ class SubstackLinkContentParserTest {
         "https://magazine.sebastianraschka.com/p/understanding-encoder-and-decoder",
         }, delimiter = '|')
     void testNoSubtitle(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final SubstackLinkContentParser parser = new SubstackLinkContentParser(url, data);
+                               final SubstackLinkContentParser parser = new SubstackLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertFalse(parser.getSubtitle().isPresent());
                                } catch (final ContentParserException e) {
@@ -118,13 +118,13 @@ class SubstackLinkContentParserTest {
                                                          Optional.of(expectedLastName),
                                                          Optional.empty(),
                                                          Optional.empty());
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final SubstackLinkContentParser parser = new SubstackLinkContentParser(url, data);
+                               final SubstackLinkContentParser parser = new SubstackLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(Collections.singletonList(expectedAuthor), parser.getSureAuthors());
                                 } catch (final ContentParserException e) {
@@ -159,13 +159,13 @@ class SubstackLinkContentParserTest {
                                                           Optional.of(expectedLastName2),
                                                           Optional.empty(),
                                                           Optional.empty());
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final SubstackLinkContentParser parser = new SubstackLinkContentParser(url, data);
+                               final SubstackLinkContentParser parser = new SubstackLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(2, parser.getSureAuthors().size());
                                    Assertions.assertEquals(expectedAuthor1, parser.getSureAuthors().get(0));
@@ -194,14 +194,14 @@ class SubstackLinkContentParserTest {
                                                           Optional.of("Greshake"),
                                                           Optional.empty(),
                                                           Optional.empty());
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String url = "https://promptarmor.substack.com/p/data-exfiltration-from-writercom";
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final SubstackLinkContentParser parser = new SubstackLinkContentParser(url, data);
+                               final SubstackLinkContentParser parser = new SubstackLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(2, parser.getSureAuthors().size());
                                    Assertions.assertEquals(expectedAuthor1, parser.getSureAuthors().get(0));
@@ -225,13 +225,13 @@ class SubstackLinkContentParserTest {
         }, delimiter = '|')
     void testDate(final String url,
                   final String expectedDate) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final SubstackLinkContentParser parser = new SubstackLinkContentParser(url, data);
+                               final SubstackLinkContentParser parser = new SubstackLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertTrue(parser.getDate().isPresent());
                                    Assertions.assertEquals(expectedDate, parser.getDate().get().toString());
@@ -253,13 +253,13 @@ class SubstackLinkContentParserTest {
         }, delimiter = '|')
     void testLanguage(final String url,
                       final String expectedLanguage) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final SubstackLinkContentParser parser = new SubstackLinkContentParser(url, data);
+                               final SubstackLinkContentParser parser = new SubstackLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(Locale.of(expectedLanguage), parser.getLanguage());
                                } catch (final ContentParserException e) {

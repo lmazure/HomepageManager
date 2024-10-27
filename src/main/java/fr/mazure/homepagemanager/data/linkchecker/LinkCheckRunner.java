@@ -28,9 +28,11 @@ import fr.mazure.homepagemanager.data.FileHandler.Status;
 import fr.mazure.homepagemanager.data.Violation;
 import fr.mazure.homepagemanager.data.ViolationDataController;
 import fr.mazure.homepagemanager.data.ViolationLocationUnknown;
+import fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever;
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.dataretriever.HeaderFetchedLinkData;
-import fr.mazure.homepagemanager.data.dataretriever.SiteDataRetriever;
+import fr.mazure.homepagemanager.data.dataretriever.SiteDataPersister;
 import fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections;
 import fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.Match;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkUrlCorrection;
@@ -66,7 +68,8 @@ public class LinkCheckRunner {
     private final BackgroundDataController _controller;
     private final ViolationDataController _violationController;
     private final String _checkType;
-    private final SiteDataRetriever _retriever;
+    private final AsynchronousSiteDataRetriever _siteDataRetriever;
+    private final CachedSiteDataRetriever _cachedSiteDataRetriever;
     private final DocumentBuilder _builder;
     private final Path _outputFile;
     private final Path _reportFile;
@@ -96,7 +99,9 @@ public class LinkCheckRunner {
         _checks = new HashMap<>();
         _isCancelled = false;
         _builder = XmlHelper.buildDocumentBuilder();
-        _retriever = new SiteDataRetriever(cachePath);
+        final SiteDataPersister siteDataPersister = new SiteDataPersister(cachePath);
+        _siteDataRetriever = new AsynchronousSiteDataRetriever(siteDataPersister);
+        _cachedSiteDataRetriever = new CachedSiteDataRetriever(siteDataPersister);
         _controller = controller;
         _violationController = violationController;
         _checkType = checkType;
@@ -154,7 +159,7 @@ public class LinkCheckRunner {
             return;
         }
         for (final String url: linksToBeChecked) {
-            _retriever.retrieve(url, this::handleLinkData, doNotUseCookies(url));
+            _siteDataRetriever.retrieve(url, this::handleLinkData, doNotUseCookies(url));
         }
     }
 
@@ -304,7 +309,8 @@ public class LinkCheckRunner {
                     checker = LinkContentCheckerFactory.build(effectiveSiteData.url(),
                                                               _expectedLinkData.get(effectiveSiteData.url()),
                                                               Optional.ofNullable(_articles.get(effectiveSiteData.url())),
-                                                              effectiveSiteData.dataFileSection().get());
+                                                              effectiveSiteData.dataFileSection().get(),
+                                                              _cachedSiteDataRetriever);
                 }
             } else if (_expectedFeedData.containsKey(effectiveSiteData.url())) {
                 // this is a feed

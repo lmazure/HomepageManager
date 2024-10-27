@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 
 /**
@@ -15,16 +16,23 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 public abstract class LinkDataExtractor {
 
     private final String _url;
+    private final CachedSiteDataRetriever _retriever;
 
     /**
      * @param url URL of the link
      */
-    protected LinkDataExtractor(final String url) {
+    protected LinkDataExtractor(final String url,
+                                final CachedSiteDataRetriever retriever) {
         _url = url;
+        _retriever = retriever;
     }
 
     protected String getUrl() {
         return _url;
+    }
+
+    protected CachedSiteDataRetriever getRetriever() {
+        return _retriever;
     }
 
     /**

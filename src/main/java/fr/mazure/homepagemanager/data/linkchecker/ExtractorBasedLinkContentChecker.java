@@ -7,6 +7,7 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.violationcorrection.AddLinkSubtitleCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.RemoveLinkSubtitleCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateArticleDateCorrection;
@@ -35,13 +36,15 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
      * @param articleData expected article data
      * @param file effective retrieved link data
      * @param extractorBuilder function that returns a link data extractor
+     * @param retriever data retriever
      */
     public ExtractorBasedLinkContentChecker(final String url,
                                             final LinkData linkData,
                                             final Optional<ArticleData> articleData,
                                             final FileSection file,
-                                            final LinkDataExtractorBuilder extractorBuilder) {
-        super(url, linkData, articleData, file);
+                                            final LinkDataExtractorBuilder extractorBuilder,
+                                            final CachedSiteDataRetriever retriever) {
+        super(url, linkData, articleData, file, retriever);
         _extractorBuilder = extractorBuilder;
     }
 
@@ -52,7 +55,7 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
     @Override
     protected LinkContentCheck checkGlobalData(final String data) throws ContentParserException
     {
-        _parser = _extractorBuilder.buildExtractor(getUrl(), data);
+        _parser = _extractorBuilder.buildExtractor(getUrl(), data, getRetriever());
         return null;
     }
 
@@ -211,6 +214,6 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
 
     @FunctionalInterface
     protected interface LinkDataExtractorBuilder {
-        LinkDataExtractor buildExtractor(final String url, final String data) throws ContentParserException;
+        LinkDataExtractor buildExtractor(final String url, final String data, final CachedSiteDataRetriever retriever) throws ContentParserException;
     }
 }

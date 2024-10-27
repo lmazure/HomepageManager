@@ -12,6 +12,7 @@ import java.util.Optional;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
@@ -53,11 +54,14 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
     /**
      * @param url URL of the link
      * @param data retrieved link data
+     * @param retriever cache data retriever
      */
     public SpectrumLinkContentParser(final String url,
-                                     final String data) {
+                                     final String data,
+                                     final CachedSiteDataRetriever retriever) {
         super(UrlHelper.removeQueryParameters(url,"comments",
-                                                  "comments-page"));
+                                                  "comments-page"),
+              retriever);
         _data = data;
         _authors = null;
         _publicationDate = null;

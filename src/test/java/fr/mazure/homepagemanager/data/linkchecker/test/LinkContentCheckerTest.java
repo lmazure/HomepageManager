@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentCheck;
@@ -41,14 +41,14 @@ class LinkContentCheckerTest {
     void testTitle(final String url,
                    final String locale,
                    final String expectedTitle) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null, null);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.dataFileSection().get());
+                               final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.dataFileSection().get(), retriever);
                                try {
                                    final List<LinkContentCheck> checks = checker.check();
                                    Assertions.assertTrue(checks.isEmpty());
@@ -70,14 +70,14 @@ class LinkContentCheckerTest {
                                final String locale,
                                final String expectedTitle,
                                final String realTitle) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null, null);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.dataFileSection().get());
+                               final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.dataFileSection().get(), retriever);
                                try {
                                    final List<LinkContentCheck> checks = checker.check();
                                    Assertions.assertEquals(1, checks.size());
@@ -100,14 +100,14 @@ class LinkContentCheckerTest {
     void testSubtitle(final String url,
                       final String locale,
                       final String expectedSubtitle) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final LinkData linkData = new LinkData(expectedSubtitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null, null);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.dataFileSection().get());
+                               final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.dataFileSection().get(), retriever);
                                try {
                                    final List<LinkContentCheck> checks = checker.check();
                                    Assertions.assertTrue(checks.isEmpty());
@@ -128,14 +128,14 @@ class LinkContentCheckerTest {
                                 final String locale,
                                 final String expectedTitle,
                                 final String realTitle) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null, null);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.dataFileSection().get());
+                               final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.dataFileSection().get(), retriever);
                                try {
                                    final List<LinkContentCheck> checks = checker.check();
                                    Assertions.assertEquals(1, checks.size());
@@ -159,14 +159,14 @@ class LinkContentCheckerTest {
                                    final String expectedTitle,
                                    final String expectedSubtitle,
                                    final String realSubtitle) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final LinkData linkData = new LinkData(expectedTitle, new String[] { expectedSubtitle }, url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null, null);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.dataFileSection().get());
+                               final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.dataFileSection().get(), retriever);
                                try {
                                    final List<LinkContentCheck> checks = checker.check();
                                    Assertions.assertEquals(1, checks.size());
@@ -190,7 +190,7 @@ class LinkContentCheckerTest {
                     final String title,
                     final String firstName,
                     final String lastName) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final LinkData linkData = new LinkData(title, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
         final AuthorData author = new AuthorData(Optional.empty(), Optional.of(firstName), Optional.empty(), Optional.of(lastName), Optional.empty(), Optional.empty());
@@ -198,7 +198,7 @@ class LinkContentCheckerTest {
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.dataFileSection().get());
+                               final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.dataFileSection().get(), retriever);
                                try {
                                    final List<LinkContentCheck> checks = checker.check();
                                    Assertions.assertEquals(1, checks.size());
@@ -223,7 +223,7 @@ class LinkContentCheckerTest {
                            final String title,
                            final String firstName,
                            final String lastName) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final LinkData linkData = new LinkData(title, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
         final AuthorData author = new AuthorData(Optional.empty(), Optional.of(firstName), Optional.empty(), Optional.of(lastName), Optional.empty(), Optional.empty());
@@ -231,7 +231,7 @@ class LinkContentCheckerTest {
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.dataFileSection().get());
+                               final LinkContentChecker checker = new LinkContentChecker(url, linkData, Optional.of(articleData), d.dataFileSection().get(), retriever);
                                try {
                                    final List<LinkContentCheck> checks = checker.check();
                                    Assertions.assertEquals(0, checks.size());

@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.gitlabblog.GitlabBlogLinkContentParser;
@@ -42,13 +42,13 @@ class GitlabBlogLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://about.gitlab.com/blog/2021/08/24/stageless-pipelines/",
         })
     void testNoSubtitle(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final GitlabBlogLinkContentParser parser = new GitlabBlogLinkContentParser(url, data);
+                               final GitlabBlogLinkContentParser parser = new GitlabBlogLinkContentParser(url, data, retriever);
                                Assertions.assertFalse(parser.getSubtitle().isPresent());
                                consumerHasBeenCalled.set(true);
                            },
@@ -68,13 +68,13 @@ class GitlabBlogLinkContentParserTest extends LinkDataExtractorTestBase {
         })
     void testDate(final String url,
                   final String expectedDate) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final GitlabBlogLinkContentParser parser = new GitlabBlogLinkContentParser(url, data);
+                               final GitlabBlogLinkContentParser parser = new GitlabBlogLinkContentParser(url, data, retriever);
                                try {
                                    TestHelper.assertDate(expectedDate, parser.getDate());
                                 } catch (final ContentParserException e) {
@@ -91,13 +91,13 @@ class GitlabBlogLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://about.gitlab.com/blog/2023/09/28/unmasking-password-attacks-at-gitlab/",
         })
     void testNoAuthors(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final GitlabBlogLinkContentParser parser = new GitlabBlogLinkContentParser(url, data);
+                               final GitlabBlogLinkContentParser parser = new GitlabBlogLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(0, parser.getSureAuthors().size());
                                 } catch (final ContentParserException e) {
@@ -128,13 +128,13 @@ class GitlabBlogLinkContentParserTest extends LinkDataExtractorTestBase {
                                                          Optional.of(expectedLastName),
                                                          Optional.empty(),
                                                          Optional.empty());
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final GitlabBlogLinkContentParser parser = new GitlabBlogLinkContentParser(url, data);
+                               final GitlabBlogLinkContentParser parser = new GitlabBlogLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(1, parser.getSureAuthors().size());
                                    Assertions.assertEquals(expectedAuthor, parser.getSureAuthors().get(0));
@@ -172,13 +172,13 @@ class GitlabBlogLinkContentParserTest extends LinkDataExtractorTestBase {
                                                           Optional.of(expectedLastName2),
                                                           Optional.empty(),
                                                           Optional.empty());
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                           (final FullFetchedLinkData d) -> {
                               Assertions.assertTrue(d.dataFileSection().isPresent());
                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                              final GitlabBlogLinkContentParser parser = new GitlabBlogLinkContentParser(url, data);
+                              final GitlabBlogLinkContentParser parser = new GitlabBlogLinkContentParser(url, data, retriever);
                               try {
                                   Assertions.assertEquals(2, parser.getSureAuthors().size());
                                   Assertions.assertEquals(expectedAuthor1, parser.getSureAuthors().get(0));

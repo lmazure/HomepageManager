@@ -140,36 +140,6 @@ public class SynchronousSiteDataRetriever {
     }
 
     /**
-     * get the content of a link
-     *
-     * @param url URL of the link to retrieve
-     * @param doNotUseCookies if true, cookies will not be recorded and resend while following redirections
-     * @return payload
-     * @throws IOException exception if the payload could not be retrieved
-     */
-    public static String getContent(final String url,
-                                    final boolean doNotUseCookies) throws IOException {
-        final HttpURLConnection httpConnection = httpConnect(url, doNotUseCookies ? null : new CookieManager());
-        final Map<String, List<String>> headers = httpConnection.getHeaderFields();
-        if (headers.size() == 0) {
-            throw new IOException("No headers for " + url);
-        }
-
-        final int responseCode = HttpHelper.getResponseCodeFromHeaders(headers);
-        if (responseCode != HttpURLConnection.HTTP_OK) {
-            throw new IOException("Received HTTP code " + responseCode + " for " + url);
-        }
-
-        try (final InputStream reader = HttpHelper.isEncodedWithGzip(headers) ? new GZIPInputStream(httpConnection.getInputStream())
-                                                                              : httpConnection.getInputStream()) {
-            final byte[] data = reader.readAllBytes();
-            return new String(data, StandardCharsets.UTF_8);
-        } catch (final IOException e) {
-            throw new IOException("Failed to get gzipped payload from " + url, e);
-        }
-    }
-
-    /**
      * get the content of a link whose payload is gzipped
      *
      * @param url URL of the link to retrieve
@@ -179,7 +149,7 @@ public class SynchronousSiteDataRetriever {
      * @throws NotGzipException The payload is not gzipped
      */
     public static String getGzippedContent(final String url,
-                                           final boolean doNotUseCookies) throws IOException, NotGzipException {
+                                           final boolean doNotUseCookies) throws IOException, NotGzipException { // TODO !! can we get rid of this method since a CacheRetriever is communicated to all Parsers?
         final HttpURLConnection httpConnection = httpConnect(url, doNotUseCookies ? null : new CookieManager());
         final Map<String, List<String>> headers = httpConnection.getHeaderFields();
         if (headers.size() == 0) {

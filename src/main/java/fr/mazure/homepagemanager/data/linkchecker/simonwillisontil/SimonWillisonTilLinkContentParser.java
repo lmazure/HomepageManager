@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthors;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
@@ -41,10 +42,12 @@ public class SimonWillisonTilLinkContentParser extends LinkDataExtractor {
     /**
      * @param url URL of the link
      * @param data retrieved link data
+     * @param retriever cache data retriever
      */
     public SimonWillisonTilLinkContentParser(final String url,
-                                             final String data) {
-        super(url);
+                                             final String data,
+                                             final CachedSiteDataRetriever retriever) {
+        super(url, retriever);
         _data = data;
     }
 

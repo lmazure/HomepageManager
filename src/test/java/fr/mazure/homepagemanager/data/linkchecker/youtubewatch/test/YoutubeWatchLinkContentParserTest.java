@@ -11,8 +11,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser;
@@ -29,13 +29,13 @@ class YoutubeWatchLinkContentParserTest {
             "https://www.youtube.com/watch?v=z34XhE5oRwo",
                             })
     void testPlayabilityStatusOk(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final YoutubeWatchLinkContentParser parser = buildParser(data, url);
+                               final YoutubeWatchLinkContentParser parser = buildParser(data, url, retriever);
                                try {
                                    Assertions.assertTrue(parser.isPlayable());
                                } catch (final ContentParserException e) {
@@ -52,13 +52,13 @@ class YoutubeWatchLinkContentParserTest {
             "https://www.youtube.com/watch?v=EvknN89JoWo",
                             })
     void testPlayabilitySensibleVideo(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final YoutubeWatchLinkContentParser parser = buildParser(data, url);
+                               final YoutubeWatchLinkContentParser parser = buildParser(data, url, retriever);
                                try {
                                    Assertions.assertTrue(parser.isPlayable());
                                } catch (final ContentParserException e) {
@@ -72,14 +72,14 @@ class YoutubeWatchLinkContentParserTest {
 
     @Test
     void testPlayabilityStatusUnplayable() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String url = "https://www.youtube.com/watch?v=77nb34DB6Gs";
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final YoutubeWatchLinkContentParser parser = buildParser(data, url);
+                               final YoutubeWatchLinkContentParser parser = buildParser(data, url, retriever);
                                try {
                                    Assertions.assertFalse(parser.isPlayable());
                                } catch (final ContentParserException e) {
@@ -93,14 +93,14 @@ class YoutubeWatchLinkContentParserTest {
 
     @Test
     void testPrivate() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String url = "https://www.youtube.com/watch?v=xcV4bfEiucs";
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final YoutubeWatchLinkContentParser parser = buildParser(data, url);
+                               final YoutubeWatchLinkContentParser parser = buildParser(data, url, retriever);
                                try {
                                    Assertions.assertTrue(parser.isPrivate());
                                } catch (final ContentParserException e) {
@@ -122,13 +122,13 @@ class YoutubeWatchLinkContentParserTest {
               })
     void testChannel(final String url,
                      final String expectedChannel) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final YoutubeWatchLinkContentParser parser = buildParser(data, url);
+                               final YoutubeWatchLinkContentParser parser = buildParser(data, url, retriever);
                                try {
                                    Assertions.assertEquals(expectedChannel, parser.getChannel());
                                } catch (final ContentParserException e) {
@@ -149,13 +149,13 @@ class YoutubeWatchLinkContentParserTest {
               }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final YoutubeWatchLinkContentParser parser = buildParser(data, url);
+                               final YoutubeWatchLinkContentParser parser = buildParser(data, url, retriever);
                                try {
                                    Assertions.assertEquals(expectedTitle, parser.getTitle());
                                } catch (final ContentParserException e) {
@@ -169,14 +169,14 @@ class YoutubeWatchLinkContentParserTest {
 
     @Test
     void testTitleWithAmpersand() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String url = "https://www.youtube.com/watch?v=ytuHV2e4c4Q";
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                               Assertions.assertTrue(d.dataFileSection().isPresent());
                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                              final YoutubeWatchLinkContentParser parser = buildParser(data,url);
+                              final YoutubeWatchLinkContentParser parser = buildParser(data,url, retriever);
                               try {
                                   Assertions.assertEquals("Win a SMALL fortune with counting cards-the math of blackjack & Co.", parser.getTitle());
                               } catch (final ContentParserException e) {
@@ -190,14 +190,14 @@ class YoutubeWatchLinkContentParserTest {
 
     @Test
     void testTitleWithBackslashQuote() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String url = "https://www.youtube.com/watch?v=aeF-0y9HP9A";
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final YoutubeWatchLinkContentParser parser = buildParser(data, url);
+                               final YoutubeWatchLinkContentParser parser = buildParser(data, url, retriever);
                                try {
                                    Assertions.assertEquals("Googling the Googlers\\' DNA: A Demonstration of the 23andMe Personal Genome S...", parser.getTitle());
                                } catch (final ContentParserException e) {
@@ -211,14 +211,14 @@ class YoutubeWatchLinkContentParserTest {
 
     @Test
     void testDescription() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String url = "https://www.youtube.com/watch?v=_kGqkxQo-Tw";
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final YoutubeWatchLinkContentParser parser = buildParser(data, url);
+                               final YoutubeWatchLinkContentParser parser = buildParser(data, url, retriever);
                                try {
                                    Assertions.assertEquals("Conférence organisée par les Amis de l'IHES le 23 mai 2019", parser.getDescription());
                                } catch (final ContentParserException e) {
@@ -232,14 +232,14 @@ class YoutubeWatchLinkContentParserTest {
 
     @Test
     void testDescriptionWithNewline() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String url = "https://www.youtube.com/watch?v=y7FVLPvw1-I";
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final YoutubeWatchLinkContentParser parser = buildParser(data, url);
+                               final YoutubeWatchLinkContentParser parser = buildParser(data, url, retriever);
                                try {
                                    Assertions.assertEquals("""
                                     Ce soir, on joue ensemble autour de quelques énigmes mathématiques.
@@ -256,14 +256,14 @@ class YoutubeWatchLinkContentParserTest {
 
     @Test
     void testDescriptionWithDoubleQuote() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String url = "https://www.youtube.com/watch?v=cJOSvvdy27I";
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final YoutubeWatchLinkContentParser parser = buildParser(data, url);
+                               final YoutubeWatchLinkContentParser parser = buildParser(data, url, retriever);
                                try {
                                    Assertions.assertEquals("""
                                     Watch Metallica perform "Master of Puppets" live on the Howard Stern Show.
@@ -290,14 +290,14 @@ class YoutubeWatchLinkContentParserTest {
 
     @Test
     void testDate() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String url = "https://www.youtube.com/watch?v=_kGqkxQo-Tw";
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final YoutubeWatchLinkContentParser parser = buildParser(data, url);
+                               final YoutubeWatchLinkContentParser parser = buildParser(data, url, retriever);
                                try {
                                    Assertions.assertEquals(LocalDate.of(2019, 5, 27), parser.getUploadDateInternal());
                                } catch (final ContentParserException e) {
@@ -316,14 +316,14 @@ class YoutubeWatchLinkContentParserTest {
 
     @Test
     void testDuration() {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String url = "https://www.youtube.com/watch?v=_kGqkxQo-Tw";
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final YoutubeWatchLinkContentParser parser = buildParser(data, url);
+                               final YoutubeWatchLinkContentParser parser = buildParser(data, url, retriever);
                                try {
                                    Assertions.assertEquals(5602, parser.getMinDuration().get(ChronoUnit.SECONDS));
                                } catch (final ContentParserException e) {
@@ -349,13 +349,13 @@ class YoutubeWatchLinkContentParserTest {
             "https://www.youtube.com/watch?v=X63MWZIN3gM"
                            })
     void testEnglish(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final YoutubeWatchLinkContentParser parser = buildParser(data, url);
+                               final YoutubeWatchLinkContentParser parser = buildParser(data, url, retriever);
                                try {
                                    Assertions.assertEquals(Locale.ENGLISH, parser.getLanguage());
                                } catch (final ContentParserException e) {
@@ -388,13 +388,13 @@ class YoutubeWatchLinkContentParserTest {
             "https://www.youtube.com/watch?v=x4rj4MfNkys"
                            })
     void testFrench(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final YoutubeWatchLinkContentParser parser = buildParser(data, url);
+                               final YoutubeWatchLinkContentParser parser = buildParser(data, url, retriever);
                                try {
                                    Assertions.assertEquals(Locale.FRENCH, parser.getLanguage());
                                } catch (final ContentParserException e) {
@@ -426,13 +426,13 @@ class YoutubeWatchLinkContentParserTest {
            })
     void testSubtitlesLanguage(final String url,
                                final String expectedLanguage) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final YoutubeWatchLinkContentParser parser = buildParser(data, url);
+                               final YoutubeWatchLinkContentParser parser = buildParser(data, url, retriever);
                                try {
                                    Assertions.assertEquals(Locale.forLanguageTag(expectedLanguage), parser.getSubtitlesLanguage().get());
                                } catch (final ContentParserException e) {
@@ -445,10 +445,11 @@ class YoutubeWatchLinkContentParserTest {
     }
 
     private static YoutubeWatchLinkContentParser buildParser(final String data,
-                                                             final String url) {
+                                                             final String url,
+                                                             final CachedSiteDataRetriever retriever) {
 
         try {
-            return new YoutubeWatchLinkContentParser(url, data);
+            return new YoutubeWatchLinkContentParser(url, data, retriever);
         } catch (final ContentParserException e) {
             Assertions.fail("new YoutubeWatchLinkContentParserNew threw " + e.getMessage());
         }

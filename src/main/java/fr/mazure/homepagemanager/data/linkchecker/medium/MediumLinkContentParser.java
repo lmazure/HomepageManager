@@ -14,6 +14,7 @@ import java.util.Optional;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
@@ -68,10 +69,12 @@ public class MediumLinkContentParser extends LinkDataExtractor {
     /**
      * @param url URL of the link
      * @param data retrieved link data
+     * @param retriever cache data retriever
      */
     public MediumLinkContentParser(final String url,
-                                   final String data) {
-        super(url);
+                                   final String data,
+                                   final CachedSiteDataRetriever retriever) {
+        super(url, retriever);
         _data = data;
         _code = url.substring(url.lastIndexOf("-") + 1);
     }

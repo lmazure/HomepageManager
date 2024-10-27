@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.spectrum.SpectrumLinkContentParser;
@@ -27,13 +27,13 @@ class SpectrumLinkContentParserTest {
     }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final SpectrumLinkContentParser parser = new SpectrumLinkContentParser(url, data);
+                               final SpectrumLinkContentParser parser = new SpectrumLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(expectedTitle, parser.getTitle());
                                } catch (final ContentParserException e) {
@@ -51,13 +51,13 @@ class SpectrumLinkContentParserTest {
     }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final SpectrumLinkContentParser parser = new SpectrumLinkContentParser(url, data);
+                               final SpectrumLinkContentParser parser = new SpectrumLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
                                } catch (final ContentParserException e) {
@@ -75,13 +75,13 @@ class SpectrumLinkContentParserTest {
     }, delimiter = '|')
     void testDate(final String url,
                   final String expectedDate) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final SpectrumLinkContentParser parser = new SpectrumLinkContentParser(url, data);
+                               final SpectrumLinkContentParser parser = new SpectrumLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertTrue(parser.getDate().isPresent());
                                    Assertions.assertEquals(expectedDate, parser.getDate().get().toString());
@@ -111,13 +111,13 @@ class SpectrumLinkContentParserTest {
                                                          Optional.of(expectedLastName),
                                                          Optional.empty(),
                                                          Optional.ofNullable(expectedGivenName));
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final SpectrumLinkContentParser parser = new SpectrumLinkContentParser(url, data);
+                               final SpectrumLinkContentParser parser = new SpectrumLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(1, parser.getSureAuthors().size());
                                    Assertions.assertEquals(Collections.singletonList(expectedAuthor), parser.getSureAuthors());
@@ -154,13 +154,13 @@ class SpectrumLinkContentParserTest {
                                                           Optional.of(expectedLastName2),
                                                           Optional.empty(),
                                                           Optional.empty());
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final SpectrumLinkContentParser parser = new SpectrumLinkContentParser(url, data);
+                               final SpectrumLinkContentParser parser = new SpectrumLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(2, parser.getSureAuthors().size());
                                    Assertions.assertEquals(expectedAuthor1, parser.getSureAuthors().get(0));

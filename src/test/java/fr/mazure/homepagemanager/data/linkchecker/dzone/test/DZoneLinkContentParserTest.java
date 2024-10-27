@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.dzone.DZoneLinkContentParser;
@@ -40,13 +40,13 @@ class DZoneLinkContentParserTest extends LinkDataExtractorTestBase {
                                                          Optional.ofNullable(expectedLastName),
                                                          Optional.empty(),
                                                          Optional.empty());
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final DZoneLinkContentParser parser = new DZoneLinkContentParser(url, data);
+                               final DZoneLinkContentParser parser = new DZoneLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(1, parser.getSureAuthors().size());
                                    Assertions.assertEquals(expectedAuthor, parser.getSureAuthors().get(0));
@@ -92,13 +92,13 @@ class DZoneLinkContentParserTest extends LinkDataExtractorTestBase {
                                                           Optional.empty(),
                                                           Optional.empty());
 
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final DZoneLinkContentParser parser = new DZoneLinkContentParser(url, data);
+                               final DZoneLinkContentParser parser = new DZoneLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(3, parser.getSureAuthors().size());
                                    Assertions.assertEquals(expectedAuthor1, parser.getSureAuthors().get(0));
@@ -130,13 +130,13 @@ class DZoneLinkContentParserTest extends LinkDataExtractorTestBase {
         }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final DZoneLinkContentParser parser = new DZoneLinkContentParser(url, data);
+                               final DZoneLinkContentParser parser = new DZoneLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertTrue(parser.getSubtitle().isPresent());
                                    Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
@@ -154,13 +154,13 @@ class DZoneLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://dzone.com/articles/how-fix-memory-leaks-java",
         }, delimiter = '|')
     void testNoSubtitle(final String url) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final DZoneLinkContentParser parser = new DZoneLinkContentParser(url, data);
+                               final DZoneLinkContentParser parser = new DZoneLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertFalse(parser.getSubtitle().isPresent());
                                } catch (final ContentParserException e) {
@@ -180,13 +180,13 @@ class DZoneLinkContentParserTest extends LinkDataExtractorTestBase {
         })
     void testPublishDate(final String url,
                          final String expectedDate) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final DZoneLinkContentParser parser = new DZoneLinkContentParser(url, data);
+                               final DZoneLinkContentParser parser = new DZoneLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(expectedDate, parser.getPublicationDate().toString());
                                } catch (final ContentParserException e) {
@@ -205,13 +205,13 @@ class DZoneLinkContentParserTest extends LinkDataExtractorTestBase {
         }, delimiter = '|')
     void testLanguage(final String url,
                       final String expectedLanguage) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final DZoneLinkContentParser parser = new DZoneLinkContentParser(url, data);
+                               final DZoneLinkContentParser parser = new DZoneLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(Locale.of(expectedLanguage), parser.getLanguage());
                                } catch (final ContentParserException e) {

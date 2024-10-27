@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentParser;
@@ -59,18 +59,21 @@ class MediumLinkContentParserTest extends LinkDataExtractorTestBase {
                              final String expectedLastName3) {
         check3Authors(MediumLinkContentParser.class,
                       url,
+                      // author 1
                       null,
                       expectedFirstName1,
                       null,
                       expectedLastName1,
                       null,
                       null,
+                      // author 2
                       null,
                       expectedFirstName2,
                       null,
                       expectedLastName2,
                       null,
                       null,
+                      // author 3
                       null,
                       expectedFirstName3,
                       null,
@@ -185,13 +188,13 @@ class MediumLinkContentParserTest extends LinkDataExtractorTestBase {
         })
     void testUnmodifiedBlogPublishDate(final String url,
                                        final String expectedDate) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final MediumLinkContentParser parser = new MediumLinkContentParser(url, data);
+                               final MediumLinkContentParser parser = new MediumLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(expectedDate, parser.getPublicationDate().toString());
                                } catch (final ContentParserException e) {
@@ -211,13 +214,13 @@ class MediumLinkContentParserTest extends LinkDataExtractorTestBase {
     void testModifiedBlogPublishDate(final String url,
                                      final String expectedPublicationDate,
                                      @SuppressWarnings("unused") final String expectedModificationDate) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final MediumLinkContentParser parser = new MediumLinkContentParser(url, data);
+                               final MediumLinkContentParser parser = new MediumLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(expectedPublicationDate, parser.getPublicationDate().toString());
                                 } catch (final ContentParserException e) {
@@ -237,13 +240,13 @@ class MediumLinkContentParserTest extends LinkDataExtractorTestBase {
         }, delimiter = '|')
     void testLanguage(final String url,
                       final String expectedLanguage) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final MediumLinkContentParser parser = new MediumLinkContentParser(url, data);
+                               final MediumLinkContentParser parser = new MediumLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(Locale.of(expectedLanguage), parser.getLanguage());
                                } catch (final ContentParserException e) {
@@ -264,13 +267,13 @@ class MediumLinkContentParserTest extends LinkDataExtractorTestBase {
         }, delimiter = '|')
     void testRedirectMechanism(final String url,
                                final String expectedTitle) {
-        final SynchronousSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
                                final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final MediumLinkContentParser parser = new MediumLinkContentParser(url, data);
+                               final MediumLinkContentParser parser = new MediumLinkContentParser(url, data, retriever);
                                try {
                                    Assertions.assertEquals(expectedTitle, parser.getTitle());
                                } catch (final ContentParserException e) {

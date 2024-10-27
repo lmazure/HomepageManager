@@ -1,12 +1,12 @@
 package fr.mazure.homepagemanager.data.linkchecker.test;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
@@ -3095,8 +3095,8 @@ class LinkDataExtractorTest {
     }
 
     private LinkDataExtractor getExtractor(final String url) throws ContentParserException {
-        final Path path = TestHelper.getTestDatapath(getClass());
-        return LinkDataExtractorFactory.build(path, url);
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        return LinkDataExtractorFactory.build(url, retriever);
     }
 
     private static String generateSureXml(final LinkDataExtractor extractor) throws ContentParserException {

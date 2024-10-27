@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthors;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
@@ -59,10 +60,12 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     /**
      * @param url URL of the link
      * @param data retrieved link data
+     * @param retriever cache data retriever
      * @throws ContentParserException Failure to extract the information
      */
     public YoutubeWatchLinkContentParser(final String url,
-                                         final String data) throws ContentParserException {
+                                         final String data,
+                                         final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(UrlHelper.removeQueryParameters(url, "app",
                                                    "embeds_referring_euri",
                                                    "embeds_referring_origin",
@@ -71,7 +74,8 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                    "list",
                                                    "si",
                                                    "source_ve_path",
-                                                   "t"));
+                                                   "t"),
+              retriever);
         ContentParserException exception = null;
         String channel = null;
         String title = null;
