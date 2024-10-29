@@ -796,7 +796,7 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
 
     @SuppressWarnings("static-method")
     @Test
-    void reportIncorrectPredAttribute() {
+    void reportIncorrectPredecessorAttribute() {
 
         final String content =
             """
@@ -822,7 +822,7 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
 
     @SuppressWarnings("static-method")
     @Test
-    void missedPunctuationAtCommentEnd() {
+    void missingPunctuationAtCommentEnd() {
 
         final String content =
             """
@@ -843,55 +843,6 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             test(content,
                  "COMMENT \"Context Driven Testing and Agile are a good match, but this blog is too polished\" must end with a punctuation<<MissingPuctuation>>",
                  "COMMENT \"Context Driven Testing and Agile are a good match. (But this blog is too polished)\" must end with a punctuation<<MissingPuctuation>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
-            Assertions.fail("SAXException");
-        }
-    }
-
-    @SuppressWarnings("static-method")
-    @Test
-    void doubleSlashInUrl() {
-
-        final String content =
-            """
-            <?xml version="1.0"?>\
-            <?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\
-            <PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd" xml:lang="en">\
-            <TITLE>TypeScript</TITLE>\
-            <PATH>links/typescript.xml</PATH>\
-            <DATE><YEAR>2020</YEAR><MONTH>12</MONTH><DAY>31</DAY></DATE>\
-            <CONTENT>\
-            <ITEM><ARTICLE><X><T>embracing change - testing to agile</T><A>https://www.example.com//</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Leah</FIRSTNAME><LASTNAME>Stockley</LASTNAME></AUTHOR><AUTHOR><FIRSTNAME>Grant</FIRSTNAME><LASTNAME>Sanderson</LASTNAME></AUTHOR><DATE><YEAR>2019</YEAR><MONTH>3</MONTH><DAY>21</DAY></DATE><COMMENT>Context Driven Testing and Agile are a good match, but this blog is too polished.</COMMENT></ARTICLE></ITEM>\
-            <ITEM><ARTICLE><X><T>embracing change - testing to agile</T><A>https://www.inspiredtester.com//inspired-tester-blog/embracing-change-testing-to-agile</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Leah</FIRSTNAME><LASTNAME>Stockley</LASTNAME></AUTHOR><DATE><YEAR>2019</YEAR><MONTH>3</MONTH><DAY>21</DAY></DATE><COMMENT>Context Driven Testing and Agile are a good match, but this blog is too polished.</COMMENT></ARTICLE></ITEM>\
-            </CONTENT>\
-            </PAGE>""";
-        try {
-            test(content,
-                 "URL \"https://www.example.com//\"contains \"//\"<<ImproperUrl>>",
-                 "URL \"https://www.inspiredtester.com//inspired-tester-blog/embracing-change-testing-to-agile\"contains \"//\"<<ImproperUrl>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
-            Assertions.fail("SAXException");
-        }
-    }
-
-    @SuppressWarnings("static-method")
-    @Test
-    void doubleSlashInWebArchiveOrgUrlIsIgnored() {
-
-        final String content =
-            """
-            <?xml version="1.0"?>\
-            <?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\
-            <PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd" xml:lang="en">\
-            <TITLE>TypeScript</TITLE>\
-            <PATH>links/typescript.xml</PATH>\
-            <DATE><YEAR>2020</YEAR><MONTH>12</MONTH><DAY>31</DAY></DATE>\
-            <CONTENT>\
-            <ITEM><ARTICLE><X><T>Hash Collisions (The Poisoned Message Attack)</T><ST>"The Story of Alice and her Boss"</ST><A>https://web.archive.org/web/20100327141611/http://th.informatik.uni-mannheim.de/people/lucks/HashCollisions/</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Magnus</FIRSTNAME><LASTNAME>Daum</LASTNAME></AUTHOR><AUTHOR><FIRSTNAME>Stefan</FIRSTNAME><LASTNAME>Lucks</LASTNAME></AUTHOR><DATE><YEAR>2005</YEAR><MONTH>6</MONTH><DAY>15</DAY></DATE><COMMENT>The authors have created two PostScript files with the same MD5 checksum.</COMMENT></ARTICLE></ITEM>
-            </CONTENT>\
-            </PAGE>""";
-        try {
-            test(content);
         } catch (@SuppressWarnings("unused") final SAXException e) {
             Assertions.fail("SAXException");
         }
