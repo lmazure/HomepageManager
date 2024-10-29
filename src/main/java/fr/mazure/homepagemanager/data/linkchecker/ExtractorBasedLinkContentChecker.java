@@ -15,7 +15,6 @@ import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkSubtitleCorr
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkTitleCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
 import fr.mazure.homepagemanager.utils.DateTimeHelper;
-import fr.mazure.homepagemanager.utils.ExitHelper;
 import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.StringHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
@@ -180,6 +179,11 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
                                                  final List<LinkData> expectedLinks) throws ContentParserException
     {
         final List<ExtractedLinkData> effectiveLinks = _parser.getLinks();
+
+        // if we are currently checking a link which is not the first one, we check nothing
+        if ((expectedLinks.size() > 1) && !expectedLinks.get(0).getUrl().equals(getUrl())) {
+	        return null;
+        }
 
         if (effectiveLinks.size() != expectedLinks.size()) {
             final String expectedLinksMsg = expectedLinks.stream()
