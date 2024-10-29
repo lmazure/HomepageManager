@@ -5,16 +5,18 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthors;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
+import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
 import fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser;
@@ -35,6 +37,7 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
     private String _title;
     private Optional<TemporalAccessor> _date;
     private Optional<Duration> _duration;
+    private List<AuthorData> _authors;
     private Optional<ExtractedLinkData> _otherLink;
 
     private static final TextParser s_titleParser
@@ -53,11 +56,9 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
                          s_sourceName,
                          "duration");
 
-    private static final DateTimeFormatter s_dateformatter = DateTimeFormatter.ISO_LOCAL_DATE;
+    private static final Pattern s_extractName = Pattern.compile("^.*/([^/]+?)(?:-\\d)?$");
 
-    private static final List<AuthorData> s_authors = new ArrayList<>(Arrays.asList(
-            WellKnownAuthors.LEX_FRIDMAN
-    ));
+    private static final DateTimeFormatter s_dateformatter = DateTimeFormatter.ISO_LOCAL_DATE;
 
     /**
      * @param url URL of the link
@@ -72,6 +73,7 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
         _title = null;
         _date = null;
         _duration = null;
+        _authors = null;
         _otherLink = null;
     }
 
@@ -116,7 +118,16 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
 
     @Override
     public List<AuthorData> getSureAuthors() throws ContentParserException {
-        return s_authors;
+        if (_authors == null) {
+            final Matcher matcher = s_extractName.matcher(getUrl());
+            if (!matcher.find()) {
+                throw new ContentParserException("Failed to extract author name from URL " + getUrl());
+            }
+            final String authorName = matcher.group(1).replaceAll("-", " ");
+            _authors = LinkContentParserUtils.getAuthors(authorName);
+            _authors.add(WellKnownAuthors.LEX_FRIDMAN);
+        }
+        return _authors;
     }
 
     @Override

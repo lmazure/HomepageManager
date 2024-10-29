@@ -46,23 +46,23 @@ class ArsTechnicaLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://arstechnica.com/cars/2021/04/consumer-reports-shows-tesla-autopilot-works-with-no-one-in-the-drivers-seat/,Timothy,B.,Lee",
-        "https://arstechnica.com/information-technology/2021/09/travis-ci-flaw-exposed-secrets-for-thousands-of-open-source-projects/,Ax,,Sharma",
-        "https://arstechnica.com/gaming/2023/01/dd-maker-still-wants-to-revoke-earlier-versions-of-open-gaming-license/,Kyle,,Orland",
+    @CsvSource(value = {
+        "https://arstechnica.com/cars/2021/04/consumer-reports-shows-tesla-autopilot-works-with-no-one-in-the-drivers-seat/|Timothy|B.|Lee",
+        "https://arstechnica.com/information-technology/2021/09/travis-ci-flaw-exposed-secrets-for-thousands-of-open-source-projects/|Ax||Sharma",
+        "https://arstechnica.com/gaming/2023/01/dd-maker-still-wants-to-revoke-earlier-versions-of-open-gaming-license/|Kyle||Orland",
         // the next article contains "-" and digits in the person URL
-        "https://arstechnica.com/tech-policy/2021/10/uh-no-pfizer-scientist-denies-holmes-claim-that-pfizer-endorsed-theranos-tech/,Tim,,De Chant",
+        "https://arstechnica.com/tech-policy/2021/10/uh-no-pfizer-scientist-denies-holmes-claim-that-pfizer-endorsed-theranos-tech/|Tim||De Chant",
         // the next article contains "_" and digits in the person URL
-        "https://arstechnica.com/gaming/2022/08/crypto-driven-gpu-crash-makes-nvidia-miss-q2-projections-by-1-4-billion/,Andrew,,Cunningham",
+        "https://arstechnica.com/gaming/2022/08/crypto-driven-gpu-crash-makes-nvidia-miss-q2-projections-by-1-4-billion/|Andrew||Cunningham",
         // the next article ends with wired.com
-        "https://arstechnica.com/information-technology/2022/09/mystery-hackers-are-hyperjacking-targets-for-insidious-spying/,Andy,,Greenberg",
+        "https://arstechnica.com/information-technology/2022/09/mystery-hackers-are-hyperjacking-targets-for-insidious-spying/|Andy||Greenberg",
         // the next article ends with Financial Times
-        "https://arstechnica.com/tech-policy/2022/12/twitter-rival-mastodon-rejects-funding-to-preserve-nonprofit-status/,Ian,,Johnston",
+        "https://arstechnica.com/tech-policy/2022/12/twitter-rival-mastodon-rejects-funding-to-preserve-nonprofit-status/|Ian||Johnston",
         // the next article ends with Inside Climate News
-        "https://arstechnica.com/cars/2023/03/why-its-time-to-officially-get-over-your-ev-range-anxiety/,Dan,,Gearino",
+        "https://arstechnica.com/cars/2023/03/why-its-time-to-officially-get-over-your-ev-range-anxiety/|Dan||Gearino",
         // the first name and last name are separated by a non breaking space
-        "https://arstechnica.com/gadgets/2023/01/the-generative-ai-revolution-has-begun-how-did-we-get-here/,Haomiao,,Huang",
-        })
+        "https://arstechnica.com/gadgets/2023/01/the-generative-ai-revolution-has-begun-how-did-we-get-here/|Haomiao||Huang",
+    }, delimiter = '|')
     void testAuthor(final String url,
                     final String expectedFirstName,
                     final String expectedMiddleName,
@@ -80,9 +80,9 @@ class ArsTechnicaLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://arstechnica.com/information-technology/2023/03/chinese-search-giant-launches-ai-chatbot-with-prerecorded-demo/,Ryan,,McMorrow,Qianer,,Liu",
-        })
+    @CsvSource(value = {
+        "https://arstechnica.com/information-technology/2023/03/chinese-search-giant-launches-ai-chatbot-with-prerecorded-demo/|Ryan||McMorrow|Qianer||Liu",
+    }, delimiter = '|')
     void test2Authors(final String url,
                       final String expectedFirstName1,
                       final String expectedMiddleName1,
@@ -92,12 +92,14 @@ class ArsTechnicaLinkContentParserTest extends LinkDataExtractorTestBase {
                       final String expectedLastName2) {
         check2Authors(ArsTechnicaLinkContentParser.class,
                       url,
+                      // author 1
                       null,
                       expectedFirstName1,
                       expectedMiddleName1,
                       expectedLastName1,
                       null,
                       null,
+                      // author 2
                       null,
                       expectedFirstName2,
                       expectedMiddleName2,
@@ -108,10 +110,10 @@ class ArsTechnicaLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://arstechnica.com/tech-policy/2022/09/texts-show-roll-call-of-tech-figures-tried-to-help-elon-musk-in-twitter-deal/,Hannah,,Murphy,James,,Fontanella-Khan,Sujeet,,Indap",
-        "https://arstechnica.com/science/2023/03/radio-interference-from-satellites-is-threatening-astronomy/,Christopher,Gordon,De Pree,Christopher,R.,Anderson,Mariya,,Zheleva",
-        })
+    @CsvSource(value = {
+        "https://arstechnica.com/tech-policy/2022/09/texts-show-roll-call-of-tech-figures-tried-to-help-elon-musk-in-twitter-deal/|Hannah||Murphy|James||Fontanella-Khan|Sujeet||Indap",
+        "https://arstechnica.com/science/2023/03/radio-interference-from-satellites-is-threatening-astronomy/|Christopher|Gordon|De Pree|Christopher|R.|Anderson|Mariya||Zheleva",
+    }, delimiter = '|')
     void test3Authors(final String url,
                       final String expectedFirstName1,
                       final String expectedMiddleName1,
@@ -124,18 +126,21 @@ class ArsTechnicaLinkContentParserTest extends LinkDataExtractorTestBase {
                       final String expectedLastName3) {
         check3Authors(ArsTechnicaLinkContentParser.class,
                       url,
+                      // author 1
                       null,
                       expectedFirstName1,
                       expectedMiddleName1,
                       expectedLastName1,
                       null,
                       null,
+                      // author 2
                       null,
                       expectedFirstName2,
                       expectedMiddleName2,
                       expectedLastName2,
                       null,
                       null,
+                      // author 3
                       null,
                       expectedFirstName3,
                       expectedMiddleName3,

@@ -21,6 +21,8 @@ methods       52.1%    98.8%
 
 
 
+
+
 gérer
 java.lang.UnsupportedOperationException: https://www.tf1info.fr/sante/covid-19-ratp-sncf-paris-faut-il-s-inquieter-de-la-hausse-de-la-frequentation-dans-les-transports-2165985.html|504→
 	at fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.getMatch(WellKnownRedirections.java:673)
@@ -40,6 +42,20 @@ java.lang.UnsupportedOperationException: https://www.tf1info.fr/sante/covid-19-r
 	
 	
 	
+
+
+détecter les URL qui finissent par "?"
+
+
+
+
+
+==== potentially before merge =====
+
+
+
+
+
 
 
 
@@ -69,7 +85,7 @@ ranger le bordel dans les pages AI
 
 podcast
 gérer LWAIM
-mettre cache des informations YouTube
+
 
 
 
@@ -212,13 +228,6 @@ gérer
 
 nettoyer links/design.xml
 
-
-
-
-
-
-
-==== potentially before merge =====
 
 
 
