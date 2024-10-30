@@ -56,6 +56,8 @@ class LexFridmanLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://lexfridman.com/elon-musk|Elon||Musk|Lex||Fridman",
         "https://lexfridman.com/mark-zuckerberg-3|Mark||Zuckerberg|Lex||Fridman|",
+        "https://lexfridman.com/aaron-smith-levin|Aaron||Smith-Levin|Lex||Fridman|",
+        "https://lexfridman.com/po-shen-loh|Po-Shen||Loh|Lex||Fridman|",
     }, delimiter = '|')
     void test2Authors(final String url,
                       final String expectedFirstName1,

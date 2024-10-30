@@ -56,7 +56,7 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
                          s_sourceName,
                          "duration");
 
-    private static final Pattern s_extractName = Pattern.compile("^.*/([^/]+?)(?:-\\d)?$");
+    private static final Pattern s_extractName = Pattern.compile("(?:^#\\d+ – )?(.*):.*$");
 
     private static final DateTimeFormatter s_dateformatter = DateTimeFormatter.ISO_LOCAL_DATE;
 
@@ -119,11 +119,11 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
     @Override
     public List<AuthorData> getSureAuthors() throws ContentParserException {
         if (_authors == null) {
-            final Matcher matcher = s_extractName.matcher(getUrl());
+            final Matcher matcher = s_extractName.matcher(getTitle());
             if (!matcher.find()) {
-                throw new ContentParserException("Failed to extract author name from URL " + getUrl());
+                throw new ContentParserException("Failed to extract author name from title \"" + getTitle() + "\"");
             }
-            final String authorName = matcher.group(1).replaceAll("-", " ");
+            final String authorName = matcher.group(1);
             _authors = LinkContentParserUtils.getAuthors(authorName);
             _authors.add(WellKnownAuthors.LEX_FRIDMAN);
         }
