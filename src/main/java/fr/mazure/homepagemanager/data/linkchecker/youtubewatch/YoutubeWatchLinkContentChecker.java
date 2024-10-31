@@ -15,6 +15,7 @@ import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentCheck;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkDurationCorrection;
+import fr.mazure.homepagemanager.utils.DateTimeHelper;
 import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
@@ -119,7 +120,7 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
     {
         if (creationDate.isEmpty() && publicationDate.isEmpty()) {
             return new LinkContentCheck("MissingDate",
-                                        "YouTube link with neither creation date not publication date",
+                                        "YouTube link with neither a creation date nor a publication date",
                                         Optional.empty());
         }
 
@@ -131,24 +132,14 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
                                         Optional.empty());
        }
 
-        final LocalDate effectivePublishDate = getYoutubeWatchLinkContentParser().getPublishDateInternal();
-        final LocalDate effectiveUploadDate = getYoutubeWatchLinkContentParser().getUploadDateInternal();
+        final LocalDate effectiveDate = DateTimeHelper.convertTemporalAccessorToLocalDate(getYoutubeWatchLinkContentParser().getDate().get()).get();
 
-        if (!expectedDate.equals(effectivePublishDate)) {
+        if (!expectedDate.equals(effectiveDate)) {
             return new LinkContentCheck("WrongDate",
                                         "expected date " +
                                         expectedDate +
-                                        " is not equal to the effective publish date " +
-                                        effectivePublishDate,
-                                        Optional.empty());
-       }
-
-       if (!expectedDate.equals(effectiveUploadDate)) {
-            return new LinkContentCheck("WrongDate",
-                                        "expected date " +
-                                        expectedDate +
-                                        " is not equal to the effective upload date " +
-                                        effectivePublishDate,
+                                        " is not equal to the effective date " +
+                                        effectiveDate,
                                         Optional.empty());
        }
 

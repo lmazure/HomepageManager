@@ -36,7 +36,6 @@ public class JsonHelper {
         return (JSONObject)n;
     }
 
-
     /**
      * Return the value of a JSON Array field of field of ...
      *

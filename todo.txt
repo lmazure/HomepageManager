@@ -22,6 +22,11 @@ methods       52.1%    98.8%
 
 
 
+quick correction de date YouTube incorrecte
+
+
+
+
 
 gérer
 https://lexfridman.com/grant-sanderson-2
@@ -38,16 +43,6 @@ The expected date 2020-04-10 is not equal to the effective date 2020-04-09
 
 https://lexfridman.com/shannon-curry
 The expected date 2023-03-22 is not equal to the effective date 2023-03-21
-
-
-
-
-
-
-
-gérer
-https://www.youtube.com/watch?v=6LXw2beprGI
-expected date 2023-11-29 is not equal to the effective publish date 2023-11-30
 
 
 

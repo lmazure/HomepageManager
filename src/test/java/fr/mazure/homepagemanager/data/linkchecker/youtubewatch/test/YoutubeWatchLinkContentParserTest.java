@@ -1,7 +1,9 @@
 package fr.mazure.homepagemanager.data.linkchecker.youtubewatch.test;
 
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.jupiter.api.Assertions;
@@ -259,6 +261,56 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
         checkDate(YoutubeWatchLinkContentParser.class, url, expectedDate);
     }
 
+    @ParameterizedTest
+    @CsvSource(value = {
+        "https://www.youtube.com/watch?v=_kGqkxQo-Tw|2019-05-27|2019-05-27|2019-05-27||",
+        "https://www.youtube.com/watch?v=-hxeDjAxvJ8|2023-06-22|2023-06-22|2023-06-22||",
+        "https://www.youtube.com/watch?v=6LXw2beprGI|2023-11-29|2023-11-30|2023-11-30|2023-11-29|2023-11-30",
+    }, delimiter = '|')
+    void testAllDates(final String url,
+                      final String expectedDate,
+                      final String expectedPublishDate,
+                      final String expectedUploadDate,
+                      final String expectedStartBroadcastDate,
+                      final String expectedEndBroadcastDate) {
+        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
+        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
+        retriever.retrieve(url,
+                           (final FullFetchedLinkData d) -> {
+                               Assertions.assertTrue(d.dataFileSection().isPresent());
+                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
+                               final YoutubeWatchLinkContentParser parser = buildParser(data, url, retriever);
+                               try {
+                                   Assertions.assertEquals(expectedDate, parser.getDate().get().toString());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getDate threw " + e.getMessage());
+                               }
+                               try {
+                                   Assertions.assertEquals(expectedPublishDate, parser.getPublishDateInternal().toString());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getPublishDateInternal threw " + e.getMessage());
+                               }
+                               try {
+                                   Assertions.assertEquals(expectedUploadDate, parser.getUploadDateInternal().toString());
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("geyUploadDateInternal threw " + e.getMessage());
+                               }
+                               try {
+                                   Assertions.assertEquals(Optional.ofNullable(expectedStartBroadcastDate), parser.getStartBroadcastDateInternal().map(LocalDate::toString));
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getStartBroadcastDateInternal threw " + e.getMessage());
+                               }
+                               try {
+                                   Assertions.assertEquals(Optional.ofNullable(expectedEndBroadcastDate), parser.getEndBroadcastDateInternal().map(LocalDate::toString));
+                               } catch (final ContentParserException e) {
+                                   Assertions.fail("getEndBroadcastDateInternal threw " + e.getMessage());
+                               }
+                               consumerHasBeenCalled.set(true);
+                           },
+                           false);
+        Assertions.assertTrue(consumerHasBeenCalled.get());
+    }
+
     @Test
     void testDuration() {
         final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
@@ -285,6 +337,7 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @ValueSource(strings = {
             "https://www.youtube.com/watch?v=8idr1WZ1A7Q",
@@ -294,24 +347,10 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
             "https://www.youtube.com/watch?v=X63MWZIN3gM"
                            })
     void testEnglish(final String url) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final YoutubeWatchLinkContentParser parser = buildParser(data, url, retriever);
-                               try {
-                                   Assertions.assertEquals(Locale.ENGLISH, parser.getLanguage());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getLanguage threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkLanguage(YoutubeWatchLinkContentParser.class, url, "en");
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @ValueSource(strings = {
             "https://www.youtube.com/watch?v=16GlrK-bxaI",
@@ -333,22 +372,7 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
             "https://www.youtube.com/watch?v=x4rj4MfNkys"
                            })
     void testFrench(final String url) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final YoutubeWatchLinkContentParser parser = buildParser(data, url, retriever);
-                               try {
-                                   Assertions.assertEquals(Locale.FRENCH, parser.getLanguage());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getLanguage threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkLanguage(YoutubeWatchLinkContentParser.class, url, "fr");
     }
 
     @ParameterizedTest

@@ -50,6 +50,8 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     private final Optional<Locale> _subtitlesLanguage;
     private final LocalDate _uploadDate;
     private final LocalDate _publishDate;
+    private final LocalDate _startBroadcastDate;
+    private final LocalDate _endBroadcastDate;
     private final Duration _minDuration;
     private final Duration _maxDuration;
     private final ContentParserException _exception;
@@ -82,6 +84,8 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         int maxDuration = Integer.MIN_VALUE;
         LocalDate uploadDate = null;
         LocalDate publishDate = null;
+        LocalDate startBroadcastDate = null;
+		LocalDate endBroadcastDate = null;
         boolean isPrivate = false;
         boolean isPlayable = false;
 
@@ -141,6 +145,11 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                 final JSONObject player = JsonHelper.getAsNode(payload, "microformat", "playerMicroformatRenderer");
                 uploadDate = parseDateTimeString(JsonHelper.getAsText(player, "uploadDate"));
                 publishDate = parseDateTimeString(JsonHelper.getAsText(player, "publishDate"));
+                if (player.has("liveBroadcastDetails")) {
+                    final JSONObject liveBroadcastDetails = JsonHelper.getAsNode(player, "liveBroadcastDetails");
+                    startBroadcastDate = parseDateTimeString(JsonHelper.getAsText(liveBroadcastDetails, "startTimestamp"));
+                    endBroadcastDate = parseDateTimeString(JsonHelper.getAsText(liveBroadcastDetails, "endTimestamp"));
+                }
             }
             final String status = JsonHelper.getAsText(payload, "playabilityStatus", "status");
             isPlayable = status.equals("OK") ||
@@ -167,6 +176,8 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         _maxDuration = Duration.ofMillis(maxDuration);
         _uploadDate = uploadDate;
         _publishDate = publishDate;
+        _startBroadcastDate = startBroadcastDate;
+        _endBroadcastDate = endBroadcastDate;
         _isPrivate = isPrivate;
         _isPlayable = isPlayable;
 
@@ -277,6 +288,27 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         return _publishDate;
     }
 
+    /**
+     * @return start date of the video broacast if it was a broacast, empty otherwise
+     * @throws ContentParserException Failure to extract the information
+     */
+    public Optional<LocalDate> getStartBroadcastDateInternal() throws ContentParserException {
+        if (_exception != null) {
+            throw _exception;
+        }
+        return Optional.ofNullable(_startBroadcastDate);
+    }
+
+    /**
+     * @return end date of the video broacast if it was a broacast, empty otherwise
+     * @throws ContentParserException Failure to extract the information
+     */
+    public Optional<LocalDate> getEndBroadcastDateInternal() throws ContentParserException {
+        if (_exception != null) {
+            throw _exception;
+        }
+        return Optional.ofNullable(_endBroadcastDate);
+    }
     /**
      * return the duration of the video (we return the min value)
      *
@@ -809,7 +841,10 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
 
     @Override
     public Optional<TemporalAccessor> getDate() throws ContentParserException {
-        return Optional.of(getPublishDateInternal());
+        if (getStartBroadcastDateInternal().isPresent()) {
+	        return Optional.of(getStartBroadcastDateInternal().get());
+        }
+        return Optional.of(getUploadDateInternal());
     }
 
     @Override
