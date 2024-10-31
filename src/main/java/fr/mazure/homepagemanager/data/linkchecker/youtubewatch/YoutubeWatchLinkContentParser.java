@@ -2,10 +2,6 @@ package fr.mazure.homepagemanager.data.linkchecker.youtubewatch;
 
 import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -27,6 +23,7 @@ import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
+import fr.mazure.homepagemanager.utils.DateTimeHelper;
 import fr.mazure.homepagemanager.utils.StringHelper;
 import fr.mazure.homepagemanager.utils.internet.JsonHelper;
 import fr.mazure.homepagemanager.utils.internet.UrlHelper;
@@ -195,10 +192,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
 
         // case the date is formatted as YYYY-MM-DDThh:mm:ss-XX:XX
         if (str.length() == 25) {
-            final LocalDateTime inputDateTime = LocalDateTime.parse(str, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
-            final ZoneId franceZoneId = ZoneId.of("Europe/Paris");
-            final ZonedDateTime franceDateTime = inputDateTime.atZone(franceZoneId);
-            return LocalDate.from(franceDateTime);
+            return DateTimeHelper.convertISO8601DateTime(str);
         }
 
         throw new ContentParserException("Unknown date format: \"" + str + "\"");

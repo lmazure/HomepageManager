@@ -1,6 +1,5 @@
 package fr.mazure.homepagemanager.data.linkchecker.youtubewatch.test;
 
-import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -15,13 +14,14 @@ import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
+import fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase;
 import fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 
 /**
  * Tests of YoutubeWatchLinkContentParser
  */
-class YoutubeWatchLinkContentParserTest {
+class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @ParameterizedTest
     @ValueSource(strings = {
@@ -140,6 +140,7 @@ class YoutubeWatchLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
             "https://www.youtube.com/watch?v=_kGqkxQo-Tw|Alain Aspect - Le photon onde ou particule ? L’étrangeté quantique mise en lumière",
@@ -149,64 +150,23 @@ class YoutubeWatchLinkContentParserTest {
               }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final YoutubeWatchLinkContentParser parser = buildParser(data, url, retriever);
-                               try {
-                                   Assertions.assertEquals(expectedTitle, parser.getTitle());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getTitle threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkTitle(YoutubeWatchLinkContentParser.class, url, expectedTitle);
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testTitleWithAmpersand() {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String url = "https://www.youtube.com/watch?v=ytuHV2e4c4Q";
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                              Assertions.assertTrue(d.dataFileSection().isPresent());
-                              final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                              final YoutubeWatchLinkContentParser parser = buildParser(data,url, retriever);
-                              try {
-                                  Assertions.assertEquals("Win a SMALL fortune with counting cards-the math of blackjack & Co.", parser.getTitle());
-                              } catch (final ContentParserException e) {
-                                  Assertions.fail("getTitle threw " + e.getMessage());
-                              }
-                              consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        final String expectedTitle = "Win a SMALL fortune with counting cards-the math of blackjack & Co.";
+        checkTitle(YoutubeWatchLinkContentParser.class, url, expectedTitle);
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testTitleWithBackslashQuote() {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String url = "https://www.youtube.com/watch?v=aeF-0y9HP9A";
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final YoutubeWatchLinkContentParser parser = buildParser(data, url, retriever);
-                               try {
-                                   Assertions.assertEquals("Googling the Googlers\\' DNA: A Demonstration of the 23andMe Personal Genome S...", parser.getTitle());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getTitle threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        final String expectedTitle = "Googling the Googlers\\' DNA: A Demonstration of the 23andMe Personal Genome S...";
+        checkTitle(YoutubeWatchLinkContentParser.class, url, expectedTitle);
     }
 
     @Test
@@ -288,30 +248,15 @@ class YoutubeWatchLinkContentParserTest {
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 
-    @Test
-    void testDate() {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        final String url = "https://www.youtube.com/watch?v=_kGqkxQo-Tw";
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final YoutubeWatchLinkContentParser parser = buildParser(data, url, retriever);
-                               try {
-                                   Assertions.assertEquals(LocalDate.of(2019, 5, 27), parser.getUploadDateInternal());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getUploadDate threw " + e.getMessage());
-                               }
-                               try {
-                                   Assertions.assertEquals(LocalDate.of(2019, 5, 27), parser.getPublishDateInternal());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getPublishDate threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+    @SuppressWarnings("static-method")
+    @ParameterizedTest
+    @CsvSource(value = {
+        "https://www.youtube.com/watch?v=_kGqkxQo-Tw|2019-05-27",
+        "https://www.youtube.com/watch?v=-hxeDjAxvJ8|2023-06-22",
+    }, delimiter = '|')
+    void testDate(final String url,
+                  final String expectedDate) {
+        checkDate(YoutubeWatchLinkContentParser.class, url, expectedDate);
     }
 
     @Test
