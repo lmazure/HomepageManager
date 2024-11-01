@@ -20,6 +20,8 @@ import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
 import fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser;
+import fr.mazure.homepagemanager.utils.DateTimeHelper;
+import fr.mazure.homepagemanager.utils.ExitHelper;
 import fr.mazure.homepagemanager.utils.Logger;
 import fr.mazure.homepagemanager.utils.Logger.Level;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
@@ -166,6 +168,15 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
         // extract the link data
         try {
             final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(siteData.url(), payload, getRetriever());
+            Optional<TemporalAccessor> publicationDate = Optional.empty();
+            final LocalDate youtubeDate = DateTimeHelper.convertTemporalAccessorToLocalDate(parser.getDate().get());
+            final LocalDate lexFridmanDate = DateTimeHelper.convertTemporalAccessorToLocalDate(getDate().get());
+            if (youtubeDate.isBefore(lexFridmanDate)) {
+                ExitHelper.exit("YouTube date (" + youtubeDate + ") is before Lex Fridman date (" + lexFridmanDate + ").");
+            }
+            if (youtubeDate.isAfter(lexFridmanDate)) {
+                publicationDate = Optional.of(youtubeDate);
+            }
             final ExtractedLinkData linkData = new ExtractedLinkData(parser.getTitle(),
                                                                      new String[] { },
                                                                      siteData.url(),
@@ -174,7 +185,7 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
                                                                      new LinkFormat[] { LinkFormat.MP4 },
                                                                      new Locale[] { parser.getLanguage() },
                                                                      parser.getDuration(),
-                                                                     Optional.empty());
+                                                                     publicationDate);
             _otherLink = Optional.of(linkData);
         } catch (ContentParserException e) {
             Logger.log(Level.ERROR)

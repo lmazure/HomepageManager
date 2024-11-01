@@ -127,7 +127,7 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
                                         Optional.empty());
         }
 
-        final LocalDate effectiveDate = DateTimeHelper.convertTemporalAccessorToLocalDate(getYoutubeWatchLinkContentParser().getDate().get()).get();
+        final LocalDate effectiveDate = DateTimeHelper.convertTemporalAccessorToLocalDate(getYoutubeWatchLinkContentParser().getDate().get());
 
         if (publicationDate.isPresent()) {
             // publication date is present, we used it

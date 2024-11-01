@@ -34,14 +34,27 @@ public class DateTimeHelper {
      * @param accessor TemporalAccessor
      * @return LocalDate or empty if the conversion is impossible
      */
-    public static Optional<LocalDate> convertTemporalAccessorToLocalDate(final TemporalAccessor accessor) {
-        if (!accessor.isSupported(ChronoField.YEAR) ||
-            !accessor.isSupported(ChronoField.MONTH_OF_YEAR) ||
-            !accessor.isSupported(ChronoField.DAY_OF_MONTH)) {
+    public static Optional<LocalDate> convertTemporalAccessorToLocalDate(final Optional<TemporalAccessor> accessor) {
+        if (accessor.isEmpty()) {
+	        return Optional.empty();
+        }
+        if (!accessor.get().isSupported(ChronoField.YEAR) ||
+            !accessor.get().isSupported(ChronoField.MONTH_OF_YEAR) ||
+            !accessor.get().isSupported(ChronoField.DAY_OF_MONTH)) {
             return Optional.empty();
         }
-        final LocalDate date = LocalDate.of(accessor.get(ChronoField.YEAR), accessor.get(ChronoField.MONTH_OF_YEAR), accessor.get(ChronoField.DAY_OF_MONTH));
-        return Optional.of(date);
+
+        return Optional.of(convertTemporalAccessorToLocalDate(accessor.get()));
+    }
+
+    /**
+     * Convert a TemporalAccessor to a LocalDate
+     *
+     * @param accessor TemporalAccessor
+     * @return LocalDate 
+     */
+    public static LocalDate convertTemporalAccessorToLocalDate(final TemporalAccessor accessor) {
+        return LocalDate.of(accessor.get(ChronoField.YEAR), accessor.get(ChronoField.MONTH_OF_YEAR), accessor.get(ChronoField.DAY_OF_MONTH));
     }
 
     /**

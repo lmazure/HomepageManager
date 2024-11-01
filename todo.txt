@@ -21,29 +21,7 @@ methods       52.1%    98.8%
 
 
 
-
-quick correction de date YouTube incorrecte
-
-
-
-
-
-gérer
-https://lexfridman.com/grant-sanderson-2
-The expected date 2020-08-24 is not equal to the effective date 2020-08-23
-
-https://lexfridman.com/mark-zuckerberg-2
-The expected date 2023-06-09 is not equal to the effective date 2023-06-08
-
-https://lexfridman.com/po-shen-loh
-The expected date 2021-05-15 is not equal to the effective date 2021-05-14
-
-https://lexfridman.com/richard-dawkins
-The expected date 2020-04-10 is not equal to the effective date 2020-04-09
-
-https://lexfridman.com/shannon-curry
-The expected date 2023-03-22 is not equal to the effective date 2023-03-21
-
+publication date smaller or equal to creation date must be detected
 
 
 

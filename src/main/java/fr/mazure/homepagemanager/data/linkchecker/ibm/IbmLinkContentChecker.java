@@ -139,8 +139,7 @@ public class IbmLinkContentChecker extends LinkContentChecker {
         final LocalDate effectiveDate = _parser.getDate();
 
         if (!date.equals(effectiveDate)) {
-            final Optional<ViolationCorrection> correction = DateTimeHelper.convertTemporalAccessorToLocalDate(date)
-                                                                           .map(dat -> new UpdateArticleDateCorrection(dat, effectiveDate, getUrl()));
+            final Optional<ViolationCorrection> correction = Optional.of(new UpdateArticleDateCorrection(DateTimeHelper.convertTemporalAccessorToLocalDate(date), effectiveDate, getUrl()));
             return new LinkContentCheck("WrongDate",
                                         "expected date " +
                                         date +
