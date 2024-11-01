@@ -251,4 +251,14 @@ class UpdateLinkStatusCorrectionTest {
                                                                               "https://moodle-arquivo.ciencias.ulisboa.pt/1415/pluginfile.php/99900/mod_page/content/9/doc/j-jml-pdf.pdf");
         Assertions.assertEquals(expected, correction.apply(content));
     }
+
+
+    @SuppressWarnings("static-method")
+    @Test
+    void description() {
+        final ViolationCorrection correction = new UpdateLinkStatusCorrection(LinkStatus.OK,
+                                                                              LinkStatus.DEAD,
+                                                                              "https://moodle-arquivo.ciencias.ulisboa.pt/1415/pluginfile.php/99900/mod_page/content/9/doc/j-jml-pdf.pdf");
+        Assertions.assertEquals("Update link status", correction.getDescription());
+    }
 }

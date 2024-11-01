@@ -15,6 +15,7 @@ import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentCheck;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateArticleDateCorrection;
+import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkDateCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkDurationCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
 import fr.mazure.homepagemanager.utils.DateTimeHelper;
@@ -136,12 +137,15 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
                                             Optional.empty());
             }
             if (!expectedDate.equals(effectiveDate)) {
+                final ViolationCorrection correction = new UpdateLinkDateCorrection(expectedDate,
+                                                                                    effectiveDate,
+                                                                                    getUrl());
                 return new LinkContentCheck("WrongDate",
                                             "expected publication date " +
                                             expectedDate +
                                             " is not equal to the effective date " +
                                             effectiveDate,
-                                            Optional.empty());
+                                            Optional.of(correction));
            }
         } else {
             // publication date is absent, we used creation date instead
