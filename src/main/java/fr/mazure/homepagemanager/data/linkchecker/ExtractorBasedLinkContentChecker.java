@@ -153,7 +153,7 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
 
         if (!date.equals(effectiveDate)) {
             final Optional<ViolationCorrection> correction = DateTimeHelper.convertTemporalAccessorToLocalDate(date)
-                                                                       .map(dat -> new UpdateArticleDateCorrection(dat, effectiveDate, getUrl()));
+                                                                           .map(dat -> new UpdateArticleDateCorrection(dat, effectiveDate, getUrl()));
             return new LinkContentCheck("WrongDate",
                                         "The expected date " +
                                         date +
