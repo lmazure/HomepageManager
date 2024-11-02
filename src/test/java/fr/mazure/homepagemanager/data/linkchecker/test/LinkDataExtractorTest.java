@@ -433,7 +433,7 @@ class LinkDataExtractorTest {
                 <A>https://www.youtube.com/watch?v=_j7JEDWuqLE</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>9</MINUTE><SECOND>47</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Jason</FIRSTNAME><LASTNAME>Zhou</LASTNAME></AUTHOR>\
-                <DATE><YEAR>2023</YEAR><MONTH>6</MONTH><DAY>10</DAY></DATE>\
+                <DATE><YEAR>2023</YEAR><MONTH>6</MONTH><DAY>11</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
@@ -449,7 +449,7 @@ class LinkDataExtractorTest {
                 <A>https://www.youtube.com/watch?v=VMj-3S1tku0</A>\
                 <L>en</L><F>MP4</F><DURATION><HOUR>2</HOUR><MINUTE>25</MINUTE><SECOND>51</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Andrej</FIRSTNAME><LASTNAME>Karpathy</LASTNAME></AUTHOR>\
-                <DATE><YEAR>2022</YEAR><MONTH>8</MONTH><DAY>16</DAY></DATE>\
+                <DATE><YEAR>2022</YEAR><MONTH>8</MONTH><DAY>17</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
@@ -577,7 +577,7 @@ class LinkDataExtractorTest {
                 <A>https://www.youtube.com/watch?v=cw34KMPSt4k</A><L>en</L><F>MP4</F>\
                 <DURATION><MINUTE>6</MINUTE><SECOND>32</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Jeff</FIRSTNAME><LASTNAME>Delaney</LASTNAME></AUTHOR>\
-                <DATE><YEAR>2024</YEAR><MONTH>3</MONTH><DAY>15</DAY></DATE>\
+                <DATE><YEAR>2024</YEAR><MONTH>3</MONTH><DAY>16</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
@@ -1549,7 +1549,7 @@ class LinkDataExtractorTest {
                 <A>https://www.youtube.com/watch?v=VKlcZCc5uQQ</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>6</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Matt</FIRSTNAME><LASTNAME>Williams</LASTNAME></AUTHOR>\
-                <DATE><YEAR>2024</YEAR><MONTH>9</MONTH><DAY>25</DAY></DATE>\
+                <DATE><YEAR>2024</YEAR><MONTH>9</MONTH><DAY>26</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
@@ -1597,7 +1597,7 @@ class LinkDataExtractorTest {
                 <A>https://www.youtube.com/watch?v=GdcOy6zVFC4</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>45</MINUTE><SECOND>32</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Michael</FIRSTNAME><MIDDLENAME>Ryan</MIDDLENAME><LASTNAME>Clarkson</LASTNAME></AUTHOR>\
-                <DATE><YEAR>2021</YEAR><MONTH>8</MONTH><DAY>8</DAY></DATE>\
+                <DATE><YEAR>2021</YEAR><MONTH>8</MONTH><DAY>9</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
@@ -2191,14 +2191,14 @@ class LinkDataExtractorTest {
                 <ARTICLE><X><T>Comment greffer facilement les arbres fruitiers ? (mois par mois)</T>\
                 <A>https://www.youtube.com/watch?v=pfUK_ADTvgY</A>\
                 <L>fr</L><F>MP4</F><DURATION><MINUTE>25</MINUTE><SECOND>25</SECOND></DURATION></X>\
-                <DATE><YEAR>2022</YEAR><MONTH>12</MONTH><DAY>9</DAY></DATE>\
+                <DATE><YEAR>2022</YEAR><MONTH>12</MONTH><DAY>10</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Comment greffer facilement les arbres fruitiers ? (mois par mois)</T>\
                 <A>https://www.youtube.com/watch?v=pfUK_ADTvgY</A>\
                 <L>fr</L><F>MP4</F><DURATION><MINUTE>25</MINUTE><SECOND>25</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Damien</FIRSTNAME><LASTNAME>Dekarz</LASTNAME></AUTHOR>\
-                <DATE><YEAR>2022</YEAR><MONTH>12</MONTH><DAY>9</DAY></DATE>\
+                <DATE><YEAR>2022</YEAR><MONTH>12</MONTH><DAY>10</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
@@ -2310,7 +2310,7 @@ class LinkDataExtractorTest {
                 <A>https://www.youtube.com/watch?v=eV8F0dz_5y4</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>32</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Robert</FIRSTNAME><LASTNAME>Miles</LASTNAME></AUTHOR>\
-                <DATE><YEAR>2024</YEAR><MONTH>6</MONTH><DAY>20</DAY></DATE>\
+                <DATE><YEAR>2024</YEAR><MONTH>6</MONTH><DAY>21</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
@@ -2474,20 +2474,20 @@ class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchStefanChinZSciShowIsManaged() throws ContentParserException {
+    void youtubeWatchStefanChinSciShowIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=i3_3ga2E8vw";
         final String expectedSureXml = """
                 <ARTICLE><X><T>The Future of Particle Accelerators Looks Wild</T>\
                 <A>https://www.youtube.com/watch?v=i3_3ga2E8vw</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>36</SECOND></DURATION></X>\
-                <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>17</DAY></DATE>\
+                <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>18</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>The Future of Particle Accelerators Looks Wild</T>\
                 <A>https://www.youtube.com/watch?v=i3_3ga2E8vw</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>36</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Stefan</FIRSTNAME><LASTNAME>Chin</LASTNAME></AUTHOR>\
-                <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>17</DAY></DATE>\
+                <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>18</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
@@ -2837,7 +2837,7 @@ class LinkDataExtractorTest {
                 <L>fr</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>0</MINUTE><SECOND>54</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Guillaume</FIRSTNAME><LASTNAME>Chifoumi</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>François</FIRSTNAME><LASTNAME>Décamp</LASTNAME></AUTHOR>\
-                <DATE><YEAR>2021</YEAR><MONTH>7</MONTH><DAY>13</DAY></DATE>\
+                <DATE><YEAR>2021</YEAR><MONTH>7</MONTH><DAY>14</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
@@ -2853,7 +2853,7 @@ class LinkDataExtractorTest {
                 <A>https://www.youtube.com/watch?v=cUzklzVXJwo</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>23</MINUTE><SECOND>28</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Derek</FIRSTNAME><LASTNAME>Muller</LASTNAME></AUTHOR>\
-                <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>31</DAY></DATE>\
+                <DATE><YEAR>2021</YEAR><MONTH>11</MONTH><DAY>1</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
@@ -2949,7 +2949,7 @@ class LinkDataExtractorTest {
                 <A>https://www.youtube.com/watch?v=oSuXs0w1PPY</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>34</MINUTE><SECOND>24</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Wes</FIRSTNAME><LASTNAME>Roth</LASTNAME></AUTHOR>\
-                <DATE><YEAR>2024</YEAR><MONTH>10</MONTH><DAY>18</DAY></DATE>\
+                <DATE><YEAR>2024</YEAR><MONTH>10</MONTH><DAY>19</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
@@ -2996,14 +2996,14 @@ class LinkDataExtractorTest {
                 <ARTICLE><X><T>How I Built the Entire Universe in Minecraft</T>\
                 <A>https://www.youtube.com/watch?v=eAkb2mpybnM</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>13</MINUTE><SECOND>35</SECOND></DURATION></X>\
-                <DATE><YEAR>2022</YEAR><MONTH>10</MONTH><DAY>3</DAY></DATE>\
+                <DATE><YEAR>2022</YEAR><MONTH>10</MONTH><DAY>4</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>How I Built the Entire Universe in Minecraft</T>\
                 <A>https://www.youtube.com/watch?v=eAkb2mpybnM</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>13</MINUTE><SECOND>35</SECOND></DURATION></X>\
                 <AUTHOR><GIVENNAME>ChrisDaCow</GIVENNAME></AUTHOR>\
-                <DATE><YEAR>2022</YEAR><MONTH>10</MONTH><DAY>3</DAY></DATE>\
+                <DATE><YEAR>2022</YEAR><MONTH>10</MONTH><DAY>4</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
