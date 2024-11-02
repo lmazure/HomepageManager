@@ -21,6 +21,29 @@ methods       52.1%    98.8%
 
 
 
+==== potentially before merge =====
+
+
+
+
+
+
+
+
+
+
+
+gérer liks/aiimplementation.xml
+https://magazine.sebastianraschka.com/
+Article should have a creation date
+
+
+
+
+
+
+
+
 publication date smaller or equal to creation date must be detected
 
 
@@ -50,13 +73,6 @@ java.lang.UnsupportedOperationException: https://www.tf1info.fr/sante/covid-19-r
 
 
 détecter les URL qui finissent par "?"
-
-
-
-
-
-==== potentially before merge =====
-
 
 
 
