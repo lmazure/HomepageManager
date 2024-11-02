@@ -40,12 +40,12 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
                                       "The Conversation",
                                       "Inside Climate News"));
     private static final TextParser s_titleParser
-        = new TextParser("<h1 class=\"mb-3 font-serif text-4xl font-bold text-gray-100 md:text-6xl md:leading-\\[1\\.05\\]\">",
+        = new TextParser("<h1 class=\"[^\"]+\">",
                          "</h1>",
                          s_sourceName,
                          "title");
     private static final TextParser s_subtitleParser
-        = new TextParser("<p class=\"my-3 text-2xl leading-\\[1\\.1\\] text-gray-300 (?:md:mt-7 )?md:leading-\\[1\\.2\\]\">",
+        = new TextParser("</h1>\\n\\n *<p class=\"[^\"]+\">",
                          "</p>",
                          s_sourceName,
                          "subtitle");
