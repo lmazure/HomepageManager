@@ -17,6 +17,18 @@ methods       52.1%    98.8%
 → increase method coverage
 
 
+2024-11-03
+warnings = 111
+lines prod = 10942
+lines test = 4704
+test coverage =
+              main     test
+instructions  69.1%    93.0%
+branches      48.3%    62.5%
+lines         67.8%    94.9%
+methods       54.0%    98.1%
+
+
 ==== before merge =====
 
 
