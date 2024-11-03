@@ -17,7 +17,49 @@ methods       52.1%    98.8%
 → increase method coverage
 
 
+2024-11-03
+warnings = 111
+lines prod = 10942
+lines test = 4704
+test coverage =
+              main     test
+instructions  69.1%    93.0%
+branches      48.3%    62.5%
+lines         67.8%    94.9%
+methods       54.0%    98.1%
+
+
 ==== before merge =====
+
+
+
+==== potentially before merge =====
+
+
+
+
+
+
+
+
+
+
+
+gérer liks/aiimplementation.xml
+https://magazine.sebastianraschka.com/
+Article should have a creation date
+
+
+
+
+
+
+
+
+publication date smaller or equal to creation date must be detected
+
+
+
 
 
 
@@ -40,6 +82,13 @@ java.lang.UnsupportedOperationException: https://www.tf1info.fr/sante/covid-19-r
 	
 	
 	
+
+
+détecter les URL qui finissent par "?"
+
+
+
+
 
 
 
@@ -69,7 +118,7 @@ ranger le bordel dans les pages AI
 
 podcast
 gérer LWAIM
-mettre cache des informations YouTube
+
 
 
 
@@ -212,13 +261,6 @@ gérer
 
 nettoyer links/design.xml
 
-
-
-
-
-
-
-==== potentially before merge =====
 
 
 

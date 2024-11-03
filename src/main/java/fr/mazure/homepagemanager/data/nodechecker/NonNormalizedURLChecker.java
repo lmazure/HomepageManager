@@ -22,7 +22,8 @@ public class NonNormalizedURLChecker extends NodeChecker {
     public NonNormalizedURLChecker() {
         super(s_selector,
               NonNormalizedURLChecker::checkUrl, "uses a non-normalized URL",
-              NonNormalizedURLChecker::checkNoDoubleSlash, "contains a double slash");
+              NonNormalizedURLChecker::checkNoDoubleSlash, "contains a double slash",
+              NonNormalizedURLChecker::checkNoFinalSlash, "finishes with a slash");
     }
 
     private static CheckStatus checkUrl(final Element element) {
@@ -63,6 +64,21 @@ public class NonNormalizedURLChecker extends NodeChecker {
         final String urlWithoutProtocol = url.replaceFirst("^[a-z]+://", "");
         if (urlWithoutProtocol.contains("//")) {
             return new CheckStatus("ImproperUrl", "URL \"" + url + "\"contains \"//\"", Optional.empty());
+        }
+
+        return null;
+    }
+
+
+    private static CheckStatus checkNoFinalSlash(final Element element) {
+
+        final String url = element.getTextContent();
+        if (!url.startsWith("https://lexfridman.com/")) {
+            return null;
+        }
+
+        if (url.endsWith("/")) {
+            return new CheckStatus("ImproperUrl", "URL \"" + url + "\" should not ends with a slash", Optional.empty());
         }
 
         return null;

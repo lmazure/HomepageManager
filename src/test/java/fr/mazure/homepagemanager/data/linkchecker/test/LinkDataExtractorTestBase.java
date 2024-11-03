@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
@@ -65,6 +66,21 @@ public class LinkDataExtractorTestBase {
                             Assertions.assertFalse(p.getSubtitle().isPresent());
                         } catch (final ContentParserException e) {
                             Assertions.fail("getSubtitle threw " + e.getMessage());
+                        }
+                    });
+    }
+
+    protected static void checkLanguage(final Class<? extends LinkDataExtractor> clazz,
+                                        final String url,
+                                        final String expectedLanguage) {
+        perform(clazz,
+                url,
+                (final LinkDataExtractor p) ->
+                    {
+                        try {
+                            Assertions.assertEquals(Locale.of(expectedLanguage), p.getLanguage());
+                        } catch (final ContentParserException e) {
+                            Assertions.fail("getDate threw " + e.getMessage());
                         }
                     });
     }

@@ -14,7 +14,7 @@ class LexFridmanLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://lexfridman.com/elon-musk/|Elon Musk: Tesla Autopilot",
+        "https://lexfridman.com/elon-musk|Elon Musk: Tesla Autopilot",
     }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
@@ -24,7 +24,7 @@ class LexFridmanLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://lexfridman.com/elon-musk/",
+        "https://lexfridman.com/elon-musk",
     }, delimiter = '|')
     void testSubtitle(final String url) {
         checkNoSubtitle(LexFridmanLinkContentParser.class, url);
@@ -33,7 +33,7 @@ class LexFridmanLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://lexfridman.com/elon-musk/|2019-04-12",
+        "https://lexfridman.com/elon-musk|2019-04-12",
     }, delimiter = '|')
     void testDate(final String url,
                   final String expectedDate) {
@@ -43,7 +43,7 @@ class LexFridmanLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://lexfridman.com/elon-musk/|PT32M45S",
+        "https://lexfridman.com/elon-musk|PT32M45S",
         "https://lexfridman.com/graham-hancock|PT2H33M2S"
     }, delimiter = '|')
     void testDuration(final String url,
@@ -54,19 +54,33 @@ class LexFridmanLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://lexfridman.com/elon-musk/|Lex||Fridman",
+        "https://lexfridman.com/elon-musk|Elon||Musk|Lex||Fridman",
+        "https://lexfridman.com/mark-zuckerberg-3|Mark||Zuckerberg|Lex||Fridman|",
+        "https://lexfridman.com/aaron-smith-levin|Aaron||Smith-Levin|Lex||Fridman|",
+        "https://lexfridman.com/po-shen-loh|Po-Shen||Loh|Lex||Fridman|",
     }, delimiter = '|')
-    void test1Author(final String url,
-                     final String expectedFirstName,
-                     final String expectedMiddleName,
-                     final String expectedLastName) {
-        check1Author(LexFridmanLinkContentParser.class,
-                     url,
-                     null,
-                     expectedFirstName,
-                     expectedMiddleName,
-                     expectedLastName,
-                     null,
-                     null);
+    void test2Authors(final String url,
+                      final String expectedFirstName1,
+                      final String expectedMiddleName1,
+                      final String expectedLastName1,
+                      final String expectedFirstName2,
+                      final String expectedMiddleName2,
+                      final String expectedLastName2) {
+        check2Authors(LexFridmanLinkContentParser.class,
+                      url,
+                      // author 1
+                      null,
+                      expectedFirstName1,
+                      expectedMiddleName1,
+                      expectedLastName1,
+                      null,
+                      null,
+                      // author 2
+                      null,
+                      expectedFirstName2,
+                      expectedMiddleName2,
+                      expectedLastName2,
+                      null,
+                      null);
     }
 }

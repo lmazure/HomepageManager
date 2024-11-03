@@ -1,6 +1,5 @@
 package fr.mazure.homepagemanager.data.linkchecker.oracleblogs.test;
 
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.jupiter.api.Assertions;
@@ -12,14 +11,15 @@ import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.oracleblogs.OracleBlogsLinkContentParser;
+import fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
-import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 
 /**
  * Tests of OracleBlogsLinkContentParser
  */
-class OracleBlogsLinkContentParserTest {
+class OracleBlogsLinkContentParserTest extends LinkDataExtractorTestBase {
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
         "https://blogs.oracle.com/javamagazine/java-for-loop-break-continue|Quiz yourself: Break and continue in Java’s for loops",
@@ -36,20 +36,10 @@ class OracleBlogsLinkContentParserTest {
         }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data, retriever);
-                               Assertions.assertEquals(expectedTitle, parser.getTitle());
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkTitle(OracleBlogsLinkContentParser.class, url, expectedTitle);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
         "https://blogs.oracle.com/javamagazine/java-for-loop-break-continue|Sometimes you have to simulate JVM behavior using pencil and paper.",
@@ -69,21 +59,10 @@ class OracleBlogsLinkContentParserTest {
         }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data, retriever);
-                               Assertions.assertTrue(parser.getSubtitle().isPresent());
-                               Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkSubtitle(OracleBlogsLinkContentParser.class, url, expectedSubtitle);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         // the next article is broken
@@ -93,20 +72,10 @@ class OracleBlogsLinkContentParserTest {
         "https://blogs.oracle.com/javamagazine/post/the-top-25-greatest-java-apps-ever-written",
         })
     void testNoSubtitle(final String url) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data, retriever);
-                               Assertions.assertFalse(parser.getSubtitle().isPresent());
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkNoSubtitle(OracleBlogsLinkContentParser.class, url);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://blogs.oracle.com/javamagazine/java-for-loop-break-continue,2021-10-05",
@@ -119,24 +88,10 @@ class OracleBlogsLinkContentParserTest {
         })
     void testDate(final String url,
                   final String expectedDate) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data, retriever);
-                               try {
-                                   TestHelper.assertDate(expectedDate, parser.getDate());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getDate threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkDate(OracleBlogsLinkContentParser.class, url, expectedDate);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         // the next article is broken
@@ -151,31 +106,10 @@ class OracleBlogsLinkContentParserTest {
                     final String expectedFirstName,
                     final String expectedMiddleName,
                     final String expectedLastName) {
-        final AuthorData expectedAuthor = new AuthorData(Optional.empty(),
-                                                         Optional.of(expectedFirstName),
-                                                         Optional.ofNullable(expectedMiddleName),
-                                                         Optional.of(expectedLastName),
-                                                         Optional.empty(),
-                                                         Optional.empty());
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertEquals(1, parser.getSureAuthors().size());
-                                   Assertions.assertEquals(expectedAuthor, parser.getSureAuthors().get(0));
-                                } catch (final ContentParserException e) {
-                                    Assertions.fail("getSureAuthors threw " + e.getMessage());
-                                }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        check1Author(OracleBlogsLinkContentParser.class, url, null, expectedFirstName, expectedMiddleName, expectedLastName, null, null);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://blogs.oracle.com/javamagazine/java-for-loop-break-continue,Mikalai,Zaikin,Simon,Roberts",
@@ -186,36 +120,22 @@ class OracleBlogsLinkContentParserTest {
                         final String expectedLastName1,
                         final String expectedFirstName2,
                         final String expectedLastName2) {
-        final AuthorData expectedAuthor1 = new AuthorData(Optional.empty(),
-                                                          Optional.of(expectedFirstName1),
-                                                          Optional.empty(),
-                                                          Optional.of(expectedLastName1),
-                                                          Optional.empty(),
-                                                          Optional.empty());
-        final AuthorData expectedAuthor2 = new AuthorData(Optional.empty(),
-                                                          Optional.of(expectedFirstName2),
-                                                          Optional.empty(),
-                                                          Optional.of(expectedLastName2),
-                                                          Optional.empty(),
-                                                          Optional.empty());
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertEquals(2, parser.getSureAuthors().size());
-                                   Assertions.assertEquals(expectedAuthor1, parser.getSureAuthors().get(0));
-                                   Assertions.assertEquals(expectedAuthor2, parser.getSureAuthors().get(1));
-                                } catch (final ContentParserException e) {
-                                    Assertions.fail("getSureAuthors threw " + e.getMessage());
-                                }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        check2Authors(OracleBlogsLinkContentParser.class,
+                      url,
+                      // author 1
+                      null,
+                      expectedFirstName1,
+                      null,
+                      expectedLastName1,
+                      null,
+                      null,
+                      // author 2
+                      null,
+                      expectedFirstName2,
+                      null,
+                      expectedLastName2,
+                      null,
+                      null);
     }
 
     @ParameterizedTest
