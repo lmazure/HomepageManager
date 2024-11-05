@@ -1,6 +1,6 @@
 package fr.mazure.homepagemanager.data.violationcorrection;
 
-import java.time.LocalDate;
+import java.time.temporal.TemporalAccessor;
 import java.util.regex.Pattern;
 
 import fr.mazure.homepagemanager.data.linkchecker.XmlGenerator;
@@ -17,8 +17,8 @@ public class UpdateLinkDateCorrection extends RegexpViolationCorrection {
      * @param correctDate Correct link date
      * @param url URL of the link
      */
-    public UpdateLinkDateCorrection(final LocalDate badDate,
-                                    final LocalDate correctDate,
+    public UpdateLinkDateCorrection(final TemporalAccessor badDate,
+                                    final TemporalAccessor correctDate,
                                     final String url) {
         super("Update the link date",
               "<A>" + Pattern.quote(url) + "</A>(.*)" + XmlGenerator.generateDate(badDate)+ "</X>",

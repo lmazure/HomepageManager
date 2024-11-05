@@ -33,12 +33,28 @@ methods       54.0%    98.1%
 
 
 
+gérer
+https://lexfridman.com/jimmy-wales
+The expected date 2023-06-19 is not equal to the effective date 2023-06-18
+
+
+
 
 ==== potentially before merge =====
 
 
 
 
+gérer
+https://www.youtube.com/watch?v=EvknN89JoWo
+expected duration PT22M34S is not in the real duration interval [PT596H31M23S,PT-596H-31M-22S]
+
+
+
+
+
+
+the author of https://www.baeldung.com/java-linked-hashmap is not extracted
 
 
 
