@@ -33,9 +33,36 @@ methods       54.0%    98.1%
 
 
 
+
 gérer
-https://lexfridman.com/jimmy-wales
-The expected date 2023-06-19 is not equal to the effective date 2023-06-18
+fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://www.quantamagazine.org/the-strange-numbers-that-birthed-modern-algebra-20180906/"
+	at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:89)
+	at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:325)
+	at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:139)
+	at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:73)
+	at fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
+	at fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:32)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find date in QuantaMagazine
+	at fr.mazure.homepagemanager.data.linkchecker.TextParser.extract(TextParser.java:61)
+	at fr.mazure.homepagemanager.data.linkchecker.quantamagazine.QuantaMagazineLinkContentParser.getDate(QuantaMagazineLinkContentParser.java:99)
+	at fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkArticleDate(ExtractorBasedLinkContentChecker.java:152)
+	at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:149)
+	at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:87)
+	... 8 more
+
+
+
+
+
+
+
+
+la durée n'est pas bonne sur https://lexfridman.com/jimmy-wales (mais elle est bonne pour YouTube)
+
+
 
 
 
