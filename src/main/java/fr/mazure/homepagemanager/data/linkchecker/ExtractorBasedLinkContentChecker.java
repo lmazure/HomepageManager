@@ -28,6 +28,7 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
 
     private final LinkDataExtractorBuilder _extractorBuilder;
     private LinkDataExtractor _parser;
+    private static final LinkDataExtractorCache s_cache = new LinkDataExtractorCache();
 
     /**
      * @param url URL of the link to check
@@ -54,7 +55,11 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
     @Override
     protected LinkContentCheck checkGlobalData(final String data) throws ContentParserException
     {
-        _parser = _extractorBuilder.buildExtractor(getUrl(), data, getRetriever());
+        _parser = s_cache.query(getUrl());
+        if (_parser == null) {
+            _parser = _extractorBuilder.buildExtractor(getUrl(), data, getRetriever());
+            s_cache.store(getUrl(), _parser);
+        }
         return null;
     }
 
@@ -84,7 +89,7 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
                                                   final String[] expectedSubtitles) throws ContentParserException
     {
         if (expectedSubtitles.length > 1) {
-            return new LinkContentCheck("MultipleSubtiles",
+            return new LinkContentCheck("MultipleSubtitles",
                                         "More than one subtitle is not supported yet",
                                         Optional.empty());  // TODO implement support of several subtitles
         }
