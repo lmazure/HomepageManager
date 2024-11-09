@@ -203,7 +203,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
 
         // case the date is formatted as YYYY-MM-DDThh:mm:ss-XX:XX
         if (str.length() == 25) {
-            return DateTimeHelper.convertISO8601DateTime(str);
+            return DateTimeHelper.convertISO8601StringToDateTime(str);
         }
 
         throw new ContentParserException("Unknown date format: \"" + str + "\"");

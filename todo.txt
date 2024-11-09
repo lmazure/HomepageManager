@@ -184,15 +184,6 @@ détecter les indentations incorrectes
 
 
 
-
-centraliser ZoneId.of("Europe/Paris")
-
-
-
-
-
-
-
 détecter les vidéos Youtube qui sont marquées "zombie" mais qui ne sont, en fait, pas private
 
 

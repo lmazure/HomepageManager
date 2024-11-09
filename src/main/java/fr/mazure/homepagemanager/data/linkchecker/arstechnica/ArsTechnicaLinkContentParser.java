@@ -1,8 +1,5 @@
 package fr.mazure.homepagemanager.data.linkchecker.arstechnica;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,6 +15,7 @@ import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
+import fr.mazure.homepagemanager.utils.DateTimeHelper;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
@@ -96,9 +94,7 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
 
     @Override
     public Optional<TemporalAccessor> getDate() throws ContentParserException {
-        final ZonedDateTime inputDateTime = ZonedDateTime.parse(s_dateParser.extract(_data), DateTimeFormatter.ISO_DATE_TIME);
-        final ZoneId franceZoneId = ZoneId.of("Europe/Paris");
-        return Optional.of(inputDateTime.withZoneSameInstant(franceZoneId).toLocalDate());
+        return Optional.of(DateTimeHelper.convertISO8601StringToDateTime(s_dateParser.extract(_data)));
     }
 
     @Override

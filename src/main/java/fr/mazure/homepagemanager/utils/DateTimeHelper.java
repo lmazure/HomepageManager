@@ -22,8 +22,20 @@ public class DateTimeHelper {
      * @param str string
      * @return LocalDate
      */
-    public static LocalDate convertISO8601DateTime(final String str) {
+    public static LocalDate convertISO8601StringToDateTime(final String str) {
         final Instant instant = Instant.parse(str);
+        final ZonedDateTime franceDateTime = instant.atZone(s_parisZone);
+        return LocalDate.from(franceDateTime);
+    }
+
+    /**
+     * Convert a long to a LocalDate
+     *
+     * @param value long
+     * @return LocalDate
+     */
+    public static LocalDate convertLongToDateTime(final long value) {
+        final Instant instant = Instant.ofEpochMilli(value);
         final ZonedDateTime franceDateTime = instant.atZone(s_parisZone);
         return LocalDate.from(franceDateTime);
     }

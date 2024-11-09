@@ -3,9 +3,7 @@ package fr.mazure.homepagemanager.data.linkchecker.oracleblogs;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Path;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
@@ -27,6 +25,7 @@ import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
+import fr.mazure.homepagemanager.utils.DateTimeHelper;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.internet.UriHelper;
 import fr.mazure.homepagemanager.utils.internet.UrlHelper;
@@ -203,7 +202,7 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
                 subtitle = Optional.empty();
             }
             final String pubDate = fields.getJSONObject("publish_date").getString("value");
-            publicationDate = Instant.parse(pubDate).atZone(ZoneId.of("Europe/Paris")).toLocalDate();
+            publicationDate = DateTimeHelper.convertISO8601StringToDateTime(pubDate);
         } catch (final JSONException e) {
             _exception = new ContentParserException("failed to parse date JSON data for " + url + ". The JSON payload is \""+ articleJson + "\"", e);
             _title = null;
