@@ -33,11 +33,31 @@ methods       54.0%    98.1%
 
 
 
+
+
+
+la durée n'est pas bonne sur https://lexfridman.com/jimmy-wales (mais elle est bonne pour YouTube)
+
+
+
+
+
+
 ==== potentially before merge =====
 
 
 
 
+gérer
+https://www.youtube.com/watch?v=EvknN89JoWo
+expected duration PT22M34S is not in the real duration interval [PT596H31M23S,PT-596H-31M-22S]
+
+
+
+
+
+
+the author of https://www.baeldung.com/java-linked-hashmap is not extracted
 
 
 
@@ -82,6 +102,8 @@ java.lang.UnsupportedOperationException: https://www.tf1info.fr/sante/covid-19-r
 	
 	
 	
+
+
 
 
 détecter les URL qui finissent par "?"

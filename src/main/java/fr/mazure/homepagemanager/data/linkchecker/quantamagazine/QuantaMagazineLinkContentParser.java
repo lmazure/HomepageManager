@@ -42,7 +42,7 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
     private static final TextParser s_dateParser
         = new TextParser("<meta property=\"article:published_time\" content=\"",
                          "[^\"]*",
-                         "T[0-9][0-9]:[0-9][0-9]\\+00:00\"",
+                         "T[0-9][0-9]:[0-9][0-9]:[0-9][0-9]\\+00:00\"",
                          s_sourceName,
                          "date");
     private static final Pattern s_authorPattern1

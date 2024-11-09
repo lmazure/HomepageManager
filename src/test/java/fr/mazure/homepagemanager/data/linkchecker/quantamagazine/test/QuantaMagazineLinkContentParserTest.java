@@ -1,26 +1,17 @@
 package fr.mazure.homepagemanager.data.linkchecker.quantamagazine.test;
 
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicBoolean;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
-import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
-import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.quantamagazine.QuantaMagazineLinkContentParser;
-import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
-import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
+import fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase;
 
 /**
  * Tests of QuantaMagazineLinkContentParser
  */
-class QuantaMagazineLinkContentParserTest {
+class QuantaMagazineLinkContentParserTest extends LinkDataExtractorTestBase {
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
         "https://www.quantamagazine.org/mathematician-solves-computer-science-conjecture-in-two-pages-20190725/|Decades-Old Computer Science Conjecture Solved in Two Pages",
@@ -28,135 +19,60 @@ class QuantaMagazineLinkContentParserTest {
         }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertEquals(expectedTitle, parser.getTitle());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getTitle threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkTitle(QuantaMagazineLinkContentParser.class, url, expectedTitle);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
             "https://www.quantamagazine.org/tiny-language-models-thrive-with-gpt-4-as-a-teacher-20231005/|Tiny Language Models Come of Age"
         }, delimiter = '|')
     void testTitleThatHasChanged(final String url,
                                  final String expectedTitle) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertEquals(expectedTitle, parser.getTitle());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getTitle threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkTitle(QuantaMagazineLinkContentParser.class, url, expectedTitle);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
             "https://www.quantamagazine.org/how-do-machines-grok-data-20240412/|How Do Machines ‘Grok’ Data?"
         }, delimiter = '|')
     void testTitleWithEncodedCharacters(final String url,
                                         final String expectedTitle) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertEquals(expectedTitle, parser.getTitle());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getTitle threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkTitle(QuantaMagazineLinkContentParser.class, url, expectedTitle);
     }
 
-    @Test
-    void testSubtitle() {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        final String url = "https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/";
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertEquals("The nearest neighbor problem asks where a new point fits into an existing data set. A few researchers set out to prove that there was no universal way to solve it. Instead, they found such a way.", parser.getSubtitle().get());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getTitle threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+    @SuppressWarnings("static-method")
+    @ParameterizedTest
+    @CsvSource(value = {
+            "https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/|The nearest neighbor problem asks where a new point fits into an existing data set. A few researchers set out to prove that there was no universal way to solve it. Instead, they found such a way."
+        }, delimiter = '|')
+    void testSubtitle(final String url,
+                      final String expectedSubtitle) {
+        checkSubtitle(QuantaMagazineLinkContentParser.class, url, expectedSubtitle);
     }
 
-    @Test
-    void testSubtitleContainingQuotes() {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        final String url = "https://www.quantamagazine.org/mathematician-solves-computer-science-conjecture-in-two-pages-20190725/";
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertEquals("The “sensitivity” conjecture stumped many top computer scientists, yet the new proof is so simple that one researcher summed it up in a single tweet.", parser.getSubtitle().get());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getTitle threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+    @SuppressWarnings("static-method")
+    @ParameterizedTest
+    @CsvSource(value = {
+            "https://www.quantamagazine.org/mathematician-solves-computer-science-conjecture-in-two-pages-20190725/|The “sensitivity” conjecture stumped many top computer scientists, yet the new proof is so simple that one researcher summed it up in a single tweet."
+        }, delimiter = '|')
+    void testSubtitleContainingQuotes(final String url,
+                                      final String expectedSubtitle) {
+        checkSubtitle(QuantaMagazineLinkContentParser.class, url, expectedSubtitle);
     }
 
-    @Test
-    void testSubtitleContainingHtml() {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        final String url = "https://www.quantamagazine.org/yitang-zhang-proves-landmark-theorem-in-distribution-of-prime-numbers-20130519/";
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertEquals("A virtually unknown researcher has made a great advance in one of mathematics’ oldest problems, the twin primes conjecture.", parser.getSubtitle().get());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getTitle threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+    @SuppressWarnings("static-method")
+    @ParameterizedTest
+    @CsvSource(value = {
+            "https://www.quantamagazine.org/yitang-zhang-proves-landmark-theorem-in-distribution-of-prime-numbers-20130519/|A virtually unknown researcher has made a great advance in one of mathematics’ oldest problems, the twin primes conjecture."
+        }, delimiter = '|')
+    void testSubtitleContainingHtml(final String url,
+                                    final String expectedSubtitle) {
+        checkSubtitle(QuantaMagazineLinkContentParser.class, url, expectedSubtitle);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
         "https://www.quantamagazine.org/a-proof-about-where-symmetries-cant-exist-20181023/|In a major mathematical achievement, a small team of researchers has proven Zimmer’s conjecture.",
@@ -165,24 +81,10 @@ class QuantaMagazineLinkContentParserTest {
         }, delimiter = '|')
     void testSubtitleFinishingWithSpace(final String url,
                                         final String expectedSubtitle) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getSubtitle threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkSubtitle(QuantaMagazineLinkContentParser.class, url, expectedSubtitle);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://www.quantamagazine.org/new-algorithm-solves-cake-cutting-problem-20161006/,2016-10-06",
@@ -190,24 +92,10 @@ class QuantaMagazineLinkContentParserTest {
         })
     void testDate(final String url,
                   final String expectedDate) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data, retriever);
-                               try {
-                                   TestHelper.assertDate(expectedDate, parser.getDate());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getDate threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkDate(QuantaMagazineLinkContentParser.class, url, expectedDate);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/,Kevin,,Hartnett",
@@ -217,31 +105,10 @@ class QuantaMagazineLinkContentParserTest {
                     final String expectedFirstName,
                     final String expectedMiddleName,
                     final String expectedLastName) {
-        final AuthorData expectedAuthor = new AuthorData(Optional.empty(),
-                                                         Optional.of(expectedFirstName),
-                                                         Optional.ofNullable(expectedMiddleName),
-                                                         Optional.of(expectedLastName),
-                                                         Optional.empty(),
-                                                         Optional.empty());
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertEquals(1, parser.getSureAuthors().size());
-                                   Assertions.assertEquals(expectedAuthor, parser.getSureAuthors().get(0));
-                                } catch (final ContentParserException e) {
-                                    Assertions.fail("getSureAuthors threw " + e.getMessage());
-                                }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        check1Author(QuantaMagazineLinkContentParser.class, url, null, expectedFirstName, expectedMiddleName, expectedLastName, null, null);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://www.quantamagazine.org/barbara-liskov-is-the-architect-of-modern-algorithms-20191120/,Susan,,D’Agostino",
@@ -250,31 +117,10 @@ class QuantaMagazineLinkContentParserTest {
                                         final String expectedFirstName,
                                         final String expectedMiddleName,
                                         final String expectedLastName) {
-        final AuthorData expectedAuthor = new AuthorData(Optional.empty(),
-                                                         Optional.of(expectedFirstName),
-                                                         Optional.ofNullable(expectedMiddleName),
-                                                         Optional.of(expectedLastName),
-                                                         Optional.empty(),
-                                                         Optional.empty());
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertEquals(1, parser.getSureAuthors().size());
-                                   Assertions.assertEquals(expectedAuthor, parser.getSureAuthors().get(0));
-                                } catch (final ContentParserException e) {
-                                    Assertions.fail("getSureAuthors threw " + e.getMessage());
-                                }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        check1Author(QuantaMagazineLinkContentParser.class, url, null, expectedFirstName, expectedMiddleName, expectedLastName, null, null);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://www.quantamagazine.org/the-multiverses-measure-problem-20141103/,Natalie,,Wolchover,Peter,,Byrne",
@@ -286,38 +132,25 @@ class QuantaMagazineLinkContentParserTest {
                         final String expectedFirstName2,
                         final String expectedMiddleName2,
                         final String expectedLastName2) {
-        final AuthorData expectedAuthor1 = new AuthorData(Optional.empty(),
-                                                          Optional.of(expectedFirstName1),
-                                                          Optional.ofNullable(expectedMiddleName1),
-                                                          Optional.of(expectedLastName1),
-                                                          Optional.empty(),
-                                                          Optional.empty());
-        final AuthorData expectedAuthor2 = new AuthorData(Optional.empty(),
-                                                          Optional.of(expectedFirstName2),
-                                                          Optional.ofNullable(expectedMiddleName2),
-                                                          Optional.of(expectedLastName2),
-                                                          Optional.empty(),
-                                                          Optional.empty());
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertEquals(2, parser.getSureAuthors().size());
-                                   Assertions.assertEquals(expectedAuthor1, parser.getSureAuthors().get(0));
-                                   Assertions.assertEquals(expectedAuthor2, parser.getSureAuthors().get(1));
-                                } catch (final ContentParserException e) {
-                                    Assertions.fail("getSureAuthors threw " + e.getMessage());
-                                }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        check2Authors(QuantaMagazineLinkContentParser.class,
+                                                      url,
+                                                      // author 1
+                                                      null,
+                                                      expectedFirstName1,
+                                                      expectedMiddleName1,
+                                                      expectedLastName1,
+                                                      null,
+                                                      null,
+                                                      // author 2
+                                                      null,
+                                                      expectedFirstName2,
+                                                      expectedMiddleName2,
+                                                      expectedLastName2,
+                                                      null,
+                                                      null);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://www.quantamagazine.org/how-did-altruism-evolve-20240215/,Janna,,Levin,Stephanie,,Preston",
@@ -334,38 +167,25 @@ class QuantaMagazineLinkContentParserTest {
                             final String expectedFirstName,
                             final String expectedMiddleName,
                             final String expectedLastName) {
-        final AuthorData expectedHost = new AuthorData(Optional.empty(),
-                                                       Optional.of(expectedHostFirstName),
-                                                       Optional.ofNullable(expectedHostMiddleName),
-                                                       Optional.of(expectedHostLastName),
-                                                       Optional.empty(),
-                                                       Optional.empty());
-        final AuthorData expectedAuthor = new AuthorData(Optional.empty(),
-                                                         Optional.of(expectedFirstName),
-                                                         Optional.ofNullable(expectedMiddleName),
-                                                         Optional.of(expectedLastName),
-                                                         Optional.empty(),
-                                                         Optional.empty());
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertEquals(2, parser.getSureAuthors().size());
-                                   Assertions.assertEquals(expectedAuthor, parser.getSureAuthors().get(0));
-                                   Assertions.assertEquals(expectedHost, parser.getSureAuthors().get(1));
-                                } catch (final ContentParserException e) {
-                                    Assertions.fail("getSureAuthors threw " + e.getMessage());
-                                }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        check2Authors(QuantaMagazineLinkContentParser.class,
+                      url,
+                      // author 1
+                      null,
+                      expectedFirstName,
+                      expectedMiddleName,
+                      expectedLastName,
+                      null,
+                      null,
+                      // author 2
+                      null,
+                      expectedHostFirstName,
+                      expectedHostMiddleName,
+                      expectedHostLastName,
+                      null,
+                      null);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://www.quantamagazine.org/why-do-we-get-old-and-can-aging-be-reversed-20220727/,Steven,,Strogatz,Judith,,Campisi,Dena,,Dubal",
@@ -380,42 +200,28 @@ class QuantaMagazineLinkContentParserTest {
                                 final String expectedFirstName2,
                                 final String expectedMiddleName2,
                                 final String expectedLastName2) {
-        final AuthorData expectedHost = new AuthorData(Optional.empty(),
-                                                       Optional.of(expectedHostFirstName),
-                                                       Optional.ofNullable(expectedHostMiddleName),
-                                                       Optional.of(expectedHostLastName),
-                                                       Optional.empty(),
-                                                       Optional.empty());
-        final AuthorData expectedAuthor1 = new AuthorData(Optional.empty(),
-                                                          Optional.of(expectedFirstName1),
-                                                          Optional.ofNullable(expectedMiddleName1),
-                                                          Optional.of(expectedLastName1),
-                                                          Optional.empty(),
-                                                          Optional.empty());
-        final AuthorData expectedAuthor2 = new AuthorData(Optional.empty(),
-                                                          Optional.of(expectedFirstName2),
-                                                          Optional.ofNullable(expectedMiddleName2),
-                                                          Optional.of(expectedLastName2),
-                                                          Optional.empty(),
-                                                          Optional.empty());
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final QuantaMagazineLinkContentParser parser = new QuantaMagazineLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertEquals(3, parser.getSureAuthors().size());
-                                   Assertions.assertEquals(expectedAuthor1, parser.getSureAuthors().get(0));
-                                   Assertions.assertEquals(expectedAuthor2, parser.getSureAuthors().get(1));
-                                   Assertions.assertEquals(expectedHost, parser.getSureAuthors().get(2));
-                                } catch (final ContentParserException e) {
-                                    Assertions.fail("getSureAuthors threw " + e.getMessage());
-                                }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        check3Authors(QuantaMagazineLinkContentParser.class,
+                      url,
+                      // author 1
+                      null,
+                      expectedFirstName1,
+                      expectedMiddleName1,
+                      expectedLastName1,
+                      null,
+                      null,
+                      // author 2
+                      null,
+                      expectedFirstName2,
+                      expectedMiddleName2,
+                      expectedLastName2,
+                      null,
+                      null,
+                      // author 3
+                      null,
+                      expectedHostFirstName,
+                      expectedHostMiddleName,
+                      expectedHostLastName,
+                      null,
+                      null);
     }
 }

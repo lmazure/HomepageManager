@@ -16,6 +16,8 @@ class ArsTechnicaLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://arstechnica.com/cars/2021/04/consumer-reports-shows-tesla-autopilot-works-with-no-one-in-the-drivers-seat/|Consumer Reports shows Tesla Autopilot works with no one in the driver’s seat",
         "https://arstechnica.com/information-technology/2022/09/uber-was-hacked-to-its-core-purportedly-by-an-18-year-old-here-are-the-basics/|Uber was breached to its core, purportedly by an 18-year-old. Here’s what’s known",
+        // the H1 of next article has a newline before the CSS class
+        "https://arstechnica.com/space/2024/04/recoding-voyager-1-nasas-interstellar-explorer-is-finally-making-sense-again/|Recoding Voyager 1—NASA’s interstellar explorer is finally making sense again"
     }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {

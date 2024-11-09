@@ -40,7 +40,7 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
                                       "The Conversation",
                                       "Inside Climate News"));
     private static final TextParser s_titleParser
-        = new TextParser("<h1 class=\"[^\"]+\">",
+        = new TextParser("<h1(?:\\n *)? class=\"[^\"]+\">",
                          "</h1>",
                          s_sourceName,
                          "title");
