@@ -106,13 +106,6 @@ java.lang.UnsupportedOperationException: https://www.tf1info.fr/sante/covid-19-r
 
 
 
-détecter les URL qui finissent par "?"
-
-
-
-
-
-
 
 gérer
 https://oxide.computer/podcasts/oxide-and-friends/2052742
