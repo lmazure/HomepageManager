@@ -40,12 +40,12 @@ public class Mp3Helper {
     private void foobar(final FullFetchedLinkData data) {
         try {
             final File tempFile = File.createTempFile("temp", ".mp3");
-            tempFile.deleteOnExit();
             final FileSection fileSection = data.dataFileSection().get();
             FileHelper.writeFileSectionToFile(fileSection, tempFile);
             final MP3File mp3File = (MP3File) AudioFileIO.read(tempFile);
             double durationInSeconds = mp3File.getAudioHeader().getTrackLength();
             _duration = Duration.ofMillis((long)(durationInSeconds * 1000));
+            tempFile.delete();
         } catch (final IOException e) {
             ExitHelper.exit("Failed to create temporary MP3 file", e);
         } catch (final InvalidAudioFrameException | ReadOnlyFileException | CannotReadException | TagException e) {

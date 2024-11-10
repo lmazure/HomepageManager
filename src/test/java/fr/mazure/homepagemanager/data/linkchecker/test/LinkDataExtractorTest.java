@@ -126,7 +126,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>#449 – Graham Hancock: Lost Civilization of the Ice Age &amp; Ancient Human History</T>\
                 <A>https://lexfridman.com/graham-hancock</A>\
-                <L>en</L><F>MP3</F><DURATION><HOUR>2</HOUR><MINUTE>33</MINUTE><SECOND>1</SECOND></DURATION></X>\
+                <L>en</L><F>MP3</F><DURATION><HOUR>2</HOUR><MINUTE>41</MINUTE><SECOND>33</SECOND></DURATION></X>\
                 <X><T>Graham Hancock: Lost Civilization of the Ice Age &amp; Ancient Human History | Lex Fridman Podcast #449</T>\
                 <A>https://www.youtube.com/watch?v=NMHiLvirCb0</A>\
                 <L>en</L><F>MP4</F><DURATION><HOUR>2</HOUR><MINUTE>33</MINUTE><SECOND>1</SECOND></DURATION></X>\
@@ -146,7 +146,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>#118 – Grant Sanderson: Math, Manim, Neural Networks &amp; Teaching with 3Blue1Brown</T>\
                 <A>https://lexfridman.com/grant-sanderson-2</A>\
-                <L>en</L><F>MP3</F><DURATION><HOUR>2</HOUR><MINUTE>8</MINUTE><SECOND>25</SECOND></DURATION></X>\
+                <L>en</L><F>MP3</F><DURATION><HOUR>2</HOUR><MINUTE>8</MINUTE><SECOND>52</SECOND></DURATION></X>\
                 <X><T>Grant Sanderson: Math, Manim, Neural Networks &amp; Teaching with 3Blue1Brown | Lex Fridman Podcast #118</T>\
                 <A>https://www.youtube.com/watch?v=U_6AYX42gkU</A>\
                 <L>en</L><F>MP4</F><DURATION><HOUR>2</HOUR><MINUTE>8</MINUTE><SECOND>25</SECOND></DURATION>\

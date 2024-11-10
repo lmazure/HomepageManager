@@ -36,12 +36,6 @@ methods       54.0%    98.1%
 
 
 
-la durée n'est pas bonne sur https://lexfridman.com/jimmy-wales (mais elle est bonne pour YouTube)
-
-
-
-
-
 
 ==== potentially before merge =====
 
