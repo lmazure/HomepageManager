@@ -35,9 +35,9 @@ import fr.mazure.homepagemanager.utils.internet.UriHelper;
 public class SiteDataPersister {
 
     private final Path _path;
-    private static final int s_file_buffer_size = 8192;
-    private static final int s_max_content_size = 8 * 1024 * 1024;
 
+    private static final int s_file_buffer_size = 8192;
+    private static final long s_max_content_size = 512L * 1024L * 1024L;
     private static final Charset s_charset_utf8 = StandardCharsets.UTF_8;
     private static final String s_effectiveFileNamePrefix = "cache_";
     private static final String s_tempoFileNamePrefix = "temp_";

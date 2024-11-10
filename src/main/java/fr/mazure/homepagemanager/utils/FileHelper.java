@@ -1,6 +1,8 @@
 package fr.mazure.homepagemanager.utils;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
@@ -22,6 +24,7 @@ public class FileHelper {
      *
      * @param fileSection Section of a file to read
      * @param charset encoding of the file
+     *
      * @return content of the file
      */
     public static String slurpFileSection(final FileSection fileSection,
@@ -50,6 +53,7 @@ public class FileHelper {
      *
      * @param file file to read
      * @param charset encoding of the file
+     *
      * @return content of the file
      */
     public static String slurpFile(final File file,
@@ -67,8 +71,31 @@ public class FileHelper {
         return slurpFile(file, StandardCharsets.UTF_8);
     }
 
+
     /**
+     * Copy a file section in a file (data can be binary)
+     *
+     * @param fileSection file section
+     * @param outFile file to be written
+     */
+    public static void writeFileSectionToFile(final FileSection fileSection,
+                                              final File outFile) {
+
+        try (final FileInputStream fis = new FileInputStream(fileSection.file());
+             final FileOutputStream fos = new FileOutputStream(outFile);
+             final FileChannel inChannel = fis.getChannel();
+             final FileChannel outChannel = fos.getChannel()) {
+
+            inChannel.transferTo(fileSection.offset(), fileSection.length(), outChannel);
+        } catch (final IOException e) {
+            ExitHelper.exit("Failed to write file section of " + fileSection + " to " + outFile + " " + e);
+        }
+    }
+    /**
+     * Return the canonical path of a file
+     *
      * @param file file
+     *
      * @return canonical path of the file
      */
     public static String getCanonicalPath(final File file) {
@@ -83,6 +110,7 @@ public class FileHelper {
 
     /**
      * Write a file (charset is UTF8)
+     *
      * @param file File to write
      * @param content Content of the file
      */
@@ -129,7 +157,7 @@ public class FileHelper {
     }
 
     /**
-     * delete simply a file, stop the program if failure
+     * simply delete a file, stop the program if failure
      *
      * @param file file to be deleted
      */
