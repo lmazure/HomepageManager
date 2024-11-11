@@ -1,20 +1,10 @@
 package fr.mazure.homepagemanager.data.linkchecker.gitlabblog.test;
 
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicBoolean;
-
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
-import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
-import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.gitlabblog.GitlabBlogLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase;
-import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
-import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 
 /**
  * Tests of GitlabBlogLinkContentParser
@@ -36,26 +26,17 @@ class GitlabBlogLinkContentParserTest extends LinkDataExtractorTestBase {
         checkTitle(GitlabBlogLinkContentParser.class, url, expectedTitle);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
         "https://about.gitlab.com/blog/2021/12/15/devops-adoption",
         "https://about.gitlab.com/blog/2021/08/24/stageless-pipelines/",
         })
     void testNoSubtitle(final String url) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final GitlabBlogLinkContentParser parser = new GitlabBlogLinkContentParser(url, data, retriever);
-                               Assertions.assertFalse(parser.getSubtitle().isPresent());
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkNoSubtitle(GitlabBlogLinkContentParser.class, url);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://about.gitlab.com/blog/2020/11/11/gitlab-for-agile-portfolio-planning-project-management/,2020-11-11",
@@ -68,47 +49,19 @@ class GitlabBlogLinkContentParserTest extends LinkDataExtractorTestBase {
         })
     void testDate(final String url,
                   final String expectedDate) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final GitlabBlogLinkContentParser parser = new GitlabBlogLinkContentParser(url, data, retriever);
-                               try {
-                                   TestHelper.assertDate(expectedDate, parser.getDate());
-                                } catch (final ContentParserException e) {
-                                    Assertions.fail("getDate threw " + e.getMessage());
-                                }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkDate(GitlabBlogLinkContentParser.class, url, expectedDate);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://about.gitlab.com/blog/2023/09/28/unmasking-password-attacks-at-gitlab/",
         })
     void testNoAuthors(final String url) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final GitlabBlogLinkContentParser parser = new GitlabBlogLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertEquals(0, parser.getSureAuthors().size());
-                                } catch (final ContentParserException e) {
-                                    Assertions.fail("getSureAuthors threw " + e.getMessage());
-                                }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        check0Author(GitlabBlogLinkContentParser.class, url);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://about.gitlab.com/blog/2021/12/15/devops-adoption/,Orit,,Golowinski",
@@ -122,31 +75,17 @@ class GitlabBlogLinkContentParserTest extends LinkDataExtractorTestBase {
                     final String expectedFirstName,
                     final String expectedMiddleName,
                     final String expectedLastName) {
-        final AuthorData expectedAuthor = new AuthorData(Optional.empty(),
-                                                         Optional.of(expectedFirstName),
-                                                         Optional.ofNullable(expectedMiddleName),
-                                                         Optional.of(expectedLastName),
-                                                         Optional.empty(),
-                                                         Optional.empty());
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final GitlabBlogLinkContentParser parser = new GitlabBlogLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertEquals(1, parser.getSureAuthors().size());
-                                   Assertions.assertEquals(expectedAuthor, parser.getSureAuthors().get(0));
-                                } catch (final ContentParserException e) {
-                                    Assertions.fail("getSureAuthors threw " + e.getMessage());
-                                }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        check1Author(GitlabBlogLinkContentParser.class,
+                     url,
+                     null,
+                     expectedFirstName,
+                     expectedMiddleName,
+                     expectedLastName,
+                     null,
+                     null);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://about.gitlab.com/blog/2021/09/23/best-practices-customer-feature-request/,Christina,,Hupy,Neil,,McCorrison",
@@ -160,35 +99,21 @@ class GitlabBlogLinkContentParserTest extends LinkDataExtractorTestBase {
                         final String expectedFirstName2,
                         final String expectedMiddleName2,
                         final String expectedLastName2) {
-        final AuthorData expectedAuthor1 = new AuthorData(Optional.empty(),
-                                                          Optional.of(expectedFirstName1),
-                                                          Optional.ofNullable(expectedMiddleName1),
-                                                          Optional.of(expectedLastName1),
-                                                          Optional.empty(),
-                                                          Optional.empty());
-        final AuthorData expectedAuthor2 = new AuthorData(Optional.empty(),
-                                                          Optional.of(expectedFirstName2),
-                                                          Optional.ofNullable(expectedMiddleName2),
-                                                          Optional.of(expectedLastName2),
-                                                          Optional.empty(),
-                                                          Optional.empty());
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                          (final FullFetchedLinkData d) -> {
-                              Assertions.assertTrue(d.dataFileSection().isPresent());
-                              final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                              final GitlabBlogLinkContentParser parser = new GitlabBlogLinkContentParser(url, data, retriever);
-                              try {
-                                  Assertions.assertEquals(2, parser.getSureAuthors().size());
-                                  Assertions.assertEquals(expectedAuthor1, parser.getSureAuthors().get(0));
-                                  Assertions.assertEquals(expectedAuthor2, parser.getSureAuthors().get(1));
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getSureAuthors threw " + e.getMessage());
-                               }
-                              consumerHasBeenCalled.set(true);
-                          },
-                          false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        check2Authors(GitlabBlogLinkContentParser.class,
+                      url,
+                      // author 1
+                      null,
+                      expectedFirstName1,
+                      expectedMiddleName1,
+                      expectedLastName1,
+                      null,
+                      null,
+                      // author 2
+                      null,
+                      expectedFirstName2,
+                      expectedMiddleName2,
+                      expectedLastName2,
+                      null,
+                      null);
     }
 }

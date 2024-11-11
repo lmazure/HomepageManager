@@ -35,6 +35,18 @@ methods       54.0%    98.1%
 
 
 
+faire passer ChromiumBlogLinkContentParserTest sous carcan
+
+
+
+
+
+mauvaise date pour https://developer.ibm.com/articles/j-java-streams-5-brian-goetz/, 5 articles qui ont été réécrits
+idem pour https://developer.ibm.com/articles/j-java-streams-1-brian-goetz/
+
+
+
+
 
 
 ==== potentially before merge =====
@@ -51,7 +63,7 @@ expected duration PT22M34S is not in the real duration interval [PT596H31M23S,PT
 
 
 
-the author of https://www.baeldung.com/java-linked-hashmap is not extracted
+the reviewer of https://www.baeldung.com/java-linked-hashmap is not extracted
 
 
 

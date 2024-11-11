@@ -1,27 +1,17 @@
 package fr.mazure.homepagemanager.data.linkchecker.dzone.test;
 
-import java.util.Locale;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicBoolean;
-
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
-import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
-import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.dzone.DZoneLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase;
-import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
-import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 
 /**
  * Tests of DZoneLinkContentParser
  */
 class DZoneLinkContentParserTest extends LinkDataExtractorTestBase {
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://dzone.com/articles/how-fix-memory-leaks-java,Veljko,Krunic",
@@ -34,31 +24,17 @@ class DZoneLinkContentParserTest extends LinkDataExtractorTestBase {
     void testAuthor(final String url,
                     final String expectedFirstName,
                     final String expectedLastName) {
-        final AuthorData expectedAuthor = new AuthorData(Optional.empty(),
-                                                         Optional.ofNullable(expectedFirstName),
-                                                         Optional.empty(),
-                                                         Optional.ofNullable(expectedLastName),
-                                                         Optional.empty(),
-                                                         Optional.empty());
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final DZoneLinkContentParser parser = new DZoneLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertEquals(1, parser.getSureAuthors().size());
-                                   Assertions.assertEquals(expectedAuthor, parser.getSureAuthors().get(0));
-                                } catch (final ContentParserException e) {
-                                    Assertions.fail("getSureAuthors threw " + e.getMessage());
-                                }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        check1Author(DZoneLinkContentParser.class,
+                     url,
+                     null,
+                     expectedFirstName,
+                     null,
+                     expectedLastName,
+                     null,
+                     null);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://dzone.com/articles/knowledge-graphs-the-secret-weapon-for-rag-apps,Pavan,,Vemuri,Prince,,Bose,Tharakarama,Reddy,Yernapalli Sreenivasulu",
@@ -73,44 +49,29 @@ class DZoneLinkContentParserTest extends LinkDataExtractorTestBase {
                           final String expectedFirstName3,
                           final String expectedMiddleName3,
                           final String expectedLastName3) {
-        final AuthorData expectedAuthor1 = new AuthorData(Optional.empty(),
-                                                          Optional.ofNullable(expectedFirstName1),
-                                                          Optional.ofNullable(expectedMiddleName1),
-                                                          Optional.ofNullable(expectedLastName1),
-                                                          Optional.empty(),
-                                                          Optional.empty());
-        final AuthorData expectedAuthor2 = new AuthorData(Optional.empty(),
-                                                          Optional.ofNullable(expectedFirstName2),
-                                                          Optional.ofNullable(expectedMiddleName2),
-                                                          Optional.ofNullable(expectedLastName2),
-                                                          Optional.empty(),
-                                                          Optional.empty());
-        final AuthorData expectedAuthor3 = new AuthorData(Optional.empty(),
-                                                          Optional.ofNullable(expectedFirstName3),
-                                                          Optional.ofNullable(expectedMiddleName3),
-                                                          Optional.ofNullable(expectedLastName3),
-                                                          Optional.empty(),
-                                                          Optional.empty());
-
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final DZoneLinkContentParser parser = new DZoneLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertEquals(3, parser.getSureAuthors().size());
-                                   Assertions.assertEquals(expectedAuthor1, parser.getSureAuthors().get(0));
-                                   Assertions.assertEquals(expectedAuthor2, parser.getSureAuthors().get(1));
-                                   Assertions.assertEquals(expectedAuthor3, parser.getSureAuthors().get(2));
-                                } catch (final ContentParserException e) {
-                                    Assertions.fail("getSureAuthors threw " + e.getMessage());
-                                }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        check3Authors(DZoneLinkContentParser.class,
+                      url,
+                      // author 1
+                      null,
+                      expectedFirstName1,
+                      expectedMiddleName1,
+                      expectedLastName1,
+                      null,
+                      null,
+                      // author 2
+                      null,
+                      expectedFirstName2,
+                      expectedMiddleName2,
+                      expectedLastName2,
+                      null,
+                      null,
+                      // author 3
+                      null,
+                      expectedFirstName3,
+                      expectedMiddleName3,
+                      expectedLastName3,
+                      null,
+                      null);
     }
 
     @SuppressWarnings("static-method")
@@ -124,54 +85,26 @@ class DZoneLinkContentParserTest extends LinkDataExtractorTestBase {
         checkTitle(DZoneLinkContentParser.class, url, expectedTitle);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
         "https://dzone.com/articles/explore-annotations-in-java-8|Explore the evolution of annotations in Java 8 and how they are being used today!",
         }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final DZoneLinkContentParser parser = new DZoneLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertTrue(parser.getSubtitle().isPresent());
-                                   Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getSubtitle threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkSubtitle(DZoneLinkContentParser.class, url, expectedSubtitle);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
         "https://dzone.com/articles/how-fix-memory-leaks-java",
         }, delimiter = '|')
     void testNoSubtitle(final String url) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final DZoneLinkContentParser parser = new DZoneLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertFalse(parser.getSubtitle().isPresent());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getSubtitle threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkNoSubtitle(DZoneLinkContentParser.class, url);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://dzone.com/articles/how-fix-memory-leaks-java,2009-03-18",
@@ -180,24 +113,10 @@ class DZoneLinkContentParserTest extends LinkDataExtractorTestBase {
         })
     void testPublishDate(final String url,
                          final String expectedDate) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final DZoneLinkContentParser parser = new DZoneLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertEquals(expectedDate, parser.getPublicationDate().toString());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getPublicationDate threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkDate(DZoneLinkContentParser.class, url, expectedDate);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
         "https://dzone.com/articles/how-fix-memory-leaks-java|en",
@@ -205,21 +124,6 @@ class DZoneLinkContentParserTest extends LinkDataExtractorTestBase {
         }, delimiter = '|')
     void testLanguage(final String url,
                       final String expectedLanguage) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final DZoneLinkContentParser parser = new DZoneLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertEquals(Locale.of(expectedLanguage), parser.getLanguage());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getLanguage threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkLanguage(DZoneLinkContentParser.class, url, expectedLanguage);
     }
 }
