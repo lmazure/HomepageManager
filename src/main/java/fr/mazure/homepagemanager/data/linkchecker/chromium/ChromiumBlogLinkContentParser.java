@@ -12,6 +12,7 @@ import java.util.Optional;
 import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
+import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
@@ -37,6 +38,11 @@ public class ChromiumBlogLinkContentParser extends LinkDataExtractor {
                          "</span>",
                          s_sourceName,
                          "date");
+    private static final TextParser s_authorParser
+        = new TextParser("<span [^>]+>Posted by ",
+                         "</span>",
+                         s_sourceName,
+                         "author");
     private static final DateTimeFormatter s_formatter = DateTimeFormatter.ofPattern("EEEE, MMMM d, u", Locale.ENGLISH);
 
     /**
@@ -81,7 +87,27 @@ public class ChromiumBlogLinkContentParser extends LinkDataExtractor {
 
     @Override
     public List<AuthorData> getSureAuthors() throws ContentParserException {
-        return new ArrayList<>();
+        final Optional<String> str = s_authorParser.extractOptional(_data);
+        if (str.isEmpty()) {
+            return new ArrayList<>();
+        }
+        final String author = HtmlHelper.cleanContent(str.get())
+                                        .replace(", on behalf of Chrome's web platform security team", "")
+                                        .replace("SYN, SYN-ACK and ACK (also known as ", "")
+                                        .replaceAll(" of .*", "")
+                                        .replace(" from the Chrome team", "")
+                                        .replace(" - lazy Chrome engineers.", "")
+                                        .replace(", technical lead for Chrome accessibility.", "")
+                                        .replace(", Product Director Chrome Media", "")
+                                        .replace(", Product Manager on Chrome", "")
+                                        .replace(", Product Manager", "")
+                                        .replace(", Developer Relations", "")
+                                        .replace(", Software Engineer on the MapsGL team", "")
+                                        .replaceAll(", Software Engineers?", "")
+                                        .replace("- Software Engineer", "")
+                                        .replace(", Technical Lead for Lite Mode", "")
+                                        .replaceAll("\\)$", "");
+        return LinkContentParserUtils.getAuthors(author);
     }
 
     @Override
