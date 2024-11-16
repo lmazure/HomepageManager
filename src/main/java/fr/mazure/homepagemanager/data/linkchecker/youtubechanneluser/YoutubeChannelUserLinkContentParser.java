@@ -12,6 +12,7 @@ import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
+import fr.mazure.homepagemanager.utils.ExitHelper;
 import fr.mazure.homepagemanager.utils.StringHelper;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
@@ -20,17 +21,16 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
  * Data extractor for YouTube channels
  */
 public class YoutubeChannelUserLinkContentParser extends LinkDataExtractor {
-    
+
     static final String s_sourceName = "YouTube channel page";
 
-    private static final Pattern s_errorMessagePattern = Pattern.compile("\"alerts\":\\[\\{\"alertRenderer\":\\{\"type\":\"ERROR\",\"text\":\\{\"simpleText\":\"([^\\\"]*)\"\\}\\}\\}\\]");
+    private static final Pattern s_errorMessagePattern = Pattern.compile("\"alerts\":\\[\\{\"alertRenderer\":\\{\"type\":\"ERROR\",\"text\":\\{\"simpleText\":\"([^\\\"]*)\"\\}\\}\\}\\]"); //TODO use TextParser
     private static final TextParser s_descriptionParser
         = new TextParser("<meta name=\"description\" content=\"",
                          "\">",
                          s_sourceName,
                          "description");
 
-    private final String _data;
     private Locale _language;
     private Optional<String> _errorMessage;
 
@@ -43,17 +43,28 @@ public class YoutubeChannelUserLinkContentParser extends LinkDataExtractor {
                                                final String data,
                                                final CachedSiteDataRetriever retriever) {
         super(url, retriever);
-        _data = data;
+
+        _errorMessage = extractErrorMessage(data);
+
+        if (_errorMessage.isPresent()) {
+	        _language = Locale.ENGLISH;
+        } else {
+            try {
+                final String description = extractDescription(data);
+                final Optional<Locale> lang = StringHelper.guessLanguage(description);
+                //  we fallback to English if the language cannot be guessed
+                _language = lang.orElse(Locale.ENGLISH);
+            } catch (ContentParserException e) {
+                // TODO should keep the exception escape
+                ExitHelper.exit("Failed to extract description", e);
+            }
+        }
     }
 
     /**
      * @return error message
      */
     public Optional<String> getErrorMessage() {
-        if (_errorMessage == null) {
-            _errorMessage = extractErrorMessage();
-        }
-
         return _errorMessage;
     }
 
@@ -63,19 +74,12 @@ public class YoutubeChannelUserLinkContentParser extends LinkDataExtractor {
      */
     @Override
     public Locale getLanguage() throws ContentParserException {
-        if (_language == null) {
-            final String description = extractDescription();
-            final Optional<Locale> lang = StringHelper.guessLanguage(description);
-            // we fallback to English if the language cannot be guessed
-            _language = lang.orElse(Locale.ENGLISH);
-        }
-
         return _language;
     }
 
-    private Optional<String> extractErrorMessage() {
+    private static Optional<String> extractErrorMessage(final String data) {
 
-        final Matcher m = s_errorMessagePattern.matcher(_data);
+        final Matcher m = s_errorMessagePattern.matcher(data);
         if (m.find()) {
             return Optional.of(m.group(1));
         }
@@ -83,8 +87,8 @@ public class YoutubeChannelUserLinkContentParser extends LinkDataExtractor {
         return Optional.empty();
     }
 
-    private String extractDescription() throws ContentParserException {
-        return HtmlHelper.cleanContent(s_descriptionParser.extract(_data));
+    private static String extractDescription(final String data) throws ContentParserException {
+        return HtmlHelper.cleanContent(s_descriptionParser.extract(data));
     }
 
     @Override

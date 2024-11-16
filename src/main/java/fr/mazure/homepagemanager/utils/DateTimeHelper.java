@@ -63,7 +63,7 @@ public class DateTimeHelper {
      * Convert a TemporalAccessor to a LocalDate
      *
      * @param accessor TemporalAccessor
-     * @return LocalDate 
+     * @return LocalDate
      */
     public static LocalDate convertTemporalAccessorToLocalDate(final TemporalAccessor accessor) {
         return LocalDate.of(accessor.get(ChronoField.YEAR), accessor.get(ChronoField.MONTH_OF_YEAR), accessor.get(ChronoField.DAY_OF_MONTH));

@@ -58,7 +58,6 @@ class NonNormalizedURLCheckerTest extends NodeValueCheckerTestBase {
         }
     }
 
-
     @SuppressWarnings("static-method")
     @Test
     void skashAtEndOfLexFridmanUrlIsDetected() {

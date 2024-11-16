@@ -77,7 +77,8 @@ public class LinkContentCheckerFactory {
                                                        ExitHelper.exit(e);
                                                        // NOTREACHED
                                                        return false;
-                                                   }},
+                                                   }
+                                               },
                                                cons));
             } catch (final NoSuchMethodException e) {
                 ExitHelper.exit(e);

@@ -69,7 +69,6 @@ public class NonNormalizedURLChecker extends NodeChecker {
         return null;
     }
 
-
     private static CheckStatus checkNoFinalSlash(final Element element) {
 
         final String url = element.getTextContent();

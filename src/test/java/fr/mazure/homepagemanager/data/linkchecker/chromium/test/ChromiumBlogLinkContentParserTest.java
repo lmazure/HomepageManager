@@ -1,72 +1,38 @@
 package fr.mazure.homepagemanager.data.linkchecker.chromium.test;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
-import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
-import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.chromium.ChromiumBlogLinkContentParser;
-import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
+import fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase;
 
 /**
  * Tests of ChromiumBlogLinkContentParser
  */
-class ChromiumBlogLinkContentParserTest {
+class ChromiumBlogLinkContentParserTest extends LinkDataExtractorTestBase {
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://blog.chromium.org/2009/01/tabbed-browsing-in-google-chrome.html,Tabbed Browsing in Google Chrome",
-        "https://blog.chromium.org/2020/04/keeping-spam-off-chrome-web-store.html,Keeping spam off the Chrome Web Store",
-        })
+    @CsvSource(value = {
+        "https://blog.chromium.org/2009/01/tabbed-browsing-in-google-chrome.html|Tabbed Browsing in Google Chrome",
+        "https://blog.chromium.org/2020/04/keeping-spam-off-chrome-web-store.html|Keeping spam off the Chrome Web Store",
+    }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final ChromiumBlogLinkContentParser parser = new ChromiumBlogLinkContentParser(data);
-                               try {
-                                   Assertions.assertEquals(expectedTitle, parser.getTitle());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getTitle threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkTitle(ChromiumBlogLinkContentParser.class, url, expectedTitle);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://blog.chromium.org/2019/05/improving-privacy-and-security-on-web.html,Improving privacy and security on the web",
-        })
+    @CsvSource(value = {
+        "https://blog.chromium.org/2019/05/improving-privacy-and-security-on-web.html|Improving privacy and security on the web",
+    }, delimiter = '|')
     void testTrimmedTitle(final String url,
                           final String expectedTitle) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final ChromiumBlogLinkContentParser parser = new ChromiumBlogLinkContentParser(data);
-                               try {
-                                   Assertions.assertEquals(expectedTitle, parser.getTitle());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getTitle threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkTitle(ChromiumBlogLinkContentParser.class, url, expectedTitle);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
         "https://blog.chromium.org/2010/05/security-in-depth-html5s-sandbox.html|Security in Depth: HTML5’s @sandbox",
@@ -76,45 +42,17 @@ class ChromiumBlogLinkContentParserTest {
         }, delimiter = '|')
     void testTitleWithSpecialCharacter(final String url,
                                        final String expectedTitle) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final ChromiumBlogLinkContentParser parser = new ChromiumBlogLinkContentParser(data);
-                               try {
-                                   Assertions.assertEquals(expectedTitle, parser.getTitle());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getTitle threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkTitle(ChromiumBlogLinkContentParser.class, url, expectedTitle);
     }
+
+    @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://blog.chromium.org/2009/01/tabbed-browsing-in-google-chrome.html,2009-01-06",
-        "https://blog.chromium.org/2020/04/keeping-spam-off-chrome-web-store.html,2020-04-29",
-        })
+    @CsvSource(value = {
+        "https://blog.chromium.org/2009/01/tabbed-browsing-in-google-chrome.html|2009-01-06",
+        "https://blog.chromium.org/2020/04/keeping-spam-off-chrome-web-store.html|2020-04-29",
+    }, delimiter = '|')
     void testPublishDate(final String url,
                          final String expectedPublicationDate) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final ChromiumBlogLinkContentParser parser = new ChromiumBlogLinkContentParser(data);
-                               try {
-                                   Assertions.assertEquals(expectedPublicationDate, parser.getPublicationDate().toString());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getPublicationDate threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkDate(ChromiumBlogLinkContentParser.class, url, expectedPublicationDate);
     }
 }

@@ -48,7 +48,6 @@ public class UrlChecker extends NodeChecker {
                                Optional.empty());
     }
 
-
     private static CheckStatus checkLastCharacter(final Element e) {
 
         final String url = e.getTextContent();

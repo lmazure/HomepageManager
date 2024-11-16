@@ -252,7 +252,6 @@ class UpdateLinkStatusCorrectionTest {
         Assertions.assertEquals(expected, correction.apply(content));
     }
 
-
     @SuppressWarnings("static-method")
     @Test
     void description() {

@@ -13,7 +13,7 @@ import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 public class YouTubeHelper {
 
     private static final Pattern _pattern = Pattern.compile("\"url\":\"/watch\\?v=([^\"]+)\\\\u0026");
-    
+
     private Optional<String> _getVideoURL;
 
     /**

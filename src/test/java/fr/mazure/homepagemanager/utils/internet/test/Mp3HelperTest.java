@@ -16,7 +16,6 @@ import fr.mazure.homepagemanager.utils.internet.Mp3Helper;
  */
 class Mp3HelperTest extends Mp3Helper {
 
-
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {

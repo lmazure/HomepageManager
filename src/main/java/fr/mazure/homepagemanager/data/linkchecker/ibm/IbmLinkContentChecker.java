@@ -41,8 +41,7 @@ public class IbmLinkContentChecker extends ExtractorBasedLinkContentChecker {
     }
 
     @Override
-    protected LinkContentCheck checkGlobalData(final String data) throws ContentParserException 
-    {
+    protected LinkContentCheck checkGlobalData(final String data) throws ContentParserException {
         final LinkContentCheck result = super.checkGlobalData(data);
         if (result != null) {
             return result;

@@ -71,7 +71,6 @@ public class FileHelper {
         return slurpFile(file, StandardCharsets.UTF_8);
     }
 
-
     /**
      * Copy a file section in a file (data can be binary)
      *

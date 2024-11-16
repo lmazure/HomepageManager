@@ -47,14 +47,6 @@ methods       53.9%    97.9%
 
 
 
-
-faire passer ChromiumBlogLinkContentParserTest sous carcan
-
-
-
-
-
-
 séparer les IDEs des modèles dans les code assistants
 
 

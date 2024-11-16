@@ -178,7 +178,7 @@ public class SiteDataPersister {
     public FullFetchedLinkData retrieve(final String url) {
 
         final File file = getEffectivePersistedFile(url);
-        
+
         if (!Files.exists(file.toPath())) {
             return null;
         }
