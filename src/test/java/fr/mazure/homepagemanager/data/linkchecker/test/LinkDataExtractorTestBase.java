@@ -80,7 +80,7 @@ public class LinkDataExtractorTestBase {
                         try {
                             Assertions.assertEquals(Locale.of(expectedLanguage), p.getLanguage());
                         } catch (final ContentParserException e) {
-                            Assertions.fail("getDate threw " + e.getMessage());
+                            Assertions.fail("getLanguage threw " + e.getMessage());
                         }
                     });
     }
@@ -241,7 +241,7 @@ public class LinkDataExtractorTestBase {
                                assertor.accept(parser);
                                consumerHasBeenCalled.set(true);
                            },
-                           false);
+                           true);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }
 

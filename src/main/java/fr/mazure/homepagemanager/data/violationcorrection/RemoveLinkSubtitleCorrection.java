@@ -12,7 +12,7 @@ public class RemoveLinkSubtitleCorrection extends RegexpViolationCorrection {
     /**
      * Constructor
      *
-     * @param badSubtitle  Bad subtitle
+     * @param badSubtitle Bad subtitle
      * @param url URL of the link
      */
     public RemoveLinkSubtitleCorrection(final String badSubtitle,

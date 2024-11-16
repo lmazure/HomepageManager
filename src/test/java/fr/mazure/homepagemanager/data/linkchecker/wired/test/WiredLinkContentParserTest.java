@@ -9,7 +9,7 @@ import fr.mazure.homepagemanager.data.linkchecker.wired.WiredLinkContentParser;
 /**
  * Tests of WiredLinkContentParser
  */
-class WiredLinkContentParserTest  extends LinkDataExtractorTestBase {
+class WiredLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest

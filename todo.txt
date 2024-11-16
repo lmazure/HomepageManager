@@ -29,6 +29,19 @@ lines         67.8%    94.9%
 methods       54.0%    98.1%
 
 
+2024-11-16
+warnings = 111
+lines prod = 10953
+lines test = 3966
+test coverage =
+              main     test
+instructions  69.3%    93.6%
+branches      48.9%    62.5%
+lines         68.2%    95.2%
+methods       53.9%    97.9%
+
+
+
 ==== before merge =====
 
 
@@ -36,8 +49,13 @@ methods       54.0%    98.1%
 
 
 faire passer ChromiumBlogLinkContentParserTest sous carcan
-YoutubeChannelUserLinkContentParserTest
-YoutubeWatchLinkContentParserTest
+
+
+
+
+
+
+séparer les IDEs des modèles dans les code assistants
 
 
 
@@ -46,6 +64,13 @@ YoutubeWatchLinkContentParserTest
 
 
 ==== potentially before merge =====
+
+
+
+
+corriger les liens videos cassés de TricTRack
+
+
 
 
 
@@ -412,17 +437,6 @@ nettoyer links/windows.xml
 
 
 le cancel des checks en cours en cas de nouveau save n'a plus l'air de marcher
-
-
-
-
-
-
-
-je pense qu'il y a un problème entre le matin et l'après-midi
-https://www.youtube.com/watch?v=tdv7r2JSokI
-expected date 2024-04-23 is not equal to the effective publish date 2024-04-22
-
 
 
 

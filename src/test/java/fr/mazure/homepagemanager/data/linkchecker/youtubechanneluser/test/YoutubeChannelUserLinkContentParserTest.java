@@ -1,58 +1,47 @@
 package fr.mazure.homepagemanager.data.linkchecker.youtubechanneluser.test;
 
-import java.util.Locale;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
-import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
-import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
+import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
+import fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase;
 import fr.mazure.homepagemanager.data.linkchecker.youtubechanneluser.YoutubeChannelUserLinkContentParser;
-import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 
 /**
  * Tests of YoutubeChannelUserLinkContentParser
  */
-class YoutubeChannelUserLinkContentParserTest {
+class YoutubeChannelUserLinkContentParserTest extends LinkDataExtractorTestBase {
 
+    @SuppressWarnings("static-method")
     @Test
     void testErrorMessagePresent() {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve("https://www.youtube.com/channel/UCwBn4dgV3kxzvcCKN3TbQOQ",
-                           (final FullFetchedLinkData d) -> {
-                            Assertions.assertTrue(d.dataFileSection().isPresent());
-                            final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                            final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
-                            Assertions.assertTrue(parser.getErrorMessage().isPresent());
-                            Assertions.assertEquals("This channel does not exist.", parser.getErrorMessage().get());
-                            consumerHasBeenCalled.set(true);
-                           },
-                           true);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        final String url = "https://www.youtube.com/channel/UCwBn4dgV3kxzvcCKN3TbQOQ";
+        perform(YoutubeChannelUserLinkContentParser.class,
+                url,
+                (final LinkDataExtractor p) ->
+                    {
+                        final YoutubeChannelUserLinkContentParser parser = (YoutubeChannelUserLinkContentParser)p;
+                        Assertions.assertTrue(parser.getErrorMessage().isPresent());
+                        Assertions.assertEquals("This channel does not exist.", parser.getErrorMessage().get());
+                    });
     }
 
+    @SuppressWarnings("static-method")
     @Test
     void testErrorMessageAbsent() {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve("https://www.youtube.com/channel/UC6nSFpj9HTCZ5t-N3Rm3-HA",
-                           (final FullFetchedLinkData d) -> {
-                            Assertions.assertTrue(d.dataFileSection().isPresent());
-                            final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                            final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
-                            Assertions.assertTrue(parser.getErrorMessage().isEmpty());
-                            consumerHasBeenCalled.set(true);
-                           },
-                           true);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        final String url = "https://www.youtube.com/channel/UC6nSFpj9HTCZ5t-N3Rm3-HA";
+        perform(YoutubeChannelUserLinkContentParser.class,
+                url,
+                (final LinkDataExtractor p) ->
+                    {
+                        final YoutubeChannelUserLinkContentParser parser = (YoutubeChannelUserLinkContentParser)p;
+                        Assertions.assertTrue(parser.getErrorMessage().isEmpty());
+                    });
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @ValueSource(strings = {
             "https://www.youtube.com/channel/UC6nSFpj9HTCZ5t-N3Rm3-HA",
@@ -60,47 +49,18 @@ class YoutubeChannelUserLinkContentParserTest {
             "https://www.youtube.com/channel/UCZYTClx2T1of7BRZ86-8fow",
             "https://www.youtube.com/user/Vsauce2",
             "https://www.youtube.com/user/Vsauce3",
-                           })
+       })
     void testEnglish(final String url) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                            Assertions.assertTrue(d.dataFileSection().isPresent());
-                            final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                            final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
-                            try {
-                                Assertions.assertEquals(Locale.ENGLISH, parser.getLanguage().get());
-                            } catch (final ContentParserException e) {
-                                Assertions.fail("getLanguage threw " + e.getMessage());
-                            }
-                            consumerHasBeenCalled.set(true);
-                           },
-                           true);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkLanguage(YoutubeChannelUserLinkContentParser.class, url, "en");
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @ValueSource(strings = {
             "https://www.youtube.com/channel/UCjsHDXUU3BjBCG7OaCbNDyQ",
             "https://www.youtube.com/user/TheWandida",
-                           })
+       })
     void testFrench(final String url) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                            Assertions.assertTrue(d.dataFileSection().isPresent());
-                            final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                            final YoutubeChannelUserLinkContentParser parser = new YoutubeChannelUserLinkContentParser(data);
-                            try {
-                                Assertions.assertEquals(Locale.FRENCH, parser.getLanguage().get());
-                            } catch (final ContentParserException e) {
-                                Assertions.fail("getLanguage threw " + e.getMessage());
-                            }
-                            consumerHasBeenCalled.set(true);
-                           },
-                           true);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkLanguage(YoutubeChannelUserLinkContentParser.class, url, "fr");
     }
 }

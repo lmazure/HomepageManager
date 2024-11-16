@@ -12,7 +12,7 @@ public class UpdateLinkLanguageCorrection extends RegexpViolationCorrection {
      * Constructor
      *
      * @param badLanguage Incorrect language
-     * @param correctLanguage  Correct language
+     * @param correctLanguage Correct language
      * @param url URL of the link
      */
     public UpdateLinkLanguageCorrection(final Locale badLanguage,

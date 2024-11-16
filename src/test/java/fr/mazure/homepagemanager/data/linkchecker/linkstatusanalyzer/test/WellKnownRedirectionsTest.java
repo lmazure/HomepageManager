@@ -159,7 +159,7 @@ class WellKnownRedirectionsTest {
     @ParameterizedTest
     @CsvSource({
         "http://httpbin.org/status/522",
-        //"http://ganttproject.biz", this site sometime return  302
+        //"http://ganttproject.biz", this site sometimes return 302
         })
     void direct522(final String url) {
         test(url,

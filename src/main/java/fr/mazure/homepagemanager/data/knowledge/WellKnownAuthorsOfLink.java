@@ -15,7 +15,7 @@ public class WellKnownAuthorsOfLink {
 
     /**
      * Records of the well-known authors
-     * @param compulsoryAuthors   compulsory authors
+     * @param compulsoryAuthors compulsory authors
      * @param canHaveOtherAuthors can there be other authors?
      */
     public record KnownAuthors (List<AuthorData> compulsoryAuthors,
