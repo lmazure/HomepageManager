@@ -91,21 +91,39 @@ public class ChromiumBlogLinkContentParser extends LinkDataExtractor {
         if (str.isEmpty()) {
             return new ArrayList<>();
         }
-        final String author = HtmlHelper.cleanContent(str.get())
+        if (str.get().equals("the Chrome DevTools team")) {
+            return new ArrayList<>();
+        }
+        final String author = HtmlHelper.cleanContent(str.get()) // TODO this is a real nightmare
                                         .replace(", on behalf of Chrome's web platform security team", "")
                                         .replace("SYN, SYN-ACK and ACK (also known as ", "")
                                         .replaceAll(" of .*", "")
                                         .replace(" from the Chrome team", "")
                                         .replace(" - lazy Chrome engineers.", "")
+                                        .replace(" - Director, Chrome Engineering", "")
                                         .replace(", technical lead for Chrome accessibility.", "")
+                                        .replace(", Lite Pages Technical Lead", "")
                                         .replace(", Product Director Chrome Media", "")
-                                        .replace(", Product Manager on Chrome", "")
-                                        .replace(", Product Manager", "")
+                                        .replaceAll(", Product Manager(,| on) Chrome", "")
+                                        .replace(", Chrome Product Manager", "")
+                                        .replace(", Senior Product Manager,", "")
+                                        .replace(", Web Platform PM", "")
+                                        .replace(", Technical Program Manager", "")
+                                        .replaceAll(", (|Chrome Extensions )Product Manager", "")
                                         .replace(", Developer Relations", "")
-                                        .replace(", Software Engineer on the MapsGL team", "")
-                                        .replaceAll(", Software Engineers?", "")
-                                        .replace("- Software Engineer", "")
+                                        .replaceAll(", Software Engineer(,| on) .*", "")
+                                        .replace(", Software Engineer, Chrome on iOS", "")
+                                        .replaceAll("[-,]( Chrome)? Software Engineers?", "")
                                         .replace(", Technical Lead for Lite Mode", "")
+                                        .replaceAll(", (Chrome|Google) Security (Engineer|Team)", "")
+                                        .replace(", Chrome Policy and Anti-Abuse Team", "")
+                                        .replace(", Chrome Product & Policy", "")
+                                        .replaceAll(", (Developer|Design) Advocate", "")
+                                        .replace(", Resident Loader Coders", "")
+                                        .replace(", JavaScript Janitor", "")
+                                        .replace(", dreamer.", "")
+                                        .replace(", “The Unbouncer”", "")
+                                        .replace(", the Wizzy Web Warrior.", "")
                                         .replaceAll("\\)$", "");
         return LinkContentParserUtils.getAuthors(author);
     }

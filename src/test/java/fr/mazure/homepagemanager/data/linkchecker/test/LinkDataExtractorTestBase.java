@@ -213,6 +213,62 @@ public class LinkDataExtractorTestBase {
         checkAuthors(clazz, url, expectedAuthors);
     }
 
+    
+    protected static void check4Authors(final Class<? extends LinkDataExtractor> clazz,
+                                        final String url,
+                                        final String expectedNamePrefix1,
+                                        final String expectedFirstName1,
+                                        final String expectedMiddleName1,
+                                        final String expectedLastName1,
+                                        final String expectedNameSuffix1,
+                                        final String expectedGivenName1,
+                                        final String expectedNamePrefix2,
+                                        final String expectedFirstName2,
+                                        final String expectedMiddleName2,
+                                        final String expectedLastName2,
+                                        final String expectedGivenName2,
+                                        final String expectedNameSuffix2,
+                                        final String expectedNamePrefix3,
+                                        final String expectedFirstName3,
+                                        final String expectedMiddleName3,
+                                        final String expectedLastName3,
+                                        final String expectedNameSuffix3,
+                                        final String expectedGivenName3,
+                                        final String expectedNamePrefix4,
+                                        final String expectedFirstName4,
+                                        final String expectedMiddleName4,
+                                        final String expectedLastName4,
+                                        final String expectedNameSuffix4,
+                                        final String expectedGivenName4) {
+                                        
+        final List<AuthorData> expectedAuthors = new ArrayList<>();
+        expectedAuthors.add(new AuthorData(Optional.ofNullable(expectedNamePrefix1),
+                                           Optional.ofNullable(expectedFirstName1),
+                                           Optional.ofNullable(expectedMiddleName1),
+                                           Optional.ofNullable(expectedLastName1),
+                                           Optional.ofNullable(expectedNameSuffix1),
+                                           Optional.ofNullable(expectedGivenName1)));
+        expectedAuthors.add(new AuthorData(Optional.ofNullable(expectedNamePrefix2),
+                                           Optional.ofNullable(expectedFirstName2),
+                                           Optional.ofNullable(expectedMiddleName2),
+                                           Optional.ofNullable(expectedLastName2),
+                                           Optional.ofNullable(expectedNameSuffix2),
+                                           Optional.ofNullable(expectedGivenName2)));
+        expectedAuthors.add(new AuthorData(Optional.ofNullable(expectedNamePrefix3),
+                                           Optional.ofNullable(expectedFirstName3),
+                                           Optional.ofNullable(expectedMiddleName3),
+                                           Optional.ofNullable(expectedLastName3),
+                                           Optional.ofNullable(expectedNameSuffix3),
+                                           Optional.ofNullable(expectedGivenName3)));
+        expectedAuthors.add(new AuthorData(Optional.ofNullable(expectedNamePrefix4),
+                                           Optional.ofNullable(expectedFirstName4),
+                                           Optional.ofNullable(expectedMiddleName4),
+                                           Optional.ofNullable(expectedLastName4),
+                                           Optional.ofNullable(expectedNameSuffix4),
+                                           Optional.ofNullable(expectedGivenName4)));
+        checkAuthors(clazz, url, expectedAuthors);
+    }
+
     private static void checkAuthors(final Class<? extends LinkDataExtractor> clazz,
                                      final String url,
                                      final List<AuthorData> expectedAuthors) {
