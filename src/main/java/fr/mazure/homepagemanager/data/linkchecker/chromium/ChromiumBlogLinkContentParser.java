@@ -104,6 +104,7 @@ public class ChromiumBlogLinkContentParser extends LinkDataExtractor {
                                         .replace(", technical lead for Chrome accessibility.", "")
                                         .replace(", Lite Pages Technical Lead", "")
                                         .replace(", Product Director Chrome Media", "")
+                                        .replace(", Software Engineer working on Web Ecosystem Infrastructure", "")
                                         .replaceAll(", Product Manager(,| on) Chrome", "")
                                         .replace(", Chrome Product Manager", "")
                                         .replace(", Senior Product Manager,", "")

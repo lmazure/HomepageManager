@@ -47,6 +47,34 @@ methods       53.9%    97.9%
 
 
 
+retirer le slash à la fin du lien pour https://lexfridman.com/dario-amodei/?utm_source=rss&utm_medium=rss&utm_campaign=dario-amodei
+
+
+
+
+gérer
+https://github.blog/engineering/whats-with-all-the-ducks/
+The list of effective authors is not the effective one.
+The following authors are effectively present but are unexpected: ▭ first=Michelle ▭ last=Duke ▭ ▭
+The following authors are expected but are effectively missing: ▭ first=Michelle ▭ last=Mannering ▭ ▭
+
+
+
+
+
+
+gérer
+https://github.blog/news-insights/octoverse/octoverse-2024/
+The list of effective authors is not the effective one.
+The following authors are effectively present but are unexpected: ▭ first=GitHub ▭ last=Staff ▭ ▭
+The following authors are expected but are effectively missing: 
+
+
+
+
+
+
+
 séparer les IDEs des modèles dans les code assistants
 
 
