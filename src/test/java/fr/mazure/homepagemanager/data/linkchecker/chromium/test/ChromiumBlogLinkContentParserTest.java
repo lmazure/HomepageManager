@@ -95,7 +95,8 @@ class ChromiumBlogLinkContentParserTest extends LinkDataExtractorTestBase {
         //"https://blog.chromium.org/2020/08/protecting-google-chrome-users-from.html|Shweta||Panditrao", //TODO <span>s are a complete mess!
         "https://blog.chromium.org/2020/06/improving-chromiums-browser.html|Stephen||McGruer",
         "https://blog.chromium.org/2020/05/protecting-chrome-users-from-abusive.html|PJ||McLachlan",
-        "https://blog.chromium.org/2018/08/charting-browser-interoperability.html|Mark||Dittmer"
+        "https://blog.chromium.org/2018/08/charting-browser-interoperability.html|Mark||Dittmer",
+        "https://blog.chromium.org/2019/06/webassembly-brings-google-earth-to-more.html|Thomas||Nattestad",
     }, delimiter = '|')
     void testAuthor(final String url,
                     final String expectedFirstName,
