@@ -57,6 +57,16 @@ class GithubBlogLinkContentParserTest extends LinkDataExtractorTestBase {
         checkDate(GithubBlogLinkContentParser.class, url, expectedDate);
     }
 
+
+    @SuppressWarnings("static-method")
+    @ParameterizedTest
+    @CsvSource({
+        "https://github.blog/news-insights/octoverse/octoverse-2024/",
+        })
+    void testNoAuthor(final String url) {
+        check0Author(GithubBlogLinkContentParser.class, url);
+    }
+
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({

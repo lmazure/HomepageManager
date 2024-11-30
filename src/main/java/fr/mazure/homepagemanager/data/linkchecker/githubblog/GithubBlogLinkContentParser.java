@@ -29,6 +29,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 public class GithubBlogLinkContentParser extends LinkDataExtractor {
 
     private static final String s_sourceName = "GitHub blog";
+    private static final AuthorData s_githubStaff = new AuthorData(Optional.empty(), Optional.of("GitHub"), Optional.empty(), Optional.of("Staff"), Optional.empty(), Optional.empty());
 
     private final String _data;
     private boolean _dataIsLoaded;
@@ -138,6 +139,7 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
         _subtitle = HtmlHelper.cleanContent(s_subtitleParser.extract(_data));
         final String authorString = s_authorParser.extract(_data);
         _authors = LinkContentParserUtils.getAuthors(authorString);
+        _authors.remove(s_githubStaff);
         final String datePublished  = webPage.getString("datePublished");
         if (datePublished == null) {
             throw new ContentParserException("Failed to find \"datePublished\" JSON object in GitHub Blog page");
