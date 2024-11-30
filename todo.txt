@@ -47,11 +47,6 @@ methods       53.9%    97.9%
 
 
 
-retirer le slash à la fin du lien pour https://lexfridman.com/dario-amodei/?utm_source=rss&utm_medium=rss&utm_campaign=dario-amodei
-
-
-
-
 
 gérer
 https://github.blog/engineering/whats-with-all-the-ducks/
@@ -75,7 +70,7 @@ The following authors are expected but are effectively missing:
 
 
 
-gérer les spans chaotiques qui empêchent d'extratire les authors de Chrome blog
+gérer les spans chaotiques qui empêchent d'extraire les authors de Chrome blog
 
 
 
@@ -91,6 +86,7 @@ séparer les IDEs des modèles dans les code assistants
 
 
 ==== potentially before merge =====
+
 
 
 

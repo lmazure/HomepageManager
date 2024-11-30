@@ -141,6 +141,26 @@ class LinkDataExtractorTest {
     }
 
     @Test
+    void lexFridmanWithEndingSlashIsManaged() throws ContentParserException {
+        final String url = "https://lexfridman.com/dario-amodei/?utm_source=rss&utm_medium=rss&utm_campaign=dario-amodei";
+        final String expectedXml = """
+                <ARTICLE><X><T>#452 – Dario Amodei: Anthropic CEO on Claude, AGI &amp; the Future of AI &amp; Humanity</T>\
+                <A>https://lexfridman.com/dario-amodei</A>\
+                <L>en</L><F>MP3</F><DURATION><HOUR>5</HOUR><MINUTE>22</MINUTE><SECOND>13</SECOND></DURATION></X>\
+                <X><T>Dario Amodei: Anthropic CEO on Claude, AGI &amp; the Future of AI &amp; Humanity | Lex Fridman Podcast #452</T>\
+                <A>https://www.youtube.com/watch?v=ugvHCXCOmm4</A>\
+                <L>en</L><F>MP4</F><DURATION><HOUR>5</HOUR><MINUTE>15</MINUTE><SECOND>0</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Dario</FIRSTNAME><LASTNAME>Amodei</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Lex</FIRSTNAME><LASTNAME>Fridman</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2024</YEAR><MONTH>11</MONTH><DAY>11</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void lexFridmanWithDifferentDatesIsManaged() throws ContentParserException {
         final String url = "https://lexfridman.com/grant-sanderson-2";
         final String expectedXml = """

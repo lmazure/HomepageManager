@@ -26,6 +26,7 @@ import fr.mazure.homepagemanager.utils.Logger;
 import fr.mazure.homepagemanager.utils.Logger.Level;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.internet.Mp3Helper;
+import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
@@ -79,7 +80,7 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
     public LexFridmanLinkContentParser(final String url,
                                        final String data,
                                        final CachedSiteDataRetriever retriever) {
-        super(url, retriever);
+        super(UrlHelper.removeFinalSlash(url), retriever);
         _data = data;
         _title = null;
         _date = null;
