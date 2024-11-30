@@ -559,7 +559,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                           buildMatchingList(),
                                                           Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("La Tronche en Biais",
-                                          new ChannelData(buildList(WellKnownAuthors.buildAuthor("Thomas", "Durand")),
+                                          new ChannelData(buildList(WellKnownAuthors.buildAuthor("Thomas", "C.", "Durand")),
                                                           buildMatchingList(),
                                                           Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("Le Dessous des Cartes - ARTE",

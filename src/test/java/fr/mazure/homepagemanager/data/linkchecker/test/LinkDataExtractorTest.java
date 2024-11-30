@@ -1423,7 +1423,7 @@ class LinkDataExtractorTest {
                 <ARTICLE><X><T>Les jeunes sont débiles</T>\
                 <A>https://www.youtube.com/watch?v=LsMNe_a5Xn0</A>\
                 <L>fr</L><F>MP4</F><DURATION><MINUTE>31</MINUTE><SECOND>5</SECOND></DURATION></X>\
-                <AUTHOR><FIRSTNAME>Thomas</FIRSTNAME><LASTNAME>Durand</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Thomas</FIRSTNAME><MIDDLENAME>C.</MIDDLENAME><LASTNAME>Durand</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>21</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);

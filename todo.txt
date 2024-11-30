@@ -51,34 +51,6 @@ methods       53.9%    97.9%
 
 
 
-
-
-gérer
-java.lang.UnsupportedOperationException: https://www.tf1info.fr/sante/covid-19-ratp-sncf-paris-faut-il-s-inquieter-de-la-hausse-de-la-frequentation-dans-les-transports-2165985.html|504→
-	at fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.getMatch(WellKnownRedirections.java:673)
-	at fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.getPossibleStatuses(LinkStatusAnalyzer.java:80)
-	at fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.doesEffectiveDataMatchesExpectedData(LinkStatusAnalyzer.java:34)
-	at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.writeOutputFile(LinkCheckRunner.java:411)
-	at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:355)
-	at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:139)
-	at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:73)
-	at fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:32)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
-	at java.base/java.lang.Thread.run(Thread.java:1570)
-	
-	
-	
-	
-	
-
-
-
-
-
-
-
 gérer liks/aiimplementation.xml
 https://magazine.sebastianraschka.com/
 Article should have a creation date
