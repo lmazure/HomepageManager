@@ -43,7 +43,7 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
                          s_sourceName,
                          "title");
     private static final TextParser s_subtitleParser
-        = new TextParser("</h1>\\n\\n *<p class=\"[^\"]+\">",
+        = new TextParser("</h1>\\n\\n *<p(?:\\n *)? class=\"[^\"]+\">",
                          "</p>",
                          s_sourceName,
                          "subtitle");
