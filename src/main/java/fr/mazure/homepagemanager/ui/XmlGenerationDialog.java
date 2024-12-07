@@ -61,7 +61,7 @@ public class XmlGenerationDialog extends Dialog<Void> {
         _url.setMinWidth(640);
 
         final Button pasteUrl = new Button("Paste URL");
-        pasteUrl.setOnAction(e -> pasteUrl());
+        pasteUrl.setOnAction(_ -> pasteUrl());
 
         final Separator separator1 = new Separator();
 
@@ -74,7 +74,7 @@ public class XmlGenerationDialog extends Dialog<Void> {
         final String[] qualities = { "very good", "good", "average", "bad", "very bad" };
         _quality = new ComboBox<>(FXCollections.observableArrayList(qualities));
         _quality.getSelectionModel().select(2);
-        _quality.valueProperty().addListener((final ObservableValue<? extends String> observable, final String oldValue, final String newValue) -> generateXml());
+        _quality.valueProperty().addListener((final ObservableValue<? extends String> _, final String _, final String _) -> generateXml());
 
         final Label commentLabel = new Label("Comment");
         final Label commentHelpLabel = new Label(XmlGenerator.getHelpMessage());
@@ -84,7 +84,7 @@ public class XmlGenerationDialog extends Dialog<Void> {
         _comment.setMinWidth(640);
         _comment.setPrefRowCount(3);
         _comment.setWrapText(true);
-        _comment.textProperty().addListener((final ObservableValue<? extends String> observable, final String oldValue, final String newValue) -> generateXml());
+        _comment.textProperty().addListener((final ObservableValue<? extends String> _, final String _, final String _) -> generateXml());
 
         final Separator separator2 = new Separator();
 
@@ -94,7 +94,7 @@ public class XmlGenerationDialog extends Dialog<Void> {
         _xml.setWrapText(true);
 
         final Button copyXml = new Button("Copy XML");
-        copyXml.setOnAction(e -> copyXml());
+        copyXml.setOnAction(_ -> copyXml());
 
         final VBox vbox = new VBox(_url, pasteUrl, separator1, authorsLabel, _authors, qualityLabel, _quality, commentLabel, commentHelpLabel, _comment, separator2, _xml, copyXml);
         getDialogPane().setContent(vbox);
@@ -111,7 +111,7 @@ public class XmlGenerationDialog extends Dialog<Void> {
         final List<AuthorData> authors = new ArrayList<>(_sureAuthors);
 
         int i = 0;
-        for (@SuppressWarnings("unused") final AuthorData author: _sureAuthors) {
+        for (final AuthorData _: _sureAuthors) {
             i++;
         }
         for (final AuthorData author: _probableAuthors) {
@@ -187,13 +187,13 @@ public class XmlGenerationDialog extends Dialog<Void> {
             for (final AuthorData author: _probableAuthors) {
                 final CheckBox cb = new CheckBox(authorAsString(author));
                 cb.setSelected(true);
-                cb.selectedProperty().addListener((final ObservableValue<? extends Boolean> observable, final Boolean oldValue, final Boolean newValue) -> generateXml());
+                cb.selectedProperty().addListener((final ObservableValue<? extends Boolean> _, final Boolean _, final Boolean _) -> generateXml());
                 _authors.getChildren().add(cb);
             }
             for (final AuthorData author: _possibleAuthors) {
                 final CheckBox cb = new CheckBox(authorAsString(author));
                 cb.setSelected(false);
-                cb.selectedProperty().addListener((final ObservableValue<? extends Boolean> observable, final Boolean oldValue, final Boolean newValue) -> generateXml());
+                cb.selectedProperty().addListener(( final ObservableValue<? extends Boolean> _, final Boolean _, final Boolean _) -> generateXml());
                 _authors.getChildren().add(cb);
             }
         }

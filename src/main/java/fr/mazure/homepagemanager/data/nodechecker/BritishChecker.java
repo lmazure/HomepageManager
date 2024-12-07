@@ -54,7 +54,7 @@ public class BritishChecker extends NodeChecker {
 
         s_whiteList = list.stream()
                           .reduce(Predicate::or)
-                          .orElse(s -> false);
+                          .orElse(_ -> false);
     }
 
     /**

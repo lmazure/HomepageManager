@@ -65,7 +65,7 @@ public class LinkDataExtractorFactory {
                 final Method method = clazz.getDeclaredMethod("isUrlManaged", String.class);
                 @SuppressWarnings("unchecked")
                 final Constructor<LinkDataExtractor> cons = (Constructor<LinkDataExtractor>)clazz.getConstructor(String.class, String.class, CachedSiteDataRetriever.class);
-                s_extractors.add(new ExtractorData((final String url, final CachedSiteDataRetriever retriever) -> {
+                s_extractors.add(new ExtractorData((final String url, final CachedSiteDataRetriever _) -> {
                                                        try {
                                                            return ((Boolean)method.invoke(null, url)).booleanValue();
                                                        } catch (final IllegalAccessException | InvocationTargetException e) {
