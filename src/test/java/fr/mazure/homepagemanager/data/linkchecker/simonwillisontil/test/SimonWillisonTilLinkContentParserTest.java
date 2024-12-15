@@ -46,7 +46,10 @@ class SimonWillisonTilLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
+        // case of an updated article
         "https://til.simonwillison.net/google/gmail-compose-url,2024-03-12",
+        // case of an article that has not been updated
+        "https://til.simonwillison.net/django/live-blog,2024-10-02",
         })
     void testDate(final String url,
                   final String expectedPublicationDate) {

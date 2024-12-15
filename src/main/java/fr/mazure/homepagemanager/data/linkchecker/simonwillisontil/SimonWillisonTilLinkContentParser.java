@@ -33,7 +33,7 @@ public class SimonWillisonTilLinkContentParser extends LinkDataExtractor {
 
     private static final TextParser s_dateParser
         = new TextParser("\\Q<p class=\"created\">Created \\E",
-                         "T\\d\\d:\\d\\d:\\d\\d\\-\\d\\d:\\d\\d\\Q, updated \\E",
+                         "T\\d\\d:\\d\\d:\\d\\d\\-\\d\\d:\\d\\d",
                          s_sourceName,
                          "date");
 
