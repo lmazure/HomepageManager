@@ -13,22 +13,24 @@ class DZoneLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://dzone.com/articles/how-fix-memory-leaks-java,Veljko,Krunic",
-        "https://dzone.com/articles/explore-annotations-in-java-8,Niamul,Sanjavi",
-        "https://dzone.com/articles/clean-code-tips,Rajeev,Bera",
-        "https://dzone.com/articles/java-collections-are-evolving,Trisha,Gee",
-        "https://dzone.com/articles/functional-approach-to-string-manipulation-in-java,Sameer,Shukla",
-        "https://dzone.com/articles/dependency-scope-applied,Maksim,Kren",
-        })
+    @CsvSource(value = {
+        "https://dzone.com/articles/how-fix-memory-leaks-java|Veljko||Krunic",
+        "https://dzone.com/articles/explore-annotations-in-java-8|Niamul||Sanjavi",
+        "https://dzone.com/articles/clean-code-tips|Rajeev||Bera",
+        "https://dzone.com/articles/java-collections-are-evolving|Trisha||Gee",
+        "https://dzone.com/articles/functional-approach-to-string-manipulation-in-java|Sameer||Shukla",
+        "https://dzone.com/articles/dependency-scope-applied|Maksim||Kren",
+        "https://dzone.com/articles/model-compression-dl-model-efficiency|Inderjot|Singh|Saggu"
+        }, delimiter = '|')
     void testAuthor(final String url,
                     final String expectedFirstName,
+                    final String expectedMiddleName,
                     final String expectedLastName) {
         check1Author(DZoneLinkContentParser.class,
                      url,
                      null,
                      expectedFirstName,
-                     null,
+                     expectedMiddleName,
                      expectedLastName,
                      null,
                      null);
@@ -36,9 +38,9 @@ class DZoneLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://dzone.com/articles/knowledge-graphs-the-secret-weapon-for-rag-apps,Pavan,,Vemuri,Prince,,Bose,Tharakarama,Reddy,Yernapalli Sreenivasulu",
-        })
+    @CsvSource(value = {
+        "https://dzone.com/articles/knowledge-graphs-the-secret-weapon-for-rag-apps|Pavan||Vemuri|Prince||Bose|Tharakarama|Reddy|Yernapalli Sreenivasulu"
+        }, delimiter = '|')
     void testThreeAuthors(final String url,
                           final String expectedFirstName1,
                           final String expectedMiddleName1,
@@ -106,11 +108,11 @@ class DZoneLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://dzone.com/articles/how-fix-memory-leaks-java,2009-03-18",
-        "https://dzone.com/articles/explore-annotations-in-java-8,2019-10-22",
-        "https://dzone.com/articles/leveraging-lambda-expressions-for-lazy-evaluation,2018-07-28",
-        })
+    @CsvSource(value = {
+        "https://dzone.com/articles/how-fix-memory-leaks-java|2009-03-18",
+        "https://dzone.com/articles/explore-annotations-in-java-8|2019-10-22",
+        "https://dzone.com/articles/leveraging-lambda-expressions-for-lazy-evaluation|2018-07-28"
+        }, delimiter = '|')
     void testPublishDate(final String url,
                          final String expectedDate) {
         checkDate(DZoneLinkContentParser.class, url, expectedDate);
