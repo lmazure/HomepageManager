@@ -31,7 +31,7 @@ class CachedSiteDataRetrieverTest {
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertFalse(firstConsumerHasBeenCalled.get());
                                firstConsumerHasBeenCalled.set(true);
-                               TestHelper.assertData(d);
+                               TestHelper.assertExampleComData(d);
                            },
                            false);
         Assertions.assertFalse(firstConsumerHasBeenCalled.get());
@@ -50,7 +50,7 @@ class CachedSiteDataRetrieverTest {
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertFalse(secondConsumerHasBeenCalled.get());
                                secondConsumerHasBeenCalled.set(true);
-                               TestHelper.assertData(d);
+                               TestHelper.assertExampleComData(d);
                            },
                            false);
         Assertions.assertTrue(secondConsumerHasBeenCalled.get());
@@ -66,7 +66,7 @@ class CachedSiteDataRetrieverTest {
                                } else {
                                    thirdConsumerHasBeenCalledOnce.set(true);
                                }
-                               TestHelper.assertData(d);
+                               TestHelper.assertExampleComData(d);
                            },
                            false);
         Assertions.assertTrue(thirdConsumerHasBeenCalledOnce.get());

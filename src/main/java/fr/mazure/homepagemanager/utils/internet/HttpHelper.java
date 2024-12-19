@@ -146,4 +146,5 @@ public class HttpHelper {
         }
 
         return false;
-    }}
+    }
+}

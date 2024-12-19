@@ -25,6 +25,8 @@ import fr.mazure.homepagemanager.utils.ExitHelper;
 import fr.mazure.homepagemanager.utils.Logger;
 import fr.mazure.homepagemanager.utils.Logger.Level;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
+import fr.mazure.homepagemanager.utils.internet.Mp3Helper;
+import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
@@ -57,12 +59,20 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
                          "\"",
                          s_sourceName,
                          "duration");
+    private static final TextParser s_mp3UrlParser
+        = new TextParser("Play in new window</a> \\| <a href=\"",
+                         "[^\"]+",
+                         "\" class=\"powerpress_link_d\" title=\"Download\" rel=\"nofollow\" download=\"",
+                         s_sourceName,
+                         "MP3 URL");
 
     private static final Pattern s_extractName = Pattern.compile("(?:^#\\d+ – )?(.*):.*$");
 
     private static final DateTimeFormatter s_dateformatter = DateTimeFormatter.ISO_LOCAL_DATE;
 
     /**
+     * Constructor
+     *
      * @param url URL of the link
      * @param data retrieved link data
      * @param retriever cache data retriever
@@ -70,7 +80,7 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
     public LexFridmanLinkContentParser(final String url,
                                        final String data,
                                        final CachedSiteDataRetriever retriever) {
-        super(url, retriever);
+        super(UrlHelper.removeFinalSlash(url), retriever);
         _data = data;
         _title = null;
         _date = null;
@@ -113,7 +123,9 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
     @Override
     public Optional<Duration> getDuration() throws ContentParserException {
         if (_duration == null) {
-            _duration = getOtherLink().map(d -> d.duration().orElse(null));
+            final String mp3url = s_mp3UrlParser.extract(_data) + "?_=1";
+            final Mp3Helper helper = new Mp3Helper();
+            _duration = Optional.of(helper.getMp3Duration(mp3url, getRetriever()));
         }
         return _duration;
     }

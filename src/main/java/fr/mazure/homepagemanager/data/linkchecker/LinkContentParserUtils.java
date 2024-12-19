@@ -147,7 +147,7 @@ public class LinkContentParserUtils {
      */
     public static List<AuthorData> getAuthors(final String str) throws ContentParserException {
         final List<AuthorData> authorList = new ArrayList<>();
-        final String[] splits = str.split(", and | and |, ");
+        final String[] splits = str.split(", and | and |, | & ");
         for (final String s: splits) {
             authorList.add(LinkContentParserUtils.parseAuthorName(s));
         }

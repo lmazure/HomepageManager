@@ -47,7 +47,7 @@ import fr.mazure.homepagemanager.data.nodechecker.ProtectionFromURLChecker;
 import fr.mazure.homepagemanager.data.nodechecker.SpaceBetweenTagsChecker;
 import fr.mazure.homepagemanager.data.nodechecker.TableSortChecker;
 import fr.mazure.homepagemanager.data.nodechecker.TitleFormatChecker;
-import fr.mazure.homepagemanager.data.nodechecker.URLProtocolChecker;
+import fr.mazure.homepagemanager.data.nodechecker.UrlChecker;
 import fr.mazure.homepagemanager.utils.ExitHelper;
 import fr.mazure.homepagemanager.utils.FileHelper;
 import fr.mazure.homepagemanager.utils.FileNameHelper;
@@ -115,7 +115,7 @@ public class NodeValueChecker implements FileHandler {
         _nodeCheckers.add(new SpaceBetweenTagsChecker());
         _nodeCheckers.add(new TableSortChecker());
         _nodeCheckers.add(new TitleFormatChecker());
-        _nodeCheckers.add(new URLProtocolChecker());
+        _nodeCheckers.add(new UrlChecker());
 
     }
 

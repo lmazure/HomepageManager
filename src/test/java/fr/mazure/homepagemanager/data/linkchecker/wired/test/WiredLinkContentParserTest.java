@@ -1,25 +1,17 @@
 package fr.mazure.homepagemanager.data.linkchecker.wired.test;
 
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicBoolean;
-
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
-import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
-import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
+import fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase;
 import fr.mazure.homepagemanager.data.linkchecker.wired.WiredLinkContentParser;
-import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
-import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 
 /**
  * Tests of WiredLinkContentParser
  */
-class WiredLinkContentParserTest {
+class WiredLinkContentParserTest extends LinkDataExtractorTestBase {
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
         "https://www.wired.com/story/india-deadly-combination-heat-humidity/|India Isn’t Ready for a Deadly Combination of Heat and Humidity",
@@ -29,24 +21,10 @@ class WiredLinkContentParserTest {
         }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final WiredLinkContentParser parser = new WiredLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertEquals(expectedTitle, parser.getTitle());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getTitle threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkTitle(WiredLinkContentParser.class, url, expectedTitle);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
             "https://www.wired.com/story/india-deadly-combination-heat-humidity/|The country’s recent heat wave has seen “wet-bulb” temperatures rise to potentially fatal levels—but plans to handle the crisis are still in their infancy.",
@@ -56,25 +34,10 @@ class WiredLinkContentParserTest {
         }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final WiredLinkContentParser parser = new WiredLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertTrue(parser.getSubtitle().isPresent());
-                                   Assertions.assertEquals(expectedSubtitle, parser.getSubtitle().get());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getSubtitle threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkSubtitle(WiredLinkContentParser.class, url, expectedSubtitle);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
             "https://www.wired.com/2005/10/a-real-remedy-for-phishers/",
@@ -82,24 +45,10 @@ class WiredLinkContentParserTest {
             "https://www.wired.com/2007/09/ff-allen/",
         })
     void testNoSubtitle(final String url) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final WiredLinkContentParser parser = new WiredLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertFalse(parser.getSubtitle().isPresent());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getSubtitle threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkNoSubtitle(WiredLinkContentParser.class, url);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
             "https://www.wired.com/1997/12/science-2/",
@@ -107,24 +56,10 @@ class WiredLinkContentParserTest {
             "https://www.wired.com/1999/01/amish/",
         })
     void testSubtitleWhichIsAnExtractOfTheArticleIsIgnored(final String url) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final WiredLinkContentParser parser = new WiredLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertFalse(parser.getSubtitle().isPresent());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getSubtitle threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkNoSubtitle(WiredLinkContentParser.class, url);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://www.wired.com/story/india-deadly-combination-heat-humidity/,2022-06-09",
@@ -133,24 +68,10 @@ class WiredLinkContentParserTest {
         })
     void testDate(final String url,
                   final String expectedDate) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final WiredLinkContentParser parser = new WiredLinkContentParser(url, data, retriever);
-                               try {
-                                   TestHelper.assertDate(expectedDate, parser.getDate());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getDate threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkDate(WiredLinkContentParser.class, url, expectedDate);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://www.wired.com/story/india-deadly-combination-heat-humidity/,Kamala,Thiagarajan",
@@ -161,31 +82,17 @@ class WiredLinkContentParserTest {
     void testAuthor(final String url,
                     final String expectedFirstName,
                     final String expectedLastName) {
-        final AuthorData expectedAuthor = new AuthorData(Optional.empty(),
-                                                         Optional.of(expectedFirstName),
-                                                         Optional.empty(),
-                                                         Optional.of(expectedLastName),
-                                                         Optional.empty(),
-                                                         Optional.empty());
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                          (final FullFetchedLinkData d) -> {
-                              Assertions.assertTrue(d.dataFileSection().isPresent());
-                              final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                              final WiredLinkContentParser parser = new WiredLinkContentParser(url, data, retriever);
-                              try {
-                                  Assertions.assertEquals(1, parser.getSureAuthors().size());
-                                  Assertions.assertEquals(expectedAuthor, parser.getSureAuthors().get(0));
-                              } catch (final ContentParserException e) {
-                                  Assertions.fail("getSureAuthors threw " + e.getMessage());
-                              }
-                              consumerHasBeenCalled.set(true);
-                          },
-                          false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        check1Author(WiredLinkContentParser.class,
+                     url,
+                     null,
+                     expectedFirstName,
+                     null,
+                     expectedLastName,
+                     null,
+                     null);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         // author WIRED Staff
@@ -194,21 +101,6 @@ class WiredLinkContentParserTest {
         "https://www.wired.com/story/large-language-model-phishing-scams/",
         })
     void testNoAuthor(final String url) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                          (final FullFetchedLinkData d) -> {
-                              Assertions.assertTrue(d.dataFileSection().isPresent());
-                              final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                              final WiredLinkContentParser parser = new WiredLinkContentParser(url, data, retriever);
-                              try {
-                                  Assertions.assertEquals(0, parser.getSureAuthors().size());
-                              } catch (final ContentParserException e) {
-                                  Assertions.fail("getSureAuthors threw " + e.getMessage());
-                              }
-                              consumerHasBeenCalled.set(true);
-                          },
-                          false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        check0Author(WiredLinkContentParser.class, url);
     }
 }

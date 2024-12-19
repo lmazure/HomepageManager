@@ -38,8 +38,8 @@ public class GlobalFileCreationDialog extends Dialog<Void> {
         getDialogPane().setContent(vbox);
         initModality(Modality.NONE);
 
-        task.setOnSucceeded(event -> ((Stage)(getDialogPane().getScene().getWindow())).close());
-        task.setOnFailed(event -> {
+        task.setOnSucceeded(_ -> ((Stage)(getDialogPane().getScene().getWindow())).close());
+        task.setOnFailed(_ -> {
             textArea.textProperty().unbind();
             textArea.setText(task.getException().getMessage());
             });

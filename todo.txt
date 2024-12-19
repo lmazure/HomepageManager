@@ -29,14 +29,49 @@ lines         67.8%    94.9%
 methods       54.0%    98.1%
 
 
+2024-11-16
+warnings = 111
+lines prod = 10953
+lines test = 3966
+test coverage =
+              main     test
+instructions  69.3%    93.6%
+branches      48.9%    62.5%
+lines         68.2%    95.2%
+methods       53.9%    97.9%
+
+
+
 ==== before merge =====
 
 
+gérer
+fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://oxide.computer/podcasts/oxide-and-friends/2038761"
+	at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:89)
+	at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:325)
+	at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:139)
+	at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:117)
+	at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:73)
+	at fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
+	at fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:32)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1575)
+Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find title in Oxide and Friends
+	at fr.mazure.homepagemanager.data.linkchecker.TextParser.extract(TextParser.java:61)
+	at fr.mazure.homepagemanager.data.linkchecker.oxideandfriends.OxideAndFriendsLinkContentParser.getTitle(OxideAndFriendsLinkContentParser.java:93)
+	at fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkLinkTitle(ExtractorBasedLinkContentChecker.java:70)
+	at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:106)
+	at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:87)
+	... 9 more
 
 
 
 
-la durée n'est pas bonne sur https://lexfridman.com/jimmy-wales (mais elle est bonne pour YouTube)
+
+
+Move GitLab Duo dans aicodeassist 
+
 
 
 
@@ -44,6 +79,29 @@ la durée n'est pas bonne sur https://lexfridman.com/jimmy-wales (mais elle est 
 
 
 ==== potentially before merge =====
+
+
+
+
+
+
+
+
+
+gérer les spans chaotiques qui empêchent d'extraire les authors de Chrome blog
+
+
+
+
+
+
+
+
+mauvaise date pour https://developer.ibm.com/articles/j-java-streams-5-brian-goetz/, 5 articles qui ont été réécrits
+idem pour https://developer.ibm.com/articles/j-java-streams-1-brian-goetz/
+
+
+
 
 
 
@@ -57,19 +115,7 @@ expected duration PT22M34S is not in the real duration interval [PT596H31M23S,PT
 
 
 
-the author of https://www.baeldung.com/java-linked-hashmap is not extracted
-
-
-
-
-
-
-
-gérer liks/aiimplementation.xml
-https://magazine.sebastianraschka.com/
-Article should have a creation date
-
-
+the reviewer of https://www.baeldung.com/java-linked-hashmap is not extracted
 
 
 
@@ -84,53 +130,11 @@ publication date smaller or equal to creation date must be detected
 
 
 gérer
-java.lang.UnsupportedOperationException: https://www.tf1info.fr/sante/covid-19-ratp-sncf-paris-faut-il-s-inquieter-de-la-hausse-de-la-frequentation-dans-les-transports-2165985.html|504→
-	at fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.getMatch(WellKnownRedirections.java:673)
-	at fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.getPossibleStatuses(LinkStatusAnalyzer.java:80)
-	at fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.doesEffectiveDataMatchesExpectedData(LinkStatusAnalyzer.java:34)
-	at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.writeOutputFile(LinkCheckRunner.java:411)
-	at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:355)
-	at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:139)
-	at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:73)
-	at fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:32)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
-	at java.base/java.lang.Thread.run(Thread.java:1570)
-	
-	
-	
-	
-	
-
-
-
-
-détecter les URL qui finissent par "?"
-
-
-
-
-
-
-
-gérer
 https://oxide.computer/podcasts/oxide-and-friends/2052742
 The list of effective authors is not the effective one.
 The following authors are effectively present but are unexpected: 
 The following authors are expected but are effectively missing: ▭ first=David ▭ last=Pacheco ▭ ▭
 Expected 1 links (https://oxide.computer/podcasts/oxide-and-friends/2052742), got 2 links (https://oxide.computer/podcasts/oxide-and-friends/2052742, https://www.youtube.com/watch?v=DNHMYp8M40k)
-
-
-
-
-
-
-
-
-ranger le bordel dans les pages AI
-
-
 
 
 
@@ -191,15 +195,6 @@ détecter les indentations incorrectes
 
 
 
-
-centraliser ZoneId.of("Europe/Paris")
-
-
-
-
-
-
-
 détecter les vidéos Youtube qui sont marquées "zombie" mais qui ne sont, en fait, pas private
 
 
@@ -250,12 +245,6 @@ Redirection matcher expected statuses =
 
 
 
-
-
-
-
-
-increase test coverage of methods
 
 
 
@@ -335,16 +324,6 @@ corriger le fenêtre de création de XML qui ne s'aggrandit pas
 
 
 
-
-gérer
-https://www.wired.com/story/large-language-model-phishing-scams/
-The list of effective authors is not the effective one.
-The following authors are effectively present but are unexpected: ▭ first=WIRED ▭ last=Ideas ▭ ▭
-The following authors are expected but are effectively missing: ▭ first=Bruce ▭ last=Schneier ▭ ▭,▭ first=Barath ▭ last=Raghavan ▭ ▭
-
-
-
-
 gérer
 Title = "Single-User Subversion"
 URL = http://www.onlamp.com/pub/a/onlamp/2002/10/31/subversion.html
@@ -416,17 +395,6 @@ nettoyer links/windows.xml
 
 
 le cancel des checks en cours en cas de nouveau save n'a plus l'air de marcher
-
-
-
-
-
-
-
-je pense qu'il y a un problème entre le matin et l'après-midi
-https://www.youtube.com/watch?v=tdv7r2JSokI
-expected date 2024-04-23 is not equal to the effective publish date 2024-04-22
-
 
 
 

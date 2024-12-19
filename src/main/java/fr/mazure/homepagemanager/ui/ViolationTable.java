@@ -52,14 +52,14 @@ public class ViolationTable {
 
         final TableColumn<Violation, String> htmlDescriptionCol = new TableColumn<>("Description");
         htmlDescriptionCol.setMinWidth(800);
-        htmlDescriptionCol.setCellFactory(tc -> new HtmlTableCell<>());
+        htmlDescriptionCol.setCellFactory(_ -> new HtmlTableCell<>());
         htmlDescriptionCol.setCellValueFactory(new PropertyValueFactory<>("htmlDescription"));
         _table.getColumns().add(htmlDescriptionCol);
 
         final TableColumn<Violation, String> repairColumn = new TableColumn<>("Reparation");
         repairColumn.setPrefWidth(150);
         repairColumn.setCellValueFactory(new PropertyValueFactory<>("correctionDescription"));
-        repairColumn.setCellFactory(p -> new UpdatableButtonCell<>(v -> ActionHelper.modifyFile(v.getFile(), v.getCorrection().map(e -> e::apply))));
+        repairColumn.setCellFactory(_ -> new UpdatableButtonCell<>(v -> ActionHelper.modifyFile(v.getFile(), v.getCorrection().map(e -> e::apply))));
         _table.getColumns().add(repairColumn);
 
         _table.setEditable(false);

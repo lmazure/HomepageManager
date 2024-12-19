@@ -13,6 +13,9 @@ import fr.mazure.homepagemanager.utils.ExitHelper;
  */
 public class UrlHelper {
 
+    private UrlHelper() {
+    }
+
     /**
      * Encode a string to be included in a URL
      *
@@ -44,10 +47,20 @@ public class UrlHelper {
         return u;
     }
 
+    /**
+     * Remove the final slash (if present) from a URL
+     *
+     * @param url URL
+     * @return Resulting URL
+     */
+    public static String removeFinalSlash(final String url) {
+        return url.replaceFirst("/$", "");
+    }
+
     private static String removeQueryParameter(final String url,
                                                final String parameter) {
-        return url.replaceFirst("(\\?|&)(" + parameter + "=[^&]*(&|$))", "$1")
-                  .replaceFirst("(\\?|&)$","");
+        return url.replaceFirst("([?&])(" + parameter + "=[^&]*(&|$))", "$1")
+                  .replaceFirst("[?&]$","");
    }
 
     /**

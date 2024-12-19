@@ -188,7 +188,6 @@ public class WellKnownRedirections {
             _matchers.add(oReillyRemoved2);
         }
 
-
         {
             final RedirectionMatcher oReillyRemoved3 = new RedirectionMatcher("removed from O’Reilly",
                                                                               Set.of(LinkStatus.REMOVED));
@@ -463,7 +462,6 @@ public class WellKnownRedirections {
             channel9Removed4.compile();
             _matchers.add(channel9Removed4);
         }
-
 
         {
             final RedirectionMatcher channel9Removed5 = new RedirectionMatcher("removed from Channel 9",

@@ -1,40 +1,70 @@
 package fr.mazure.homepagemanager.data.linkchecker.youtubechanneluser;
 
+import java.time.temporal.TemporalAccessor;
+import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
+import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
+import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
+import fr.mazure.homepagemanager.data.linkchecker.TextParser;
+import fr.mazure.homepagemanager.utils.ExitHelper;
 import fr.mazure.homepagemanager.utils.StringHelper;
+import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
+import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 
 /**
  * Data extractor for YouTube channels
  */
-public class YoutubeChannelUserLinkContentParser {
+public class YoutubeChannelUserLinkContentParser extends LinkDataExtractor {
 
-    private static final Pattern s_errorMessagePattern = Pattern.compile("\"alerts\":\\[\\{\"alertRenderer\":\\{\"type\":\"ERROR\",\"text\":\\{\"simpleText\":\"([^\\\"]*)\"\\}\\}\\}\\]");
-    private static final Pattern s_descriptionPattern = Pattern.compile("<meta name=\"description\" content=\"([^\"]*)\">"); 
+    static final String s_sourceName = "YouTube channel page";
 
-    private final String _data;
-    private Optional<Locale> _language;
+    private static final Pattern s_errorMessagePattern = Pattern.compile("\"alerts\":\\[\\{\"alertRenderer\":\\{\"type\":\"ERROR\",\"text\":\\{\"simpleText\":\"([^\\\"]*)\"\\}\\}\\}\\]"); //TODO use TextParser
+    private static final TextParser s_descriptionParser
+        = new TextParser("<meta name=\"description\" content=\"",
+                         "\">",
+                         s_sourceName,
+                         "description");
+
+    private Locale _language;
     private Optional<String> _errorMessage;
 
     /**
+     * @param url URL of the link
      * @param data retrieved link data
+     * @param retriever cache data retriever
      */
-    public YoutubeChannelUserLinkContentParser(final String data) {
-        _data = data;
+    public YoutubeChannelUserLinkContentParser(final String url,
+                                               final String data,
+                                               final CachedSiteDataRetriever retriever) {
+        super(url, retriever);
+
+        _errorMessage = extractErrorMessage(data);
+
+        if (_errorMessage.isPresent()) {
+	        _language = Locale.ENGLISH;
+        } else {
+            try {
+                final String description = extractDescription(data);
+                final Optional<Locale> lang = StringHelper.guessLanguage(description);
+                //  we fallback to English if the language cannot be guessed
+                _language = lang.orElse(Locale.ENGLISH);
+            } catch (ContentParserException e) {
+                // TODO should keep the exception escape
+                ExitHelper.exit("Failed to extract description", e);
+            }
+        }
     }
 
     /**
      * @return error message
      */
     public Optional<String> getErrorMessage() {
-        if (_errorMessage == null) {
-            _errorMessage = extractErrorMessage();
-        }
-
         return _errorMessage;
     }
 
@@ -42,18 +72,14 @@ public class YoutubeChannelUserLinkContentParser {
      * @return language
      * @throws ContentParserException Failure to extract the information
      */
-    public Optional<Locale> getLanguage() throws ContentParserException {
-        if (_language == null) {
-            final String description = extractDescription();
-            _language = StringHelper.guessLanguage(description);
-        }
-
+    @Override
+    public Locale getLanguage() throws ContentParserException {
         return _language;
     }
 
-    private Optional<String> extractErrorMessage() {
+    private static Optional<String> extractErrorMessage(final String data) {
 
-        final Matcher m = s_errorMessagePattern.matcher(_data);
+        final Matcher m = s_errorMessagePattern.matcher(data);
         if (m.find()) {
             return Optional.of(m.group(1));
         }
@@ -61,13 +87,32 @@ public class YoutubeChannelUserLinkContentParser {
         return Optional.empty();
     }
 
-    private String extractDescription() throws ContentParserException {
+    private static String extractDescription(final String data) throws ContentParserException {
+        return HtmlHelper.cleanContent(s_descriptionParser.extract(data));
+    }
 
-        final Matcher m = s_descriptionPattern.matcher(_data);
-        if (m.find()) {
-            return m.group(1);
-        }
+    @Override
+    public String getTitle() throws ContentParserException {
+        throw new UnsupportedOperationException("YoutubeChannelUserLinkContentParser does not support title");
+    }
 
-        throw new ContentParserException("Failed to find description in YouTube channel page");
+    @Override
+    public Optional<String> getSubtitle() throws ContentParserException {
+        throw new UnsupportedOperationException("YoutubeChannelUserLinkContentParser does not support subtitle");
+    }
+
+    @Override
+    public Optional<TemporalAccessor> getDate() throws ContentParserException {
+        throw new UnsupportedOperationException("YoutubeChannelUserLinkContentParser does not support date");
+    }
+
+    @Override
+    public List<AuthorData> getSureAuthors() throws ContentParserException {
+        throw new UnsupportedOperationException("YoutubeChannelUserLinkContentParser does not support authors");
+    }
+
+    @Override
+    public List<ExtractedLinkData> getLinks() throws ContentParserException {
+        throw new UnsupportedOperationException("YoutubeChannelUserLinkContentParser does not support links");
     }
 }

@@ -203,7 +203,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
 
         // case the date is formatted as YYYY-MM-DDThh:mm:ss-XX:XX
         if (str.length() == 25) {
-            return DateTimeHelper.convertISO8601DateTime(str);
+            return DateTimeHelper.convertISO8601StringToDateTime(str);
         }
 
         throw new ContentParserException("Unknown date format: \"" + str + "\"");
@@ -492,6 +492,11 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                           new ChannelData(buildList(WellKnownAuthors.JEFF_DELANEY),
                                                           buildMatchingList(),
                                                           Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("GitButler",
+                                          new ChannelData(buildList(WellKnownAuthors.buildAuthor("Scott", "Chacon")),
+                                                          buildMatchingList(match("Caleb ", WellKnownAuthors.buildAuthor("Caleb", "Owens")),
+                                                                            match("Esteban", WellKnownAuthors.buildAuthor("José Esteban", "Vega Carrillo"))),
+                                                          Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("GOTO Conferences",
                                           new ChannelData(buildList(),
                                                           buildMatchingList(match("Dave Farley", WellKnownAuthors.buildAuthor("Dave", "Farley"))),
@@ -559,7 +564,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                           buildMatchingList(),
                                                           Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("La Tronche en Biais",
-                                          new ChannelData(buildList(WellKnownAuthors.buildAuthor("Thomas", "Durand")),
+                                          new ChannelData(buildList(WellKnownAuthors.buildAuthor("Thomas", "C.", "Durand")),
                                                           buildMatchingList(),
                                                           Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("Le Dessous des Cartes - ARTE",

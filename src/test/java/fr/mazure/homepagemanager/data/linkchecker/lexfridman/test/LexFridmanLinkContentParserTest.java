@@ -43,8 +43,8 @@ class LexFridmanLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://lexfridman.com/elon-musk|PT32M45S",
-        "https://lexfridman.com/graham-hancock|PT2H33M2S"
+        "https://lexfridman.com/elon-musk|PT33M",
+        "https://lexfridman.com/graham-hancock|PT2H41M33S"
     }, delimiter = '|')
     void testDuration(final String url,
                       final String expectedDuration) {

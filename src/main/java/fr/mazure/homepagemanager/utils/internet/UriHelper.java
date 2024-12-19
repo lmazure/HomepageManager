@@ -47,7 +47,7 @@ public class UriHelper {
      * @return Path
      */
     public static String getPath(final String uri) {
-        try  {
+        try {
             return new URI(uri).getPath();
         } catch (@SuppressWarnings("unused") final URISyntaxException e) {
             return null;

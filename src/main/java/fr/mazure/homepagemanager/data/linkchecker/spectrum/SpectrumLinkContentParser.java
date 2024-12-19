@@ -1,8 +1,5 @@
 package fr.mazure.homepagemanager.data.linkchecker.spectrum;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +15,7 @@ import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
+import fr.mazure.homepagemanager.utils.DateTimeHelper;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
@@ -156,8 +154,6 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
             final AuthorData author = LinkContentParserUtils.parseAuthorName(name);
             _authors.add(author);
         }
-        final String date = payload.getString("datePublished");
-        final Instant instant = Instant.parse(date);
-        _publicationDate = Optional.of(LocalDate.ofInstant(instant, ZoneId.of("Europe/Paris")));
+        _publicationDate = Optional.of(DateTimeHelper.convertISO8601StringToDateTime(payload.getString("datePublished")));
     }
 }

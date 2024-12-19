@@ -1,9 +1,7 @@
 package fr.mazure.homepagemanager.data.linkchecker.medium;
 
 import java.math.BigInteger;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,6 +18,7 @@ import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
+import fr.mazure.homepagemanager.utils.DateTimeHelper;
 import fr.mazure.homepagemanager.utils.StringHelper;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.internet.UriHelper;
@@ -141,8 +140,7 @@ public class MediumLinkContentParser extends LinkDataExtractor {
         } catch (final JSONException e) {
             throw new ContentParserException("Failed to find \"Post:" + _code +"/firstPublishedAt\" JSON integer in Medium page", e);
         }
-        final Instant instant = Instant.ofEpochMilli(firstPublishedAt.longValueExact());
-        _publicationDate = LocalDate.ofInstant(instant, ZoneId.of("Europe/Paris"));
+        _publicationDate = DateTimeHelper.convertLongToDateTime(firstPublishedAt.longValueExact());
         /* does not work, the title is out of date in the JSON payload if the author modified it after the first publication
         String title;
         try {

@@ -87,7 +87,7 @@ public class HtmlTableCell<S> extends TableCell<S, String> {
             _webView.getEngine().loadContent(_htmlContent);
             setText(null);
             setGraphic(_stackPane);
-            _webView.getEngine().documentProperty().addListener((final ObservableValue<? extends Document>obj, final Document prev, final Document newv) -> {
+            _webView.getEngine().documentProperty().addListener((final ObservableValue<? extends Document>_, final Document _, final Document _) -> {
                 final Integer heightText = (Integer)_webView.getEngine().executeScript(
                         "Math.max( document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight);"
                 );

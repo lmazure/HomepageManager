@@ -20,7 +20,7 @@ public class MetricsExtractor {
     private static final String s_separator = ";";
 
     /**
-     * @param homepage
+     * @param homepage path to the directory containing the pages
      */
     public static void generate(final Path homepage) {
 
@@ -53,7 +53,7 @@ public class MetricsExtractor {
                        "Pages" + s_separator +
                        "Visits\n");
 
-        final File[] files = metricsDirectory.toFile().listFiles((dir, name) -> name.startsWith("usage_"));
+        final File[] files = metricsDirectory.toFile().listFiles((_, name) -> name.startsWith("usage_"));
         for (final File file: files) {
             builder.append("01/");
              builder.append(file.getName().substring(10, 12));

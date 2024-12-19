@@ -22,8 +22,20 @@ public class DateTimeHelper {
      * @param str string
      * @return LocalDate
      */
-    public static LocalDate convertISO8601DateTime(final String str) {
+    public static LocalDate convertISO8601StringToDateTime(final String str) {
         final Instant instant = Instant.parse(str);
+        final ZonedDateTime franceDateTime = instant.atZone(s_parisZone);
+        return LocalDate.from(franceDateTime);
+    }
+
+    /**
+     * Convert a long to a LocalDate
+     *
+     * @param value long
+     * @return LocalDate
+     */
+    public static LocalDate convertLongToDateTime(final long value) {
+        final Instant instant = Instant.ofEpochMilli(value);
         final ZonedDateTime franceDateTime = instant.atZone(s_parisZone);
         return LocalDate.from(franceDateTime);
     }
@@ -51,7 +63,7 @@ public class DateTimeHelper {
      * Convert a TemporalAccessor to a LocalDate
      *
      * @param accessor TemporalAccessor
-     * @return LocalDate 
+     * @return LocalDate
      */
     public static LocalDate convertTemporalAccessorToLocalDate(final TemporalAccessor accessor) {
         return LocalDate.of(accessor.get(ChronoField.YEAR), accessor.get(ChronoField.MONTH_OF_YEAR), accessor.get(ChronoField.DAY_OF_MONTH));

@@ -1,5 +1,6 @@
 package fr.mazure.homepagemanager.data.linkchecker.gitlabblog;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
@@ -81,7 +82,8 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
 
     @Override
     public Optional<TemporalAccessor> getDate() throws ContentParserException {
-        return Optional.of(s_dateFormat.parse(HtmlHelper.cleanContent(s_dateParser.extract(_data))));
+        final String str = HtmlHelper.cleanContent(s_dateParser.extract(_data));
+        return Optional.of(LocalDate.parse(str, s_dateFormat));
     }
 
     @Override

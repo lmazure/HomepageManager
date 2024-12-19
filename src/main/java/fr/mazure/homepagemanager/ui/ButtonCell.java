@@ -13,7 +13,7 @@ abstract class ButtonCell<S> extends TableCell<S, String> {
         _cellButton = new Button();
         _cellButton.setMaxWidth(Double.MAX_VALUE);
         _cellButton.setMnemonicParsing(false);
-        _cellButton.setOnAction(e -> callback.accept(getCurrentItem()));
+        _cellButton.setOnAction(_ -> callback.accept(getCurrentItem()));
     }
 
     protected Button getButton() {

@@ -1,20 +1,11 @@
 package fr.mazure.homepagemanager.data.linkchecker.medium.test;
 
-import java.util.Locale;
-import java.util.concurrent.atomic.AtomicBoolean;
-
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
-import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
-import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase;
-import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 
 /**
  * Tests of MediumLinkContentParser
@@ -177,6 +168,7 @@ class MediumLinkContentParserTest extends LinkDataExtractorTestBase {
         checkTitle(MediumLinkContentParser.class, url, expectedTitle);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://medium.com/@kentbeck_7670/a-years-worth-c1cbc3085e9d,2019-06-08",
@@ -188,24 +180,10 @@ class MediumLinkContentParserTest extends LinkDataExtractorTestBase {
         })
     void testUnmodifiedBlogPublishDate(final String url,
                                        final String expectedDate) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final MediumLinkContentParser parser = new MediumLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertEquals(expectedDate, parser.getPublicationDate().toString());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getPublicationDate threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkDate(MediumLinkContentParser.class, url, expectedDate);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({
         "https://medium.com/@kentbeck_7670/sipping-the-big-gulp-a7c50549c393,2019-05-11,2019-05-21",
@@ -214,24 +192,10 @@ class MediumLinkContentParserTest extends LinkDataExtractorTestBase {
     void testModifiedBlogPublishDate(final String url,
                                      final String expectedPublicationDate,
                                      @SuppressWarnings("unused") final String expectedModificationDate) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final MediumLinkContentParser parser = new MediumLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertEquals(expectedPublicationDate, parser.getPublicationDate().toString());
-                                } catch (final ContentParserException e) {
-                                    Assertions.fail("getPublicationDate threw " + e.getMessage());
-                                }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkDate(MediumLinkContentParser.class, url, expectedPublicationDate);
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
         "https://medium.com/@kentbeck_7670/bs-changes-e574bc396aaa|en",
@@ -240,24 +204,11 @@ class MediumLinkContentParserTest extends LinkDataExtractorTestBase {
         }, delimiter = '|')
     void testLanguage(final String url,
                       final String expectedLanguage) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final MediumLinkContentParser parser = new MediumLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertEquals(Locale.of(expectedLanguage), parser.getLanguage());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getLanguage threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkLanguage(MediumLinkContentParser.class, url, expectedLanguage);
+
     }
 
+    @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
         "https://uxdesign.cc/the-dark-yellow-problem-in-design-system-color-palettes-a0db1eedc99d|The “dark yellow problem” in design system color palettes",
@@ -267,21 +218,6 @@ class MediumLinkContentParserTest extends LinkDataExtractorTestBase {
         }, delimiter = '|')
     void testRedirectMechanism(final String url,
                                final String expectedTitle) {
-        final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        retriever.retrieve(url,
-                           (final FullFetchedLinkData d) -> {
-                               Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                               final MediumLinkContentParser parser = new MediumLinkContentParser(url, data, retriever);
-                               try {
-                                   Assertions.assertEquals(expectedTitle, parser.getTitle());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getTitle threw " + e.getMessage());
-                               }
-                               consumerHasBeenCalled.set(true);
-                           },
-                           false);
-        Assertions.assertTrue(consumerHasBeenCalled.get());
+        checkTitle(MediumLinkContentParser.class, url, expectedTitle);
     }
 }

@@ -78,23 +78,23 @@ public class FileTable extends Application {
         final Menu menu = new Menu("Tools");
         final MenuItem displayViolations = new MenuItem("Display violations");
         displayViolations.setAccelerator(new KeyCodeCombination(KeyCode.E, KeyCombination.CONTROL_DOWN));
-        displayViolations.setOnAction(e -> displayViolations());
+        displayViolations.setOnAction(_ -> displayViolations());
         menu.getItems().add(displayViolations);
         final MenuItem generateFiles = new MenuItem("Generate global files");
         generateFiles.setAccelerator(new KeyCodeCombination(KeyCode.G, KeyCombination.CONTROL_DOWN));
-        generateFiles.setOnAction(e -> generateGlobalFiles());
+        generateFiles.setOnAction(_ -> generateGlobalFiles());
         menu.getItems().add(generateFiles);
         final MenuItem generateXml = new MenuItem("Generate XML for link");
         generateXml.setAccelerator(new KeyCodeCombination(KeyCode.L, KeyCombination.CONTROL_DOWN));
-        generateXml.setOnAction(e -> displayLinkXmlGenerator());
+        generateXml.setOnAction(_ -> displayLinkXmlGenerator());
         menu.getItems().add(generateXml);
         final MenuItem displayStatistics = new MenuItem("Display statistics");
         displayStatistics.setAccelerator(new KeyCodeCombination(KeyCode.T, KeyCombination.CONTROL_DOWN));
-        displayStatistics.setOnAction(e -> displayStatisticsDialog());
+        displayStatistics.setOnAction(_ -> displayStatisticsDialog());
         menu.getItems().add(displayStatistics);
         final MenuItem exit = new MenuItem("Exit");
         exit.setAccelerator(new KeyCodeCombination(KeyCode.Q, KeyCombination.CONTROL_DOWN));
-        exit.setOnAction(e -> exit());
+        exit.setOnAction(_ -> exit());
         menu.getItems().add(exit);
         menuBar.getMenus().add(menu);
 

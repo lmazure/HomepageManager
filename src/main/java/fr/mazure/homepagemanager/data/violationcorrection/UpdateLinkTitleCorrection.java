@@ -13,7 +13,7 @@ public class UpdateLinkTitleCorrection extends RegexpViolationCorrection {
      * Constructor
      *
      * @param badTitle Incorrect title
-     * @param correctTitle  Correct title
+     * @param correctTitle Correct title
      * @param url URL of the link
      */
     public UpdateLinkTitleCorrection(final String badTitle,

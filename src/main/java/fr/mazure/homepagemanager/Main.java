@@ -15,7 +15,7 @@ import fr.mazure.homepagemanager.utils.internet.WebServer;
  */
 public class Main {
 
-    private static final String s_enableInternetAccessOption  = "-enableInternetAccess";
+    private static final String s_enableInternetAccessOption = "-enableInternetAccess";
     private static final String s_disableInternetAccessOption = "-disableInternetAccess";
     private static final String s_enableServer = "-serve";
 

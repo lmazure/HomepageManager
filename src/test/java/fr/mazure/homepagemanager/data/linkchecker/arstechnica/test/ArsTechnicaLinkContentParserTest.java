@@ -69,7 +69,6 @@ class ArsTechnicaLinkContentParserTest extends LinkDataExtractorTestBase {
                     final String expectedFirstName,
                     final String expectedMiddleName,
                     final String expectedLastName) {
-
         check1Author(ArsTechnicaLinkContentParser.class,
                      url,
                      null,
