@@ -40,7 +40,6 @@ class SimonWillisonTilLinkContentParserTest extends LinkDataExtractorTestBase {
         }, delimiter = '|')
     void testNoSubtitle(final String url) {
         checkNoSubtitle(SimonWillisonTilLinkContentParser.class, url);
-
     }
 
     @SuppressWarnings("static-method")

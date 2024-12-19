@@ -23,7 +23,7 @@ class SynchronousSiteDataRetrieverTest {
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertFalse(consumerHasBeenCalled.get());
                                consumerHasBeenCalled.set(true);
-                               TestHelper.assertData(d);
+                               TestHelper.assertExampleComData(d);
                            },
                            false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
@@ -38,7 +38,7 @@ class SynchronousSiteDataRetrieverTest {
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertFalse(consumerHasBeenCalled.get());
                                consumerHasBeenCalled.set(true);
-                               TestHelper.assertData(d);
+                               TestHelper.assertExampleComData(d);
                            },
                            false);
         Assertions.assertTrue(consumerHasBeenCalled.get());

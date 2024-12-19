@@ -36,10 +36,12 @@ class DZoneLinkContentParserTest extends LinkDataExtractorTestBase {
                      null);
     }
 
+    /*
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://dzone.com/articles/knowledge-graphs-the-secret-weapon-for-rag-apps|Pavan||Vemuri|Prince||Bose|Tharakarama|Reddy|Yernapalli Sreenivasulu"
+        // this article is dead
+        // "https://dzone.com/articles/knowledge-graphs-the-secret-weapon-for-rag-apps|Pavan||Vemuri|Prince||Bose|Tharakarama|Reddy|Yernapalli Sreenivasulu"
         }, delimiter = '|')
     void testThreeAuthors(final String url,
                           final String expectedFirstName1,
@@ -75,6 +77,7 @@ class DZoneLinkContentParserTest extends LinkDataExtractorTestBase {
                       null,
                       null);
     }
+    */
 
     @SuppressWarnings("static-method")
     @ParameterizedTest

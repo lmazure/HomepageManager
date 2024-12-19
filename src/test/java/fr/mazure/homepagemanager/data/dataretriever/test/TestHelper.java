@@ -23,9 +23,11 @@ import fr.mazure.homepagemanager.utils.internet.HttpHelper;
 public class TestHelper {
 
     /**
-     * @param data
+     * Assert that the data is the one expected from http://example.com
+     *
+     * @param data data
      */
-    public static void assertData(final FullFetchedLinkData data) {
+    public static void assertExampleComData(final FullFetchedLinkData data) {
         Assertions.assertEquals(200, HttpHelper.getResponseCodeFromHeaders(data.headers().get()));
         Assertions.assertTrue(data.headers().isPresent());
         Assertions.assertTrue(data.headers().get().containsKey("Content-Type"));
@@ -45,18 +47,20 @@ public class TestHelper {
     }
 
     /**
-     * @param expectedDateAsString
-     * @param date
+     * Assert that the effective date is the expected one
+     * 
+     * @param expectedDateAsString expected date
+     * @param effectiveDate effective date
      */
     public static void assertDate(final String expectedDateAsString,
-                                  final Optional<TemporalAccessor> date) {
-        Assertions.assertTrue(date.isPresent());
-        Assertions.assertTrue(date.get().isSupported(ChronoField.YEAR));
-        Assertions.assertTrue(date.get().isSupported(ChronoField.MONTH_OF_YEAR));
-        Assertions.assertTrue(date.get().isSupported(ChronoField.DAY_OF_MONTH));
-        final LocalDate d = LocalDate.of(date.get().get(ChronoField.YEAR),
-                                         date.get().get(ChronoField.MONTH_OF_YEAR),
-                                         date.get().get(ChronoField.DAY_OF_MONTH));
+                                  final Optional<TemporalAccessor> effectiveDate) {
+        Assertions.assertTrue(effectiveDate.isPresent());
+        Assertions.assertTrue(effectiveDate.get().isSupported(ChronoField.YEAR));
+        Assertions.assertTrue(effectiveDate.get().isSupported(ChronoField.MONTH_OF_YEAR));
+        Assertions.assertTrue(effectiveDate.get().isSupported(ChronoField.DAY_OF_MONTH));
+        final LocalDate d = LocalDate.of(effectiveDate.get().get(ChronoField.YEAR),
+                                         effectiveDate.get().get(ChronoField.MONTH_OF_YEAR),
+                                         effectiveDate.get().get(ChronoField.DAY_OF_MONTH));
         Assertions.assertEquals(expectedDateAsString, d.toString());
     }
 
