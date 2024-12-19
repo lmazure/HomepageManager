@@ -45,27 +45,6 @@ methods       53.9%    97.9%
 ==== before merge =====
 
 
-gérer
-fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://oxide.computer/podcasts/oxide-and-friends/2038761"
-	at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:89)
-	at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:325)
-	at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:139)
-	at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:117)
-	at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:73)
-	at fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:32)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
-	at java.base/java.lang.Thread.run(Thread.java:1575)
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find title in Oxide and Friends
-	at fr.mazure.homepagemanager.data.linkchecker.TextParser.extract(TextParser.java:61)
-	at fr.mazure.homepagemanager.data.linkchecker.oxideandfriends.OxideAndFriendsLinkContentParser.getTitle(OxideAndFriendsLinkContentParser.java:93)
-	at fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkLinkTitle(ExtractorBasedLinkContentChecker.java:70)
-	at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:106)
-	at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:87)
-	... 9 more
-
-
 
 
 

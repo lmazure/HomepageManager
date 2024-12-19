@@ -309,8 +309,11 @@ public class LinkDataExtractorTestBase {
             @SuppressWarnings("unchecked")
             final Constructor<LinkDataExtractor> constructor = (Constructor<LinkDataExtractor>)clazz.getConstructor(String.class, String.class, CachedSiteDataRetriever.class);
             return constructor.newInstance(url, data, retriever);
-        } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-            Assertions.fail("Error in reflexion code " + e.getMessage());
+        } catch (final InvocationTargetException e) {
+            Assertions.fail("Error while invoking the constructor " + e.getCause());
+            return null;
+        } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException | NoSuchMethodException | SecurityException e) {
+            Assertions.fail("Error in reflexion code " + e);
             return null;
         }
     }

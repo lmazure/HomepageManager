@@ -32,29 +32,29 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
 
     private static final String s_sourceName = "Oxide and Friends";
 
-    private final String _data;
     private String _title;
     private Optional<TemporalAccessor> _date;
     private Optional<Duration> _duration;
     private Optional<ExtractedLinkData> _otherLink;
 
     private static final TextParser s_titleParser
-        = new TextParser("<h1 class=\"text-sans-3xl 800:text-sans-3xl 1000:text-sans-4xl text-default my-3\">",
-                         "</h1>",
+        = new TextParser("<h2 class=\"site-episode-title\">",
+                         "</h2>",
                          s_sourceName,
                          "title");
     private static final TextParser s_dateParser
-        = new TextParser("<div class=\"block uppercase text-mono-sm text-tertiary\"><span class=\"inline-block\">",
-                         "</span>",
+        = new TextParser("<time>",
+                         "</time>",
                          s_sourceName,
                          "date");
     private static final TextParser s_durationParser
-        = new TextParser("<span class=\"ml-2 inline-block\">",
-                         "</span>",
+        = new TextParser("<span>",
+                         "\\d\\d:\\d\\d:\\d\\d",
+                         "</span><span>/</span><span>S",
                          s_sourceName,
                          "duration");
 
-    private static final DateTimeFormatter s_dateformatter = DateTimeFormatter.ofPattern("d MMM yyyy", Locale.ENGLISH);
+    private static final DateTimeFormatter s_dateformatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.ENGLISH);
 
     private static final List<AuthorData> s_authors = new ArrayList<>(Arrays.asList(
         WellKnownAuthors.buildAuthor("Bryan", "Cantrill"),
@@ -65,16 +65,35 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
      * @param url URL of the link
      * @param data retrieved link data
      * @param retriever cache data retriever
+     * @throws ContentParserException Failure to extract the information
      */
     public OxideAndFriendsLinkContentParser(final String url,
                                             final String data,
-                                            final CachedSiteDataRetriever retriever) {
+                                            final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(url, retriever);
-        _data = data;
-        _title = null;
-        _date = null;
-        _duration = null;
-        _otherLink = null;
+        
+        _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
+        
+        _date = Optional.of(LocalDate.parse(s_dateParser.extract(data), s_dateformatter));
+
+        final String durationString = s_durationParser.extract(data);
+        final String[] parts = durationString.split(":");
+        final int hours = Integer.parseInt(parts[0]);
+        final int minutes = Integer.parseInt(parts[1]);
+        final int seconds = Integer.parseInt(parts[2]);
+        _duration = Optional.of(Duration.ofHours(hours)
+                                        .plusMinutes(minutes)
+                                        .plusSeconds(seconds));
+
+        // get YouTube link
+        final YouTubeHelper helper = new YouTubeHelper();
+        final Optional<String> youtubeLink = helper.getVideoURL("Oxide Computer Company", getTitle(), getRetriever());
+        if (youtubeLink.isEmpty()) {
+            _otherLink = Optional.empty();
+        } else {
+            // get YouTube payload
+            getRetriever().retrieve(youtubeLink.get(), this::consumeYouTubeData, false);
+        }
     }
 
     /**
@@ -84,47 +103,31 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return url.startsWith("https://oxide.computer/podcasts/oxide-and-friends/");
+        return url.startsWith("https://oxide-and-friends.transistor.fm/");
     }
 
     @Override
-    public String getTitle() throws ContentParserException {
-        if (_title == null) {
-            _title = HtmlHelper.cleanContent(s_titleParser.extract(_data));
-        }
+    public String getTitle() {
         return _title;
     }
 
     @Override
-    public Optional<String> getSubtitle() throws ContentParserException {
+    public Optional<String> getSubtitle() {
         return Optional.empty();
     }
 
     @Override
-    public Optional<TemporalAccessor> getDate() throws ContentParserException {
-        if (_date == null) {
-            _date = Optional.of(LocalDate.parse(s_dateParser.extract(_data), s_dateformatter));
-        }
+    public Optional<TemporalAccessor> getDate() {
         return _date;
     }
 
     @Override
-    public Optional<Duration> getDuration() throws ContentParserException {
-        if (_duration == null) {
-            final String timeString = s_durationParser.extract(_data);
-            final String[] parts = timeString.split(":");
-            final int hours = Integer.parseInt(parts[0]);
-            final int minutes = Integer.parseInt(parts[1]);
-            final int seconds = Integer.parseInt(parts[2]);
-            _duration = Optional.of(Duration.ofHours(hours)
-                                            .plusMinutes(minutes)
-                                            .plusSeconds(seconds));
-        }
+    public Optional<Duration> getDuration() {
         return _duration;
     }
 
     @Override
-    public List<AuthorData> getSureAuthors() throws ContentParserException {
+    public List<AuthorData> getSureAuthors() {
         return s_authors;
     }
 
@@ -138,21 +141,7 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
         return new ArrayList<>(0);
     }
 
-    private Optional<ExtractedLinkData> getOtherLink() throws ContentParserException {
-
-        if (_otherLink == null) {
-            // get YouTube link
-            final YouTubeHelper helper = new YouTubeHelper();
-            final Optional<String> youtubeLink = helper.getVideoURL("Oxide Computer Company", getTitle(), getRetriever());
-            if (youtubeLink.isEmpty()) {
-                _otherLink = Optional.empty();
-                return _otherLink;
-            }
-
-            // get YouTube payload
-            getRetriever().retrieve(youtubeLink.get(), this::consumeYouTubeData, false);
-        }
-
+    private Optional<ExtractedLinkData> getOtherLink() {
         return _otherLink;
     }
 

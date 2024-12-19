@@ -14,7 +14,7 @@ class OxideAndFriendsLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://oxide.computer/podcasts/oxide-and-friends/2113598|Querying Metrics with OxQL",
+        "https://oxide-and-friends.transistor.fm/episodes/querying-metrics-with-oxql|Querying Metrics with OxQL",
     }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
@@ -24,7 +24,7 @@ class OxideAndFriendsLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://oxide.computer/podcasts/oxide-and-friends/2113598",
+        "https://oxide-and-friends.transistor.fm/episodes/querying-metrics-with-oxql",
     }, delimiter = '|')
     void testSubtitle(final String url) {
         checkNoSubtitle(OxideAndFriendsLinkContentParser.class, url);
@@ -33,7 +33,7 @@ class OxideAndFriendsLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://oxide.computer/podcasts/oxide-and-friends/2113598|2024-10-02",
+        "https://oxide-and-friends.transistor.fm/episodes/querying-metrics-with-oxql|2024-10-02",
     }, delimiter = '|')
     void testDate(final String url,
                   final String expectedDate) {
@@ -43,7 +43,7 @@ class OxideAndFriendsLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://oxide.computer/podcasts/oxide-and-friends/2113598|PT1H35M14S",
+        "https://oxide-and-friends.transistor.fm/episodes/querying-metrics-with-oxql|PT1H35M14S",
     }, delimiter = '|')
     void testDuration(final String url,
                       final String expectedDuration) {
@@ -53,7 +53,7 @@ class OxideAndFriendsLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://oxide.computer/podcasts/oxide-and-friends/2113598|Bryan||Cantrill|Adam||Leventhal",
+        "https://oxide-and-friends.transistor.fm/episodes/querying-metrics-with-oxql|Bryan||Cantrill|Adam||Leventhal",
     }, delimiter = '|')
     void test2Authors(final String url,
                       final String expectedFirstName1,
