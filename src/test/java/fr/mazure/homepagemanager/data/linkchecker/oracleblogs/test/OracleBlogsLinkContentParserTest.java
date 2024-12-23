@@ -88,7 +88,7 @@ class OracleBlogsLinkContentParserTest extends LinkDataExtractorTestBase {
         })
     void testDate(final String url,
                   final String expectedDate) {
-        checkDate(OracleBlogsLinkContentParser.class, url, expectedDate);
+        checkCreationDate(OracleBlogsLinkContentParser.class, url, expectedDate);
     }
 
     @SuppressWarnings("static-method")
@@ -159,7 +159,7 @@ class OracleBlogsLinkContentParserTest extends LinkDataExtractorTestBase {
                                    Assertions.fail("getSureAuthors threw " + e.getMessage());
                                }
                               try {
-                                  TestHelper.assertDate(expectedDate, parser.getDate());
+                                  TestHelper.assertDate(expectedDate, parser.getCreationDate());
                               } catch (final ContentParserException e) {
                                   Assertions.fail("getDate threw " + e.getMessage());
                               }

@@ -95,8 +95,13 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public Optional<TemporalAccessor> getDate() throws ContentParserException {
+    public Optional<TemporalAccessor> getCreationDate() throws ContentParserException {
         return Optional.of(LocalDate.parse(HtmlHelper.cleanContent(s_dateParser.extract(_data))));
+    }
+
+    @Override
+    public Optional<TemporalAccessor> getPublicationDate() throws ContentParserException {
+        return getCreationDate();
     }
 
     @Override

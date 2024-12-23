@@ -154,7 +154,7 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
         final TemporalAccessor date =  publicationDate.isPresent() ? publicationDate.get()
                                                                    : creationDate.get();
 
-        final LocalDate effectiveDate = DateTimeHelper.convertTemporalAccessorToLocalDate(_parser.getDate().get());
+        final LocalDate effectiveDate = DateTimeHelper.convertTemporalAccessorToLocalDate(_parser.getCreationDate().get());
 
         if (!date.equals(effectiveDate)) {
             final Optional<ViolationCorrection> correction = Optional.of(new UpdateArticleDateCorrection(date, effectiveDate, getUrl()));

@@ -23,7 +23,10 @@ public class DZoneLinkContentParser extends LinkDataExtractor {
 
     private static final String s_sourceName = "DZone";
 
-    private final String _data;
+    private final String _title; 
+    private final Optional<String> _subtitle;
+    private final Optional<TemporalAccessor> _date;
+    private final List<AuthorData> _authors;
 
     private static final TextParser s_titleParser
         = new TextParser("<div class=\"title\">\n                        <h1 class=\"article-title\">",
@@ -55,12 +58,29 @@ public class DZoneLinkContentParser extends LinkDataExtractor {
      * @param url URL of the link
      * @param data retrieved link data
      * @param retriever cache data retriever
+     * @throws ContentParserException Failure to extract the information
      */
     public DZoneLinkContentParser(final String url,
                                   final String data,
-                                  final CachedSiteDataRetriever retriever) {
+                                  final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(url, retriever);
-        _data = data;
+
+        _title = s_titleParser.extract(data);
+
+        final String subtitle = s_subtitleParser.extract(data);
+       if (subtitle.isEmpty()) {
+           _subtitle = Optional.empty();
+       } else {
+           _subtitle = Optional.of(subtitle);
+       }
+
+       _date = Optional.of(LocalDate.parse(s_dateParser.extract(data)));
+       
+       final List<String> authors = s_authorParser.extractMulti(data);
+       _authors = new ArrayList<>(authors.size());
+       for (final String author : authors) {
+           _authors.add(LinkContentParserUtils.parseAuthorName(author));
+       }
     }
 
     /**
@@ -75,39 +95,27 @@ public class DZoneLinkContentParser extends LinkDataExtractor {
 
     @Override
     public String getTitle() throws ContentParserException {
-        return s_titleParser.extract(_data);
+        return _title;
     }
 
     @Override
     public Optional<String> getSubtitle() throws ContentParserException {
-        final String subtitle = s_subtitleParser.extract(_data);
-        if (subtitle.isEmpty()) {
-            return Optional.empty();
-        }
-        return Optional.of(subtitle);
-    }
-
-    /**
-     * @return publication date
-     * @throws ContentParserException Failure to extract the information
-     */
-    public LocalDate getPublicationDate() throws ContentParserException {
-        return LocalDate.parse(s_dateParser.extract(_data));
+        return _subtitle;
     }
 
     @Override
-    public Optional<TemporalAccessor> getDate() throws ContentParserException {
-        return Optional.of(getPublicationDate());
+    public Optional<TemporalAccessor> getPublicationDate() {
+        return getCreationDate();
     }
 
     @Override
-    public List<AuthorData> getSureAuthors() throws ContentParserException {
-        final List<String> authors = s_authorParser.extractMulti(_data);
-        final List<AuthorData> list = new ArrayList<>(authors.size());
-        for (final String author : authors) {
-            list.add(LinkContentParserUtils.parseAuthorName(author));
-        }
-        return list;
+    public Optional<TemporalAccessor> getCreationDate() {
+        return _date;
+    }
+
+    @Override
+    public List<AuthorData> getSureAuthors() {
+        return _authors;
     }
 
     @Override

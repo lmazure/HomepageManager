@@ -35,7 +35,8 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
     private static final String s_sourceName = "Oxide and Friends";
 
     private final String _title;
-    private final Optional<TemporalAccessor> _date;
+    private Optional<TemporalAccessor> _creationDate;
+    private final Optional<TemporalAccessor> _blogPublicationDate;
     private final Optional<Duration> _duration;
     private List<AuthorData> _authors;
     private Optional<ExtractedLinkData> _otherLink;
@@ -45,11 +46,16 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
                          "</h2>",
                          s_sourceName,
                          "title");
-    private static final TextParser s_dateParser
+    private static final TextParser s_blogPublicationDateParser
         = new TextParser("<time>",
                          "</time>",
                          s_sourceName,
-                         "date");
+                         "blog publcation date");
+    private static final TextParser s_creationDateParser
+        = new TextParser("Oxide and Friends ",
+                         " --",
+                         s_sourceName,
+                         "creation date");
     private static final TextParser s_durationParser
         = new TextParser("<span>",
                          "\\d\\d:\\d\\d:\\d\\d",
@@ -62,7 +68,8 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
                          s_sourceName,
                          "transcript participant");
 
-    private static final DateTimeFormatter s_dateformatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.ENGLISH);
+    private static final DateTimeFormatter s_blogPublicationDateFormatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.ENGLISH);
+    private static final DateTimeFormatter s_creationDateFormatter = DateTimeFormatter.ofPattern("M/d/yyyy");
 
     private static final Integer ZERO = Integer.valueOf(0);
 
@@ -79,7 +86,7 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
 
         _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
 
-        _date = Optional.of(LocalDate.parse(s_dateParser.extract(data), s_dateformatter));
+        _blogPublicationDate = Optional.of(LocalDate.parse(s_blogPublicationDateParser.extract(data), s_blogPublicationDateFormatter));
 
         final String durationString = s_durationParser.extract(data);
         final String[] parts = durationString.split(":");
@@ -89,7 +96,6 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
         _duration = Optional.of(Duration.ofHours(hours)
                                         .plusMinutes(minutes)
                                         .plusSeconds(seconds));
-
 
         // get transcript
         final String transcriptUrl = url + "/transcript";
@@ -127,8 +133,13 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public Optional<TemporalAccessor> getDate() {
-        return _date;
+    public Optional<TemporalAccessor> getCreationDate() {
+        return _creationDate;
+    }
+
+    @Override
+    public Optional<TemporalAccessor> getPublicationDate() {
+        return _blogPublicationDate;
     }
 
     @Override
@@ -187,6 +198,8 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
         // extract the link data
         try {
             final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(siteData.url(), payload, getRetriever());
+            final String creationDateString = s_creationDateParser.extract(parser.getTitle());
+            _creationDate = Optional.of(LocalDate.parse(creationDateString, s_creationDateFormatter));
             final ExtractedLinkData linkData = new ExtractedLinkData(parser.getTitle(),
                                                                      new String[] { },
                                                                      siteData.url(),
@@ -195,7 +208,7 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
                                                                      new LinkFormat[] { LinkFormat.MP4 },
                                                                      new Locale[] { parser.getLanguage() },
                                                                      parser.getDuration(),
-                                                                     Optional.empty());
+                                                                     parser.getCreationDate());
             _otherLink = Optional.of(linkData);
         } catch (ContentParserException e) {
             Logger.log(Level.ERROR)
@@ -217,7 +230,7 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
                                                                  new LinkFormat[] { LinkFormat.MP3 },
                                                                  new Locale[] { getLanguage() },
                                                                  getDuration(),
-                                                                 Optional.empty());
+                                                                 getPublicationDate());
         final List<ExtractedLinkData> list = new ArrayList<>(2);
         list.add(linkData);
         final Optional<ExtractedLinkData> otherLink = getOtherLink();

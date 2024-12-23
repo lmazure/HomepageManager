@@ -113,11 +113,16 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public Optional<TemporalAccessor> getDate() throws ContentParserException {
+    public Optional<TemporalAccessor> getCreationDate() throws ContentParserException {
         if (_date == null) {
             _date = Optional.of(LocalDate.parse(s_dateParser.extract(_data), s_dateformatter));
         }
         return _date;
+    }
+
+    @Override
+    public Optional<TemporalAccessor> getPublicationDate() throws ContentParserException {
+        return getCreationDate();
     }
 
     @Override
@@ -181,8 +186,8 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
         try {
             final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(siteData.url(), payload, getRetriever());
             Optional<TemporalAccessor> publicationDate = Optional.empty();
-            final LocalDate youtubeDate = DateTimeHelper.convertTemporalAccessorToLocalDate(parser.getDate().get());
-            final LocalDate lexFridmanDate = DateTimeHelper.convertTemporalAccessorToLocalDate(getDate().get());
+            final LocalDate youtubeDate = DateTimeHelper.convertTemporalAccessorToLocalDate(parser.getCreationDate().get());
+            final LocalDate lexFridmanDate = DateTimeHelper.convertTemporalAccessorToLocalDate(getCreationDate().get());
             if (youtubeDate.isBefore(lexFridmanDate)) {
                 ExitHelper.exit("YouTube date (" + youtubeDate + ") is before Lex Fridman date (" + lexFridmanDate + ").");
             }

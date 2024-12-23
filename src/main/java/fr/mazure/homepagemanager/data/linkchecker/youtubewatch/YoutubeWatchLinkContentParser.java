@@ -847,11 +847,16 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
             );
 
     @Override
-    public Optional<TemporalAccessor> getDate() throws ContentParserException {
+    public Optional<TemporalAccessor> getCreationDate() throws ContentParserException {
         if (getStartBroadcastDateInternal().isPresent()) {
 	        return Optional.of(getStartBroadcastDateInternal().get());
         }
         return Optional.of(getUploadDateInternal());
+    }
+
+    @Override
+    public Optional<TemporalAccessor> getPublicationDate() throws ContentParserException {
+        return getCreationDate();
     }
 
     @Override

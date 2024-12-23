@@ -83,10 +83,15 @@ public class StackOverflowBlogLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public Optional<TemporalAccessor> getDate() throws ContentParserException {
+    public Optional<TemporalAccessor> getCreationDate() throws ContentParserException {
         final String extractedDate = HtmlHelper.cleanContent(s_dateParser.extract(_data));
         final LocalDate date = ZonedDateTime.parse(extractedDate, DateTimeFormatter.ISO_DATE_TIME).toLocalDate();
         return Optional.of(date);
+    }
+
+    @Override
+    public Optional<TemporalAccessor> getPublicationDate() throws ContentParserException {
+        return getCreationDate();
     }
 
     @Override

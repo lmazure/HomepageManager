@@ -97,9 +97,14 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public Optional<TemporalAccessor> getDate() throws ContentParserException {
+    public Optional<TemporalAccessor> getCreationDate() throws ContentParserException {
         final String date = HtmlHelper.cleanContent(s_dateParser.extract(_data));
         return Optional.of(LocalDateTime.parse(date, DateTimeFormatter.ISO_OFFSET_DATE_TIME).toLocalDate());
+    }
+
+    @Override
+    public Optional<TemporalAccessor> getPublicationDate() throws ContentParserException {
+        return getCreationDate();
     }
 
     @Override

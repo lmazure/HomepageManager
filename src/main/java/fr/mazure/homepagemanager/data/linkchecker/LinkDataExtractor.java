@@ -51,7 +51,13 @@ public abstract class LinkDataExtractor {
      * @return creation date, empty if there is none
      * @throws ContentParserException Failure to extract the information
      */
-    public abstract Optional<TemporalAccessor> getDate() throws ContentParserException;
+    public abstract Optional<TemporalAccessor> getCreationDate() throws ContentParserException;
+
+    /**
+     * @return publication date, empty if there is none
+     * @throws ContentParserException Failure to extract the information
+     */
+    public abstract Optional<TemporalAccessor> getPublicationDate() throws ContentParserException;
 
     /**
      * @return authors, empty list if there is none

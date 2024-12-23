@@ -34,7 +34,7 @@ class BaeldungLinkContentParserTest extends LinkDataExtractorTestBase {
         })
     void testDate(final String url,
                   final String expectedDate) {
-        checkDate(BaeldungLinkContentParser.class, url, expectedDate);
+        checkCreationDate(BaeldungLinkContentParser.class, url, expectedDate);
     }
 
     @SuppressWarnings("static-method")

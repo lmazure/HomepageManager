@@ -67,7 +67,7 @@ public class XmlGenerator {
             if (linkData.duration().isPresent()) {
                 builder.append(generateDuration(linkData.duration().get()));
             }
-            if (linkData.publicationDate().isPresent()) {
+            if (linkData.publicationDate().isPresent() && !linkData.publicationDate().get().equals(date.get())) {
                 builder.append(generateDate(linkData.publicationDate().get()));
             }
             builder.append("</X>");

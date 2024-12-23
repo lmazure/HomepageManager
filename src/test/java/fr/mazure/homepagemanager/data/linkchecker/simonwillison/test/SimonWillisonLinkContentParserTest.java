@@ -51,7 +51,7 @@ class SimonWillisonLinkContentParserTest extends LinkDataExtractorTestBase {
         })
     void testDate(final String url,
                   final String expectedPublicationDate) {
-        checkDate(SimonWillisonLinkContentParser.class, url, expectedPublicationDate);
+        checkCreationDate(SimonWillisonLinkContentParser.class, url, expectedPublicationDate);
     }
 
     @SuppressWarnings("static-method")

@@ -85,18 +85,34 @@ public class LinkDataExtractorTestBase {
                     });
     }
 
-    protected static void checkDate(final Class<? extends LinkDataExtractor> clazz,
-                                    final String url,
-                                    final String expectedDate) {
+    protected static void checkCreationDate(final Class<? extends LinkDataExtractor> clazz,
+                                            final String url,
+                                            final String expectedDate) {
         perform(clazz,
                 url,
                 (final LinkDataExtractor p) ->
                     {
                         try {
-                            Assertions.assertTrue(p.getDate().isPresent());
-                            Assertions.assertEquals(expectedDate, p.getDate().get().toString());
+                            Assertions.assertTrue(p.getCreationDate().isPresent());
+                            Assertions.assertEquals(expectedDate, p.getCreationDate().get().toString());
                         } catch (final ContentParserException e) {
-                            Assertions.fail("getDate threw " + e.getMessage());
+                            Assertions.fail("getCreationDate threw " + e.getMessage());
+                        }
+                    });
+    }
+
+    protected static void checkPublicationDate(final Class<? extends LinkDataExtractor> clazz,
+                                               final String url,
+                                               final String expectedDate) {
+        perform(clazz,
+                url,
+                (final LinkDataExtractor p) ->
+                    {
+                        try {
+                            Assertions.assertTrue(p.getPublicationDate().isPresent());
+                            Assertions.assertEquals(expectedDate, p.getPublicationDate().get().toString());
+                        } catch (final ContentParserException e) {
+                            Assertions.fail("getPublicationDate threw " + e.getMessage());
                         }
                     });
     }
@@ -109,7 +125,7 @@ public class LinkDataExtractorTestBase {
                 (final LinkDataExtractor p) ->
                     {
                         try {
-                            Assertions.assertTrue(p.getDate().isPresent());
+                            Assertions.assertTrue(p.getCreationDate().isPresent());
                             Assertions.assertEquals(DateTimeHelper.roundDuration(Duration.parse(expectedDuration)), DateTimeHelper.roundDuration(p.getDuration().get()));
                         } catch (final ContentParserException e) {
                             Assertions.fail("getDuration threw " + e.getMessage());

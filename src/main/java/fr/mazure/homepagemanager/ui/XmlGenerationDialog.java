@@ -169,7 +169,7 @@ public class XmlGenerationDialog extends Dialog<Void> {
 
         try {
             _links = extractor.getLinks();
-            _date = extractor.getDate();
+            _date = extractor.getCreationDate();
             _sureAuthors = extractor.getSureAuthors();
             _probableAuthors = extractor.getProbableAuthors();
             _possibleAuthors = extractor.getPossibleAuthors();

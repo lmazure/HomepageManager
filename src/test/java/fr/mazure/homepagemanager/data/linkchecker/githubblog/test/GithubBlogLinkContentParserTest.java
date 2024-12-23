@@ -54,7 +54,7 @@ class GithubBlogLinkContentParserTest extends LinkDataExtractorTestBase {
         })
     void testDate(final String url,
                   final String expectedDate) {
-        checkDate(GithubBlogLinkContentParser.class, url, expectedDate);
+        checkCreationDate(GithubBlogLinkContentParser.class, url, expectedDate);
     }
 
     @SuppressWarnings("static-method")

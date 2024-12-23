@@ -103,9 +103,9 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
      * @return publication date, empty if there is none
      * @throws ContentParserException Failure to extract the information
      */
-    public LocalDate getPublicationDate() throws ContentParserException {
-        loadData();
-        return _publicationDate;
+    @Override
+    public Optional<TemporalAccessor> getPublicationDate() throws ContentParserException {
+        return getCreationDate();
     }
 
     private void loadData() throws ContentParserException {
@@ -148,8 +148,9 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public Optional<TemporalAccessor> getDate() throws ContentParserException {
-        return Optional.of(getPublicationDate());
+    public Optional<TemporalAccessor> getCreationDate() throws ContentParserException {
+        loadData();
+        return Optional.of(_publicationDate);
     }
 
     @Override

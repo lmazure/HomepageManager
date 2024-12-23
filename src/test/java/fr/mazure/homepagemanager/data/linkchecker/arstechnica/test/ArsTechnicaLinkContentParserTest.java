@@ -43,7 +43,7 @@ class ArsTechnicaLinkContentParserTest extends LinkDataExtractorTestBase {
         })
     void testDate(final String url,
                   final String expectedDate) {
-        checkDate(ArsTechnicaLinkContentParser.class, url, expectedDate);
+        checkCreationDate(ArsTechnicaLinkContentParser.class, url, expectedDate);
     }
 
     @SuppressWarnings("static-method")

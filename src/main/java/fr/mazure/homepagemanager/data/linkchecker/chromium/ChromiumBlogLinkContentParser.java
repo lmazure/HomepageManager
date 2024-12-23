@@ -76,13 +76,19 @@ public class ChromiumBlogLinkContentParser extends LinkDataExtractor {
      * @throws ContentParserException Failure to extract the information
      */
     @Override
-    public Optional<TemporalAccessor> getDate() throws ContentParserException {
+    public Optional<TemporalAccessor> getCreationDate() throws ContentParserException {
         final String date = HtmlHelper.cleanContent(s_dateParser.extract(_data));
         try {
             return Optional.of(LocalDate.parse(date, s_formatter));
         } catch (final DateTimeParseException e) {
             throw new ContentParserException("Failed to parse date (" + date + ") in Chromium Blog page", e);
         }
+    }
+
+
+    @Override
+    public Optional<TemporalAccessor> getPublicationDate() throws ContentParserException {
+        return getCreationDate();
     }
 
     @Override

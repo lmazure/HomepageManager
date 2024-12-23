@@ -39,7 +39,7 @@ class StackOverflowBlogLinkContentParserTest extends LinkDataExtractorTestBase {
         })
     void testDate(final String url,
                   final String expectedDate) {
-        checkDate(StackOverflowBlogLinkContentParser.class, url, expectedDate);
+        checkCreationDate(StackOverflowBlogLinkContentParser.class, url, expectedDate);
     }
 
     @SuppressWarnings("static-method")

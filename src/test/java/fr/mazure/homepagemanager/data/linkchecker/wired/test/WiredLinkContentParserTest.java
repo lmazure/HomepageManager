@@ -68,7 +68,7 @@ class WiredLinkContentParserTest extends LinkDataExtractorTestBase {
         })
     void testDate(final String url,
                   final String expectedDate) {
-        checkDate(WiredLinkContentParser.class, url, expectedDate);
+        checkCreationDate(WiredLinkContentParser.class, url, expectedDate);
     }
 
     @SuppressWarnings("static-method")

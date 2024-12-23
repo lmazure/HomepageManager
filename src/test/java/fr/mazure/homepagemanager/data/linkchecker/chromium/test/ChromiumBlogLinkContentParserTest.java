@@ -53,7 +53,7 @@ class ChromiumBlogLinkContentParserTest extends LinkDataExtractorTestBase {
     }, delimiter = '|')
     void testPublishDate(final String url,
                          final String expectedPublicationDate) {
-        checkDate(ChromiumBlogLinkContentParser.class, url, expectedPublicationDate);
+        checkCreationDate(ChromiumBlogLinkContentParser.class, url, expectedPublicationDate);
     }
 
     @SuppressWarnings("static-method")

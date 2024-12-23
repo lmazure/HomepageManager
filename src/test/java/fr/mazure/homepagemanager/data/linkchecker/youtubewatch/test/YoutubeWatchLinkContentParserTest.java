@@ -222,7 +222,7 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
     }, delimiter = '|')
     void testDate(final String url,
                   final String expectedDate) {
-        checkDate(YoutubeWatchLinkContentParser.class, url, expectedDate);
+        checkCreationDate(YoutubeWatchLinkContentParser.class, url, expectedDate);
     }
 
     @SuppressWarnings("static-method")
@@ -244,7 +244,7 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
                     {
                         final YoutubeWatchLinkContentParser parser = (YoutubeWatchLinkContentParser)p;
                         try {
-                            Assertions.assertEquals(expectedDate, parser.getDate().get().toString());
+                            Assertions.assertEquals(expectedDate, parser.getCreationDate().get().toString());
                         } catch (final ContentParserException e) {
                             Assertions.fail("getDate threw " + e.getMessage());
                         }

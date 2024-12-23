@@ -14,14 +14,14 @@ class MediumLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://medium.com/@kentbeck_7670/sipping-the-big-gulp-a7c50549c393,Kent,Beck,",
-        "https://medium.com/@FibreTigre/mon-emploi-du-temps-2019-b4a44c2efa46,,,FibreTigre",
-        "https://sendilkumarn.medium.com/safevarargs-variable-arguments-in-java-b9fdd5d996bb,,,sendilkumarn",
+    @CsvSource(value = {
+        "https://medium.com/@kentbeck_7670/sipping-the-big-gulp-a7c50549c393|Kent|Beck|",
+        "https://medium.com/@FibreTigre/mon-emploi-du-temps-2019-b4a44c2efa46|||FibreTigre",
+        "https://sendilkumarn.medium.com/safevarargs-variable-arguments-in-java-b9fdd5d996bb|||sendilkumarn",
         // the next blog is from "Anuj shah (Exploring Neurons)"
-        "https://medium.com/@anuj_shah/through-the-eyes-of-gabor-filter-17d1fdb3ac97,Anuj,Shah,",
-        "https://medium.com/rahasak/build-rag-application-using-a-llm-running-on-local-computer-with-gpt4all-and-langchain-13b4b8851db8,,,(λx.x)eranga",
-        })
+        "https://medium.com/@anuj_shah/through-the-eyes-of-gabor-filter-17d1fdb3ac97|Anuj|Shah|",
+        "https://medium.com/rahasak/build-rag-application-using-a-llm-running-on-local-computer-with-gpt4all-and-langchain-13b4b8851db8|||(λx.x)eranga",
+        }, delimiter = '|')
     void testAuthor(final String url,
                     final String expectedFirstName,
                     final String expectedLastName,
@@ -38,9 +38,9 @@ class MediumLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://netflixtechblog.com/a-microscope-on-microservices-923b906103f4,Coburn,Watson,Scott,Emmons,Brendan,Gregg",
-        })
+    @CsvSource(value = {
+        "https://netflixtechblog.com/a-microscope-on-microservices-923b906103f4|Coburn|Watson|Scott|Emmons|Brendan|Gregg",
+        }, delimiter = '|')
     void testNetflix3Authors(final String url,
                              final String expectedFirstName1,
                              final String expectedLastName1,
@@ -142,11 +142,11 @@ class MediumLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
+    @CsvSource(value = {
         // the hair space is in the JSON payload, but not in the HTML
-        "https://medium.com/@kentbeck_7670/curiosity-as-a-service-literally-1f4f6309fae5,Curiosity as a Service — Literally",
-        "https://medium.com/@specktackle/selenium-and-webdriverio-a-historical-overview-6f8fbf94b418,Selenium and WebdriverIO — A Historical Overview",
-        })
+        "https://medium.com/@kentbeck_7670/curiosity-as-a-service-literally-1f4f6309fae5|Curiosity as a Service — Literally",
+        "https://medium.com/@specktackle/selenium-and-webdriverio-a-historical-overview-6f8fbf94b418|Selenium and WebdriverIO — A Historical Overview",
+        }, delimiter = '|')
     void testTitleWithHairSpace(final String url,
                                 final String expectedTitle) {
         checkTitle(MediumLinkContentParser.class, url, expectedTitle);
@@ -170,29 +170,29 @@ class MediumLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://medium.com/@kentbeck_7670/a-years-worth-c1cbc3085e9d,2019-06-08",
-        "https://medium.com/@kentbeck_7670/bs-changes-e574bc396aaa,2019-05-21",
-        "https://medium.com/@kentbeck_7670/buy-effort-sell-value-7a625345ad24,2019-05-10",
-        "https://medium.com/@kentbeck_7670/curiosity-as-a-service-literally-1f4f6309fae5,2019-07-04",
-        "https://medium.com/@kentbeck_7670/what-i-do-at-gusto-an-incentives-explanation-c7b4f79483ae,2020-05-02",
-        "https://medium.com/@kentbeck_7670/software-design-is-human-relationships-part-3-of-3-changers-changers-20eeac7846e0,2019-07-18",
-        })
+    @CsvSource(value = {
+        "https://medium.com/@kentbeck_7670/a-years-worth-c1cbc3085e9d|2019-06-08",
+        "https://medium.com/@kentbeck_7670/bs-changes-e574bc396aaa|2019-05-21",
+        "https://medium.com/@kentbeck_7670/buy-effort-sell-value-7a625345ad24|2019-05-10",
+        "https://medium.com/@kentbeck_7670/curiosity-as-a-service-literally-1f4f6309fae5|2019-07-04",
+        "https://medium.com/@kentbeck_7670/what-i-do-at-gusto-an-incentives-explanation-c7b4f79483ae|2020-05-02",
+        "https://medium.com/@kentbeck_7670/software-design-is-human-relationships-part-3-of-3-changers-changers-20eeac7846e0|2019-07-18",
+        }, delimiter = '|')
     void testUnmodifiedBlogPublishDate(final String url,
                                        final String expectedDate) {
-        checkDate(MediumLinkContentParser.class, url, expectedDate);
+        checkCreationDate(MediumLinkContentParser.class, url, expectedDate);
     }
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://medium.com/@kentbeck_7670/sipping-the-big-gulp-a7c50549c393,2019-05-11,2019-05-21",
-        "https://medium.com/97-things/optional-is-a-law-breaking-monad-but-a-good-type-7667eb821081,2019-07-18,2020-05-14",
-        })
+    @CsvSource(value = {
+        "https://medium.com/@kentbeck_7670/sipping-the-big-gulp-a7c50549c393|2019-05-11|2019-05-21",
+        "https://medium.com/97-things/optional-is-a-law-breaking-monad-but-a-good-type-7667eb821081|2019-07-18|2020-05-14",
+        }, delimiter = '|')
     void testModifiedBlogPublishDate(final String url,
                                      final String expectedPublicationDate,
                                      @SuppressWarnings("unused") final String expectedModificationDate) {
-        checkDate(MediumLinkContentParser.class, url, expectedPublicationDate);
+        checkCreationDate(MediumLinkContentParser.class, url, expectedPublicationDate);
     }
 
     @SuppressWarnings("static-method")

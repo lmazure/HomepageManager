@@ -118,7 +118,7 @@ class DZoneLinkContentParserTest extends LinkDataExtractorTestBase {
         }, delimiter = '|')
     void testPublishDate(final String url,
                          final String expectedDate) {
-        checkDate(DZoneLinkContentParser.class, url, expectedDate);
+        checkCreationDate(DZoneLinkContentParser.class, url, expectedDate);
     }
 
     @SuppressWarnings("static-method")

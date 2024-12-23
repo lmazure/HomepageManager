@@ -32,7 +32,6 @@ public class MediumLinkContentParser extends LinkDataExtractor {
 
     private static final String s_sourceName = "Medium";
 
-    private final String _data;
     private final String _code;
     private boolean _dataIsLoaded;
     private String _title;
@@ -69,13 +68,14 @@ public class MediumLinkContentParser extends LinkDataExtractor {
      * @param url URL of the link
      * @param data retrieved link data
      * @param retriever cache data retriever
+     * @throws ContentParserException Failure to extract the information
      */
     public MediumLinkContentParser(final String url,
                                    final String data,
-                                   final CachedSiteDataRetriever retriever) {
+                                   final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(url, retriever);
-        _data = data;
         _code = url.substring(url.lastIndexOf("-") + 1);
+        loadData(data);
     }
 
     /**
@@ -101,32 +101,26 @@ public class MediumLinkContentParser extends LinkDataExtractor {
 
     @Override
     public String getTitle() throws ContentParserException {
-        loadData();
         return _title;
     }
 
     @Override
     public Optional<String> getSubtitle() throws ContentParserException {
-        loadData();
         return _subtitle;
     }
 
-    /**
-     * @return publication date, empty if there is none
-     * @throws ContentParserException Failure to extract the information
-     */
-    public LocalDate getPublicationDate() throws ContentParserException {
-        loadData();
-        return _publicationDate;
+    @Override
+    public Optional<TemporalAccessor> getPublicationDate() throws ContentParserException {
+        return getCreationDate();
     }
 
-    private void loadData() throws ContentParserException {
+    private void loadData(final String data) throws ContentParserException {
         if (_dataIsLoaded) {
             return;
         }
         _dataIsLoaded = true;
 
-        final String json = s_jsonParser.extract(_data);
+        final String json = s_jsonParser.extract(data);
         final JSONObject payload = new JSONObject(json);
         JSONObject post;
         try {
@@ -150,7 +144,7 @@ public class MediumLinkContentParser extends LinkDataExtractor {
         }
         _title = title.replace("\n"," ");
         */
-        _title = HtmlHelper.cleanContent(s_jsonTitle.extract(_data));
+        _title = HtmlHelper.cleanContent(s_jsonTitle.extract(data));
         JSONObject creator;
         try {
             creator = post.getJSONObject("creator");
@@ -176,7 +170,7 @@ public class MediumLinkContentParser extends LinkDataExtractor {
             throw new ContentParserException("Failed to find \"" + creatorCode +"/name\" JSON field in Medium page", e);
         }
         if (name.equals("Netflix Technology Blog")) {
-            final Optional<String> netflixAuthors = s_netflixAuthors.extractOptional(_data);
+            final Optional<String> netflixAuthors = s_netflixAuthors.extractOptional(data);
             if (netflixAuthors.isPresent()) {
                 _authors = LinkContentParserUtils.getAuthors(HtmlHelper.cleanContent((netflixAuthors.get())));
             } else {
@@ -201,20 +195,19 @@ public class MediumLinkContentParser extends LinkDataExtractor {
         }
         _subtitle = subtitle;
         */
-        final Optional<String> subtitle = s_jsonSubtitle.extractOptional(_data);
+        final Optional<String> subtitle = s_jsonSubtitle.extractOptional(data);
         _subtitle = subtitle.isPresent() ? Optional.of(HtmlHelper.cleanContent(subtitle.get()))
                                          : Optional.empty();
-        _locale = StringHelper.guessLanguage(HtmlHelper.cleanContent(_data)).get(); //TODO handle the case where the language is not recognized
+        _locale = StringHelper.guessLanguage(HtmlHelper.cleanContent(data)).get(); //TODO handle the case where the language is not recognized
     }
 
     @Override
-    public Optional<TemporalAccessor> getDate() throws ContentParserException {
-        return Optional.of(getPublicationDate());
+    public Optional<TemporalAccessor> getCreationDate() throws ContentParserException {
+        return Optional.of(_publicationDate);
     }
 
     @Override
     public List<AuthorData> getSureAuthors() throws ContentParserException {
-        loadData();
         return _authors;
     }
 
@@ -237,7 +230,6 @@ public class MediumLinkContentParser extends LinkDataExtractor {
 
     @Override
     public Locale getLanguage() throws ContentParserException {
-        loadData();
         return _locale;
     }
 }

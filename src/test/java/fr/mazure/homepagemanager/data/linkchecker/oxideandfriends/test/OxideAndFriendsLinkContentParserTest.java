@@ -33,11 +33,21 @@ class OxideAndFriendsLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
+        "https://oxide-and-friends.transistor.fm/episodes/querying-metrics-with-oxql|2024-09-30",
+    }, delimiter = '|')
+    void testCreationDate(final String url,
+                          final String expectedDate) {
+        checkCreationDate(OxideAndFriendsLinkContentParser.class, url, expectedDate);
+    }
+
+    @SuppressWarnings("static-method")
+    @ParameterizedTest
+    @CsvSource(value = {
         "https://oxide-and-friends.transistor.fm/episodes/querying-metrics-with-oxql|2024-10-02",
     }, delimiter = '|')
-    void testDate(final String url,
-                  final String expectedDate) {
-        checkDate(OxideAndFriendsLinkContentParser.class, url, expectedDate);
+    void testPublicationDate(final String url,
+                             final String expectedDate) {
+        checkPublicationDate(OxideAndFriendsLinkContentParser.class, url, expectedDate);
     }
 
     @SuppressWarnings("static-method")

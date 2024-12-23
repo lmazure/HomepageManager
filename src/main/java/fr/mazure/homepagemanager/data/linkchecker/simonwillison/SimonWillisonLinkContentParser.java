@@ -73,10 +73,15 @@ public class SimonWillisonLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public Optional<TemporalAccessor> getDate() throws ContentParserException {
+    public Optional<TemporalAccessor> getCreationDate() throws ContentParserException {
         final int timestamp = Integer.parseInt(s_dateParser.extract(_data));
         final Instant instant = Instant.ofEpochSecond(timestamp);
         return Optional.of(instant.atZone(ZoneId.of("UTC")).toLocalDate());
+    }
+
+    @Override
+    public Optional<TemporalAccessor> getPublicationDate() throws ContentParserException {
+        return getCreationDate();
     }
 
     @Override

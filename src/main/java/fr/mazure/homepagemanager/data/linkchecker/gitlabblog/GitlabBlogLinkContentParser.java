@@ -81,9 +81,15 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public Optional<TemporalAccessor> getDate() throws ContentParserException {
+    public Optional<TemporalAccessor> getCreationDate() throws ContentParserException {
         final String str = HtmlHelper.cleanContent(s_dateParser.extract(_data));
         return Optional.of(LocalDate.parse(str, s_dateFormat));
+    }
+
+
+    @Override
+    public Optional<TemporalAccessor> getPublicationDate() throws ContentParserException {
+        return getCreationDate();
     }
 
     @Override

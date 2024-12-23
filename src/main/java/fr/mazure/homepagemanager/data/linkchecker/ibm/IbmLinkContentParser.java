@@ -139,11 +139,17 @@ public class IbmLinkContentParser extends LinkDataExtractor {
      * @throws ContentParserException Failure to extract the information
      */
     @Override
-    public Optional<TemporalAccessor> getDate() throws ContentParserException {
+    public Optional<TemporalAccessor> getCreationDate() throws ContentParserException {
         if (_exception != null) {
             throw _exception;
         }
         return Optional.of(_publicationDate);
+    }
+
+
+    @Override
+    public Optional<TemporalAccessor> getPublicationDate() throws ContentParserException {
+        return getCreationDate();
     }
 
     /**

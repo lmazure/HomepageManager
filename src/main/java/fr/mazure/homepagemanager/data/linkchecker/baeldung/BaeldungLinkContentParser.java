@@ -78,7 +78,7 @@ public class BaeldungLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public Optional<TemporalAccessor> getDate() throws ContentParserException {
+    public Optional<TemporalAccessor> getCreationDate() throws ContentParserException {
         final String date = HtmlHelper.cleanContent(s_dateParser.extract(_data));
         try {
             return Optional.of(LocalDate.parse(date, s_formatter));
@@ -87,7 +87,12 @@ public class BaeldungLinkContentParser extends LinkDataExtractor {
         }
     }
 
-    @Override
+	@Override
+	public Optional<TemporalAccessor> getPublicationDate() throws ContentParserException {
+		return getCreationDate();
+	}
+
+	@Override
     public List<AuthorData> getSureAuthors() throws ContentParserException {
         final List<AuthorData> list = new ArrayList<>(1);
         final String author = s_authorParser.extract(_data);
