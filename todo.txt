@@ -47,8 +47,7 @@ methods       53.9%    97.9%
 
 
 échec des unit tests:
-- WelllKnmwRedirection.IBM
-- WelllKnmwRedirection.OReilly
+- WellKnownRedirection.OReilly
 
 
 

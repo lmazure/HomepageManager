@@ -240,7 +240,7 @@ public class WellKnownRedirections {
         {
             final RedirectionMatcher ibmRemoved1 = new RedirectionMatcher("removed from IBM",
                                                                           Set.of(LinkStatus.REMOVED));
-            ibmRemoved1.add("https://www.ibm.com/developerworks/(architecture|java|linux|opensource|systems|web|webservices|xml)/library/" + RedirectionMatcher.ANY_STRING,
+            ibmRemoved1.add("https://www.ibm.com/developerworks/(java|linux|opensource|web)/library/" + RedirectionMatcher.ANY_STRING,
                             Set.of(Integer.valueOf(301)),
                             RedirectionMatcher.Multiplicity.ONE);
             ibmRemoved1.add("https://developer.ibm.com/(languages/java|technologies|technologies/linux|technologies/systems|technologies/web-development)/",
@@ -266,7 +266,7 @@ public class WellKnownRedirections {
         {
             final RedirectionMatcher ibmRemoved3 = new RedirectionMatcher("removed from IBM",
                                                                           Set.of(LinkStatus.REMOVED));
-            ibmRemoved3.add("\\Qhttps://www.ibm.com/developerworks/\\E(tivoli/library/|java/library/co-tmline/)" + RedirectionMatcher.ANY_STRING,
+            ibmRemoved3.add("\\Qhttps://www.ibm.com/developerworks/java/library/co-tmline/\\Q" + RedirectionMatcher.ANY_STRING,
                            Set.of(Integer.valueOf(301)),
                            RedirectionMatcher.Multiplicity.ONE);
             ibmRemoved3.add("\\Qhttps://developer.ibm.com/product-doclinks/\\E",
@@ -279,12 +279,12 @@ public class WellKnownRedirections {
         {
             final RedirectionMatcher ibmRemoved4 = new RedirectionMatcher("removed from IBM",
                                                                           Set.of(LinkStatus.REMOVED));
-            ibmRemoved4.add("\\Qhttps://www.ibm.com/developerworks/rational/library/\\E" + RedirectionMatcher.ANY_STRING,
-                           Set.of(Integer.valueOf(301)),
-                           RedirectionMatcher.Multiplicity.ONE);
-            ibmRemoved4.add("\\Qhttps://developer.ibm.com/devpractices/devops/\\E",
-                           Set.of(Integer.valueOf(200)),
-                           RedirectionMatcher.Multiplicity.ONE);
+            ibmRemoved4.add("https://www.ibm.com/developerworks/opensource/library/" + RedirectionMatcher.ANY_STRING,
+                            Set.of(Integer.valueOf(301)),
+                            RedirectionMatcher.Multiplicity.ONE);
+            ibmRemoved4.add("\\Qhttps://developer.ibm.com/devpractices/open-source-development/\\E",
+                            Set.of(Integer.valueOf(200)),
+                            RedirectionMatcher.Multiplicity.ONE);
             ibmRemoved4.compile();
             _matchers.add(ibmRemoved4);
         }
@@ -292,10 +292,10 @@ public class WellKnownRedirections {
         {
             final RedirectionMatcher ibmRemoved5 = new RedirectionMatcher("removed from IBM",
                                                                           Set.of(LinkStatus.REMOVED));
-            ibmRemoved5.add("https://www.ibm.com/developerworks/(aix|power)/library/" + RedirectionMatcher.ANY_STRING,
+            ibmRemoved5.add("https://www.ibm.com/developerworks/aix/library/" + RedirectionMatcher.ANY_STRING,
                            Set.of(Integer.valueOf(301)),
                            RedirectionMatcher.Multiplicity.ONE);
-            ibmRemoved5.add("https://developer.ibm.com/components/(aix|ibm-power)/",
+            ibmRemoved5.add("https://developer.ibm.com/components/aix/",
                            Set.of(Integer.valueOf(200)),
                            RedirectionMatcher.Multiplicity.ONE);
             ibmRemoved5.compile();
@@ -327,10 +327,22 @@ public class WellKnownRedirections {
             ibmRemoved7.compile();
             _matchers.add(ibmRemoved7);
         }
+        {
+            final RedirectionMatcher ibmRemoved8 = new RedirectionMatcher("removed from IBM",
+                                                                          Set.of(LinkStatus.REMOVED));
+            ibmRemoved8.add("https://www.ibm.com/developerworks/(architecture|power|rational|systems|tivoli|webservices|xml)/library/" + RedirectionMatcher.ANY_STRING,
+                           Set.of(Integer.valueOf(301)),
+                           RedirectionMatcher.Multiplicity.ONE);
+            ibmRemoved8.add("\\Qhttps://developer.ibm.com/\\E",
+                           Set.of(Integer.valueOf(200)),
+                           RedirectionMatcher.Multiplicity.ONE);
+            ibmRemoved8.compile();
+            _matchers.add(ibmRemoved8);
+        }
 
         {
             final RedirectionMatcher developerIbmRemoved = new RedirectionMatcher("removed from developer.ibm.com",
-                                                                          Set.of(LinkStatus.REMOVED));
+                                                                                  Set.of(LinkStatus.REMOVED));
             developerIbmRemoved.add("\\Qhttps://developer.ibm.com/\\E(articles|tutorials)/" + RedirectionMatcher.ANY_STRING,
                            Set.of(Integer.valueOf(302)),
                            RedirectionMatcher.Multiplicity.ONE);
