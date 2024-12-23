@@ -45,6 +45,14 @@ methods       53.9%    97.9%
 ==== before merge =====
 
 
+extraction de titre incorrect pour https://medium.com/javascript-scene/how-to-build-a-high-velocity-development-team-4b2360d34021
+
+
+
+deux problème avec https://oxide-and-friends.transistor.fm/episodes/scaling-bluesky-with-paul-frazee
+et https://oxide-and-friends.transistor.fm/episodes/whats-taking-so-long
+- la date générée est incorrecte (il faut prendre la date la plus vieille pour la date de création et mettre des dates de publication si l'un des deux diverge
+- la mauvaise date sur le podcast n'est pas détectée
 
 
 
@@ -52,6 +60,9 @@ methods       53.9%    97.9%
 Move GitLab Duo dans aicodeassist 
 
 
+
+
+récupérer les personnes d'Oxide and Friends à partir du transcript
 
 
 

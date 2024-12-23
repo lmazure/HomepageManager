@@ -2255,12 +2255,19 @@ public class HtmlHelper {
         lookupMap.put("&zwnj;", "\u200C");
     }
 
-    private static final Pattern s_charset_extraction_1 = Pattern.compile(".*<meta\\s+charset\\s*=\\s*['\"]([^'\"]+)['\"]\\s*/?>.*", Pattern.CASE_INSENSITIVE);
-    private static final Pattern s_charset_extraction_2 = Pattern.compile(".*<meta\\s+http-equiv\\s*=\\s*['\"]Content-Type['\"]\\s+content\\s*=\\s*['\"]text/html;\\s*charset=([^'\"]+)['\"]\\s*/?>.*", Pattern.CASE_INSENSITIVE);
-    private static final Pattern s_charset_extraction_3 = Pattern.compile(".*<meta\\s+content\\s*=\\s*['\"]text/html;\\s*charset=([^'\"]+)['\"]\\s+http-equiv\\s*=\\s*['\"]Content-Type([^\"]+)\\s*/?>.*", Pattern.CASE_INSENSITIVE);
+    private static final Pattern CHARSET_EXTRACTION_PATTERN = Pattern.compile(
+            "<meta\\s+(charset\\s*=\\s*['\"]([^'\"]+)['\"]|http-equiv\\s*=\\s*['\"]Content-Type['\"]\\s+content\\s*=\\s*['\"]text/html;\\s*charset=([^'\"]+)['\"]|content\\s*=\\s*['\"]text/html;\\s*charset=([^'\"]+)['\"]\\s+http-equiv\\s*=\\s*['\"]Content-Type['\"])[^>]*>",
+            Pattern.CASE_INSENSITIVE
+        );
 
     private static final Pattern s_clean_trailing_whitespaces = Pattern.compile("\\p{Z}*$");
     private static final Pattern s_clean_leading_whitespaces = Pattern.compile("^\\p{Z}*");
+
+    private static final Pattern BR_TAG_PATTERN = Pattern.compile("< *[bB][rR] /?>");
+    private static final Pattern SCRIPT_TAG_PATTERN = Pattern.compile("(?is)<SCRIPT[^>]*>.*?</SCRIPT>");
+    private static final Pattern SVG_TAG_PATTERN = Pattern.compile("(?is)<SVG[^>]*>.*?</SVG>");
+    private static final Pattern STYLE_TAG_PATTERN = Pattern.compile("(?is)<STYLE[^>]*>.*?</STYLE>");
+    private static final Pattern GENERIC_TAG_PATTERN = Pattern.compile("<[^>]*>");
 
     /**
      * Slurp the content of a HTML file
@@ -2296,17 +2303,15 @@ public class HtmlHelper {
     }
 
     private static Optional<Charset> extractCharsetFromString(final String str) {
-        final Matcher m1 = s_charset_extraction_1.matcher(str);
-        if (m1.find()) {
-            return createCharsetFromName(m1.group(1));
-        }
-        final Matcher m2 = s_charset_extraction_2.matcher(str);
-        if (m2.find()) {
-            return createCharsetFromName(m2.group(1));
-        }
-        final Matcher m3 = s_charset_extraction_3.matcher(str);
-        if (m3.find()) {
-            return createCharsetFromName(m3.group(1));
+        final Matcher matcher = CHARSET_EXTRACTION_PATTERN.matcher(str);
+        if (matcher.find()) {
+            if (matcher.group(2) != null) {
+                return createCharsetFromName(matcher.group(2));
+            } else if (matcher.group(3) != null) {
+                return createCharsetFromName(matcher.group(3));
+            } else if (matcher.group(4) != null) {
+                return createCharsetFromName(matcher.group(4));
+            }
         }
         return Optional.empty();
     }
@@ -2475,11 +2480,11 @@ public class HtmlHelper {
      */
     public static final String removeHtmlTags(final String input) {
 
-        return input.replaceAll("< *[bB][rR] */?>", "\n")
-                    .replaceAll("(?is)<SCRIPT[^>]*>.*?</SCRIPT *>", "")
-                    .replaceAll("(?is)<SVG[^>]*.*?</SVG *>", "")
-                    .replaceAll("(?is)<STYLE[^>]*.*?</STYLE *>", "")
-                    .replaceAll("<[^>]*>", "");
+        String result = BR_TAG_PATTERN.matcher(input).replaceAll("\n");
+        result = SCRIPT_TAG_PATTERN.matcher(result).replaceAll("");
+        result = SVG_TAG_PATTERN.matcher(result).replaceAll("");
+        result = STYLE_TAG_PATTERN.matcher(result).replaceAll("");
+        return GENERIC_TAG_PATTERN.matcher(result).replaceAll("");
     }
 
     private static final String removeNewlines(final String input) {
