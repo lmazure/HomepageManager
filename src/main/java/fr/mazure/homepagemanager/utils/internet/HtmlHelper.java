@@ -2263,7 +2263,7 @@ public class HtmlHelper {
     private static final Pattern s_clean_trailing_whitespaces = Pattern.compile("\\p{Z}*$");
     private static final Pattern s_clean_leading_whitespaces = Pattern.compile("^\\p{Z}*");
 
-    private static final Pattern BR_TAG_PATTERN = Pattern.compile("< *[bB][rR] /?>");
+    private static final Pattern BR_TAG_PATTERN = Pattern.compile("< *[bB][rR] */?>");
     private static final Pattern SCRIPT_TAG_PATTERN = Pattern.compile("(?is)<SCRIPT[^>]*>.*?</SCRIPT>");
     private static final Pattern SVG_TAG_PATTERN = Pattern.compile("(?is)<SVG[^>]*>.*?</SVG>");
     private static final Pattern STYLE_TAG_PATTERN = Pattern.compile("(?is)<STYLE[^>]*>.*?</STYLE>");

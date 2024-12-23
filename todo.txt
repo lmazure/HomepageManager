@@ -45,7 +45,14 @@ methods       53.9%    97.9%
 ==== before merge =====
 
 
-extraction de titre incorrect pour https://medium.com/javascript-scene/how-to-build-a-high-velocity-development-team-4b2360d34021
+
+échec des unit tests:
+- WelllKnmwRedirection.IBM
+- WelllKnmwRedirection.OReilly
+- MediumLinkCOntentParserTest
+
+
+
 
 
 
