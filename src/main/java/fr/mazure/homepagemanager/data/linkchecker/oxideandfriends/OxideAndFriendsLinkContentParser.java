@@ -5,19 +5,21 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
 
 import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
-import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthors;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
+import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
 import fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser;
+import fr.mazure.homepagemanager.utils.ExitHelper;
 import fr.mazure.homepagemanager.utils.Logger;
 import fr.mazure.homepagemanager.utils.Logger.Level;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
@@ -32,9 +34,10 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
 
     private static final String s_sourceName = "Oxide and Friends";
 
-    private String _title;
-    private Optional<TemporalAccessor> _date;
-    private Optional<Duration> _duration;
+    private final String _title;
+    private final Optional<TemporalAccessor> _date;
+    private final Optional<Duration> _duration;
+    private List<AuthorData> _authors;
     private Optional<ExtractedLinkData> _otherLink;
 
     private static final TextParser s_titleParser
@@ -53,13 +56,15 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
                          "</span><span>/</span><span>S",
                          s_sourceName,
                          "duration");
+    private static final TextParser s_transcriptParticipantParser
+        = new TextParser("<cite>",
+                         ":</cite>",
+                         s_sourceName,
+                         "transcript participant");
 
     private static final DateTimeFormatter s_dateformatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.ENGLISH);
 
-    private static final List<AuthorData> s_authors = new ArrayList<>(Arrays.asList(
-        WellKnownAuthors.buildAuthor("Bryan", "Cantrill"),
-        WellKnownAuthors.buildAuthor("Adam", "Leventhal")
-    ));
+    private static final Integer ZERO = Integer.valueOf(0);
 
     /**
      * @param url URL of the link
@@ -84,6 +89,11 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
         _duration = Optional.of(Duration.ofHours(hours)
                                         .plusMinutes(minutes)
                                         .plusSeconds(seconds));
+
+
+        // get transcript
+        final String transcriptUrl = url + "/transcript";
+        getRetriever().retrieve(transcriptUrl, this::consumeTranscript, false);
 
         // get YouTube link
         final YouTubeHelper helper = new YouTubeHelper();
@@ -128,7 +138,7 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
 
     @Override
     public List<AuthorData> getSureAuthors() {
-        return s_authors;
+        return _authors;
     }
 
     @Override
@@ -143,6 +153,32 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
 
     private Optional<ExtractedLinkData> getOtherLink() {
         return _otherLink;
+    }
+
+    private void consumeTranscript(final FullFetchedLinkData siteData) {
+        final String payload = HtmlHelper.slurpFile(siteData.dataFileSection().get());
+
+        final List<String> transcriptParticipants = s_transcriptParticipantParser.extractMulti(payload);
+
+        // Count the occurrences of each string
+        final Map<String, Integer> counts = new HashMap<>();
+        for (final String participant : transcriptParticipants) {
+            counts.put(participant, Integer.valueOf(counts.getOrDefault(participant, ZERO).intValue() + 1));
+        }
+
+        // Sort the strings by their counts in descending order
+        final List<String> sortedParticipants = new ArrayList<>(counts.keySet());
+        sortedParticipants.sort((a, b) -> counts.get(b).intValue() - counts.get(a).intValue());
+
+        // Parse the author names
+        _authors = new ArrayList<>(sortedParticipants.size());
+        for (final String participant : sortedParticipants) {
+            try {
+                _authors.add(LinkContentParserUtils.parseAuthorName(participant));
+            } catch (final ContentParserException e) {
+                ExitHelper.exit("Failed to parse author name in Oxide and Friends transcript", e);
+            }
+        }
     }
 
     private void consumeYouTubeData(final FullFetchedLinkData siteData) {

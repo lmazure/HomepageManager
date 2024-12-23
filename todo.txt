@@ -57,6 +57,24 @@ et https://oxide-and-friends.transistor.fm/episodes/whats-taking-so-long
 
 
 
+
+
+gérer
+Exception in thread "pool-2-thread-18" java.lang.IllegalStateException: Exception while retrieving https://docs.trychroma.com/
+	at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
+	at fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
+	at fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:32)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1575)
+Caused by: java.lang.NullPointerException: Cannot invoke "String.startsWith(String)" because "redirection" is null
+	at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.getRedirectionUrl(SynchronousSiteDataRetriever.java:257)
+	at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:115)
+	at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:73)
+	... 5 more
+	
+	
+
 Move GitLab Duo dans aicodeassist 
 
 
