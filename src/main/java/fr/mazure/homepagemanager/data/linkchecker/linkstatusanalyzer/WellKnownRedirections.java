@@ -42,6 +42,7 @@ public class WellKnownRedirections {
         errorCodes.add(Integer.valueOf(502));
         errorCodes.add(Integer.valueOf(503));
         //errorCodes.add(Integer.valueOf(504)); ignored for the time being
+        errorCodes.add(Integer.valueOf(520));
         errorCodes.add(Integer.valueOf(521));
         errorCodes.add(Integer.valueOf(522));
         errorCodes.add(Integer.valueOf(525));
