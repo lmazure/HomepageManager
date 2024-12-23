@@ -57,7 +57,6 @@ class GithubBlogLinkContentParserTest extends LinkDataExtractorTestBase {
         checkDate(GithubBlogLinkContentParser.class, url, expectedDate);
     }
 
-
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource({

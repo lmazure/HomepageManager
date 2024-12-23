@@ -71,9 +71,9 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
                                             final String data,
                                             final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(url, retriever);
-        
+
         _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
-        
+
         _date = Optional.of(LocalDate.parse(s_dateParser.extract(data), s_dateformatter));
 
         final String durationString = s_durationParser.extract(data);

@@ -213,7 +213,6 @@ public class LinkDataExtractorTestBase {
         checkAuthors(clazz, url, expectedAuthors);
     }
 
-    
     protected static void check4Authors(final Class<? extends LinkDataExtractor> clazz,
                                         final String url,
                                         final String expectedNamePrefix1,
@@ -240,7 +239,7 @@ public class LinkDataExtractorTestBase {
                                         final String expectedLastName4,
                                         final String expectedNameSuffix4,
                                         final String expectedGivenName4) {
-                                        
+
         final List<AuthorData> expectedAuthors = new ArrayList<>();
         expectedAuthors.add(new AuthorData(Optional.ofNullable(expectedNamePrefix1),
                                            Optional.ofNullable(expectedFirstName1),
