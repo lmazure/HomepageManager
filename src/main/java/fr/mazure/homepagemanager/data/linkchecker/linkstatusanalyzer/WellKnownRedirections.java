@@ -195,9 +195,6 @@ public class WellKnownRedirections {
             oReillyRemoved3.add("(\\Qhttp://www.onjava.com/pub/a/onjava/\\E|\\Qhttp://www.onjava.com/catalog/javaadn\\E)" + RedirectionMatcher.ANY_STRING,
                                 Set.of(Integer.valueOf(301)),
                                 RedirectionMatcher.Multiplicity.ONE);
-            oReillyRemoved3.add("\\Qhttps://www.oreilly.com/ideas\\E",
-                                Set.of(Integer.valueOf(301)),
-                                RedirectionMatcher.Multiplicity.ONE);
             oReillyRemoved3.add("\\Qhttps://www.oreilly.com/radar/\\E",
                                 Set.of(Integer.valueOf(200)),
                                 RedirectionMatcher.Multiplicity.ONE);
