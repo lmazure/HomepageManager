@@ -103,16 +103,19 @@ public class SynchronousSiteDataRetriever {
                 redirectionsData.push(redirectionData);
             } else {
                 final int responseCode = HttpHelper.getResponseCodeFromHeaders(headers);
-                if (httpCodeIsRedirected(responseCode)) {
+                final boolean isRedirected = httpCodeIsRedirected(responseCode);
+                final String location = isRedirected ? HttpHelper.getLocationFromHeaders(headers)
+                                                     : null;
+                // if the site returns a redirected response, but there is no "Location" header, we ignore the redirection
+                if (isRedirected && location != null) {
                     if (depth == s_maxNbRedirects) {
                         error = Optional.of("Too many redirects (" + s_maxNbRedirects + ") occurred while trying to load URL " + initialUrl);
                         final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, Optional.of(headers), null);
                         redirectionsData.push(redirectionData);
                     } else {
+                        final String redirectUrl = getRedirectionUrl(currentUrl, location);
                         final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, Optional.of(headers), null);
                         redirectionsData.push(redirectionData);
-                        final String location = HttpHelper.getLocationFromHeaders(headers);
-                        final String redirectUrl = getRedirectionUrl(currentUrl, location);
                         storeCookies(currentUrl, cookieManager, httpConnection);
                         retrieveInternal(initialUrl, redirectUrl, redirectionsData, consumer, depth + 1, cookieManager);
                         return;

@@ -184,6 +184,18 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
+        "https://docs.trychroma.com/", // returns 307 but have no "Location" in the answer header
+        })
+    void redirectionsNotBeingRedirected(final String url) {
+        test(url,
+             false,
+             Integer.valueOf(307),
+             "redirection not being redirected",
+             Set.of());
+    }
+
+    @ParameterizedTest
+    @CsvSource({
         "https://www.4d.com",
         })
     void redirectionsEndingInSuccess(final String url) {
