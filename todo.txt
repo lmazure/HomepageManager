@@ -46,14 +46,15 @@ methods       53.9%    97.9%
 
 
 
+
+nettoyer space.xml : space exploration vs space telescope
 	
 
+
+
+
+
 Move GitLab Duo dans aicodeassist 
-
-
-
-
-récupérer les personnes d'Oxide and Friends à partir du transcript
 
 
 
