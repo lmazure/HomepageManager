@@ -54,7 +54,6 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     private final LocalDate _endBroadcastDate;
     private final Duration _minDuration;
     private final Duration _maxDuration;
-    private final ContentParserException _exception;
 
     /**
      * @param url URL of the link
@@ -75,7 +74,6 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                    "source_ve_path",
                                                    "t"),
               retriever);
-        ContentParserException exception = null;
         String channel = null;
         String title = null;
         String description = null;
@@ -155,9 +153,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
             isPlayable = status.equals("OK") ||
                          status.equals("LOGIN_REQUIRED"); // this is the status for sensible videos
         } catch (final IllegalStateException e) {
-            exception = new ContentParserException("Unexpected JSON", e);
-        } catch (final ContentParserException e) {
-            exception = e;
+            throw new ContentParserException("Unexpected JSON", e);
         }
         _channel = channel;
         _title = title;
@@ -180,8 +176,6 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         _endBroadcastDate = endBroadcastDate;
         _isPrivate = isPrivate;
         _isPlayable = isPlayable;
-
-        _exception = exception;
     }
 
     /**
@@ -211,42 +205,27 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
 
     /**
      * @return is the video public or private?
-     * @throws ContentParserException Failure to extract the information
      */
-    public boolean isPrivate() throws ContentParserException {
-        if (_exception != null) {
-            throw _exception;
-        }
+    public boolean isPrivate() {
         return _isPrivate;
     }
 
     /**
      * @return is the video playable or blocked?
-     * @throws ContentParserException Failure to extract the information
      */
-    public boolean isPlayable() throws ContentParserException {
-        if (_exception != null) {
-            throw _exception;
-        }
+    public boolean isPlayable() {
         return _isPlayable;
     }
 
     /**
      * @return channel of the video
-     * @throws ContentParserException Failure to extract the information
      */
-    public String getChannel() throws ContentParserException {
-        if (_exception != null) {
-            throw _exception;
-        }
+    public String getChannel() {
         return _channel;
     }
 
     @Override
-    public String getTitle() throws ContentParserException {
-        if (_exception != null) {
-            throw _exception;
-        }
+    public String getTitle() {
         return _title;
     }
 
@@ -257,110 +236,71 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
 
     /**
      * @return description of the video
-     * @throws ContentParserException Failure to extract the information
      */
-    public String getDescription() throws ContentParserException {
-        if (_exception != null) {
-            throw _exception;
-        }
+    public String getDescription() {
         return _description;
     }
 
     /**
      * @return upload date of the video
-     * @throws ContentParserException Failure to extract the information
      */
-    public LocalDate getUploadDateInternal() throws ContentParserException {
-        if (_exception != null) {
-            throw _exception;
-        }
+    public LocalDate getUploadDateInternal() {
         return _uploadDate;
     }
 
     /**
      * @return publication date of the video
-     * @throws ContentParserException Failure to extract the information
      */
-    public LocalDate getPublishDateInternal() throws ContentParserException {
-        if (_exception != null) {
-            throw _exception;
-        }
+    public LocalDate getPublishDateInternal() {
         return _publishDate;
     }
 
     /**
      * @return start date of the video broacast if it was a broacast, empty otherwise
-     * @throws ContentParserException Failure to extract the information
      */
-    public Optional<LocalDate> getStartBroadcastDateInternal() throws ContentParserException {
-        if (_exception != null) {
-            throw _exception;
-        }
+    public Optional<LocalDate> getStartBroadcastDateInternal() {
         return Optional.ofNullable(_startBroadcastDate);
     }
 
     /**
      * @return end date of the video broacast if it was a broacast, empty otherwise
-     * @throws ContentParserException Failure to extract the information
      */
-    public Optional<LocalDate> getEndBroadcastDateInternal() throws ContentParserException {
-        if (_exception != null) {
-            throw _exception;
-        }
+    public Optional<LocalDate> getEndBroadcastDateInternal() {
         return Optional.ofNullable(_endBroadcastDate);
     }
     /**
      * return the duration of the video (we return the min value)
      *
      * @return duration of the video
-     * @throws ContentParserException Failure to extract the information
      */
     @Override
-    public Optional<Duration> getDuration() throws ContentParserException {
-        if (_exception != null) {
-            throw _exception;
-        }
+    public Optional<Duration> getDuration() {
         return Optional.of(getMinDuration());
     }
 
     /**
      * @return minimum duration of the video
-     * @throws ContentParserException Failure to extract the information
      */
-    public Duration getMinDuration() throws ContentParserException {
-        if (_exception != null) {
-            throw _exception;
-        }
+    public Duration getMinDuration(){
         return _minDuration;
     }
 
     /**
      * @return maximum duration of the video
-     * @throws ContentParserException Failure to extract the information
      */
-    public Duration getMaxDuration() throws ContentParserException {
-        if (_exception != null) {
-            throw _exception;
-        }
+    public Duration getMaxDuration() {
         return _maxDuration;
     }
 
     @Override
-    public Locale getLanguage() throws ContentParserException {
-        if (_exception != null) {
-            throw _exception;
-        }
+    public Locale getLanguage() {
         return _language;
     }
 
     /**
      * @return language of the subtitles of the video
-     * @throws ContentParserException Failure to extract the information
      */
-    public Optional<Locale> getSubtitlesLanguage() throws ContentParserException {
-        if (_exception != null) {
-            throw _exception;
-        }
+    public Optional<Locale> getSubtitlesLanguage() {
         return _subtitlesLanguage;
     }
 
@@ -847,7 +787,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
             );
 
     @Override
-    public Optional<TemporalAccessor> getCreationDate() throws ContentParserException {
+    public Optional<TemporalAccessor> getCreationDate() {
         if (getStartBroadcastDateInternal().isPresent()) {
 	        return Optional.of(getStartBroadcastDateInternal().get());
         }
@@ -855,12 +795,12 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public Optional<TemporalAccessor> getPublicationDate() throws ContentParserException {
+    public Optional<TemporalAccessor> getPublicationDate() {
         return getCreationDate();
     }
 
     @Override
-    public List<AuthorData> getSureAuthors() throws ContentParserException {
+    public List<AuthorData> getSureAuthors() {
         final String channel = getChannel();
         if (_channelData.containsKey(channel)) {
             return _channelData.get(channel).getAuthors();
@@ -869,7 +809,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public List<AuthorData> getProbableAuthors() throws ContentParserException {
+    public List<AuthorData> getProbableAuthors() {
         final List<AuthorData> authors = new ArrayList<>();
         final String channel = getChannel();
         if (channel.equals("Java")) {
@@ -896,7 +836,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public List<AuthorData> getPossibleAuthors() throws ContentParserException {
+    public List<AuthorData> getPossibleAuthors() {
         final List<AuthorData> authors = new ArrayList<>();
         final String channel = getChannel();
         if (channel.equals("Java")) {
@@ -918,7 +858,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public List<ExtractedLinkData> getLinks() throws ContentParserException {
+    public List<ExtractedLinkData> getLinks() {
         final String channel = getChannel();
         final Locale lang = (_channelData.containsKey(channel)) ? _channelData.get(channel).getLanguage()
                                                                 : getLanguage();

@@ -11,7 +11,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase;
 import fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser;
@@ -33,11 +32,7 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
                 (final LinkDataExtractor p) ->
                     {
                         final YoutubeWatchLinkContentParser parser = (YoutubeWatchLinkContentParser)p;
-                        try {
-                            Assertions.assertTrue(parser.isPlayable());
-                        } catch (final ContentParserException e) {
-                            Assertions.fail("isPlayable threw " + e.getMessage());
-                        }
+                        Assertions.assertTrue(parser.isPlayable());
                     });
     }
 
@@ -52,11 +47,7 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
                 (final LinkDataExtractor p) ->
                     {
                         final YoutubeWatchLinkContentParser parser = (YoutubeWatchLinkContentParser)p;
-                        try {
-                            Assertions.assertTrue(parser.isPlayable());
-                        } catch (final ContentParserException e) {
-                            Assertions.fail("isPlayable threw " + e.getMessage());
-                        }
+                        Assertions.assertTrue(parser.isPlayable());
                     });
     }
 
@@ -69,11 +60,7 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
                 (final LinkDataExtractor p) ->
                     {
                         final YoutubeWatchLinkContentParser parser = (YoutubeWatchLinkContentParser)p;
-                        try {
-                            Assertions.assertFalse(parser.isPlayable());
-                        } catch (final ContentParserException e) {
-                            Assertions.fail("isPlayable threw " + e.getMessage());
-                        }
+                        Assertions.assertFalse(parser.isPlayable());
                     });
     }
 
@@ -86,11 +73,7 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
                 (final LinkDataExtractor p) ->
                     {
                         final YoutubeWatchLinkContentParser parser = (YoutubeWatchLinkContentParser)p;
-                        try {
-                            Assertions.assertTrue(parser.isPrivate());
-                        } catch (final ContentParserException e) {
-                            Assertions.fail("isPrivate threw " + e.getMessage());
-                        }
+                        Assertions.assertTrue(parser.isPrivate());
                     });
     }
 
@@ -110,11 +93,7 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
                 (final LinkDataExtractor p) ->
                     {
                         final YoutubeWatchLinkContentParser parser = (YoutubeWatchLinkContentParser)p;
-                        try {
-                            Assertions.assertEquals(expectedChannel, parser.getChannel());
-                        } catch (final ContentParserException e) {
-                            Assertions.fail("getChannel threw " + e.getMessage());
-                        }
+                        Assertions.assertEquals(expectedChannel, parser.getChannel());
                     });
     }
 
@@ -156,11 +135,7 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
                 (final LinkDataExtractor p) ->
                     {
                         final YoutubeWatchLinkContentParser parser = (YoutubeWatchLinkContentParser)p;
-                        try {
-                            Assertions.assertEquals("Conférence organisée par les Amis de l'IHES le 23 mai 2019", parser.getDescription());
-                        } catch (final ContentParserException e) {
-                            Assertions.fail("getDescription threw " + e.getMessage());
-                        }
+                        Assertions.assertEquals("Conférence organisée par les Amis de l'IHES le 23 mai 2019", parser.getDescription());
                     });
     }
 
@@ -173,14 +148,10 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
                 (final LinkDataExtractor p) ->
                     {
                         final YoutubeWatchLinkContentParser parser = (YoutubeWatchLinkContentParser)p;
-                        try {
-                            Assertions.assertEquals("""
-                             Ce soir, on joue ensemble autour de quelques énigmes mathématiques.
+                        Assertions.assertEquals("""
+                         Ce soir, on joue ensemble autour de quelques énigmes mathématiques.
 
-                             La chaîne Myriogon : https://www.youtube.com/channel/UCvYEpQbJ81n2pjrQrKUrRog/""", parser.getDescription());
-                        } catch (final ContentParserException e) {
-                            Assertions.fail("getDescription threw " + e.getMessage());
-                        }
+                         La chaîne Myriogon : https://www.youtube.com/channel/UCvYEpQbJ81n2pjrQrKUrRog/""", parser.getDescription());
                     });
     }
 
@@ -193,24 +164,20 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
                 (final LinkDataExtractor p) ->
                     {
                         final YoutubeWatchLinkContentParser parser = (YoutubeWatchLinkContentParser)p;
-                        try {
-                            Assertions.assertEquals("""
-                             Watch Metallica perform "Master of Puppets" live on the Howard Stern Show.
+                        Assertions.assertEquals("""
+                         Watch Metallica perform "Master of Puppets" live on the Howard Stern Show.
 
-                             Metallica's new album "Hardwired… to Self-Destruct" is available on Nov. 18.
+                         Metallica's new album "Hardwired… to Self-Destruct" is available on Nov. 18.
 
-                             Want to know what's going on with Howard Stern in the future?
+                         Want to know what's going on with Howard Stern in the future?
 
-                             Follow us on Twitter: http://bit.ly/1RzxGPD
-                             On Facebook: http://on.fb.me/1JELtz3
-                             On Instagram: https://goo.gl/VsWTND
+                         Follow us on Twitter: http://bit.ly/1RzxGPD
+                         On Facebook: http://on.fb.me/1JELtz3
+                         On Instagram: https://goo.gl/VsWTND
 
-                             For more great content from the Howard Stern Show visit our official website: http://www.HowardStern.com
+                         For more great content from the Howard Stern Show visit our official website: http://www.HowardStern.com
 
-                             Hear more Howard Stern by signing up for a free SiriusXM trial: https://goo.gl/uNL0Du""", parser.getDescription());
-                        } catch (final ContentParserException e) {
-                            Assertions.fail("getDescription threw " + e.getMessage());
-                        }
+                         Hear more Howard Stern by signing up for a free SiriusXM trial: https://goo.gl/uNL0Du""", parser.getDescription());
                     });
     }
 
@@ -243,31 +210,11 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
                 (final LinkDataExtractor p) ->
                     {
                         final YoutubeWatchLinkContentParser parser = (YoutubeWatchLinkContentParser)p;
-                        try {
-                            Assertions.assertEquals(expectedDate, parser.getCreationDate().get().toString());
-                        } catch (final ContentParserException e) {
-                            Assertions.fail("getDate threw " + e.getMessage());
-                        }
-                        try {
-                            Assertions.assertEquals(expectedPublishDate, parser.getPublishDateInternal().toString());
-                        } catch (final ContentParserException e) {
-                            Assertions.fail("getPublishDateInternal threw " + e.getMessage());
-                        }
-                        try {
-                            Assertions.assertEquals(expectedUploadDate, parser.getUploadDateInternal().toString());
-                        } catch (final ContentParserException e) {
-                            Assertions.fail("geyUploadDateInternal threw " + e.getMessage());
-                        }
-                        try {
-                            Assertions.assertEquals(Optional.ofNullable(expectedStartBroadcastDate), parser.getStartBroadcastDateInternal().map(LocalDate::toString));
-                        } catch (final ContentParserException e) {
-                            Assertions.fail("getStartBroadcastDateInternal threw " + e.getMessage());
-                        }
-                        try {
-                            Assertions.assertEquals(Optional.ofNullable(expectedEndBroadcastDate), parser.getEndBroadcastDateInternal().map(LocalDate::toString));
-                        } catch (final ContentParserException e) {
-                            Assertions.fail("getEndBroadcastDateInternal threw " + e.getMessage());
-                        }
+                        Assertions.assertEquals(expectedDate, parser.getCreationDate().get().toString());
+                        Assertions.assertEquals(expectedPublishDate, parser.getPublishDateInternal().toString());
+                        Assertions.assertEquals(expectedUploadDate, parser.getUploadDateInternal().toString());
+                        Assertions.assertEquals(Optional.ofNullable(expectedStartBroadcastDate), parser.getStartBroadcastDateInternal().map(LocalDate::toString));
+                        Assertions.assertEquals(Optional.ofNullable(expectedEndBroadcastDate), parser.getEndBroadcastDateInternal().map(LocalDate::toString));
                     });
     }
 
@@ -280,16 +227,8 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
                 (final LinkDataExtractor p) ->
                     {
                         final YoutubeWatchLinkContentParser parser = (YoutubeWatchLinkContentParser)p;
-                        try {
-                            Assertions.assertEquals(5602, parser.getMinDuration().get(ChronoUnit.SECONDS));
-                        } catch (final ContentParserException e) {
-                            Assertions.fail("getMinDuration threw " + e.getMessage());
-                        }
-                        try {
-                            Assertions.assertEquals(5602, parser.getMaxDuration().get(ChronoUnit.SECONDS));
-                        } catch (final ContentParserException e) {
-                            Assertions.fail("getMaxDuration threw " + e.getMessage());
-                        }
+                        Assertions.assertEquals(5602, parser.getMinDuration().get(ChronoUnit.SECONDS));
+                        Assertions.assertEquals(5602, parser.getMaxDuration().get(ChronoUnit.SECONDS));
                     });
     }
 
@@ -357,11 +296,7 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
                 (final LinkDataExtractor p) ->
                     {
                         final YoutubeWatchLinkContentParser parser = (YoutubeWatchLinkContentParser)p;
-                        try {
-                            Assertions.assertEquals(Locale.forLanguageTag(expectedLanguage), parser.getSubtitlesLanguage().get());
-                        } catch (final ContentParserException e) {
-                            Assertions.fail("getSubtitlesLanguage threw " + e.getMessage());
-                        }
+                        Assertions.assertEquals(Locale.forLanguageTag(expectedLanguage), parser.getSubtitlesLanguage().get());
                     });
     }
 }
