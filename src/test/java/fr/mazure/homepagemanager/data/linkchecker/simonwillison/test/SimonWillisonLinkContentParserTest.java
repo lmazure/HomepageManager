@@ -13,9 +13,9 @@ class SimonWillisonLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "hhttps://simonwillison.net/2024/Mar/8/gpt-4-barrier/,Simon,Willison,",
-        })
+    @CsvSource(value = {
+        "hhttps://simonwillison.net/2024/Mar/8/gpt-4-barrier/|Simon|Willison|",
+        }, delimiter = '|')
     void testAuthor(final String url,
                     final String expectedFirstName,
                     final String expectedLastName,
@@ -45,10 +45,10 @@ class SimonWillisonLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://simonwillison.net/2024/Mar/8/gpt-4-barrier/,2024-03-08",
-        "https://simonwillison.net/2024/Mar/22/claude-and-chatgpt-case-study/,2024-03-22",
-        })
+    @CsvSource(value = {
+        "https://simonwillison.net/2024/Mar/8/gpt-4-barrier/|2024-03-08",
+        "https://simonwillison.net/2024/Mar/22/claude-and-chatgpt-case-study/|2024-03-22",
+        }, delimiter = '|')
     void testDate(final String url,
                   final String expectedPublicationDate) {
         checkCreationDate(SimonWillisonLinkContentParser.class, url, expectedPublicationDate);

@@ -47,6 +47,20 @@ methods       53.9%    97.9%
 
 
 
+
+gérer
+https://oxide-and-friends.transistor.fm/episodes/heterogeneous-computing-with-raja-koduri
+The expected date 2024-07-18 is not equal to the effective date 2024-07-15
+
+https://oxide-and-friends.transistor.fm/episodes/unshrouding-turin-or-benvenuto-a-torino
+The expected date 2024-10-16 is not equal to the effective date 2024-10-14
+
+
+
+
+
+
+
 nettoyer space.xml : space exploration vs space telescope
 	
 

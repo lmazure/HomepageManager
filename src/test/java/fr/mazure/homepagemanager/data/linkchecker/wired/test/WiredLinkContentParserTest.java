@@ -42,8 +42,8 @@ class WiredLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
             "https://www.wired.com/2005/10/a-real-remedy-for-phishers/",
             // the next article has a subtitle equal to ""
-            "https://www.wired.com/2007/09/ff-allen/",
-        })
+            "https://www.wired.com/2007/09/ff-allen/"
+        }, delimiter = '|')
     void testNoSubtitle(final String url) {
         checkNoSubtitle(WiredLinkContentParser.class, url);
     }
@@ -53,19 +53,19 @@ class WiredLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
             "https://www.wired.com/1997/12/science-2/",
             "https://www.wired.com/1997/10/genome/",
-            "https://www.wired.com/1999/01/amish/",
-        })
+            "https://www.wired.com/1999/01/amish/"
+        }, delimiter = '|')
     void testSubtitleWhichIsAnExtractOfTheArticleIsIgnored(final String url) {
         checkNoSubtitle(WiredLinkContentParser.class, url);
     }
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://www.wired.com/story/india-deadly-combination-heat-humidity/,2022-06-09",
-        "https://www.wired.com/2015/06/answer-150-year-old-math-conundrum-brings-mystery/,2015-06-20",
-        "https://www.wired.com/story/bitcoin-seizure-record-doj-crypto-tracing-monero/,2022-02-09",
-        })
+    @CsvSource(value = {
+        "https://www.wired.com/story/india-deadly-combination-heat-humidity/|2022-06-09",
+        "https://www.wired.com/2015/06/answer-150-year-old-math-conundrum-brings-mystery/|2015-06-20",
+        "https://www.wired.com/story/bitcoin-seizure-record-doj-crypto-tracing-monero/|2022-02-09"
+        }, delimiter = '|')
     void testDate(final String url,
                   final String expectedDate) {
         checkCreationDate(WiredLinkContentParser.class, url, expectedDate);
@@ -73,12 +73,12 @@ class WiredLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://www.wired.com/story/india-deadly-combination-heat-humidity/,Kamala,Thiagarajan",
-        "https://www.wired.com/2015/06/answer-150-year-old-math-conundrum-brings-mystery/,Erica,Klarreich",
+    @CsvSource(value = {
+        "https://www.wired.com/story/india-deadly-combination-heat-humidity/|Kamala|Thiagarajan",
+        "https://www.wired.com/2015/06/answer-150-year-old-math-conundrum-brings-mystery/|Erica|Klarreich",
         // in the next article, the author name is postfixed with ", Ars Technica"
-        "https://www.wired.com/story/new-facebook-bug-exposes-millions-of-email-addresses/,Dan,Goodin",
-        })
+        "https://www.wired.com/story/new-facebook-bug-exposes-millions-of-email-addresses/|Dan|Goodin"
+        }, delimiter = '|')
     void testAuthor(final String url,
                     final String expectedFirstName,
                     final String expectedLastName) {
@@ -94,12 +94,12 @@ class WiredLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
+    @CsvSource(value = {
         // author WIRED Staff
         "https://www.wired.com/2006/01/anonymity-wont-kill-the-internet/",
         // author WIRED Ideas
-        "https://www.wired.com/story/large-language-model-phishing-scams/",
-        })
+        "https://www.wired.com/story/large-language-model-phishing-scams/"
+        }, delimiter = '|')
     void testNoAuthor(final String url) {
         check0Author(WiredLinkContentParser.class, url);
     }

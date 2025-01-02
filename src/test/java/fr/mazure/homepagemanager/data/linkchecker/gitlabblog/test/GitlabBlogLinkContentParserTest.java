@@ -30,23 +30,23 @@ class GitlabBlogLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://about.gitlab.com/blog/2021/12/15/devops-adoption",
-        "https://about.gitlab.com/blog/2021/08/24/stageless-pipelines/",
-        })
+        "https://about.gitlab.com/blog/2021/08/24/stageless-pipelines/"
+        }, delimiter = '|')
     void testNoSubtitle(final String url) {
         checkNoSubtitle(GitlabBlogLinkContentParser.class, url);
     }
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://about.gitlab.com/blog/2020/11/11/gitlab-for-agile-portfolio-planning-project-management/,2020-11-11",
-        "https://about.gitlab.com/blog/2021/12/15/devops-adoption/,2021-12-15",
-        "https://about.gitlab.com/blog/2021/08/24/stageless-pipelines/,2021-08-24",
-        "https://about.gitlab.com/blog/2021/10/19/top-10-gitlab-hacks/,2021-10-19",
-        "https://about.gitlab.com/blog/2021/10/18/improve-cd-workflows-helm-chart-registry/,2021-10-18",
-        "https://about.gitlab.com/blog/2023/07/25/rail-m-is-an-imperfectly-good-start-for-ai-model-licenses/,2023-07-25",
-        "https://about.gitlab.com/blog/2023/08/28/sha256-support-in-gitaly/,2023-08-28",
-        })
+    @CsvSource(value = {
+        "https://about.gitlab.com/blog/2020/11/11/gitlab-for-agile-portfolio-planning-project-management/|2020-11-11",
+        "https://about.gitlab.com/blog/2021/12/15/devops-adoption/|2021-12-15",
+        "https://about.gitlab.com/blog/2021/08/24/stageless-pipelines/|2021-08-24",
+        "https://about.gitlab.com/blog/2021/10/19/top-10-gitlab-hacks/|2021-10-19",
+        "https://about.gitlab.com/blog/2021/10/18/improve-cd-workflows-helm-chart-registry/|2021-10-18",
+        "https://about.gitlab.com/blog/2023/07/25/rail-m-is-an-imperfectly-good-start-for-ai-model-licenses/|2023-07-25",
+        "https://about.gitlab.com/blog/2023/08/28/sha256-support-in-gitaly/|2023-08-28"
+        }, delimiter = '|')
     void testDate(final String url,
                   final String expectedDate) {
         checkCreationDate(GitlabBlogLinkContentParser.class, url, expectedDate);
@@ -54,23 +54,23 @@ class GitlabBlogLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://about.gitlab.com/blog/2023/09/28/unmasking-password-attacks-at-gitlab/",
-        })
+    @CsvSource(value = {
+        "https://about.gitlab.com/blog/2023/09/28/unmasking-password-attacks-at-gitlab/"
+        }, delimiter = '|')
     void testNoAuthors(final String url) {
         check0Author(GitlabBlogLinkContentParser.class, url);
     }
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://about.gitlab.com/blog/2021/12/15/devops-adoption/,Orit,,Golowinski",
-        "https://about.gitlab.com/blog/2021/08/24/stageless-pipelines/,Dov,,Hershkovitch",
-        "https://about.gitlab.com/blog/2021/10/19/top-10-gitlab-hacks/,Michael,,Friedrich",
-        "https://about.gitlab.com/blog/2021/10/18/improve-cd-workflows-helm-chart-registry/,Philip,,Welz",
-        "https://about.gitlab.com/blog/2023/08/28/sha256-support-in-gitaly/,John,,Cai",
-        "https://about.gitlab.com/blog/2024/02/14/new-report-on-ai-assisted-tools-points-to-rising-stakes-for-devsecops/,Rusty,,Weston",
-        })
+    @CsvSource(value = {
+        "https://about.gitlab.com/blog/2021/12/15/devops-adoption/|Orit||Golowinski",
+        "https://about.gitlab.com/blog/2021/08/24/stageless-pipelines/|Dov||Hershkovitch",
+        "https://about.gitlab.com/blog/2021/10/19/top-10-gitlab-hacks/|Michael||Friedrich",
+        "https://about.gitlab.com/blog/2021/10/18/improve-cd-workflows-helm-chart-registry/|Philip||Welz",
+        "https://about.gitlab.com/blog/2023/08/28/sha256-support-in-gitaly/|John||Cai",
+        "https://about.gitlab.com/blog/2024/02/14/new-report-on-ai-assisted-tools-points-to-rising-stakes-for-devsecops/|Rusty||Weston"
+        }, delimiter = '|')
     void testAuthor(final String url,
                     final String expectedFirstName,
                     final String expectedMiddleName,
@@ -87,11 +87,11 @@ class GitlabBlogLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://about.gitlab.com/blog/2021/09/23/best-practices-customer-feature-request/,Christina,,Hupy,Neil,,McCorrison",
-        "https://about.gitlab.com/blog/2021/09/29/why-we-spent-the-last-month-eliminating-postgresql-subtransactions/,Stan,,Hu,Grzegorz,,Bizon",
-        "https://about.gitlab.com/blog/2024/03/20/oxeye-joins-gitlab-to-advance-application-security-capabilities/,David,,DeSanto,Dean,,Agron",
-        })
+    @CsvSource(value = {
+        "https://about.gitlab.com/blog/2021/09/23/best-practices-customer-feature-request/|Christina||Hupy|Neil||McCorrison",
+        "https://about.gitlab.com/blog/2021/09/29/why-we-spent-the-last-month-eliminating-postgresql-subtransactions/|Stan||Hu|Grzegorz||Bizon",
+        "https://about.gitlab.com/blog/2024/03/20/oxeye-joins-gitlab-to-advance-application-security-capabilities/|David||DeSanto|Dean||Agron"
+        }, delimiter = '|')
     void testTwoAuthors(final String url,
                         final String expectedFirstName1,
                         final String expectedMiddleName1,

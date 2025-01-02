@@ -42,16 +42,16 @@ class GithubBlogLinkContentParserTest extends LinkDataExtractorTestBase {
         // the following articles have a subtitle which is, in fact, the beginning of the article
         "https://github.blog/2015-12-15-move-fast/",
         "https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/",
-        })
+        }, delimiter = '|')
     void testNoSubtitle(final String url) {
         checkNoSubtitle(GithubBlogLinkContentParser.class, url);
     }
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://github.blog/2022-10-03-highlights-from-git-2-38/,2022-10-03",
-        })
+    @CsvSource(value = {
+        "https://github.blog/2022-10-03-highlights-from-git-2-38/|2022-10-03"
+        }, delimiter = '|')
     void testDate(final String url,
                   final String expectedDate) {
         checkCreationDate(GithubBlogLinkContentParser.class, url, expectedDate);
@@ -59,20 +59,20 @@ class GithubBlogLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://github.blog/news-insights/octoverse/octoverse-2024/",
-        })
+    @CsvSource(value = {
+        "https://github.blog/news-insights/octoverse/octoverse-2024/"
+        }, delimiter = '|')
     void testNoAuthor(final String url) {
         check0Author(GithubBlogLinkContentParser.class, url);
     }
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://github.blog/2022-10-03-highlights-from-git-2-38/,Taylor,,Blau",
+    @CsvSource(value = {
+        "https://github.blog/2022-10-03-highlights-from-git-2-38/|Taylor||Blau",
         // the next article has an author name with a particle
-        "https://github.blog/2022-08-15-the-next-step-for-lgtm-com-github-code-scanning/,Bas,,van Schaik",
-        })
+        "https://github.blog/2022-08-15-the-next-step-for-lgtm-com-github-code-scanning/|Bas||van Schaik"
+        }, delimiter = '|')
     void testAuthor(final String url,
                     final String expectedFirstName,
                     final String expectedMiddleName,
@@ -89,10 +89,10 @@ class GithubBlogLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://github.blog/2023-09-12-codeql-team-uses-ai-to-power-vulnerability-detection-in-code/,Walker,,Chabbott,Florin,,Coada",
-        "https://github.blog/2022-02-14-include-diagrams-markdown-files-mermaid/,Martin,,Woodward,Adam,,Biagianti",
-        })
+    @CsvSource(value = {
+        "https://github.blog/2023-09-12-codeql-team-uses-ai-to-power-vulnerability-detection-in-code/|Walker||Chabbott|Florin||Coada",
+        "https://github.blog/2022-02-14-include-diagrams-markdown-files-mermaid/|Martin||Woodward|Adam||Biagianti"
+        }, delimiter = '|')
     void testTwoAuthors(final String url,
                         final String expectedFirstName1,
                         final String expectedMiddleName1,

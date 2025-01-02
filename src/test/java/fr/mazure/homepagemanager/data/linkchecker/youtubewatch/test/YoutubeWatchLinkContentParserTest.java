@@ -96,13 +96,13 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-            "https://www.youtube.com/watch?v=4AuV93LOPcE,Mathologer",
-            "https://www.youtube.com/watch?v=zqTRdSUhgQw,Heu?reka",
-            "https://www.youtube.com/watch?v=KT18KJouHWg,Veritasium",
-            "https://www.youtube.com/watch?v=8JFyTubj30o,DeepSkyVideos",
-            "https://www.youtube.com/watch?v=LJ4W1g-6JiY,Sabine Hossenfelder",
-              })
+    @CsvSource(value = {
+            "https://www.youtube.com/watch?v=4AuV93LOPcE|Mathologer",
+            "https://www.youtube.com/watch?v=zqTRdSUhgQw|Heu?reka",
+            "https://www.youtube.com/watch?v=KT18KJouHWg|Veritasium",
+            "https://www.youtube.com/watch?v=8JFyTubj30o|DeepSkyVideos",
+            "https://www.youtube.com/watch?v=LJ4W1g-6JiY|Sabine Hossenfelder"
+              }, delimiter = '|')
     void testChannel(final String url,
                      final String expectedChannel) {
         perform(YoutubeWatchLinkContentParser.class,
@@ -333,23 +333,23 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-           "https://www.youtube.com/watch?v=_kGqkxQo-Tw,fr",
-           "https://www.youtube.com/watch?v=-0ErpE8tQbw,de",
-           "https://www.youtube.com/watch?v=-JcoFa5ieyA,vi",
-           "https://www.youtube.com/watch?v=5NqbqTS9Ve0,hi",
-           "https://www.youtube.com/watch?v=aeF-0y9HP9A,en",
-           "https://www.youtube.com/watch?v=atKDrGedg_w,fr",
-           "https://www.youtube.com/watch?v=d_bHo4nE_tE,nl",
-           "https://www.youtube.com/watch?v=dQXVn7pFsVI,pt",
-           "https://www.youtube.com/watch?v=HEfHFsfGXjs,nl",
-           "https://www.youtube.com/watch?v=laty3vXKRek,ko",
-           "https://www.youtube.com/watch?v=ohU1tEwxOSE,fr",
-           "https://www.youtube.com/watch?v=oJTwQvgfgMM,de",
-           "https://www.youtube.com/watch?v=QAU9psRDPZg,de",
-           "https://www.youtube.com/watch?v=thT-RSEBxo8,vi",
-           "https://www.youtube.com/watch?v=ytuHV2e4c4Q,en",
-           })
+    @CsvSource(value = {
+           "https://www.youtube.com/watch?v=_kGqkxQo-Tw|fr",
+           "https://www.youtube.com/watch?v=-0ErpE8tQbw|de",
+           "https://www.youtube.com/watch?v=-JcoFa5ieyA|vi",
+           "https://www.youtube.com/watch?v=5NqbqTS9Ve0|hi",
+           "https://www.youtube.com/watch?v=aeF-0y9HP9A|en",
+           "https://www.youtube.com/watch?v=atKDrGedg_w|fr",
+           "https://www.youtube.com/watch?v=d_bHo4nE_tE|nl",
+           "https://www.youtube.com/watch?v=dQXVn7pFsVI|pt",
+           "https://www.youtube.com/watch?v=HEfHFsfGXjs|nl",
+           "https://www.youtube.com/watch?v=laty3vXKRek|ko",
+           "https://www.youtube.com/watch?v=ohU1tEwxOSE|fr",
+           "https://www.youtube.com/watch?v=oJTwQvgfgMM|de",
+           "https://www.youtube.com/watch?v=QAU9psRDPZg|de",
+           "https://www.youtube.com/watch?v=thT-RSEBxo8|vi",
+           "https://www.youtube.com/watch?v=ytuHV2e4c4Q|en"
+           }, delimiter = '|')
     void testSubtitlesLanguage(final String url,
                                final String expectedLanguage) {
         perform(YoutubeWatchLinkContentParser.class,
