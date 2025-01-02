@@ -48,6 +48,16 @@ methods       53.9%    97.9%
 
 
 
+In @file:SimonWillisonLinkContentParser 
+- remove the attribute _data
+- for each getter, add an attribute corresponding to the returned data and initialize this attrbiute in the constructor
+
+
+
+
+
+
+
 gérer
 https://oxide-and-friends.transistor.fm/episodes/heterogeneous-computing-with-raja-koduri
 The expected date 2024-07-18 is not equal to the effective date 2024-07-15
