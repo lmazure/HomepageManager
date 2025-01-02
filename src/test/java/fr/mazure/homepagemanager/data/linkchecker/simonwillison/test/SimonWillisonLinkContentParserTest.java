@@ -14,7 +14,7 @@ class SimonWillisonLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "hhttps://simonwillison.net/2024/Mar/8/gpt-4-barrier/|Simon|Willison|",
+        "https://simonwillison.net/2024/Mar/8/gpt-4-barrier/|Simon|Willison|",
         }, delimiter = '|')
     void testAuthor(final String url,
                     final String expectedFirstName,

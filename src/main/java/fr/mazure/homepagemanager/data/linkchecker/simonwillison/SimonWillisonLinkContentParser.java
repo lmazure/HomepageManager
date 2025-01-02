@@ -38,18 +38,42 @@ public class SimonWillisonLinkContentParser extends LinkDataExtractor {
                          s_sourceName,
                          "date");
 
-    private final String _data;
+    private final String _title;
+    private final TemporalAccessor _creationDate;
+    private final List<AuthorData> _authors;
+    private final List<ExtractedLinkData> _links;
 
     /**
      * @param url URL of the link
      * @param data retrieved link data
      * @param retriever cache data retriever
+     * @throws ContentParserException Failure to extract the information
      */
     public SimonWillisonLinkContentParser(final String url,
                                           final String data,
-                                          final CachedSiteDataRetriever retriever) {
+                                          final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(url, retriever);
-        _data = data;
+
+        _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
+
+        final int timestamp = Integer.parseInt(s_dateParser.extract(data));
+        final Instant instant = Instant.ofEpochSecond(timestamp);
+        _creationDate = instant.atZone(ZoneId.of("UTC")).toLocalDate();
+
+        _authors = Collections.singletonList(WellKnownAuthors.SIMON_WILLISON);
+
+        final ExtractedLinkData linkData = new ExtractedLinkData(_title,
+                                                                 new String[] { },
+                                                                 getUrl(),
+                                                                 Optional.empty(),
+                                                                 Optional.empty(),
+                                                                 new LinkFormat[] { LinkFormat.HTML },
+                                                                 new Locale[] { getLanguage() },
+                                                                 Optional.empty(),
+                                                                 Optional.empty());
+        final List<ExtractedLinkData> list = new ArrayList<>(1);
+        list.add(linkData);
+        _links = list;
     }
 
     /**
@@ -63,50 +87,37 @@ public class SimonWillisonLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public String getTitle() throws ContentParserException {
-        return HtmlHelper.cleanContent(s_titleParser.extract(_data));
+    public String getTitle() {
+        return _title;
     }
 
     @Override
-    public Optional<String> getSubtitle() throws ContentParserException {
+    public Optional<String> getSubtitle() {
         return Optional.empty();
     }
 
     @Override
-    public Optional<TemporalAccessor> getCreationDate() throws ContentParserException {
-        final int timestamp = Integer.parseInt(s_dateParser.extract(_data));
-        final Instant instant = Instant.ofEpochSecond(timestamp);
-        return Optional.of(instant.atZone(ZoneId.of("UTC")).toLocalDate());
+    public Optional<TemporalAccessor> getCreationDate() {
+        return Optional.of(_creationDate);
     }
 
     @Override
-    public Optional<TemporalAccessor> getPublicationDate() throws ContentParserException {
-        return getCreationDate();
+    public Optional<TemporalAccessor> getPublicationDate() {
+        return Optional.of(_creationDate);
     }
 
     @Override
-    public List<AuthorData> getSureAuthors() throws ContentParserException {
-        return Collections.singletonList(WellKnownAuthors.SIMON_WILLISON);
+    public List<AuthorData> getSureAuthors() {
+        return _authors;
     }
 
     @Override
-    public List<ExtractedLinkData> getLinks() throws ContentParserException {
-        final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
-                                                                 new String[] { },
-                                                                 getUrl(),
-                                                                 Optional.empty(),
-                                                                 Optional.empty(),
-                                                                 new LinkFormat[] { LinkFormat.HTML },
-                                                                 new Locale[] { getLanguage() },
-                                                                 Optional.empty(),
-                                                                 Optional.empty());
-        final List<ExtractedLinkData> list = new ArrayList<>(1);
-        list.add(linkData);
-        return list;
+    public List<ExtractedLinkData> getLinks() {
+        return _links;
     }
 
     @Override
-    public Locale getLanguage() throws ContentParserException {
+    public Locale getLanguage() {
         return Locale.ENGLISH;
     }
 }
