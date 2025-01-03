@@ -68,6 +68,38 @@ public class WellKnownRedirections {
             _matchers.add(fromYoutubeChannelToYoutubeChannel1);
         }
 
+        /*{
+            final RedirectionMatcher fromYoutubeChannelToYoutubeChannel1 = new RedirectionMatcher("from YouTube channel to YouTube channel",
+                                                                                                  Set.of(LinkStatus.OK));
+            fromYoutubeChannelToYoutubeChannel1.add("\\Qhttps://www.youtube.com/channel/\\E" + RedirectionMatcher.ANY_STRING,
+                                                    Set.of(Integer.valueOf(302)),
+                                                    RedirectionMatcher.Multiplicity.ONE);
+            fromYoutubeChannelToYoutubeChannel1.add("\\Qhttps://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fchannel%2F\\E" + RedirectionMatcher.ANY_STRING,
+                                                    Set.of(Integer.valueOf(302)),
+                                                    RedirectionMatcher.Multiplicity.ONE);
+            fromYoutubeChannelToYoutubeChannel1.add("\\Qhttps://consent.youtube.com/ml?continue=https://www.youtube.com/channel/\\E"  + RedirectionMatcher.ANY_STRING,
+                                                    Set.of(Integer.valueOf(200)),
+                                                    RedirectionMatcher.Multiplicity.ONE);
+            fromYoutubeChannelToYoutubeChannel1.compile();
+            _matchers.add(fromYoutubeChannelToYoutubeChannel1);
+        }*/
+
+        {
+            final RedirectionMatcher fromYoutubeChannelToYoutubeChannel = new RedirectionMatcher("from YouTube channel to YouTube channel",
+                                                                                                 Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
+            fromYoutubeChannelToYoutubeChannel.add("\\Qhttps://www.youtube.com/channel/\\E" + RedirectionMatcher.ANY_STRING,
+                                                   Set.of(Integer.valueOf(302)),
+                                                   RedirectionMatcher.Multiplicity.ONE);
+            fromYoutubeChannelToYoutubeChannel.add("\\Qhttps://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fchannel%2F\\E" + RedirectionMatcher.ANY_STRING,
+                                                   Set.of(Integer.valueOf(303)),
+                                                   RedirectionMatcher.Multiplicity.ONE);
+            fromYoutubeChannelToYoutubeChannel.add("\\Qhttps://www.youtube.com/channel/\\E" + RedirectionMatcher.ANY_STRING,
+                                                   Set.of(Integer.valueOf(200)),
+                                                   RedirectionMatcher.Multiplicity.ONE);
+            fromYoutubeChannelToYoutubeChannel.compile();
+            _matchers.add(fromYoutubeChannelToYoutubeChannel);
+        }
+
         {
             final RedirectionMatcher fromYoutubeUserToYoutubeUser1 = new RedirectionMatcher("from YouTube user to YouTube user",
                                                                                             Set.of(LinkStatus.OK));
@@ -79,6 +111,22 @@ public class WellKnownRedirections {
                                               RedirectionMatcher.Multiplicity.ONE);
             fromYoutubeUserToYoutubeUser1.compile();
             _matchers.add(fromYoutubeUserToYoutubeUser1);
+        }
+
+        {
+            final RedirectionMatcher fromYoutubeUserToYoutubeUser2 = new RedirectionMatcher("from YouTube user to YouTube user",
+                                                                                            Set.of(LinkStatus.OK));
+            fromYoutubeUserToYoutubeUser2.add("\\Qhttps://www.youtube.com/user/\\E(?<user>.*)",
+                                              Set.of(Integer.valueOf(302)),
+                                              RedirectionMatcher.Multiplicity.ONE);
+            fromYoutubeUserToYoutubeUser2.add("\\Qhttps://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fuser%2F\\E" + RedirectionMatcher.ANY_STRING,
+                                              Set.of(Integer.valueOf(303)),
+                                              RedirectionMatcher.Multiplicity.ONE);
+            fromYoutubeUserToYoutubeUser2.add("\\Qhttps://www.youtube.com/user/\\E\\k<user>\\Q?cbrd=1&ucbcb=1\\E",
+                                              Set.of(Integer.valueOf(200)),
+                                              RedirectionMatcher.Multiplicity.ONE);
+            fromYoutubeUserToYoutubeUser2.compile();
+            _matchers.add(fromYoutubeUserToYoutubeUser2);
         }
 
         {
