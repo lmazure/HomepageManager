@@ -58,19 +58,6 @@ In @file:SimonWillisonLinkContentParser
 
 
 
-gérer
-https://oxide-and-friends.transistor.fm/episodes/heterogeneous-computing-with-raja-koduri
-The expected date 2024-07-18 is not equal to the effective date 2024-07-15
-
-https://oxide-and-friends.transistor.fm/episodes/unshrouding-turin-or-benvenuto-a-torino
-The expected date 2024-10-16 is not equal to the effective date 2024-10-14
-
-
-
-
-
-
-
 nettoyer space.xml : space exploration vs space telescope
 	
 
@@ -130,17 +117,6 @@ the reviewer of https://www.baeldung.com/java-linked-hashmap is not extracted
 
 publication date smaller or equal to creation date must be detected
 
-
-
-
-
-
-gérer
-https://oxide.computer/podcasts/oxide-and-friends/2052742
-The list of effective authors is not the effective one.
-The following authors are effectively present but are unexpected: 
-The following authors are expected but are effectively missing: ▭ first=David ▭ last=Pacheco ▭ ▭
-Expected 1 links (https://oxide.computer/podcasts/oxide-and-friends/2052742), got 2 links (https://oxide.computer/podcasts/oxide-and-friends/2052742, https://www.youtube.com/watch?v=DNHMYp8M40k)
 
 
 

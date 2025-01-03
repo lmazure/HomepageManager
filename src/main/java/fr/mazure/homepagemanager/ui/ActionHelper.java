@@ -30,7 +30,9 @@ import javafx.scene.layout.Priority;
 public class ActionHelper {
 
     /**
-     * @param file
+     * Display a file using the OS default application
+     *
+     * @param file File to be displayed
      */
     public static void displayFile(final Path file) {
 
@@ -50,8 +52,10 @@ public class ActionHelper {
     }
 
     /**
-     * @param file
-     * @param homepagePath path to the directory containing the pages
+     * Display a HTML file (of the homepage) using the OS default browser
+     *
+     * @param file File to be displayed
+     * @param homepagePath Path to the directory containing the pages
      */
     public static void displayHtmlFile(final Path file,
                                        final Path homepagePath) {
@@ -94,8 +98,10 @@ public class ActionHelper {
     }
 
     /**
-     * @param file
-     * @param apply
+     * Modify the content of a file by applying a transformation to it
+     *
+     * @param file File whose content is to be modified
+     * @param apply Transformation to be applied to the file content
      */
     public static void modifyFile(final String file, // TODO this is not homogeneous with the other actions, we should have a file defined by a Path relative to the home directory
                                   final Optional<Function<String, String>> apply) {
@@ -110,12 +116,22 @@ public class ActionHelper {
     }
 
     private static boolean isUrlAlive(final URL url) {
+        HttpURLConnection huc = null;
         try {
-            final HttpURLConnection huc = (HttpURLConnection)url.openConnection();
+            huc = (HttpURLConnection) url.openConnection();
+            huc.setConnectTimeout(2000);
+            huc.setReadTimeout(2000);
+            huc.setRequestMethod("HEAD");
             final int responseCode = huc.getResponseCode();
-            return (responseCode == HttpURLConnection.HTTP_OK);
-        } catch (final IOException e) {
-            return e instanceof SSLHandshakeException;
+            return (responseCode >= 200 && responseCode < 400);
+        } catch (@SuppressWarnings("unused") final SSLHandshakeException e) {
+            return true;
+        } catch (@SuppressWarnings("unused") final IOException e) {
+            return false;
+        } finally {
+            if (huc != null) {
+                huc.disconnect();
+            }
         }
     }
 

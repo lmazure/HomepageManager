@@ -45,7 +45,7 @@ public class SynchronousSiteDataRetriever {
     private static final int s_readTimeout = 60000;
     private static final int s_maxNbRedirects = 40;
 
-    private static final String s_userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv\", \"0.0) Gecko/20100101 Firefox/90.0";
+    private static final String s_userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0";
 
     /**
      * @param persister data persister

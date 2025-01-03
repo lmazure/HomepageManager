@@ -4,6 +4,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -33,10 +34,10 @@ class WellKnownRedirectionsTest {
     }
 
     // URLs giving directly a 202 (success)
+    @Disabled("need to find another example of code 202")
     @ParameterizedTest
     @CsvSource({
         "http://httpbin.org/status/202",
-        "https://www.semanticscholar.org/paper/The-Native-POSIX-Thread-Library-for-Linux-Drepper-Molnar/ffced47e5604b66736d365030bfe532d11285433?p2df",
         })
     void direct202(final String url) {
         test(url,
@@ -182,6 +183,7 @@ class WellKnownRedirectionsTest {
              Set.of(LinkStatus.DEAD));
     }
 
+    @Disabled("need find another example of such a bad redirection")
     @ParameterizedTest
     @CsvSource({
         "https://docs.trychroma.com/", // returns 307 but have no "Location" in the answer header
@@ -323,6 +325,7 @@ class WellKnownRedirectionsTest {
         "http://www.oreillynet.com/pub/a/oreilly/security/news/2004/03/08/netsec.html",
         "http://www.oreillynet.com/pub/a/wireless/2003/12/04/tftp.html",
         "http://www.oreillynet.com/xml/blog/2006/06/understanding_xforms_component.html",
+        "http://radar.oreilly.com/2013/07/putting-developers-to-the-test.html",
         })
     void oReilly(final String url) {
         test(url,
