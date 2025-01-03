@@ -37,18 +37,40 @@ public class SimonWillisonTilLinkContentParser extends LinkDataExtractor {
                          s_sourceName,
                          "date");
 
-    private final String _data;
+    private final String _title;
+    private final Optional<TemporalAccessor> _creationDate;
+    private final List<AuthorData> _sureAuthors;
+    private final List<ExtractedLinkData> _links;
 
     /**
      * @param url URL of the link
      * @param data retrieved link data
      * @param retriever cache data retriever
-     */
-    public SimonWillisonTilLinkContentParser(final String url,
-                                             final String data,
-                                             final CachedSiteDataRetriever retriever) {
+     * @throws ContentParserException Failure to extract the information
+          */
+         public SimonWillisonTilLinkContentParser(final String url,
+                                                  final String data,
+                                                  final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(url, retriever);
-        _data = data;
+
+        _title = HtmlHelper.cleanContent(s_titleParser.extract(data).replaceAll("\\Q| Simon Willison’s TILs\\E$", ""));
+
+        _creationDate = Optional.of(LocalDate.parse(s_dateParser.extract(data)));
+
+        _sureAuthors = Collections.singletonList(WellKnownAuthors.SIMON_WILLISON);
+        
+        final ExtractedLinkData linkData = new ExtractedLinkData(_title,
+                                                                 new String[] { },
+                                                                 getUrl(),
+                                                                 Optional.empty(),
+                                                                 Optional.empty(),
+                                                                 new LinkFormat[] { LinkFormat.HTML },
+                                                                 new Locale[] { getLanguage() },
+                                                                 Optional.empty(),
+                                                                 Optional.empty());
+        final List<ExtractedLinkData> list = new ArrayList<>(1);
+        list.add(linkData);
+        _links = list;
     }
 
     /**
@@ -63,7 +85,7 @@ public class SimonWillisonTilLinkContentParser extends LinkDataExtractor {
 
     @Override
     public String getTitle() throws ContentParserException {
-        return HtmlHelper.cleanContent(s_titleParser.extract(_data).replaceAll("\\Q| Simon Willison’s TILs\\E$", ""));
+        return _title;
     }
 
     @Override
@@ -73,33 +95,22 @@ public class SimonWillisonTilLinkContentParser extends LinkDataExtractor {
 
     @Override
     public Optional<TemporalAccessor> getCreationDate() throws ContentParserException {
-        return Optional.of(LocalDate.parse(s_dateParser.extract(_data)));
+        return _creationDate;
     }
 
     @Override
     public Optional<TemporalAccessor> getPublicationDate() throws ContentParserException {
-        return getCreationDate();
+        return _creationDate;
     }
 
     @Override
     public List<AuthorData> getSureAuthors() throws ContentParserException {
-        return Collections.singletonList(WellKnownAuthors.SIMON_WILLISON);
+        return _sureAuthors;
     }
 
     @Override
     public List<ExtractedLinkData> getLinks() throws ContentParserException {
-        final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
-                                                                 new String[] { },
-                                                                 getUrl(),
-                                                                 Optional.empty(),
-                                                                 Optional.empty(),
-                                                                 new LinkFormat[] { LinkFormat.HTML },
-                                                                 new Locale[] { getLanguage() },
-                                                                 Optional.empty(),
-                                                                 Optional.empty());
-        final List<ExtractedLinkData> list = new ArrayList<>(1);
-        list.add(linkData);
-        return list;
+        return _links;
     }
 
     @Override
