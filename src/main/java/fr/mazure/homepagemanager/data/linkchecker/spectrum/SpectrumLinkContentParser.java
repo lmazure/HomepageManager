@@ -28,7 +28,8 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
 
     private static final String s_sourceName = "IEEE Spectrum";
 
-    private final String _data;
+    private final String _title;
+    private final Optional<String> _subtitle;
 
     private List<AuthorData> _authors;
     private Optional<TemporalAccessor> _publicationDate;
@@ -60,9 +61,15 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
         super(UrlHelper.removeQueryParameters(url,"comments",
                                                   "comments-page"),
               retriever);
-        _data = data;
-        _authors = null;
-        _publicationDate = null;
+        try {
+            _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
+            _subtitle = Optional.of(HtmlHelper.cleanContent(s_subtitleParser.extract(data)));
+            _authors = null;
+            _publicationDate = null;
+            parseJson(data);
+        } catch (ContentParserException e) {
+            throw new RuntimeException("Failed to parse content during initialization", e);
+        }
     }
 
     /**
@@ -73,15 +80,16 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
      */
     public static boolean isUrlManaged(final String url) {
         return url.startsWith("https://spectrum.ieee.org/");
-    }    @Override
-
-    public String getTitle() throws ContentParserException {
-        return HtmlHelper.cleanContent(s_titleParser.extract(_data));
     }
 
     @Override
-    public Optional<String> getSubtitle() throws ContentParserException {
-        return Optional.of(HtmlHelper.cleanContent(s_subtitleParser.extract(_data)));
+    public String getTitle() {
+        return _title;
+    }
+
+    @Override
+    public Optional<String> getSubtitle() {
+        return _subtitle;
     }
 
     @Override
@@ -89,8 +97,7 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
         if (_publicationDate != null) {
             return _publicationDate;
         }
-        parseJson();
-        return _publicationDate;
+        throw new ContentParserException("Publication date is not available");
     }
 
     @Override
@@ -103,8 +110,7 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
         if (_authors != null) {
             return _authors;
         }
-        parseJson();
-        return _authors;
+        throw new ContentParserException("Authors are not available");
     }
 
     @Override
@@ -138,11 +144,11 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
         return Locale.ENGLISH;
     }
 
-    private void parseJson() throws ContentParserException {
+    private void parseJson(final String data) throws ContentParserException {
 
         _authors = new ArrayList<>(1);
 
-        final String json = s_jsonParser.extract(_data);
+        final String json = s_jsonParser.extract(data);
         final JSONObject payload = new JSONObject(json);
         final Object authorNode = payload.get("author");
         if (authorNode instanceof JSONArray auths) {
