@@ -25,7 +25,11 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
 
     private static final String s_sourceName = "GitLab blog";
 
-    private final String _data;
+    private final String _title;
+    private final Optional<TemporalAccessor> _creationDate;
+    private final List<AuthorData> _sureAuthors;
+    private final List<ExtractedLinkData> _links;
+
     private static final TextParser s_titleParser = new TextParser("<title>",
                                                                    "</title>",
                                                                    s_sourceName,
@@ -51,12 +55,53 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
      * @param url URL of the link
      * @param data retrieved link data
      * @param retriever cache data retriever
+     *
+     * @throws ContentParserException Failure to extract the information
      */
     public GitlabBlogLinkContentParser(final String url,
                                        final String data,
-                                       final CachedSiteDataRetriever retriever) {
+                                       final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(url, retriever);
-        _data = data;
+
+        _title = HtmlHelper.cleanContent(s_titleParser.extract(data))
+                           .replaceFirst(" \\| GitLab$", "");
+
+        final String str = HtmlHelper.cleanContent(s_dateParser.extract(data));
+        _creationDate = Optional.of(LocalDate.parse(str, s_dateFormat));
+        
+        final Optional<String> opt = s_authorParser1.extractOptional(data);
+        if (opt.isPresent()) {
+            // old blog entry
+            final String cleanedText = HtmlHelper.cleanContent(opt.get());
+            _sureAuthors = LinkContentParserUtils.getAuthors(cleanedText);
+        } else {
+            // new blog entry
+            final List<AuthorData> authors = new ArrayList<>(1);
+            final List<String> extracted = s_authorParser2.extractMulti(data);
+            for (final String extract: extracted) {
+                final String cleanedText = HtmlHelper.cleanContent(extract);
+                if (cleanedText.equals("GitLab Security Team")) {
+                    continue;
+                }
+                final String removedTitle = cleanedText.replaceFirst(", (Chief Product Officer|co-founder|Guest Contributor|Ph\\.D\\.).*$", "");
+                final List<AuthorData> author = LinkContentParserUtils.getAuthors(removedTitle);
+                authors.addAll(author);
+            }
+            _sureAuthors = authors;
+        }
+
+        final ExtractedLinkData linkData = new ExtractedLinkData(_title,
+                                                                 new String[] { },
+                                                                 url,
+                                                                 Optional.empty(),
+                                                                 Optional.empty(),
+                                                                 new LinkFormat[] { LinkFormat.HTML },
+                                                                 new Locale[] { Locale.ENGLISH },
+                                                                 Optional.empty(),
+                                                                 Optional.empty());
+        final List<ExtractedLinkData> list = new ArrayList<>(1);
+        list.add(linkData);
+        _links = list;
     }
 
     /**
@@ -70,9 +115,8 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public String getTitle() throws ContentParserException {
-        return HtmlHelper.cleanContent(s_titleParser.extract(_data))
-                         .replaceFirst(" \\| GitLab$", "");
+    public String getTitle() {
+        return _title;
     }
 
     @Override
@@ -81,56 +125,23 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public Optional<TemporalAccessor> getCreationDate() throws ContentParserException {
-        final String str = HtmlHelper.cleanContent(s_dateParser.extract(_data));
-        return Optional.of(LocalDate.parse(str, s_dateFormat));
-    }
-
-
-    @Override
-    public Optional<TemporalAccessor> getPublicationDate() throws ContentParserException {
-        return getCreationDate();
+    public Optional<TemporalAccessor> getCreationDate() {
+        return _creationDate;
     }
 
     @Override
-    public List<AuthorData> getSureAuthors() throws ContentParserException {
-        final Optional<String> opt = s_authorParser1.extractOptional(_data);
-
-        // old blog entry
-        if (opt.isPresent()) {
-            final String cleanedText = HtmlHelper.cleanContent(opt.get());
-            return LinkContentParserUtils.getAuthors(cleanedText);
-        }
-
-        // new blog entry
-        final List<AuthorData> authors = new ArrayList<>(1);
-        final List<String> extracted = s_authorParser2.extractMulti(_data);
-        for (final String extract: extracted) {
-            final String cleanedText = HtmlHelper.cleanContent(extract);
-            if (cleanedText.equals("GitLab Security Team")) {
-                continue;
-            }
-            final String removedTitle = cleanedText.replaceFirst(", (Chief Product Officer|co-founder|Guest Contributor|Ph\\.D\\.).*$", "");
-            final List<AuthorData> author = LinkContentParserUtils.getAuthors(removedTitle);
-            authors.addAll(author);
-        }
-        return authors;
+    public Optional<TemporalAccessor> getPublicationDate() {
+        return _creationDate;
     }
 
     @Override
-    public List<ExtractedLinkData> getLinks() throws ContentParserException {
-        final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
-                                                                 new String[] { },
-                                                                 getUrl(),
-                                                                 Optional.empty(),
-                                                                 Optional.empty(),
-                                                                 new LinkFormat[] { LinkFormat.HTML },
-                                                                 new Locale[] { getLanguage() },
-                                                                 Optional.empty(),
-                                                                 Optional.empty());
-        final List<ExtractedLinkData> list = new ArrayList<>(1);
-        list.add(linkData);
-        return list;
+    public List<AuthorData> getSureAuthors() {
+        return _sureAuthors;
+    }
+
+    @Override
+    public List<ExtractedLinkData> getLinks() {
+        return _links;
     }
 
     @Override
