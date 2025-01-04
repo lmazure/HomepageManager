@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -154,12 +155,12 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
 
     @Override
     public List<AuthorData> getProbableAuthors() {
-        return new ArrayList<>(0);
+        return Collections.emptyList();
     }
 
     @Override
     public List<AuthorData> getPossibleAuthors() {
-        return new ArrayList<>(0);
+        return Collections.emptyList();
     }
 
     private Optional<ExtractedLinkData> getOtherLink() {

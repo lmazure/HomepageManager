@@ -29,8 +29,8 @@ public class UrlChecker extends NodeChecker {
 
         final String url = e.getTextContent();
 
-        if (url.indexOf(':') < 0) {
-            // pointer to another of my pages
+        if (!url.contains(":")) {
+            // pointer to another page
             return null;
         }
 

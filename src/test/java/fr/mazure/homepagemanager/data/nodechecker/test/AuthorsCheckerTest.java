@@ -166,12 +166,12 @@ class AuthorsCheckerTest extends NodeValueCheckerTestBase {
             <PATH>links/typescript.xml</PATH>\
             <DATE><YEAR>2022</YEAR><MONTH>10</MONTH><DAY>25</DAY></DATE>\
             <CONTENT>\
-            <ITEM><ARTICLE><X><T>Tric Trac Show #12345</T><A>https://www.youtube.com/watch?v=aW61yxnQvio</A><L>fr</L><F>MP4</F><DURATION><HOUR>2</HOUR><MINUTE>0</MINUTE><SECOND>6</SECOND></DURATION></X><AUTHOR><NAMEPREFIX>Prefix</NAMEPREFIX><FIRSTNAME>FirstName</FIRSTNAME><MIDDLENAME>Middle'Name</MIDDLENAME><LASTNAME>LastName</LASTNAME><NAMESUFFIX>NameSuffix</NAMESUFFIX><GIVENNAME>GivenName</GIVENNAME></AUTHOR><DATE><YEAR>2022</YEAR><MONTH>10</MONTH><DAY>13</DAY></DATE><COMMENT>Some games…</COMMENT></ARTICLE></ITEM>\
+            <ITEM><ARTICLE><X><T>Tric Trac Show #12345</T><A>https://www.youtube.com/watch?v=aW61yxnQvio</A><L>fr</L><F>MP4</F><DURATION><HOUR>2</HOUR><MINUTE>0</MINUTE><SECOND>6</SECOND></DURATION></X><AUTHOR><NAMEPREFIX>Prefix</NAMEPREFIX><FIRSTNAME>FirstName</FIRSTNAME><MIDDLENAME>Middle\"Name</MIDDLENAME><LASTNAME>LastName</LASTNAME><NAMESUFFIX>NameSuffix</NAMESUFFIX><GIVENNAME>GivenName</GIVENNAME></AUTHOR><DATE><YEAR>2022</YEAR><MONTH>10</MONTH><DAY>13</DAY></DATE><COMMENT>Some games…</COMMENT></ARTICLE></ITEM>\
             </CONTENT>\
             </PAGE>""";
         try {
             test(content,
-                 "The middle name of author prefix=Prefix first=FirstName middle=Middle'Name last=LastName suffix=NameSuffix given=GivenName contains an illegal character<<AuthorWithIllegalCharacters>>");
+                 "The middle name of author prefix=Prefix first=FirstName middle=Middle\"Name last=LastName suffix=NameSuffix given=GivenName contains an illegal character<<AuthorWithIllegalCharacters>>");
         } catch (@SuppressWarnings("unused") final SAXException e) {
             Assertions.fail("SAXException");
         }

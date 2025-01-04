@@ -59,7 +59,7 @@ public class DoubleSpaceChecker extends NodeChecker {
         for (final String l: list) {
             final Matcher matcher = s_indentationPattern.matcher(l);
             final String str = matcher.replaceFirst("");
-            if (str.indexOf("  ") >= 0) {
+            if (str.contains("  ")) {
                 return new CheckStatus("DoubleSpace", "\"" + e.getTextContent() + "\" should not contain a double space", Optional.empty());
             }
         }

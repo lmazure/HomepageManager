@@ -234,7 +234,7 @@ public class LinkCheckRunner {
     }
 
     private static boolean isLinkCheckable(final String url) {
-        if (url.indexOf(":") < 0) {
+        if (!url.contains(":")) {
             // local links are checked in a file checker
             // TODO which one?
             return false;

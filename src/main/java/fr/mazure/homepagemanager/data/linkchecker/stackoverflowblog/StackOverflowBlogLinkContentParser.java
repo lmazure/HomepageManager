@@ -5,6 +5,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -104,12 +105,12 @@ public class StackOverflowBlogLinkContentParser extends LinkDataExtractor {
 
     @Override
     public List<AuthorData> getProbableAuthors() {
-        return new ArrayList<>(0);
+        return Collections.emptyList();
     }
 
     @Override
     public List<AuthorData> getPossibleAuthors() {
-        return new ArrayList<>(0);
+        return Collections.emptyList();
     }
 
     @Override
