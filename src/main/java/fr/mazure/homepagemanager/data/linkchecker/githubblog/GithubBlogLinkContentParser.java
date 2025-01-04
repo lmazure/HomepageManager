@@ -1,6 +1,5 @@
 package fr.mazure.homepagemanager.data.linkchecker.githubblog;
 
-import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
@@ -31,12 +30,11 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
     private static final String s_sourceName = "GitHub blog";
     private static final AuthorData s_githubStaff = new AuthorData(Optional.empty(), Optional.of("GitHub"), Optional.empty(), Optional.of("Staff"), Optional.empty(), Optional.empty());
 
-    private final String _data;
     private boolean _dataIsLoaded;
     private String _title;
-    private String _subtitle;
+    private Optional<String> _subtitle;
     private List<AuthorData> _authors;
-    private LocalDate _publicationDate;
+    private Optional<TemporalAccessor> _publicationDate;
 
     private static final TextParser s_jsonParser
         = new TextParser("<script type=\"application/ld\\+json\" class=\"yoast-schema-graph\">",
@@ -65,12 +63,15 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
      * @param url URL of the link
      * @param retriever cache data retriever
      * @param data retrieved link data
+     *
+     * @throws ContentParserException Failure to extract the information
      */
     public GithubBlogLinkContentParser(final String url,
                                        final String data,
-                                       final CachedSiteDataRetriever retriever) {
+                                       final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(url, retriever);
-        _data = data;
+        
+        loadData(data);
     }
 
     /**
@@ -84,37 +85,27 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public String getTitle() throws ContentParserException {
-        loadData();
+    public String getTitle() {
         return _title;
     }
 
     @Override
-    public Optional<String> getSubtitle() throws ContentParserException {
-        loadData();
-        if (_subtitle.endsWith("…")) {
-         // this is not a real subtitle, but, in fact, the beginning of the article
-            return Optional.empty();
-        }
-        return Optional.of(_subtitle);
+    public Optional<String> getSubtitle() {
+        return _subtitle;
     }
 
-    /**
-     * @return publication date, empty if there is none
-     * @throws ContentParserException Failure to extract the information
-     */
     @Override
-    public Optional<TemporalAccessor> getPublicationDate() throws ContentParserException {
-        return getCreationDate();
+    public Optional<TemporalAccessor> getPublicationDate() {
+        return _publicationDate;
     }
 
-    private void loadData() throws ContentParserException {
+    private void loadData(final String data) throws ContentParserException {
         if (_dataIsLoaded) {
             return;
         }
         _dataIsLoaded = true;
 
-        final String json = s_jsonParser.extract(_data);
+        final String json = s_jsonParser.extract(data);
         final JSONObject payload = new JSONObject(json);
         JSONArray post;
         try {
@@ -135,32 +126,34 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
             throw new ContentParserException("Failed to find \"@WebPage\" JSON object in GitHub Blog page");
         }
 
-        _title = HtmlHelper.cleanContent(s_titleParser.extract(_data));
-        _subtitle = HtmlHelper.cleanContent(s_subtitleParser.extract(_data));
-        final String authorString = s_authorParser.extract(_data);
+        _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
+        _subtitle = Optional.of(HtmlHelper.cleanContent(s_subtitleParser.extract(data)));
+        if (_subtitle.get().endsWith("…")) {
+            // this is not a real subtitle, but, in fact, the beginning of the article
+            _subtitle = Optional.empty();
+           }
+        final String authorString = s_authorParser.extract(data);
         _authors = LinkContentParserUtils.getAuthors(authorString);
         _authors.remove(s_githubStaff);
         final String datePublished  = webPage.getString("datePublished");
         if (datePublished == null) {
             throw new ContentParserException("Failed to find \"datePublished\" JSON object in GitHub Blog page");
         }
-        _publicationDate = ZonedDateTime.parse(datePublished, DateTimeFormatter.ISO_DATE_TIME).toLocalDate();
+        _publicationDate = Optional.of(ZonedDateTime.parse(datePublished, DateTimeFormatter.ISO_DATE_TIME).toLocalDate());
     }
 
     @Override
-    public Optional<TemporalAccessor> getCreationDate() throws ContentParserException {
-        loadData();
-        return Optional.of(_publicationDate);
+    public Optional<TemporalAccessor> getCreationDate(){
+        return _publicationDate;
     }
 
     @Override
-    public List<AuthorData> getSureAuthors() throws ContentParserException {
-        loadData();
+    public List<AuthorData> getSureAuthors() {
         return _authors;
     }
 
     @Override
-    public List<ExtractedLinkData> getLinks() throws ContentParserException {
+    public List<ExtractedLinkData> getLinks() {
         final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
                                                                  getSubtitle().isPresent() ? new String[] { getSubtitle().get() }
                                                                                            : new String[] {},
