@@ -26,7 +26,10 @@ public class BaeldungLinkContentParser extends LinkDataExtractor {
 
     private static final String s_sourceName = "Baeldung";
 
-    private final String _data;
+    private final String _title;
+    private final Optional<TemporalAccessor> _creationDate;
+    private final List<AuthorData> _sureAuthors;
+    private final List<ExtractedLinkData> _links;
 
     private static final TextParser s_titleParser
         = new TextParser("<h1 class=\"single-title entry-title\" itemprop=\"headline\">",
@@ -49,12 +52,40 @@ public class BaeldungLinkContentParser extends LinkDataExtractor {
      * @param url URL of the link
      * @param data retrieved link data
      * @param retriever cache data retriever
+     * @throws ContentParserException failure to extract the information
      */
     public BaeldungLinkContentParser(final String url,
                                      final String data,
-                                     final CachedSiteDataRetriever retriever) {
+                                     final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(url, retriever);
-        _data = data;
+        _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
+        
+        final String date = HtmlHelper.cleanContent(s_dateParser.extract(data));
+        try {
+            _creationDate = Optional.of(LocalDate.parse(date, s_formatter));
+        } catch (final DateTimeParseException e) {
+            throw new ContentParserException("Failed to parse date (" + date + ") in Baeldung page", e);
+        }
+        
+        final List<AuthorData> authorList = new ArrayList<>(1);
+        final String author = s_authorParser.extract(data);
+        if (!author.equals("baeldung")) {
+            authorList.add(LinkContentParserUtils.parseAuthorName(author));
+        }
+        _sureAuthors = authorList;
+        
+        final ExtractedLinkData linkData = new ExtractedLinkData(_title,
+                                                                 new String[] { },
+                                                                 url,
+                                                                 Optional.empty(),
+                                                                 Optional.empty(),
+                                                                 new LinkFormat[] { LinkFormat.HTML },
+                                                                 new Locale[] { Locale.ENGLISH },
+                                                                 Optional.empty(),
+                                                                 Optional.empty());
+        final List<ExtractedLinkData> linkList = new ArrayList<>(1);
+        linkList.add(linkData);
+        _links = linkList;
     }
 
     /**
@@ -68,8 +99,8 @@ public class BaeldungLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public String getTitle() throws ContentParserException {
-        return HtmlHelper.cleanContent(s_titleParser.extract(_data));
+    public String getTitle() {
+        return _title;
     }
 
     @Override
@@ -78,44 +109,23 @@ public class BaeldungLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public Optional<TemporalAccessor> getCreationDate() throws ContentParserException {
-        final String date = HtmlHelper.cleanContent(s_dateParser.extract(_data));
-        try {
-            return Optional.of(LocalDate.parse(date, s_formatter));
-        } catch (final DateTimeParseException e) {
-            throw new ContentParserException("Failed to parse date (" + date + ") in Baeldung page", e);
-        }
+    public Optional<TemporalAccessor> getCreationDate() {
+        return _creationDate;
     }
 
 	@Override
-	public Optional<TemporalAccessor> getPublicationDate() throws ContentParserException {
+	public Optional<TemporalAccessor> getPublicationDate() {
 		return getCreationDate();
 	}
 
-	@Override
-    public List<AuthorData> getSureAuthors() throws ContentParserException {
-        final List<AuthorData> list = new ArrayList<>(1);
-        final String author = s_authorParser.extract(_data);
-        if (!author.equals("baeldung")) {
-            list.add(LinkContentParserUtils.parseAuthorName(author));
-        }
-        return list;
+    @Override
+    public List<AuthorData> getSureAuthors() {
+        return _sureAuthors;
     }
 
     @Override
-    public List<ExtractedLinkData> getLinks() throws ContentParserException {
-        final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
-                                                                 new String[] { },
-                                                                 getUrl(),
-                                                                 Optional.empty(),
-                                                                 Optional.empty(),
-                                                                 new LinkFormat[] { LinkFormat.HTML },
-                                                                 new Locale[] { getLanguage() },
-                                                                 Optional.empty(),
-                                                                 Optional.empty());
-        final List<ExtractedLinkData> list = new ArrayList<>(1);
-        list.add(linkData);
-        return list;
+    public List<ExtractedLinkData> getLinks() {
+        return _links;
     }
 
     @Override

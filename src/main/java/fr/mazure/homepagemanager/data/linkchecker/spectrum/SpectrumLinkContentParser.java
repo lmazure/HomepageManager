@@ -54,22 +54,19 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
      * @param url URL of the link
      * @param data retrieved link data
      * @param retriever cache data retriever
+     * @throws ContentParserException Failure to extract the information
      */
     public SpectrumLinkContentParser(final String url,
                                      final String data,
-                                     final CachedSiteDataRetriever retriever) {
+                                     final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(UrlHelper.removeQueryParameters(url,"comments",
                                                   "comments-page"),
               retriever);
-        try {
-            _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
-            _subtitle = Optional.of(HtmlHelper.cleanContent(s_subtitleParser.extract(data)));
-            _authors = null;
-            _publicationDate = null;
-            parseJson(data);
-        } catch (ContentParserException e) {
-            throw new RuntimeException("Failed to parse content during initialization", e);
-        }
+        _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
+        _subtitle = Optional.of(HtmlHelper.cleanContent(s_subtitleParser.extract(data)));
+        _authors = null;
+        _publicationDate = null;
+        parseJson(data);
     }
 
     /**
@@ -93,24 +90,18 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public Optional<TemporalAccessor> getCreationDate() throws ContentParserException {
-        if (_publicationDate != null) {
-            return _publicationDate;
-        }
-        throw new ContentParserException("Publication date is not available");
+    public Optional<TemporalAccessor> getCreationDate() {
+        return _publicationDate;
     }
 
     @Override
-    public Optional<TemporalAccessor> getPublicationDate() throws ContentParserException {
-        return getCreationDate();
+    public Optional<TemporalAccessor> getPublicationDate() {
+        return _publicationDate;
     }
 
     @Override
-    public List<AuthorData> getSureAuthors() throws ContentParserException {
-        if (_authors != null) {
-            return _authors;
-        }
-        throw new ContentParserException("Authors are not available");
+    public List<AuthorData> getSureAuthors() {
+        return _authors;
     }
 
     @Override
