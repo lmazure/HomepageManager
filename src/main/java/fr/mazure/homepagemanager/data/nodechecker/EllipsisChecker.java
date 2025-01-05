@@ -20,6 +20,7 @@ public class EllipsisChecker extends NodeChecker {
             ElementType.BLIST,
             ElementType.CELL,
             ElementType.CLIST,
+            ElementType.CODEROUTINE,
             ElementType.CODESAMPLE,
             ElementType.CONTENT,
             ElementType.I,

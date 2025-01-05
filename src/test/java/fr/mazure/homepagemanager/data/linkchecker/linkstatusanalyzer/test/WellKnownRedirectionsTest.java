@@ -33,11 +33,10 @@ class WellKnownRedirectionsTest {
              Set.of(LinkStatus.OK, LinkStatus.ZOMBIE, LinkStatus.OBSOLETE));
     }
 
-    // URLs giving directly a 202 (success)
-    @Disabled("need to find another example of code 202")
+    @Disabled("semanticscholar does not reply anymore with 202")
     @ParameterizedTest
     @CsvSource({
-        "http://httpbin.org/status/202",
+        "https://www.semanticscholar.org/paper/Lisp-%253A-Good-News-Bad-News-How-to-Win-Big-Gabriel/1021849fe18475707bd5fe99c6fac4f77279098a",
         })
     void direct202(final String url) {
         test(url,
@@ -83,6 +82,20 @@ class WellKnownRedirectionsTest {
         test(url,
              false,
              Integer.valueOf(404),
+             "direct failure",
+             Set.of(LinkStatus.DEAD));
+    }
+
+    // URLs giving directly a 406
+    @Disabled("lemonde.fr does not reply anymore with 106")
+    @ParameterizedTest
+    @CsvSource({
+        "hhttps://www.lemonde.fr/blog/realitesbiomedicales/2022/11/28/covid-19-comment-omicron-a-t-il-evolue-depuis-son-emergence-il-y-a-un-an/",
+        })
+    void direct406(final String url) {
+        test(url,
+             false,
+             Integer.valueOf(406),
              "direct failure",
              Set.of(LinkStatus.DEAD));
     }
