@@ -83,7 +83,8 @@ public class SimonWillisonLinkContentParser extends LinkDataExtractor {
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return url.startsWith("https://simonwillison.net/");
+        final String ref = "https://simonwillison.net/";
+        return (url.length() > ref.length()) && url.startsWith(ref);
     }
 
     @Override

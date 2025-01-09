@@ -49,6 +49,7 @@ public class TitleFormatChecker extends NodeChecker {
                                                                             "rpm",
                                                                             "sed",
                                                                             "sh",
+                                                                            "smolagents",
                                                                             "systat",
                                                                             "tgAAC94",
                                                                             "tkdiff",
