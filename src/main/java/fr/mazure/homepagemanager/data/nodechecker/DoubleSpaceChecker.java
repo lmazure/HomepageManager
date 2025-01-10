@@ -52,7 +52,7 @@ public class DoubleSpaceChecker extends NodeChecker {
         }
 
         final List<String> list = XmlHelper.getFirstLevelTextContent(e);
-        if (list.size() == 0) {
+        if (list.isEmpty()) {
             return null;
         }
 

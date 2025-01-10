@@ -97,7 +97,7 @@ public class SynchronousSiteDataRetriever {
 
         if (httpConnection != null) {
             final Map<String, List<String>> headers = httpConnection.getHeaderFields();
-            if (headers.size() == 0) {
+            if (headers.isEmpty()) {
                 error = Optional.of("No headers");
                 final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, Optional.empty(), null);
                 redirectionsData.push(redirectionData);
@@ -155,7 +155,7 @@ public class SynchronousSiteDataRetriever {
                                            final boolean doNotUseCookies) throws IOException, NotGzipException { // TODO !! can we get rid of this method since a CacheRetriever is communicated to all Parsers?
         final HttpURLConnection httpConnection = httpConnect(url, doNotUseCookies ? null : new CookieManager());
         final Map<String, List<String>> headers = httpConnection.getHeaderFields();
-        if (headers.size() == 0) {
+        if (headers.isEmpty()) {
             throw new IOException("No headers for " + url);
         }
 

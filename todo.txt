@@ -55,6 +55,14 @@ In @file:SimonWillisonLinkContentParser
 
 
 
+gérer
+https://oxide-and-friends.transistor.fm/episodes/pragmatic-llm-usage-with-nicholas-carlini
+The list of effective authors is not the effective one.
+The following authors are effectively present but are unexpected: ▭ first=Mike ▭ last=Cafarella ▭ ▭,▭ first=Speaker ▭ last=5 ▭ ▭,▭ ▭ ▭ ▭ ▭ given=p5commmit
+The following authors are expected but are effectively missing: 
+
+
+
 
 
 
