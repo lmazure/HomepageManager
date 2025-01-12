@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
+import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthors;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
@@ -61,6 +62,12 @@ public class MediumLinkContentParser extends LinkDataExtractor {
     private static final TextParser s_netflixAuthors
         = new TextParser("<p id=\"\\p{XDigit}{4}\" class=\"pw-post-body-paragraph(?: \\p{Lower}{1,2})+\"><em class=\"\\p{Lower}{2}\">by ",
                          "</p>",
+                        s_sourceName,
+                        "authors");
+
+    private static final TextParser s_microsoftDesignAuthors
+        = new TextParser("<p id=\"\\p{XDigit}{4}\" class=\"pw-post-body-paragraph(?: \\p{Lower}{1,2})+\">By ",
+                        "</p>",
                         s_sourceName,
                         "authors");
 
@@ -120,6 +127,26 @@ public class MediumLinkContentParser extends LinkDataExtractor {
         }
         _dataIsLoaded = true;
 
+
+        /* does not work, the subtitle in the FSON payload is not the subtitle, but the first paragraph, whatever is is this one
+        JSONObject previewContent;
+        try {
+            previewContent = post.getJSONObject("previewContent");
+        } catch (final JSONException e) {
+            throw new ContentParserException("Failed to find \"previewContent\" JSON object in Medium page", e);
+        }
+        String subtitle;
+        try {
+            subtitle = previewContent.getString("subtitle");
+        } catch (final JSONException e) {
+            throw new ContentParserException("Failed to find \"previewContent/subtitle\" JSON field in Medium page", e);
+        }
+        _subtitle = subtitle;
+        */
+        final Optional<String> subtitle = s_jsonSubtitle.extractOptional(data);
+        _subtitle = subtitle.isPresent() ? Optional.of(HtmlHelper.cleanContent(subtitle.get()))
+                                         : Optional.empty();
+
         final String json = s_jsonParser.extract(data);
         final JSONObject payload = new JSONObject(json);
         JSONObject post;
@@ -174,30 +201,25 @@ public class MediumLinkContentParser extends LinkDataExtractor {
             if (netflixAuthors.isPresent()) {
                 _authors = LinkContentParserUtils.getAuthors(HtmlHelper.cleanContent((netflixAuthors.get())));
             } else {
-                _authors = new ArrayList<>();
+                _authors = Collections.emptyList();
+            }
+        } else if (name.equals("Betable Engineering")) {
+            if (_subtitle.isPresent() && _subtitle.get().endsWith(" Mike Malone")) {
+                _authors = Collections.singletonList(WellKnownAuthors.buildAuthor("Mike", "Malone"));
+            } else {
+                _authors = Collections.emptyList();
+            }
+        } else if (name.equals("Microsoft Design")) {
+            final Optional<String> microsoftDesignAuthors = s_microsoftDesignAuthors.extractOptional(data);
+            if (microsoftDesignAuthors.isPresent()) {
+                _authors = LinkContentParserUtils.getAuthors(HtmlHelper.cleanContent((microsoftDesignAuthors.get())));
+            } else {
+                _authors = Collections.emptyList();
             }
         } else {
             _authors = Collections.singletonList(LinkContentParserUtils.parseAuthorName(name));
         }
 
-        /* does not work, the subtitle in the FSON payload is not the subtitle, but the first paragraph, whatever is is this one
-        JSONObject previewContent;
-        try {
-            previewContent = post.getJSONObject("previewContent");
-        } catch (final JSONException e) {
-            throw new ContentParserException("Failed to find \"previewContent\" JSON object in Medium page", e);
-        }
-        String subtitle;
-        try {
-            subtitle = previewContent.getString("subtitle");
-        } catch (final JSONException e) {
-            throw new ContentParserException("Failed to find \"previewContent/subtitle\" JSON field in Medium page", e);
-        }
-        _subtitle = subtitle;
-        */
-        final Optional<String> subtitle = s_jsonSubtitle.extractOptional(data);
-        _subtitle = subtitle.isPresent() ? Optional.of(HtmlHelper.cleanContent(subtitle.get()))
-                                         : Optional.empty();
         _locale = StringHelper.guessLanguage(HtmlHelper.cleanContent(data)).get(); //TODO handle the case where the language is not recognized
     }
 
