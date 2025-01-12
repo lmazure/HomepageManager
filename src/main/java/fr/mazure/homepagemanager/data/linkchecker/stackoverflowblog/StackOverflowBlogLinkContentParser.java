@@ -27,7 +27,11 @@ public class StackOverflowBlogLinkContentParser extends LinkDataExtractor {
 
     private static final String s_sourceName = "StackOverflow blog";
 
-    private final String _data;
+    private final String _title;
+    private final String _subtitle;
+    private final Optional<TemporalAccessor> _creationDate;
+    private final List<AuthorData> _authors;
+    private final List<ExtractedLinkData> _links;
 
     private static final TextParser s_titleParser
         = new TextParser("<h1 class=\"fs-display2 lh-xs p-ff-roboto-slab-bold mb24\" itemprop=\"name\">",
@@ -55,12 +59,37 @@ public class StackOverflowBlogLinkContentParser extends LinkDataExtractor {
      * @param url URL of the link
      * @param data retrieved link data
      * @param retriever cache data retriever
+     * @throws ContentParserException Failure to extract the information
      */
     public StackOverflowBlogLinkContentParser(final String url,
                                               final String data,
-                                              final CachedSiteDataRetriever retriever) {
+                                              final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(url, retriever);
-        _data = data;
+        
+        _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
+        _subtitle = HtmlHelper.cleanContent(s_subtitleParser.extract(data));
+        
+        final String extractedDate = HtmlHelper.cleanContent(s_dateParser.extract(data));
+        final LocalDate date = ZonedDateTime.parse(extractedDate, DateTimeFormatter.ISO_DATE_TIME).toLocalDate();
+        _creationDate = Optional.of(date);
+        
+        final String extracted = s_authorParser.extract(data);
+        final List<AuthorData> authorList = new ArrayList<>(1);
+        authorList.add(LinkContentParserUtils.parseAuthorName(HtmlHelper.cleanContent(extracted)));
+        _authors = authorList;
+        
+        final ExtractedLinkData linkData = new ExtractedLinkData(_title,
+                                                                 new String[] { _subtitle },
+                                                                 url,
+                                                                 Optional.empty(),
+                                                                 Optional.empty(),
+                                                                 new LinkFormat[] { LinkFormat.HTML },
+                                                                 new Locale[] { getLanguage() },
+                                                                 Optional.empty(),
+                                                                 Optional.empty());
+        final List<ExtractedLinkData> linkList = new ArrayList<>(1);
+        linkList.add(linkData);
+        _links = linkList;
     }
 
     /**
@@ -74,33 +103,28 @@ public class StackOverflowBlogLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public String getTitle() throws ContentParserException {
-        return HtmlHelper.cleanContent(s_titleParser.extract(_data));
+    public String getTitle() {
+        return _title;
     }
 
     @Override
-    public Optional<String> getSubtitle() throws ContentParserException {
-        return Optional.of(HtmlHelper.cleanContent(s_subtitleParser.extract(_data)));
+    public Optional<String> getSubtitle() {
+        return Optional.of(_subtitle);
     }
 
     @Override
-    public Optional<TemporalAccessor> getCreationDate() throws ContentParserException {
-        final String extractedDate = HtmlHelper.cleanContent(s_dateParser.extract(_data));
-        final LocalDate date = ZonedDateTime.parse(extractedDate, DateTimeFormatter.ISO_DATE_TIME).toLocalDate();
-        return Optional.of(date);
+    public Optional<TemporalAccessor> getCreationDate() {
+        return _creationDate;
     }
 
     @Override
-    public Optional<TemporalAccessor> getPublicationDate() throws ContentParserException {
-        return getCreationDate();
+    public Optional<TemporalAccessor> getPublicationDate() {
+        return _creationDate;
     }
 
     @Override
-    public List<AuthorData> getSureAuthors() throws ContentParserException {
-        final List<AuthorData> list = new ArrayList<>(1);
-        final String extracted = s_authorParser.extract(_data);
-        list.add(LinkContentParserUtils.parseAuthorName(HtmlHelper.cleanContent(extracted)));
-        return list;
+    public List<AuthorData> getSureAuthors() {
+        return _authors;
     }
 
     @Override
@@ -114,19 +138,8 @@ public class StackOverflowBlogLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public List<ExtractedLinkData> getLinks() throws ContentParserException {
-        final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
-                                                                 new String[] { getSubtitle().get() },
-                                                                 getUrl(),
-                                                                 Optional.empty(),
-                                                                 Optional.empty(),
-                                                                 new LinkFormat[] { LinkFormat.HTML },
-                                                                 new Locale[] { getLanguage() },
-                                                                 Optional.empty(),
-                                                                 Optional.empty());
-        final List<ExtractedLinkData> list = new ArrayList<>(1);
-        list.add(linkData);
-        return list;
+    public List<ExtractedLinkData> getLinks() {
+        return _links;
     }
 
     @Override
