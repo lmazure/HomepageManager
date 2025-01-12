@@ -68,36 +68,6 @@ The following authors are expected but are effectively missing:
 
 
 
-gérer
-Title = "Eliminate banner grabbing in Apache Tomcat"
-Subtitle = "Don't let your Tomcat installation be a cyber snitch"
-URL = https://www.ibm.com/developerworks/java/library/se-banner/index.html
-Expected status = REMOVED
-Effective HTTP code = 301 Moved Permanently
-Effective HTTP code of last redirection = 200 OK
-Redirection chain = https://www.ibm.com/developerworks/java/library/se-banner/index.html → https://developer.ibm.com/languages/java/
-Redirection matcher = redirection ending in success (last URL should be used)
-Redirection matcher expected statuses = 
-Look for article = https://www.google.com/search?q=%22Eliminate+banner+grabbing+in+Apache+Tomcat%22+%22Don%27t+let+your+Tomcat+installation+be+a+cyber+snitch%22
-
-
-
-
-
-gérer
-Title = "5 things you didn't know about ... Apache Maven"
-Subtitle = "Tips for managing the project life cycle with Maven"
-URL = https://www.ibm.com/developerworks/java/library/j-5things13/
-Expected status = REMOVED
-Effective HTTP code = 301 Moved Permanently
-Effective HTTP code of last redirection = 200 OK
-Redirection chain = https://www.ibm.com/developerworks/java/library/j-5things13/ → https://developer.ibm.com/languages/java/
-Redirection matcher = redirection ending in success (last URL should be used)
-Redirection matcher expected statuses = 
-Look for article = https://www.google.com/search?q=%225+things+you+didn%27t+know+about+...+Apache+Maven%22+%22Tips+for+managing+the+project+life+cycle+with+Maven%22
-
-
-
 
 gérer
  tag = "COMMENT"

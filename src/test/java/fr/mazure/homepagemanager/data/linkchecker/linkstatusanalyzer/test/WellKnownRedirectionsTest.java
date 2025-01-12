@@ -356,6 +356,7 @@ class WellKnownRedirectionsTest {
         "https://www.ibm.com/developerworks/java/library/co-tmline/index.html",
         "https://www.ibm.com/developerworks/java/library/j-mer1022.html",
         "https://www.ibm.com/developerworks/java/library/os-lombok/index.html",
+        "https://www.ibm.com/developerworks/java/library/se-banner/index.html",
         "https://www.ibm.com/developerworks/java/library/x-simplexobjs/",
         "https://www.ibm.com/developerworks/library/a-devops1/",
         "https://www.ibm.com/developerworks/library/j-jtp07265/",
@@ -372,6 +373,7 @@ class WellKnownRedirectionsTest {
         "https://www.ibm.com/developerworks/tivoli/library/s-csscript/",
         "https://www.ibm.com/developerworks/web/library/wa-mashupsecure/",
         "https://www.ibm.com/developerworks/webservices/library/ws-array/",
+        "https://www.ibm.com/developerworks/websphere/library/techarticles/0908_funk/0908_funk.html",
         "https://www.ibm.com/developerworks/websphere/techjournal/1203_noiret/1203_noiret.html",
         "https://www.ibm.com/developerworks/xml/library/x-matters32/index.html",
         })
@@ -385,6 +387,7 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
+        "https://developer.ibm.com/articles/j-5things18/",
         "https://developer.ibm.com/articles/j-javaee8-json-binding-1/",
         "https://developer.ibm.com/articles/wa-sailsjs3/",
         "https://developer.ibm.com/tutorials/wa-build-deploy-web-app-sailsjs-2-bluemix",
