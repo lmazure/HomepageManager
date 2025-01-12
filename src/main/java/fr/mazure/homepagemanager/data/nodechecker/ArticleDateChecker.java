@@ -223,7 +223,7 @@ public class ArticleDateChecker extends NodeChecker {
 
     private static Optional<TemporalAccessor> getPageDate(final Element e) throws XmlParsingException {
         final List<Element> date = XmlHelper.getChildrenByElementType(e.getOwnerDocument().getDocumentElement(), ElementType.DATE);
-        if (date.size() == 0) {
+        if (date.isEmpty()) {
             return Optional.empty();
         }
         return Optional.of(XmlParser.parseDateElement(date.get(0)));

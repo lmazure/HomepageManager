@@ -167,7 +167,7 @@ class IncorrectSpaceCheckerTest extends NodeValueCheckerTestBase {
             <BLIST><TITLE>The string 12.34 should not be reported.</TITLE></BLIST>\r
             <BLIST><TITLE>The string ".He is bright" should be reported.</TITLE></BLIST>\r
             <BLIST><TITLE>The string .He is bright should be reported.</TITLE></BLIST>\r
-            <BLIST><TITLE>The string (isn't it?) should not be reported.</TITLE></BLIST>\r
+            <BLIST><TITLE>The string (isn’t it?) should not be reported.</TITLE></BLIST>\r
             <BLIST><TITLE>Two things: a and b.</TITLE></BLIST>\r
             <BLIST><TITLE>Hello!</TITLE></BLIST>\r
             </CONTENT>\r
@@ -235,7 +235,7 @@ class IncorrectSpaceCheckerTest extends NodeValueCheckerTestBase {
             <BLIST><TITLE>The string 12.34 should not be reported.</TITLE></BLIST>\r
             <BLIST><TITLE>The string ".He is bright" should be reported.</TITLE></BLIST>\r
             <BLIST><TITLE>The string .He is bright should be reported.</TITLE></BLIST>\r
-            <BLIST><TITLE>The string (isn't it?) should not be reported.</TITLE></BLIST>\r
+            <BLIST><TITLE>The string (isn’t it?) should not be reported.</TITLE></BLIST>\r
             <BLIST><TITLE>Two things: a and b.</TITLE></BLIST>\r
             <BLIST><TITLE>Hello!</TITLE></BLIST>\r
             </CONTENT>\r

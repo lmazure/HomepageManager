@@ -47,7 +47,7 @@ public class MiddleNewlineChecker extends NodeChecker {
 
     private static CheckStatus checkNewline(final Element e) {
         final String s = e.getTextContent();
-        if (s.indexOf('\n') == -1) {
+        if (!s.contains("\n")) {
             return null;
         }
         return new CheckStatus("IllegalNewline", "\"" + s + "\" should not contain a newline", Optional.empty());

@@ -14,9 +14,9 @@ class StackOverflowBlogLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://stackoverflow.blog/2023/01/24/ai-applications-open-new-security-vulnerabilities/,AI applications open new security vulnerabilities",
-        })
+    @CsvSource(value = {
+        "https://stackoverflow.blog/2023/01/24/ai-applications-open-new-security-vulnerabilities/|AI applications open new security vulnerabilities"
+        }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
         checkTitle(StackOverflowBlogLinkContentParser.class, url, expectedTitle);
@@ -24,9 +24,9 @@ class StackOverflowBlogLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://stackoverflow.blog/2023/01/24/ai-applications-open-new-security-vulnerabilities/,Your ML model and AI-as-a-service apps might open new attack surfaces. Here's how to mitigate them.",
-        })
+    @CsvSource(value = {
+        "https://stackoverflow.blog/2023/01/24/ai-applications-open-new-security-vulnerabilities/|Your ML model and AI-as-a-service apps might open new attack surfaces. Here's how to mitigate them."
+        }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
         checkSubtitle(StackOverflowBlogLinkContentParser.class, url, expectedSubtitle);
@@ -34,21 +34,21 @@ class StackOverflowBlogLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://stackoverflow.blog/2023/01/24/ai-applications-open-new-security-vulnerabilities/,2023-01-24",
-        })
+    @CsvSource(value = {
+        "https://stackoverflow.blog/2023/01/24/ai-applications-open-new-security-vulnerabilities/|2023-01-24"
+        }, delimiter = '|')
     void testDate(final String url,
                   final String expectedDate) {
-        checkDate(StackOverflowBlogLinkContentParser.class, url, expectedDate);
+        checkCreationDate(StackOverflowBlogLinkContentParser.class, url, expectedDate);
     }
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://stackoverflow.blog/2023/01/24/ai-applications-open-new-security-vulnerabilities/,Taimur,,Ijlal,",
-        "https://stackoverflow.blog/2021/09/21/podcast-377-you-dont-need-a-math-phd-to-play-dwarf-fortress-just-to-code-it/,Ryan,,Donovan,",
-        "https://stackoverflow.blog/2024/04/04/how-do-mixture-of-experts-layers-affect-transformer-models/,Cameron,R.,Wolfe,PhD",
-        })
+    @CsvSource(value = {
+        "https://stackoverflow.blog/2023/01/24/ai-applications-open-new-security-vulnerabilities/|Taimur||Ijlal|",
+        "https://stackoverflow.blog/2021/09/21/podcast-377-you-dont-need-a-math-phd-to-play-dwarf-fortress-just-to-code-it/|Ryan||Donovan|",
+        "https://stackoverflow.blog/2024/04/04/how-do-mixture-of-experts-layers-affect-transformer-models/|Cameron|R.|Wolfe|PhD"
+        }, delimiter = '|')
     void testAuthor(final String url,
                     final String expectedFirstName,
                     final String expectedMiddleName,

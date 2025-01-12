@@ -11,29 +11,19 @@ import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
  */
 public class LinkContentParser {
 
-    private final String _data;
-    private Optional<Locale> _language;
+    private final Optional<Locale> _language;
 
     /**
      * @param data Data to be parsed
      */
     public LinkContentParser(final String data) {
-        _data = HtmlHelper.cleanContent(data);
+        _language = StringHelper.guessLanguage(HtmlHelper.cleanContent(data));
     }
 
     /**
      * @return Language of the data
      */
     public Optional<Locale> getLanguage() {
-
-        if (_language == null) {
-            _language = extractLanguage();
-        }
-
         return _language;
-    }
-
-    private Optional<Locale> extractLanguage() {
-        return StringHelper.guessLanguage(_data);
     }
 }

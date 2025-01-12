@@ -45,7 +45,7 @@ public class SynchronousSiteDataRetriever {
     private static final int s_readTimeout = 60000;
     private static final int s_maxNbRedirects = 40;
 
-    private static final String s_userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv\", \"0.0) Gecko/20100101 Firefox/90.0";
+    private static final String s_userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0";
 
     /**
      * @param persister data persister
@@ -97,22 +97,25 @@ public class SynchronousSiteDataRetriever {
 
         if (httpConnection != null) {
             final Map<String, List<String>> headers = httpConnection.getHeaderFields();
-            if (headers.size() == 0) {
+            if (headers.isEmpty()) {
                 error = Optional.of("No headers");
                 final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, Optional.empty(), null);
                 redirectionsData.push(redirectionData);
             } else {
                 final int responseCode = HttpHelper.getResponseCodeFromHeaders(headers);
-                if (httpCodeIsRedirected(responseCode)) {
+                final boolean isRedirected = httpCodeIsRedirected(responseCode);
+                final String location = isRedirected ? HttpHelper.getLocationFromHeaders(headers)
+                                                     : null;
+                // if the site returns a redirected response, but there is no "Location" header, we ignore the redirection
+                if (isRedirected && location != null) {
                     if (depth == s_maxNbRedirects) {
                         error = Optional.of("Too many redirects (" + s_maxNbRedirects + ") occurred while trying to load URL " + initialUrl);
                         final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, Optional.of(headers), null);
                         redirectionsData.push(redirectionData);
                     } else {
+                        final String redirectUrl = getRedirectionUrl(currentUrl, location);
                         final HeaderFetchedLinkData redirectionData = new HeaderFetchedLinkData(currentUrl, Optional.of(headers), null);
                         redirectionsData.push(redirectionData);
-                        final String location = HttpHelper.getLocationFromHeaders(headers);
-                        final String redirectUrl = getRedirectionUrl(currentUrl, location);
                         storeCookies(currentUrl, cookieManager, httpConnection);
                         retrieveInternal(initialUrl, redirectUrl, redirectionsData, consumer, depth + 1, cookieManager);
                         return;
@@ -152,7 +155,7 @@ public class SynchronousSiteDataRetriever {
                                            final boolean doNotUseCookies) throws IOException, NotGzipException { // TODO !! can we get rid of this method since a CacheRetriever is communicated to all Parsers?
         final HttpURLConnection httpConnection = httpConnect(url, doNotUseCookies ? null : new CookieManager());
         final Map<String, List<String>> headers = httpConnection.getHeaderFields();
-        if (headers.size() == 0) {
+        if (headers.isEmpty()) {
             throw new IOException("No headers for " + url);
         }
 

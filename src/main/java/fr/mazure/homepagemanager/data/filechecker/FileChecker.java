@@ -172,7 +172,7 @@ public class FileChecker {
                 errors.add(new Error("OddIndentation", n, "odd number of spaces at the beginning of the line"));
             }
             final Matcher badGreaterThan = s_badGreaterThan.matcher(line);
-            if (badGreaterThan.replaceAll("").indexOf('>') >= 0) {
+            if (badGreaterThan.replaceAll("").contains(">")) {
                 errors.add(new Error("GreaterThanCharacter", n, "the line contains a \">\""));
             }
             final Matcher attributeWithSingleQuote = s_attributeWithSingleQuote.matcher(line);
@@ -257,12 +257,12 @@ public class FileChecker {
         }
 
         // check anchor presence
-        if (link.indexOf('#') < 0 ) {
+        if (!link.contains("#")) {
             return null;
         }
         final String anchor = link.replaceFirst(".*#", "");
         final String targetFileContent = FileHelper.slurpFile(targetFile.toFile());
-        if (targetFileContent.indexOf("<ANCHOR>" + anchor + "</ANCHOR>") < 0) {
+        if (!targetFileContent.contains("<ANCHOR>" + anchor + "</ANCHOR>")) {
             return new Error("IncorrectLocalLink", 0, "the file \"" + file + "\" does not contain the anchor \"" + anchor + "\"");
         }
 

@@ -85,18 +85,34 @@ public class LinkDataExtractorTestBase {
                     });
     }
 
-    protected static void checkDate(final Class<? extends LinkDataExtractor> clazz,
-                                    final String url,
-                                    final String expectedDate) {
+    protected static void checkCreationDate(final Class<? extends LinkDataExtractor> clazz,
+                                            final String url,
+                                            final String expectedDate) {
         perform(clazz,
                 url,
                 (final LinkDataExtractor p) ->
                     {
                         try {
-                            Assertions.assertTrue(p.getDate().isPresent());
-                            Assertions.assertEquals(expectedDate, p.getDate().get().toString());
+                            Assertions.assertTrue(p.getCreationDate().isPresent());
+                            Assertions.assertEquals(expectedDate, p.getCreationDate().get().toString());
                         } catch (final ContentParserException e) {
-                            Assertions.fail("getDate threw " + e.getMessage());
+                            Assertions.fail("getCreationDate threw " + e.getMessage());
+                        }
+                    });
+    }
+
+    protected static void checkPublicationDate(final Class<? extends LinkDataExtractor> clazz,
+                                               final String url,
+                                               final String expectedDate) {
+        perform(clazz,
+                url,
+                (final LinkDataExtractor p) ->
+                    {
+                        try {
+                            Assertions.assertTrue(p.getPublicationDate().isPresent());
+                            Assertions.assertEquals(expectedDate, p.getPublicationDate().get().toString());
+                        } catch (final ContentParserException e) {
+                            Assertions.fail("getPublicationDate threw " + e.getMessage());
                         }
                     });
     }
@@ -109,7 +125,7 @@ public class LinkDataExtractorTestBase {
                 (final LinkDataExtractor p) ->
                     {
                         try {
-                            Assertions.assertTrue(p.getDate().isPresent());
+                            Assertions.assertTrue(p.getCreationDate().isPresent());
                             Assertions.assertEquals(DateTimeHelper.roundDuration(Duration.parse(expectedDuration)), DateTimeHelper.roundDuration(p.getDuration().get()));
                         } catch (final ContentParserException e) {
                             Assertions.fail("getDuration threw " + e.getMessage());
@@ -213,7 +229,6 @@ public class LinkDataExtractorTestBase {
         checkAuthors(clazz, url, expectedAuthors);
     }
 
-    
     protected static void check4Authors(final Class<? extends LinkDataExtractor> clazz,
                                         final String url,
                                         final String expectedNamePrefix1,
@@ -240,7 +255,7 @@ public class LinkDataExtractorTestBase {
                                         final String expectedLastName4,
                                         final String expectedNameSuffix4,
                                         final String expectedGivenName4) {
-                                        
+
         final List<AuthorData> expectedAuthors = new ArrayList<>();
         expectedAuthors.add(new AuthorData(Optional.ofNullable(expectedNamePrefix1),
                                            Optional.ofNullable(expectedFirstName1),
@@ -269,6 +284,152 @@ public class LinkDataExtractorTestBase {
         checkAuthors(clazz, url, expectedAuthors);
     }
 
+    protected static void check5Authors(final Class<? extends LinkDataExtractor> clazz,
+                                        final String url,
+                                        final String expectedNamePrefix1,
+                                        final String expectedFirstName1,
+                                        final String expectedMiddleName1,
+                                        final String expectedLastName1,
+                                        final String expectedNameSuffix1,
+                                        final String expectedGivenName1,
+                                        final String expectedNamePrefix2,
+                                        final String expectedFirstName2,
+                                        final String expectedMiddleName2,
+                                        final String expectedLastName2,
+                                        final String expectedGivenName2,
+                                        final String expectedNameSuffix2,
+                                        final String expectedNamePrefix3,
+                                        final String expectedFirstName3,
+                                        final String expectedMiddleName3,
+                                        final String expectedLastName3,
+                                        final String expectedNameSuffix3,
+                                        final String expectedGivenName3,
+                                        final String expectedNamePrefix4,
+                                        final String expectedFirstName4,
+                                        final String expectedMiddleName4,
+                                        final String expectedLastName4,
+                                        final String expectedNameSuffix4,
+                                        final String expectedGivenName4,
+                                        final String expectedNamePrefix5,
+                                        final String expectedFirstName5,
+                                        final String expectedMiddleName5,
+                                        final String expectedLastName5,
+                                        final String expectedNameSuffix5,
+                                        final String expectedGivenName5) {
+
+        final List<AuthorData> expectedAuthors = new ArrayList<>();
+        expectedAuthors.add(new AuthorData(Optional.ofNullable(expectedNamePrefix1),
+                                           Optional.ofNullable(expectedFirstName1),
+                                           Optional.ofNullable(expectedMiddleName1),
+                                           Optional.ofNullable(expectedLastName1),
+                                           Optional.ofNullable(expectedNameSuffix1),
+                                           Optional.ofNullable(expectedGivenName1)));
+        expectedAuthors.add(new AuthorData(Optional.ofNullable(expectedNamePrefix2),
+                                           Optional.ofNullable(expectedFirstName2),
+                                           Optional.ofNullable(expectedMiddleName2),
+                                           Optional.ofNullable(expectedLastName2),
+                                           Optional.ofNullable(expectedNameSuffix2),
+                                           Optional.ofNullable(expectedGivenName2)));
+        expectedAuthors.add(new AuthorData(Optional.ofNullable(expectedNamePrefix3),
+                                           Optional.ofNullable(expectedFirstName3),
+                                           Optional.ofNullable(expectedMiddleName3),
+                                           Optional.ofNullable(expectedLastName3),
+                                           Optional.ofNullable(expectedNameSuffix3),
+                                           Optional.ofNullable(expectedGivenName3)));
+        expectedAuthors.add(new AuthorData(Optional.ofNullable(expectedNamePrefix4),
+                                           Optional.ofNullable(expectedFirstName4),
+                                           Optional.ofNullable(expectedMiddleName4),
+                                           Optional.ofNullable(expectedLastName4),
+                                           Optional.ofNullable(expectedNameSuffix4),
+                                           Optional.ofNullable(expectedGivenName4)));
+        expectedAuthors.add(new AuthorData(Optional.ofNullable(expectedNamePrefix5),
+                                           Optional.ofNullable(expectedFirstName5),
+                                           Optional.ofNullable(expectedMiddleName5),
+                                           Optional.ofNullable(expectedLastName5),
+                                           Optional.ofNullable(expectedNameSuffix5),
+                                           Optional.ofNullable(expectedGivenName5)));
+        checkAuthors(clazz, url, expectedAuthors);
+    }
+
+
+    protected static void check6Authors(final Class<? extends LinkDataExtractor> clazz,
+                                        final String url,
+                                        final String expectedNamePrefix1,
+                                        final String expectedFirstName1,
+                                        final String expectedMiddleName1,
+                                        final String expectedLastName1,
+                                        final String expectedNameSuffix1,
+                                        final String expectedGivenName1,
+                                        final String expectedNamePrefix2,
+                                        final String expectedFirstName2,
+                                        final String expectedMiddleName2,
+                                        final String expectedLastName2,
+                                        final String expectedGivenName2,
+                                        final String expectedNameSuffix2,
+                                        final String expectedNamePrefix3,
+                                        final String expectedFirstName3,
+                                        final String expectedMiddleName3,
+                                        final String expectedLastName3,
+                                        final String expectedNameSuffix3,
+                                        final String expectedGivenName3,
+                                        final String expectedNamePrefix4,
+                                        final String expectedFirstName4,
+                                        final String expectedMiddleName4,
+                                        final String expectedLastName4,
+                                        final String expectedNameSuffix4,
+                                        final String expectedGivenName4,
+                                        final String expectedNamePrefix5,
+                                        final String expectedFirstName5,
+                                        final String expectedMiddleName5,
+                                        final String expectedLastName5,
+                                        final String expectedNameSuffix5,
+                                        final String expectedGivenName5,
+                                        final String expectedNamePrefix6,
+                                        final String expectedFirstName6,
+                                        final String expectedMiddleName6,
+                                        final String expectedLastName6,
+                                        final String expectedNameSuffix6,
+                                        final String expectedGivenName6) {
+
+        final List<AuthorData> expectedAuthors = new ArrayList<>();
+        expectedAuthors.add(new AuthorData(Optional.ofNullable(expectedNamePrefix1),
+                                           Optional.ofNullable(expectedFirstName1),
+                                           Optional.ofNullable(expectedMiddleName1),
+                                           Optional.ofNullable(expectedLastName1),
+                                           Optional.ofNullable(expectedNameSuffix1),
+                                           Optional.ofNullable(expectedGivenName1)));
+        expectedAuthors.add(new AuthorData(Optional.ofNullable(expectedNamePrefix2),
+                                           Optional.ofNullable(expectedFirstName2),
+                                           Optional.ofNullable(expectedMiddleName2),
+                                           Optional.ofNullable(expectedLastName2),
+                                           Optional.ofNullable(expectedNameSuffix2),
+                                           Optional.ofNullable(expectedGivenName2)));
+        expectedAuthors.add(new AuthorData(Optional.ofNullable(expectedNamePrefix3),
+                                           Optional.ofNullable(expectedFirstName3),
+                                           Optional.ofNullable(expectedMiddleName3),
+                                           Optional.ofNullable(expectedLastName3),
+                                           Optional.ofNullable(expectedNameSuffix3),
+                                           Optional.ofNullable(expectedGivenName3)));
+        expectedAuthors.add(new AuthorData(Optional.ofNullable(expectedNamePrefix4),
+                                           Optional.ofNullable(expectedFirstName4),
+                                           Optional.ofNullable(expectedMiddleName4),
+                                           Optional.ofNullable(expectedLastName4),
+                                           Optional.ofNullable(expectedNameSuffix4),
+                                           Optional.ofNullable(expectedGivenName4)));
+        expectedAuthors.add(new AuthorData(Optional.ofNullable(expectedNamePrefix5),
+                                           Optional.ofNullable(expectedFirstName5),
+                                           Optional.ofNullable(expectedMiddleName5),
+                                           Optional.ofNullable(expectedLastName5),
+                                           Optional.ofNullable(expectedNameSuffix5),
+                                           Optional.ofNullable(expectedGivenName5)));
+        expectedAuthors.add(new AuthorData(Optional.ofNullable(expectedNamePrefix6),
+                                           Optional.ofNullable(expectedFirstName6),
+                                           Optional.ofNullable(expectedMiddleName6),
+                                           Optional.ofNullable(expectedLastName6),
+                                           Optional.ofNullable(expectedNameSuffix6),
+                                           Optional.ofNullable(expectedGivenName6)));
+        checkAuthors(clazz, url, expectedAuthors);
+    }
     private static void checkAuthors(final Class<? extends LinkDataExtractor> clazz,
                                      final String url,
                                      final List<AuthorData> expectedAuthors) {
@@ -309,8 +470,11 @@ public class LinkDataExtractorTestBase {
             @SuppressWarnings("unchecked")
             final Constructor<LinkDataExtractor> constructor = (Constructor<LinkDataExtractor>)clazz.getConstructor(String.class, String.class, CachedSiteDataRetriever.class);
             return constructor.newInstance(url, data, retriever);
-        } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-            Assertions.fail("Error in reflexion code " + e.getMessage());
+        } catch (final InvocationTargetException e) {
+            Assertions.fail("Error while invoking the constructor " + e.getCause());
+            return null;
+        } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException | NoSuchMethodException | SecurityException e) {
+            Assertions.fail("Error in reflexion code " + e);
             return null;
         }
     }

@@ -48,7 +48,7 @@ public class TestHelper {
 
     /**
      * Assert that the effective date is the expected one
-     * 
+     *
      * @param expectedDateAsString expected date
      * @param effectiveDate effective date
      */

@@ -16,6 +16,7 @@ import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
+import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
@@ -38,55 +39,31 @@ public class SimonWillisonLinkContentParser extends LinkDataExtractor {
                          s_sourceName,
                          "date");
 
-    private final String _data;
+    private final String _title;
+    private final TemporalAccessor _creationDate;
+    private final List<AuthorData> _authors;
+    private final List<ExtractedLinkData> _links;
 
     /**
      * @param url URL of the link
      * @param data retrieved link data
      * @param retriever cache data retriever
+     * @throws ContentParserException Failure to extract the information
      */
     public SimonWillisonLinkContentParser(final String url,
                                           final String data,
-                                          final CachedSiteDataRetriever retriever) {
+                                          final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(url, retriever);
-        _data = data;
-    }
 
-    /**
-     * Determine if the link is managed
-     *
-     * @param url link
-     * @return true if the link is managed
-     */
-    public static boolean isUrlManaged(final String url) {
-        return url.startsWith("https://simonwillison.net/");
-    }
+        _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
 
-    @Override
-    public String getTitle() throws ContentParserException {
-        return HtmlHelper.cleanContent(s_titleParser.extract(_data));
-    }
-
-    @Override
-    public Optional<String> getSubtitle() throws ContentParserException {
-        return Optional.empty();
-    }
-
-    @Override
-    public Optional<TemporalAccessor> getDate() throws ContentParserException {
-        final int timestamp = Integer.parseInt(s_dateParser.extract(_data));
+        final int timestamp = Integer.parseInt(s_dateParser.extract(data));
         final Instant instant = Instant.ofEpochSecond(timestamp);
-        return Optional.of(instant.atZone(ZoneId.of("UTC")).toLocalDate());
-    }
+        _creationDate = instant.atZone(ZoneId.of("UTC")).toLocalDate();
 
-    @Override
-    public List<AuthorData> getSureAuthors() throws ContentParserException {
-        return Collections.singletonList(WellKnownAuthors.SIMON_WILLISON);
-    }
+        _authors = Collections.singletonList(WellKnownAuthors.SIMON_WILLISON);
 
-    @Override
-    public List<ExtractedLinkData> getLinks() throws ContentParserException {
-        final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
+        final ExtractedLinkData linkData = new ExtractedLinkData(_title,
                                                                  new String[] { },
                                                                  getUrl(),
                                                                  Optional.empty(),
@@ -97,11 +74,51 @@ public class SimonWillisonLinkContentParser extends LinkDataExtractor {
                                                                  Optional.empty());
         final List<ExtractedLinkData> list = new ArrayList<>(1);
         list.add(linkData);
-        return list;
+        _links = list;
+    }
+
+    /**
+     * Determine if the link is managed
+     *
+     * @param url link
+     * @return true if the link is managed
+     */
+    public static boolean isUrlManaged(final String url) {
+        return UrlHelper.hasPrefix(url, "https://simonwillison.net/");
     }
 
     @Override
-    public Locale getLanguage() throws ContentParserException {
+    public String getTitle() {
+        return _title;
+    }
+
+    @Override
+    public Optional<String> getSubtitle() {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<TemporalAccessor> getCreationDate() {
+        return Optional.of(_creationDate);
+    }
+
+    @Override
+    public Optional<TemporalAccessor> getPublicationDate() {
+        return Optional.of(_creationDate);
+    }
+
+    @Override
+    public List<AuthorData> getSureAuthors() {
+        return _authors;
+    }
+
+    @Override
+    public List<ExtractedLinkData> getLinks() {
+        return _links;
+    }
+
+    @Override
+    public Locale getLanguage() {
         return Locale.ENGLISH;
     }
 }

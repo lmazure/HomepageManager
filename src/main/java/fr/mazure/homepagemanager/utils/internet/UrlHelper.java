@@ -17,6 +17,17 @@ public class UrlHelper {
     }
 
     /**
+     * Check if a URL starts with a prefix (but is not equal to it)
+     *
+     * @param url URL
+     * @param prefix Prefix
+     * @return True if the URL starts with the prefix
+     */
+    public static boolean hasPrefix(final String url,
+                                    final String prefix) {
+            return (prefix.length() < url.length()) && url.startsWith(prefix);
+    }
+    /**
      * Encode a string to be included in a URL
      *
      * @param part String to encode

@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -37,12 +38,13 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
 
     private static final String s_sourceName = "Lex Fridman podcast";
 
-    private final String _data;
-    private String _title;
-    private Optional<TemporalAccessor> _date;
-    private Optional<Duration> _duration;
-    private List<AuthorData> _authors;
+    private final String _title;
+    private final Optional<TemporalAccessor> _date;
+    private final Optional<Duration> _duration;
+    private final List<AuthorData> _authors;
     private Optional<ExtractedLinkData> _otherLink;
+    private final List<ExtractedLinkData> _links;
+    private final Locale _language;
 
     private static final TextParser s_titleParser
         = new TextParser("<h1 class=\"entry-title\">",
@@ -76,17 +78,31 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
      * @param url URL of the link
      * @param data retrieved link data
      * @param retriever cache data retriever
+     * @throws ContentParserException Failure to extract the information
      */
     public LexFridmanLinkContentParser(final String url,
                                        final String data,
-                                       final CachedSiteDataRetriever retriever) {
+                                       final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(UrlHelper.removeFinalSlash(url), retriever);
-        _data = data;
-        _title = null;
-        _date = null;
-        _duration = null;
-        _authors = null;
-        _otherLink = null;
+
+        _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
+        _date = Optional.of(LocalDate.parse(s_dateParser.extract(data), s_dateformatter));
+        final String mp3url = s_mp3UrlParser.extract(data) + "?_=1";
+        final Mp3Helper helper = new Mp3Helper();
+        _duration = Optional.of(helper.getMp3Duration(mp3url, getRetriever()));
+
+        final Matcher matcher = s_extractName.matcher(_title);
+        if (!matcher.find()) {
+            throw new ContentParserException("Failed to extract author name from title \"" + _title + "\"");
+        }
+        final String authorName = matcher.group(1);
+        _authors = new ArrayList<>(LinkContentParserUtils.getAuthors(authorName));
+        _authors.add(WellKnownAuthors.LEX_FRIDMAN);
+
+        final Optional<String> youtubeLink = s_youtubeLinkParser.extractOptional(data).map(s -> "https://www.youtube.com/watch?v=" + s);
+        initializeOtherLink(youtubeLink);
+        _language = Locale.ENGLISH;
+        _links = initializeLinks();
     }
 
     /**
@@ -96,82 +112,56 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return url.startsWith("https://lexfridman.com/");
+        return UrlHelper.hasPrefix(url, "https://lexfridman.com/");
     }
 
     @Override
-    public String getTitle() throws ContentParserException {
-        if (_title == null) {
-            _title = HtmlHelper.cleanContent(s_titleParser.extract(_data));
-        }
+    public String getTitle() {
         return _title;
     }
 
     @Override
-    public Optional<String> getSubtitle() throws ContentParserException {
+    public Optional<String> getSubtitle() {
         return Optional.empty();
     }
 
     @Override
-    public Optional<TemporalAccessor> getDate() throws ContentParserException {
-        if (_date == null) {
-            _date = Optional.of(LocalDate.parse(s_dateParser.extract(_data), s_dateformatter));
-        }
+    public Optional<TemporalAccessor> getCreationDate() {
         return _date;
     }
 
     @Override
-    public Optional<Duration> getDuration() throws ContentParserException {
-        if (_duration == null) {
-            final String mp3url = s_mp3UrlParser.extract(_data) + "?_=1";
-            final Mp3Helper helper = new Mp3Helper();
-            _duration = Optional.of(helper.getMp3Duration(mp3url, getRetriever()));
-        }
+    public Optional<TemporalAccessor> getPublicationDate() {
+        return getCreationDate();
+    }
+
+    @Override
+    public Optional<Duration> getDuration() {
         return _duration;
     }
 
     @Override
-    public List<AuthorData> getSureAuthors() throws ContentParserException {
-        if (_authors == null) {
-            final Matcher matcher = s_extractName.matcher(getTitle());
-            if (!matcher.find()) {
-                throw new ContentParserException("Failed to extract author name from title \"" + getTitle() + "\"");
-            }
-            final String authorName = matcher.group(1);
-            _authors = LinkContentParserUtils.getAuthors(authorName);
-            _authors.add(WellKnownAuthors.LEX_FRIDMAN);
-        }
+    public List<AuthorData> getSureAuthors() {
         return _authors;
     }
 
     @Override
     public List<AuthorData> getProbableAuthors() {
-        return new ArrayList<>(0);
+        return Collections.emptyList();
     }
 
     @Override
     public List<AuthorData> getPossibleAuthors() {
-        return new ArrayList<>(0);
+        return Collections.emptyList();
     }
 
-    private Optional<String> getYoutubeLink() {
-        return s_youtubeLinkParser.extractOptional(_data).map(s -> "https://www.youtube.com/watch?v=" + s);
-    }
-
-    private Optional<ExtractedLinkData> getOtherLink() {
-        if (_otherLink == null) {
-            // get YouTube link
-            Optional<String> youtubeLink = getYoutubeLink();
-            if (youtubeLink.isEmpty()) {
-                return Optional.empty();
-            }
-
-            // get YouTube payload
-            getRetriever().retrieve(youtubeLink.get(), this::consumeYouTubeData, false);
-
+    private void initializeOtherLink(final Optional<String> youtubeLink) {
+        if (youtubeLink.isEmpty()) {
+            _otherLink = Optional.empty();
         }
 
-        return _otherLink;
+        // get YouTube payload
+        getRetriever().retrieve(youtubeLink.get(), this::consumeYouTubeData, false);
     }
 
     private void consumeYouTubeData(final FullFetchedLinkData siteData) {
@@ -181,8 +171,8 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
         try {
             final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(siteData.url(), payload, getRetriever());
             Optional<TemporalAccessor> publicationDate = Optional.empty();
-            final LocalDate youtubeDate = DateTimeHelper.convertTemporalAccessorToLocalDate(parser.getDate().get());
-            final LocalDate lexFridmanDate = DateTimeHelper.convertTemporalAccessorToLocalDate(getDate().get());
+            final LocalDate youtubeDate = DateTimeHelper.convertTemporalAccessorToLocalDate(parser.getCreationDate().get());
+            final LocalDate lexFridmanDate = DateTimeHelper.convertTemporalAccessorToLocalDate(getCreationDate().get());
             if (youtubeDate.isBefore(lexFridmanDate)) {
                 ExitHelper.exit("YouTube date (" + youtubeDate + ") is before Lex Fridman date (" + lexFridmanDate + ").");
             }
@@ -209,28 +199,31 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
         }
     }
 
-    @Override
-    public List<ExtractedLinkData> getLinks() throws ContentParserException {
-        final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
+    private List<ExtractedLinkData> initializeLinks() {
+        final ExtractedLinkData linkData = new ExtractedLinkData(_title,
                                                                  new String[] {},
                                                                  getUrl(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
                                                                  new LinkFormat[] { LinkFormat.MP3 },
-                                                                 new Locale[] { getLanguage() },
-                                                                 getDuration(),
+                                                                 new Locale[] { _language },
+                                                                 _duration,
                                                                  Optional.empty());
         final List<ExtractedLinkData> list = new ArrayList<>(2);
         list.add(linkData);
-        final Optional<ExtractedLinkData> otherLink = getOtherLink();
-        if (otherLink.isPresent()) {
-            list.add(otherLink.get());
+        if (_otherLink.isPresent()) {
+            list.add(_otherLink.get());
         }
         return list;
     }
 
     @Override
+    public List<ExtractedLinkData> getLinks() {
+        return _links;
+    }
+
+    @Override
     public Locale getLanguage() {
-        return Locale.ENGLISH;
+        return _language;
     }
 }

@@ -64,44 +64,44 @@ class OracleBlogsLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
+    @CsvSource(value = {
         // the next article is broken
         //"https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update",
         "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se",
         // the following article contains <h2> which is not a subtitle
-        "https://blogs.oracle.com/javamagazine/post/the-top-25-greatest-java-apps-ever-written",
-        })
+        "https://blogs.oracle.com/javamagazine/post/the-top-25-greatest-java-apps-ever-written"
+        }, delimiter = '|')
     void testNoSubtitle(final String url) {
         checkNoSubtitle(OracleBlogsLinkContentParser.class, url);
     }
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://blogs.oracle.com/javamagazine/java-for-loop-break-continue,2021-10-05",
-        "https://blogs.oracle.com/javamagazine/post/java-for-loop-break-continue,2021-10-05",
+    @CsvSource(value = {
+        "https://blogs.oracle.com/javamagazine/java-for-loop-break-continue|2021-10-05",
+        "https://blogs.oracle.com/javamagazine/post/java-for-loop-break-continue|2021-10-05",
         // the next article is broken
-        //"https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update,2017-09-12",
-        "https://blogs.oracle.com/javamagazine/post/12-recipes-for-using-the-optional-class-as-its-meant-to-be-used,2020-06-22",
-        "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se,2017-09-06",
-        "https://blogs.oracle.com/javamagazine/post/everything-you-need-to-know-about-openjdks-move-to-git-and-github,2021-05-15",
-        })
+        //"https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update|2017-09-12",
+        "https://blogs.oracle.com/javamagazine/post/12-recipes-for-using-the-optional-class-as-its-meant-to-be-used|2020-06-22",
+        "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se|2017-09-06",
+        "https://blogs.oracle.com/javamagazine/post/everything-you-need-to-know-about-openjdks-move-to-git-and-github|2021-05-15"
+        }, delimiter = '|')
     void testDate(final String url,
                   final String expectedDate) {
-        checkDate(OracleBlogsLinkContentParser.class, url, expectedDate);
+        checkCreationDate(OracleBlogsLinkContentParser.class, url, expectedDate);
     }
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
+    @CsvSource(value = {
         // the next article is broken
-        //"https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update,David,,Delabassee",
-        "https://blogs.oracle.com/javamagazine/post/12-recipes-for-using-the-optional-class-as-its-meant-to-be-used,Mohamed,,Taman",
-        "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se,Donald,,Smith",
-        "https://blogs.oracle.com/javamagazine/post/everything-you-need-to-know-about-openjdks-move-to-git-and-github,Ian,,Darwin",
-        "https://blogs.oracle.com/cloud-infrastructure/post/oracle-code-assist-ai-companion-boost-velocity,Aanand,,Krishnan",
-        "https://blogs.oracle.com/javamagazine/post/curly-braces-java-recursion-tail-call-optimization,Eric,J.,Bruno",
-        })
+        //"https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update|David||Delabassee",
+        "https://blogs.oracle.com/javamagazine/post/12-recipes-for-using-the-optional-class-as-its-meant-to-be-used|Mohamed||Taman",
+        "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se|Donald||Smith",
+        "https://blogs.oracle.com/javamagazine/post/everything-you-need-to-know-about-openjdks-move-to-git-and-github|Ian||Darwin",
+        "https://blogs.oracle.com/cloud-infrastructure/post/oracle-code-assist-ai-companion-boost-velocity|Aanand||Krishnan",
+        "https://blogs.oracle.com/javamagazine/post/curly-braces-java-recursion-tail-call-optimization|Eric|J.|Bruno"
+        }, delimiter = '|')
     void testAuthor(final String url,
                     final String expectedFirstName,
                     final String expectedMiddleName,
@@ -111,10 +111,10 @@ class OracleBlogsLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://blogs.oracle.com/javamagazine/java-for-loop-break-continue,Mikalai,Zaikin,Simon,Roberts",
-        "https://blogs.oracle.com/javamagazine/post/java-for-loop-break-continue,Mikalai,Zaikin,Simon,Roberts",
-        })
+    @CsvSource(value = {
+        "https://blogs.oracle.com/javamagazine/java-for-loop-break-continue|Mikalai|Zaikin|Simon|Roberts",
+        "https://blogs.oracle.com/javamagazine/post/java-for-loop-break-continue|Mikalai|Zaikin|Simon|Roberts"
+        }, delimiter = '|')
     void testTwoAuthors(final String url,
                         final String expectedFirstName1,
                         final String expectedLastName1,
@@ -139,9 +139,9 @@ class OracleBlogsLinkContentParserTest extends LinkDataExtractorTestBase {
     }
 
     @ParameterizedTest
-    @CsvSource({
-        "https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update,David,Delabassee",
-        })
+    @CsvSource(value = {
+        "https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update|David|Delabassee"
+        }, delimiter = '|')
     void doesNotCrashOnCorruptedArticle(final String url) {
         final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
@@ -159,7 +159,7 @@ class OracleBlogsLinkContentParserTest extends LinkDataExtractorTestBase {
                                    Assertions.fail("getSureAuthors threw " + e.getMessage());
                                }
                               try {
-                                  TestHelper.assertDate(expectedDate, parser.getDate());
+                                  TestHelper.assertDate(expectedDate, parser.getCreationDate());
                               } catch (final ContentParserException e) {
                                   Assertions.fail("getDate threw " + e.getMessage());
                               }

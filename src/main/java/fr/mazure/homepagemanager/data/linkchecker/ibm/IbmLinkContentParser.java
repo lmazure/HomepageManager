@@ -32,75 +32,49 @@ public class IbmLinkContentParser extends LinkDataExtractor {
     private final String _subtitle;
     private final LocalDate _publicationDate;
     private final List<AuthorData> _authors;
-    private final ContentParserException _exception;
-    private final ContentParserException _authorException;
     private final boolean _articleIsLost;
 
     /**
      * @param url URL of the link
      * @param data retrieved link data
      * @param retriever cache data retriever
+     * @throws ContentParserException Failure to extract the information
      */
     public IbmLinkContentParser(final String url,
                                 final String data,
-                                final CachedSiteDataRetriever retriever) {
+                                final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(url, retriever);
         String json = null;
         try {
             json = getStructureJson(url);
-        } catch (final IOException | NotGzipException e) {
-            _articleIsLost = e instanceof NotGzipException;
-            _exception = new ContentParserException("failed to get JSON data for " + url, e);
+        } catch (@SuppressWarnings("unused") final NotGzipException e) {
+            _articleIsLost = true;
             _title = null;
             _subtitle = null;
             _publicationDate = null;
             _authors = null;
-            _authorException = null;
             return;
+        } catch (final IOException e) {
+            throw new ContentParserException("failed to get JSON data for " + url, e);
         }
 
         _articleIsLost = false;
 
-        String title;
-        String subtitle;
-        LocalDate publicationDate;
-        List<String> authorNames;
-
         try {
             final JSONObject payload = new JSONObject(json);
             final JSONObject results = payload.getJSONArray("results").getJSONObject(0);
-            title = results.getString("title");
-            subtitle = results.getString("subtitle").trim();
-            publicationDate = LocalDateTime.parse(results.getString("publish_date")).toLocalDate();
+            _title = results.getString("title");
+            _subtitle = results.getString("subtitle").trim();
+            _publicationDate = LocalDateTime.parse(results.getString("publish_date")).toLocalDate();
             final JSONArray contributors = results.getJSONArray("contributors");
-            authorNames = new ArrayList<>(contributors.length());
+            _authors = new ArrayList<>(contributors.length());
             for (int i = 0; i < contributors.length(); i++) {
                 final String contributor = contributors.getJSONObject(i).getString("name");
-                authorNames.add(contributor);
+                _authors.add(LinkContentParserUtils.parseAuthorName(contributor));
             }
         } catch (final JSONException e) {
-            _exception = new ContentParserException("failed to parse JSON data for " + url + ". The JSON payload is \"" + json + "\"", e);
-            _title = null;
-            _subtitle = null;
-            _publicationDate = null;
-            _authors = null;
-            _authorException = null;
-            return;
+            throw new ContentParserException("failed to parse JSON data for " + url + ". The JSON payload is \"" + json + "\"", e);
         }
-        _title = title;
-        _subtitle = subtitle;
-        _publicationDate = publicationDate;
-        _authors = new ArrayList<>(authorNames.size());
-        _exception = null;
-        ContentParserException authorException = null;
-        for (final String name: authorNames) {
-            try {
-                _authors.add(LinkContentParserUtils.parseAuthorName(name));
-            } catch (final ContentParserException e) {
-                authorException = new ContentParserException("failed to parse author name", e);
-            }
-        }
-        _authorException = authorException;
     }
 
     /**
@@ -110,59 +84,34 @@ public class IbmLinkContentParser extends LinkDataExtractor {
         return _articleIsLost;
     }
 
-    /**
-     * @return title
-     * @throws ContentParserException Failure to extract the information
-     */
     @Override
-    public String getTitle() throws ContentParserException {
-        if (_exception != null) {
-            throw _exception;
-        }
+    public String getTitle() {
         return _title;
     }
 
-    /**
-     * @return subtitle, empty if the is none
-     * @throws ContentParserException Failure to extract the information
-     */
     @Override
-    public Optional<String> getSubtitle() throws ContentParserException {
-        if (_exception != null) {
-            throw _exception;
-        }
+    public Optional<String> getSubtitle() {
         return Optional.of(_subtitle);
     }
 
-    /**
-     * @return creation date, empty if there is none
-     * @throws ContentParserException Failure to extract the information
-     */
     @Override
-    public Optional<TemporalAccessor> getDate() throws ContentParserException {
-        if (_exception != null) {
-            throw _exception;
-        }
+    public Optional<TemporalAccessor> getCreationDate() {
         return Optional.of(_publicationDate);
     }
 
-    /**
-     * @return authors, empty list if there is none
-     * @throws ContentParserException Failure to extract the information
-     */
+
     @Override
-    public List<AuthorData> getSureAuthors() throws ContentParserException {
-        if (_exception != null) {
-            throw _exception;
-        }
-        if (_authorException != null) {
-            throw _authorException;
-        }
+    public Optional<TemporalAccessor> getPublicationDate() {
+        return getCreationDate();
+    }
+
+    @Override
+    public List<AuthorData> getSureAuthors() {
         return _authors;
     }
 
     @Override
-    public List<ExtractedLinkData> getLinks() throws ContentParserException {
+    public List<ExtractedLinkData> getLinks() {
         final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
                                                                  new String[] { },
                                                                  getUrl(),

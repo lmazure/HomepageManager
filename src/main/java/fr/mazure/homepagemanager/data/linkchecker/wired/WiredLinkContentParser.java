@@ -20,6 +20,7 @@ import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.internet.JsonHelper;
+import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
@@ -91,8 +92,8 @@ public class WiredLinkContentParser extends LinkDataExtractor {
      * @param url link
      * @return true if the link is managed
      */
-      public static boolean isUrlManaged(final String url) {
-        return url.startsWith("https://www.wired.com/");
+    public static boolean isUrlManaged(final String url) {
+          return UrlHelper.hasPrefix(url, "https://www.wired.com/");
     }
 
       @Override
@@ -115,11 +116,16 @@ public class WiredLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public Optional<TemporalAccessor> getDate() throws ContentParserException {
+    public Optional<TemporalAccessor> getCreationDate() throws ContentParserException {
         if (_exception != null) {
             throw _exception;
         }
         return Optional.of(_publicationDate);
+    }
+
+    @Override
+    public Optional<TemporalAccessor> getPublicationDate() throws ContentParserException {
+        return getCreationDate();
     }
 
     @Override

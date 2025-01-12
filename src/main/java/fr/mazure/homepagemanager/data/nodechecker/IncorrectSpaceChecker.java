@@ -1,7 +1,6 @@
 package fr.mazure.homepagemanager.data.nodechecker;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -20,13 +19,14 @@ public class IncorrectSpaceChecker extends NodeChecker {
 
     //TODO ajouter l'ellipsis
 
-    private static final Set<String> s_authorizedMissingSpaceList = new HashSet<>(Arrays.asList(
+    private static final Set<String> s_authorizedMissingSpaceList = Set.of(
             "2b2t.org",
             "2.X",
             "3.X",
             "4.X",
             "a.k.a.",
             "Ampersand.js",
+            "Answer.AI",
             "analytics.katalon.com",
             "asm.js",
             "autosrb.pl",
@@ -83,11 +83,11 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "Wallaby.js",
             "xml:id",
             "X.org",
-            "xsl:key"));
+            "xsl:key");
 
-    private static final Set<String> s_authorizedMissingPrecedingSpaceList = new HashSet<>(Arrays.asList(
+    private static final Set<String> s_authorizedMissingPrecedingSpaceList = Set.of(
             ".Net",
-            ".NET"));
+            ".NET");
 
     private static final InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.COMMENT,
@@ -312,10 +312,10 @@ public class IncorrectSpaceChecker extends NodeChecker {
      * @return return true if the string begins with a "word" beginning by space (e.g. ".Net")
      */
     private static boolean startsWithAuthorizedMissingPrecedingSpaceList(final String str) {
-        final String[] spl = str.split("\\s", 2);
-        final String firstWord = spl[0];
+        final int spaceIndex = str.indexOf(' ');
+        final String firstWord = (spaceIndex == -1) ? str : str.substring(0, spaceIndex);
         return s_authorizedMissingPrecedingSpaceList.contains(firstWord);
-    }
+	}
 
     /**
      * @param c

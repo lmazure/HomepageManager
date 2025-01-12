@@ -2,7 +2,7 @@ package fr.mazure.homepagemanager.data.linkchecker;
 
 import java.time.Duration;
 import java.time.temporal.TemporalAccessor;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -51,7 +51,13 @@ public abstract class LinkDataExtractor {
      * @return creation date, empty if there is none
      * @throws ContentParserException Failure to extract the information
      */
-    public abstract Optional<TemporalAccessor> getDate() throws ContentParserException;
+    public abstract Optional<TemporalAccessor> getCreationDate() throws ContentParserException;
+
+    /**
+     * @return publication date, empty if there is none
+     * @throws ContentParserException Failure to extract the information
+     */
+    public abstract Optional<TemporalAccessor> getPublicationDate() throws ContentParserException;
 
     /**
      * @return authors, empty list if there is none
@@ -72,7 +78,7 @@ public abstract class LinkDataExtractor {
      */
     @SuppressWarnings("static-method")
     public List<AuthorData> getProbableAuthors() throws ContentParserException {
-        return new ArrayList<>(0);
+        return Collections.emptyList();
     }
 
     /**
@@ -82,7 +88,7 @@ public abstract class LinkDataExtractor {
      */
     @SuppressWarnings("static-method")
     public List<AuthorData> getPossibleAuthors() throws ContentParserException {
-        return new ArrayList<>(0);
+        return Collections.emptyList();
     }
 
     /**

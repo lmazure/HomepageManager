@@ -37,7 +37,7 @@ class LexFridmanLinkContentParserTest extends LinkDataExtractorTestBase {
     }, delimiter = '|')
     void testDate(final String url,
                   final String expectedDate) {
-        checkDate(LexFridmanLinkContentParser.class, url, expectedDate);
+        checkCreationDate(LexFridmanLinkContentParser.class, url, expectedDate);
     }
 
     @SuppressWarnings("static-method")

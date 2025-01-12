@@ -17,8 +17,8 @@ class IbmLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
             "https://developer.ibm.com/articles/wa-sailsjs4/",
-            "https://developer.ibm.com/tutorials/wa-build-deploy-web-app-sailsjs-2-bluemix",
-        })
+            "https://developer.ibm.com/tutorials/wa-build-deploy-web-app-sailsjs-2-bluemix"
+        }, delimiter = '|')
     void testArticleIsLost(final String url) {
         perform(IbmLinkContentParser.class,
                 url,
@@ -31,8 +31,8 @@ class IbmLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-            "https://developer.ibm.com/articles/j-java-streams-1-brian-goetz/",
-        })
+            "https://developer.ibm.com/articles/j-java-streams-1-brian-goetz/"
+        }, delimiter = '|')
     void testArticleIsNotLost(final String url) {
         perform(IbmLinkContentParser.class,
                 url,
@@ -45,8 +45,8 @@ class IbmLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://developer.ibm.com/articles/j-java-streams-1-brian-goetz/£An introduction to the java.util.stream library",
-        }, delimiter = '£')
+        "https://developer.ibm.com/articles/j-java-streams-1-brian-goetz/|An introduction to the java.util.stream library"
+        }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
         checkTitle(IbmLinkContentParser.class, url, expectedTitle);
@@ -66,19 +66,19 @@ class IbmLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://developer.ibm.com/articles/j-java-streams-1-brian-goetz/,2016-05-09",
-        })
+    @CsvSource(value = {
+        "https://developer.ibm.com/articles/j-java-streams-1-brian-goetz/|2016-05-09"
+        }, delimiter = '|')
     void testDate(final String url,
                   final String expectedDate) {
-        checkDate(IbmLinkContentParser.class, url, expectedDate);
+        checkCreationDate(IbmLinkContentParser.class, url, expectedDate);
     }
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://developer.ibm.com/articles/j-java8idioms3/,Venkat,,Subramaniam",
-        })
+    @CsvSource(value = {
+        "https://developer.ibm.com/articles/j-java8idioms3/|Venkat||Subramaniam"
+        }, delimiter = '|')
     void testAuthor(final String url,
                     final String expectedFirstName,
                     final String expectedMiddleName,

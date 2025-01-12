@@ -52,14 +52,14 @@ public class DoubleSpaceChecker extends NodeChecker {
         }
 
         final List<String> list = XmlHelper.getFirstLevelTextContent(e);
-        if (list.size() == 0) {
+        if (list.isEmpty()) {
             return null;
         }
 
         for (final String l: list) {
             final Matcher matcher = s_indentationPattern.matcher(l);
             final String str = matcher.replaceFirst("");
-            if (str.indexOf("  ") >= 0) {
+            if (str.contains("  ")) {
                 return new CheckStatus("DoubleSpace", "\"" + e.getTextContent() + "\" should not contain a double space", Optional.empty());
             }
         }

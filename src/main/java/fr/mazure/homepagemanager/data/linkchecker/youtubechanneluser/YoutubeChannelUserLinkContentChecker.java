@@ -8,6 +8,7 @@ import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentCheck;
 import fr.mazure.homepagemanager.utils.FileSection;
+import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 
@@ -38,7 +39,7 @@ public class YoutubeChannelUserLinkContentChecker extends ExtractorBasedLinkCont
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return url.startsWith("https://www.youtube.com/channel/");
+        return UrlHelper.hasPrefix(url, "https://www.youtube.com/channel/");
     }
 
     @Override

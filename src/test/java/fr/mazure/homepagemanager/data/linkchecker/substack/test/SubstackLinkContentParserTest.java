@@ -147,7 +147,7 @@ class SubstackLinkContentParserTest extends LinkDataExtractorTestBase {
         }, delimiter = '|')
     void testDate(final String url,
                   final String expectedDate) {
-        checkDate(SubstackLinkContentParser.class, url, expectedDate);
+        checkCreationDate(SubstackLinkContentParser.class, url, expectedDate);
     }
 
     @SuppressWarnings("static-method")

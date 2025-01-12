@@ -39,18 +39,22 @@ public class TitleFormatChecker extends NodeChecker {
                                                                             "jQuery",
                                                                             "ksh",
                                                                             "lit-html",
+                                                                            "llm",
                                                                             "m4",
                                                                             "make",
+                                                                            "n8n",
                                                                             "npm",
                                                                             "pip",
                                                                             "quantum.country",
                                                                             "rpm",
                                                                             "sed",
                                                                             "sh",
+                                                                            "smolagents",
                                                                             "systat",
                                                                             "tgAAC94",
                                                                             "tkdiff",
                                                                             "vi",
+                                                                            "xLSTM",
                                                                             "xUnit",
                                                                             "yacc",
                                                                             "zsh",
@@ -73,7 +77,7 @@ public class TitleFormatChecker extends NodeChecker {
     private static CheckStatus titleDoesNotFinishWithColon(final Element e) {
 
         final List<String> list = XMLHelper.getFirstLevelTextContent(e);
-        if (list.size() == 0) {
+        if (list.isEmpty()) {
             return null;
         }
 
@@ -88,13 +92,13 @@ public class TitleFormatChecker extends NodeChecker {
     private static CheckStatus titleStartsWithUppercase(final Element e) {
 
         final List<String> list = XmlHelper.getFirstLevelTextContent(e);
-        if (list.size() == 0) {
+        if (list.isEmpty()) {
             return null;
         }
 
         final Optional<String> firstWord = Arrays.stream(list.get(0).split(" ")).findFirst();
         if (firstWord.isEmpty() ||
-            (firstWord.get().length() == 0) ||
+            (firstWord.get().isEmpty()) ||
             s_authorizedList.contains(firstWord.get())) {
             return null;
         }

@@ -2,6 +2,7 @@ package fr.mazure.homepagemanager.data.linkchecker.spectrum;
 
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -28,7 +29,8 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
 
     private static final String s_sourceName = "IEEE Spectrum";
 
-    private final String _data;
+    private final String _title;
+    private final Optional<String> _subtitle;
 
     private List<AuthorData> _authors;
     private Optional<TemporalAccessor> _publicationDate;
@@ -53,16 +55,19 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
      * @param url URL of the link
      * @param data retrieved link data
      * @param retriever cache data retriever
+     * @throws ContentParserException Failure to extract the information
      */
     public SpectrumLinkContentParser(final String url,
                                      final String data,
-                                     final CachedSiteDataRetriever retriever) {
+                                     final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(UrlHelper.removeQueryParameters(url,"comments",
                                                   "comments-page"),
               retriever);
-        _data = data;
+        _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
+        _subtitle = Optional.of(HtmlHelper.cleanContent(s_subtitleParser.extract(data)));
         _authors = null;
         _publicationDate = null;
+        parseJson(data);
     }
 
     /**
@@ -72,44 +77,42 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return url.startsWith("https://spectrum.ieee.org/");
-    }    @Override
-
-    public String getTitle() throws ContentParserException {
-        return HtmlHelper.cleanContent(s_titleParser.extract(_data));
+        return UrlHelper.hasPrefix(url, "https://spectrum.ieee.org/");
     }
 
     @Override
-    public Optional<String> getSubtitle() throws ContentParserException {
-        return Optional.of(HtmlHelper.cleanContent(s_subtitleParser.extract(_data)));
+    public String getTitle() {
+        return _title;
     }
 
     @Override
-    public Optional<TemporalAccessor> getDate() throws ContentParserException {
-        if (_publicationDate != null) {
-            return _publicationDate;
-        }
-        parseJson();
+    public Optional<String> getSubtitle() {
+        return _subtitle;
+    }
+
+    @Override
+    public Optional<TemporalAccessor> getCreationDate() {
         return _publicationDate;
     }
 
     @Override
-    public List<AuthorData> getSureAuthors() throws ContentParserException {
-        if (_authors != null) {
-            return _authors;
-        }
-        parseJson();
+    public Optional<TemporalAccessor> getPublicationDate() {
+        return _publicationDate;
+    }
+
+    @Override
+    public List<AuthorData> getSureAuthors() {
         return _authors;
     }
 
     @Override
     public List<AuthorData> getProbableAuthors() {
-        return new ArrayList<>(0);
+        return Collections.emptyList();
     }
 
     @Override
     public List<AuthorData> getPossibleAuthors() {
-        return new ArrayList<>(0);
+        return Collections.emptyList();
     }
 
     @Override
@@ -133,11 +136,11 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
         return Locale.ENGLISH;
     }
 
-    private void parseJson() throws ContentParserException {
+    private void parseJson(final String data) throws ContentParserException {
 
         _authors = new ArrayList<>(1);
 
-        final String json = s_jsonParser.extract(_data);
+        final String json = s_jsonParser.extract(data);
         final JSONObject payload = new JSONObject(json);
         final Object authorNode = payload.get("author");
         if (authorNode instanceof JSONArray auths) {

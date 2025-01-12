@@ -86,21 +86,21 @@ class QuantaMagazineLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://www.quantamagazine.org/new-algorithm-solves-cake-cutting-problem-20161006/,2016-10-06",
-        "https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/,2018-08-13",
-        })
+    @CsvSource(value = {
+        "https://www.quantamagazine.org/new-algorithm-solves-cake-cutting-problem-20161006/|2016-10-06",
+        "https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/|2018-08-13"
+        }, delimiter = '|')
     void testDate(final String url,
                   final String expectedDate) {
-        checkDate(QuantaMagazineLinkContentParser.class, url, expectedDate);
+        checkCreationDate(QuantaMagazineLinkContentParser.class, url, expectedDate);
     }
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/,Kevin,,Hartnett",
-        "https://www.quantamagazine.org/long-covid-how-it-keeps-us-sick-20210701/,Tara,C.,Smith",
-        })
+    @CsvSource(value = {
+        "https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/|Kevin||Hartnett",
+        "https://www.quantamagazine.org/long-covid-how-it-keeps-us-sick-20210701/|Tara|C.|Smith"
+        }, delimiter = '|')
     void testAuthor(final String url,
                     final String expectedFirstName,
                     final String expectedMiddleName,
@@ -110,9 +110,9 @@ class QuantaMagazineLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://www.quantamagazine.org/barbara-liskov-is-the-architect-of-modern-algorithms-20191120/,Susan,,D’Agostino",
-        })
+    @CsvSource(value = {
+        "https://www.quantamagazine.org/barbara-liskov-is-the-architect-of-modern-algorithms-20191120/|Susan||D’Agostino"
+        }, delimiter = '|')
     void testAuthorWithEncodedCharacter(final String url,
                                         final String expectedFirstName,
                                         final String expectedMiddleName,
@@ -122,9 +122,9 @@ class QuantaMagazineLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://www.quantamagazine.org/the-multiverses-measure-problem-20141103/,Natalie,,Wolchover,Peter,,Byrne",
-        })
+    @CsvSource(value = {
+        "https://www.quantamagazine.org/the-multiverses-measure-problem-20141103/|Natalie||Wolchover|Peter||Byrne"
+        }, delimiter = '|')
     void testTwoAuthors(final String url,
                         final String expectedFirstName1,
                         final String expectedMiddleName1,
@@ -152,14 +152,14 @@ class QuantaMagazineLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://www.quantamagazine.org/how-did-altruism-evolve-20240215/,Janna,,Levin,Stephanie,,Preston",
-        "https://www.quantamagazine.org/what-causes-giant-rogue-waves-20230614/,Steven,,Strogatz,Ton,,van den Bremer",
-        "https://www.quantamagazine.org/what-is-quantum-field-theory-and-why-is-it-incomplete-20220810/,Steven,,Strogatz,David,,Tong",
-        "https://www.quantamagazine.org/what-is-quantum-teleportation-20240314/,Janna,,Levin,John,,Preskill",
-        "https://www.quantamagazine.org/what-is-the-nature-of-time-20240229/,Steven,,Strogatz,Frank,,Wilczek",
-        "https://www.quantamagazine.org/will-better-superconductors-transform-the-world-20240509/,Janna,,Levin,Siddharth,Shanker,Saxena",
-        })
+    @CsvSource(value = {
+        "https://www.quantamagazine.org/how-did-altruism-evolve-20240215/|Janna||Levin|Stephanie||Preston",
+        "https://www.quantamagazine.org/what-causes-giant-rogue-waves-20230614/|Steven||Strogatz|Ton||van den Bremer",
+        "https://www.quantamagazine.org/what-is-quantum-field-theory-and-why-is-it-incomplete-20220810/|Steven||Strogatz|David||Tong",
+        "https://www.quantamagazine.org/what-is-quantum-teleportation-20240314/|Janna||Levin|John||Preskill",
+        "https://www.quantamagazine.org/what-is-the-nature-of-time-20240229/|Steven||Strogatz|Frank||Wilczek",
+        "https://www.quantamagazine.org/will-better-superconductors-transform-the-world-20240509/|Janna||Levin|Siddharth|Shanker|Saxena"
+        }, delimiter = '|')
     void testAuthorJoyOfWhy(final String url,
                             final String expectedHostFirstName,
                             final String expectedHostMiddleName,
@@ -187,9 +187,9 @@ class QuantaMagazineLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://www.quantamagazine.org/why-do-we-get-old-and-can-aging-be-reversed-20220727/,Steven,,Strogatz,Judith,,Campisi,Dena,,Dubal",
-        })
+    @CsvSource(value = {
+        "https://www.quantamagazine.org/why-do-we-get-old-and-can-aging-be-reversed-20220727/|Steven||Strogatz|Judith||Campisi|Dena||Dubal"
+        }, delimiter = '|')
     void testTwoAuthorsJoyOfWhy(final String url,
                                 final String expectedHostFirstName,
                                 final String expectedHostMiddleName,

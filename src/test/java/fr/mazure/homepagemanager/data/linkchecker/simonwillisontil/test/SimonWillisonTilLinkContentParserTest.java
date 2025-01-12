@@ -13,9 +13,9 @@ class SimonWillisonTilLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://til.simonwillison.net/google/gmail-compose-url,Simon,Willison,",
-        })
+    @CsvSource(value = {
+        "https://til.simonwillison.net/google/gmail-compose-url|Simon|Willison|",
+        }, delimiter = '|')
     void testAuthor(final String url,
                     final String expectedFirstName,
                     final String expectedLastName,
@@ -44,15 +44,15 @@ class SimonWillisonTilLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
+    @CsvSource(value = {
         // case of an updated article
-        "https://til.simonwillison.net/google/gmail-compose-url,2024-03-12",
+        "https://til.simonwillison.net/google/gmail-compose-url|2024-03-12",
         // case of an article that has not been updated
-        "https://til.simonwillison.net/django/live-blog,2024-10-02",
-        })
+        "https://til.simonwillison.net/django/live-blog|2024-10-02",
+        }, delimiter = '|')
     void testDate(final String url,
                   final String expectedPublicationDate) {
-        checkDate(SimonWillisonTilLinkContentParser.class, url, expectedPublicationDate);
+        checkCreationDate(SimonWillisonTilLinkContentParser.class, url, expectedPublicationDate);
     }
 
     @SuppressWarnings("static-method")

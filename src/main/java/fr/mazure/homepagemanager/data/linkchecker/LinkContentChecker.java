@@ -421,7 +421,9 @@ public class LinkContentChecker implements Checker {
 
         final Optional<ViolationCorrection> correction = (expectedLanguages.length == 1) ? Optional.of(new UpdateLinkLanguageCorrection(expectedLanguages[0], effectiveLanguage, getUrl()))
                                                                                          : Optional.empty();
-        final String expectedLanguagesAsString = Arrays.stream(expectedLanguages).map(Locale::toString).collect(Collectors.joining(", "));
+        final String expectedLanguagesAsString = Arrays.stream(expectedLanguages)
+                                                       .map(Locale::toString)
+                                                       .collect(Collectors.joining(", "));
         return new LinkContentCheck("WrongLanguage",
                                     "language is \"" +
                                     effectiveLanguage +

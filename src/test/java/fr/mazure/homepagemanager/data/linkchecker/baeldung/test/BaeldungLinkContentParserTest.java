@@ -29,20 +29,20 @@ class BaeldungLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://www.baeldung.com/crawler4j,2024-01-11",
-        })
+    @CsvSource(value = {
+        "https://www.baeldung.com/crawler4j|2024-01-11"
+        }, delimiter = '|')
     void testDate(final String url,
                   final String expectedDate) {
-        checkDate(BaeldungLinkContentParser.class, url, expectedDate);
+        checkCreationDate(BaeldungLinkContentParser.class, url, expectedDate);
     }
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://www.baeldung.com/crawler4j,Amy,DeGregorio",
-        "https://www.baeldung.com/ops/git-configure-credentials,Michael,Pratt",
-        })
+    @CsvSource(value = {
+        "https://www.baeldung.com/crawler4j|Amy|DeGregorio",
+        "https://www.baeldung.com/ops/git-configure-credentials|Michael|Pratt"
+        }, delimiter = '|')
     void testAuthor(final String url,
                     final String expectedFirstName,
                     final String expectedLastName) {
@@ -58,9 +58,9 @@ class BaeldungLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource({
-        "https://www.baeldung.com/java-9-reactive-streams",
-        })
+    @CsvSource(value = {
+        "https://www.baeldung.com/java-9-reactive-streams"
+        }, delimiter = '|')
     void testNoAuthor(final String url) {
         check0Author(BaeldungLinkContentParser.class, url);
     }

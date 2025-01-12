@@ -4,6 +4,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -32,11 +33,10 @@ class WellKnownRedirectionsTest {
              Set.of(LinkStatus.OK, LinkStatus.ZOMBIE, LinkStatus.OBSOLETE));
     }
 
-    // URLs giving directly a 202 (success)
+    @Disabled("semanticscholar does not reply anymore with 202")
     @ParameterizedTest
     @CsvSource({
-        "http://httpbin.org/status/202",
-        "https://www.semanticscholar.org/paper/The-Native-POSIX-Thread-Library-for-Linux-Drepper-Molnar/ffced47e5604b66736d365030bfe532d11285433?p2df",
+        "https://www.semanticscholar.org/paper/Lisp-%253A-Good-News-Bad-News-How-to-Win-Big-Gabriel/1021849fe18475707bd5fe99c6fac4f77279098a",
         })
     void direct202(final String url) {
         test(url,
@@ -82,6 +82,20 @@ class WellKnownRedirectionsTest {
         test(url,
              false,
              Integer.valueOf(404),
+             "direct failure",
+             Set.of(LinkStatus.DEAD));
+    }
+
+    // URLs giving directly a 406
+    @Disabled("lemonde.fr does not reply anymore with 106")
+    @ParameterizedTest
+    @CsvSource({
+        "hhttps://www.lemonde.fr/blog/realitesbiomedicales/2022/11/28/covid-19-comment-omicron-a-t-il-evolue-depuis-son-emergence-il-y-a-un-an/",
+        })
+    void direct406(final String url) {
+        test(url,
+             false,
+             Integer.valueOf(406),
              "direct failure",
              Set.of(LinkStatus.DEAD));
     }
@@ -180,6 +194,19 @@ class WellKnownRedirectionsTest {
              Integer.valueOf(525),
              "direct failure",
              Set.of(LinkStatus.DEAD));
+    }
+
+    @Disabled("need find another example of such a bad redirection")
+    @ParameterizedTest
+    @CsvSource({
+        "https://docs.trychroma.com/", // returns 307 but have no "Location" in the answer header
+        })
+    void redirectionsNotBeingRedirected(final String url) {
+        test(url,
+             false,
+             Integer.valueOf(307),
+             "redirection not being redirected",
+             Set.of());
     }
 
     @ParameterizedTest
@@ -311,6 +338,7 @@ class WellKnownRedirectionsTest {
         "http://www.oreillynet.com/pub/a/oreilly/security/news/2004/03/08/netsec.html",
         "http://www.oreillynet.com/pub/a/wireless/2003/12/04/tftp.html",
         "http://www.oreillynet.com/xml/blog/2006/06/understanding_xforms_component.html",
+        "http://radar.oreilly.com/2013/07/putting-developers-to-the-test.html",
         })
     void oReilly(final String url) {
         test(url,
@@ -328,6 +356,7 @@ class WellKnownRedirectionsTest {
         "https://www.ibm.com/developerworks/java/library/co-tmline/index.html",
         "https://www.ibm.com/developerworks/java/library/j-mer1022.html",
         "https://www.ibm.com/developerworks/java/library/os-lombok/index.html",
+        "https://www.ibm.com/developerworks/java/library/se-banner/index.html",
         "https://www.ibm.com/developerworks/java/library/x-simplexobjs/",
         "https://www.ibm.com/developerworks/library/a-devops1/",
         "https://www.ibm.com/developerworks/library/j-jtp07265/",
@@ -344,6 +373,7 @@ class WellKnownRedirectionsTest {
         "https://www.ibm.com/developerworks/tivoli/library/s-csscript/",
         "https://www.ibm.com/developerworks/web/library/wa-mashupsecure/",
         "https://www.ibm.com/developerworks/webservices/library/ws-array/",
+        "https://www.ibm.com/developerworks/websphere/library/techarticles/0908_funk/0908_funk.html",
         "https://www.ibm.com/developerworks/websphere/techjournal/1203_noiret/1203_noiret.html",
         "https://www.ibm.com/developerworks/xml/library/x-matters32/index.html",
         })
@@ -357,6 +387,7 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
+        "https://developer.ibm.com/articles/j-5things18/",
         "https://developer.ibm.com/articles/j-javaee8-json-binding-1/",
         "https://developer.ibm.com/articles/wa-sailsjs3/",
         "https://developer.ibm.com/tutorials/wa-build-deploy-web-app-sailsjs-2-bluemix",

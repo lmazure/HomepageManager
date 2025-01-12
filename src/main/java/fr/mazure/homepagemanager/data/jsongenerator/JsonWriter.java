@@ -134,73 +134,73 @@ public class JsonWriter {
      * @param fileName relative path and name of the JSON file to generate
      */
 
-     public void generateArticleJson(final File root,
-                                     final String fileName) {
+    public void generateArticleJson(final File root,
+                                    final String fileName) {
 
-         final String rootFileName = root.getAbsolutePath();
-         final File f = new File(rootFileName + File.separator + fileName);
-         f.delete();
+        final String rootFileName = root.getAbsolutePath();
+        final File f = new File(rootFileName + File.separator + fileName);
+        f.delete();
 
-         final Author authors[] = _authorFactory.getAuthors();
-         final HashMap<Author, Integer> authorIndexes = new HashMap<>();
-         for (int i = 0; i < authors.length; i++) {
-             authorIndexes.put(authors[i], Integer.valueOf(i));
-         }
+        final Author authors[] = _authorFactory.getAuthors();
+        final HashMap<Author, Integer> authorIndexes = new HashMap<>();
+        for (int i = 0; i < authors.length; i++) {
+            authorIndexes.put(authors[i], Integer.valueOf(i));
+        }
 
-         try (final OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(f), Charset.forName("UTF-8").newEncoder())) {
-             final Article articles[] = _articleFactory.getArticles();
-             Arrays.sort(articles, new ArticleComparator());
-             out.write("{\n  \"articles\" : [");
-             for (int i = 0; i < articles.length; i++) {
-                 final Article article = articles[i];
-                 if (i != 0) {
-                     out.write(",");
-                 }
-                 out.write("\n    {");
-                 printLinks(out, article.getLinks());
-                 out.write(",");
-                 if (article.getDateData().isPresent()) {
-                     final TemporalAccessor date = article.getDateData().get();
-                     out.write("\n      \"date\" : " + date.get(ChronoField.YEAR));
-                     if (date.isSupported(ChronoField.MONTH_OF_YEAR)) {
-                         out.write(String.format("%02d", Integer.valueOf(date.get(ChronoField.MONTH_OF_YEAR))));
-                         if (date.isSupported(ChronoField.DAY_OF_MONTH)) {
-                             out.write(String.format("%02d", Integer.valueOf(date.get(ChronoField.DAY_OF_MONTH))));
-                         }
-                     }
-                     out.write(",");
-                 }
-                 if (article.getAuthors().length != 0) {
-                     out.write("\n      \"authorIndexes\" : [");
-                     for (int j = 0; j < article.getAuthors().length; j++) {
-                         if (j != 0) {
-                             out.write(", ");
-                         }
-                         out.write(authorIndexes.get(article.getAuthors()[j]).toString());
-                     }
-                     out.write("],");
-                 }
-                 final String page = article.getReferringPage()
-                                            .getAbsolutePath()
-                                            .substring(rootFileName.length() + 1)
-                                            .replace(File.separatorChar, '/')
-                                            .replaceFirst("\\.xml$", ".html");
-                 out.write("\n      \"page\" : \"" + page +"\"\n    }");
-             }
-             out.write("\n  ]\n}");
-             out.flush();
-         } catch (final IOException e) {
-             Logger.log(Logger.Level.ERROR)
-                   .append("Failed to write file ")
-                   .append(f)
-                    .append(e)
-                   .submit();
-         }
+        try (final OutputStreamWriter out = new OutputStreamWriter(new FileOutputStream(f), Charset.forName("UTF-8").newEncoder())) {
+            final Article articles[] = _articleFactory.getArticles();
+            Arrays.sort(articles, new ArticleComparator());
+            out.write("{\n  \"articles\" : [");
+            for (int i = 0; i < articles.length; i++) {
+                final Article article = articles[i];
+                if (i != 0) {
+                    out.write(",");
+                }
+                out.write("\n    {");
+                printLinks(out, article.getLinks());
+                out.write(",");
+                if (article.getDateData().isPresent()) {
+                    final TemporalAccessor date = article.getDateData().get();
+                    out.write("\n      \"date\" : " + date.get(ChronoField.YEAR));
+                    if (date.isSupported(ChronoField.MONTH_OF_YEAR)) {
+                        out.write(String.format("%02d", Integer.valueOf(date.get(ChronoField.MONTH_OF_YEAR))));
+                        if (date.isSupported(ChronoField.DAY_OF_MONTH)) {
+                            out.write(String.format("%02d", Integer.valueOf(date.get(ChronoField.DAY_OF_MONTH))));
+                        }
+                    }
+                    out.write(",");
+                }
+                if (article.getAuthors().length != 0) {
+                    out.write("\n      \"authorIndexes\" : [");
+                    for (int j = 0; j < article.getAuthors().length; j++) {
+                        if (j != 0) {
+                            out.write(", ");
+                        }
+                        out.write(authorIndexes.get(article.getAuthors()[j]).toString());
+                    }
+                    out.write("],");
+                }
+                final String page = article.getReferringPage()
+                                           .getAbsolutePath()
+                                           .substring(rootFileName.length() + 1)
+                                           .replace(File.separatorChar, '/')
+                                           .replaceFirst("\\.xml$", ".html");
+                out.write("\n      \"page\" : \"" + page +"\"\n    }");
+            }
+            out.write("\n  ]\n}");
+            out.flush();
+        } catch (final IOException e) {
+            Logger.log(Logger.Level.ERROR)
+                  .append("Failed to write file ")
+                  .append(f)
+                   .append(e)
+                  .submit();
+        }
 
-         Logger.log(Logger.Level.INFO)
-               .append(f)
-               .append(" is created")
-               .submit();
+        Logger.log(Logger.Level.INFO)
+              .append(f)
+              .append(" is created")
+              .submit();
      }
 
     /**

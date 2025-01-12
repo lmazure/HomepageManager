@@ -17,6 +17,7 @@ import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
+import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
@@ -27,7 +28,11 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
 
     private static final String s_sourceName = "QuantaMagazine";
 
-    private final String _data;
+    private final String _title;
+    private final Optional<String> _subtitle;
+    private final Optional<TemporalAccessor> _creationDate;
+    private final List<AuthorData> _sureAuthors;
+    private final List<ExtractedLinkData> _links;
 
     private static final TextParser s_titleParser
         = new TextParser("<h1 class='post__title__title mv025 noe theme__text' >",
@@ -66,12 +71,18 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
      * @param url URL of the link
      * @param data retrieved link data
      * @param retriever cache data retriever
+     * @throws ContentParserException Failure to extract the information
      */
-    public QuantaMagazineLinkContentParser(final String url,
-                                           final String data,
-                                           final CachedSiteDataRetriever retriever) {
+         public QuantaMagazineLinkContentParser(final String url,
+                                                final String data,
+                                                final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(url, retriever);
-        _data = data;
+
+        _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
+        _subtitle = Optional.of(HtmlHelper.cleanContent(s_subtitleParser.extract(data)));
+        _creationDate = Optional.of(LocalDate.parse(HtmlHelper.cleanContent(s_dateParser.extract(data))));
+        _sureAuthors = data.contains("Apple Podcasts") ? getTheJoyOfWhyAuthors(data) : extractAuthors(data);
+        _links = initializeLinks();
     }
 
     /**
@@ -81,31 +92,37 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return url.startsWith("https://www.quantamagazine.org/");
+        return UrlHelper.hasPrefix(url, "https://www.quantamagazine.org/");
     }
 
     @Override
-    public String getTitle() throws ContentParserException {
-        return HtmlHelper.cleanContent(s_titleParser.extract(_data));
+    public String getTitle() {
+        return _title;
     }
 
     @Override
-    public Optional<String> getSubtitle() throws ContentParserException {
-        return Optional.of(HtmlHelper.cleanContent(s_subtitleParser.extract(_data)));
+    public Optional<String> getSubtitle() {
+        return _subtitle;
     }
 
     @Override
-    public Optional<TemporalAccessor> getDate() throws ContentParserException {
-        return Optional.of(LocalDate.parse(HtmlHelper.cleanContent(s_dateParser.extract(_data))));
+    public Optional<TemporalAccessor> getCreationDate() {
+        return _creationDate;
     }
 
     @Override
-    public List<AuthorData> getSureAuthors() throws ContentParserException {
-        if (_data.contains("Apple Podcasts")) {
-            return getTheJoyOfWhyAuthors();
-        }
+    public Optional<TemporalAccessor> getPublicationDate() {
+        return getCreationDate();
+    }
+
+    @Override
+    public List<AuthorData> getSureAuthors() {
+        return _sureAuthors;
+    }
+
+    private static List<AuthorData> extractAuthors(final String data) throws ContentParserException {
         final List<AuthorData> authors = new ArrayList<>();
-        final Matcher m1 = s_authorPattern1.matcher(_data);
+        final Matcher m1 = s_authorPattern1.matcher(data);
         while (m1.find()) {
             final AuthorData a = LinkContentParserUtils.parseAuthorName(m1.group(1));
             if (!authors.contains(a)) {
@@ -113,7 +130,7 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
             }
         }
         if (authors.isEmpty()) {
-            final Matcher m2 = s_authorPattern2.matcher(_data);
+            final Matcher m2 = s_authorPattern2.matcher(data);
             while (m2.find()) {
                 final AuthorData a = LinkContentParserUtils.parseAuthorName(m2.group(1));
                 if (!authors.contains(a)) {
@@ -124,15 +141,14 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
         return authors;
     }
 
-    private List<AuthorData> getTheJoyOfWhyAuthors() throws ContentParserException {
-
+    private static List<AuthorData> getTheJoyOfWhyAuthors(final String data) throws ContentParserException {
         boolean hostIsStrogatz = false;
         boolean hostIsLevin = false;
 
-        final String cleanedStr =  _data.replaceAll("</strong> ?<strong>", " ");
+        final String cleanedStr = data.replaceAll("</strong> ?<strong>", " ");
         List<String> names = s_joyOfWhyAuthors1.extractMulti(cleanedStr);
         if (names.isEmpty()) {
-            names = s_joyOfWhyAuthors2.extractMulti(_data);
+            names = s_joyOfWhyAuthors2.extractMulti(data);
         }
         final List <String> uniqueNames = new ArrayList<>();
         nameLoop:
@@ -146,7 +162,7 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
                     continue nameLoop;
                 }
             }
-            if (name.equals("Announcer") || name.equals("Transcript")) {
+            if (name.equals("Announcer") || name.equals("Transcript") || name.equals("(")) {
                 continue;
             }
             if (name.toUpperCase().contains("STROGATZ")) {
@@ -157,14 +173,11 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
                 hostIsLevin = true;
                 continue;
             }
-            if (name.equals("(")) {
-                continue;
-            }
             uniqueNames.add(name);
         }
 
         if (uniqueNames.isEmpty()) {
-            throw new ContentParserException("Failed to find author in QuantaMagazine");
+            throw new ContentParserException("Failed to find author in the Joy of Why (QuantaMagazine)");
         }
 
         final List<AuthorData> authors = new ArrayList<>();
@@ -182,16 +195,20 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public List<ExtractedLinkData> getLinks() throws ContentParserException {
-        final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
-                                                                 new String[] { getSubtitle().get() },
-                                                                 getUrl(),
-                                                                 Optional.empty(),
-                                                                 Optional.empty(),
-                                                                 new LinkFormat[] { LinkFormat.HTML },
-                                                                 new Locale[] {getLanguage() },
-                                                                 Optional.empty(),
-                                                                 Optional.empty());
+    public List<ExtractedLinkData> getLinks() {
+        return _links;
+    }
+
+    private List<ExtractedLinkData> initializeLinks() {
+        final ExtractedLinkData linkData = new ExtractedLinkData(_title,
+                                                                new String[] { _subtitle.get() },
+                                                                getUrl(),
+                                                                Optional.empty(),
+                                                                Optional.empty(),
+                                                                new LinkFormat[] { LinkFormat.HTML },
+                                                                new Locale[] {getLanguage() },
+                                                                Optional.empty(),
+                                                                Optional.empty());
         final List<ExtractedLinkData> list = new ArrayList<>(1);
         list.add(linkData);
         return list;
