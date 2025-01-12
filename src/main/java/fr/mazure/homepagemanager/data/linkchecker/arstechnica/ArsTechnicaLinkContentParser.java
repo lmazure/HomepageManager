@@ -29,7 +29,11 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
 
     private static final String s_sourceName = "Ars Technica";
 
-    private final String _data;
+    private final String _title;
+    private final String _subtitle;
+    private final TemporalAccessor _creationDate;
+    private final List<AuthorData> _sureAuthors;
+    private final List<ExtractedLinkData> _links;
 
     private static final Set<String> parternSites
         = new HashSet<>(Arrays.asList("Ars Staff",
@@ -63,14 +67,42 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
      * @param url URL of the link
      * @param data retrieved link data
      * @param retriever cache data retriever
+     * @throws ContentParserException Failure to extract the information
      */
-    public ArsTechnicaLinkContentParser(final String url,
-                                        final String data,
-                                        final CachedSiteDataRetriever retriever) {
+     public ArsTechnicaLinkContentParser(final String url,
+                                         final String data,
+                                         final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(UrlHelper.removeQueryParameters(url,"comments",
                                                   "comments-page"),
               retriever);
-        _data = data;
+
+        _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
+        _subtitle = HtmlHelper.cleanContent(s_subtitleParser.extract(data));
+        _creationDate = DateTimeHelper.convertISO8601StringToDateTime(s_dateParser.extract(data));
+        
+        final List<AuthorData> authorList = new ArrayList<>();
+        final String extracted = s_authorParser.extract(data);
+        final String[] components = extracted.split("(, and | and |, )");
+        for (final String author: components) {
+            final String cleanedAuthor = HtmlHelper.cleanContent(author);
+            if (parternSites.contains(cleanedAuthor)) {
+                continue;
+            }
+            authorList.add(LinkContentParserUtils.parseAuthorName(cleanedAuthor));
+        }
+        _sureAuthors = Collections.unmodifiableList(authorList);
+        final ExtractedLinkData linkData = new ExtractedLinkData(_title,
+                                                                new String[] { _subtitle },
+                                                                getUrl(),
+                                                                Optional.empty(),
+                                                                Optional.empty(),
+                                                                new LinkFormat[] { LinkFormat.HTML },
+                                                                new Locale[] { Locale.ENGLISH },
+                                                                Optional.empty(),
+                                                                Optional.empty());
+        final List<ExtractedLinkData> linkList = new ArrayList<>(1);
+        linkList.add(linkData);
+        _links = Collections.unmodifiableList(linkList);
     }
 
     /**
@@ -84,38 +116,28 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public String getTitle() throws ContentParserException {
-        return HtmlHelper.cleanContent(s_titleParser.extract(_data));
+    public String getTitle() {
+        return _title;
     }
 
     @Override
-    public Optional<String> getSubtitle() throws ContentParserException {
-        return Optional.of(HtmlHelper.cleanContent(s_subtitleParser.extract(_data)));
+    public Optional<String> getSubtitle() {
+        return Optional.of(_subtitle);
     }
 
     @Override
-    public Optional<TemporalAccessor> getCreationDate() throws ContentParserException {
-        return Optional.of(DateTimeHelper.convertISO8601StringToDateTime(s_dateParser.extract(_data)));
+    public Optional<TemporalAccessor> getCreationDate() {
+        return Optional.of(_creationDate);
     }
 
     @Override
-    public Optional<TemporalAccessor> getPublicationDate() throws ContentParserException {
+    public Optional<TemporalAccessor> getPublicationDate() {
         return getCreationDate();
     }
 
     @Override
-    public List<AuthorData> getSureAuthors() throws ContentParserException {
-        final List<AuthorData> list = new ArrayList<>(1);
-        final String extracted = s_authorParser.extract(_data);
-        final String[] components = extracted.split("(, and | and |, )");
-        for (final String author: components) {
-            final String cleanedAuthor = HtmlHelper.cleanContent(author);
-            if (parternSites.contains(cleanedAuthor)) {
-                continue;
-            }
-            list.add(LinkContentParserUtils.parseAuthorName(cleanedAuthor));
-        }
-        return list;
+    public List<AuthorData> getSureAuthors() {
+        return _sureAuthors;
     }
 
     @Override
@@ -129,19 +151,8 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public List<ExtractedLinkData> getLinks() throws ContentParserException {
-        final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
-                                                                 new String[] { getSubtitle().get() },
-                                                                 getUrl(),
-                                                                 Optional.empty(),
-                                                                 Optional.empty(),
-                                                                 new LinkFormat[] { LinkFormat.HTML },
-                                                                 new Locale[] { getLanguage() },
-                                                                 Optional.empty(),
-                                                                 Optional.empty());
-        final List<ExtractedLinkData> list = new ArrayList<>(1);
-        list.add(linkData);
-        return list;
+    public List<ExtractedLinkData> getLinks() {
+        return _links;
     }
 
     @Override
