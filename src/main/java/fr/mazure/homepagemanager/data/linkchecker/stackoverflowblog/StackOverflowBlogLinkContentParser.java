@@ -17,6 +17,7 @@ import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
+import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
@@ -65,19 +66,19 @@ public class StackOverflowBlogLinkContentParser extends LinkDataExtractor {
                                               final String data,
                                               final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(url, retriever);
-        
+
         _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
         _subtitle = HtmlHelper.cleanContent(s_subtitleParser.extract(data));
-        
+
         final String extractedDate = HtmlHelper.cleanContent(s_dateParser.extract(data));
         final LocalDate date = ZonedDateTime.parse(extractedDate, DateTimeFormatter.ISO_DATE_TIME).toLocalDate();
         _creationDate = Optional.of(date);
-        
+
         final String extracted = s_authorParser.extract(data);
         final List<AuthorData> authorList = new ArrayList<>(1);
         authorList.add(LinkContentParserUtils.parseAuthorName(HtmlHelper.cleanContent(extracted)));
         _authors = authorList;
-        
+
         final ExtractedLinkData linkData = new ExtractedLinkData(_title,
                                                                  new String[] { _subtitle },
                                                                  url,
@@ -99,7 +100,7 @@ public class StackOverflowBlogLinkContentParser extends LinkDataExtractor {
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return url.startsWith("https://stackoverflow.blog/");
+        return UrlHelper.hasPrefix(url, "https://stackoverflow.blog/");
     }
 
     @Override

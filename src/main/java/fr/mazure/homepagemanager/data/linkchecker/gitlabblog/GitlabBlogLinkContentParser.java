@@ -15,6 +15,7 @@ import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
+import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
@@ -68,7 +69,7 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
 
         final String str = HtmlHelper.cleanContent(s_dateParser.extract(data));
         _creationDate = Optional.of(LocalDate.parse(str, s_dateFormat));
-        
+
         final Optional<String> opt = s_authorParser1.extractOptional(data);
         if (opt.isPresent()) {
             // old blog entry
@@ -110,8 +111,8 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
      * @param url link
      * @return true if the link is managed
      */
-      public static boolean isUrlManaged(final String url) {
-        return url.startsWith("https://about.gitlab.com/blog/") && !url.equals("https://about.gitlab.com/blog/");
+    public static boolean isUrlManaged(final String url) {
+          return UrlHelper.hasPrefix(url, "https://about.gitlab.com/blog/");
     }
 
     @Override

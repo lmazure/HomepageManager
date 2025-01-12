@@ -78,7 +78,7 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
      * @param url URL of the link
      * @param data retrieved link data
      * @param retriever cache data retriever
-     * @throws ContentParserException Failure to extract the information 
+     * @throws ContentParserException Failure to extract the information
      */
     public LexFridmanLinkContentParser(final String url,
                                        final String data,
@@ -112,7 +112,7 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return url.startsWith("https://lexfridman.com/");
+        return UrlHelper.hasPrefix(url, "https://lexfridman.com/");
     }
 
     @Override

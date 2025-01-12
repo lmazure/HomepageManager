@@ -15,6 +15,7 @@ import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
+import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
@@ -58,7 +59,7 @@ public class SimonWillisonTilLinkContentParser extends LinkDataExtractor {
         _creationDate = Optional.of(LocalDate.parse(s_dateParser.extract(data)));
 
         _sureAuthors = Collections.singletonList(WellKnownAuthors.SIMON_WILLISON);
-        
+
         final ExtractedLinkData linkData = new ExtractedLinkData(_title,
                                                                  new String[] { },
                                                                  getUrl(),
@@ -80,7 +81,7 @@ public class SimonWillisonTilLinkContentParser extends LinkDataExtractor {
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return url.startsWith("https://til.simonwillison.net/");
+        return UrlHelper.hasPrefix(url, "https://til.simonwillison.net/");
     }
 
     @Override

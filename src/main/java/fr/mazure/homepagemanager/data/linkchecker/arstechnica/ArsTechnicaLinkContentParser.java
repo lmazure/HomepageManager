@@ -69,9 +69,9 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
      * @param retriever cache data retriever
      * @throws ContentParserException Failure to extract the information
      */
-     public ArsTechnicaLinkContentParser(final String url,
-                                         final String data,
-                                         final CachedSiteDataRetriever retriever) throws ContentParserException {
+    public ArsTechnicaLinkContentParser(final String url,
+                                        final String data,
+                                        final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(UrlHelper.removeQueryParameters(url,"comments",
                                                   "comments-page"),
               retriever);
@@ -79,7 +79,7 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
         _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
         _subtitle = HtmlHelper.cleanContent(s_subtitleParser.extract(data));
         _creationDate = DateTimeHelper.convertISO8601StringToDateTime(s_dateParser.extract(data));
-        
+
         final List<AuthorData> authorList = new ArrayList<>();
         final String extracted = s_authorParser.extract(data);
         final String[] components = extracted.split("(, and | and |, )");
@@ -112,7 +112,7 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return url.startsWith("https://arstechnica.com/");
+        return UrlHelper.hasPrefix(url, "https://arstechnica.com/");
     }
 
     @Override

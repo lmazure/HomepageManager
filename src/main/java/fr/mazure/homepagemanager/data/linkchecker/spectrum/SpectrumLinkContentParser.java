@@ -77,7 +77,7 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return url.startsWith("https://spectrum.ieee.org/");
+        return UrlHelper.hasPrefix(url, "https://spectrum.ieee.org/");
     }
 
     @Override

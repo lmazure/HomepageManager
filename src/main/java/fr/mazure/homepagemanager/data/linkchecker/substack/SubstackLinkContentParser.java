@@ -23,6 +23,7 @@ import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
 import fr.mazure.homepagemanager.utils.StringHelper;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
+import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
@@ -75,18 +76,18 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
         super(url, retriever);
 
         _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
-            
+
         final Optional<String> subtitleRaw = s_subtitleParser.extractOptional(data);
-        _subtitle = subtitleRaw.isEmpty() ? Optional.empty() 
+        _subtitle = subtitleRaw.isEmpty() ? Optional.empty()
                                           : Optional.of(HtmlHelper.cleanContent(s_subtitleParser.extract(data)));
-        
+
         final String date = HtmlHelper.cleanContent(s_dateParser.extract(data));
         _date = Optional.of(LocalDateTime.parse(date, DateTimeFormatter.ISO_OFFSET_DATE_TIME).toLocalDate());
-        
+
         final String extracted = s_authorParser.extract(data);
         final JSONObject payload = new JSONObject(extracted);
         _sureAuthors = extractAuthors(payload);
-        
+
         _language = StringHelper.guessLanguage(HtmlHelper.cleanContent(data)).get();
     }
 
@@ -97,7 +98,7 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        if (url.startsWith("https://magazine.sebastianraschka.com/")) {
+        if (UrlHelper.hasPrefix(url, "https://magazine.sebastianraschka.com/")) {
             return true;
         }
         return s_mediumUrl.matcher(url).matches();
@@ -159,7 +160,7 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
     public Locale getLanguage() {
         return _language;
     }
-    
+
     private static List<AuthorData> extractAuthors(final JSONObject payload) throws ContentParserException {
         final List<AuthorData> list = new ArrayList<>(1);
         try {

@@ -186,7 +186,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return url.startsWith("https://www.youtube.com/watch?");
+        return UrlHelper.hasPrefix(url, "https://www.youtube.com/watch?");
     }
 
     static final LocalDate parseDateTimeString(final String str) throws ContentParserException {

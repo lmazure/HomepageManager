@@ -16,6 +16,7 @@ import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
+import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
@@ -59,21 +60,21 @@ public class BaeldungLinkContentParser extends LinkDataExtractor {
                                      final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(url, retriever);
         _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
-        
+
         final String date = HtmlHelper.cleanContent(s_dateParser.extract(data));
         try {
             _creationDate = Optional.of(LocalDate.parse(date, s_formatter));
         } catch (final DateTimeParseException e) {
             throw new ContentParserException("Failed to parse date (" + date + ") in Baeldung page", e);
         }
-        
+
         final List<AuthorData> authorList = new ArrayList<>(1);
         final String author = s_authorParser.extract(data);
         if (!author.equals("baeldung")) {
             authorList.add(LinkContentParserUtils.parseAuthorName(author));
         }
         _sureAuthors = authorList;
-        
+
         final ExtractedLinkData linkData = new ExtractedLinkData(_title,
                                                                  new String[] { },
                                                                  url,
@@ -95,7 +96,7 @@ public class BaeldungLinkContentParser extends LinkDataExtractor {
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return url.startsWith("https://www.baeldung.com/") && !url.equals("https://www.baeldung.com/");
+        return UrlHelper.hasPrefix(url, "https://www.baeldung.com/");
     }
 
     @Override

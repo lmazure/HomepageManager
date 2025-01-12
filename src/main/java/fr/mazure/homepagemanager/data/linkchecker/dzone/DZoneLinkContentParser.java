@@ -13,6 +13,7 @@ import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
+import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
@@ -23,7 +24,7 @@ public class DZoneLinkContentParser extends LinkDataExtractor {
 
     private static final String s_sourceName = "DZone";
 
-    private final String _title; 
+    private final String _title;
     private final Optional<String> _subtitle;
     private final Optional<TemporalAccessor> _date;
     private final List<AuthorData> _authors;
@@ -75,7 +76,7 @@ public class DZoneLinkContentParser extends LinkDataExtractor {
        }
 
        _date = Optional.of(LocalDate.parse(s_dateParser.extract(data)));
-       
+
        final List<String> authors = s_authorParser.extractMulti(data);
        _authors = new ArrayList<>(authors.size());
        for (final String author : authors) {
@@ -90,7 +91,7 @@ public class DZoneLinkContentParser extends LinkDataExtractor {
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return url.startsWith("https://dzone.com/articles/");
+        return UrlHelper.hasPrefix(url, "https://dzone.com/articles/");
     }
 
     @Override
