@@ -97,7 +97,7 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
                                                                 Optional.empty(),
                                                                 Optional.empty(),
                                                                 new LinkFormat[] { LinkFormat.HTML },
-                                                                new Locale[] { Locale.ENGLISH },
+                                                                new Locale[] { getLanguage() },
                                                                 Optional.empty(),
                                                                 Optional.empty());
         final List<ExtractedLinkData> linkList = new ArrayList<>(1);
