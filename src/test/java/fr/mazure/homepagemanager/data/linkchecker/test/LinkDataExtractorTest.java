@@ -3256,11 +3256,11 @@ class LinkDataExtractorTest {
         return LinkDataExtractorFactory.build(url, retriever);
     }
 
-    private static String generateSureXml(final LinkDataExtractor extractor) throws ContentParserException {
+    private static String generateSureXml(final LinkDataExtractor extractor) {
         return XmlGenerator.generateXml(extractor.getLinks(), extractor.getCreationDate(), extractor.getSureAuthors(), 0, "XXXXX");
     }
 
-    private static String generateProbableXml(final LinkDataExtractor extractor) throws ContentParserException {
+    private static String generateProbableXml(final LinkDataExtractor extractor) {
         final List<AuthorData> allAuthors = new ArrayList<>(extractor.getSureAuthors());
         allAuthors.addAll(extractor.getProbableAuthors());
         return XmlGenerator.generateXml(extractor.getLinks(), extractor.getCreationDate(), allAuthors, 0, "XXXXX");

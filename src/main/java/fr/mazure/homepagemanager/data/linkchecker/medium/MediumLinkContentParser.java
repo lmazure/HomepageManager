@@ -107,17 +107,17 @@ public class MediumLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public String getTitle() throws ContentParserException {
+    public String getTitle() {
         return _title;
     }
 
     @Override
-    public Optional<String> getSubtitle() throws ContentParserException {
+    public Optional<String> getSubtitle() {
         return _subtitle;
     }
 
     @Override
-    public Optional<TemporalAccessor> getPublicationDate() throws ContentParserException {
+    public Optional<TemporalAccessor> getPublicationDate() {
         return getCreationDate();
     }
 
@@ -224,17 +224,17 @@ public class MediumLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public Optional<TemporalAccessor> getCreationDate() throws ContentParserException {
+    public Optional<TemporalAccessor> getCreationDate() {
         return Optional.of(_publicationDate);
     }
 
     @Override
-    public List<AuthorData> getSureAuthors() throws ContentParserException {
+    public List<AuthorData> getSureAuthors() {
         return _authors;
     }
 
     @Override
-    public List<ExtractedLinkData> getLinks() throws ContentParserException {
+    public List<ExtractedLinkData> getLinks() {
         final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
                                                                  getSubtitle().isPresent() ? new String[] { getSubtitle().get() }
                                                                                            : new String[] { },
@@ -251,7 +251,7 @@ public class MediumLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public Locale getLanguage() throws ContentParserException {
+    public Locale getLanguage() {
         return _locale;
     }
 }

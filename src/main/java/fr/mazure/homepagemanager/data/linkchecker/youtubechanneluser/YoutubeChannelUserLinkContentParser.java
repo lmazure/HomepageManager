@@ -70,10 +70,9 @@ public class YoutubeChannelUserLinkContentParser extends LinkDataExtractor {
 
     /**
      * @return language
-     * @throws ContentParserException Failure to extract the information
      */
     @Override
-    public Locale getLanguage() throws ContentParserException {
+    public Locale getLanguage() {
         return _language;
     }
 
@@ -92,32 +91,32 @@ public class YoutubeChannelUserLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public String getTitle() throws ContentParserException {
+    public String getTitle() {
         throw new UnsupportedOperationException("YoutubeChannelUserLinkContentParser does not support title");
     }
 
     @Override
-    public Optional<String> getSubtitle() throws ContentParserException {
+    public Optional<String> getSubtitle() {
         throw new UnsupportedOperationException("YoutubeChannelUserLinkContentParser does not support subtitle");
     }
 
     @Override
-    public Optional<TemporalAccessor> getCreationDate() throws ContentParserException {
+    public Optional<TemporalAccessor> getCreationDate() {
         throw new UnsupportedOperationException("YoutubeChannelUserLinkContentParser does not support date");
     }
 
     @Override
-    public Optional<TemporalAccessor> getPublicationDate() throws ContentParserException {
+    public Optional<TemporalAccessor> getPublicationDate() {
         return getCreationDate();
     }
 
     @Override
-    public List<AuthorData> getSureAuthors() throws ContentParserException {
+    public List<AuthorData> getSureAuthors() {
         throw new UnsupportedOperationException("YoutubeChannelUserLinkContentParser does not support authors");
     }
 
     @Override
-    public List<ExtractedLinkData> getLinks() throws ContentParserException {
+    public List<ExtractedLinkData> getLinks() {
         throw new UnsupportedOperationException("YoutubeChannelUserLinkContentParser does not support links");
     }
 }

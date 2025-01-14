@@ -37,7 +37,6 @@ public class WiredLinkContentParser extends LinkDataExtractor {
                          s_sourceName,
                          "JSON");
 
-    private final ContentParserException _exception;
     private final String _title;
     private final String _subtitle;
     private final LocalDate _publicationDate;
@@ -47,12 +46,12 @@ public class WiredLinkContentParser extends LinkDataExtractor {
      * @param url URL of the link
      * @param data retrieved link data
      * @param retriever cache data retriever
+     * @throws ContentParserException Failure to extract the information
      */
     public WiredLinkContentParser(final String url,
                                   final String data,
-                                  final CachedSiteDataRetriever retriever) {
+                                  final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(url, retriever);
-        ContentParserException exception = null;
         String title = null;
         String subtitle = null;
         LocalDate publicationDate = null;
@@ -75,15 +74,12 @@ public class WiredLinkContentParser extends LinkDataExtractor {
                 }
             }
         } catch (final IllegalStateException e) {
-            exception = new ContentParserException("Unexpected JSON", e);
-        } catch (final ContentParserException e) {
-            exception = e;
+            throw new ContentParserException("Unexpected JSON", e);
         }
         _title = title;
         _subtitle = subtitle;
         _publicationDate = publicationDate;
         _authors = authors;
-        _exception = exception;
     }
 
     /**
@@ -97,18 +93,12 @@ public class WiredLinkContentParser extends LinkDataExtractor {
     }
 
       @Override
-    public String getTitle() throws ContentParserException {
-        if (_exception != null) {
-            throw _exception;
-        }
+    public String getTitle() {
         return _title;
     }
 
     @Override
-    public Optional<String> getSubtitle() throws ContentParserException {
-        if (_exception != null) {
-            throw _exception;
-        }
+    public Optional<String> getSubtitle() {
         if (_subtitle.isEmpty() || _subtitle.endsWith(" […]")) {
             return Optional.empty();
         }
@@ -116,28 +106,22 @@ public class WiredLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public Optional<TemporalAccessor> getCreationDate() throws ContentParserException {
-        if (_exception != null) {
-            throw _exception;
-        }
+    public Optional<TemporalAccessor> getCreationDate() {
         return Optional.of(_publicationDate);
     }
 
     @Override
-    public Optional<TemporalAccessor> getPublicationDate() throws ContentParserException {
+    public Optional<TemporalAccessor> getPublicationDate() {
         return getCreationDate();
     }
 
     @Override
-    public List<AuthorData> getSureAuthors() throws ContentParserException {
-        if (_exception != null) {
-            throw _exception;
-        }
+    public List<AuthorData> getSureAuthors() {
         return _authors;
     }
 
     @Override
-    public List<ExtractedLinkData> getLinks() throws ContentParserException {
+    public List<ExtractedLinkData> getLinks() {
         final String[] subtitles = getSubtitle().isPresent() ? new String[]{ getSubtitle().get() }
                                                              : new String[0];
         final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),

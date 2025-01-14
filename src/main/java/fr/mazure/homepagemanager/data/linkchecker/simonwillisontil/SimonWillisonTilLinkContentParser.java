@@ -85,37 +85,37 @@ public class SimonWillisonTilLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public String getTitle() throws ContentParserException {
+    public String getTitle() {
         return _title;
     }
 
     @Override
-    public Optional<String> getSubtitle() throws ContentParserException {
+    public Optional<String> getSubtitle() {
         return Optional.empty();
     }
 
     @Override
-    public Optional<TemporalAccessor> getCreationDate() throws ContentParserException {
+    public Optional<TemporalAccessor> getCreationDate() {
         return _creationDate;
     }
 
     @Override
-    public Optional<TemporalAccessor> getPublicationDate() throws ContentParserException {
+    public Optional<TemporalAccessor> getPublicationDate() {
         return _creationDate;
     }
 
     @Override
-    public List<AuthorData> getSureAuthors() throws ContentParserException {
+    public List<AuthorData> getSureAuthors() {
         return _sureAuthors;
     }
 
     @Override
-    public List<ExtractedLinkData> getLinks() throws ContentParserException {
+    public List<ExtractedLinkData> getLinks() {
         return _links;
     }
 
     @Override
-    public Locale getLanguage() throws ContentParserException {
+    public Locale getLanguage() {
         return Locale.ENGLISH;
     }
 }

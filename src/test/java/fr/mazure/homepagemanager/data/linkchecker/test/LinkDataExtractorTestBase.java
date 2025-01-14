@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Assertions;
 import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
-import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.utils.DateTimeHelper;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
@@ -33,11 +32,7 @@ public class LinkDataExtractorTestBase {
                 url,
                 (final LinkDataExtractor p) ->
                     {
-                        try {
-                            Assertions.assertEquals(expectedTitle, p.getTitle());
-                        } catch (final ContentParserException e) {
-                            Assertions.fail("getTitle threw " + e.getMessage());
-                        }
+                        Assertions.assertEquals(expectedTitle, p.getTitle());
                     });
     }
 
@@ -48,11 +43,7 @@ public class LinkDataExtractorTestBase {
                 url,
                 (final LinkDataExtractor p) ->
                     {
-                        try {
-                            Assertions.assertEquals(expectedSubtitle, p.getSubtitle().get());
-                        } catch (final ContentParserException e) {
-                            Assertions.fail("getSubtitle threw " + e.getMessage());
-                        }
+                        Assertions.assertEquals(expectedSubtitle, p.getSubtitle().get());
                     });
     }
 
@@ -62,11 +53,7 @@ public class LinkDataExtractorTestBase {
                 url,
                 (final LinkDataExtractor p) ->
                     {
-                        try {
-                            Assertions.assertFalse(p.getSubtitle().isPresent());
-                        } catch (final ContentParserException e) {
-                            Assertions.fail("getSubtitle threw " + e.getMessage());
-                        }
+                        Assertions.assertFalse(p.getSubtitle().isPresent());
                     });
     }
 
@@ -77,11 +64,7 @@ public class LinkDataExtractorTestBase {
                 url,
                 (final LinkDataExtractor p) ->
                     {
-                        try {
-                            Assertions.assertEquals(Locale.of(expectedLanguage), p.getLanguage());
-                        } catch (final ContentParserException e) {
-                            Assertions.fail("getLanguage threw " + e.getMessage());
-                        }
+                         Assertions.assertEquals(Locale.of(expectedLanguage), p.getLanguage());
                     });
     }
 
@@ -92,12 +75,8 @@ public class LinkDataExtractorTestBase {
                 url,
                 (final LinkDataExtractor p) ->
                     {
-                        try {
-                            Assertions.assertTrue(p.getCreationDate().isPresent());
-                            Assertions.assertEquals(expectedDate, p.getCreationDate().get().toString());
-                        } catch (final ContentParserException e) {
-                            Assertions.fail("getCreationDate threw " + e.getMessage());
-                        }
+                        Assertions.assertTrue(p.getCreationDate().isPresent());
+                        Assertions.assertEquals(expectedDate, p.getCreationDate().get().toString());
                     });
     }
 
@@ -108,12 +87,8 @@ public class LinkDataExtractorTestBase {
                 url,
                 (final LinkDataExtractor p) ->
                     {
-                        try {
-                            Assertions.assertTrue(p.getPublicationDate().isPresent());
-                            Assertions.assertEquals(expectedDate, p.getPublicationDate().get().toString());
-                        } catch (final ContentParserException e) {
-                            Assertions.fail("getPublicationDate threw " + e.getMessage());
-                        }
+                        Assertions.assertTrue(p.getPublicationDate().isPresent());
+                        Assertions.assertEquals(expectedDate, p.getPublicationDate().get().toString());
                     });
     }
 
@@ -124,12 +99,8 @@ public class LinkDataExtractorTestBase {
                 url,
                 (final LinkDataExtractor p) ->
                     {
-                        try {
-                            Assertions.assertTrue(p.getCreationDate().isPresent());
-                            Assertions.assertEquals(DateTimeHelper.roundDuration(Duration.parse(expectedDuration)), DateTimeHelper.roundDuration(p.getDuration().get()));
-                        } catch (final ContentParserException e) {
-                            Assertions.fail("getDuration threw " + e.getMessage());
-                        }
+                        Assertions.assertTrue(p.getCreationDate().isPresent());
+                        Assertions.assertEquals(DateTimeHelper.roundDuration(Duration.parse(expectedDuration)), DateTimeHelper.roundDuration(p.getDuration().get()));
                     });
     }
 
@@ -437,11 +408,7 @@ public class LinkDataExtractorTestBase {
                 url,
                 (final LinkDataExtractor p) ->
                     {
-                        try {
-                            Assertions.assertEquals(expectedAuthors, p.getSureAuthors());
-                        } catch (final ContentParserException e) {
-                            Assertions.fail("getSureAuthors threw " + e.getMessage());
-                        }
+                        Assertions.assertEquals(expectedAuthors, p.getSureAuthors());
                     });
     }
 

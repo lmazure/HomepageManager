@@ -309,7 +309,7 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public Optional<TemporalAccessor> getCreationDate() throws ContentParserException {
+    public Optional<TemporalAccessor> getCreationDate() {
         if (_exception != null) {
             return Optional.of(LocalDate.of(1970, 1, 1));
         }
@@ -317,12 +317,12 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public Optional<TemporalAccessor> getPublicationDate() throws ContentParserException {
+    public Optional<TemporalAccessor> getPublicationDate() {
         return getCreationDate();
     }
 
     @Override
-    public List<AuthorData> getSureAuthors() throws ContentParserException {
+    public List<AuthorData> getSureAuthors() {
         if ((_exception != null) || (_authorException != null)) {
             return new ArrayList<>();
         }
@@ -330,7 +330,7 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public List<ExtractedLinkData> getLinks() throws ContentParserException {
+    public List<ExtractedLinkData> getLinks() {
         final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
                                                                  getSubtitle().isPresent() ? new String[] { getSubtitle().get() }
                                                                                            : new String[] { },

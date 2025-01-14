@@ -48,12 +48,6 @@ methods       53.9%    97.9%
 
 
 
-In @file:SimonWillisonLinkContentParser 
-- remove the attribute _data
-- for each getter, add an attribute corresponding to the returned data and initialize this attrIbute in the constructor
-
-
-
 
 gérer
 https://oxide-and-friends.transistor.fm/episodes/pragmatic-llm-usage-with-nicholas-carlini
