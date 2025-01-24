@@ -219,6 +219,7 @@ class MediumLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://netflixtechblog.com/a-microscope-on-microservices-923b906103f4|A Microscope on Microservices",
         "https://blog.sparksuite.com/7-ways-to-speed-up-gitlab-ci-cd-times-29f60aab69f9|7 ways to speed up your GitLab CI/CD times",
         "https://levelup.gitconnected.com/git-worktrees-the-best-git-feature-youve-never-heard-of-9cd21df67baf|Git Worktrees: The Best Git Feature You’ve Never Heard Of",
+        "https://towardsdatascience.com/neural-network-embeddings-explained-4d028e6f0526|Neural Network Embeddings Explained",
         }, delimiter = '|')
     void testRedirectMechanism(final String url,
                                final String expectedTitle) {

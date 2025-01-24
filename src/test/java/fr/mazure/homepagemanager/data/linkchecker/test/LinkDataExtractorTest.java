@@ -231,6 +231,23 @@ class LinkDataExtractorTest {
     }
 
     @Test
+    void mediumTowardsDataScienceIsManaged() throws ContentParserException {
+        final String url = "https://towardsdatascience.com/neural-network-embeddings-explained-4d028e6f0526";
+        final String expectedXml = """
+                <ARTICLE><X><T>Neural Network Embeddings Explained</T>\
+                <ST>How deep learning can represent War and Peace as a vector</ST>\
+                <A>https://towardsdatascience.com/neural-network-embeddings-explained-4d028e6f0526</A>\
+                <L>en</L><F>HTML</F></X>\
+                <AUTHOR><FIRSTNAME>Will</FIRSTNAME><LASTNAME>Koehrsen</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2018</YEAR><MONTH>10</MONTH><DAY>2</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void mediumWithSubtitleIsManaged() throws ContentParserException {
         final String url = "https://medium.com/rahasak/build-rag-application-using-a-llm-running-on-local-computer-with-gpt4all-and-langchain-13b4b8851db8";
         final String expectedXml = """
@@ -1322,6 +1339,28 @@ class LinkDataExtractorTest {
                 <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>44</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Martin</FIRSTNAME><LASTNAME>Keen</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>9</MONTH><DAY>23</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
+        Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
+    }
+
+    @Test
+    void youtubeIBMTechnologyJeffCrumeMartinKeenIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=CB7NNsI27ks";
+        final String expectedSureXml = """
+                <ARTICLE><X><T>Can AI Think? Debunking AI Limitations</T>\
+                <A>https://www.youtube.com/watch?v=CB7NNsI27ks</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>9</MINUTE><SECOND>0</SECOND></DURATION></X>\
+                <DATE><YEAR>2025</YEAR><MONTH>1</MONTH><DAY>20</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final String expectedProbableXml = """
+                <ARTICLE><X><T>Can AI Think? Debunking AI Limitations</T>\
+                <A>https://www.youtube.com/watch?v=CB7NNsI27ks</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>9</MINUTE><SECOND>0</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Jeff</FIRSTNAME><LASTNAME>Crume</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Martin</FIRSTNAME><LASTNAME>Keen</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2025</YEAR><MONTH>1</MONTH><DAY>20</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));

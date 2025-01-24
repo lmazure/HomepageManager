@@ -103,7 +103,8 @@ public class MediumLinkContentParser extends LinkDataExtractor {
         }
         return host.endsWith("medium.com") ||
                host.equals("pub.towardsai.net") ||
-               host.equals("levelup.gitconnected.com");
+               host.equals("levelup.gitconnected.com") ||
+               host.equals("towardsdatascience.com");
     }
 
     @Override

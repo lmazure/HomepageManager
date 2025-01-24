@@ -46,6 +46,24 @@ methods       53.9%    97.9%
 
 
 
+gérer
+ tag = "COMMENT"
+ value = "A paper "Don't Make Your LLM an Evaluation Benchmark Cheaterhttps://arxiv.org/abs/2311.01964enPDF" states the obvious: leaking benchmark data in the training data will result in better benchmark scores."
+ violation = "apostrophe should be used"
+ detail = "' should be’"
+
+
+
+
+
+gérer
+https://oxide-and-friends.transistor.fm/episodes/technical-blogging
+The list of effective authors is not ordered as the effective one.
+expected authors: ▭ first=Tim ▭ last=Bray ▭ ▭,▭ first=Will ▭ last=Snow ▭ ▭,▭ first=Cynthia ▭ last=Dunlop ▭ ▭,▭ first=Piotr ▭ last=Sarna ▭ ▭,▭ first=Bryan ▭ last=Cantrill ▭ ▭,▭ first=Adam ▭ last=Leventhal ▭ ▭
+effective authors: ▭ first=Bryan ▭ last=Cantrill ▭ ▭,▭ first=Adam ▭ last=Leventhal ▭ ▭,▭ first=Cynthia ▭ last=Dunlop ▭ ▭,▭ first=Tim ▭ last=Bray ▭ ▭,▭ first=Piotr ▭ last=Sarna ▭ ▭,▭ first=Will ▭ last=Snow ▭ ▭
+The expected date 2024-11-20 is not equal to the effective date 2024-11-21
+
+
 
 
 
