@@ -59,7 +59,7 @@ public class EllipsisChecker extends NodeChecker {
 
         final List<String> content = XmlHelper.getFirstLevelTextContent(e);
         for (final String s: content) {
-            if (s.contains("..")) {
+            if (s.contains("..") && !s.contains("...")) {
                 return new CheckStatus("DoubleDot", "\"" + s + "\" contains \"..\"", Optional.empty());
             }
         }
@@ -68,9 +68,11 @@ public class EllipsisChecker extends NodeChecker {
 
     private static CheckStatus checkApostrophe(final Element e) {
 
-        final String s = e.getTextContent();
-        if (s.contains("'")) {
-            return new CheckStatus("ImproperApostrophe", "' should be’", Optional.empty());
+        final List<String> strings = XmlHelper.getFirstLevelTextContent(e);
+        for (final String s: strings) {
+            if (s.contains("'")) {
+                return new CheckStatus("ImproperApostrophe", "' should be’", Optional.empty());
+            }
         }
 
         return null;
