@@ -50,6 +50,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "Intl.RelativeTimeFormat",
             "Intro.js",
             "Java.Next",
+            "Kling.ai",
             "Kosmopoli:t",
             "llama.cpp",
             "learntail.com",

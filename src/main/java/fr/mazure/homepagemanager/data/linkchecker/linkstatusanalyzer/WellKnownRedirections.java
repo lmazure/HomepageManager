@@ -708,7 +708,7 @@ public class WellKnownRedirections {
                                            redirectionCodes,
                                            RedirectionMatcher.Multiplicity.ONE_OR_MANY);
             redirectionEndingInSuccess.add("https?://"  + RedirectionMatcher.ANY_STRING,
-                                           Set.of(Integer.valueOf(200)),
+                                           successCodes,
                                            RedirectionMatcher.Multiplicity.ONE);
             redirectionEndingInSuccess.compile();
             _matchers.add(redirectionEndingInSuccess);
