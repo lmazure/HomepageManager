@@ -2265,7 +2265,7 @@ class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeOfficielDefakatorIsManaged() throws ContentParserException {
+    void youtubeWatchOfficielDefakatorIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=j3fvoM5Er2k";
         final String expectedXml = """
                 <ARTICLE><X><T>🤖 Comprendre ChatGPT (avec DefendIntelligence)</T>\
@@ -2281,7 +2281,7 @@ class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeOsonsCauserIsManaged() throws ContentParserException {
+    void youtubeWatchOsonsCauserIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=b4HfK_coDcc";
         final String expectedXml = """
                 <ARTICLE><X><T>Nucléaire : un atout pour l'indépendance de la France ?</T>\
@@ -2974,6 +2974,27 @@ class LinkDataExtractorTest {
                 <L>fr</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>34</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Alexander</FIRSTNAME><LASTNAME>Thomas</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>11</MONTH><DAY>18</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
+        Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
+    }
+
+    @Test
+    void youtubeWatchTogetherAiIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=Uzi-cGmRalI";
+        final String expectedSureXml = """
+                <ARTICLE><X><T>DeepSeek-R1: How It Works, Simplified!</T>\
+                <A>https://www.youtube.com/watch?v=Uzi-cGmRalI</A>\
+                <L>en</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>0</MINUTE><SECOND>54</SECOND></DURATION></X>\
+                <DATE><YEAR>2025</YEAR><MONTH>2</MONTH><DAY>6</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final String expectedProbableXml = """
+                <ARTICLE><X><T>DeepSeek-R1: How It Works, Simplified!</T>\
+                <A>https://www.youtube.com/watch?v=Uzi-cGmRalI</A>\
+                <L>en</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>0</MINUTE><SECOND>54</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Zain</FIRSTNAME><LASTNAME>Hasan</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2025</YEAR><MONTH>2</MONTH><DAY>6</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));

@@ -46,6 +46,7 @@ methods       53.9%    97.9%
 
 
 
+gérer Redirection chain = https://www.rando-hauteloire.fr/ → https://www.rando-hauteloire.fr/?lang=en
 
 
 
