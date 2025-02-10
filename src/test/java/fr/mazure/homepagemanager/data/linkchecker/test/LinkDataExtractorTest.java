@@ -698,7 +698,7 @@ class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatcCarberraIsManaged() throws ContentParserException {
+    void youtubeWatchCarberraIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=jA5L0GDrVqs";
         final String expectedXml = """
                 <ARTICLE><X><T>ALL Python 3.12's major typing improvements</T>\
@@ -711,6 +711,27 @@ class LinkDataExtractorTest {
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
         Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
+    void youtubeWatchCentreHenriLebesgueIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=tQp7ZOJF-ZE";
+        final String expectedSureXml = """
+                <ARTICLE><X><T>Anne Siegel - Symbiose, biologie des systèmes, et discrétisation de systèmes dynamiques</T>\
+                <A>https://www.youtube.com/watch?v=tQp7ZOJF-ZE</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>39</SECOND></DURATION></X>\
+                <DATE><YEAR>2025</YEAR><MONTH>2</MONTH><DAY>3</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final String expectedProbableXml = """
+                <ARTICLE><X><T>Anne Siegel - Symbiose, biologie des systèmes, et discrétisation de systèmes dynamiques</T>\
+                <A>https://www.youtube.com/watch?v=tQp7ZOJF-ZE</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>39</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Anne</FIRSTNAME><LASTNAME>Siegel</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2025</YEAR><MONTH>2</MONTH><DAY>3</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
+        Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
     }
 
     @Test
@@ -1556,6 +1577,22 @@ class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchLeFuturologuePodcastIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=Ey1HOhCvZm0";
+        final String expectedXml = """
+                <ARTICLE><X><T>Questionnement Philosophique - Monsieur Phi</T>\
+                <A>https://www.youtube.com/watch?v=Ey1HOhCvZm0</A>\
+                <L>fr</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>2</MINUTE><SECOND>26</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Shaïman</FIRSTNAME><LASTNAME>Türler</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2025</YEAR><MONTH>2</MONTH><DAY>2</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeWatchLeRéveilleurIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=OAyYSlMhgI4";
         final String expectedXml = """
@@ -2216,6 +2253,27 @@ class LinkDataExtractorTest {
                 <L>en</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>34</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Thomas</FIRSTNAME><LASTNAME>Woolley</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>3</MONTH><DAY>30</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
+        Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
+    }
+
+    @Test
+    void youtubeWatchNumberphileRobEastawayIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=ERAgUg-e_Qs";
+        final String expectedSureXml = """
+                <ARTICLE><X><T>Shakespeare, Numbers, and Chronograms - Numberphile</T>\
+                <A>https://www.youtube.com/watch?v=ERAgUg-e_Qs</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>21</SECOND></DURATION></X>\
+                <DATE><YEAR>2025</YEAR><MONTH>2</MONTH><DAY>5</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final String expectedProbableXml = """
+                <ARTICLE><X><T>Shakespeare, Numbers, and Chronograms - Numberphile</T>\
+                <A>https://www.youtube.com/watch?v=ERAgUg-e_Qs</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>21</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Rob</FIRSTNAME><LASTNAME>Eastaway</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2025</YEAR><MONTH>2</MONTH><DAY>5</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));

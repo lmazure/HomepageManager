@@ -21,6 +21,7 @@ import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthors;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
+import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
 import fr.mazure.homepagemanager.utils.DateTimeHelper;
@@ -41,6 +42,9 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                          "YouTube",
                          "JSON");
 
+    private final List<AuthorData> _sureAuthors;
+    private final List<AuthorData> _probableAuthors;
+    private final List<AuthorData> _possibleAuthors;
     private final boolean _isPrivate;
     private final boolean _isPlayable;
     private final String _channel;
@@ -169,6 +173,9 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                            : Optional.empty();
             _language = lang3.isPresent() ? lang3.get() : Locale.ENGLISH;
         }
+        _sureAuthors = extractSureAuthors();
+        _possibleAuthors = extractPossibleAuthors();
+        _probableAuthors = extractProbableAuthors();
         _minDuration = Duration.ofMillis(minDuration);
         _maxDuration = Duration.ofMillis(maxDuration);
         _uploadDate = uploadDate;
@@ -517,6 +524,10 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                           new ChannelData(buildList(WellKnownAuthors.buildAuthor("Émilie", "Aubry")),
                                                           buildMatchingList(),
                                                           Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("Le Futurologue Podcast",
+                                          new ChannelData(buildList(WellKnownAuthors.buildAuthor("Shaïman", "Türler")),
+                                                          buildMatchingList(),
+                                                          Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("Le Réveilleur",
                                           new ChannelData(buildList(WellKnownAuthors.buildAuthor("Rodolphe", "Meyer")),
                                                           buildMatchingList(),
@@ -581,7 +592,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
             new AbstractMap.SimpleEntry<>("Numberphile",
                                           new ChannelData(buildList(),
                                                           buildMatchingList(match("Crawford", WellKnownAuthors.buildAuthor("Tom", "Crawford")),
-                                                                            match("Sautoy", WellKnownAuthors.buildAuthor("Marcus", "du Sautoy")),
+                                                                            match("Eastaway", WellKnownAuthors.buildAuthor("Rob", "Eastaway")),
                                                                             match("Eisenbud", WellKnownAuthors.buildAuthor("David", "Eisenbud")),
                                                                             match("Feng", WellKnownAuthors.buildAuthor("Tony", "Feng")),
                                                                             match("Frenkel", WellKnownAuthors.buildAuthor("Edward", "Frenkel")),
@@ -595,6 +606,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                                             match("Grant", WellKnownAuthors.GRANT_SANDERSON),
                                                                             match("Segerman", WellKnownAuthors.buildAuthor("Henry", "Segerman")),
                                                                             match("Padilla", WellKnownAuthors.TONY_PADILLA),
+                                                                            match("Sautoy", WellKnownAuthors.buildAuthor("Marcus", "du Sautoy")),
                                                                             match("Stoll", WellKnownAuthors.buildAuthor("Cliff", "Stoll")),
                                                                             match("Sloane", WellKnownAuthors.buildAuthor("Neil", "Sloane")),
                                                                             match("Sparks", WellKnownAuthors.BEN_SPARKS),
@@ -809,8 +821,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         return getCreationDate();
     }
 
-    @Override
-    public List<AuthorData> getSureAuthors() {
+    private List<AuthorData> extractSureAuthors() {
         final String channel = getChannel();
         if (_channelData.containsKey(channel)) {
             return _channelData.get(channel).getAuthors();
@@ -819,9 +830,17 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public List<AuthorData> getProbableAuthors() {
+    public List<AuthorData> getSureAuthors() {
+        return _sureAuthors;
+    }
+
+    private List<AuthorData> extractProbableAuthors() throws ContentParserException {
         final List<AuthorData> authors = new ArrayList<>();
         final String channel = getChannel();
+        if (channel.equals("Centre Henri Lebesgue")) {
+            final String name = getTitle().replaceFirst(" - .*$", "");
+            return Collections.singletonList(LinkContentParserUtils.parseAuthorName(name));
+        }
         if (channel.equals("Java")) {
             final String title = getTitle();
             if (title.contains("Inside Java Newscast")) {
@@ -839,14 +858,18 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                  }
             }
         }
-        if (authors.isEmpty() && getSureAuthors().isEmpty() && getPossibleAuthors().isEmpty()) {
+        if (authors.isEmpty() && _sureAuthors.isEmpty() && _possibleAuthors.isEmpty()) {   //TODO WTF?
             authors.add(WellKnownAuthors.buildAuthorFromGivenName(channel));
         }
         return authors;
     }
 
     @Override
-    public List<AuthorData> getPossibleAuthors() {
+    public List<AuthorData> getProbableAuthors() {
+        return _probableAuthors;
+    }
+
+    private List<AuthorData> extractPossibleAuthors() {
         final List<AuthorData> authors = new ArrayList<>();
         final String channel = getChannel();
         if (channel.equals("Java")) {
@@ -865,6 +888,11 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
             }
         }
         return authors;
+    }
+
+    @Override
+    public List<AuthorData> getPossibleAuthors() {
+        return _possibleAuthors;
     }
 
     @Override
