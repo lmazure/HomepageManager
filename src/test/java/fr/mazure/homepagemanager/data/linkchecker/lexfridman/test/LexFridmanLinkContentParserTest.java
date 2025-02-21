@@ -83,4 +83,23 @@ class LexFridmanLinkContentParserTest extends LinkDataExtractorTestBase {
                       null,
                       null);
     }
-}
+
+    @SuppressWarnings("static-method")
+    @ParameterizedTest
+    @CsvSource(value = {
+        "https://lexfridman.com/deepseek-dylan-patel-nathan-lambert/|Lex||Fridman",
+    }, delimiter = '|')
+    void doNotCrashIfNoNameInTitle(final String url,
+                                   final String expectedFirstName1,
+                                   final String expectedMiddleName1,
+                                   final String expectedLastName1) {
+        check1Author(LexFridmanLinkContentParser.class,
+                     url,
+                     // author 1
+                     null,
+                     expectedFirstName1,
+                     expectedMiddleName1,
+                     expectedLastName1,
+                     null,
+                     null);
+    }}

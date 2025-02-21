@@ -46,6 +46,78 @@ methods       53.9%    97.9%
 
 
 
+
+parser for Hugging Face
+
+
+
+
+
+
+
+
+gérer https://yuiblog.com/blog/ pour les mettre à "removed"
+Title = "Pure"
+URL = https://yuiblog.com/blog/2013/05/30/pure/
+Expected status = ZOMBIE
+Effective HTTP code = 301 Moved Permanently
+Effective HTTP code of last redirection = 200 OK
+Redirection chain = https://yuiblog.com/blog/2013/05/30/pure/ → https://clarle.github.io/yui3/
+Redirection matcher = redirection ending in success (last URL should be used)
+Redirection matcher expected statuses = 
+Look for article = https://www.google.com/search?q=%22Pure%22
+
+
+
+
+
+
+
+gérer
+https://oxide-and-friends.transistor.fm/episodes/pragmatic-llm-usage-with-nicholas-carlini
+The list of effective authors is not the effective one.
+The following authors are effectively present but are unexpected: ▭ first=Speaker ▭ last=5 ▭ ▭
+The following authors are expected but are effectively missing: ▭ ▭ ▭ ▭ ▭ given=chrisbur
+
+
+
+
+
+gérer
+fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://github.blog/open-source/git/highlights-from-git-2-38/"
+	at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:89)
+	at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:325)
+	at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:142)
+	at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:73)
+	at fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
+	at fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:32)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1575)
+Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find subtitle in GitHub blog
+	at fr.mazure.homepagemanager.data.linkchecker.TextParser.extract(TextParser.java:61)
+	at fr.mazure.homepagemanager.data.linkchecker.githubblog.GithubBlogLinkContentParser.loadData(GithubBlogLinkContentParser.java:131)
+	at fr.mazure.homepagemanager.data.linkchecker.githubblog.GithubBlogLinkContentParser.<init>(GithubBlogLinkContentParser.java:75)
+	at fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:60)
+	at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:98)
+	at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:87)
+	... 8 more
+
+
+
+
+
+
+
+
+
+the duration is incorrect for https://lexfridman.com/deepseek-dylan-patel-nathan-lambert
+
+
+
+
+
+
 gérer Redirection chain = https://www.rando-hauteloire.fr/ → https://www.rando-hauteloire.fr/?lang=en
 
 
