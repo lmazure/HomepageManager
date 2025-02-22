@@ -53,36 +53,6 @@ methods       53.9%    97.9%
 
 
 
-
-gérer
-https://chshersh.com/blog/2024-07-30-pragmatic-category-theory-part-01.html
-author "Kovanikov" does not appear in the page
-
-
-
-
-
-
-
-
-
-gérer https://yuiblog.com/blog/ pour les mettre à "removed"
-Title = "Pure"
-URL = https://yuiblog.com/blog/2013/05/30/pure/
-Expected status = ZOMBIE
-Effective HTTP code = 301 Moved Permanently
-Effective HTTP code of last redirection = 200 OK
-Redirection chain = https://yuiblog.com/blog/2013/05/30/pure/ → https://clarle.github.io/yui3/
-Redirection matcher = redirection ending in success (last URL should be used)
-Redirection matcher expected statuses = 
-Look for article = https://www.google.com/search?q=%22Pure%22
-
-
-
-
-
-
-
 gérer
 https://oxide-and-friends.transistor.fm/episodes/pragmatic-llm-usage-with-nicholas-carlini
 The list of effective authors is not the effective one.

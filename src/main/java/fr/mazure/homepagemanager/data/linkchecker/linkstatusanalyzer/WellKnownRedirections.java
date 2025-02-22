@@ -656,6 +656,19 @@ public class WellKnownRedirections {
             techrepublic4.compile();
             _matchers.add(techrepublic4);
         }
+        
+        {
+            final RedirectionMatcher yuiblog = new RedirectionMatcher("removed from YUI blog",
+                    Set.of(LinkStatus.REMOVED));
+            yuiblog.add("\\Qhttps://yuiblog.com/blog/\\E" + RedirectionMatcher.ANY_STRING,
+                        Set.of(Integer.valueOf(301)),
+                        RedirectionMatcher.Multiplicity.ONE);
+            yuiblog.add("\\Qhttps://clarle.github.io/yui3/\\E",
+                        Set.of(Integer.valueOf(200)),
+                        RedirectionMatcher.Multiplicity.ONE);
+            yuiblog.compile();
+            _matchers.add(yuiblog);
+        }
 
         {
             final RedirectionMatcher redirectionToItself = new RedirectionMatcher("redirection to itself",
