@@ -47,7 +47,17 @@ methods       53.9%    97.9%
 
 
 
-parser for Hugging Face
+
+
+
+
+
+
+
+gérer
+https://chshersh.com/blog/2024-07-30-pragmatic-category-theory-part-01.html
+author "Kovanikov" does not appear in the page
+
 
 
 
@@ -80,28 +90,6 @@ The following authors are effectively present but are unexpected: ▭ first=Spea
 The following authors are expected but are effectively missing: ▭ ▭ ▭ ▭ ▭ given=chrisbur
 
 
-
-
-
-gérer
-fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://github.blog/open-source/git/highlights-from-git-2-38/"
-	at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:89)
-	at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:325)
-	at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:142)
-	at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:73)
-	at fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:32)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
-	at java.base/java.lang.Thread.run(Thread.java:1575)
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find subtitle in GitHub blog
-	at fr.mazure.homepagemanager.data.linkchecker.TextParser.extract(TextParser.java:61)
-	at fr.mazure.homepagemanager.data.linkchecker.githubblog.GithubBlogLinkContentParser.loadData(GithubBlogLinkContentParser.java:131)
-	at fr.mazure.homepagemanager.data.linkchecker.githubblog.GithubBlogLinkContentParser.<init>(GithubBlogLinkContentParser.java:75)
-	at fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:60)
-	at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:98)
-	at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:87)
-	... 8 more
 
 
 
