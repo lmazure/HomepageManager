@@ -19,6 +19,7 @@ public class WellKnownAuthors {
     @SuppressWarnings("javadoc") public static final AuthorData DAVID_KELLY =        WellKnownAuthors.buildAuthor("David", "Kelly");
     @SuppressWarnings("javadoc") public static final AuthorData DAVID_LOUAPRE =      WellKnownAuthors.buildAuthor("David", "Louapre");
     @SuppressWarnings("javadoc") public static final AuthorData DEREK_MULLER =       WellKnownAuthors.buildAuthor("Derek", "Muller");
+    @SuppressWarnings("javadoc") public static final AuthorData JDMITRII_KOVANIKOV = WellKnownAuthors.buildAuthor("Dmitrii", "Kovanikov");
     @SuppressWarnings("javadoc") public static final AuthorData GRANT_SANDERSON =    WellKnownAuthors.buildAuthor("Grant", "Sanderson");
     @SuppressWarnings("javadoc") public static final AuthorData GUNTER_ROTSAERT =    WellKnownAuthors.buildAuthor("Gunter", "Rotsaert");
     @SuppressWarnings("javadoc") public static final AuthorData JAMES_GRIME =        WellKnownAuthors.buildAuthor("James", "Grime");
