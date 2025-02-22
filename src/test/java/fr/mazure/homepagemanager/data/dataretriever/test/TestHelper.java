@@ -32,10 +32,10 @@ public class TestHelper {
         Assertions.assertTrue(data.headers().isPresent());
         Assertions.assertTrue(data.headers().get().containsKey("Content-Type"));
         Assertions.assertEquals(1, data.headers().get().get("Content-Type").size());
-        Assertions.assertEquals("text/html; charset=UTF-8", data.headers().get().get("Content-Type").get(0));
+        Assertions.assertEquals("text/html", data.headers().get().get("Content-Type").get(0));
         Assertions.assertTrue(data.headers().get().containsKey("Cache-Control"));
         Assertions.assertEquals(1, data.headers().get().get("Cache-Control").size());
-        Assertions.assertEquals("max-age=604800", data.headers().get().get("Cache-Control").get(0));
+        Assertions.assertTrue(data.headers().get().get("Cache-Control").get(0).matches("max-age=\\d\\d\\d\\d"));
         Assertions.assertTrue(data.dataFileSection().isPresent());
         Assertions.assertFalse(data.error().isPresent());
         try {

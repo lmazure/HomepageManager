@@ -6,6 +6,7 @@ import java.net.CookieManager;
 import java.net.HttpCookie;
 import java.net.HttpURLConnection;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
@@ -257,21 +258,15 @@ public class SynchronousSiteDataRetriever {
 
     private static String getRedirectionUrl(final String currentUrl,
                                             final String redirection) {
-        if (redirection.startsWith("http://") ||
-            redirection.startsWith("https://")) {
-            return redirection;
+        URI resolvedUri;
+        try {
+            final URI baseUri = new URI(currentUrl);
+            resolvedUri = baseUri.resolve(redirection);
+        } catch (final URISyntaxException e) {
+            ExitHelper.exit(e);
+            return null;
         }
-        final URI uri = UriHelper.convertStringToUri(currentUrl);
-        if (redirection.startsWith("/")) {
-            final URI redirectUri = UriHelper.buildUri(uri.getScheme(), uri.getHost(), redirection);
-            return redirectUri.toString();
-        }
-        String root = uri.getPath().replaceFirst("[^/]*$", "");
-        if (root.isEmpty()) {
-            root = "/";
-        }
-        final URI redirectUri = UriHelper.buildUri(uri.getScheme(), uri.getHost(), root + redirection);
-        return redirectUri.toString();
+        return resolvedUri.toString();
     }
 
     private static void storeCookies(final String url,

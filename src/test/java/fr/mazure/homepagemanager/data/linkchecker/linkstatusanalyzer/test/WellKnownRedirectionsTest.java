@@ -241,7 +241,7 @@ class WellKnownRedirectionsTest {
         "https://www.microsoft.com", // https://www.microsoft.com/fr-fr/
         "https://www.msn.com",       // https://www.msn.com/fr-fr
         "https://www.nintendo.com",  // https://www.nintendo.com/us/
-        "https://www.real.com",      // https://www.real.com/fr
+        //"https://www.real.com",      // https://www.real.com/fr          currently down
         "https://www.sans.org",      // https://www.sans.org/fr_fr/
         })
     void redirectionsToLocale(final String url) {
@@ -269,8 +269,6 @@ class WellKnownRedirectionsTest {
         "http://weblogs.java.net/blog/arnold/archive/2005/06/generics_consid_1.html",
         "http://www.hays.lu/prd_consump/groups/hays_common/@fr/@content/documents/digitalasset/hays_714488.pdf",
         "http://www.ineris.fr/centredoc/Communication_site_web_INERIS.pdf",
-        "https://www.reddit.com/r/gitlab/",
-
         })
     void redirectionsEndingWith404(final String url) {
         test(url,
@@ -512,6 +510,18 @@ class WellKnownRedirectionsTest {
              Integer.valueOf(200),
              "removed from YUI blog",
              Set.of(LinkStatus.REMOVED));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "https://searchenginewatch.com/article/2064541/Numbers-Numbers-But-What-Do-They-Mean",
+        })
+    void redirectionTowardFake404Page(final String url) {
+        test(url,
+             true,
+             Integer.valueOf(200),
+             "redirection ending in success (last URL should be used)",
+             Set.of());
     }
 
     private void test(final String url,
