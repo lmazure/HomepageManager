@@ -50,15 +50,10 @@ methods       53.9%    97.9%
 
 
 
+rather than encoding over and over in doesRedirectionMatch
+create a method that encode once and return the matching redirection or null
 
-
-
-gérer
-https://oxide-and-friends.transistor.fm/episodes/pragmatic-llm-usage-with-nicholas-carlini
-The list of effective authors is not the effective one.
-The following authors are effectively present but are unexpected: ▭ first=Speaker ▭ last=5 ▭ ▭
-The following authors are expected but are effectively missing: ▭ ▭ ▭ ▭ ▭ given=chrisbur
-
+ 
 
 
 

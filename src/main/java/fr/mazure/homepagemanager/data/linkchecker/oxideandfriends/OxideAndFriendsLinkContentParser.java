@@ -176,7 +176,9 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
         // Count the occurrences of each string
         final Map<String, Integer> counts = new HashMap<>();
         for (final String participant : transcriptParticipants) {
-            counts.put(participant, Integer.valueOf(counts.getOrDefault(participant, ZERO).intValue() + 1));
+            if (!participant.startsWith("Speaker ")) {
+                counts.put(participant, Integer.valueOf(counts.getOrDefault(participant, ZERO).intValue() + 1));
+            }
         }
 
         // Sort the strings by their counts in descending order
