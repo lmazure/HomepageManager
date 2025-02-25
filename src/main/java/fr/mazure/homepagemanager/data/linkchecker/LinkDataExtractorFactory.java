@@ -96,7 +96,7 @@ public class LinkDataExtractorFactory {
     }
 
     private LinkDataExtractor create(final String url,
-                                     final CachedSiteDataRetriever retriever) {
+                                     final CachedSiteDataRetriever retriever) throws ContentParserException {
 
         final String u = UrlHelper.removeQueryParameters(url, "utm_source",
                                                               "utm_medium",
@@ -109,7 +109,9 @@ public class LinkDataExtractorFactory {
                 retriever.retrieve(url, this::handleLinkData, false);
                 try {
                     return extractorData.constructor.newInstance(u, _content, retriever);
-                } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException| InvocationTargetException e) {
+                } catch (final InvocationTargetException e) {
+	                throw new ContentParserException("Failed to create instance of " + extractorData.constructor, e);
+                } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException e) {
                     ExitHelper.exit(e);
                     // NOTREACHED
                     return null;
