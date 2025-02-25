@@ -64,7 +64,8 @@ public class DZoneLinkContentParser extends LinkDataExtractor {
     public DZoneLinkContentParser(final String url,
                                   final String data,
                                   final CachedSiteDataRetriever retriever) throws ContentParserException {
-        super(url, retriever);
+        super(UrlHelper.removeQueryParameters(url, "edition"),
+              retriever);
 
         _title = s_titleParser.extract(data);
 
