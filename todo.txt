@@ -47,6 +47,24 @@ methods       53.9%    97.9%
 
 
 
+tests unitaires à réparer
+fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.mediumTowardsDataScienceIsManaged()
+
+
+
+
+
+
+
+clean up YoutTube watch parser
+
+
+
+
+
+
+
+
 
 
 

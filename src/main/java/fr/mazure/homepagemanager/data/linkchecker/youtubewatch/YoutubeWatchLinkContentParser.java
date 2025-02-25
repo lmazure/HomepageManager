@@ -87,7 +87,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         LocalDate uploadDate = null;
         LocalDate publishDate = null;
         LocalDate startBroadcastDate = null;
-		LocalDate endBroadcastDate = null;
+        LocalDate endBroadcastDate = null;
         boolean isPrivate = false;
         boolean isPlayable = false;
 
@@ -95,13 +95,28 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
             final String json = s_jsonParser.extract(data);
             final JSONObject payload = new JSONObject(json);
             if (!payload.has("videoDetails")) {
-                isPrivate = true;
-            } else {
-                final JSONObject jsonObject = JsonHelper.getAsNode(payload, "videoDetails");
-                channel = jsonObject.getString("author");
-                title = jsonObject.getString("title");
-                description = jsonObject.getString("shortDescription");
+                _sureAuthors = Collections.emptyList();
+                _probableAuthors = Collections.emptyList();
+                _possibleAuthors = Collections.emptyList();
+                _language = null;
+                _channel = null;
+                _title = null;
+                _description = null;
+                _subtitlesLanguage = Optional.empty();
+                _minDuration = Duration.ZERO;
+                _maxDuration = Duration.ZERO;
+                _uploadDate = null;
+                _publishDate = null;
+                _startBroadcastDate = null;
+                _endBroadcastDate = null;
+                _isPrivate = true;
+                _isPlayable = false;
+                return;
             }
+            final JSONObject jsonObject = JsonHelper.getAsNode(payload, "videoDetails");
+            channel = jsonObject.getString("author");
+            title = jsonObject.getString("title");
+            description = jsonObject.getString("shortDescription");
             if (payload.has("captions")) {
                 final JSONArray captions = JsonHelper.getAsArray(payload, "captions", "playerCaptionsTracklistRenderer", "captionTracks");
                 String language = null;
