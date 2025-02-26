@@ -63,6 +63,19 @@ clean up YoutTube watch parser
 
 
 
+gérer
+Title = "Could You Survive?"
+URL = https://www.youtube.com/playlist?list=PLi6K9w_UbfFS393cQii0mC3nEy2NS7kv8
+Expected status = OK
+Effective HTTP code = 302 Found
+Effective HTTP code of last redirection = 200 OK
+Redirection chain = https://www.youtube.com/playlist?list=PLi6K9w_UbfFS393cQii0mC3nEy2NS7kv8 → https://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fplaylist%3Flist%3DPLi6K9w_UbfFS393cQii0mC3nEy2NS7kv8%26cbrd%3D1&gl=FR&m=0&pc=yt&cm=2&hl=en&src=1
+Redirection matcher = redirection ending in success (last URL should be used)
+Redirection matcher expected statuses = 
+Look for article = https://www.google.com/search?q=%22Could+You+Survive%3F%22
+
+
+
 
 
 
