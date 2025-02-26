@@ -78,16 +78,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                    "source_ve_path",
                                                    "t"),
               retriever);
-        String channel = null;
-        String title = null;
-        String description = null;
         Optional<Locale> subtitlesLanguage = Optional.empty();
-        int minDuration = Integer.MAX_VALUE;
-        int maxDuration = Integer.MIN_VALUE;
-        LocalDate uploadDate = null;
-        LocalDate publishDate = null;
-        LocalDate startBroadcastDate = null;
-        LocalDate endBroadcastDate = null;
         boolean isPrivate = false;
         boolean isPlayable = false;
 
@@ -114,9 +105,9 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                 return;
             }
             final JSONObject jsonObject = JsonHelper.getAsNode(payload, "videoDetails");
-            channel = jsonObject.getString("author");
-            title = jsonObject.getString("title");
-            description = jsonObject.getString("shortDescription");
+            _channel = jsonObject.getString("author");
+            _title = jsonObject.getString("title");
+            _description = jsonObject.getString("shortDescription");
             if (payload.has("captions")) {
                 final JSONArray captions = JsonHelper.getAsArray(payload, "captions", "playerCaptionsTracklistRenderer", "captionTracks");
                 String language = null;
@@ -147,6 +138,8 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                 }
             }
             if (payload.has("streamingData")) {
+                int minDuration = Integer.MAX_VALUE;
+                int maxDuration = Integer.MIN_VALUE;
                 final JSONArray formats = JsonHelper.getAsArray(payload, "streamingData", "formats");
                 for (int i = 0; i < formats.length(); i++) {
                     final JSONObject format = formats.getJSONObject(i);
@@ -158,15 +151,23 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                         maxDuration = duration;
                     }
                 }
+                _minDuration = Duration.ofMillis(minDuration);
+                _maxDuration = Duration.ofMillis(maxDuration);
+            } else {
+	            _minDuration = null;
+	            _maxDuration = null;
             }
-            if (!isPrivate) {
+            /*if (!isPrivate)*/ {
                 final JSONObject player = JsonHelper.getAsNode(payload, "microformat", "playerMicroformatRenderer");
-                uploadDate = parseDateTimeString(JsonHelper.getAsText(player, "uploadDate"));
-                publishDate = parseDateTimeString(JsonHelper.getAsText(player, "publishDate"));
+                _uploadDate = parseDateTimeString(JsonHelper.getAsText(player, "uploadDate"));
+                _publishDate = parseDateTimeString(JsonHelper.getAsText(player, "publishDate"));
                 if (player.has("liveBroadcastDetails")) {
                     final JSONObject liveBroadcastDetails = JsonHelper.getAsNode(player, "liveBroadcastDetails");
-                    startBroadcastDate = parseDateTimeString(JsonHelper.getAsText(liveBroadcastDetails, "startTimestamp"));
-                    endBroadcastDate = parseDateTimeString(JsonHelper.getAsText(liveBroadcastDetails, "endTimestamp"));
+                    _startBroadcastDate = parseDateTimeString(JsonHelper.getAsText(liveBroadcastDetails, "startTimestamp"));
+                    _endBroadcastDate = parseDateTimeString(JsonHelper.getAsText(liveBroadcastDetails, "endTimestamp"));
+                } else {
+	                _startBroadcastDate = null;
+	                _endBroadcastDate = null;
                 }
             }
             final String status = JsonHelper.getAsText(payload, "playabilityStatus", "status");
@@ -175,28 +176,19 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         } catch (final IllegalStateException e) {
             throw new ContentParserException("Unexpected JSON", e);
         }
-        _channel = channel;
-        _title = title;
-        _description = description;
         _subtitlesLanguage = subtitlesLanguage;
-        final Optional<Locale> lang2 = (description != null) ? StringHelper.guessLanguage(description)
-                                                             : Optional.empty();
+        final Optional<Locale> lang2 = (_description != null) ? StringHelper.guessLanguage(_description)
+                                                              : Optional.empty();
         if (lang2.isPresent()) {
             _language = lang2.get();
         } else {
-            final Optional<Locale> lang3 = (title != null) ? StringHelper.guessLanguage(title)
-                                                           : Optional.empty();
+            final Optional<Locale> lang3 = (_title != null) ? StringHelper.guessLanguage(_title)
+                                                            : Optional.empty();
             _language = lang3.isPresent() ? lang3.get() : Locale.ENGLISH;
         }
         _sureAuthors = extractSureAuthors();
         _possibleAuthors = extractPossibleAuthors();
         _probableAuthors = extractProbableAuthors();
-        _minDuration = Duration.ofMillis(minDuration);
-        _maxDuration = Duration.ofMillis(maxDuration);
-        _uploadDate = uploadDate;
-        _publishDate = publishDate;
-        _startBroadcastDate = startBroadcastDate;
-        _endBroadcastDate = endBroadcastDate;
         _isPrivate = isPrivate;
         _isPlayable = isPlayable;
     }
