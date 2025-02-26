@@ -319,7 +319,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
         final int spaceIndex = str.indexOf(' ');
         final String firstWord = (spaceIndex == -1) ? str : str.substring(0, spaceIndex);
         return s_authorizedMissingPrecedingSpaceList.contains(firstWord);
-	}
+    }
 
     /**
      * @param c

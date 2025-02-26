@@ -110,7 +110,7 @@ public class LinkDataExtractorFactory {
                 try {
                     return extractorData.constructor.newInstance(u, _content, retriever);
                 } catch (final InvocationTargetException e) {
-	                throw new ContentParserException("Failed to create instance of " + extractorData.constructor, e);
+                    throw new ContentParserException("Failed to create instance of " + extractorData.constructor, e);
                 } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException e) {
                     ExitHelper.exit(e);
                     // NOTREACHED

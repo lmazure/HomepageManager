@@ -114,10 +114,10 @@ public class BaeldungLinkContentParser extends LinkDataExtractor {
         return _creationDate;
     }
 
-	@Override
-	public Optional<TemporalAccessor> getPublicationDate() {
-		return getCreationDate();
-	}
+    @Override
+    public Optional<TemporalAccessor> getPublicationDate() {
+        return getCreationDate();
+    }
 
     @Override
     public List<AuthorData> getSureAuthors() {

@@ -47,7 +47,7 @@ public class YoutubeChannelUserLinkContentParser extends LinkDataExtractor {
         _errorMessage = extractErrorMessage(data);
 
         if (_errorMessage.isPresent()) {
-	        _language = Locale.ENGLISH;
+            _language = Locale.ENGLISH;
         } else {
             try {
                 final String description = extractDescription(data);

@@ -30,7 +30,7 @@ public class YoutubeChannelUserLinkContentChecker extends ExtractorBasedLinkCont
                                                 final FileSection file,
                                                 final CachedSiteDataRetriever retriever) {
         super(url, linkData, articleData, file, (LinkDataExtractorBuilder)YoutubeChannelUserLinkContentParser::new, retriever);
-	}
+    }
 
     /**
      * Determine if the link is managed
