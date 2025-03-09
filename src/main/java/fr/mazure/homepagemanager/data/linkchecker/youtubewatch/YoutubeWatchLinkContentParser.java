@@ -84,16 +84,16 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
             final String json = s_jsonParser.extract(data);
             final JSONObject payload = new JSONObject(json);
             if (!payload.has("videoDetails")) {
-                _sureAuthors = Collections.emptyList();
-                _probableAuthors = Collections.emptyList();
-                _possibleAuthors = Collections.emptyList();
+                _sureAuthors = null;
+                _probableAuthors = null;
+                _possibleAuthors = null;
                 _language = null;
                 _channel = null;
                 _title = null;
                 _description = null;
-                _subtitlesLanguage = Optional.empty();
-                _minDuration = Duration.ZERO;
-                _maxDuration = Duration.ZERO;
+                _subtitlesLanguage = null;
+                _minDuration = null;
+                _maxDuration = null;
                 _uploadDate = null;
                 _publishDate = null;
                 _startBroadcastDate = null;
@@ -204,7 +204,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         return UrlHelper.hasPrefix(url, "https://www.youtube.com/watch?");
     }
 
-    static final LocalDate parseDateTimeString(final String str) throws ContentParserException {
+    static private final LocalDate parseDateTimeString(final String str) throws ContentParserException {
 
         // case the date is formatted as YYYY-MM-DD
         if (str.length() == 10) {
@@ -234,23 +234,40 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     }
 
     /**
+     * Get the channel of the video<br>
+     * Is null if the video is private
+     *
      * @return channel of the video
      */
     public String getChannel() {
         return _channel;
     }
 
+    /**
+     * Get the title of the video<br>
+     * Is null if the video is private
+     *
+	 * @return title of the video
+     */
     @Override
     public String getTitle() {
         return _title;
     }
 
+    /**
+     * Since there is no subtitle, this method always return Optional.empty()<br>
+     *
+     * @return title of the video
+     */
     @Override
     public Optional<String> getSubtitle() {
         return Optional.empty();
     }
 
     /**
+     * Get the description of the video<br>
+     * Is null if the video is private
+     *
      * @return description of the video
      */
     public String getDescription() {
@@ -258,6 +275,9 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     }
 
     /**
+     * Get the upload date of the video<br>
+     * Is null if the video is private
+     *
      * @return upload date of the video
      */
     public LocalDate getUploadDateInternal() {
@@ -265,6 +285,9 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     }
 
     /**
+     * Get the publication date of the video<br>
+     * Is null if the video is private
+     *
      * @return publication date of the video
      */
     public LocalDate getPublishDateInternal() {
@@ -272,20 +295,27 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     }
 
     /**
-     * @return start date of the video broacast if it was a broacast, empty otherwise
+     * Get the start date of the video broadcast if it was a broadcast, empty otherwise<br>
+     * Is null if the video is private
+     *
+     * @return start date of the video broadcast if it was a broadcast, empty otherwise
      */
     public Optional<LocalDate> getStartBroadcastDateInternal() {
         return Optional.ofNullable(_startBroadcastDate);
     }
 
     /**
-     * @return end date of the video broacast if it was a broacast, empty otherwise
+     * Get the end date of the video broadcast if it was a broadcast, empty otherwise<br>
+     * Is null if the video is private
+     *
+     * @return end date of the video broadcast if it was a broadcast, empty otherwise
      */
     public Optional<LocalDate> getEndBroadcastDateInternal() {
         return Optional.ofNullable(_endBroadcastDate);
     }
     /**
-     * return the duration of the video (we return the min value)
+     * Get the duration of the video (we return the min value)<br>
+     * Is null if the video is private
      *
      * @return duration of the video
      */
@@ -295,6 +325,9 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     }
 
     /**
+     * Get the minimum duration of the video<br>
+     * Is null if the video is private
+     *
      * @return minimum duration of the video
      */
     public Duration getMinDuration(){
@@ -302,18 +335,30 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     }
 
     /**
+     * Get the maximum duration of the video<br>
+     * Is null if the video is private
+     *
      * @return maximum duration of the video
      */
     public Duration getMaxDuration() {
         return _maxDuration;
     }
 
+    /**
+     * Get the language of the video<br>
+     * Is null if the video is private
+     *
+     * @return language of the video
+     */
     @Override
     public Locale getLanguage() {
         return _language;
     }
 
     /**
+     * Get the language of the subtitles of the video<br>
+     * Is null if the video is private
+     *
      * @return language of the subtitles of the video
      */
     public Optional<Locale> getSubtitlesLanguage() {
@@ -410,8 +455,8 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                                             match("Laurence Tratt", WellKnownAuthors.buildAuthor("Laurence", "Tratt")),
                                                                             match("Kai Xu", WellKnownAuthors.buildAuthor("Kai", "Xu"))),
                                                           Locale.ENGLISH)),
-            new AbstractMap.SimpleEntry<>("Continuous Delivery",
-                                          new ChannelData(buildList(WellKnownAuthors.buildAuthor("Dave", "Farley")),
+            new AbstractMap.SimpleEntry<>("Modern Software Engineering",
+                                          new ChannelData(buildList(WellKnownAuthors.DAVE_FARLEY),
                                                           buildMatchingList(),
                                                           Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Dave Ebbelaar",
@@ -459,7 +504,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                           Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("GOTO Conferences",
                                           new ChannelData(buildList(),
-                                                          buildMatchingList(match("Dave Farley", WellKnownAuthors.buildAuthor("Dave", "Farley"))),
+                                                          buildMatchingList(match("Dave Farley", WellKnownAuthors.DAVE_FARLEY)),
                                                           Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Greg Kamradt",
                                           new ChannelData(buildList(WellKnownAuthors.buildAuthor("Greg", "Kamradt")),
@@ -816,6 +861,12 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                           Locale.FRENCH))
             );
 
+    /**
+     * Get the creation date of the video<br>
+	 * Is null if the video is private
+	 *
+	 * @return creation date of the video
+     */
     @Override
     public Optional<TemporalAccessor> getCreationDate() {
         if (getStartBroadcastDateInternal().isPresent()) {
@@ -824,6 +875,12 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         return Optional.of(getUploadDateInternal());
     }
 
+    /**
+     * Get the publication date of the video<br>
+     * Is null if the video is private
+     *
+     * @return publication date of the video
+     */
     @Override
     public Optional<TemporalAccessor> getPublicationDate() {
         return getCreationDate();
@@ -837,6 +894,12 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         return Collections.emptyList();
     }
 
+    /**
+     * Get the sure authors of the video<br>
+     * Is null if the video is private
+     *
+     * @return sure authors of the video
+     */
     @Override
     public List<AuthorData> getSureAuthors() {
         return _sureAuthors;
@@ -872,6 +935,12 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         return authors;
     }
 
+    /**
+     * Get the probable authors of the video<br>
+	 * Is null if the video is private
+	 *
+	 * @return probable authors of the video
+     */
     @Override
     public List<AuthorData> getProbableAuthors() {
         return _probableAuthors;
@@ -898,6 +967,12 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         return authors;
     }
 
+    /**
+     * Get the possible authors of the video<br>
+     * Is null if the video is private
+     *
+     * @return possible authors of the video
+     */
     @Override
     public List<AuthorData> getPossibleAuthors() {
         return _possibleAuthors;
