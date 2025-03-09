@@ -37,9 +37,9 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
                                                                    "title");
     // the next regexp should be "//www.facebook.com(?:/sharer)?/sharer.php\\?u=https://about.gitlab.com/blog/", but GitLab screwed up their site
     // and used links such as "https://www.facebook.com/sharer/sharer.php?u=https://about.gitlab.com/blog/blog/2020/11/11/gitlab-for-agile-portfolio-planning-project-management/"
-    private static final TextParser s_dateParser = new TextParser("//www.facebook.com(?:/sharer)?/sharer.php\\?u=https://about.gitlab.com(?:/blog)?/blog/",
-                                                                  "\\d\\d\\d\\d/\\d\\d/\\d\\d",
-                                                                  "/",
+    private static final TextParser s_dateParser = new TextParser("(?:Published|Updated) on:? ",
+                                                                  "[^<]*",
+                                                                  "<!--(\\])?-->",
                                                                   s_sourceName,
                                                                   "date");
     private static final TextParser s_authorParser1 = new TextParser("<div class=\"slp-flex-initial slp-order-last sm:slp-order-first\">",
@@ -50,7 +50,7 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
                                                                      "</div>",
                                                                      s_sourceName,
                                                                      "author");
-    private static final DateTimeFormatter s_dateFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd", Locale.ENGLISH);
+    private static final DateTimeFormatter s_dateFormat = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.ENGLISH);
 
     /**
      * @param url URL of the link
