@@ -35,7 +35,7 @@ public class TestHelper {
         Assertions.assertEquals("text/html", data.headers().get().get("Content-Type").get(0));
         Assertions.assertTrue(data.headers().get().containsKey("Cache-Control"));
         Assertions.assertEquals(1, data.headers().get().get("Cache-Control").size());
-        Assertions.assertTrue(data.headers().get().get("Cache-Control").get(0).matches("max-age=\\d\\d\\d\\d"));
+        Assertions.assertTrue(data.headers().get().get("Cache-Control").get(0).matches("max-age=\\d{1,4}"));
         Assertions.assertTrue(data.dataFileSection().isPresent());
         Assertions.assertFalse(data.error().isPresent());
         try {

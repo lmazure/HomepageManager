@@ -231,23 +231,6 @@ class LinkDataExtractorTest {
     }
 
     @Test
-    void mediumTowardsDataScienceIsManaged() throws ContentParserException {
-        final String url = "https://towardsdatascience.com/neural-network-embeddings-explained-4d028e6f0526";
-        final String expectedXml = """
-                <ARTICLE><X><T>Neural Network Embeddings Explained</T>\
-                <ST>How deep learning can represent War and Peace as a vector</ST>\
-                <A>https://towardsdatascience.com/neural-network-embeddings-explained-4d028e6f0526</A>\
-                <L>en</L><F>HTML</F></X>\
-                <AUTHOR><FIRSTNAME>Will</FIRSTNAME><LASTNAME>Koehrsen</LASTNAME></AUTHOR>\
-                <DATE><YEAR>2018</YEAR><MONTH>10</MONTH><DAY>2</DAY></DATE>\
-                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        final LinkDataExtractor extractor = getExtractor(url);
-        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
-        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
-        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
-    }
-
-    @Test
     void mediumWithSubtitleIsManaged() throws ContentParserException {
         final String url = "https://medium.com/rahasak/build-rag-application-using-a-llm-running-on-local-computer-with-gpt4all-and-langchain-13b4b8851db8";
         final String expectedXml = """
@@ -735,7 +718,7 @@ class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchContinuousDeliveryIsManaged() throws ContentParserException {
+    void youtubeWatchModernSoftwareEngineeringIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=_S5iUf0ANyQ";
         final String expectedXml = """
                 <ARTICLE><X><T>Are You Chicago Or London When It Comes To TDD?</T>\

@@ -656,7 +656,7 @@ public class WellKnownRedirections {
             techrepublic4.compile();
             _matchers.add(techrepublic4);
         }
-        
+
         {
             final RedirectionMatcher yuiblog = new RedirectionMatcher("removed from YUI blog",
                     Set.of(LinkStatus.REMOVED));
