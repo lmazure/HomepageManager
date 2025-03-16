@@ -64,7 +64,8 @@ public class DZoneLinkContentParser extends LinkDataExtractor {
     public DZoneLinkContentParser(final String url,
                                   final String data,
                                   final CachedSiteDataRetriever retriever) throws ContentParserException {
-        super(url, retriever);
+        super(UrlHelper.removeQueryParameters(url, "edition"),
+              retriever);
 
         _title = s_titleParser.extract(data);
 
@@ -95,12 +96,12 @@ public class DZoneLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public String getTitle() throws ContentParserException {
+    public String getTitle() {
         return _title;
     }
 
     @Override
-    public Optional<String> getSubtitle() throws ContentParserException {
+    public Optional<String> getSubtitle() {
         return _subtitle;
     }
 
@@ -120,7 +121,7 @@ public class DZoneLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public List<ExtractedLinkData> getLinks() throws ContentParserException {
+    public List<ExtractedLinkData> getLinks() {
         final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
                                                                  getSubtitle().isPresent() ? new String[] { getSubtitle().get() }
                                                                                            : new String[] {},
@@ -137,7 +138,7 @@ public class DZoneLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public Locale getLanguage() throws ContentParserException {
+    public Locale getLanguage() {
         return Locale.ENGLISH;
     }
 }

@@ -13,6 +13,7 @@ import fr.mazure.homepagemanager.data.linkchecker.baeldung.BaeldungLinkContentPa
 import fr.mazure.homepagemanager.data.linkchecker.dzone.DZoneLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.githubblog.GithubBlogLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.gitlabblog.GitlabBlogLinkContentParser;
+import fr.mazure.homepagemanager.data.linkchecker.huggingface.HuggingFaceLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.lexfridman.LexFridmanLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.oracleblogs.OracleBlogsLinkContentParser;
@@ -47,6 +48,7 @@ public class LinkDataExtractorFactory {
                 DZoneLinkContentParser.class,
                 GithubBlogLinkContentParser.class,
                 GitlabBlogLinkContentParser.class,
+                HuggingFaceLinkContentParser.class,
                 LexFridmanLinkContentParser.class,
                 MediumLinkContentParser.class,
                 OracleBlogsLinkContentParser.class,
@@ -94,7 +96,7 @@ public class LinkDataExtractorFactory {
     }
 
     private LinkDataExtractor create(final String url,
-                                     final CachedSiteDataRetriever retriever) {
+                                     final CachedSiteDataRetriever retriever) throws ContentParserException {
 
         final String u = UrlHelper.removeQueryParameters(url, "utm_source",
                                                               "utm_medium",
@@ -107,7 +109,9 @@ public class LinkDataExtractorFactory {
                 retriever.retrieve(url, this::handleLinkData, false);
                 try {
                     return extractorData.constructor.newInstance(u, _content, retriever);
-                } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException| InvocationTargetException e) {
+                } catch (final InvocationTargetException e) {
+                    throw new ContentParserException("Failed to create instance of " + extractorData.constructor, e);
+                } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException e) {
                     ExitHelper.exit(e);
                     // NOTREACHED
                     return null;

@@ -3,7 +3,6 @@ package fr.mazure.homepagemanager.utils.internet;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import fr.mazure.homepagemanager.utils.ExitHelper;
 import fr.mazure.homepagemanager.utils.Logger;
 import fr.mazure.homepagemanager.utils.Logger.Level;
 
@@ -68,26 +67,6 @@ public class UriHelper {
                   .appendln("Invalid URI (" + str + ")")
                   .append(e)
                   .submit();
-            return null;
-        }
-    }
-
-    /**
-     * Build an URI from its components
-     *
-     * @param scheme scheme
-     * @param host host
-     * @param path path
-     * @return the built URI
-     */
-    public static URI buildUri(final String scheme,
-                               final String host,
-                               final String path) {
-        try {
-            return new URI(scheme, host, path, null);
-        } catch (final URISyntaxException e) {
-            ExitHelper.exit("Invalid URI (scheme = \"" + scheme + "\", host = \"" + host + "\", path = \"" + path + "\")", e);
-            // NOTREACHED
             return null;
         }
     }

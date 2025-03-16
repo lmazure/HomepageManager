@@ -186,7 +186,7 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
 
         // if we are currently checking a link which is not the first one, we check nothing
         if ((expectedLinks.size() > 1) && !expectedLinks.get(0).getUrl().equals(getUrl())) {
-	        return null;
+            return null;
         }
 
         if (effectiveLinks.size() != expectedLinks.size()) {

@@ -48,18 +48,19 @@ methods       53.9%    97.9%
 
 
 
-In @file:SimonWillisonLinkContentParser 
-- remove the attribute _data
-- for each getter, add an attribute corresponding to the returned data and initialize this attrIbute in the constructor
-
 
 
 
 gérer
-https://oxide-and-friends.transistor.fm/episodes/pragmatic-llm-usage-with-nicholas-carlini
-The list of effective authors is not the effective one.
-The following authors are effectively present but are unexpected: ▭ first=Mike ▭ last=Cafarella ▭ ▭,▭ first=Speaker ▭ last=5 ▭ ▭,▭ ▭ ▭ ▭ ▭ given=p5commmit
-The following authors are expected but are effectively missing: 
+Title = "Could You Survive?"
+URL = https://www.youtube.com/playlist?list=PLi6K9w_UbfFS393cQii0mC3nEy2NS7kv8
+Expected status = OK
+Effective HTTP code = 302 Found
+Effective HTTP code of last redirection = 200 OK
+Redirection chain = https://www.youtube.com/playlist?list=PLi6K9w_UbfFS393cQii0mC3nEy2NS7kv8 → https://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fplaylist%3Flist%3DPLi6K9w_UbfFS393cQii0mC3nEy2NS7kv8%26cbrd%3D1&gl=FR&m=0&pc=yt&cm=2&hl=en&src=1
+Redirection matcher = redirection ending in success (last URL should be used)
+Redirection matcher expected statuses = 
+Look for article = https://www.google.com/search?q=%22Could+You+Survive%3F%22
 
 
 
@@ -68,15 +69,31 @@ The following authors are expected but are effectively missing:
 
 
 
+rather than encoding over and over in doesRedirectionMatch
+create a method that encode once and return the matching redirection or null
 
-gérer
- tag = "COMMENT"
- value = "A paper "Don't Make Your LLM an Evaluation Benchmark Cheaterhttps://arxiv.org/abs/2311.01964enPDF" states the obvious: leaking benchmark data in the training data will result in better benchmark scores."
- violation = "apostrophe should be used"
- detail = "' should be’"
  
- 
- 
+
+
+
+
+
+
+
+
+
+
+the duration is incorrect for https://lexfridman.com/deepseek-dylan-patel-nathan-lambert
+
+
+
+
+
+
+gérer Redirection chain = https://www.rando-hauteloire.fr/ → https://www.rando-hauteloire.fr/?lang=en
+
+
+
  
 
 nettoyer space.xml : space exploration vs space telescope

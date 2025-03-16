@@ -45,7 +45,9 @@ class GitlabBlogLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://about.gitlab.com/blog/2021/10/19/top-10-gitlab-hacks/|2021-10-19",
         "https://about.gitlab.com/blog/2021/10/18/improve-cd-workflows-helm-chart-registry/|2021-10-18",
         "https://about.gitlab.com/blog/2023/07/25/rail-m-is-an-imperfectly-good-start-for-ai-model-licenses/|2023-07-25",
-        "https://about.gitlab.com/blog/2023/08/28/sha256-support-in-gitaly/|2023-08-28"
+        "https://about.gitlab.com/blog/2023/08/28/sha256-support-in-gitaly/|2023-08-28",
+        "https://about.gitlab.com/blog/gitlab-release-process/|2015-12-17",
+        "https://about.gitlab.com/blog/2024/12/05/gitlab-names-bill-staples-as-new-ceo/|2024-12-05",
         }, delimiter = '|')
     void testDate(final String url,
                   final String expectedDate) {

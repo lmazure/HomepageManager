@@ -31,6 +31,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "asm.js",
             "autosrb.pl",
             "ASP.NET",
+            "bolt.diy",
             "Bubbl.us",
             "cdn.polyfill.io",
             "Claude.ai",
@@ -41,6 +42,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "distributed.net",
             "e.g.",
             "Famo.us",
+            "Fireworks.ai",
             "Frama.space",
             "GitLab.com",
             "GPU.zip",
@@ -49,6 +51,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "Intl.RelativeTimeFormat",
             "Intro.js",
             "Java.Next",
+            "Kling.ai",
             "Kosmopoli:t",
             "llama.cpp",
             "learntail.com",
@@ -73,6 +76,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "redhat.com",
             "Sails.js",
             "scicomm.xyz",
+            "sketch.dev",
             "Three.js",
             "tween.js",
             "typescriptlang.org",
@@ -315,7 +319,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
         final int spaceIndex = str.indexOf(' ');
         final String firstWord = (spaceIndex == -1) ? str : str.substring(0, spaceIndex);
         return s_authorizedMissingPrecedingSpaceList.contains(firstWord);
-	}
+    }
 
     /**
      * @param c

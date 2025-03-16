@@ -114,7 +114,7 @@ public class XmlHelper {
      * Return the value of the xml:lang attribute of an element
      *
      * @param element element
-     * @return value of xml:lang attribute
+     * @return value of xml:lang attribute, or empty if there is none
      */
     public static Optional<Locale> getElementLanguage(final Element element) {
 

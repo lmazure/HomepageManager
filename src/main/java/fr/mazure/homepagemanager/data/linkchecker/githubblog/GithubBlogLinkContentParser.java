@@ -50,7 +50,7 @@ public class GithubBlogLinkContentParser extends LinkDataExtractor {
                          "title");
 
     private static final TextParser s_subtitleParser
-        = new TextParser("<div class=\"f4-mktg\">\\n\\t\\t\\t\\t\\t<p>",
+        = new TextParser("<div class=\"f4-mktg color-fg-muted\">\\n\\t\\t\\t\\t\\t<p>",
                          "</p>",
                          s_sourceName,
                          "subtitle");

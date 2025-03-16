@@ -20,7 +20,8 @@ class DZoneLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://dzone.com/articles/java-collections-are-evolving|Trisha||Gee",
         "https://dzone.com/articles/functional-approach-to-string-manipulation-in-java|Sameer||Shukla",
         "https://dzone.com/articles/dependency-scope-applied|Maksim||Kren",
-        "https://dzone.com/articles/model-compression-dl-model-efficiency|Inderjot|Singh|Saggu"
+        "https://dzone.com/articles/model-compression-dl-model-efficiency|Inderjot|Singh|Saggu",
+        "https://dzone.com/articles/hybrid-search-using-postgres-db|Suraj||Dharmapuram",
         }, delimiter = '|')
     void testAuthor(final String url,
                     final String expectedFirstName,

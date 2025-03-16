@@ -167,16 +167,11 @@ public class XmlGenerationDialog extends Dialog<Void> {
             return;
         }
 
-        try {
-            _links = extractor.getLinks();
-            _date = extractor.getCreationDate();
-            _sureAuthors = extractor.getSureAuthors();
-            _probableAuthors = extractor.getProbableAuthors();
-            _possibleAuthors = extractor.getPossibleAuthors();
-        } catch (final ContentParserException e) {
-            displayError("Failed to parse the URL data:\n" + e.getMessage());
-            return;
-        }
+        _links = extractor.getLinks();
+        _date = extractor.getCreationDate();
+        _sureAuthors = extractor.getSureAuthors();
+        _probableAuthors = extractor.getProbableAuthors();
+        _possibleAuthors = extractor.getPossibleAuthors();
 
         if (_sureAuthors.isEmpty() && _probableAuthors.isEmpty() && _possibleAuthors.isEmpty()) {
             _authors.getChildren().add(new Label("No authors"));

@@ -37,72 +37,62 @@ public abstract class LinkDataExtractor {
 
     /**
      * @return title
-     * @throws ContentParserException Failure to extract the information
      */
-    public abstract String getTitle() throws ContentParserException;
+    public abstract String getTitle();
 
     /**
      * @return subtitle, empty if the is none
-     * @throws ContentParserException Failure to extract the information
-     */
-    public abstract Optional<String> getSubtitle() throws ContentParserException;
+      */
+    public abstract Optional<String> getSubtitle();
 
     /**
      * @return creation date, empty if there is none
-     * @throws ContentParserException Failure to extract the information
      */
-    public abstract Optional<TemporalAccessor> getCreationDate() throws ContentParserException;
+    public abstract Optional<TemporalAccessor> getCreationDate();
 
     /**
      * @return publication date, empty if there is none
-     * @throws ContentParserException Failure to extract the information
      */
-    public abstract Optional<TemporalAccessor> getPublicationDate() throws ContentParserException;
+    public abstract Optional<TemporalAccessor> getPublicationDate();
 
     /**
-     * @return authors, empty list if there is none
-     * @throws ContentParserException Failure to extract the information
+     * @return the list of sure authors
      */
-    public abstract List<AuthorData> getSureAuthors() throws ContentParserException;
+    public abstract List<AuthorData> getSureAuthors();
 
     /**
      * @return language
-     * @throws ContentParserException Failure to extract the information
      */
-    public abstract Locale getLanguage() throws ContentParserException;
+    public abstract Locale getLanguage();
 
     /**
      * @return the list of probable authors
      *   (they may be present and it is probable that they are effectively present)
-     * @throws ContentParserException Failure to extract the information
      */
     @SuppressWarnings("static-method")
-    public List<AuthorData> getProbableAuthors() throws ContentParserException {
+    public List<AuthorData> getProbableAuthors() {
         return Collections.emptyList();
     }
 
     /**
      * @return the list of possible authors
      *   (they may be present but it is probable that they are not effectively present)
-     * @throws ContentParserException Failure to extract the information
      */
     @SuppressWarnings("static-method")
-    public List<AuthorData> getPossibleAuthors() throws ContentParserException {
+    public List<AuthorData> getPossibleAuthors() {
         return Collections.emptyList();
     }
 
     /**
      * @return the list of links
-     * @throws ContentParserException Failure to extract the information
      */
-    public abstract List<ExtractedLinkData> getLinks() throws ContentParserException;
+    public abstract List<ExtractedLinkData> getLinks();
 
     /**
      * @return the duration
-     * @throws ContentParserException Failure to extract the information
      */
     @SuppressWarnings("static-method")
-    public Optional<Duration> getDuration()  throws ContentParserException{
+    public Optional<Duration> getDuration() {
         return Optional.empty();
     }
 }

@@ -42,7 +42,7 @@ public class WellKnownRedirections {
         errorCodes.add(Integer.valueOf(500));
         errorCodes.add(Integer.valueOf(502));
         errorCodes.add(Integer.valueOf(503));
-        //errorCodes.add(Integer.valueOf(504)); ignored for the time being
+        errorCodes.add(Integer.valueOf(504));
         errorCodes.add(Integer.valueOf(520));
         errorCodes.add(Integer.valueOf(521));
         errorCodes.add(Integer.valueOf(522));
@@ -658,6 +658,19 @@ public class WellKnownRedirections {
         }
 
         {
+            final RedirectionMatcher yuiblog = new RedirectionMatcher("removed from YUI blog",
+                    Set.of(LinkStatus.REMOVED));
+            yuiblog.add("\\Qhttps://yuiblog.com/blog/\\E" + RedirectionMatcher.ANY_STRING,
+                        Set.of(Integer.valueOf(301)),
+                        RedirectionMatcher.Multiplicity.ONE);
+            yuiblog.add("\\Qhttps://clarle.github.io/yui3/\\E",
+                        Set.of(Integer.valueOf(200)),
+                        RedirectionMatcher.Multiplicity.ONE);
+            yuiblog.compile();
+            _matchers.add(yuiblog);
+        }
+
+        {
             final RedirectionMatcher redirectionToItself = new RedirectionMatcher("redirection to itself",
                                                                                   Set.of(LinkStatus.OK));
             redirectionToItself.add("(?<site>https?://.*)",
@@ -708,7 +721,7 @@ public class WellKnownRedirections {
                                            redirectionCodes,
                                            RedirectionMatcher.Multiplicity.ONE_OR_MANY);
             redirectionEndingInSuccess.add("https?://"  + RedirectionMatcher.ANY_STRING,
-                                           Set.of(Integer.valueOf(200)),
+                                           successCodes,
                                            RedirectionMatcher.Multiplicity.ONE);
             redirectionEndingInSuccess.compile();
             _matchers.add(redirectionEndingInSuccess);

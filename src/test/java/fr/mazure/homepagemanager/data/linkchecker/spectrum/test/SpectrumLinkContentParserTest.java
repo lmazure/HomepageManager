@@ -38,7 +38,7 @@ class SpectrumLinkContentParserTest extends LinkDataExtractorTestBase {
     }, delimiter = '|')
     void testDate(final String url,
                   final String expectedDate) {
-		checkCreationDate(SpectrumLinkContentParser.class, url, expectedDate);
+        checkCreationDate(SpectrumLinkContentParser.class, url, expectedDate);
     }
 
     @SuppressWarnings("static-method")

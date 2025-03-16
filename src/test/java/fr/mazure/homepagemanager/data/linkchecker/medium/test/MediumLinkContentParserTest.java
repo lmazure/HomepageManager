@@ -22,7 +22,7 @@ class MediumLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://medium.com/@anuj_shah/through-the-eyes-of-gabor-filter-17d1fdb3ac97|Anuj|Shah|",
         "https://medium.com/rahasak/build-rag-application-using-a-llm-running-on-local-computer-with-gpt4all-and-langchain-13b4b8851db8|||(λx.x)eranga",
         // special case of Betable Engineering
-		"https://medium.com/@betable/tifu-by-using-math-random-f1c308c4fd9d|Mike|Malone|",
+        "https://medium.com/@betable/tifu-by-using-math-random-f1c308c4fd9d|Mike|Malone|",
         // special case of Microsoft Design
         "https://medium.com/microsoft-design/designing-in-the-open-source-5c62be73a599|Jon|Friedman|",
         }, delimiter = '|')

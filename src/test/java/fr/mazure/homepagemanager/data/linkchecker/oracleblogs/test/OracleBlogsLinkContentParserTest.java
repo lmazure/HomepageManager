@@ -9,7 +9,6 @@ import org.junit.jupiter.params.provider.CsvSource;
 import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
-import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.oracleblogs.OracleBlogsLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
@@ -153,16 +152,8 @@ class OracleBlogsLinkContentParserTest extends LinkDataExtractorTestBase {
                               final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data, retriever);
                               Assertions.assertEquals("", parser.getTitle());
                               Assertions.assertTrue(parser.getSubtitle().isEmpty());
-                              try {
-                                  Assertions.assertEquals(0, parser.getSureAuthors().size());
-                               } catch (final ContentParserException e) {
-                                   Assertions.fail("getSureAuthors threw " + e.getMessage());
-                               }
-                              try {
-                                  TestHelper.assertDate(expectedDate, parser.getCreationDate());
-                              } catch (final ContentParserException e) {
-                                  Assertions.fail("getDate threw " + e.getMessage());
-                              }
+                              Assertions.assertEquals(0, parser.getSureAuthors().size());
+                              TestHelper.assertDate(expectedDate, parser.getCreationDate());
                               consumerHasBeenCalled.set(true);
                           },
                           false);

@@ -285,7 +285,7 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
            "https://www.youtube.com/watch?v=HEfHFsfGXjs|nl",
            "https://www.youtube.com/watch?v=laty3vXKRek|ko",
            "https://www.youtube.com/watch?v=ohU1tEwxOSE|fr",
-           "https://www.youtube.com/watch?v=oJTwQvgfgMM|de",
+           "https://www.youtube.com/watch?v=oJTwQvgfgMM|en",
            "https://www.youtube.com/watch?v=QAU9psRDPZg|de",
            "https://www.youtube.com/watch?v=thT-RSEBxo8|vi",
            "https://www.youtube.com/watch?v=ytuHV2e4c4Q|en",

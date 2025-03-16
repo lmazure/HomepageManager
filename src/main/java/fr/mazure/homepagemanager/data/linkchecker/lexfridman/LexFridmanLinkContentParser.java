@@ -91,12 +91,12 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
         final Mp3Helper helper = new Mp3Helper();
         _duration = Optional.of(helper.getMp3Duration(mp3url, getRetriever()));
 
+        _authors = new ArrayList<>();
         final Matcher matcher = s_extractName.matcher(_title);
-        if (!matcher.find()) {
-            throw new ContentParserException("Failed to extract author name from title \"" + _title + "\"");
+        if (matcher.find()) {
+            final String authorName = matcher.group(1);
+            _authors.add(LinkContentParserUtils.parseAuthorName(authorName));
         }
-        final String authorName = matcher.group(1);
-        _authors = new ArrayList<>(LinkContentParserUtils.getAuthors(authorName));
         _authors.add(WellKnownAuthors.LEX_FRIDMAN);
 
         final Optional<String> youtubeLink = s_youtubeLinkParser.extractOptional(data).map(s -> "https://www.youtube.com/watch?v=" + s);
