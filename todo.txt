@@ -51,24 +51,6 @@ methods       53.9%    97.9%
 
 
 
-
-
-tests unitaires à réparer
-fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.mediumTowardsDataScienceIsManaged()
-
-
-
-
-
-
-
-clean up YoutTube watch parser
-
-
-
-
-
-
 gérer
 Title = "Could You Survive?"
 URL = https://www.youtube.com/playlist?list=PLi6K9w_UbfFS393cQii0mC3nEy2NS7kv8
