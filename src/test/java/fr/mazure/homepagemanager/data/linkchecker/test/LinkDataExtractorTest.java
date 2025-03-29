@@ -1188,6 +1188,29 @@ class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchGitButlerMattiasIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=RhkQ4e_n_1k";
+        final String expectedSureXml = """
+                <ARTICLE><X><T>Stack Overflow Git Questions Part 1 | Ep. 12 Bots and Booze</T>\
+                <A>https://www.youtube.com/watch?v=RhkQ4e_n_1k</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>32</MINUTE><SECOND>1</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Scott</FIRSTNAME><LASTNAME>Chacon</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2025</YEAR><MONTH>3</MONTH><DAY>21</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final String expectedProbableXml = """
+                <ARTICLE><X><T>Stack Overflow Git Questions Part 1 | Ep. 12 Bots and Booze</T>\
+                <A>https://www.youtube.com/watch?v=RhkQ4e_n_1k</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>32</MINUTE><SECOND>1</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Scott</FIRSTNAME><LASTNAME>Chacon</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Mattias</FIRSTNAME><LASTNAME>Granlund</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2025</YEAR><MONTH>3</MONTH><DAY>21</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
+        Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
+    }
+
+    @Test
     void youtubeWatchGregKamradtDataIndyIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=NihPT7KIee8";
         final String expectedXml = """
