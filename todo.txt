@@ -47,6 +47,12 @@ methods       53.9%    97.9%
 
 
 
+détecter remove the binaries of package the package  <CODEROUTINE>package name</CODEROUTINE>
+(more than one space at the beginning or end of a text segment)
+
+
+
+
 
 
 
