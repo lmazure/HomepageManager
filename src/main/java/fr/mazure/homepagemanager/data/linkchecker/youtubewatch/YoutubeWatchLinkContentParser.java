@@ -918,7 +918,11 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         final List<AuthorData> authors = new ArrayList<>();
         final String channel = getChannel();
         if (channel.equals("Centre Henri Lebesgue")) {
-            final String name = getTitle().replaceFirst(" - .*$", "");
+            final int index = getTitle().indexOf(" - ");
+            if (index == -1) {
+                return new ArrayList<>();
+            }
+            final String name = getTitle().substring(0, index);  
             return Collections.singletonList(LinkContentParserUtils.parseAuthorName(name));
         }
         if (channel.equals("Java")) {

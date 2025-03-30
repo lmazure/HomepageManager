@@ -713,7 +713,7 @@ class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchCentreHenriLebesgueIsManaged() throws ContentParserException {
+    void youtubeWatchCentreHenriLebesgueWithAuthorIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=tQp7ZOJF-ZE";
         final String expectedSureXml = """
                 <ARTICLE><X><T>Anne Siegel - Symbiose, biologie des systèmes, et discrétisation de systèmes dynamiques</T>\
@@ -731,6 +731,21 @@ class LinkDataExtractorTest {
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
         Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
+    }
+
+    @Test
+    void youtubeWatchCentreHenriLebesgueNoAuthorIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=pmGsB-xE1UA";
+        final String expectedXml = """
+                <ARTICLE><X><T>À quoi servent les mathématiques ?</T>\
+                <A>https://www.youtube.com/watch?v=pmGsB-xE1UA</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>5</MINUTE><SECOND>28</SECOND></DURATION></X>\
+                <DATE><YEAR>2016</YEAR><MONTH>8</MONTH><DAY>21</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
     @Test
