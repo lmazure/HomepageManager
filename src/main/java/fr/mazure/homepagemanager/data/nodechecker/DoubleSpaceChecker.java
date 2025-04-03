@@ -2,7 +2,6 @@ package fr.mazure.homepagemanager.data.nodechecker;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.w3c.dom.Element;
@@ -20,7 +19,6 @@ public class DoubleSpaceChecker extends NodeChecker {
             ElementType.BLIST,
             ElementType.CLIST,
             ElementType.CODESAMPLE,
-            ElementType.CONTENT,
             ElementType.DEFINITIONTABLE,
             ElementType.ITEM,
             ElementType.LLIST,
@@ -57,10 +55,11 @@ public class DoubleSpaceChecker extends NodeChecker {
         }
 
         for (final String l: list) {
-            final Matcher matcher = s_indentationPattern.matcher(l);
-            final String str = matcher.replaceFirst("");
+            //final Matcher matcher = s_indentationPattern.matcher(l);
+            //final String str = matcher.replaceFirst("");
+            final String str = l.replaceAll("^\\n +|\\n +$", "");
             if (str.contains("  ")) {
-                return new CheckStatus("DoubleSpace", "\"" + e.getTextContent() + "\" should not contain a double space", Optional.empty());
+                return new CheckStatus("DoubleSpace", "\"" + e.getTextContent() + "\" should not contain a double space (in \"" + l + "\")", Optional.empty());
             }
         }
 
