@@ -321,7 +321,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
      */
     @Override
     public Optional<Duration> getDuration() {
-        return Optional.of(getMinDuration());
+        return Optional.ofNullable(getMinDuration());
     }
 
     /**
@@ -922,7 +922,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
             if (index == -1) {
                 return new ArrayList<>();
             }
-            final String name = getTitle().substring(0, index);  
+            final String name = getTitle().substring(0, index);
             return Collections.singletonList(LinkContentParserUtils.parseAuthorName(name));
         }
         if (channel.equals("Java")) {

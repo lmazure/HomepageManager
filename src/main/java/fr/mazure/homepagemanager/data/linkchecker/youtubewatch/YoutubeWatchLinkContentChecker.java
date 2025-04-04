@@ -99,8 +99,10 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
     public LinkContentCheck checkLinkDuration(final String data,
                                               final Duration expectedDuration) throws ContentParserException {
 
-        final Duration effectiveMinDuration = getYoutubeWatchLinkContentParser().getMinDuration().truncatedTo(ChronoUnit.SECONDS);
-        final Duration effectiveMaxDuration = getYoutubeWatchLinkContentParser().getMaxDuration().truncatedTo(ChronoUnit.SECONDS).plusSeconds(1);
+        final Duration effectiveMinDuration = (getYoutubeWatchLinkContentParser().getMinDuration() != null) ? getYoutubeWatchLinkContentParser().getMinDuration().truncatedTo(ChronoUnit.SECONDS)
+                                                                                                            : Duration.ZERO;
+        final Duration effectiveMaxDuration = (getYoutubeWatchLinkContentParser().getMaxDuration() != null) ? getYoutubeWatchLinkContentParser().getMaxDuration().truncatedTo(ChronoUnit.SECONDS).plusSeconds(1)
+                                                                                                            : Duration.ofSeconds(Long.MAX_VALUE);
 
         if ((expectedDuration.compareTo(effectiveMinDuration) < 0) ||
             (expectedDuration.compareTo(effectiveMaxDuration) > 0)) {
