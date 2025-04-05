@@ -403,9 +403,11 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             <PATH>links/typescript.xml</PATH>\
             <DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>\
             <CONTENT>\
+            <BLIST>\
             <ITEM><ARTICLE><X><T>title1</T><A>http://example.com/page1</A><L>en</L><F>HTML</F></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>\
             <ITEM><ARTICLE><X><T>title2</T><A>http://example.com/page2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>\
             <ITEM><ARTICLE><X><T>title3</T><A>http://example.com/page3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>\
+            </BLIST>\
             </CONTENT>\
             </PAGE>""";
         try {
@@ -428,9 +430,11 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             <PATH>links/typescript.xml</PATH>\
             <DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>\
             <CONTENT>\
+            <BLIST>\
             <ITEM><ARTICLE><X><T>title2</T><A>https://example.com/page1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>\
             <ITEM><ARTICLE><X><T>title1</T><A>https://example.com/page2</A><L>en</L><F>HTML</F></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>\
             <ITEM><ARTICLE><X><T>title3</T><A>https://example.com/page3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>\
+            </BLIST>\
             </CONTENT>\
             </PAGE>""";
         try {
@@ -454,9 +458,11 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             <PATH>links/typescript.xml</PATH>\
             <DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>\
             <CONTENT>\
+            <BLIST>\
             <ITEM><ARTICLE><X><T>title1</T><A>https://example.com/page1</A><L>en</L><F>HTML</F></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>\
             <ITEM><ARTICLE><X><T>title3</T><A>https://example.com/page2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>\
             <ITEM><ARTICLE><X><T>title2</T><A>https://example.com/page3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>\
+            </BLIST>\
             </CONTENT>\
             </PAGE>""";
         try {
@@ -480,9 +486,11 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             <PATH>links/typescript.xml</PATH>\
             <DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>\
             <CONTENT>\
+            <BLIST>\
               <ITEM><ARTICLE><X><T>title1</T><A>https://example.com/page1</A><L>en</L><F>HTML</F></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>\
               <ITEM><ARTICLE><X><T>title2</T><A>https://example.com/page2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>\
               <ITEM><ARTICLE><X><T>title3</T><A>https://example.com/page3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>\
+            </BLIST>\
             </CONTENT>\
             </PAGE>""";
         try {
@@ -505,9 +513,11 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             <PATH>links/typescript.xml</PATH>\
             <DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>\
             <CONTENT>\
+            <BLIST>\
               <ITEM><ARTICLE><X><T>title2</T><A>https://example.com/page1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>\
               <ITEM><ARTICLE><X><T>title1</T><A>https://example.com/page2</A><L>en</L><F>HTML</F></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>\
               <ITEM><ARTICLE><X><T>title3</T><A>https://example.com/page3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>\
+            </BLIST>\
             </CONTENT>\
             </PAGE>""";
         try {
@@ -531,9 +541,11 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             <PATH>links/typescript.xml</PATH>\
             <DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>\
             <CONTENT>\
+            <BLIST>\
               <ITEM><ARTICLE><X><T>title1</T><A>https://example.com/page1</A><L>en</L><F>HTML</F></X><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>\
               <ITEM><ARTICLE><X><T>title3</T><A>https://example.com/page2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>\
               <ITEM><ARTICLE><X><T>title2</T><A>https://example.com/page3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment.</COMMENT></ARTICLE></ITEM>\
+            </BLIST>\
             </CONTENT>\
             </PAGE>""";
         try {
@@ -557,9 +569,11 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             <PATH>links/typescript.xml</PATH>\
             <DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>\
             <CONTENT>\
+            <BLIST>\
               <ITEM><ARTICLE><X><T>title1</T><A>https://example.com/page1</A><L>en</L><F>HTML</F></X><COMMENT>This is comment 1.</COMMENT></ARTICLE></ITEM>\
               <ITEM><ARTICLE predecessor='https://example.com/page1'><X><T>title3</T><A>https://example.com/page2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is comment 2.</COMMENT></ARTICLE></ITEM>\
               <ITEM><ARTICLE><X><T>title2</T><A>https://example.com/page3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is comment 3.</COMMENT></ARTICLE></ITEM>\
+            </BLIST>\
             </CONTENT>\
             </PAGE>""";
         try {
@@ -582,9 +596,11 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             <PATH>links/typescript.xml</PATH>\
             <DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>\
             <CONTENT>\
+            <BLIST>\
               <ITEM><ARTICLE><X><T>title1</T><A>https://example.com/page1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>4</DAY></DATE><COMMENT>This is a comment 1.</COMMENT></ARTICLE></ITEM>\
               <ITEM><ARTICLE predecessor='https://example.com/page1'><X><T>title3</T><A>https://example.com/page2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>1</DAY></DATE><COMMENT>This is a comment 2.</COMMENT></ARTICLE></ITEM>\
               <ITEM><ARTICLE><X><T>title2</T><A>https://example.com/page3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment 3.</COMMENT></ARTICLE></ITEM>\
+            </BLIST>\
             </CONTENT>\
             </PAGE>""";
         try {
@@ -608,9 +624,11 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             <PATH>links/typescript.xml</PATH>\
             <DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>\
             <CONTENT>\
+            <BLIST>\
               <ITEM><ARTICLE><X><T>title1</T><A>https://example.com/page1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>1</DAY></DATE><COMMENT>This is a comment 1.</COMMENT></ARTICLE></ITEM>\
               <ITEM><ARTICLE predecessor='https://example.com/page1'><X><T>title3</T><A>https://example.com/page2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment 2.</COMMENT></ARTICLE></ITEM>\
               <ITEM><ARTICLE><X><T>title2</T><A>https://example.com/page3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment 3.</COMMENT></ARTICLE></ITEM>\
+            </BLIST>\
             </CONTENT>\
             </PAGE>""";
         try {
@@ -633,9 +651,11 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             <PATH>links/typescript.xml</PATH>\
             <DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>\
             <CONTENT>\
+            <BLIST>\
               <ITEM><ARTICLE><X><T>title1</T><A>https://example.com/page1</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>1</DAY></DATE><COMMENT>This is a comment 1.</COMMENT></ARTICLE></ITEM>\
               <ITEM><ARTICLE predecessor='https://example.com/badpage'><X><T>title3</T><A>https://example.com/page2</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>2</DAY></DATE><COMMENT>This is a comment 2.</COMMENT></ARTICLE></ITEM>\
               <ITEM><ARTICLE><X><T>title2</T><A>https://example.com/page3</A><L>en</L><F>HTML</F></X><DATE><YEAR>2010</YEAR><MONTH>9</MONTH><DAY>3</DAY></DATE><COMMENT>This is a comment 3.</COMMENT></ARTICLE></ITEM>\
+            </BLIST>\
             </CONTENT>\
             </PAGE>""";
         try {
@@ -659,10 +679,12 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             <PATH>links/typescript.xml</PATH>\
             <DATE><YEAR>2020</YEAR><MONTH>12</MONTH><DAY>31</DAY></DATE>\
             <CONTENT>\
+            <BLIST>\
             <ITEM><ARTICLE><X><T>embracing change - testing to agile</T><A>https://www.example.com/</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Leah</FIRSTNAME><LASTNAME>Stockley</LASTNAME></AUTHOR><AUTHOR><FIRSTNAME>Grant</FIRSTNAME><LASTNAME>Sanderson</LASTNAME></AUTHOR><DATE><YEAR>2019</YEAR><MONTH>3</MONTH><DAY>21</DAY></DATE><COMMENT>Context Driven Testing and Agile are a good match, but this blog is too polished.</COMMENT></ARTICLE></ITEM>\
             <ITEM><ARTICLE><X><T>embracing change - testing to agile</T><A>https://www.example.com/</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Leah</FIRSTNAME><LASTNAME>Stockley</LASTNAME></AUTHOR><AUTHOR><FIRSTNAME>Grant</FIRSTNAME><LASTNAME>Sanderson</LASTNAME></AUTHOR><DATE><YEAR>2019</YEAR><MONTH>3</MONTH><DAY>21</DAY></DATE><COMMENT>Context Driven Testing and Agile are a good match, but this blog is too polished</COMMENT></ARTICLE></ITEM>\
             <ITEM><ARTICLE><X><T>embracing change - testing to agile</T><A>https://www.example.com/</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Leah</FIRSTNAME><LASTNAME>Stockley</LASTNAME></AUTHOR><AUTHOR><FIRSTNAME>Grant</FIRSTNAME><LASTNAME>Sanderson</LASTNAME></AUTHOR><DATE><YEAR>2019</YEAR><MONTH>3</MONTH><DAY>21</DAY></DATE><COMMENT>Context Driven Testing and Agile are a good match. (But this blog is too polished.)</COMMENT></ARTICLE></ITEM>\
             <ITEM><ARTICLE><X><T>embracing change - testing to agile</T><A>https://www.example.com/</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Leah</FIRSTNAME><LASTNAME>Stockley</LASTNAME></AUTHOR><AUTHOR><FIRSTNAME>Grant</FIRSTNAME><LASTNAME>Sanderson</LASTNAME></AUTHOR><DATE><YEAR>2019</YEAR><MONTH>3</MONTH><DAY>21</DAY></DATE><COMMENT>Context Driven Testing and Agile are a good match. (But this blog is too polished)</COMMENT></ARTICLE></ITEM>\
+            </BLIST>\
             </CONTENT>\
             </PAGE>""";
         try {
