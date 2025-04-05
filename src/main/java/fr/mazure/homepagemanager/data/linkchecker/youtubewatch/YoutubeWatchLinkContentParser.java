@@ -321,7 +321,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
      */
     @Override
     public Optional<Duration> getDuration() {
-        return Optional.of(getMinDuration());
+        return Optional.ofNullable(getMinDuration());
     }
 
     /**
@@ -376,6 +376,10 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                           Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("AI Coffee Break with Letitia",
                                           new ChannelData(buildList(WellKnownAuthors.buildAuthor("Letitia", "Parcalabescu")),
+                                                          buildMatchingList(),
+                                                          Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("AI Explained",
+                                          new ChannelData(buildList(WellKnownAuthors.buildAuthorFromFirstName("Philip")),
                                                           buildMatchingList(),
                                                           Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Ai Flux",
@@ -500,7 +504,8 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
             new AbstractMap.SimpleEntry<>("GitButler",
                                           new ChannelData(buildList(WellKnownAuthors.buildAuthor("Scott", "Chacon")),
                                                           buildMatchingList(match("Caleb ", WellKnownAuthors.buildAuthor("Caleb", "Owens")),
-                                                                            match("Esteban", WellKnownAuthors.buildAuthor("José Esteban", "Vega Carrillo"))),
+                                                                            match("Esteban", WellKnownAuthors.buildAuthor("José Esteban", "Vega Carrillo")),
+                                                                            match("Mattias", WellKnownAuthors.buildAuthor("Mattias", "Granlund"))),
                                                           Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("GOTO Conferences",
                                           new ChannelData(buildList(),
@@ -606,6 +611,10 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                           new ChannelData(buildList(WellKnownAuthors.BURKARD_POLSTER),
                                                           buildMatchingList(),
                                                           Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("Mathsdrop",
+                                          new ChannelData(buildList(WellKnownAuthors.buildAuthor("Mickaël", "Launay")),
+                                                          buildMatchingList(),
+                                                          Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("Matt_Parker_2",
                                           new ChannelData(buildList(WellKnownAuthors.MATT_PARKER),
                                                           buildMatchingList(),
@@ -909,7 +918,11 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         final List<AuthorData> authors = new ArrayList<>();
         final String channel = getChannel();
         if (channel.equals("Centre Henri Lebesgue")) {
-            final String name = getTitle().replaceFirst(" - .*$", "");
+            final int index = getTitle().indexOf(" - ");
+            if (index == -1) {
+                return new ArrayList<>();
+            }
+            final String name = getTitle().substring(0, index);
             return Collections.singletonList(LinkContentParserUtils.parseAuthorName(name));
         }
         if (channel.equals("Java")) {

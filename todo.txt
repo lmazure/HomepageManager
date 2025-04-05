@@ -46,6 +46,40 @@ methods       53.9%    97.9%
 
 
 
+gérer
+ tag = "TITLE"
+ value = "blackpenredpen (SteveChow)"
+ violation = "a TITLE must start with an uppercase letter"
+ detail = "TITLE "blackpenredpen (SteveChow)" must start with an uppercase"
+
+
+
+
+
+
+
+
+
+
+gérer
+fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://towardsdatascience.com/neural-network-embeddings-explained-4d028e6f0526/"
+	at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:89)
+	at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:325)
+	at fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:33)
+	at fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:32)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1575)
+Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find JSON preloaded state in Medium
+	at fr.mazure.homepagemanager.data.linkchecker.TextParser.extract(TextParser.java:61)
+	at fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentParser.loadData(MediumLinkContentParser.java:151)
+	at fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentParser.<init>(MediumLinkContentParser.java:85)
+	at fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:60)
+	at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:98)
+	at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:87)
+	... 6 more
+
+
 
 
 

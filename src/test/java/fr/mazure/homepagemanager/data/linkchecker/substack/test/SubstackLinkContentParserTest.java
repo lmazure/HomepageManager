@@ -55,6 +55,7 @@ class SubstackLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://magazine.sebastianraschka.com/p/understanding-and-coding-self-attention|Sebastian||Raschka",
         "https://scienceetonnante.substack.com/p/grokking-les-modeles-dia-sont-ils|David||Louapre",
         "https://tidyfirst.substack.com/p/eventual-business-consistency|Kent||Beck",
+        "https://blog.sshh.io/p/how-to-backdoor-large-language-models|Shrivu||Shankar"
         }, delimiter = '|')
     void testAuthor(final String url,
                     final String expectedFirstName,

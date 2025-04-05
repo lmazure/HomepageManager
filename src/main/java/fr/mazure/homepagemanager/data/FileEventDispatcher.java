@@ -23,13 +23,13 @@ public class FileEventDispatcher {
     private static final String s_markerFile = "favicon.ico";
     @SuppressWarnings("resource")
     private static final PathMatcher s_matcher = FileSystems.getDefault().getPathMatcher("glob:**/*.xml");
-    static final List<String> _ignoredDirectories = new ArrayList<>(List.of(".svn",
-                                                                            ".git",
-                                                                            ".vscode",
-                                                                            "sitemap",  // TODO this directory name also appears in SiteFilesGenerator
-                                                                            "node_modules",
-                                                                            "cap_fichiers",
-                                                                            "cmm_fichiers"));
+    private static final List<String> _ignoredDirectories = new ArrayList<>(List.of(".svn",
+                                                                                    ".git",
+                                                                                    ".vscode",
+                                                                                    "sitemap",  // TODO this directory name also appears in SiteFilesGenerator
+                                                                                    "node_modules",
+                                                                                    "cap_fichiers",
+                                                                                    "cmm_fichiers"));
 
     private final Path _homepagePath;
     private final List<FileHandler> _fileHandlers;

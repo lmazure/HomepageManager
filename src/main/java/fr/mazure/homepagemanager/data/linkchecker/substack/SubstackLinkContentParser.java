@@ -41,7 +41,7 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
     private final Locale _language;
 
     private static final TextParser s_titleParser
-        = new TextParser("<h1 class=\"post-title unpublished\">",
+        = new TextParser("<h1 class=\"post-title published\">",
                          "</h1>",
                          s_sourceName,
                          "title");
@@ -98,7 +98,8 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        if (UrlHelper.hasPrefix(url, "https://magazine.sebastianraschka.com/")) {
+        if (UrlHelper.hasPrefix(url, "https://magazine.sebastianraschka.com/") ||
+            UrlHelper.hasPrefix(url, "https://blog.sshh.io/")) {
             return true;
         }
         return s_mediumUrl.matcher(url).matches();

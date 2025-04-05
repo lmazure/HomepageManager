@@ -229,6 +229,23 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
                         final YoutubeWatchLinkContentParser parser = (YoutubeWatchLinkContentParser)p;
                         Assertions.assertEquals(5602, parser.getMinDuration().get(ChronoUnit.SECONDS));
                         Assertions.assertEquals(5602, parser.getMaxDuration().get(ChronoUnit.SECONDS));
+                        Assertions.assertEquals(5602, parser.getDuration().get().get(ChronoUnit.SECONDS));
+                    });
+    }
+
+
+    @SuppressWarnings("static-method")
+    @Test
+    void testDurationsOfSensibleVideo() {
+        final String url = "https://www.youtube.com/watch?v=EvknN89JoWo";
+        perform(YoutubeWatchLinkContentParser.class,
+                url,
+                (final LinkDataExtractor p) ->
+                    {
+                        final YoutubeWatchLinkContentParser parser = (YoutubeWatchLinkContentParser)p;
+                        Assertions.assertNull(parser.getMinDuration());
+                        Assertions.assertNull(parser.getMaxDuration());
+                        Assertions.assertTrue(parser.getDuration().isEmpty());
                     });
     }
 

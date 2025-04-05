@@ -22,7 +22,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
  */
 public class YoutubeChannelUserLinkContentParser extends LinkDataExtractor {
 
-    static final String s_sourceName = "YouTube channel page";
+    private static final String s_sourceName = "YouTube channel page";
 
     private static final Pattern s_errorMessagePattern = Pattern.compile("\"alerts\":\\[\\{\"alertRenderer\":\\{\"type\":\"ERROR\",\"text\":\\{\"simpleText\":\"([^\\\"]*)\"\\}\\}\\}\\]"); //TODO use TextParser
     private static final TextParser s_descriptionParser
