@@ -30,7 +30,7 @@ public class DoubleSpaceChecker extends NodeChecker {
             ElementType.TEXTBLOCK
             });
 
-    static final Pattern s_indentationPattern = Pattern.compile("\\n +");
+    private static final Pattern s_indentationPattern2 = Pattern.compile("^\\n +|\\n +$");
 
     /**
     * constructor
@@ -55,9 +55,7 @@ public class DoubleSpaceChecker extends NodeChecker {
         }
 
         for (final String l: list) {
-            //final Matcher matcher = s_indentationPattern.matcher(l);
-            //final String str = matcher.replaceFirst("");
-            final String str = l.replaceAll("^\\n +|\\n +$", "");
+            final String str = s_indentationPattern2.matcher(l).replaceAll("");
             if (str.contains("  ")) {
                 return new CheckStatus("DoubleSpace", "\"" + e.getTextContent() + "\" should not contain a double space (in \"" + l + "\")", Optional.empty());
             }
