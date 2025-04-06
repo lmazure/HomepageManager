@@ -81,7 +81,7 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
         _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
         _subtitle = Optional.of(HtmlHelper.cleanContent(s_subtitleParser.extract(data)));
         _creationDate = Optional.of(LocalDate.parse(HtmlHelper.cleanContent(s_dateParser.extract(data))));
-        _sureAuthors = data.contains("Apple Podcasts") ? getTheJoyOfWhyAuthors(data) : extractAuthors(data);
+        _sureAuthors = data.contains("'topic':'The Joy of Why'") ? getTheJoyOfWhyAuthors(data) : extractAuthors(data);
         _links = initializeLinks();
     }
 
