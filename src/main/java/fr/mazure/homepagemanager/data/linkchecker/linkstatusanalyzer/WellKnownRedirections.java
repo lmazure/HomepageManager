@@ -58,7 +58,7 @@ public class WellKnownRedirections {
 
         {
             final RedirectionMatcher fromYoutubeChannelToYoutubeChannel1 = new RedirectionMatcher("from YouTube channel to YouTube channel",
-                                                                                                  Set.of(LinkStatus.OK));
+                                                                                                  Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
             fromYoutubeChannelToYoutubeChannel1.add("https://www.youtube.com/(c|channel)/" + RedirectionMatcher.ANY_STRING,
                                                     Set.of(Integer.valueOf(302)),
                                                     RedirectionMatcher.Multiplicity.ONE);
@@ -68,22 +68,6 @@ public class WellKnownRedirections {
             fromYoutubeChannelToYoutubeChannel1.compile();
             _matchers.add(fromYoutubeChannelToYoutubeChannel1);
         }
-
-        /*{
-            final RedirectionMatcher fromYoutubeChannelToYoutubeChannel1 = new RedirectionMatcher("from YouTube channel to YouTube channel",
-                                                                                                  Set.of(LinkStatus.OK));
-            fromYoutubeChannelToYoutubeChannel1.add("\\Qhttps://www.youtube.com/channel/\\E" + RedirectionMatcher.ANY_STRING,
-                                                    Set.of(Integer.valueOf(302)),
-                                                    RedirectionMatcher.Multiplicity.ONE);
-            fromYoutubeChannelToYoutubeChannel1.add("\\Qhttps://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fchannel%2F\\E" + RedirectionMatcher.ANY_STRING,
-                                                    Set.of(Integer.valueOf(302)),
-                                                    RedirectionMatcher.Multiplicity.ONE);
-            fromYoutubeChannelToYoutubeChannel1.add("\\Qhttps://consent.youtube.com/ml?continue=https://www.youtube.com/channel/\\E"  + RedirectionMatcher.ANY_STRING,
-                                                    Set.of(Integer.valueOf(200)),
-                                                    RedirectionMatcher.Multiplicity.ONE);
-            fromYoutubeChannelToYoutubeChannel1.compile();
-            _matchers.add(fromYoutubeChannelToYoutubeChannel1);
-        }*/
 
         {
             final RedirectionMatcher fromYoutubeChannelToYoutubeChannel = new RedirectionMatcher("from YouTube channel to YouTube channel",
@@ -102,8 +86,34 @@ public class WellKnownRedirections {
         }
 
         {
+            final RedirectionMatcher fromYoutubeAtChannelToYoutubeAtChannel = new RedirectionMatcher("from YouTube @ channel to YouTube @ channel",
+                                                                                                     Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
+            fromYoutubeAtChannelToYoutubeAtChannel.add("\\Qhttps://www.youtube.com/@\\E" + RedirectionMatcher.ANY_STRING,
+                                                       Set.of(Integer.valueOf(302)),
+                                                       RedirectionMatcher.Multiplicity.ONE);
+            fromYoutubeAtChannelToYoutubeAtChannel.add("\\Qhttps://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2F%40\\E" + RedirectionMatcher.ANY_STRING,
+                                                       Set.of(Integer.valueOf(200)),
+                                                       RedirectionMatcher.Multiplicity.ONE);
+            fromYoutubeAtChannelToYoutubeAtChannel.compile();
+            _matchers.add(fromYoutubeAtChannelToYoutubeAtChannel);
+        }
+
+        {
+            final RedirectionMatcher fromYoutubePlaylistToYoutubePlaylist = new RedirectionMatcher("from YouTube Playlist to YouTube Playlist",
+                                                                                                   Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
+            fromYoutubePlaylistToYoutubePlaylist.add("\\Qhttps://www.youtube.com/playlist?list=\\E" + RedirectionMatcher.ANY_STRING,
+                                                     Set.of(Integer.valueOf(302)),
+                                                     RedirectionMatcher.Multiplicity.ONE);
+            fromYoutubePlaylistToYoutubePlaylist.add("\\Qhttps://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fplaylist%3Flist%3D\\E" + RedirectionMatcher.ANY_STRING,
+                                                     Set.of(Integer.valueOf(200)),
+                                                     RedirectionMatcher.Multiplicity.ONE);
+            fromYoutubePlaylistToYoutubePlaylist.compile();
+            _matchers.add(fromYoutubePlaylistToYoutubePlaylist);
+        }
+
+        {
             final RedirectionMatcher fromYoutubeUserToYoutubeUser1 = new RedirectionMatcher("from YouTube user to YouTube user",
-                                                                                            Set.of(LinkStatus.OK));
+                                                                                            Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
             fromYoutubeUserToYoutubeUser1.add("\\Qhttps://www.youtube.com/user/\\E" + RedirectionMatcher.ANY_STRING,
                                               Set.of(Integer.valueOf(302)),
                                               RedirectionMatcher.Multiplicity.ONE);
@@ -116,7 +126,7 @@ public class WellKnownRedirections {
 
         {
             final RedirectionMatcher fromYoutubeUserToYoutubeUser2 = new RedirectionMatcher("from YouTube user to YouTube user",
-                                                                                            Set.of(LinkStatus.OK));
+                                                                                            Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
             fromYoutubeUserToYoutubeUser2.add("\\Qhttps://www.youtube.com/user/\\E(?<user>.*)",
                                               Set.of(Integer.valueOf(302)),
                                               RedirectionMatcher.Multiplicity.ONE);

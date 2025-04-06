@@ -23,6 +23,7 @@ public class TitleFormatChecker extends NodeChecker {
                                                                             "autosrb.pl",
                                                                             "awk",
                                                                             "bash",
+                                                                            "blackpenredpen",
                                                                             "csh",
                                                                             "curses",
                                                                             "ddd",

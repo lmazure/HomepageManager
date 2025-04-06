@@ -290,7 +290,32 @@ class WellKnownRedirectionsTest {
              true,
              Integer.valueOf(200),
              "from YouTube channel to YouTube channel",
-             Set.of(LinkStatus.OK));
+             Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "https://www.youtube.com/@java",
+        })
+    void youtubeAtChannel(final String url) {
+        test(url,
+             true,
+             Integer.valueOf(200),
+             "from YouTube @ channel to YouTube @ channel",
+             Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
+    }
+
+
+    @ParameterizedTest
+    @CsvSource({
+        "https://www.youtube.com/playlist?list=PLi6K9w_UbfFS393cQii0mC3nEy2NS7kv8",
+        })
+    void youtubePlaylist(final String url) {
+        test(url,
+             true,
+             Integer.valueOf(200),
+             "from YouTube Playlist to YouTube Playlist",
+             Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
     }
 
     @ParameterizedTest
@@ -303,7 +328,7 @@ class WellKnownRedirectionsTest {
              true,
              Integer.valueOf(200),
              "from YouTube user to YouTube user",
-             Set.of(LinkStatus.OK));
+             Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
     }
 
     @ParameterizedTest

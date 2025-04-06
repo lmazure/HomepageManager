@@ -55,7 +55,7 @@ class SubstackLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://magazine.sebastianraschka.com/p/understanding-and-coding-self-attention|Sebastian||Raschka",
         "https://scienceetonnante.substack.com/p/grokking-les-modeles-dia-sont-ils|David||Louapre",
         "https://tidyfirst.substack.com/p/eventual-business-consistency|Kent||Beck",
-        "https://blog.sshh.io/p/how-to-backdoor-large-language-models|Shrivu||Shankar"
+        "https://blog.sshh.io/p/how-to-backdoor-large-language-models|Shrivu||Shankar",
         }, delimiter = '|')
     void testAuthor(final String url,
                     final String expectedFirstName,
@@ -74,7 +74,7 @@ class SubstackLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-            "https://frontierai.substack.com/p/you-cant-build-a-moat-with-ai|Vikram||Sreekanti|Joseph|E.|Gonzalez",
+        "https://frontierai.substack.com/p/you-cant-build-a-moat-with-ai|Vikram||Sreekanti|Joseph|E.|Gonzalez",
     }, delimiter = '|')
     void test2Authors(final String url,
                       final String expectedFirstName1,
