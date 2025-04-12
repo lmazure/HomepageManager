@@ -780,12 +780,12 @@ public class WellKnownRedirections {
      * @return possible statuses
      */
     public Match getMatch(final FullFetchedLinkData effectiveData) {
-        for (final RedirectionMatcher matcher: _matchers) {
-            if (matcher.doesRedirectionMatch(effectiveData)) {
-                return matchOf(matcher);
-            }
-        }
-        throw new UnsupportedOperationException(effectiveDataToString(effectiveData));
+        final RedirectionMatcher.EncodedRedirection encoded = RedirectionMatcher.encode(effectiveData);
+        return _matchers.stream()
+                        .filter(matcher -> matcher.doesRedirectionMatch(encoded))
+                        .findFirst()
+                        .map(matcher -> new Match(matcher.getName(), matcher.getStatuses()))
+                        .orElseThrow(() -> new UnsupportedOperationException(effectiveDataToString(effectiveData)));
     }
 
     private static String effectiveDataToString(final FullFetchedLinkData effectiveData) {
@@ -807,10 +807,6 @@ public class WellKnownRedirections {
             d = d.previousRedirection();
         }
         return builder.toString();
-    }
-
-    private static Match matchOf(final RedirectionMatcher matcher) {
-        return new Match(matcher.getName(), matcher.getStatuses());
     }
 
     /**

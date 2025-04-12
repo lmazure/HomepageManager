@@ -48,6 +48,19 @@ methods       53.9%    97.9%
 
 
 
+gérer
+https://huggingface.co/blog/starcoder2
+The list of effective authors is not the effective one.
+The following authors are effectively present but are unexpected: ▭ first=Loubna middle=Ben last=Allal ▭ ▭
+The following authors are expected but are effectively missing: ▭ first=Loubna ▭ last=Ben Allal ▭ ▭
+
+
+
+
+
+
+
+
 
 
 gérer
@@ -77,20 +90,6 @@ Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Fa
 
 
 
-performance
-rather than encoding over and over in doesRedirectionMatch
-create a method that encode once and return the matching redirection or null
-
-
-
-
-
-
-
-
-
-
-
 
 the duration is incorrect for https://lexfridman.com/deepseek-dylan-patel-nathan-lambert
 
@@ -108,11 +107,6 @@ gérer Redirection chain = https://www.rando-hauteloire.fr/ → https://www.rand
 nettoyer space.xml : space exploration vs space telescope
 	
 
-
-
-
-
-Move GitLab Duo dans aicodeassist 
 
 
 

@@ -58,10 +58,11 @@ class RedirectionMatcherTest {
         retriever.retrieve(url,
                 (final FullFetchedLinkData d) -> {
                     consumerHasBeenCalled.set(true);
+                    final RedirectionMatcher.EncodedRedirection encoded = RedirectionMatcher.encode(d);
                     if (expectedMatch) {
-                        Assertions.assertTrue(matcher.doesRedirectionMatch(d));
+                        Assertions.assertTrue(matcher.doesRedirectionMatch(encoded));
                     } else {
-                        Assertions.assertFalse(matcher.doesRedirectionMatch(d));
+                        Assertions.assertFalse(matcher.doesRedirectionMatch(encoded));
                     }
                 },
                 false);
