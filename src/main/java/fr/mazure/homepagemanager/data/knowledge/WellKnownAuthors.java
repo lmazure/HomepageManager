@@ -33,7 +33,7 @@ public class WellKnownAuthors {
     @SuppressWarnings("javadoc") public static final AuthorData LEILA_BATTISON =     WellKnownAuthors.buildAuthor("Leila", "Battison");
     @SuppressWarnings("javadoc") public static final AuthorData LEX_FRIDMAN =        WellKnownAuthors.buildAuthor("Lex", "Fridman");
     @SuppressWarnings("javadoc") public static final AuthorData MATT_PARKER =        WellKnownAuthors.buildAuthor("Matt", "Parker");
-	@SuppressWarnings("javadoc") public static final AuthorData MICHAEL_LAUNAY =     WellKnownAuthors.buildAuthor("Mickaël", "Launay");
+    @SuppressWarnings("javadoc") public static final AuthorData MICHAEL_LAUNAY =     WellKnownAuthors.buildAuthor("Mickaël", "Launay");
     @SuppressWarnings("javadoc") public static final AuthorData MICHAEL_MERRIFIELD = WellKnownAuthors.buildAuthor("Michael", "Merrifield");
     @SuppressWarnings("javadoc") public static final AuthorData NICOLAI_PARLOG =     WellKnownAuthors.buildAuthor("Nicolai", "Parlog");
     @SuppressWarnings("javadoc") public static final AuthorData ROBERT_MILES =       WellKnownAuthors.buildAuthor("Robert", "Miles");

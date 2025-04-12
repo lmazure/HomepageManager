@@ -247,7 +247,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
      * Get the title of the video<br>
      * Is null if the video is private
      *
-	 * @return title of the video
+     * @return title of the video
      */
     @Override
     public String getTitle() {
@@ -872,9 +872,9 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
 
     /**
      * Get the creation date of the video<br>
-	 * Is null if the video is private
-	 *
-	 * @return creation date of the video
+     * Is null if the video is private
+     *
+     * @return creation date of the video
      */
     @Override
     public Optional<TemporalAccessor> getCreationDate() {
@@ -950,9 +950,9 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
 
     /**
      * Get the probable authors of the video<br>
-	 * Is null if the video is private
-	 *
-	 * @return probable authors of the video
+     * Is null if the video is private
+     *
+     * @return probable authors of the video
      */
     @Override
     public List<AuthorData> getProbableAuthors() {

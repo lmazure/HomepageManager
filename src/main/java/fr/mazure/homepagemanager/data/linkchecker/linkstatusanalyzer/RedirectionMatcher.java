@@ -159,12 +159,12 @@ public class RedirectionMatcher {
         return _pattern.matcher(encoded.value).matches();
     }
 
-	/**
-	 * Encode a redirection chain
-	 *
-	 * @param effectiveData Redirection chain
-	 * @return Encoded redirection chain
-	 */
+    /**
+     * Encode a redirection chain
+     *
+     * @param effectiveData Redirection chain
+     * @return Encoded redirection chain
+     */
     public static EncodedRedirection encode(final FullFetchedLinkData effectiveData) {
         final StringBuilder builder = new StringBuilder();
         builder.append(effectiveData.url());
@@ -190,7 +190,7 @@ public class RedirectionMatcher {
                            Set<Integer> httpCodes,
                            Multiplicity multiplicity) {
     }
-    
+
     /**
      * @param value Encoded redirection chain
      */
