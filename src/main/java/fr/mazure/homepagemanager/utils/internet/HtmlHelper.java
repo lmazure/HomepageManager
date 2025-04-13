@@ -2263,12 +2263,6 @@ public class HtmlHelper {
     private static final Pattern s_clean_trailing_whitespaces = Pattern.compile("\\p{Z}*$");
     private static final Pattern s_clean_leading_whitespaces = Pattern.compile("^\\p{Z}*");
 
-    private static final Pattern BR_TAG_PATTERN = Pattern.compile("< *[bB][rR] */?>");
-    private static final Pattern SCRIPT_TAG_PATTERN = Pattern.compile("(?is)<SCRIPT[^>]*>.*?</SCRIPT>");
-    private static final Pattern SVG_TAG_PATTERN = Pattern.compile("(?is)<SVG[^>]*>.*?</SVG>");
-    private static final Pattern STYLE_TAG_PATTERN = Pattern.compile("(?is)<STYLE[^>]*>.*?</STYLE>");
-    private static final Pattern GENERIC_TAG_PATTERN = Pattern.compile("<[^>]*>");
-
     /**
      * Slurp the content of a HTML file
      * @param file HTML file
@@ -2480,11 +2474,123 @@ public class HtmlHelper {
      */
     public static final String removeHtmlTags(final String input) {
 
-        String result = BR_TAG_PATTERN.matcher(input).replaceAll("\n");
-        result = SCRIPT_TAG_PATTERN.matcher(result).replaceAll("");
-        result = SVG_TAG_PATTERN.matcher(result).replaceAll("");
-        result = STYLE_TAG_PATTERN.matcher(result).replaceAll("");
-        return GENERIC_TAG_PATTERN.matcher(result).replaceAll("");
+        if (input.isEmpty()) {
+            return input;
+        }
+
+        final StringBuilder result = new StringBuilder(input.length());
+        final int length = input.length();
+        int pos = 0;
+
+        while (pos < length) {
+            final int tagStart = input.indexOf('<', pos);
+            
+            // No more tags found
+            if (tagStart == -1) {
+                result.append(input.substring(pos));
+                break;
+            }
+            
+            // Append text before the tag
+            result.append(input.substring(pos, tagStart));
+            
+            // Find the closing '>'
+            int tagEnd = input.indexOf('>', tagStart);
+            if (tagEnd == -1) {
+                // Malformed HTML - no closing '>'
+                result.append(input.substring(tagStart));
+                break;
+            }
+            
+            // Process the tag
+            final String tag = input.substring(tagStart, tagEnd + 1).toLowerCase();
+            
+            if (isBrTag(tag)) {
+                // Convert <br> tags to newlines
+                result.append('\n');
+            } else if (isScriptTag(tag)) {
+                // Handle script tags and their content
+                tagEnd = findClosingTag(input, tagEnd, "script");
+            } else if (isSvgTag(tag)) {
+                // Handle svg tags and their content
+                tagEnd = findClosingTag(input, tagEnd, "svg");
+            } else if (isStyleTag(tag)) {
+                // Handle style tags and their content
+                tagEnd = findClosingTag(input, tagEnd, "style");
+            }
+            
+            // Move past this tag
+            pos = tagEnd + 1;
+        }
+        
+        return result.toString();
+    }
+
+    /**
+     * Finds the position of the closing tag for block elements like script, style, or svg
+     * 
+     * @param input the full HTML string
+     * @param startPos position after the opening tag
+     * @param tagName name of the tag to find closing for
+     * @return position of the end of the closing tag
+     */
+    private static int findClosingTag(final String input, final int startPos, final String tagName) {
+        final String closingTag = "</" + tagName;
+        int closeTagStart;
+        final int searchPos = startPos + 1;
+        final int length = input.length();
+
+        while (searchPos < length) {
+            closeTagStart = input.indexOf(closingTag, searchPos);
+            if (closeTagStart == -1) {
+                return length - 1; // No closing tag found
+            }
+
+            // Find the end of this tag
+            final int closeTagEnd = input.indexOf('>', closeTagStart);
+            if (closeTagEnd == -1) {
+                return length - 1; // Malformed HTML
+            }
+
+            return closeTagEnd;
+        }
+
+        return startPos; // Fallback
+    }
+
+    /**
+     * Checks if a tag is a BR tag
+     */
+    private static boolean isBrTag(final String tag) {
+        return startsWithIgnoreCase(tag, "<br>") || startsWithIgnoreCase(tag, "<br/") || startsWithIgnoreCase(tag, "<br ");
+    }
+    
+    /**
+     * Checks if a tag is a script tag
+     */
+    private static boolean isScriptTag(final String tag) {
+        return startsWithIgnoreCase(tag, "<script");
+    }
+    
+    /**
+     * Checks if a tag is an SVG tag
+     */
+    private static boolean isSvgTag(final String tag) {
+        return startsWithIgnoreCase(tag, "<svg");
+    }
+    
+    /**
+     * Checks if a tag is a style tag
+     */
+    private static boolean isStyleTag(final String tag) {
+        return startsWithIgnoreCase(tag, "<style");
+    }
+
+    private static boolean startsWithIgnoreCase(final String str, final String prefix) {
+        if (prefix.length() > str.length()) {
+            return false;
+        }
+        return str.regionMatches(true, 0, prefix, 0, prefix.length());
     }
 
     private static final String removeNewlines(final String input) {

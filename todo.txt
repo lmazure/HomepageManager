@@ -48,6 +48,20 @@ methods       53.9%    97.9%
 
 
 
+
+
+optimize
+- fr.mazure.homepagemanager.utils.internet.HtmlHelper.trim(String)
+
+
+
+
+
+
+
+
+
+
 gérer
 https://huggingface.co/blog/starcoder2
 The list of effective authors is not the effective one.
