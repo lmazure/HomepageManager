@@ -103,8 +103,7 @@ public class MediumLinkContentParser extends LinkDataExtractor {
         }
         return host.endsWith("medium.com") ||
                host.equals("pub.towardsai.net") ||
-               host.equals("levelup.gitconnected.com") ||
-               host.equals("towardsdatascience.com");
+               host.equals("levelup.gitconnected.com");
     }
 
     @Override
@@ -129,7 +128,7 @@ public class MediumLinkContentParser extends LinkDataExtractor {
         _dataIsLoaded = true;
 
 
-        /* does not work, the subtitle in the FSON payload is not the subtitle, but the first paragraph, whatever is is this one
+        /* does not work, the subtitle in the JSON payload is not the subtitle, but the first paragraph, whatever is is this one
         JSONObject previewContent;
         try {
             previewContent = post.getJSONObject("previewContent");
