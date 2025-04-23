@@ -2255,13 +2255,11 @@ public class HtmlHelper {
         lookupMap.put("&zwnj;", "\u200C");
     }
 
-    private static final Pattern CHARSET_EXTRACTION_PATTERN = Pattern.compile(
+    private static final Pattern s_charset_extraction_pattern = Pattern.compile(
             "<meta\\s+(charset\\s*=\\s*['\"]([^'\"]+)['\"]|http-equiv\\s*=\\s*['\"]Content-Type['\"]\\s+content\\s*=\\s*['\"]text/html;\\s*charset=([^'\"]+)['\"]|content\\s*=\\s*['\"]text/html;\\s*charset=([^'\"]+)['\"]\\s+http-equiv\\s*=\\s*['\"]Content-Type['\"])[^>]*>",
             Pattern.CASE_INSENSITIVE
         );
-
-    private static final Pattern s_clean_trailing_whitespaces = Pattern.compile("\\p{Z}*$");
-    private static final Pattern s_clean_leading_whitespaces = Pattern.compile("^\\p{Z}*");
+    private static final Pattern s_url_pattern = Pattern.compile("(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]");
 
     /**
      * Slurp the content of a HTML file
@@ -2297,7 +2295,7 @@ public class HtmlHelper {
     }
 
     private static Optional<Charset> extractCharsetFromString(final String str) {
-        final Matcher matcher = CHARSET_EXTRACTION_PATTERN.matcher(str);
+        final Matcher matcher = s_charset_extraction_pattern.matcher(str);
         if (matcher.find()) {
             if (matcher.group(2) != null) {
                 return createCharsetFromName(matcher.group(2));
@@ -2463,9 +2461,30 @@ public class HtmlHelper {
      * @return resulting text
      */
     public static final String trim(final String input) {
-
-        final String s1 = s_clean_leading_whitespaces.matcher(input).replaceAll("");
-        return s_clean_trailing_whitespaces.matcher(s1).replaceAll("");
+        if (input.isEmpty()) {
+            return "";
+        }
+        
+        int start = 0;
+        int end = input.length() - 1;
+        
+        // Find the first non-whitespace character
+        while (start <= end && Character.isWhitespace(input.charAt(start))) {
+            start++;
+        }
+        
+        // All characters are whitespace
+        if (start > end) {
+            return "";
+        }
+        
+        // Find the last non-whitespace character
+        while (end > start && Character.isWhitespace(input.charAt(end))) {
+            end--;
+        }
+        
+        // Return the trimmed substring
+        return input.substring(start, end + 1);
     }
 
     /**
@@ -2603,10 +2622,27 @@ public class HtmlHelper {
      * @return String converted to HTML
      */
     public static String convertStringToHtml(final String str) {
-        return str.replace("&", "&amp;")
-                  .replace("<","&lt;")
-                  .replace(">","&gt;")
-                  .replace("\n","<br>")
-                  .replaceAll("(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]", "<a href='$0'>$0</a>");
+        final StringBuilder sb = new StringBuilder(str.length() + 32);
+        for (int i = 0; i < str.length(); i++) {
+            final char c = str.charAt(i);
+            switch (c) {
+                case '&': sb.append("&amp;"); break;
+                case '<': sb.append("&lt;"); break;
+                case '>': sb.append("&gt;"); break;
+                case '\n': sb.append("<br>"); break;
+                default: sb.append(c);
+            }
+        }
+
+        // Only now do the URL replacement
+        final Matcher matcher = s_url_pattern.matcher(sb.toString());
+        final StringBuffer result = new StringBuffer(sb.length());
+        while (matcher.find()) {
+            final String url = matcher.group();
+            matcher.appendReplacement(result, "<a href='" + url + "'>" + url + "</a>");
+        }
+        matcher.appendTail(result);
+
+        return result.toString();
     }
 }

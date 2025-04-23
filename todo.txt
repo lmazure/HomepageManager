@@ -58,36 +58,6 @@ corriger les liens d'Aunt Minnie
 
 
 
-optimize
-- fr.mazure.homepagemanager.utils.internet.HtmlHelper.trim(String)
-
-
-
-
-
-
-
-
-
-
-gérer
-https://huggingface.co/blog/starcoder2
-The list of effective authors is not the effective one.
-The following authors are effectively present but are unexpected: ▭ first=Loubna middle=Ben last=Allal ▭ ▭
-The following authors are expected but are effectively missing: ▭ first=Loubna ▭ last=Ben Allal ▭ ▭
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
