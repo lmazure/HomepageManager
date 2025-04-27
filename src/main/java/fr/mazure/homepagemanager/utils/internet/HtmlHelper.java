@@ -2469,7 +2469,7 @@ public class HtmlHelper {
         int end = input.length() - 1;
         
         // Find the first non-whitespace character
-        while (start <= end && Character.isWhitespace(input.charAt(start))) {
+        while ((start <= end) && Character.isSpaceChar(input.charAt(start))) {
             start++;
         }
         
@@ -2479,7 +2479,7 @@ public class HtmlHelper {
         }
         
         // Find the last non-whitespace character
-        while (end > start && Character.isWhitespace(input.charAt(end))) {
+        while (Character.isSpaceChar(input.charAt(end))) {
             end--;
         }
         
