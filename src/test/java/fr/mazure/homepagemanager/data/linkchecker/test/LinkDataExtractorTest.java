@@ -631,7 +631,7 @@ class LinkDataExtractorTest {
     void youtubeWatchBlackPenRedPenIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=eex9Gm_rOrQ";
         final String expectedXml = """
-                <ARTICLE><X><T>How to solve an exponential equation with 3 different bases</T>\
+                <ARTICLE><X><T>Solving a triple exponential equation!</T>\
                 <A>https://www.youtube.com/watch?v=eex9Gm_rOrQ</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>7</MINUTE><SECOND>42</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Steve</FIRSTNAME><LASTNAME>Chow</LASTNAME></AUTHOR>\
@@ -1222,14 +1222,14 @@ class LinkDataExtractorTest {
     void youtubeWatchGitButlerMattiasIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=RhkQ4e_n_1k";
         final String expectedSureXml = """
-                <ARTICLE><X><T>Stack Overflow Git Questions Part 1 | Ep. 12 Bots and Booze</T>\
+                <ARTICLE><X><T>Stack Overflow Git Questions Part 1 | Ep. 12 Bits and Booze</T>\
                 <A>https://www.youtube.com/watch?v=RhkQ4e_n_1k</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>32</MINUTE><SECOND>1</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Scott</FIRSTNAME><LASTNAME>Chacon</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>3</MONTH><DAY>21</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
-                <ARTICLE><X><T>Stack Overflow Git Questions Part 1 | Ep. 12 Bots and Booze</T>\
+                <ARTICLE><X><T>Stack Overflow Git Questions Part 1 | Ep. 12 Bits and Booze</T>\
                 <A>https://www.youtube.com/watch?v=RhkQ4e_n_1k</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>32</MINUTE><SECOND>1</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Scott</FIRSTNAME><LASTNAME>Chacon</LASTNAME></AUTHOR>\

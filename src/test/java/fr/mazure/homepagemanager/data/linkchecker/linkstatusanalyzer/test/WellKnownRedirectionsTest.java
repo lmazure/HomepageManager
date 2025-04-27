@@ -76,7 +76,7 @@ class WellKnownRedirectionsTest {
     @ParameterizedTest
     @CsvSource({
         "http://httpbin.org/status/404",
-        "https://scienceetonnante.com/2017/11/12/glyphosate-le-nouvel-amiante/",
+        "https://scienceetonnante.com/blog/2017/11/12/glyphosate-le-nouvel-amiante/",
         })
     void direct404(final String url) {
         test(url,

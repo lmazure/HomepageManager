@@ -46,8 +46,6 @@ class LinkContentParserTest {
 
     @ParameterizedTest
     @ValueSource(strings = {
-            // "http://astronogeek.fr/", this site is frequently broken
-            "https://spoutlink.com/",
             "https://www.france24.com/fr/20200419-covid-19-le-fl%C3%A9au-de-trop-pour-les-peuples-indig%C3%A8nes-au-br%C3%A9sil",
             "https://www.france24.com/fr/am%C3%A9riques/20200527-%C3%A9mission-sp%C3%A9ciale-le-br%C3%A9sil-%C3%A9picentre-du-covid-19-en-am%C3%A9rique-latine",
             "https://www.lavoixdunord.fr/752544/article/2020-05-13/coronavirus-les-foyers-de-morts-mysterieuses-se-multiplient-au-nigeria",
