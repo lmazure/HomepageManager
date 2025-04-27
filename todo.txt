@@ -48,6 +48,17 @@ methods       53.9%    97.9%
 
 
 
+gérer
+https://www.wired.com/story/confessions-marcus-hutchins-hacker-who-saved-the-internet/
+subtitle "At 22, he single-handedly put a stop to the worst cyberattack the world had ever seen. Then he was arrested by the FBI. This is his untold story." is not equal to the real subtitle"At 22, he single-handedly put a stop to the worst cyberattack the world had ever seen. Then he was arrested by the FBI. This is his untold story. "
+
+
+
+
+
+
+
+
 
 corriger les liens d'Aunt Minnie
 
