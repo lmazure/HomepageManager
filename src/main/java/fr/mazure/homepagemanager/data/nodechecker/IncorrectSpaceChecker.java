@@ -81,6 +81,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "tween.js",
             "typescriptlang.org",
             "U.S.",
+            "Vectorize.io",
             "Venus.js",
             "view.json",
             "Washington Z.C.",
