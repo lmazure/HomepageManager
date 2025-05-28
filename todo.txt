@@ -48,6 +48,27 @@ methods       53.9%    97.9%
 
 
 
+ajouter parser pour https://twimlai.com/podcast/twimlai/how-openai-builds-ai-agents-that-think-and-act/
+
+
+
+
+
+ajouter parser pour https://www.youtube.com/watch?v=3lrudNraG2U
+
+
+
+
+
+
+
+dans notes/vscode.xml
+line 591: the line contains an XML attribute between single quotes "<KEY id="'"/>"
+
+
+
+
+
 
 
 corriger les liens d'Aunt Minnie

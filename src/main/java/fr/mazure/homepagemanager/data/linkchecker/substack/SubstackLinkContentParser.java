@@ -99,7 +99,8 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
      */
     public static boolean isUrlManaged(final String url) {
         if (UrlHelper.hasPrefix(url, "https://magazine.sebastianraschka.com/") ||
-            UrlHelper.hasPrefix(url, "https://blog.sshh.io/")) {
+                UrlHelper.hasPrefix(url, "https://www.thecoder.cafe/") ||
+                UrlHelper.hasPrefix(url, "https://blog.sshh.io/")) {
             return true;
         }
         return s_mediumUrl.matcher(url).matches();
