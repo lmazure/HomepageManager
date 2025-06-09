@@ -3055,6 +3055,32 @@ class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchTeteATeteChercheuse() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=3lrudNraG2U";
+        final String expectedSureXml = """
+                <ARTICLE><X><T>S03E02. Hoel Queffelec</T>\
+                <A>https://www.youtube.com/watch?v=3lrudNraG2U</A>\
+                <L>fr</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>0</MINUTE><SECOND>15</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Hoel</FIRSTNAME><LASTNAME>Queffelec</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Nathalie</FIRSTNAME><LASTNAME>Ayi</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2025</YEAR><MONTH>5</MONTH><DAY>5</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final String expectedProbableXml = """
+                <ARTICLE><X><T>S03E02. Hoel Queffelec</T>\
+                <A>https://www.youtube.com/watch?v=3lrudNraG2U</A>\
+                <L>fr</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>0</MINUTE><SECOND>15</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Hoel</FIRSTNAME><LASTNAME>Queffelec</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Nathalie</FIRSTNAME><LASTNAME>Ayi</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Ayman</FIRSTNAME><LASTNAME>Moussa</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Nastassia</FIRSTNAME><LASTNAME>Pouradier Duteil</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2025</YEAR><MONTH>5</MONTH><DAY>5</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
+        Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
+    }
+
+    @Test
     void youtubeWatchThePrimeTimesIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=GkmUwDXvWiQ";
         final String expectedXml = """

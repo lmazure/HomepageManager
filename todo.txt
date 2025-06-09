@@ -54,11 +54,6 @@ ajouter parser pour https://twimlai.com/podcast/twimlai/how-openai-builds-ai-age
 
 
 
-ajouter parser pour https://www.youtube.com/watch?v=3lrudNraG2U
-
-
-
-
 
 
 

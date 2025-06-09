@@ -810,6 +810,11 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                           new ChannelData(buildList(WellKnownAuthors.buildAuthor("Nana", "Janashia")),
                                                           buildMatchingList(),
                                                           Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("Tête-à-tête Chercheuse(s)",
+                                          new ChannelData(buildList(WellKnownAuthors.buildAuthor("Nathalie", "Ayi")),
+                                                          buildMatchingList(match("Ayman", WellKnownAuthors.buildAuthor("Ayman", "Moussa")),
+                                                                            match("Nastassia", WellKnownAuthors.buildAuthor("Nastassia", "Pouradier Duteil"))),
+                                                          Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("ThePrimeTime",
                                           new ChannelData(buildList(WellKnownAuthors.buildAuthor("Michael", "B.", "Paulson")),
                                                           buildMatchingList(),
@@ -895,12 +900,18 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         return getCreationDate();
     }
 
-    private List<AuthorData> extractSureAuthors() {
+    private List<AuthorData> extractSureAuthors() throws ContentParserException {
+        final List<AuthorData> authors = new ArrayList<>();
         final String channel = getChannel();
         if (_channelData.containsKey(channel)) {
-            return _channelData.get(channel).getAuthors();
+            authors.addAll(_channelData.get(channel).getAuthors());
         }
-        return Collections.emptyList();
+        if (channel.equals("Tête-à-tête Chercheuse(s)")) {
+            final String title = getTitle();
+            final String str = title.replaceAll("^[^ ]+ ([- a-zA-Z]+)( \\(.+\\))?$", "$1");
+            authors.addFirst(LinkContentParserUtils.parseAuthorName(str));
+        }
+        return authors;
     }
 
     /**
