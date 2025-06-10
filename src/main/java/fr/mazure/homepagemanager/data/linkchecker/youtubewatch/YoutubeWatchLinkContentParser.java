@@ -547,6 +547,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                           buildMatchingList(match("Broker", WellKnownAuthors.buildAuthor("Carl", "Broker")),
                                                                             match("Crume", WellKnownAuthors.buildAuthor("Jeff", "Crume")),
                                                                             match("Clyburn", WellKnownAuthors.buildAuthor("Cedric", "Clyburn")),
+                                                                            match("Ke\\W", WellKnownAuthors.buildAuthor("Isaac", "Ke")),
                                                                             match("Keen", WellKnownAuthors.buildAuthor("Martin", "Keen"))),
                                                           Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Jamy - Epicurieux",
