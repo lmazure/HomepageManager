@@ -38,7 +38,7 @@ class FileCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
             "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -55,7 +55,7 @@ class FileCheckerTest {
         final String content =
             "\uFEFF<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
             "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -74,7 +74,7 @@ class FileCheckerTest {
         final String content =
             "\t<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
             "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -93,7 +93,7 @@ class FileCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
             "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -110,7 +110,7 @@ class FileCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
             "\t<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\t\r\n" +
@@ -130,7 +130,7 @@ class FileCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
             "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -149,7 +149,7 @@ class FileCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?> \r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
             "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -167,7 +167,7 @@ class FileCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
             "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH> \r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE> \r\n" +
@@ -186,7 +186,7 @@ class FileCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
             "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -204,7 +204,7 @@ class FileCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
             "<PATH>" + s_bad_dirname + "/" + s_bad_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -222,7 +222,7 @@ class FileCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>test</TITLE>\n" +
             "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -241,7 +241,7 @@ class FileCheckerTest {
             "\r\n" +
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
             "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -260,7 +260,7 @@ class FileCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
             "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "\r\n" +
@@ -279,7 +279,7 @@ class FileCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
             "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -298,7 +298,7 @@ class FileCheckerTest {
             " \r\n" +
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
             "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -319,7 +319,7 @@ class FileCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
             "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "  \r\n" +
@@ -339,7 +339,7 @@ class FileCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
             "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -360,7 +360,7 @@ class FileCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            " <PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            " <PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "  <TITLE>test</TITLE>\r\n" +
             "   <PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "    <DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -379,7 +379,7 @@ class FileCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
             "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY> </DATE>\r\n" +
@@ -402,7 +402,7 @@ class FileCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
             "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -425,7 +425,7 @@ class FileCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
             "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -449,7 +449,7 @@ class FileCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
             "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -472,7 +472,7 @@ class FileCheckerTest {
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
             "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
             "<TITLE>test</TITLE>\r\n" +
             "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
             "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
@@ -489,12 +489,34 @@ class FileCheckerTest {
        }
 
     @Test
+    void testXmlAttributeBetweenSingleQuoteIgnoreSingleQuoteInValue() {
+
+        final String content =
+            "<?xml version=\"1.0\"?>\r\n" +
+            "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
+            "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
+            "<TITLE>test</TITLE>\r\n" +
+            "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
+            "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +
+            "<CONTENT>\r\n" +
+            "<DEFINITIONTABLE>\r\n" +
+            "  <ROW>\r\n" +
+            "    <TERM><MODIFIERKEY id=\"Ctrl\"/><KEY id=\"'\"/></TERM>\r\n" +
+            "    <DESC>Set focus on the fourth tab group</DESC>\r\n" +
+            "  </ROW>\r\n" +
+            "</DEFINITIONTABLE>\\r\\n" +
+            "</CONTENT>\r\n" +
+            "</PAGE>";
+        test(content);
+       }
+
+    @Test
     void testLocalLinks() {
 
         final String content =
             "<?xml version=\"1.0\"?>\r\n" +
                     "<?xml-stylesheet type=\"text/xsl\" href=\"../css/strict.xsl\"?>\r\n" +
-                    "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\">\r\n" +
+                    "<PAGE xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"../css/schema.xsd\" xml:lang=\"en\">\r\n" +
                     "<TITLE>test</TITLE>\r\n" +
                     "<PATH>" + s_dirname + "/" + s_filename + ".xml</PATH>\r\n" +
                     "<DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r\n" +

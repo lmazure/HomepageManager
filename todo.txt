@@ -57,14 +57,6 @@ ajouter parser pour https://twimlai.com/podcast/twimlai/how-openai-builds-ai-age
 
 
 
-dans notes/vscode.xml
-line 591: the line contains an XML attribute between single quotes "<KEY id="'"/>"
-
-
-
-
-
-
 
 corriger les liens d'Aunt Minnie
 

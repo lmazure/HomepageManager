@@ -1,7 +1,15 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
+<!-- Import xml: namespace -->
+<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+
 <!-- definition of the types -->
+<xs:simpleType name="noZeroInteger">
+  <xs:restriction base="xs:integer">
+    <xs:pattern value="[1-9]*[0-9]"/>
+  </xs:restriction>
+</xs:simpleType>
 
 <xs:complexType name="person">
   <xs:sequence>
@@ -19,14 +27,14 @@
     <xs:element name="YEAR" type="xs:integer"/>
     <xs:element name="MONTH">
       <xs:simpleType>
-        <xs:restriction base="xs:positiveInteger">
+        <xs:restriction base="noZeroInteger">
           <xs:maxInclusive value="12"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:element>
     <xs:element name="DAY">
       <xs:simpleType>
-        <xs:restriction base="xs:positiveInteger">
+        <xs:restriction base="noZeroInteger">
           <xs:maxInclusive value="31"/>
         </xs:restriction>
       </xs:simpleType>
@@ -39,14 +47,14 @@
     <xs:element name="YEAR" type="xs:integer"/>
     <xs:element name="MONTH" minOccurs="0" maxOccurs="1">
       <xs:simpleType>
-        <xs:restriction base="xs:positiveInteger">
+        <xs:restriction base="noZeroInteger">
           <xs:maxInclusive value="12"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:element>
     <xs:element name="DAY" minOccurs="0" maxOccurs="1">
       <xs:simpleType>
-        <xs:restriction base="xs:positiveInteger">
+        <xs:restriction base="noZeroInteger">
           <xs:maxInclusive value="31"/>
         </xs:restriction>
       </xs:simpleType>
@@ -58,21 +66,21 @@
   <xs:sequence>
     <xs:element name="HOUR" minOccurs="0" maxOccurs="1">
       <xs:simpleType>
-        <xs:restriction base="xs:positiveInteger">
+        <xs:restriction base="noZeroInteger">
           <xs:minInclusive value="1"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:element>
     <xs:element name="MINUTE" minOccurs="0" maxOccurs="1">
       <xs:simpleType>
-        <xs:restriction base="xs:nonNegativeInteger">
+        <xs:restriction base="noZeroInteger">
           <xs:maxInclusive value="59"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:element>
     <xs:element name="SECOND" minOccurs="1" maxOccurs="1">
       <xs:simpleType>
-        <xs:restriction base="xs:nonNegativeInteger">
+        <xs:restriction base="noZeroInteger">
           <xs:maxInclusive value="59"/>
         </xs:restriction>
       </xs:simpleType>
@@ -103,7 +111,6 @@
     <xs:element ref="U"/>
     <xs:element ref="B"/>
     <xs:element ref="I"/>
-    <xs:element ref="STRIKE"/>
     <xs:element ref="SMALL"/>
     <xs:element ref="SUB"/>
     <xs:element ref="SUP"/>
@@ -114,7 +121,9 @@
     <xs:element ref="MODIFIERKEY"/>
     <xs:element ref="IMAGE"/>
     <xs:element name="AUTHOR" type="person"/>
+    <xs:element name="KEYWORD"/>
   </xs:choice>
+  <xs:attribute ref="xml:lang" use="optional"/>
 </xs:complexType>
 
 <!-- definition of the tags -->
@@ -143,55 +152,25 @@
        </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
+    <xs:attribute ref="xml:lang" use="required"/>
   </xs:complexType>
 </xs:element>
 
 <xs:element name="CONTENT" type="content"/>
 
-<xs:element name="BLIST">
-  <xs:complexType>
-    <xs:sequence>
-      <xs:element name="TITLE" type="content" minOccurs="0" maxOccurs="1"/>
-      <xs:element name="ITEM" type="content" minOccurs="1" maxOccurs="unbounded"/>
-    </xs:sequence>
-  </xs:complexType>
-</xs:element>
+<xs:complexType name="List">
+  <xs:sequence>
+    <xs:element name="TITLE" type="content" minOccurs="0" maxOccurs="1"/>
+    <xs:element name="SUBTITLE" type="content" minOccurs="0" maxOccurs="1"/>
+    <xs:element name="ITEM" type="content" minOccurs="1" maxOccurs="unbounded"/>
+  </xs:sequence>
+</xs:complexType>
 
-<xs:element name="SLIST">
-  <xs:complexType>
-    <xs:sequence>
-      <xs:element name="TITLE" type="content" minOccurs="0" maxOccurs="1"/>
-      <xs:element name="ITEM" type="content" minOccurs="1" maxOccurs="unbounded"/>
-    </xs:sequence>
-  </xs:complexType>
-</xs:element>
-
-<xs:element name="NLIST">
-  <xs:complexType>
-    <xs:sequence>
-      <xs:element name="TITLE" type="content" minOccurs="0" maxOccurs="1"/>
-      <xs:element name="ITEM" type="content" minOccurs="1" maxOccurs="unbounded"/>
-    </xs:sequence>
-  </xs:complexType>
-</xs:element>
-
-<xs:element name="CLIST">
-  <xs:complexType>
-    <xs:sequence>
-      <xs:element name="TITLE" type="content" minOccurs="0" maxOccurs="1"/>
-      <xs:element name="ITEM" type="content" minOccurs="1" maxOccurs="unbounded"/>
-    </xs:sequence>
-  </xs:complexType>
-</xs:element>
-
-<xs:element name="LLIST">
-  <xs:complexType>
-    <xs:sequence>
-      <xs:element name="TITLE" type="content" minOccurs="0" maxOccurs="1"/>
-      <xs:element name="ITEM" type="content" minOccurs="1" maxOccurs="unbounded"/>
-    </xs:sequence>
-  </xs:complexType>
-</xs:element>
+<xs:element name="BLIST" type="List"/>
+<xs:element name="SLIST" type="List"/>
+<xs:element name="NLIST" type="List"/>
+<xs:element name="CLIST" type="List"/>
+<xs:element name="LLIST" type="List"/>
 
 <xs:element name="U" type="content"/>
 
@@ -200,8 +179,6 @@
 <xs:element name="I" type="content"/>
 
 <xs:element name="SMALL" type="content"/>
-
-<xs:element name="STRIKE" type="content"/>
 
 <xs:element name="SUB" type="xs:string"/>
 
@@ -218,13 +195,27 @@
           </xs:choice>
         </xs:complexType>
       </xs:element>
+      <xs:element name="ATTRIBUTE" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="ATTRIBUTENAME" type="xs:string"/>
+            <xs:element name="ATTRIBUTEVALUE" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
       <xs:element name="ST" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="A" type="xs:anyURI" minOccurs="1" maxOccurs="1"/>
-      <xs:element name="L" type="xs:language"  minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element name="L" minOccurs="1" maxOccurs="3">
+        <xs:simpleType>
+         <xs:restriction base="xs:string">
+           <xs:pattern value="de|en|fr"/>
+         </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
       <xs:element name="F" minOccurs="1" maxOccurs="unbounded">
         <xs:simpleType>
          <xs:restriction base="xs:string">
-           <xs:pattern value="HTML|PDF|Flash Video|Word|txt|PostScript|PowerPoint|MP4|HTML|MP3|RealMedia|Windows Media Player|Flash"/>
+           <xs:pattern value="Flash|Flash Video|HTML|MP3|MP4|PDF|PostScript|PowerPoint|RealMedia|txt|Windows Media Player|Word"/>
          </xs:restriction>
         </xs:simpleType>
       </xs:element>
@@ -243,18 +234,19 @@
         </xs:complexType>
       </xs:element>
       <xs:element name="DURATION" type="duration" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="DATE" type="partialDate" minOccurs="0" maxOccurs="1"/>
     </xs:sequence>
     <xs:attribute name="status">
      <xs:simpleType>
        <xs:restriction base="xs:string">
-         <xs:pattern value="obsolete|dead|zombie"/>
+         <xs:pattern value="obsolete|dead|zombie|removed"/>
        </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
     <xs:attribute name="protection">
      <xs:simpleType>
        <xs:restriction base="xs:string">
-         <xs:pattern value="firewall|payed_registration|free_registration"/>
+         <xs:pattern value="payed_registration|free_registration"/>
        </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -272,10 +264,20 @@
 <xs:element name="ARTICLE">
   <xs:complexType>
     <xs:sequence>
-        <xs:element ref="X" minOccurs="1" maxOccurs="unbounded"/>
-        <xs:element name="AUTHOR" minOccurs="0" maxOccurs="unbounded" type="person"/>
-        <xs:element name="DATE" type="partialDate" minOccurs="0" maxOccurs="1"/>
-        <xs:element name="COMMENT" type="content" minOccurs="1" maxOccurs="1"/>
+      <xs:element ref="X" minOccurs="1" maxOccurs="unbounded"/>
+      <xs:element name="AUTHOR" minOccurs="0" maxOccurs="unbounded" type="person"/>
+      <xs:element name="DATE" type="partialDate" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="COMMENT" type="content" minOccurs="1" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="predecessor" type="xs:string"/>
+  </xs:complexType>
+</xs:element>
+
+<xs:element name="KEYWORD">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element name="KEYID" type="xs:string" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="KEYEDTEXT" type="content" minOccurs="1" maxOccurs="1"/>
     </xs:sequence>
   </xs:complexType>
 </xs:element>
@@ -325,7 +327,7 @@
               <xs:complexType>
                 <xs:complexContent>
                   <xs:extension base="content">
-                     <xs:attribute name="width" type="xs:nonNegativeInteger"/>
+                    <xs:attribute name="width" type="xs:nonNegativeInteger"/>
                     <xs:attribute name="height" type="xs:nonNegativeInteger"/>
                   </xs:extension>
                 </xs:complexContent>
@@ -355,7 +357,6 @@
     <xs:sequence maxOccurs="unbounded">
       <xs:element ref="PROMPT" minOccurs="0"/>
       <xs:element ref="TAB" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element ref="TABCHAR" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element ref="BR" minOccurs="0" maxOccurs="1"/>
       <xs:element name="I" minOccurs="0" maxOccurs="unbounded" type="xs:string"/>
       <xs:element name="B" minOccurs="0" maxOccurs="unbounded" type="xs:string"/>
@@ -372,6 +373,7 @@
       <xs:element name="I" minOccurs="0" maxOccurs="unbounded" type="xs:string"/>
       <xs:element ref="X" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element ref="CODEFILENAME" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element ref="TAB" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
 </xs:element>
@@ -390,19 +392,17 @@
 
 <xs:element name="TAB"/>
 
-<xs:element name="TABCHAR"/>
-
 <xs:element name="BR"/>
 
 <xs:element name="KEY">
   <xs:complexType>
-    <xs:attribute name="ID" type="xs:string"/>
+    <xs:attribute name="id" type="xs:string"/>
   </xs:complexType>
 </xs:element>
 
 <xs:element name="MODIFIERKEY">
   <xs:complexType>
-    <xs:attribute name="ID" type="xs:string"/>
+    <xs:attribute name="id" type="xs:string"/>
   </xs:complexType>
 </xs:element>
 

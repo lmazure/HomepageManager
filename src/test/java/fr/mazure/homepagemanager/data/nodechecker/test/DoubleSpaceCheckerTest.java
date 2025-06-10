@@ -7,7 +7,7 @@ import org.xml.sax.SAXException;
 /**
  * Tests of DoubleSpaceChecker class
  */
-public class DoubleSpaceCheckerTest extends NodeValueCheckerTestBase {
+class DoubleSpaceCheckerTest extends NodeValueCheckerTestBase {
 
     @SuppressWarnings("static-method")
     @Test
@@ -244,4 +244,5 @@ public class DoubleSpaceCheckerTest extends NodeValueCheckerTestBase {
         } catch (@SuppressWarnings("unused") final SAXException e) {
             Assertions.fail("SAXException");
         }
-    }}
+    }
+ }
