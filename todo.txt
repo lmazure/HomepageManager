@@ -48,6 +48,15 @@ methods       53.9%    97.9%
 
 
 
+
+corriger le crash sur https://lexfridman.com/terence-tao/
+
+
+
+
+
+
+
 ajouter parser pour https://twimlai.com/podcast/twimlai/how-openai-builds-ai-agents-that-think-and-act/
 
 

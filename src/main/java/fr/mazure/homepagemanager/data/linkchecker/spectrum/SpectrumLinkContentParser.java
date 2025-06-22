@@ -61,7 +61,8 @@ public class SpectrumLinkContentParser extends LinkDataExtractor {
                                      final String data,
                                      final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(UrlHelper.removeQueryParameters(url,"comments",
-                                                  "comments-page"),
+                                                  "comments-page",
+                                                  "mkt_tok"),
               retriever);
         _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
         _subtitle = Optional.of(HtmlHelper.cleanContent(s_subtitleParser.extract(data)));
