@@ -917,7 +917,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         }
         if (channel.equals("Tête-à-tête Chercheuse(s)")) {
             final String title = getTitle();
-            final String str = title.replaceAll("^[^ ]+ ([- a-zA-Z]+)( \\(.+\\))?$", "$1");
+            final String str = title.replaceAll("^[^ ]+ ([- \\p{L}]+)( \\(.+\\))?$", "$1");
             authors.addFirst(LinkContentParserUtils.parseAuthorName(str));
         }
         return authors;
