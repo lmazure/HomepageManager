@@ -91,7 +91,7 @@ class GitlabBlogLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://about.gitlab.com/blog/2021/09/23/best-practices-customer-feature-request/|Christina||Hupy|Neil||McCorrison",
-        "https://about.gitlab.com/blog/2021/09/29/why-we-spent-the-last-month-eliminating-postgresql-subtransactions/|Stan||Hu|Grzegorz||Bizon",
+        "https://about.gitlab.com/blog/2021/09/29/why-we-spent-the-last-month-eliminating-postgresql-subtransactions/|Grzegorz||Bizon|Stan||Hu",
         "https://about.gitlab.com/blog/2024/03/20/oxeye-joins-gitlab-to-advance-application-security-capabilities/|David||DeSanto|Dean||Agron"
         }, delimiter = '|')
     void testTwoAuthors(final String url,

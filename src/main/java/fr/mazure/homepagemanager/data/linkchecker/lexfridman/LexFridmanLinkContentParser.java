@@ -22,7 +22,6 @@ import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
 import fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser;
 import fr.mazure.homepagemanager.utils.DateTimeHelper;
-import fr.mazure.homepagemanager.utils.ExitHelper;
 import fr.mazure.homepagemanager.utils.Logger;
 import fr.mazure.homepagemanager.utils.Logger.Level;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
@@ -39,7 +38,8 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
     private static final String s_sourceName = "Lex Fridman podcast";
 
     private final String _title;
-    private final Optional<TemporalAccessor> _date;
+    private final Optional<TemporalAccessor> _creationDate;
+    private final Optional<TemporalAccessor> _publicationDate;
     private final Optional<Duration> _duration;
     private final List<AuthorData> _authors;
     private Optional<ExtractedLinkData> _otherLink;
@@ -86,7 +86,7 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
         super(UrlHelper.removeFinalSlash(url), retriever);
 
         _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
-        _date = Optional.of(LocalDate.parse(s_dateParser.extract(data), s_dateformatter));
+        final Optional<TemporalAccessor> lexFridmanPublicationDate = Optional.of(LocalDate.parse(s_dateParser.extract(data), s_dateformatter));
         final String mp3url = s_mp3UrlParser.extract(data) + "?_=1";
         final Mp3Helper helper = new Mp3Helper();
         _duration = Optional.of(helper.getMp3Duration(mp3url, getRetriever()));
@@ -101,6 +101,25 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
 
         final Optional<String> youtubeLink = s_youtubeLinkParser.extractOptional(data).map(s -> "https://www.youtube.com/watch?v=" + s);
         initializeOtherLink(youtubeLink);
+        
+        // patch dates
+        final Optional<TemporalAccessor> youTubePublicationDate = _otherLink.map(link -> link.publicationDate().get());
+        final DateTimeHelper.CreationDataWithTwoPublications dates = DateTimeHelper.getCreationDataWithTwoPublications(lexFridmanPublicationDate, youTubePublicationDate);
+        _creationDate = dates.creationDate();
+        _publicationDate = dates.publicationDate1();
+        if (_otherLink.isPresent()) {
+            final ExtractedLinkData linkData = new ExtractedLinkData(_otherLink.get().title(),
+                                                                     _otherLink.get().subtitles(),
+                                                                     _otherLink.get().url(),
+                                                                     _otherLink.get().status(),
+                                                                     _otherLink.get().protection(),
+                                                                     _otherLink.get().formats(),
+                                                                     _otherLink.get().languages(),
+                                                                     _otherLink.get().duration(),
+                                                                     dates.publicationDate2());
+            _otherLink = Optional.of(linkData);
+        }
+
         _language = Locale.ENGLISH;
         _links = initializeLinks();
     }
@@ -127,12 +146,12 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
 
     @Override
     public Optional<TemporalAccessor> getCreationDate() {
-        return _date;
+        return _creationDate;
     }
 
     @Override
     public Optional<TemporalAccessor> getPublicationDate() {
-        return getCreationDate();
+        return _publicationDate;
     }
 
     @Override
@@ -170,15 +189,7 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
         // extract the link data
         try {
             final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(siteData.url(), payload, getRetriever());
-            Optional<TemporalAccessor> publicationDate = Optional.empty();
             final LocalDate youtubeDate = DateTimeHelper.convertTemporalAccessorToLocalDate(parser.getCreationDate().get());
-            final LocalDate lexFridmanDate = DateTimeHelper.convertTemporalAccessorToLocalDate(getCreationDate().get());
-            if (youtubeDate.isBefore(lexFridmanDate)) {
-                ExitHelper.exit("YouTube date (" + youtubeDate + ") is before Lex Fridman date (" + lexFridmanDate + ").");
-            }
-            if (youtubeDate.isAfter(lexFridmanDate)) {
-                publicationDate = Optional.of(youtubeDate);
-            }
             final ExtractedLinkData linkData = new ExtractedLinkData(parser.getTitle(),
                                                                      new String[] { },
                                                                      siteData.url(),
@@ -187,7 +198,7 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
                                                                      new LinkFormat[] { LinkFormat.MP4 },
                                                                      new Locale[] { parser.getLanguage() },
                                                                      parser.getDuration(),
-                                                                     publicationDate);
+                                                                     Optional.of(youtubeDate));
             _otherLink = Optional.of(linkData);
         } catch (ContentParserException e) {
             Logger.log(Level.ERROR)
@@ -208,7 +219,7 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
                                                                  new LinkFormat[] { LinkFormat.MP3 },
                                                                  new Locale[] { _language },
                                                                  _duration,
-                                                                 Optional.empty());
+                                                                 _publicationDate);
         final List<ExtractedLinkData> list = new ArrayList<>(2);
         list.add(linkData);
         if (_otherLink.isPresent()) {

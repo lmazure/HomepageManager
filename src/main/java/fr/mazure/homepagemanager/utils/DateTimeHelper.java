@@ -60,6 +60,64 @@ public class DateTimeHelper {
     }
 
     /**
+     * Compare two temporal accessors
+     *
+     * @param accessor1 first temporal accessor
+     * @param accessor2 second temporal accessor
+     *
+     * @return -1 if accessor1 is before accessor2, 0 if they are equal, 1 if accessor1 is after accessor2
+     */
+    public static int compareTemporalAccessors(final TemporalAccessor accessor1,
+                                               final TemporalAccessor accessor2) {
+        if (!accessor1.isSupported(ChronoField.YEAR)) {
+            if (!accessor2.isSupported(ChronoField.YEAR)) {
+                return 0;
+            }
+            return -1;
+        } 
+        if (!accessor2.isSupported(ChronoField.YEAR)) {
+            return 1;
+        }
+        if (accessor1.get(ChronoField.YEAR) < accessor2.get(ChronoField.YEAR)) {
+            return -1;
+        }
+        if (accessor1.get(ChronoField.YEAR) > accessor2.get(ChronoField.YEAR)) {
+            return 1;
+        }
+        if (!accessor1.isSupported(ChronoField.MONTH_OF_YEAR)) {
+            if (!accessor2.isSupported(ChronoField.MONTH_OF_YEAR)) {
+                return 0;
+            }
+            return -1;
+        } 
+        if (!accessor2.isSupported(ChronoField.MONTH_OF_YEAR)) {
+            return 1;
+        }
+        if (accessor1.get(ChronoField.MONTH_OF_YEAR) < accessor2.get(ChronoField.MONTH_OF_YEAR)) {
+            return -1;
+        }
+        if (accessor1.get(ChronoField.MONTH_OF_YEAR) > accessor2.get(ChronoField.MONTH_OF_YEAR)) {
+            return 1;
+        }
+        if (!accessor1.isSupported(ChronoField.DAY_OF_MONTH)) {
+            if (!accessor2.isSupported(ChronoField.DAY_OF_MONTH)) {
+                return 0;
+            }
+            return -1;
+        } 
+        if (!accessor2.isSupported(ChronoField.DAY_OF_MONTH)) {
+            return 1;
+        }
+        if (accessor1.get(ChronoField.DAY_OF_MONTH) < accessor2.get(ChronoField.DAY_OF_MONTH)) {
+            return -1;
+        }
+        if (accessor1.get(ChronoField.DAY_OF_MONTH) > accessor2.get(ChronoField.DAY_OF_MONTH)) {
+            return 1;
+        }
+        return 0;
+    }
+
+    /**
      * Convert a TemporalAccessor to a LocalDate
      *
      * @param accessor TemporalAccessor
@@ -77,5 +135,41 @@ public class DateTimeHelper {
      */
     public static Duration roundDuration(final Duration duration) {
         return Duration.ofSeconds(duration.plus(Duration.ofMillis(500)).getSeconds());
+    }
+    
+    /**
+     * @param creationDate creation date
+     * @param publicationDate1 first publication date
+     * @param publicationDate2 second publication date
+     */
+    public record CreationDataWithTwoPublications(Optional<TemporalAccessor> creationDate, Optional<TemporalAccessor> publicationDate1, Optional<TemporalAccessor> publicationDate2) {}
+    
+    /**
+     * Compute creation date and publication dates to be reported from two publication dates
+     *
+     * @param publicationDate1 first publication date
+     * @param publicationDate2 second publication date
+     * 
+     * @return creation date and publication dates to be reported
+     */
+    public static CreationDataWithTwoPublications getCreationDataWithTwoPublications(final Optional<TemporalAccessor> publicationDate1,
+                                                                                     final Optional<TemporalAccessor> publicationDate2) {
+        if (publicationDate1.isEmpty()) {
+            if (publicationDate2.isEmpty()) {
+                return new CreationDataWithTwoPublications(Optional.empty(), Optional.empty(), Optional.empty());
+            }
+            return new CreationDataWithTwoPublications(publicationDate2, Optional.empty(), Optional.empty());
+        }
+        if (publicationDate2.isEmpty()) {
+            return new CreationDataWithTwoPublications(publicationDate1, Optional.empty(), Optional.empty());
+        }
+        final int comparison = compareTemporalAccessors(publicationDate1.get(), publicationDate2.get());
+        if (comparison < 0) {
+            return new CreationDataWithTwoPublications(publicationDate1, Optional.empty(), publicationDate2);
+        }
+        if (comparison > 0) {
+            return new CreationDataWithTwoPublications(publicationDate2, publicationDate1, Optional.empty());
+        }
+        return new CreationDataWithTwoPublications(publicationDate1, Optional.empty(), Optional.empty());
     }
 }

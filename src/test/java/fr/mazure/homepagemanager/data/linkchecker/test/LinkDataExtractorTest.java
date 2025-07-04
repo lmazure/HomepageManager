@@ -110,8 +110,8 @@ class LinkDataExtractorTest {
                 <ARTICLE><X><T>A special farewell from GitLab’s Dmitriy Zaporozhets</T>\
                 <A>https://about.gitlab.com/blog/2021/11/10/a-special-farewell-from-gitlab-dmitriy-zaporozhets/</A>\
                 <L>en</L><F>HTML</F></X>\
-                <AUTHOR><FIRSTNAME>Dmitriy</FIRSTNAME><LASTNAME>Zaporozhets</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Sid</FIRSTNAME><LASTNAME>Sijbrandij</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Dmitriy</FIRSTNAME><LASTNAME>Zaporozhets</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>11</MONTH><DAY>10</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
@@ -161,7 +161,27 @@ class LinkDataExtractorTest {
     }
 
     @Test
-    void lexFridmanWithDifferentDatesIsManaged() throws ContentParserException {
+    void lexFridmanYoutubeFirstIsManaged() throws ContentParserException {
+        final String url = "https://lexfridman.com/terence-tao/";
+        final String expectedXml = """
+                <ARTICLE><X><T>#472 – Terence Tao: Hardest Problems in Mathematics, Physics &amp; the Future of AI</T>\
+                <A>https://lexfridman.com/terence-tao</A>\
+                <L>en</L><F>MP3</F><DURATION><HOUR>3</HOUR><MINUTE>23</MINUTE><SECOND>41</SECOND></DURATION><DATE><YEAR>2025</YEAR><MONTH>6</MONTH><DAY>15</DAY></DATE></X>\
+                <X><T>Terence Tao: Hardest Problems in Mathematics, Physics &amp; the Future of AI | Lex Fridman Podcast #472</T>\
+                <A>https://www.youtube.com/watch?v=HUkBz-cdB-k</A>\
+                <L>en</L><F>MP4</F><DURATION><HOUR>3</HOUR><MINUTE>14</MINUTE><SECOND>33</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Terence</FIRSTNAME><LASTNAME>Tao</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Lex</FIRSTNAME><LASTNAME>Fridman</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2025</YEAR><MONTH>6</MONTH><DAY>14</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
+    void lexFridmanWithLexFridmanFirstIsManaged() throws ContentParserException {
         final String url = "https://lexfridman.com/grant-sanderson-2";
         final String expectedXml = """
                 <ARTICLE><X><T>#118 – Grant Sanderson: Math, Manim, Neural Networks &amp; Teaching with 3Blue1Brown</T>\

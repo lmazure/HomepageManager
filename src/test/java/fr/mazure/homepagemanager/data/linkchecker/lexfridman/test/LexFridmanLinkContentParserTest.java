@@ -1,8 +1,11 @@
 package fr.mazure.homepagemanager.data.linkchecker.lexfridman.test;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
+import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.lexfridman.LexFridmanLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase;
 
@@ -33,11 +36,38 @@ class LexFridmanLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://lexfridman.com/elon-musk|2019-04-12",
+        // Lex Fridman's blog and YouTube are publihed the same day
+        "https://lexfridman.com/elon-musk|2019-04-12||",
+        // YouTube is published before
+        "https://lexfridman.com/terence-tao/|2025-06-14|2025-06-15|",
+        "https://lexfridman.com/grant-sanderson-2|2020-08-23||2020-08-24",
+        // Lex Fridman is published before
+        "https://lexfridman.com/shannon-curry|2023-03-21||2023-03-22",
     }, delimiter = '|')
-    void testDate(final String url,
-                  final String expectedDate) {
-        checkCreationDate(LexFridmanLinkContentParser.class, url, expectedDate);
+    void testDates(final String url,
+                   final String expectedCreationDate,
+                   final String expectedLexFridmanPublicationnDate,
+                   final String expectedYoutubePublicationnDate) {
+        perform(LexFridmanLinkContentParser.class,
+                url,
+                (final LinkDataExtractor p) ->
+                    {
+                        Assertions.assertTrue(p.getCreationDate().isPresent());
+                        Assertions.assertEquals(expectedCreationDate, p.getCreationDate().get().toString());
+                        if (expectedLexFridmanPublicationnDate == null) {
+                            Assertions.assertFalse(p.getPublicationDate().isPresent());
+                        } else {
+                            Assertions.assertEquals(expectedLexFridmanPublicationnDate, p.getPublicationDate().get().toString());
+                        }
+                        Assertions.assertEquals(2, p.getLinks().size());
+                        final ExtractedLinkData youtubeLink = p.getLinks().get(1);
+                        if (expectedYoutubePublicationnDate == null) {
+                            Assertions.assertFalse(youtubeLink.publicationDate().isPresent());
+                        } else {
+                            Assertions.assertEquals(expectedYoutubePublicationnDate, youtubeLink.publicationDate().get().toString());
+                        }
+                    }
+                );
     }
 
     @SuppressWarnings("static-method")
@@ -102,4 +132,5 @@ class LexFridmanLinkContentParserTest extends LinkDataExtractorTestBase {
                      expectedLastName1,
                      null,
                      null);
-    }}
+    }
+}
