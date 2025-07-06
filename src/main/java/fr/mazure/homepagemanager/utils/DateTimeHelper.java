@@ -158,18 +158,15 @@ public class DateTimeHelper {
             if (publicationDate2.isEmpty()) {
                 return new CreationDataWithTwoPublications(Optional.empty(), Optional.empty(), Optional.empty());
             }
-            return new CreationDataWithTwoPublications(publicationDate2, Optional.empty(), Optional.empty());
+            return new CreationDataWithTwoPublications(publicationDate2, Optional.empty(), publicationDate2);
         }
         if (publicationDate2.isEmpty()) {
-            return new CreationDataWithTwoPublications(publicationDate1, Optional.empty(), Optional.empty());
+            return new CreationDataWithTwoPublications(publicationDate1, publicationDate1, Optional.empty());
         }
         final int comparison = compareTemporalAccessors(publicationDate1.get(), publicationDate2.get());
-        if (comparison < 0) {
-            return new CreationDataWithTwoPublications(publicationDate1, Optional.empty(), publicationDate2);
+        if (comparison <= 0) {
+            return new CreationDataWithTwoPublications(publicationDate1, publicationDate1, publicationDate2);
         }
-        if (comparison > 0) {
-            return new CreationDataWithTwoPublications(publicationDate2, publicationDate1, Optional.empty());
-        }
-        return new CreationDataWithTwoPublications(publicationDate1, Optional.empty(), Optional.empty());
+        return new CreationDataWithTwoPublications(publicationDate2, publicationDate1, publicationDate2);
     }
 }

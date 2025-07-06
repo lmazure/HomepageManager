@@ -37,12 +37,12 @@ class LexFridmanLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         // Lex Fridman's blog and YouTube are publihed the same day
-        "https://lexfridman.com/elon-musk|2019-04-12||",
+        "https://lexfridman.com/elon-musk|2019-04-12|2019-04-12|2019-04-12",
         // YouTube is published before
-        "https://lexfridman.com/terence-tao/|2025-06-14|2025-06-15|",
-        "https://lexfridman.com/grant-sanderson-2|2020-08-23||2020-08-24",
+        "https://lexfridman.com/terence-tao/|2025-06-14|2025-06-15|2025-06-14",
         // Lex Fridman is published before
-        "https://lexfridman.com/shannon-curry|2023-03-21||2023-03-22",
+        "https://lexfridman.com/shannon-curry|2023-03-21|2023-03-21|2023-03-22",
+        "https://lexfridman.com/grant-sanderson-2|2020-08-23|2020-08-23|2020-08-24",
     }, delimiter = '|')
     void testDates(final String url,
                    final String expectedCreationDate,
@@ -54,18 +54,10 @@ class LexFridmanLinkContentParserTest extends LinkDataExtractorTestBase {
                     {
                         Assertions.assertTrue(p.getCreationDate().isPresent());
                         Assertions.assertEquals(expectedCreationDate, p.getCreationDate().get().toString());
-                        if (expectedLexFridmanPublicationnDate == null) {
-                            Assertions.assertFalse(p.getPublicationDate().isPresent());
-                        } else {
-                            Assertions.assertEquals(expectedLexFridmanPublicationnDate, p.getPublicationDate().get().toString());
-                        }
+                        Assertions.assertEquals(expectedLexFridmanPublicationnDate, p.getPublicationDate().get().toString());
                         Assertions.assertEquals(2, p.getLinks().size());
                         final ExtractedLinkData youtubeLink = p.getLinks().get(1);
-                        if (expectedYoutubePublicationnDate == null) {
-                            Assertions.assertFalse(youtubeLink.publicationDate().isPresent());
-                        } else {
-                            Assertions.assertEquals(expectedYoutubePublicationnDate, youtubeLink.publicationDate().get().toString());
-                        }
+                        Assertions.assertEquals(expectedYoutubePublicationnDate, youtubeLink.publicationDate().get().toString());
                     }
                 );
     }
