@@ -118,6 +118,25 @@ public class DateTimeHelper {
     }
 
     /**
+     * Get min of two temporal accessors
+     * 
+     * @param accessor1 first temporal accessor
+     * @param accessor2 second temporal accessor
+     * 
+     * @return min temporal accessor 
+     */
+    
+    public static Optional<TemporalAccessor> getMinTemporalAccessor(final Optional<TemporalAccessor> accessor1,
+                                                                    final Optional<TemporalAccessor> accessor2) {
+        if (accessor1.isEmpty()) {
+            return accessor2;
+        }
+        if (accessor2.isEmpty()) {
+            return accessor1;
+        }
+        return compareTemporalAccessors(accessor1.get(), accessor2.get()) < 0 ? accessor1 : accessor2;
+    }
+    /**
      * Convert a TemporalAccessor to a LocalDate
      *
      * @param accessor TemporalAccessor
@@ -135,38 +154,5 @@ public class DateTimeHelper {
      */
     public static Duration roundDuration(final Duration duration) {
         return Duration.ofSeconds(duration.plus(Duration.ofMillis(500)).getSeconds());
-    }
-    
-    /**
-     * @param creationDate creation date
-     * @param publicationDate1 first publication date
-     * @param publicationDate2 second publication date
-     */
-    public record CreationDataWithTwoPublications(Optional<TemporalAccessor> creationDate, Optional<TemporalAccessor> publicationDate1, Optional<TemporalAccessor> publicationDate2) {}
-    
-    /**
-     * Compute creation date and publication dates to be reported from two publication dates
-     *
-     * @param publicationDate1 first publication date
-     * @param publicationDate2 second publication date
-     * 
-     * @return creation date and publication dates to be reported
-     */
-    public static CreationDataWithTwoPublications getCreationDataWithTwoPublications(final Optional<TemporalAccessor> publicationDate1,
-                                                                                     final Optional<TemporalAccessor> publicationDate2) {
-        if (publicationDate1.isEmpty()) {
-            if (publicationDate2.isEmpty()) {
-                return new CreationDataWithTwoPublications(Optional.empty(), Optional.empty(), Optional.empty());
-            }
-            return new CreationDataWithTwoPublications(publicationDate2, Optional.empty(), publicationDate2);
-        }
-        if (publicationDate2.isEmpty()) {
-            return new CreationDataWithTwoPublications(publicationDate1, publicationDate1, Optional.empty());
-        }
-        final int comparison = compareTemporalAccessors(publicationDate1.get(), publicationDate2.get());
-        if (comparison <= 0) {
-            return new CreationDataWithTwoPublications(publicationDate1, publicationDate1, publicationDate2);
-        }
-        return new CreationDataWithTwoPublications(publicationDate2, publicationDate1, publicationDate2);
     }
 }

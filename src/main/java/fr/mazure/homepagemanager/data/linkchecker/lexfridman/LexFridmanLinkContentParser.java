@@ -86,7 +86,7 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
         super(UrlHelper.removeFinalSlash(url), retriever);
 
         _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
-        final Optional<TemporalAccessor> lexFridmanPublicationDate = Optional.of(LocalDate.parse(s_dateParser.extract(data), s_dateformatter));
+        _publicationDate = Optional.of(LocalDate.parse(s_dateParser.extract(data), s_dateformatter));
         final String mp3url = s_mp3UrlParser.extract(data) + "?_=1";
         final Mp3Helper helper = new Mp3Helper();
         _duration = Optional.of(helper.getMp3Duration(mp3url, getRetriever()));
@@ -101,24 +101,8 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
 
         final Optional<String> youtubeLink = s_youtubeLinkParser.extractOptional(data).map(s -> "https://www.youtube.com/watch?v=" + s);
         initializeOtherLink(youtubeLink);
-        
-        // patch dates
-        final Optional<TemporalAccessor> youTubePublicationDate = _otherLink.map(link -> link.publicationDate().get());
-        final DateTimeHelper.CreationDataWithTwoPublications dates = DateTimeHelper.getCreationDataWithTwoPublications(lexFridmanPublicationDate, youTubePublicationDate);
-        _creationDate = dates.creationDate();
-        _publicationDate = dates.publicationDate1();
-        if (_otherLink.isPresent()) {
-            final ExtractedLinkData linkData = new ExtractedLinkData(_otherLink.get().title(),
-                                                                     _otherLink.get().subtitles(),
-                                                                     _otherLink.get().url(),
-                                                                     _otherLink.get().status(),
-                                                                     _otherLink.get().protection(),
-                                                                     _otherLink.get().formats(),
-                                                                     _otherLink.get().languages(),
-                                                                     _otherLink.get().duration(),
-                                                                     dates.publicationDate2());
-            _otherLink = Optional.of(linkData);
-        }
+
+        _creationDate = DateTimeHelper.getMinTemporalAccessor(_publicationDate, _otherLink.map(link -> link.publicationDate().get()));
 
         _language = Locale.ENGLISH;
         _links = initializeLinks();
