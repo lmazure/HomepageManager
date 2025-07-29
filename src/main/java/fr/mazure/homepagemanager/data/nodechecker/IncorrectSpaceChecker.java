@@ -88,7 +88,8 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "Wallaby.js",
             "xml:id",
             "X.org",
-            "xsl:key");
+            "xsl:key",
+            "Z.ai");
 
     private static final Set<String> s_authorizedMissingPrecedingSpaceList = Set.of(
             ".Net",
