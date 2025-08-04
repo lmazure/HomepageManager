@@ -71,6 +71,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "P.Anno",
             "peer.tube",
             "polyfill.js",
+            "Pony.ai",
             "quantum.country",
             "Quokka.js",
             "redhat.com",
