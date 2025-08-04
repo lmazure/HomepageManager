@@ -47,14 +47,6 @@ methods       53.9%    97.9%
 
 
 
-
-https://www.youtube.com/@embracethered/videos
-<AUTHOR><FIRSTNAME>Johann</FIRSTNAME><LASTNAME>Rehberger</LASTNAME></AUTHOR>
-
-
-
-
-
 gérer
 java.lang.UnsupportedOperationException: https://www.samba.org/jitterbug/|426→
 	at fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.lambda$2(WellKnownRedirections.java:788)
