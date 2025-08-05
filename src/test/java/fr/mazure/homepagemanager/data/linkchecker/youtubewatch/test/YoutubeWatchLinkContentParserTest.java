@@ -104,6 +104,7 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
             "https://www.youtube.com/watch?v=C2Tw0BeZb8Q|Scott Schiller: Web Audio - HTML5 + Flash (in a tree)",
             "https://www.youtube.com/watch?v=EcPPjZVB2vA|L'INCROYABLE HISTOIRE DE LA CONJECTURE DE FERMAT CMH#14",
             "https://www.youtube.com/watch?v=hcACC8LXokU|FLIP, L'émission quotidienne - Les Escapes Games",
+            "https://www.youtube.com/watch?v=Ieu0H2DLJmo|The Mathematician and the Devil Movie with English subtitles (Математик и чёрт)",
               }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
@@ -306,6 +307,7 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
            "https://www.youtube.com/watch?v=QAU9psRDPZg|de",
            "https://www.youtube.com/watch?v=thT-RSEBxo8|vi",
            "https://www.youtube.com/watch?v=ytuHV2e4c4Q|en",
+           "https://www.youtube.com/watch?v=Ieu0H2DLJmo|ru",
            }, delimiter = '|')
     void testSubtitlesLanguage(final String url,
                                final String expectedLanguage) {

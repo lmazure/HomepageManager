@@ -1188,7 +1188,7 @@ class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchEmbraeTheRedIsManaged() throws ContentParserException {
+    void youtubeWatchEmbraceTheRedIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=3UkLnGQZ6zE";
         final String expectedXml = """
                 <ARTICLE><X><T>Claude Computer Use: The ZombAIs are coming! From Prompt Injection to Command &amp; Control.</T>\

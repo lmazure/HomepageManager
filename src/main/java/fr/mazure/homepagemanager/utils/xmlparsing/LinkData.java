@@ -227,6 +227,9 @@ public class LinkData {
         if (language.equals("de")) {
             return Locale.GERMAN;
         }
+        if (language.equals("ru")) {
+            return Locale.of("ru");
+        }
         throw new UnsupportedOperationException("Illegal link language value (" + language + ")");
     }
 }
