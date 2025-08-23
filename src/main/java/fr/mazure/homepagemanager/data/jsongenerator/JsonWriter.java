@@ -369,6 +369,9 @@ public class JsonWriter {
         if (language == Locale.ENGLISH) {
             return "en";
         }
+        if (language == Locale.of("ru")) {
+            return "ru";
+        }
         throw new UnsupportedOperationException("Illegal language value (" + language + ")");
     }
 }
