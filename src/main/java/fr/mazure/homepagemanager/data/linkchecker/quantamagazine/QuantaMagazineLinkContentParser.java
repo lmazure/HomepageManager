@@ -51,7 +51,7 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
                          s_sourceName,
                          "date");
     private static final Pattern s_authorPattern1
-        = Pattern.compile("<div class='h3t mv05'>\n                    <span class='screen-reader-text'>By </span>([^<]+)</div>");
+        = Pattern.compile("<div class='h3t mv05 mbold'>\n                    <span class='screen-reader-text'>By </span>([^<]+)</div>");
     private static final Pattern s_authorPattern2
         = Pattern.compile("<h5 class='sidebar__author__name mb0 mt0'>([^<]+)</h5>");
     private static final TextParser s_joyOfWhyAuthors1
