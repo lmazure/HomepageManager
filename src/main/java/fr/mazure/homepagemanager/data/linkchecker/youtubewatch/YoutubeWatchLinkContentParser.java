@@ -130,6 +130,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                         case "Hindi (auto-generated)" -> Optional.of(new Locale.Builder().setLanguage("hi").build());
                         case "Korean (auto-generated)" -> Optional.of(Locale.KOREAN);
                         case "Persian (auto-generated)" -> Optional.of(new Locale.Builder().setLanguage("fa").build());
+                        case "Polish (auto-generated)" -> Optional.of(new Locale.Builder().setLanguage("po").build());
                         case "Portuguese (auto-generated)" -> Optional.of(new Locale.Builder().setLanguage("pt").build());
                         case "Romanian (auto-generated)" -> Optional.of(new Locale.Builder().setLanguage("ro").build());
                         case "Russian (auto-generated)" -> Optional.of(new Locale.Builder().setLanguage("ru").build());
@@ -551,7 +552,10 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                           new ChannelData(buildList(WellKnownAuthors.buildAuthor("Christophe", "Michel")),
                                                           buildMatchingList(),
                                                           Locale.FRENCH)),
-            new AbstractMap.SimpleEntry<>("IBM Technology",
+            new AbstractMap.SimpleEntry<>("IA Clash",
+                                          new ChannelData(buildList(WellKnownAuthors.buildAuthor("Jean-Baptiste", "Boisseau")),
+                                                          buildMatchingList(),
+                                                          Locale.FRENCH)),            new AbstractMap.SimpleEntry<>("IBM Technology",
                                           new ChannelData(buildList(),
                                                           buildMatchingList(match("Baughman", WellKnownAuthors.buildAuthor("Aaron", "Baughman")),
                                                                             match("Broker", WellKnownAuthors.buildAuthor("Carl", "Broker")),

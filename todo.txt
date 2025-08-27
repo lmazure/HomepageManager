@@ -46,6 +46,11 @@ methods       53.9%    97.9%
 
 
 
+
+
+
+
+
 Exception in thread "pool-2-thread-31" java.lang.IllegalStateException: Exception while retrieving https://www.youtube.com/watch?v=Jpja9s5FCBg
 	at fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:76)
 	at fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)

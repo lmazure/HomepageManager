@@ -308,6 +308,7 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
            "https://www.youtube.com/watch?v=thT-RSEBxo8|vi",
            "https://www.youtube.com/watch?v=ytuHV2e4c4Q|en",
            "https://www.youtube.com/watch?v=Ieu0H2DLJmo|ru",
+           "https://www.youtube.com/watch?v=1id6ERvfozo|po",
            }, delimiter = '|')
     void testSubtitlesLanguage(final String url,
                                final String expectedLanguage) {

@@ -1426,6 +1426,22 @@ class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchIAClashIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=vUVf060Vkk0";
+        final String expectedXml = """
+                <ARTICLE><X><T>Etienne Klein, l'ultracrépidarianiste de l'IA débunké</T>\
+                <A>https://www.youtube.com/watch?v=vUVf060Vkk0</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>6</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Jean-Baptiste</FIRSTNAME><LASTNAME>Boisseau</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2025</YEAR><MONTH>8</MONTH><DAY>23</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeIBMTechnologCarlBrokerIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=hHiPs_wICsE";
         final String expectedSureXml = """
