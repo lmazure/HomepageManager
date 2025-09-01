@@ -38,6 +38,7 @@ public class WellKnownRedirections {
         errorCodes.add(Integer.valueOf(406));
         errorCodes.add(Integer.valueOf(409));
         errorCodes.add(Integer.valueOf(410));
+        errorCodes.add(Integer.valueOf(426));
         errorCodes.add(Integer.valueOf(429));
         errorCodes.add(Integer.valueOf(500));
         errorCodes.add(Integer.valueOf(502));

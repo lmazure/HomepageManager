@@ -129,6 +129,20 @@ class WellKnownRedirectionsTest {
              Set.of(LinkStatus.DEAD));
     }
 
+    // URLs giving directly a 426
+    @ParameterizedTest
+    @CsvSource({
+        "http://httpbin.org/status/426",
+        "https://www.samba.org/jitterbug/", // TODO why does this site returns 426?
+        })
+    void direct426(final String url) {
+        test(url,
+             false,
+             Integer.valueOf(426),
+             "direct failure",
+             Set.of(LinkStatus.DEAD));
+    }
+
     // URLs giving directly a 502
     @ParameterizedTest
     @CsvSource({
@@ -241,8 +255,7 @@ class WellKnownRedirectionsTest {
         "https://www.microsoft.com", // https://www.microsoft.com/fr-fr/
         "https://www.msn.com",       // https://www.msn.com/fr-fr
         "https://www.nintendo.com",  // https://www.nintendo.com/us/
-        //"https://www.real.com",      // https://www.real.com/fr          currently down
-        "https://www.sans.org",      // https://www.sans.org/fr_fr/
+        "https://www.real.com",      // https://www.real.com/fr
         })
     void redirectionsToLocale(final String url) {
         test(url,
