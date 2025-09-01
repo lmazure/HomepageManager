@@ -1,7 +1,12 @@
 package fr.mazure.homepagemanager.utils.internet;
 
+import java.time.Instant;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import fr.mazure.homepagemanager.utils.ExitHelper;
 
 /**
  * Helper to manage HTTP requests
@@ -147,4 +152,39 @@ public class HttpHelper {
 
         return false;
     }
+    
+    private static final Map<String, Long> s_lastSiteTimestamp = Collections.synchronizedMap(new HashMap<String, Long>());
+    private static final Map<String, Integer> s_minDelayPerSite = new HashMap<>();
+    static {
+        s_minDelayPerSite.put("oxide-and-friends.transistor.fm", Integer.valueOf(3000));
+    }
+    /**
+     * Ensure that the site is not called too often, sleep if necessary
+     *
+     * @param url URL to be visited
+     */
+    public static void throttle(final String url) {
+
+        final String host = UriHelper.getHost(url);
+        final Integer minDelay = s_minDelayPerSite.get(host);
+        if (minDelay == null) {
+            return;
+        }
+
+        final long now = Instant.now().toEpochMilli();
+        final Long timestamp = s_lastSiteTimestamp.get(host);
+        if (timestamp != null) {
+            final long delay = now - timestamp.longValue();
+            final long pauseDuration = minDelay.intValue() - delay;
+            if (pauseDuration > 0) {
+                System.out.println("Sleeping for " + pauseDuration + " ms for " + host);  
+                try {
+                    Thread.sleep(pauseDuration);
+                } catch (final InterruptedException e) {
+                    ExitHelper.exit(e);
+                }
+            }
+		}
+		s_lastSiteTimestamp.put(host, Long.valueOf(now));
+	}
 }

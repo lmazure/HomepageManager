@@ -52,6 +52,6 @@ public class CommentChecker extends NodeChecker {
     }
 
     private static boolean isFinalPunctuation(final char c) {
-        return (c == '.') || (c == '?') || (c == '!') || (c == '…') || (c == '‽');
+        return (c == '.') || (c == '?') || (c == '!') || (c == '…') || (c == '‽') || (c == '⸘');
     }
 }

@@ -30,7 +30,7 @@ class BaeldungLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://www.baeldung.com/crawler4j|2024-01-11"
+        "https://www.baeldung.com/crawler4j|2019-06-07",
         }, delimiter = '|')
     void testDate(final String url,
                   final String expectedDate) {

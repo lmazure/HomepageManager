@@ -129,7 +129,7 @@ public class NodeValueChecker implements FileHandler {
         try (final FileOutputStream os = new FileOutputStream(getOutputFile(file).toFile());
              final PrintWriter pw = new PrintWriter(os)) {
             final List<NodeCheckError> errors = check(file);
-            if (errors.size() > 0) {
+            if (!errors.isEmpty()) {
                 for (final NodeCheckError error: errors) {
                     final String message = " tag = \""       + error.tag()       + "\"\n" +
                                            " value = \""     + error.value()     + "\"\n" +
@@ -195,7 +195,8 @@ public class NodeValueChecker implements FileHandler {
 
         _controller.handleDeletion(file, Status.HANDLED_WITH_SUCCESS, getOutputFile(file), getReportFile(file));
 
-        _violationController.remove(v -> (v.getFile().equals(file.toString()) && v.getType().equals(s_checkType)));    }
+        _violationController.remove(v -> (v.getFile().equals(file.toString()) && v.getType().equals(s_checkType)));
+     }
 
     @Override
     public Path getOutputFile(final Path file) {

@@ -60,6 +60,83 @@ public class DateTimeHelper {
     }
 
     /**
+     * Compare two temporal accessors
+     *
+     * @param accessor1 first temporal accessor
+     * @param accessor2 second temporal accessor
+     *
+     * @return -1 if accessor1 is before accessor2, 0 if they are equal, 1 if accessor1 is after accessor2
+     */
+    public static int compareTemporalAccessors(final TemporalAccessor accessor1,
+                                               final TemporalAccessor accessor2) {
+        if (!accessor1.isSupported(ChronoField.YEAR)) {
+            if (!accessor2.isSupported(ChronoField.YEAR)) {
+                return 0;
+            }
+            return -1;
+        } 
+        if (!accessor2.isSupported(ChronoField.YEAR)) {
+            return 1;
+        }
+        if (accessor1.get(ChronoField.YEAR) < accessor2.get(ChronoField.YEAR)) {
+            return -1;
+        }
+        if (accessor1.get(ChronoField.YEAR) > accessor2.get(ChronoField.YEAR)) {
+            return 1;
+        }
+        if (!accessor1.isSupported(ChronoField.MONTH_OF_YEAR)) {
+            if (!accessor2.isSupported(ChronoField.MONTH_OF_YEAR)) {
+                return 0;
+            }
+            return -1;
+        } 
+        if (!accessor2.isSupported(ChronoField.MONTH_OF_YEAR)) {
+            return 1;
+        }
+        if (accessor1.get(ChronoField.MONTH_OF_YEAR) < accessor2.get(ChronoField.MONTH_OF_YEAR)) {
+            return -1;
+        }
+        if (accessor1.get(ChronoField.MONTH_OF_YEAR) > accessor2.get(ChronoField.MONTH_OF_YEAR)) {
+            return 1;
+        }
+        if (!accessor1.isSupported(ChronoField.DAY_OF_MONTH)) {
+            if (!accessor2.isSupported(ChronoField.DAY_OF_MONTH)) {
+                return 0;
+            }
+            return -1;
+        } 
+        if (!accessor2.isSupported(ChronoField.DAY_OF_MONTH)) {
+            return 1;
+        }
+        if (accessor1.get(ChronoField.DAY_OF_MONTH) < accessor2.get(ChronoField.DAY_OF_MONTH)) {
+            return -1;
+        }
+        if (accessor1.get(ChronoField.DAY_OF_MONTH) > accessor2.get(ChronoField.DAY_OF_MONTH)) {
+            return 1;
+        }
+        return 0;
+    }
+
+    /**
+     * Get min of two temporal accessors
+     * 
+     * @param accessor1 first temporal accessor
+     * @param accessor2 second temporal accessor
+     * 
+     * @return min temporal accessor 
+     */
+    
+    public static Optional<TemporalAccessor> getMinTemporalAccessor(final Optional<TemporalAccessor> accessor1,
+                                                                    final Optional<TemporalAccessor> accessor2) {
+        if (accessor1.isEmpty()) {
+            return accessor2;
+        }
+        if (accessor2.isEmpty()) {
+            return accessor1;
+        }
+        return compareTemporalAccessors(accessor1.get(), accessor2.get()) < 0 ? accessor1 : accessor2;
+    }
+    /**
      * Convert a TemporalAccessor to a LocalDate
      *
      * @param accessor TemporalAccessor

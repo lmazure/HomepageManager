@@ -41,12 +41,12 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
     private final Locale _language;
 
     private static final TextParser s_titleParser
-        = new TextParser("<h1 class=\"post-title published\">",
+        = new TextParser("<h1 dir=\"auto\" class=\"post-title published title-X77sOw\">",
                          "</h1>",
                          s_sourceName,
                          "title");
     private static final TextParser s_subtitleParser
-        = new TextParser("<h3 class=\"subtitle\">",
+        = new TextParser("<h3 dir=\"auto\" class=\"subtitle subtitle-HEEcLo\">",
                          "</h3>",
                          s_sourceName,
                          "subtitle");
@@ -99,6 +99,7 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
      */
     public static boolean isUrlManaged(final String url) {
         if (UrlHelper.hasPrefix(url, "https://magazine.sebastianraschka.com/") ||
+            UrlHelper.hasPrefix(url, "https://www.thecoder.cafe/") ||
             UrlHelper.hasPrefix(url, "https://blog.sshh.io/")) {
             return true;
         }

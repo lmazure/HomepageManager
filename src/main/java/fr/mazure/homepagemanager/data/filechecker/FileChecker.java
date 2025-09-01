@@ -34,7 +34,7 @@ public class FileChecker {
     private static final Pattern s_spaceInTags = Pattern.compile("(</? [^>]*/?>|</?[^>]* /?>)");
     private static final Pattern s_spaceInAttributes = Pattern.compile("(</?[^>]*( =|= )[^>]*/?>)");
     private static final Pattern s_doubleSpaceInAttributes = Pattern.compile("(</?[^>]*  [^>]*/?>)");
-    private static final Pattern s_attributeWithSingleQuote = Pattern.compile("<[^>]*'[^>]*>");
+    private static final Pattern s_attributeWithSingleQuote = Pattern.compile("<[^>]*\\w+\\s*=\\s*'[^']*'[^>]*>");
     private static final Pattern s_localLinkPattern = Pattern.compile("<A>([^:]+?)</A>");
     private final Validator _validator;
     private static final Lock s_lock = new ReentrantLock();

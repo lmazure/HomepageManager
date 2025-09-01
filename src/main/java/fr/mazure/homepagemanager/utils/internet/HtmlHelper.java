@@ -2255,19 +2255,11 @@ public class HtmlHelper {
         lookupMap.put("&zwnj;", "\u200C");
     }
 
-    private static final Pattern CHARSET_EXTRACTION_PATTERN = Pattern.compile(
+    private static final Pattern s_charset_extraction_pattern = Pattern.compile(
             "<meta\\s+(charset\\s*=\\s*['\"]([^'\"]+)['\"]|http-equiv\\s*=\\s*['\"]Content-Type['\"]\\s+content\\s*=\\s*['\"]text/html;\\s*charset=([^'\"]+)['\"]|content\\s*=\\s*['\"]text/html;\\s*charset=([^'\"]+)['\"]\\s+http-equiv\\s*=\\s*['\"]Content-Type['\"])[^>]*>",
             Pattern.CASE_INSENSITIVE
         );
-
-    private static final Pattern s_clean_trailing_whitespaces = Pattern.compile("\\p{Z}*$");
-    private static final Pattern s_clean_leading_whitespaces = Pattern.compile("^\\p{Z}*");
-
-    private static final Pattern BR_TAG_PATTERN = Pattern.compile("< *[bB][rR] */?>");
-    private static final Pattern SCRIPT_TAG_PATTERN = Pattern.compile("(?is)<SCRIPT[^>]*>.*?</SCRIPT>");
-    private static final Pattern SVG_TAG_PATTERN = Pattern.compile("(?is)<SVG[^>]*>.*?</SVG>");
-    private static final Pattern STYLE_TAG_PATTERN = Pattern.compile("(?is)<STYLE[^>]*>.*?</STYLE>");
-    private static final Pattern GENERIC_TAG_PATTERN = Pattern.compile("<[^>]*>");
+    private static final Pattern s_url_pattern = Pattern.compile("(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]");
 
     /**
      * Slurp the content of a HTML file
@@ -2303,7 +2295,7 @@ public class HtmlHelper {
     }
 
     private static Optional<Charset> extractCharsetFromString(final String str) {
-        final Matcher matcher = CHARSET_EXTRACTION_PATTERN.matcher(str);
+        final Matcher matcher = s_charset_extraction_pattern.matcher(str);
         if (matcher.find()) {
             if (matcher.group(2) != null) {
                 return createCharsetFromName(matcher.group(2));
@@ -2469,9 +2461,30 @@ public class HtmlHelper {
      * @return resulting text
      */
     public static final String trim(final String input) {
-
-        final String s1 = s_clean_leading_whitespaces.matcher(input).replaceAll("");
-        return s_clean_trailing_whitespaces.matcher(s1).replaceAll("");
+        if (input.isEmpty()) {
+            return "";
+        }
+        
+        int start = 0;
+        int end = input.length() - 1;
+        
+        // Find the first non-whitespace character
+        while ((start <= end) && Character.isSpaceChar(input.charAt(start))) {
+            start++;
+        }
+        
+        // All characters are whitespace
+        if (start > end) {
+            return "";
+        }
+        
+        // Find the last non-whitespace character
+        while (Character.isSpaceChar(input.charAt(end))) {
+            end--;
+        }
+        
+        // Return the trimmed substring
+        return input.substring(start, end + 1);
     }
 
     /**
@@ -2480,11 +2493,123 @@ public class HtmlHelper {
      */
     public static final String removeHtmlTags(final String input) {
 
-        String result = BR_TAG_PATTERN.matcher(input).replaceAll("\n");
-        result = SCRIPT_TAG_PATTERN.matcher(result).replaceAll("");
-        result = SVG_TAG_PATTERN.matcher(result).replaceAll("");
-        result = STYLE_TAG_PATTERN.matcher(result).replaceAll("");
-        return GENERIC_TAG_PATTERN.matcher(result).replaceAll("");
+        if (input.isEmpty()) {
+            return input;
+        }
+
+        final StringBuilder result = new StringBuilder(input.length());
+        final int length = input.length();
+        int pos = 0;
+
+        while (pos < length) {
+            final int tagStart = input.indexOf('<', pos);
+            
+            // No more tags found
+            if (tagStart == -1) {
+                result.append(input.substring(pos));
+                break;
+            }
+            
+            // Append text before the tag
+            result.append(input.substring(pos, tagStart));
+            
+            // Find the closing '>'
+            int tagEnd = input.indexOf('>', tagStart);
+            if (tagEnd == -1) {
+                // Malformed HTML - no closing '>'
+                result.append(input.substring(tagStart));
+                break;
+            }
+            
+            // Process the tag
+            final String tag = input.substring(tagStart, tagEnd + 1).toLowerCase();
+            
+            if (isBrTag(tag)) {
+                // Convert <br> tags to newlines
+                result.append('\n');
+            } else if (isScriptTag(tag)) {
+                // Handle script tags and their content
+                tagEnd = findClosingTag(input, tagEnd, "script");
+            } else if (isSvgTag(tag)) {
+                // Handle svg tags and their content
+                tagEnd = findClosingTag(input, tagEnd, "svg");
+            } else if (isStyleTag(tag)) {
+                // Handle style tags and their content
+                tagEnd = findClosingTag(input, tagEnd, "style");
+            }
+            
+            // Move past this tag
+            pos = tagEnd + 1;
+        }
+        
+        return result.toString();
+    }
+
+    /**
+     * Finds the position of the closing tag for block elements like script, style, or svg
+     * 
+     * @param input the full HTML string
+     * @param startPos position after the opening tag
+     * @param tagName name of the tag to find closing for
+     * @return position of the end of the closing tag
+     */
+    private static int findClosingTag(final String input, final int startPos, final String tagName) {
+        final String closingTag = "</" + tagName;
+        int closeTagStart;
+        final int searchPos = startPos + 1;
+        final int length = input.length();
+
+        while (searchPos < length) {
+            closeTagStart = input.indexOf(closingTag, searchPos);
+            if (closeTagStart == -1) {
+                return length - 1; // No closing tag found
+            }
+
+            // Find the end of this tag
+            final int closeTagEnd = input.indexOf('>', closeTagStart);
+            if (closeTagEnd == -1) {
+                return length - 1; // Malformed HTML
+            }
+
+            return closeTagEnd;
+        }
+
+        return startPos; // Fallback
+    }
+
+    /**
+     * Checks if a tag is a BR tag
+     */
+    private static boolean isBrTag(final String tag) {
+        return startsWithIgnoreCase(tag, "<br>") || startsWithIgnoreCase(tag, "<br/") || startsWithIgnoreCase(tag, "<br ");
+    }
+    
+    /**
+     * Checks if a tag is a script tag
+     */
+    private static boolean isScriptTag(final String tag) {
+        return startsWithIgnoreCase(tag, "<script");
+    }
+    
+    /**
+     * Checks if a tag is an SVG tag
+     */
+    private static boolean isSvgTag(final String tag) {
+        return startsWithIgnoreCase(tag, "<svg");
+    }
+    
+    /**
+     * Checks if a tag is a style tag
+     */
+    private static boolean isStyleTag(final String tag) {
+        return startsWithIgnoreCase(tag, "<style");
+    }
+
+    private static boolean startsWithIgnoreCase(final String str, final String prefix) {
+        if (prefix.length() > str.length()) {
+            return false;
+        }
+        return str.regionMatches(true, 0, prefix, 0, prefix.length());
     }
 
     private static final String removeNewlines(final String input) {
@@ -2497,10 +2622,27 @@ public class HtmlHelper {
      * @return String converted to HTML
      */
     public static String convertStringToHtml(final String str) {
-        return str.replace("&", "&amp;")
-                  .replace("<","&lt;")
-                  .replace(">","&gt;")
-                  .replace("\n","<br>")
-                  .replaceAll("(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]", "<a href='$0'>$0</a>");
+        final StringBuilder sb = new StringBuilder(str.length() + 32);
+        for (int i = 0; i < str.length(); i++) {
+            final char c = str.charAt(i);
+            switch (c) {
+                case '&': sb.append("&amp;"); break;
+                case '<': sb.append("&lt;"); break;
+                case '>': sb.append("&gt;"); break;
+                case '\n': sb.append("<br>"); break;
+                default: sb.append(c);
+            }
+        }
+
+        // Only now do the URL replacement
+        final Matcher matcher = s_url_pattern.matcher(sb.toString());
+        final StringBuffer result = new StringBuffer(sb.length());
+        while (matcher.find()) {
+            final String url = matcher.group();
+            matcher.appendReplacement(result, "<a href='" + url + "'>" + url + "</a>");
+        }
+        matcher.appendTail(result);
+
+        return result.toString();
     }
 }

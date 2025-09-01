@@ -145,22 +145,27 @@ public class RedirectionMatcher {
     /**
      * Test if a redirection chain matches the pattern
      *
-     * @param effectiveData effective date retrieved from the link
-     * @return true is the chain matches, false if npt
+     * @param encoded Encoded redirection chain
+     * @return true is the chain matches, false otherwise
      */
-    public boolean doesRedirectionMatch(final FullFetchedLinkData effectiveData) {
+    public boolean doesRedirectionMatch(final EncodedRedirection encoded) {
         if (_pattern == null) {
             throw new UnsupportedOperationException("Cannot apply a non-compiled pattern");
         }
-        final String encoded = encode(effectiveData);
 //        System.out.println("<<<");
 //        System.out.println(encoded);
 //        System.out.println(_pattern);
 //        System.out.println(">>>");
-        return _pattern.matcher(encoded).matches();
+        return _pattern.matcher(encoded.value).matches();
     }
 
-    private static String encode(final FullFetchedLinkData effectiveData) {
+    /**
+     * Encode a redirection chain
+     *
+     * @param effectiveData Redirection chain
+     * @return Encoded redirection chain
+     */
+    public static EncodedRedirection encode(final FullFetchedLinkData effectiveData) {
         final StringBuilder builder = new StringBuilder();
         builder.append(effectiveData.url());
         builder.append(sep1);
@@ -178,11 +183,17 @@ public class RedirectionMatcher {
             builder.append(sep2);
             d = d.previousRedirection();
         }
-        return builder.toString();
+        return new EncodedRedirection(builder.toString());
     }
 
     private record Element(String regexp,
                            Set<Integer> httpCodes,
                            Multiplicity multiplicity) {
+    }
+
+    /**
+     * @param value Encoded redirection chain
+     */
+    public record EncodedRedirection(String value) {
     }
 }

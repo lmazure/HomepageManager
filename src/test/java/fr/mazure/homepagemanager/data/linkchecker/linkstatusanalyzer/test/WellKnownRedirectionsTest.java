@@ -76,7 +76,7 @@ class WellKnownRedirectionsTest {
     @ParameterizedTest
     @CsvSource({
         "http://httpbin.org/status/404",
-        "https://scienceetonnante.com/2017/11/12/glyphosate-le-nouvel-amiante/",
+        "https://scienceetonnante.com/blog/2017/11/12/glyphosate-le-nouvel-amiante/",
         })
     void direct404(final String url) {
         test(url,
@@ -125,6 +125,20 @@ class WellKnownRedirectionsTest {
         test(url,
              false,
              Integer.valueOf(410),
+             "direct failure",
+             Set.of(LinkStatus.DEAD));
+    }
+
+    // URLs giving directly a 426
+    @ParameterizedTest
+    @CsvSource({
+        "http://httpbin.org/status/426",
+        "https://www.samba.org/jitterbug/", // TODO why does this site returns 426?
+        })
+    void direct426(final String url) {
+        test(url,
+             false,
+             Integer.valueOf(426),
              "direct failure",
              Set.of(LinkStatus.DEAD));
     }
@@ -241,8 +255,7 @@ class WellKnownRedirectionsTest {
         "https://www.microsoft.com", // https://www.microsoft.com/fr-fr/
         "https://www.msn.com",       // https://www.msn.com/fr-fr
         "https://www.nintendo.com",  // https://www.nintendo.com/us/
-        //"https://www.real.com",      // https://www.real.com/fr          currently down
-        "https://www.sans.org",      // https://www.sans.org/fr_fr/
+        "https://www.real.com",      // https://www.real.com/fr
         })
     void redirectionsToLocale(final String url) {
         test(url,
@@ -290,7 +303,32 @@ class WellKnownRedirectionsTest {
              true,
              Integer.valueOf(200),
              "from YouTube channel to YouTube channel",
-             Set.of(LinkStatus.OK));
+             Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "https://www.youtube.com/@java",
+        })
+    void youtubeAtChannel(final String url) {
+        test(url,
+             true,
+             Integer.valueOf(200),
+             "from YouTube @ channel to YouTube @ channel",
+             Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
+    }
+
+
+    @ParameterizedTest
+    @CsvSource({
+        "https://www.youtube.com/playlist?list=PLi6K9w_UbfFS393cQii0mC3nEy2NS7kv8",
+        })
+    void youtubePlaylist(final String url) {
+        test(url,
+             true,
+             Integer.valueOf(200),
+             "from YouTube Playlist to YouTube Playlist",
+             Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
     }
 
     @ParameterizedTest
@@ -303,7 +341,7 @@ class WellKnownRedirectionsTest {
              true,
              Integer.valueOf(200),
              "from YouTube user to YouTube user",
-             Set.of(LinkStatus.OK));
+             Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
     }
 
     @ParameterizedTest

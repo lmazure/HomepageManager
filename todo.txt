@@ -46,11 +46,6 @@ methods       53.9%    97.9%
 
 
 
-gérer
- tag = "TITLE"
- value = "blackpenredpen (SteveChow)"
- violation = "a TITLE must start with an uppercase letter"
- detail = "TITLE "blackpenredpen (SteveChow)" must start with an uppercase"
 
 
 
@@ -61,40 +56,7 @@ gérer
 
 
 
-gérer
-fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://towardsdatascience.com/neural-network-embeddings-explained-4d028e6f0526/"
-	at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:89)
-	at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:325)
-	at fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:33)
-	at fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:32)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
-	at java.base/java.lang.Thread.run(Thread.java:1575)
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find JSON preloaded state in Medium
-	at fr.mazure.homepagemanager.data.linkchecker.TextParser.extract(TextParser.java:61)
-	at fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentParser.loadData(MediumLinkContentParser.java:151)
-	at fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentParser.<init>(MediumLinkContentParser.java:85)
-	at fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:60)
-	at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:98)
-	at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:87)
-	... 6 more
-
-
-
-
-
-
-
-gérer
-Title = "Could You Survive?"
-URL = https://www.youtube.com/playlist?list=PLi6K9w_UbfFS393cQii0mC3nEy2NS7kv8
-Expected status = OK
-Effective HTTP code = 302 Found
-Effective HTTP code of last redirection = 200 OK
-Redirection chain = https://www.youtube.com/playlist?list=PLi6K9w_UbfFS393cQii0mC3nEy2NS7kv8 → https://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fplaylist%3Flist%3DPLi6K9w_UbfFS393cQii0mC3nEy2NS7kv8%26cbrd%3D1&gl=FR&m=0&pc=yt&cm=2&hl=en&src=1
-Redirection matcher = redirection ending in success (last URL should be used)
-Redirection matcher expected statuses = 
-Look for article = https://www.google.com/search?q=%22Could+You+Survive%3F%22
+vérifier que quality, obsolete… est le même pour tous les liens d'un article
 
 
 
@@ -103,10 +65,20 @@ Look for article = https://www.google.com/search?q=%22Could+You+Survive%3F%22
 
 
 
-rather than encoding over and over in doesRedirectionMatch
-create a method that encode once and return the matching redirection or null
 
- 
+
+ajouter parser pour https://twimlai.com/podcast/twimlai/how-openai-builds-ai-agents-that-think-and-act/
+
+
+
+
+
+
+
+
+
+corriger les liens d'Aunt Minnie
+
 
 
 
@@ -133,11 +105,6 @@ gérer Redirection chain = https://www.rando-hauteloire.fr/ → https://www.rand
 nettoyer space.xml : space exploration vs space telescope
 	
 
-
-
-
-
-Move GitLab Duo dans aicodeassist 
 
 
 

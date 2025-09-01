@@ -188,7 +188,8 @@ class QuantaMagazineLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://www.quantamagazine.org/why-do-we-get-old-and-can-aging-be-reversed-20220727/|Steven||Strogatz|Judith||Campisi|Dena||Dubal"
+        "https://www.quantamagazine.org/why-do-we-get-old-and-can-aging-be-reversed-20220727/|Steven||Strogatz|Judith||Campisi|Dena||Dubal",
+        "https://www.quantamagazine.org/what-is-the-true-promise-of-quantum-computing-20250403/|Janna||Levin|Ewin||Tang|Steven||Strogatz",
         }, delimiter = '|')
     void testTwoAuthorsJoyOfWhy(final String url,
                                 final String expectedHostFirstName,

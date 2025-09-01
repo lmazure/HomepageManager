@@ -18,6 +18,7 @@ import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.utils.DateTimeHelper;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
+import fr.mazure.homepagemanager.utils.internet.HttpHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 
 /**
@@ -415,6 +416,7 @@ public class LinkDataExtractorTestBase {
     protected static void perform(final Class<? extends LinkDataExtractor> clazz,
                                   final String url,
                                   final Consumer<LinkDataExtractor> assertor) {
+        HttpHelper.throttle(url);
         final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(clazz);
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         retriever.retrieve(url,

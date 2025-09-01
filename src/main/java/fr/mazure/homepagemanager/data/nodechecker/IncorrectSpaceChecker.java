@@ -71,6 +71,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "P.Anno",
             "peer.tube",
             "polyfill.js",
+            "Pony.ai",
             "quantum.country",
             "Quokka.js",
             "redhat.com",
@@ -81,13 +82,15 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "tween.js",
             "typescriptlang.org",
             "U.S.",
+            "Vectorize.io",
             "Venus.js",
             "view.json",
             "Washington Z.C.",
             "Wallaby.js",
             "xml:id",
             "X.org",
-            "xsl:key");
+            "xsl:key",
+            "Z.ai");
 
     private static final Set<String> s_authorizedMissingPrecedingSpaceList = Set.of(
             ".Net",

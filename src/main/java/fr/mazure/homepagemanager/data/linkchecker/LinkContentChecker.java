@@ -207,7 +207,7 @@ public class LinkContentChecker implements Checker {
                 // we ignore them here
                 continue;
             }
-            final LinkContentCheck check = checkAuthor(data, author);
+            final LinkContentCheck check = checkAuthorNameIsPresentInData(data, author);
             if (check != null) {
                 return check;
             }
@@ -392,8 +392,8 @@ public class LinkContentChecker implements Checker {
                                     Optional.empty());
     }
 
-    private static LinkContentCheck checkAuthor(final String data,
-                                                final AuthorData author) {
+    private static LinkContentCheck checkAuthorNameIsPresentInData(final String data,
+                                                                   final AuthorData author) {
         final String d = HtmlHelper.cleanContent(data)
                                    .replace("’", "'");
         final String authorStr = author.getLastName().isPresent() ? author.getLastName().get()
