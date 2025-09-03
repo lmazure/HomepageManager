@@ -124,9 +124,9 @@ public class ActionHelper {
             huc.setRequestMethod("HEAD");
             final int responseCode = huc.getResponseCode();
             return (responseCode >= 200 && responseCode < 400);
-        } catch (@SuppressWarnings("unused") final SSLHandshakeException e) {
+        } catch (final SSLHandshakeException _) {
             return true;
-        } catch (@SuppressWarnings("unused") final IOException e) {
+        } catch (final IOException _) {
             return false;
         } finally {
             if (huc != null) {

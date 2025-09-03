@@ -119,7 +119,7 @@ public class SiteDataPersister {
 
         try {
             Files.move(tempoFile.toPath(), effectiveFile.toPath());
-        } catch (@SuppressWarnings("unused") final FileAlreadyExistsException e) {
+        } catch (final FileAlreadyExistsException _) {
             Logger.log(Logger.Level.WARN)
                   .append("Do not rename file into ")
                   .append(effectiveFile.toPath())

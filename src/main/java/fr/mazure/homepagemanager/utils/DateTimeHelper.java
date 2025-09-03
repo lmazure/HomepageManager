@@ -74,7 +74,7 @@ public class DateTimeHelper {
                 return 0;
             }
             return -1;
-        } 
+        }
         if (!accessor2.isSupported(ChronoField.YEAR)) {
             return 1;
         }
@@ -89,7 +89,7 @@ public class DateTimeHelper {
                 return 0;
             }
             return -1;
-        } 
+        }
         if (!accessor2.isSupported(ChronoField.MONTH_OF_YEAR)) {
             return 1;
         }
@@ -104,7 +104,7 @@ public class DateTimeHelper {
                 return 0;
             }
             return -1;
-        } 
+        }
         if (!accessor2.isSupported(ChronoField.DAY_OF_MONTH)) {
             return 1;
         }
@@ -119,13 +119,13 @@ public class DateTimeHelper {
 
     /**
      * Get min of two temporal accessors
-     * 
+     *
      * @param accessor1 first temporal accessor
      * @param accessor2 second temporal accessor
-     * 
-     * @return min temporal accessor 
+     *
+     * @return min temporal accessor
      */
-    
+
     public static Optional<TemporalAccessor> getMinTemporalAccessor(final Optional<TemporalAccessor> accessor1,
                                                                     final Optional<TemporalAccessor> accessor2) {
         if (accessor1.isEmpty()) {

@@ -47,7 +47,7 @@ public class IbmLinkContentParser extends LinkDataExtractor {
         String json = null;
         try {
             json = getStructureJson(url);
-        } catch (@SuppressWarnings("unused") final NotGzipException e) {
+        } catch (final NotGzipException _) {
             _articleIsLost = true;
             _title = null;
             _subtitle = null;

@@ -198,7 +198,7 @@ public class XmlParser {
         final Attr qualityAttribute = xElement.getAttributeNode("quality");
         final LinkQuality quality = (qualityAttribute != null) ? LinkData.parseQuality(qualityAttribute.getValue())
                                                                : LinkQuality.AVERAGE;
-        
+
         final List<Element> feedNodes =  XmlHelper.getChildrenByElementType(xElement, ElementType.FEED);
         Optional<FeedData> feed = Optional.empty();
         if (feedNodes.size() == 1) {

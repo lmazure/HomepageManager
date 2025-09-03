@@ -90,7 +90,7 @@ public class DateChecker extends NodeChecker {
             if (year > s_now_year) {
                 return new CheckStatus("FutureDate", "YEAR is in the future", Optional.of(new UpdatePageDateCorrection()));
             }
-        } catch (@SuppressWarnings("unused") final NumberFormatException ex) {
+        } catch (final NumberFormatException _) {
             return new CheckStatus("IncorrectDate", "YEAR (" + yearStr + ") is not an integer", Optional.empty());
         }
 
@@ -110,7 +110,7 @@ public class DateChecker extends NodeChecker {
             if ((year == s_now_year) && (month > s_now_month)) {
                 return new CheckStatus("IncorrectDate", "YEAR/MONTH is in the future", Optional.of(new UpdatePageDateCorrection()));
             }
-        } catch (@SuppressWarnings("unused") final NumberFormatException ex) {
+        } catch (final NumberFormatException _) {
             return new CheckStatus("IncorrectDate", "MONTH (" + monthStr + ") is not an integer", Optional.empty());
         }
 
@@ -130,7 +130,7 @@ public class DateChecker extends NodeChecker {
             if ((year == s_now_year) && (month == s_now_month) && (day > s_now_day)) {
                 return new CheckStatus("IncorrectDate", "YEAR/MONTH/DAY is in the future", Optional.of(new UpdatePageDateCorrection()));
             }
-        } catch (@SuppressWarnings("unused") final NumberFormatException ex) {
+        } catch (final NumberFormatException _) {
             return new CheckStatus("IncorrectDate", "DAY (" + dayStr + ") is not an integer", Optional.empty());
         }
 

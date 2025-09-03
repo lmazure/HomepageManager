@@ -48,7 +48,7 @@ public class UriHelper {
     public static String getPath(final String uri) {
         try {
             return new URI(uri).getPath();
-        } catch (@SuppressWarnings("unused") final URISyntaxException e) {
+        } catch (final URISyntaxException _) {
             return null;
         }
     }
@@ -81,7 +81,7 @@ public class UriHelper {
         try {
             @SuppressWarnings("unused") final URI u = new URI(str);
             return true;
-        } catch (@SuppressWarnings("unused") final URISyntaxException e) {
+        } catch (final URISyntaxException _) {
             return false;
         }
     }

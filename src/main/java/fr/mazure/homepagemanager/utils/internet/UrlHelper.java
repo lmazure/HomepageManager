@@ -83,7 +83,7 @@ public class UrlHelper {
     public static URL convertStringToUrl(final String string) {
         try {
             return UriHelper.convertStringToUri(string).toURL();
-        } catch (@SuppressWarnings("unused") final MalformedURLException e) {
+        } catch (final MalformedURLException _) {
             throw new IllegalArgumentException("Cannot convert string to URL: '" + string + "'");
         }
     }

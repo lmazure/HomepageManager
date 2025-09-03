@@ -102,7 +102,7 @@ public class LinkData {
     public LinkFormat[] getFormats() {
         return _formats;
     }
-   
+
     /**
      * @return Quality
      */

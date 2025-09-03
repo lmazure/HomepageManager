@@ -96,7 +96,7 @@ public class JsonHelper {
         final String str = getAsText(node, fields);
         try {
             return Integer.parseInt(str);
-        } catch (@SuppressWarnings("unused") final NumberFormatException e) {
+        } catch (final NumberFormatException _) {
             throw new IllegalStateException("Field '" + fields[fields.length - 1] + "' in '" + node.toString() + "' is not an Integer String.");
         }
     }

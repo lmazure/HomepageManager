@@ -252,7 +252,7 @@ public class FileChecker {
             if (!Files.exists(targetFile)) {
                 return new Error("IncorrectLocalLink", 0, "the file \"" + targetFile + "\" does not exist");
             }
-        } catch (@SuppressWarnings("unused") final InvalidPathException e) {
+        } catch (final InvalidPathException _) {
             return new Error("IncorrectLocalLink", 0, "the local link \"" + link + "\" has an invalid value");
         }
 
