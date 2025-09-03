@@ -184,7 +184,7 @@ public class HttpHelper {
                     ExitHelper.exit(e);
                 }
             }
-		}
-		s_lastSiteTimestamp.put(host, Long.valueOf(now));
-	}
+        }
+        s_lastSiteTimestamp.put(host, Long.valueOf(now));
+    }
 }

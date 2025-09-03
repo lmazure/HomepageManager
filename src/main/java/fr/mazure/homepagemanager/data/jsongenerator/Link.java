@@ -9,6 +9,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.FeedData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkProtection;
+import fr.mazure.homepagemanager.utils.xmlparsing.LinkQuality;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkStatus;
 
 /**
@@ -28,6 +29,7 @@ public class Link extends LinkData implements Comparable<Link> {
      * @param protection Protection
      * @param formats Formats
      * @param languages Languages
+     * @param quality Quality
      * @param duration Duration
      * @param publicationDate Publication date
      * @param feed Feed data
@@ -39,10 +41,11 @@ public class Link extends LinkData implements Comparable<Link> {
                 final LinkProtection protection,
                 final LinkFormat[] formats,
                 final Locale[] languages,
+                final LinkQuality quality,
                 final Optional<Duration> duration,
                 final Optional<TemporalAccessor> publicationDate,
                 final Optional<FeedData> feed) {
-        super(title, subtitles, url, status, protection, formats, languages, duration, publicationDate, feed);
+        super(title, subtitles, url, status, protection, formats, languages, quality, duration, publicationDate, feed);
         _sortingKey = normalizeName(url);
     }
 

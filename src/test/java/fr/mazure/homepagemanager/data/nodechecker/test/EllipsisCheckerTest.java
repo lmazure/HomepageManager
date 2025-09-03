@@ -28,7 +28,7 @@ class EllipsisCheckerTest extends NodeValueCheckerTestBase {
         try {
             test(content,
                  "\"Context Driven Testing and Agile are a good match, but this blog is too polished...\" should not contain \"...\"<<ImproperEllipsis>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -52,7 +52,7 @@ class EllipsisCheckerTest extends NodeValueCheckerTestBase {
         try {
             test(content,
                  "\"Context Driven Testing and Agile are a good match, but this blog is too polished..\" contains \"..\"<<DoubleDot>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -76,7 +76,7 @@ class EllipsisCheckerTest extends NodeValueCheckerTestBase {
         try {
             test(content,
                  "' should be’<<ImproperApostrophe>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -100,7 +100,7 @@ class EllipsisCheckerTest extends NodeValueCheckerTestBase {
             </PAGE>""";
         try {
             test(content);
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }

@@ -195,6 +195,10 @@ public class XmlParser {
         final LinkProtection protection = (protectionAttribute != null) ? LinkData.parseProtection(protectionAttribute.getValue())
                                                                         : LinkProtection.NO_REQUIRED_REGISTRATION;
 
+        final Attr qualityAttribute = xElement.getAttributeNode("quality");
+        final LinkQuality quality = (qualityAttribute != null) ? LinkData.parseQuality(qualityAttribute.getValue())
+                                                               : LinkQuality.AVERAGE;
+        
         final List<Element> feedNodes =  XmlHelper.getChildrenByElementType(xElement, ElementType.FEED);
         Optional<FeedData> feed = Optional.empty();
         if (feedNodes.size() == 1) {
@@ -203,7 +207,7 @@ public class XmlParser {
         } else if (dateNodes.size() > 1) {
             throw new XmlParsingException("Wrong number of FEED nodes (" + feedNodes.size() + ") in \"" + title + "\"");
         }
-        return new LinkData(title, subtitles, url, status, protection, formats, languages, duration, publicationDate, feed);
+        return new LinkData(title, subtitles, url, status, protection, formats, languages, quality, duration, publicationDate, feed);
     }
 
     /**

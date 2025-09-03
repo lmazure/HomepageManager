@@ -75,7 +75,7 @@ class IncorrectSpaceCheckerTest extends NodeValueCheckerTestBase {
                  "\"Aab:xyz\" is missing a space after punctuation<<MissingSpace>>",
                  "\"Aab;xyz\" is missing a space after punctuation<<MissingSpace>>",
                  "\"Aab?xyz\" is missing a space after punctuation<<MissingSpace>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -142,7 +142,7 @@ class IncorrectSpaceCheckerTest extends NodeValueCheckerTestBase {
                  "\"Aab;xyz\" is missing a space after punctuation<<MissingSpace>>",
                  "\"Aab;xyz\" is missing a space before punctuation<<MissingSpace>>",
                  "\"Aab?xyz\" is missing a space after punctuation<<MissingSpace>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -179,7 +179,7 @@ class IncorrectSpaceCheckerTest extends NodeValueCheckerTestBase {
                  "\"The string .He is bright should be reported.\" is missing a space after punctuation<<MissingSpace>>",
                  "\"The string .He is bright should be reported.\" has a space before a punctuation (at index 11)<<SpuriousSpace>>",
                  "\"The string \".He is bright\" should be reported.\" is missing a space after punctuation<<MissingSpace>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -210,7 +210,7 @@ class IncorrectSpaceCheckerTest extends NodeValueCheckerTestBase {
                  "\"He is Boby . She is Alicy.\" has a space before a punctuation (at index 11)<<SpuriousSpace>>",
                  "\"There are three animals : sheep, pig, and cock.\" has a space before a punctuation (at index 24)<<SpuriousSpace>>",
                  "\"There are three animals: sheep , pig, and cock.\" has a space before a punctuation (at index 31)<<SpuriousSpace>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -248,7 +248,7 @@ class IncorrectSpaceCheckerTest extends NodeValueCheckerTestBase {
                  "\"The string .He is bright should be reported.\" has a space before a punctuation (at index 11)<<SpuriousSpace>>",
                  "\"The string \".He is bright\" should be reported.\" is missing a space after punctuation<<MissingSpace>>",
                  "\"Two things: a and b.\" is missing a space before punctuation<<MissingSpace>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -280,7 +280,7 @@ class IncorrectSpaceCheckerTest extends NodeValueCheckerTestBase {
                  "\"There are three animals: sheep , pig, and cock.\" has a space before a punctuation (at index 31)<<SpuriousSpace>>",
                  "\"There are three animals: sheep , pig, and cock.\" is missing a space before punctuation<<MissingSpace>>",
                  "\"There are three animals: sheep, pig, and cock.\" is missing a space before punctuation<<MissingSpace>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }

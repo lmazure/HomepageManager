@@ -23,6 +23,7 @@ import org.xml.sax.SAXException;
 
 import fr.mazure.homepagemanager.data.nodechecker.ArticleCommentChecker;
 import fr.mazure.homepagemanager.data.nodechecker.ArticleDateChecker;
+import fr.mazure.homepagemanager.data.nodechecker.ArticleLinkAttributesChecker;
 import fr.mazure.homepagemanager.data.nodechecker.AuthorsChecker;
 import fr.mazure.homepagemanager.data.nodechecker.BritishChecker;
 import fr.mazure.homepagemanager.data.nodechecker.CommentChecker;
@@ -93,6 +94,7 @@ public class NodeValueChecker implements FileHandler {
         _nodeCheckers = new HashSet<>();
         _nodeCheckers.add(new ArticleCommentChecker());
         _nodeCheckers.add(new ArticleDateChecker());
+        _nodeCheckers.add(new ArticleLinkAttributesChecker());
         _nodeCheckers.add(new AuthorsChecker());
         _nodeCheckers.add(new BritishChecker());
         _nodeCheckers.add(new CommentChecker());

@@ -40,7 +40,7 @@ class BritishCheckerTest extends NodeValueCheckerTestBase {
                  "COMMENT \"Evaluating the magnetic dipole moment of neutrinos with the color–magnitude diagram of M5.\" contains american word \"color\"  matching regexp \"color\", it should be \"colour\"<<AmericanSpelling>>",
                  "COMMENT \"M102 was improperly recorded in Messier catalog, it is a galaxy seen almost exactly edge-on.\" contains american word \"catalog,\"  matching regexp \"catalog[^u]\", it should be \"catalogue\"<<AmericanSpelling>>",
                  "COMMENT \"fulfillment.\" contains american word \"fulfillm\"  matching regexp \"fulfill[^i]\", it should be \"fulfil\"<<AmericanSpelling>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -71,7 +71,7 @@ class BritishCheckerTest extends NodeValueCheckerTestBase {
         try {
             test(content,
                  "");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }

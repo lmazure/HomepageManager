@@ -30,7 +30,7 @@ class NonNormalizedURLCheckerTest extends NodeValueCheckerTestBase {
             test(content,
                  "URL \"https://www.example.com//\"contains \"//\"<<ImproperUrl>>",
                  "URL \"https://www.inspiredtester.com//inspired-tester-blog/embracing-change-testing-to-agile\"contains \"//\"<<ImproperUrl>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -53,7 +53,7 @@ class NonNormalizedURLCheckerTest extends NodeValueCheckerTestBase {
             </PAGE>""";
         try {
             test(content);
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -77,7 +77,7 @@ class NonNormalizedURLCheckerTest extends NodeValueCheckerTestBase {
         try {
             test(content,
                  "URL \"https://lexfridman.com/elon-musk/\" should not ends with a slash<<ImproperUrl>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }

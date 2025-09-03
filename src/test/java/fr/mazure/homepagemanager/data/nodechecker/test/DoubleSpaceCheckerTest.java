@@ -29,7 +29,7 @@ class DoubleSpaceCheckerTest extends NodeValueCheckerTestBase {
         try {
             test(content,
                  "\"Foo  bar\" should not contain a double space (in \"Foo  bar\")<<DoubleSpace>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -55,7 +55,7 @@ class DoubleSpaceCheckerTest extends NodeValueCheckerTestBase {
 
         try {
             test(content);
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -79,7 +79,7 @@ class DoubleSpaceCheckerTest extends NodeValueCheckerTestBase {
 
         try {
             test(content);
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -112,7 +112,7 @@ class DoubleSpaceCheckerTest extends NodeValueCheckerTestBase {
 
         try {
             test(content);
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -147,7 +147,7 @@ class DoubleSpaceCheckerTest extends NodeValueCheckerTestBase {
 
         try {
             test(content);
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -183,7 +183,7 @@ class DoubleSpaceCheckerTest extends NodeValueCheckerTestBase {
                           double left  click on tab menubar
                           New Untitled File" should not contain a double space (in "
                           double left  click on tab menubar")<<DoubleSpace>>""");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -212,7 +212,7 @@ class DoubleSpaceCheckerTest extends NodeValueCheckerTestBase {
                     package name  remove the binaries of package the package
                     " should not contain a double space (in "  remove the binaries of package the package
                     ")<<DoubleSpace>>""");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -241,7 +241,7 @@ class DoubleSpaceCheckerTest extends NodeValueCheckerTestBase {
                     remove the binaries of package the package  package name
                     " should not contain a double space (in "
                     remove the binaries of package the package  ")<<DoubleSpace>>""");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
