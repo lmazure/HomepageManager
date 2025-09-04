@@ -723,7 +723,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Astonishing discovery by computer scientist: how to squeeze space into time</T>\
                 <A>https://www.youtube.com/watch?v=8JuWdXrCmWg</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>23</MINUTE><SECOND>24</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>23</MINUTE><SECOND>24</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Kelsey</FIRSTNAME><LASTNAME>Houston-Edwards</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>6</MONTH><DAY>7</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
