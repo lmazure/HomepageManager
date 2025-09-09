@@ -2,8 +2,6 @@ package fr.mazure.homepagemanager.utils;
 
 import java.io.File;
 import java.io.PrintStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.nio.file.Path;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -104,10 +102,8 @@ public class Log {
      * @return the log itself (i.e. this is a fluent API)
      */
     public Log append(final Exception exception) {
-        final StringWriter sw = new StringWriter();
-        final PrintWriter pw = new PrintWriter(sw);
-        exception.printStackTrace(pw);
-        _stringBuilder.append(sw.toString());
+        final String exceptionDescription = ThrowableHelper.getDetailedExceptionInfo(exception);
+        _stringBuilder.append(exceptionDescription);
         return this;
     }
 

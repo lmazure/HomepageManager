@@ -13,6 +13,7 @@ import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractorFactory;
 import fr.mazure.homepagemanager.data.linkchecker.XmlGenerator;
+import fr.mazure.homepagemanager.utils.ThrowableHelper;
 import fr.mazure.homepagemanager.utils.internet.UriHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import javafx.beans.value.ObservableValue;
@@ -159,7 +160,8 @@ public class XmlGenerationDialog extends Dialog<Void> {
         try {
             extractor = LinkDataExtractorFactory.build(url, retriever);
         } catch (final ContentParserException e) {
-            displayError("Failed to extract data from that URL:\n" + e.getMessage());
+            final String exceptionDescription = ThrowableHelper.getDetailedExceptionInfo(e);
+            displayError("Failed to extract data from that URL:\n" + exceptionDescription);
             return;
         }
         if (extractor == null) {
