@@ -55,6 +55,7 @@ public class TitleFormatChecker extends NodeChecker {
                                                                             "smolagents",
                                                                             "systat",
                                                                             "tgAAC94",
+                                                                            "tinylog",
                                                                             "tkdiff",
                                                                             "uv",
                                                                             "vi",
