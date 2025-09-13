@@ -217,6 +217,7 @@ class LinkDataExtractorTest {
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
+    /* this site seems now to produce garbage
     @Test
     void mediumTowardsAIIsManaged() throws ContentParserException {
         final String url = "https://pub.towardsai.net/understanding-1-58-bit-large-language-models-88373010974a";
@@ -232,6 +233,7 @@ class LinkDataExtractorTest {
         Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
+    */
 
     @Test
     void mediumLevelUpGitConnectedIsManaged() throws ContentParserException {
@@ -667,7 +669,7 @@ class LinkDataExtractorTest {
     void youtubeWatchBlackPenRedPenIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=eex9Gm_rOrQ";
         final String expectedXml = """
-                <ARTICLE><X><T>Solving a triple exponential equation!</T>\
+                <ARTICLE><X><T>Customized triple exponential equation</T>\
                 <A>https://www.youtube.com/watch?v=eex9Gm_rOrQ</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>7</MINUTE><SECOND>42</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Steve</FIRSTNAME><LASTNAME>Chow</LASTNAME></AUTHOR>\

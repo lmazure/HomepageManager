@@ -48,17 +48,7 @@ methods       53.9%    97.9%
 
 
 
-
-
-
-
-
-
-
-
-vérifier que quality, obsolete… est le même pour tous les liens d'un article
-
-
+netoyer la page links/free.xml
 
 
 

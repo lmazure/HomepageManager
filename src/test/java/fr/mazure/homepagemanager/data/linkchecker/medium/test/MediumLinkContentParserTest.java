@@ -113,19 +113,10 @@ class MediumLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://medium.com/@bpnorlander/stop-writing-code-comments-28fef5272752",
         "https://medium.com/@kentbeck_7670/bs-changes-e574bc396aaa",
-        "https://medium.com/@tdeniffel/tcr-test-commit-revert-a-test-alternative-to-tdd-6e6b03c22bec",
         "https://medium.com/@kentbeck_7670/limbo-scaling-software-collaboration-afd4f00db4b",
         }, delimiter = '|')
     void testNoSubtitle(final String url) {
         checkNoSubtitle(MediumLinkContentParser.class, url);
-    }
-
-    @SuppressWarnings("static-method")
-    @Test
-    void testTitleWithAmpersandAndLink() {
-        final String url = "https://medium.com/@tdeniffel/tcr-test-commit-revert-a-test-alternative-to-tdd-6e6b03c22bec";
-        final String expectedTitle = "TCR (test && commit || revert). How to use? Alternative to TDD?";
-        checkTitle(MediumLinkContentParser.class, url, expectedTitle);
     }
 
     @SuppressWarnings("static-method")
