@@ -45,6 +45,7 @@ public enum ElementType {
     LINE,
     LLIST,
     MATH,
+    MERMAID,
     MIDDLENAME,
     MINUTE,
     MODIFIERKEY,
