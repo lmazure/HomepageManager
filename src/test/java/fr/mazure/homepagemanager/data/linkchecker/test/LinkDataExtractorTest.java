@@ -1715,7 +1715,7 @@ class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeWatchLeFuturologuePodcastIsManaged() throws ContentParserException {
+    void youtubeWatchLeFuturologueIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=Ey1HOhCvZm0";
         final String expectedXml = """
                 <ARTICLE><X><T>Questionnement Philosophique - Monsieur Phi</T>\
