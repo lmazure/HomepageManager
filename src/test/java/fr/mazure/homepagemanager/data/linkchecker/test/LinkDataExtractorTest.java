@@ -1819,6 +1819,22 @@ class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchMathLifeBalanceIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=Thzk1MzjeIQ";
+        final String expectedXml = """
+                <ARTICLE><X><T>When the balance gets broken</T>\
+                <A>https://www.youtube.com/watch?v=Thzk1MzjeIQ</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>2</MINUTE><SECOND>24</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Mura</FIRSTNAME><LASTNAME>Yakerson</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2022</YEAR><MONTH>3</MONTH><DAY>13</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeWatchMathologerIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=6ZrO90AI0c8";
         final String expectedXml = """
