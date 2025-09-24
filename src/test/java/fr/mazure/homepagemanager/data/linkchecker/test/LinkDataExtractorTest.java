@@ -202,6 +202,23 @@ class LinkDataExtractorTest {
     }
 
     @Test
+    void martinFowlerIsManaged() throws ContentParserException {
+        final String url = "https://martinfowler.com/articles/function-call-LLM.html";
+        final String expectedXml = """
+                <ARTICLE><X><T>Function calling using LLMs</T>\
+                <ST>Building AI Agents that interact with the external world.</ST>\
+                <A>https://martinfowler.com/articles/function-call-LLM.html</A>\
+                <L>en</L><F>HTML</F></X>\
+                <AUTHOR><FIRSTNAME>Kiran</FIRSTNAME><LASTNAME>Prakash</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2025</YEAR><MONTH>5</MONTH><DAY>6</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void mediumIsManaged() throws ContentParserException {
         final String url = "https://medium.com/@kentbeck_7670/limbo-scaling-software-collaboration-afd4f00db4b";
         final String expectedXml = """

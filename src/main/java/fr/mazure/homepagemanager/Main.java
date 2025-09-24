@@ -11,7 +11,6 @@ import fr.mazure.homepagemanager.utils.internet.WebServer;
 
 /**
  * Top level class
- *
  */
 public class Main {
 
