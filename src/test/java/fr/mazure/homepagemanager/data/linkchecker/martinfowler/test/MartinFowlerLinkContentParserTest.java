@@ -53,6 +53,7 @@ class MartinFowlerLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://martinfowler.com/articles/refactoring-2nd-ed.html|2018-06-01",
         "https://martinfowler.com/articles/mocksArentStubs.html|2007-01-02",
         "https://martinfowler.com/articles/exploring-gen-ai/to-vibe-or-not-vibe.html|2025-09-23",
+        "https://martinfowler.com/articles/202508-ai-thoughts.html|2025-08-28",
         }, delimiter = '|')
     void testDate(final String url,
                   final String expectedDate) {
@@ -65,6 +66,7 @@ class MartinFowlerLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://martinfowler.com/articles/refactoring-2nd-ed.html|Martin|Fowler",
         "https://martinfowler.com/articles/mocksArentStubs.html|Martin|Fowler",
         "https://martinfowler.com/articles/exploring-gen-ai/to-vibe-or-not-vibe.html|Birgitta|Böckeler",
+        "https://martinfowler.com/articles/202508-ai-thoughts.html|Martin|Fowler"
         }, delimiter = '|')
     void test1Author(final String url,
                      final String expectedFirstName,

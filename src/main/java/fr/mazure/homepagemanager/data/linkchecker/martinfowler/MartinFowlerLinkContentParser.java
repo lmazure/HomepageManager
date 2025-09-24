@@ -48,6 +48,11 @@ public class MartinFowlerLinkContentParser extends LinkDataExtractor {
                          s_sourceName,
                          "author");
     private static final TextParser s_authorParser2
+        = new TextParser("<div class = 'author'>",
+                         ":",
+                         s_sourceName,
+                         "author");
+    private static final TextParser s_authorParser3
         = new TextParser("<p class = 'content-author'>by <b>",
                          "</b></p>",
                          s_sourceName,
@@ -79,7 +84,7 @@ public class MartinFowlerLinkContentParser extends LinkDataExtractor {
         dateString = HtmlHelper.cleanContent(dateString);
         LocalDate publicationDate;
         try {
-            publicationDate = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            publicationDate = LocalDate.parse(dateString.substring(0, 10), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         } catch (final DateTimeParseException _) {
             try {
                 publicationDate = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("d MMMM yyyy", Locale.ENGLISH));
@@ -94,7 +99,12 @@ public class MartinFowlerLinkContentParser extends LinkDataExtractor {
             authors.add(LinkContentParserUtils.parseAuthorName(authorName));
         }
         if (authors.isEmpty()) {
-            authors = LinkContentParserUtils.getAuthors(s_authorParser2.extract(data));
+            final Optional<String> auth = s_authorParser2.extractOptional(data);
+            if (auth.isPresent()) {
+                authors.add(LinkContentParserUtils.parseAuthorName(auth.get()));
+            } else {
+                authors = LinkContentParserUtils.getAuthors(s_authorParser3.extract(data));
+            }
         }
         _authors = authors;
 
