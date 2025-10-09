@@ -35,6 +35,7 @@ public class TitleFormatChecker extends NodeChecker {
                                                                             "gcc",
                                                                             "gdb",
                                                                             "glibc",
+                                                                            "gpt-image-1-mini",
                                                                             "gpt-realtime",
                                                                             "gpt-oss",
                                                                             "gulp",
