@@ -17,6 +17,7 @@ class MartinFowlerLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://martinfowler.com/articles/refactoring-2nd-ed.html|The Second Edition of “Refactoring”",
         "https://martinfowler.com/articles/mocksArentStubs.html|Mocks Aren't Stubs",
         "https://martinfowler.com/articles/exploring-gen-ai/to-vibe-or-not-vibe.html|To vibe or not to vibe",
+        "https://martinfowler.com/articles/badri-hexagonal/|A Conversation with Badri Janakiraman about Hexagonal Rails",
         }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {

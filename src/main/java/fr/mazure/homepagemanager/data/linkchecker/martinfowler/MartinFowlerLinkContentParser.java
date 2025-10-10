@@ -28,7 +28,7 @@ public class MartinFowlerLinkContentParser extends LinkDataExtractor {
     private static final String s_sourceName = "martinfowler.com";
 
     private static final TextParser s_titleParser
-        = new TextParser("<h1(?: class = 'name')?>",
+        = new TextParser("<h1(?: class = 'name')?(?: id=\"[^\"]+\")?>",
                          "</h1>",
                          s_sourceName,
                          "title");
@@ -130,7 +130,8 @@ public class MartinFowlerLinkContentParser extends LinkDataExtractor {
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return UrlHelper.hasPrefix(url, "https://martinfowler.com/articles/");
+        return UrlHelper.hasPrefix(url, "https://martinfowler.com/articles/") &&
+               !url.equals("https://martinfowler.com/articles/eurogames/"); // this page is special, we do not handle it here
     }
 
     @Override
