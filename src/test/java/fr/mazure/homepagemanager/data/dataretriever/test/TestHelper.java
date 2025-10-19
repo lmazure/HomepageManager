@@ -40,7 +40,7 @@ public class TestHelper {
         Assertions.assertFalse(data.error().isPresent());
         try {
             final String d = Files.readString(data.dataFileSection().get().file().toPath());
-            Assertions.assertNotEquals(-1, d.indexOf("This domain is for use in illustrative examples in documents."));
+            Assertions.assertNotEquals(-1, d.indexOf("This domain is for use in documentation examples without needing permission. Avoid use in operations."));
         } catch (final IOException e) {
             Assertions.fail("failure to read data file " + data.dataFileSection().get() + " (" + e.getMessage() +")");
         }

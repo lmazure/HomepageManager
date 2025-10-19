@@ -592,7 +592,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>🪐❔David Hahn, l'ado qui a fabriqué un réacteur nucléaire chez lui</T>\
                 <A>https://www.youtube.com/watch?v=7rTKxHoU_Rc</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>26</MINUTE><SECOND>29</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>24</MINUTE><SECOND>8</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Arnaud</FIRSTNAME><LASTNAME>Thiry</LASTNAME></AUTHOR><DATE>\
                 <YEAR>2021</YEAR><MONTH>4</MONTH><DAY>23</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3369,14 +3369,14 @@ class LinkDataExtractorTest {
     void youtubeWatchVeritasiumCasperMebiusIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=CYlon2tvywA";
         final String expectedSureXml = """
-                <ARTICLE><X><T>Something Strange Happens When You Trace How Connected We Are</T>\
+                <ARTICLE><X><T>We simulated if you can really reach anyone in 6 steps</T>\
                 <A>https://www.youtube.com/watch?v=CYlon2tvywA</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>33</MINUTE><SECOND>16</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Derek</FIRSTNAME><LASTNAME>Muller</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>10</MONTH><DAY>1</DAY>\
                 </DATE><COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
-                <ARTICLE><X><T>Something Strange Happens When You Trace How Connected We Are</T>\
+                <ARTICLE><X><T>We simulated if you can really reach anyone in 6 steps</T>\
                 <A>https://www.youtube.com/watch?v=CYlon2tvywA</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>33</MINUTE><SECOND>16</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Derek</FIRSTNAME><LASTNAME>Muller</LASTNAME></AUTHOR>\
