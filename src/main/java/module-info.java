@@ -7,5 +7,6 @@ module fr.mazure.homepagemanager {
     requires jaudiotagger;
     requires org.json;
 
-    exports fr.mazure.homepagemanager.ui to javafx.graphics;
+    opens fr.mazure.homepagemanager.ui to javafx.graphics, javafx.base;
+    opens fr.mazure.homepagemanager.data to javafx.base;
 }
