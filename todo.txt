@@ -46,23 +46,20 @@ methods       53.9%    97.9%
 
 
 
-
 gérer
-fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://lexfridman.com/mark-zuckerberg-2"
-	at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:89)
-	at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:325)
-	at fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:33)
-	at fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:32)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
-	at java.base/java.lang.Thread.run(Thread.java:1474)
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find title in Lex Fridman podcast
-	at fr.mazure.homepagemanager.data.linkchecker.TextParser.extract(TextParser.java:61)
-	at fr.mazure.homepagemanager.data.linkchecker.lexfridman.LexFridmanLinkContentParser.<init>(LexFridmanLinkContentParser.java:88)
-	at fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:60)
-	at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:98)
-	at fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:87)
-	... 6 more
+ tag = "COMMENT"
+ value = "Some small information about the discoveries of tbe Nobel prize winners. This is mostly the usual popularisation about the tunnel effect, the quantum computers…"
+ violation = "a COMMENT must not contain US syntax"
+ detail = "COMMENT "Some small information about the discoveries of tbe Nobel prize winners. This is mostly the usual popularisation about the tunnel effect, the quantum computers…" contains american word " prize "  matching regexp "\W\p{Ll}{2,}ize[sd]?\W", it should be "ise""
+
+
+
+
+
+
+
+gérer https://www.youtube.com/@refactoringclub/videos
+
 
 
 
