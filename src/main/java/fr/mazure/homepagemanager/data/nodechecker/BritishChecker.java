@@ -18,8 +18,6 @@ import fr.mazure.homepagemanager.utils.xmlparsing.XmlHelper;
  */
 public class BritishChecker extends NodeChecker {
 
-    private static final Predicate<String> s_whiteList;
-
     private static final List<Traduction> s_americanWords = Arrays.asList(
             new Traduction("analyze", "analyse"),
             new Traduction("anemia", "anaemia"),
@@ -31,9 +29,9 @@ public class BritishChecker extends NodeChecker {
             new Traduction("donut", "doughnut"),
             new Traduction("fetus", "foetus"),
             new Traduction("fulfill[^i]", "fulfil"),
-            new Traduction("\\W\\p{Ll}{2,}ize[sd]?\\W", "ise"),
-            new Traduction("\\W\\p{Ll}{2,}ization", "isation"),
-            new Traduction("\\W\\p{Ll}{2,}izing", "sing"),
+            new Traduction("\\W\\p{L}{2,}ize[sd]?\\W", "ise"),
+            new Traduction("\\W\\p{L}{2,}ization", "isation"),
+            new Traduction("\\W\\p{L}{2,}izing", "sing"),
             new Traduction("labor\\s", "labour"),
             new Traduction("license[^d]", "licence"),
             new Traduction("liters+\\s", "litre"),
@@ -46,16 +44,6 @@ public class BritishChecker extends NodeChecker {
             ElementType.COMMENT,
             ElementType.DESC
             });
-
-    static {
-        final List<Predicate<String>> list = Arrays.asList(
-                Pattern.compile("criticize[sd]?").asPredicate()
-                );
-
-        s_whiteList = list.stream()
-                          .reduce(Predicate::or)
-                          .orElse(_ -> false);
-    }
 
     /**
     * constructor
@@ -71,11 +59,10 @@ public class BritishChecker extends NodeChecker {
             return null;
         }
         for (final String l: list ) {
-            if (s_whiteList.test(l)) {
-                continue;
-            }
+            final String cleaned = l.replaceAll("(\\W)[Pp]rize(\\W)", "\\1\\2")
+                                    .replaceAll("(\\W)criticize[sd]?(\\W)", "\\1\\2");
             for (final Traduction traduction: s_americanWords) {
-                final String match = traduction.matchesAmerican(l);
+                final String match = traduction.matchesAmerican(cleaned);
                 if (match != null) {
                     return new CheckStatus("AmericanSpelling",
                                            "COMMENT \"" +

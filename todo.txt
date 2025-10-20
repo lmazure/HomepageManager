@@ -46,14 +46,6 @@ methods       53.9%    97.9%
 
 
 
-gérer
- tag = "COMMENT"
- value = "Some small information about the discoveries of tbe Nobel prize winners. This is mostly the usual popularisation about the tunnel effect, the quantum computers…"
- violation = "a COMMENT must not contain US syntax"
- detail = "COMMENT "Some small information about the discoveries of tbe Nobel prize winners. This is mostly the usual popularisation about the tunnel effect, the quantum computers…" contains american word " prize "  matching regexp "\W\p{Ll}{2,}ize[sd]?\W", it should be "ise""
-
-
-
 
 
 
