@@ -48,16 +48,6 @@ methods       53.9%    97.9%
 
 
 
-gérer
- tag = "COMMENT"
- value = "A presentation of Arize Phoenix, a platform to trace and evaluate smolagents, the evaluation uses LLM-as-a-judge."
- violation = "a COMMENT must not contain US syntax"
- detail = "COMMENT "A presentation of Arize Phoenix, a platform to trace and evaluate smolagents, the evaluation uses LLM-as-a-judge." contains american word " Arize "  matching regexp "\W\p{L}{2,}ize[sd]?\W", it should be "ise""
- 
-
-
-
-
 
 gérer
  tag = "COMMENT"

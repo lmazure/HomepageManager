@@ -3,7 +3,6 @@ package fr.mazure.homepagemanager.data.nodechecker;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,6 +39,17 @@ public class BritishChecker extends NodeChecker {
             new Traduction("traveler", "traveller"
             ));
 
+    private static final List<String> s_allowedWords = Arrays.asList(
+            "[Pp]rize",
+            "criticize[sd]?",
+            "Arize Phoenix"
+            );
+    private static Pattern s_allowedWordsRegexp;
+    
+    {
+        s_allowedWordsRegexp = Pattern.compile("(\\W)(?:(" + String.join("|", s_allowedWords) + "))(\\W)");
+    }
+
     private static final InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.COMMENT,
             ElementType.DESC
@@ -50,7 +60,7 @@ public class BritishChecker extends NodeChecker {
     */
     public BritishChecker() {
         super(s_selector,
-                BritishChecker::commentUsesBritish,"a COMMENT must not contain US syntax");
+              BritishChecker::commentUsesBritish,"a COMMENT must not contain US syntax");
     }
 
     private static CheckStatus commentUsesBritish(final Element e) {
@@ -59,8 +69,7 @@ public class BritishChecker extends NodeChecker {
             return null;
         }
         for (final String l: list ) {
-            final String cleaned = l.replaceAll("(\\W)[Pp]rize(\\W)", "\\1\\2")
-                                    .replaceAll("(\\W)criticize[sd]?(\\W)", "\\1\\2");
+            final String cleaned = s_allowedWordsRegexp.matcher(l).replaceAll("\\1\\2");
             for (final Traduction traduction: s_americanWords) {
                 final String match = traduction.matchesAmerican(cleaned);
                 if (match != null) {
