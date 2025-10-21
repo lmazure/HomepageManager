@@ -48,9 +48,23 @@ methods       53.9%    97.9%
 
 
 
+gérer
+ tag = "COMMENT"
+ value = "A presentation of Arize Phoenix, a platform to trace and evaluate smolagents, the evaluation uses LLM-as-a-judge."
+ violation = "a COMMENT must not contain US syntax"
+ detail = "COMMENT "A presentation of Arize Phoenix, a platform to trace and evaluate smolagents, the evaluation uses LLM-as-a-judge." contains american word " Arize "  matching regexp "\W\p{L}{2,}ize[sd]?\W", it should be "ise""
+ 
 
 
-gérer https://www.youtube.com/@refactoringclub/videos
+
+
+
+gérer
+ tag = "COMMENT"
+ value = ""Flow Matching for Generative Modelinghttps://arxiv.org/abs/2210.02747enHTML": a mathematical description of Flow Matching, a mechanism to train Continuous Normalizing Flows."
+ violation = "a COMMENT must not contain US syntax"
+ detail = "COMMENT ""Flow Matching for Generative Modelinghttps://arxiv.org/abs/2210.02747enHTML": a mathematical description of Flow Matching, a mechanism to train Continuous Normalizing Flows." contains american word " Normalizing"  matching regexp "\W\p{L}{2,}izing", it should be "sing""
+
 
 
 
@@ -58,13 +72,10 @@ gérer https://www.youtube.com/@refactoringclub/videos
 
 
 gérer
-WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @5492abdc'
 WARNING: A restricted method in java.lang.System has been called
-WARNING: java.lang.System::load has been called by com.sun.glass.utils.NativeLibLoader in an unnamed module (file:/G:/Documents/home/repository/org/openjfx/javafx-graphics/26-ea+3/javafx-graphics-26-ea+3-win.jar)
-WARNING: Use --enable-native-access=ALL-UNNAMED to avoid a warning for callers in this module
+WARNING: java.lang.System::load has been called by com.sun.glass.utils.NativeLibLoader in module javafx.graphics (file:/G:/Documents/home/repository/org/openjfx/javafx-graphics/26-ea+3/javafx-graphics-26-ea+3-win.jar)
+WARNING: Use --enable-native-access=javafx.graphics to avoid a warning for callers in this module
 WARNING: Restricted methods will be blocked in a future release unless native access is enabled
-
-
 
 
 

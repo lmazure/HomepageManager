@@ -758,6 +758,10 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                           new ChannelData(buildList(WellKnownAuthors.buildAuthor("Greg", "Richardson")),
                                                           buildMatchingList(),
                                                           Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("Refactoring",
+                                          new ChannelData(buildList(WellKnownAuthors.buildAuthor("Lucas", "Rossi")),
+                                                          buildMatchingList(),
+                                                          Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Robert Miles AI Safety",
                                           new ChannelData(buildList(WellKnownAuthors.ROBERT_MILES),
                                                           buildMatchingList(),
@@ -950,7 +954,11 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
             final String str = title.replaceAll("^[^ ]+ ([- \\p{L}]+)( \\(.+\\))?$", "$1");
             authors.addFirst(LinkContentParserUtils.parseAuthorName(str));
         }
-        return authors;
+        if (channel.equals("Refactoring")) {
+            final String title = getTitle();
+            final String str = title.replaceAll("^.*— with (.+)$", "$1");
+            authors.addFirst(LinkContentParserUtils.parseAuthorName(str));
+        }        return authors;
     }
 
     /**
