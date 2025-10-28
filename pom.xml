@@ -15,7 +15,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<junit.version>5.11.3</junit.version>
-		<javafx.version>26-ea+3</javafx.version>
+		<javafx.version>26-ea+13</javafx.version>
 	</properties>
 
 	<dependencies>
