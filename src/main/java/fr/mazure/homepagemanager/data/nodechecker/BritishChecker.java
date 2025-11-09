@@ -42,7 +42,8 @@ public class BritishChecker extends NodeChecker {
     private static final List<String> s_allowedWords = Arrays.asList(
             "[Pp]rize",
             "criticize[sd]?",
-            "Arize Phoenix"
+            "Arize Phoenix",
+            "Vectorize.io"
             );
     private static Pattern s_allowedWordsRegexp;
     
