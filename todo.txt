@@ -48,6 +48,76 @@ methods       53.9%    97.9%
 
 
 
+merge les deux pages sur OpenAI
+
+
+
+
+
+
+
+
+properly manage en_us
+
+
+
+
+
+
+
+gérer
+Exception in thread "pool-2-thread-25" java.lang.IllegalStateException: Exception while retrieving https://blogs.oracle.com/javamagazine/post/java-visrec-api-for-machine-learning
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:76)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:32)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+Caused by: java.time.format.DateTimeParseException: Text 'January 5, 2023" />
+    <style>
+        #wp-admin-bar-blog-1 {
+ ...' could not be parsed, unparsed text found at index 15
+	at java.base/java.time.format.DateTimeFormatter.parseResolved0(DateTimeFormatter.java:2111)
+	at java.base/java.time.format.DateTimeFormatter.parse(DateTimeFormatter.java:2010)
+	at java.base/java.time.LocalDate.parse(LocalDate.java:437)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.oracleblogs.OracleBlogsLinkContentParser.<init>(OracleBlogsLinkContentParser.java:113)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:60)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:98)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:87)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:325)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:143)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:121)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:121)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:74)
+	... 5 more
+	
+	
+	
+	
+	
+	
+	
+
+manque des tooltips sur les flèches de renvoi et sur la boussole
+
+
+
+
+
+
+gérer
+ tag = "COMMENT"
+ value = "Some examples of Nobel Prizes given to wrong discoveries: JohannesFibiger, EnricoFermi, and EgasMoniz."
+ violation = "a COMMENT must not contain US syntax"
+ detail = "COMMENT "Some examples of Nobel Prizes given to wrong discoveries: JohannesFibiger, EnricoFermi, and EgasMoniz." contains american word " Prizes "  matching regexp "\W\p{L}{2,}ize[sd]?\W", it should be "ise""
+
+
+
+
+
+
+
+
 gérer
 https://jon.recoil.org/blog/2025/07/week27.html
 author "Ludlam" does not appear in the page
