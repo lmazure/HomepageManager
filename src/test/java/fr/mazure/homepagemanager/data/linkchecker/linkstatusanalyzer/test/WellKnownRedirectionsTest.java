@@ -279,9 +279,10 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
-        "http://weblogs.java.net/blog/arnold/archive/2005/06/generics_consid_1.html",
+        // TDDO oracle "http://weblogs.java.net/blog/arnold/archive/2005/06/generics_consid_1.html",
         "http://www.hays.lu/prd_consump/groups/hays_common/@fr/@content/documents/digitalasset/hays_714488.pdf",
         "http://www.ineris.fr/centredoc/Communication_site_web_INERIS.pdf",
+        "https://searchenginewatch.com/article/2064541/Numbers-Numbers-But-What-Do-They-Mean",
         })
     void redirectionsEndingWith404(final String url) {
         test(url,
@@ -494,6 +495,19 @@ class WellKnownRedirectionsTest {
              Set.of(LinkStatus.REMOVED));
     }
 
+
+    @ParameterizedTest
+    @CsvSource({
+        "https://blogs.oracle.com/javamagazine/post/java-for-loop-break-continue",
+        })
+    void oracleBlog(final String url) {
+        test(url,
+             true,
+             Integer.valueOf(200),
+             "removed from blogs.oracle.com",
+             Set.of(LinkStatus.REMOVED));
+    }
+
     @ParameterizedTest
     @CsvSource({
         "https://www.techrepublic.com/article/10-stupid-user-stories-the-madness-persists/",
@@ -548,18 +562,6 @@ class WellKnownRedirectionsTest {
              Integer.valueOf(200),
              "removed from YUI blog",
              Set.of(LinkStatus.REMOVED));
-    }
-
-    @ParameterizedTest
-    @CsvSource({
-        "https://searchenginewatch.com/article/2064541/Numbers-Numbers-But-What-Do-They-Mean",
-        })
-    void redirectionTowardFake404Page(final String url) {
-        test(url,
-             true,
-             Integer.valueOf(200),
-             "redirection ending in success (last URL should be used)",
-             Set.of());
     }
 
     private void test(final String url,
