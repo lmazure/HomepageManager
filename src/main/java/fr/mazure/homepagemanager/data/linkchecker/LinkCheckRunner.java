@@ -547,7 +547,7 @@ public class LinkCheckRunner {
         return extractHttpCode(headers).map(code -> {
             try {
                 return code + " " + HttpHelper.getStringOfCode(code.intValue());
-            } catch (@SuppressWarnings("unused") final InvalidHttpCodeException e) {
+            } catch (final InvalidHttpCodeException _) {
                 return " invalid code! (" + code + ")";
             }
         }).orElse("---");

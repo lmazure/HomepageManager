@@ -25,6 +25,7 @@ public class MiddleNewlineChecker extends NodeChecker {
             ElementType.I,
             ElementType.ITEM,
             ElementType.LLIST,
+            ElementType.MERMAID,
             ElementType.NLIST,
             ElementType.PAGE,
             ElementType.ROW,

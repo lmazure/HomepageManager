@@ -17,6 +17,7 @@ import fr.mazure.homepagemanager.data.linkchecker.gitlabblog.GitlabBlogLinkConte
 import fr.mazure.homepagemanager.data.linkchecker.huggingface.HuggingFaceLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.lexfridman.LexFridmanLinkContentChecker;
+import fr.mazure.homepagemanager.data.linkchecker.martinfowler.MartinFowlerLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.oracleblogs.OracleBlogsLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.oxideandfriends.OxideAndFriendsLinkContentChecker;
@@ -54,6 +55,7 @@ public class LinkContentCheckerFactory {
                 HuggingFaceLinkContentChecker.class,
                 IbmLinkContentChecker.class,
                 LexFridmanLinkContentChecker.class,
+                MartinFowlerLinkContentChecker.class,
                 MediumLinkContentChecker.class,
                 OracleBlogsLinkContentChecker.class,
                 OxideAndFriendsLinkContentChecker.class,

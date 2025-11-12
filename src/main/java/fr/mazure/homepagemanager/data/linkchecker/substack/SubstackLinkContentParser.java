@@ -207,12 +207,7 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
     private static AuthorData getWellKnownAuthor(final String authorName) {
         return switch (authorName) {
             case "Sebastian Raschka, PhD",
-                 "Ahead of AI" -> new AuthorData(Optional.empty(),
-                                                 Optional.of("Sebastian"),
-                                                 Optional.empty(),
-                                                 Optional.of("Raschka"),
-                                                 Optional.empty(),
-                                                 Optional.empty());
+                 "Ahead of AI" -> WellKnownAuthors.SEBASTIAN_RASCHKA;
             case "Science étonnante" -> WellKnownAuthors.DAVID_LOUAPRE;
             default -> null;
         };

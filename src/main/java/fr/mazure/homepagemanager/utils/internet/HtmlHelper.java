@@ -2393,7 +2393,7 @@ public class HtmlHelper {
                         writer.write(entityValue);
                     }
 
-                } catch (@SuppressWarnings("unused") final NumberFormatException ex) {
+                } catch (final NumberFormatException _) {
                     i++;
                     continue;
                 }
@@ -2464,25 +2464,25 @@ public class HtmlHelper {
         if (input.isEmpty()) {
             return "";
         }
-        
+
         int start = 0;
         int end = input.length() - 1;
-        
+
         // Find the first non-whitespace character
         while ((start <= end) && Character.isSpaceChar(input.charAt(start))) {
             start++;
         }
-        
+
         // All characters are whitespace
         if (start > end) {
             return "";
         }
-        
+
         // Find the last non-whitespace character
         while (Character.isSpaceChar(input.charAt(end))) {
             end--;
         }
-        
+
         // Return the trimmed substring
         return input.substring(start, end + 1);
     }
@@ -2503,16 +2503,16 @@ public class HtmlHelper {
 
         while (pos < length) {
             final int tagStart = input.indexOf('<', pos);
-            
+
             // No more tags found
             if (tagStart == -1) {
                 result.append(input.substring(pos));
                 break;
             }
-            
+
             // Append text before the tag
             result.append(input.substring(pos, tagStart));
-            
+
             // Find the closing '>'
             int tagEnd = input.indexOf('>', tagStart);
             if (tagEnd == -1) {
@@ -2520,10 +2520,10 @@ public class HtmlHelper {
                 result.append(input.substring(tagStart));
                 break;
             }
-            
+
             // Process the tag
             final String tag = input.substring(tagStart, tagEnd + 1).toLowerCase();
-            
+
             if (isBrTag(tag)) {
                 // Convert <br> tags to newlines
                 result.append('\n');
@@ -2537,17 +2537,17 @@ public class HtmlHelper {
                 // Handle style tags and their content
                 tagEnd = findClosingTag(input, tagEnd, "style");
             }
-            
+
             // Move past this tag
             pos = tagEnd + 1;
         }
-        
+
         return result.toString();
     }
 
     /**
      * Finds the position of the closing tag for block elements like script, style, or svg
-     * 
+     *
      * @param input the full HTML string
      * @param startPos position after the opening tag
      * @param tagName name of the tag to find closing for
@@ -2583,21 +2583,21 @@ public class HtmlHelper {
     private static boolean isBrTag(final String tag) {
         return startsWithIgnoreCase(tag, "<br>") || startsWithIgnoreCase(tag, "<br/") || startsWithIgnoreCase(tag, "<br ");
     }
-    
+
     /**
      * Checks if a tag is a script tag
      */
     private static boolean isScriptTag(final String tag) {
         return startsWithIgnoreCase(tag, "<script");
     }
-    
+
     /**
      * Checks if a tag is an SVG tag
      */
     private static boolean isSvgTag(final String tag) {
         return startsWithIgnoreCase(tag, "<svg");
     }
-    
+
     /**
      * Checks if a tag is a style tag
      */

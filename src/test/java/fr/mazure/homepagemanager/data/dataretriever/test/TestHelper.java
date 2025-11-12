@@ -35,12 +35,12 @@ public class TestHelper {
         Assertions.assertEquals("text/html", data.headers().get().get("Content-Type").get(0));
         Assertions.assertTrue(data.headers().get().containsKey("Cache-Control"));
         Assertions.assertEquals(1, data.headers().get().get("Cache-Control").size());
-        Assertions.assertTrue(data.headers().get().get("Cache-Control").get(0).matches("max-age=\\d{1,4}"));
+        Assertions.assertTrue(data.headers().get().get("Cache-Control").get(0).matches("max-age=\\d{1,5}"));
         Assertions.assertTrue(data.dataFileSection().isPresent());
         Assertions.assertFalse(data.error().isPresent());
         try {
             final String d = Files.readString(data.dataFileSection().get().file().toPath());
-            Assertions.assertNotEquals(-1, d.indexOf("This domain is for use in illustrative examples in documents."));
+            Assertions.assertNotEquals(-1, d.indexOf("This domain is for use in documentation examples without needing permission. Avoid use in operations."));
         } catch (final IOException e) {
             Assertions.fail("failure to read data file " + data.dataFileSection().get() + " (" + e.getMessage() +")");
         }

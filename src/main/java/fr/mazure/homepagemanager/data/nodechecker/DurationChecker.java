@@ -77,7 +77,7 @@ public class DurationChecker extends NodeChecker {
             if (second > 59) {
                 return new CheckStatus("IncorrectDuration", "SECOND is greater than 59", Optional.empty());
             }
-        } catch (@SuppressWarnings("unused") final NumberFormatException ex) {
+        } catch (final NumberFormatException _) {
             return new CheckStatus("IncorrectDuration", "SECOND is not an integer", Optional.empty());
         }
 
@@ -94,7 +94,7 @@ public class DurationChecker extends NodeChecker {
             if (minute > 59) {
                 return new CheckStatus("IncorrectDuration", "MINUTE is greater than 59", Optional.empty());
             }
-        } catch (@SuppressWarnings("unused") final NumberFormatException ex) {
+        } catch (final NumberFormatException _) {
             return new CheckStatus("IncorrectDuration", "MINUTE is not an integer", Optional.empty());
         }
 
@@ -108,7 +108,7 @@ public class DurationChecker extends NodeChecker {
             if (hour < 0) {
                 return new CheckStatus("IncorrectDuration", "HOUR is negative", Optional.empty());
             }
-        } catch (@SuppressWarnings("unused") final NumberFormatException ex) {
+        } catch (final NumberFormatException _) {
             return new CheckStatus("IncorrectDuration", "HOUR is not an integer", Optional.empty());
         }
 

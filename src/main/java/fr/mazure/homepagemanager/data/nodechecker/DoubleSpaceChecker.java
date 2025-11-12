@@ -22,6 +22,7 @@ public class DoubleSpaceChecker extends NodeChecker {
             ElementType.DEFINITIONTABLE,
             ElementType.ITEM,
             ElementType.LLIST,
+            ElementType.MERMAID,
             ElementType.NLIST,
             ElementType.PAGE,
             ElementType.ROW,

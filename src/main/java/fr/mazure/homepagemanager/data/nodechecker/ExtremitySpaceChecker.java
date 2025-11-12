@@ -25,6 +25,7 @@ public class ExtremitySpaceChecker extends NodeChecker {
             ElementType.DEFINITIONTABLE,
             ElementType.ITEM,
             ElementType.LLIST,
+            ElementType.MERMAID,
             ElementType.NLIST,
             ElementType.PAGE,
             ElementType.ROW,

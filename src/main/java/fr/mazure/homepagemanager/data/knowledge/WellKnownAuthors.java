@@ -33,6 +33,7 @@ public class WellKnownAuthors {
     @SuppressWarnings("javadoc") public static final AuthorData LEAH_STOCKLEY =        WellKnownAuthors.buildAuthor("Leah", "Stockley");
     @SuppressWarnings("javadoc") public static final AuthorData LEILA_BATTISON =       WellKnownAuthors.buildAuthor("Leila", "Battison");
     @SuppressWarnings("javadoc") public static final AuthorData LEX_FRIDMAN =          WellKnownAuthors.buildAuthor("Lex", "Fridman");
+    @SuppressWarnings("javadoc") public static final AuthorData MARTIN_FOWLER =        WellKnownAuthors.buildAuthor("Martin", "Fowler");
     @SuppressWarnings("javadoc") public static final AuthorData MATT_PARKER =          WellKnownAuthors.buildAuthor("Matt", "Parker");
     @SuppressWarnings("javadoc") public static final AuthorData MICHAEL_LAUNAY =       WellKnownAuthors.buildAuthor("Mickaël", "Launay");
     @SuppressWarnings("javadoc") public static final AuthorData MICHAEL_MERRIFIELD =   WellKnownAuthors.buildAuthor("Michael", "Merrifield");
@@ -41,6 +42,7 @@ public class WellKnownAuthors {
     @SuppressWarnings("javadoc") public static final AuthorData RICHARD_ELWES =        WellKnownAuthors.buildAuthor("Richard", "Elwes");
     @SuppressWarnings("javadoc") public static final AuthorData ROBERT_MILES =         WellKnownAuthors.buildAuthor("Robert", "Miles");
     @SuppressWarnings("javadoc") public static final AuthorData SAM_CHARRINGTON =      WellKnownAuthors.buildAuthor("Sam", "Charrington");
+    @SuppressWarnings("javadoc") public static final AuthorData SEBASTIAN_RASCHKA =    WellKnownAuthors.buildAuthor("Sebastian", "Raschka");
     @SuppressWarnings("javadoc") public static final AuthorData SIMON_WILLISON =       WellKnownAuthors.buildAuthor("Simon", "Willison");
     @SuppressWarnings("javadoc") public static final AuthorData STEPHANE_ROBERT =      WellKnownAuthors.buildAuthor("Stéphane", "Robert");
     @SuppressWarnings("javadoc") public static final AuthorData STEVEN_STROGATZ =      WellKnownAuthors.buildAuthor("Steven", "Strogatz");

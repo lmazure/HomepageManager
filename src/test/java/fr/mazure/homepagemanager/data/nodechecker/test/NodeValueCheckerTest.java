@@ -29,7 +29,7 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
 
         try {
             test(content);
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -53,7 +53,7 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
         try {
             test(content,
                  "TITLE \"test\" must start with an uppercase<<LowercaseTitle>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -78,7 +78,7 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
         try {
             test(content,
                  "TITLE \"Test:\" must not finish with colon");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -102,7 +102,7 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
 
         try {
             test(content);
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -126,7 +126,7 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
 
         try {
             test(content);
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -150,7 +150,7 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
 
         try {
             test(content);
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -174,7 +174,7 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
         try {
             test(content,
                  "node DATE (2010 923) shall not contain space between tags<<SpaceBetweenTags>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -197,7 +197,7 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             </PAGE>""";
         try {
             test(content);
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -221,7 +221,7 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
         try {
             test(content,
                  "Creation date of article \"https://example.com/page\" (2010-09-23) is after page date (2010-09-22)<<ArticleCreationDateAfterPageCreationDate>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -245,7 +245,7 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
         try {
             test(content,
                  "Publication date of article \"https://example.com/page\" (2010-09-23) is after page date (2010-09-22)<<ArticlePublicationDateAfterPageCreationDate>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -273,7 +273,7 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
         try {
             test(content,
                  "Publication date of article \"https://example.com/page1\" (2010-09-27) is after page date (2010-09-26)<<ArticlePublicationDateAfterPageCreationDate>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -301,7 +301,7 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
         try {
             test(content,
                  "Publication date of article \"https://example.com/page3\" (2010-09-27) is after page date (2010-09-26)<<ArticlePublicationDateAfterPageCreationDate>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -329,7 +329,7 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
         try {
             test(content,
                  "Publication date of article \"https://example.com/page1\" (2010-09-27) is after page date (2010-09-26)<<ArticlePublicationDateAfterPageCreationDate>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -357,7 +357,7 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
         try {
             test(content,
                  "Publication date of article \"https://example.com/page1\" (2010-09-22) is before creation date (2010-09-23)<<ArticlePublicationDateAfterPageCreationDate>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -385,7 +385,7 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
         try {
             test(content,
                  "Publication date of article \"https://example.com/page3\" (2010-09-22) is before creation date (2010-09-23)<<ArticlePublicationDateAfterPageCreationDate>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -412,7 +412,7 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             </PAGE>""";
         try {
             test(content);
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -440,7 +440,7 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
         try {
             test(content,
                  "Article \"https://example.com/page2\" has no date while being after article \"https://example.com/page1\" which has a date<<ArticleWithNoDateBeforeArticleWihDate>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -468,7 +468,7 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
         try {
             test(content,
                  "Creation date of article \"https://example.com/page3\" (2010-09-02) is before creation date (2010-09-03) of previous article \"https://example.com/page2\"<<ArticleBeforeIsOlder>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -495,7 +495,7 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             </PAGE>""";
         try {
             test(content);
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -523,7 +523,7 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
         try {
             test(content,
                  "Article \"https://example.com/page2\" has no date while being after article \"https://example.com/page1\" which has a date<<ArticleWithNoDateBeforeArticleWihDate>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -551,7 +551,7 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
         try {
             test(content,
                  "Creation date of article \"https://example.com/page3\" (2010-09-02) is before creation date (2010-09-03) of previous article \"https://example.com/page2\"<<ArticleBeforeIsOlder>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -578,7 +578,7 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             </PAGE>""";
         try {
             test(content);
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -606,7 +606,7 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
         try {
             test(content,
                  "Creation date of article \"https://example.com/page3\" (2010-09-02) is before creation date (2010-09-04) of previous article \"https://example.com/page1\"<<ArticleBeforeIsOlder>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -633,7 +633,7 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             </PAGE>""";
         try {
             test(content);
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -661,7 +661,7 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
         try {
             test(content,
                  "Article has 'predecessor' article equal to \"https://example.com/badpage\" while previous article has URL \"https://example.com/page1\"<<IncorrectPredecessorArticle>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -691,7 +691,7 @@ class NodeValueCheckerTest extends NodeValueCheckerTestBase {
             test(content,
                  "COMMENT \"Context Driven Testing and Agile are a good match, but this blog is too polished\" must end with a punctuation<<MissingPuctuation>>",
                  "COMMENT \"Context Driven Testing and Agile are a good match. (But this blog is too polished)\" must end with a punctuation<<MissingPuctuation>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }

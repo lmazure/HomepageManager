@@ -36,11 +36,11 @@ class BritishCheckerTest extends NodeValueCheckerTestBase {
 
         try {
             test(content,
-                 "COMMENT \"A civilization is any complex society.\" contains american word \" civilization\"  matching regexp \"\\W\\p{Ll}{2,}ization\", it should be \"isation\"<<AmericanSpelling>>",
+                 "COMMENT \"A civilization is any complex society.\" contains american word \" civilization\"  matching regexp \"\\W\\p{L}{2,}ization\", it should be \"isation\"<<AmericanSpelling>>",
                  "COMMENT \"Evaluating the magnetic dipole moment of neutrinos with the color–magnitude diagram of M5.\" contains american word \"color\"  matching regexp \"color\", it should be \"colour\"<<AmericanSpelling>>",
                  "COMMENT \"M102 was improperly recorded in Messier catalog, it is a galaxy seen almost exactly edge-on.\" contains american word \"catalog,\"  matching regexp \"catalog[^u]\", it should be \"catalogue\"<<AmericanSpelling>>",
                  "COMMENT \"fulfillment.\" contains american word \"fulfillm\"  matching regexp \"fulfill[^i]\", it should be \"fulfil\"<<AmericanSpelling>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }
@@ -56,14 +56,16 @@ class BritishCheckerTest extends NodeValueCheckerTestBase {
             <PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd" xml:lang="fr">
             <TITLE>Test</TITLE>
             <PATH>HomepageManager/test.xml</PATH>
-            <DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>
+            <DATE><YEAR>2025</YEAR><MONTH>9</MONTH><DAY>30</DAY></DATE>
             <CONTENT>
             <BLIST>
+            <ITEM><ARTICLE><X><T>When are two strings equal?</T><A>http://java.sun.com</A><L>en</L><F>HTML</F></X><COMMENT>A Nobel prize for everyone.</COMMENT></ARTICLE></ITEM>
             <ITEM><ARTICLE><X><T>When are two strings equal?</T><A>http://java.sun.com</A><L>en</L><F>HTML</F></X><COMMENT>A Nobel Prize for everyone.</COMMENT></ARTICLE></ITEM>
-            <ITEM><ARTICLE><X><T>When are two strings equal?</T><A>http://java.sun.com</A><L>en</L><F>HTML</F></X><COMMENT>A simplified story of HenriPoincaré’s Uniformization Theorem and GrigoriPerelman’s proof of Thurston’s Geometrisation Conjecture.</COMMENT></ARTICLE></ITEM>
+            <ITEM><ARTICLE><X><T>When are two strings equal?</T><A>http://java.sun.com</A><L>en</L><F>HTML</F></X><COMMENT>A simplified story of HenriPoincaré’s Uniformisation Theorem and GrigoriPerelman’s proof of Thurston’s Geometrisation Conjecture.</COMMENT></ARTICLE></ITEM>
             <ITEM><ARTICLE><X><T>When are two strings equal?</T><A>http://java.sun.com</A><L>en</L><F>HTML</F></X><COMMENT>It is amazing how much Perl stuff the author has been able to cram in this paper.</COMMENT></ARTICLE></ITEM>
             <ITEM><ARTICLE><X><T>When are two strings equal?</T><A>http://java.sun.com</A><L>en</L><F>HTML</F></X><COMMENT>fulfilling.</COMMENT></ARTICLE></ITEM>
             <ITEM><ARTICLE><X><T>When are two strings equal?</T><A>http://java.sun.com</A><L>en</L><F>HTML</F></X><COMMENT>He is not enough competent to criticize this.</COMMENT></ARTICLE></ITEM>
+            <ITEM><ARTICLE><X><T>Trace &amp; Evaluate your Agent with Arize Phoenix</T><A>https://huggingface.co/blog/smolagents-phoenix</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Sri</FIRSTNAME><LASTNAME>Chavali</LASTNAME></AUTHOR><AUTHOR><FIRSTNAME>John</FIRSTNAME><LASTNAME>Gilhuly</LASTNAME></AUTHOR><AUTHOR><FIRSTNAME>Aymeric</FIRSTNAME><LASTNAME>Roucher</LASTNAME></AUTHOR><DATE><YEAR>2025</YEAR><MONTH>2</MONTH><DAY>28</DAY></DATE><COMMENT>A presentation of Arize Phoenix, a platform to trace and evaluate smolagents, the evaluation uses LLM-as-a-judge.</COMMENT></ARTICLE></ITEM>
             </BLIST>
             </CONTENT>
             </PAGE>""";
@@ -71,7 +73,7 @@ class BritishCheckerTest extends NodeValueCheckerTestBase {
         try {
             test(content,
                  "");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }

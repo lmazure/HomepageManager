@@ -3,7 +3,6 @@ package fr.mazure.homepagemanager.data.nodechecker;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,8 +17,6 @@ import fr.mazure.homepagemanager.utils.xmlparsing.XmlHelper;
  */
 public class BritishChecker extends NodeChecker {
 
-    private static final Predicate<String> s_whiteList;
-
     private static final List<Traduction> s_americanWords = Arrays.asList(
             new Traduction("analyze", "analyse"),
             new Traduction("anemia", "anaemia"),
@@ -31,9 +28,9 @@ public class BritishChecker extends NodeChecker {
             new Traduction("donut", "doughnut"),
             new Traduction("fetus", "foetus"),
             new Traduction("fulfill[^i]", "fulfil"),
-            new Traduction("\\W\\p{Ll}{2,}ize[sd]?\\W", "ise"),
-            new Traduction("\\W\\p{Ll}{2,}ization", "isation"),
-            new Traduction("\\W\\p{Ll}{2,}izing", "sing"),
+            new Traduction("\\W\\p{L}{2,}ize[sd]?\\W", "ise"),
+            new Traduction("\\W\\p{L}{2,}ization", "isation"),
+            new Traduction("\\W\\p{L}{2,}izing", "sing"),
             new Traduction("labor\\s", "labour"),
             new Traduction("license[^d]", "licence"),
             new Traduction("liters+\\s", "litre"),
@@ -42,27 +39,29 @@ public class BritishChecker extends NodeChecker {
             new Traduction("traveler", "traveller"
             ));
 
+    private static final List<String> s_allowedWords = Arrays.asList(
+            "[Pp]rize",
+            "criticize[sd]?",
+            "Arize Phoenix",
+            "Vectorize.io"
+            );
+    private static Pattern s_allowedWordsRegexp;
+    
+    {
+        s_allowedWordsRegexp = Pattern.compile("(\\W)(?:(" + String.join("|", s_allowedWords) + "))(\\W)");
+    }
+
     private static final InclusionTagSelector s_selector = new InclusionTagSelector(new ElementType[] {
             ElementType.COMMENT,
             ElementType.DESC
             });
-
-    static {
-        final List<Predicate<String>> list = Arrays.asList(
-                Pattern.compile("criticize[sd]?").asPredicate()
-                );
-
-        s_whiteList = list.stream()
-                          .reduce(Predicate::or)
-                          .orElse(_ -> false);
-    }
 
     /**
     * constructor
     */
     public BritishChecker() {
         super(s_selector,
-                BritishChecker::commentUsesBritish,"a COMMENT must not contain US syntax");
+              BritishChecker::commentUsesBritish,"a COMMENT must not contain US syntax");
     }
 
     private static CheckStatus commentUsesBritish(final Element e) {
@@ -71,11 +70,9 @@ public class BritishChecker extends NodeChecker {
             return null;
         }
         for (final String l: list ) {
-            if (s_whiteList.test(l)) {
-                continue;
-            }
+            final String cleaned = s_allowedWordsRegexp.matcher(l).replaceAll("\\1\\2");
             for (final Traduction traduction: s_americanWords) {
-                final String match = traduction.matchesAmerican(l);
+                final String match = traduction.matchesAmerican(cleaned);
                 if (match != null) {
                     return new CheckStatus("AmericanSpelling",
                                            "COMMENT \"" +

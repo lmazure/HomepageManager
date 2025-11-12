@@ -25,7 +25,7 @@ class ArticleCommentCheckerTest extends NodeValueCheckerTestBase {
         try {
             test(content,
                  "Comment refers a non-existant subtitle<<CommentReferringMissingSubtitle>>");
-        } catch (@SuppressWarnings("unused") final SAXException e) {
+        } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
     }

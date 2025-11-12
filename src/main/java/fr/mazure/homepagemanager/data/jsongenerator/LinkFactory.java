@@ -31,6 +31,7 @@ public class LinkFactory {
                                    linkData.getProtection(),
                                    linkData.getFormats(),
                                    linkData.getLanguages(),
+                                   linkData.getQuality(),
                                    linkData.getDuration(),
                                    linkData.getPublicationDate(),
                                    linkData.getFeed());

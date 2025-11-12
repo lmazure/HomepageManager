@@ -17,6 +17,7 @@ public class LinkData {
     private final LinkProtection _protection;
     private final LinkFormat _formats[];
     private final Locale _languages[];
+    private final LinkQuality _quality;
     private final Optional<Duration> _duration;
     private final Optional<TemporalAccessor> _publicationDate;
     private final Optional<FeedData> _feed;
@@ -31,6 +32,7 @@ public class LinkData {
      * @param protection Protection
      * @param formats Formats
      * @param languages Languages
+     * @param quality Quality
      * @param duration Duration
      * @param publicationDate Publication date
      * @param feed Feed data
@@ -42,6 +44,7 @@ public class LinkData {
                     final LinkProtection protection,
                     final LinkFormat formats[],
                     final Locale languages[],
+                    final LinkQuality quality,
                     final Optional<Duration> duration,
                     final Optional<TemporalAccessor> publicationDate,
                     final Optional<FeedData> feed) {
@@ -51,6 +54,7 @@ public class LinkData {
         _status = status;
         _protection = protection;
         _formats = formats;
+        _quality = quality;
         _languages = languages;
         _duration = duration;
         _publicationDate = publicationDate;
@@ -97,6 +101,13 @@ public class LinkData {
      */
     public LinkFormat[] getFormats() {
         return _formats;
+    }
+
+    /**
+     * @return Quality
+     */
+    public LinkQuality getQuality() {
+        return _quality;
     }
 
     /**
@@ -150,7 +161,7 @@ public class LinkData {
     }
 
     /**
-     * Convert a string into a link status
+     * Convert a string into a link protection
      *
      * @param protection string to be converted
      * @return the protection
@@ -163,6 +174,28 @@ public class LinkData {
             return LinkProtection.PAYED_REGISTRATION;
         }
         throw new UnsupportedOperationException("Illegal link protection value (" + protection + ")");
+    }
+
+    /**
+     * Convert a string into a link quality
+     *
+     * @param quality string to be converted
+     * @return the quality
+     */
+    public static LinkQuality parseQuality(final String quality) {
+        if (quality.equals("-2")) {
+            return LinkQuality.VERY_BAD;
+        }
+        if (quality.equals("-1")) {
+            return LinkQuality.BAD;
+        }
+        if (quality.equals("1")) {
+            return LinkQuality.GOOD;
+        }
+        if (quality.equals("2")) {
+            return LinkQuality.VERY_GOOD;
+        }
+        throw new UnsupportedOperationException("Illegal link quality value (" + quality + ")");
     }
 
     /**

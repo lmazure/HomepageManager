@@ -21,6 +21,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
+import fr.mazure.homepagemanager.utils.xmlparsing.LinkQuality;
 
 /**
  * Tests of LinkContentParser
@@ -43,7 +44,7 @@ class LinkContentCheckerTest {
                    final String expectedTitle) {
         final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
+        final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, LinkQuality.AVERAGE, Optional.empty(), null, Optional.empty());
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null, null);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
@@ -72,7 +73,7 @@ class LinkContentCheckerTest {
                                final String realTitle) {
         final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
+        final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, LinkQuality.AVERAGE, Optional.empty(), null, Optional.empty());
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null, null);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
@@ -102,7 +103,7 @@ class LinkContentCheckerTest {
                       final String expectedSubtitle) {
         final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        final LinkData linkData = new LinkData(expectedSubtitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
+        final LinkData linkData = new LinkData(expectedSubtitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, LinkQuality.AVERAGE, Optional.empty(), null, Optional.empty());
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null, null);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
@@ -130,7 +131,7 @@ class LinkContentCheckerTest {
                                 final String realTitle) {
         final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
+        final LinkData linkData = new LinkData(expectedTitle, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, LinkQuality.AVERAGE, Optional.empty(), null, Optional.empty());
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null, null);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
@@ -161,7 +162,7 @@ class LinkContentCheckerTest {
                                    final String realSubtitle) {
         final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        final LinkData linkData = new LinkData(expectedTitle, new String[] { expectedSubtitle }, url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
+        final LinkData linkData = new LinkData(expectedTitle, new String[] { expectedSubtitle }, url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, LinkQuality.AVERAGE, Optional.empty(), null, Optional.empty());
         final ArticleData articleData = new ArticleData(Optional.empty(), new ArrayList<>(), null, null);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
@@ -192,7 +193,7 @@ class LinkContentCheckerTest {
                     final String lastName) {
         final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        final LinkData linkData = new LinkData(title, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
+        final LinkData linkData = new LinkData(title, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, LinkQuality.AVERAGE, Optional.empty(), null, Optional.empty());
         final AuthorData author = new AuthorData(Optional.empty(), Optional.of(firstName), Optional.empty(), Optional.of(lastName), Optional.empty(), Optional.empty());
         final ArticleData articleData = new ArticleData(Optional.empty(), Collections.singletonList(author), null, null);
         retriever.retrieve(url,
@@ -225,7 +226,7 @@ class LinkContentCheckerTest {
                            final String lastName) {
         final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
-        final LinkData linkData = new LinkData(title, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, Optional.empty(), null, Optional.empty());
+        final LinkData linkData = new LinkData(title, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, LinkQuality.AVERAGE, Optional.empty(), null, Optional.empty());
         final AuthorData author = new AuthorData(Optional.empty(), Optional.of(firstName), Optional.empty(), Optional.of(lastName), Optional.empty(), Optional.empty());
         final ArticleData articleData = new ArticleData(Optional.empty(), Collections.singletonList(author), null, null);
         retriever.retrieve(url,

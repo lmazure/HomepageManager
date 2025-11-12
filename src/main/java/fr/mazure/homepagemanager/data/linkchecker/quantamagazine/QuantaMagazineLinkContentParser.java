@@ -35,12 +35,12 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
     private final List<ExtractedLinkData> _links;
 
     private static final TextParser s_titleParser
-        = new TextParser("<h1 class='post__title__title mv025 noe theme__text' >",
+        = new TextParser("<h1 class='post__title__title mv025 noe theme__text custom-title-color'>",
                          "</h1>",
                          s_sourceName,
                          "title");
     private static final TextParser s_subtitleParser
-        = new TextParser("<div class='post__title__excerpt [^']+' >\n",
+        = new TextParser("<div class='post__title__excerpt [^']+'>\n",
                          "</div>",
                          s_sourceName,
                          "subtitle");
