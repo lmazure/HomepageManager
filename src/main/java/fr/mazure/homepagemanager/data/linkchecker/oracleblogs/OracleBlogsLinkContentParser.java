@@ -93,7 +93,8 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
     public OracleBlogsLinkContentParser(final String url,
                                         final String data,
                                         final CachedSiteDataRetriever retriever) {
-        super(cleanUrl(url), retriever);
+        final String u = UrlHelper.removeQueryParameters(url, "source");
+        super(u, retriever);
 
         // retrieve site and caas from initial HTML
         final Matcher m = s_htmlPattern.matcher(data);
@@ -355,13 +356,5 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
     @Override
     public Locale getLanguage() {
         return Locale.ENGLISH;
-    }
-
-    private static String cleanUrl(final String url) {
-        final String u = UrlHelper.removeQueryParameters(url, "source");
-        if (u.startsWith("https://blogs.oracle.com/javamagazine/post/")) {
-            return u;
-        }
-        return u.replaceFirst("https://blogs.oracle.com/javamagazine/", "https://blogs.oracle.com/javamagazine/post/");
     }
 }

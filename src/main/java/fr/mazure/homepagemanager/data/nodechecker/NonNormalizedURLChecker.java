@@ -46,10 +46,6 @@ public class NonNormalizedURLChecker extends NodeChecker {
             return new CheckStatus("ImproperUrlEncoding", "\"www.martinfowler.com\" should be \"martinfowler.com\"", Optional.empty());
         }
 
-        if (url.contains("blogs.oracle.com/javamagazine") && !url.contains("/post/") && !url.endsWith("/javamagazine/")) {
-            return new CheckStatus("ImproperUrlEncoding", "\"blogs.oracle.com\" should contain \"/post/\"", Optional.empty());
-        }
-
         return null;
     }
 

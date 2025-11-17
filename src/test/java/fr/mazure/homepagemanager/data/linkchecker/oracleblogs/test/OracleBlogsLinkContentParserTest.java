@@ -21,8 +21,6 @@ class OracleBlogsLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        // the next article is broken
-        //"https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update|Opening Up Java EE - An Update",
         "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se|Faster and Easier Use and Redistribution of Java SE",
         "https://blogs.oracle.com/java/post/the-arrival-of-java-20|The Arrival of Java 20",
         "https://blogs.oracle.com/java/post/javaone-is-back|JavaOne is Back!",
@@ -47,10 +45,7 @@ class OracleBlogsLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        // the next article is broken
-        //"https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update",
         "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se",
-        // the following article contains <h2> which is not a subtitle
         "https://blogs.oracle.com/javamagazine/post/the-top-25-greatest-java-apps-ever-written"
         }, delimiter = '|')
     void testNoSubtitle(final String url) {
@@ -71,8 +66,6 @@ class OracleBlogsLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        // the next article is broken
-        //"https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update|David||Delabassee",
         "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se|Donald||Smith",
         "https://blogs.oracle.com/cloud-infrastructure/post/oracle-code-assist-ai-companion-boost-velocity|Aanand||Krishnan",
         }, delimiter = '|')

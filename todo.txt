@@ -48,6 +48,81 @@ methods       53.9%    97.9%
 
 
 
+nettoyage URL https://stackoverflow.blog/2025/11/05/the-ai-ick/?utm_source=braze&utm_medium=email&utm_campaign=the-overflow-newsletter&lid=5ihzd9tpxclw
+
+
+
+
+
+
+
+
+
+
+mauvaise déection du sous-titre pour
+https://blogs.oracle.com/java/faster-and-easier-use-and-redistribution-of-java-se
+https://blogs.oracle.com/java/the-arrival-of-java-22
+https://developer.ibm.com/articles/j-java8idioms3/
+
+
+
+
+
+
+understand why cookies must be switched on for Oracle blog
+
+
+
+
+
+
+
+
+
+
+
+
+
+==== potentially before merge =====
+
+
+
+
+
+
+
+ajouter une assertion sur le code HTTP dans fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.perform(Class<? extends LinkDataExtractor>, String, Consumer<LinkDataExtractor>)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+repair unit test
+fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.test.WellKnownRedirectionsTest.redirectionTowardFake404Page(String)
+fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.oracleBlogsWithoutPostIsManaged()
+fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.oracleBlogsUrlIsProperlyCleanedUp()
+fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.oracleBlogsJavaMagazineIsManaged()
+fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.youtubeWatchNumberphileAsafKaragilaIsManaged()
+fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.youtubeWatchVeritasiumIsManaged()
+
+
+
+
+
+
+
+
+
+
 merge les deux pages sur OpenAI
 
 
@@ -191,17 +266,6 @@ gérer Redirection chain = https://www.rando-hauteloire.fr/ → https://www.rand
 
 nettoyer space.xml : space exploration vs space telescope
 	
-
-
-
-
-
-
-==== potentially before merge =====
-
-
-
-
 
 
 
