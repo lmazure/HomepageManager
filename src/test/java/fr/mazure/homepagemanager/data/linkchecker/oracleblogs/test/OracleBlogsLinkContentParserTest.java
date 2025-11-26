@@ -26,7 +26,7 @@ class OracleBlogsLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://blogs.oracle.com/java/post/javaone-is-back|JavaOne is Back!",
         "https://blogs.oracle.com/cloud-infrastructure/post/oracle-code-assist-ai-companion-boost-velocity|Oracle Code Assist: AI companion to boost developer velocity",
         "https://blogs.oracle.com/javamagazine/java-quiz-serialize-primitive-value/|Quiz yourself: Serializing a primitive with ObjectOutputStream",
-        }, delimiter = '|')
+    }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
         checkTitle(OracleBlogsLinkContentParser.class, url, expectedTitle);
@@ -35,8 +35,8 @@ class OracleBlogsLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-            "https://blogs.oracle.com/javamagazine/java-quiz-serialize-primitive-value/|Primitives? Objects? What should you do?",
-        }, delimiter = '|')
+        "https://blogs.oracle.com/javamagazine/java-quiz-serialize-primitive-value/|Primitives? Objects? What should you do?",
+    }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
         checkSubtitle(OracleBlogsLinkContentParser.class, url, expectedSubtitle);
@@ -44,10 +44,11 @@ class OracleBlogsLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
-    @CsvSource(value = {
-        "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se",
-        "https://blogs.oracle.com/javamagazine/post/the-top-25-greatest-java-apps-ever-written"
-        }, delimiter = '|')
+    @CsvSource(value = { "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se",
+        "https://blogs.oracle.com/javamagazine/post/the-top-25-greatest-java-apps-ever-written",
+        "https://blogs.oracle.com/java/faster-and-easier-use-and-redistribution-of-java-se",
+        "https://blogs.oracle.com/java/the-arrival-of-java-22",
+    }, delimiter = '|')
     void testNoSubtitle(final String url) {
         checkNoSubtitle(OracleBlogsLinkContentParser.class, url);
     }
@@ -57,7 +58,7 @@ class OracleBlogsLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se|2017-09-06",
         "https://blogs.oracle.com/javamagazine/java-quiz-serialize-primitive-value/|2023-09-25",
-        }, delimiter = '|')
+    }, delimiter = '|')
     void testDate(final String url,
                   final String expectedDate) {
         checkCreationDate(OracleBlogsLinkContentParser.class, url, expectedDate);
@@ -68,19 +69,26 @@ class OracleBlogsLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se|Donald||Smith",
         "https://blogs.oracle.com/cloud-infrastructure/post/oracle-code-assist-ai-companion-boost-velocity|Aanand||Krishnan",
-        }, delimiter = '|')
+    }, delimiter = '|')
     void testAuthor(final String url,
                     final String expectedFirstName,
                     final String expectedMiddleName,
                     final String expectedLastName) {
-        check1Author(OracleBlogsLinkContentParser.class, url, null, expectedFirstName, expectedMiddleName, expectedLastName, null, null);
+        check1Author(OracleBlogsLinkContentParser.class,
+                     url,
+                     null,
+                     expectedFirstName,
+                     expectedMiddleName,
+                     expectedLastName,
+                     null,
+                     null);
     }
 
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://blogs.oracle.com/javamagazine/java-quiz-serialize-primitive-value/|Mikalai|Zaikin|Simon|Roberts"
-        }, delimiter = '|')
+        "https://blogs.oracle.com/javamagazine/java-quiz-serialize-primitive-value/|Mikalai|Zaikin|Simon|Roberts",
+    }, delimiter = '|')
     void testTwoAuthors(final String url,
                         final String expectedFirstName1,
                         final String expectedLastName1,
@@ -106,23 +114,22 @@ class OracleBlogsLinkContentParserTest extends LinkDataExtractorTestBase {
 
     @ParameterizedTest
     @CsvSource(value = {
-        "https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update|David|Delabassee"
-        }, delimiter = '|')
+        "https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update|David|Delabassee",
+    }, delimiter = '|')
     void doesNotCrashOnCorruptedArticle(final String url) {
         final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String expectedDate = "1970-01-01";
-        retriever.retrieve(url,
-                          (final FullFetchedLinkData d) -> {
-                              Assertions.assertTrue(d.dataFileSection().isPresent());
-                              final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                              final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data, retriever);
-                              Assertions.assertEquals("", parser.getTitle());
-                              Assertions.assertTrue(parser.getSubtitle().isEmpty());
-                              Assertions.assertEquals(0, parser.getSureAuthors().size());
-                              TestHelper.assertDate(expectedDate, parser.getCreationDate());
-                              consumerHasBeenCalled.set(true);
-                          },
+        retriever.retrieve(url, (final FullFetchedLinkData d) -> {
+                                    Assertions.assertTrue(d.dataFileSection().isPresent());
+                                    final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
+                                    final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data, retriever);
+                                    Assertions.assertEquals("", parser.getTitle());
+                                    Assertions.assertTrue(parser.getSubtitle().isEmpty());
+                                    Assertions.assertEquals(0, parser.getSureAuthors().size());
+                                    TestHelper.assertDate(expectedDate, parser.getCreationDate());
+                                    consumerHasBeenCalled.set(true);
+                                },
                           false);
         Assertions.assertTrue(consumerHasBeenCalled.get());
     }

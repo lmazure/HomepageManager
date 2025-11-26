@@ -62,8 +62,8 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
                          s_sourceName,
                          "title");
     private static final TextParser s_subtitleParser2
-        = new TextParser("<meta name=\"twitter:description\" content=\"",
-                         "\" />",
+        = new TextParser("<h2 class=\"wp-block-heading\">",
+                         "</h2>",
                          s_sourceName,
                          "title");
     private static final TextParser s_dateParser
