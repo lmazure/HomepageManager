@@ -2731,7 +2731,7 @@ class LinkDataExtractorTest {
                 <A>https://www.youtube.com/watch?v=_vgx8TAlgbk</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>49</MINUTE><SECOND>7</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Meg</FIRSTNAME><LASTNAME>Adams</LASTNAME></AUTHOR>\
-                <AUTHOR><FIRSTNAME>Lucas</FIRSTNAME><LASTNAME>Rossi</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Luca</FIRSTNAME><LASTNAME>Rossi</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>10</MONTH><DAY>10</DAY></DATE><COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
