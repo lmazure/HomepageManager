@@ -539,6 +539,22 @@ class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchAleph0IsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=egA9K_R5pkg";
+        final String expectedXml = """
+                <ARTICLE><X><T>This number pattern appears everywhere (but nobody knows why)</T>\
+                <A>https://www.youtube.com/watch?v=egA9K_R5pkg</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>17</MINUTE><SECOND>30</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Adithya</FIRSTNAME><LASTNAME>Chakravarthy</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2025</YEAR><MONTH>11</MONTH><DAY>29</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeWatchAndrejKarpathyIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=VMj-3S1tku0";
         final String expectedXml = """
