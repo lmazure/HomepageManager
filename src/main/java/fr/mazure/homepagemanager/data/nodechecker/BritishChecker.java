@@ -40,9 +40,10 @@ public class BritishChecker extends NodeChecker {
             ));
 
     private static final List<String> s_allowedWords = Arrays.asList(
-            "[Pp]rize",
-            "criticize[sd]?",
             "Arize Phoenix",
+            "criticize[sd]?",
+            "Nobel Prizes+",
+            "[Pp]rize",
             "Vectorize.io"
             );
     private static Pattern s_allowedWordsRegexp;
