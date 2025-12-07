@@ -542,7 +542,7 @@ class LinkDataExtractorTest {
     void youtubeWatchAleph0IsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=egA9K_R5pkg";
         final String expectedXml = """
-                <ARTICLE><X><T>This number pattern appears everywhere (but nobody knows why)</T>\
+                <ARTICLE><X><T>Something strange happens when you look at the primes</T>\
                 <A>https://www.youtube.com/watch?v=egA9K_R5pkg</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>17</MINUTE><SECOND>30</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Adithya</FIRSTNAME><LASTNAME>Chakravarthy</LASTNAME></AUTHOR>\
@@ -606,7 +606,7 @@ class LinkDataExtractorTest {
     void youtubeWatchAstronoGeekIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=7rTKxHoU_Rc";
         final String expectedXml = """
-                <ARTICLE><X><T>🪐17 ans : il trompe la CIA et fabrique un réacteur nucléaire chez lui</T>\
+                <ARTICLE><X><T>🪐Un ado a fabriqué un réacteur nucléaire chez lui... et le FBI n'a rien vu</T>\
                 <A>https://www.youtube.com/watch?v=7rTKxHoU_Rc</A>\
                 <L>fr</L><F>MP4</F><DURATION><MINUTE>24</MINUTE><SECOND>8</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Arnaud</FIRSTNAME><LASTNAME>Thiry</LASTNAME></AUTHOR><DATE>\
@@ -1857,7 +1857,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>When the balance gets broken</T>\
                 <A>https://www.youtube.com/watch?v=Thzk1MzjeIQ</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>2</MINUTE><SECOND>24</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>2</MINUTE><SECOND>24</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Mura</FIRSTNAME><LASTNAME>Yakerson</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>3</MONTH><DAY>13</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3519,7 +3519,7 @@ class LinkDataExtractorTest {
                 <DATE><YEAR>2025</YEAR><MONTH>9</MONTH><DAY>11</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
-                <ARTICLE><X><T>The Most Dangerous Escalator in Rome</T>\
+                <ARTICLE><X><T>The Most Dangerous Escalator in Europe</T>\
                 <A>https://www.youtube.com/watch?v=tZ8ehplVFp4</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>22</MINUTE><SECOND>17</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Derek</FIRSTNAME><LASTNAME>Muller</LASTNAME></AUTHOR>\
