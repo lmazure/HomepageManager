@@ -10,6 +10,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 public class WellKnownAuthors {
 
     @SuppressWarnings("javadoc") public static final AuthorData ALESSANDRO_ROUSSEL =   WellKnownAuthors.buildAuthor("Alessandro", "Roussel");
+	@SuppressWarnings("javadoc") public static final AuthorData ASAF_KARAGILA =        WellKnownAuthors.buildAuthor("Asaf", "Karagila");
     @SuppressWarnings("javadoc") public static final AuthorData AYLIEAN_MACDONALD =    WellKnownAuthors.buildAuthor("Ayliean", "MacDonald");
     @SuppressWarnings("javadoc") public static final AuthorData BECKY_SMETHURST =      WellKnownAuthors.buildAuthor("Becky", "Smethurst");
     @SuppressWarnings("javadoc") public static final AuthorData BEN_SPARKS =           WellKnownAuthors.buildAuthor("Ben", "Sparks");

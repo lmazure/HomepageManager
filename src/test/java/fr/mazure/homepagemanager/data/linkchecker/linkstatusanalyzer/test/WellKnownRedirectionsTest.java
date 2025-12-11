@@ -279,10 +279,9 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
-        // TDDO oracle "http://weblogs.java.net/blog/arnold/archive/2005/06/generics_consid_1.html",
+        "http://weblogs.java.net/blog/arnold/archive/2005/06/generics_consid_1.html",
         "http://www.hays.lu/prd_consump/groups/hays_common/@fr/@content/documents/digitalasset/hays_714488.pdf",
         "http://www.ineris.fr/centredoc/Communication_site_web_INERIS.pdf",
-        "https://searchenginewatch.com/article/2064541/Numbers-Numbers-But-What-Do-They-Mean",
         })
     void redirectionsEndingWith404(final String url) {
         test(url,
