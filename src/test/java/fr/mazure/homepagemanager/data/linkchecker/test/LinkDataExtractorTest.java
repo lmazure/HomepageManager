@@ -1502,6 +1502,28 @@ class LinkDataExtractorTest {
         Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
     }
 
+
+    @Test
+    void youtubeIBMTechnologyMichaelDobsonIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=S5ezVVJhQmE";
+        final String expectedSureXml = """
+                <ARTICLE><X><T>AI &amp; Text to SQL: How LLMs &amp; Schema Power Data Analytics</T>\
+                <A>https://www.youtube.com/watch?v=S5ezVVJhQmE</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>59</SECOND></DURATION></X>\
+                <DATE><YEAR>2025</YEAR><MONTH>12</MONTH><DAY>13</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final String expectedProbableXml = """
+                <ARTICLE><X><T>AI &amp; Text to SQL: How LLMs &amp; Schema Power Data Analytics</T>\
+                <A>https://www.youtube.com/watch?v=S5ezVVJhQmE</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>59</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Michael</FIRSTNAME><LASTNAME>Dobson</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2025</YEAR><MONTH>12</MONTH><DAY>13</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
+        Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
+    }
+
     @Test
     void youtubeIBMTechnologyMartinKeenIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=cVDv9apGTXo";
