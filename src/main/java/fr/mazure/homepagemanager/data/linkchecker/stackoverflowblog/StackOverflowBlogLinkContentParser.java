@@ -65,8 +65,7 @@ public class StackOverflowBlogLinkContentParser extends LinkDataExtractor {
     public StackOverflowBlogLinkContentParser(final String url,
                                               final String data,
                                               final CachedSiteDataRetriever retriever) throws ContentParserException {
-        final String cleanedUrl = UrlHelper.removeQueryParameters(url,"lid");
-        super(cleanedUrl, retriever);
+        super(url, retriever);
 
         _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
         _subtitle = HtmlHelper.cleanContent(s_subtitleParser.extract(data));
@@ -82,7 +81,7 @@ public class StackOverflowBlogLinkContentParser extends LinkDataExtractor {
 
         final ExtractedLinkData linkData = new ExtractedLinkData(_title,
                                                                  new String[] { _subtitle },
-                                                                 cleanedUrl,
+                                                                 url,
                                                                  Optional.empty(),
                                                                  Optional.empty(),
                                                                  new LinkFormat[] { LinkFormat.HTML },

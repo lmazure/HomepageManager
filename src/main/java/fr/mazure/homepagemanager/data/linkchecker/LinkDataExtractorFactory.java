@@ -104,7 +104,8 @@ public class LinkDataExtractorFactory {
                                                               "utm_medium",
                                                               "utm_campaign",
                                                               "utm_content",
-                                                              "utm_term");
+                                                              "utm_term",
+                                                              "lid");
 
         for (final ExtractorData extractorData: s_extractors){
             if (extractorData.predicate.test(u, retriever)) {
