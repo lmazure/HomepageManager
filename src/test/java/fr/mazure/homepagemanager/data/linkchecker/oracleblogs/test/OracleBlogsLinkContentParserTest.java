@@ -69,6 +69,8 @@ class OracleBlogsLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se|Donald||Smith",
         "https://blogs.oracle.com/cloud-infrastructure/post/oracle-code-assist-ai-companion-boost-velocity|Aanand||Krishnan",
+        // the following article has lost their authors
+        "https://blogs.oracle.com/javamagazine/java-timezone-part-1/|Mohamed||Taman"
     }, delimiter = '|')
     void testAuthor(final String url,
                     final String expectedFirstName,
