@@ -119,8 +119,8 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
                 _authorException = null;
                 return;
             }
-            _title = title;
-            _subtitle = s_subtitleParser2.extractOptional(data);
+            _title = HtmlHelper.unescape(title);
+            _subtitle = s_subtitleParser2.extractOptional(data).map(HtmlHelper::unescape);
             final LocalDate publicationDate;
             try {
                 publicationDate = LocalDate.parse(s_dateParser.extract(data), s_formatter);

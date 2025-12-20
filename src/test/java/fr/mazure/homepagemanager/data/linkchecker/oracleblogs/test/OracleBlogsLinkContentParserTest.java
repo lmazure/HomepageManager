@@ -26,6 +26,7 @@ class OracleBlogsLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://blogs.oracle.com/java/post/javaone-is-back|JavaOne is Back!",
         "https://blogs.oracle.com/cloud-infrastructure/post/oracle-code-assist-ai-companion-boost-velocity|Oracle Code Assist: AI companion to boost developer velocity",
         "https://blogs.oracle.com/javamagazine/java-quiz-serialize-primitive-value/|Quiz yourself: Serializing a primitive with ObjectOutputStream",
+        "https://blogs.oracle.com/javamagazine/post/java-quiz-constructor-invocation-delegation|Quiz yourself: Delegation using super(…) and this(…) during constructor execution",
     }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
