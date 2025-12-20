@@ -106,7 +106,12 @@ public class LinkContentParserUtils {
                                   Optional.empty(),
                                   Optional.empty());
         }
-        throw new ContentParserException("Failed to parse author name (author name has " + nameParts.length + " parts)");
+        return new AuthorData(Optional.empty(),
+                              Optional.empty(),
+                              Optional.empty(),
+                              Optional.empty(),
+                              Optional.empty(),
+                              Optional.of(str));
     }
 
     private static boolean isParticle(final String str) {

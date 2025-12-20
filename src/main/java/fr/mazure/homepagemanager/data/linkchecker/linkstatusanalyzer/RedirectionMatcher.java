@@ -153,7 +153,7 @@ public class RedirectionMatcher {
             throw new UnsupportedOperationException("Cannot apply a non-compiled pattern");
         }
 //        System.out.println("<<<");
-//        System.out.println(encoded);
+//        System.out.println(encoded.value);
 //        System.out.println(_pattern);
 //        System.out.println(">>>");
         return _pattern.matcher(encoded.value).matches();

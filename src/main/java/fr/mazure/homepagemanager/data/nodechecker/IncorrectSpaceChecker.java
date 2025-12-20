@@ -44,6 +44,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "Famo.us",
             "Fireworks.ai",
             "Frama.space",
+            "github.com",
             "GitLab.com",
             "GPU.zip",
             "Heu?reka",

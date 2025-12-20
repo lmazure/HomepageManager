@@ -458,14 +458,30 @@ public class WellKnownRedirections {
             sun.add("\\Qhttp://www.oracle.com/technetwork/java/index.html\\E",
                     Set.of(Integer.valueOf(301)),
                     RedirectionMatcher.Multiplicity.ONE);
-            sun.add("\\Qhttp://www.oracle.com/java/technologies/?er=221886\\E",
+            sun.add("\\Qhttp://www.oracle.com/java/technologies/\\E",
                     Set.of(Integer.valueOf(301)),
                     RedirectionMatcher.Multiplicity.ONE);
-            sun.add("\\Qhttps://www.oracle.com/java/technologies/?er=221886\\E",
+            sun.add("\\Qhttps://www.oracle.com/java/technologies/\\E",
                     Set.of(Integer.valueOf(200)),
                     RedirectionMatcher.Multiplicity.ONE);
             sun.compile();
             _matchers.add(sun);
+        }
+
+        {
+            final RedirectionMatcher oracleBlogs = new RedirectionMatcher("removed from blogs.oracle.com",
+                                                                          Set.of(LinkStatus.REMOVED));
+            oracleBlogs.add("\\Qhttps://blogs.oracle.com/javamagazine/post/\\E" + RedirectionMatcher.ANY_STRING,
+                            Set.of(Integer.valueOf(301)),
+                            RedirectionMatcher.Multiplicity.ONE);
+            oracleBlogs.add("\\Qhttps://blogs.oracle.com/javamagazine/\\E" + RedirectionMatcher.ANY_STRING,
+                            Set.of(Integer.valueOf(302)),
+                            RedirectionMatcher.Multiplicity.ONE);
+            oracleBlogs.add("\\Qhttps://blogs.oracle.com/failaction/404.html\\E",
+                            Set.of(Integer.valueOf(200)),
+                            RedirectionMatcher.Multiplicity.ONE);
+            oracleBlogs.compile();
+            _matchers.add(oracleBlogs);
         }
 
         {

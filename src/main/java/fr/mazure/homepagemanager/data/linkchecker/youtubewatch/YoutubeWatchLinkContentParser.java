@@ -396,6 +396,10 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                           new ChannelData(buildList(WellKnownAuthors.buildAuthor("Nate", "B.", "Jones")),
                                                           buildMatchingList(),
                                                           Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("Aleph 0",
+                                          new ChannelData(buildList(WellKnownAuthors.buildAuthor("Adithya", "Chakravarthy")),
+                                                          buildMatchingList(),
+                                                          Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Andrej Karpathy",
                                           new ChannelData(buildList(WellKnownAuthors.buildAuthor("Andrej", "Karpathy")),
                                                           buildMatchingList(),
@@ -565,6 +569,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                                             match("Broker", WellKnownAuthors.buildAuthor("Carl", "Broker")),
                                                                             match("Crume", WellKnownAuthors.buildAuthor("Jeff", "Crume")),
                                                                             match("Clyburn", WellKnownAuthors.buildAuthor("Cedric", "Clyburn")),
+                                                                            match("Dobson", WellKnownAuthors.buildAuthor("Michael", "Dobson")),
                                                                             match("Ke\\W", WellKnownAuthors.buildAuthor("Isaac", "Ke")),
                                                                             match("Keen", WellKnownAuthors.buildAuthor("Martin", "Keen"))),
                                                           Locale.ENGLISH)),
@@ -625,7 +630,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
             new AbstractMap.SimpleEntry<>("Math-life balance",
                                           new ChannelData(buildList(WellKnownAuthors.buildAuthor("Mura", "Yakerson")),
                                                           buildMatchingList(),
-                                                          Locale.FRENCH)),
+                                                          Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Mathologer",
                                           new ChannelData(buildList(WellKnownAuthors.BURKARD_POLSTER),
                                                           buildMatchingList(),
@@ -687,7 +692,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                                             match("Feng", WellKnownAuthors.buildAuthor("Tony", "Feng")),
                                                                             match("Frenkel", WellKnownAuthors.buildAuthor("Edward", "Frenkel")),
                                                                             match("Grime", WellKnownAuthors.JAMES_GRIME),
-                                                                            match("Karagila", WellKnownAuthors.buildAuthor("Asaf", "Karagila")),
+                                                                            match("Karagila", WellKnownAuthors.ASAF_KARAGILA),
                                                                             match("Krieger", WellKnownAuthors.buildAuthor("Holly", "Krieger")),
                                                                             match("Lichtman", WellKnownAuthors.buildAuthor("Jared", "Duker", "Lichtman")),
                                                                             match("MacDonald", WellKnownAuthors.AYLIEAN_MACDONALD),
@@ -708,6 +713,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                           new ChannelData(buildList(),
                                                           buildMatchingList(match("MacDonald", WellKnownAuthors.AYLIEAN_MACDONALD),
                                                                             match("Elwes", WellKnownAuthors.RICHARD_ELWES),
+                                                                            match("Karagila", WellKnownAuthors.ASAF_KARAGILA),
                                                                             match("Parker", WellKnownAuthors.MATT_PARKER)),
                                                           Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Osons Causer",
@@ -759,7 +765,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                           buildMatchingList(),
                                                           Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Refactoring",
-                                          new ChannelData(buildList(WellKnownAuthors.buildAuthor("Lucas", "Rossi")),
+                                          new ChannelData(buildList(WellKnownAuthors.buildAuthor("Luca", "Rossi")),
                                                           buildMatchingList(),
                                                           Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Robert Miles AI Safety",
@@ -854,6 +860,10 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                           new ChannelData(buildList(WellKnownAuthors.buildAuthor("Nana", "Janashia")),
                                                           buildMatchingList(),
                                                           Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("The Action Lab",
+                                          new ChannelData(buildList(WellKnownAuthors.buildAuthor("James", "J.", "Orgill")),
+                                                          buildMatchingList(),
+                                                          Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Tête-à-tête Chercheuse(s)",
                                           new ChannelData(buildList(WellKnownAuthors.buildAuthor("Nathalie", "Ayi")),
                                                           buildMatchingList(match("Ayman", WellKnownAuthors.buildAuthor("Ayman", "Moussa")),
@@ -863,11 +873,20 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                           new ChannelData(buildList(WellKnownAuthors.buildAuthor("Michael", "B.", "Paulson")),
                                                           buildMatchingList(),
                                                           Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("The Rest Is Science",
+                                          new ChannelData(buildList(WellKnownAuthors.buildAuthor("Hannah", "Fry"),
+																	WellKnownAuthors.buildAuthor("Michael", "Stevens")),
+                                                          buildMatchingList(),
+                                                          Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Thomaths",
                                           new ChannelData(buildList(),
                                                           buildMatchingList(match("", WellKnownAuthors.buildAuthor("Alexander", "Thomas")),
                                                                             match("Eve", WellKnownAuthors.buildAuthor("Eve", "Grigy-Kissian"))),
                                                           Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("Timnology",
+                                          new ChannelData(buildList(WellKnownAuthors.buildAuthor("Tim", "van Cann")),
+                                                          buildMatchingList(),
+                                                          Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Together AI",
                                           new ChannelData(buildList(),
                                                           buildMatchingList(match("Zain ", WellKnownAuthors.buildAuthor("Zain", "Hasan"))),
@@ -1059,6 +1078,11 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
 
     @Override
     public List<ExtractedLinkData> getLinks() {
+        // todo big problem!!!
+        //if (_isPrivate) {
+        //    throw new ContentParserException("Cannot get links of the video, this one is private");
+        //}
+
         final String channel = getChannel();
         final Locale lang = (_channelData.containsKey(channel)) ? _channelData.get(channel).getLanguage()
                                                                 : getLanguage();

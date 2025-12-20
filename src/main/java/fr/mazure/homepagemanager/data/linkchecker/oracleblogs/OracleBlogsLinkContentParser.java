@@ -57,17 +57,22 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
     private static final Pattern s_subtitlePattern = Pattern.compile("^(<!DOCTYPE html>)?<h2>(.*?)</h2>", Pattern.DOTALL);
 
     private static final TextParser s_titleParser
-        = new TextParser("<meta name=\"title\" content=\"",
+        = new TextParser("<meta name=\"twitter:title\" content=\"",
                          "\">",
+                         s_sourceName,
+                         "title");
+    private static final TextParser s_subtitleParser2
+        = new TextParser("<h2 class=\"wp-block-heading\">",
+                         "</h2>",
                          s_sourceName,
                          "title");
     private static final TextParser s_dateParser
         = new TextParser("<meta name=\"publish_date\" content=\"",
-                         "\">",
+                         "\" />",
                          s_sourceName,
                          "date");
     private static final TextParser s_authorParser
-        = new TextParser("<span><a id=\"postAuthorName\" href=\"[^\"]+\">",
+        = new TextParser("<span class=\"blogtile-byline\"><a class=\"author-name\" href=\"[^\"]+\">",
                          "</a>",
                          s_sourceName,
                          "author");
@@ -88,7 +93,8 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
     public OracleBlogsLinkContentParser(final String url,
                                         final String data,
                                         final CachedSiteDataRetriever retriever) {
-        super(cleanUrl(url), retriever);
+        final String u = UrlHelper.removeQueryParameters(url, "source");
+        super(u, retriever);
 
         // retrieve site and caas from initial HTML
         final Matcher m = s_htmlPattern.matcher(data);
@@ -107,7 +113,7 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
                 return;
             }
             _title = title;
-            _subtitle = Optional.empty();
+            _subtitle = s_subtitleParser2.extractOptional(data);
             final LocalDate publicationDate;
             try {
                 publicationDate = LocalDate.parse(s_dateParser.extract(data), s_formatter);
@@ -136,6 +142,7 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
             return;
          }
 
+        System.out.println("Oracle blog not in HTML: " + url);
         final String site = m.group(1);
         final String caas = m.group(2);
         // retrieve channel access token from site structure
@@ -349,13 +356,5 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
     @Override
     public Locale getLanguage() {
         return Locale.ENGLISH;
-    }
-
-    private static String cleanUrl(final String url) {
-        final String u = UrlHelper.removeQueryParameters(url, "source");
-        if (u.startsWith("https://blogs.oracle.com/javamagazine/post/")) {
-            return u;
-        }
-        return u.replaceFirst("https://blogs.oracle.com/javamagazine/", "https://blogs.oracle.com/javamagazine/post/");
     }
 }
