@@ -35,7 +35,7 @@ public class StackOverflowBlogLinkContentParser extends LinkDataExtractor {
     private final List<ExtractedLinkData> _links;
 
     private static final TextParser s_titleParser
-        = new TextParser("<h1 class=\"fs-display2 lh-xs p-ff-roboto-slab-bold mb24\" itemprop=\"name\">",
+        = new TextParser("<h1 class=\"fs-display2 lh-xs ff-stack-sans-headline mb24\" itemprop=\"name\">",
                          "</h1>",
                          s_sourceName,
                          "title");
