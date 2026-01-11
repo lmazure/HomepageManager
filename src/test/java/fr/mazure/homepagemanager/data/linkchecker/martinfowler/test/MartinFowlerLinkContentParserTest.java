@@ -55,6 +55,8 @@ class MartinFowlerLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://martinfowler.com/articles/mocksArentStubs.html|2007-01-02",
         "https://martinfowler.com/articles/exploring-gen-ai/to-vibe-or-not-vibe.html|2025-09-23",
         "https://martinfowler.com/articles/202508-ai-thoughts.html|2025-08-28",
+        // the next one has date "May 2004"
+        "https://martinfowler.com/articles/designDead.html|2004-05",
         }, delimiter = '|')
     void testDate(final String url,
                   final String expectedDate) {

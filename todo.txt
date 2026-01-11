@@ -47,30 +47,9 @@ methods       53.9%    97.9%
 
 
 
-
-gérer sur life.xml
-Exception in thread "pool-2-thread-3" java.lang.StringIndexOutOfBoundsException: Range [0, 10) out of bounds for length 8
-	at java.base/jdk.internal.util.Preconditions$1.apply(Preconditions.java:55)
-	at java.base/jdk.internal.util.Preconditions$1.apply(Preconditions.java:52)
-	at java.base/jdk.internal.util.Preconditions$4.apply(Preconditions.java:213)
-	at java.base/jdk.internal.util.Preconditions$4.apply(Preconditions.java:210)
-	at java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:98)
-	at java.base/jdk.internal.util.Preconditions.outOfBoundsCheckFromToIndex(Preconditions.java:112)
-	at java.base/jdk.internal.util.Preconditions.checkFromToIndex(Preconditions.java:349)
-	at java.base/java.lang.String.checkBoundsBeginEnd(String.java:4937)
-	at java.base/java.lang.String.substring(String.java:2899)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.martinfowler.MartinFowlerLinkContentParser.<init>(MartinFowlerLinkContentParser.java:87)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:60)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:98)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:87)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:325)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:33)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:32)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
-	at java.base/java.lang.Thread.run(Thread.java:1474)
-
-
+gérer
+https://gwern.net/ai-daydreaming
+author "Branwen" does not appear in the page
 
 
 
