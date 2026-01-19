@@ -26,6 +26,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "4.X",
             "a.k.a.",
             "Ampersand.js",
+            "AGENTS.md",
             "Answer.AI",
             "analytics.katalon.com",
             "asm.js",
