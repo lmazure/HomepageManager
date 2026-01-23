@@ -47,6 +47,79 @@ methods       53.9%    97.9%
 
 
 
+
+public abstract List<ExtractedLinkData> getLinks() throws ContentParserException; is a kludge
+no other methor of LinkDataExtractor throws an exeception
+at the same time, fix: "public abstract List<ExtractedLinkData> getLinks() throws ContentParserException;"
+
+
+
+
+
+
+
+The XML dialog crashes on https://www.youtube.com/watch?v=-UoxWCsqIa0&list=WL&index=61&t=293s
+Exception in thread "JavaFX Application Thread" java.lang.NullPointerException
+	at java.base/java.util.Objects.requireNonNull(Objects.java:220)
+	at java.base/java.util.ImmutableCollections$MapN.containsKey(ImmutableCollections.java:1451)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser.getLinks(YoutubeWatchLinkContentParser.java:1087)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.XmlGenerationDialog.pasteUrl(XmlGenerationDialog.java:172)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.XmlGenerationDialog.initializeUrl(XmlGenerationDialog.java:206)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.XmlGenerationDialog.<init>(XmlGenerationDialog.java:104)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.FileTable.displayLinkXmlGenerator(FileTable.java:193)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.FileTable.lambda$2(FileTable.java:89)
+	at javafx.base@26-ea/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
+	at javafx.base@26-ea/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
+	at javafx.base@26-ea/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
+	at javafx.base@26-ea/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@26-ea/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@26-ea/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@26-ea/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
+	at javafx.base@26-ea/javafx.event.Event.fireEvent(Event.java:199)
+	at javafx.controls@26-ea/javafx.scene.control.MenuItem.fire(MenuItem.java:459)
+	at javafx.controls@26-ea/com.sun.javafx.scene.control.ControlAcceleratorSupport.lambda$doAcceleratorInstall$0(ControlAcceleratorSupport.java:215)
+	at javafx.graphics@26-ea/com.sun.javafx.scene.KeyboardShortcutsHandler.processAccelerators(KeyboardShortcutsHandler.java:383)
+	at javafx.graphics@26-ea/com.sun.javafx.scene.KeyboardShortcutsHandler.dispatchBubblingEvent(KeyboardShortcutsHandler.java:163)
+	at javafx.base@26-ea/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base@26-ea/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@26-ea/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@26-ea/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@26-ea/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@26-ea/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@26-ea/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
+	at javafx.graphics@26-ea/javafx.scene.Scene.processKeyEvent(Scene.java:2257)
+	at javafx.graphics@26-ea/javafx.scene.Scene$ScenePeerListener.keyEvent(Scene.java:2791)
+	at javafx.graphics@26-ea/com.sun.javafx.tk.quantum.GlassViewEventHandler$KeyEventNotification.get(GlassViewEventHandler.java:176)
+	at javafx.graphics@26-ea/com.sun.javafx.tk.quantum.GlassViewEventHandler$KeyEventNotification.get(GlassViewEventHandler.java:120)
+	at javafx.graphics@26-ea/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:429)
+	at javafx.graphics@26-ea/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleKeyEvent(GlassViewEventHandler.java:204)
+	at javafx.graphics@26-ea/com.sun.glass.ui.View.handleKeyEvent(View.java:563)
+	at javafx.graphics@26-ea/com.sun.glass.ui.View.notifyKey(View.java:1004)
+	at javafx.graphics@26-ea/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics@26-ea/com.sun.glass.ui.win.WinApplication.lambda$runLoop$0(WinApplication.java:168)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+	
+	
+
+
+
+
+
+solve crash on https://oxide-and-friends.transistor.fm/episodes/books-in-the-box-iv
+
+
+
+
+
+properly manage authors of https://www.youtube.com/@ModernSoftwareEngineeringYT
+
+
+
+
+
+
+
+
 gérer
 https://gwern.net/ai-daydreaming
 author "Branwen" does not appear in the page

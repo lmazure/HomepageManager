@@ -1077,11 +1077,11 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
-    public List<ExtractedLinkData> getLinks() {
+    public List<ExtractedLinkData> getLinks() throws ContentParserException {
         // todo big problem!!!
-        //if (_isPrivate) {
-        //    throw new ContentParserException("Cannot get links of the video, this one is private");
-        //}
+        if (_isPrivate) {
+            throw new ContentParserException("Cannot get links of the video, this one is private");
+        }
 
         final String channel = getChannel();
         final Locale lang = (_channelData.containsKey(channel)) ? _channelData.get(channel).getLanguage()
