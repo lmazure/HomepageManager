@@ -104,13 +104,6 @@ Exception in thread "JavaFX Application Thread" java.lang.NullPointerException
 
 
 
-
-solve crash on https://oxide-and-friends.transistor.fm/episodes/books-in-the-box-iv
-
-
-
-
-
 properly manage authors of https://www.youtube.com/@ModernSoftwareEngineeringYT
 
 
