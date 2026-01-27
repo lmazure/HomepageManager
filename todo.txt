@@ -48,6 +48,25 @@ methods       53.9%    97.9%
 
 
 
+
+
+==== potentially before merge =====
+
+
+
+
+
+
+gérer le parsing de https://www.thoughtworks.com/insights/podcasts/technology-podcasts/entering-age-of-intent-digital-interaction
+
+
+
+
+
+
+ 
+
+
 public abstract List<ExtractedLinkData> getLinks() throws ContentParserException; is a kludge
 no other methor of LinkDataExtractor throws an exeception
 at the same time, fix: "public abstract List<ExtractedLinkData> getLinks() throws ContentParserException;"
@@ -209,12 +228,6 @@ understand why cookies must be switched on for Oracle blog
 
 
 
-
-
-
-
-
-==== potentially before merge =====
 
 
 
