@@ -503,6 +503,10 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                           new ChannelData(buildList(WellKnownAuthors.buildAuthor("Peyam", "Ryan", "Tabrizian")),
                                                           buildMatchingList(),
                                                           Locale.ENGLISH)),
+            new AbstractMap.SimpleEntry<>("Dwarkesh Patel",
+                                          new ChannelData(buildList(WellKnownAuthors.buildAuthor("Dwarkesh", "Patel")),
+                                                          buildMatchingList(),
+                                                          Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("El Jj",
                                           new ChannelData(buildList(WellKnownAuthors.JEROME_COTTANCEAU),
                                                           buildMatchingList(),
@@ -975,6 +979,13 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         final List<AuthorData> authors = new ArrayList<>();
         final String channel = getChannel();
         if (_channelData.containsKey(channel)) {
+            if (channel.equals("Dwarkesh Patel")) {
+                final int index = getTitle().indexOf(" – ");
+                if (index != -1) {
+                    final String name = getTitle().substring(0, index);
+                    authors.add(LinkContentParserUtils.parseAuthorName(name));
+                }
+            }
             authors.addAll(_channelData.get(channel).getAuthors());
         }
         if (channel.equals("Tête-à-tête Chercheuse(s)")) {
