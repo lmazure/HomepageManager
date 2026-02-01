@@ -57,6 +57,19 @@ methods       53.9%    97.9%
 
 
 
+gérer
+ tag = "COMMENT"
+ value = "D’Orge et de Blé, Dracula vs Van Helsing, Sky Team, The A.R.T Project, Ca Tourne, Take It Easy, Dorf Romantik, Neotopia, Les Aventuriers du Rail Legacy, Kauri, Expeditions Autour du Monde, Forêt Mixte, Vale of Eternity, La Famiglia, Château Blanc, Château de Bourgogne Edition Spéciale, and Revive."
+ violation = "space is missing after punctuation"
+ detail = ""D’Orge et de Blé, Dracula vs Van Helsing, Sky Team, The A.R.T Project, Ca Tourne, Take It Easy, Dorf Romantik, Neotopia, Les Aventuriers du Rail Legacy, Kauri, Expeditions Autour du Monde, Forêt Mixte, Vale of Eternity, La Famiglia, Château Blanc, Château de Bourgogne Edition Spéciale, and Revive." is missing a space after punctuation"
+ tag = "COMMENT"
+ value = "Cocktail Games at Berlin for the Spiel des Jahres, 13 Mots, Washington Z.C., Cache Ton Cash, Dinosaur Island - Rawr ’n Write, Ticket to Ride - San Fransisco, the games at Place de la République, and Le Grenier Ludique."
+ violation = "space is missing after punctuation"
+ detail = ""Cocktail Games at Berlin for the Spiel des Jahres, 13 Mots, Washington Z.C., Cache Ton Cash, Dinosaur Island - Rawr ’n Write, Ticket to Ride - San Fransisco, the games at Place de la République, and Le Grenier Ludique." is missing a space after punctuation"
+
+
+
+
 gérer le parsing de https://www.thoughtworks.com/insights/podcasts/technology-podcasts/entering-age-of-intent-digital-interaction
 
 
