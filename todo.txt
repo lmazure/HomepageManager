@@ -31,7 +31,7 @@ methods       54.0%    98.1%
 
 2024-11-16
 warnings = 111
-lines prod = 10953"gpt
+lines prod = 10953
 lines test = 3966
 test coverage =
               main     test
