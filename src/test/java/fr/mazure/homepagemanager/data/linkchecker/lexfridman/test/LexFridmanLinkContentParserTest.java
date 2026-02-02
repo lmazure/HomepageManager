@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.lexfridman.LexFridmanLinkContentParser;
@@ -52,12 +53,16 @@ class LexFridmanLinkContentParserTest extends LinkDataExtractorTestBase {
                 url,
                 (final LinkDataExtractor p) ->
                     {
-                        Assertions.assertTrue(p.getCreationDate().isPresent());
-                        Assertions.assertEquals(expectedCreationDate, p.getCreationDate().get().toString());
-                        Assertions.assertEquals(expectedLexFridmanPublicationnDate, p.getPublicationDate().get().toString());
-                        Assertions.assertEquals(2, p.getLinks().size());
-                        final ExtractedLinkData youtubeLink = p.getLinks().get(1);
-                        Assertions.assertEquals(expectedYoutubePublicationnDate, youtubeLink.publicationDate().get().toString());
+                        try {
+                            Assertions.assertTrue(p.getCreationDate().isPresent());
+                            Assertions.assertEquals(expectedCreationDate, p.getCreationDate().get().toString());
+                            Assertions.assertEquals(expectedLexFridmanPublicationnDate, p.getPublicationDate().get().toString());
+                            Assertions.assertEquals(2, p.getLinks().size());
+                            final ExtractedLinkData youtubeLink = p.getLinks().get(1);
+                            Assertions.assertEquals(expectedYoutubePublicationnDate, youtubeLink.publicationDate().get().toString());
+                        } catch (final ContentParserException e) {
+                            Assertions.fail("Received exception", e);
+                        }
                     }
                 );
     }

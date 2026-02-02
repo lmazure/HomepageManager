@@ -161,7 +161,7 @@ public class XmlGenerationDialog extends Dialog<Void> {
             extractor = LinkDataExtractorFactory.build(url, retriever);
         } catch (final ContentParserException e) {
             final String exceptionDescription = ThrowableHelper.getDetailedExceptionInfo(e);
-            displayError("Failed to extract data from that URL:\n" + exceptionDescription);
+            displayError("Failed to handle that URL:\n" + exceptionDescription);
             return;
         }
         if (extractor == null) {
@@ -169,7 +169,13 @@ public class XmlGenerationDialog extends Dialog<Void> {
             return;
         }
 
-        _links = extractor.getLinks();
+        try {
+            _links = extractor.getLinks();
+        } catch (final ContentParserException e) {
+            final String exceptionDescription = ThrowableHelper.getDetailedExceptionInfo(e);
+            displayError("Failed to extract data from that URL:\n" + exceptionDescription);
+            return;
+        }
         _date = extractor.getCreationDate();
         _sureAuthors = extractor.getSureAuthors();
         _probableAuthors = extractor.getProbableAuthors();

@@ -1,6 +1,7 @@
 package fr.mazure.homepagemanager.data.linkchecker.martinfowler;
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.TemporalAccessor;
@@ -60,7 +61,7 @@ public class MartinFowlerLinkContentParser extends LinkDataExtractor {
 
     private final String _title;
     private final Optional<String> _subtitle;
-    private final LocalDate _publicationDate;
+    private final TemporalAccessor _publicationDate;
     private final List<AuthorData> _authors;
     private final List<ExtractedLinkData> _links;
 
@@ -82,14 +83,18 @@ public class MartinFowlerLinkContentParser extends LinkDataExtractor {
 
         String dateString = s_dateParser.extract(data);
         dateString = HtmlHelper.cleanContent(dateString);
-        LocalDate publicationDate;
+        TemporalAccessor publicationDate;
         try {
             publicationDate = LocalDate.parse(dateString.substring(0, 10), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        } catch (final DateTimeParseException _) {
+        } catch (final DateTimeParseException | StringIndexOutOfBoundsException _) {
             try {
                 publicationDate = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("d MMMM yyyy", Locale.ENGLISH));
-            } catch (final DateTimeParseException e) {
-                throw new ContentParserException("Failed to parse date", e);
+            } catch (final DateTimeParseException _) {
+                try {
+                    publicationDate = YearMonth.parse(dateString, DateTimeFormatter.ofPattern("MMMM yyyy", Locale.ENGLISH));
+                } catch (final DateTimeParseException e) {                    
+                    throw new ContentParserException("Failed to parse date", e);
+                }
             }
         }
         _publicationDate = publicationDate;

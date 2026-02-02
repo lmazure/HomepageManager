@@ -1,6 +1,5 @@
 package fr.mazure.homepagemanager.data.linkchecker;
 
-import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.util.List;
 import java.util.Locale;
@@ -14,7 +13,6 @@ import fr.mazure.homepagemanager.data.violationcorrection.UpdateArticleDateCorre
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkSubtitleCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkTitleCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
-import fr.mazure.homepagemanager.utils.DateTimeHelper;
 import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.StringHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
@@ -154,7 +152,7 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
         final TemporalAccessor date =  publicationDate.isPresent() ? publicationDate.get()
                                                                    : creationDate.get();
 
-        final LocalDate effectiveDate = DateTimeHelper.convertTemporalAccessorToLocalDate(_parser.getPublicationDate().get());
+        final TemporalAccessor effectiveDate = _parser.getPublicationDate().get();
 
         if (!date.equals(effectiveDate)) {
             final Optional<ViolationCorrection> correction = Optional.of(new UpdateArticleDateCorrection(date, effectiveDate, getUrl()));

@@ -85,8 +85,9 @@ public abstract class LinkDataExtractor {
 
     /**
      * @return the list of links
+     * @throws ContentParserException Failure to extract the information
      */
-    public abstract List<ExtractedLinkData> getLinks();
+    public abstract List<ExtractedLinkData> getLinks() throws ContentParserException;
 
     /**
      * @return the duration

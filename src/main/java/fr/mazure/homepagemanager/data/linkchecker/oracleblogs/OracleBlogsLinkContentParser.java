@@ -73,9 +73,16 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
                          "date");
     private static final TextParser s_authorParser
         = new TextParser("<span class=\"blogtile-byline\"><a class=\"author-name\" href=\"[^\"]+\">",
+                         "[^<]+",
                          "</a>",
                          s_sourceName,
                          "author");
+    private static final TextParser s_authorParser2
+    = new TextParser("<meta name=\"author\" content=\"",
+                     "[^\"]+",
+                     "\" />",
+                     s_sourceName,
+                     "author");
     private static DateTimeFormatter s_formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.US);
 
     private final String _title;
@@ -112,8 +119,8 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
                 _authorException = null;
                 return;
             }
-            _title = title;
-            _subtitle = s_subtitleParser2.extractOptional(data);
+            _title = HtmlHelper.unescape(title);
+            _subtitle = s_subtitleParser2.extractOptional(data).map(HtmlHelper::unescape);
             final LocalDate publicationDate;
             try {
                 publicationDate = LocalDate.parse(s_dateParser.extract(data), s_formatter);
@@ -125,18 +132,29 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
                 return;
             }
             _publicationDate = publicationDate;
-            final List<AuthorData> list = new ArrayList<>(1);
-            for (final String author: s_authorParser.extractMulti(data)) {
+            final List<String> names = s_authorParser.extractMulti(data);
+            if (!names.isEmpty()) {
+                final List<AuthorData> list = new ArrayList<>(1);
+                for (final String author: names) {
+                    try {
+                        list.add(LinkContentParserUtils.parseAuthorName(author));
+                    } catch (final ContentParserException e) {
+                        _exception = null;
+                        _authorException = e;
+                        _authors = null;
+                        return;
+                    }
+                }
+                _authors = list;
+            } else {
                 try {
-                    list.add(LinkContentParserUtils.parseAuthorName(author));
+                    _authors = LinkContentParserUtils.getAuthors(s_authorParser2.extract(data));
                 } catch (final ContentParserException e) {
                     _exception = null;
                     _authorException = e;
-                    _authors = null;
                     return;
                 }
             }
-            _authors = list;
             _exception = null;
             _authorException = null;
             return;

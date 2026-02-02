@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import fr.mazure.homepagemanager.utils.ExitHelper;
+import fr.mazure.homepagemanager.utils.Logger;
 
 /**
  * Helper to manage HTTP requests
@@ -156,7 +157,8 @@ public class HttpHelper {
     private static final Map<String, Long> s_lastSiteTimestamp = Collections.synchronizedMap(new HashMap<String, Long>());
     private static final Map<String, Integer> s_minDelayPerSite = new HashMap<>();
     static {
-        s_minDelayPerSite.put("oxide-and-friends.transistor.fm", Integer.valueOf(3000));
+        s_minDelayPerSite.put("oxide-and-friends.transistor.fm", Integer.valueOf(1000));
+        s_minDelayPerSite.put("blogs.oracle.com", Integer.valueOf(1000));
     }
     /**
      * Ensure that the site is not called too often, sleep if necessary
@@ -168,23 +170,31 @@ public class HttpHelper {
         final String host = UriHelper.getHost(url);
         final Integer minDelay = s_minDelayPerSite.get(host);
         if (minDelay == null) {
+            // no throttling for this site
             return;
         }
 
-        final long now = Instant.now().toEpochMilli();
-        final Long timestamp = s_lastSiteTimestamp.get(host);
-        if (timestamp != null) {
-            final long delay = now - timestamp.longValue();
+        synchronized (s_lastSiteTimestamp) {
+            final long now1 = Instant.now().toEpochMilli();
+            final Long timestamp = s_lastSiteTimestamp.get(host);
+            if (timestamp == null) {
+                s_lastSiteTimestamp.put(host, Long.valueOf(now1));
+                return;
+            }
+            final long delay = now1 - timestamp.longValue();
             final long pauseDuration = minDelay.intValue() - delay;
             if (pauseDuration > 0) {
-                System.out.println("Sleeping for " + pauseDuration + " ms for " + host);
+                Logger.log(Logger.Level.INFO)
+                      .append("Sleeping for " + pauseDuration + " ms for " + host)
+                      .submit();
                 try {
                     Thread.sleep(pauseDuration);
                 } catch (final InterruptedException e) {
                     ExitHelper.exit(e);
                 }
             }
+            final long now2 = Instant.now().toEpochMilli();
+            s_lastSiteTimestamp.put(host, Long.valueOf(now2));
         }
-        s_lastSiteTimestamp.put(host, Long.valueOf(now));
     }
 }

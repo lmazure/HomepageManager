@@ -1175,6 +1175,39 @@ class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchDwarkeshPatelWithoutInviteeIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=_zgnSbu5GqE";
+        final String expectedXml = """
+                <ARTICLE><X><T>What are we scaling?</T>\
+                <A>https://www.youtube.com/watch?v=_zgnSbu5GqE</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>34</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Dwarkesh</FIRSTNAME><LASTNAME>Patel</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2025</YEAR><MONTH>12</MONTH><DAY>23</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
+    void youtubeWatchDwarkeshPatelWithInviteeIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=21EYKqUsPfg";
+        final String expectedXml = """
+                <ARTICLE><X><T>Richard Sutton – Father of RL thinks LLMs are a dead end</T>\
+                <A>https://www.youtube.com/watch?v=21EYKqUsPfg</A>\
+                <L>en</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>7</MINUTE><SECOND>8</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Richard</FIRSTNAME><LASTNAME>Sutton</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Dwarkesh</FIRSTNAME><LASTNAME>Patel</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2025</YEAR><MONTH>9</MONTH><DAY>26</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeWatchElJjIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=qZWbgBSfTUI";
         final String expectedXml = """
@@ -3539,14 +3572,14 @@ class LinkDataExtractorTest {
     void youtubeWatchVeritasiumLatifNasserIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=tZ8ehplVFp4";
         final String expectedSureXml = """
-                <ARTICLE><X><T>The Most Dangerous Escalator in Europe</T>\
+                <ARTICLE><X><T>The Most Dangerous Escalator in the World</T>\
                 <A>https://www.youtube.com/watch?v=tZ8ehplVFp4</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>22</MINUTE><SECOND>17</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Derek</FIRSTNAME><LASTNAME>Muller</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>9</MONTH><DAY>11</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
-                <ARTICLE><X><T>The Most Dangerous Escalator in Europe</T>\
+                <ARTICLE><X><T>The Most Dangerous Escalator in the World</T>\
                 <A>https://www.youtube.com/watch?v=tZ8ehplVFp4</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>22</MINUTE><SECOND>17</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Derek</FIRSTNAME><LASTNAME>Muller</LASTNAME></AUTHOR>\
@@ -3856,11 +3889,11 @@ class LinkDataExtractorTest {
         return LinkDataExtractorFactory.build(url, retriever);
     }
 
-    private static String generateSureXml(final LinkDataExtractor extractor) {
+    private static String generateSureXml(final LinkDataExtractor extractor) throws ContentParserException {
         return XmlGenerator.generateXml(extractor.getLinks(), extractor.getCreationDate(), extractor.getSureAuthors(), 0, "XXXXX");
     }
 
-    private static String generateProbableXml(final LinkDataExtractor extractor) {
+    private static String generateProbableXml(final LinkDataExtractor extractor) throws ContentParserException {
         final List<AuthorData> allAuthors = new ArrayList<>(extractor.getSureAuthors());
         allAuthors.addAll(extractor.getProbableAuthors());
         return XmlGenerator.generateXml(extractor.getLinks(), extractor.getCreationDate(), allAuthors, 0, "XXXXX");

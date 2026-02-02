@@ -31,7 +31,7 @@ methods       54.0%    98.1%
 
 2024-11-16
 warnings = 111
-lines prod = 10953"gpt
+lines prod = 10953
 lines test = 3966
 test coverage =
               main     test
@@ -49,12 +49,118 @@ methods       53.9%    97.9%
 
 
 
-manage the improper cleanup of query paramater
-https://stackoverflow.blog/2025/11/05/the-ai-ick/?lid=5ihzd9tpxclw
-I implemented it somewher, but I need to doit everywhere
-also look at the usage of that (probably raindrop)
+
+==== potentially before merge =====
 
 
+
+
+
+
+gérer
+ tag = "COMMENT"
+ value = "D’Orge et de Blé, Dracula vs Van Helsing, Sky Team, The A.R.T Project, Ca Tourne, Take It Easy, Dorf Romantik, Neotopia, Les Aventuriers du Rail Legacy, Kauri, Expeditions Autour du Monde, Forêt Mixte, Vale of Eternity, La Famiglia, Château Blanc, Château de Bourgogne Edition Spéciale, and Revive."
+ violation = "space is missing after punctuation"
+ detail = ""D’Orge et de Blé, Dracula vs Van Helsing, Sky Team, The A.R.T Project, Ca Tourne, Take It Easy, Dorf Romantik, Neotopia, Les Aventuriers du Rail Legacy, Kauri, Expeditions Autour du Monde, Forêt Mixte, Vale of Eternity, La Famiglia, Château Blanc, Château de Bourgogne Edition Spéciale, and Revive." is missing a space after punctuation"
+ tag = "COMMENT"
+ value = "Cocktail Games at Berlin for the Spiel des Jahres, 13 Mots, Washington Z.C., Cache Ton Cash, Dinosaur Island - Rawr ’n Write, Ticket to Ride - San Fransisco, the games at Place de la République, and Le Grenier Ludique."
+ violation = "space is missing after punctuation"
+ detail = ""Cocktail Games at Berlin for the Spiel des Jahres, 13 Mots, Washington Z.C., Cache Ton Cash, Dinosaur Island - Rawr ’n Write, Ticket to Ride - San Fransisco, the games at Place de la République, and Le Grenier Ludique." is missing a space after punctuation"
+
+
+
+
+gérer le parsing de https://www.thoughtworks.com/insights/podcasts/technology-podcasts/entering-age-of-intent-digital-interaction
+
+
+
+
+
+
+ 
+
+
+public abstract List<ExtractedLinkData> getLinks() throws ContentParserException; is a kludge
+no other methor of LinkDataExtractor throws an exeception
+at the same time, fix: "public abstract List<ExtractedLinkData> getLinks() throws ContentParserException;"
+
+
+
+
+
+
+
+The XML dialog crashes on https://www.youtube.com/watch?v=-UoxWCsqIa0&list=WL&index=61&t=293s
+Exception in thread "JavaFX Application Thread" java.lang.NullPointerException
+	at java.base/java.util.Objects.requireNonNull(Objects.java:220)
+	at java.base/java.util.ImmutableCollections$MapN.containsKey(ImmutableCollections.java:1451)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser.getLinks(YoutubeWatchLinkContentParser.java:1087)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.XmlGenerationDialog.pasteUrl(XmlGenerationDialog.java:172)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.XmlGenerationDialog.initializeUrl(XmlGenerationDialog.java:206)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.XmlGenerationDialog.<init>(XmlGenerationDialog.java:104)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.FileTable.displayLinkXmlGenerator(FileTable.java:193)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.FileTable.lambda$2(FileTable.java:89)
+	at javafx.base@26-ea/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
+	at javafx.base@26-ea/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
+	at javafx.base@26-ea/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
+	at javafx.base@26-ea/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@26-ea/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@26-ea/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@26-ea/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
+	at javafx.base@26-ea/javafx.event.Event.fireEvent(Event.java:199)
+	at javafx.controls@26-ea/javafx.scene.control.MenuItem.fire(MenuItem.java:459)
+	at javafx.controls@26-ea/com.sun.javafx.scene.control.ControlAcceleratorSupport.lambda$doAcceleratorInstall$0(ControlAcceleratorSupport.java:215)
+	at javafx.graphics@26-ea/com.sun.javafx.scene.KeyboardShortcutsHandler.processAccelerators(KeyboardShortcutsHandler.java:383)
+	at javafx.graphics@26-ea/com.sun.javafx.scene.KeyboardShortcutsHandler.dispatchBubblingEvent(KeyboardShortcutsHandler.java:163)
+	at javafx.base@26-ea/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base@26-ea/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@26-ea/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@26-ea/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@26-ea/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@26-ea/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@26-ea/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
+	at javafx.graphics@26-ea/javafx.scene.Scene.processKeyEvent(Scene.java:2257)
+	at javafx.graphics@26-ea/javafx.scene.Scene$ScenePeerListener.keyEvent(Scene.java:2791)
+	at javafx.graphics@26-ea/com.sun.javafx.tk.quantum.GlassViewEventHandler$KeyEventNotification.get(GlassViewEventHandler.java:176)
+	at javafx.graphics@26-ea/com.sun.javafx.tk.quantum.GlassViewEventHandler$KeyEventNotification.get(GlassViewEventHandler.java:120)
+	at javafx.graphics@26-ea/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:429)
+	at javafx.graphics@26-ea/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleKeyEvent(GlassViewEventHandler.java:204)
+	at javafx.graphics@26-ea/com.sun.glass.ui.View.handleKeyEvent(View.java:563)
+	at javafx.graphics@26-ea/com.sun.glass.ui.View.notifyKey(View.java:1004)
+	at javafx.graphics@26-ea/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics@26-ea/com.sun.glass.ui.win.WinApplication.lambda$runLoop$0(WinApplication.java:168)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+	
+	
+
+
+
+
+properly manage authors of https://www.youtube.com/@ModernSoftwareEngineeringYT
+
+
+
+
+
+
+
+
+gérer
+https://gwern.net/ai-daydreaming
+author "Branwen" does not appear in the page
+
+
+
+
+
+
+réparer dzone.com
+
+
+
+
+
+réparer TechRepublic
 
 
 
@@ -65,21 +171,6 @@ also look at the usage of that (probably raindrop)
 analyze if I could exploit webarchives.org
 
 
-
-
-
-
-
-
-
-manage
-https://blogs.oracle.com/javamagazine/java-timezone-part-1/
-The list of effective authors is not the effective one.
-The following authors are effectively present but are unexpected: ▭ ▭ ▭ �- ▭ given=</a><div></div></span></div>
-<div class="post-content"><h2 class="wp-block-heading">Learn how to use Java APIs to handle time zone conversions in your applications.</h2>
-<p>Handling dates and times in applications is a common and challenging problem requiring a particular design and implementation to ensure a correct solution. The problem is compounded because applications are required to handle customers across the globe, each with a different time zone. In many cases, those users’ countries (or regions within their countries) use Daylight Saving Time (DST), which must be considered.</p>
-<p>Many countries, even large ones such as China and India, have only a single official time zone. On the other hand, some countries have several time zones. The United States has 4 time zones in the contiguous states and 5 more in Alaska, Hawaii, and other US territories. Russia has 11 time zones, and Australia has 3 time zones. And each of these countries has one or more separate daylight-saving policies. For example, part of the US state of Arizona follows DST. However, <a href="https://tucson.com/news/local/why-doesnt-arizona-observe-daylight-saving-time/article_51924104-bf69-11ed-9c49-df4ddc21589c.html" target="_blank">most parts of Arizona don’t follow DST
-The following authors are expected but are effectively missing: ▭ first=Mohamed ▭ last=Taman ▭ ▭
 
 
 
@@ -150,12 +241,6 @@ understand why cookies must be switched on for Oracle blog
 
 
 
-
-
-
-
-
-==== potentially before merge =====
 
 
 
