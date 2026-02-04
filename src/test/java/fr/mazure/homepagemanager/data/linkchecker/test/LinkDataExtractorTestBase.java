@@ -438,11 +438,9 @@ public class LinkDataExtractorTestBase {
             final Constructor<LinkDataExtractor> constructor = (Constructor<LinkDataExtractor>)clazz.getConstructor(String.class, String.class, CachedSiteDataRetriever.class);
             return constructor.newInstance(url, data, retriever);
         } catch (final InvocationTargetException e) {
-            Assertions.fail("Error while invoking the constructor " + e.getCause());
-            return null;
+            throw new RuntimeException("Error while invoking the constructor", e.getCause());
         } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException | NoSuchMethodException | SecurityException e) {
-            Assertions.fail("Error in reflexion code " + e);
-            return null;
+            throw new RuntimeException("Error in reflection code", e);
         }
     }
 }

@@ -8,6 +8,8 @@ import java.time.ZonedDateTime;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Helper to manage dates, times, and durations
@@ -38,6 +40,35 @@ public class DateTimeHelper {
         final Instant instant = Instant.ofEpochMilli(value);
         final ZonedDateTime franceDateTime = instant.atZone(s_parisZone);
         return LocalDate.from(franceDateTime);
+    }
+
+    private static final Pattern DURATION_PATTERN = 
+            Pattern.compile("(?:(\\d+)\\s*h(?:ours?)?)?\\s*(?:(\\d+)\\s*m(?:in(?:utes?)?)?)?\\s*(?:(\\d+)\\s*s(?:ec(?:onds?)?)?)?");
+        
+    /**
+     * Convert a string to a duration
+     *  "37 min 59 sec" -> PT37M59S
+     *  "2 h 15 min 30 sec" -> PT2H15M30S
+     *  "45 sec" -> PT45S
+     *  "1 hour 30 minutes" -> PT1H30M
+     *
+     * @param input string
+     * @return duration
+     */
+    public static Duration parseDuration(String input) {
+
+        final Matcher matcher = DURATION_PATTERN.matcher(input.trim());
+        if (!matcher.matches()) {
+            throw new IllegalArgumentException("Invalid duration format: " + input);
+        }
+        
+        final long hours = matcher.group(1) != null ? Long.parseLong(matcher.group(1)) : 0;
+        final long minutes = matcher.group(2) != null ? Long.parseLong(matcher.group(2)) : 0;
+        final long seconds = matcher.group(3) != null ? Long.parseLong(matcher.group(3)) : 0;
+        
+        return Duration.ofHours(hours)
+                       .plusMinutes(minutes)
+                       .plusSeconds(seconds);
     }
 
     /**
