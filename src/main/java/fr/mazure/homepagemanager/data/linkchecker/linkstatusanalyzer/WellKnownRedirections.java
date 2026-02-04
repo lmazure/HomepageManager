@@ -729,7 +729,6 @@ public class WellKnownRedirections {
             _matchers.add(redirectionToItself);
         }
 
-
         {
             // for buggy sites such as https://docs.trychroma.com/ which returns 307 but have no "Location" in the answer header
             final RedirectionMatcher redirectionEndingInSuccess = new RedirectionMatcher("redirection not being redirected",

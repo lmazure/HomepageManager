@@ -17,7 +17,6 @@ import fr.mazure.homepagemanager.utils.xmlparsing.XmlHelper;
  */
 public class TitleFormatChecker extends NodeChecker {
 
-
     private static final Pattern s_authorizedPattern;
 
     static {

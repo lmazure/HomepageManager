@@ -234,7 +234,6 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
                     });
     }
 
-
     @SuppressWarnings("static-method")
     @Test
     void testDurationsOfSensibleVideo() {

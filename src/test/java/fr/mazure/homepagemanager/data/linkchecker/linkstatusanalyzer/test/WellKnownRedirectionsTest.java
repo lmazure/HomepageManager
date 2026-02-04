@@ -318,7 +318,6 @@ class WellKnownRedirectionsTest {
              Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
     }
 
-
     @ParameterizedTest
     @CsvSource({
         "https://www.youtube.com/playlist?list=PLi6K9w_UbfFS393cQii0mC3nEy2NS7kv8",
@@ -493,7 +492,6 @@ class WellKnownRedirectionsTest {
              "removed from java.sun.com",
              Set.of(LinkStatus.REMOVED));
     }
-
 
     @ParameterizedTest
     @CsvSource({
