@@ -27,6 +27,7 @@ import fr.mazure.homepagemanager.data.linkchecker.simonwillisontil.SimonWillison
 import fr.mazure.homepagemanager.data.linkchecker.spectrum.SpectrumLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.stackoverflowblog.StackOverflowBlogLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.substack.SubstackLinkContentChecker;
+import fr.mazure.homepagemanager.data.linkchecker.thoughtworks.ThoughtWorksLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.wired.WiredLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.youtubechanneluser.YoutubeChannelUserLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentChecker;
@@ -65,6 +66,7 @@ public class LinkContentCheckerFactory {
                 SpectrumLinkContentChecker.class,
                 StackOverflowBlogLinkContentChecker.class,
                 SubstackLinkContentChecker.class,
+                ThoughtWorksLinkContentChecker.class,
                 WiredLinkContentChecker.class,
                 YoutubeChannelUserLinkContentChecker.class,
                 YoutubeWatchLinkContentChecker.class

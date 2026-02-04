@@ -394,8 +394,29 @@ class LinkDataExtractorTest {
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
         Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
-    }    @Test
+    }
 
+    @Test
+    void thoughtWorksIsManaged() throws ContentParserException {
+        final String url = "https://www.thoughtworks.com/insights/podcasts/technology-podcasts/architecture-antipatterns-pitfalls";
+        final String expectedXml = """
+                <ARTICLE><X><T>Architecture antipatterns and pitfalls</T>\
+                <ST>Good intentions, bad habits and ugly consequences</ST>\
+                <A>https://www.thoughtworks.com/insights/podcasts/technology-podcasts/architecture-antipatterns-pitfalls</A>\
+                <L>en</L><F>MP3</F><DURATION><MINUTE>35</MINUTE><SECOND>22</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Mark</FIRSTNAME><LASTNAME>Richards</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Raju</FIRSTNAME><LASTNAME>Gandhi</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Sarah</FIRSTNAME><LASTNAME>Grey</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Neal</FIRSTNAME><LASTNAME>Ford</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2026</YEAR><MONTH>1</MONTH><DAY>8</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeWatch1LittleCoderIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=Pvn4szm2UnQ";
         final String expectedXml = """
