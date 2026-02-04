@@ -42,9 +42,9 @@ public class DateTimeHelper {
         return LocalDate.from(franceDateTime);
     }
 
-    private static final Pattern DURATION_PATTERN = 
+    private static final Pattern DURATION_PATTERN =
             Pattern.compile("(?:(\\d+)\\s*h(?:ours?)?)?\\s*(?:(\\d+)\\s*m(?:in(?:utes?)?)?)?\\s*(?:(\\d+)\\s*s(?:ec(?:onds?)?)?)?");
-        
+
     /**
      * Convert a string to a duration
      *  "37 min 59 sec" -> PT37M59S
@@ -61,11 +61,11 @@ public class DateTimeHelper {
         if (!matcher.matches()) {
             throw new IllegalArgumentException("Invalid duration format: " + input);
         }
-        
-        final long hours = matcher.group(1) != null ? Long.parseLong(matcher.group(1)) : 0;
-        final long minutes = matcher.group(2) != null ? Long.parseLong(matcher.group(2)) : 0;
-        final long seconds = matcher.group(3) != null ? Long.parseLong(matcher.group(3)) : 0;
-        
+
+        final long hours = (matcher.group(1) != null) ? Long.parseLong(matcher.group(1)) : 0;
+        final long minutes = (matcher.group(2) != null) ? Long.parseLong(matcher.group(2)) : 0;
+        final long seconds = (matcher.group(3) != null) ? Long.parseLong(matcher.group(3)) : 0;
+
         return Duration.ofHours(hours)
                        .plusMinutes(minutes)
                        .plusSeconds(seconds);

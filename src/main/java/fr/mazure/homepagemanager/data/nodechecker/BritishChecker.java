@@ -47,7 +47,7 @@ public class BritishChecker extends NodeChecker {
             "Vectorize.io"
             );
     private static Pattern s_allowedWordsRegexp;
-    
+
     {
         s_allowedWordsRegexp = Pattern.compile("(\\W)(?:(" + String.join("|", s_allowedWords) + "))(\\W)");
     }

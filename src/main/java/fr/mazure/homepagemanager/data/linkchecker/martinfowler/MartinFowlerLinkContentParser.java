@@ -92,7 +92,7 @@ public class MartinFowlerLinkContentParser extends LinkDataExtractor {
             } catch (final DateTimeParseException _) {
                 try {
                     publicationDate = YearMonth.parse(dateString, DateTimeFormatter.ofPattern("MMMM yyyy", Locale.ENGLISH));
-                } catch (final DateTimeParseException e) {                    
+                } catch (final DateTimeParseException e) {
                     throw new ContentParserException("Failed to parse date", e);
                 }
             }
