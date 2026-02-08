@@ -50,6 +50,8 @@ methods       53.9%    97.9%
 
 
 
+
+
 ==== potentially before merge =====
 
 
@@ -67,10 +69,6 @@ gérer
  violation = "space is missing after punctuation"
  detail = ""Cocktail Games at Berlin for the Spiel des Jahres, 13 Mots, Washington Z.C., Cache Ton Cash, Dinosaur Island - Rawr ’n Write, Ticket to Ride - San Fransisco, the games at Place de la République, and Le Grenier Ludique." is missing a space after punctuation"
 
-
-
-
-gérer le parsing de https://www.thoughtworks.com/insights/podcasts/technology-podcasts/entering-age-of-intent-digital-interaction
 
 
 
@@ -268,30 +266,6 @@ Caused by: java.time.format.DateTimeParseException: Text 'January 5, 2023" />
 
 manque des tooltips sur les flèches de renvoi et sur la boussole
 
-
-
-
-
-
-gérer
- tag = "COMMENT"
- value = "Some examples of Nobel Prizes given to wrong discoveries: JohannesFibiger, EnricoFermi, and EgasMoniz."
- violation = "a COMMENT must not contain US syntax"
- detail = "COMMENT "Some examples of Nobel Prizes given to wrong discoveries: JohannesFibiger, EnricoFermi, and EgasMoniz." contains american word " Prizes "  matching regexp "\W\p{L}{2,}ize[sd]?\W", it should be "ise""
-
-
-
-
-
-
-
-
-gérer
-https://jon.recoil.org/blog/2025/07/week27.html
-author "Ludlam" does not appear in the page
-
-https://jon.recoil.org/blog/2025/08/ocaml-mcp-server.html
-author "Ludlam" does not appear in the page
 
 
 

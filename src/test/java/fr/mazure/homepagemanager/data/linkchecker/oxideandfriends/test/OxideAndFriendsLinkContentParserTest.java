@@ -54,6 +54,8 @@ class OxideAndFriendsLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://oxide-and-friends.transistor.fm/episodes/querying-metrics-with-oxql|PT1H35M14S",
+        // the new episode is less than 1 hour long
+        "https://oxide-and-friends.transistor.fm/episodes/software-engineering-past-present-and-future-with-grady-booch|PT54M52S",
     }, delimiter = '|')
     void testDuration(final String url,
                       final String expectedDuration) {
