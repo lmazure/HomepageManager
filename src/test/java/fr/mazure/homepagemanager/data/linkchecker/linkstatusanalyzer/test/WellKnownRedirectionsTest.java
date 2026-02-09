@@ -500,7 +500,7 @@ class WellKnownRedirectionsTest {
     void oracleBlog(final String url) {
         test(url,
              true,
-             Integer.valueOf(200),
+             Integer.valueOf(404),
              "removed from blogs.oracle.com",
              Set.of(LinkStatus.REMOVED));
     }

@@ -45,23 +45,6 @@ methods       53.9%    97.9%
 ==== before merge =====
 
 
-manage
-Title = "Synchronization in Java, Part 3: Atomic operations and deadlocks"
-Subtitle = "This third article in a series on thread synchronization describes volatile fields, final variables, atomic operations, deadlocks, the deprecated stop and suspend methods, and on-demand initializations."
-URL = https://blogs.oracle.com/javamagazine/post/java-thread-synchronization-volatile-final-atomic-deadlocks
-Expected status = REMOVED
-Effective error = "Failed to get input stream: java.io.FileNotFoundException: https://blogs.oracle.com/failaction/404.html"
-Effective HTTP code = 301 Moved Permanently
-Effective HTTP code of last redirection = 404 Not Found
-Redirection chain = https://blogs.oracle.com/javamagazine/post/java-thread-synchronization-volatile-final-atomic-deadlocks → https://blogs.oracle.com/javamagazine/java-thread-synchronization-volatile-final-atomic-deadlocks → https://blogs.oracle.com/failaction/404.html
-Redirection matcher = redirection ending with an error code
-Redirection matcher expected statuses = DEAD
-Look for article = https://www.google.com/search?q=%22Synchronization+in+Java%2C+Part+3%3A+Atomic+operations+and+deadlocks%22+%22This+third+article+in+a+series+on+thread+synchronization+describes+volatile+fields%2C+final+variables%2C+atomic+operations%2C+deadlocks%2C+the+deprecated+stop+and+suspend+methods%2C+and+on-demand+initializations.%22
-
-
-
-
-
 
 
 ==== potentially before merge =====
