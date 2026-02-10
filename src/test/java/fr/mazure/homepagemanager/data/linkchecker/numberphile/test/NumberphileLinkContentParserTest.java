@@ -24,9 +24,7 @@ class NumberphileLinkContentParserTest extends LinkDataExtractorTestBase {
         }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
-        perform(NumberphileLinkContentParser.class, url, (final LinkDataExtractor parser) -> {
-            Assertions.assertEquals(expectedTitle, parser.getTitle());
-        });
+        checkTitle(NumberphileLinkContentParser.class, url, expectedTitle);
     }
 
     @SuppressWarnings("static-method")
@@ -37,9 +35,7 @@ class NumberphileLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://www.numberphile.com/podcast/ron-graham-tribute"
     })
     void testSubtitle(final String url) {
-        perform(NumberphileLinkContentParser.class, url, (final LinkDataExtractor parser) -> {
-            Assertions.assertEquals(Optional.empty(), parser.getSubtitle());
-        });
+        checkNoSubtitle(NumberphileLinkContentParser.class, url);
     }
 
     @SuppressWarnings("static-method")
