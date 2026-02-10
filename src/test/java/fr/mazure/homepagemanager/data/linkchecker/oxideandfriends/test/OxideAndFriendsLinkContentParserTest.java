@@ -236,4 +236,14 @@ class OxideAndFriendsLinkContentParserTest extends LinkDataExtractorTestBase {
                       null,
                       expectedGivenName5);
     }
+
+    @SuppressWarnings("static-method")
+    @ParameterizedTest
+    @CsvSource(value = {
+        "https://oxide-and-friends.transistor.fm/episodes/pragmatic-llm-usage-with-nicholas-carlini|https://www.youtube.com/watch?v=UPTAX30ttMQ",
+    }, delimiter = '|')
+    void testOtherLink(final String url,
+                       final String expectedOtherLink) {
+        checkOtherLink(OxideAndFriendsLinkContentParser.class, url, expectedOtherLink);
+    }
 }

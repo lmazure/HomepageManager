@@ -1,12 +1,8 @@
 package fr.mazure.homepagemanager.data.linkchecker.numberphile.test;
 
-import java.util.Optional;
-
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.numberphile.NumberphileLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase;
 
@@ -101,4 +97,15 @@ class NumberphileLinkContentParserTest extends LinkDataExtractorTestBase {
         checkDuration(NumberphileLinkContentParser.class, url, expectedDuration);
     }
 
+    @SuppressWarnings("static-method")
+    @ParameterizedTest
+    @CsvSource(value = {
+        "https://www.numberphile.com/videos/sashko-olenchenko-podcast|https://www.youtube.com/watch?v=Nd813Dg93Bs",
+        "https://www.numberphile.com/podcast/2018/11/21/fermats-last-theorem-with-ken-ribet|https://www.youtube.com/watch?v=NPOw4iIxN6o",
+        "https://www.numberphile.com/podcast/ron-graham-tribute|https://www.youtube.com/watch?v=pT07GtfpsDI",
+    }, delimiter = '|')
+    void testOtherLink(final String url,
+                       final String expectedOtherLink) {
+        checkOtherLink(NumberphileLinkContentParser.class, url, expectedOtherLink);
+    }
 }

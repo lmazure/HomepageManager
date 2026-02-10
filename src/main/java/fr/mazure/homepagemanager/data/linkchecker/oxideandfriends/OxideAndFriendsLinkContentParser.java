@@ -177,6 +177,11 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
         return _otherLink;
     }
 
+    /**
+     * Extract the authors from the transcript data
+     *
+     * @param siteData transcript data
+     */
     private void consumeTranscript(final FullFetchedLinkData siteData) {
         final String payload = HtmlHelper.slurpFile(siteData.dataFileSection().get());
 

@@ -27,6 +27,7 @@ import fr.mazure.homepagemanager.utils.Logger.Level;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.internet.Mp3Helper;
 import fr.mazure.homepagemanager.utils.internet.UrlHelper;
+import fr.mazure.homepagemanager.utils.internet.YouTubeHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
@@ -39,12 +40,9 @@ public class NumberphileLinkContentParser extends LinkDataExtractor {
 
     private final String _title;
     private final Optional<TemporalAccessor> _creationDate;
-    private final Optional<TemporalAccessor> _publicationDate;
     private final Optional<Duration> _duration;
     private final List<AuthorData> _authors;
     private Optional<ExtractedLinkData> _otherLink;
-    private final List<ExtractedLinkData> _links;
-    private final Locale _language;
 
     private static final TextParser s_titleParser =
         new TextParser("<meta itemprop=\"headline\" content=\"",
@@ -56,11 +54,6 @@ public class NumberphileLinkContentParser extends LinkDataExtractor {
                        "T",
                        s_sourceName,
                        "date");
-    private static final TextParser s_youtubeLinkParser =
-        new TextParser("youtube.com/embed/",
-                       "\\?",
-                       s_sourceName,
-                       "YouTube ID");
     private static final TextParser s_mp3UrlParser =
         new TextParser("data-url=\"",
                        "\"",
@@ -85,7 +78,7 @@ public class NumberphileLinkContentParser extends LinkDataExtractor {
         final String rawTitle = HtmlHelper.cleanContent(s_titleParser.extract(data));
         _title = rawTitle.replaceFirst("^PODCAST:\\s+", "");
 
-        _publicationDate = Optional.of(LocalDate.parse(s_dateParser.extract(data), s_dateformatter));
+        _creationDate = Optional.of(LocalDate.parse(s_dateParser.extract(data), s_dateformatter));
 
         final String mp3url = s_mp3UrlParser.extract(data);
         final Mp3Helper helper = new Mp3Helper();
@@ -99,14 +92,15 @@ public class NumberphileLinkContentParser extends LinkDataExtractor {
         }
         _authors.add(WellKnownAuthors.BRADY_HARAN);
 
-        final Optional<String> youtubeLink = s_youtubeLinkParser.extractOptional(data)
-                                                                .map(s -> "https://www.youtube.com/watch?v=" + s);
-        initializeOtherLink(youtubeLink);
-
-        _creationDate = DateTimeHelper.getMinTemporalAccessor(_publicationDate, _otherLink.map(link -> link.publicationDate().get()));
-
-        _language = Locale.ENGLISH;
-        _links = initializeLinks();
+        // get YouTube link
+        final YouTubeHelper youtubeHelper = new YouTubeHelper();
+        final Optional<String> youtubeLink = youtubeHelper.getVideoURL("Numberphile2", getTitle(), getRetriever());
+        if (youtubeLink.isEmpty()) {
+            _otherLink = Optional.empty();
+        } else {
+            // get YouTube payload
+            getRetriever().retrieve(youtubeLink.get(), this::consumeYouTubeData, false);
+        }
     }
 
     /**
@@ -116,7 +110,8 @@ public class NumberphileLinkContentParser extends LinkDataExtractor {
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return UrlHelper.hasPrefix(url, "https://www.numberphile.com/podcast/");
+        return UrlHelper.hasPrefix(url, "https://www.numberphile.com/podcast/") ||
+			   UrlHelper.hasPrefix(url, "https://www.numberphile.com/videos/");
     }
 
     @Override
@@ -136,7 +131,7 @@ public class NumberphileLinkContentParser extends LinkDataExtractor {
 
     @Override
     public Optional<TemporalAccessor> getPublicationDate() {
-        return _publicationDate;
+        return _creationDate;
     }
 
     @Override
@@ -159,14 +154,9 @@ public class NumberphileLinkContentParser extends LinkDataExtractor {
         return Collections.emptyList();
     }
 
-    private void initializeOtherLink(final Optional<String> youtubeLink) {
-        if (youtubeLink.isEmpty()) {
-            _otherLink = Optional.empty();
-            return;
-        }
-
-        // get YouTube payload
-        getRetriever().retrieve(youtubeLink.get(), this::consumeYouTubeData, false);
+    @Override
+    public Locale getLanguage() {
+        return Locale.ENGLISH;
     }
 
     private void consumeYouTubeData(final FullFetchedLinkData siteData) {
@@ -192,31 +182,23 @@ public class NumberphileLinkContentParser extends LinkDataExtractor {
         }
     }
 
-    private List<ExtractedLinkData> initializeLinks() {
-        final ExtractedLinkData linkData = new ExtractedLinkData(_title,
+    @Override
+    public List<ExtractedLinkData> getLinks() {
+        final ExtractedLinkData linkData = new ExtractedLinkData(getTitle(),
                                                                  new String[] {},
                                                                  getUrl(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
                                                                  new LinkFormat[] { LinkFormat.MP3 },
-                                                                 new Locale[] { _language },
-                                                                 _duration,
-                                                                 _publicationDate);
+                                                                 new Locale[] { getLanguage() },
+                                                                 getDuration(),
+                                                                 getPublicationDate());
         final List<ExtractedLinkData> list = new ArrayList<>(2);
         list.add(linkData);
-        if (_otherLink.isPresent()) {
-            list.add(_otherLink.get());
+        final Optional<ExtractedLinkData> otherLink = _otherLink;
+        if (otherLink.isPresent()) {
+            list.add(otherLink.get());
         }
         return list;
-    }
-
-    @Override
-    public List<ExtractedLinkData> getLinks() {
-        return _links;
-    }
-
-    @Override
-    public Locale getLanguage() {
-        return _language;
     }
 }
