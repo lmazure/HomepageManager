@@ -60,7 +60,7 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
                          "creation date");
     private static final TextParser s_durationParser
         = new TextParser("<span>",
-                         "\\d\\d:\\d\\d:\\d\\d",
+                         "(\\d\\d:)?\\d\\d:\\d\\d",
                          "</span><span>/</span><span>S",
                          s_sourceName,
                          "duration");
@@ -92,12 +92,21 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
 
         final String durationString = s_durationParser.extract(data);
         final String[] parts = durationString.split(":");
-        final int hours = Integer.parseInt(parts[0]);
-        final int minutes = Integer.parseInt(parts[1]);
-        final int seconds = Integer.parseInt(parts[2]);
-        _duration = Optional.of(Duration.ofHours(hours)
-                                        .plusMinutes(minutes)
-                                        .plusSeconds(seconds));
+        if (parts.length == 3) {
+            final int hours = Integer.parseInt(parts[0]);
+            final int minutes = Integer.parseInt(parts[1]);
+            final int seconds = Integer.parseInt(parts[2]);
+            _duration = Optional.of(Duration.ofHours(hours)
+                                            .plusMinutes(minutes)
+                                            .plusSeconds(seconds));
+        } else if (parts.length == 2) {
+            final int minutes = Integer.parseInt(parts[0]);
+            final int seconds = Integer.parseInt(parts[1]);
+            _duration = Optional.of(Duration.ofMinutes(minutes)
+                                            .plusSeconds(seconds));
+        } else {
+	        throw new ContentParserException("Invalid duration format: " + durationString);
+        }
 
         // get transcript
         final String transcriptUrl = url + "/transcript";

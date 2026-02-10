@@ -35,6 +35,7 @@ public class WellKnownAuthorsOfLink {
 		s_knownUrls.put("jon.recoil.org",                 buildKnownAuthors(WellKnownAuthors.buildAuthor("Jon", "Ludlam"),             false));
         s_knownUrls.put("kirancodes.me",                  buildKnownAuthors(WellKnownAuthors.buildAuthor("Kiran", "Gopinathan"),       false));
         s_knownUrls.put("lexfridman.com",                 buildKnownAuthors(WellKnownAuthors.LEX_FRIDMAN,                              true));
+		s_knownUrls.put("mccd.space",                     buildKnownAuthors(WellKnownAuthors.buildAuthor("Marc", "Coquand"),           false));
         s_knownUrls.put("mkyong.com",                     buildKnownAuthors(WellKnownAuthors.YONG_MOOK_KIM,                            false));
         s_knownUrls.put("mydeveloperplanet.com",          buildKnownAuthors(WellKnownAuthors.GUNTER_ROTSAERT,                          false));
         s_knownUrls.put("nipafx.dev",                     buildKnownAuthors(WellKnownAuthors.NICOLAI_PARLOG,                           false));

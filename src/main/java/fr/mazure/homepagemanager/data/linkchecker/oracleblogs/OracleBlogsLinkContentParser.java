@@ -132,31 +132,18 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
                 return;
             }
             _publicationDate = publicationDate;
-            final List<String> names = s_authorParser.extractMulti(data);
-            if (!names.isEmpty()) {
-                final List<AuthorData> list = new ArrayList<>(1);
-                for (final String author: names) {
-                    try {
-                        list.add(LinkContentParserUtils.parseAuthorName(author));
-                    } catch (final ContentParserException e) {
-                        _exception = null;
-                        _authorException = e;
-                        _authors = null;
-                        return;
-                    }
-                }
-                _authors = list;
-            } else {
-                try {
-                    _authors = LinkContentParserUtils.getAuthors(s_authorParser2.extract(data));
-                } catch (final ContentParserException e) {
-                    _exception = null;
-                    _authorException = e;
-                    return;
-                }
+            List<AuthorData> authors;
+            try {
+                authors = getAuthors(data);
+            } catch (final ContentParserException e) {
+                _authors = null;
+                _exception = null;
+                _authorException = e;
+                return;
             }
-            _exception = null;
+            _authors = authors;
             _authorException = null;
+            _exception = null;
             return;
          }
 
@@ -243,11 +230,19 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
         _publicationDate = publicationDate;
 
         // retrieve author data
-        final JSONArray authors = fields.getJSONArray("author");
+        JSONArray authors;
+        try {
+            authors = fields.getJSONArray("author");
+        } catch (final JSONException e) {
+            _authors = null;
+            _authorException = new ContentParserException("failed to get authors for " + url, e);
+            return;
+        }
+        
         _authors = new ArrayList<>(authors.length());
         for (int i = 0; i < authors.length(); i++) {
-            final String authorUrl = authors.getJSONObject(i).getJSONArray("links").getJSONObject(0).getString("href");
             try {
+                final String authorUrl = authors.getJSONObject(i).getJSONArray("links").getJSONObject(0).getString("href");
                 _authors.add(getAuthor(authorUrl));
             } catch (final IOException | JSONException | NotGzipException e) {
                 _authorException = new ContentParserException("failed to read author JSON data for " + url, e);
@@ -258,6 +253,19 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
             }
         }
         _authorException = null;
+    }
+
+    static private List<AuthorData> getAuthors(final String data) throws ContentParserException {   
+        final List<String> names = s_authorParser.extractMulti(data);
+        if (!names.isEmpty()) {
+            final List<AuthorData> list = new ArrayList<>(1);
+            for (final String author: names) {
+                list.add(LinkContentParserUtils.parseAuthorName(author));
+            }
+            return list;
+        }
+
+        return LinkContentParserUtils.getAuthors(s_authorParser2.extract(data));
     }
 
     /**

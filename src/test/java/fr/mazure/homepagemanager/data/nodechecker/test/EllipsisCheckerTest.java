@@ -81,7 +81,6 @@ class EllipsisCheckerTest extends NodeValueCheckerTestBase {
         }
     }
 
-
     @SuppressWarnings("static-method")
     @Test
     void wongApostropheInStringsFromOutsidIsIgnored() {

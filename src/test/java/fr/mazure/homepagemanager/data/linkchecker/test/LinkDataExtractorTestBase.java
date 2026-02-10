@@ -322,7 +322,6 @@ public class LinkDataExtractorTestBase {
         checkAuthors(clazz, url, expectedAuthors);
     }
 
-
     protected static void check6Authors(final Class<? extends LinkDataExtractor> clazz,
                                         final String url,
                                         final String expectedNamePrefix1,

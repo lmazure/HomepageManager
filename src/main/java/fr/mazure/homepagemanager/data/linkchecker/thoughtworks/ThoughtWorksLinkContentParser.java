@@ -65,7 +65,7 @@ public class ThoughtWorksLinkContentParser extends LinkDataExtractor {
                          "\n *</div>",
                          s_sourceName,
                          "duration");
-                         
+
     /**
      * @param url URL of the link
      * @param data retrieved link data
@@ -94,7 +94,7 @@ public class ThoughtWorksLinkContentParser extends LinkDataExtractor {
         for (final String authorName: s_hostParser.extractMulti(data)) {
             _sureAuthors.add(LinkContentParserUtils.parseAuthorName(cleanName(authorName)));
         }
-        
+
         final String duration = HtmlHelper.cleanContent(s_durationParser.extract(data));
         _duration = Optional.of(DateTimeHelper.parseDuration(duration));
     }

@@ -58,7 +58,6 @@ class ThoughtWorksLinkContentParserTest extends LinkDataExtractorTestBase {
         checkCreationDate(ThoughtWorksLinkContentParser.class, url, expectedDate);
     }
 
-    
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {

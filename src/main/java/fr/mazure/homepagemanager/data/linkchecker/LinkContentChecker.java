@@ -343,7 +343,6 @@ public class LinkContentChecker implements Checker {
         };
     }
 
-
     private LinkContentCheck generateCheckTitleErrorForTitle(final String message,
                                                              final String expectedTitle,
                                                              final String effectiveTitle) {

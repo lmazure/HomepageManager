@@ -99,7 +99,6 @@ public class IbmLinkContentParser extends LinkDataExtractor {
         return Optional.of(_publicationDate);
     }
 
-
     @Override
     public Optional<TemporalAccessor> getPublicationDate() {
         return getCreationDate();

@@ -127,7 +127,6 @@ public class MediumLinkContentParser extends LinkDataExtractor {
         }
         _dataIsLoaded = true;
 
-
         /* does not work, the subtitle in the JSON payload is not the subtitle, but the first paragraph, whatever is is this one
         JSONObject previewContent;
         try {

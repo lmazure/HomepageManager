@@ -318,7 +318,6 @@ class WellKnownRedirectionsTest {
              Set.of(LinkStatus.OK, LinkStatus.OBSOLETE));
     }
 
-
     @ParameterizedTest
     @CsvSource({
         "https://www.youtube.com/playlist?list=PLi6K9w_UbfFS393cQii0mC3nEy2NS7kv8",
@@ -494,7 +493,6 @@ class WellKnownRedirectionsTest {
              Set.of(LinkStatus.REMOVED));
     }
 
-
     @ParameterizedTest
     @CsvSource({
         "https://blogs.oracle.com/javamagazine/post/java-for-loop-break-continue",
@@ -502,7 +500,7 @@ class WellKnownRedirectionsTest {
     void oracleBlog(final String url) {
         test(url,
              true,
-             Integer.valueOf(200),
+             Integer.valueOf(404),
              "removed from blogs.oracle.com",
              Set.of(LinkStatus.REMOVED));
     }

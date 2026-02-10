@@ -478,7 +478,7 @@ public class WellKnownRedirections {
                             Set.of(Integer.valueOf(302)),
                             RedirectionMatcher.Multiplicity.ONE);
             oracleBlogs.add("\\Qhttps://blogs.oracle.com/failaction/404.html\\E",
-                            Set.of(Integer.valueOf(200)),
+                            Set.of(Integer.valueOf(404)),
                             RedirectionMatcher.Multiplicity.ONE);
             oracleBlogs.compile();
             _matchers.add(oracleBlogs);
@@ -728,7 +728,6 @@ public class WellKnownRedirections {
             redirectionToItself.compile();
             _matchers.add(redirectionToItself);
         }
-
 
         {
             // for buggy sites such as https://docs.trychroma.com/ which returns 307 but have no "Location" in the answer header
