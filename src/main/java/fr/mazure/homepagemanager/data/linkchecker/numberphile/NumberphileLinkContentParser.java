@@ -75,8 +75,7 @@ public class NumberphileLinkContentParser extends LinkDataExtractor {
                                         final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(UrlHelper.removeFinalSlash(url), retriever);
 
-        final String rawTitle = HtmlHelper.cleanContent(s_titleParser.extract(data));
-        _title = rawTitle.replaceFirst("^PODCAST:\\s+", "");
+        _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
 
         _creationDate = Optional.of(LocalDate.parse(s_dateParser.extract(data), s_dateformatter));
 

@@ -14,9 +14,9 @@ class NumberphileLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://www.numberphile.com/videos/sashko-olenchenko-podcast|Making Math Videos in Ukraine - with Sashko Olenchenko|Making Math Videos in Ukraine",
+        "https://www.numberphile.com/videos/sashko-olenchenko-podcast|PODCAST: Making Math Videos in Ukraine - with Sashko Olenchenko|Making Math Videos in Ukraine",
         "https://www.numberphile.com/podcast/2018/11/21/fermats-last-theorem-with-ken-ribet|Fermat’s Last Theorem - with Ken Ribet",
-        "https://www.numberphile.com/podcast/ron-graham-tribute|The Mathematical Showman - Ron Graham (1935-2020)|The Mathematical Showman - Ron Graham (1935-2020)"
+        "https://www.numberphile.com/podcast/ron-graham-tribute|The Mathematical Showman - Ron Graham (1935-2020)|PODCAST: The Mathematical Showman - Ron Graham (1935-2020)"
         }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
