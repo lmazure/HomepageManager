@@ -20,6 +20,7 @@ import fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentParser
 import fr.mazure.homepagemanager.data.linkchecker.numberphile.NumberphileLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.oracleblogs.OracleBlogsLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.oxideandfriends.OxideAndFriendsLinkContentParser;
+import fr.mazure.homepagemanager.data.linkchecker.pragmaticengineer.PragmaticEngineerLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.quantamagazine.QuantaMagazineLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.simonwillison.SimonWillisonLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.simonwillisontil.SimonWillisonTilLinkContentParser;
@@ -57,6 +58,7 @@ public class LinkDataExtractorFactory {
                 NumberphileLinkContentParser.class,
                 MediumLinkContentParser.class,
                 OracleBlogsLinkContentParser.class,
+                PragmaticEngineerLinkContentParser.class,
                 OxideAndFriendsLinkContentParser.class,
                 QuantaMagazineLinkContentParser.class,
                 SimonWillisonLinkContentParser.class,
