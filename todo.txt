@@ -112,15 +112,6 @@ at the same time, fix: "public abstract List<ExtractedLinkData> getLinks() throw
 
 
 
-properly manage authors of https://www.youtube.com/@ModernSoftwareEngineeringYT
-
-
-
-
-
-
-
-
 gérer
 https://gwern.net/ai-daydreaming
 author "Branwen" does not appear in the page
