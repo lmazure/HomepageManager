@@ -13,7 +13,9 @@ public class Keyword {
     private final ArrayList<Article> _articles;
 
     /**
-     * @param id
+     * Keyword constructor
+     * 
+     * @param id the key ID
      */
     public Keyword(final String id) {
         _id = id;
@@ -22,21 +24,23 @@ public class Keyword {
     }
 
     /**
-     * @return
+     * @return the key ID
      */
     public String getId() {
         return _id;
     }
 
     /**
-     * @param link
+     * Add a link to the keyword
+     * 
+     * @param link the link to add
      */
     public void addLink(final Link link) {
         _links.add(link);
     }
 
     /**
-     * @return
+     * @return the list of links
      */
     public Link[] getLinks() {
         final Link l[] = _links.toArray(new Link[0]);
@@ -45,14 +49,18 @@ public class Keyword {
     }
 
     /**
-     * @param article
+     * Add an article to the keyword
+     * 
+     * @param article the article to add
      */
     public void addArticle(final Article article) {
         _articles.add(article);
     }
 
     /**
-     * @return
+     * Get the articles containing the keyword
+     *
+     * @return the list of articles
      */
     public ArrayList<Article> getArticles() {
         return _articles;

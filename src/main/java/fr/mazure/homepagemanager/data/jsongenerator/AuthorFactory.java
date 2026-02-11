@@ -13,7 +13,7 @@ public class AuthorFactory {
     private final HashMap<String,Author> _authors;
 
     /**
-     *
+     * AuthorFactory constructor
      */
     public AuthorFactory() {
         _authors = new HashMap<>();
@@ -23,8 +23,8 @@ public class AuthorFactory {
      * if the author already exists, returns it<br/>
      * if the author does not exists, creates it and returns it
      *
-     * @param authorData
-     * @return author
+     * @param authorData the author data
+     * @return the author
      */
     public Author buildAuthor(final AuthorData authorData) {
 
@@ -48,8 +48,8 @@ public class AuthorFactory {
      * if the author already exists, returns it<br/>
      * if the author does not exists, returns null
      *
-     * @param authorData
-     * @return author
+     * @param authorData the author data
+     * @return the author
      */
     public Author peekAuthor(final AuthorData authorData) {
 

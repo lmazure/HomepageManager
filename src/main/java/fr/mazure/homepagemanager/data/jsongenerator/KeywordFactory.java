@@ -11,15 +11,17 @@ public class KeywordFactory {
     private final HashMap<String,Keyword> _keywords;
 
     /**
-     *
+     * Constructor
      */
     public KeywordFactory() {
         _keywords = new HashMap<>();
     }
 
     /**
-     * @param keyId
-     * @return
+     * Create a new keyword
+     * 
+     * @param keyId the key ID
+     * @return the keyword
      */
     public Keyword newKeyword(final String keyId) {
 

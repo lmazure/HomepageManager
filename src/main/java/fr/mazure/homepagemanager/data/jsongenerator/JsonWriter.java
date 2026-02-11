@@ -26,9 +26,11 @@ public class JsonWriter {
     private final KeywordFactory _keywordFactory;
 
     /**
-     * @param articleFactory
-     * @param authorFactory
-     * @param keywordFactory
+     * Constructor
+     * 
+     * @param articleFactory the article factory
+     * @param authorFactory the author factory
+     * @param keywordFactory the keyword factory
      */
     public JsonWriter(final ArticleFactory articleFactory,
                       final AuthorFactory authorFactory,

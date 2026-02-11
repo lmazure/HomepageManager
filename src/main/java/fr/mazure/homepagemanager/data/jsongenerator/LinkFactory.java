@@ -13,15 +13,17 @@ public class LinkFactory {
     private final HashSet<Link> _links;
 
     /**
-     *
+     * Constructor
      */
     public LinkFactory() {
         _links = new HashSet<>();
     }
 
     /**
-     * @param linkData
-     * @return
+     * Create a new link
+     * 
+     * @param linkData the link data
+     * @return the link
      */
     public Link newLink(final LinkData linkData) {
         final Link link = new Link(linkData.getTitle(),
@@ -40,7 +42,9 @@ public class LinkFactory {
     }
 
     /**
-     * @return sorted list of links
+     * Get the list of links
+     * 
+     * @return the list of links
      */
     public Link[] getLinks() {
         final Link a[] = _links.toArray(new Link[0]);
