@@ -19,6 +19,7 @@ import fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.lexfridman.LexFridmanLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.martinfowler.MartinFowlerLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentChecker;
+import fr.mazure.homepagemanager.data.linkchecker.numberphile.NumberphileLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.oracleblogs.OracleBlogsLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.oxideandfriends.OxideAndFriendsLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.quantamagazine.QuantaMagazineLinkContentChecker;
@@ -58,6 +59,7 @@ public class LinkContentCheckerFactory {
                 LexFridmanLinkContentChecker.class,
                 MartinFowlerLinkContentChecker.class,
                 MediumLinkContentChecker.class,
+                NumberphileLinkContentChecker.class,
                 OracleBlogsLinkContentChecker.class,
                 OxideAndFriendsLinkContentChecker.class,
                 QuantaMagazineLinkContentChecker.class,
@@ -77,13 +79,13 @@ public class LinkContentCheckerFactory {
                 @SuppressWarnings("unchecked")
                 final Constructor<LinkContentChecker> cons = (Constructor<LinkContentChecker>)clazz.getConstructor(String.class, LinkData.class, Optional.class, FileSection.class, CachedSiteDataRetriever.class);
                 s_checkers.add(new CheckerData((final String url) -> {
-                                                   try {
+                    try {
                                                        return ((Boolean)method.invoke(null, url)).booleanValue();
-                                                   } catch (final IllegalAccessException | InvocationTargetException e) {
-                                                       ExitHelper.exit(e);
-                                                       // NOTREACHED
-                                                       return false;
-                                                   }
+                    } catch (final IllegalAccessException | InvocationTargetException e) {
+                        ExitHelper.exit(e);
+                        // NOTREACHED
+                        return false;
+                    }
                                                },
                                                cons));
             } catch (final NoSuchMethodException e) {

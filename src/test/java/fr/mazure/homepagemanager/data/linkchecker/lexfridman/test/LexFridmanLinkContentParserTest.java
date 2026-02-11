@@ -130,4 +130,14 @@ class LexFridmanLinkContentParserTest extends LinkDataExtractorTestBase {
                      null,
                      null);
     }
+
+    @SuppressWarnings("static-method")
+    @ParameterizedTest
+    @CsvSource(value = {
+        "https://lexfridman.com/deepseek-dylan-patel-nathan-lambert/|https://www.youtube.com/watch?v=_1f-o0nqpEI",
+    }, delimiter = '|')
+    void testOtherLink(final String url,
+                       final String expectedOtherLink) {
+        checkOtherLink(LexFridmanLinkContentParser.class, url, expectedOtherLink);
+    }
 }

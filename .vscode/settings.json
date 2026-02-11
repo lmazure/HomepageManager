@@ -9,5 +9,8 @@
             "icon": "terminal-bash"
         }
     },
-    "terminal.integrated.defaultProfile.windows": "Git"
+    "terminal.integrated.defaultProfile.windows": "Git",
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.compile.nullAnalysis.mode": "disabled",
+    "editor.formatOnSave": false
 }

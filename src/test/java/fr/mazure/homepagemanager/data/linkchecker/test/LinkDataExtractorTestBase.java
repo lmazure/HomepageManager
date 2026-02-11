@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Assertions;
 import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
+import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.utils.DateTimeHelper;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
@@ -408,6 +409,22 @@ public class LinkDataExtractorTestBase {
                 (final LinkDataExtractor p) ->
                     {
                         Assertions.assertEquals(expectedAuthors, p.getSureAuthors());
+                    });
+    }
+
+    protected static void checkOtherLink(final Class<? extends LinkDataExtractor> clazz,
+                                         final String url,
+                                         final String expectedOtherLink) {
+        perform(clazz,
+                url,
+                (final LinkDataExtractor p) ->
+                    {
+                        try {
+                            Assertions.assertEquals(2, p.getLinks().size());
+                            Assertions.assertEquals(expectedOtherLink, p.getLinks().get(1).url());
+                        } catch (final ContentParserException e) {
+                            throw new RuntimeException(e);
+                        }
                     });
     }
 
