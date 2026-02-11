@@ -2046,13 +2046,7 @@ class LinkDataExtractorTest {
     @Test
     void youtubeWatchMinutePhysicsIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=vLIPUdru82c";
-        final String expectedSureXml = """
-                <ARTICLE><X><T>The Problem With The Butterfly Effect</T>\
-                <A>https://www.youtube.com/watch?v=vLIPUdru82c</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>16</SECOND></DURATION></X>\
-                <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>21</DAY></DATE>\
-                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
-        final String expectedProbableXml = """
+        final String expectedXml = """
                 <ARTICLE><X><T>The Problem With The Butterfly Effect</T>\
                 <A>https://www.youtube.com/watch?v=vLIPUdru82c</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>16</SECOND></DURATION></X>\
@@ -2060,8 +2054,9 @@ class LinkDataExtractorTest {
                 <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>21</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
-        Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
-        Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
     @Test
@@ -3471,7 +3466,7 @@ class LinkDataExtractorTest {
     void youtubeWatchTheRestIsScienceIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=Q9yw1K9r4tk";
         final String expectedXml = """
-                <ARTICLE><X><T>Why Human Faces Leak From Emotion</T>\
+                <ARTICLE><X><T>Why Do We Cry?</T>\
                 <A>https://www.youtube.com/watch?v=Q9yw1K9r4tk</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>44</MINUTE><SECOND>7</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Hannah</FIRSTNAME><LASTNAME>Fry</LASTNAME></AUTHOR>\

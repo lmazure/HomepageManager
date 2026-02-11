@@ -46,6 +46,16 @@ methods       53.9%    97.9%
 
 
 
+
+
+fix DZone
+
+
+
+
+
+
+
 manage
 https://www.numberphile.com/podcast/3blue1brown
 The list of effective authors is not the effective one.
