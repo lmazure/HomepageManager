@@ -17,8 +17,10 @@ public class Article {
     private final ArrayList<Link> _links;
 
     /**
-     * @param page
-     * @param date
+     * Article constructor
+     *
+     * @param page the page containing the article
+     * @param date the date of the article
      */
     public Article(final File page,
                    final Optional<TemporalAccessor> date) {
@@ -29,21 +31,23 @@ public class Article {
     }
 
     /**
-     * @return the referringPage
+     * @return the page containing the article
      */
     public File getReferringPage() {
         return _referringPage;
     }
 
     /**
-     * @return
+     * @return the date of the article
      */
     public Optional<TemporalAccessor> getDateData() {
         return _date;
     }
 
     /**
-     * @param author
+     * Add an author to the article
+     *
+     * @param author the author to add
      */
     public void addAuthor(final Author author) {
         _authors.add(author);
@@ -59,7 +63,9 @@ public class Article {
     }
 
     /**
-     * @param link
+     * Add a link to the article
+     *
+     * @param link the link to add
      */
     public void addLink(final Link link) {
         _links.add(link);

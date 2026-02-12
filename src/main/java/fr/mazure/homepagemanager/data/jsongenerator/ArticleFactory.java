@@ -20,9 +20,11 @@ public class ArticleFactory {
     }
 
     /**
-     * @param page
-     * @param date
-     * @return
+     * Build a new article
+     *
+     * @param page the page containing the article
+     * @param date the date of the article
+     * @return the article
      */
     public Article buildArticle(final File page,
                                 final Optional<TemporalAccessor> date) {
@@ -32,8 +34,10 @@ public class ArticleFactory {
     }
 
     /**
-     * @param url
-     * @return
+     * Retrieve an article from its URL
+     *
+     * @param url the URL of the article
+     * @return the article
      */
     public Optional<Article> getArticle(final String url) {
 

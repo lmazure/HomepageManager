@@ -206,7 +206,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         return UrlHelper.hasPrefix(url, "https://www.youtube.com/watch?");
     }
 
-    static private final LocalDate parseDateTimeString(final String str) throws ContentParserException {
+    private static final LocalDate parseDateTimeString(final String str) throws ContentParserException {
 
         // case the date is formatted as YYYY-MM-DD
         if (str.length() == 10) {

@@ -22,6 +22,7 @@ import fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentChecke
 import fr.mazure.homepagemanager.data.linkchecker.numberphile.NumberphileLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.oracleblogs.OracleBlogsLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.oxideandfriends.OxideAndFriendsLinkContentChecker;
+import fr.mazure.homepagemanager.data.linkchecker.pragmaticengineer.PragmaticEngineerLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.quantamagazine.QuantaMagazineLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.simonwillison.SimonWillisonLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.simonwillisontil.SimonWillisonTilLinkContentChecker;
@@ -62,6 +63,7 @@ public class LinkContentCheckerFactory {
                 NumberphileLinkContentChecker.class,
                 OracleBlogsLinkContentChecker.class,
                 OxideAndFriendsLinkContentChecker.class,
+                PragmaticEngineerLinkContentChecker.class,
                 QuantaMagazineLinkContentChecker.class,
                 SimonWillisonLinkContentChecker.class,
                 SimonWillisonTilLinkContentChecker.class,
