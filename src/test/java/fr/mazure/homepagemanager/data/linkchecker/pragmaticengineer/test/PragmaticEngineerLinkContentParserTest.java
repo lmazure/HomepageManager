@@ -86,7 +86,6 @@ class PragmaticEngineerLinkContentParserTest extends LinkDataExtractorTestBase {
         checkOtherLink(PragmaticEngineerLinkContentParser.class, url, expectedOtherLink);
     }
 
-    
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {

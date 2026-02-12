@@ -21,7 +21,7 @@ public class LinkFactory {
 
     /**
      * Create a new link
-     * 
+     *
      * @param linkData the link data
      * @return the link
      */
@@ -43,7 +43,7 @@ public class LinkFactory {
 
     /**
      * Get the list of links
-     * 
+     *
      * @return the list of links
      */
     public Link[] getLinks() {

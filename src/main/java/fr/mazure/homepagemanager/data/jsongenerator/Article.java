@@ -18,7 +18,7 @@ public class Article {
 
     /**
      * Article constructor
-     * 
+     *
      * @param page the page containing the article
      * @param date the date of the article
      */
@@ -46,7 +46,7 @@ public class Article {
 
     /**
      * Add an author to the article
-     * 
+     *
      * @param author the author to add
      */
     public void addAuthor(final Author author) {
@@ -64,7 +64,7 @@ public class Article {
 
     /**
      * Add a link to the article
-     * 
+     *
      * @param link the link to add
      */
     public void addLink(final Link link) {

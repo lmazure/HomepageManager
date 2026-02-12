@@ -19,7 +19,7 @@ public class KeywordFactory {
 
     /**
      * Create a new keyword
-     * 
+     *
      * @param keyId the key ID
      * @return the keyword
      */

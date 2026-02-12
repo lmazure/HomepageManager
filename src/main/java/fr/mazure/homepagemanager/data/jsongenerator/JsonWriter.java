@@ -27,7 +27,7 @@ public class JsonWriter {
 
     /**
      * Constructor
-     * 
+     *
      * @param articleFactory the article factory
      * @param authorFactory the author factory
      * @param keywordFactory the keyword factory

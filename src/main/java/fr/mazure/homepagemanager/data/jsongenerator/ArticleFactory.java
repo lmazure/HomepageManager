@@ -21,7 +21,7 @@ public class ArticleFactory {
 
     /**
      * Build a new article
-     * 
+     *
      * @param page the page containing the article
      * @param date the date of the article
      * @return the article
@@ -35,7 +35,7 @@ public class ArticleFactory {
 
     /**
      * Retrieve an article from its URL
-     * 
+     *
      * @param url the URL of the article
      * @return the article
      */

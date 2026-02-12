@@ -238,7 +238,7 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
             _authorException = new ContentParserException("failed to get authors for " + url, e);
             return;
         }
-        
+
         _authors = new ArrayList<>(authors.length());
         for (int i = 0; i < authors.length(); i++) {
             try {
@@ -255,7 +255,7 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
         _authorException = null;
     }
 
-    static private List<AuthorData> getAuthors(final String data) throws ContentParserException {   
+    private static List<AuthorData> getAuthors(final String data) throws ContentParserException {
         final List<String> names = s_authorParser.extractMulti(data);
         if (!names.isEmpty()) {
             final List<AuthorData> list = new ArrayList<>(1);

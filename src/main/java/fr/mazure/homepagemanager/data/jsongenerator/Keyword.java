@@ -14,7 +14,7 @@ public class Keyword {
 
     /**
      * Keyword constructor
-     * 
+     *
      * @param id the key ID
      */
     public Keyword(final String id) {
@@ -32,7 +32,7 @@ public class Keyword {
 
     /**
      * Add a link to the keyword
-     * 
+     *
      * @param link the link to add
      */
     public void addLink(final Link link) {
@@ -50,7 +50,7 @@ public class Keyword {
 
     /**
      * Add an article to the keyword
-     * 
+     *
      * @param article the article to add
      */
     public void addArticle(final Article article) {
