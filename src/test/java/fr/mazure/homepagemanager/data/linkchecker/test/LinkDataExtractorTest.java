@@ -368,6 +368,26 @@ class LinkDataExtractorTest {
     }
 
     @Test
+    void pragmaticEngineerIsManaged() throws ContentParserException {
+        final String url = "https://newsletter.pragmaticengineer.com/p/the-third-golden-age-of-software";
+        final String expectedXml = """
+                <ARTICLE><X><T>The third golden age of software engineering – thanks to AI, with Grady Booch</T>\
+                <A>https://newsletter.pragmaticengineer.com/p/the-third-golden-age-of-software</A>\
+                <L>en</L><F>HTML</F><DURATION><HOUR>1</HOUR><MINUTE>17</MINUTE><SECOND>5</SECOND></DURATION></X>\
+                <X><T>The third golden age of software engineering – thanks to AI, with Grady Booch</T>\
+                <A>https://www.youtube.com/watch?v=OfMAtaocvJw</A>\
+                <L>en</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>17</MINUTE><SECOND>4</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Grady</FIRSTNAME><LASTNAME>Booch</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Gergely</FIRSTNAME><LASTNAME>Orosz</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2026</YEAR><MONTH>2</MONTH><DAY>4</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void SimonWillisonIsManaged() throws ContentParserException {
         final String url = "https://simonwillison.net/2024/Mar/8/gpt-4-barrier/";
         final String expectedXml = """
