@@ -60,6 +60,11 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
                          "</div>",
                          s_sourceName,
                          "JSON");
+    private static final TextParser s_authorParser
+        = new TextParser("<title data-rh=\"true\">[^<]+ with ",
+                         "</title>",
+                         s_sourceName,
+                         "author in <title>");
     private static final TextParser s_youtubeLinkParser
         = new TextParser("youtube-nocookie\\.com/embed/",
                          "[A-Za-z0-9_-]+",
@@ -97,14 +102,19 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
             throw new ContentParserException("Unexpected JSON", e);
         }
 
-        _subtitle = s_subtitleParser.extractOptional(data);
+        _subtitle = Optional.of(HtmlHelper.cleanContent(s_subtitleParser.extract(data)));
         
-        _authors = new ArrayList<>();
-        final Matcher matcher = s_extractGuest.matcher(_title);
-        if (matcher.find()) {
-            final String guestName = matcher.group(1);
-            _authors.add(LinkContentParserUtils.parseAuthorName(guestName));
-        }
+		_authors = new ArrayList<>();
+		final Optional<String> guestName = s_authorParser.extractOptional(data);
+		if (guestName.isPresent()) {
+			_authors.add(LinkContentParserUtils.parseAuthorName(guestName.get()));
+		} else {
+	        final Matcher matcher = s_extractGuest.matcher(_title);
+	        if (matcher.find()) {
+	            final String guestName2 = matcher.group(1);
+	            _authors.add(LinkContentParserUtils.parseAuthorName(guestName2));
+	        }
+		}
         _authors.add(WellKnownAuthors.GERGELY_OROSZ);
 
         final Optional<String> youtubeVideoId = s_youtubeLinkParser.extractOptional(data);

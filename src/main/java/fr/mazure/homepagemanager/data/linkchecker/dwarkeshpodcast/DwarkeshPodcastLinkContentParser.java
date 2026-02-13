@@ -97,7 +97,7 @@ public class DwarkeshPodcastLinkContentParser extends LinkDataExtractor {
             throw new ContentParserException("Unexpected JSON", e);
         }
 
-        _subtitle = s_subtitleParser.extractOptional(data);
+        _subtitle = Optional.of(HtmlHelper.cleanContent(s_subtitleParser.extract(data)));
         
         _authors = new ArrayList<>();
         final Matcher matcher = s_extractGuest.matcher(_title);

@@ -14,8 +14,8 @@ class PragmaticEngineerLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://newsletter.pragmaticengineer.com/p/martin-fowler|How AI will change software engineering \u2013 with Martin Fowler",
-        "https://newsletter.pragmaticengineer.com/p/the-third-golden-age-of-software|The third golden age of software engineering \u2013 thanks to AI, with Grady Booch",
+        "https://newsletter.pragmaticengineer.com/p/martin-fowler|How AI will change software engineering – with Martin Fowler",
+        "https://newsletter.pragmaticengineer.com/p/the-third-golden-age-of-software|The third golden age of software engineering – thanks to AI, with Grady Booch",
     }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
@@ -27,7 +27,10 @@ class PragmaticEngineerLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://newsletter.pragmaticengineer.com/p/martin-fowler|Martin Fowler breaks down how AI is transforming software architecture and development, from refactoring and deterministic techniques to the timeless principles that still anchor great engineering.",
         "https://newsletter.pragmaticengineer.com/p/the-third-golden-age-of-software|I sit down with Grady Booch to put today’s AI automation claims in historical context and explain why software engineering is entering another golden age, not disappearing.",
-        "https://newsletter.pragmaticengineer.com/p/ai-tools-for-software-engineers-simon-willison|Ways to use LLMs efficiently, as a software engineer, common misconceptions about them, and tips/hacks to better interact with GenAI tools. The first episode of The Pragmatic Engineer Podcast"
+        // the subtitle is not the same in the JSON and in the HTML
+        "https://newsletter.pragmaticengineer.com/p/ai-tools-for-software-engineers-simon-willison|Ways to use LLMs efficiently, as a software engineer, common misconceptions about them, and tips/hacks to better interact with GenAI tools. The first episode of The Pragmatic Engineer Podcast",
+        // there is a space at the end of the subtitle
+        "https://newsletter.pragmaticengineer.com/p/github|How GitHub evolved from a Rails monolith, embraced remote work, why it hires more junior devs than ever before, and how GH Copilot was built thanks to a happy accident. With GitHub CEO Thomas Dohmke",
     }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
@@ -50,6 +53,7 @@ class PragmaticEngineerLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://newsletter.pragmaticengineer.com/p/martin-fowler|Martin||Fowler|Gergely||Orosz",
         "https://newsletter.pragmaticengineer.com/p/the-third-golden-age-of-software|Grady||Booch|Gergely||Orosz",
+        "https://newsletter.pragmaticengineer.com/p/github|Thomas||Dohmke|Gergely||Orosz"
     }, delimiter = '|')
     void test2Authors(final String url,
                       final String expectedFirstName1,
