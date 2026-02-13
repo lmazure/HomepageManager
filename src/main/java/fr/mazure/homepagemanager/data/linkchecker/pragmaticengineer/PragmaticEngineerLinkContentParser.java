@@ -75,7 +75,7 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
     public PragmaticEngineerLinkContentParser(final String url,
                                               final String data,
                                               final CachedSiteDataRetriever retriever) throws ContentParserException {
-        super(UrlHelper.removeFinalSlash(url), retriever);
+        super(url, retriever);
 
         try {
             final String escapedJson = s_jsonParser.extract(data);

@@ -37,7 +37,7 @@ class LexFridmanLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        // Lex Fridman's blog and YouTube are publihed the same day
+        // Lex Fridman's blog and YouTube are published the same day
         "https://lexfridman.com/elon-musk|2019-04-12|2019-04-12|2019-04-12",
         // YouTube is published before
         "https://lexfridman.com/terence-tao/|2025-06-14|2025-06-15|2025-06-14",

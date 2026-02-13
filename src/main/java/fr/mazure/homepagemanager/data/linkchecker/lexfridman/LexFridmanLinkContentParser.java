@@ -83,7 +83,7 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
     public LexFridmanLinkContentParser(final String url,
                                        final String data,
                                        final CachedSiteDataRetriever retriever) throws ContentParserException {
-        super(UrlHelper.removeFinalSlash(url), retriever);
+        super(url, retriever);
 
         _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
         _publicationDate = Optional.of(LocalDate.parse(s_dateParser.extract(data), s_dateformatter));

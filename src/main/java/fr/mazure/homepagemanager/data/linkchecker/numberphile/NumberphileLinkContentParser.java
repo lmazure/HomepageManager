@@ -73,7 +73,7 @@ public class NumberphileLinkContentParser extends LinkDataExtractor {
     public NumberphileLinkContentParser(final String url,
                                         final String data,
                                         final CachedSiteDataRetriever retriever) throws ContentParserException {
-        super(UrlHelper.removeFinalSlash(url), retriever);
+        super(url, retriever);
 
         _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
 
