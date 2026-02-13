@@ -98,7 +98,7 @@ public class DwarkeshPodcastLinkContentParser extends LinkDataExtractor {
         }
 
         _subtitle = Optional.of(HtmlHelper.cleanContent(s_subtitleParser.extract(data)));
-        
+
         _authors = new ArrayList<>();
         final Matcher matcher = s_extractGuest.matcher(_title);
         if (matcher.find()) {

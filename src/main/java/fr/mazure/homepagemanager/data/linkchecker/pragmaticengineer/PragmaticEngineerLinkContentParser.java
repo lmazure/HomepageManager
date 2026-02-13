@@ -103,7 +103,7 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
         }
 
         _subtitle = Optional.of(HtmlHelper.cleanContent(s_subtitleParser.extract(data)));
-        
+
 		_authors = new ArrayList<>();
 		final Optional<String> guestName = s_authorParser.extractOptional(data);
 		if (guestName.isPresent()) {
