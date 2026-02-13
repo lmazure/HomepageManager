@@ -14,6 +14,7 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -142,9 +143,9 @@ public class SiteDataPersister {
             builder.append("present\n");
             final Map<String, List<String>> heads = headers.get();
             builder.append(heads.size()).append('\n');
-            for (final String head : heads.keySet()) {
-                builder.append(head);
-                for (final String value : heads.get(head)) {
+            for (final Map.Entry<String, List<String>> entry : heads.entrySet()) {
+                builder.append(entry.getKey());
+                for (final String value : entry.getValue()) {
                     builder.append('\t').append(value);
                 }
                 builder.append('\n');
@@ -233,18 +234,15 @@ public class SiteDataPersister {
 
         final String url = reader.readLine();
 
-        Optional<Map<String, List<String>>> headers = Optional.empty();
+        Optional<Map<String, List<String>>> headers;
         final String headersPresence = reader.readLine();
         if (headersPresence.equals("present")) {
             final int nbHeaders = Integer.parseInt(reader.readLine());
-            final Map<String, List<String>> map = new HashMap<>(nbHeaders);
+            final Map<String, List<String>> map = HashMap.newHashMap(nbHeaders);
             for (int i = 0; i < nbHeaders; i++) {
                 final String[] lineParts = reader.readLine().split("\t");
                 final String header = lineParts[0].equals("null") ? null : lineParts[0];
-                final List<String> list = new ArrayList<>(lineParts.length - 1);
-                for (int j = 1; j < lineParts.length; j++) {
-                    list.add(lineParts[j]);
-                }
+                final List<String> list = new ArrayList<>(Arrays.asList(lineParts).subList(1, lineParts.length));   
                 map.put(header, list);
             }
             headers = Optional.of(map);

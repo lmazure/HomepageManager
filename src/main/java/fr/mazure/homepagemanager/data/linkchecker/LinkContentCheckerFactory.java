@@ -11,6 +11,7 @@ import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.linkchecker.arstechnica.ArsTechnicaLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.baeldung.BaeldungLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.chromium.ChromiumBlogLinkContentChecker;
+import fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.dzone.DZoneLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.githubblog.GithubBlogLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.gitlabblog.GitlabBlogLinkContentChecker;
@@ -52,6 +53,7 @@ public class LinkContentCheckerFactory {
                 ArsTechnicaLinkContentChecker.class,
                 BaeldungLinkContentChecker.class,
                 ChromiumBlogLinkContentChecker.class,
+                DwarkeshPodcastLinkContentChecker.class,
                 DZoneLinkContentChecker.class,
                 GithubBlogLinkContentChecker.class,
                 GitlabBlogLinkContentChecker.class,

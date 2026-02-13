@@ -1817,6 +1817,23 @@ class LinkDataExtractorTest {
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
 
+
+    @Test
+    void youtubeWatchLeDessousDesImagesIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=CSIJh4mRkNY";
+        final String expectedXml = """
+                <ARTICLE><X><T>Vanity Fair dévoile le vrai visage de l'administration Trump - Le dessous des images - ARTE</T>\
+                <A>https://www.youtube.com/watch?v=CSIJh4mRkNY</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>8</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Sonia</FIRSTNAME><LASTNAME>Devillers</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2026</YEAR><MONTH>2</MONTH><DAY>12</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
     @Test
     void youtubeWatchLeFuturologueIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=Ey1HOhCvZm0";

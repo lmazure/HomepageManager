@@ -48,6 +48,24 @@ methods       53.9%    97.9%
 
 
 
+DwarkeshPodcastLinkContentParser and PragmaticEngineerLinkContentParser are the same!
+
+
+
+
+
+
+
+
+manage this YT channel: https://www.youtube.com/watch?app=desktop&v=Q2QmQTNA7vs&list=WL&index=37&t=575s
+
+
+
+
+
+
+
+
 fix DZone
 
 
@@ -70,6 +88,33 @@ Subtitle "Wave 13: Shipmas - Parallel Agents, Git Worktrees, and Near-Frontier C
 
 
 ==== potentially before merge =====
+
+
+
+
+
+
+
+manage this YT channel: https://www.youtube.com/watch?app=desktop&v=Q2QmQTNA7vs&list=WL&index=37&t=575s
+
+
+
+
+
+
+
+
+fix DZone
+
+
+
+
+
+
+
+manage
+https://windsurf.com/blog/windsurf-wave-13
+Subtitle "Wave 13: Shipmas - Parallel Agents, Git Worktrees, and Near-Frontier Coding Performance For Free With SWE-1.5" does not appear in the page
 
 
 

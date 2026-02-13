@@ -26,7 +26,7 @@ public class LinkChecker implements FileHandler {
     /**
      * @param homepagePath path to the directory containing the pages
      * @param tmpPath path to the directory containing the temporary files and log files
-     * @param cacheFolderName
+     * @param cacheFolderName name of the cache folder (which will be in the tmpPath directory)
      * @param controller controller to notify of additional / removed violations
      * @param violationController controller to notify of additional / removed violations
      */

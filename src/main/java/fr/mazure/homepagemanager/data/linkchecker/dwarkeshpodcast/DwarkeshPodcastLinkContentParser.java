@@ -1,4 +1,4 @@
-package fr.mazure.homepagemanager.data.linkchecker.pragmaticengineer;
+package fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast;
 
 import java.time.Duration;
 import java.time.LocalDate;
@@ -34,11 +34,11 @@ import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
 /**
- *  Data extractor for Pragmatic Engineer podcast
+ *  Data extractor for Dwarkesh Podcast
  */
-public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
+public class DwarkeshPodcastLinkContentParser extends LinkDataExtractor {
 
-    private static final String s_sourceName = "Pragmatic Engineer podcast";
+    private static final String s_sourceName = "Dwarkesh Podcast";
 
     private final String _title;
     private final Optional<String> _subtitle;
@@ -60,11 +60,6 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
                          "</div>",
                          s_sourceName,
                          "JSON");
-    private static final TextParser s_authorParser
-        = new TextParser("<title data-rh=\"true\">[^<]+ with ",
-                         "</title>",
-                         s_sourceName,
-                         "author in <title>");
     private static final TextParser s_youtubeLinkParser
         = new TextParser("youtube-nocookie\\.com/embed/",
                          "[A-Za-z0-9_-]+",
@@ -72,7 +67,7 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
                          s_sourceName,
                          "YouTube link");
 
-    private static final Pattern s_extractGuest = Pattern.compile("\\s+with\\s+(.+)$");
+    private static final Pattern s_extractGuest = Pattern.compile("^(.+?)\\s+[\u2013\u2014]\\s+.+$");
 
     /**
      * Constructor
@@ -82,9 +77,9 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
      * @param retriever cache data retriever
      * @throws ContentParserException Failure to extract the information
      */
-    public PragmaticEngineerLinkContentParser(final String url,
-                                              final String data,
-                                              final CachedSiteDataRetriever retriever) throws ContentParserException {
+    public DwarkeshPodcastLinkContentParser(final String url,
+                                            final String data,
+                                            final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(url, retriever);
 
         try {
@@ -104,18 +99,13 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
 
         _subtitle = Optional.of(HtmlHelper.cleanContent(s_subtitleParser.extract(data)));
 
-		_authors = new ArrayList<>();
-		final Optional<String> guestName = s_authorParser.extractOptional(data);
-		if (guestName.isPresent()) {
-			_authors.add(LinkContentParserUtils.parseAuthorName(guestName.get()));
-		} else {
-	        final Matcher matcher = s_extractGuest.matcher(_title);
-	        if (matcher.find()) {
-	            final String guestName2 = matcher.group(1);
-	            _authors.add(LinkContentParserUtils.parseAuthorName(guestName2));
-	        }
-		}
-        _authors.add(WellKnownAuthors.GERGELY_OROSZ);
+        _authors = new ArrayList<>();
+        final Matcher matcher = s_extractGuest.matcher(_title);
+        if (matcher.find()) {
+            final String guestName = matcher.group(1);
+            _authors.add(LinkContentParserUtils.parseAuthorName(guestName));
+        }
+        _authors.add(WellKnownAuthors.DWARKESH_PATEL);
 
         final Optional<String> youtubeVideoId = s_youtubeLinkParser.extractOptional(data);
         final Optional<String> youtubeLink = youtubeVideoId.map(s -> "https://www.youtube.com/watch?v=" + s);
@@ -134,7 +124,7 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return UrlHelper.hasPrefix(url, "https://newsletter.pragmaticengineer.com/p/");
+        return UrlHelper.hasPrefix(url, "https://www.dwarkesh.com/p/");
     }
 
     @Override
