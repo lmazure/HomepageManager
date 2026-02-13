@@ -48,7 +48,7 @@ methods       53.9%    97.9%
 
 
 
-incorrect subtitle extracion for https://newsletter.pragmaticengineer.com/p/ai-tools-for-software-engineers-simon-willison
+DwarkeshPodcastLinkContentParser and PragmaticEngineerLinkContentParser are the same!
 
 
 

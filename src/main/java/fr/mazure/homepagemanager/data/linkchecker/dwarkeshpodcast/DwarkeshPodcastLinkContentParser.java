@@ -59,7 +59,8 @@ public class DwarkeshPodcastLinkContentParser extends LinkDataExtractor {
         = new TextParser("<div dir=\"auto\" class=\"pencraft pc-reset color-pub-secondary-text-hGQ02T line-height-24-jnGwiv font-pub-headings-FE5byy size-17-JHHggF weight-regular-mUq6Gb reset-IxiVJZ subtitle-HEEcLo\">",
                          "</div>",
                          s_sourceName,
-                         "JSON");    private static final TextParser s_youtubeLinkParser
+                         "JSON");
+    private static final TextParser s_youtubeLinkParser
         = new TextParser("youtube-nocookie\\.com/embed/",
                          "[A-Za-z0-9_-]+",
                          "\\?",

@@ -27,6 +27,7 @@ class PragmaticEngineerLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://newsletter.pragmaticengineer.com/p/martin-fowler|Martin Fowler breaks down how AI is transforming software architecture and development, from refactoring and deterministic techniques to the timeless principles that still anchor great engineering.",
         "https://newsletter.pragmaticengineer.com/p/the-third-golden-age-of-software|I sit down with Grady Booch to put today’s AI automation claims in historical context and explain why software engineering is entering another golden age, not disappearing.",
+        "https://newsletter.pragmaticengineer.com/p/ai-tools-for-software-engineers-simon-willison|Ways to use LLMs efficiently, as a software engineer, common misconceptions about them, and tips/hacks to better interact with GenAI tools. The first episode of The Pragmatic Engineer Podcast"
     }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {

@@ -55,6 +55,11 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
                          "\"\\)</script>",
                          s_sourceName,
                          "JSON");
+    private static final TextParser s_subtitleParser
+        = new TextParser("<div dir=\"auto\" class=\"pencraft pc-reset color-pub-secondary-text-hGQ02T line-height-24-jnGwiv font-pub-headings-FE5byy size-17-JHHggF weight-regular-mUq6Gb reset-IxiVJZ subtitle-HEEcLo\">",
+                         "</div>",
+                         s_sourceName,
+                         "JSON");
     private static final TextParser s_youtubeLinkParser
         = new TextParser("youtube-nocookie\\.com/embed/",
                          "[A-Za-z0-9_-]+",
@@ -84,7 +89,6 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
             final JSONObject post = JsonHelper.getAsNode(payload, "post");
 
             _title = HtmlHelper.cleanContent(JsonHelper.getAsText(post, "title"));
-            _subtitle = Optional.of(HtmlHelper.cleanContent(JsonHelper.getAsText(post, "description")));
             final String postDate = JsonHelper.getAsText(post, "post_date");
             _publicationDate = Optional.of(ZonedDateTime.parse(postDate, DateTimeFormatter.ISO_DATE_TIME).toLocalDate());
             final double podcastDuration = post.getDouble("podcast_duration");
@@ -93,6 +97,8 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
             throw new ContentParserException("Unexpected JSON", e);
         }
 
+        _subtitle = s_subtitleParser.extractOptional(data);
+        
         _authors = new ArrayList<>();
         final Matcher matcher = s_extractGuest.matcher(_title);
         if (matcher.find()) {
