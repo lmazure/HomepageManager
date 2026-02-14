@@ -48,6 +48,16 @@ methods       53.9%    97.9%
 
 
 
+
+check the dates of https://oxide-and-friends.transistor.fm/episodes/shell-game-with-evan-ratliff
+
+
+
+
+
+
+
+
 DwarkeshPodcastLinkContentParser and PragmaticEngineerLinkContentParser are the same!
 
 
