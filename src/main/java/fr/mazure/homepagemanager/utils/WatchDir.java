@@ -53,7 +53,7 @@ public class WatchDir {
 
     /**
      * @param path directory to watch
-     * @throws IOException
+     * @throws IOException if an I/O error occurs
      */
     @SuppressWarnings("resource")
     public WatchDir(final Path path) throws IOException {
@@ -88,8 +88,8 @@ public class WatchDir {
     }
 
     /**
-     * @param matcher
-     * @param consummer
+     * @param matcher Matcher defining the files to watch
+     * @param consummer Consummer of change event if a file is modified
      * @return the object itself
      */
     public WatchDir addFileWatcher(final PathMatcher matcher,
@@ -102,7 +102,7 @@ public class WatchDir {
     /**
      * register the given directory, and all its sub-directories, with the WatchService
      * @param start directory
-     * @throws IOException
+     * @throws IOException if an I/O error occurs
      */
     private void registerAll(final Path start) throws IOException {
 
@@ -232,8 +232,8 @@ public class WatchDir {
         private final BiConsumer<Path, Event> _consummer;
 
         /**
-         * @param matcher
-         * @param consummer
+         * @param matcher Matcher defining the files to watch
+         * @param consummer Consummer of change event if a file is modified
          */
         public FileWatcher(final PathMatcher matcher,
                            final BiConsumer<Path, Event> consummer) {
