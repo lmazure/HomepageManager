@@ -61,7 +61,7 @@ check the dates of https://oxide-and-friends.transistor.fm/episodes/shell-game-w
 
 
 
-DwarkeshPodcastLinkContentParser and PragmaticEngineerLinkContentParser are the same!
+DwarkeshPodcastLinkContentParser; PragmaticEngineerLinkContentParser, and SubstackLinkContentParser are the same!
 
 
 

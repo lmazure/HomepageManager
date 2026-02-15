@@ -16,6 +16,7 @@ class DwarkeshPodcastLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://www.dwarkesh.com/p/richard-sutton|Richard Sutton – Father of RL thinks LLMs are a dead end",
         "https://www.dwarkesh.com/p/elon-musk|Elon Musk — \"In 36 months, the cheapest place to put AI will be space\u201d",
+        "https://www.dwarkesh.com/p/thoughts-on-ai-progress-dec-2025-video|An audio version of my blog post, Thoughts on AI progress (Dec 2025)",
     }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
@@ -31,6 +32,16 @@ class DwarkeshPodcastLinkContentParserTest extends LinkDataExtractorTestBase {
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
         checkSubtitle(DwarkeshPodcastLinkContentParser.class, url, expectedSubtitle);
+    }
+
+
+    @SuppressWarnings("static-method")
+    @ParameterizedTest
+    @CsvSource(value = {
+        "https://www.dwarkesh.com/p/thoughts-on-ai-progress-dec-2025-video",
+    }, delimiter = '|')
+    void testNoSubtitle(final String url) {
+        checkNoSubtitle(DwarkeshPodcastLinkContentParser.class, url);
     }
 
     @SuppressWarnings("static-method")

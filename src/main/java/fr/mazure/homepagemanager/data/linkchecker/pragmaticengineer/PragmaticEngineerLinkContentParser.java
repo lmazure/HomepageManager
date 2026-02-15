@@ -59,7 +59,7 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
         = new TextParser("<div dir=\"auto\" class=\"pencraft pc-reset color-pub-secondary-text-hGQ02T line-height-24-jnGwiv font-pub-headings-FE5byy size-17-JHHggF weight-regular-mUq6Gb reset-IxiVJZ subtitle-HEEcLo\">",
                          "</div>",
                          s_sourceName,
-                         "JSON");
+                         "subtitle");
     private static final TextParser s_authorParser
         = new TextParser("<title data-rh=\"true\">[^<]+ with ",
                          "</title>",
@@ -102,7 +102,8 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
             throw new ContentParserException("Unexpected JSON", e);
         }
 
-        _subtitle = Optional.of(HtmlHelper.cleanContent(s_subtitleParser.extract(data)));
+        _subtitle = s_subtitleParser.extractOptional(data)
+                                    .map(t -> HtmlHelper.cleanContent(t));
 
 		_authors = new ArrayList<>();
 		final Optional<String> guestName = s_authorParser.extractOptional(data);
