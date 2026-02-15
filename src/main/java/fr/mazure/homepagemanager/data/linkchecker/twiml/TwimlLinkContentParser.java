@@ -1,9 +1,7 @@
-package fr.mazure.homepagemanager.data.linkchecker.pragmaticengineer;
+package fr.mazure.homepagemanager.data.linkchecker.twiml;
 
 import java.time.Duration;
-import java.time.LocalDate;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.OffsetDateTime;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,8 +10,6 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.json.JSONObject;
 
 import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
@@ -28,20 +24,18 @@ import fr.mazure.homepagemanager.utils.DateTimeHelper;
 import fr.mazure.homepagemanager.utils.Logger;
 import fr.mazure.homepagemanager.utils.Logger.Level;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
-import fr.mazure.homepagemanager.utils.internet.JsonHelper;
 import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
 /**
- *  Data extractor for Pragmatic Engineer podcast
+ * Data extractor for TWIML AI Podcast
  */
-public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
+public class TwimlLinkContentParser extends LinkDataExtractor {
 
-    private static final String s_sourceName = "Pragmatic Engineer podcast";
+    private static final String s_sourceName = "TWIML AI Podcast";
 
     private final String _title;
-    private final Optional<String> _subtitle;
     private final Optional<TemporalAccessor> _creationDate;
     private final Optional<TemporalAccessor> _publicationDate;
     private final Optional<Duration> _duration;
@@ -50,29 +44,23 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
     private final List<ExtractedLinkData> _links;
     private final Locale _language;
 
-    private static final TextParser s_jsonParser
-        = new TextParser("window\\._preloads\\s+=\\s+JSON\\.parse\\(\"",
-                         "\"\\)</script>",
-                         s_sourceName,
-                         "JSON");
-    private static final TextParser s_subtitleParser
-        = new TextParser("<div dir=\"auto\" class=\"pencraft pc-reset color-pub-secondary-text-hGQ02T line-height-24-jnGwiv font-pub-headings-FE5byy size-17-JHHggF weight-regular-mUq6Gb reset-IxiVJZ subtitle-HEEcLo\">",
-                         "</div>",
-                         s_sourceName,
-                         "subtitle");
-    private static final TextParser s_authorParser
-        = new TextParser("<title data-rh=\"true\">[^<]+ with ",
+    private static final TextParser s_titleParser
+        = new TextParser("<title>",
                          "</title>",
                          s_sourceName,
-                         "author in <title>");
+                         "title");
+    private static final TextParser s_dateParser
+        = new TextParser("<time datetime=\"",
+                         "\">",
+                         s_sourceName,
+                         "date");
     private static final TextParser s_youtubeLinkParser
-        = new TextParser("youtube-nocookie\\.com/embed/",
-                         "[A-Za-z0-9_-]+",
-                         "\\?",
+        = new TextParser("https://youtu\\.be/",
+                         "\"",
                          s_sourceName,
                          "YouTube link");
 
-    private static final Pattern s_extractGuest = Pattern.compile("\\s+with\\s+(.+)$");
+    private static final Pattern s_extractGuest = Pattern.compile("^.*? with (.+?)(?: \\|.*)?$");
 
     /**
      * Constructor
@@ -82,49 +70,32 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
      * @param retriever cache data retriever
      * @throws ContentParserException Failure to extract the information
      */
-    public PragmaticEngineerLinkContentParser(final String url,
-                                              final String data,
-                                              final CachedSiteDataRetriever retriever) throws ContentParserException {
+    public TwimlLinkContentParser(final String url,
+                                  final String data,
+                                  final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(url, retriever);
 
-        try {
-            final String escapedJson = s_jsonParser.extract(data);
-            final String json = JsonHelper.unescape(escapedJson);
-            final JSONObject payload = new JSONObject(json);
-            final JSONObject post = JsonHelper.getAsNode(payload, "post");
+        final String rawTitle = s_titleParser.extract(data);
+        _title = HtmlHelper.cleanContent(rawTitle.replace(" | The TWIML AI Podcast", ""));
 
-            _title = HtmlHelper.cleanContent(JsonHelper.getAsText(post, "title"));
-            final String postDate = JsonHelper.getAsText(post, "post_date");
-            _publicationDate = Optional.of(ZonedDateTime.parse(postDate, DateTimeFormatter.ISO_DATE_TIME).toLocalDate());
-            final double podcastDuration = post.getDouble("podcast_duration");
-            _duration = Optional.of(Duration.ofSeconds(Math.round(podcastDuration)));
-        } catch (final IllegalStateException e) {
-            throw new ContentParserException("Unexpected JSON", e);
+        _publicationDate = Optional.of(OffsetDateTime.parse(s_dateParser.extract(data)).toLocalDate());
+
+        _authors = new ArrayList<>();
+        final Matcher matcher = s_extractGuest.matcher(_title);
+        if (matcher.find()) {
+            final String guests = matcher.group(1);
+            _authors.addAll(LinkContentParserUtils.getAuthors(guests));
+        } else {
+	        throw new ContentParserException("Guests not found in title");
         }
-
-        _subtitle = s_subtitleParser.extractOptional(data)
-                                    .map(HtmlHelper::cleanContent);
-
-		_authors = new ArrayList<>();
-		final Optional<String> guestName = s_authorParser.extractOptional(data);
-		if (guestName.isPresent()) {
-			_authors.add(LinkContentParserUtils.parseAuthorName(guestName.get()));
-		} else {
-	        final Matcher matcher = s_extractGuest.matcher(_title);
-	        if (matcher.find()) {
-	            final String guestName2 = matcher.group(1);
-	            _authors.add(LinkContentParserUtils.parseAuthorName(guestName2));
-	        } else {
-	            throw new ContentParserException("Guests not found in title");
-	        }
-		}
-        _authors.add(WellKnownAuthors.GERGELY_OROSZ);
+        _authors.add(WellKnownAuthors.SAM_CHARRINGTON);
 
         final Optional<String> youtubeVideoId = s_youtubeLinkParser.extractOptional(data);
         final Optional<String> youtubeLink = youtubeVideoId.map(s -> "https://www.youtube.com/watch?v=" + s);
         initializeOtherLink(youtubeLink);
 
         _creationDate = DateTimeHelper.getMinTemporalAccessor(_publicationDate, _otherLink.map(link -> link.publicationDate().get()));
+        _duration = _otherLink.map(link -> link.duration().get());
 
         _language = Locale.ENGLISH;
         _links = initializeLinks();
@@ -137,7 +108,7 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return UrlHelper.hasPrefix(url, "https://newsletter.pragmaticengineer.com/p/");
+        return UrlHelper.hasPrefix(url, "https://twimlai.com/podcast/twimlai/");
     }
 
     @Override
@@ -147,7 +118,7 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
 
     @Override
     public Optional<String> getSubtitle() {
-        return _subtitle;
+        return Optional.empty();
     }
 
     @Override
@@ -196,7 +167,7 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
         // extract the link data
         try {
             final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(siteData.url(), payload, getRetriever());
-            final LocalDate youtubeDate = DateTimeHelper.convertTemporalAccessorToLocalDate(parser.getCreationDate().get());
+            final java.time.LocalDate youtubeDate = DateTimeHelper.convertTemporalAccessorToLocalDate(parser.getCreationDate().get());
             final ExtractedLinkData linkData = new ExtractedLinkData(parser.getTitle(),
                                                                      new String[] { },
                                                                      siteData.url(),
@@ -219,7 +190,7 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
 
     private List<ExtractedLinkData> initializeLinks() {
         final ExtractedLinkData linkData = new ExtractedLinkData(_title,
-                                                                 new String[] {},
+                                                                 new String[]{},
                                                                  getUrl(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),

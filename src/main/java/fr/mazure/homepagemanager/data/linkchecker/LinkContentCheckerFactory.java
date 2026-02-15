@@ -13,6 +13,7 @@ import fr.mazure.homepagemanager.data.linkchecker.baeldung.BaeldungLinkContentCh
 import fr.mazure.homepagemanager.data.linkchecker.chromium.ChromiumBlogLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.dzone.DZoneLinkContentChecker;
+import fr.mazure.homepagemanager.data.linkchecker.twiml.TwimlLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.githubblog.GithubBlogLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.gitlabblog.GitlabBlogLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.huggingface.HuggingFaceLinkContentChecker;
@@ -73,6 +74,7 @@ public class LinkContentCheckerFactory {
                 StackOverflowBlogLinkContentChecker.class,
                 SubstackLinkContentChecker.class,
                 ThoughtWorksLinkContentChecker.class,
+                TwimlLinkContentChecker.class,
                 WiredLinkContentChecker.class,
                 YoutubeChannelUserLinkContentChecker.class,
                 YoutubeWatchLinkContentChecker.class

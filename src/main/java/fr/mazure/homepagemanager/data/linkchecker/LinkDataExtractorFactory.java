@@ -28,6 +28,7 @@ import fr.mazure.homepagemanager.data.linkchecker.spectrum.SpectrumLinkContentPa
 import fr.mazure.homepagemanager.data.linkchecker.stackoverflowblog.StackOverflowBlogLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.substack.SubstackLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.thoughtworks.ThoughtWorksLinkContentParser;
+import fr.mazure.homepagemanager.data.linkchecker.twiml.TwimlLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.wired.WiredLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser;
 import fr.mazure.homepagemanager.utils.ExitHelper;
@@ -67,6 +68,7 @@ public class LinkDataExtractorFactory {
                 StackOverflowBlogLinkContentParser.class,
                 SubstackLinkContentParser.class,
                 ThoughtWorksLinkContentParser.class,
+                TwimlLinkContentParser.class,
                 WiredLinkContentParser.class,
                 YoutubeWatchLinkContentParser.class
                );
