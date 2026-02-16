@@ -16,6 +16,7 @@ class DwarkeshPodcastLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://www.dwarkesh.com/p/richard-sutton|Richard Sutton – Father of RL thinks LLMs are a dead end",
         "https://www.dwarkesh.com/p/elon-musk|Elon Musk — \"In 36 months, the cheapest place to put AI will be space\u201d",
+        "https://www.dwarkesh.com/p/thoughts-on-ai-progress-dec-2025-video|An audio version of my blog post, Thoughts on AI progress (Dec 2025)",
     }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
@@ -33,6 +34,16 @@ class DwarkeshPodcastLinkContentParserTest extends LinkDataExtractorTestBase {
         checkSubtitle(DwarkeshPodcastLinkContentParser.class, url, expectedSubtitle);
     }
 
+
+    @SuppressWarnings("static-method")
+    @ParameterizedTest
+    @CsvSource(value = {
+        "https://www.dwarkesh.com/p/thoughts-on-ai-progress-dec-2025-video",
+    }, delimiter = '|')
+    void testNoSubtitle(final String url) {
+        checkNoSubtitle(DwarkeshPodcastLinkContentParser.class, url);
+    }
+
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
@@ -42,6 +53,27 @@ class DwarkeshPodcastLinkContentParserTest extends LinkDataExtractorTestBase {
     void testPublicationDate(final String url,
                              final String expectedPublicationDate) {
         checkPublicationDate(DwarkeshPodcastLinkContentParser.class, url, expectedPublicationDate);
+    }
+
+
+    @SuppressWarnings("static-method")
+    @ParameterizedTest
+    @CsvSource(value = {
+        "https://www.dwarkesh.com/p/thoughts-on-ai-progress-dec-2025-video|Dwarkesh||Patel",
+    }, delimiter = '|')
+    void test1Author(final String url,
+                     final String expectedFirstName1,
+                     final String expectedMiddleName1,
+                     final String expectedLastName1) {
+        check1Author(DwarkeshPodcastLinkContentParser.class,
+                     url,
+                     // author 1
+                     null,
+                     expectedFirstName1,
+                     expectedMiddleName1,
+                     expectedLastName1,
+                     null,
+                     null);
     }
 
     @SuppressWarnings("static-method")
