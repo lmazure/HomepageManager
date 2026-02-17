@@ -51,9 +51,31 @@ class PragmaticEngineerLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
+        // extraction of author names still not supported for the following cases
+        "https://newsletter.pragmaticengineer.com/p/twisting-the-rules-of-building-software|Gergely||Orosz",
+        "https://newsletter.pragmaticengineer.com/p/quinn-slack-efficient-scalups|Gergely||Orosz",
+    }, delimiter = '|')
+    void test1Author(final String url,
+                     final String expectedFirstName1,
+                     final String expectedMiddleName1,
+                     final String expectedLastName1) {
+        check1Author(PragmaticEngineerLinkContentParser.class,
+                     url,
+                     // author 1
+                     null,
+                     expectedFirstName1,
+                     expectedMiddleName1,
+                     expectedLastName1,
+                     null,
+                     null);
+    }
+
+    @SuppressWarnings("static-method")
+    @ParameterizedTest
+    @CsvSource(value = {
         "https://newsletter.pragmaticengineer.com/p/martin-fowler|Martin||Fowler|Gergely||Orosz",
         "https://newsletter.pragmaticengineer.com/p/the-third-golden-age-of-software|Grady||Booch|Gergely||Orosz",
-        "https://newsletter.pragmaticengineer.com/p/github|Thomas||Dohmke|Gergely||Orosz"
+        "https://newsletter.pragmaticengineer.com/p/github|Thomas||Dohmke|Gergely||Orosz",
     }, delimiter = '|')
     void test2Authors(final String url,
                       final String expectedFirstName1,

@@ -114,8 +114,6 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
 	        if (matcher.find()) {
 	            final String guestName2 = matcher.group(1);
 	            _authors.add(LinkContentParserUtils.parseAuthorName(guestName2));
-	        } else {
-	            throw new ContentParserException("Guests not found in title");
 	        }
 		}
         _authors.add(WellKnownAuthors.GERGELY_OROSZ);
