@@ -59,6 +59,20 @@ class WellKnownRedirectionsTest {
              Set.of(LinkStatus.DEAD));
     }
 
+    // URLs giving directly a 402
+    @ParameterizedTest
+    @CsvSource({
+        "http://httpbin.org/status/402",
+        "https://www.telegraph.co.uk/health-fitness/conditions/cancer/prof-hannah-fry-calculating-risks-cancer-treatment-would-have/",
+        })
+    void direct402(final String url) {
+        test(url,
+             false,
+             Integer.valueOf(402),
+             "direct failure",
+             Set.of(LinkStatus.DEAD));
+    }
+
     // URLs giving directly a 403
     @ParameterizedTest
     @CsvSource({
