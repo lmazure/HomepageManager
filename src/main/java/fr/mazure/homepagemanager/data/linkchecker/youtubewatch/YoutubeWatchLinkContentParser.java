@@ -611,6 +611,10 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                                     WellKnownAuthors.buildAuthor("Alexandre", "Homberger")),
                                                           buildMatchingList(),
                                                           Locale.FRENCH)),
+            new AbstractMap.SimpleEntry<>("La Guilde ! - Expertise en Quality Engineering",
+                                          new ChannelData(buildList(WellKnownAuthors.buildAuthor("Jean-François", "Fresi")),
+                                                          buildMatchingList(),
+                                                          Locale.FRENCH)),
             new AbstractMap.SimpleEntry<>("La Tronche en Biais",
                                           new ChannelData(buildList(WellKnownAuthors.buildAuthor("Thomas", "C.", "Durand")),
                                                           buildMatchingList(),
@@ -688,6 +692,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                           new ChannelData(buildList(),
                                                           buildMatchingList(match("Farley", WellKnownAuthors.DAVE_FARLEY),
                                                                             match("Beck", WellKnownAuthors.KEN_BECK),
+                                                                            match("Bache", WellKnownAuthors.buildAuthor("Emily", "Bache")),
                                                                             match("Gee", WellKnownAuthors.buildAuthor("Trisha", "Gee"))
 																			),
                                                           Locale.ENGLISH)),
@@ -726,7 +731,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                                             match("Sloane", WellKnownAuthors.buildAuthor("Neil", "Sloane")),
                                                                             match("Sparks", WellKnownAuthors.BEN_SPARKS),
                                                                             match("Woolley", WellKnownAuthors.buildAuthor("Thomas", "Woolley")),
-                                                                            match("Zvezd", WellKnownAuthors.buildAuthor("Zvezdelina", "Stankova")) // maybe be "Zvezda"
+                                                                            match("Zvezd", WellKnownAuthors.buildAuthor("Zvezdelina", "Stankova")) // may be be "Zvezda"
                                                                             ),
                                                           Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Numberphile2",
