@@ -23,19 +23,20 @@ import fr.mazure.homepagemanager.utils.internet.HttpHelper;
 public class TestHelper {
 
     /**
-     * Assert that the data is the one expected from http://example.com
+     * Assert that the data is the one expected from http(s)://example.com
      *
      * @param data data
      */
     public static void assertExampleComData(final FullFetchedLinkData data) {
         Assertions.assertEquals(200, HttpHelper.getResponseCodeFromHeaders(data.headers().get()));
-        Assertions.assertTrue(data.headers().isPresent());
-        Assertions.assertTrue(data.headers().get().containsKey("Content-Type"));
-        Assertions.assertEquals(1, data.headers().get().get("Content-Type").size());
-        Assertions.assertEquals("text/html", data.headers().get().get("Content-Type").get(0));
-        Assertions.assertTrue(data.headers().get().containsKey("Cache-Control"));
-        Assertions.assertEquals(1, data.headers().get().get("Cache-Control").size());
-        Assertions.assertTrue(data.headers().get().get("Cache-Control").get(0).matches("max-age=\\d{1,5}"));
+        Assertions.assertTrue(data.headers().isPresent(), "headers should be present");
+        Assertions.assertTrue(data.headers().get().containsKey("Content-Type"), "Content-Type should be present");
+        Assertions.assertEquals(1, data.headers().get().get("Content-Type").size(), "Content-Type should have one value");
+        Assertions.assertEquals("text/html", data.headers().get().get("Content-Type").get(0), "Content-Type should be text/html");
+        Assertions.assertFalse(data.headers().get().containsKey("Cache-Control"), "Cache-Control should not be present");
+        Assertions.assertTrue(data.headers().get().containsKey("Content-Encoding"), "Content-Encoding should not be present");
+        Assertions.assertEquals(1, data.headers().get().get("Content-Encoding").size(), "Content-Encoding should have one value");
+        Assertions.assertEquals(data.headers().get().get("Content-Encoding").get(0), "gzip", "Cache-Control should match max-age=\\d{1,5}");
         Assertions.assertTrue(data.dataFileSection().isPresent());
         Assertions.assertFalse(data.error().isPresent());
         try {
@@ -58,10 +59,10 @@ public class TestHelper {
         Assertions.assertTrue(effectiveDate.get().isSupported(ChronoField.YEAR));
         Assertions.assertTrue(effectiveDate.get().isSupported(ChronoField.MONTH_OF_YEAR));
         Assertions.assertTrue(effectiveDate.get().isSupported(ChronoField.DAY_OF_MONTH));
-        final LocalDate d = LocalDate.of(effectiveDate.get().get(ChronoField.YEAR),
-                                         effectiveDate.get().get(ChronoField.MONTH_OF_YEAR),
-                                         effectiveDate.get().get(ChronoField.DAY_OF_MONTH));
-        Assertions.assertEquals(expectedDateAsString, d.toString());
+        final LocalDate date = LocalDate.of(effectiveDate.get().get(ChronoField.YEAR),
+                                            effectiveDate.get().get(ChronoField.MONTH_OF_YEAR),
+                                            effectiveDate.get().get(ChronoField.DAY_OF_MONTH));
+        Assertions.assertEquals(expectedDateAsString, date.toString());
     }
 
     /**
