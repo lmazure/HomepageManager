@@ -15,8 +15,8 @@ class TwimlLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://twimlai.com/podcast/twimlai/building-an-ai-mathematician/|Building an AI Mathematician with Carina Hong",
-        "https://twimlai.com/podcast/twimlai/ai-orchestration-for-smart-cities-and-the-enterprise/|AI Orchestration for Smart Cities and the Enterprise with Luke Norris, Robin Braun",
-        "https://twimlai.com/podcast/twimlai/why-agents-are-stupid-what-we-can-do-about-it/|Why Agents Are Stupid & What We Can Do About It with Dan Jeffries",
+        "https://twimlai.com/podcast/twimlai/ai-orchestration-for-smart-cities-and-the-enterprise/|AI Orchestration for Smart Cities and the Enterprise with Robin Braun & Luke Norris",
+        "https://twimlai.com/podcast/twimlai/why-agents-are-stupid-what-we-can-do-about-it/|Why Agents Are Stupid & What We Can Do About It with Daniel Jeffries",
     }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
@@ -39,7 +39,7 @@ class TwimlLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://twimlai.com/podcast/twimlai/building-an-ai-mathematician/|Carina||Hong|Sam||Charrington",
-        "https://twimlai.com/podcast/twimlai/why-agents-are-stupid-what-we-can-do-about-it/|Dan||Jeffries|Sam||Charrington",
+        "https://twimlai.com/podcast/twimlai/why-agents-are-stupid-what-we-can-do-about-it/|Daniel||Jeffries|Sam||Charrington",
     }, delimiter = '|')
     void test2Authors(final String url,
                      final String expectedFirstName1,
@@ -69,7 +69,7 @@ class TwimlLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://twimlai.com/podcast/twimlai/ai-orchestration-for-smart-cities-and-the-enterprise/|Luke||Norris|Robin||Braun|Sam||Charrington",
+        "https://twimlai.com/podcast/twimlai/ai-orchestration-for-smart-cities-and-the-enterprise/|Robin||Braun|Luke||Norris|Sam||Charrington",
     }, delimiter = '|')
     void test3Authors(final String url,
                      final String expectedFirstName1,

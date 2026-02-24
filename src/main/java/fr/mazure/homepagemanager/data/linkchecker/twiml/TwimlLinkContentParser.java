@@ -45,17 +45,17 @@ public class TwimlLinkContentParser extends LinkDataExtractor {
     private final Locale _language;
 
     private static final TextParser s_titleParser
-        = new TextParser("<title>",
-                         "</title>",
+        = new TextParser("<h1 class=\"font-display text-h1 text-primary\" data-astro-cid-3pdb5kwa>",
+                         "</h1>",
                          s_sourceName,
                          "title");
     private static final TextParser s_dateParser
-        = new TextParser("<time datetime=\"",
+        = new TextParser("<meta property=\"article:published_time\" content=\"",
                          "\">",
                          s_sourceName,
                          "date");
     private static final TextParser s_youtubeLinkParser
-        = new TextParser("https://youtu\\.be/",
+        = new TextParser("<lite-youtube videoid=\"",
                          "\"",
                          s_sourceName,
                          "YouTube link");
@@ -75,8 +75,7 @@ public class TwimlLinkContentParser extends LinkDataExtractor {
                                   final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(url, retriever);
 
-        final String rawTitle = s_titleParser.extract(data);
-        _title = HtmlHelper.cleanContent(rawTitle.replace(" | The TWIML AI Podcast", ""));
+        _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
 
         _publicationDate = Optional.of(OffsetDateTime.parse(s_dateParser.extract(data)).toLocalDate());
 
