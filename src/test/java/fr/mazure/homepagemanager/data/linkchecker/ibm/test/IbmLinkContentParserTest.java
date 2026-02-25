@@ -55,9 +55,9 @@ class IbmLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-            "https://developer.ibm.com/articles/j-java-streams-1-brian-goetz/|Run functional-style queries on collections and other data sets",
+            "https://developer.ibm.com/articles/j-java-streams-1-brian-goetz/|A concise explanation of how Java’s java.util.stream pacakage enables functional-style, declarative processing of collections and data sequences through pipelines of intermediate and terminal operations for clearer, more expressive, and potentially parallel code",
             // the next article has a space at the end of the subtitle
-            "https://developer.ibm.com/articles/j-java-streams-3-brian-goetz/|Understand java.util.stream internals",
+            "https://developer.ibm.com/articles/j-java-streams-3-brian-goetz/|Explore the internal mechanics of Java streams for optimized performance, parallel processing, and efficient data handling in modern Java applications",
         }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {

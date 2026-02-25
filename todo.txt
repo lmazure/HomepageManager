@@ -50,17 +50,25 @@ methods       53.9%    97.9%
 repare unit tests
 - ✓ fr.mazure.homepagemanager.data.dataretriever.test.SynchronousSiteDataRetrieverTest.basicHttpRequest()
 - ✓ fr.mazure.homepagemanager.data.dataretriever.test.SynchronousSiteDataRetrieverTest.basicHttpsRequest()
-- fr.mazure.homepagemanager.data.linkchecker.baeldung.test.BaeldungLinkContentParserTest.testDate(String, String)
-- fr.mazure.homepagemanager.data.linkchecker.ibm.test.IbmLinkContentParserTest.testSubtitle(String, String)
-- fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.gitLabBlogIsManaged()
-- fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.lexFridmanWithEndingSlashIsManaged()
-- fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.lexFridmanYoutubeFirstIsManaged()
-- fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.youtubeWatchTheRestIsScienceIsManaged()
-- fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.youtubeWatchVeritasiumHenryVanDyckIsManaged()
-- fr.mazure.homepagemanager.data.linkchecker.youtubechanneluser.test.YoutubeChannelUserLinkContentParserTest.testEnglish(String)
+- ✓ fr.mazure.homepagemanager.data.linkchecker.baeldung.test.BaeldungLinkContentParserTest.testDate(String, String)
+- ✓ fr.mazure.homepagemanager.data.linkchecker.ibm.test.IbmLinkContentParserTest.testSubtitle(String, String)
+- ✓ fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.gitLabBlogIsManaged()
+- ✓ fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.lexFridmanWithEndingSlashIsManaged()
+- ✓ fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.lexFridmanYoutubeFirstIsManaged()
+- ✓ fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.youtubeWatchTheRestIsScienceIsManaged()
+- ✓ fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.youtubeWatchVeritasiumHenryVanDyckIsManaged()
+- ⚠︎ fr.mazure.homepagemanager.data.linkchecker.youtubechanneluser.test.YoutubeChannelUserLinkContentParserTest.testEnglish(String)
 - the test are not finished…
 
 check the dates of https://oxide-and-friends.transistor.fm/episodes/shell-game-with-evan-ratliff
+
+
+
+
+
+the articles of fr.mazure.homepagemanager.data.linkchecker.ibm.test.IbmLinkContentParserTest.testSubtitle(String, String) have been rewritten, add test for checking (old and new) authors
+
+
 
 
 

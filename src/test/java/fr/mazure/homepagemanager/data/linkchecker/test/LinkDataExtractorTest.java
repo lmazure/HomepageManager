@@ -111,8 +111,8 @@ class LinkDataExtractorTest {
                 <ARTICLE><X><T>A special farewell from GitLab’s Dmitriy Zaporozhets</T>\
                 <A>https://about.gitlab.com/blog/2021/11/10/a-special-farewell-from-gitlab-dmitriy-zaporozhets/</A>\
                 <L>en</L><F>HTML</F></X>\
-                <AUTHOR><FIRSTNAME>Dmitriy</FIRSTNAME><LASTNAME>Zaporozhets</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Sid</FIRSTNAME><LASTNAME>Sijbrandij</LASTNAME></AUTHOR>\
+                <AUTHOR><FIRSTNAME>Dmitriy</FIRSTNAME><LASTNAME>Zaporozhets</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>11</MONTH><DAY>10</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
@@ -3535,7 +3535,7 @@ class LinkDataExtractorTest {
     void youtubeWatchTheRestIsScienceIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=Q9yw1K9r4tk";
         final String expectedXml = """
-                <ARTICLE><X><T>Why Do We Cry?</T>\
+                <ARTICLE><X><T>This One's A Tear Jerker</T>\
                 <A>https://www.youtube.com/watch?v=Q9yw1K9r4tk</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>44</MINUTE><SECOND>7</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Hannah</FIRSTNAME><LASTNAME>Fry</LASTNAME></AUTHOR>\
@@ -3682,14 +3682,14 @@ class LinkDataExtractorTest {
     void youtubeWatchVeritasiumHenryVanDyckIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=onr80iOoEXs";
         final String expectedSureXml = """
-                <ARTICLE><X><T>Alfred Nobel: The Man Who Fooled The World</T>\
+                <ARTICLE><X><T>The Man Who Fooled The World</T>\
                 <A>https://www.youtube.com/watch?v=onr80iOoEXs</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>46</MINUTE><SECOND>8</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Derek</FIRSTNAME><LASTNAME>Muller</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>9</MONTH><DAY>21</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
-                <ARTICLE><X><T>Alfred Nobel: The Man Who Fooled The World</T>\
+                <ARTICLE><X><T>The Man Who Fooled The World</T>\
                 <A>https://www.youtube.com/watch?v=onr80iOoEXs</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>46</MINUTE><SECOND>8</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Derek</FIRSTNAME><LASTNAME>Muller</LASTNAME></AUTHOR>\
