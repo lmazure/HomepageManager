@@ -60,6 +60,11 @@ repare unit tests
 - ⚠︎ fr.mazure.homepagemanager.data.linkchecker.youtubechanneluser.test.YoutubeChannelUserLinkContentParserTest.testEnglish(String)
 - the test are not finished…
 
+
+
+
+
+
 check the dates of https://oxide-and-friends.transistor.fm/episodes/shell-game-with-evan-ratliff
 
 

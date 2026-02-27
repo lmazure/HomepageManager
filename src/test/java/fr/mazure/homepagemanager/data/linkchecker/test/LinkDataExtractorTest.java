@@ -620,7 +620,7 @@ class LinkDataExtractorTest {
     void youtubeWatchArjanCodesIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=pxuXaaT1u3k";
         final String expectedXml = """
-                <ARTICLE><X><T>Python Logging: How to Write Logs Like a Pro!</T>\
+                <ARTICLE><X><T>Why Most Python Logging Setups Fail in Production</T>\
                 <A>https://www.youtube.com/watch?v=pxuXaaT1u3k</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>1</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Arjan</FIRSTNAME><LASTNAME>Egges</LASTNAME></AUTHOR>\

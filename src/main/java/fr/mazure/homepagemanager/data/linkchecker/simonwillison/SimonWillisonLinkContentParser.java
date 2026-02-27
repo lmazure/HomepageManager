@@ -84,7 +84,8 @@ public class SimonWillisonLinkContentParser extends LinkDataExtractor {
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return UrlHelper.hasPrefix(url, "https://simonwillison.net/");
+        return UrlHelper.hasPrefix(url, "https://simonwillison.net/") &&
+               !UrlHelper.hasPrefix(url, "https://simonwillison.net/guides/");
     }
 
     @Override
