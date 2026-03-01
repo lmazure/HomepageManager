@@ -12,7 +12,6 @@ import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
-import fr.mazure.homepagemanager.utils.ExitHelper;
 import fr.mazure.homepagemanager.utils.StringHelper;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
@@ -38,10 +37,11 @@ public class YoutubeChannelUserLinkContentParser extends LinkDataExtractor {
      * @param url URL of the link
      * @param data retrieved link data
      * @param retriever cache data retriever
+     * @throws ContentParserException Failure to extract the information
      */
     public YoutubeChannelUserLinkContentParser(final String url,
                                                final String data,
-                                               final CachedSiteDataRetriever retriever) {
+                                               final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(url, retriever);
 
         _errorMessage = extractErrorMessage(data);
@@ -49,15 +49,10 @@ public class YoutubeChannelUserLinkContentParser extends LinkDataExtractor {
         if (_errorMessage.isPresent()) {
             _language = Locale.ENGLISH;
         } else {
-            try {
-                final String description = extractDescription(data);
-                final Optional<Locale> lang = StringHelper.guessLanguage(description);
-                //  we fallback to English if the language cannot be guessed
-                _language = lang.orElse(Locale.ENGLISH);
-            } catch (ContentParserException e) {
-                // TODO should keep the exception escape
-                ExitHelper.exit("Failed to extract description", e);
-            }
+            final String description = extractDescription(data);
+            final Optional<Locale> lang = StringHelper.guessLanguage(description);
+            //  we fallback to English if the language cannot be guessed
+            _language = lang.orElse(Locale.ENGLISH);
         }
     }
 
