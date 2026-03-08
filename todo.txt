@@ -47,6 +47,38 @@ methods       53.9%    97.9%
 
 
 
+
+
+manage
+Exception in thread "pool-2-thread-44" org.json.JSONException: JSONObject["head.firstPublishDate"] not found.
+	at org.json@20250517/org.json.JSONObject.get(JSONObject.java:635)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.JsonHelper.getAsObject(JsonHelper.java:120)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.JsonHelper.getAsText(JsonHelper.java:64)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.wired.WiredLinkContentParser.<init>(WiredLinkContentParser.java:64)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:58)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:98)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:87)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:325)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:33)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:32)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1474)
+
+
+
+
+
+
+
+
+manage parsing of https://newsletter.pragmaticengineer.com/p/building-claude-code-with-boris-cherny
+
+
+
+
+
+
 manage
  tag = "COMMENT"
  value = "SimonWillison considers that gglm.ai joining Hugging Face is a good thing for llama.cpp’s future."
