@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
@@ -61,18 +60,13 @@ public class WiredLinkContentParser extends LinkDataExtractor {
             final JSONObject payload = new JSONObject(json);
             title = HtmlHelper.cleanContent(JsonHelper.getAsText(payload, "transformed", "article", "headerProps", "dangerousHed"));
             subtitle = HtmlHelper.cleanContent(JsonHelper.getAsText(payload, "transformed", "article", "headerProps", "dangerousDek"));
-            final String pubDate = JsonHelper.getAsText(payload, "transformed", "head.firstPublishDate");
+            final String pubDate = JsonHelper.getAsText(payload, "transformed", "payment", "negotiation", "content", "publishDate");
             publicationDate = ZonedDateTime.parse(pubDate, DateTimeFormatter.ISO_DATE_TIME).toLocalDate();
-            final JSONArray authorArray = JsonHelper.getAsArray(payload, "transformed", "head.jsonld").getJSONObject(0).getJSONArray("author");
-            authors = new ArrayList<>(authorArray.length());
-            for (int i = 0; i < authorArray.length(); i++) {
-                final String author = authorArray.getJSONObject(i).getString("name");
-                if (!author.equals("WIRED Staff") &&
-                    !author.equals("WIRED Ideas")) {
-                    final String cleanedAuthor = author.replaceAll(", Ars Technica$", "");
-                    authors.add(LinkContentParserUtils.parseAuthorName(cleanedAuthor));
-                }
-            }
+            final String auth = JsonHelper.getAsText(payload, "transformed", "coreDataLayer", "content", "authorNames");
+            authors = LinkContentParserUtils.getAuthors(auth.replaceAll(", Ars Technica$", ""))
+                                            .stream()
+                                            .filter(a -> (a.getFirstName().isEmpty() || !a.getFirstName().get().equals("WIRED")))
+                                            .toList();
         } catch (final IllegalStateException e) {
             throw new ContentParserException("Unexpected JSON", e);
         }
