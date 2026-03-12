@@ -75,7 +75,7 @@ class EllipsisCheckerTest extends NodeValueCheckerTestBase {
             </PAGE>""";
         try {
             test(content,
-                 "' should be’<<ImproperApostrophe>>");
+                 "' should be ’<<ImproperApostrophe>>");
         } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
