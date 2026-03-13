@@ -693,6 +693,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                           buildMatchingList(match("Farley", WellKnownAuthors.DAVE_FARLEY),
                                                                             match("Beck", WellKnownAuthors.KEN_BECK),
                                                                             match("Bache", WellKnownAuthors.buildAuthor("Emily", "Bache")),
+                                                                            match("Smith", WellKnownAuthors.buildAuthor("Steve", "Smith")),
                                                                             match("Gee", WellKnownAuthors.buildAuthor("Trisha", "Gee"))
 																			),
                                                           Locale.ENGLISH)),
