@@ -48,6 +48,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "Frama.space",
             "github.com",
             "GitLab.com",
+            "gglm.ai",
             "GPU.zip",
             "Heu?reka",
             "i.e.",
@@ -124,7 +125,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
         }
 
         for (final String l: list) {
-            if (Arrays.stream(l.split("[ /]")).anyMatch(s -> missesSpaceBeforePunctuation(s, locale.get()))) {
+            if (Arrays.stream(l.split("[ /’]")).anyMatch(s -> missesSpaceBeforePunctuation(s, locale.get()))) {
                 return new CheckStatus("MissingSpace", "\"" + e.getTextContent() + "\" is missing a space before punctuation", Optional.empty());
             }
         }
@@ -141,7 +142,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
         }
 
         for (final String l: list) {
-            if (Arrays.stream(l.split("[ /]")).anyMatch(s -> missesSpaceAfterPunctuation(s, locale.get()))) {
+            if (Arrays.stream(l.split("[ /’]")).anyMatch(s -> missesSpaceAfterPunctuation(s, locale.get()))) {
                 return new CheckStatus("MissingSpace", "\"" + e.getTextContent() + "\" is missing a space after punctuation", Optional.empty());
             }
         }

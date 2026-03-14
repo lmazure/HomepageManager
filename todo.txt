@@ -90,15 +90,6 @@ manage parsing of https://newsletter.pragmaticengineer.com/p/building-claude-cod
 
 
 
-manage
- tag = "COMMENT"
- value = "SimonWillison considers that gglm.ai joining Hugging Face is a good thing for llama.cpp’s future."
- violation = "space is missing after punctuation"
- detail = ""SimonWillison considers that gglm.ai joining Hugging Face is a good thing for llama.cpp’s future." is missing a space after punctuation"
- 
- 
- 
- 
  
 repare YoutubeChannelUserLinkContentParser
 
