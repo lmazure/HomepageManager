@@ -97,6 +97,12 @@ public class MediumLinkContentParser extends LinkDataExtractor {
             return false;
         }
 
+        final String path = UriHelper.getPath(url);
+        if (path.equals("/")) {
+            // this parser works on blog articles, not on a blog main page
+            return false;
+        }
+
         final String host = UriHelper.getHost(url);
         if (host == null) {
             return false;

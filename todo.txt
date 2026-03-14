@@ -61,33 +61,6 @@ syntax hightlighting does not work in a table, see /notes/java.html
 
 
 manage
-fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://henix-blog.medium.com/"
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:89)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:325)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:33)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:32)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
-	at java.base/java.lang.Thread.run(Thread.java:1474)
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find "Post:blog.medium.com/" JSON object in Medium page
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentParser.loadData(MediumLinkContentParser.java:156)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentParser.<init>(MediumLinkContentParser.java:85)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:58)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:98)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:87)
-	... 6 more
-Caused by: org.json.JSONException: JSONObject["Post:blog.medium.com/"] not found.
-	at org.json@20250517/org.json.JSONObject.get(JSONObject.java:635)
-	at org.json@20250517/org.json.JSONObject.getJSONObject(JSONObject.java:845)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentParser.loadData(MediumLinkContentParser.java:154)
-	... 10 more
-
-
-
-
-
-
-manage
 Exception in thread "pool-2-thread-44" org.json.JSONException: JSONObject["head.firstPublishDate"] not found.
 	at org.json@20250517/org.json.JSONObject.get(JSONObject.java:635)
 	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.JsonHelper.getAsObject(JsonHelper.java:120)
