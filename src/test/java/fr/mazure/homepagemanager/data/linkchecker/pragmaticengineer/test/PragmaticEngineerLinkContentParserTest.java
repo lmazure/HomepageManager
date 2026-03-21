@@ -16,6 +16,7 @@ class PragmaticEngineerLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://newsletter.pragmaticengineer.com/p/martin-fowler|How AI will change software engineering – with Martin Fowler",
         "https://newsletter.pragmaticengineer.com/p/the-third-golden-age-of-software|The third golden age of software engineering – thanks to AI, with Grady Booch",
+        "https://newsletter.pragmaticengineer.com/p/building-windsurf-with-varun-mohan|Building Windsurf with Varun Mohan",
     }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
@@ -76,6 +77,7 @@ class PragmaticEngineerLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://newsletter.pragmaticengineer.com/p/martin-fowler|Martin||Fowler|Gergely||Orosz",
         "https://newsletter.pragmaticengineer.com/p/the-third-golden-age-of-software|Grady||Booch|Gergely||Orosz",
         "https://newsletter.pragmaticengineer.com/p/github|Thomas||Dohmke|Gergely||Orosz",
+        "https://newsletter.pragmaticengineer.com/p/building-windsurf-with-varun-mohan|Varun||Mohan|Gergely||Orosz",
     }, delimiter = '|')
     void test2Authors(final String url,
                       final String expectedFirstName1,
