@@ -29,6 +29,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "AGENTS.md",
             "Answer.AI",
             "analytics.katalon.com",
+            "A.R.T.", // because of "The A.R.T. Project"
             "asm.js",
             "autosrb.pl",
             "ASP.NET",
@@ -83,7 +84,6 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "Sails.js",
             "scicomm.xyz",
             "sketch.dev",
-            "The A.R.T Project",
             "Three.js",
             "tween.js",
             "typescriptlang.org",
@@ -92,11 +92,12 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "Venus.js",
             "view.json",
             "Wallaby.js",
-            "Washington Z.C.",
             "xml:id",
             "X.org",
             "xsl:key",
-            "Z.ai");
+            "Z.ai",
+            "Z.C." //because of "Washington Z.C.",
+            );
 
     private static final Set<String> s_authorizedMissingPrecedingSpaceList = Set.of(
             ".Net",
