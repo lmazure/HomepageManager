@@ -42,12 +42,12 @@ class TwimlLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://twimlai.com/podcast/twimlai/why-agents-are-stupid-what-we-can-do-about-it/|Daniel||Jeffries|Sam||Charrington",
     }, delimiter = '|')
     void test2Authors(final String url,
-                     final String expectedFirstName1,
-                     final String expectedMiddleName1,
-                     final String expectedLastName1,
-                     final String expectedFirstName2,
-                     final String expectedMiddleName2,
-                     final String expectedLastName2) {
+                      final String expectedFirstName1,
+                      final String expectedMiddleName1,
+                      final String expectedLastName1,
+                      final String expectedFirstName2,
+                      final String expectedMiddleName2,
+                      final String expectedLastName2) {
         check2Authors(TwimlLinkContentParser.class,
                       url,
                       // author 1
@@ -72,15 +72,15 @@ class TwimlLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://twimlai.com/podcast/twimlai/ai-orchestration-for-smart-cities-and-the-enterprise/|Robin||Braun|Luke||Norris|Sam||Charrington",
     }, delimiter = '|')
     void test3Authors(final String url,
-                     final String expectedFirstName1,
-                     final String expectedMiddleName1,
-                     final String expectedLastName1,
-                     final String expectedFirstName2,
-                     final String expectedMiddleName2,
-                     final String expectedLastName2,
-                     final String expectedFirstName3,
-                     final String expectedMiddleName3,
-                     final String expectedLastName3) {
+                      final String expectedFirstName1,
+                      final String expectedMiddleName1,
+                      final String expectedLastName1,
+                      final String expectedFirstName2,
+                      final String expectedMiddleName2,
+                      final String expectedLastName2,
+                      final String expectedFirstName3,
+                      final String expectedMiddleName3,
+                      final String expectedLastName3) {
         check3Authors(TwimlLinkContentParser.class,
                       url,
                       // author 1
@@ -102,6 +102,67 @@ class TwimlLinkContentParserTest extends LinkDataExtractorTestBase {
                       expectedFirstName3,
                       expectedMiddleName3,
                       expectedLastName3,
+                      null,
+                      null);
+    }
+
+
+    @SuppressWarnings("static-method")
+    @ParameterizedTest
+    @CsvSource(value = {
+        "https://twimlai.com/podcast/twimlai/google-io-2025-special-edition|Shrestha|Basu|Mallick|Logan||Kilpatrick|Kwindla||Kramer|Shawn||Wang|Sam||Charrington",
+    }, delimiter = '|')
+    void test5Authors(final String url,
+                      final String expectedFirstName1,
+                      final String expectedMiddleName1,
+                      final String expectedLastName1,
+                      final String expectedFirstName2,
+                      final String expectedMiddleName2,
+                      final String expectedLastName2,
+                      final String expectedFirstName3,
+                      final String expectedMiddleName3,
+                      final String expectedLastName3,
+                      final String expectedFirstName4,
+                      final String expectedMiddleName4,
+                      final String expectedLastName4,
+                      final String expectedFirstName5,
+                      final String expectedMiddleName5,
+                      final String expectedLastName5) {
+        check5Authors(TwimlLinkContentParser.class,
+                      url,
+                      // author 1
+                      null,
+                      expectedFirstName1,
+                      expectedMiddleName1,
+                      expectedLastName1,
+                      null,
+                      null,
+                      // author 2
+                      null,
+                      expectedFirstName2,
+                      expectedMiddleName2,
+                      expectedLastName2,
+                      null,
+                      null,
+                      // author 3
+                      null,
+                      expectedFirstName3,
+                      expectedMiddleName3,
+                      expectedLastName3,
+                      null,
+                      null,
+                      // author 4
+                      null,
+                      expectedFirstName4,
+                      expectedMiddleName4,
+                      expectedLastName4,
+                      null,
+                      null,
+                      // author 5
+                      null,
+                      expectedFirstName5,
+                      expectedMiddleName5,
+                      expectedLastName5,
                       null,
                       null);
     }

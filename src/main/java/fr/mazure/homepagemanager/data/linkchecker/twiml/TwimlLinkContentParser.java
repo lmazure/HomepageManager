@@ -8,8 +8,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
@@ -54,13 +52,16 @@ public class TwimlLinkContentParser extends LinkDataExtractor {
                          "\">",
                          s_sourceName,
                          "date");
+    private static final TextParser s_authorParser
+        = new TextParser("\\{\"@type\":\"Person\",\"@id\":\"https://twimlai.com/network/[^\"]+\",\"name\":\"",
+                         "\\\"}",
+                         s_sourceName,
+                         "author");
     private static final TextParser s_youtubeLinkParser
         = new TextParser("<lite-youtube videoid=\"",
                          "\"",
                          s_sourceName,
                          "YouTube link");
-
-    private static final Pattern s_extractGuest = Pattern.compile("^.*? with (.+?)(?: \\|.*)?$");
 
     /**
      * Constructor
@@ -80,12 +81,10 @@ public class TwimlLinkContentParser extends LinkDataExtractor {
         _publicationDate = Optional.of(OffsetDateTime.parse(s_dateParser.extract(data)).toLocalDate());
 
         _authors = new ArrayList<>();
-        final Matcher matcher = s_extractGuest.matcher(_title);
-        if (matcher.find()) {
-            final String guests = matcher.group(1);
-            _authors.addAll(LinkContentParserUtils.getAuthors(guests));
-        } else {
-	        throw new ContentParserException("Guests not found in title");
+        for (final String author: s_authorParser.extractMulti(data)) {
+            if (!"Sam Charrington".equals(author)) {                
+                _authors.add(LinkContentParserUtils.parseAuthorName(author));
+            }
         }
         _authors.add(WellKnownAuthors.SAM_CHARRINGTON);
 
