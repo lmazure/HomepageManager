@@ -23,6 +23,7 @@ import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
+import fr.mazure.homepagemanager.utils.ExitHelper;
 import fr.mazure.homepagemanager.utils.StringHelper;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.internet.JsonHelper;
@@ -36,9 +37,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
 
     private static final String s_apiKeyEnvVariableName = "YOUTUBE_DATA_API_KEY";
-    private static final String s_apiKeyFallback = "AIzaSyA0E3d1F4j-pkGm41R2m-5CB41ZgQXo52E";
     private static final Pattern s_idPattern = Pattern.compile("(?:\\?|&)v=([^&]+)");
-
 
     private final List<AuthorData> _sureAuthors;
     private final List<AuthorData> _probableAuthors;
@@ -78,7 +77,6 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         // data is ignored; this parser now relies on the YouTube Data API.
 
         try {
-
             final String videoId = extractVideoId(getUrl());
             final String apiUrl = buildApiUrl(videoId);
             final JSONObject payload = retrieveApiPayload(apiUrl);
@@ -185,10 +183,10 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
 
     private static String getApiKey() {
         final String apiKey = System.getenv(s_apiKeyEnvVariableName);
-        if ((apiKey != null) && !apiKey.isBlank()) {
-            return apiKey;
+        if (apiKey == null) {
+            ExitHelper.exit(s_apiKeyEnvVariableName + " environment variable is undefined");
         }
-        return s_apiKeyFallback;
+        return apiKey;
     }
 
     private JSONObject retrieveApiPayload(final String apiUrl) throws ContentParserException {
