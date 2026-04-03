@@ -37,6 +37,8 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
 
     private static final String s_apiKeyEnvVariableName = "YOUTUBE_DATA_API_KEY";
     private static final String s_apiKeyFallback = "AIzaSyA0E3d1F4j-pkGm41R2m-5CB41ZgQXo52E";
+    private static final Pattern s_idPattern = Pattern.compile("(?:\\?|&)v=([^&]+)");
+
 
     private final List<AuthorData> _sureAuthors;
     private final List<AuthorData> _probableAuthors;
@@ -51,7 +53,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     private final LocalDate _publishDate;
     private final LocalDate _startBroadcastDate;
     private final LocalDate _endBroadcastDate;
-    private final Duration _duration;
+    private final Optional<Duration> _duration;
 
     /**
      * @param url URL of the link
@@ -89,7 +91,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                 _channel = null;
                 _title = null;
                 _description = null;
-                _duration = null;
+                _duration = Optional.empty();
                 _uploadDate = null;
                 _publishDate = null;
                 _startBroadcastDate = null;
@@ -108,9 +110,9 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
 
             if (item.has("contentDetails") && JsonHelper.getAsNode(item, "contentDetails").has("duration")) {
                 final Duration duration = Duration.parse(JsonHelper.getAsText(item, "contentDetails", "duration"));
-                _duration = duration;
+                _duration = Optional.of(duration);
             } else {
-                _duration = null;
+                _duration = Optional.empty();
             }
 
             final String publishDate = JsonHelper.getAsText(snippet, "publishedAt");
@@ -120,11 +122,11 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
             if (item.has("liveStreamingDetails")) {
                 final JSONObject liveStreamingDetails = JsonHelper.getAsNode(item, "liveStreamingDetails");
                 final String startDate = liveStreamingDetails.has("actualStartTime") ? JsonHelper.getAsText(liveStreamingDetails, "actualStartTime")
-                                                                                       : (liveStreamingDetails.has("scheduledStartTime") ? JsonHelper.getAsText(liveStreamingDetails, "scheduledStartTime")
-                                                                                                                                           : null);
-                final String endDate = liveStreamingDetails.has("actualEndTime") ? JsonHelper.getAsText(liveStreamingDetails, "actualEndTime")
-                                                                                   : (liveStreamingDetails.has("scheduledEndTime") ? JsonHelper.getAsText(liveStreamingDetails, "scheduledEndTime")
+                                                                                     : (liveStreamingDetails.has("scheduledStartTime") ? JsonHelper.getAsText(liveStreamingDetails, "scheduledStartTime")
                                                                                                                                        : null);
+                final String endDate = liveStreamingDetails.has("actualEndTime") ? JsonHelper.getAsText(liveStreamingDetails, "actualEndTime")
+                                                                                 : (liveStreamingDetails.has("scheduledEndTime") ? JsonHelper.getAsText(liveStreamingDetails, "scheduledEndTime")
+                                                                                                                                  : null);
                 _startBroadcastDate = (startDate != null) ? parseDateTimeString(startDate)
                                                           : null;
                 _endBroadcastDate = (endDate != null) ? parseDateTimeString(endDate)
@@ -135,9 +137,9 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
             }
 
             final String privacyStatus = item.has("status") ? JsonHelper.getAsText(item, "status", "privacyStatus")
-                                                             : "public";
+                                                            : "public";
             final String uploadStatus = item.has("status") ? JsonHelper.getAsText(item, "status", "uploadStatus")
-                                                            : "processed";
+                                                           : "processed";
             _isPlayable = !"private".equals(privacyStatus) && !"deleted".equals(uploadStatus) && !"rejected".equals(uploadStatus);
         } catch (final IllegalStateException e) {
             throw new ContentParserException("Unexpected JSON", e);
@@ -167,11 +169,11 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     }
 
     private static String extractVideoId(final String url) throws ContentParserException {
-        final Matcher matcher = Pattern.compile("(?:\\?|&)v=([^&]+)").matcher(url);
-        if (!matcher.find()) {
+        final Matcher s_idMatcher = s_idPattern.matcher(url);
+        if (!s_idMatcher.find()) {
             throw new ContentParserException("Cannot extract video ID from URL: \"" + url + "\"");
         }
-        return matcher.group(1);
+        return s_idMatcher.group(1);
     }
 
     private static String buildApiUrl(final String videoId) {
@@ -339,7 +341,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
      */
     @Override
     public Optional<Duration> getDuration(){
-        return Optional.ofNullable(_duration);
+        return _duration;
     }
 
     /**
