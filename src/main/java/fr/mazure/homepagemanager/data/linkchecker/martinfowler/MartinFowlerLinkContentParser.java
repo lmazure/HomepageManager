@@ -45,7 +45,7 @@ public class MartinFowlerLinkContentParser extends LinkDataExtractor {
                          "date");
     private static final TextParser s_authorParser1
         = new TextParser(" rel = 'author'>",
-                         "</a></address>",
+                         "</a>",
                          s_sourceName,
                          "author");
     private static final TextParser s_authorParser2
@@ -135,8 +135,9 @@ public class MartinFowlerLinkContentParser extends LinkDataExtractor {
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return UrlHelper.hasPrefix(url, "https://martinfowler.com/articles/") &&
-               !url.equals("https://martinfowler.com/articles/eurogames/"); // this page is special, we do not handle it here
+        return (UrlHelper.hasPrefix(url, "https://martinfowler.com/articles/") &&
+                !url.equals("https://martinfowler.com/articles/eurogames/")) || // this page is special, we do not handle it here
+			   UrlHelper.hasPrefix(url, "https://martinfowler.com/bliki/");
     }
 
     @Override

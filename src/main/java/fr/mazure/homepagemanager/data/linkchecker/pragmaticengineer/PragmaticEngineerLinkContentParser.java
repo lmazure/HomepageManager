@@ -106,18 +106,16 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
                                     .map(HtmlHelper::cleanContent);
 
 		_authors = new ArrayList<>();
-		final Optional<String> guestName = s_authorParser.extractOptional(data);
-		if (guestName.isPresent()) {
-			_authors.add(LinkContentParserUtils.parseAuthorName(guestName.get()));
-		} else {
-	        final Matcher matcher = s_extractGuest.matcher(_title);
-	        if (matcher.find()) {
-	            final String guestName2 = matcher.group(1);
-	            _authors.add(LinkContentParserUtils.parseAuthorName(guestName2));
-	        } else {
-	            throw new ContentParserException("Guests not found in title");
-	        }
-		}
+        final Matcher matcher = s_extractGuest.matcher(_title);
+        if (matcher.find()) {
+            final String guestName = matcher.group(1);
+            _authors.add(LinkContentParserUtils.parseAuthorName(guestName));
+        } else {
+            final Optional<String> guestName = s_authorParser.extractOptional(data);
+            if (guestName.isPresent()) {
+                _authors.add(LinkContentParserUtils.parseAuthorName(guestName.get()));
+            }
+        }
         _authors.add(WellKnownAuthors.GERGELY_OROSZ);
 
         final Optional<String> youtubeVideoId = s_youtubeLinkParser.extractOptional(data);

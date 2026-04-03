@@ -71,7 +71,7 @@ public class EllipsisChecker extends NodeChecker {
         final List<String> strings = XmlHelper.getFirstLevelTextContent(e);
         for (final String s: strings) {
             if (s.contains("'")) {
-                return new CheckStatus("ImproperApostrophe", "' should be’", Optional.empty());
+                return new CheckStatus("ImproperApostrophe", "' should be ’", Optional.empty());
             }
         }
 

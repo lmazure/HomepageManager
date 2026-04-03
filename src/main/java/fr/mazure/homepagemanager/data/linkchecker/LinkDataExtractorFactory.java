@@ -10,6 +10,7 @@ import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.arstechnica.ArsTechnicaLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.baeldung.BaeldungLinkContentParser;
+import fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.dzone.DZoneLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.githubblog.GithubBlogLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.gitlabblog.GitlabBlogLinkContentParser;
@@ -50,6 +51,7 @@ public class LinkDataExtractorFactory {
         final List<Class<? extends LinkDataExtractor>> extractors = List.of(
                 ArsTechnicaLinkContentParser.class,
                 BaeldungLinkContentParser.class,
+                DwarkeshPodcastLinkContentParser.class,
                 DZoneLinkContentParser.class,
                 GithubBlogLinkContentParser.class,
                 GitlabBlogLinkContentParser.class,

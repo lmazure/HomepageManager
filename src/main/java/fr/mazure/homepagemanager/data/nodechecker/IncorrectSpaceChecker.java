@@ -29,6 +29,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "AGENTS.md",
             "Answer.AI",
             "analytics.katalon.com",
+            "A.R.T.", // because of "The A.R.T. Project"
             "asm.js",
             "autosrb.pl",
             "ASP.NET",
@@ -40,6 +41,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "Clipboard.com",
             "Comma.ai",
             "chess.com",
+            "DESIGN.md",
             "distributed.net",
             "e.g.",
             "Famo.us",
@@ -48,6 +50,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "Frama.space",
             "github.com",
             "GitLab.com",
+            "gglm.ai",
             "GPU.zip",
             "Heu?reka",
             "i.e.",
@@ -81,7 +84,6 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "Sails.js",
             "scicomm.xyz",
             "sketch.dev",
-            "The A.R.T Project",
             "Three.js",
             "tween.js",
             "typescriptlang.org",
@@ -90,11 +92,12 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "Venus.js",
             "view.json",
             "Wallaby.js",
-            "Washington Z.C.",
             "xml:id",
             "X.org",
             "xsl:key",
-            "Z.ai");
+            "Z.ai",
+            "Z.C." //because of "Washington Z.C.",
+            );
 
     private static final Set<String> s_authorizedMissingPrecedingSpaceList = Set.of(
             ".Net",
@@ -124,7 +127,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
         }
 
         for (final String l: list) {
-            if (Arrays.stream(l.split("[ /]")).anyMatch(s -> missesSpaceBeforePunctuation(s, locale.get()))) {
+            if (Arrays.stream(l.split("[ /’]")).anyMatch(s -> missesSpaceBeforePunctuation(s, locale.get()))) {
                 return new CheckStatus("MissingSpace", "\"" + e.getTextContent() + "\" is missing a space before punctuation", Optional.empty());
             }
         }
@@ -141,7 +144,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
         }
 
         for (final String l: list) {
-            if (Arrays.stream(l.split("[ /]")).anyMatch(s -> missesSpaceAfterPunctuation(s, locale.get()))) {
+            if (Arrays.stream(l.split("[ /’]")).anyMatch(s -> missesSpaceAfterPunctuation(s, locale.get()))) {
                 return new CheckStatus("MissingSpace", "\"" + e.getTextContent() + "\" is missing a space after punctuation", Optional.empty());
             }
         }

@@ -69,7 +69,8 @@ class MartinFowlerLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://martinfowler.com/articles/refactoring-2nd-ed.html|Martin|Fowler",
         "https://martinfowler.com/articles/mocksArentStubs.html|Martin|Fowler",
         "https://martinfowler.com/articles/exploring-gen-ai/to-vibe-or-not-vibe.html|Birgitta|Böckeler",
-        "https://martinfowler.com/articles/202508-ai-thoughts.html|Martin|Fowler"
+        "https://martinfowler.com/articles/202508-ai-thoughts.html|Martin|Fowler",
+        "https://martinfowler.com/bliki/AgenticEmail.html|Martin|Fowler",
         }, delimiter = '|')
     void test1Author(final String url,
                      final String expectedFirstName,

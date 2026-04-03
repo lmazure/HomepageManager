@@ -284,4 +284,28 @@ class IncorrectSpaceCheckerTest extends NodeValueCheckerTestBase {
             Assertions.fail("SAXException");
         }
     }
+
+    @SuppressWarnings("static-method")
+    @Test
+    void stringsAreProerlyDvidedAtApostrophe() {
+
+        final String content =
+            """
+            <?xml version="1.0"?>\r
+            <?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>\r
+            <PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd" xml:lang="en">\r
+            <TITLE>Test</TITLE>\r
+            <PATH>HomepageManager/test.xml</PATH>\r
+            <DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>\r
+            <CONTENT>\r
+            <BLIST><TITLE><AUTHOR><FIRSTNAME>Simon</FIRSTNAME><LASTNAME>Willison</LASTNAME></AUTHOR> considers that gglm.ai joining Hugging Face is a good thing for llama.cpp’s future.</TITLE></BLIST>\r
+            </CONTENT>\r
+            </PAGE>""";
+
+        try {
+            test(content);
+        } catch (final SAXException _) {
+            Assertions.fail("SAXException");
+        }
+    }
 }
