@@ -51,8 +51,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     private final LocalDate _publishDate;
     private final LocalDate _startBroadcastDate;
     private final LocalDate _endBroadcastDate;
-    private final Duration _minDuration;
-    private final Duration _maxDuration;
+    private final Duration _duration;
 
     /**
      * @param url URL of the link
@@ -90,8 +89,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                 _channel = null;
                 _title = null;
                 _description = null;
-                _minDuration = null;
-                _maxDuration = null;
+                _duration = null;
                 _uploadDate = null;
                 _publishDate = null;
                 _startBroadcastDate = null;
@@ -110,11 +108,9 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
 
             if (item.has("contentDetails") && JsonHelper.getAsNode(item, "contentDetails").has("duration")) {
                 final Duration duration = Duration.parse(JsonHelper.getAsText(item, "contentDetails", "duration"));
-                _minDuration = duration;
-                _maxDuration = duration;
+                _duration = duration;
             } else {
-                _minDuration = null;
-                _maxDuration = null;
+                _duration = null;
             }
 
             final String publishDate = JsonHelper.getAsText(snippet, "publishedAt");
@@ -334,35 +330,16 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     public Optional<LocalDate> getEndBroadcastDateInternal() {
         return Optional.ofNullable(_endBroadcastDate);
     }
-    /**
-     * Get the duration of the video (we return the min value)<br>
-     * Is null if the video is private
-     *
-     * @return duration of the video
-     */
-    @Override
-    public Optional<Duration> getDuration() {
-        return Optional.ofNullable(getMinDuration());
-    }
 
     /**
-     * Get the minimum duration of the video<br>
+     * Get the duration of the video<br>
      * Is null if the video is private
      *
      * @return minimum duration of the video
      */
-    public Duration getMinDuration(){
-        return _minDuration;
-    }
-
-    /**
-     * Get the maximum duration of the video<br>
-     * Is null if the video is private
-     *
-     * @return maximum duration of the video
-     */
-    public Duration getMaxDuration() {
-        return _maxDuration;
+    @Override
+    public Optional<Duration> getDuration(){
+        return Optional.ofNullable(_duration);
     }
 
     /**
