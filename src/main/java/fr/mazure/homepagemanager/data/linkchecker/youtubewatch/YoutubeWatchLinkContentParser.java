@@ -47,7 +47,6 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     private final String _title;
     private final String _description;
     private final Locale _language;
-    private final Optional<Locale> _subtitlesLanguage;
     private final LocalDate _uploadDate;
     private final LocalDate _publishDate;
     private final LocalDate _startBroadcastDate;
@@ -91,7 +90,6 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                 _channel = null;
                 _title = null;
                 _description = null;
-                _subtitlesLanguage = Optional.empty();
                 _minDuration = null;
                 _maxDuration = null;
                 _uploadDate = null;
@@ -109,7 +107,6 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
             _channel = JsonHelper.getAsText(snippet, "channelTitle");
             _title = JsonHelper.getAsText(snippet, "title");
             _description = JsonHelper.getAsText(snippet, "description");
-            _subtitlesLanguage = Optional.empty();
 
             if (item.has("contentDetails") && JsonHelper.getAsNode(item, "contentDetails").has("duration")) {
                 final Duration duration = Duration.parse(JsonHelper.getAsText(item, "contentDetails", "duration"));
@@ -377,16 +374,6 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     @Override
     public Locale getLanguage() {
         return _language;
-    }
-
-    /**
-     * Get the language of the subtitles of the video<br>
-     * Is null if the video is private
-     *
-     * @return language of the subtitles of the video
-     */
-    public Optional<Locale> getSubtitlesLanguage() {
-        return _subtitlesLanguage;
     }
 
     private static final Map<String, ChannelData> _channelData = Map.ofEntries(
