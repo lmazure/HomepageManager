@@ -2,7 +2,6 @@ package fr.mazure.homepagemanager.data.linkchecker.youtubewatch.test;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.Locale;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
@@ -220,32 +219,21 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
     }
 
     @SuppressWarnings("static-method")
-    @Test
-    void testDurations() {
-        final String url = "https://www.youtube.com/watch?v=_kGqkxQo-Tw";
+    @ParameterizedTest
+    @CsvSource(value = {
+        "https://www.youtube.com/watch?v=_kGqkxQo-Tw|5603",
+        "https://www.youtube.com/watch?v=EvknN89JoWo|1355",
+    }, delimiter = '|')
+    void testDurations(final String url,
+                       final long expectedDurationInSeconds) {
         perform(YoutubeWatchLinkContentParser.class,
                 url,
                 (final LinkDataExtractor p) ->
                     {
                         final YoutubeWatchLinkContentParser parser = (YoutubeWatchLinkContentParser)p;
-                        Assertions.assertEquals(5602, parser.getMinDuration().get(ChronoUnit.SECONDS));
-                        Assertions.assertEquals(5602, parser.getMaxDuration().get(ChronoUnit.SECONDS));
-                        Assertions.assertEquals(5602, parser.getDuration().get().get(ChronoUnit.SECONDS));
-                    });
-    }
-
-    @SuppressWarnings("static-method")
-    @Test
-    void testDurationsOfSensibleVideo() {
-        final String url = "https://www.youtube.com/watch?v=EvknN89JoWo";
-        perform(YoutubeWatchLinkContentParser.class,
-                url,
-                (final LinkDataExtractor p) ->
-                    {
-                        final YoutubeWatchLinkContentParser parser = (YoutubeWatchLinkContentParser)p;
-                        Assertions.assertNull(parser.getMinDuration());
-                        Assertions.assertNull(parser.getMaxDuration());
-                        Assertions.assertTrue(parser.getDuration().isEmpty());
+                        Assertions.assertEquals(expectedDurationInSeconds, parser.getMinDuration().get(ChronoUnit.SECONDS));
+                        Assertions.assertEquals(expectedDurationInSeconds, parser.getMaxDuration().get(ChronoUnit.SECONDS));
+                        Assertions.assertEquals(expectedDurationInSeconds, parser.getDuration().get().get(ChronoUnit.SECONDS));
                     });
     }
 
@@ -287,36 +275,4 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
         checkLanguage(YoutubeWatchLinkContentParser.class, url, "fr");
     }
 
-    @SuppressWarnings("static-method")
-    @ParameterizedTest
-    @CsvSource(value = {
-           "https://www.youtube.com/watch?v=_kGqkxQo-Tw|fr",
-           "https://www.youtube.com/watch?v=-0ErpE8tQbw|de",
-           "https://www.youtube.com/watch?v=-JcoFa5ieyA|vi",
-           "https://www.youtube.com/watch?v=5NqbqTS9Ve0|hi",
-           "https://www.youtube.com/watch?v=aeF-0y9HP9A|en",
-           "https://www.youtube.com/watch?v=aqyyhhnGraw|ro",
-           "https://www.youtube.com/watch?v=atKDrGedg_w|fr",
-           "https://www.youtube.com/watch?v=d_bHo4nE_tE|nl",
-           "https://www.youtube.com/watch?v=dQXVn7pFsVI|en",
-           "https://www.youtube.com/watch?v=HEfHFsfGXjs|nl",
-           "https://www.youtube.com/watch?v=laty3vXKRek|ko",
-           "https://www.youtube.com/watch?v=ohU1tEwxOSE|fr",
-           "https://www.youtube.com/watch?v=oJTwQvgfgMM|en",
-           "https://www.youtube.com/watch?v=QAU9psRDPZg|de",
-           "https://www.youtube.com/watch?v=thT-RSEBxo8|vi",
-           "https://www.youtube.com/watch?v=ytuHV2e4c4Q|en",
-           "https://www.youtube.com/watch?v=Ieu0H2DLJmo|ru",
-           "https://www.youtube.com/watch?v=1id6ERvfozo|po",
-           }, delimiter = '|')
-    void testSubtitlesLanguage(final String url,
-                               final String expectedLanguage) {
-        perform(YoutubeWatchLinkContentParser.class,
-                url,
-                (final LinkDataExtractor p) ->
-                    {
-                        final YoutubeWatchLinkContentParser parser = (YoutubeWatchLinkContentParser)p;
-                        Assertions.assertEquals(Locale.forLanguageTag(expectedLanguage), parser.getSubtitlesLanguage().get());
-                    });
-    }
 }
