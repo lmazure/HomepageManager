@@ -23,6 +23,7 @@ import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
+import fr.mazure.homepagemanager.utils.EnvironmentHelper;
 import fr.mazure.homepagemanager.utils.ExitHelper;
 import fr.mazure.homepagemanager.utils.StringHelper;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
@@ -36,7 +37,6 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
  */
 public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
 
-    private static final String s_apiKeyEnvVariableName = "YOUTUBE_DATA_API_KEY";
     private static final Pattern s_idPattern = Pattern.compile("(?:\\?|&)v=([^&]+)");
 
     private final List<AuthorData> _sureAuthors;
@@ -178,15 +178,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         return "https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,status,liveStreamingDetails&id=" +
                UrlHelper.encodeUrlPart(videoId) +
                "&key=" +
-               UrlHelper.encodeUrlPart(getApiKey());
-    }
-
-    private static String getApiKey() {
-        final String apiKey = System.getenv(s_apiKeyEnvVariableName);
-        if (apiKey == null) {
-            ExitHelper.exit(s_apiKeyEnvVariableName + " environment variable is undefined");
-        }
-        return apiKey;
+               UrlHelper.encodeUrlPart(EnvironmentHelper.getYoutubeApiKet());
     }
 
     private JSONObject retrieveApiPayload(final String apiUrl) throws ContentParserException {
