@@ -242,7 +242,7 @@ public class SiteDataPersister {
             for (int i = 0; i < nbHeaders; i++) {
                 final String[] lineParts = reader.readLine().split("\t");
                 final String header = lineParts[0].equals("null") ? null : lineParts[0];
-                final List<String> list = new ArrayList<>(Arrays.asList(lineParts).subList(1, lineParts.length));   
+                final List<String> list = new ArrayList<>(Arrays.asList(lineParts).subList(1, lineParts.length));
                 map.put(header, list);
             }
             headers = Optional.of(map);

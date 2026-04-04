@@ -82,7 +82,7 @@ public class TwimlLinkContentParser extends LinkDataExtractor {
 
         _authors = new ArrayList<>();
         for (final String author: s_authorParser.extractMulti(data)) {
-            if (!"Sam Charrington".equals(author)) {                
+            if (!"Sam Charrington".equals(author)) {
                 _authors.add(LinkContentParserUtils.parseAuthorName(author));
             }
         }

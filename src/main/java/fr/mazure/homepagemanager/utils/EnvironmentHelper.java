@@ -7,7 +7,7 @@ public class EnvironmentHelper {
 
     private static final String s_youtubeApiKeyEnvVariableName = "YOUTUBE_DATA_API_KEY";
     private static final String s_youtubeApiKey = getEnvironmentValue(s_youtubeApiKeyEnvVariableName);
-    
+
     /**
      * Get Youtube API key
      *
