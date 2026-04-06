@@ -48,6 +48,39 @@ methods       53.9%    97.9%
 
 
 
+manage
+https://www.numberphile.com/podcast/david-eisenbud
+The expected date 2019-04-08 is not equal to the effective date 2019-04-07
+
+https://www.numberphile.com/podcast/hugo-duminil-copin
+The expected date 2026-01-22 is not equal to the effective date 2026-01-21
+
+https://www.numberphile.com/podcast/james-maynard
+The expected date 2019-11-11 is not equal to the effective date 2019-11-10
+
+
+
+
+
+
+
+understand why the fixes add a ^M at the end of the linz
+
+
+
+
+
+
+
+
+
+corriger fr.mazure.homepagemanager.data.linkchecker.lexfridman.test.LexFridmanLinkContentParserTest.testDates(String, String, String, String)
+
+
+
+
+
+
 
 
 
