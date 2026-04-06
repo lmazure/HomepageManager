@@ -130,7 +130,7 @@ class LinkDataExtractorTest {
                 <L>en</L><F>MP3</F><DURATION><HOUR>2</HOUR><MINUTE>41</MINUTE><SECOND>33</SECOND></DURATION></X>\
                 <X><T>Graham Hancock: Lost Civilization of the Ice Age &amp; Ancient Human History | Lex Fridman Podcast #449</T>\
                 <A>https://www.youtube.com/watch?v=NMHiLvirCb0</A>\
-                <L>en</L><F>MP4</F><DURATION><HOUR>2</HOUR><MINUTE>33</MINUTE><SECOND>1</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><HOUR>2</HOUR><MINUTE>33</MINUTE><SECOND>2</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Graham</FIRSTNAME><LASTNAME>Hancock</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Lex</FIRSTNAME><LASTNAME>Fridman</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>10</MONTH><DAY>16</DAY></DATE>\
@@ -150,7 +150,7 @@ class LinkDataExtractorTest {
                 <L>en</L><F>MP3</F><DURATION><HOUR>5</HOUR><MINUTE>22</MINUTE><SECOND>13</SECOND></DURATION></X>\
                 <X><T>Dario Amodei: Anthropic CEO on Claude, AGI &amp; the Future of AI &amp; Humanity | Lex Fridman Podcast #452</T>\
                 <A>https://www.youtube.com/watch?v=ugvHCXCOmm4</A>\
-                <L>en</L><F>MP4</F><DURATION><HOUR>5</HOUR><MINUTE>15</MINUTE><SECOND>0</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><HOUR>5</HOUR><MINUTE>15</MINUTE><SECOND>1</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Dario</FIRSTNAME><LASTNAME>Amodei</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Lex</FIRSTNAME><LASTNAME>Fridman</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>11</MONTH><DAY>11</DAY></DATE>\
@@ -170,7 +170,7 @@ class LinkDataExtractorTest {
                 <L>en</L><F>MP3</F><DURATION><HOUR>3</HOUR><MINUTE>23</MINUTE><SECOND>41</SECOND></DURATION><DATE><YEAR>2025</YEAR><MONTH>6</MONTH><DAY>15</DAY></DATE></X>\
                 <X><T>Terence Tao: Hardest Problems in Mathematics, Physics &amp; the Future of AI | Lex Fridman Podcast #472</T>\
                 <A>https://www.youtube.com/watch?v=HUkBz-cdB-k</A>\
-                <L>en</L><F>MP4</F><DURATION><HOUR>3</HOUR><MINUTE>14</MINUTE><SECOND>33</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><HOUR>3</HOUR><MINUTE>14</MINUTE><SECOND>34</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Terence</FIRSTNAME><LASTNAME>Tao</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Lex</FIRSTNAME><LASTNAME>Fridman</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>6</MONTH><DAY>14</DAY></DATE>\
@@ -190,7 +190,7 @@ class LinkDataExtractorTest {
                 <L>en</L><F>MP3</F><DURATION><HOUR>2</HOUR><MINUTE>8</MINUTE><SECOND>52</SECOND></DURATION></X>\
                 <X><T>Grant Sanderson: Math, Manim, Neural Networks &amp; Teaching with 3Blue1Brown | Lex Fridman Podcast #118</T>\
                 <A>https://www.youtube.com/watch?v=U_6AYX42gkU</A>\
-                <L>en</L><F>MP4</F><DURATION><HOUR>2</HOUR><MINUTE>8</MINUTE><SECOND>25</SECOND></DURATION>\
+                <L>en</L><F>MP4</F><DURATION><HOUR>2</HOUR><MINUTE>8</MINUTE><SECOND>26</SECOND></DURATION>\
                 <DATE><YEAR>2020</YEAR><MONTH>8</MONTH><DAY>24</DAY></DATE></X>\
                 <AUTHOR><FIRSTNAME>Grant</FIRSTNAME><LASTNAME>Sanderson</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Lex</FIRSTNAME><LASTNAME>Fridman</LASTNAME></AUTHOR>\
@@ -296,7 +296,7 @@ class LinkDataExtractorTest {
                 <L>en</L><F>MP3</F><DURATION><MINUTE>48</MINUTE><SECOND>22</SECOND></DURATION></X>\
                 <X><T>Fermat’s Last Theorem (with Ken Ribet) - Numberphile Podcast</T>\
                 <A>https://www.youtube.com/watch?v=NPOw4iIxN6o</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>48</MINUTE><SECOND>22</SECOND></DURATION>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>48</MINUTE><SECOND>23</SECOND></DURATION>\
                 <DATE><YEAR>2018</YEAR><MONTH>12</MONTH><DAY>14</DAY></DATE></X>\
                 <AUTHOR><FIRSTNAME>Ken</FIRSTNAME><LASTNAME>Ribet</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Brady</FIRSTNAME><LASTNAME>Haran</LASTNAME></AUTHOR>\
@@ -351,7 +351,7 @@ class LinkDataExtractorTest {
                 <DATE><YEAR>2024</YEAR><MONTH>10</MONTH><DAY>16</DAY></DATE></X>\
                 <X><T>Oxide and Friends 10/14/2024 -- Unshrouding Turin (or Benvenuto a Torino)</T>\
                 <A>https://www.youtube.com/watch?v=xcMMficnQwo</A>\
-                <L>en</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>53</MINUTE><SECOND>35</SECOND></DURATION>\
+                <L>en</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>53</MINUTE><SECOND>36</SECOND></DURATION>\
                 <DATE><YEAR>2024</YEAR><MONTH>10</MONTH><DAY>16</DAY></DATE></X>\
                 <AUTHOR><FIRSTNAME>Bryan</FIRSTNAME><LASTNAME>Cantrill</LASTNAME>\
                 </AUTHOR><AUTHOR><FIRSTNAME>George</FIRSTNAME><LASTNAME>Cozma</LASTNAME></AUTHOR>\
@@ -376,7 +376,7 @@ class LinkDataExtractorTest {
                 <L>en</L><F>HTML</F><DURATION><HOUR>1</HOUR><MINUTE>17</MINUTE><SECOND>5</SECOND></DURATION></X>\
                 <X><T>The third golden age of software engineering – thanks to AI, with Grady Booch</T>\
                 <A>https://www.youtube.com/watch?v=OfMAtaocvJw</A>\
-                <L>en</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>17</MINUTE><SECOND>4</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>17</MINUTE><SECOND>5</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Grady</FIRSTNAME><LASTNAME>Booch</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Gergely</FIRSTNAME><LASTNAME>Orosz</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2026</YEAR><MONTH>2</MONTH><DAY>4</DAY></DATE>\
@@ -463,7 +463,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>The GPT Store!!!</T>\
                 <A>https://www.youtube.com/watch?v=Pvn4szm2UnQ</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>1</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>2</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Abdul Majed</FIRSTNAME><LASTNAME>Raja</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>1</MONTH><DAY>10</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -478,7 +478,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>From Newton’s method to Newton’s fractal (which Newton knew nothing about)</T>\
                 <A>https://www.youtube.com/watch?v=-RdOwhmqP5s</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>26</MINUTE><SECOND>5</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>26</MINUTE><SECOND>6</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Grant</FIRSTNAME><LASTNAME>Sanderson</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>12</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -494,7 +494,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Transformers explained | The architecture behind LLMs</T>\
                 <A>https://www.youtube.com/watch?v=ec9IQMiJBhs</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>47</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>48</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Letitia</FIRSTNAME><LASTNAME>Parcalabescu</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>1</MONTH><DAY>21</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -510,7 +510,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Gemini 2.5 Pro - It’s a Darn Smart Chatbot … (New Simple High Score)</T>\
                 <A>https://www.youtube.com/watch?v=kTslCsPBGHw</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>21</MINUTE><SECOND>21</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>21</MINUTE><SECOND>22</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Philip</FIRSTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>3</MONTH><DAY>28</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -526,7 +526,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Mistral AI Trolls Google With 87GB T*rrent (Beats GPT4)</T>\
                 <A>https://www.youtube.com/watch?v=wemHDMh2I8c</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>13</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>14</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Noah</FIRSTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>12</MONTH><DAY>8</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -542,7 +542,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Hugging Face + Langchain in 5 mins | Access 200k+ FREE AI models for your AI apps</T>\
                 <A>https://www.youtube.com/watch?v=_j7JEDWuqLE</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>9</MINUTE><SECOND>47</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>9</MINUTE><SECOND>48</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Jason</FIRSTNAME><LASTNAME>Zhou</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>6</MONTH><DAY>11</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -558,7 +558,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Steal My 2-Prompt Blueprint: Turn ChatGPT Into Your Personal AI Tutor (Live Demo)</T>\
                 <A>https://www.youtube.com/watch?v=2uC5WllehxY</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>24</MINUTE><SECOND>14</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>24</MINUTE><SECOND>15</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Nate</FIRSTNAME><MIDDLENAME>B.</MIDDLENAME><LASTNAME>Jones</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>7</MONTH><DAY>22</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -574,7 +574,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Something strange happens when you look at the primes</T>\
                 <A>https://www.youtube.com/watch?v=egA9K_R5pkg</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>17</MINUTE><SECOND>30</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>17</MINUTE><SECOND>31</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Adithya</FIRSTNAME><LASTNAME>Chakravarthy</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>11</MONTH><DAY>29</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -590,7 +590,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>The spelled-out intro to neural networks and backpropagation: building micrograd</T>\
                 <A>https://www.youtube.com/watch?v=VMj-3S1tku0</A>\
-                <L>en</L><F>MP4</F><DURATION><HOUR>2</HOUR><MINUTE>25</MINUTE><SECOND>51</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><HOUR>2</HOUR><MINUTE>25</MINUTE><SECOND>52</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Andrej</FIRSTNAME><LASTNAME>Karpathy</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>8</MONTH><DAY>17</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -606,7 +606,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Quand la désinformation de l'industrie du tabac inspire Big🚬Tech ?</T>\
                 <A>https://www.youtube.com/watch?v=vOOxi9MfgNE</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>35</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>36</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Jean-Lou</FIRSTNAME><LASTNAME>Fourquet</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>10</MONTH><DAY>18</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -622,7 +622,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Why Most Python Logging Setups Fail in Production</T>\
                 <A>https://www.youtube.com/watch?v=pxuXaaT1u3k</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>1</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>2</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Arjan</FIRSTNAME><LASTNAME>Egges</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>2</MONTH><DAY>3</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -638,7 +638,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>🪐Un ado a fabriqué un réacteur nucléaire chez lui... et le FBI n'a rien vu</T>\
                 <A>https://www.youtube.com/watch?v=7rTKxHoU_Rc</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>24</MINUTE><SECOND>8</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>24</MINUTE><SECOND>9</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Arnaud</FIRSTNAME><LASTNAME>Thiry</LASTNAME></AUTHOR><DATE>\
                 <YEAR>2021</YEAR><MONTH>4</MONTH><DAY>23</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -654,7 +654,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Samaventure 17 - La Richesse d'un Homme !</T>\
                 <A>https://www.youtube.com/watch?v=LXh6262dZp0</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>27</MINUTE><SECOND>13</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>27</MINUTE><SECOND>14</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Aurélien</FIRSTNAME><LASTNAME>Sama</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>8</MONTH><DAY>27</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -670,7 +670,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Lundi Pivipi -  RUSH à l'ancienne</T>\
                 <A>https://www.youtube.com/watch?v=FH-A2Hq6pG4</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>45</MINUTE><SECOND>24</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>45</MINUTE><SECOND>25</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Aymeric</FIRSTNAME><LASTNAME>Pierre</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>8</MONTH><DAY>29</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -686,7 +686,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Cette méthode hallucinante permet d'écrire 417% plus vite 🤯 (feat. @ggmilgram )</T>\
                 <A>https://www.youtube.com/watch?v=l6g6c_3zmHs</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>24</MINUTE><SECOND>21</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>24</MINUTE><SECOND>22</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Clément</FIRSTNAME><LASTNAME>Berut</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>6</MONTH><DAY>19</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -718,7 +718,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>How I deploy serverless containers for free</T>\
                 <A>https://www.youtube.com/watch?v=cw34KMPSt4k</A><L>en</L><F>MP4</F>\
-                <DURATION><MINUTE>6</MINUTE><SECOND>32</SECOND></DURATION></X>\
+                <DURATION><MINUTE>6</MINUTE><SECOND>33</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Jeff</FIRSTNAME><LASTNAME>Delaney</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>3</MONTH><DAY>16</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -734,7 +734,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Customized triple exponential equation</T>\
                 <A>https://www.youtube.com/watch?v=eex9Gm_rOrQ</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>7</MINUTE><SECOND>42</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>7</MINUTE><SECOND>43</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Steve</FIRSTNAME><LASTNAME>Chow</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>17</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -750,13 +750,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>RÉVÉLATIONS SUR LES PRATIQUES "CRIMINELLES" DE TOTAL</T>\
                 <A>https://www.youtube.com/watch?v=zbChGas32BI</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>40</MINUTE><SECOND>40</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>40</MINUTE><SECOND>41</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>5</MONTH><DAY>1</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>RÉVÉLATIONS SUR LES PRATIQUES "CRIMINELLES" DE TOTAL</T>\
                 <A>https://www.youtube.com/watch?v=zbChGas32BI</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>40</MINUTE><SECOND>40</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>40</MINUTE><SECOND>41</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Paloma</FIRSTNAME><LASTNAME>Moritz</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>5</MONTH><DAY>1</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -788,7 +788,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Astonishing discovery by computer scientist: how to squeeze space into time</T>\
                 <A>https://www.youtube.com/watch?v=8JuWdXrCmWg</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>23</MINUTE><SECOND>24</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>23</MINUTE><SECOND>25</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Kelsey</FIRSTNAME><LASTNAME>Houston-Edwards</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>6</MONTH><DAY>7</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -804,7 +804,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Un PROCÈS pour FAKE-UP ? - Clément Freze (avec Vous avez le droit)</T>\
                 <A>https://www.youtube.com/watch?v=fUuseKwzZB4</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>21</MINUTE><SECOND>39</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>21</MINUTE><SECOND>40</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Clément</FIRSTNAME><LASTNAME>Freze</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>10</MONTH><DAY>4</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -820,7 +820,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>ALL Python 3.12's major typing improvements</T>\
                 <A>https://www.youtube.com/watch?v=jA5L0GDrVqs</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>20</MINUTE><SECOND>16</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>20</MINUTE><SECOND>17</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Ethan</FIRSTNAME><LASTNAME>Henderson</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>10</MONTH><DAY>9</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -836,13 +836,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Anne Siegel - Symbiose, biologie des systèmes, et discrétisation de systèmes dynamiques</T>\
                 <A>https://www.youtube.com/watch?v=tQp7ZOJF-ZE</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>39</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>40</SECOND></DURATION></X>\
                 <DATE><YEAR>2025</YEAR><MONTH>2</MONTH><DAY>3</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Anne Siegel - Symbiose, biologie des systèmes, et discrétisation de systèmes dynamiques</T>\
                 <A>https://www.youtube.com/watch?v=tQp7ZOJF-ZE</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>39</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>40</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Anne</FIRSTNAME><LASTNAME>Siegel</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>2</MONTH><DAY>3</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -857,7 +857,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>À quoi servent les mathématiques ?</T>\
                 <A>https://www.youtube.com/watch?v=pmGsB-xE1UA</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>5</MINUTE><SECOND>28</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>5</MINUTE><SECOND>29</SECOND></DURATION></X>\
                 <DATE><YEAR>2016</YEAR><MONTH>8</MONTH><DAY>21</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
@@ -872,7 +872,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>17 Python Libraries Every AI Engineer Should Know</T>\
                 <A>https://www.youtube.com/watch?v=p4G0coRey9w</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>56</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>57</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Dave</FIRSTNAME><LASTNAME>Ebbelaar</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>12</MONTH><DAY>12</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -888,13 +888,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Acropalypse Now - Computerphile</T>\
                 <A>https://www.youtube.com/watch?v=95ovjnMhUq0</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>52</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>53</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>3</MONTH><DAY>28</DAY>\
                 </DATE><COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Acropalypse Now - Computerphile</T>\
                 <A>https://www.youtube.com/watch?v=95ovjnMhUq0</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>52</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>53</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Steve</FIRSTNAME><LASTNAME>Bagley</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Mike</FIRSTNAME><LASTNAME>Pound</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>3</MONTH><DAY>28</DAY></DATE>\
@@ -931,13 +931,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Kernelless Kernel Programming (eBPF) - Computerphile</T>\
                 <A>https://www.youtube.com/watch?v=J_EehoXLbIU</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>11</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>12</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>9</MONTH><DAY>7</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Kernelless Kernel Programming (eBPF) - Computerphile</T>\
                 <A>https://www.youtube.com/watch?v=J_EehoXLbIU</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>11</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>12</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Richard</FIRSTNAME><MIDDLENAME>G.</MIDDLENAME><LASTNAME>Clegg</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>9</MONTH><DAY>7</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -952,13 +952,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>ChatGPT with Rob Miles - Computerphile</T>\
                 <A>https://www.youtube.com/watch?v=viJt_DXTfwA</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>36</MINUTE><SECOND>1</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>36</MINUTE><SECOND>2</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>2</MONTH><DAY>1</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>ChatGPT with Rob Miles - Computerphile</T>\
                 <A>https://www.youtube.com/watch?v=viJt_DXTfwA</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>36</MINUTE><SECOND>1</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>36</MINUTE><SECOND>2</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Robert</FIRSTNAME><LASTNAME>Miles</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>2</MONTH><DAY>1</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -973,13 +973,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>TETRA Vulnerability (TETRA:BURST) - Computerphile</T>\
                 <A>https://www.youtube.com/watch?v=Fy3Odm-dny0</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>18</MINUTE><SECOND>42</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>18</MINUTE><SECOND>43</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>9</MONTH><DAY>14</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>TETRA Vulnerability (TETRA:BURST) - Computerphile</T>\
                 <A>https://www.youtube.com/watch?v=Fy3Odm-dny0</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>18</MINUTE><SECOND>42</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>18</MINUTE><SECOND>43</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Tim</FIRSTNAME><LASTNAME>Muller</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>9</MONTH><DAY>14</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -994,13 +994,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Breaking RSA - Computerphile</T>\
                 <A>https://www.youtube.com/watch?v=-ShwJqAalOk</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>14</MINUTE><SECOND>49</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>14</MINUTE><SECOND>50</SECOND></DURATION></X>\
                 <DATE><YEAR>2022</YEAR><MONTH>5</MONTH><DAY>10</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Breaking RSA - Computerphile</T>\
                 <A>https://www.youtube.com/watch?v=-ShwJqAalOk</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>14</MINUTE><SECOND>49</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>14</MINUTE><SECOND>50</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Mike</FIRSTNAME><LASTNAME>Pound</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>5</MONTH><DAY>10</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1015,13 +1015,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Automata &amp; Python - Computerphile</T>\
                 <A>https://www.youtube.com/watch?v=32bC33nJR3A</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>9</MINUTE><SECOND>26</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>9</MINUTE><SECOND>27</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>3</MONTH><DAY>16</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Automata &amp; Python - Computerphile</T>\
                 <A>https://www.youtube.com/watch?v=32bC33nJR3A</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>9</MINUTE><SECOND>26</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>9</MINUTE><SECOND>27</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Thorsten</FIRSTNAME><LASTNAME>Altenkirch</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>3</MONTH><DAY>16</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1036,13 +1036,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Recursive Ray Tracing - Computerphile</T>\
                 <A>https://www.youtube.com/watch?v=nOCPpT-Sn0A</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>17</MINUTE><SECOND>37</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>17</MINUTE><SECOND>38</SECOND></DURATION></X>\
                 <DATE><YEAR>2024</YEAR><MONTH>10</MONTH><DAY>31</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Recursive Ray Tracing - Computerphile</T>\
                 <A>https://www.youtube.com/watch?v=nOCPpT-Sn0A</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>17</MINUTE><SECOND>37</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>17</MINUTE><SECOND>38</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Lewis</FIRSTNAME><LASTNAME>Stuart</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>10</MONTH><DAY>31</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1057,13 +1057,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Garbage Collection (Mark &amp; Sweep) - Computerphile</T>\
                 <A>https://www.youtube.com/watch?v=c32zXYAK7CI</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>21</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>22</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>20</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Garbage Collection (Mark &amp; Sweep) - Computerphile</T>\
                 <A>https://www.youtube.com/watch?v=c32zXYAK7CI</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>21</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>22</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Laurence</FIRSTNAME><LASTNAME>Tratt</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>20</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1078,13 +1078,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Foundations of Data Visualisation - Computerphile</T>\
                 <A>https://www.youtube.com/watch?v=qQ9Wu1IxsYw</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>7</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>8</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>4</MONTH><DAY>13</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Foundations of Data Visualisation - Computerphile</T>\
                 <A>https://www.youtube.com/watch?v=qQ9Wu1IxsYw</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>7</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>8</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Kai</FIRSTNAME><LASTNAME>Xu</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>4</MONTH><DAY>13</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1099,13 +1099,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>M28 - Millisecond Pulsar - Deep Sky Videos</T>\
                 <A>https://www.youtube.com/watch?v=MkzyMS_hNwU</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>4</MINUTE><SECOND>48</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>4</MINUTE><SECOND>49</SECOND></DURATION></X>\
                 <DATE><YEAR>2016</YEAR><MONTH>2</MONTH><DAY>15</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>M28 - Millisecond Pulsar - Deep Sky Videos</T>\
                 <A>https://www.youtube.com/watch?v=MkzyMS_hNwU</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>4</MINUTE><SECOND>48</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>4</MINUTE><SECOND>49</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Paul</FIRSTNAME><LASTNAME>Crowther</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2016</YEAR><MONTH>2</MONTH><DAY>15</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1120,13 +1120,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>M50 - Spinning Stars - Deep Sky Videos</T>\
                 <A>https://www.youtube.com/watch?v=17LITLns-pk</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>46</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>47</SECOND></DURATION></X>\
                 <DATE><YEAR>2016</YEAR><MONTH>7</MONTH><DAY>14</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>M50 - Spinning Stars - Deep Sky Videos</T>\
                 <A>https://www.youtube.com/watch?v=17LITLns-pk</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>46</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>47</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Meghan</FIRSTNAME><LASTNAME>Gray</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2016</YEAR><MONTH>7</MONTH><DAY>14</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1141,13 +1141,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>M61 - Barred Spiral Galaxy - Deep Sky Videos</T>\
                 <A>https://www.youtube.com/watch?v=2d2YCUdt2gc</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>58</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>59</SECOND></DURATION></X>\
                 <DATE><YEAR>2022</YEAR><MONTH>2</MONTH><DAY>16</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>M61 - Barred Spiral Galaxy - Deep Sky Videos</T>\
                 <A>https://www.youtube.com/watch?v=2d2YCUdt2gc</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>58</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>59</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Michael</FIRSTNAME><LASTNAME>Merrifield</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>2</MONTH><DAY>16</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1162,7 +1162,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Pourquoi certaines civilisations du Pacifique ont disparu et pas d'autres ?</T>\
                 <A>https://www.youtube.com/watch?v=_LxktNzm8ME</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>21</MINUTE><SECOND>7</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>21</MINUTE><SECOND>8</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Léo</FIRSTNAME><LASTNAME>Grasset</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>5</MONTH><DAY>13</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1178,7 +1178,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>The Map of Superconductivity</T>\
                 <A>https://www.youtube.com/watch?v=bD2M7P6dTVA</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>23</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>24</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Dominic</FIRSTNAME><LASTNAME>Walliman</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>7</MONTH><DAY>3</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1194,7 +1194,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>LIVE | The first image from the James Webb Space Telescope! (and why it looks a bit naff)</T>\
                 <A>https://www.youtube.com/watch?v=6v72L_1L4lQ</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>4</MINUTE><SECOND>53</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>4</MINUTE><SECOND>54</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Becky</FIRSTNAME><LASTNAME>Smethurst</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>2</MONTH><DAY>11</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1210,7 +1210,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>can you solve this “impossible” trig problem?</T>\
                 <A>https://www.youtube.com/watch?v=ThaHppIWByk</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>4</MINUTE><SECOND>51</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>4</MINUTE><SECOND>52</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Peyam</FIRSTNAME><MIDDLENAME>Ryan</MIDDLENAME><LASTNAME>Tabrizian</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>12</MONTH><DAY>14</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1226,7 +1226,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>What are we scaling?</T>\
                 <A>https://www.youtube.com/watch?v=_zgnSbu5GqE</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>34</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>35</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Dwarkesh</FIRSTNAME><LASTNAME>Patel</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>12</MONTH><DAY>23</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1242,7 +1242,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Richard Sutton – Father of RL thinks LLMs are a dead end</T>\
                 <A>https://www.youtube.com/watch?v=21EYKqUsPfg</A>\
-                <L>en</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>7</MINUTE><SECOND>8</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>7</MINUTE><SECOND>9</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Richard</FIRSTNAME><LASTNAME>Sutton</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Dwarkesh</FIRSTNAME><LASTNAME>Patel</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>9</MONTH><DAY>26</DAY></DATE>\
@@ -1259,7 +1259,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Les mathématiques de Marvel - Ccc #08</T>\
                 <A>https://www.youtube.com/watch?v=qZWbgBSfTUI</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>26</MINUTE><SECOND>42</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>26</MINUTE><SECOND>43</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Jérôme</FIRSTNAME><LASTNAME>Cottanceau</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>8</MONTH><DAY>30</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1275,7 +1275,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Claude Computer Use: The ZombAIs are coming! From Prompt Injection to Command &amp; Control.</T>\
                 <A>https://www.youtube.com/watch?v=3UkLnGQZ6zE</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>54</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>55</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Johann</FIRSTNAME><LASTNAME>Rehberger</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>10</MONTH><DAY>25</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1291,7 +1291,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Climat : comment faire pour que les gens se bougent (une fois qu’ils ont été bien informés)</T>\
                 <A>https://www.youtube.com/watch?v=ZdEVVDk48L4</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>25</MINUTE><SECOND>44</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>25</MINUTE><SECOND>45</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Stéphane</FIRSTNAME><LASTNAME>Debove</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>12</MONTH><DAY>23</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1307,7 +1307,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>TensorFlow in 100 Seconds</T>\
                 <A>https://www.youtube.com/watch?v=i8NETqtGHms</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>2</MINUTE><SECOND>38</SECOND></DURATION>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>2</MINUTE><SECOND>39</SECOND></DURATION>\
                 </X><AUTHOR><FIRSTNAME>Jeff</FIRSTNAME><LASTNAME>Delaney</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>8</MONTH><DAY>3</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1339,13 +1339,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>The 3 Types of Unit Test in TDD • Dave Farley • GOTO 2022</T>\
                 <A>https://www.youtube.com/watch?v=ihOUzzwPFIk</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>17</MINUTE><SECOND>29</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>17</MINUTE><SECOND>30</SECOND></DURATION></X>\
                 <DATE><YEAR>2022</YEAR><MONTH>12</MONTH><DAY>2</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>The 3 Types of Unit Test in TDD • Dave Farley • GOTO 2022</T>\
                 <A>https://www.youtube.com/watch?v=ihOUzzwPFIk</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>17</MINUTE><SECOND>29</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>17</MINUTE><SECOND>30</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Dave</FIRSTNAME><LASTNAME>Farley</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>12</MONTH><DAY>2</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1361,14 +1361,14 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>BitKeeper | Ep. 4 Bits and Booze</T>\
                 <A>https://www.youtube.com/watch?v=MPFgOnACULU</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>29</MINUTE><SECOND>9</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>29</MINUTE><SECOND>10</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Scott</FIRSTNAME><LASTNAME>Chacon</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>10</MONTH><DAY>30</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>BitKeeper | Ep. 4 Bits and Booze</T>\
                 <A>https://www.youtube.com/watch?v=MPFgOnACULU</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>29</MINUTE><SECOND>9</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>29</MINUTE><SECOND>10</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Scott</FIRSTNAME><LASTNAME>Chacon</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Caleb</FIRSTNAME><LASTNAME>Owens</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>10</MONTH><DAY>30</DAY></DATE>\
@@ -1384,14 +1384,14 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Interactive Rebase | Ep. 6 Bits and Booze</T>\
                 <A>https://www.youtube.com/watch?v=d6QfN6pKPAk</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>25</MINUTE><SECOND>36</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>25</MINUTE><SECOND>37</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Scott</FIRSTNAME><LASTNAME>Chacon</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>12</MONTH><DAY>13</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Interactive Rebase | Ep. 6 Bits and Booze</T>\
                 <A>https://www.youtube.com/watch?v=d6QfN6pKPAk</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>25</MINUTE><SECOND>36</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>25</MINUTE><SECOND>37</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Scott</FIRSTNAME><LASTNAME>Chacon</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>José Esteban</FIRSTNAME><LASTNAME>Vega Carrillo</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>12</MONTH><DAY>13</DAY></DATE>\
@@ -1407,14 +1407,14 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Stack Overflow Git Questions Part 1 | Ep. 12 Bits and Booze</T>\
                 <A>https://www.youtube.com/watch?v=RhkQ4e_n_1k</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>32</MINUTE><SECOND>1</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>32</MINUTE><SECOND>2</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Scott</FIRSTNAME><LASTNAME>Chacon</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>3</MONTH><DAY>21</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Stack Overflow Git Questions Part 1 | Ep. 12 Bits and Booze</T>\
                 <A>https://www.youtube.com/watch?v=RhkQ4e_n_1k</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>32</MINUTE><SECOND>1</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>32</MINUTE><SECOND>2</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Scott</FIRSTNAME><LASTNAME>Chacon</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Mattias</FIRSTNAME><LASTNAME>Granlund</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>3</MONTH><DAY>21</DAY></DATE>\
@@ -1430,7 +1430,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Visualizing transformers and attention | Talk for TNG Big Tech Day '24</T>\
                 <A>https://www.youtube.com/watch?v=KJtZARuO3JY</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>57</MINUTE><SECOND>44</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>57</MINUTE><SECOND>45</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Grant</FIRSTNAME><LASTNAME>Sanderson</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>11</MONTH><DAY>20</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1446,7 +1446,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>The AI Task Force You Need At Work</T>\
                 <A>https://www.youtube.com/watch?v=NihPT7KIee8</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>55</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>56</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Greg</FIRSTNAME><LASTNAME>Kamradt</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>9</MONTH><DAY>18</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1462,7 +1462,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Les marchés financiers vous cachent beaucoup de choses</T>\
                 <A>https://www.youtube.com/watch?v=UuIt21q9gCY</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>50</MINUTE><SECOND>14</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>50</MINUTE><SECOND>15</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Gilles</FIRSTNAME><LASTNAME>Mitteau</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>2</MONTH><DAY>21</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1478,7 +1478,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>What Was The "Boring Billion" Really Like?</T>\
                 <A>https://www.youtube.com/watch?v=0sbwUeTyDb0</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>36</MINUTE><SECOND>9</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>36</MINUTE><SECOND>10</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>David</FIRSTNAME><LASTNAME>Kelly</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Pete</FIRSTNAME><LASTNAME>Kelly</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Leila</FIRSTNAME><LASTNAME>Battison</LASTNAME></AUTHOR>\
@@ -1496,7 +1496,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Is There One All Powerful Superforce Controlling The Universe?</T>\
                 <A>https://www.youtube.com/watch?v=uBk-Wst_7aA</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>36</MINUTE><SECOND>17</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>36</MINUTE><SECOND>18</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>David</FIRSTNAME><LASTNAME>Kelly</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Leila</FIRSTNAME><LASTNAME>Battison</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>5</MONTH><DAY>28</DAY>\
@@ -1513,7 +1513,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Eclipse 2022-03 Java IDE Improvements</T>\
                 <A>https://www.youtube.com/watch?v=GnNnQY5ujFg</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>14</MINUTE><SECOND>58</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>14</MINUTE><SECOND>59</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Holger</FIRSTNAME><LASTNAME>Voormann</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>3</MONTH><DAY>15</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1529,7 +1529,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Ep35 La  Régression vers la Moyenne</T>\
                 <A>https://www.youtube.com/watch?v=sDPk-r18sb0</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>23</MINUTE><SECOND>28</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>23</MINUTE><SECOND>29</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Christophe</FIRSTNAME><LASTNAME>Michel</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>8</MONTH><DAY>22</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1545,7 +1545,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Etienne Klein, l'ultracrépidarianiste de l'IA débunké</T>\
                 <A>https://www.youtube.com/watch?v=vUVf060Vkk0</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>6</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>7</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Jean-Baptiste</FIRSTNAME><LASTNAME>Boisseau</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>8</MONTH><DAY>23</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1561,13 +1561,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Text Classification: AI Techniques and Real-World Applications</T>\
                 <A>https://www.youtube.com/watch?v=hHiPs_wICsE</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>13</MINUTE><SECOND>59</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>14</MINUTE><SECOND>0</SECOND></DURATION></X>\
                 <DATE><YEAR>2024</YEAR><MONTH>10</MONTH><DAY>15</DAY>\
                 </DATE><COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Text Classification: AI Techniques and Real-World Applications</T>\
                 <A>https://www.youtube.com/watch?v=hHiPs_wICsE</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>13</MINUTE><SECOND>59</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>14</MINUTE><SECOND>0</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Carl</FIRSTNAME><LASTNAME>Broker</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>10</MONTH><DAY>15</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1582,13 +1582,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>RAG vs. Fine Tuning</T>\
                 <A>https://www.youtube.com/watch?v=00Q0G84kq3M</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>56</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>57</SECOND></DURATION></X>\
                 <DATE><YEAR>2024</YEAR><MONTH>9</MONTH><DAY>9</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>RAG vs. Fine Tuning</T>\
                 <A>https://www.youtube.com/watch?v=00Q0G84kq3M</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>56</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>57</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Cedric</FIRSTNAME><LASTNAME>Clyburn</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>9</MONTH><DAY>9</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1603,13 +1603,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>AI &amp; Text to SQL: How LLMs &amp; Schema Power Data Analytics</T>\
                 <A>https://www.youtube.com/watch?v=S5ezVVJhQmE</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>59</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>9</MINUTE><SECOND>0</SECOND></DURATION></X>\
                 <DATE><YEAR>2025</YEAR><MONTH>12</MONTH><DAY>13</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>AI &amp; Text to SQL: How LLMs &amp; Schema Power Data Analytics</T>\
                 <A>https://www.youtube.com/watch?v=S5ezVVJhQmE</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>59</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>9</MINUTE><SECOND>0</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Michael</FIRSTNAME><LASTNAME>Dobson</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>12</MONTH><DAY>13</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1624,13 +1624,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>What is Granite?</T>\
                 <A>https://www.youtube.com/watch?v=cVDv9apGTXo</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>44</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>45</SECOND></DURATION></X>\
                 <DATE><YEAR>2024</YEAR><MONTH>9</MONTH><DAY>23</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>What is Granite?</T>\
                 <A>https://www.youtube.com/watch?v=cVDv9apGTXo</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>44</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>45</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Martin</FIRSTNAME><LASTNAME>Keen</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>9</MONTH><DAY>23</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1645,13 +1645,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Can AI Think? Debunking AI Limitations</T>\
                 <A>https://www.youtube.com/watch?v=CB7NNsI27ks</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>9</MINUTE><SECOND>0</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>9</MINUTE><SECOND>1</SECOND></DURATION></X>\
                 <DATE><YEAR>2025</YEAR><MONTH>1</MONTH><DAY>20</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Can AI Think? Debunking AI Limitations</T>\
                 <A>https://www.youtube.com/watch?v=CB7NNsI27ks</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>9</MINUTE><SECOND>0</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>9</MINUTE><SECOND>1</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Jeff</FIRSTNAME><LASTNAME>Crume</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Martin</FIRSTNAME><LASTNAME>Keen</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>1</MONTH><DAY>20</DAY></DATE>\
@@ -1667,13 +1667,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>What Happens to Finalization in JDK 18? - Inside Java Newscast #15</T>\
                 <A>https://www.youtube.com/watch?v=eDgBnjOid-g</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>58</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>59</SECOND></DURATION></X>\
                 <DATE><YEAR>2021</YEAR><MONTH>11</MONTH><DAY>11</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>What Happens to Finalization in JDK 18? - Inside Java Newscast #15</T>\
                 <A>https://www.youtube.com/watch?v=eDgBnjOid-g</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>58</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>59</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Nicolai</FIRSTNAME><LASTNAME>Parlog</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>11</MONTH><DAY>11</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1688,13 +1688,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Text Blocks - JEP Café #5</T>\
                 <A>https://www.youtube.com/watch?v=NDaA9MrTLBM</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>36</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>37</SECOND></DURATION></X>\
                 <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>21</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Text Blocks - JEP Café #5</T>\
                 <A>https://www.youtube.com/watch?v=NDaA9MrTLBM</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>36</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>37</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>José</FIRSTNAME><LASTNAME>Paumard</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>21</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1710,7 +1710,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Les arnaques scientifiques les plus folles</T>\
                 <A>https://www.youtube.com/watch?v=5cdqxrZJt5o</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>43</SECOND></DURATION>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>44</SECOND></DURATION>\
                 </X><AUTHOR><FIRSTNAME>Jamy</FIRSTNAME><LASTNAME>Gourmaud</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>7</MONTH><DAY>3</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1726,7 +1726,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>☀️ Soleil vs ITER : une Histoire de la FUSION #11 Science</T>\
                 <A>https://www.youtube.com/watch?v=JjgcD2o7IME</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>35</MINUTE><SECOND>25</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>35</MINUTE><SECOND>26</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Bertrand</FIRSTNAME><LASTNAME>Augustin</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>11</MONTH><DAY>18</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1742,7 +1742,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Do "Essential Genes" debunk evolution? Evolutionary Question #26</T>\
                 <A>https://www.youtube.com/watch?v=rLGam7Lx1Z4</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>58</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>59</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Jon</FIRSTNAME><LASTNAME>Perry</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>4</MONTH><DAY>7</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1758,7 +1758,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>How GitHub's Database Self-Destructed in 43 Seconds</T>\
                 <A>https://www.youtube.com/watch?v=dsHyUgGMht0</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>3</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>4</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Kevin</FIRSTNAME><LASTNAME>Fang</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>6</MONTH><DAY>12</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1774,7 +1774,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>The Lia Radiological Accident - Nuclear Bonfire</T>\
                 <A>https://www.youtube.com/watch?v=e3GYg7Y_W7s</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>15</MINUTE><SECOND>32</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>15</MINUTE><SECOND>33</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Kyle</FIRSTNAME><LASTNAME>Hill</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>3</MONTH><DAY>3</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1790,7 +1790,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>ABRP vs CHARGEMAP ! 450km pour comparer les 2 planificateurs sur mobile !</T>\
                 <A>https://www.youtube.com/watch?v=GdkelMnxiaE</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>46</MINUTE><SECOND>5</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>46</MINUTE><SECOND>6</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Jean-Christophe</FIRSTNAME><LASTNAME>Gigniac</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Alexandre</FIRSTNAME><LASTNAME>Homberger</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>10</MONTH><DAY>19</DAY></DATE>\
@@ -1807,7 +1807,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Test et IA : l'ère de l'industrialisation</T>\
                 <A>https://www.youtube.com/watch?v=8Xjsm4kTAV8</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>47</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>48</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Jean-François</FIRSTNAME><LASTNAME>Fresi</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2026</YEAR><MONTH>1</MONTH><DAY>25</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1823,7 +1823,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Les jeunes sont débiles</T>\
                 <A>https://www.youtube.com/watch?v=LsMNe_a5Xn0</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>31</MINUTE><SECOND>5</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>31</MINUTE><SECOND>6</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Thomas</FIRSTNAME><MIDDLENAME>C.</MIDDLENAME><LASTNAME>Durand</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>21</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1839,7 +1839,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Ukraine : la menace nucléaire, un tournant ? - Le Dessous des cartes | ARTE</T>\
                 <A>https://www.youtube.com/watch?v=dz0dEzAHKUo</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>48</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>49</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Émilie</FIRSTNAME><LASTNAME>Aubry</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>6</MONTH><DAY>4</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1856,7 +1856,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Vanity Fair dévoile le vrai visage de l'administration Trump - Le dessous des images - ARTE</T>\
                 <A>https://www.youtube.com/watch?v=CSIJh4mRkNY</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>8</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>9</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Sonia</FIRSTNAME><LASTNAME>Devillers</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2026</YEAR><MONTH>2</MONTH><DAY>12</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1872,7 +1872,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Questionnement Philosophique - Monsieur Phi</T>\
                 <A>https://www.youtube.com/watch?v=Ey1HOhCvZm0</A>\
-                <L>fr</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>2</MINUTE><SECOND>26</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>2</MINUTE><SECOND>27</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Shaïman</FIRSTNAME><LASTNAME>Türler</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>2</MONTH><DAY>2</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1888,7 +1888,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Les terres rares.</T>\
                 <A>https://www.youtube.com/watch?v=OAyYSlMhgI4</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>35</MINUTE><SECOND>38</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>35</MINUTE><SECOND>39</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Rodolphe</FIRSTNAME><LASTNAME>Meyer</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>12</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1904,13 +1904,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Ondes gravitationnelles : le cosmos vibre sous nos pieds #LeSOW 9</T>\
                 <A>https://www.youtube.com/watch?v=vMipq5Y6PuU</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>15</MINUTE><SECOND>33</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>15</MINUTE><SECOND>34</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>6</MONTH><DAY>29</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Ondes gravitationnelles : le cosmos vibre sous nos pieds #LeSOW 9</T>\
                 <A>https://www.youtube.com/watch?v=vMipq5Y6PuU</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>15</MINUTE><SECOND>33</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>15</MINUTE><SECOND>34</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Sébastien</FIRSTNAME><LASTNAME>Carassou</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Étienne</FIRSTNAME><LASTNAME>Ledolley</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>6</MONTH><DAY>29</DAY></DATE>\
@@ -1926,7 +1926,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>7 Things I Never Knew About Python Until Recently (Part 1)</T>\
                 <A>https://www.youtube.com/watch?v=AMoBy45dYpY</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>7</MINUTE><SECOND>11</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>7</MINUTE><SECOND>12</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Liu</FIRSTNAME><LASTNAME>Zuo Lin</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>10</MONTH><DAY>22</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1942,7 +1942,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Les LANGUES dans STAR WARS (ft.@ChroniqueNEXUSVI)</T>\
                 <A>https://www.youtube.com/watch?v=aLerv1-8erQ</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>34</MINUTE><SECOND>39</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>34</MINUTE><SECOND>40</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Romain</FIRSTNAME><LASTNAME>Filstroff</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>31</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1958,7 +1958,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>L'INCROYABLE HISTOIRE DE LA CONJECTURE DE FERMAT CMH#14</T>\
                 <A>https://www.youtube.com/watch?v=EcPPjZVB2vA</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>23</MINUTE><SECOND>59</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>24</MINUTE><SECOND>0</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Franck</FIRSTNAME><LASTNAME>Dunas</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>9</MONTH><DAY>9</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1974,7 +1974,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>When the balance gets broken</T>\
                 <A>https://www.youtube.com/watch?v=Thzk1MzjeIQ</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>2</MINUTE><SECOND>24</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>2</MINUTE><SECOND>25</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Mura</FIRSTNAME><LASTNAME>Yakerson</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>3</MONTH><DAY>13</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -1990,7 +1990,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Tesla’s 3-6-9 and Vortex Math: Is this really the key to the universe?</T>\
                 <A>https://www.youtube.com/watch?v=6ZrO90AI0c8</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>29</MINUTE><SECOND>58</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>29</MINUTE><SECOND>59</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Burkard</FIRSTNAME><LASTNAME>Polster</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>2</MONTH><DAY>19</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2006,7 +2006,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Animating Nicomachus's 2000 year old mathematical gem (Mathologer Christmas video)</T>\
                 <A>https://www.youtube.com/watch?v=WY5X_3q80WY</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>3</MINUTE><SECOND>29</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>3</MINUTE><SECOND>30</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Burkard</FIRSTNAME><LASTNAME>Polster</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>12</MONTH><DAY>24</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2022,7 +2022,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Le démon des multiples - Mathsdrop</T>\
                 <A>https://www.youtube.com/watch?v=X2JBKUwwuN8</A>\
-                <L>fr</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>31</MINUTE><SECOND>5</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>31</MINUTE><SECOND>6</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Mickaël</FIRSTNAME><LASTNAME>Launay</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>3</MONTH><DAY>25</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2038,7 +2038,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>My response to being reverse-Dereked</T>\
                 <A>https://www.youtube.com/watch?v=gusXBTyg1O4</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>35</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>36</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Matt</FIRSTNAME><LASTNAME>Parker</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>7</MONTH><DAY>2</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2054,7 +2054,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Crack Ollama Environment Variables with Ease - Part of the Ollama Course</T>\
                 <A>https://www.youtube.com/watch?v=VKlcZCc5uQQ</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>6</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>7</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Matt</FIRSTNAME><LASTNAME>Williams</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>9</MONTH><DAY>26</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2070,7 +2070,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Did OpenAI Just Secretly Release GPT-5?! ("GPT2-Chatbot")</T>\
                 <A>https://www.youtube.com/watch?v=3BDboYfjWE8</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>17</MINUTE><SECOND>11</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>17</MINUTE><SECOND>12</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Matthew</FIRSTNAME><LASTNAME>Berman</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>4</MONTH><DAY>30</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2086,7 +2086,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>L'étonnant puzzle fractal de von Koch - Micmaths</T>\
                 <A>https://www.youtube.com/watch?v=8D_ThIqoJL8</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>13</MINUTE><SECOND>51</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>13</MINUTE><SECOND>52</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Mickaël</FIRSTNAME><LASTNAME>Launay</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>4</MONTH><DAY>28</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2102,7 +2102,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>The Curry-Howard Correspondence</T>\
                 <A>https://www.youtube.com/watch?v=GdcOy6zVFC4</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>45</MINUTE><SECOND>32</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>45</MINUTE><SECOND>33</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Michael</FIRSTNAME><MIDDLENAME>Ryan</MIDDLENAME><LASTNAME>Clarkson</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>8</MONTH><DAY>9</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2118,7 +2118,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>The Problem With The Butterfly Effect</T>\
                 <A>https://www.youtube.com/watch?v=vLIPUdru82c</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>16</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>17</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Henry</FIRSTNAME><LASTNAME>Reich</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>21</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2156,13 +2156,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>What Skills Do Developers NEED To Have In An AI Future?</T>\
                 <A>https://www.youtube.com/watch?v=lJiDBRh96oU</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>24</MINUTE><SECOND>29</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>24</MINUTE><SECOND>30</SECOND></DURATION></X>\
                 <DATE><YEAR>2026</YEAR><MONTH>2</MONTH><DAY>6</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>What Skills Do Developers NEED To Have In An AI Future?</T>\
                 <A>https://www.youtube.com/watch?v=lJiDBRh96oU</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>24</MINUTE><SECOND>29</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>24</MINUTE><SECOND>30</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Ken</FIRSTNAME><LASTNAME>Beck</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Trisha</FIRSTNAME><LASTNAME>Gee</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2026</YEAR><MONTH>2</MONTH><DAY>6</DAY></DATE>\
@@ -2178,7 +2178,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>☀️À l'intérieur d'ITER - Visite du chantier du plus gros tokamak du monde</T>\
                 <A>https://www.youtube.com/watch?v=36WpRwY2DYw</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>51</MINUTE><SECOND>36</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>51</MINUTE><SECOND>37</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Dimitri</FIRSTNAME><LASTNAME>Ferrière</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>11</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2194,7 +2194,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>2500 ans de philosophie (et on ne s'entend toujours pas sur ce que c'est)</T>\
                 <A>https://www.youtube.com/watch?v=-VdXi2LMPyE</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>13</MINUTE><SECOND>13</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>13</MINUTE><SECOND>14</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Thibaut</FIRSTNAME><LASTNAME>Giraud</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>12</MONTH><DAY>19</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2210,7 +2210,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>La bataille des nombres au Moyen Âge - Le jeu de la Rithmomachie</T>\
                 <A>https://www.youtube.com/watch?v=QwLZ_i1qK8A</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>36</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>37</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Benjamin</FIRSTNAME><LASTNAME>Brillaud</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>4</MONTH><DAY>29</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2226,13 +2226,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>The Distance Between Numbers - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=Sgupo9DLMGs</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>21</MINUTE><SECOND>33</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>21</MINUTE><SECOND>34</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>2</MONTH><DAY>28</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>The Distance Between Numbers - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=Sgupo9DLMGs</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>21</MINUTE><SECOND>33</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>21</MINUTE><SECOND>34</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Tom</FIRSTNAME><LASTNAME>Crawford</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>2</MONTH><DAY>28</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2247,13 +2247,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>37 - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=EJRXWNWJOrQ</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>2</MINUTE><SECOND>57</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>2</MINUTE><SECOND>58</SECOND></DURATION></X>\
                 <DATE><YEAR>2012</YEAR><MONTH>7</MONTH><DAY>20</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>37 - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=EJRXWNWJOrQ</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>2</MINUTE><SECOND>57</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>2</MINUTE><SECOND>58</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Matt</FIRSTNAME><LASTNAME>Parker</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2012</YEAR><MONTH>7</MONTH><DAY>20</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2268,13 +2268,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>The Beautiful Math of Snakes and Ladders - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=nlm07asSU0c</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>21</MINUTE><SECOND>45</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>21</MINUTE><SECOND>46</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>11</MONTH><DAY>1</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>The Beautiful Math of Snakes and Ladders - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=nlm07asSU0c</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>21</MINUTE><SECOND>45</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>21</MINUTE><SECOND>46</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Marcus</FIRSTNAME><LASTNAME>du Sautoy</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>11</MONTH><DAY>1</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2289,13 +2289,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>The Journey to 3264 - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=NWahomDHaDs</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>37</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>38</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>4</MONTH><DAY>2</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>The Journey to 3264 - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=NWahomDHaDs</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>37</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>38</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>David</FIRSTNAME><LASTNAME>Eisenbud</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>4</MONTH><DAY>2</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2310,13 +2310,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>The Return of -1/12 - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=FmLIGN8ZGdw</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>24</MINUTE><SECOND>56</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>24</MINUTE><SECOND>57</SECOND></DURATION></X>\
                 <DATE><YEAR>2024</YEAR><MONTH>2</MONTH><DAY>15</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>The Return of -1/12 - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=FmLIGN8ZGdw</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>24</MINUTE><SECOND>56</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>24</MINUTE><SECOND>57</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Tony</FIRSTNAME><LASTNAME>Feng</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Tony</FIRSTNAME><LASTNAME>Padilla</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>2</MONTH><DAY>15</DAY></DATE>\
@@ -2332,13 +2332,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>The Langlands Program - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=4dyytPboqvE</A>\
-                <L>en</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>3</MINUTE><SECOND>26</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>3</MINUTE><SECOND>27</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>9</MONTH><DAY>28</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>The Langlands Program - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=4dyytPboqvE</A>\
-                <L>en</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>3</MINUTE><SECOND>26</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>3</MINUTE><SECOND>27</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Edward</FIRSTNAME><LASTNAME>Frenkel</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>9</MONTH><DAY>28</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2353,13 +2353,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>The Goat Problem - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=ZdQFN2XKeKI</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>51</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>52</SECOND></DURATION></X>\
                 <DATE><YEAR>2022</YEAR><MONTH>12</MONTH><DAY>24</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>The Goat Problem - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=ZdQFN2XKeKI</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>51</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>52</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>James</FIRSTNAME><LASTNAME>Grime</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>12</MONTH><DAY>24</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2374,13 +2374,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Absolute Infinity - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=sq-ntG5Mcus</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>4</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>5</SECOND></DURATION></X>\
                 <DATE><YEAR>2024</YEAR><MONTH>3</MONTH><DAY>19</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Absolute Infinity - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=sq-ntG5Mcus</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>4</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>5</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Asaf</FIRSTNAME><LASTNAME>Karagila</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>3</MONTH><DAY>19</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2395,13 +2395,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Infinite Circles - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=ASJpflLbPkU</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>53</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>54</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>12</MONTH><DAY>19</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Infinite Circles - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=ASJpflLbPkU</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>53</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>54</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Holly</FIRSTNAME><LASTNAME>Krieger</LASTNAME>\
                 </AUTHOR><DATE><YEAR>2023</YEAR><MONTH>12</MONTH><DAY>19</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2416,13 +2416,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>23% Beyond the Riemann Hypothesis - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=dwe4-OiRw7M</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>20</MINUTE><SECOND>27</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>20</MINUTE><SECOND>28</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>10</MONTH><DAY>29</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>23% Beyond the Riemann Hypothesis - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=dwe4-OiRw7M</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>20</MINUTE><SECOND>27</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>20</MINUTE><SECOND>28</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Jared</FIRSTNAME><MIDDLENAME>Duker</MIDDLENAME><LASTNAME>Lichtman</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>10</MONTH><DAY>29</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2437,13 +2437,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>A New Tile in Newtyle - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=ArADlJx7SlU</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>26</MINUTE><SECOND>50</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>26</MINUTE><SECOND>51</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>6</MONTH><DAY>26</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>A New Tile in Newtyle - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=ArADlJx7SlU</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>26</MINUTE><SECOND>50</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>26</MINUTE><SECOND>51</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Ayliean</FIRSTNAME><LASTNAME>MacDonald</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>6</MONTH><DAY>26</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2458,13 +2458,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Catalan Numbers - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=fczN0BCx0xs</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>13</MINUTE><SECOND>15</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>13</MINUTE><SECOND>16</SECOND></DURATION></X>\
                 <DATE><YEAR>2024</YEAR><MONTH>1</MONTH><DAY>29</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Catalan Numbers - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=fczN0BCx0xs</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>13</MINUTE><SECOND>15</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>13</MINUTE><SECOND>16</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Sophie</FIRSTNAME><LASTNAME>Maclean</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>1</MONTH><DAY>29</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2479,13 +2479,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Travelling to the Stars by Ladder - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=hzcdcrsyA9Y</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>23</MINUTE><SECOND>22</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>23</MINUTE><SECOND>23</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>9</MONTH><DAY>17</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Travelling to the Stars by Ladder - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=hzcdcrsyA9Y</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>23</MINUTE><SECOND>22</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>23</MINUTE><SECOND>23</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Tony</FIRSTNAME><LASTNAME>Padilla</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>9</MONTH><DAY>17</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2500,13 +2500,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>The Prime Number Race (with 3Blue1Brown) - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=YAsHGOwB408</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>20</MINUTE><SECOND>28</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>20</MINUTE><SECOND>29</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>2</MONTH><DAY>23</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>The Prime Number Race (with 3Blue1Brown) - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=YAsHGOwB408</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>20</MINUTE><SECOND>28</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>20</MINUTE><SECOND>29</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Grant</FIRSTNAME><LASTNAME>Sanderson</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>2</MONTH><DAY>23</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2521,13 +2521,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>What are these strange dice? - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=3akBMSJ37Uk</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>27</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>28</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>11</MONTH><DAY>27</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>What are these strange dice? - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=3akBMSJ37Uk</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>27</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>28</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Henry</FIRSTNAME><LASTNAME>Segerman</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>11</MONTH><DAY>27</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2542,13 +2542,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Your Klein Bottle is in the Post - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=KNq0eUBxPXc</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>5</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>6</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>3</MONTH><DAY>7</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Your Klein Bottle is in the Post - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=KNq0eUBxPXc</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>5</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>6</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Cliff</FIRSTNAME><LASTNAME>Stoll</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>3</MONTH><DAY>7</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2563,13 +2563,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>The Yellowstone Permutation - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=DUaqiM1bGX4</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>20</MINUTE><SECOND>59</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>21</MINUTE><SECOND>0</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>29</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>The Yellowstone Permutation - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=DUaqiM1bGX4</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>20</MINUTE><SECOND>59</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>21</MINUTE><SECOND>0</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Neil</FIRSTNAME><LASTNAME>Sloane</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>29</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2584,13 +2584,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>The Light Switch Problem - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=-UBDRX6bk-A</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>18</MINUTE><SECOND>30</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>18</MINUTE><SECOND>31</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>2</MONTH><DAY>16</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>The Light Switch Problem - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=-UBDRX6bk-A</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>18</MINUTE><SECOND>30</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>18</MINUTE><SECOND>31</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Ben</FIRSTNAME><LASTNAME>Sparks</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>2</MONTH><DAY>16</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2605,13 +2605,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>The Math of Species Conflict - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=WR3GqqWAmfw</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>34</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>35</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>3</MONTH><DAY>30</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>The Math of Species Conflict - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=WR3GqqWAmfw</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>34</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>35</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Thomas</FIRSTNAME><LASTNAME>Woolley</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>3</MONTH><DAY>30</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2626,13 +2626,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Shakespeare, Numbers, and Chronograms - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=ERAgUg-e_Qs</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>21</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>22</SECOND></DURATION></X>\
                 <DATE><YEAR>2025</YEAR><MONTH>2</MONTH><DAY>5</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Shakespeare, Numbers, and Chronograms - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=ERAgUg-e_Qs</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>21</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>22</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Rob</FIRSTNAME><LASTNAME>Eastaway</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>2</MONTH><DAY>5</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2647,13 +2647,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>The Secret of the Raffle Function (epic proof) - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=XhA5U9pFXuU</A>\
-                <L>en</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>20</MINUTE><SECOND>13</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>20</MINUTE><SECOND>14</SECOND></DURATION></X>\
                 <DATE><YEAR>2025</YEAR><MONTH>10</MONTH><DAY>2</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>The Secret of the Raffle Function (epic proof) - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=XhA5U9pFXuU</A>\
-                <L>en</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>20</MINUTE><SECOND>13</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>20</MINUTE><SECOND>14</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Zvezdelina</FIRSTNAME><LASTNAME>Stankova</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>10</MONTH><DAY>2</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2668,13 +2668,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>A New Tile (extra) - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=k85GOcuTmm0</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>1</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>2</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>6</MONTH><DAY>26</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>A New Tile (extra) - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=k85GOcuTmm0</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>1</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>2</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Ayliean</FIRSTNAME><LASTNAME>MacDonald</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>6</MONTH><DAY>26</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2689,13 +2689,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>New Largest Known Prime with Matt Parker (Full Interview) - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=oE8puWQ4taQ</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>21</MINUTE><SECOND>12</SECOND></DURATION></X\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>21</MINUTE><SECOND>13</SECOND></DURATION></X\
                 ><DATE><YEAR>2024</YEAR><MONTH>10</MONTH><DAY>24</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>New Largest Known Prime with Matt Parker (Full Interview) - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=oE8puWQ4taQ</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>21</MINUTE><SECOND>12</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>21</MINUTE><SECOND>13</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Matt</FIRSTNAME><LASTNAME>Parker</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>10</MONTH><DAY>24</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2710,13 +2710,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Strong Axioms of Infinity - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=Efj1ZSsHVcw</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>17</MINUTE><SECOND>25</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>17</MINUTE><SECOND>26</SECOND></DURATION></X>\
                 <DATE><YEAR>2025</YEAR><MONTH>12</MONTH><DAY>8</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Strong Axioms of Infinity - Numberphile</T>\
                 <A>https://www.youtube.com/watch?v=Efj1ZSsHVcw</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>17</MINUTE><SECOND>25</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>17</MINUTE><SECOND>26</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Asaf</FIRSTNAME><LASTNAME>Karagila</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>12</MONTH><DAY>8</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2731,7 +2731,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>🤖 Comprendre ChatGPT (avec DefendIntelligence)</T>\
                 <A>https://www.youtube.com/watch?v=j3fvoM5Er2k</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>49</MINUTE><SECOND>53</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>49</MINUTE><SECOND>54</SECOND></DURATION></X>\
                 <AUTHOR><GIVENNAME>Defakator</GIVENNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>3</MONTH><DAY>2</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2747,7 +2747,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Nucléaire : un atout pour l'indépendance de la France ?</T>\
                 <A>https://www.youtube.com/watch?v=b4HfK_coDcc</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>29</MINUTE><SECOND>38</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>29</MINUTE><SECOND>39</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Ludo</FIRSTNAME><LASTNAME>Torbey</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>12</MONTH><DAY>20</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2763,7 +2763,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Hacking et virus informatiques (dans le monde réel) bonus: Corewar! - Passe-science #43</T>\
                 <A>https://www.youtube.com/watch?v=yfFck7EfptU</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>26</MINUTE><SECOND>13</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>26</MINUTE><SECOND>14</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Thomas</FIRSTNAME><LASTNAME>Cabaret</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>11</MONTH><DAY>5</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2779,7 +2779,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Our Ancient Relative That Said 'No Thanks' To Land</T>\
                 <A>https://www.youtube.com/watch?v=Ke0BjyO41Qg</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>9</MINUTE><SECOND>55</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>9</MINUTE><SECOND>56</SECOND></DURATION></X>\
                 <DATE><YEAR>2022</YEAR><MONTH>10</MONTH><DAY>4</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
@@ -2797,13 +2797,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Poaching an Egg in Piranha Solution - Periodic Table of Videos</T>\
                 <A>https://www.youtube.com/watch?v=ykpTFw6r7Hw</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>4</MINUTE><SECOND>57</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>4</MINUTE><SECOND>58</SECOND></DURATION></X>\
                 <DATE><YEAR>2022</YEAR><MONTH>6</MONTH><DAY>11</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Poaching an Egg in Piranha Solution - Periodic Table of Videos</T>\
                 <A>https://www.youtube.com/watch?v=ykpTFw6r7Hw</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>4</MINUTE><SECOND>57</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>4</MINUTE><SECOND>58</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Martyn</FIRSTNAME><LASTNAME>Poliakoff</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Neil</FIRSTNAME><LASTNAME>Barnes</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>6</MONTH><DAY>11</DAY></DATE>\
@@ -2820,13 +2820,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Comment greffer facilement les arbres fruitiers ? (mois par mois)</T>\
                 <A>https://www.youtube.com/watch?v=pfUK_ADTvgY</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>25</MINUTE><SECOND>25</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>25</MINUTE><SECOND>26</SECOND></DURATION></X>\
                 <DATE><YEAR>2022</YEAR><MONTH>12</MONTH><DAY>10</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Comment greffer facilement les arbres fruitiers ? (mois par mois)</T>\
                 <A>https://www.youtube.com/watch?v=pfUK_ADTvgY</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>25</MINUTE><SECOND>25</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>25</MINUTE><SECOND>26</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Damien</FIRSTNAME><LASTNAME>Dekarz</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>12</MONTH><DAY>10</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2841,7 +2841,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>My first science video in 3 years</T>\
                 <A>https://www.youtube.com/watch?v=B3m3AMRlYfc</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>7</MINUTE><SECOND>59</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>0</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Dianna</FIRSTNAME><LASTNAME>Cowern</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2026</YEAR><MONTH>3</MONTH><DAY>3</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2857,7 +2857,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Justice climatique : la COP où tout a déraillé</T>\
                 <A>https://www.youtube.com/watch?v=YVtW5d94KN0</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>28</MINUTE><SECOND>14</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>28</MINUTE><SECOND>15</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Maxime</FIRSTNAME><LASTNAME>Lambrecht</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>5</MONTH><DAY>26</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2873,7 +2873,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>What Caused the 2013 Hueypoxtla, Mexico Radiation Event?  | Plainly Difficult Disaster Documentary</T>\
                 <A>https://www.youtube.com/watch?v=XuZvc5mmAXk</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>47</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>48</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>John</FIRSTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>28</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2889,7 +2889,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>How To Catch A Cheater With Math</T>\
                 <A>https://www.youtube.com/watch?v=XTcP4oo4JI4</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>22</MINUTE><SECOND>37</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>22</MINUTE><SECOND>38</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Justin</FIRSTNAME><LASTNAME>Helps</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>6</MONTH><DAY>25</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2905,7 +2905,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>★★ Les Dyadiques et leurs liens avec l'écriture Binaire - La Classification des Nombres #4</T>\
                 <A>https://www.youtube.com/watch?v=fiekVUXhvZE</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>42</MINUTE><SECOND>26</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>42</MINUTE><SECOND>27</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Tristan</FIRSTNAME><LASTNAME>Audam-Dabidin</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Keshika</FIRSTNAME><LASTNAME>Dabidin</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2020</YEAR><MONTH>3</MONTH><DAY>28</DAY></DATE>\
@@ -2922,7 +2922,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>ClippyGPT - How I Built Supabase’s OpenAI Doc Search (Embeddings)</T>\
                 <A>https://www.youtube.com/watch?v=Yhtjd7yGGGA</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>41</MINUTE><SECOND>51</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>41</MINUTE><SECOND>52</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Greg</FIRSTNAME><LASTNAME>Richardson</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>2</MONTH><DAY>7</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2938,7 +2938,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Building Psychologically Safe Teams 🛡️ — with Meg Adams</T>\
                 <A>https://www.youtube.com/watch?v=_vgx8TAlgbk</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>49</MINUTE><SECOND>7</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>49</MINUTE><SECOND>8</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Meg</FIRSTNAME><LASTNAME>Adams</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Luca</FIRSTNAME><LASTNAME>Rossi</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>10</MONTH><DAY>10</DAY></DATE><COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2954,7 +2954,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>We Were Right! Real Inner Misalignment</T>\
                 <A>https://www.youtube.com/watch?v=zkbPdEHEyEI</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>46</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>47</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Robert</FIRSTNAME><LASTNAME>Miles</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>10</MONTH><DAY>10</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2970,7 +2970,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Easily Quit Mindless Scrolling</T>\
                 <A>https://www.youtube.com/watch?v=eV8F0dz_5y4</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>32</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>33</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Robert</FIRSTNAME><LASTNAME>Miles</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>6</MONTH><DAY>21</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -2986,7 +2986,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Where Did the Big Bang Happen?</T>\
                 <A>https://www.youtube.com/watch?v=3hApcpGJETA</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>16</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>17</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Sabine</FIRSTNAME><LASTNAME>Hossenfelder</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>9</MONTH><DAY>25</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3002,7 +3002,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>5 Problems Getting LLM Agents into Production</T>\
                 <A>https://www.youtube.com/watch?v=06kslWw_QOc</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>13</MINUTE><SECOND>11</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>13</MINUTE><SECOND>12</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Sam</FIRSTNAME><LASTNAME>Witteveen</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>6</MONTH><DAY>4</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3018,7 +3018,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Trafiquant d'humains et marchand de haine #FacebookFiles</T>\
                 <A>https://www.youtube.com/watch?v=sAjm3-IaRtI</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>38</MINUTE><SECOND>52</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>38</MINUTE><SECOND>53</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Lê</FIRSTNAME><LASTNAME>Nguyên Hoang</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>12</MONTH><DAY>6</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3034,7 +3034,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Où va le temps dans un Trou noir ?</T>\
                 <A>https://www.youtube.com/watch?v=EkE229ybABc</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>10</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>11</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Alessandro</FIRSTNAME><LASTNAME>Roussel</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>12</MONTH><DAY>6</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3050,7 +3050,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Qu'est-ce qu'un tenseur ?</T>\
                 <A>https://www.youtube.com/watch?v=zPRbbM4KJBY</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>24</MINUTE><SECOND>54</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>24</MINUTE><SECOND>55</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Alessandro</FIRSTNAME><LASTNAME>Roussel</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>2</MONTH><DAY>15</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3066,7 +3066,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>🌱La SOLUTION pour SAUVER LE CLIMAT🔥 (personne n'y avait pensé)</T>\
                 <A>https://www.youtube.com/watch?v=Y4yeTTOTfO8</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>35</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>36</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Valentine</FIRSTNAME><LASTNAME>Delattre</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>4</MONTH><DAY>21</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3082,7 +3082,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Comment Mesurer L'Univers ? 🔭🌕☀️✨🌌</T>\
                 <A>https://www.youtube.com/watch?v=FGwmAEMabm4</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>24</MINUTE><SECOND>48</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>24</MINUTE><SECOND>49</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>David</FIRSTNAME><LASTNAME>Louapre</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>1</MONTH><DAY>14</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3098,13 +3098,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>This Molecule Has Saved Billions of Lives, How Do We Make It Without Killing Ourselves?</T>\
                 <A>https://www.youtube.com/watch?v=z2bmOGCh1Q8</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>41</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>42</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>16</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>This Molecule Has Saved Billions of Lives, How Do We Make It Without Killing Ourselves?</T>\
                 <A>https://www.youtube.com/watch?v=z2bmOGCh1Q8</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>41</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>42</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Hank</FIRSTNAME><LASTNAME>Green</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>16</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3119,13 +3119,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>How a Die-Off of Vultures Cost a Country Billions</T>\
                 <A>https://www.youtube.com/watch?v=OwYPzeD3TJc</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>4</MINUTE><SECOND>13</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>4</MINUTE><SECOND>14</SECOND></DURATION></X>\
                 <DATE><YEAR>2024</YEAR><MONTH>10</MONTH><DAY>25</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>How a Die-Off of Vultures Cost a Country Billions</T>\
                 <A>https://www.youtube.com/watch?v=OwYPzeD3TJc</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>4</MINUTE><SECOND>13</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>4</MINUTE><SECOND>14</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Jaida</FIRSTNAME><LASTNAME>Elcock</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>10</MONTH><DAY>25</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3140,13 +3140,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>How Old IS Language?</T>\
                 <A>https://www.youtube.com/watch?v=Kki11f_SpKs</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>14</MINUTE><SECOND>42</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>14</MINUTE><SECOND>43</SECOND></DURATION></X>\
                 <DATE><YEAR>2025</YEAR><MONTH>8</MONTH><DAY>15</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>How Old IS Language?</T>\
                 <A>https://www.youtube.com/watch?v=Kki11f_SpKs</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>14</MINUTE><SECOND>42</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>14</MINUTE><SECOND>43</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Niba</FIRSTNAME><MIDDLENAME>Audrey</MIDDLENAME><LASTNAME>Nirmal</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>8</MONTH><DAY>15</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3161,13 +3161,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>The Future of Particle Accelerators Looks Wild</T>\
                 <A>https://www.youtube.com/watch?v=i3_3ga2E8vw</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>36</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>37</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>18</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>The Future of Particle Accelerators Looks Wild</T>\
                 <A>https://www.youtube.com/watch?v=i3_3ga2E8vw</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>36</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>37</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Stefan</FIRSTNAME><LASTNAME>Chin</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>18</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3182,7 +3182,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>L’écriture inclusive a-t-elle un intérêt ? Quelles preuves ?</T>\
                 <A>https://www.youtube.com/watch?v=url1TFdHlSI</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>23</MINUTE><SECOND>14</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>23</MINUTE><SECOND>15</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Viviane</FIRSTNAME><LASTNAME>Lalande</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>3</MONTH><DAY>10</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3198,7 +3198,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>The Big LLM Architecture Comparison</T>\
                 <A>https://www.youtube.com/watch?v=rNlULI-zGcw</A>\
-                <L>en</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>26</MINUTE><SECOND>36</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>26</MINUTE><SECOND>37</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Sebastian</FIRSTNAME><LASTNAME>Raschka</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>9</MONTH><DAY>10</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3214,7 +3214,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Reverse engineering Codex CLI to get GPT-5-Codex-Mini to draw me a pelican</T>\
                 <A>https://www.youtube.com/watch?v=9o1_DL9uNlM</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>49</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>50</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Simon</FIRSTNAME><LASTNAME>Willison</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>11</MONTH><DAY>9</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3230,7 +3230,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Mastermind with Steve Mould</T>\
                 <A>https://www.youtube.com/watch?v=FR_71HyBytE</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>20</MINUTE><SECOND>26</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>20</MINUTE><SECOND>27</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>James</FIRSTNAME><LASTNAME>Grime</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>3</MONTH><DAY>20</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3246,13 +3246,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Searching for Extraterrestrial Life (and the Drake Equation) - Sixty Symbols</T>\
                 <A>https://www.youtube.com/watch?v=OXMBozstWG0</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>25</MINUTE><SECOND>27</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>25</MINUTE><SECOND>28</SECOND></DURATION></X>\
                 <DATE><YEAR>2024</YEAR><MONTH>2</MONTH><DAY>28</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Searching for Extraterrestrial Life (and the Drake Equation) - Sixty Symbols</T>\
                 <A>https://www.youtube.com/watch?v=OXMBozstWG0</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>25</MINUTE><SECOND>27</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>25</MINUTE><SECOND>28</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Emma</FIRSTNAME><LASTNAME>Chapman</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>2</MONTH><DAY>28</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3267,13 +3267,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Black Holes and Dimensional Analysis - Sixty Symbols</T>\
                 <A>https://www.youtube.com/watch?v=MAGdU-G5OZg</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>57</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>58</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>3</MONTH><DAY>31</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Black Holes and Dimensional Analysis - Sixty Symbols</T>\
                 <A>https://www.youtube.com/watch?v=MAGdU-G5OZg</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>57</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>58</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Edmund</FIRSTNAME><LASTNAME>Copeland</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>3</MONTH><DAY>31</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3309,13 +3309,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>A Curious Problem with Red Galaxies - Sixty Symbols</T>\
                 <A>https://www.youtube.com/watch?v=EfwXWNla-Ts</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>42</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>43</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>6</MONTH><DAY>1</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>A Curious Problem with Red Galaxies - Sixty Symbols</T>\
                 <A>https://www.youtube.com/watch?v=EfwXWNla-Ts</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>42</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>12</MINUTE><SECOND>43</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Michael</FIRSTNAME><LASTNAME>Merrifield</LASTNAME>\
                 </AUTHOR><DATE><YEAR>2023</YEAR><MONTH>6</MONTH><DAY>1</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3330,13 +3330,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>ChatGPT does Physics - Sixty Symbols</T>\
                 <A>https://www.youtube.com/watch?v=GBtfwa-Fexc</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>41</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>42</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>23</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>ChatGPT does Physics - Sixty Symbols</T>\
                 <A>https://www.youtube.com/watch?v=GBtfwa-Fexc</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>41</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>42</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Philip</FIRSTNAME><LASTNAME>Moriarty</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>23</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3351,13 +3351,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>The Interesting Physics of Robert Oppenheimer (not the bomb) - Sixty Symbols</T>\
                 <A>https://www.youtube.com/watch?v=py8k1tn8yw4</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>51</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>52</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>8</MONTH><DAY>22</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>The Interesting Physics of Robert Oppenheimer (not the bomb) - Sixty Symbols</T>\
                 <A>https://www.youtube.com/watch?v=py8k1tn8yw4</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>51</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>19</MINUTE><SECOND>52</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Tony</FIRSTNAME><LASTNAME>Padilla</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>8</MONTH><DAY>22</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3372,13 +3372,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>The Biggest Possible Black Hole - Sixty Symbols</T>\
                 <A>https://www.youtube.com/watch?v=pGO_GJL17gM</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>40</SECOND></DURATION>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>41</SECOND></DURATION>\
                 </X><DATE><YEAR>2022</YEAR><MONTH>11</MONTH><DAY>28</DAY>\
                 </DATE><COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>The Biggest Possible Black Hole - Sixty Symbols</T>\
                 <A>https://www.youtube.com/watch?v=pGO_GJL17gM</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>40</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>41</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Becky</FIRSTNAME><LASTNAME>Smethurst</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>11</MONTH><DAY>28</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3393,13 +3393,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Is there a Black Hole in our Solar System? - Sixty Symbols</T>\
                 <A>https://www.youtube.com/watch?v=BlqHLHxVliI</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>51</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>52</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>5</MONTH><DAY>9</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Is there a Black Hole in our Solar System? - Sixty Symbols</T>\
                 <A>https://www.youtube.com/watch?v=BlqHLHxVliI</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>51</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>52</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Becky</FIRSTNAME><LASTNAME>Smethurst</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>James</FIRSTNAME><LASTNAME>Unwin</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>5</MONTH><DAY>9</DAY></DATE>\
@@ -3431,7 +3431,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>DNA vs RNA - Differences in Form and Function | Stated Clearly</T>\
                 <A>https://www.youtube.com/watch?v=FNynz6Q12Bw</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>49</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>50</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Jon</FIRSTNAME><LASTNAME>Perry</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>1</MONTH><DAY>25</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3447,7 +3447,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>The Planets Are Weirdly In Sync</T>\
                 <A>https://www.youtube.com/watch?v=Qyn64b4LNJ0</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>23</MINUTE><SECOND>21</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>23</MINUTE><SECOND>22</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Steve</FIRSTNAME><LASTNAME>Mould</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>4</MONTH><DAY>8</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3463,7 +3463,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>778: Mixtral 8x22B: SOTA Open-Source LLM Capabilities at a Fraction of the Compute — with Jon Krohn</T>\
                 <A>https://www.youtube.com/watch?v=8i5s7DFAjek</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>30</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>31</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Jon</FIRSTNAME><LASTNAME>Krohn</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>4</MONTH><DAY>26</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3479,7 +3479,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>GitHub Actions Tutorial - Basic Concepts and CI/CD Pipeline with Docker</T>\
                 <A>https://www.youtube.com/watch?v=R8_veQiYBjI</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>32</MINUTE><SECOND>30</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>32</MINUTE><SECOND>31</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Nana</FIRSTNAME><LASTNAME>Janashia</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2020</YEAR><MONTH>10</MONTH><DAY>8</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3495,7 +3495,7 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>S03E02. Hoel Queffelec</T>\
                 <A>https://www.youtube.com/watch?v=3lrudNraG2U</A>\
-                <L>fr</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>0</MINUTE><SECOND>15</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>0</MINUTE><SECOND>16</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Hoel</FIRSTNAME><LASTNAME>Queffelec</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Nathalie</FIRSTNAME><LASTNAME>Ayi</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>5</MONTH><DAY>5</DAY></DATE>\
@@ -3503,7 +3503,7 @@ class LinkDataExtractorTest {
         final String expectedProbableXml = """
                 <ARTICLE><X><T>S03E02. Hoel Queffelec</T>\
                 <A>https://www.youtube.com/watch?v=3lrudNraG2U</A>\
-                <L>fr</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>0</MINUTE><SECOND>15</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>0</MINUTE><SECOND>16</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Hoel</FIRSTNAME><LASTNAME>Queffelec</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Nathalie</FIRSTNAME><LASTNAME>Ayi</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Ayman</FIRSTNAME><LASTNAME>Moussa</LASTNAME></AUTHOR>\
@@ -3521,7 +3521,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>The Mystery Einstein Couldn’t Solve: The Mott Problem</T>\
                 <A>https://www.youtube.com/watch?v=gY6Jr7tB2fU</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>55</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>56</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>James</FIRSTNAME><MIDDLENAME>J.</MIDDLENAME><LASTNAME>Orgill</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>11</MONTH><DAY>8</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3537,7 +3537,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Why I Quit Copilot | Prime Reacts</T>\
                 <A>https://www.youtube.com/watch?v=GkmUwDXvWiQ</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>35</MINUTE><SECOND>55</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>35</MINUTE><SECOND>56</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Michael</FIRSTNAME><MIDDLENAME>B.</MIDDLENAME><LASTNAME>Paulson</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>4</MONTH><DAY>6</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3553,7 +3553,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>This One's A Tear Jerker</T>\
                 <A>https://www.youtube.com/watch?v=Q9yw1K9r4tk</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>44</MINUTE><SECOND>7</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>44</MINUTE><SECOND>8</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Hannah</FIRSTNAME><LASTNAME>Fry</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Michael</FIRSTNAME><LASTNAME>Stevens</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>12</MONTH><DAY>2</DAY></DATE>\
@@ -3570,13 +3570,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Thomaths 14 : Les plus beaux solides de l'espace</T>\
                 <A>https://www.youtube.com/watch?v=G5nbqZnlvHo</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>34</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>35</SECOND></DURATION></X>\
                 <DATE><YEAR>2021</YEAR><MONTH>11</MONTH><DAY>18</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Thomaths 14 : Les plus beaux solides de l'espace</T>\
                 <A>https://www.youtube.com/watch?v=G5nbqZnlvHo</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>34</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>35</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Alexander</FIRSTNAME><LASTNAME>Thomas</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>11</MONTH><DAY>18</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3591,7 +3591,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Stop Building 2GB Python Containers</T>\
                 <A>https://www.youtube.com/watch?v=Yg0cW-E4tYc</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>58</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>59</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Tim</FIRSTNAME><LASTNAME>van Cann</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>12</MONTH><DAY>1</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3607,13 +3607,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>DeepSeek-R1: How It Works, Simplified!</T>\
                 <A>https://www.youtube.com/watch?v=Uzi-cGmRalI</A>\
-                <L>en</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>0</MINUTE><SECOND>54</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>0</MINUTE><SECOND>55</SECOND></DURATION></X>\
                 <DATE><YEAR>2025</YEAR><MONTH>2</MONTH><DAY>6</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>DeepSeek-R1: How It Works, Simplified!</T>\
                 <A>https://www.youtube.com/watch?v=Uzi-cGmRalI</A>\
-                <L>en</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>0</MINUTE><SECOND>54</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>0</MINUTE><SECOND>55</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Zain</FIRSTNAME><LASTNAME>Hasan</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>2</MONTH><DAY>6</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3644,7 +3644,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>FLIP, L'émission quotidienne - Les lieux éphémères</T>\
                 <A>https://www.youtube.com/watch?v=eJapfznmA4U</A>\
-                <L>fr</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>0</MINUTE><SECOND>54</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>0</MINUTE><SECOND>55</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Guillaume</FIRSTNAME><LASTNAME>Chifoumi</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>François</FIRSTNAME><LASTNAME>Décamp</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>7</MONTH><DAY>14</DAY></DATE>\
@@ -3661,7 +3661,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>How Imaginary Numbers Were Invented</T>\
                 <A>https://www.youtube.com/watch?v=cUzklzVXJwo</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>23</MINUTE><SECOND>28</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>23</MINUTE><SECOND>29</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Derek</FIRSTNAME><LASTNAME>Muller</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>11</MONTH><DAY>1</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3677,14 +3677,14 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Something Strange Happens When You Trace How Connected We Are</T>\
                 <A>https://www.youtube.com/watch?v=CYlon2tvywA</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>33</MINUTE><SECOND>16</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>33</MINUTE><SECOND>17</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Derek</FIRSTNAME><LASTNAME>Muller</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>10</MONTH><DAY>1</DAY>\
                 </DATE><COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Something Strange Happens When You Trace How Connected We Are</T>\
                 <A>https://www.youtube.com/watch?v=CYlon2tvywA</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>33</MINUTE><SECOND>16</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>33</MINUTE><SECOND>17</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Derek</FIRSTNAME><LASTNAME>Muller</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Casper</FIRSTNAME><LASTNAME>Mebius</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>10</MONTH><DAY>1</DAY>\
@@ -3700,14 +3700,14 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>The Man Who Fooled The World</T>\
                 <A>https://www.youtube.com/watch?v=onr80iOoEXs</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>46</MINUTE><SECOND>8</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>46</MINUTE><SECOND>9</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Derek</FIRSTNAME><LASTNAME>Muller</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>9</MONTH><DAY>21</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>The Man Who Fooled The World</T>\
                 <A>https://www.youtube.com/watch?v=onr80iOoEXs</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>46</MINUTE><SECOND>8</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>46</MINUTE><SECOND>9</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Derek</FIRSTNAME><LASTNAME>Muller</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Henry</FIRSTNAME><LASTNAME>van Dyck</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>9</MONTH><DAY>21</DAY></DATE>\
@@ -3723,14 +3723,14 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>The Most Dangerous Escalator in the World</T>\
                 <A>https://www.youtube.com/watch?v=tZ8ehplVFp4</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>22</MINUTE><SECOND>17</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>22</MINUTE><SECOND>18</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Derek</FIRSTNAME><LASTNAME>Muller</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>9</MONTH><DAY>11</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>The Most Dangerous Escalator in the World</T>\
                 <A>https://www.youtube.com/watch?v=tZ8ehplVFp4</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>22</MINUTE><SECOND>17</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>22</MINUTE><SECOND>18</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Derek</FIRSTNAME><LASTNAME>Muller</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Latif</FIRSTNAME><LASTNAME>Nasser</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>9</MONTH><DAY>11</DAY></DATE>\
@@ -3746,7 +3746,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Les bretelles d'autoroutes ne sont pas des arcs de cercle !</T>\
                 <A>https://www.youtube.com/watch?v=tShSCFv_rGU</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>5</MINUTE><SECOND>51</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>5</MINUTE><SECOND>52</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Manu</FIRSTNAME><LASTNAME>Houdart</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>9</MONTH><DAY>15</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3778,7 +3778,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Fallait-il interdire l’abaya ?</T>\
                 <A>https://www.youtube.com/watch?v=w6k7eAA-qDQ</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>54</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>8</MINUTE><SECOND>55</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Sébastien</FIRSTNAME><LASTNAME>Canévet</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>9</MONTH><DAY>22</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3794,7 +3794,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>The Country That Didn't Want Independence</T>\
                 <A>https://www.youtube.com/watch?v=DfdewkU3_Hg</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>18</MINUTE><SECOND>58</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>18</MINUTE><SECOND>59</SECOND></DURATION></X>\
                 <AUTHOR><GIVENNAME>WonderWhy</GIVENNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>9</MONTH><DAY>30</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3810,7 +3810,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>How the Bizarre Path of Mars Reshaped Astronomy [Kepler's Laws Part 1]</T>\
                 <A>https://www.youtube.com/watch?v=Phscjl0u6TI</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>39</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>40</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Stephen</FIRSTNAME><LASTNAME>Welch</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>5</MONTH><DAY>8</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3826,7 +3826,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Google's UNREAL AI Gets an UPGRADE...</T>\
                 <A>https://www.youtube.com/watch?v=oSuXs0w1PPY</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>34</MINUTE><SECOND>24</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>34</MINUTE><SECOND>25</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Wes</FIRSTNAME><LASTNAME>Roth</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>10</MONTH><DAY>19</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3842,7 +3842,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>These 17 Paradoxes Will Change How You See the Universe</T>\
                 <A>https://www.youtube.com/watch?v=yrJA0J7jciY</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>24</MINUTE><SECOND>2</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>24</MINUTE><SECOND>3</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Jade</FIRSTNAME><LASTNAME>Tan-Holmes</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>6</MONTH><DAY>19</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3858,7 +3858,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>GPT-4 is here! What we know so far (Full Analysis)</T>\
                 <A>https://www.youtube.com/watch?v=2zW33LfffPc</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>34</MINUTE><SECOND>9</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>34</MINUTE><SECOND>10</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Yannic</FIRSTNAME><LASTNAME>Kilcher</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>3</MONTH><DAY>15</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3874,7 +3874,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Les indices les plus compromettants contre Hans Niemann</T>\
                 <A>https://www.youtube.com/watch?v=_PqORG75Cr4</A><L>fr</L><F>MP4</F>\
-                <DURATION><MINUTE>26</MINUTE><SECOND>20</SECOND></DURATION></X>\
+                <DURATION><MINUTE>26</MINUTE><SECOND>21</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Yosha</FIRSTNAME><LASTNAME>Iglesias</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>9</MONTH><DAY>25</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3890,13 +3890,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>How I Built the Entire Universe in Minecraft</T>\
                 <A>https://www.youtube.com/watch?v=eAkb2mpybnM</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>13</MINUTE><SECOND>35</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>13</MINUTE><SECOND>36</SECOND></DURATION></X>\
                 <DATE><YEAR>2022</YEAR><MONTH>10</MONTH><DAY>4</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>How I Built the Entire Universe in Minecraft</T>\
                 <A>https://www.youtube.com/watch?v=eAkb2mpybnM</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>13</MINUTE><SECOND>35</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>13</MINUTE><SECOND>36</SECOND></DURATION></X>\
                 <AUTHOR><GIVENNAME>ChrisDaCow</GIVENNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>10</MONTH><DAY>4</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3912,13 +3912,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>La Chine est embarrassée face à la guerre en Ukraine</T>\
                 <A>https://www.youtube.com/watch?v=1Q4RoWIfpoY</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>1</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>2</SECOND></DURATION></X>\
                 <DATE><YEAR>2022</YEAR><MONTH>10</MONTH><DAY>9</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>La Chine est embarrassée face à la guerre en Ukraine</T>\
                 <A>https://www.youtube.com/watch?v=1Q4RoWIfpoY</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>1</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>2</SECOND></DURATION></X>\
                 <AUTHOR><GIVENNAME>France Culture</GIVENNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>10</MONTH><DAY>9</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3934,7 +3934,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>5 Must Know VSCode Shortcuts</T>\
                 <A>https://www.youtube.com/watch?v=C926N9zMJkU</A>\
-                <L>en</L><F>MP4</F><DURATION><SECOND>49</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><SECOND>50</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Kyle</FIRSTNAME><LASTNAME>Cook</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>3</MONTH><DAY>3</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3984,13 +3984,13 @@ class LinkDataExtractorTest {
         final String expectedSureXml = """
                 <ARTICLE><X><T>Enquête inédite : l’enfer des cages pour les pintades du groupe LDC</T>\
                 <A>https://www.youtube.com/watch?v=iCEe6E9Yr9c</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>2</MINUTE><SECOND>19</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>2</MINUTE><SECOND>20</SECOND></DURATION></X>\
                 <DATE><YEAR>2023</YEAR><MONTH>8</MONTH><DAY>9</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
                 <ARTICLE><X><T>Enquête inédite : l’enfer des cages pour les pintades du groupe LDC</T>\
                 <A>https://www.youtube.com/watch?v=iCEe6E9Yr9c</A>\
-                <L>fr</L><F>MP4</F><DURATION><MINUTE>2</MINUTE><SECOND>19</SECOND></DURATION></X>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>2</MINUTE><SECOND>20</SECOND></DURATION></X>\
                 <AUTHOR><GIVENNAME>L214 Éthique &amp; Animaux</GIVENNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>8</MONTH><DAY>9</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -4006,7 +4006,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Capital One's $200M Cloud Data Breach</T>\
                 <A>https://www.youtube.com/watch?v=r7HV4s-4ksQ</A>\
-                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>23</SECOND></DURATION></X>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>11</MINUTE><SECOND>24</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Kevin</FIRSTNAME><LASTNAME>Fang</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>4</MONTH><DAY>13</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
