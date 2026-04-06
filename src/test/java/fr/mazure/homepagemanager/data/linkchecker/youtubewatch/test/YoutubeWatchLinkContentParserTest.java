@@ -186,6 +186,10 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://www.youtube.com/watch?v=_kGqkxQo-Tw|2019-05-27",
         "https://www.youtube.com/watch?v=-hxeDjAxvJ8|2023-06-22",
+        // the following videos ensure that Paris timezone is used
+        "https://www.youtube.com/watch?v=GdcOy6zVFC4|2021-08-09",
+        "https://www.youtube.com/watch?v=6z1JwZbX4dQ|2021-05-15",
+        "https://www.youtube.com/watch?v=Ff4fRgnuFgQ|2023-06-09",
     }, delimiter = '|')
     void testDate(final String url,
                   final String expectedDate) {

@@ -23,6 +23,7 @@ import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
+import fr.mazure.homepagemanager.utils.DateTimeHelper;
 import fr.mazure.homepagemanager.utils.EnvironmentHelper;
 import fr.mazure.homepagemanager.utils.StringHelper;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
@@ -217,14 +218,8 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         return payload.getJSONArray("items").getJSONObject(0);
     }
 
-    private static final LocalDate parseDateTimeString(final String str) throws ContentParserException {
-
-        // case the date starts with YYYY-MM-DD and potentially continues with a time
-        if (str.length() >= 10) {
-            return LocalDate.parse(str.substring(0, 10));
-        }
-
-        throw new ContentParserException("Unknown date format: \"" + str + "\"");
+    private static final LocalDate parseDateTimeString(final String str) {
+        return DateTimeHelper.convertISO8601StringToDateTime(str); 
     }
 
     /**
