@@ -717,8 +717,8 @@ class LinkDataExtractorTest {
         final String url = "https://www.youtube.com/watch?v=cw34KMPSt4k";
         final String expectedXml = """
                 <ARTICLE><X><T>How I deploy serverless containers for free</T>\
-                <A>https://www.youtube.com/watch?v=cw34KMPSt4k</A><L>en</L><F>MP4</F>\
-                <DURATION><MINUTE>6</MINUTE><SECOND>33</SECOND></DURATION></X>\
+                <A>https://www.youtube.com/watch?v=cw34KMPSt4k</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>6</MINUTE><SECOND>33</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Jeff</FIRSTNAME><LASTNAME>Delaney</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2024</YEAR><MONTH>3</MONTH><DAY>16</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
@@ -3873,8 +3873,8 @@ class LinkDataExtractorTest {
         final String url = "https://www.youtube.com/watch?v=_PqORG75Cr4";
         final String expectedXml = """
                 <ARTICLE><X><T>Les indices les plus compromettants contre Hans Niemann</T>\
-                <A>https://www.youtube.com/watch?v=_PqORG75Cr4</A><L>fr</L><F>MP4</F>\
-                <DURATION><MINUTE>26</MINUTE><SECOND>21</SECOND></DURATION></X>\
+                <A>https://www.youtube.com/watch?v=_PqORG75Cr4</A>\
+                <L>fr</L><F>MP4</F><DURATION><MINUTE>26</MINUTE><SECOND>21</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Yosha</FIRSTNAME><LASTNAME>Iglesias</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2022</YEAR><MONTH>9</MONTH><DAY>25</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
