@@ -2,7 +2,6 @@ package fr.mazure.homepagemanager.data.linkchecker.numberphile;
 
 import java.time.Duration;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,7 +50,7 @@ public class NumberphileLinkContentParser extends LinkDataExtractor {
                        "title");
     private static final TextParser s_dateParser =
         new TextParser("<meta itemprop=\"datePublished\" content=\"",
-                       "T",
+                       "\"",
                        s_sourceName,
                        "date");
     private static final TextParser s_mp3UrlParser =
@@ -62,11 +61,9 @@ public class NumberphileLinkContentParser extends LinkDataExtractor {
 
     private static final Pattern s_extractGuest = Pattern.compile(" - with (.*)$");
 
-    private static final DateTimeFormatter s_dateformatter = DateTimeFormatter.ISO_LOCAL_DATE;
-
     /**
-     * @param url       URL of the link
-     * @param data      retrieved link data
+     * @param url URL of the link
+     * @param data retrieved link data
      * @param retriever cache data retriever
      * @throws ContentParserException Failure to extract the information
      */
@@ -77,7 +74,7 @@ public class NumberphileLinkContentParser extends LinkDataExtractor {
 
         _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
 
-        _creationDate = Optional.of(LocalDate.parse(s_dateParser.extract(data), s_dateformatter));
+        _creationDate = Optional.of(DateTimeHelper.convertISO8601StringToDateTime(s_dateParser.extract(data)));
 
         final String mp3url = s_mp3UrlParser.extract(data);
         final Mp3Helper helper = new Mp3Helper();
