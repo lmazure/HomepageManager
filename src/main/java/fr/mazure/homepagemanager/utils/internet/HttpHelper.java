@@ -166,7 +166,7 @@ public class HttpHelper {
      * @param url URL to be visited
      */
     public static void throttle(final String url) {
-
+    
         final String host = UriHelper.getHost(url);
         final Integer minDelay = s_minDelayPerSite.get(host);
         if (minDelay == null) {

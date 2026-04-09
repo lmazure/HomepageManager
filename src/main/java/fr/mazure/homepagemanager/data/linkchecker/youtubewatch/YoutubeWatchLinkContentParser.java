@@ -74,7 +74,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                    "t"),
               retriever);
 
-        // data is ignored; this parser now relies on the YouTube Data API.
+        // data is ignored: this parser relies on the YouTube Data API.
 
         try {
             final String videoId = extractVideoId(getUrl());
