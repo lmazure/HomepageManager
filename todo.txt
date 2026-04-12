@@ -47,7 +47,11 @@ methods       53.9%    97.9%
 
 
 
-fix channel name for https://www.youtube.com/watch?v=KOEIIRNzLmY
+
+
+
+
+group together the articles of https://martinfowler.com/articles/reduce-friction-ai/
 
 
 
@@ -73,30 +77,6 @@ Exception in thread "pool-2-thread-261" java.lang.RuntimeException: Access to YT
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
 	at java.base/java.lang.Thread.run(Thread.java:1516)
 	
-	
-	
-	
-	
-
-
-manage
-fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://lexfridman.com/peter-woit"
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:89)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:325)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:32)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
-	at java.base/java.lang.Thread.run(Thread.java:1516)
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find title in Lex Fridman podcast
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.TextParser.extract(TextParser.java:61)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.lexfridman.LexFridmanLinkContentParser.<init>(LexFridmanLinkContentParser.java:88)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:58)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:98)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:87)
-	... 8 more
 	
 	
 	
@@ -132,12 +112,6 @@ Manage Martin Fowler dates on links/design.xml
 
 Dwarkesh subtitles should be managed
 e.g., https://www.dwarkesh.com/p/elon-musk
-
-
-
-
-
-corriger fr.mazure.homepagemanager.data.linkchecker.lexfridman.test.LexFridmanLinkContentParserTest.testDates(String, String, String, String)
 
 
 
