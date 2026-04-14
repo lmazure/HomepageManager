@@ -47,11 +47,9 @@ methods       53.9%    97.9%
 
 
 
+spin off if The Rest Is Science
 
 
-
-
-group together the articles of https://martinfowler.com/articles/reduce-friction-ai/
 
 
 
