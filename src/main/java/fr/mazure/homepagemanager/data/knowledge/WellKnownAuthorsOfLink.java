@@ -26,6 +26,7 @@ public class WellKnownAuthorsOfLink {
 
     static {
         s_knownUrls.put("automathssite.wordpress.com",      buildKnownAuthors(WellKnownAuthors.JASON_LAPERONNIE,                         false));
+        s_knownUrls.put("bcantrill.dtrace.org",             buildKnownAuthors(WellKnownAuthors.BRYAN_CANTRILL,                           false));
         s_knownUrls.put("blog.stephane-robert.info",        buildKnownAuthors(WellKnownAuthors.STEPHANE_ROBERT,                          false));
         s_knownUrls.put("chshersh.com",                     buildKnownAuthors(WellKnownAuthors.JDMITRII_KOVANIKOV,                       false));
         s_knownUrls.put("drgoulu.com",                      buildKnownAuthors(WellKnownAuthors.PHILIPPE_GUGLIEMETTI,                     false));
