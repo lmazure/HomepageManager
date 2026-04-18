@@ -16,6 +16,7 @@ public class WellKnownAuthors {
     @SuppressWarnings("javadoc") public static final AuthorData BEN_SPARKS =           WellKnownAuthors.buildAuthor("Ben", "Sparks");
     @SuppressWarnings("javadoc") public static final AuthorData BENJAMIN_BRILLAUD =    WellKnownAuthors.buildAuthor("Benjamin", "Brillaud");
     @SuppressWarnings("javadoc") public static final AuthorData BRADY_HARAN =          WellKnownAuthors.buildAuthor("Brady", "Haran");
+    @SuppressWarnings("javadoc") public static final AuthorData BRYAN_CANTRILL =       WellKnownAuthors.buildAuthor("Bryan", "Cantrill");
     @SuppressWarnings("javadoc") public static final AuthorData BURKARD_POLSTER =      WellKnownAuthors.buildAuthor("Burkard", "Polster");
     @SuppressWarnings("javadoc") public static final AuthorData CHRIS_ADAMS =          WellKnownAuthors.buildAuthor("Chris", "Adams");
     @SuppressWarnings("javadoc") public static final AuthorData DAVE_FARLEY =          WellKnownAuthors.buildAuthor("Dave", "Farley");
@@ -35,6 +36,7 @@ public class WellKnownAuthors {
     @SuppressWarnings("javadoc") public static final AuthorData JEROME_COTTANCEAU =    WellKnownAuthors.buildAuthor("Jérôme", "Cottanceau");
     @SuppressWarnings("javadoc") public static final AuthorData JOHANN_REHBERGER =     WellKnownAuthors.buildAuthor("Johann", "Rehberger");
     @SuppressWarnings("javadoc") public static final AuthorData KEN_BECK =             WellKnownAuthors.buildAuthor("Ken", "Beck");
+    @SuppressWarnings("javadoc") public static final AuthorData KYLE_COOK =            WellKnownAuthors.buildAuthor("Kyle", "Cook");
     @SuppressWarnings("javadoc") public static final AuthorData LEAH_STOCKLEY =        WellKnownAuthors.buildAuthor("Leah", "Stockley");
     @SuppressWarnings("javadoc") public static final AuthorData LEILA_BATTISON =       WellKnownAuthors.buildAuthor("Leila", "Battison");
     @SuppressWarnings("javadoc") public static final AuthorData LEX_FRIDMAN =          WellKnownAuthors.buildAuthor("Lex", "Fridman");
@@ -109,6 +111,26 @@ public class WellKnownAuthors {
                               Optional.of(givenName));
     }
 
+
+    /**
+     *  Create an author from a first name, last name, and name suffix
+     *
+     * @param firstName first name
+     * @param lastName last name
+     * @param suffix name suffix
+     * @return created author
+     */
+     public static AuthorData buildAuthorWithSuffix(final String firstName,
+                                                    final String lastName,
+                                                    final String suffix) {
+         return new AuthorData(Optional.empty(),
+                               Optional.of(firstName),
+                               Optional.empty(),
+                               Optional.of(lastName),
+                               Optional.of(suffix),
+                               Optional.empty());
+     }
+    
     /**
      *  Create an author from a given name
      *
