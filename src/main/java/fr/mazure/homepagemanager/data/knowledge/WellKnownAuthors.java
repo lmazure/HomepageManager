@@ -111,6 +111,26 @@ public class WellKnownAuthors {
                               Optional.of(givenName));
     }
 
+
+    /**
+     *  Create an author from a first name, last name, and name suffix
+     *
+     * @param firstName first name
+     * @param lastName last name
+     * @param suffix name suffix
+     * @return created author
+     */
+     public static AuthorData buildAuthorWithSuffix(final String firstName,
+                                                    final String lastName,
+                                                    final String suffix) {
+         return new AuthorData(Optional.empty(),
+                               Optional.of(firstName),
+                               Optional.empty(),
+                               Optional.of(lastName),
+                               Optional.of(suffix),
+                               Optional.empty());
+     }
+    
     /**
      *  Create an author from a given name
      *

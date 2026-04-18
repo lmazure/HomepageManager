@@ -3491,6 +3491,22 @@ class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchSuckerpinchIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=QH4MviUE0_s";
+        final String expectedXml = """
+                <ARTICLE><X><T>Rupert's Snub Cube and other Math Holes</T>\
+                <A>https://www.youtube.com/watch?v=QH4MviUE0_s</A>\
+                <L>en</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>18</MINUTE><SECOND>34</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Tom</FIRSTNAME><LASTNAME>Murphy</LASTNAME><NAMESUFFIX>VII</NAMESUFFIX></AUTHOR>\
+                <DATE><YEAR>2025</YEAR><MONTH>9</MONTH><DAY>16</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeWatchSuperDataScienceIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=8i5s7DFAjek";
         final String expectedXml = """
