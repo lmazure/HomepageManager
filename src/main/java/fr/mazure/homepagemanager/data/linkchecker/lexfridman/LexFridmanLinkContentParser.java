@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 
 import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
+import fr.mazure.homepagemanager.data.dataretriever.SiteSlurper;
 import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthors;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
@@ -76,14 +77,15 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
      * Constructor
      *
      * @param url URL of the link
-     * @param data retrieved link data
      * @param retriever cache data retriever
      * @throws ContentParserException Failure to extract the information
      */
     public LexFridmanLinkContentParser(final String url,
-                                       final String data,
                                        final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(UrlHelper.removeFinalSlash(url), retriever);
+
+        final SiteSlurper sluper = new SiteSlurper(getRetriever(), url);
+        final String data = sluper.getContent();
 
         _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
         _publicationDate = Optional.of(LocalDate.parse(s_dateParser.extract(data), s_dateformatter));
@@ -168,11 +170,9 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
     }
 
     private void consumeYouTubeData(final FullFetchedLinkData siteData) {
-        final String payload = HtmlHelper.slurpFile(siteData.dataFileSection().get());
-
         // extract the link data
         try {
-            final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(siteData.url(), payload, getRetriever());
+            final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(siteData.url(), getRetriever());
             final LocalDate youtubeDate = DateTimeHelper.convertTemporalAccessorToLocalDate(parser.getCreationDate().get());
             final ExtractedLinkData linkData = new ExtractedLinkData(parser.getTitle(),
                                                                      new String[] { },

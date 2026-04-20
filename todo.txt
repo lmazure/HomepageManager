@@ -47,25 +47,44 @@ methods       53.9%    97.9%
 
 
 
-implement quick 'n dirty patch for YouTube: return empty payload
-
-
-
-
-
-
-the YouTube rerieval is broken, we need to fully pivot the data retrieval: the parser must be in charge of getting the data
-Exception in thread "pool-2-thread-261" java.lang.RuntimeException: Access to YT HTML
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.HttpHelper.throttle(HttpHelper.java:171)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:73)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
+manage
+fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://www.youtube.com/channel/UC0NCbj8CxzeCGIF6sODJ-7A"
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:89)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:325)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:33)
 	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:32)
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
 	at java.base/java.lang.Thread.run(Thread.java:1516)
+Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find description in YouTube channel page
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.TextParser.extract(TextParser.java:61)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.youtubechanneluser.YoutubeChannelUserLinkContentParser.extractDescription(YoutubeChannelUserLinkContentParser.java:87)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.youtubechanneluser.YoutubeChannelUserLinkContentParser.<init>(YoutubeChannelUserLinkContentParser.java:54)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:58)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.youtubechanneluser.YoutubeChannelUserLinkContentChecker.checkGlobalData(YoutubeChannelUserLinkContentChecker.java:48)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:98)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:87)
+	... 6 more
 	
 	
 	
+
+
+
+
+==== potentially before merge =====
+
+
+
+
+
+quick fix does not work for
+https://www.youtube.com/watch?v=qaPMdcCqtWk&pp=gAQBiAQB
+expected duration PT19M18S is not in the real duration interval [PT19M19S,PT19M20S]
+
+
+
+
 	
 	
 
@@ -103,13 +122,6 @@ e.g., https://www.dwarkesh.com/p/elon-musk
 
 
 
-
-
-
-
-
-
-==== potentially before merge =====
 
 
 

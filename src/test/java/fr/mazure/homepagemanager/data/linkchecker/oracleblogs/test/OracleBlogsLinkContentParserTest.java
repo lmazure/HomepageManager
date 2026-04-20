@@ -11,7 +11,6 @@ import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.oracleblogs.OracleBlogsLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase;
-import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 
 /**
  * Tests of OracleBlogsLinkContentParser
@@ -125,8 +124,7 @@ class OracleBlogsLinkContentParserTest extends LinkDataExtractorTestBase {
         final String expectedDate = "1970-01-01";
         retriever.retrieve(url, (final FullFetchedLinkData d) -> {
                                     Assertions.assertTrue(d.dataFileSection().isPresent());
-                                    final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
-                                    final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, data, retriever);
+                                    final OracleBlogsLinkContentParser parser = new OracleBlogsLinkContentParser(url, retriever);
                                     Assertions.assertEquals("", parser.getTitle());
                                     Assertions.assertTrue(parser.getSubtitle().isEmpty());
                                     Assertions.assertEquals(0, parser.getSureAuthors().size());

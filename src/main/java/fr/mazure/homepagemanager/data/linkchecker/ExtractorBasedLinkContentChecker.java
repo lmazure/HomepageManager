@@ -55,7 +55,7 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
     {
         _parser = s_cache.query(getUrl());
         if (_parser == null) {
-            _parser = _extractorBuilder.buildExtractor(getUrl(), data, getRetriever());
+            _parser = _extractorBuilder.buildExtractor(getUrl(), getRetriever());
             s_cache.store(getUrl(), _parser);
         }
         return null;
@@ -212,6 +212,6 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
 
     @FunctionalInterface
     protected interface LinkDataExtractorBuilder {
-        LinkDataExtractor buildExtractor(final String url, final String data, final CachedSiteDataRetriever retriever) throws ContentParserException;
+        LinkDataExtractor buildExtractor(final String url, final CachedSiteDataRetriever retriever) throws ContentParserException;
     }
 }
