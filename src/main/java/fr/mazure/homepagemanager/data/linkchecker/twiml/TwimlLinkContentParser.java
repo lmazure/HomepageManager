@@ -162,8 +162,6 @@ public class TwimlLinkContentParser extends LinkDataExtractor {
     }
 
     private void consumeYouTubeData(final FullFetchedLinkData siteData) {
-        final String payload = HtmlHelper.slurpFile(siteData.dataFileSection().get());
-
         // extract the link data
         try {
             final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(siteData.url(), getRetriever());

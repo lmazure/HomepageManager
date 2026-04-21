@@ -39,20 +39,14 @@ public class YoutubeChannelUserLinkContentChecker extends ExtractorBasedLinkCont
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return UrlHelper.hasPrefix(url, "https://www.youtube.com/channel/");
+        return UrlHelper.hasPrefix(url, "https://www.youtube.com/channel/") ||
+               UrlHelper.hasPrefix(url, "https://www.youtube.com/user/");
     }
 
     @Override
     protected LinkContentCheck checkGlobalData(final String data) throws ContentParserException {
 
         super.checkGlobalData(data);
-
-        final YoutubeChannelUserLinkContentParser parser = (YoutubeChannelUserLinkContentParser)getParser();
-        if (parser.getErrorMessage().isPresent()) {
-            return new LinkContentCheck("LinkDataRetrievalFailure",
-                                        parser.getErrorMessage().get(),
-                                        Optional.empty());
-        }
 
         return null;
     }
