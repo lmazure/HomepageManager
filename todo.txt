@@ -47,32 +47,32 @@ methods       53.9%    97.9%
 
 
 
-manage
-fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://www.youtube.com/channel/UC0NCbj8CxzeCGIF6sODJ-7A"
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:89)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:325)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:33)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:32)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
-	at java.base/java.lang.Thread.run(Thread.java:1516)
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find description in YouTube channel page
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.TextParser.extract(TextParser.java:61)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.youtubechanneluser.YoutubeChannelUserLinkContentParser.extractDescription(YoutubeChannelUserLinkContentParser.java:87)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.youtubechanneluser.YoutubeChannelUserLinkContentParser.<init>(YoutubeChannelUserLinkContentParser.java:54)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:58)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.youtubechanneluser.YoutubeChannelUserLinkContentChecker.checkGlobalData(YoutubeChannelUserLinkContentChecker.java:48)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:98)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:87)
-	... 6 more
-	
-	
-	
+we wre still accessing YouTube !!
+1) fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(String, String, CachedSiteDataRetriever)
+2) fr.mazure.homepagemanager.data.linkchecker.lexfridman.LexFridmanLinkContentParser.initializeOtherLink(Optional<String>)
+3) fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentParser.initializeOtherLink(Optional<String>)
+4) fr.mazure.homepagemanager.data.linkchecker.pragmaticengineer.PragmaticEngineerLinkContentParser.initializeOtherLink(Optional<String>)
+5) fr.mazure.homepagemanager.data.linkchecker.twiml.TwimlLinkContentParser.initializeOtherLink(Optional<String>)
+
+
+
+
+
+Why 300 threads are created when putting a breakpoint in fr.mazure.homepagemanager.utils.internet.HttpHelper.throttle(String)???
+
+
 
 
 
 
 ==== potentially before merge =====
+
+
+
+
+
+try once again to get the subtitle from https://about.gitlab.com/blog/whats-new-in-git-2-54-0/
+
 
 
 

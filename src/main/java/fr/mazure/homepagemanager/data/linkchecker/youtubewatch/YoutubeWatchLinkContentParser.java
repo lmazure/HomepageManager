@@ -100,9 +100,9 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
             _isPrivate = false;
 
             final JSONObject snippet = JsonHelper.getAsNode(item, "snippet");
-            _channel = JsonHelper.getAsText(snippet, "channelTitle");
-            _title = JsonHelper.getAsText(snippet, "title");
-            _description = JsonHelper.getAsText(snippet, "description");
+            _channel = JsonHelper.getAsText(snippet, "channelTitle").trim();
+            _title = JsonHelper.getAsText(snippet, "title").trim();
+            _description = JsonHelper.getAsText(snippet, "description").trim();
 
             if (item.has("contentDetails") && JsonHelper.getAsNode(item, "contentDetails").has("duration")) {
                 final Duration duration = Duration.parse(JsonHelper.getAsText(item, "contentDetails", "duration"));
