@@ -91,8 +91,7 @@ public class NumberphileLinkContentParser extends LinkDataExtractor {
         _authors.add(WellKnownAuthors.BRADY_HARAN);
 
         // get YouTube link
-        final YouTubeHelper youtubeHelper = new YouTubeHelper();
-        final Optional<String> youtubeLink = youtubeHelper.getVideoURL("Numberphile2", getTitle(), getRetriever());
+        final Optional<String> youtubeLink = YouTubeHelper.getVideoURL("Numberphile2", getTitle(), getRetriever());
         if (youtubeLink.isEmpty()) {
             _otherLink = Optional.empty();
         } else {

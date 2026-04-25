@@ -1,55 +1,55 @@
 package fr.mazure.homepagemanager.utils.internet;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
-import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
+import fr.mazure.homepagemanager.data.dataretriever.SiteSlurper;
+import fr.mazure.homepagemanager.utils.EnvironmentHelper;
 
 /**
  * Helper methods to manage YouTube videos
  */
 public class YouTubeHelper {
 
-    private static final Pattern _pattern = Pattern.compile("\"url\":\"/watch\\?v=([-_0-9a-zA-Z]{11})\\\\");
-
-    private Optional<String> _getVideoURL;
-
     /**
-     * retrieve the URL of a video given its channel and title
+     * Retrieve the URL of a video given its channel and title.
      *
      * @param channelName Name of the channel
-     * @param videoTitle Title of the video
-     * @param retriever data retriever
-     *
-     * @return URL of the video
+     * @param videoTitle  Title of the video
+     * @param retriever   data retriever
+     * @return URL of the video, or empty if not found
+     * @throws IllegalStateException if the YOUTUBE_API_KEY environment variable is not set
      */
-    public Optional<String> getVideoURL(final String channelName,
-                                        final String videoTitle,
-                                        final CachedSiteDataRetriever retriever) {
-        _getVideoURL = null;
-        final String encodedChannelName = UrlHelper.encodeUrlPart(channelName);
-        final String encodedVideoTitle = UrlHelper.encodeUrlPart(videoTitle);
-        final String searchURL = "https://www.youtube.com/results?search_query=%22" + encodedVideoTitle + "%22+%22" + encodedChannelName + "%22";
+    public static Optional<String> getVideoURL(final String channelName,
+                                               final String videoTitle,
+                                               final CachedSiteDataRetriever retriever) {
+        final String query = URLEncoder.encode("\"" + videoTitle + "\" \"" + channelName + "\"", StandardCharsets.UTF_8);
+        final String searchURL = "https://www.googleapis.com/youtube/v3/search" +
+                                 "?part=snippet" +
+                                 "&type=video" +
+                                 "&maxResults=1" +
+                                 "&q=" + query +
+                                 "&key=" + EnvironmentHelper.getYoutubeApiKet();
 
-        retriever.retrieve(searchURL, this::consumeYouTubeData, false);
+        final SiteSlurper sluper = new SiteSlurper(retriever, searchURL);
+        final String data = sluper.getContent();
 
-        return _getVideoURL;
-    }
+        final JSONArray items = new JSONObject(data).getJSONArray("items");
 
-    private void consumeYouTubeData(final FullFetchedLinkData siteData) {
-        final String payload = HtmlHelper.slurpFile(siteData.dataFileSection().get());
-
-        final String[] lines = payload.split("\n");
-        for (final String line : lines) {
-            final Matcher matcher = _pattern.matcher(line);
-            if (matcher.find()) {
-                _getVideoURL = Optional.of("https://www.youtube.com/watch?v=" + matcher.group(1));
-                return;
-            }
+        if (items.isEmpty()) {
+            return Optional.empty();
         }
 
-        _getVideoURL = Optional.empty();
+        final String videoId = items.getJSONObject(0)
+                                    .getJSONObject("id")
+                                    .optString("videoId", null);
+
+        return (videoId != null && !videoId.isBlank())  ? Optional.of("https://www.youtube.com/watch?v=" + videoId)
+                                                        : Optional.empty();
     }
 }

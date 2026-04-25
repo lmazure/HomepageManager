@@ -115,8 +115,7 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
         getRetriever().retrieve(transcriptUrl, this::consumeTranscript, false);
 
         // get YouTube link
-        final YouTubeHelper helper = new YouTubeHelper();
-        final Optional<String> youtubeLink = helper.getVideoURL("Oxide Computer Company", getTitle(), getRetriever());
+        final Optional<String> youtubeLink = YouTubeHelper.getVideoURL("Oxide Computer Company", getTitle(), getRetriever());
         if (youtubeLink.isEmpty()) {
             _otherLink = Optional.empty();
         } else {
