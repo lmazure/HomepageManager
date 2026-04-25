@@ -185,7 +185,7 @@ class TwimlLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://twimlai.com/podcast/twimlai/building-an-ai-mathematician/|PT54M53S",
         "https://twimlai.com/podcast/twimlai/ai-orchestration-for-smart-cities-and-the-enterprise/|PT54M17S",
-        "https://twimlai.com/podcast/twimlai/why-agents-are-stupid-what-we-can-do-about-it/|PT1H8M120S",
+        "https://twimlai.com/podcast/twimlai/why-agents-are-stupid-what-we-can-do-about-it/|PT1H8M20S",
     }, delimiter = '|')
     void testDuration(final String url,
                       final String expectedDuration) {

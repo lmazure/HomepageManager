@@ -49,10 +49,6 @@ methods       53.9%    97.9%
 
 we wre still accessing YouTube !!
 1) fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(String, String, CachedSiteDataRetriever)
-2) fr.mazure.homepagemanager.data.linkchecker.lexfridman.LexFridmanLinkContentParser.initializeOtherLink(Optional<String>)
-3) fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentParser.initializeOtherLink(Optional<String>)
-4) fr.mazure.homepagemanager.data.linkchecker.pragmaticengineer.PragmaticEngineerLinkContentParser.initializeOtherLink(Optional<String>)
-5) fr.mazure.homepagemanager.data.linkchecker.twiml.TwimlLinkContentParser.initializeOtherLink(Optional<String>)
 
 
 
