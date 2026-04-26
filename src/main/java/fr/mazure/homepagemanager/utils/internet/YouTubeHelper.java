@@ -28,13 +28,13 @@ public class YouTubeHelper {
     public static Optional<String> getVideoURL(final String channelName,
                                                final String videoTitle,
                                                final CachedSiteDataRetriever retriever) {
-        final String query = URLEncoder.encode("\"" + videoTitle + "\" \"" + channelName + "\"", StandardCharsets.UTF_8);
+        final String query = URLEncoder.encode(videoTitle + " \"" + channelName + "\"", StandardCharsets.UTF_8);
         final String searchURL = "https://www.googleapis.com/youtube/v3/search" +
                                  "?part=snippet" +
                                  "&type=video" +
                                  "&maxResults=1" +
                                  "&q=" + query +
-                                 "&key=" + EnvironmentHelper.getYoutubeApiKet();
+                                 "&key=" + EnvironmentHelper.getYoutubeApiKey();
 
         final SiteSlurper sluper = new SiteSlurper(retriever, searchURL);
         final String data = sluper.getContent();

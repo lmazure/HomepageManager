@@ -13,17 +13,13 @@ import java.util.Map;
 import java.util.Optional;
 
 import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
-import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.dataretriever.SiteSlurper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
-import fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser;
 import fr.mazure.homepagemanager.utils.ExitHelper;
-import fr.mazure.homepagemanager.utils.Logger;
-import fr.mazure.homepagemanager.utils.Logger.Level;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 import fr.mazure.homepagemanager.utils.internet.YouTubeHelper;
@@ -38,11 +34,11 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
     private static final String s_sourceName = "Oxide and Friends";
 
     private final String _title;
-    private Optional<TemporalAccessor> _creationDate;
+    private final Optional<TemporalAccessor> _creationDate;
     private final Optional<TemporalAccessor> _blogPublicationDate;
     private final Optional<Duration> _duration;
-    private List<AuthorData> _authors;
-    private Optional<ExtractedLinkData> _otherLink;
+    private final List<AuthorData> _authors;
+    private final Optional<ExtractedLinkData> _otherLink;
 
     private static final TextParser s_titleParser
         = new TextParser("<h2 class=\"site-episode-title\">",
@@ -112,16 +108,37 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
 
         // get transcript
         final String transcriptUrl = url + "/transcript";
-        getRetriever().retrieve(transcriptUrl, this::consumeTranscript, false);
+        final SiteSlurper transcriptSluper = new SiteSlurper(getRetriever(), transcriptUrl);
+        final String transcriptData = transcriptSluper.getContent();
+        final List<String> transcriptParticipants = s_transcriptParticipantParser.extractMulti(transcriptData);
+
+        // Count the occurrences of each string
+        final Map<String, Integer> counts = new HashMap<>();
+        for (final String participant : transcriptParticipants) {
+            if (!participant.startsWith("Speaker ")) {
+                counts.put(participant, Integer.valueOf(counts.getOrDefault(participant, ZERO).intValue() + 1));
+            }
+        }
+
+        // Sort the strings by their counts in descending order
+        final List<String> sortedParticipants = new ArrayList<>(counts.keySet());
+        sortedParticipants.sort((a, b) -> counts.get(b).intValue() - counts.get(a).intValue());
+
+        // Parse the author names
+        _authors = new ArrayList<>(sortedParticipants.size());
+        for (final String participant : sortedParticipants) {
+            try {
+                _authors.add(LinkContentParserUtils.parseAuthorName(participant));
+            } catch (final ContentParserException e) {
+                ExitHelper.exit("Failed to parse author name in Oxide and Friends transcript", e);
+            }
+        }
 
         // get YouTube link
         final Optional<String> youtubeLink = YouTubeHelper.getVideoURL("Oxide Computer Company", getTitle(), getRetriever());
-        if (youtubeLink.isEmpty()) {
-            _otherLink = Optional.empty();
-        } else {
-            // get YouTube payload
-            getRetriever().retrieve(youtubeLink.get(), this::consumeYouTubeData, false);
-        }
+        _otherLink = getOtherLinkFromYouTube(youtubeLink);
+        final String creationDateString = s_creationDateParser.extract(_otherLink.get().title());
+        _creationDate = Optional.of(LocalDate.parse(creationDateString, s_creationDateFormatter));
     }
 
     /**
@@ -176,65 +193,6 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
 
     private Optional<ExtractedLinkData> getOtherLink() {
         return _otherLink;
-    }
-
-    /**
-     * Extract the authors from the transcript data
-     *
-     * @param siteData transcript data
-     */
-    private void consumeTranscript(final FullFetchedLinkData siteData) {
-        final String payload = HtmlHelper.slurpFile(siteData.dataFileSection().get());
-
-        final List<String> transcriptParticipants = s_transcriptParticipantParser.extractMulti(payload);
-
-        // Count the occurrences of each string
-        final Map<String, Integer> counts = new HashMap<>();
-        for (final String participant : transcriptParticipants) {
-            if (!participant.startsWith("Speaker ")) {
-                counts.put(participant, Integer.valueOf(counts.getOrDefault(participant, ZERO).intValue() + 1));
-            }
-        }
-
-        // Sort the strings by their counts in descending order
-        final List<String> sortedParticipants = new ArrayList<>(counts.keySet());
-        sortedParticipants.sort((a, b) -> counts.get(b).intValue() - counts.get(a).intValue());
-
-        // Parse the author names
-        _authors = new ArrayList<>(sortedParticipants.size());
-        for (final String participant : sortedParticipants) {
-            try {
-                _authors.add(LinkContentParserUtils.parseAuthorName(participant));
-            } catch (final ContentParserException e) {
-                ExitHelper.exit("Failed to parse author name in Oxide and Friends transcript", e);
-            }
-        }
-    }
-
-    private void consumeYouTubeData(final FullFetchedLinkData siteData) {
-        // extract the link data
-        try {
-            final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(siteData.url(), getRetriever());
-            final String creationDateString = s_creationDateParser.extract(parser.getTitle());
-            _creationDate = Optional.of(LocalDate.parse(creationDateString, s_creationDateFormatter));
-            final ExtractedLinkData linkData = new ExtractedLinkData(parser.getTitle(),
-                                                                     new String[] { },
-                                                                     siteData.url(),
-                                                                     Optional.empty(),
-                                                                     Optional.empty(),
-                                                                     new LinkFormat[] { LinkFormat.MP4 },
-                                                                     new Locale[] { parser.getLanguage() },
-                                                                     parser.getDuration(),
-                                                                     parser.getCreationDate());
-            _otherLink = Optional.of(linkData);
-        } catch (ContentParserException e) {
-            Logger.log(Level.ERROR)
-                  .append("Failed to get YouTube link data")
-                  .append(e)
-                  .submit();
-
-            _otherLink = Optional.empty();
-        }
     }
 
     @Override

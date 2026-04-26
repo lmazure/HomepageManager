@@ -18,7 +18,6 @@ import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.utils.DateTimeHelper;
-import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 
 /**
@@ -436,7 +435,6 @@ public class LinkDataExtractorTestBase {
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
                                Assertions.assertTrue(d.dataFileSection().isPresent());
-                               final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                                final LinkDataExtractor parser = construct(clazz, url, retriever);
                                assertor.accept(parser);
                                consumerHasBeenCalled.set(true);

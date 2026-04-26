@@ -69,14 +69,14 @@ public class YoutubeChannelUserLinkContentParser extends LinkDataExtractor {
             return "https://www.googleapis.com/youtube/v3/channels?part=snippet&id=" +
                    UrlHelper.encodeUrlPart(channelId) +
                    "&key=" +
-                   UrlHelper.encodeUrlPart(EnvironmentHelper.getYoutubeApiKet());
+                   UrlHelper.encodeUrlPart(EnvironmentHelper.getYoutubeApiKey());
         }
         if (UrlHelper.hasPrefix(url, s_userPrefix)) {
             final String userName = extractIdentifier(url, s_userPrefix);
             return "https://www.googleapis.com/youtube/v3/channels?part=snippet&forUsername=" +
                    UrlHelper.encodeUrlPart(userName) +
                    "&key=" +
-                   UrlHelper.encodeUrlPart(EnvironmentHelper.getYoutubeApiKet());
+                   UrlHelper.encodeUrlPart(EnvironmentHelper.getYoutubeApiKey());
         }
         throw new ContentParserException("Unsupported YouTube channel/user URL: \"" + url + "\"");
     }

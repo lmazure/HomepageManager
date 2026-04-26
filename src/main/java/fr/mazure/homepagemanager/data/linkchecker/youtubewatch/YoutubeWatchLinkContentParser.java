@@ -14,10 +14,11 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
-import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
+import fr.mazure.homepagemanager.data.dataretriever.SiteSlurper;
 import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthors;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
@@ -26,7 +27,6 @@ import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.utils.DateTimeHelper;
 import fr.mazure.homepagemanager.utils.EnvironmentHelper;
 import fr.mazure.homepagemanager.utils.StringHelper;
-import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.internet.JsonHelper;
 import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
@@ -176,34 +176,20 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         return "https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,status,liveStreamingDetails&id=" +
                UrlHelper.encodeUrlPart(videoId) +
                "&key=" +
-               UrlHelper.encodeUrlPart(EnvironmentHelper.getYoutubeApiKet());
+               UrlHelper.encodeUrlPart(EnvironmentHelper.getYoutubeApiKey());
     }
 
     private JSONObject retrieveApiPayload(final String apiUrl) throws ContentParserException {
-        final JSONObject[] payload = new JSONObject[1];
-        final ContentParserException[] errors = new ContentParserException[1];
+        final JSONObject payload;
+        final SiteSlurper sluper = new SiteSlurper(getRetriever(), apiUrl);
+        final String rawPayload = sluper.getContent();
 
-        getRetriever().retrieve(apiUrl,
-                                (final FullFetchedLinkData siteData) -> {
-                                    if (siteData.dataFileSection().isEmpty()) {
-                                        errors[0] = new ContentParserException("Failed to retrieve YouTube Data API payload from \"" + apiUrl + "\"");
-                                        return;
-                                    }
-                                    final String rawPayload = HtmlHelper.slurpFile(siteData.dataFileSection().get());
-                                    payload[0] = new JSONObject(rawPayload);
-                                },
-                                false);
-
-        if (errors[0] != null) {
-            throw errors[0];
+        try {
+            payload = new JSONObject(rawPayload);
+        } catch (final JSONException e) {
+            throw new ContentParserException("Failed to parse YouTube API answer:\n" + rawPayload, e);
         }
-        if (payload[0] == null) {
-            throw new ContentParserException("YouTube Data API payload is empty for \"" + apiUrl + "\"");
-        }
-        if (payload[0].has("error")) {
-            throw new ContentParserException("YouTube Data API returned an error for \"" + apiUrl + "\": " + payload[0].getJSONObject("error").toString());
-        }
-        return payload[0];
+        return payload;
     }
 
     private static JSONObject getVideoItem(final JSONObject payload) {

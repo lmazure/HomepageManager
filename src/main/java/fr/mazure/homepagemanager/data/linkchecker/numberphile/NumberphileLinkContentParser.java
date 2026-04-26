@@ -1,7 +1,6 @@
 package fr.mazure.homepagemanager.data.linkchecker.numberphile;
 
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,7 +11,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
-import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.dataretriever.SiteSlurper;
 import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthors;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
@@ -20,10 +18,7 @@ import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
-import fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser;
 import fr.mazure.homepagemanager.utils.DateTimeHelper;
-import fr.mazure.homepagemanager.utils.Logger;
-import fr.mazure.homepagemanager.utils.Logger.Level;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.internet.Mp3Helper;
 import fr.mazure.homepagemanager.utils.internet.UrlHelper;
@@ -42,7 +37,7 @@ public class NumberphileLinkContentParser extends LinkDataExtractor {
     private final Optional<TemporalAccessor> _creationDate;
     private final Optional<Duration> _duration;
     private final List<AuthorData> _authors;
-    private Optional<ExtractedLinkData> _otherLink;
+    private final Optional<ExtractedLinkData> _otherLink;
 
     private static final TextParser s_titleParser =
         new TextParser("<meta itemprop=\"headline\" content=\"",
@@ -92,12 +87,7 @@ public class NumberphileLinkContentParser extends LinkDataExtractor {
 
         // get YouTube link
         final Optional<String> youtubeLink = YouTubeHelper.getVideoURL("Numberphile2", getTitle(), getRetriever());
-        if (youtubeLink.isEmpty()) {
-            _otherLink = Optional.empty();
-        } else {
-            // get YouTube payload
-            getRetriever().retrieve(youtubeLink.get(), this::consumeYouTubeData, false);
-        }
+        _otherLink = getOtherLinkFromYouTube(youtubeLink);
     }
 
     /**
@@ -156,26 +146,6 @@ public class NumberphileLinkContentParser extends LinkDataExtractor {
         return Locale.ENGLISH;
     }
 
-    private void consumeYouTubeData(final FullFetchedLinkData siteData) {
-        // extract the link data
-        try {
-            final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(siteData.url(), getRetriever());
-            final LocalDate youtubeDate = DateTimeHelper.convertTemporalAccessorToLocalDate(parser.getCreationDate().get());
-            final ExtractedLinkData linkData = new ExtractedLinkData(parser.getTitle(),
-                                                                     new String[] {},
-                                                                     siteData.url(),
-                                                                     Optional.empty(),
-                                                                     Optional.empty(),
-                                                                     new LinkFormat[] { LinkFormat.MP4 },
-                                                                     new Locale[] { parser.getLanguage() },
-                                                                     parser.getDuration(),
-                                                                     Optional.of(youtubeDate));
-            _otherLink = Optional.of(linkData);
-        } catch (final ContentParserException e) {
-            Logger.log(Level.ERROR).append("Failed to get YouTube link data").append(e).submit();
-            _otherLink = Optional.empty();
-        }
-    }
 
     @Override
     public List<ExtractedLinkData> getLinks() {
