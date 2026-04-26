@@ -66,10 +66,10 @@ public class DZoneLinkContentParser extends LinkDataExtractor {
         super(UrlHelper.removeQueryParameters(url, "edition"
                                                  , "email_hash"),
               retriever);
-              
+
         final SiteSlurper sluper = new SiteSlurper(getRetriever(), url);
         final String data = sluper.getContent();
-              
+
         _title = s_titleParser.extract(data);
         final String subtitle = s_subtitleParser.extract(data);
 

@@ -100,7 +100,7 @@ public abstract class LinkDataExtractor {
     public Optional<Duration> getDuration() {
         return Optional.empty();
     }
-    
+
     protected Optional<ExtractedLinkData> getOtherLinkFromYouTube(final Optional<String> youtubeLink) throws ContentParserException {
         if (youtubeLink.isEmpty()) {
             return Optional.empty();

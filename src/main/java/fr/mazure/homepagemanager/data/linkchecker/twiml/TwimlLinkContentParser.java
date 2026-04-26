@@ -146,7 +146,7 @@ public class TwimlLinkContentParser extends LinkDataExtractor {
     public List<AuthorData> getPossibleAuthors() {
         return Collections.emptyList();
     }
-    
+
     private List<ExtractedLinkData> initializeLinks() {
         final ExtractedLinkData linkData = new ExtractedLinkData(_title,
                                                                  new String[]{},

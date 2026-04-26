@@ -130,7 +130,7 @@ public class WellKnownAuthors {
                                Optional.of(suffix),
                                Optional.empty());
      }
-    
+
     /**
      *  Create an author from a given name
      *

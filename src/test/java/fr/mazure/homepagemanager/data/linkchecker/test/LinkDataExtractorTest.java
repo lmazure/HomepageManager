@@ -3836,7 +3836,7 @@ class LinkDataExtractorTest {
         Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
- 
+
     @Test
     void youtubeWatchWebDevSimplifiedIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=mnmYwRoSisg";

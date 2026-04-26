@@ -217,7 +217,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
     }
 
     private static final LocalDate parseDateTimeString(final String str) {
-        return DateTimeHelper.convertISO8601StringToDateTime(str); 
+        return DateTimeHelper.convertISO8601StringToDateTime(str);
     }
 
     /**

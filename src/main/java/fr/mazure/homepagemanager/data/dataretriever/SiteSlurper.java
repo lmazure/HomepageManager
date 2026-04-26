@@ -13,7 +13,7 @@ public class SiteSlurper {
 
     /**
      * Constructor
-     * 
+     *
      * @param retriever the retriever to use
      * @param url the URL of the site to retrieve
      */
@@ -26,7 +26,7 @@ public class SiteSlurper {
 
     /**
      * Get the content of the site
-     * 
+     *
      * @return the content of the site
      */
     public String getContent() {
@@ -35,7 +35,7 @@ public class SiteSlurper {
         }
         return _content;
     }
- 
+
     private void consumeSiteData(final FullFetchedLinkData siteData) {
         _content = HtmlHelper.slurpFile(siteData.dataFileSection().get());
     }
