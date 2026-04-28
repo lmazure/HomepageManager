@@ -12,12 +12,12 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
+import fr.mazure.homepagemanager.data.dataretriever.SiteSlurper;
 import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthorsOfLink;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkLanguageCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkSubtitleCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkTitleCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
-import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.Logger;
 import fr.mazure.homepagemanager.utils.StringHelper;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
@@ -34,7 +34,6 @@ public class LinkContentChecker implements Checker {
     private final String _url;
     private final LinkData _linkData;
     private final Optional<ArticleData> _articleData;
-    private final FileSection _file;
     private LinkContentParser _parser;
     private CachedSiteDataRetriever _retriever;
 
@@ -49,18 +48,15 @@ public class LinkContentChecker implements Checker {
      * @param url URL of the link to check
      * @param linkData expected link data
      * @param articleData expected article data
-     * @param file effective retrieved link data
      * @param retriever data retriever
      */
     public LinkContentChecker(final String url,
                               final LinkData linkData,
                               final Optional<ArticleData> articleData,
-                              final FileSection file,
                               final CachedSiteDataRetriever retriever) {
         _url = url;
         _linkData = linkData;
         _articleData = articleData;
-        _file = file;
         _retriever = retriever;
     }
 
@@ -76,11 +72,12 @@ public class LinkContentChecker implements Checker {
      */
     @Override
     public final List<LinkContentCheck> check() throws ContentParserException {
-        final String content = HtmlHelper.slurpFile(_file);
-
+        final SiteSlurper sluper = new SiteSlurper(getRetriever(), _url);
+        final String content = sluper.getContent();
+        
         final Matcher m = s_htmlCheckPattern.matcher(content);
         if (!m.find()) {
-            Logger.log(Logger.Level.WARN).append("File " + _file + " does not end with </HTML>");
+            Logger.log(Logger.Level.WARN).append("Content of " + _url + " does not end with </HTML>");
         }
 
         try {

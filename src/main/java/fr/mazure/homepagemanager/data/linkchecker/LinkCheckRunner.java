@@ -314,7 +314,6 @@ public class LinkCheckRunner {
                     checker = LinkContentCheckerFactory.build(effectiveSiteData.url(),
                                                               _expectedLinkData.get(effectiveSiteData.url()),
                                                               Optional.ofNullable(_articles.get(effectiveSiteData.url())),
-                                                              effectiveSiteData.dataFileSection().get(),
                                                               _cachedSiteDataRetriever);
                 }
             } else if (_expectedFeedData.containsKey(effectiveSiteData.url())) {

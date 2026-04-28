@@ -7,7 +7,6 @@ import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentCheck;
-import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
@@ -21,15 +20,13 @@ public class YoutubeChannelUserLinkContentChecker extends ExtractorBasedLinkCont
      * @param url URL of the link to check
      * @param linkData expected link data
      * @param articleData expected article data
-     * @param file effective retrieved link data
      * @param retriever data retriever
      */
     public YoutubeChannelUserLinkContentChecker(final String url,
                                                 final LinkData linkData,
                                                 final Optional<ArticleData> articleData,
-                                                final FileSection file,
                                                 final CachedSiteDataRetriever retriever) {
-        super(url, linkData, articleData, file, (LinkDataExtractorBuilder)YoutubeChannelUserLinkContentParser::new, retriever);
+        super(url, linkData, articleData, (LinkDataExtractorBuilder)YoutubeChannelUserLinkContentParser::new, retriever);
     }
 
     /**

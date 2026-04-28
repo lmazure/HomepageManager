@@ -19,7 +19,6 @@ import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkDateCorrecti
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkDurationCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
 import fr.mazure.homepagemanager.utils.DateTimeHelper;
-import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
@@ -33,15 +32,13 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
      * @param url URL of the link to check
      * @param linkData expected link data
      * @param articleData expected article data
-     * @param file effective retrieved link data
      * @param retriever data retriever
      */
     public YoutubeWatchLinkContentChecker(final String url,
                                           final LinkData linkData,
                                           final Optional<ArticleData> articleData,
-                                          final FileSection file,
                                           final CachedSiteDataRetriever retriever) {
-        super(url, linkData, articleData, file, (LinkDataExtractorBuilder)YoutubeWatchLinkContentParser::new, retriever);
+        super(url, linkData, articleData, (LinkDataExtractorBuilder)YoutubeWatchLinkContentParser::new, retriever);
     }
 
     /**
