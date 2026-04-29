@@ -8,6 +8,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
+import fr.mazure.homepagemanager.data.dataretriever.SiteSlurper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
@@ -57,33 +58,34 @@ public class DZoneLinkContentParser extends LinkDataExtractor {
 
     /**
      * @param url URL of the link
-     * @param data retrieved link data
      * @param retriever cache data retriever
      * @throws ContentParserException Failure to extract the information
      */
     public DZoneLinkContentParser(final String url,
-                                  final String data,
                                   final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(UrlHelper.removeQueryParameters(url, "edition"
                                                  , "email_hash"),
               retriever);
 
+        final SiteSlurper sluper = new SiteSlurper(getRetriever(), url);
+        final String data = sluper.getContent();
+
         _title = s_titleParser.extract(data);
-
         final String subtitle = s_subtitleParser.extract(data);
-       if (subtitle.isEmpty()) {
-           _subtitle = Optional.empty();
-       } else {
-           _subtitle = Optional.of(subtitle);
-       }
 
-       _date = Optional.of(LocalDate.parse(s_dateParser.extract(data)));
+        if (subtitle.isEmpty()) {
+            _subtitle = Optional.empty();
+        } else {
+            _subtitle = Optional.of(subtitle);
+        }
 
-       final List<String> authors = s_authorParser.extractMulti(data);
-       _authors = new ArrayList<>(authors.size());
-       for (final String author : authors) {
-           _authors.add(LinkContentParserUtils.parseAuthorName(author));
-       }
+        _date = Optional.of(LocalDate.parse(s_dateParser.extract(data)));
+
+        final List<String> authors = s_authorParser.extractMulti(data);
+        _authors = new ArrayList<>(authors.size());
+        for (final String author : authors) {
+            _authors.add(LinkContentParserUtils.parseAuthorName(author));
+        }
     }
 
     /**

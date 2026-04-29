@@ -36,14 +36,13 @@ public class IbmLinkContentParser extends LinkDataExtractor {
 
     /**
      * @param url URL of the link
-     * @param data retrieved link data
      * @param retriever cache data retriever
      * @throws ContentParserException Failure to extract the information
      */
     public IbmLinkContentParser(final String url,
-                                final String data,
                                 final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(url, retriever);
+
         String json = null;
         try {
             json = getStructureJson(url);

@@ -1,7 +1,6 @@
 package fr.mazure.homepagemanager.data.linkchecker.pragmaticengineer;
 
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
@@ -16,17 +15,14 @@ import java.util.regex.Pattern;
 import org.json.JSONObject;
 
 import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
-import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
+import fr.mazure.homepagemanager.data.dataretriever.SiteSlurper;
 import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthors;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
-import fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser;
 import fr.mazure.homepagemanager.utils.DateTimeHelper;
-import fr.mazure.homepagemanager.utils.Logger;
-import fr.mazure.homepagemanager.utils.Logger.Level;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.internet.JsonHelper;
 import fr.mazure.homepagemanager.utils.internet.UrlHelper;
@@ -78,14 +74,15 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
      * Constructor
      *
      * @param url URL of the link
-     * @param data retrieved link data
      * @param retriever cache data retriever
      * @throws ContentParserException Failure to extract the information
      */
     public PragmaticEngineerLinkContentParser(final String url,
-                                              final String data,
                                               final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(url, retriever);
+
+        final SiteSlurper sluper = new SiteSlurper(getRetriever(), url);
+        final String data = sluper.getContent();
 
         try {
             final String escapedJson = s_jsonParser.extract(data);
@@ -120,7 +117,7 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
 
         final Optional<String> youtubeVideoId = s_youtubeLinkParser.extractOptional(data);
         final Optional<String> youtubeLink = youtubeVideoId.map(s -> "https://www.youtube.com/watch?v=" + s);
-        initializeOtherLink(youtubeLink);
+        _otherLink = getOtherLinkFromYouTube(youtubeLink);
 
         _creationDate = DateTimeHelper.getMinTemporalAccessor(_publicationDate, _otherLink.map(link -> link.publicationDate().get()));
 
@@ -176,43 +173,6 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
     @Override
     public List<AuthorData> getPossibleAuthors() {
         return Collections.emptyList();
-    }
-
-    private void initializeOtherLink(final Optional<String> youtubeLink) {
-        if (youtubeLink.isEmpty()) {
-            _otherLink = Optional.empty();
-            return;
-        }
-
-        // get YouTube payload
-        getRetriever().retrieve(youtubeLink.get(), this::consumeYouTubeData, false);
-    }
-
-    private void consumeYouTubeData(final FullFetchedLinkData siteData) {
-        final String payload = HtmlHelper.slurpFile(siteData.dataFileSection().get());
-
-        // extract the link data
-        try {
-            final YoutubeWatchLinkContentParser parser = new YoutubeWatchLinkContentParser(siteData.url(), payload, getRetriever());
-            final LocalDate youtubeDate = DateTimeHelper.convertTemporalAccessorToLocalDate(parser.getCreationDate().get());
-            final ExtractedLinkData linkData = new ExtractedLinkData(parser.getTitle(),
-                                                                     new String[] { },
-                                                                     siteData.url(),
-                                                                     Optional.empty(),
-                                                                     Optional.empty(),
-                                                                     new LinkFormat[] { LinkFormat.MP4 },
-                                                                     new Locale[] { parser.getLanguage() },
-                                                                     parser.getDuration(),
-                                                                     Optional.of(youtubeDate));
-            _otherLink = Optional.of(linkData);
-        } catch (final ContentParserException e) {
-            Logger.log(Level.ERROR)
-                  .append("Failed to get YouTube link data")
-                  .append(e)
-                  .submit();
-
-            _otherLink = Optional.empty();
-        }
     }
 
     private List<ExtractedLinkData> initializeLinks() {

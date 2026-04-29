@@ -13,7 +13,6 @@ import fr.mazure.homepagemanager.data.linkchecker.baeldung.BaeldungLinkContentCh
 import fr.mazure.homepagemanager.data.linkchecker.chromium.ChromiumBlogLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.dzone.DZoneLinkContentChecker;
-import fr.mazure.homepagemanager.data.linkchecker.twiml.TwimlLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.githubblog.GithubBlogLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.gitlabblog.GitlabBlogLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.huggingface.HuggingFaceLinkContentChecker;
@@ -32,11 +31,11 @@ import fr.mazure.homepagemanager.data.linkchecker.spectrum.SpectrumLinkContentCh
 import fr.mazure.homepagemanager.data.linkchecker.stackoverflowblog.StackOverflowBlogLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.substack.SubstackLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.thoughtworks.ThoughtWorksLinkContentChecker;
+import fr.mazure.homepagemanager.data.linkchecker.twiml.TwimlLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.wired.WiredLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.youtubechanneluser.YoutubeChannelUserLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentChecker;
 import fr.mazure.homepagemanager.utils.ExitHelper;
-import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
 
@@ -83,17 +82,16 @@ public class LinkContentCheckerFactory {
             try {
                 final Method method = clazz.getDeclaredMethod("isUrlManaged", String.class);
                 @SuppressWarnings("unchecked")
-                final Constructor<LinkContentChecker> cons = (Constructor<LinkContentChecker>)clazz.getConstructor(String.class, LinkData.class, Optional.class, FileSection.class, CachedSiteDataRetriever.class);
+                final Constructor<LinkContentChecker> cons = (Constructor<LinkContentChecker>)clazz.getConstructor(String.class, LinkData.class, Optional.class, CachedSiteDataRetriever.class);
                 s_checkers.add(new CheckerData((final String url) -> {
                     try {
-                                                       return ((Boolean)method.invoke(null, url)).booleanValue();
+                        return ((Boolean)method.invoke(null, url)).booleanValue();
                     } catch (final IllegalAccessException | InvocationTargetException e) {
                         ExitHelper.exit(e);
                         // NOTREACHED
                         return false;
                     }
-                                               },
-                                               cons));
+                }, cons));
             } catch (final NoSuchMethodException e) {
                 ExitHelper.exit(e);
             }
@@ -104,35 +102,33 @@ public class LinkContentCheckerFactory {
      * @param url URL of the link to check
      * @param linkData expected link data
      * @param articleData expected article data
-     * @param file effective retrieved link data
      * @param retriever data retriever
      * @return LinkContentChecker able to check the link
      */
     public static LinkContentChecker build(final String url,
                                            final LinkData linkData, // TODO we should not have to provide linkData and articleData to the factory
                                            final Optional<ArticleData> articleData,
-                                           final FileSection file,
                                            final CachedSiteDataRetriever retriever) {
 
         if (url.matches(".*[\\.=]pdf")) {
             // PDF files are ignored for the time being
-            return new NoCheckContentChecker(url, linkData, articleData, file, retriever);
+            return new NoCheckContentChecker(url, linkData, articleData, retriever);
         }
 
         if (url.endsWith(".ps")) {
             // PostScript files are ignored
-            return new NoCheckContentChecker(url, linkData, articleData, file, retriever);
+            return new NoCheckContentChecker(url, linkData, articleData, retriever);
         }
 
         if (url.endsWith(".gz")) {
             // GZIP files are ignored
-            return new NoCheckContentChecker(url, linkData, articleData, file, retriever);
+            return new NoCheckContentChecker(url, linkData, articleData, retriever);
         }
 
         for (final CheckerData checkerData: s_checkers) {
             if (checkerData.predicate.test(url)) {
                 try {
-                    return checkerData.constructor.newInstance(url, linkData, articleData, file, retriever);
+                    return checkerData.constructor.newInstance(url, linkData, articleData, retriever);
                 } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
                     ExitHelper.exit(e);
                     // NOTREACHED
@@ -142,13 +138,13 @@ public class LinkContentCheckerFactory {
         }
 
         if (url.startsWith("https://www.facebook.com/")) {
-            return new NoCheckContentChecker(url, linkData, articleData, file, retriever);
+            return new NoCheckContentChecker(url, linkData, articleData, retriever);
         }
 
         if (url.startsWith("https://www.linkedin.com/")) {
-            return new NoCheckContentChecker(url, linkData, articleData, file, retriever);
+            return new NoCheckContentChecker(url, linkData, articleData, retriever);
         }
 
-        return new LinkContentChecker(url, linkData, articleData, file, retriever);
+        return new LinkContentChecker(url, linkData, articleData, retriever);
     }
 }

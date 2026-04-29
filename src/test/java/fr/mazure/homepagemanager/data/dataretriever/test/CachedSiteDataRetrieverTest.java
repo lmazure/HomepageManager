@@ -11,7 +11,6 @@ import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.baeldung.BaeldungLinkContentParser;
-import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 
 /**
  * Tests of CachedSiteDataRetriever
@@ -92,9 +91,8 @@ class CachedSiteDataRetrieverTest {
             retriever.retrieve(url,
                     (final FullFetchedLinkData d) -> {
                         Assertions.assertTrue(d.dataFileSection().isPresent());
-                        final String data = HtmlHelper.slurpFile(d.dataFileSection().get());
                         try {
-                            final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(url, data, retriever);
+                            final BaeldungLinkContentParser parser = new BaeldungLinkContentParser(url, retriever);
                             Assertions.assertEquals("A Guide to Crawler4j", parser.getTitle());
                         } catch (final ContentParserException e) {
                             Assertions.fail("BaeldungLinkContentParser construvtor threw " + e.getMessage());

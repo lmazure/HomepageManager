@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.function.BiPredicate;
 
 import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
-import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.arstechnica.ArsTechnicaLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.baeldung.BaeldungLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentParser;
@@ -33,15 +32,12 @@ import fr.mazure.homepagemanager.data.linkchecker.twiml.TwimlLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.wired.WiredLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.youtubewatch.YoutubeWatchLinkContentParser;
 import fr.mazure.homepagemanager.utils.ExitHelper;
-import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 
 /**
  * Factory returning the LinkDataExtractor able to extract data from a given URL
  */
 public class LinkDataExtractorFactory {
-
-    private String _content;
 
     private record ExtractorData(BiPredicate<String, CachedSiteDataRetriever> predicate, Constructor<LinkDataExtractor> constructor) {}
 
@@ -78,7 +74,7 @@ public class LinkDataExtractorFactory {
             try {
                 final Method method = clazz.getDeclaredMethod("isUrlManaged", String.class);
                 @SuppressWarnings("unchecked")
-                final Constructor<LinkDataExtractor> cons = (Constructor<LinkDataExtractor>)clazz.getConstructor(String.class, String.class, CachedSiteDataRetriever.class);
+                final Constructor<LinkDataExtractor> cons = (Constructor<LinkDataExtractor>)clazz.getConstructor(String.class, CachedSiteDataRetriever.class);
                 s_extractors.add(new ExtractorData((final String url, final CachedSiteDataRetriever _) -> {
                                                        try {
                                                            return ((Boolean)method.invoke(null, url)).booleanValue();
@@ -103,12 +99,11 @@ public class LinkDataExtractorFactory {
      */
     public static LinkDataExtractor build(final String url,
                                           final CachedSiteDataRetriever retriever) throws ContentParserException {
-        final LinkDataExtractorFactory factory = new LinkDataExtractorFactory();
-        return factory.create(url, retriever);
+        return LinkDataExtractorFactory.create(url, retriever);
     }
 
-    private LinkDataExtractor create(final String url,
-                                     final CachedSiteDataRetriever retriever) throws ContentParserException {
+    private static LinkDataExtractor create(final String url,
+                                            final CachedSiteDataRetriever retriever) throws ContentParserException {
 
         final String u = UrlHelper.removeQueryParameters(url, "utm_source",
                                                               "utm_medium",
@@ -119,9 +114,8 @@ public class LinkDataExtractorFactory {
 
         for (final ExtractorData extractorData: s_extractors){
             if (extractorData.predicate.test(u, retriever)) {
-                retriever.retrieve(url, this::handleLinkData, false);
                 try {
-                    return extractorData.constructor.newInstance(u, _content, retriever);
+                    return extractorData.constructor.newInstance(u, retriever);
                 } catch (final InvocationTargetException e) {
                     throw new ContentParserException("Failed to create instance of " + extractorData.constructor, e);
                 } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException e) {
@@ -133,11 +127,5 @@ public class LinkDataExtractorFactory {
         }
 
         return null;
-    }
-
-    private void handleLinkData(final FullFetchedLinkData siteData) {
-        if (siteData.dataFileSection().isPresent()) {
-            _content = HtmlHelper.slurpFile(siteData.dataFileSection().get());
-        }
     }
 }

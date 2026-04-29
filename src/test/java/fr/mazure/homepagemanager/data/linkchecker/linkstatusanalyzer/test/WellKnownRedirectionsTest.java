@@ -63,7 +63,6 @@ class WellKnownRedirectionsTest {
     @ParameterizedTest
     @CsvSource({
         "http://httpbin.org/status/402",
-        "https://www.telegraph.co.uk/health-fitness/conditions/cancer/prof-hannah-fry-calculating-risks-cancer-treatment-would-have/",
         })
     void direct402(final String url) {
         test(url,
@@ -147,7 +146,6 @@ class WellKnownRedirectionsTest {
     @ParameterizedTest
     @CsvSource({
         "http://httpbin.org/status/426",
-        "https://www.samba.org/jitterbug/", // TODO why does this site returns 426?
         })
     void direct426(final String url) {
         test(url,

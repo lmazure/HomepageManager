@@ -24,8 +24,7 @@ class YouTubeHelperTest {
                                final String videoTitle,
                                final String expectedUrl) {
         final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
-        final YouTubeHelper helper = new YouTubeHelper();
-        final Optional<String> url = helper.getVideoURL(channelName, videoTitle, retriever);
+        final Optional<String> url = YouTubeHelper.getVideoURL(channelName, videoTitle, retriever);
         assertEquals(expectedUrl, url.get());
     }
 }

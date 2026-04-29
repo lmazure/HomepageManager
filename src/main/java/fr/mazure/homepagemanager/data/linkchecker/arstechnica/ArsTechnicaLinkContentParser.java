@@ -11,6 +11,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
+import fr.mazure.homepagemanager.data.dataretriever.SiteSlurper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
@@ -65,16 +66,17 @@ public class ArsTechnicaLinkContentParser extends LinkDataExtractor {
 
     /**
      * @param url URL of the link
-     * @param data retrieved link data
      * @param retriever cache data retriever
      * @throws ContentParserException Failure to extract the information
      */
     public ArsTechnicaLinkContentParser(final String url,
-                                        final String data,
                                         final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(UrlHelper.removeQueryParameters(url,"comments",
                                                   "comments-page"),
               retriever);
+
+        final SiteSlurper sluper = new SiteSlurper(getRetriever(), url);
+        final String data = sluper.getContent();
 
         _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
         _subtitle = HtmlHelper.cleanContent(s_subtitleParser.extract(data));

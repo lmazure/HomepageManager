@@ -126,6 +126,15 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
         checkTitle(YoutubeWatchLinkContentParser.class, url, expectedTitle);
     }
 
+
+    @SuppressWarnings("static-method")
+    @Test
+    void testTitleEndingWithSpaceQuote() {
+        final String url = "https://www.youtube.com/watch?v=0tcLBFtpeaE";
+        final String expectedTitle = "Kimi K2.6: Open Source BEATS GPT-5.4 & Opus?";
+        checkTitle(YoutubeWatchLinkContentParser.class, url, expectedTitle);
+    }
+
     @SuppressWarnings("static-method")
     @Test
     void testDescription() {

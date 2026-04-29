@@ -47,25 +47,144 @@ methods       53.9%    97.9%
 
 
 
-implement quick 'n dirty patch for YouTube: return empty payload
+verify that I do not read twice the MP3 files
 
 
 
 
 
 
-the YouTube rerieval is broken, we need to fully pivot the data retrieval: the parser must be in charge of getting the data
-Exception in thread "pool-2-thread-261" java.lang.RuntimeException: Access to YT HTML
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.HttpHelper.throttle(HttpHelper.java:171)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:73)
+
+manage
+Exception in thread "JavaFX Application Thread" java.lang.ExceptionInInitializerError
+	at javafx.web@26/com.sun.webkit.network.NetworkContext.fwkLoad(NetworkContext.java:161)
+	at javafx.web@26/com.sun.webkit.WebPage.twkProcessMouseEvent(Native Method)
+	at javafx.web@26/com.sun.webkit.WebPage.dispatchMouseEvent(WebPage.java:830)
+	at javafx.web@26/javafx.scene.web.WebView.processMouseEvent(WebView.java:1098)
+	at javafx.web@26/javafx.scene.web.WebView.lambda$registerEventHandlers$1(WebView.java:1224)
+	at javafx.base@26/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247)
+	at javafx.base@26/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80)
+	at javafx.base@26/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
+	at javafx.base@26/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
+	at javafx.base@26/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base@26/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@26/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@26/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@26/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@26/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@26/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@26/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@26/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@26/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@26/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@26/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@26/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@26/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@26/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@26/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@26/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
+	at javafx.base@26/javafx.event.Event.fireEvent(Event.java:199)
+	at javafx.graphics@26/javafx.scene.Scene$MouseHandler.process(Scene.java:4134)
+	at javafx.graphics@26/javafx.scene.Scene.processMouseEvent(Scene.java:1953)
+	at javafx.graphics@26/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2802)
+	at javafx.graphics@26/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.get(GlassViewEventHandler.java:353)
+	at javafx.graphics@26/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.get(GlassViewEventHandler.java:255)
+	at javafx.graphics@26/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:429)
+	at javafx.graphics@26/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:387)
+	at javafx.graphics@26/com.sun.glass.ui.View.handleMouseEvent(View.java:573)
+	at javafx.graphics@26/com.sun.glass.ui.View.notifyMouse(View.java:970)
+	at javafx.graphics@26/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics@26/com.sun.glass.ui.win.WinApplication.lambda$runLoop$0(WinApplication.java:173)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+Caused by: java.lang.NullPointerException
+	at java.base/java.util.Objects.requireNonNull(Objects.java:220)
+	at java.net.http/jdk.internal.net.http.HttpClientBuilderImpl.cookieHandler(HttpClientBuilderImpl.java:56)
+	at java.net.http/jdk.internal.net.http.HttpClientBuilderImpl.cookieHandler(HttpClientBuilderImpl.java:40)
+	at javafx.web@26/com.sun.webkit.network.HTTP2Loader.<clinit>(HTTP2Loader.java:94)
+	... 39 more
+
+
+
+
+
+
+
+
+
+manage
+URL = https://www.youtube.com/feeds/videos.xml?channel_id=UCXZCJLdBC09xxGZ6gcdrc6A
+Effective HTTP code = 404 Not Found
+Redirection matcher = direct failure
+Redirection matcher expected statuses = DEAD
+
+
+
+
+
+
+
+Why 300 threads are created when putting a breakpoint in fr.mazure.homepagemanager.utils.internet.HttpHelper.throttle(String)???
+
+
+
+
+
+We shoul be able to get rid of IbmLinkContentChecker.isUrlManaged and use the parser method instead
+but IBM is currently down…
+
+
+
+
+
+
+
+==== potentially before merge =====
+
+
+
+
+
+manage
+java.lang.UnsupportedOperationException: https://podcastaddict.com/tete-a-tete-chercheuses/episode/148017340|526→
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.lambda$2(WellKnownRedirections.java:805)
+	at java.base/java.util.Optional.orElseThrow(Optional.java:407)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.getMatch(WellKnownRedirections.java:805)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.getPossibleStatuses(LinkStatusAnalyzer.java:80)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.doesEffectiveDataMatchesExpectedData(LinkStatusAnalyzer.java:34)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.writeOutputFile(LinkCheckRunner.java:411)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:355)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:122)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
 	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
 	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:32)
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
 	at java.base/java.lang.Thread.run(Thread.java:1516)
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+try once again to get the subtitle from https://about.gitlab.com/blog/whats-new-in-git-2-54-0/
+
+
+
+
+
+
+quick fix does not work for
+https://www.youtube.com/watch?v=qaPMdcCqtWk&pp=gAQBiAQB
+expected duration PT19M18S is not in the real duration interval [PT19M19S,PT19M20S]
+
+
+
+
 	
 	
 
@@ -103,13 +222,6 @@ e.g., https://www.dwarkesh.com/p/elon-musk
 
 
 
-
-
-
-
-
-
-==== potentially before merge =====
 
 
 

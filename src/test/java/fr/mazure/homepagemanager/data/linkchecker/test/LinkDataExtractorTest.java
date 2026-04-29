@@ -3763,14 +3763,14 @@ class LinkDataExtractorTest {
     void youtubeWatchVeritasiumHenryVanDyckIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=onr80iOoEXs";
         final String expectedSureXml = """
-                <ARTICLE><X><T>The Man Who Fooled The World</T>\
+                <ARTICLE><X><T>Alfred Nobel: The Man Who Fooled The World</T>\
                 <A>https://www.youtube.com/watch?v=onr80iOoEXs</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>46</MINUTE><SECOND>9</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Derek</FIRSTNAME><LASTNAME>Muller</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>9</MONTH><DAY>21</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
-                <ARTICLE><X><T>The Man Who Fooled The World</T>\
+                <ARTICLE><X><T>Alfred Nobel: The Man Who Fooled The World</T>\
                 <A>https://www.youtube.com/watch?v=onr80iOoEXs</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>46</MINUTE><SECOND>9</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Derek</FIRSTNAME><LASTNAME>Muller</LASTNAME></AUTHOR>\
@@ -3786,14 +3786,14 @@ class LinkDataExtractorTest {
     void youtubeWatchVeritasiumLatifNasserIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=tZ8ehplVFp4";
         final String expectedSureXml = """
-                <ARTICLE><X><T>Why Do Escalator Steps Have Teeth?</T>\
+                <ARTICLE><X><T>The Most Dangerous Escalator in the World</T>\
                 <A>https://www.youtube.com/watch?v=tZ8ehplVFp4</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>22</MINUTE><SECOND>18</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Derek</FIRSTNAME><LASTNAME>Muller</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>9</MONTH><DAY>11</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
-                <ARTICLE><X><T>Why Do Escalator Steps Have Teeth?</T>\
+                <ARTICLE><X><T>The Most Dangerous Escalator in the World</T>\
                 <A>https://www.youtube.com/watch?v=tZ8ehplVFp4</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>22</MINUTE><SECOND>18</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Derek</FIRSTNAME><LASTNAME>Muller</LASTNAME></AUTHOR>\
@@ -3836,7 +3836,7 @@ class LinkDataExtractorTest {
         Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
- 
+
     @Test
     void youtubeWatchWebDevSimplifiedIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=mnmYwRoSisg";

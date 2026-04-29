@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
+import fr.mazure.homepagemanager.data.dataretriever.SiteSlurper;
 import fr.mazure.homepagemanager.data.knowledge.WellKnownAuthors;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
@@ -73,15 +74,17 @@ public class MediumLinkContentParser extends LinkDataExtractor {
 
     /**
      * @param url URL of the link
-     * @param data retrieved link data
      * @param retriever cache data retriever
      * @throws ContentParserException Failure to extract the information
      */
     public MediumLinkContentParser(final String url,
-                                   final String data,
                                    final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(url, retriever);
         _code = url.substring(url.lastIndexOf("-") + 1);
+
+        final SiteSlurper sluper = new SiteSlurper(getRetriever(), url);
+        final String data = sluper.getContent();
+
         loadData(data);
     }
 

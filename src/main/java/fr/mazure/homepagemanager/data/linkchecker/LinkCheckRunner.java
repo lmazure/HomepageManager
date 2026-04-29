@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -28,11 +30,11 @@ import fr.mazure.homepagemanager.data.FileHandler.Status;
 import fr.mazure.homepagemanager.data.Violation;
 import fr.mazure.homepagemanager.data.ViolationDataController;
 import fr.mazure.homepagemanager.data.ViolationLocationUnknown;
-import fr.mazure.homepagemanager.data.dataretriever.AsynchronousSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.dataretriever.HeaderFetchedLinkData;
 import fr.mazure.homepagemanager.data.dataretriever.SiteDataPersister;
+import fr.mazure.homepagemanager.data.dataretriever.SiteSlurper;
 import fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections;
 import fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.Match;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkUrlCorrection;
@@ -43,6 +45,7 @@ import fr.mazure.homepagemanager.utils.Logger;
 import fr.mazure.homepagemanager.utils.Logger.Level;
 import fr.mazure.homepagemanager.utils.internet.HttpHelper;
 import fr.mazure.homepagemanager.utils.internet.InvalidHttpCodeException;
+import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
 import fr.mazure.homepagemanager.utils.xmlparsing.ElementType;
 import fr.mazure.homepagemanager.utils.xmlparsing.FeedData;
@@ -68,13 +71,14 @@ public class LinkCheckRunner {
     private final BackgroundDataController _controller;
     private final ViolationDataController _violationController;
     private final String _checkType;
-    private final AsynchronousSiteDataRetriever _siteDataRetriever;
     private final CachedSiteDataRetriever _cachedSiteDataRetriever;
     private final DocumentBuilder _builder;
     private final Path _outputFile;
     private final Path _reportFile;
     private static final WellKnownRedirections _redirectionData = new WellKnownRedirections();
-
+    private static final int s_nb_threads = 32;
+    private static final ExecutorService s_threadPool = Executors.newFixedThreadPool(s_nb_threads);
+    
     /**
      * @param file XML file to be checked
      * @param cachePath directory where the persistence files are written
@@ -100,7 +104,6 @@ public class LinkCheckRunner {
         _isCancelled = false;
         _builder = XmlHelper.buildDocumentBuilder();
         final SiteDataPersister siteDataPersister = new SiteDataPersister(cachePath);
-        _siteDataRetriever = new AsynchronousSiteDataRetriever(siteDataPersister);
         _cachedSiteDataRetriever = new CachedSiteDataRetriever(siteDataPersister);
         _controller = controller;
         _violationController = violationController;
@@ -159,7 +162,19 @@ public class LinkCheckRunner {
             return;
         }
         for (final String url: linksToBeChecked) {
-            _siteDataRetriever.retrieve(url, this::handleLinkData, doNotUseCookies(url));
+            s_threadPool.execute(() ->  {
+                if (UrlHelper.hasPrefix(url, "https://www.youtube.com/watch?") ||
+                    UrlHelper.hasPrefix(url, "https://www.youtube.com/channel/") ||
+                    UrlHelper.hasPrefix(url, "https://www.youtube.com/user/")) {
+                    final Map<String, List<String>> headers = new HashMap<>();
+                    headers.put(null, List.of("HTTP/1.1 200 OK"));
+                    final FullFetchedLinkData fakeData = new FullFetchedLinkData(url, Optional.of(headers), Optional.empty(), Optional.empty(), null);
+                    handleLinkData(fakeData);                        
+                } else {
+                    final SiteSlurper sluper = new SiteSlurper(_cachedSiteDataRetriever, url);
+                    handleLinkData(sluper.getLinkData());
+                }
+            });
         }
     }
 
@@ -301,7 +316,7 @@ public class LinkCheckRunner {
         }
 
         _effectiveData.put(effectiveSiteData.url(), effectiveSiteData);
-        if (!effectiveSiteData.error().isPresent()) {
+        if (effectiveSiteData.error().isEmpty()) {
             Checker checker = null;
             if (_expectedLinkData.containsKey(effectiveSiteData.url())) {
                 // this is a link
@@ -309,7 +324,6 @@ public class LinkCheckRunner {
                     checker = LinkContentCheckerFactory.build(effectiveSiteData.url(),
                                                               _expectedLinkData.get(effectiveSiteData.url()),
                                                               Optional.ofNullable(_articles.get(effectiveSiteData.url())),
-                                                              effectiveSiteData.dataFileSection().get(),
                                                               _cachedSiteDataRetriever);
                 }
             } else if (_expectedFeedData.containsKey(effectiveSiteData.url())) {
@@ -585,10 +599,5 @@ public class LinkCheckRunner {
             d = d.previousRedirection();
         }
         return d;
-    }
-
-    private static boolean doNotUseCookies(final String url) { // TODO the decision to allow/disallow cookies should be in the parser
-        return url.startsWith("https://www.youtube.com/channel/") ||
-               url.startsWith("https://www.youtube.com/user/");
     }
 }

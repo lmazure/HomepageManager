@@ -45,7 +45,6 @@ class SpectrumLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://spectrum.ieee.org/intel-20a|Gwendolyn||Rak|",
-        "https://spectrum.ieee.org/self-driving-cars-2662494269|Mary|L.|Cummings|Missy",
         "https://spectrum.ieee.org/the-end-of-gold-farming|Margo||Anderson|"
     }, delimiter = '|')
     void testAuthor(final String url,

@@ -13,7 +13,6 @@ import fr.mazure.homepagemanager.data.violationcorrection.UpdateArticleDateCorre
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkSubtitleCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateLinkTitleCorrection;
 import fr.mazure.homepagemanager.data.violationcorrection.ViolationCorrection;
-import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.StringHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
@@ -32,17 +31,15 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
      * @param url URL of the link to check
      * @param linkData expected link data
      * @param articleData expected article data
-     * @param file effective retrieved link data
      * @param extractorBuilder function that returns a link data extractor
      * @param retriever data retriever
      */
     public ExtractorBasedLinkContentChecker(final String url,
                                             final LinkData linkData,
                                             final Optional<ArticleData> articleData,
-                                            final FileSection file,
                                             final LinkDataExtractorBuilder extractorBuilder,
                                             final CachedSiteDataRetriever retriever) {
-        super(url, linkData, articleData, file, retriever);
+        super(url, linkData, articleData, retriever);
         _extractorBuilder = extractorBuilder;
     }
 
@@ -55,7 +52,7 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
     {
         _parser = s_cache.query(getUrl());
         if (_parser == null) {
-            _parser = _extractorBuilder.buildExtractor(getUrl(), data, getRetriever());
+            _parser = _extractorBuilder.buildExtractor(getUrl(), getRetriever());
             s_cache.store(getUrl(), _parser);
         }
         return null;
@@ -212,6 +209,6 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
 
     @FunctionalInterface
     protected interface LinkDataExtractorBuilder {
-        LinkDataExtractor buildExtractor(final String url, final String data, final CachedSiteDataRetriever retriever) throws ContentParserException;
+        LinkDataExtractor buildExtractor(final String url, final CachedSiteDataRetriever retriever) throws ContentParserException;
     }
 }

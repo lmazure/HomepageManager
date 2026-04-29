@@ -7,7 +7,6 @@ import java.util.Locale;
 import java.util.Optional;
 
 import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
-import fr.mazure.homepagemanager.utils.FileSection;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
@@ -21,15 +20,13 @@ public class NoCheckContentChecker extends LinkContentChecker {
      * @param url URL of the link to check
      * @param linkData expected link data
      * @param articleData expected article data
-     * @param file effective retrieved link data
      * @param retriever data retriever
      */
     public NoCheckContentChecker(final String url,
                                  final LinkData linkData,
                                  final Optional<ArticleData> articleData,
-                                 final FileSection file,
                                  final CachedSiteDataRetriever retriever) {
-        super(url, linkData, articleData, file, retriever);
+        super(url, linkData, articleData, retriever);
     }
 
     @Override

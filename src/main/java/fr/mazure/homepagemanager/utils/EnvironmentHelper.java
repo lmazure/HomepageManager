@@ -13,7 +13,7 @@ public class EnvironmentHelper {
      *
      * @return Youtube API key
      */
-    public static String getYoutubeApiKet() {
+    public static String getYoutubeApiKey() {
         return s_youtubeApiKey;
     }
 
