@@ -31,10 +31,16 @@ public abstract class LinkDataExtractor {
         _retriever = retriever;
     }
 
+    /**
+     * @return the URL of the link
+     */
     protected String getUrl() {
         return _url;
     }
 
+    /**
+     * @return the cached site data retriever
+     */
     protected CachedSiteDataRetriever getRetriever() {
         return _retriever;
     }
@@ -101,6 +107,13 @@ public abstract class LinkDataExtractor {
         return Optional.empty();
     }
 
+    /**
+     * Extract data from other link which is a YouTube video
+     * 
+     * @param youtubeLink YouTube link
+     * @return extracted link data
+     * @throws ContentParserException Failure to extract the information
+     */
     protected Optional<ExtractedLinkData> getOtherLinkFromYouTube(final Optional<String> youtubeLink) throws ContentParserException {
         if (youtubeLink.isEmpty()) {
             return Optional.empty();

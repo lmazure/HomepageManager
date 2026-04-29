@@ -1,6 +1,7 @@
 package fr.mazure.homepagemanager.data.linkchecker.youtubechanneluser;
 
 import java.time.temporal.TemporalAccessor;
+import java.util.List;
 import java.util.Optional;
 
 import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
@@ -38,6 +39,15 @@ public class YoutubeChannelUserLinkContentChecker extends ExtractorBasedLinkCont
     public static boolean isUrlManaged(final String url) {
         return UrlHelper.hasPrefix(url, "https://www.youtube.com/channel/") ||
                UrlHelper.hasPrefix(url, "https://www.youtube.com/user/");
+    }
+
+    @Override
+    public final List<LinkContentCheck> check() throws ContentParserException {
+        try {
+            return check(null);
+        } catch (final ContentParserException e) {
+            throw new ContentParserException("Failed to check data of \"" + getUrl() + "\"", e);
+        }
     }
 
     @Override

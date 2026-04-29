@@ -47,6 +47,14 @@ methods       53.9%    97.9%
 
 
 
+verify that I do not read twice the MP3 files
+
+
+
+
+
+
+
 manage
 Exception in thread "JavaFX Application Thread" java.lang.ExceptionInInitializerError
 	at javafx.web@26/com.sun.webkit.network.NetworkContext.fwkLoad(NetworkContext.java:161)
@@ -121,13 +129,6 @@ Effective HTTP code = 404 Not Found
 Redirection matcher = direct failure
 Redirection matcher expected statuses = DEAD
 
-
-
-
-
-
-
-we are still accessing YouTube !!
 
 
 

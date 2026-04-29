@@ -45,6 +45,7 @@ import fr.mazure.homepagemanager.utils.Logger;
 import fr.mazure.homepagemanager.utils.Logger.Level;
 import fr.mazure.homepagemanager.utils.internet.HttpHelper;
 import fr.mazure.homepagemanager.utils.internet.InvalidHttpCodeException;
+import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
 import fr.mazure.homepagemanager.utils.xmlparsing.ElementType;
 import fr.mazure.homepagemanager.utils.xmlparsing.FeedData;
@@ -162,8 +163,17 @@ public class LinkCheckRunner {
         }
         for (final String url: linksToBeChecked) {
             s_threadPool.execute(() ->  {
-                final SiteSlurper sluper = new SiteSlurper(_cachedSiteDataRetriever, url);
-                handleLinkData(sluper.getLinkData());
+                if (UrlHelper.hasPrefix(url, "https://www.youtube.com/watch?") ||
+                    UrlHelper.hasPrefix(url, "https://www.youtube.com/channel/") ||
+                    UrlHelper.hasPrefix(url, "https://www.youtube.com/user/")) {
+                    final Map<String, List<String>> headers = new HashMap<>();
+                    headers.put(null, List.of("HTTP/1.1 200 OK"));
+                    final FullFetchedLinkData fakeData = new FullFetchedLinkData(url, Optional.of(headers), Optional.empty(), Optional.empty(), null);
+                    handleLinkData(fakeData);                        
+                } else {
+                    final SiteSlurper sluper = new SiteSlurper(_cachedSiteDataRetriever, url);
+                    handleLinkData(sluper.getLinkData());
+                }
             });
         }
     }

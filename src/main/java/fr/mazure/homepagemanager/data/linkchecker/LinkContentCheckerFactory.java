@@ -85,14 +85,13 @@ public class LinkContentCheckerFactory {
                 final Constructor<LinkContentChecker> cons = (Constructor<LinkContentChecker>)clazz.getConstructor(String.class, LinkData.class, Optional.class, CachedSiteDataRetriever.class);
                 s_checkers.add(new CheckerData((final String url) -> {
                     try {
-                                                       return ((Boolean)method.invoke(null, url)).booleanValue();
+                        return ((Boolean)method.invoke(null, url)).booleanValue();
                     } catch (final IllegalAccessException | InvocationTargetException e) {
                         ExitHelper.exit(e);
                         // NOTREACHED
                         return false;
                     }
-                                               },
-                                               cons));
+                }, cons));
             } catch (final NoSuchMethodException e) {
                 ExitHelper.exit(e);
             }

@@ -71,7 +71,7 @@ public class LinkContentChecker implements Checker {
      * @throws ContentParserException Failure to extract the information
      */
     @Override
-    public final List<LinkContentCheck> check() throws ContentParserException {
+    public List<LinkContentCheck> check() throws ContentParserException {
         final SiteSlurper sluper = new SiteSlurper(getRetriever(), _url);
         final String content = sluper.getContent();
         
@@ -87,7 +87,7 @@ public class LinkContentChecker implements Checker {
         }
     }
 
-    private final List<LinkContentCheck> check(final String data) throws ContentParserException {
+    protected final List<LinkContentCheck> check(final String data) throws ContentParserException {
 
         final List<LinkContentCheck> checks = new ArrayList<>();
 

@@ -52,6 +52,15 @@ public class YoutubeWatchLinkContentChecker extends ExtractorBasedLinkContentChe
     }
 
     @Override
+    public final List<LinkContentCheck> check() throws ContentParserException {
+        try {
+            return check(null);
+        } catch (final ContentParserException e) {
+            throw new ContentParserException("Failed to check data of \"" + getUrl() + "\"", e);
+        }
+    }
+
+    @Override
     protected LinkContentCheck checkGlobalData(final String data) throws ContentParserException {
 
         super.checkGlobalData(data);
