@@ -109,18 +109,6 @@ Caused by: java.lang.NullPointerException
 
 
 
-check that unit tests are still green
-repair
-- fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.test.WellKnownRedirectionsTest.ibm(String)
-- fr.mazure.homepagemanager.data.linkchecker.test.LinkContentParserTest.testLanguageForFrenchArticle(String)
-- fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.youtubeWatchVeritasiumLatifNasserIsManaged()
-- fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.youtubeWatchRobertMilesAiSafety()
-- fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.youtubeWatchVeritasiumHenryVanDyckIsManaged()
-
-
-
-
-
 
 
 manage
@@ -142,6 +130,7 @@ Why 300 threads are created when putting a breakpoint in fr.mazure.homepagemanag
 
 
 We shoul be able to get rid of IbmLinkContentChecker.isUrlManaged and use the parser method instead
+but IBM is currently down…
 
 
 
