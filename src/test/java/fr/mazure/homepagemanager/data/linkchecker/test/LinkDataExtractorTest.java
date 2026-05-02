@@ -372,6 +372,7 @@ class LinkDataExtractorTest {
         final String url = "https://newsletter.pragmaticengineer.com/p/the-third-golden-age-of-software";
         final String expectedXml = """
                 <ARTICLE><X><T>The third golden age of software engineering – thanks to AI, with Grady Booch</T>\
+                <ST>I sit down with Grady Booch to put today’s AI automation claims in historical context and explain why software engineering is entering another golden age, not disappearing.</ST>\
                 <A>https://newsletter.pragmaticengineer.com/p/the-third-golden-age-of-software</A>\
                 <L>en</L><F>HTML</F><DURATION><HOUR>1</HOUR><MINUTE>17</MINUTE><SECOND>5</SECOND></DURATION></X>\
                 <X><T>The third golden age of software engineering – thanks to AI, with Grady Booch</T>\

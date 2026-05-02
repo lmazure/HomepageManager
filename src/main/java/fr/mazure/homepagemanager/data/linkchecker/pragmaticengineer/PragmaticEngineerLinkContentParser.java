@@ -177,7 +177,8 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
 
     private List<ExtractedLinkData> initializeLinks() {
         final ExtractedLinkData linkData = new ExtractedLinkData(_title,
-                                                                 new String[] {},
+                                                                 _subtitle.map(st -> new String[] { st })
+                                                                          .orElse(new String[] { }),
                                                                  getUrl(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
