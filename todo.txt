@@ -46,40 +46,18 @@ methods       53.9%    97.9%
 
 
 
+
+
+
+==== potentially before merge =====
+
+
+
 add missing comments
 
 
 
 
-
-manage
-Exception in thread "pool-2-thread-29" Exception in thread "pool-2-thread-26"     file-event-dispatch-000 | 20260430T080239.589 | INFO | created file: G:\Documents\repos\Homepage\links\aicodeassist.xml
-java.lang.IllegalStateException: Failure while reading G:\Documents\tmp\homepage\internet_cache\www.mono-project.com\https%3A%2F%2Fwww.mono-project.com
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SiteDataPersister.retrieve(SiteDataPersister.java:229)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:30)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SiteSlurper.getLinkData(SiteSlurper.java:49)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
-	at java.base/java.lang.Thread.run(Thread.java:1516)
-Caused by: java.lang.IllegalStateException: File is corrupted (bad error presence)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SiteDataPersister.retrieve(SiteDataPersister.java:211)
-	... 6 more
-java.lang.IllegalStateException: Failure while reading G:\Documents\tmp\homepage\internet_cache\www.mono-project.com\https%3A%2F%2Fwww.mono-project.com
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SiteDataPersister.retrieve(SiteDataPersister.java:229)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:30)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SiteSlurper.getLinkData(SiteSlurper.java:49)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
-	at java.base/java.lang.Thread.run(Thread.java:1516)
-Caused by: java.lang.IllegalStateException: File is corrupted (bad error presence)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SiteDataPersister.retrieve(SiteDataPersister.java:211)
-	... 6 more
- 
- 
- 
- 
  
  
 
@@ -166,16 +144,12 @@ Why 300 threads are created when putting a breakpoint in fr.mazure.homepagemanag
 
 
 
-We shoul be able to get rid of IbmLinkContentChecker.isUrlManaged and use the parser method instead
+We should be able to get rid of IbmLinkContentChecker.isUrlManaged and use the parser method instead
 but IBM is currently down…
 
 
 
-
-
-
-
-==== potentially before merge =====
+the text of the <CODESAMPLE language="bash"> is grey instead of black
 
 
 
