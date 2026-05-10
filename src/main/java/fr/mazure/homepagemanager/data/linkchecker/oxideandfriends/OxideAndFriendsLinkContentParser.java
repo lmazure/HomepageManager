@@ -135,7 +135,8 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
         }
 
         // get YouTube link
-        final Optional<String> youtubeLink = YouTubeHelper.getVideoURL("Oxide Computer Company", getTitle(), getRetriever());
+        final String dirtyHackTitle = getTitle().replace(" [chapter images]", ""); // dirty hack for https://oxide-and-friends.transistor.fm/episodes/mechanical-engineering-at-oxide
+        final Optional<String> youtubeLink = YouTubeHelper.getVideoURL("Oxide Computer Company", dirtyHackTitle, getRetriever());
         _otherLink = getOtherLinkFromYouTube(youtubeLink);
         final String creationDateString = s_creationDateParser.extract(_otherLink.get().title());
         _creationDate = Optional.of(LocalDate.parse(creationDateString, s_creationDateFormatter));

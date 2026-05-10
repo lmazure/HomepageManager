@@ -33,7 +33,7 @@ class OxideAndFriendsLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://oxide-and-friends.transistor.fm/episodes/querying-metrics-with-oxql|2024-09-30",
+            "https://oxide-and-friends.transistor.fm/episodes/querying-metrics-with-oxql|2024-09-30",
     }, delimiter = '|')
     void testCreationDate(final String url,
                           final String expectedDate) {
