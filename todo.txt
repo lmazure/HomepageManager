@@ -49,7 +49,59 @@ methods       53.9%    97.9%
 
 
 
+
 ==== potentially before merge =====
+
+
+
+
+manage
+Exception in thread "pool-2-thread-10" java.lang.IllegalStateException: Exception while retrieving https://www.selenium.dev/documentation/webdriver/
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SiteSlurper.getLinkData(SiteSlurper.java:49)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+Caused by: java.lang.IllegalStateException: Failure while reading G:\Documents\tmp\homepage\internet_cache\www.selenium.dev\https%3A%2F%2Fwww.selenium.dev%2Fdocumentation%2Fwebdriver%2F
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SiteDataPersister.retrieve(SiteDataPersister.java:229)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:143)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
+	... 6 more
+Caused by: java.lang.NullPointerException: Cannot invoke "String.trim()" because the return value of "java.io.BufferedReader.readLine()" is null
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SiteDataPersister.retrieve(SiteDataPersister.java:190)
+	... 8 more
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+manage
+Title = "GitLab 14.0 released with a celebration of GitLab 14"
+URL = https://about.gitlab.com/releases/2021/06/22/gitlab-14-0-released/
+Expected status = REMOVED
+Effective HTTP code = 301 Moved Permanently
+Effective HTTP code of last redirection = 200 OK
+Redirection chain = https://about.gitlab.com/releases/2021/06/22/gitlab-14-0-released/ → https://docs.gitlab.com/releases/
+Redirection matcher = redirection ending in success (last URL should be used)
+Redirection matcher expected statuses = 
+Look for article = https://www.google.com/search?q=%22GitLab+14.0+released+with+a+celebration+of+GitLab+14%22
+
+
+
+
+
+
+
+
+
 
 
 
