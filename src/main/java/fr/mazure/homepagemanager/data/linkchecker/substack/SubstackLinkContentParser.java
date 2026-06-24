@@ -103,7 +103,8 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
         if (UrlHelper.hasPrefix(url, "https://magazine.sebastianraschka.com/") ||
             UrlHelper.hasPrefix(url, "https://www.thecoder.cafe/") ||
             UrlHelper.hasPrefix(url, "https://blog.kilo.ai/") ||
-            UrlHelper.hasPrefix(url, "https://blog.sshh.io/")) {
+            UrlHelper.hasPrefix(url, "https://blog.sshh.io/") ||
+            UrlHelper.hasPrefix(url, "https://newsletter.kentbeck.com/")) {
             return true;
         }
         return s_mediumUrl.matcher(url).matches();
