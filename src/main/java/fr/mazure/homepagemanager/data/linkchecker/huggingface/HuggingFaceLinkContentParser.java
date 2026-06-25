@@ -1,6 +1,6 @@
 package fr.mazure.homepagemanager.data.linkchecker.huggingface;
 
-import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.TemporalAccessor;
@@ -39,17 +39,15 @@ public class HuggingFaceLinkContentParser extends LinkDataExtractor {
                          s_sourceName,
                          "title");
     private static final TextParser s_dateParser
-        = new TextParser("<span class=\"text-sm sm:text-base\">Published",
-                         "</span>",
+        = new TextParser("\"datePublished\": \"",
+                         "\"",
                          s_sourceName,
-                         "date");
+                         "author");
     private static final TextParser s_authorParser
         = new TextParser("<span class=\"fullname font-sans font-semibold max-sm:text-sm\">",
                          "</span>",
                          s_sourceName,
                          "author");
-    private static final DateTimeFormatter s_formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.ENGLISH);
-
     /**
      * @param url URL of the link
      * @param retriever cache data retriever
@@ -66,7 +64,7 @@ public class HuggingFaceLinkContentParser extends LinkDataExtractor {
 
         final String date = s_dateParser.extract(data).trim();
         try {
-            _creationDate = Optional.of(LocalDate.parse(date, s_formatter));
+            _creationDate = Optional.of(ZonedDateTime.parse(date, DateTimeFormatter.ISO_DATE_TIME).toLocalDate());
         } catch (final DateTimeParseException e) {
             throw new ContentParserException("Failed to parse date (" + date + ") in HuggingFace page", e);
         }
