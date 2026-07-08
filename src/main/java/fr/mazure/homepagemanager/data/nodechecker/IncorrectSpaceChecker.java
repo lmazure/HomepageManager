@@ -64,6 +64,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             "learntail.com",
             "MANIFEST.MF",
             "M.A.R.I.",
+            "matrix.org",
             "MSCTF.DLL",
             "MVC.NET",
             "Mojobak.com",
