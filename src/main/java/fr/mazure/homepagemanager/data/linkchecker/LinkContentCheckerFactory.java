@@ -14,6 +14,7 @@ import fr.mazure.homepagemanager.data.linkchecker.chromium.ChromiumBlogLinkConte
 import fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.dzone.DZoneLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.githubblog.GithubBlogLinkContentChecker;
+import fr.mazure.homepagemanager.data.linkchecker.gitbutlerblog.GitButlerBlogLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.gitlabblog.GitlabBlogLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.huggingface.HuggingFaceLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentChecker;
@@ -56,6 +57,7 @@ public class LinkContentCheckerFactory {
                 DwarkeshPodcastLinkContentChecker.class,
                 DZoneLinkContentChecker.class,
                 GithubBlogLinkContentChecker.class,
+                GitButlerBlogLinkContentChecker.class,
                 GitlabBlogLinkContentChecker.class,
                 HuggingFaceLinkContentChecker.class,
                 IbmLinkContentChecker.class,
