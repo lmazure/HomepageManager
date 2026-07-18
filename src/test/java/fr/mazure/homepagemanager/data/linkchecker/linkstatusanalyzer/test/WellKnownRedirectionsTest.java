@@ -155,6 +155,20 @@ class WellKnownRedirectionsTest {
              Set.of(LinkStatus.DEAD));
     }
 
+    // URLs giving directly a 444
+    @ParameterizedTest
+    @CsvSource({
+        "http://httpbin.org/status/444",
+        "https://www.opentext.com/products/dimensions-cm",
+        })
+    void direct444(final String url) {
+        test(url,
+             false,
+             Integer.valueOf(444),
+             "direct failure",
+             Set.of(LinkStatus.DEAD));
+    }
+
     // URLs giving directly a 502
     @ParameterizedTest
     @CsvSource({

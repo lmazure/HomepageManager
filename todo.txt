@@ -46,19 +46,32 @@ methods       53.9%    97.9%
 
 
 
-manage
-java.lang.UnsupportedOperationException: https://www.opentext.com/products/dimensions-cm|444→
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.lambda$2(WellKnownRedirections.java:808)
-	at java.base/java.util.Optional.orElseThrow(Optional.java:407)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.getMatch(WellKnownRedirections.java:808)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.getPossibleStatuses(LinkStatusAnalyzer.java:80)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.doesEffectiveDataMatchesExpectedData(LinkStatusAnalyzer.java:34)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.writeOutputFile(LinkCheckRunner.java:425)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:369)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
-	at java.base/java.lang.Thread.run(Thread.java:1516)
+
+repair unit tests
+fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.test.WellKnownRedirectionsTest.oracleBlog(String)
+fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.test.WellKnownRedirectionsTest.redirectionsEndingWith404(String)
+fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.test.WellKnownRedirectionsTest.redirectionsToLocale(String)
+
+
+
+
+
+
+
+
+manage (add this rediretcion as REMOVED)
+Title = "GitLab 15.8 Release"
+Subtitle = "GitLab 15.8 released with external status checks and self-managed SCIM"
+URL = https://about.gitlab.com/releases/2023/01/22/gitlab-15-8-released/
+Expected status = REMOVED
+Effective HTTP code = 301 Moved Permanently
+Effective HTTP code of last redirection = 200 OK
+Redirection chain = https://about.gitlab.com/releases/2023/01/22/gitlab-15-8-released/ → https://docs.gitlab.com/releases/
+Redirection matcher = redirection ending in success (last URL should be used)
+Redirection matcher expected statuses =
+Look for article = https://www.google.com/search?q=%22GitLab+15.8+Release%22+%22GitLab+15.8+released+with+external+status+checks+and+self-managed+SCIM%22
+
+
 
 
 
