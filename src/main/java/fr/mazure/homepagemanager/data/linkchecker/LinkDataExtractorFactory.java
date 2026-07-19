@@ -23,6 +23,7 @@ import fr.mazure.homepagemanager.data.linkchecker.oracleblogs.OracleBlogsLinkCon
 import fr.mazure.homepagemanager.data.linkchecker.oxideandfriends.OxideAndFriendsLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.pragmaticengineer.PragmaticEngineerLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.quantamagazine.QuantaMagazineLinkContentParser;
+import fr.mazure.homepagemanager.data.linkchecker.radiofrance.RadioFranceLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.simonwillison.SimonWillisonLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.simonwillisontil.SimonWillisonTilLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.spectrum.SpectrumLinkContentParser;
@@ -62,6 +63,7 @@ public class LinkDataExtractorFactory {
                 PragmaticEngineerLinkContentParser.class,
                 OxideAndFriendsLinkContentParser.class,
                 QuantaMagazineLinkContentParser.class,
+                RadioFranceLinkContentParser.class,
                 SimonWillisonLinkContentParser.class,
                 SimonWillisonTilLinkContentParser.class,
                 SpectrumLinkContentParser.class,
