@@ -109,7 +109,7 @@ public abstract class LinkDataExtractor {
 
     /**
      * Extract data from other link which is a YouTube video
-     * 
+     *
      * @param youtubeLink YouTube link
      * @return extracted link data
      * @throws ContentParserException Failure to extract the information
