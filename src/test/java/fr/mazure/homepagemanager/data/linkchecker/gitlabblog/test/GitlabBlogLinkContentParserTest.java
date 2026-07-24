@@ -29,11 +29,14 @@ class GitlabBlogLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://about.gitlab.com/blog/2021/12/15/devops-adoption",
-        "https://about.gitlab.com/blog/2021/08/24/stageless-pipelines/"
+        "https://about.gitlab.com/blog/2021/12/15/devops-adoption|Learn about analytics, DevOps reports, DevOps scores, and more.",
+        "https://about.gitlab.com/blog/2021/08/24/stageless-pipelines/|With GitLab 14.2, you can write a complete CI/CD pipeline without defining any stages.",
+        // there is a newline is the next subtitle
+        "https://about.gitlab.com/blog/engineering-managers-automate-their-jobs/|At GitLab we know automation is engineering's best friend. Here's a deep dive into three scripts we use regularly to keep big projects on track.",
         }, delimiter = '|')
-    void testNoSubtitle(final String url) {
-        checkNoSubtitle(GitlabBlogLinkContentParser.class, url);
+    void testSubtitle(final String url,
+                      final String expectedSubtitle) {
+        checkSubtitle(GitlabBlogLinkContentParser.class, url, expectedSubtitle);
     }
 
     @SuppressWarnings("static-method")

@@ -47,6 +47,13 @@ methods       53.9%    97.9%
 
 
 
+
+indiquer les liens internes (par exemple cursor et windsurf sur la page codeass)
+
+
+
+
+
 repair unit tests
 fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.test.WellKnownRedirectionsTest.oracleBlog(String)
 fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.test.WellKnownRedirectionsTest.redirectionsEndingWith404(String)
@@ -96,14 +103,6 @@ Look for article = https://www.google.com/search?q=%22Wikipedia%22
 
 
 spin off nuclear industry
-
-
-
-
-missing subtitle for https://about.gitlab.com/blog/whats-new-in-git-2-55-0/
-
-
-
 
 
 
