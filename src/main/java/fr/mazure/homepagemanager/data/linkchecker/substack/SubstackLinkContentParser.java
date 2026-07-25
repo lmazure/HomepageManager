@@ -79,9 +79,7 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
 
         _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
 
-        final Optional<String> subtitleRaw = s_subtitleParser.extractOptional(data);
-        _subtitle = subtitleRaw.isEmpty() ? Optional.empty()
-                                          : Optional.of(HtmlHelper.cleanContent(s_subtitleParser.extract(data)));
+        _subtitle = s_subtitleParser.extractOptional(data).map(HtmlHelper::cleanContent);
 
         final String date = HtmlHelper.cleanContent(s_dateParser.extract(data));
         _date = Optional.of(LocalDateTime.parse(date, DateTimeFormatter.ISO_OFFSET_DATE_TIME).toLocalDate());
@@ -104,7 +102,8 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
             UrlHelper.hasPrefix(url, "https://www.thecoder.cafe/") ||
             UrlHelper.hasPrefix(url, "https://blog.kilo.ai/") ||
             UrlHelper.hasPrefix(url, "https://blog.sshh.io/") ||
-            UrlHelper.hasPrefix(url, "https://newsletter.kentbeck.com/")) {
+            UrlHelper.hasPrefix(url, "https://newsletter.kentbeck.com/") /*||
+            UrlHelper.hasPrefix(url, "https://www.lennysnewsletter.com/")*/) {
             return true;
         }
         return s_mediumUrl.matcher(url).matches();

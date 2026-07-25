@@ -19,6 +19,7 @@ class SubstackLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://promptarmor.substack.com/p/data-exfiltration-from-writercom|Data exfiltration from Writer.com with indirect prompt injection",
         "https://scienceetonnante.substack.com/p/grokking-les-modeles-dia-sont-ils|\"Grokking\" : les modèles d'IA sont-ils capables de piger ?",
         "https://tidyfirst.substack.com/p/eventual-business-consistency|Eventual Business Consistency",
+        //"https://www.lennysnewsletter.com/p/openai-codex-lead-on-the-new-shape|OpenAI Codex lead on the new shape of product work | Andrew Ambrosino"
         }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
@@ -31,6 +32,7 @@ class SubstackLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://promptarmor.substack.com/p/data-exfiltration-from-writercom|Authors: PromptArmor and Kai Greshake",
         "https://scienceetonnante.substack.com/p/grokking-les-modeles-dia-sont-ils|Ce phénomène étonnant, découvert récemment, pourrait changer notre compréhension de l'apprentissage et de la cognition dans les réseaux de neurones...",
         "https://tidyfirst.substack.com/p/eventual-business-consistency|Executive Summary of Bi-temporality",
+        //"https://www.lennysnewsletter.com/p/openai-codex-lead-on-the-new-shape|OpenAI’s Andrew Ambrosino on why software is getting cheaper to build, why taste matters more than ever, and what’s next for the Codex desktop app"
         }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {

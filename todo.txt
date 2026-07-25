@@ -48,6 +48,15 @@ methods       53.9%    97.9%
 
 
 
+manage crash on https://www.lennysnewsletter.com/p/openai-codex-lead-on-the-new-shape
++ retrieve the YouTube video
+
+
+
+
+
+
+
 indiquer les liens internes (par exemple cursor et windsurf sur la page codeass)
 
 
