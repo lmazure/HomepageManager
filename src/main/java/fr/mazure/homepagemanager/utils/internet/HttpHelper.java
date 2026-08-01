@@ -159,6 +159,7 @@ public class HttpHelper {
     static {
         s_minDelayPerSite.put("oxide-and-friends.transistor.fm", Integer.valueOf(1000));
         s_minDelayPerSite.put("blogs.oracle.com", Integer.valueOf(1000));
+        s_minDelayPerSite.put("lexfridman.com", Integer.valueOf(1000));
     }
     /**
      * Ensure that the site is not called too often, sleep if necessary
