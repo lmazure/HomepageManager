@@ -45,7 +45,11 @@ public class RadioFranceLinkContentParser extends LinkDataExtractor {
                          "</script>",
                          s_sourceName,
                          "JSON-LD");
-
+    private static final TextParser s_dateParser =
+            new TextParser("<time datetime=\"",
+                           "\">",
+                           s_sourceName,
+                           "date");
     /**
      * Constructor
      * @param url URL of the link
@@ -106,7 +110,8 @@ public class RadioFranceLinkContentParser extends LinkDataExtractor {
             }
             _subtitle = HtmlHelper.cleanContent(description);
 
-            final String datePublished = newsArticle.getString("datePublished");
+            // dirty kludge to manage the fact that newsArticle.getString("datePublished") has sometimes an incorrect value
+            final String datePublished = s_dateParser.extractMulti(data).getLast();
             _publicationDate = Optional.of(OffsetDateTime.parse(datePublished).toLocalDate());
 
             final String inLanguage = newsArticle.getString("inLanguage");

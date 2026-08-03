@@ -48,7 +48,16 @@ methods       53.9%    97.9%
 
 
 
+add global check that a URL does not appear twice
 
+
+
+
+
+
+
+
+ 
 
 manage
 Title = "Le dilemme du prisonnier | Voyages au pays des maths | ARTE"
@@ -65,9 +74,7 @@ Look for article = https://www.google.com/search?q=%22Le+dilemme+du+prisonnier+%
 
 
 
-
-manage crash on https://www.lennysnewsletter.com/p/openai-codex-lead-on-the-new-shape
-+ retrieve the YouTube video
+retrieve the YouTube video of https://www.lennysnewsletter.com/p/openai-codex-lead-on-the-new-shape
 
 
 

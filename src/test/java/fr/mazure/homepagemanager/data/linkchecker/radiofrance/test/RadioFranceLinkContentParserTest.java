@@ -51,8 +51,9 @@ class RadioFranceLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://www.radiofrance.fr/franceinter/podcasts/espions-une-histoire-vraie/marita-lorenz-l-agente-de-la-cia-envoyee-a-cuba-pour-empoisonner-son-ex-amant-fidel-castro-6825291|2021-07-10",
         "https://www.radiofrance.fr/franceinter/podcasts/espions-une-histoire-vraie/vadim-krasikov-le-tueur-prefere-de-poutine-4287237|2026-06-28",
         "https://www.radiofrance.fr/franceculture/podcasts/les-grandes-traversees/naissance-d-un-prodige-6979092|2024-08-05",
-        "https://www.radiofrance.fr/franceculture/podcasts/les-grandes-traversees/les-mots-qui-tuent-6008423|2025-06-18",
         "https://www.radiofrance.fr/franceculture/podcasts/les-grandes-traversees/l-etoile-de-papier-1181737|2024-07-05",
+        // the following podcast has dateCreated 2025-07-11 while datePublished is 2025-06-18
+        "https://www.radiofrance.fr/franceculture/podcasts/les-grandes-traversees/les-mots-qui-tuent-6008423|2025-07-10",
     }, delimiter = '|')
     void testPublicationDate(final String url,
                              final String expectedPublicationDate) {
