@@ -133,18 +133,6 @@ Look for article = https://www.google.com/search?q=%22Wikipedia%22
 
 
 
-
-
-manage
-https://www.dwarkesh.com/p/the-next-paradigm
-Expected 2 links (https://www.dwarkesh.com/p/the-next-paradigm, https://www.youtube.com/watch?v=20p5-kQXF_Q), but got 1 links (https://www.dwarkesh.com/p/the-next-paradigm)
-
-https://www.dwarkesh.com/p/the-sample-efficiency-black-hole
-Expected 2 links (https://www.dwarkesh.com/p/the-sample-efficiency-black-hole, https://www.youtube.com/watch?v=4pG3SJQPAwk), but got 1 links (https://www.dwarkesh.com/p/the-sample-efficiency-black-hole)
-
-
-
-
 	
 
 detect sentence should start with a capital letter

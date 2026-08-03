@@ -112,6 +112,9 @@ class DwarkeshPodcastLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://www.dwarkesh.com/p/richard-sutton|https://www.youtube.com/watch?v=21EYKqUsPfg",
         "https://www.dwarkesh.com/p/elon-musk|https://www.youtube.com/watch?v=BYXbuik3dgA",
+        // for the two following podcasts, the YouTube video does not appear on the podcast page
+        "https://www.dwarkesh.com/p/the-next-paradigm|https://www.youtube.com/watch?v=20p5-kQXF_Q",
+        "https://www.dwarkesh.com/p/the-sample-efficiency-black-hole|https://www.youtube.com/watch?v=4pG3SJQPAwk",
     }, delimiter = '|')
     void testOtherLink(final String url,
                        final String expectedOtherLink) {
