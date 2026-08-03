@@ -1,7 +1,6 @@
 package fr.mazure.homepagemanager.data.linkchecker.substack;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.ZonedDateTime;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,6 +23,7 @@ import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
 import fr.mazure.homepagemanager.utils.StringHelper;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
+import fr.mazure.homepagemanager.utils.internet.JsonHelper;
 import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
@@ -41,26 +41,11 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
     private final List<AuthorData> _sureAuthors;
     private final Locale _language;
 
-    private static final TextParser s_titleParser
-        = new TextParser("<h1 dir=\"auto\" class=\"post-title published title-X77sOw\">",
-                         "</h1>",
+    private static final TextParser s_jsonParser
+        = new TextParser("window\\._preloads\\s+=\\s+JSON\\.parse\\(\"",
+                         "\"\\)</script>",
                          s_sourceName,
-                         "title");
-    private static final TextParser s_subtitleParser
-        = new TextParser("<h3 dir=\"auto\" class=\"subtitle subtitle-HEEcLo\">",
-                         "</h3>",
-                         s_sourceName,
-                         "subtitle");
-    private static final TextParser s_dateParser
-        = new TextParser(",\"datePublished\":\"",
-                         "\"",
-                         s_sourceName,
-                         "date");
-    private static final TextParser s_authorParser
-        = new TextParser("<script type=\"application/ld\\+json\">",
-                         "</script>",
-                         s_sourceName,
-                         "author");
+                         "JSON");
 
     private static final Pattern s_mediumUrl = Pattern.compile("https://[^/]+\\.substack\\.com/.+");
 
@@ -77,18 +62,32 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
         final SiteSlurper sluper = new SiteSlurper(getRetriever(), url);
         final String data = sluper.getContent();
 
-        _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
+        final String escapedJson = s_jsonParser.extract(data);
+        final String json = JsonHelper.unescape(escapedJson);
+        final JSONObject payload = new JSONObject(json);
+        final JSONObject post = JsonHelper.getAsNode(payload, "post");
 
-        _subtitle = s_subtitleParser.extractOptional(data).map(HtmlHelper::cleanContent);
+        _title = HtmlHelper.cleanContent(JsonHelper.getAsText(post, "title"));
 
-        final String date = HtmlHelper.cleanContent(s_dateParser.extract(data));
-        _date = Optional.of(LocalDateTime.parse(date, DateTimeFormatter.ISO_OFFSET_DATE_TIME).toLocalDate());
+        final String subtitleStr = post.optString("subtitle");
+        _subtitle = (subtitleStr == null || subtitleStr.isEmpty()) ? Optional.empty()
+                                                                   : Optional.of(HtmlHelper.cleanContent(subtitleStr));
 
-        final String extracted = s_authorParser.extract(data);
-        final JSONObject payload = new JSONObject(extracted);
-        _sureAuthors = extractAuthors(payload);
+        final String postDate = JsonHelper.getAsText(post, "post_date");
+        _date = Optional.of(ZonedDateTime.parse(postDate).toLocalDate());
 
-        _language = StringHelper.guessLanguage(HtmlHelper.cleanContent(data)).get();
+        JSONArray bylines = JsonHelper.getAsArray(post, "publishedBylines");
+        if (bylines.length() == 0) {
+            // Older posts have an empty publishedBylines array; fall back to the publication's contributors
+            bylines = JsonHelper.getAsArray(JsonHelper.getAsNode(payload, "pub"), "contributors");
+        }
+        final JSONObject authorWrapper = new JSONObject();
+        authorWrapper.put("author", bylines);
+        _sureAuthors = extractAuthors(authorWrapper);
+
+        final String lang = post.optString("language");
+        _language = (lang != null && !lang.isEmpty()) ? Locale.forLanguageTag(lang)
+                                                      : StringHelper.guessLanguage(HtmlHelper.cleanContent(data)).get();
     }
 
     /**
@@ -102,8 +101,8 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
             UrlHelper.hasPrefix(url, "https://www.thecoder.cafe/") ||
             UrlHelper.hasPrefix(url, "https://blog.kilo.ai/") ||
             UrlHelper.hasPrefix(url, "https://blog.sshh.io/") ||
-            UrlHelper.hasPrefix(url, "https://newsletter.kentbeck.com/") /*||
-            UrlHelper.hasPrefix(url, "https://www.lennysnewsletter.com/")*/) {
+            UrlHelper.hasPrefix(url, "https://newsletter.kentbeck.com/") ||
+            UrlHelper.hasPrefix(url, "https://www.lennysnewsletter.com/")) {
             return true;
         }
         return s_mediumUrl.matcher(url).matches();
