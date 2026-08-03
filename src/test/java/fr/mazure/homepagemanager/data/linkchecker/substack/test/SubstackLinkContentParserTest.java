@@ -165,5 +165,15 @@ class SubstackLinkContentParserTest extends LinkDataExtractorTestBase {
                       final String expectedLanguage) {
         checkLanguage(SubstackLinkContentParser.class, url, expectedLanguage);
     }
+
+    @SuppressWarnings("static-method")
+    @ParameterizedTest
+    @CsvSource(value = {
+        "https://www.lennysnewsletter.com/p/openai-codex-lead-on-the-new-shape|https://www.youtube.com/watch?v=P3KDebPTUrw",
+    }, delimiter = '|')
+    void testOtherLink(final String url,
+                       final String expectedOtherLink) {
+        checkOtherLink(SubstackLinkContentParser.class, url, expectedOtherLink);
+    }
 }
 

@@ -25,6 +25,7 @@ import fr.mazure.homepagemanager.utils.StringHelper;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.internet.JsonHelper;
 import fr.mazure.homepagemanager.utils.internet.UrlHelper;
+import fr.mazure.homepagemanager.utils.internet.YouTubeHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
@@ -39,6 +40,7 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
     private final Optional<String> _subtitle;
     private final Optional<TemporalAccessor> _date;
     private final List<AuthorData> _sureAuthors;
+    private Optional<ExtractedLinkData> _otherLink;
     private final Locale _language;
 
     private static final TextParser s_jsonParser
@@ -88,6 +90,13 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
         final String lang = post.optString("language");
         _language = (lang != null && !lang.isEmpty()) ? Locale.forLanguageTag(lang)
                                                       : StringHelper.guessLanguage(HtmlHelper.cleanContent(data)).get();
+        
+        if (UrlHelper.hasPrefix(url, "https://www.lennysnewsletter.com/")) {            
+            final Optional<String> youtubeLink = YouTubeHelper.getVideoURL("Lenny's Podcast", _title, getRetriever());
+            _otherLink = getOtherLinkFromYouTube(youtubeLink);
+        } else {
+            _otherLink = Optional.empty();
+        }
     }
 
     /**
@@ -155,8 +164,11 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
                                                                  new Locale[] { getLanguage() },
                                                                  Optional.empty(),
                                                                  Optional.empty());
-        final List<ExtractedLinkData> list = new ArrayList<>(1);
+        final List<ExtractedLinkData> list = new ArrayList<>(2);
         list.add(linkData);
+        if (_otherLink.isPresent()) {
+            list.add(_otherLink.get());
+        }
         return list;
     }
 

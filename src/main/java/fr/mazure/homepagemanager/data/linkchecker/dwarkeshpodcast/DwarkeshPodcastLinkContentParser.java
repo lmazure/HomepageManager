@@ -57,12 +57,6 @@ public class DwarkeshPodcastLinkContentParser extends LinkDataExtractor {
                          "</div>",
                          s_sourceName,
                          "subtitle");
-    private static final TextParser s_youtubeLinkParser
-        = new TextParser("youtube-nocookie\\.com/embed/",
-                         "[A-Za-z0-9_-]+",
-                         "\\?",
-                         s_sourceName,
-                         "YouTube link");
 
     private static final Pattern s_extractGuest = Pattern.compile("^(.+?)\\s+[\u2013\u2014]\\s+.+$");
 

@@ -74,13 +74,6 @@ Look for article = https://www.google.com/search?q=%22Le+dilemme+du+prisonnier+%
 
 
 
-retrieve the YouTube video of https://www.lennysnewsletter.com/p/openai-codex-lead-on-the-new-shape
-
-
-
-
-
-
 
 indiquer que des liens sont internes (par exemple cursor et windsurf sur la page codeass)
 
