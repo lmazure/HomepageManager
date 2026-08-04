@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.json.JSONArray;
@@ -50,6 +51,7 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
                          "JSON");
 
     private static final Pattern s_mediumUrl = Pattern.compile("https://[^/]+\\.substack\\.com/.+");
+    private static final Pattern s_lennyPodcastExtractName = Pattern.compile("^.*\\|(.*)$");
 
     /**
      * @param url URL of the link
@@ -83,9 +85,7 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
             // Older posts have an empty publishedBylines array; fall back to the publication's contributors
             bylines = JsonHelper.getAsArray(JsonHelper.getAsNode(payload, "pub"), "contributors");
         }
-        final JSONObject authorWrapper = new JSONObject();
-        authorWrapper.put("author", bylines);
-        _sureAuthors = extractAuthors(authorWrapper);
+        _sureAuthors = extractAuthors(_title, bylines);
 
         final String lang = post.optString("language");
         _language = (lang != null && !lang.isEmpty()) ? Locale.forLanguageTag(lang)
@@ -177,31 +177,26 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
         return _language;
     }
 
-    private static List<AuthorData> extractAuthors(final JSONObject payload) throws ContentParserException {
-        final List<AuthorData> list = new ArrayList<>(1);
+    private static List<AuthorData> extractAuthors(final String title,
+                                                   final JSONArray payload) throws ContentParserException {
+        final List<AuthorData> list = new ArrayList<>(2);
         try {
-            final Object authorNode = payload.get("author");
-            String channelName = null;
-            switch (authorNode) {
-              case JSONArray node -> {
-                  if (node.length() > 1) {
-                      final List<AuthorData> authors = new ArrayList<>();
-                      for (int i = 0; i < ((JSONArray)authorNode).length(); i++) {
-                          final String name = ((JSONArray)authorNode).getJSONObject(i).getString("name");
-                          authors.add(LinkContentParserUtils.parseAuthorName(name));
-                      }
-                      return authors;
-                  }
-                  channelName = node.getJSONObject(0).getString("name");
-              }
-              case JSONObject node -> {
-                  channelName = node.getString("name");
-              }
-              default -> {
-                  throw new ContentParserException("Error while parsing JSON, author node is of type " + authorNode.getClass().getName());
-              }
+            String channelName = payload.getJSONObject(0).getString("name");
+            if (channelName.equals("Lenny Rachitsky")) {
+                final Matcher matcher = s_lennyPodcastExtractName.matcher(title);
+                if (matcher.find()) {
+                    final String authorName = matcher.group(1);
+                    list.add(LinkContentParserUtils.parseAuthorName(authorName));
+                } 
             }
-
+            if (payload.length() > 1) {
+                final List<AuthorData> authors = new ArrayList<>();
+                for (int i = 0; i < payload.length(); i++) {
+                    final String name = payload.getJSONObject(i).getString("name");
+                    authors.add(LinkContentParserUtils.parseAuthorName(name));
+                }
+                return authors;
+            }
             final AuthorData author = getWellKnownAuthor(channelName);
             if (author != null) {
                 list.add(author);

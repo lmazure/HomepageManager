@@ -48,34 +48,10 @@ methods       53.9%    97.9%
 
 
 
-add global check that a URL does not appear twice
+repair SubstackLinkContentParserTest
 
 
 
-
-
-
-
-
- 
-
-manage
-Title = "Le dilemme du prisonnier | Voyages au pays des maths | ARTE"
-URL = https://www.youtube.com/watch?v=G9ER5bLxQEU
-Expected status = REMOVED
-Effective HTTP code = 200 OK
-Redirection matcher = direct success
-Redirection matcher expected statuses = OBSOLETE,OK,ZOMBIE
-Look for article = https://www.google.com/search?q=%22Le+dilemme+du+prisonnier+%7C+Voyages+au+pays+des+maths+%7C+ARTE%22
-
-
-
-
-
-
-
-
-indiquer que des liens sont internes (par exemple cursor et windsurf sur la page codeass)
 
 
 
@@ -141,6 +117,44 @@ detect sentence should start with a capital letter
 
 
 ==== potentially before merge =====
+
+
+
+
+
+
+add global check that a URL does not appear twice
+
+
+
+
+
+
+
+
+ 
+
+manage
+Title = "Le dilemme du prisonnier | Voyages au pays des maths | ARTE"
+URL = https://www.youtube.com/watch?v=G9ER5bLxQEU
+Expected status = REMOVED
+Effective HTTP code = 200 OK
+Redirection matcher = direct success
+Redirection matcher expected statuses = OBSOLETE,OK,ZOMBIE
+Look for article = https://www.google.com/search?q=%22Le+dilemme+du+prisonnier+%7C+Voyages+au+pays+des+maths+%7C+ARTE%22
+
+
+
+
+
+
+
+
+indiquer que des liens sont internes (par exemple cursor et windsurf sur la page codeass)
+
+
+
+
 
 
 
