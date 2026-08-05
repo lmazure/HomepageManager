@@ -1206,6 +1206,22 @@ class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchDrTreforBazettIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=YdVm10vnyu8";
+        final String expectedXml = """
+                <ARTICLE><X><T>Knot Theory Extras: My interview with Dr. Brittenham &amp; Dr. Hermiller.</T>\
+                <A>https://www.youtube.com/watch?v=YdVm10vnyu8</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>10</MINUTE><SECOND>16</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Trefor</FIRSTNAME><LASTNAME>Bazett</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2026</YEAR><MONTH>6</MONTH><DAY>10</DAY>\
+                </DATE><COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+    
+    @Test
     void youtubeWatchDrPeyamIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=ThaHppIWByk";
         final String expectedXml = """
