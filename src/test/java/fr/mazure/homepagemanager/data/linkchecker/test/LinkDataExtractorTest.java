@@ -1573,7 +1573,7 @@ class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeIBMTechnologCarlBrokerIsManaged() throws ContentParserException {
+    void youtubeWatchIBMTechnologCarlBrokerIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=hHiPs_wICsE";
         final String expectedSureXml = """
                 <ARTICLE><X><T>Text Classification: AI Techniques and Real-World Applications</T>\
@@ -1594,7 +1594,7 @@ class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeIBMTechnologyCedricClyburnIsManaged() throws ContentParserException {
+    void youtubeWatchIBMTechnologyCedricClyburnIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=00Q0G84kq3M";
         final String expectedSureXml = """
                 <ARTICLE><X><T>RAG vs. Fine Tuning</T>\
@@ -1615,7 +1615,7 @@ class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeIBMTechnologyMichaelDobsonIsManaged() throws ContentParserException {
+    void youtubeWatchIBMTechnologyMichaelDobsonIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=S5ezVVJhQmE";
         final String expectedSureXml = """
                 <ARTICLE><X><T>AI &amp; Text to SQL: How LLMs &amp; Schema Power Data Analytics</T>\
@@ -1636,7 +1636,7 @@ class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeIBMTechnologyMartinKeenIsManaged() throws ContentParserException {
+    void youtubeWatchIBMTechnologyMartinKeenIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=cVDv9apGTXo";
         final String expectedSureXml = """
                 <ARTICLE><X><T>What is Granite?</T>\
@@ -1657,7 +1657,7 @@ class LinkDataExtractorTest {
     }
 
     @Test
-    void youtubeIBMTechnologyJeffCrumeMartinKeenIsManaged() throws ContentParserException {
+    void youtubeWatchIBMTechnologyJeffCrumeMartinKeenIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=CB7NNsI27ks";
         final String expectedSureXml = """
                 <ARTICLE><X><T>Can AI Think? Debunking AI Limitations</T>\
@@ -1672,6 +1672,27 @@ class LinkDataExtractorTest {
                 <AUTHOR><FIRSTNAME>Jeff</FIRSTNAME><LASTNAME>Crume</LASTNAME></AUTHOR>\
                 <AUTHOR><FIRSTNAME>Martin</FIRSTNAME><LASTNAME>Keen</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>1</MONTH><DAY>20</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
+        Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
+    }
+
+    @Test
+    void youtubeWatchIBMTechnologyMingZhaoIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=vRZNJWw78BQ";
+        final String expectedSureXml = """
+                <ARTICLE><X><T>What Is Chunkless RAG? How Docling &amp; AI Agents Navigate Documents</T>\
+                <A>https://www.youtube.com/watch?v=vRZNJWw78BQ</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>7</MINUTE><SECOND>0</SECOND></DURATION></X>\
+                <DATE><YEAR>2026</YEAR><MONTH>8</MONTH><DAY>9</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final String expectedProbableXml = """
+                <ARTICLE><X><T>What Is Chunkless RAG? How Docling &amp; AI Agents Navigate Documents</T>\
+                <A>https://www.youtube.com/watch?v=vRZNJWw78BQ</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>7</MINUTE><SECOND>0</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Ming</FIRSTNAME><LASTNAME>Zhao</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2026</YEAR><MONTH>8</MONTH><DAY>9</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
         Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
