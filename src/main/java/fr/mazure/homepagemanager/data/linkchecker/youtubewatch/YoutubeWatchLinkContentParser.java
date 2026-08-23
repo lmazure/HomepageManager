@@ -476,7 +476,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                           new ChannelData(buildList(WellKnownAuthors.JOHANN_REHBERGER),
                                                           buildMatchingList(),
                                                           Locale.ENGLISH)),
-            new AbstractMap.SimpleEntry<>("EvoSapiens (ex Homo Fabulus)",
+            new AbstractMap.SimpleEntry<>("EvoSapiens",
                                           new ChannelData(buildList(WellKnownAuthors.buildAuthor("Stéphane", "Debove")),
                                                           buildMatchingList(),
                                                           Locale.FRENCH)),

@@ -48,11 +48,104 @@ methods       53.9%    97.9%
 
 
 
-repair SubstackLinkContentParserTest
 
 
 
 
+
+==== potentially before merge =====
+
+
+
+
+manage
+fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://dzone.com/articles/ways-your-ai-coding-agent-exfiltrates-secrets"
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:86)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:339)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find title in DZone
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.TextParser.extract(TextParser.java:61)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dzone.DZoneLinkContentParser.<init>(DZoneLinkContentParser.java:73)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:55)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:95)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:84)
+	... 5 more
+	
+	
+	
+	
+	
+	
+
+
+add parser for https://lucumr.pocoo.org/2026/8/19/what-is-reasoning/
+
+
+
+
+
+
+add parser for https://inside.java/2026/08/20/podcast-067/
+
+
+
+
+
+
+
+add youtube author https://www.youtube.com/watch?v=HcGjCcLEgN4&t=860s
+
+
+
+
+
+
+
+
+
+managa crash on https://www.numberphile.com/podcast/sats-zvezda
+(the problem is probalby that the link to the YouTube video is not present)
+
+
+
+
+
+
+
+
+
+
+manage
+java.lang.UnsupportedOperationException: https://www.aristeia.com/|412→
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.lambda$2(WellKnownRedirections.java:809)
+	at java.base/java.util.Optional.orElseThrow(Optional.java:407)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.getMatch(WellKnownRedirections.java:809)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.getPossibleStatuses(LinkStatusAnalyzer.java:80)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.doesEffectiveDataMatchesExpectedData(LinkStatusAnalyzer.java:34)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.writeOutputFile(LinkCheckRunner.java:425)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:369)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+	
+	
+	
+
+
+
+manage refactoring.fm
+
+
+
+
+
+
+manage order og Vietnamise name components
+<ITEM><ARTICLE><X><T>Pham Xuan An, le (faux) ami des Américains</T><ST>Pendant toute la guerre du Vietnam, Pham Xuan An, a été un brillant journaliste et correspondant à Saigon pour le magazine Time.</ST><A>https://www.radiofrance.fr/franceinter/podcasts/espions-une-histoire-vraie/ursula-kuczinski-alias-agent-sonya-1103675</A><L>fr</L><F>HTML</F><DURATION><MINUTE>38</MINUTE><SECOND>6</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Stéphanie</FIRSTNAME><LASTNAME>Duncan</LASTNAME></AUTHOR><DATE><YEAR>2022</YEAR><MONTH>4</MONTH><DAY>11</DAY></DATE><COMMENT><AUTHOR><LASTNAME>Phạm</LASTNAME><MIDDLENAME>Xuân</MIDDLENAME><FIRSTNAME>Ẩn</FIRSTNAME></AUTHOR>, a journalist working for the US during the Vietnam War, was a spy of the National Liberation Front of South Vietnam.</COMMENT></ARTICLE></ITEM>
 
 
 
@@ -61,6 +154,11 @@ repair unit tests
 fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.test.WellKnownRedirectionsTest.oracleBlog(String)
 fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.test.WellKnownRedirectionsTest.redirectionsEndingWith404(String)
 fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.test.WellKnownRedirectionsTest.redirectionsToLocale(String)
+fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.oracleBlogsJavaIsManaged()
+fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.oracleBlogsJavaMagazineIsManaged()
+
+
+
 
 
 
@@ -106,17 +204,6 @@ Look for article = https://www.google.com/search?q=%22Wikipedia%22
 
 detect sentence should start with a capital letter
 
-
-
-
-
-
-
-
-
-
-
-==== potentially before merge =====
 
 
 

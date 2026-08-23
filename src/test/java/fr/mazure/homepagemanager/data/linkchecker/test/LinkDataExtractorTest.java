@@ -733,7 +733,7 @@ class LinkDataExtractorTest {
     void youtubeWatchBlackPenRedPenIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=eex9Gm_rOrQ";
         final String expectedXml = """
-                <ARTICLE><X><T>Customized triple exponential equation</T>\
+                <ARTICLE><X><T>Solving a homemade triple exponential equation</T>\
                 <A>https://www.youtube.com/watch?v=eex9Gm_rOrQ</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>7</MINUTE><SECOND>43</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Steve</FIRSTNAME><LASTNAME>Chow</LASTNAME></AUTHOR>\
@@ -3824,14 +3824,14 @@ class LinkDataExtractorTest {
     void youtubeWatchVeritasiumLatifNasserIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=tZ8ehplVFp4";
         final String expectedSureXml = """
-                <ARTICLE><X><T>The Most Dangerous Escalator in the World</T>\
+                <ARTICLE><X><T>Why Do Escalator Steps Have Teeth?</T>\
                 <A>https://www.youtube.com/watch?v=tZ8ehplVFp4</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>22</MINUTE><SECOND>18</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Derek</FIRSTNAME><LASTNAME>Muller</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>9</MONTH><DAY>11</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
-                <ARTICLE><X><T>The Most Dangerous Escalator in the World</T>\
+                <ARTICLE><X><T>Why Do Escalator Steps Have Teeth?</T>\
                 <A>https://www.youtube.com/watch?v=tZ8ehplVFp4</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>22</MINUTE><SECOND>18</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Derek</FIRSTNAME><LASTNAME>Muller</LASTNAME></AUTHOR>\
