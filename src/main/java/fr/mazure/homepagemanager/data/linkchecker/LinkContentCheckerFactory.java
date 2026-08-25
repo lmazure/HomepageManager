@@ -14,6 +14,7 @@ import fr.mazure.homepagemanager.data.linkchecker.chromium.ChromiumBlogLinkConte
 import fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.dzone.DZoneLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.githubblog.GithubBlogLinkContentChecker;
+import fr.mazure.homepagemanager.data.linkchecker.gitbutlerblog.GitButlerBlogLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.gitlabblog.GitlabBlogLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.huggingface.HuggingFaceLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentChecker;
@@ -25,6 +26,7 @@ import fr.mazure.homepagemanager.data.linkchecker.oracleblogs.OracleBlogsLinkCon
 import fr.mazure.homepagemanager.data.linkchecker.oxideandfriends.OxideAndFriendsLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.pragmaticengineer.PragmaticEngineerLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.quantamagazine.QuantaMagazineLinkContentChecker;
+import fr.mazure.homepagemanager.data.linkchecker.radiofrance.RadioFranceLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.simonwillison.SimonWillisonLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.simonwillisontil.SimonWillisonTilLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.spectrum.SpectrumLinkContentChecker;
@@ -56,6 +58,7 @@ public class LinkContentCheckerFactory {
                 DwarkeshPodcastLinkContentChecker.class,
                 DZoneLinkContentChecker.class,
                 GithubBlogLinkContentChecker.class,
+                GitButlerBlogLinkContentChecker.class,
                 GitlabBlogLinkContentChecker.class,
                 HuggingFaceLinkContentChecker.class,
                 IbmLinkContentChecker.class,
@@ -67,6 +70,7 @@ public class LinkContentCheckerFactory {
                 OxideAndFriendsLinkContentChecker.class,
                 PragmaticEngineerLinkContentChecker.class,
                 QuantaMagazineLinkContentChecker.class,
+                RadioFranceLinkContentChecker.class,
                 SimonWillisonLinkContentChecker.class,
                 SimonWillisonTilLinkContentChecker.class,
                 SpectrumLinkContentChecker.class,

@@ -74,7 +74,7 @@ public class LinkContentChecker implements Checker {
     public List<LinkContentCheck> check() throws ContentParserException {
         final SiteSlurper sluper = new SiteSlurper(getRetriever(), _url);
         final String content = sluper.getContent();
-        
+
         final Matcher m = s_htmlCheckPattern.matcher(content);
         if (!m.find()) {
             Logger.log(Logger.Level.WARN).append("Content of " + _url + " does not end with </HTML>");

@@ -42,7 +42,8 @@ public class WellKnownAuthorsOfLink {
         s_knownUrls.put("newsletter.pragmaticengineer.com", buildKnownAuthors(WellKnownAuthors.GERGELY_OROSZ,                            true));
         s_knownUrls.put("nipafx.dev",                       buildKnownAuthors(WellKnownAuthors.NICOLAI_PARLOG,                           false));
         s_knownUrls.put("podcastaddict.com/nota-bene",      buildKnownAuthors(WellKnownAuthors.BENJAMIN_BRILLAUD,                        true));
-        s_knownUrls.put("rtl.chrisadams.me.uk",             buildKnownAuthors(WellKnownAuthors.CHRIS_ADAMS,                              true));
+        s_knownUrls.put("rtl.chrisadams.me.uk",             buildKnownAuthors(WellKnownAuthors.CHRIS_ADAMS,                              false));
+        s_knownUrls.put("ryan.freumh.org",                  buildKnownAuthors(WellKnownAuthors.buildAuthor("Ryan", "Gibb"),              false));
         s_knownUrls.put("scienceetonnante.substack.com",    buildKnownAuthors(WellKnownAuthors.DAVID_LOUAPRE,                            false));
         s_knownUrls.put("simonwillison.net",                buildKnownAuthors(WellKnownAuthors.SIMON_WILLISON,                           false));
         s_knownUrls.put("til.simonwillison.net",            buildKnownAuthors(WellKnownAuthors.SIMON_WILLISON,                           false));

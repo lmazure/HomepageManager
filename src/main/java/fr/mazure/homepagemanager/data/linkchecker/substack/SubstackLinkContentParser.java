@@ -1,13 +1,13 @@
 package fr.mazure.homepagemanager.data.linkchecker.substack;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.ZonedDateTime;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.json.JSONArray;
@@ -24,7 +24,9 @@ import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
 import fr.mazure.homepagemanager.utils.StringHelper;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
+import fr.mazure.homepagemanager.utils.internet.JsonHelper;
 import fr.mazure.homepagemanager.utils.internet.UrlHelper;
+import fr.mazure.homepagemanager.utils.internet.YouTubeHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
@@ -39,30 +41,17 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
     private final Optional<String> _subtitle;
     private final Optional<TemporalAccessor> _date;
     private final List<AuthorData> _sureAuthors;
+    private Optional<ExtractedLinkData> _otherLink;
     private final Locale _language;
 
-    private static final TextParser s_titleParser
-        = new TextParser("<h1 dir=\"auto\" class=\"post-title published title-X77sOw\">",
-                         "</h1>",
+    private static final TextParser s_jsonParser
+        = new TextParser("window\\._preloads\\s+=\\s+JSON\\.parse\\(\"",
+                         "\"\\)</script>",
                          s_sourceName,
-                         "title");
-    private static final TextParser s_subtitleParser
-        = new TextParser("<h3 dir=\"auto\" class=\"subtitle subtitle-HEEcLo\">",
-                         "</h3>",
-                         s_sourceName,
-                         "subtitle");
-    private static final TextParser s_dateParser
-        = new TextParser(",\"datePublished\":\"",
-                         "\"",
-                         s_sourceName,
-                         "date");
-    private static final TextParser s_authorParser
-        = new TextParser("<script type=\"application/ld\\+json\">",
-                         "</script>",
-                         s_sourceName,
-                         "author");
+                         "JSON");
 
     private static final Pattern s_mediumUrl = Pattern.compile("https://[^/]+\\.substack\\.com/.+");
+    private static final Pattern s_lennyPodcastExtractName = Pattern.compile("^.*\\|(.*)$");
 
     /**
      * @param url URL of the link
@@ -77,20 +66,37 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
         final SiteSlurper sluper = new SiteSlurper(getRetriever(), url);
         final String data = sluper.getContent();
 
-        _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
+        final String escapedJson = s_jsonParser.extract(data);
+        final String json = JsonHelper.unescape(escapedJson);
+        final JSONObject payload = new JSONObject(json);
+        final JSONObject post = JsonHelper.getAsNode(payload, "post");
 
-        final Optional<String> subtitleRaw = s_subtitleParser.extractOptional(data);
-        _subtitle = subtitleRaw.isEmpty() ? Optional.empty()
-                                          : Optional.of(HtmlHelper.cleanContent(s_subtitleParser.extract(data)));
+        _title = HtmlHelper.cleanContent(JsonHelper.getAsText(post, "title"));
 
-        final String date = HtmlHelper.cleanContent(s_dateParser.extract(data));
-        _date = Optional.of(LocalDateTime.parse(date, DateTimeFormatter.ISO_OFFSET_DATE_TIME).toLocalDate());
+        final String subtitleStr = post.optString("subtitle");
+        _subtitle = (subtitleStr == null || subtitleStr.isEmpty()) ? Optional.empty()
+                                                                   : Optional.of(HtmlHelper.cleanContent(subtitleStr));
 
-        final String extracted = s_authorParser.extract(data);
-        final JSONObject payload = new JSONObject(extracted);
-        _sureAuthors = extractAuthors(payload);
+        final String postDate = JsonHelper.getAsText(post, "post_date");
+        _date = Optional.of(ZonedDateTime.parse(postDate).toLocalDate());
 
-        _language = StringHelper.guessLanguage(HtmlHelper.cleanContent(data)).get();
+        JSONArray bylines = JsonHelper.getAsArray(post, "publishedBylines");
+        if (bylines.length() == 0) {
+            // Older posts have an empty publishedBylines array; fall back to the publication's contributors
+            bylines = JsonHelper.getAsArray(JsonHelper.getAsNode(payload, "pub"), "contributors");
+        }
+        _sureAuthors = extractAuthors(_title, bylines);
+
+        final String lang = post.optString("language");
+        _language = (lang != null && !lang.isEmpty()) ? Locale.forLanguageTag(lang)
+                                                      : StringHelper.guessLanguage(HtmlHelper.cleanContent(data)).get();
+        
+        if (UrlHelper.hasPrefix(url, "https://www.lennysnewsletter.com/")) {            
+            final Optional<String> youtubeLink = YouTubeHelper.getVideoURL("Lenny's Podcast", _title, getRetriever());
+            _otherLink = getOtherLinkFromYouTube(youtubeLink);
+        } else {
+            _otherLink = Optional.empty();
+        }
     }
 
     /**
@@ -103,7 +109,9 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
         if (UrlHelper.hasPrefix(url, "https://magazine.sebastianraschka.com/") ||
             UrlHelper.hasPrefix(url, "https://www.thecoder.cafe/") ||
             UrlHelper.hasPrefix(url, "https://blog.kilo.ai/") ||
-            UrlHelper.hasPrefix(url, "https://blog.sshh.io/")) {
+            UrlHelper.hasPrefix(url, "https://blog.sshh.io/") ||
+            UrlHelper.hasPrefix(url, "https://newsletter.kentbeck.com/") ||
+            UrlHelper.hasPrefix(url, "https://www.lennysnewsletter.com/")) {
             return true;
         }
         return s_mediumUrl.matcher(url).matches();
@@ -156,8 +164,11 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
                                                                  new Locale[] { getLanguage() },
                                                                  Optional.empty(),
                                                                  Optional.empty());
-        final List<ExtractedLinkData> list = new ArrayList<>(1);
+        final List<ExtractedLinkData> list = new ArrayList<>(2);
         list.add(linkData);
+        if (_otherLink.isPresent()) {
+            list.add(_otherLink.get());
+        }
         return list;
     }
 
@@ -166,31 +177,26 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
         return _language;
     }
 
-    private static List<AuthorData> extractAuthors(final JSONObject payload) throws ContentParserException {
-        final List<AuthorData> list = new ArrayList<>(1);
+    private static List<AuthorData> extractAuthors(final String title,
+                                                   final JSONArray payload) throws ContentParserException {
+        final List<AuthorData> list = new ArrayList<>(2);
         try {
-            final Object authorNode = payload.get("author");
-            String channelName = null;
-            switch (authorNode) {
-              case JSONArray node -> {
-                  if (node.length() > 1) {
-                      final List<AuthorData> authors = new ArrayList<>();
-                      for (int i = 0; i < ((JSONArray)authorNode).length(); i++) {
-                          final String name = ((JSONArray)authorNode).getJSONObject(i).getString("name");
-                          authors.add(LinkContentParserUtils.parseAuthorName(name));
-                      }
-                      return authors;
-                  }
-                  channelName = node.getJSONObject(0).getString("name");
-              }
-              case JSONObject node -> {
-                  channelName = node.getString("name");
-              }
-              default -> {
-                  throw new ContentParserException("Error while parsing JSON, author node is of type " + authorNode.getClass().getName());
-              }
+            String channelName = payload.getJSONObject(0).getString("name");
+            if (channelName.equals("Lenny Rachitsky")) {
+                final Matcher matcher = s_lennyPodcastExtractName.matcher(title);
+                if (matcher.find()) {
+                    final String authorName = matcher.group(1);
+                    list.add(LinkContentParserUtils.parseAuthorName(authorName));
+                } 
             }
-
+            if (payload.length() > 1) {
+                final List<AuthorData> authors = new ArrayList<>();
+                for (int i = 0; i < payload.length(); i++) {
+                    final String name = payload.getJSONObject(i).getString("name");
+                    authors.add(LinkContentParserUtils.parseAuthorName(name));
+                }
+                return authors;
+            }
             final AuthorData author = getWellKnownAuthor(channelName);
             if (author != null) {
                 list.add(author);

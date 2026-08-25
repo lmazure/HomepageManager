@@ -14,12 +14,13 @@ class SubstackLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://magazine.sebastianraschka.com/p/research-papers-in-january-2024|Model Merging, Mixtures of Experts, and Towards Smaller LLMs",
-        "https://magazine.sebastianraschka.com/p/ahead-of-ai-12-llm-businesses|LLM Business and Busyness: Recent Company Investments and AI Adoption, New Small Openly Available LLMs, and LoRA Research",
-        "https://promptarmor.substack.com/p/data-exfiltration-from-writercom|Data exfiltration from Writer.com with indirect prompt injection",
-        "https://scienceetonnante.substack.com/p/grokking-les-modeles-dia-sont-ils|\"Grokking\" : les modèles d'IA sont-ils capables de piger ?",
-        "https://tidyfirst.substack.com/p/eventual-business-consistency|Eventual Business Consistency",
-        }, delimiter = '|')
+        "https://magazine.sebastianraschka.com/p/research-papers-in-january-2024#Model Merging, Mixtures of Experts, and Towards Smaller LLMs",
+        "https://magazine.sebastianraschka.com/p/ahead-of-ai-12-llm-businesses#LLM Business and Busyness: Recent Company Investments and AI Adoption, New Small Openly Available LLMs, and LoRA Research",
+        "https://promptarmor.substack.com/p/data-exfiltration-from-writercom#Data exfiltration from Writer.com with indirect prompt injection",
+        "https://scienceetonnante.substack.com/p/grokking-les-modeles-dia-sont-ils#\"Grokking\" : les modèles d'IA sont-ils capables de piger ?",
+        "https://tidyfirst.substack.com/p/eventual-business-consistency#Eventual Business Consistency",
+        "https://www.lennysnewsletter.com/p/openai-codex-lead-on-the-new-shape#OpenAI Codex lead on the new shape of product work | Andrew Ambrosino",
+        }, delimiter = '#')
     void testTitle(final String url,
                    final String expectedTitle) {
         checkTitle(SubstackLinkContentParser.class, url, expectedTitle);
@@ -31,6 +32,7 @@ class SubstackLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://promptarmor.substack.com/p/data-exfiltration-from-writercom|Authors: PromptArmor and Kai Greshake",
         "https://scienceetonnante.substack.com/p/grokking-les-modeles-dia-sont-ils|Ce phénomène étonnant, découvert récemment, pourrait changer notre compréhension de l'apprentissage et de la cognition dans les réseaux de neurones...",
         "https://tidyfirst.substack.com/p/eventual-business-consistency|Executive Summary of Bi-temporality",
+        "https://www.lennysnewsletter.com/p/openai-codex-lead-on-the-new-shape|OpenAI’s Andrew Ambrosino on why software is getting cheaper to build, why taste matters more than ever, and what’s next for the Codex desktop app",
         }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
@@ -75,6 +77,7 @@ class SubstackLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://frontierai.substack.com/p/you-cant-build-a-moat-with-ai|Vikram||Sreekanti|Joseph|E.|Gonzalez",
+        "https://www.lennysnewsletter.com/p/openai-codex-lead-on-the-new-shape|Andrew||Ambrosino|Lenny||Rachitsky"
     }, delimiter = '|')
     void test2Authors(final String url,
                       final String expectedFirstName1,
@@ -162,6 +165,16 @@ class SubstackLinkContentParserTest extends LinkDataExtractorTestBase {
     void testLanguage(final String url,
                       final String expectedLanguage) {
         checkLanguage(SubstackLinkContentParser.class, url, expectedLanguage);
+    }
+
+    @SuppressWarnings("static-method")
+    @ParameterizedTest
+    @CsvSource(value = {
+        "https://www.lennysnewsletter.com/p/openai-codex-lead-on-the-new-shape|https://www.youtube.com/watch?v=P3KDebPTUrw",
+    }, delimiter = '|')
+    void testOtherLink(final String url,
+                       final String expectedOtherLink) {
+        checkOtherLink(SubstackLinkContentParser.class, url, expectedOtherLink);
     }
 }
 

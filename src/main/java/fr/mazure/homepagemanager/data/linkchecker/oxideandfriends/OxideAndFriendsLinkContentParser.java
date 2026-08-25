@@ -49,9 +49,9 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
         = new TextParser("<time>",
                          "</time>",
                          s_sourceName,
-                         "blog publcation date");
+                         "blog publication date");
     private static final TextParser s_creationDateParser
-        = new TextParser("Oxide and Friends ",
+        = new TextParser("Oxide and Friends? ", // "s" is optional because the title of https://www.youtube.com/watch?v=mdcu3dKMjyg is "Oxide and Friend 6/8/2026 -- The Hardest Kind of Unsafe Rust"
                          " --",
                          s_sourceName,
                          "creation date");
@@ -135,7 +135,8 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
         }
 
         // get YouTube link
-        final Optional<String> youtubeLink = YouTubeHelper.getVideoURL("Oxide Computer Company", getTitle(), getRetriever());
+        final String dirtyHackTitle = getTitle().replace(" [chapter images]", ""); // dirty hack for https://oxide-and-friends.transistor.fm/episodes/mechanical-engineering-at-oxide
+        final Optional<String> youtubeLink = YouTubeHelper.getVideoURL("Oxide Computer Company", "Oxide and Friends " + dirtyHackTitle, getRetriever());
         _otherLink = getOtherLinkFromYouTube(youtubeLink);
         final String creationDateString = s_creationDateParser.extract(_otherLink.get().title());
         _creationDate = Optional.of(LocalDate.parse(creationDateString, s_creationDateFormatter));

@@ -28,6 +28,7 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
     private static final String s_sourceName = "GitLab blog";
 
     private final String _title;
+    private final Optional<String> _subtitle;
     private final Optional<TemporalAccessor> _creationDate;
     private final List<AuthorData> _sureAuthors;
     private final List<ExtractedLinkData> _links;
@@ -36,6 +37,10 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
                                                                    "</title>",
                                                                    s_sourceName,
                                                                    "title");
+    private static final TextParser s_subtitleParser = new TextParser("<meta name=\"description\" content=\"",
+                                                                      "\">",
+                                                                      s_sourceName,
+                                                                      "subtitle");
     // the next regexp should be "//www.facebook.com(?:/sharer)?/sharer.php\\?u=https://about.gitlab.com/blog/", but GitLab screwed up their site
     // and used links such as "https://www.facebook.com/sharer/sharer.php?u=https://about.gitlab.com/blog/blog/2020/11/11/gitlab-for-agile-portfolio-planning-project-management/"
     private static final TextParser s_dateParser = new TextParser("(?:Published|Updated) on:? ",
@@ -68,6 +73,7 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
 
         _title = HtmlHelper.cleanContent(s_titleParser.extract(data))
                            .replaceFirst(" \\| GitLab$", "");
+        _subtitle = s_subtitleParser.extractOptional(data).map(HtmlHelper::cleanContent);
 
         final String str = HtmlHelper.cleanContent(s_dateParser.extract(data));
         _creationDate = Optional.of(LocalDate.parse(str, s_dateFormat));
@@ -124,7 +130,7 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
 
     @Override
     public Optional<String> getSubtitle() {
-        return Optional.empty();
+        return _subtitle;
     }
 
     @Override

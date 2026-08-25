@@ -78,7 +78,7 @@ public class LinkCheckRunner {
     private static final WellKnownRedirections _redirectionData = new WellKnownRedirections();
     private static final int s_nb_threads = 32;
     private static final ExecutorService s_threadPool = Executors.newFixedThreadPool(s_nb_threads);
-    
+
     /**
      * @param file XML file to be checked
      * @param cachePath directory where the persistence files are written
@@ -169,7 +169,7 @@ public class LinkCheckRunner {
                     final Map<String, List<String>> headers = new HashMap<>();
                     headers.put(null, List.of("HTTP/1.1 200 OK"));
                     final FullFetchedLinkData fakeData = new FullFetchedLinkData(url, Optional.of(headers), Optional.empty(), Optional.empty(), null);
-                    handleLinkData(fakeData);                        
+                    handleLinkData(fakeData);
                 } else {
                     final SiteSlurper sluper = new SiteSlurper(_cachedSiteDataRetriever, url);
                     handleLinkData(sluper.getLinkData());

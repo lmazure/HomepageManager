@@ -26,6 +26,7 @@ import fr.mazure.homepagemanager.utils.DateTimeHelper;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.internet.JsonHelper;
 import fr.mazure.homepagemanager.utils.internet.UrlHelper;
+import fr.mazure.homepagemanager.utils.internet.YouTubeHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
@@ -56,12 +57,6 @@ public class DwarkeshPodcastLinkContentParser extends LinkDataExtractor {
                          "</div>",
                          s_sourceName,
                          "subtitle");
-    private static final TextParser s_youtubeLinkParser
-        = new TextParser("youtube-nocookie\\.com/embed/",
-                         "[A-Za-z0-9_-]+",
-                         "\\?",
-                         s_sourceName,
-                         "YouTube link");
 
     private static final Pattern s_extractGuest = Pattern.compile("^(.+?)\\s+[\u2013\u2014]\\s+.+$");
 
@@ -105,8 +100,7 @@ public class DwarkeshPodcastLinkContentParser extends LinkDataExtractor {
         }
         _authors.add(WellKnownAuthors.DWARKESH_PATEL);
 
-        final Optional<String> youtubeVideoId = s_youtubeLinkParser.extractOptional(data);
-        final Optional<String> youtubeLink = youtubeVideoId.map(s -> "https://www.youtube.com/watch?v=" + s);
+        final Optional<String> youtubeLink = YouTubeHelper.getVideoURL("Dwarkesh Patel", _title, getRetriever());
         _otherLink = getOtherLinkFromYouTube(youtubeLink);
 
         _creationDate = DateTimeHelper.getMinTemporalAccessor(_publicationDate, _otherLink.map(link -> link.publicationDate().get()));
