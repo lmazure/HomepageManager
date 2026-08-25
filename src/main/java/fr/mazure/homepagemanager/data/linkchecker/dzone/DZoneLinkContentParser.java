@@ -31,16 +31,16 @@ public class DZoneLinkContentParser extends LinkDataExtractor {
     private final List<AuthorData> _authors;
 
     private static final TextParser s_titleParser
-        = new TextParser("<div class=\"title\">\n                        <h1 class=\"article-title\">",
+        = new TextParser("<h1 class=\"article-title\">",
                          "[^>]*",
                          "</h1>",
                          s_sourceName,
                          "title");
 
     private static final TextParser s_subtitleParser
-        = new TextParser("<div class=\"subhead\">\n                        <h3>",
+        = new TextParser("<div class=\"subhead\">\n                          <p>",
                          "[^>]*",
-                         "</h3>",
+                         "</p>",
                          s_sourceName,
                          "subtitle");
 
