@@ -58,6 +58,62 @@ methods       53.9%    97.9%
 
 
 
+
+manage
+fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://dzone.com/articles/ways-your-ai-coding-agent-exfiltrates-secrets"
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:86)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:339)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find title in DZone
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.TextParser.extract(TextParser.java:61)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dzone.DZoneLinkContentParser.<init>(DZoneLinkContentParser.java:73)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:55)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:95)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:84)
+	... 5 more
+
+fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://dzone.com/articles/agent-of-agents-enhancing-software-testing"
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:86)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:339)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find title in DZone
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.TextParser.extract(TextParser.java:61)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dzone.DZoneLinkContentParser.<init>(DZoneLinkContentParser.java:73)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:55)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:95)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:84)
+	... 5 more
+
+
+
+manage
+fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://blog.chromium.org/2025/05/fighting-unwanted-notifications-with.html"
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:86)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:339)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find title in Chromium Blog
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.TextParser.extract(TextParser.java:61)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.chromium.ChromiumBlogLinkContentParser.<init>(ChromiumBlogLinkContentParser.java:65)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:55)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:95)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:84)
+	... 5 more
+
+
+
+
+
+
+
 manage
 fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://dzone.com/articles/ways-your-ai-coding-agent-exfiltrates-secrets"
 	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:86)
@@ -89,16 +145,6 @@ add parser for https://lucumr.pocoo.org/2026/8/19/what-is-reasoning/
 
 
 add parser for https://inside.java/2026/08/20/podcast-067/
-
-
-
-
-
-
-
-add youtube author https://www.youtube.com/watch?v=HcGjCcLEgN4&t=860s
-
-
 
 
 
@@ -144,7 +190,7 @@ manage refactoring.fm
 
 
 
-manage order og Vietnamise name components
+manage order of Vietnamise name components
 <ITEM><ARTICLE><X><T>Pham Xuan An, le (faux) ami des Américains</T><ST>Pendant toute la guerre du Vietnam, Pham Xuan An, a été un brillant journaliste et correspondant à Saigon pour le magazine Time.</ST><A>https://www.radiofrance.fr/franceinter/podcasts/espions-une-histoire-vraie/ursula-kuczinski-alias-agent-sonya-1103675</A><L>fr</L><F>HTML</F><DURATION><MINUTE>38</MINUTE><SECOND>6</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Stéphanie</FIRSTNAME><LASTNAME>Duncan</LASTNAME></AUTHOR><DATE><YEAR>2022</YEAR><MONTH>4</MONTH><DAY>11</DAY></DATE><COMMENT><AUTHOR><LASTNAME>Phạm</LASTNAME><MIDDLENAME>Xuân</MIDDLENAME><FIRSTNAME>Ẩn</FIRSTNAME></AUTHOR>, a journalist working for the US during the Vietnam War, was a spy of the National Liberation Front of South Vietnam.</COMMENT></ARTICLE></ITEM>
 
 
