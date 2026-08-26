@@ -587,6 +587,18 @@ class WellKnownRedirectionsTest {
              Set.of(LinkStatus.REMOVED));
     }
 
+    @ParameterizedTest
+    @CsvSource({
+        "https://about.gitlab.com/releases/2021/06/22/gitlab-14-0-released/",
+        })
+    void oldGitlabReleaseNotes(final String url) {
+        test(url,
+             true,
+             Integer.valueOf(200),
+             "removed old GitLab release notes",
+             Set.of(LinkStatus.REMOVED));
+    }
+
     private void test(final String url,
                       final boolean redirectionIsExpected,  // use to ensure that test data is up-to-date
                       final Integer expectedCode,           // use to ensure that test data is up-to-date
