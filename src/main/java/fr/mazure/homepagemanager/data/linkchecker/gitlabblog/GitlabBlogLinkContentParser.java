@@ -1,7 +1,5 @@
 package fr.mazure.homepagemanager.data.linkchecker.gitlabblog;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +13,7 @@ import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
+import fr.mazure.homepagemanager.utils.DateTimeHelper;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
@@ -43,9 +42,9 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
                                                                       "subtitle");
     // the next regexp should be "//www.facebook.com(?:/sharer)?/sharer.php\\?u=https://about.gitlab.com/blog/", but GitLab screwed up their site
     // and used links such as "https://www.facebook.com/sharer/sharer.php?u=https://about.gitlab.com/blog/blog/2020/11/11/gitlab-for-agile-portfolio-planning-project-management/"
-    private static final TextParser s_dateParser = new TextParser("(?:Published|Updated) on:? ",
-                                                                  "[^<]*",
-                                                                  "<!--(\\])?-->",
+    private static final TextParser s_dateParser = new TextParser("<meta property=\"article:published_time\" content=\"",
+                                                                  "[^\"]+",
+                                                                  "\">",
                                                                   s_sourceName,
                                                                   "date");
     private static final TextParser s_authorParser1 = new TextParser("<div class=\"slp-flex-initial slp-order-last sm:slp-order-first\">",
@@ -56,7 +55,6 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
                                                                      "</div>",
                                                                      s_sourceName,
                                                                      "author");
-    private static final DateTimeFormatter s_dateFormat = DateTimeFormatter.ofPattern("MMMM d, yyyy", Locale.ENGLISH);
 
     /**
      * @param url URL of the link
@@ -75,8 +73,7 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
                            .replaceFirst(" \\| GitLab$", "");
         _subtitle = s_subtitleParser.extractOptional(data).map(HtmlHelper::cleanContent);
 
-        final String str = HtmlHelper.cleanContent(s_dateParser.extract(data));
-        _creationDate = Optional.of(LocalDate.parse(str, s_dateFormat));
+        _creationDate = Optional.of(DateTimeHelper.convertISO8601StringToDateTime(s_dateParser.extract(data)));
 
         final Optional<String> opt = s_authorParser1.extractOptional(data);
         if (opt.isPresent()) {

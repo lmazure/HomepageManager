@@ -35,6 +35,8 @@ class GitlabBlogLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://about.gitlab.com/blog/making-room-for-whats-next-in-the-gitlab-ui/|2026-08-26",
+        // the next article has been updated
+        "https://about.gitlab.com/blog/understanding-flows-multi-agent-workflows/|2026-01-14"
         }, delimiter = '|')
     void testDate(final String url,
                   final String expectedDate) {
