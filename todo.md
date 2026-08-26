@@ -1,3 +1,4 @@
+```
 warnings = 124
 lines prod = 9514
 lines test = 3939
@@ -7,16 +8,20 @@ instructions  66.0%    89.1%
 branches      44.8%    77.5%
 lines         65.9%    94.7%
 methods       53.0%/52.2%    97.9%
+```
 
 
+```
               main     test
 instructions  68.8%    92.7%
 branches      47.1%    77.5%
 lines         67.9%    95.2%
 methods       52.1%    98.8%
 → increase method coverage
+```
 
 
+```
 2024-11-03
 warnings = 111
 lines prod = 10942
@@ -27,8 +32,10 @@ instructions  69.1%    93.0%
 branches      48.3%    62.5%
 lines         67.8%    94.9%
 methods       54.0%    98.1%
+```
 
 
+```
 2024-11-16
 warnings = 111
 lines prod = 10953
@@ -39,6 +46,7 @@ instructions  69.3%    93.6%
 branches      48.9%    62.5%
 lines         68.2%    95.2%
 methods       53.9%    97.9%
+```
 
 
 
@@ -58,9 +66,27 @@ methods       53.9%    97.9%
 
 
 
+
+repair unit test
+- GitlabBlogLinkContentParserTest
+- fr.mazure.homepagemanager.data.linkchecker.ibm.test.IbmLinkContentParserTest.testArticleIsLost(String)
+- fr.mazure.homepagemanager.data.linkchecker.test.LinkContentParserTest.testLanguageForEnglishArticle(String)
+- fr.mazure.homepagemanager.data.linkchecker.test.LinkContentParserTest.testLanguageForFrenchArticle(String)
+- fr.mazure.homepagemanager.data.nodechecker.test.IncorrectSpaceCheckerTest.stringsAreProperlyDividedAtApostrophe()
+
+
+
+
+
+
+
+
 manage
+
+```
 https://blog.kilo.ai/p/23-events
 The expected date 2026-07-03 is not equal to the effective date 2026-07-02
+```
 
 
 
@@ -72,6 +98,8 @@ The expected date 2026-07-03 is not equal to the effective date 2026-07-02
 
 
 manage
+
+```
 fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://developer.ibm.com/tutorials/l-anatomy-ext4/"
 	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:86)
 	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:339)
@@ -91,6 +119,7 @@ Caused by: java.io.IOException: Received HTTP code 404 for https://developer.ibm
 	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentParser.getStructureJson(IbmLinkContentParser.java:136)
 	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentParser.<init>(IbmLinkContentParser.java:48)
 	... 9 more
+```
 
 
 
@@ -100,6 +129,8 @@ Caused by: java.io.IOException: Received HTTP code 404 for https://developer.ibm
 
 
 manage
+
+```
 fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://blog.chromium.org/2025/05/fighting-unwanted-notifications-with.html"
 	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:86)
 	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:339)
@@ -114,6 +145,21 @@ Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Fa
 	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:95)
 	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:84)
 	... 5 more
+```
+
+
+
+
+
+
+add parser for `https://lucumr.pocoo.org/2026/8/19/what-is-reasoning/`
+
+
+
+
+
+
+add parser for `https://inside.java/2026/08/20/podcast-067/`
 
 
 
@@ -121,46 +167,8 @@ Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Fa
 
 
 
-manage
-fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://dzone.com/articles/ways-your-ai-coding-agent-exfiltrates-secrets"
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:86)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:339)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
-	at java.base/java.lang.Thread.run(Thread.java:1516)
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find title in DZone
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.TextParser.extract(TextParser.java:61)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dzone.DZoneLinkContentParser.<init>(DZoneLinkContentParser.java:73)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:55)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:95)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:84)
-	... 5 more
-	
-	
-	
-	
-	
-	
-
-
-add parser for https://lucumr.pocoo.org/2026/8/19/what-is-reasoning/
-
-
-
-
-
-
-add parser for https://inside.java/2026/08/20/podcast-067/
-
-
-
-
-
-
-
-managa crash on https://www.numberphile.com/podcast/sats-zvezda
-(the problem is probalby that the link to the YouTube video is not present)
+manage crash on https://www.numberphile.com/podcast/sats-zvezda  
+(the problem is probably that the link to the YouTube video is not present)
 
 
 
@@ -172,6 +180,8 @@ managa crash on https://www.numberphile.com/podcast/sats-zvezda
 
 
 manage
+
+```
 java.lang.UnsupportedOperationException: https://www.aristeia.com/|412→
 	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.lambda$2(WellKnownRedirections.java:809)
 	at java.base/java.util.Optional.orElseThrow(Optional.java:407)
@@ -184,9 +194,9 @@ java.lang.UnsupportedOperationException: https://www.aristeia.com/|412→
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
 	at java.base/java.lang.Thread.run(Thread.java:1516)
-	
-	
-	
+```
+
+
 
 
 
@@ -198,17 +208,22 @@ manage refactoring.fm
 
 
 manage order of Vietnamise name components
+
+```
 <ITEM><ARTICLE><X><T>Pham Xuan An, le (faux) ami des Américains</T><ST>Pendant toute la guerre du Vietnam, Pham Xuan An, a été un brillant journaliste et correspondant à Saigon pour le magazine Time.</ST><A>https://www.radiofrance.fr/franceinter/podcasts/espions-une-histoire-vraie/ursula-kuczinski-alias-agent-sonya-1103675</A><L>fr</L><F>HTML</F><DURATION><MINUTE>38</MINUTE><SECOND>6</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Stéphanie</FIRSTNAME><LASTNAME>Duncan</LASTNAME></AUTHOR><DATE><YEAR>2022</YEAR><MONTH>4</MONTH><DAY>11</DAY></DATE><COMMENT><AUTHOR><LASTNAME>Phạm</LASTNAME><MIDDLENAME>Xuân</MIDDLENAME><FIRSTNAME>Ẩn</FIRSTNAME></AUTHOR>, a journalist working for the US during the Vietnam War, was a spy of the National Liberation Front of South Vietnam.</COMMENT></ARTICLE></ITEM>
+```
+
+
 
 
 
 
 repair unit tests
-fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.test.WellKnownRedirectionsTest.oracleBlog(String)
-fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.test.WellKnownRedirectionsTest.redirectionsEndingWith404(String)
-fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.test.WellKnownRedirectionsTest.redirectionsToLocale(String)
-fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.oracleBlogsJavaIsManaged()
-fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.oracleBlogsJavaMagazineIsManaged()
+- fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.test.WellKnownRedirectionsTest.oracleBlog(String)
+- fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.test.WellKnownRedirectionsTest.redirectionsEndingWith404(String)
+- fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.test.WellKnownRedirectionsTest.redirectionsToLocale(String)
+- fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.oracleBlogsJavaIsManaged()
+- fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.oracleBlogsJavaMagazineIsManaged()
 
 
 
@@ -221,6 +236,8 @@ fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.oracleBlog
 
 
 manage (add this rediretcion as REMOVED)
+
+```
 Title = "GitLab 15.8 Release"
 Subtitle = "GitLab 15.8 released with external status checks and self-managed SCIM"
 URL = https://about.gitlab.com/releases/2023/01/22/gitlab-15-8-released/
@@ -231,6 +248,7 @@ Redirection chain = https://about.gitlab.com/releases/2023/01/22/gitlab-15-8-rel
 Redirection matcher = redirection ending in success (last URL should be used)
 Redirection matcher expected statuses =
 Look for article = https://www.google.com/search?q=%22GitLab+15.8+Release%22+%22GitLab+15.8+released+with+external+status+checks+and+self-managed+SCIM%22
+```
 
 
 
@@ -240,6 +258,8 @@ Look for article = https://www.google.com/search?q=%22GitLab+15.8+Release%22+%22
 
 
 manage
+
+```
 Title = "Wikipedia"
 URL = https://en.wikipedia.org/wiki/Digital_Signature_Algorithm
 Expected status = OK
@@ -248,12 +268,13 @@ Effective HTTP code = 429 Too Many Requests (RFC 6585)
 Redirection matcher = direct failure
 Redirection matcher expected statuses = DEAD
 Look for article = https://www.google.com/search?q=%22Wikipedia%22
+```
 
 
 
 
 
-	
+
 
 detect sentence should start with a capital letter
 
@@ -271,10 +292,9 @@ add global check that a URL does not appear twice
 
 
 
-
- 
-
 manage
+
+```
 Title = "Le dilemme du prisonnier | Voyages au pays des maths | ARTE"
 URL = https://www.youtube.com/watch?v=G9ER5bLxQEU
 Expected status = REMOVED
@@ -282,6 +302,7 @@ Effective HTTP code = 200 OK
 Redirection matcher = direct success
 Redirection matcher expected statuses = OBSOLETE,OK,ZOMBIE
 Look for article = https://www.google.com/search?q=%22Le+dilemme+du+prisonnier+%7C+Voyages+au+pays+des+maths+%7C+ARTE%22
+```
 
 
 
@@ -300,6 +321,8 @@ indiquer que des liens sont internes (par exemple cursor et windsurf sur la page
 
 
 manage
+
+```
 Exception in thread "pool-2-thread-10" java.lang.IllegalStateException: Exception while retrieving https://www.selenium.dev/documentation/webdriver/
 	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
 	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
@@ -316,18 +339,17 @@ Caused by: java.lang.IllegalStateException: Failure while reading G:\Documents\t
 Caused by: java.lang.NullPointerException: Cannot invoke "String.trim()" because the return value of "java.io.BufferedReader.readLine()" is null
 	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SiteDataPersister.retrieve(SiteDataPersister.java:190)
 	... 8 more
-	
-	
-	
-	
-	
-	
-	
-	
-	
+```
+
+
+
+
+
 
 
 manage
+
+```
 Title = "GitLab 14.0 released with a celebration of GitLab 14"
 URL = https://about.gitlab.com/releases/2021/06/22/gitlab-14-0-released/
 Expected status = REMOVED
@@ -337,6 +359,7 @@ Redirection chain = https://about.gitlab.com/releases/2021/06/22/gitlab-14-0-rel
 Redirection matcher = redirection ending in success (last URL should be used)
 Redirection matcher expected statuses = 
 Look for article = https://www.google.com/search?q=%22GitLab+14.0+released+with+a+celebration+of+GitLab+14%22
+```
 
 
 
@@ -367,6 +390,8 @@ verify that I do not read twice the MP3 files
 
 
 manage
+
+```
 Exception in thread "JavaFX Application Thread" java.lang.ExceptionInInitializerError
 	at javafx.web@26/com.sun.webkit.network.NetworkContext.fwkLoad(NetworkContext.java:161)
 	at javafx.web@26/com.sun.webkit.WebPage.twkProcessMouseEvent(Native Method)
@@ -413,6 +438,7 @@ Caused by: java.lang.NullPointerException
 	at java.net.http/jdk.internal.net.http.HttpClientBuilderImpl.cookieHandler(HttpClientBuilderImpl.java:40)
 	at javafx.web@26/com.sun.webkit.network.HTTP2Loader.<clinit>(HTTP2Loader.java:94)
 	... 39 more
+```
 
 
 
@@ -423,10 +449,13 @@ Caused by: java.lang.NullPointerException
 
 
 manage
+
+```
 URL = https://www.youtube.com/feeds/videos.xml?channel_id=UCXZCJLdBC09xxGZ6gcdrc6A
 Effective HTTP code = 404 Not Found
 Redirection matcher = direct failure
 Redirection matcher expected statuses = DEAD
+```
 
 
 
@@ -440,7 +469,7 @@ Why 300 threads are created when putting a breakpoint in fr.mazure.homepagemanag
 
 
 
-We should be able to get rid of IbmLinkContentChecker.isUrlManaged and use the parser method instead
+We should be able to get rid of IbmLinkContentChecker.isUrlManaged and use the parser method instead  
 but IBM is currently down…
 
 
@@ -453,14 +482,12 @@ the text of the <CODESAMPLE language="bash"> is grey instead of black
 
 
 
-try once again to get the subtitle from https://about.gitlab.com/blog/whats-new-in-git-2-54-0/
+try once again to get the subtitle from `https://about.gitlab.com/blog/whats-new-in-git-2-54-0/`
 
 
 
 
 
-	
-	
 
 
 the name of files caching requests should have an extension
@@ -490,7 +517,7 @@ Manage Martin Fowler dates on links/design.xml
 
 
 
-Dwarkesh subtitles should be managed
+Dwarkesh subtitles should be managed  
 e.g., https://www.dwarkesh.com/p/elon-musk
 
 
@@ -504,8 +531,8 @@ e.g., https://www.dwarkesh.com/p/elon-musk
 
 
 
-check the bookmarks of https://twimlai.com/podcast/twimlai/
-some YouTube videos are missing
+check the bookmarks of https://twimlai.com/podcast/twimlai/  
+some YouTube videos are missing  
 the format is reported as HTML instead of MP3
 
 
@@ -558,10 +585,13 @@ check the dates of https://oxide-and-friends.transistor.fm/episodes/shell-game-w
 
 
 gérer
+
+```
 WARNING: A restricted method in java.lang.System has been called
 WARNING: java.lang.System::load has been called by com.sun.glass.utils.NativeLibLoader in module javafx.graphics (file:/G:/Documents/home/repository/org/openjfx/javafx-graphics/26-ea+3/javafx-graphics-26-ea+3-win.jar)
 WARNING: Use --enable-native-access=javafx.graphics to avoid a warning for callers in this module
 WARNING: Restricted methods will be blocked in a future release unless native access is enabled
+```
 
 
 
@@ -592,9 +622,9 @@ the articles of fr.mazure.homepagemanager.data.linkchecker.ibm.test.IbmLinkConte
 
 
 
-manage
-https://windsurf.com/blog/windsurf-wave-13
-Subtitle "Wave 13: Shipmas - Parallel Agents, Git Worktrees, and Near-Frontier Coding Performance For Free With SWE-1.5" does not appear in the page
+manage  
+https://windsurf.com/blog/windsurf-wave-13  
+Subtitle "Wave 13: Shipmas - Parallel Agents, Git Worktrees, and Near-Frontier Coding Performance For Free With SWE-1.5" does not appear in the page  
 The problem is that the whole page content is generated by JavaScript
 
 
@@ -608,8 +638,8 @@ The problem is that the whole page content is generated by JavaScript
  
 
 
-public abstract List<ExtractedLinkData> getLinks() throws ContentParserException; is a kludge
-no other methor of LinkDataExtractor throws an exeception
+public abstract List<ExtractedLinkData> getLinks() throws ContentParserException; is a kludge  
+no other method of LinkDataExtractor throws an exception  
 at the same time, fix: "public abstract List<ExtractedLinkData> getLinks() throws ContentParserException;"
 
 
@@ -620,8 +650,8 @@ at the same time, fix: "public abstract List<ExtractedLinkData> getLinks() throw
 
 
 
-gérer
-https://gwern.net/ai-daydreaming
+manage  
+https://gwern.net/ai-daydreaming  
 author "Branwen" does not appear in the page
 
 
@@ -649,7 +679,7 @@ analyze if I could exploit webarchives.org
 
 
 
-find a heuristic for Veritasium authors
+find a heuristic for Veritasium authors  
 youtubeWatchVeritasiumCasperMebiusIsManaged is currently disabled
 
 
@@ -669,6 +699,8 @@ fix author extraction for https://www.youtube.com/watch?v=DhZORrqL3xI
 
 
 gérer
+
+```
 Title = "Be Careful Where you Send Your Code"
 URL = https://windsurf.com/blog/self-hosting-for-code-security
 Expected status = ZOMBIE
@@ -678,6 +710,7 @@ Redirection chain = https://windsurf.com/blog/self-hosting-for-code-security →
 Redirection matcher = redirection ending in success (last URL should be used)
 Redirection matcher expected statuses =
 Look for article = https://www.google.com/search?q=%22Be+Careful+Where+you+Send+Your+Code%22
+```
 
 
 
@@ -686,7 +719,7 @@ Look for article = https://www.google.com/search?q=%22Be+Careful+Where+you+Send+
 
 
 
-mettre à jour les dates de baeldung dans links/java.xml
+mettre à jour les dates de baeldung dans links/java.xml  
 then clean up
 - links/java.xml
 - links/javabasics.xml
@@ -745,10 +778,6 @@ properly manage en_us
 
 
 
-	
-	
-	
-
 manque des tooltips sur les flèches de renvoi et sur la boussole
 
 
@@ -760,10 +789,13 @@ manque des tooltips sur les flèches de renvoi et sur la boussole
 
 
 gérer
+
+```
  tag = "COMMENT"
  value = ""Flow Matching for Generative Modelinghttps://arxiv.org/abs/2210.02747enHTML": a mathematical description of Flow Matching, a mechanism to train Continuous Normalizing Flows."
  violation = "a COMMENT must not contain US syntax"
  detail = "COMMENT ""Flow Matching for Generative Modelinghttps://arxiv.org/abs/2210.02747enHTML": a mathematical description of Flow Matching, a mechanism to train Continuous Normalizing Flows." contains american word " Normalizing"  matching regexp "\W\p{L}{2,}izing", it should be "sing""
+```
 
 
 
@@ -812,7 +844,7 @@ gérer les spans chaotiques qui empêchent d'extraire les authors de Chrome blog
 
 
 
-mauvaise date pour https://developer.ibm.com/articles/j-java-streams-5-brian-goetz/, 5 articles qui ont été réécrits
+mauvaise date pour https://developer.ibm.com/articles/j-java-streams-5-brian-goetz/, 5 articles qui ont été réécrits  
 idem pour https://developer.ibm.com/articles/j-java-streams-1-brian-goetz/
 
 
@@ -821,8 +853,8 @@ idem pour https://developer.ibm.com/articles/j-java-streams-1-brian-goetz/
 
 
 
-gérer
-https://www.youtube.com/watch?v=EvknN89JoWo
+manage  
+https://www.youtube.com/watch?v=EvknN89JoWo  
 expected duration PT22M34S is not in the real duration interval [PT596H31M23S,PT-596H-31M-22S]
 
 
@@ -846,7 +878,7 @@ publication date smaller or equal to creation date must be detected
 
 
 
-podcast
+podcast  
 gérer LWAIM
 
 
@@ -899,7 +931,7 @@ détecter les indentations incorrectes
 
 
 
-d�)tecter les vidéos Youtube qui sont marquées "zombie" mais qui ne sont, en fait, pas private
+détecter les vidéos Youtube qui sont marquées "zombie" mais qui ne sont, en fait, pas private
 
 
 
@@ -917,7 +949,9 @@ comprendre pourquoi les fichiers sont regénés au démarrage
 
 
 
-gC�rer en ajountant une nouvelle weel-known redirectinn
+gCérer en ajountant une nouvelle weel-known redirection
+
+```
 Title = "Companies determined to retain 'secret sauce'"
 URL = http://news.com.com/2009-1022_3-5198605.html
 Expected status = ZOMBIE
@@ -927,7 +961,9 @@ Redirection chain = http://news.com.com/2009-1022_3-5198605.html → https://gen
 Redirection matcher = redirection ending in success (last URL should be used)
 Redirection matcher expected statuses = 
 Look for article = https://www.google.com/search?q=%22Companies+determined+to+retain+%27secret+sauce%27%22
+```
 
+```
 Title = "How India is handling international backlash"
 URL = http://news.com.com/2009-1022_3-5198950.html
 Expected status = ZOMBIE
@@ -937,7 +973,9 @@ Redirection chain = http://news.com.com/2009-1022_3-5198950.html → https://gen
 Redirection matcher = redirection ending in success (last URL should be used)
 Redirection matcher expected statuses = 
 Look for article = https://www.google.com/search?q=%22How+India+is+handling+international+backlash%22
+```
 
+```
 Title = "The next battlefields for advanced technology"
 URL = http://news.com.com/2009-1022_3-5198957.html
 Expected status = ZOMBIE
@@ -946,6 +984,7 @@ Effective HTTP code of last redirection = 200 OK
 Redirection chain = http://news.com.com/2009-1022_3-5198957.html → https://gen.xyz/
 Redirection matcher = redirection ending in success (last URL should be used)
 Redirection matcher expected statuses = 
+```
 
 
 
@@ -964,9 +1003,12 @@ repair failing unit tests of fr.mazure.homepagemanager.data.linkchecker.linkstat
 
 
 gérer
+
+```
     public static Path getTestDatapath(final Class<?> clazz) {
         return Paths.get("G:\\Documents\\tmp\\hptmp\\test\\" + clazz.getSimpleName());  // TODO this should not be hard-coded
     }
+```
 
 
 
@@ -989,10 +1031,13 @@ gérer https://www.superdatascience.com/podcast/
 
 
 gérer
+
+```
 https://stackoverflow.blog/2024/08/15/practical-tips-for-retrieval-augmented-generation-rag/
 The list of effective authors is not the effective one.
 The following authors are effectively present but are unexpected: ▭ first=Cameron middle=R. last=Wolfe suffix=PhD ▭
 The following authors are expected but are effectively missing: ▭ first=Cameron middle=R. last=Wolfe ▭ ▭
+```
 
 
 
@@ -1001,6 +1046,8 @@ The following authors are expected but are effectively missing: ▭ first=Camero
 
 
 gérer
+
+```
 Title = "The SMAQ stack for big data"
 Subtitle = "Storage, MapReduce and Query are ushering in data-driven products and services."
 URL = http://radar.oreilly.com/2010/09/the-smaq-stack-for-big-data.html
@@ -1011,6 +1058,7 @@ Redirection chain = http://radar.oreilly.com/2010/09/the-smaq-stack-for-big-data
 Redirection matcher = redirection ending in success (last URL should be used)
 Redirection matcher expected statuses = 
 Look for article = https://www.google.com/search?q=%22The+SMAQ+stack+for+big+data%22+%22Storage%2C+MapReduce+and+Query+are+ushering+in+data-driven+products+and+services.%22
+```
 
 
 
@@ -1029,6 +1077,8 @@ corriger le fenêtre de création de XML qui ne s'aggrandit pas
 
 
 gérer
+
+```
 Title = "Single-User Subversion"
 URL = http://www.onlamp.com/pub/a/onlamp/2002/10/31/subversion.html
 Expected status = REMOVED
@@ -1038,7 +1088,9 @@ Redirection chain = http://www.onlamp.com/pub/a/onlamp/2002/10/31/subversion.htm
 Redirection matcher = redirection ending in success (last URL should be used)
 Redirection matcher expected statuses = 
 Look for article = https://www.google.com/search?q=%22Single-User+Subversion%22
+```
 
+```
 Title = "The New Breed of Version Control Systems"
 URL = http://www.onlamp.com/pub/a/onlamp/2004/01/29/scm_overview.html
 Expected status = REMOVED
@@ -1048,6 +1100,7 @@ Redirection chain = http://www.onlamp.com/pub/a/onlamp/2004/01/29/scm_overview.h
 Redirection matcher = redirection ending in success (last URL should be used)
 Redirection matcher expected statuses = 
 Look for article = https://www.google.com/search?q=%22The+New+Breed+of+Version+Control+Systems%22
+```
 
 
 
@@ -1061,6 +1114,8 @@ The cleaning of https://blogs.oracle.com/javamagazine/post/java-quiz-anonymous-c
 
 
 gérer
+
+```
 Title = "Synchronizing Networks with NTP"
 URL = http://www.linuxdevcenter.com/pub/a/linux/2003/01/02/ntp.html
 Expected status = REMOVED
@@ -1070,6 +1125,7 @@ Redirection chain = http://www.linuxdevcenter.com/pub/a/linux/2003/01/02/ntp.htm
 Redirection matcher = redirection ending in success (last URL should be used)
 Redirection matcher expected statuses = 
 Look for article = https://www.google.com/search?q=%22Synchronizing+Networks+with+NTP%22
+```
 
 
 
@@ -1083,8 +1139,6 @@ nettoyer links/chrome.xml
 
 
 
- 
- 
 
 la navigation sur la page des authors ne marche plus
 
@@ -1106,6 +1160,8 @@ le cancel des checks en cours en cas de nouveau save n'a plus l'air de marcher
 
 
 gérer
+
+```
 Title = "Reusing Exceptions"
 URL = http://java.sun.com/developer/JDCTechTips/2003/tt0422.html#2
 Expected status = REMOVED
@@ -1115,7 +1171,9 @@ Redirection chain = http://java.sun.com/developer/JDCTechTips/2003/tt0422.html#2
 Redirection matcher = redirection ending in success (last URL should be used)
 Redirection matcher expected statuses = 
 Look for article = https://www.google.com/search?q=%22Reusing+Exceptions%22
+```
 
+```
 Title = "When are two strings equal?"
 URL = http://java.sun.com/developer/JDCTechTips/2004/tt0504.html#2
 Expected status = REMOVED
@@ -1125,13 +1183,14 @@ Redirection chain = http://java.sun.com/developer/JDCTechTips/2004/tt0504.html#2
 Redirection matcher = redirection ending in success (last URL should be used)
 Redirection matcher expected statuses = 
 Look for article = https://www.google.com/search?q=%22When+are+two+strings+equal%3F%22
+```
 
 
 
 
 
 
-bug  : le titre de la fenêtre des authors ne devrait pas être un lien
+bug : le titre de la fenêtre des authors ne devrait pas être un lien
 
 
 
@@ -1158,44 +1217,61 @@ gérer le problème de langue sur youtube, notamment links/games.xml
 
 
 gérer
+
+```
  tag = "TITLE"
  value = "blackpenredpen (SteveChow)"
  violation = "a TITLE must start with an uppercase letter"
  detail = "TITLE "blackpenredpen (SteveChow)" must start with an uppercase"
+```
 
 
 
 
 
 gérer
+
+```
 https://blogs.oracle.com/javamagazine/post/java-switch-primitive-types
 The list of effective authors is not the effective one.
 The following authors are effectively present but are unexpected: ▭ first=Mikalai middle=Zaikin,Simon last=Roberts ▭ ▭
 The following authors are expected but are effectively missing: ▭ first=Mikalai ▭ last=Zaikin ▭ ▭,▭ first=Simon ▭ last=Roberts ▭ ▭
+```
 
+```
 https://blogs.oracle.com/javamagazine/post/java-text-block-string-indent-whitespace
 subtitle "Text blocks ease programming long string literals, but you need to know the details." should not be present
 The list of effective authors is not the effective one.
 The following authors are effectively present but are unexpected: ▭ first=Mikalai middle=Zaikin,Simon last=Roberts ▭ ��
 The following authors are expected but are effectively missing: ▭ first=Mikalai ▭ last=Zaikin ▭ ▭,▭ first=Simon �- last=Roberts ▭ ▭
+```
 
 
 
 nettoyer links:Java.xml
 
 
+
+
 nettoyer livingbeing.xml
 
-https://www.nextinpact.com/article/70628/a-decouverte-jupyter-logiciel-scientifique-libre-aux-millions-dutilisateurs
+
+
+
+
+https://www.nextinpact.com/article/70628/a-decouverte-jupyter-logiciel-scientifique-libre-aux-millions-dutilisateurs  
 title "À la découverte de Jupyter, un logiciel scientifique libre aux millions d'utilisateurs" does not appear in the page
 
  
 
  
  gérer
+
+```
          if (url.startsWith("https://netflixtechblog.com/")) {
             return true;
         }
+```
 
 
 
@@ -1209,6 +1285,8 @@ en fait le problème est présent quand on utilise le bouton "Paste URL"
 
 
 gérer
+
+```
 Title = "How Do I: Use Visual Studio 2008 Code Metrics to Evaluate Code Complexity?"
 URL = https://msdn.microsoft.com/en-us/vstudio/bb892758
 Expected status = ZOMBIE
@@ -1218,11 +1296,12 @@ Redirection chain = https://msdn.microsoft.com/en-us/vstudio/bb892758 → https:
 Redirection matcher = redirection ending in success (last URL should be used)
 Redirection matcher expected statuses = 
 Look for article = https://www.google.com/search?q=%22How+Do+I%3A+Use+Visual+Studio+2008+Code+Metrics+to+Evaluate+Code+Complexity%3F%22
+```
 
 
 
-gérer les vidéo youtube mises à privé
-pex https://www.youtube.com/watch?v=OW1J61jg-3U
+gérer les vidéo youtube mises à privé  
+pex https://www.youtube.com/watch?v=OW1J61jg-3U  
 les mettre en removed
 
 
@@ -1247,8 +1326,7 @@ nettoyer test.xml
 
 nettoyer coding.xml
 
-indiquer tous les HTTP codes de redirection
-et en déduire quand la correction de l'URL devrait aussi �*tre proposée
+indiquer tous les HTTP codes de redirection et en déduire quand la correction de l'URL devrait aussi �*tre proposée
 
 corriger les liens de fda.org
 
@@ -1285,16 +1363,20 @@ remettre en marche le test testSimultaneousRetrieval
 
 gestion des podcasts Quanta Magazine
 
-voir gestion des redirections infinies de
-https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html
+voir gestion des redirections infinies de https://www.washingtonpost.com/health/amid-threats-and-political-pushback-public-health-officials-leaving-posts/2020/06/22/6075f7a2-b0cf-11ea-856d-5054296735e5_story.html
 
 gérer
+
+```
 https://www.youtube.com/watch?v=b3cTYn6_2sY
 language is "en" but this one is unexpected, the expected languages are: fr
 https://www.youtube.com/watch?v=laty3vXKRek
 language is "ko" but this one is unexpected, the expected languages are: en
+```
 
 gérer
+
+```
 java.lang.UnsupportedOperationException: https://content.time.com/time/world/article/0,8599,2050979,00.html|504→
     at fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.getMatch(WellKnownRedirections.java:151)
     at fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.getPossibleStatuses(LinkStatusAnalyzer.java:34)
@@ -1307,8 +1389,11 @@ java.lang.UnsupportedOperationException: https://content.time.com/time/world/art
     at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
     at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
     at java.base/java.lang.Thread.run(Thread.java:1589)
+```
 
 gérer
+
+```
 Title = "YouTube"
 URL = https://www.youtube.com/c/ReportPortal
 Expected status = OK
@@ -1318,6 +1403,7 @@ Redirection chain = https://www.youtube.com/c/ReportPortal → https://consent.y
 Redirection matcher = redirection ending in success (last URL should be used)
 Redirection matcher expected statuses = 
 Look for article = https://www.google.com/search?q=%22YouTube%22
+```
 
 crash sur URL tps://lekitblob.fr/en/blob-main-page (il manque les deux premier caractères)
 
@@ -1325,10 +1411,13 @@ tout régénerer → il ne doit y avoir aucun crash
 
 
 gérer sur perso/main.xml
+
+```
 line 0: the local link "../content/map.html?page=links/life.html" has an invalid value
 line 0: the local link "../content/map.html?page=notes/eclipse.html" has an invalid value
 line 0: the local link "../content/map.html?page=bouffe/095.htm" has an invalid value
 line 0: the local link "../content/content.html?sort=author" has an invalid value
+```
 
 
 nettoyer links/chrome.xml
@@ -1340,6 +1429,7 @@ en plus cela est recalculé plusieurs fois dans LinkCheckRunner.isDataExpected
 
 si le programme passe minuit, la vérification de la date de la page croit toujours que nous sommes la veille
 
+```
 Title = "ChatGPT"
 URL = https://chat.openai.com
 Expected status = 
@@ -1353,10 +1443,11 @@ Expected status =
 Effective error = "Failed to get input stream: java.io.IOException: Server returned HTTP response code: 403 for URL: https://www.nytimes.com/2023/01/15/opinion/ai-chatgpt-lobbying-democracy.html"
 Effective HTTP code = 403 Forbidden
 Look for article = https://www.google.com/search?q=%22How+ChatGPT+Hijacks+Democracy%22
+```
 
 fix height of HTML table cells
-→ I believe it does not work when we change the text of the cell
-→ analyse the differents height, the current cut 'n paste of StachOverflow, doing a max of five heights, is stupid
+- → I believe it does not work when we change the text of the cell
+- → analyse the differents height, the current cut 'n paste of StachOverflow, doing a max of five heights, is stupid
 
 scrolling with the mouse does not work above the HTML column
 
@@ -1365,8 +1456,8 @@ gérer les faux sous-titres tels que https://stackoverflow.blog/2017/06/15/devel
 possible next quick fixes
 - space/casing problem
 
-le title récupC�ré n'est pas bon pour https://stackoverflow.blog/2021/07/14/getting-started-with-python/
-https://stackoverflow.blog/2021/03/15/getting-started-with-rust/
+le title récupéré n'est pas bon pour https://stackoverflow.blog/2021/07/14/getting-started-with-python/  
+https://stackoverflow.blog/2021/03/15/getting-started-with-rust/  
 title "Getting started with … Rust" is not equal to the real title "Getting started with ... Rust"
 
 les CODEROUTINE sont écrits trop bas dans le HTML généré
@@ -1374,8 +1465,11 @@ les CODEROUTINE sont écrits trop bas dans le HTML généré
 dans la table, on ne devrait afficher que le nom des fichiers à partir de la racine de la homepage
 
 corriger
+
+```
 janv. 28, 2023 7:22:00 AM com.sun.javafx.application.PlatformImpl startup
 WARNING: Unsupported JavaFX configuration: classes were loaded from 'unnamed module @795df74'
+```
 voir https://stackoverflow.com/questions/67854139/javafx-warning-unsupported-javafx-configuration-classes-were-loaded-from-unna
 
 le process continue de tourner
@@ -1392,26 +1486,34 @@ data.linkchecker.ContentParserException: Failed to check data of "https://develo
 
 spin off de la page
 - dev tools
-mettre IDE en dessous de dev tools
+- + mettre IDE en dessous de dev tools
 
 nettoyer notes/csharp.xml
 
 voir comment assurer que testdata/css/schema.xsd est à jour (tester que c'est le même que dans mazure.fr ?)
 
 gérer
- tag = "COMMENT" value = "Cocktail Games at Berlin for the Spiel des Jahres, 13 Mots, Washington Z.C., Cache Ton Cash, Dinosaur Island - Rawr 'n Write, Ticket to Ride - San Fransisco, the games at Place de la République, and Le Grenier Ludique." violation = "space is missing after punctuation" detail = ""Cocktail Games at Berlin for the Spiel des Jahres, 13 Mots, Washington Z.C., Cache Ton Cash, Dinosaur Island - Rawr 'n Write, Ticket to Ride - San Fransisco, the games at Place de la République, and Le Grenier Ludique." is missing a space after punctuation"
 
+```
+ tag = "COMMENT" value = "Cocktail Games at Berlin for the Spiel des Jahres, 13 Mots, Washington Z.C., Cache Ton Cash, Dinosaur Island - Rawr 'n Write, Ticket to Ride - San Fransisco, the games at Place de la République, and Le Grenier Ludique." violation = "space is missing after punctuation" detail = ""Cocktail Games at Berlin for the Spiel des Jahres, 13 Mots, Washington Z.C., Cache Ton Cash, Dinosaur Island - Rawr 'n Write, Ticket to Ride - San Fransisco, the games at Place de la République, and Le Grenier Ludique." is missing a space after punctuation"
+```
+
+```
 - https://blogs.oracle.com/javamagazine/java-lists-view-unmodifiable-immutable
 The expected publication date 2022-06-27 is not equal to the effective date 2022-09-13
+```
+
+```
 - https://blogs.oracle.com/javamagazine/java-module-definition-export-packages
 subtitle "How do you provide access to a module�s classes to code outside that module?" should not be present
+```
 
 
-check that Baeldung article should have no publication date
-the same for GitLab blog and probably other ones
-the best is probably to define a white list of the few having a publication date
-(and document this creation/publication date somewhere)
-on the other side, IBM must have a creation date
+- check that Baeldung article should have no publication date
+- the same for GitLab blog and probably other ones
+- the best is probably to define a white list of the few having a publication date
+- (and document this creation/publication date somewhere)
+- on the other side, IBM must have a creation date
 
 cacher les requêtes à Oracle, elles sont trop lentes
 
@@ -1435,16 +1537,16 @@ les tests ne devraient pas hardcoder H:
 
 détecter la présence du givenname sur une page
 
-détecter les <BR/> dans un comment
-Flaky tests must be fixed, some causes why tests are randomly failing
-The author suggests a five steps process to manage the technical debt:
+détecter les <BR/> dans un comment  
+Flaky tests must be fixed, some causes why tests are randomly failing  
+The author suggests a five steps process to manage the technical debt:  
 Some design patterns:<BR/>
 
 vérifier l'ordre des attributs XML
 
-appliquer https://www.quora.com/Where-does-a-nickname-go-when-writing-a-persons-full-name
-vérifier le bon type d'apostrophe pour person's object
-mettre GIVENNAME entre double quote côté JS
+- appliquer https://www.quora.com/Where-does-a-nickname-go-when-writing-a-persons-full-name
+- vérifier le bon type d'apostrophe pour person's object
+- mettre GIVENNAME entre double quote côté JS
 
 von neumman
 
@@ -1452,102 +1554,113 @@ comment gérer les changements de nom Barb Palser -> Barb Smith
 
 - lever une alerte si un lien est zombie mais que titre ou le sous-titre est encore présents
 
-- regarder les problèmes de titres tels que
-https://martinfowler.com/articles/agileOffshore.html
-https://martinfowler.com/bliki/UseCasesAndStories.html
+regarder les problèmes de titres tels que
+- https://martinfowler.com/articles/agileOffshore.html
+- https://martinfowler.com/bliki/UseCasesAndStories.html
 
-- vérifier titre et sous-titres dans PDF
+vérifier titre et sous-titres dans PDF
 à tester sur links/javascrp.xml
 
-- gérer les newlines dans les titres pex http://hesketh.com/publications/inclusive_web_design_for_the_future/
+gérer les newlines dans les titres pex http://hesketh.com/publications/inclusive_web_design_for_the_future/
 
-- mettre des tooltips sur les symboles de KEY
+mettre des tooltips sur les symboles de KEY
 
-- perso/weblog.htm n'est plus référenc�)
+perso/weblog.htm n'est plus référenc�)
 
-- vérifier que tous mes fichiers (sauf *.html) sont référencés
+vérifier que tous mes fichiers (sauf *.html) sont référencés
 
-- implémenter un système générique de cache
+implémenter un système générique de cache
 
-- ranger les fichiers
-design.xml
-coding.xml
+ranger les fichiers
+- design.xml
+- coding.xml
 
-- mettre un test unitaire pour vérifier que tous les ElementTypes apparaissent quelque part
+mettre un test unitaire pour vérifier que tous les ElementTypes apparaissent quelque part
 
-- trier par défaut la liste des problèmes sur la date de dernière modification
+trier par défaut la liste des problèmes sur la date de dernière modification
 
-- mauvaise détection de langue :
-http://wiki.c2.com/?AbcMetric
--- fr au lieu de en
-https://groups.google.com/forum/#!forum/clean-code-discussion
-https://root.cern.ch/TaligentDocs/TaligentOnline/DocumentRoot/1.0/Home/index.html
+mauvaise détection de langue :
+_ http://wiki.c2.com/?AbcMetric
+- fr au lieu de en
+  - https://groups.google.com/forum/#!forum/clean-code-discussion
+  - https://root.cern.ch/TaligentDocs/TaligentOnline/DocumentRoot/1.0/Home/index.html
 
-- faire un prefetch de la map quand on affiche la page d'accueil
+faire un prefetch de la map quand on affiche la page d'accueil
 
-- le contrôle
+le contrôle
+```
 https://www.youtube.com/watch?v=TSnsHW6DS6s
 YouTube link with no creation date
-est incorrect ?
+```
+est incorrect ?  
 il est normal de pouvoir avoir uniquement une date de publication ?
 
-- forcer la mise à jour des caches avant de modifier les fichiers JS de nouveau
+forcer la mise à jour des caches avant de modifier les fichiers JS de nouveau
 
-- nettoyage de bbst.xml
+nettoyage de bbst.xml
 
-- problème des langues
-* pas de langue pour http://download.eclipse.org/efxclipse/updates-released/3.0.0/site/
+problème des langues
+- pas de langue pour http://download.eclipse.org/efxclipse/updates-released/3.0.0/site/
 
-- vérification des liens internes
+vérification des liens internes
 
-- la sauvegarde du rapport de liens toutes les 30 secondes ne marche plus
+la sauvegarde du rapport de liens toutes les 30 secondes ne marche plus
 
-- Chrome indique qu'il n'arrive pas à charger les sourcemaps
+Chrome indique qu'il n'arrive pas à charger les sourcemaps
 
-- supprimer la directory attic
+supprimer la directory attic  
 de plus cela génère des erreurs
+```
                    Thread-3 | 20200416T073001.802 | ERROR | URL ../attic/optimtut1.ps.gz is not checked because the URL is malformed
                    Thread-3 | 20200416T073001.993 | ERROR | URL ../attic/tgr_softwareremodeling.pdf is not checked because the URL is malformed
+```
 
-- private boolean isDataExpected() { //TBD this method is very stupid, we should used a flag instead of computing the status every time
+private boolean isDataExpected() { //TBD this method is very stupid, we should used a flag instead of computing the status every time
 
-- corriger problème de certificat
+corriger problème de certificat
 
-- bug dans HTMLGenerator.java, si le fichier XSLT est modifié, la nouvelle version n'est pas prise en compte
+bug dans HTMLGenerator.java, si le fichier XSLT est modifié, la nouvelle version n'est pas prise en compte
 
-- LinkedIn renvoie un HTTP code 999
+LinkedIn renvoie un HTTP code 999
 
-- problème avec le lien http://marie.desplats.free.fr/diagora_home_page.html
+problème avec le lien http://marie.desplats.free.fr/diagora_home_page.html
 
-- Tester robot.txt avec https://www.google.com/webmasters/tools/robots-testing-tool
+Tester robot.txt avec https://www.google.com/webmasters/tools/robots-testing-tool
 
-- Ajouter la détection des malwares
+Ajouter la détection des malwares
 
-- Ajouter la règle sur les URLs qui apparaissent plusieurs fois
+Ajouter la règle sur les URLs qui apparaissent plusieurs fois
 
-- Accelérer la création des fichier JSON (en extrayant les données de chaque fichier à la modification de celui-ci, en mettant cela dans un fichier de résumé et en ayant la création des JSON qui ne fasse que consolider ces fichiers)
+Accelérer la création des fichier JSON (en extrayant les données de chaque fichier à la modification de celui-ci, en mettant cela dans un fichier de résumé et en ayant la création des JSON qui ne fasse que consolider ces fichiers)
 
-- mettre un tooltip sur les expand/contract
+mettre un tooltip sur les expand/contract
 
-- remplacer les
+remplacer les
+
+```
 <script language="JavaScript" src="../scripts/common.js"></script>
+```
+
 par
+
+```
 <script src="../scripts/common.js"  type="module"></script>
+```
 
-- corriger le support des MIDDLENAMEs multiples (Boyter dans links/humor.xml)
+corriger le support des MIDDLENAMEs multiples (Boyter dans links/humor.xml)
 
-- persons.xml :
-corriger les liens cassés
-restructurer la page pour séparer
-* homepage
-* twitter
-* LinkedIn
-* Wikipedia
-* Wikipédia
+persons.xml :
+- corriger les liens cassés
+- restructurer la page pour séparer
+  * twitter
+  * LinkedIn
+  * homepage
+  * Wikipedia
+  * Wikipédia
 
-- tronquer les URLs trop longs dans les tables de contenu
+tronquer les URLs trop longs dans les tables de contenu
 
-- rendre le tri des articles complétement défini et mettre une assertion pour crasher s'il ne l'est pas
+rendre le tri des articles complétement défini et mettre une assertion pour crasher s'il ne l'est pas
 * titre
 * sous-titre
 * date
