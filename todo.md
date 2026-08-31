@@ -67,6 +67,40 @@ methods       53.9%    97.9%
 
 
 
+manage
+
+```
+
+Title = "Software Peer Reviews: An Executive Overview with Karl Wiegers"
+URL = https://www2.smartbear.com/Wiegers-Webinar-OnDemand.html
+Expected status = ZOMBIE
+Effective HTTP code = 302 Found
+Effective HTTP code of last redirection = 200 OK
+Redirection chain = https://www2.smartbear.com/Wiegers-Webinar-OnDemand.html → https://smartbear.com
+Redirection matcher = redirection ending in success (last URL should be used)
+Redirection matcher expected statuses = 
+Look for article = https://www.google.com/search?q=%22Software+Peer+Reviews%3A+An+Executive+Overview+with+Karl+Wiegers%22
+```
+
+```
+Title = "Always Fix Broken Windows"
+URL = https://smartbear.com/blog/always-fix-broken-windows/
+Expected status = OK
+Effective HTTP code = 301 Moved Permanently
+Effective HTTP code of last redirection = 200 OK
+Redirection chain = https://smartbear.com/blog/always-fix-broken-windows/ → https://smartbear.com/blog/
+Redirection matcher = redirection ending in success (last URL should be used)
+Redirection matcher expected statuses = 
+Look for article = https://www.google.com/search?q=%22Always+Fix+Broken+Windows%22
+```
+
+
+
+
+
+
+
+
 repair unit test
 - fr.mazure.homepagemanager.data.linkchecker.ibm.test.IbmLinkContentParserTest.testArticleIsLost(String)
 - fr.mazure.homepagemanager.data.linkchecker.test.LinkContentParserTest.testLanguageForEnglishArticle(String)
@@ -159,16 +193,6 @@ add parser for `https://lucumr.pocoo.org/2026/8/19/what-is-reasoning/`
 
 
 add parser for `https://inside.java/2026/08/20/podcast-067/`
-
-
-
-
-
-
-
-manage crash on https://www.numberphile.com/podcast/sats-zvezda  
-(the problem is probably that the link to the YouTube video is not present)
-
 
 
 

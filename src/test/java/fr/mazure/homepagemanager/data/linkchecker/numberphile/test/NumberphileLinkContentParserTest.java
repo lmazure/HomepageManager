@@ -90,7 +90,9 @@ class NumberphileLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://www.numberphile.com/videos/sashko-olenchenko-podcast|PT50M49S",
         "https://www.numberphile.com/podcast/2018/11/21/fermats-last-theorem-with-ken-ribet|PT48M22S",
-        "https://www.numberphile.com/podcast/ron-graham-tribute|PT39M2S"
+        "https://www.numberphile.com/podcast/ron-graham-tribute|PT39M2S",
+        // the next article uses data-asset-url instead of the usual data-url
+        "https://www.numberphile.com/podcast/zvezdelina-stankova|PT58M19S",
     }, delimiter = '|')
     void testDuration(final String url,
                       final String expectedDuration) {
