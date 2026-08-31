@@ -287,7 +287,7 @@ class IncorrectSpaceCheckerTest extends NodeValueCheckerTestBase {
 
     @SuppressWarnings("static-method")
     @Test
-    void stringsAreProerlyDvidedAtApostrophe() {
+    void stringsAreProperlyDividedAtApostrophe() {
 
         final String content =
             """

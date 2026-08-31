@@ -703,6 +703,19 @@ public class WellKnownRedirections {
         }
 
         {
+            final RedirectionMatcher yuiblog = new RedirectionMatcher("removed old GitLab release notes",
+                    Set.of(LinkStatus.REMOVED));
+            yuiblog.add("\\Qhttps://about.gitlab.com/releases/\\E" + RedirectionMatcher.ANY_STRING,
+                        Set.of(Integer.valueOf(301)),
+                        RedirectionMatcher.Multiplicity.ONE);
+            yuiblog.add("\\Qhttps://docs.gitlab.com/releases/\\E",
+                        Set.of(Integer.valueOf(200)),
+                        RedirectionMatcher.Multiplicity.ONE);
+            yuiblog.compile();
+            _matchers.add(yuiblog);
+        }
+
+        {
             final RedirectionMatcher redirectionToItself = new RedirectionMatcher("redirection to itself",
                                                                                   Set.of(LinkStatus.OK));
             redirectionToItself.add("(?<site>https?://.*)",

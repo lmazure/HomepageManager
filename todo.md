@@ -68,7 +68,6 @@ methods       53.9%    97.9%
 
 
 repair unit test
-- GitlabBlogLinkContentParserTest
 - fr.mazure.homepagemanager.data.linkchecker.ibm.test.IbmLinkContentParserTest.testArticleIsLost(String)
 - fr.mazure.homepagemanager.data.linkchecker.test.LinkContentParserTest.testLanguageForEnglishArticle(String)
 - fr.mazure.homepagemanager.data.linkchecker.test.LinkContentParserTest.testLanguageForFrenchArticle(String)
@@ -235,28 +234,6 @@ repair unit tests
 
 
 
-manage (add this rediretcion as REMOVED)
-
-```
-Title = "GitLab 15.8 Release"
-Subtitle = "GitLab 15.8 released with external status checks and self-managed SCIM"
-URL = https://about.gitlab.com/releases/2023/01/22/gitlab-15-8-released/
-Expected status = REMOVED
-Effective HTTP code = 301 Moved Permanently
-Effective HTTP code of last redirection = 200 OK
-Redirection chain = https://about.gitlab.com/releases/2023/01/22/gitlab-15-8-released/ → https://docs.gitlab.com/releases/
-Redirection matcher = redirection ending in success (last URL should be used)
-Redirection matcher expected statuses =
-Look for article = https://www.google.com/search?q=%22GitLab+15.8+Release%22+%22GitLab+15.8+released+with+external+status+checks+and+self-managed+SCIM%22
-```
-
-
-
-
-
-
-
-
 manage
 
 ```
@@ -344,22 +321,6 @@ Caused by: java.lang.NullPointerException: Cannot invoke "String.trim()" because
 
 
 
-
-
-
-manage
-
-```
-Title = "GitLab 14.0 released with a celebration of GitLab 14"
-URL = https://about.gitlab.com/releases/2021/06/22/gitlab-14-0-released/
-Expected status = REMOVED
-Effective HTTP code = 301 Moved Permanently
-Effective HTTP code of last redirection = 200 OK
-Redirection chain = https://about.gitlab.com/releases/2021/06/22/gitlab-14-0-released/ → https://docs.gitlab.com/releases/
-Redirection matcher = redirection ending in success (last URL should be used)
-Redirection matcher expected statuses = 
-Look for article = https://www.google.com/search?q=%22GitLab+14.0+released+with+a+celebration+of+GitLab+14%22
-```
 
 
 
@@ -475,14 +436,6 @@ but IBM is currently down…
 
 
 the text of the <CODESAMPLE language="bash"> is grey instead of black
-
-
-
-
-
-
-
-try once again to get the subtitle from `https://about.gitlab.com/blog/whats-new-in-git-2-54-0/`
 
 
 
@@ -916,14 +869,6 @@ comprendre pourquoi la langue de https://www.youtube.com/watch?v=vGP4pQdCocw n'e
 
 
 
-Regarder de nouveau si je peux récupérer le sous-titre de https://about.gitlab.com/blog/2024/10/07/whats-new-in-git-2-47-0/
-
-
-
-
-
-
-
 détecter les indentations incorrectes
 
 
@@ -1312,9 +1257,6 @@ afficher les métadonnées des articles dans les tables
 netoyer build.xml
 
 
-analyser les problèmes d'auteurs GitLab dans cloudforges.xml
-
-
 nettoyer javahistory.xml
 
 
@@ -1530,8 +1472,6 @@ nettoyer
 - abbrevfr.xml
 - chrome.xml
 - links/firefox.xml et autres pages de browser
-
-ajouter support de https://about.gitlab.com/releases/2022/01/22/gitlab-14-7-released/
 
 les tests ne devraient pas hardcoder H:
 

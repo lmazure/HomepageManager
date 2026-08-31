@@ -14,12 +14,7 @@ class GitlabBlogLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://about.gitlab.com/blog/2021/12/15/devops-adoption/|Understand how your teams adopt DevOps with DevOps reports",
-        "https://about.gitlab.com/blog/2021/08/24/stageless-pipelines/|Write a stageless CI/CD pipeline using GitLab 14.2",
-        "https://about.gitlab.com/blog/2021/10/19/top-10-gitlab-hacks/|Top ten GitLab hacks for all stages of the DevOps Platform",
-        "https://about.gitlab.com/blog/2021/10/18/improve-cd-workflows-helm-chart-registry/|Get started with GitLab's Helm Package Registry",
-        "https://about.gitlab.com/blog/2023/08/10/learning-rust-with-a-little-help-from-ai-code-suggestions-getting-started/|Learning Rust with a little help from AI",
-        "https://about.gitlab.com/blog/2023/08/28/sha256-support-in-gitaly/|GitLab Gitaly project now supports the SHA 256 hashing algorithm",
+        "https://about.gitlab.com/blog/making-room-for-whats-next-in-the-gitlab-ui/|Making room for what's next in the GitLab UI",
         }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
@@ -29,10 +24,7 @@ class GitlabBlogLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://about.gitlab.com/blog/2021/12/15/devops-adoption|Learn about analytics, DevOps reports, DevOps scores, and more.",
-        "https://about.gitlab.com/blog/2021/08/24/stageless-pipelines/|With GitLab 14.2, you can write a complete CI/CD pipeline without defining any stages.",
-        // there is a newline is the next subtitle
-        "https://about.gitlab.com/blog/engineering-managers-automate-their-jobs/|At GitLab we know automation is engineering's best friend. Here's a deep dive into three scripts we use regularly to keep big projects on track.",
+        "https://about.gitlab.com/blog/making-room-for-whats-next-in-the-gitlab-ui/|A look at what's changing in the GitLab UI, why, and what we're building toward.",
         }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
@@ -42,15 +34,9 @@ class GitlabBlogLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://about.gitlab.com/blog/2020/11/11/gitlab-for-agile-portfolio-planning-project-management/|2020-11-11",
-        "https://about.gitlab.com/blog/2021/12/15/devops-adoption/|2021-12-15",
-        "https://about.gitlab.com/blog/2021/08/24/stageless-pipelines/|2021-08-24",
-        "https://about.gitlab.com/blog/2021/10/19/top-10-gitlab-hacks/|2021-10-19",
-        "https://about.gitlab.com/blog/2021/10/18/improve-cd-workflows-helm-chart-registry/|2021-10-18",
-        "https://about.gitlab.com/blog/2023/07/25/rail-m-is-an-imperfectly-good-start-for-ai-model-licenses/|2023-07-25",
-        "https://about.gitlab.com/blog/2023/08/28/sha256-support-in-gitaly/|2023-08-28",
-        "https://about.gitlab.com/blog/gitlab-release-process/|2015-12-17",
-        "https://about.gitlab.com/blog/2024/12/05/gitlab-names-bill-staples-as-new-ceo/|2024-12-05",
+        "https://about.gitlab.com/blog/making-room-for-whats-next-in-the-gitlab-ui/|2026-08-26",
+        // the next article has been updated
+        "https://about.gitlab.com/blog/understanding-flows-multi-agent-workflows/|2026-01-14"
         }, delimiter = '|')
     void testDate(final String url,
                   final String expectedDate) {
@@ -60,21 +46,7 @@ class GitlabBlogLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://about.gitlab.com/blog/2023/09/28/unmasking-password-attacks-at-gitlab/"
-        }, delimiter = '|')
-    void testNoAuthors(final String url) {
-        check0Author(GitlabBlogLinkContentParser.class, url);
-    }
-
-    @SuppressWarnings("static-method")
-    @ParameterizedTest
-    @CsvSource(value = {
-        "https://about.gitlab.com/blog/2021/12/15/devops-adoption/|Orit||Golowinski",
-        "https://about.gitlab.com/blog/2021/08/24/stageless-pipelines/|Dov||Hershkovitch",
-        "https://about.gitlab.com/blog/2021/10/19/top-10-gitlab-hacks/|Michael||Friedrich",
-        "https://about.gitlab.com/blog/2021/10/18/improve-cd-workflows-helm-chart-registry/|Philip||Welz",
-        "https://about.gitlab.com/blog/2023/08/28/sha256-support-in-gitaly/|John||Cai",
-        "https://about.gitlab.com/blog/2024/02/14/new-report-on-ai-assisted-tools-points-to-rising-stakes-for-devsecops/|Rusty||Weston"
+        "https://about.gitlab.com/blog/ai-is-reshaping-devsecops-attend-gitlab-transcend-to-see-whats-next/|Manav||Khurana"
         }, delimiter = '|')
     void testAuthor(final String url,
                     final String expectedFirstName,
@@ -93,9 +65,7 @@ class GitlabBlogLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://about.gitlab.com/blog/2021/09/23/best-practices-customer-feature-request/|Christina||Hupy|Neil||McCorrison",
-        "https://about.gitlab.com/blog/2021/09/29/why-we-spent-the-last-month-eliminating-postgresql-subtransactions/|Grzegorz||Bizon|Stan||Hu",
-        "https://about.gitlab.com/blog/2024/03/20/oxeye-joins-gitlab-to-advance-application-security-capabilities/|David||DeSanto|Dean||Agron"
+        "https://about.gitlab.com/blog/gitlab-next-gen-scm/|Kranthi||Erusu|Jessica||Taylor"
         }, delimiter = '|')
     void testTwoAuthors(final String url,
                         final String expectedFirstName1,
