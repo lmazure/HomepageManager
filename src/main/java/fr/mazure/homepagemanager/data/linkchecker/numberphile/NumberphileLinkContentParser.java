@@ -50,7 +50,7 @@ public class NumberphileLinkContentParser extends LinkDataExtractor {
                        s_sourceName,
                        "date");
     private static final TextParser s_mp3UrlParser =
-        new TextParser("data-url=\"",
+        new TextParser("(?:data-url|data-asset-url)=\"(?=http)",
                        "\"",
                        s_sourceName,
                        "MP3 URL");

@@ -66,6 +66,278 @@ methods       53.9%    97.9%
 
 
 
+manage
+
+```
+Failed to handle that URL:
+Exception Type: fr.mazure.homepagemanager.data.linkchecker.ContentParserException
+Message: Failed to create instance of public fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentParser(java.lang.String,fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever) throws fr.mazure.homepagemanager.data.linkchecker.ContentParserException
+
+Stack Trace:
+fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to create instance of public fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentParser(java.lang.String,fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever) throws fr.mazure.homepagemanager.data.linkchecker.ContentParserException
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractorFactory.create(LinkDataExtractorFactory.java:124)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractorFactory.build(LinkDataExtractorFactory.java:106)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.XmlGenerationDialog.pasteUrl(XmlGenerationDialog.java:161)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.XmlGenerationDialog.initializeUrl(XmlGenerationDialog.java:212)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.XmlGenerationDialog.<init>(XmlGenerationDialog.java:104)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.FileTable.displayLinkXmlGenerator(FileTable.java:193)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.FileTable.lambda$2(FileTable.java:89)
+	at javafx.base@26/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
+	at javafx.base@26/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
+	at javafx.base@26/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
+	at javafx.base@26/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@26/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@26/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@26/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
+	at javafx.base@26/javafx.event.Event.fireEvent(Event.java:199)
+	at javafx.controls@26/javafx.scene.control.MenuItem.fire(MenuItem.java:459)
+	at javafx.controls@26/com.sun.javafx.scene.control.ControlAcceleratorSupport.lambda$doAcceleratorInstall$0(ControlAcceleratorSupport.java:215)
+	at javafx.graphics@26/com.sun.javafx.scene.KeyboardShortcutsHandler.processAccelerators(KeyboardShortcutsHandler.java:383)
+	at javafx.graphics@26/com.sun.javafx.scene.KeyboardShortcutsHandler.dispatchBubblingEvent(KeyboardShortcutsHandler.java:163)
+	at javafx.base@26/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base@26/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@26/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@26/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@26/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@26/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@26/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
+	at javafx.graphics@26/javafx.scene.Scene.processKeyEvent(Scene.java:2263)
+	at javafx.graphics@26/javafx.scene.Scene$ScenePeerListener.keyEvent(Scene.java:2809)
+	at javafx.graphics@26/com.sun.javafx.tk.quantum.GlassViewEventHandler$KeyEventNotification.get(GlassViewEventHandler.java:176)
+	at javafx.graphics@26/com.sun.javafx.tk.quantum.GlassViewEventHandler$KeyEventNotification.get(GlassViewEventHandler.java:120)
+	at javafx.graphics@26/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:429)
+	at javafx.graphics@26/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleKeyEvent(GlassViewEventHandler.java:204)
+	at javafx.graphics@26/com.sun.glass.ui.View.handleKeyEvent(View.java:563)
+	at javafx.graphics@26/com.sun.glass.ui.View.notifyKey(View.java:999)
+	at javafx.graphics@26/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics@26/com.sun.glass.ui.win.WinApplication.lambda$runLoop$0(WinApplication.java:173)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+Caused by: java.lang.reflect.InvocationTargetException
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:74)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:483)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractorFactory.create(LinkDataExtractorFactory.java:122)
+	... 36 more
+Caused by: org.json.JSONException: JSONObject["podcast_duration"] is not a double (class org.json.JSONObject$Null : null).
+	at org.json@20251224/org.json.JSONObject.wrongValueFormatException(JSONObject.java:3274)
+	at org.json@20251224/org.json.JSONObject.getDouble(JSONObject.java:811)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentParser.<init>(DwarkeshPodcastLinkContentParser.java:86)
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	... 39 more
+Caused by: java.lang.NumberFormatException: For input string: "null"
+	at java.base/jdk.internal.math.FloatingDecimal.check(FloatingDecimal.java:1751)
+	at java.base/jdk.internal.math.FloatingDecimal.readJavaFormatString(FloatingDecimal.java:1374)
+	at java.base/jdk.internal.math.FloatingDecimal.parseDouble(FloatingDecimal.java:61)
+	at java.base/java.lang.Double.parseDouble(Double.java:993)
+	at org.json@20251224/org.json.JSONObject.getDouble(JSONObject.java:809)
+	... 41 more
+
+Caused by:
+Exception Type: java.lang.reflect.InvocationTargetException
+Message: null
+
+Stack Trace:
+java.lang.reflect.InvocationTargetException
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:74)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:483)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractorFactory.create(LinkDataExtractorFactory.java:122)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractorFactory.build(LinkDataExtractorFactory.java:106)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.XmlGenerationDialog.pasteUrl(XmlGenerationDialog.java:161)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.XmlGenerationDialog.initializeUrl(XmlGenerationDialog.java:212)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.XmlGenerationDialog.<init>(XmlGenerationDialog.java:104)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.FileTable.displayLinkXmlGenerator(FileTable.java:193)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.FileTable.lambda$2(FileTable.java:89)
+	at javafx.base@26/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
+	at javafx.base@26/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
+	at javafx.base@26/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
+	at javafx.base@26/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@26/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@26/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@26/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
+	at javafx.base@26/javafx.event.Event.fireEvent(Event.java:199)
+	at javafx.controls@26/javafx.scene.control.MenuItem.fire(MenuItem.java:459)
+	at javafx.controls@26/com.sun.javafx.scene.control.ControlAcceleratorSupport.lambda$doAcceleratorInstall$0(ControlAcceleratorSupport.java:215)
+	at javafx.graphics@26/com.sun.javafx.scene.KeyboardShortcutsHandler.processAccelerators(KeyboardShortcutsHandler.java:383)
+	at javafx.graphics@26/com.sun.javafx.scene.KeyboardShortcutsHandler.dispatchBubblingEvent(KeyboardShortcutsHandler.java:163)
+	at javafx.base@26/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base@26/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@26/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@26/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@26/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@26/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@26/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
+	at javafx.graphics@26/javafx.scene.Scene.processKeyEvent(Scene.java:2263)
+	at javafx.graphics@26/javafx.scene.Scene$ScenePeerListener.keyEvent(Scene.java:2809)
+	at javafx.graphics@26/com.sun.javafx.tk.quantum.GlassViewEventHandler$KeyEventNotification.get(GlassViewEventHandler.java:176)
+	at javafx.graphics@26/com.sun.javafx.tk.quantum.GlassViewEventHandler$KeyEventNotification.get(GlassViewEventHandler.java:120)
+	at javafx.graphics@26/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:429)
+	at javafx.graphics@26/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleKeyEvent(GlassViewEventHandler.java:204)
+	at javafx.graphics@26/com.sun.glass.ui.View.handleKeyEvent(View.java:563)
+	at javafx.graphics@26/com.sun.glass.ui.View.notifyKey(View.java:999)
+	at javafx.graphics@26/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics@26/com.sun.glass.ui.win.WinApplication.lambda$runLoop$0(WinApplication.java:173)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+Caused by: org.json.JSONException: JSONObject["podcast_duration"] is not a double (class org.json.JSONObject$Null : null).
+	at org.json@20251224/org.json.JSONObject.wrongValueFormatException(JSONObject.java:3274)
+	at org.json@20251224/org.json.JSONObject.getDouble(JSONObject.java:811)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentParser.<init>(DwarkeshPodcastLinkContentParser.java:86)
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	... 39 more
+Caused by: java.lang.NumberFormatException: For input string: "null"
+	at java.base/jdk.internal.math.FloatingDecimal.check(FloatingDecimal.java:1751)
+	at java.base/jdk.internal.math.FloatingDecimal.readJavaFormatString(FloatingDecimal.java:1374)
+	at java.base/jdk.internal.math.FloatingDecimal.parseDouble(FloatingDecimal.java:61)
+	at java.base/java.lang.Double.parseDouble(Double.java:993)
+	at org.json@20251224/org.json.JSONObject.getDouble(JSONObject.java:809)
+	... 41 more
+
+Caused by:
+Exception Type: org.json.JSONException
+Message: JSONObject["podcast_duration"] is not a double (class org.json.JSONObject$Null : null).
+
+Stack Trace:
+org.json.JSONException: JSONObject["podcast_duration"] is not a double (class org.json.JSONObject$Null : null).
+	at org.json@20251224/org.json.JSONObject.wrongValueFormatException(JSONObject.java:3274)
+	at org.json@20251224/org.json.JSONObject.getDouble(JSONObject.java:811)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentParser.<init>(DwarkeshPodcastLinkContentParser.java:86)
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:483)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractorFactory.create(LinkDataExtractorFactory.java:122)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractorFactory.build(LinkDataExtractorFactory.java:106)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.XmlGenerationDialog.pasteUrl(XmlGenerationDialog.java:161)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.XmlGenerationDialog.initializeUrl(XmlGenerationDialog.java:212)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.XmlGenerationDialog.<init>(XmlGenerationDialog.java:104)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.FileTable.displayLinkXmlGenerator(FileTable.java:193)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.FileTable.lambda$2(FileTable.java:89)
+	at javafx.base@26/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
+	at javafx.base@26/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
+	at javafx.base@26/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
+	at javafx.base@26/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@26/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@26/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@26/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
+	at javafx.base@26/javafx.event.Event.fireEvent(Event.java:199)
+	at javafx.controls@26/javafx.scene.control.MenuItem.fire(MenuItem.java:459)
+	at javafx.controls@26/com.sun.javafx.scene.control.ControlAcceleratorSupport.lambda$doAcceleratorInstall$0(ControlAcceleratorSupport.java:215)
+	at javafx.graphics@26/com.sun.javafx.scene.KeyboardShortcutsHandler.processAccelerators(KeyboardShortcutsHandler.java:383)
+	at javafx.graphics@26/com.sun.javafx.scene.KeyboardShortcutsHandler.dispatchBubblingEvent(KeyboardShortcutsHandler.java:163)
+	at javafx.base@26/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base@26/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@26/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@26/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@26/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@26/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@26/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
+	at javafx.graphics@26/javafx.scene.Scene.processKeyEvent(Scene.java:2263)
+	at javafx.graphics@26/javafx.scene.Scene$ScenePeerListener.keyEvent(Scene.java:2809)
+	at javafx.graphics@26/com.sun.javafx.tk.quantum.GlassViewEventHandler$KeyEventNotification.get(GlassViewEventHandler.java:176)
+	at javafx.graphics@26/com.sun.javafx.tk.quantum.GlassViewEventHandler$KeyEventNotification.get(GlassViewEventHandler.java:120)
+	at javafx.graphics@26/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:429)
+	at javafx.graphics@26/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleKeyEvent(GlassViewEventHandler.java:204)
+	at javafx.graphics@26/com.sun.glass.ui.View.handleKeyEvent(View.java:563)
+	at javafx.graphics@26/com.sun.glass.ui.View.notifyKey(View.java:999)
+	at javafx.graphics@26/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics@26/com.sun.glass.ui.win.WinApplication.lambda$runLoop$0(WinApplication.java:173)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+Caused by: java.lang.NumberFormatException: For input string: "null"
+	at java.base/jdk.internal.math.FloatingDecimal.check(FloatingDecimal.java:1751)
+	at java.base/jdk.internal.math.FloatingDecimal.readJavaFormatString(FloatingDecimal.java:1374)
+	at java.base/jdk.internal.math.FloatingDecimal.parseDouble(FloatingDecimal.java:61)
+	at java.base/java.lang.Double.parseDouble(Double.java:993)
+	at org.json@20251224/org.json.JSONObject.getDouble(JSONObject.java:809)
+	... 41 more
+
+Caused by:
+Exception Type: java.lang.NumberFormatException
+Message: For input string: "null"
+
+Stack Trace:
+java.lang.NumberFormatException: For input string: "null"
+	at java.base/jdk.internal.math.FloatingDecimal.check(FloatingDecimal.java:1751)
+	at java.base/jdk.internal.math.FloatingDecimal.readJavaFormatString(FloatingDecimal.java:1374)
+	at java.base/jdk.internal.math.FloatingDecimal.parseDouble(FloatingDecimal.java:61)
+	at java.base/java.lang.Double.parseDouble(Double.java:993)
+	at org.json@20251224/org.json.JSONObject.getDouble(JSONObject.java:809)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentParser.<init>(DwarkeshPodcastLinkContentParser.java:86)
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:483)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractorFactory.create(LinkDataExtractorFactory.java:122)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractorFactory.build(LinkDataExtractorFactory.java:106)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.XmlGenerationDialog.pasteUrl(XmlGenerationDialog.java:161)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.XmlGenerationDialog.initializeUrl(XmlGenerationDialog.java:212)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.XmlGenerationDialog.<init>(XmlGenerationDialog.java:104)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.FileTable.displayLinkXmlGenerator(FileTable.java:193)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.ui.FileTable.lambda$2(FileTable.java:89)
+	at javafx.base@26/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
+	at javafx.base@26/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
+	at javafx.base@26/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
+	at javafx.base@26/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@26/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@26/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@26/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:49)
+	at javafx.base@26/javafx.event.Event.fireEvent(Event.java:199)
+	at javafx.controls@26/javafx.scene.control.MenuItem.fire(MenuItem.java:459)
+	at javafx.controls@26/com.sun.javafx.scene.control.ControlAcceleratorSupport.lambda$doAcceleratorInstall$0(ControlAcceleratorSupport.java:215)
+	at javafx.graphics@26/com.sun.javafx.scene.KeyboardShortcutsHandler.processAccelerators(KeyboardShortcutsHandler.java:383)
+	at javafx.graphics@26/com.sun.javafx.scene.KeyboardShortcutsHandler.dispatchBubblingEvent(KeyboardShortcutsHandler.java:163)
+	at javafx.base@26/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
+	at javafx.base@26/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
+	at javafx.base@26/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@26/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
+	at javafx.base@26/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
+	at javafx.base@26/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
+	at javafx.base@26/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
+	at javafx.graphics@26/javafx.scene.Scene.processKeyEvent(Scene.java:2263)
+	at javafx.graphics@26/javafx.scene.Scene$ScenePeerListener.keyEvent(Scene.java:2809)
+	at javafx.graphics@26/com.sun.javafx.tk.quantum.GlassViewEventHandler$KeyEventNotification.get(GlassViewEventHandler.java:176)
+	at javafx.graphics@26/com.sun.javafx.tk.quantum.GlassViewEventHandler$KeyEventNotification.get(GlassViewEventHandler.java:120)
+	at javafx.graphics@26/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:429)
+	at javafx.graphics@26/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleKeyEvent(GlassViewEventHandler.java:204)
+	at javafx.graphics@26/com.sun.glass.ui.View.handleKeyEvent(View.java:563)
+	at javafx.graphics@26/com.sun.glass.ui.View.notifyKey(View.java:999)
+	at javafx.graphics@26/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics@26/com.sun.glass.ui.win.WinApplication.lambda$runLoop$0(WinApplication.java:173)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+```
+
+
+
+manage
+
+```
+
+Title = "Software Peer Reviews: An Executive Overview with Karl Wiegers"
+URL = https://www2.smartbear.com/Wiegers-Webinar-OnDemand.html
+Expected status = ZOMBIE
+Effective HTTP code = 302 Found
+Effective HTTP code of last redirection = 200 OK
+Redirection chain = https://www2.smartbear.com/Wiegers-Webinar-OnDemand.html → https://smartbear.com
+Redirection matcher = redirection ending in success (last URL should be used)
+Redirection matcher expected statuses = 
+Look for article = https://www.google.com/search?q=%22Software+Peer+Reviews%3A+An+Executive+Overview+with+Karl+Wiegers%22
+```
+
+```
+Title = "Always Fix Broken Windows"
+URL = https://smartbear.com/blog/always-fix-broken-windows/
+Expected status = OK
+Effective HTTP code = 301 Moved Permanently
+Effective HTTP code of last redirection = 200 OK
+Redirection chain = https://smartbear.com/blog/always-fix-broken-windows/ → https://smartbear.com/blog/
+Redirection matcher = redirection ending in success (last URL should be used)
+Redirection matcher expected statuses = 
+Look for article = https://www.google.com/search?q=%22Always+Fix+Broken+Windows%22
+```
+
+
+
+
+
+
+
 
 repair unit test
 - fr.mazure.homepagemanager.data.linkchecker.ibm.test.IbmLinkContentParserTest.testArticleIsLost(String)
@@ -159,16 +431,6 @@ add parser for `https://lucumr.pocoo.org/2026/8/19/what-is-reasoning/`
 
 
 add parser for `https://inside.java/2026/08/20/podcast-067/`
-
-
-
-
-
-
-
-manage crash on https://www.numberphile.com/podcast/sats-zvezda  
-(the problem is probably that the link to the YouTube video is not present)
-
 
 
 
