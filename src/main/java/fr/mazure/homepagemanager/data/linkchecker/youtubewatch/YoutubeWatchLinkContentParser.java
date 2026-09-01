@@ -252,6 +252,11 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
         return Optional.empty();
     }
 
+    @Override
+    public LinkFormat[] getFormats() {
+        return new LinkFormat[] { LinkFormat.MP4 };
+    }
+
     /**
      * Get the description of the video<br>
      * Is null if the video is private
@@ -1115,7 +1120,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                                  getUrl(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
-                                                                 new LinkFormat[] { LinkFormat.MP4 },
+                                                                 getFormats(),
                                                                  new Locale[] { lang },
                                                                  getDuration(),
                                                                  Optional.empty());

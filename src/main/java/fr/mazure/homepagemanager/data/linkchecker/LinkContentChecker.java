@@ -41,7 +41,7 @@ public class LinkContentChecker implements Checker {
 
     private enum Type {
         TITLE,
-        SUBTTITLE
+        SUBTITLE
     }
 
     /**
@@ -108,6 +108,13 @@ public class LinkContentChecker implements Checker {
 
         if (_articleData.isPresent()) { // check subtitles only for articles
             final LinkContentCheck check = checkLinkSubtitles(data, _linkData.getSubtitles());
+            if (check != null) {
+                checks.add(check);
+            }
+        }
+
+        {
+            final LinkContentCheck check = checkFormats(data, _linkData.getFormats());
             if (check != null) {
                 checks.add(check);
             }
@@ -180,11 +187,21 @@ public class LinkContentChecker implements Checker {
                                                   final String[] subtitles) throws ContentParserException
     {
         for (final String subtitle: subtitles) {
-            final LinkContentCheck check = checkTitle(data, subtitle, Type.SUBTTITLE);
+            final LinkContentCheck check = checkTitle(data, subtitle, Type.SUBTITLE);
             if (check != null) {
                 return check;
             }
         }
+        return null;
+    }
+
+    /**
+     * @throws ContentParserException Failure to extract the information
+     */
+    @SuppressWarnings("static-method")
+    protected LinkContentCheck checkFormats(@SuppressWarnings("unused") final String data,
+                                            @SuppressWarnings("unused") final LinkFormat[] expectedFormats) throws ContentParserException
+    {
         return null;
     }
 
@@ -336,7 +353,7 @@ public class LinkContentChecker implements Checker {
                                                      final Type type) {
         return switch (type) {
             case Type.TITLE -> generateCheckTitleErrorForTitle(message, expectedTitle, effectiveTitle);
-            case Type.SUBTTITLE -> generateCheckTitleErrorForSubtitle(message, expectedTitle, effectiveTitle);
+            case Type.SUBTITLE -> generateCheckTitleErrorForSubtitle(message, expectedTitle, effectiveTitle);
         };
     }
 

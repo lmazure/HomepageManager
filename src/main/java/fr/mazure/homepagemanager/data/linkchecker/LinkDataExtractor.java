@@ -51,9 +51,14 @@ public abstract class LinkDataExtractor {
     public abstract String getTitle();
 
     /**
-     * @return subtitle, empty if the is none
+     * @return subtitle, empty if there is none
       */
     public abstract Optional<String> getSubtitle();
+
+    /**
+     * @return formats
+      */
+    public abstract LinkFormat[] getFormats();
 
     /**
      * @return creation date, empty if there is none

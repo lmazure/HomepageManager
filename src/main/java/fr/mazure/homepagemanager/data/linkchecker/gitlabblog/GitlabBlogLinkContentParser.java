@@ -101,7 +101,7 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
                                                                  url,
                                                                  Optional.empty(),
                                                                  Optional.empty(),
-                                                                 new LinkFormat[] { LinkFormat.HTML },
+                                                                 getFormats(),
                                                                  new Locale[] { Locale.ENGLISH },
                                                                  Optional.empty(),
                                                                  Optional.empty());
@@ -128,6 +128,11 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
     @Override
     public Optional<String> getSubtitle() {
         return _subtitle;
+    }
+
+    @Override
+    public LinkFormat[] getFormats() {
+        return new LinkFormat[] { LinkFormat.HTML };
     }
 
     @Override

@@ -139,7 +139,7 @@ public class RadioFranceLinkContentParser extends LinkDataExtractor {
                                                                  getUrl(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
-                                                                 new LinkFormat[] { LinkFormat.HTML },
+                                                                 getFormats(),
                                                                  new Locale[] { _language },
                                                                  _duration,
                                                                  _publicationDate);
@@ -174,6 +174,11 @@ public class RadioFranceLinkContentParser extends LinkDataExtractor {
     @Override
     public Optional<String> getSubtitle() {
         return Optional.of(_subtitle);
+    }
+
+    @Override
+    public LinkFormat[] getFormats() {
+        return new LinkFormat[] { LinkFormat.MP3 };
     }
 
     @Override

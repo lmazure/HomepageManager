@@ -127,6 +127,11 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
+    public LinkFormat[] getFormats() {
+        return new LinkFormat[] { LinkFormat.MP3 };
+    }
+
+    @Override
     public Optional<TemporalAccessor> getCreationDate() {
         return _creationDate;
     }
@@ -162,7 +167,7 @@ public class LexFridmanLinkContentParser extends LinkDataExtractor {
                                                                  getUrl(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
-                                                                 new LinkFormat[] { LinkFormat.MP3 },
+                                                                 getFormats(),
                                                                  new Locale[] { _language },
                                                                  _duration,
                                                                  _publicationDate);
