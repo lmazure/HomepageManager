@@ -337,7 +337,7 @@ public class LinkContentChecker implements Checker {
                 final String effectiveTitle = d.substring(i2, i2 + expectedTitle.length());
                 return generateCheckTitleError("this is a problem of space", expectedTitle, effectiveTitle, type);
             }
-            final int i3 = StringHelper.generalizedIndex(d, expectedTitle, false, true);
+            final int i3 = StringHelper.generalizedIndex(d, expectedTitle, true, true);
             if (i3 >= 0) {
                 final String effectiveTitle = d.substring(i3, i3 + expectedTitle.length());
                 return generateCheckTitleError("this is a problem of casing and space", expectedTitle, effectiveTitle, type);
