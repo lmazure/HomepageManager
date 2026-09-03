@@ -66,6 +66,63 @@ methods       53.9%    97.9%
 
 
 
+Fix all the americanish false positives.
+
+
+
+
+
+
+
+manage author of https://www.youtube.com/watch?v=Ct-mtWqV3Ro
+
+
+
+
+
+
+
+
+check with Claude and this prompt:
+
+```
+Proofread the comments (not the titles) in this list of media. Report the errors. Do not write a corrected version of the text.
+```
+
+
+
+
+
+
+
+manage
+
+```
+fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://developer.ibm.com/tutorials/l-anatomy-ext4/"
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:86)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:339)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: failed to get JSON data for https://developer.ibm.com/tutorials/l-anatomy-ext4/
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentParser.<init>(IbmLinkContentParser.java:57)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:57)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentChecker.checkGlobalData(IbmLinkContentChecker.java:43)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:95)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:84)
+	... 5 more
+Caused by: java.io.IOException: Received HTTP code 404 for https://developer.ibm.com/middleware/v1/contents/tutorials/l-anatomy-ext4
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.getGzippedContent(SynchronousSiteDataRetriever.java:166)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentParser.getStructureJson(IbmLinkContentParser.java:141)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentParser.<init>(IbmLinkContentParser.java:48)
+	... 9 more
+```
+
+
+
+
+
 
 
 manage
