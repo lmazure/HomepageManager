@@ -1,3 +1,5 @@
+## Stats
+
 ```
 warnings = 124
 lines prod = 9514
@@ -50,44 +52,12 @@ methods       53.9%    97.9%
 
 
 
-==== before merge =====
+## Must be done before merge
 
 
 
 
-
-
-
-
-
-
-==== potentially before merge =====
-
-
-
-
-Fix all the americanish false positives.
-
-
-
-
-
-
-
-manage author of https://www.youtube.com/watch?v=Ct-mtWqV3Ro
-
-
-
-
-
-
-
-
-check with Claude and this prompt:
-
-```
-Proofread the comments (not the titles) in this list of media. Report the errors. Do not write a corrected version of the text.
-```
+## To do
 
 
 
@@ -118,6 +88,60 @@ Caused by: java.io.IOException: Received HTTP code 404 for https://developer.ibm
 	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentParser.<init>(IbmLinkContentParser.java:48)
 	... 9 more
 ```
+
+
+
+
+
+
+verify
+
+```
+https://www.youtube.com/feeds/channel_id=UCThg2IH7bNbIQF0hmXA9ECw
+The expected feed format is Atom, but the effective feed format is RSS
+```
+
+
+
+
+Since more and more sites require throttling, we should use virtual threads and run more of them in parallel.
+
+
+
+
+See how to look for the disapparead articles in webarchive.
+
+
+
+
+
+
+
+Fix all the americanish false positives.
+
+
+
+
+
+
+
+manage author of https://www.youtube.com/watch?v=Ct-mtWqV3Ro
+
+
+
+
+
+
+
+
+check with Claude and this prompt:
+
+```
+Proofread the comments (not the titles) in this list of media. Report the errors. Do not write a corrected version of the text.
+```
+
+
+
 
 
 
@@ -490,22 +514,6 @@ Caused by: java.lang.NullPointerException
 
 
 
-
-manage
-
-```
-URL = https://www.youtube.com/feeds/videos.xml?channel_id=UCXZCJLdBC09xxGZ6gcdrc6A
-Effective HTTP code = 404 Not Found
-Redirection matcher = direct failure
-Redirection matcher expected statuses = DEAD
-```
-
-
-
-
-
-
-
 Why 300 threads are created when putting a breakpoint in fr.mazure.homepagemanager.utils.internet.HttpHelper.throttle(String)???
 
 
@@ -518,16 +526,6 @@ but IBM is currently down…
 
 
 the text of the <CODESAMPLE language="bash"> is grey instead of black
-
-
-
-
-
-
-
-the name of files caching requests should have an extension
-
-
 
 
 

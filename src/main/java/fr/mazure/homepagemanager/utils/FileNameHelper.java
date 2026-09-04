@@ -11,7 +11,7 @@ import java.nio.file.Paths;
  */
 public class FileNameHelper {
 
-    private static final int s_max_filename_length = 245;
+    private static final int s_max_filename_length = 255;
 
     /**
      * Generate a new name from a file sourceFile which is in a directory sourceDirectory
@@ -57,11 +57,13 @@ public class FileNameHelper {
      *
      * @param prefix filename prefix
      * @param url URL
+     * @param extension filename extension
      *
      * @return filename
      */
     public static String generateFileNameFromURL(final String prefix,
-                                                 final String url) {
+                                                 final String url,
+                                                 final String extension) {
 
         String s;
         try {
@@ -72,12 +74,12 @@ public class FileNameHelper {
             return null;
         }
 
-        final int prefixLength = prefix.length();
-        if ((prefixLength + s.length()) > s_max_filename_length) {
+        final int addedCharactersCount = prefix.length() + 1 + extension.length();
+        if ((s.length() + addedCharactersCount) > s_max_filename_length) {
             // avoid crash on Windows due to too long file name
-            return prefix + s.substring(0, s_max_filename_length - (prefixLength + 9)) + "_" + Integer.toHexString(s.hashCode());
+            s = s.substring(0, s_max_filename_length - (addedCharactersCount + 11)) + "_" + Integer.toHexString(s.hashCode());
         }
 
-        return s;
+        return prefix + s + "." + extension;
     }
 }

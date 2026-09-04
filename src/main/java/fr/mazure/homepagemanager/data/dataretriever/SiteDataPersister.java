@@ -278,8 +278,8 @@ public class SiteDataPersister {
     }
 
     private File getPersistedFile(final String url,
-                                   final String prefix) {
-        return getOutputDirectory(url).resolve(FileNameHelper.generateFileNameFromURL(prefix, url))
+                                  final String prefix) {
+        return getOutputDirectory(url).resolve(FileNameHelper.generateFileNameFromURL(prefix, url, "txt"))
                                       .toFile();
     }
 
