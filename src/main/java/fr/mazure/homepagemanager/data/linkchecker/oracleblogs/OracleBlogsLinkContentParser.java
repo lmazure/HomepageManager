@@ -296,6 +296,11 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
         return _subtitle;
     }
 
+    @Override
+    public LinkFormat[] getFormats() {
+        return new LinkFormat[] { LinkFormat.HTML };
+    }
+
     private static String getStructureJson(final String url,
                                            final String site) throws IOException, NotGzipException {
         final String urlJsonStructure = url.replaceFirst("/post/", "/")
@@ -372,7 +377,7 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
                                                                  getUrl(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
-                                                                 new LinkFormat[] { LinkFormat.HTML },
+                                                                 getFormats(),
                                                                  new Locale[] { getLanguage() },
                                                                  Optional.empty(),
                                                                  Optional.empty());

@@ -67,7 +67,7 @@ public class SimonWillisonTilLinkContentParser extends LinkDataExtractor {
                                                                  getUrl(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
-                                                                 new LinkFormat[] { LinkFormat.HTML },
+                                                                 getFormats(),
                                                                  new Locale[] { getLanguage() },
                                                                  Optional.empty(),
                                                                  Optional.empty());
@@ -94,6 +94,11 @@ public class SimonWillisonTilLinkContentParser extends LinkDataExtractor {
     @Override
     public Optional<String> getSubtitle() {
         return Optional.empty();
+    }
+
+    @Override
+    public LinkFormat[] getFormats() {
+        return new LinkFormat[] { LinkFormat.HTML };
     }
 
     @Override

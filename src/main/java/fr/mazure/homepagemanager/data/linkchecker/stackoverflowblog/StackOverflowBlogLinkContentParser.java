@@ -86,7 +86,7 @@ public class StackOverflowBlogLinkContentParser extends LinkDataExtractor {
                                                                  url,
                                                                  Optional.empty(),
                                                                  Optional.empty(),
-                                                                 new LinkFormat[] { LinkFormat.HTML },
+                                                                 getFormats(),
                                                                  new Locale[] { getLanguage() },
                                                                  Optional.empty(),
                                                                  Optional.empty());
@@ -113,6 +113,11 @@ public class StackOverflowBlogLinkContentParser extends LinkDataExtractor {
     @Override
     public Optional<String> getSubtitle() {
         return Optional.of(_subtitle);
+    }
+
+    @Override
+    public LinkFormat[] getFormats() {
+        return new LinkFormat[] { LinkFormat.HTML };
     }
 
     @Override

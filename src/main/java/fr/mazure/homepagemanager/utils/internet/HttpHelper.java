@@ -160,6 +160,7 @@ public class HttpHelper {
         s_minDelayPerSite.put("oxide-and-friends.transistor.fm", Integer.valueOf(1000));
         s_minDelayPerSite.put("blogs.oracle.com", Integer.valueOf(1000));
         s_minDelayPerSite.put("lexfridman.com", Integer.valueOf(1000));
+        s_minDelayPerSite.put("www.compart.com", Integer.valueOf(1000));
     }
     /**
      * Ensure that the site is not called too often, sleep if necessary
@@ -168,11 +169,19 @@ public class HttpHelper {
      */
     public static void throttle(final String url) {
 
-        final String host = UriHelper.getHost(url);
-        final Integer minDelay = s_minDelayPerSite.get(host);
-        if (minDelay == null) {
-            // no throttling for this site
-            return;
+        Integer minDelay;
+        String host;
+        
+        if (url.startsWith("https://www.youtube.com/feeds/")) { // TODO to be cleaned up
+            host = "www.youtube.com/feeds";
+            minDelay = Integer.valueOf(10000);
+        } else {            
+            host = UriHelper.getHost(url);
+            minDelay = s_minDelayPerSite.get(host);
+            if (minDelay == null) {
+                // no throttling for this site
+                return;
+            }
         }
 
         synchronized (s_lastSiteTimestamp) {

@@ -146,6 +146,11 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
+    public LinkFormat[] getFormats() {
+        return new LinkFormat[] { LinkFormat.HTML };
+    }
+
+    @Override
     public Optional<TemporalAccessor> getCreationDate() {
         return _creationDate;
     }
@@ -182,7 +187,7 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
                                                                  getUrl(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
-                                                                 new LinkFormat[] { LinkFormat.HTML },
+                                                                 getFormats(),
                                                                  new Locale[] { _language },
                                                                  _duration,
                                                                  _publicationDate);

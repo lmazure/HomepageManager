@@ -26,7 +26,7 @@ public class DurationPresenceChecker extends NodeChecker {
         super(s_selector,
               DurationPresenceChecker::checkDuration, "given the format, the duration is missing");
     }
-    private static CheckStatus checkDuration(final Element e) { //TODO the presence of a duration should be attached to each value of the enul
+    private static CheckStatus checkDuration(final Element e) { //TODO the presence of a duration should be attached to each value of the enum
 
         boolean hasDuration = false;
         String format = "";
@@ -45,6 +45,9 @@ public class DurationPresenceChecker extends NodeChecker {
         }
 
         if (format.equals("HTML")) {
+            if (hasDuration) {
+                return new CheckStatus("SpuriousDuration", "HTML cannot have duration", Optional.empty());
+            }
             return null;
         }
 

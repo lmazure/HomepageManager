@@ -94,6 +94,11 @@ public class IbmLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
+    public LinkFormat[] getFormats() {
+        return new LinkFormat[] { LinkFormat.HTML };
+    }
+
+    @Override
     public Optional<TemporalAccessor> getCreationDate() {
         return Optional.of(_publicationDate);
     }
@@ -115,7 +120,7 @@ public class IbmLinkContentParser extends LinkDataExtractor {
                                                                  getUrl(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
-                                                                 new LinkFormat[] { LinkFormat.HTML },
+                                                                 getFormats(),
                                                                  new Locale[] { getLanguage() },
                                                                  Optional.empty(),
                                                                  Optional.empty());

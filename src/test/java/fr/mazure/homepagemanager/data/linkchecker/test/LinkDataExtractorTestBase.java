@@ -19,6 +19,7 @@ import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.utils.DateTimeHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
+import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
 /**
  * Base class for the LinkDataExtractor tests
@@ -65,6 +66,18 @@ public class LinkDataExtractorTestBase {
                 (final LinkDataExtractor p) ->
                     {
                          Assertions.assertEquals(Locale.of(expectedLanguage), p.getLanguage());
+                    });
+    }
+
+    protected static void checkFormat(final Class<? extends LinkDataExtractor> clazz,
+                                      final String url,
+                                      final LinkFormat expectedFormat) {
+        perform(clazz,
+                url,
+                (final LinkDataExtractor p) ->
+                    {
+                         Assertions.assertEquals(1, p.getFormats().length);
+                         Assertions.assertEquals(expectedFormat, p.getFormats()[0]);
                     });
     }
 

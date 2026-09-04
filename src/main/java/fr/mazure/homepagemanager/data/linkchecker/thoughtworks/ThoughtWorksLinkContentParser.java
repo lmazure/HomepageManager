@@ -122,6 +122,11 @@ public class ThoughtWorksLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
+    public LinkFormat[] getFormats() {
+        return new LinkFormat[] { LinkFormat.MP3 };
+    }
+
+    @Override
     public Optional<TemporalAccessor> getCreationDate() {
         return _date;
     }
@@ -159,7 +164,7 @@ public class ThoughtWorksLinkContentParser extends LinkDataExtractor {
                                                                  getUrl(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
-                                                                 new LinkFormat[] { LinkFormat.MP3 },
+                                                                 getFormats(),
                                                                  new Locale[] { getLanguage() },
                                                                  _duration,
                                                                  _date);

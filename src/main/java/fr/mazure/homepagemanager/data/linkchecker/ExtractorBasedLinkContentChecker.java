@@ -1,6 +1,7 @@
 package fr.mazure.homepagemanager.data.linkchecker;
 
 import java.time.temporal.TemporalAccessor;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -17,6 +18,7 @@ import fr.mazure.homepagemanager.utils.StringHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.ArticleData;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkData;
+import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
 /**
  *
@@ -130,6 +132,24 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
         if ((languages.length != 1) || (languages[0] != _parser.getLanguage())) {
             return new LinkContentCheck("WrongLanguage",
                                         "Article should have the language set as " + _parser.getLanguage(),
+                                        Optional.empty());
+        }
+
+        return null;
+    }
+
+    @Override
+    protected LinkContentCheck checkFormats(final String data,
+                                            final LinkFormat[] expectedFormats) throws ContentParserException
+    {
+        final LinkFormat[] effectiveFormats = _parser.getFormats();
+        
+        if (!Arrays.equals(effectiveFormats, expectedFormats)) {
+            final String message = "The list of formats is not the expected one."
+                    + "\nexpected formats: " + Arrays.toString(expectedFormats)
+                    + "\neffective formats: " + Arrays.toString(effectiveFormats);
+            return new LinkContentCheck("WrongFormats",
+                                        message,
                                         Optional.empty());
         }
 

@@ -39,6 +39,7 @@ public class DwarkeshPodcastLinkContentParser extends LinkDataExtractor {
 
     private final String _title;
     private final Optional<String> _subtitle;
+    private final LinkFormat _format;
     private final Optional<TemporalAccessor> _creationDate;
     private final Optional<TemporalAccessor> _publicationDate;
     private final Optional<Duration> _duration;
@@ -83,8 +84,14 @@ public class DwarkeshPodcastLinkContentParser extends LinkDataExtractor {
             _title = HtmlHelper.cleanContent(JsonHelper.getAsText(post, "title"));
             final String postDate = JsonHelper.getAsText(post, "post_date");
             _publicationDate = Optional.of(ZonedDateTime.parse(postDate, DateTimeFormatter.ISO_DATE_TIME).toLocalDate());
-            final double podcastDuration = post.getDouble("podcast_duration");
-            _duration = Optional.of(Duration.ofSeconds(Math.round(podcastDuration)));
+            if (post.isNull("podcast_duration")) {
+                _format = LinkFormat.HTML;
+                _duration = Optional.empty();
+            } else {
+                _format = LinkFormat.MP3;
+                final double podcastDuration = post.getDouble("podcast_duration");
+                _duration = Optional.of(Duration.ofSeconds(Math.round(podcastDuration)));
+            }
         } catch (final IllegalStateException e) {
             throw new ContentParserException("Unexpected JSON", e);
         }
@@ -130,6 +137,11 @@ public class DwarkeshPodcastLinkContentParser extends LinkDataExtractor {
     }
 
     @Override
+    public LinkFormat[] getFormats() {
+        return new LinkFormat[] { _format };
+    }
+
+    @Override
     public Optional<TemporalAccessor> getCreationDate() {
         return _creationDate;
     }
@@ -165,7 +177,7 @@ public class DwarkeshPodcastLinkContentParser extends LinkDataExtractor {
                                                                  getUrl(),
                                                                  Optional.empty(),
                                                                  Optional.empty(),
-                                                                 new LinkFormat[] { LinkFormat.HTML },
+                                                                 getFormats(),
                                                                  new Locale[] { _language },
                                                                  _duration,
                                                                  _publicationDate);

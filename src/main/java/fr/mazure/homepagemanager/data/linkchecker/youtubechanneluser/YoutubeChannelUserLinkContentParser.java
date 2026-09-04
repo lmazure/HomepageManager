@@ -18,6 +18,7 @@ import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.internet.JsonHelper;
 import fr.mazure.homepagemanager.utils.internet.UrlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
+import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
 /**
  * Data extractor for YouTube channels
@@ -146,6 +147,11 @@ public class YoutubeChannelUserLinkContentParser extends LinkDataExtractor {
     @Override
     public Optional<String> getSubtitle() {
         throw new UnsupportedOperationException("YoutubeChannelUserLinkContentParser does not support subtitle");
+    }
+
+    @Override
+    public LinkFormat[] getFormats() {
+        return new LinkFormat[] { LinkFormat.HTML };
     }
 
     @Override
