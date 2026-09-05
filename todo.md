@@ -61,6 +61,25 @@ methods       53.9%    97.9%
 
 
 
+the site map is broken locally
+
+
+
+
+
+
+
+still some problems with
+
+```
+URL = https://www.youtube.com/feeds/videos.xml?channel_id=UC_aOteuWIY8ITg7DQQspG1g
+Effective HTTP code = 404 Not Found
+Redirection matcher = direct failure
+Redirection matcher expected statuses = DEAD
+```
+
+
+
 
 
 
