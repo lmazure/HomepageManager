@@ -61,6 +61,52 @@ methods       53.9%    97.9%
 
 
 
+manage the lost article + couple with the Numberphile video
+
+```
+Title = "The Parallel Climbers Puzzle"
+Subtitle = "A Case Study in the Power of Graph Models"
+URL = https://www.maa.org/sites/default/files/pdf/upload_library/22/Evans/november_1995_22.pdf
+Expected status = OK
+Effective error = "Failed to get input stream: java.io.FileNotFoundException: https://maa.org/sites/default/files/pdf/upload_library/22/Evans/november_1995_22.pdf"
+Effective HTTP code = 301 Moved Permanently
+Effective HTTP code of last redirection = 404 Not Found
+Redirection chain = https://www.maa.org/sites/default/files/pdf/upload_library/22/Evans/november_1995_22.pdf → https://maa.org/sites/default/files/pdf/upload_library/22/Evans/november_1995_22.pdf
+Redirection matcher = redirection ending with an error code
+Redirection matcher expected statuses = DEAD
+Look for article = https://www.google.com/search?q=%22The+Parallel+Climbers+Puzzle%22+%22A+Case+Study+in+the+Power+of+Graph+Models%22
+```
+
+
+
+
+
+
+
+manage
+
+```
+fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://blog.chromium.org/2025/05/fighting-unwanted-notifications-with.html"
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:86)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:339)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find title in Chromium Blog
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.TextParser.extract(TextParser.java:61)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.chromium.ChromiumBlogLinkContentParser.<init>(ChromiumBlogLinkContentParser.java:65)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:57)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:95)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:84)
+	... 5 more
+```
+
+
+
+
+
+
 the site map is broken locally
 
 
@@ -107,6 +153,31 @@ Caused by: java.io.IOException: Received HTTP code 404 for https://developer.ibm
 	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentParser.<init>(IbmLinkContentParser.java:48)
 	... 9 more
 ```
+
+```
+fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://developer.ibm.com/articles/wa-use-swagger-to-document-and-define-restful-apis/"
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:86)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:339)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: failed to get JSON data for https://developer.ibm.com/articles/wa-use-swagger-to-document-and-define-restful-apis/
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentParser.<init>(IbmLinkContentParser.java:57)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:57)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentChecker.checkGlobalData(IbmLinkContentChecker.java:43)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:95)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:84)
+	... 5 more
+Caused by: java.io.IOException: Received HTTP code 404 for https://developer.ibm.com/middleware/v1/contents/articles/wa-use-swagger-to-document-and-define-restful-apis
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.getGzippedContent(SynchronousSiteDataRetriever.java:166)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentParser.getStructureJson(IbmLinkContentParser.java:141)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentParser.<init>(IbmLinkContentParser.java:48)
+	... 9 more
+```
+
+
+
 
 
 
@@ -585,7 +656,7 @@ e.g., https://www.dwarkesh.com/p/elon-musk
 
 check the bookmarks of https://twimlai.com/podcast/twimlai/  
 some YouTube videos are missing  
-the format is reported as HTML instead of MP3
+
 
 
 
