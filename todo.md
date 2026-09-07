@@ -61,46 +61,10 @@ methods       53.9%    97.9%
 
 
 
-manage the lost article + couple with the Numberphile video
-
-```
-Title = "The Parallel Climbers Puzzle"
-Subtitle = "A Case Study in the Power of Graph Models"
-URL = https://www.maa.org/sites/default/files/pdf/upload_library/22/Evans/november_1995_22.pdf
-Expected status = OK
-Effective error = "Failed to get input stream: java.io.FileNotFoundException: https://maa.org/sites/default/files/pdf/upload_library/22/Evans/november_1995_22.pdf"
-Effective HTTP code = 301 Moved Permanently
-Effective HTTP code of last redirection = 404 Not Found
-Redirection chain = https://www.maa.org/sites/default/files/pdf/upload_library/22/Evans/november_1995_22.pdf → https://maa.org/sites/default/files/pdf/upload_library/22/Evans/november_1995_22.pdf
-Redirection matcher = redirection ending with an error code
-Redirection matcher expected statuses = DEAD
-Look for article = https://www.google.com/search?q=%22The+Parallel+Climbers+Puzzle%22+%22A+Case+Study+in+the+Power+of+Graph+Models%22
-```
+reindex the first articles of https://martinfowler.com/articles/exploring-gen-ai.html
 
 
 
-
-
-
-
-manage
-
-```
-fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://blog.chromium.org/2025/05/fighting-unwanted-notifications-with.html"
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:86)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:339)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
-	at java.base/java.lang.Thread.run(Thread.java:1516)
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find title in Chromium Blog
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.TextParser.extract(TextParser.java:61)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.chromium.ChromiumBlogLinkContentParser.<init>(ChromiumBlogLinkContentParser.java:65)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:57)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:95)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:84)
-	... 5 more
-```
 
 
 
@@ -199,7 +163,7 @@ Since more and more sites require throttling, we should use virtual threads and 
 
 
 
-See how to look for the disapparead articles in webarchive.
+See how to look for the disappeared articles in webarchive.
 
 
 
