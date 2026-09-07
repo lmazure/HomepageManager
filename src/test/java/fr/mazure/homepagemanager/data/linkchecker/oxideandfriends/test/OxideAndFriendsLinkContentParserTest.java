@@ -36,6 +36,7 @@ class OxideAndFriendsLinkContentParserTest extends LinkDataExtractorTestBase {
             "https://oxide-and-friends.transistor.fm/episodes/querying-metrics-with-oxql|2024-09-30",
             "https://oxide-and-friends.transistor.fm/episodes/the-hardest-kind-of-unsafe-rust|2026-06-08", // YouTube title is "Oxide and Friend" instead of "Oxide and Friends"
             "https://oxide-and-friends.transistor.fm/episodes/conferences-in-tech|2024-12-09",
+            "https://oxide-and-friends.transistor.fm/episodes/the-return-to-the-chamber-of-mysteries|2026-08-17", // YouTube title contains "- -" instead of "--"
     }, delimiter = '|')
     void testCreationDate(final String url,
                           final String expectedDate) {

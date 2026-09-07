@@ -52,7 +52,7 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
                          "blog publication date");
     private static final TextParser s_creationDateParser
         = new TextParser("Oxide and Friends? ", // "s" is optional because the title of https://www.youtube.com/watch?v=mdcu3dKMjyg is "Oxide and Friend 6/8/2026 -- The Hardest Kind of Unsafe Rust"
-                         " --",
+                         " - ?-", // there may be a space, see https://www.youtube.com/watch?v=3ISaxz5TKnk
                          s_sourceName,
                          "creation date");
     private static final TextParser s_durationParser
