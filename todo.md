@@ -94,58 +94,6 @@ Redirection matcher expected statuses = DEAD
 
 
 
-manage
-
-```
-fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://developer.ibm.com/tutorials/l-anatomy-ext4/"
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:86)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:339)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
-	at java.base/java.lang.Thread.run(Thread.java:1516)
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: failed to get JSON data for https://developer.ibm.com/tutorials/l-anatomy-ext4/
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentParser.<init>(IbmLinkContentParser.java:57)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:57)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentChecker.checkGlobalData(IbmLinkContentChecker.java:43)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:95)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:84)
-	... 5 more
-Caused by: java.io.IOException: Received HTTP code 404 for https://developer.ibm.com/middleware/v1/contents/tutorials/l-anatomy-ext4
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.getGzippedContent(SynchronousSiteDataRetriever.java:166)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentParser.getStructureJson(IbmLinkContentParser.java:141)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentParser.<init>(IbmLinkContentParser.java:48)
-	... 9 more
-```
-
-```
-fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://developer.ibm.com/articles/wa-use-swagger-to-document-and-define-restful-apis/"
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:86)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:339)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
-	at java.base/java.lang.Thread.run(Thread.java:1516)
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: failed to get JSON data for https://developer.ibm.com/articles/wa-use-swagger-to-document-and-define-restful-apis/
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentParser.<init>(IbmLinkContentParser.java:57)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:57)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentChecker.checkGlobalData(IbmLinkContentChecker.java:43)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:95)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:84)
-	... 5 more
-Caused by: java.io.IOException: Received HTTP code 404 for https://developer.ibm.com/middleware/v1/contents/articles/wa-use-swagger-to-document-and-define-restful-apis
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.getGzippedContent(SynchronousSiteDataRetriever.java:166)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentParser.getStructureJson(IbmLinkContentParser.java:141)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentParser.<init>(IbmLinkContentParser.java:48)
-	... 9 more
-```
-
-
-
-
-
-
-
 
 
 verify
@@ -238,7 +186,6 @@ Look for article = https://www.google.com/search?q=%22Always+Fix+Broken+Windows%
 
 
 repair unit test
-- fr.mazure.homepagemanager.data.linkchecker.ibm.test.IbmLinkContentParserTest.testArticleIsLost(String)
 - fr.mazure.homepagemanager.data.linkchecker.test.LinkContentParserTest.testLanguageForEnglishArticle(String)
 - fr.mazure.homepagemanager.data.linkchecker.test.LinkContentParserTest.testLanguageForFrenchArticle(String)
 - fr.mazure.homepagemanager.data.nodechecker.test.IncorrectSpaceCheckerTest.stringsAreProperlyDividedAtApostrophe()
@@ -260,35 +207,6 @@ The expected date 2026-07-03 is not equal to the effective date 2026-07-02
 
 
 
-
-
-
-
-
-
-manage
-
-```
-fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://developer.ibm.com/tutorials/l-anatomy-ext4/"
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:86)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:339)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
-	at java.base/java.lang.Thread.run(Thread.java:1516)
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: failed to get JSON data for https://developer.ibm.com/tutorials/l-anatomy-ext4/
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentParser.<init>(IbmLinkContentParser.java:57)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:55)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentChecker.checkGlobalData(IbmLinkContentChecker.java:43)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:95)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:84)
-	... 5 more
-Caused by: java.io.IOException: Received HTTP code 404 for https://developer.ibm.com/middleware/v1/contents/tutorials/l-anatomy-ext4
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.getGzippedContent(SynchronousSiteDataRetriever.java:166)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentParser.getStructureJson(IbmLinkContentParser.java:136)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ibm.IbmLinkContentParser.<init>(IbmLinkContentParser.java:48)
-	... 9 more
-```
 
 
 
