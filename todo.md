@@ -311,26 +311,6 @@ repair unit tests
 
 
 
-
-manage
-
-```
-Title = "Wikipedia"
-URL = https://en.wikipedia.org/wiki/Digital_Signature_Algorithm
-Expected status = OK
-Effective error = "Failed to get input stream: java.io.IOException: Server returned HTTP response code: 429 for URL: https://en.wikipedia.org/wiki/Digital_Signature_Algorithm"
-Effective HTTP code = 429 Too Many Requests (RFC 6585)
-Redirection matcher = direct failure
-Redirection matcher expected statuses = DEAD
-Look for article = https://www.google.com/search?q=%22Wikipedia%22
-```
-
-
-
-
-
-
-
 detect sentence should start with a capital letter
 
 
@@ -347,54 +327,11 @@ add global check that a URL does not appear twice
 
 
 
-manage
-
-```
-Title = "Le dilemme du prisonnier | Voyages au pays des maths | ARTE"
-URL = https://www.youtube.com/watch?v=G9ER5bLxQEU
-Expected status = REMOVED
-Effective HTTP code = 200 OK
-Redirection matcher = direct success
-Redirection matcher expected statuses = OBSOLETE,OK,ZOMBIE
-Look for article = https://www.google.com/search?q=%22Le+dilemme+du+prisonnier+%7C+Voyages+au+pays+des+maths+%7C+ARTE%22
-```
-
-
-
-
-
 
 
 
 indiquer que des liens sont internes (par exemple cursor et windsurf sur la page codeass)
 
-
-
-
-
-
-
-
-manage
-
-```
-Exception in thread "pool-2-thread-10" java.lang.IllegalStateException: Exception while retrieving https://www.selenium.dev/documentation/webdriver/
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SiteSlurper.getLinkData(SiteSlurper.java:49)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
-	at java.base/java.lang.Thread.run(Thread.java:1516)
-Caused by: java.lang.IllegalStateException: Failure while reading G:\Documents\tmp\homepage\internet_cache\www.selenium.dev\https%3A%2F%2Fwww.selenium.dev%2Fdocumentation%2Fwebdriver%2F
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SiteDataPersister.retrieve(SiteDataPersister.java:229)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:143)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
-	... 6 more
-Caused by: java.lang.NullPointerException: Cannot invoke "String.trim()" because the return value of "java.io.BufferedReader.readLine()" is null
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SiteDataPersister.retrieve(SiteDataPersister.java:190)
-	... 8 more
-```
 
 
 
