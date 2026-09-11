@@ -17,6 +17,7 @@ import fr.mazure.homepagemanager.data.linkchecker.ExtractedLinkData;
 import fr.mazure.homepagemanager.data.linkchecker.LinkContentParserUtils;
 import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
+import fr.mazure.homepagemanager.utils.DateTimeHelper;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
@@ -34,13 +35,18 @@ public class ChromiumBlogLinkContentParser extends LinkDataExtractor {
     private final List<ExtractedLinkData> _links;
 
     private static final TextParser s_titleParser
-        = new TextParser("<title>\\nChromium Blog: ",
+        = new TextParser("<title>",
                          "</title>",
                          s_sourceName,
                          "title");
-    private static final TextParser s_dateParser
+    private static final TextParser s_dateParser1
         = new TextParser("<span class='publishdate' itemprop='datePublished'>",
                          "</span>",
+                         s_sourceName,
+                         "date");
+    private static final TextParser s_dateParser2
+        = new TextParser("<meta name=\"published_time\" content=\"",
+                         "\" />",
                          s_sourceName,
                          "date");
     private static final TextParser s_authorParser
@@ -62,13 +68,17 @@ public class ChromiumBlogLinkContentParser extends LinkDataExtractor {
         final SiteSlurper sluper = new SiteSlurper(getRetriever(), url);
         final String data = sluper.getContent();
 
-        _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
+        _title = HtmlHelper.cleanContent(s_titleParser.extract(data)).replaceAll("Chromium Blog: ", "");
 
-        final String dateStr = HtmlHelper.cleanContent(s_dateParser.extract(data));
-        try {
-            _creationDate = Optional.of(LocalDate.parse(dateStr, s_dateFormat));
-        } catch (final DateTimeParseException e) {
-            throw new ContentParserException("Failed to parse date (" + dateStr + ") in Chromium Blog page", e);
+        final Optional<String> dateStr = s_dateParser1.extractOptional(data).map(HtmlHelper::cleanContent);
+        if (dateStr.isPresent()) {
+            try {
+                _creationDate = Optional.of(LocalDate.parse(dateStr.get(), s_dateFormat));
+            } catch (final DateTimeParseException e) {
+                throw new ContentParserException("Failed to parse date (" + dateStr + ") in Chromium Blog page", e);
+            }
+        } else {
+            _creationDate = Optional.of(DateTimeHelper.convertISO8601StringToDateTime(s_dateParser2.extract(data)));
         }
 
         final Optional<String> authorStr = s_authorParser.extractOptional(data);

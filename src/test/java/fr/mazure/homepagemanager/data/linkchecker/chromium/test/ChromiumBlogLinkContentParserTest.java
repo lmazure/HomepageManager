@@ -16,6 +16,8 @@ class ChromiumBlogLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://blog.chromium.org/2009/01/tabbed-browsing-in-google-chrome.html|Tabbed Browsing in Google Chrome",
         "https://blog.chromium.org/2020/04/keeping-spam-off-chrome-web-store.html|Keeping spam off the Chrome Web Store",
+        // the next article uses the new structure
+        "https://blog.chromium.org/2025/05/fighting-unwanted-notifications-with.html|Fighting Unwanted Notifications with Machine Learning in Chrome",
     }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
@@ -50,6 +52,8 @@ class ChromiumBlogLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://blog.chromium.org/2009/01/tabbed-browsing-in-google-chrome.html|2009-01-06",
         "https://blog.chromium.org/2020/04/keeping-spam-off-chrome-web-store.html|2020-04-29",
+        // the next article uses the new structure
+        "https://blog.chromium.org/2025/05/fighting-unwanted-notifications-with.html|2025-05-08",
     }, delimiter = '|')
     void testPublishDate(final String url,
                          final String expectedPublicationDate) {
