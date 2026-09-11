@@ -52,21 +52,7 @@ methods       53.9%    97.9%
 
 
 
-## Must be done before merge
-
-
-
-
-## To do
-
-
-
-reindex the first articles of https://martinfowler.com/articles/exploring-gen-ai.html
-
-
-
-
-
+## Must be done in this issue
 
 
 
@@ -79,7 +65,111 @@ the site map is broken locally
 
 
 
-still some problems with
+## To do for next issue
+
+
+
+
+
+
+
+
+add parser for `https://lucumr.pocoo.org/2026/8/19/what-is-reasoning/`
+
+
+
+
+
+
+add parser for `https://inside.java/2026/08/20/podcast-067/`
+
+
+
+
+
+
+
+
+
+gérer
+
+```
+Title = "Be Careful Where you Send Your Code"
+URL = https://windsurf.com/blog/self-hosting-for-code-security
+Expected status = ZOMBIE
+Effective HTTP code = 307 Temporary Redirect
+Effective HTTP code of last redirection = 200 OK
+Redirection chain = https://windsurf.com/blog/self-hosting-for-code-security → https://windsurf.com/not-found
+Redirection matcher = redirection ending in success (last URL should be used)
+Redirection matcher expected statuses =
+Look for article = https://www.google.com/search?q=%22Be+Careful+Where+you+Send+Your+Code%22
+```
+
+
+
+
+
+
+
+
+
+
+regenerate the stats
+
+
+
+
+## To do 
+
+
+
+
+manage
+
+```
+https://newsletter.pragmaticengineer.com/p/ai-tools-for-software-engineers-simon-willison
+The list of formats is not the expected one.
+expected formats: [MP3]
+effective formats: [HTML]
+```
+
+```
+https://newsletter.pragmaticengineer.com/p/building-pi-and-what-makes-self-modifying
+The list of formats is not the expected one.
+expected formats: [MP3]
+effective formats: [HTML]
+```
+
+
+```
+https://newsletter.pragmaticengineer.com/p/opencode
+The list of formats is not the expected one.
+expected formats: [MP3]
+effective formats: [HTML]
+```
+
+
+
+
+
+
+
+rewrite the parsing of MP3 files
+
+
+
+
+
+
+reindex the first articles of https://martinfowler.com/articles/exploring-gen-ai.html
+
+
+
+
+
+
+
+still some problems with (easy to reproduce on links/maths.xml)
 
 ```
 URL = https://www.youtube.com/feeds/videos.xml?channel_id=UC_aOteuWIY8ITg7DQQspG1g
@@ -215,67 +305,6 @@ The expected date 2026-07-03 is not equal to the effective date 2026-07-02
 
 
 
-manage
-
-```
-fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://blog.chromium.org/2025/05/fighting-unwanted-notifications-with.html"
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:86)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:339)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
-	at java.base/java.lang.Thread.run(Thread.java:1516)
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find title in Chromium Blog
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.TextParser.extract(TextParser.java:61)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.chromium.ChromiumBlogLinkContentParser.<init>(ChromiumBlogLinkContentParser.java:65)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:55)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:95)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:84)
-	... 5 more
-```
-
-
-
-
-
-
-add parser for `https://lucumr.pocoo.org/2026/8/19/what-is-reasoning/`
-
-
-
-
-
-
-add parser for `https://inside.java/2026/08/20/podcast-067/`
-
-
-
-
-
-
-
-
-
-manage
-
-```
-java.lang.UnsupportedOperationException: https://www.aristeia.com/|412→
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.lambda$2(WellKnownRedirections.java:809)
-	at java.base/java.util.Optional.orElseThrow(Optional.java:407)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.getMatch(WellKnownRedirections.java:809)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.getPossibleStatuses(LinkStatusAnalyzer.java:80)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.doesEffectiveDataMatchesExpectedData(LinkStatusAnalyzer.java:34)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.writeOutputFile(LinkCheckRunner.java:425)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:369)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
-	at java.base/java.lang.Thread.run(Thread.java:1516)
-```
-
-
-
-
 
 manage refactoring.fm
 
@@ -284,7 +313,7 @@ manage refactoring.fm
 
 
 
-manage order of Vietnamise name components
+manage order of Vietnamese name components
 
 ```
 <ITEM><ARTICLE><X><T>Pham Xuan An, le (faux) ami des Américains</T><ST>Pendant toute la guerre du Vietnam, Pham Xuan An, a été un brillant journaliste et correspondant à Saigon pour le magazine Time.</ST><A>https://www.radiofrance.fr/franceinter/podcasts/espions-une-histoire-vraie/ursula-kuczinski-alias-agent-sonya-1103675</A><L>fr</L><F>HTML</F><DURATION><MINUTE>38</MINUTE><SECOND>6</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Stéphanie</FIRSTNAME><LASTNAME>Duncan</LASTNAME></AUTHOR><DATE><YEAR>2022</YEAR><MONTH>4</MONTH><DAY>11</DAY></DATE><COMMENT><AUTHOR><LASTNAME>Phạm</LASTNAME><MIDDLENAME>Xuân</MIDDLENAME><FIRSTNAME>Ẩn</FIRSTNAME></AUTHOR>, a journalist working for the US during the Vietnam War, was a spy of the National Liberation Front of South Vietnam.</COMMENT></ARTICLE></ITEM>
@@ -360,61 +389,6 @@ add missing comments
 verify that I do not read twice the MP3 files
 
 
-
-
-
-
-
-manage
-
-```
-Exception in thread "JavaFX Application Thread" java.lang.ExceptionInInitializerError
-	at javafx.web@26/com.sun.webkit.network.NetworkContext.fwkLoad(NetworkContext.java:161)
-	at javafx.web@26/com.sun.webkit.WebPage.twkProcessMouseEvent(Native Method)
-	at javafx.web@26/com.sun.webkit.WebPage.dispatchMouseEvent(WebPage.java:830)
-	at javafx.web@26/javafx.scene.web.WebView.processMouseEvent(WebView.java:1098)
-	at javafx.web@26/javafx.scene.web.WebView.lambda$registerEventHandlers$1(WebView.java:1224)
-	at javafx.base@26/com.sun.javafx.event.CompositeEventHandler$NormalEventHandlerRecord.handleBubblingEvent(CompositeEventHandler.java:247)
-	at javafx.base@26/com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:80)
-	at javafx.base@26/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:232)
-	at javafx.base@26/com.sun.javafx.event.EventHandlerManager.dispatchBubblingEvent(EventHandlerManager.java:189)
-	at javafx.base@26/com.sun.javafx.event.CompositeEventDispatcher.dispatchBubblingEvent(CompositeEventDispatcher.java:59)
-	at javafx.base@26/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:58)
-	at javafx.base@26/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@26/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@26/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@26/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@26/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@26/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@26/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@26/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@26/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@26/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@26/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@26/com.sun.javafx.event.BasicEventDispatcher.dispatchEvent(BasicEventDispatcher.java:56)
-	at javafx.base@26/com.sun.javafx.event.EventDispatchChainImpl.dispatchEvent(EventDispatchChainImpl.java:114)
-	at javafx.base@26/com.sun.javafx.event.EventUtil.fireEventImpl(EventUtil.java:74)
-	at javafx.base@26/com.sun.javafx.event.EventUtil.fireEvent(EventUtil.java:54)
-	at javafx.base@26/javafx.event.Event.fireEvent(Event.java:199)
-	at javafx.graphics@26/javafx.scene.Scene$MouseHandler.process(Scene.java:4134)
-	at javafx.graphics@26/javafx.scene.Scene.processMouseEvent(Scene.java:1953)
-	at javafx.graphics@26/javafx.scene.Scene$ScenePeerListener.mouseEvent(Scene.java:2802)
-	at javafx.graphics@26/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.get(GlassViewEventHandler.java:353)
-	at javafx.graphics@26/com.sun.javafx.tk.quantum.GlassViewEventHandler$MouseEventNotification.get(GlassViewEventHandler.java:255)
-	at javafx.graphics@26/com.sun.javafx.tk.quantum.QuantumToolkit.runWithoutRenderLock(QuantumToolkit.java:429)
-	at javafx.graphics@26/com.sun.javafx.tk.quantum.GlassViewEventHandler.handleMouseEvent(GlassViewEventHandler.java:387)
-	at javafx.graphics@26/com.sun.glass.ui.View.handleMouseEvent(View.java:573)
-	at javafx.graphics@26/com.sun.glass.ui.View.notifyMouse(View.java:970)
-	at javafx.graphics@26/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
-	at javafx.graphics@26/com.sun.glass.ui.win.WinApplication.lambda$runLoop$0(WinApplication.java:173)
-	at java.base/java.lang.Thread.run(Thread.java:1516)
-Caused by: java.lang.NullPointerException
-	at java.base/java.util.Objects.requireNonNull(Objects.java:220)
-	at java.net.http/jdk.internal.net.http.HttpClientBuilderImpl.cookieHandler(HttpClientBuilderImpl.java:56)
-	at java.net.http/jdk.internal.net.http.HttpClientBuilderImpl.cookieHandler(HttpClientBuilderImpl.java:40)
-	at javafx.web@26/com.sun.webkit.network.HTTP2Loader.<clinit>(HTTP2Loader.java:94)
-	... 39 more
-```
 
 
 
@@ -631,29 +605,6 @@ youtubeWatchVeritasiumCasperMebiusIsManaged is currently disabled
 
 
 fix author extraction for https://www.youtube.com/watch?v=DhZORrqL3xI
-
-
-
-
-
-
-
-
-
-gérer
-
-```
-Title = "Be Careful Where you Send Your Code"
-URL = https://windsurf.com/blog/self-hosting-for-code-security
-Expected status = ZOMBIE
-Effective HTTP code = 307 Temporary Redirect
-Effective HTTP code of last redirection = 200 OK
-Redirection chain = https://windsurf.com/blog/self-hosting-for-code-security → https://windsurf.com/not-found
-Redirection matcher = redirection ending in success (last URL should be used)
-Redirection matcher expected statuses =
-Look for article = https://www.google.com/search?q=%22Be+Careful+Where+you+Send+Your+Code%22
-```
-
 
 
 
@@ -1271,13 +1222,6 @@ il manque le sous-titre pour https://stackoverflow.blog/2022/09/08/this-is-not-y
 
 faire que java.xml soit propre
 
-   
-
-
-
-
-==== after merge =====
-
 nettoyer links/job.xml
 
 certaines des chaines listées dans IncorrectSpaceChecker sons suspectes
@@ -1303,37 +1247,6 @@ https://www.youtube.com/watch?v=b3cTYn6_2sY
 language is "en" but this one is unexpected, the expected languages are: fr
 https://www.youtube.com/watch?v=laty3vXKRek
 language is "ko" but this one is unexpected, the expected languages are: en
-```
-
-gérer
-
-```
-java.lang.UnsupportedOperationException: https://content.time.com/time/world/article/0,8599,2050979,00.html|504→
-    at fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.WellKnownRedirections.getMatch(WellKnownRedirections.java:151)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.getPossibleStatuses(LinkStatusAnalyzer.java:34)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkStatusAnalyzer.doesEffectiveDataMatchesExpectedData(LinkStatusAnalyzer.java:26)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.writeOutputFile(LinkCheckRunner.java:352)
-    at fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:327)
-    at fr.mazure.homepagemanager.data.internet.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-    at fr.mazure.homepagemanager.data.internet.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-    at fr.mazure.homepagemanager.data.internet.AsynchronousSiteDataRetriever.lambda$0(AsynchronousSiteDataRetriever.java:34)
-    at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
-    at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
-    at java.base/java.lang.Thread.run(Thread.java:1589)
-```
-
-gérer
-
-```
-Title = "YouTube"
-URL = https://www.youtube.com/c/ReportPortal
-Expected status = OK
-Effective HTTP code = 302 Found
-Effective HTTP code of last redirection = 200 OK
-Redirection chain = https://www.youtube.com/c/ReportPortal → https://consent.youtube.com/m?continue=https%3A%2F%2Fwww.youtube.com%2Fc%2FReportPortal%3Fcbrd%3D1&gl=FR&m=0&pc=yt&cm=2&hl=en&src=1 → https://consent.youtube.com/ml?continue=https://www.youtube.com/c/ReportPortal?cbrd%3D1&gl=FR&hl=en&cm=2&pc=yt&src=1
-Redirection matcher = redirection ending in success (last URL should be used)
-Redirection matcher expected statuses = 
-Look for article = https://www.google.com/search?q=%22YouTube%22
 ```
 
 crash sur URL tps://lekitblob.fr/en/blob-main-page (il manque les deux premier caractères)
@@ -1412,8 +1325,6 @@ Homepage Taper esc devrait fermer la recherche
 ne pas tout reconstruire à partir du moment où un seul des fichiers résultats n'est plus à jour
 
 mettre en place https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details
-
-data.linkchecker.ContentParserException: Failed to check data of "https://developer.ibm.com/articles/wa-ecmascript6-neward-p1/"
 
 spin off de la page
 - dev tools
