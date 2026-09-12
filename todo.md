@@ -242,8 +242,6 @@ Look for article = https://www.google.com/search?q=%22Always+Fix+Broken+Windows%
 
 
 repair unit test
-- fr.mazure.homepagemanager.data.linkchecker.test.LinkContentParserTest.testLanguageForEnglishArticle(String)
-- fr.mazure.homepagemanager.data.linkchecker.test.LinkContentParserTest.testLanguageForFrenchArticle(String)
 - fr.mazure.homepagemanager.data.nodechecker.test.IncorrectSpaceCheckerTest.stringsAreProperlyDividedAtApostrophe()
 
 
