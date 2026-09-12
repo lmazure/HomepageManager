@@ -57,20 +57,6 @@ methods       53.9%    97.9%
 
 
 
-the site map is broken locally
-
-
-
-
-
-
-
-## To do for next issue
-
-
-
-
-
 
 
 
@@ -83,6 +69,13 @@ add parser for `https://lucumr.pocoo.org/2026/8/19/what-is-reasoning/`
 
 add parser for `https://inside.java/2026/08/20/podcast-067/`
 
+
+
+
+
+
+
+## To do for next issue
 
 
 
@@ -120,33 +113,6 @@ regenerate the stats
 
 
 ## To do 
-
-
-
-
-manage
-
-```
-https://newsletter.pragmaticengineer.com/p/ai-tools-for-software-engineers-simon-willison
-The list of formats is not the expected one.
-expected formats: [MP3]
-effective formats: [HTML]
-```
-
-```
-https://newsletter.pragmaticengineer.com/p/building-pi-and-what-makes-self-modifying
-The list of formats is not the expected one.
-expected formats: [MP3]
-effective formats: [HTML]
-```
-
-
-```
-https://newsletter.pragmaticengineer.com/p/opencode
-The list of formats is not the expected one.
-expected formats: [MP3]
-effective formats: [HTML]
-```
 
 
 
