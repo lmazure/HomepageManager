@@ -549,6 +549,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                                             match("Clyburn", WellKnownAuthors.buildAuthor("Cedric", "Clyburn")),
                                                                             match("Crume", WellKnownAuthors.buildAuthor("Jeff", "Crume")),
                                                                             match("Gilardi", WellKnownAuthors.buildAuthor("David", "Jones-Gilardi")),
+                                                                            match("Miller", WellKnownAuthors.buildAuthor("Grant", "Miller")),
                                                                             match("Ke\\W", WellKnownAuthors.buildAuthor("Isaac", "Ke")),
                                                                             match("Keen", WellKnownAuthors.buildAuthor("Martin", "Keen")),
                                                                             match("Dobson", WellKnownAuthors.buildAuthor("Michael", "Dobson")),
