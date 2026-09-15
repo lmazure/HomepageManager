@@ -163,6 +163,11 @@ public class HttpHelper {
         s_minDelayPerSite.put("www.compart.com", Integer.valueOf(1000));
         s_minDelayPerSite.put("en.wikipedia.org", Integer.valueOf(1000));
         s_minDelayPerSite.put("fr.wikipedia.org", Integer.valueOf(1000));
+        // the next sites are for medium.com
+        s_minDelayPerSite.put("medium.com", Integer.valueOf(500));
+        s_minDelayPerSite.put("pub.towardsai.net", Integer.valueOf(500));
+        s_minDelayPerSite.put("levelup.gitconnected.com", Integer.valueOf(500));
+        s_minDelayPerSite.put("blog.stackademic.com", Integer.valueOf(500));
     }
     /**
      * Ensure that the site is not called too often, sleep if necessary

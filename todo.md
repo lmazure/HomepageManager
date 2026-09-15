@@ -61,25 +61,7 @@ in history.xml
 line 0: the file violates the schema ("org.xml.sax.SAXParseException; lineNumber: 155; columnNumber: 916; cvc-complex-type.2.4.a: Invalid content was found starting with element 'FIRSTNAME'. One of '{NAMESUFFIX, GIVENNAME}' is expected.")
 ```
 
-manage
 
-```
-fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://levelup.gitconnected.com/git-worktrees-the-best-git-feature-youve-never-heard-of-9cd21df67baf"
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:86)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:339)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
-	at java.base/java.lang.Thread.run(Thread.java:1516)
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find title in Medium
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.TextParser.extract(TextParser.java:61)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentParser.loadData(MediumLinkContentParser.java:188)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.medium.MediumLinkContentParser.<init>(MediumLinkContentParser.java:88)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:57)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:95)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:84)
-	... 5 more
-```
 
 
 ## To do for next issue
