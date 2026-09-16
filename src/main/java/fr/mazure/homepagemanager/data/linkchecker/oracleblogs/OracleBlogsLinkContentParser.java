@@ -345,7 +345,8 @@ public class OracleBlogsLinkContentParser extends LinkDataExtractor {
                               Optional.ofNullable(middleName),
                               Optional.of(lastName),
                               Optional.empty(),
-                              Optional.empty());
+                              Optional.empty(),
+                              AuthorData.NameOrder.WESTERN);
     }
 
     @Override

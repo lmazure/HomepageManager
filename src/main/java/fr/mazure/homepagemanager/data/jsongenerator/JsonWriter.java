@@ -104,6 +104,11 @@ public class JsonWriter {
                     out.write("\n      \"givenName\" : \"" + jsonEscape(author.getGivenName().get()) + "\"");
                     isAComponentWritten = true;
                 }
+                if (isAComponentWritten) {
+                    out.write(",");
+                }
+                out.write("\n      \"order\" : \"" + author.getOrder().name().toLowerCase() + "\"");
+                isAComponentWritten = true;
                 if (author.getLinks().length > 0) {
                     if (isAComponentWritten) {
                         out.write(",");

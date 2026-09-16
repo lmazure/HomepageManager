@@ -39,7 +39,8 @@ public class AuthorFactory {
                                          authorData.getMiddleName(),
                                          authorData.getLastName(),
                                          authorData.getNameSuffix(),
-                                         authorData.getGivenName());
+                                         authorData.getGivenName(),
+                                         authorData.getOrder());
         _authors.put(encodedName, author);
         return author;
     }
@@ -77,6 +78,7 @@ public class AuthorFactory {
             authorData.getFirstName().orElse("") + '\n' +
             authorData.getMiddleName().orElse("") + '\n' +
             authorData.getNamePrefix().orElse("") + '\n' +
-            authorData.getNameSuffix().orElse("");
+            authorData.getNameSuffix().orElse("") + '\n' +
+            authorData.getOrder().name();
     }
 }

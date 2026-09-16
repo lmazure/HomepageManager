@@ -47,7 +47,8 @@ public class LinkContentParserUtils {
                                   Optional.empty(),
                                   Optional.of(formatName(nameParts[1])),
                                   Optional.empty(),
-                                  Optional.empty());
+                                  Optional.empty(),
+                                  AuthorData.NameOrder.WESTERN);
         }
         if (nameParts.length == 1) {
             return new AuthorData(Optional.empty(),
@@ -55,7 +56,8 @@ public class LinkContentParserUtils {
                                   Optional.empty(),
                                   Optional.empty(),
                                   Optional.empty(),
-                                  Optional.of(nameParts[0]));
+                                  Optional.of(nameParts[0]),
+                                  AuthorData.NameOrder.WESTERN);
         }
         if (nameParts.length == 3) {
             if (isParticle(nameParts[1])) {
@@ -64,14 +66,16 @@ public class LinkContentParserUtils {
                                       Optional.empty(),
                                       Optional.of(properCaseParticle(nameParts[1]) + " " + formatName(nameParts[2])),
                                       Optional.empty(),
-                                      Optional.empty());
+                                      Optional.empty(),
+                                      AuthorData.NameOrder.WESTERN);
             }
             return new AuthorData(Optional.empty(),
                                   Optional.of(formatName(nameParts[0])),
                                   Optional.of(formatName(nameParts[1])),
                                   Optional.of(formatName(nameParts[2])),
                                   nameSuffix,
-                                  Optional.empty());
+                                  Optional.empty(),
+                                  AuthorData.NameOrder.WESTERN);
         }
         if ((nameParts.length == 4)) {
             if (isParticle(nameParts[2])) {
@@ -80,7 +84,8 @@ public class LinkContentParserUtils {
                                       Optional.of(formatName(nameParts[1])),
                                       Optional.of(properCaseParticle(nameParts[2]) + " " + formatName(nameParts[3])),
                                       Optional.empty(),
-                                      Optional.empty());
+                                      Optional.empty(),
+                                      AuthorData.NameOrder.WESTERN);
             }
             if (isDoubleParticle(nameParts[1], nameParts[2])) {
                 return new AuthorData(Optional.empty(),
@@ -88,7 +93,8 @@ public class LinkContentParserUtils {
                                       Optional.empty(),
                                       Optional.of(nameParts[1].toLowerCase() + " " + nameParts[2].toLowerCase() + " " + formatName(nameParts[3])),
                                       Optional.empty(),
-                                      Optional.empty());
+                                      Optional.empty(),
+                                      AuthorData.NameOrder.WESTERN);
             }
             if ((nameParts[2].startsWith("\"") || nameParts[2].startsWith("“")) &&
                 (nameParts[2].endsWith("\"") || nameParts[2].endsWith("”"))) {
@@ -97,21 +103,24 @@ public class LinkContentParserUtils {
                                       Optional.of(formatName(nameParts[1])),
                                       Optional.of(formatName(nameParts[3])),
                                       Optional.empty(),
-                                      Optional.of(formatName(nameParts[2].substring(1, nameParts[2].length() - 1))));
+                                      Optional.of(formatName(nameParts[2].substring(1, nameParts[2].length() - 1))),
+                                      AuthorData.NameOrder.WESTERN);
             }
             return new AuthorData(Optional.empty(),
                                   Optional.of(formatName(nameParts[0])),
                                   Optional.of(formatName(nameParts[1])),
                                   Optional.of(formatName(nameParts[2]) + " " + formatName(nameParts[3])),
                                   Optional.empty(),
-                                  Optional.empty());
+                                  Optional.empty(),
+                                  AuthorData.NameOrder.WESTERN);
         }
         return new AuthorData(Optional.empty(),
                               Optional.empty(),
                               Optional.empty(),
                               Optional.empty(),
                               Optional.empty(),
-                              Optional.of(str));
+                              Optional.of(str),
+                              AuthorData.NameOrder.WESTERN);
     }
 
     private static boolean isParticle(final String str) {

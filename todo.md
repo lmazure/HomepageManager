@@ -55,16 +55,33 @@ methods       53.9%    97.9%
 ## Must be done in this issue
 
 
-in history.xml
 
-```
-line 0: the file violates the schema ("org.xml.sax.SAXParseException; lineNumber: 155; columnNumber: 916; cvc-complex-type.2.4.a: Invalid content was found starting with element 'FIRSTNAME'. One of '{NAMESUFFIX, GIVENNAME}' is expected.")
-```
+
+Eastern author name
+- test on a real author name: check that the display and sort are correct in the overview tables
+
+
 
 
 
 
 ## To do for next issue
+
+
+
+
+
+manage
+
+```
+https://newsletter.pragmaticengineer.com/p/how-to-work-better-with-product-as
+The list of effective authors is not the effective one.
+The following authors are effectively present but are unexpected: ▭ ▭ ▭ ▭ ▭ given=Product, as an Engineer with Ebi Atawodi
+The following authors are expected but are effectively missing: ▭ first=Ebi ▭ last=Atawodi ▭ ▭
+Expected 2 links (https://newsletter.pragmaticengineer.com/p/how-to-work-better-with-product-as, https://www.youtube.com/watch?v=f4AGAeVe2Jw), but got 1 links (https://newsletter.pragmaticengineer.com/p/how-to-work-better-with-product-as)
+```
+
+
 
 
 

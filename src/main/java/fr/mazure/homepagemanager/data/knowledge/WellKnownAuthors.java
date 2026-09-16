@@ -70,7 +70,8 @@ public class WellKnownAuthors {
                               Optional.empty(),
                               Optional.of(lastName),
                               Optional.empty(),
-                              Optional.empty());
+                              Optional.empty(),
+                              AuthorData.NameOrder.WESTERN);
     }
 
     /**
@@ -89,7 +90,8 @@ public class WellKnownAuthors {
                               Optional.of(middleName),
                               Optional.of(lastName),
                               Optional.empty(),
-                              Optional.empty());
+                              Optional.empty(),
+                              AuthorData.NameOrder.WESTERN);
     }
 
    /**
@@ -108,7 +110,8 @@ public class WellKnownAuthors {
                               Optional.empty(),
                               Optional.of(lastName),
                               Optional.empty(),
-                              Optional.of(givenName));
+                              Optional.of(givenName),
+                              AuthorData.NameOrder.WESTERN);
     }
 
 
@@ -128,7 +131,8 @@ public class WellKnownAuthors {
                                Optional.empty(),
                                Optional.of(lastName),
                                Optional.of(suffix),
-                               Optional.empty());
+                               Optional.empty(),
+                               AuthorData.NameOrder.WESTERN);
      }
 
     /**
@@ -143,7 +147,8 @@ public class WellKnownAuthors {
                               Optional.empty(),
                               Optional.empty(),
                               Optional.empty(),
-                              Optional.of(givenName));
+                              Optional.of(givenName),
+                              AuthorData.NameOrder.WESTERN);
     }
 
     /**
@@ -158,6 +163,7 @@ public class WellKnownAuthors {
                               Optional.empty(),
                               Optional.empty(),
                               Optional.empty(),
-                              Optional.empty());
+                              Optional.empty(),
+                              AuthorData.NameOrder.WESTERN);
     }
 }

@@ -460,6 +460,7 @@ public class LinkContentChecker implements Checker {
         final Optional<String> lastName = author.getLastName().map(s -> s.replace("’", "'"));
         final Optional<String> nameSuffix = author.getNameSuffix();
         final Optional<String> givenName = author.getGivenName();
-        return new AuthorData(namePrefix, firstName, middleName, lastName, nameSuffix, givenName);
+        final AuthorData.NameOrder order = author.getOrder();
+        return new AuthorData(namePrefix, firstName, middleName, lastName, nameSuffix, givenName, order);
     }
 }

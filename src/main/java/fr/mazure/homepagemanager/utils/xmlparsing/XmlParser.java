@@ -271,7 +271,11 @@ public class XmlParser {
             throw new XmlParsingException("Wrong number of GIVENNAME nodes (" + givenNameList.getLength() + ") in string \"" + authorElement.getTextContent() + "\"");
         }
 
-        return new AuthorData(namePrefix, firstName, middleName, lastName, nameSuffix, givenName);
+        final Attr orderAttribute = authorElement.getAttributeNode("order");
+        final AuthorData.NameOrder order = (orderAttribute != null) ? AuthorData.NameOrder.parse(orderAttribute.getValue())
+                                                                    : AuthorData.NameOrder.WESTERN;
+
+        return new AuthorData(namePrefix, firstName, middleName, lastName, nameSuffix, givenName, order);
     }
 
     /**

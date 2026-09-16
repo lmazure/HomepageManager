@@ -1,10 +1,13 @@
 package fr.mazure.homepagemanager.data.linkchecker.substack.test;
 
+import java.util.Optional;
+
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import fr.mazure.homepagemanager.data.linkchecker.substack.SubstackLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase;
+import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 
 /**
  *  Tests of SubstackLinkContentParser class
@@ -112,13 +115,15 @@ class SubstackLinkContentParserTest extends LinkDataExtractorTestBase {
                                                           Optional.empty(),
                                                           Optional.empty(),
                                                           Optional.empty(),
-                                                          Optional.of("PromptArmor"));
+                                                          Optional.of("PromptArmor"),
+                                                          NameOrder.WESTERN);
         final AuthorData expectedAuthor2 = new AuthorData(Optional.empty(),
                                                           Optional.of("Kai"),
                                                           Optional.empty(),
                                                           Optional.of("Greshake"),
                                                           Optional.empty(),
-                                                          Optional.empty());
+                                                          Optional.empty(),
+                                                          NameOrder.WESTERN);
         final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String url = "https://promptarmor.substack.com/p/data-exfiltration-from-writercom";

@@ -30,7 +30,13 @@ import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 public class GithubBlogLinkContentParser extends LinkDataExtractor {
 
     private static final String s_sourceName = "GitHub blog";
-    private static final AuthorData s_githubStaff = new AuthorData(Optional.empty(), Optional.of("GitHub"), Optional.empty(), Optional.of("Staff"), Optional.empty(), Optional.empty());
+    private static final AuthorData s_githubStaff = new AuthorData(Optional.empty(),
+                                                                   Optional.of("GitHub"),
+                                                                   Optional.empty(),
+                                                                   Optional.of("Staff"),
+                                                                   Optional.empty(),
+                                                                   Optional.empty(),
+                                                                   AuthorData.NameOrder.WESTERN);
 
     private boolean _dataIsLoaded;
     private String _title;

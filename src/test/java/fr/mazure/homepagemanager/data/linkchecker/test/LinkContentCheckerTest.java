@@ -194,7 +194,7 @@ class LinkContentCheckerTest {
         final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final LinkData linkData = new LinkData(title, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, LinkQuality.AVERAGE, Optional.empty(), null, Optional.empty());
-        final AuthorData author = new AuthorData(Optional.empty(), Optional.of(firstName), Optional.empty(), Optional.of(lastName), Optional.empty(), Optional.empty());
+        final AuthorData author = new AuthorData(Optional.empty(), Optional.of(firstName), Optional.empty(), Optional.of(lastName), Optional.empty(), Optional.empty(), AuthorData.NameOrder.WESTERN);
         final ArticleData articleData = new ArticleData(Optional.empty(), Collections.singletonList(author), null, null);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
@@ -227,7 +227,7 @@ class LinkContentCheckerTest {
         final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final LinkData linkData = new LinkData(title, new String[0], url, null, null, new LinkFormat[] { LinkFormat.HTML }, new Locale[] { Locale.forLanguageTag(locale) }, LinkQuality.AVERAGE, Optional.empty(), null, Optional.empty());
-        final AuthorData author = new AuthorData(Optional.empty(), Optional.of(firstName), Optional.empty(), Optional.of(lastName), Optional.empty(), Optional.empty());
+        final AuthorData author = new AuthorData(Optional.empty(), Optional.of(firstName), Optional.empty(), Optional.of(lastName), Optional.empty(), Optional.empty(), AuthorData.NameOrder.WESTERN);
         final ArticleData articleData = new ArticleData(Optional.empty(), Collections.singletonList(author), null, null);
         retriever.retrieve(url,
                            (final FullFetchedLinkData d) -> {
