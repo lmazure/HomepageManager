@@ -107,7 +107,8 @@ public class DwarkeshPodcastLinkContentParser extends LinkDataExtractor {
         }
         _authors.add(WellKnownAuthors.DWARKESH_PATEL);
 
-        final Optional<String> youtubeLink = YouTubeHelper.getVideoURL("Dwarkesh Patel", _title, getRetriever());
+        // we use the fact that Dwarkesh writes the URL in the video description to find this one
+        final Optional<String> youtubeLink = YouTubeHelper.getVideoURL("Dwarkesh Patel", url, getRetriever());
         _otherLink = getOtherLinkFromYouTube(youtubeLink);
 
         _creationDate = DateTimeHelper.getMinTemporalAccessor(_publicationDate, _otherLink.map(link -> link.publicationDate().get()));
