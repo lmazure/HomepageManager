@@ -58,9 +58,88 @@ methods       53.9%    97.9%
 
 
 Eastern author name
-- test on a real author name: check that the display and sort are correct in the overview tables
+- test on a real author name (→ Lè) : check that the display and sort are correct in the overview tables
+- fix the problems reported by Claude, see below
+- fix <AUTHOR order="eastern"><FIRSTNAME>Nguyên Hoang</FIRSTNAME><LASTNAME>Lê</LASTNAME></AUTHOR> in the well-known authors
+- generate an error if the order is not always the same for a given author 
 
 
+Here's the rule applied: firstName always holds the given name, lastName the family name, and order decides only how it renders. So an eastern-order name is not stored backwards — it's stored the same way as everyone else and tagged "eastern".
+
+Confirmed: store correctly + tag eastern
+json
+{ "firstName": "Hua",      "lastName": "Zhang", "order": "eastern" }
+{ "firstName": "Hao",      "lastName": "Xu",    "order": "eastern" }
+{ "firstName": "Ling",     "lastName": "Luo",   "order": "eastern" }
+{ "firstName": "Yao",      "lastName": "Huang", "order": "eastern" }
+{ "firstName": "Zuo Lin",  "lastName": "Liu",   "order": "eastern" }
+{ "firstName": "Mook Kim", "lastName": "Yong",  "order": "eastern" }
+{ "firstName": "Jenn Wei", "lastName": "Hee",   "order": "eastern" }
+{ "firstName": "Hoang", "middleName": "Nguyên", "lastName": "Lê", "order": "eastern" }
+
+All of these render exactly as they did before — "Zhang Hua", "Xu Hao", "Liu Zuo Lin", "Yong Mook Kim", "Lê Nguyên Hoang" — but the fields now mean what they say.
+
+Two notes on the splits. Chinese given names of two syllables (Zuo Lin) are a single given name, not a middle name, so they belong whole in firstName. Vietnamese is three-part, so Lê Nguyên Hoang genuinely takes a middleName.
+
+Inverted, but western (Finnish)
+
+Two Finnish entries have the same problem with no eastern component:
+
+json
+{ "firstName": "Atte",   "lastName": "Helminen", "order": "western" }
+{ "firstName": "Pentti", "lastName": "Haapanen", "order": "western" }
+Already correct — leave alone
+
+Jey / Han / Lau, Yang Guo, Xie Chen, Cheng Long Liu, Mu Qiao Pan, Ling Xiao Sun, Ka Wai Cheung, Emma Haruka Iwao. These publish in western order and the fields already reflect it.
+
+Your call
+Li Ge → if Li is the surname: {"firstName": "Ge", "lastName": "Li", "order": "eastern"}. Both are plausible surnames; depends on the source.
+Poh Nean → Poh is a common Malaysian-Chinese surname, but "Poh Nean" could equally be a two-syllable given name with the surname missing entirely.
+Vũ Ngọc
+
+This one can't be expressed cleanly by the schema, which is why I flagged it badly last time. The native form is Vũ (family) / Ngọc (middle) / San (given), so:
+
+"eastern" renders Vũ Ngọc San — correct Vietnamese
+"western" with a proper middle-name split renders San Ngọc Vũ — a form nobody uses
+
+He publishes as San Vũ Ngọc, which is neither. The only way to produce it is to treat "Vũ Ngọc" as a compound family name, i.e. the entry you already have. So I'd keep it as-is and just collapse the duplicates — San Vũ, San Vũ Ngọc, and Sam Vũ Ngọc (typo) are one person:
+
+json
+{ "firstName": "San", "lastName": "Vũ Ngọc", "order": "western" }
+
+If you'd rather be linguistically accurate than match his byline, switch to {"firstName": "San", "middleName": "Ngọc", "lastName": "Vũ", "order": "eastern"} instead.
+
+I can write these into the file as a patch if you upload it — the document came through as text in the conversation, so I don't have it on disk to edit.
+
+
+
+
+
+
+manage
+
+```
+java.lang.IllegalStateException: Exception while retrieving https://www.baeldung.com/crawler4j
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.perform(LinkDataExtractorTestBase.java:469)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.checkCreationDate(LinkDataExtractorTestBase.java:87)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.baeldung.test.BaeldungLinkContentParserTest.testDate(BaeldungLinkContentParserTest.java:37)
+Caused by: java.lang.RuntimeException: Error while invoking the constructor
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:488)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.lambda$10(LinkDataExtractorTestBase.java:472)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
+	... 4 more
+Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find title in Baeldung
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.TextParser.extract(TextParser.java:61)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.baeldung.BaeldungLinkContentParser.<init>(BaeldungLinkContentParser.java:65)
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:483)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:486)
+	... 7 more
+```
 
 
 
@@ -138,6 +217,13 @@ regenerate the stats
 
 
 ## To do 
+
+
+
+- GIVENNAME is very misleading since it can mean firstname
+
+
+
 
 
 
