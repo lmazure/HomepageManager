@@ -1,13 +1,10 @@
 package fr.mazure.homepagemanager.data.linkchecker.substack.test;
 
-import java.util.Optional;
-
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import fr.mazure.homepagemanager.data.linkchecker.substack.SubstackLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase;
-import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 
 /**
  *  Tests of SubstackLinkContentParser class
