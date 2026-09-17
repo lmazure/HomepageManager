@@ -8,6 +8,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
+import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData.NameOrder;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkProtection;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkStatus;
@@ -101,7 +102,11 @@ public class XmlGenerator {
 
     private static String generateAuthor(final AuthorData authorData) {
         final StringBuilder builder = new StringBuilder();
-        builder.append("<AUTHOR>");
+        if (authorData.getOrder() == NameOrder.EASTERN) {
+            builder.append("<AUTHOR order=\"eastern\">");
+        } else {
+            builder.append("<AUTHOR>");
+        }
         if (authorData.getNamePrefix().isPresent()) {
             builder.append("<NAMEPREFIX>")
                    .append(XmlHelper.transform(authorData.getNamePrefix().get()))
