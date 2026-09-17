@@ -127,7 +127,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>#449 – Graham Hancock: Lost Civilization of the Ice Age &amp; Ancient Human History</T>\
                 <A>https://lexfridman.com/graham-hancock</A>\
-                <L>en</L><F>MP3</F><DURATION><HOUR>2</HOUR><MINUTE>41</MINUTE><SECOND>33</SECOND></DURATION></X>\
+                <L>en</L><F>MP3</F><DURATION><HOUR>2</HOUR><MINUTE>41</MINUTE><SECOND>34</SECOND></DURATION></X>\
                 <X><T>Graham Hancock: Lost Civilization of the Ice Age &amp; Ancient Human History | Lex Fridman Podcast #449</T>\
                 <A>https://www.youtube.com/watch?v=NMHiLvirCb0</A>\
                 <L>en</L><F>MP4</F><DURATION><HOUR>2</HOUR><MINUTE>33</MINUTE><SECOND>2</SECOND></DURATION></X>\
@@ -147,7 +147,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>#452 – Dario Amodei: Anthropic CEO on Claude, AGI &amp; the Future of AI &amp; Humanity</T>\
                 <A>https://lexfridman.com/dario-amodei</A>\
-                <L>en</L><F>MP3</F><DURATION><HOUR>5</HOUR><MINUTE>22</MINUTE><SECOND>13</SECOND></DURATION></X>\
+                <L>en</L><F>MP3</F><DURATION><HOUR>5</HOUR><MINUTE>22</MINUTE><SECOND>14</SECOND></DURATION></X>\
                 <X><T>Dario Amodei: Anthropic CEO on Claude, AGI &amp; the Future of AI &amp; Humanity | Lex Fridman Podcast #452</T>\
                 <A>https://www.youtube.com/watch?v=ugvHCXCOmm4</A>\
                 <L>en</L><F>MP4</F><DURATION><HOUR>5</HOUR><MINUTE>15</MINUTE><SECOND>1</SECOND></DURATION></X>\
@@ -187,7 +187,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>#118 – Grant Sanderson: Math, Manim, Neural Networks &amp; Teaching with 3Blue1Brown</T>\
                 <A>https://lexfridman.com/grant-sanderson-2</A>\
-                <L>en</L><F>MP3</F><DURATION><HOUR>2</HOUR><MINUTE>8</MINUTE><SECOND>52</SECOND></DURATION></X>\
+                <L>en</L><F>MP3</F><DURATION><HOUR>2</HOUR><MINUTE>8</MINUTE><SECOND>53</SECOND></DURATION></X>\
                 <X><T>Grant Sanderson: Math, Manim, Neural Networks &amp; Teaching with 3Blue1Brown | Lex Fridman Podcast #118</T>\
                 <A>https://www.youtube.com/watch?v=U_6AYX42gkU</A>\
                 <L>en</L><F>MP4</F><DURATION><HOUR>2</HOUR><MINUTE>8</MINUTE><SECOND>26</SECOND></DURATION>\
@@ -293,7 +293,7 @@ class LinkDataExtractorTest {
         final String expectedXml = """
                 <ARTICLE><X><T>Fermat’s Last Theorem - with Ken Ribet</T>\
                 <A>https://www.numberphile.com/podcast/2018/11/21/fermats-last-theorem-with-ken-ribet</A>\
-                <L>en</L><F>MP3</F><DURATION><MINUTE>48</MINUTE><SECOND>22</SECOND></DURATION></X>\
+                <L>en</L><F>MP3</F><DURATION><MINUTE>48</MINUTE><SECOND>23</SECOND></DURATION></X>\
                 <X><T>Fermat’s Last Theorem (with Ken Ribet) - Numberphile Podcast</T>\
                 <A>https://www.youtube.com/watch?v=NPOw4iIxN6o</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>48</MINUTE><SECOND>23</SECOND></DURATION>\
@@ -374,7 +374,7 @@ class LinkDataExtractorTest {
                 <ARTICLE><X><T>The third golden age of software engineering – thanks to AI, with Grady Booch</T>\
                 <ST>I sit down with Grady Booch to put today’s AI automation claims in historical context and explain why software engineering is entering another golden age, not disappearing.</ST>\
                 <A>https://newsletter.pragmaticengineer.com/p/the-third-golden-age-of-software</A>\
-                <L>en</L><F>HTML</F><DURATION><HOUR>1</HOUR><MINUTE>17</MINUTE><SECOND>5</SECOND></DURATION></X>\
+                <L>en</L><F>MP3</F><DURATION><HOUR>1</HOUR><MINUTE>17</MINUTE><SECOND>5</SECOND></DURATION></X>\
                 <X><T>The third golden age of software engineering – thanks to AI, with Grady Booch</T>\
                 <A>https://www.youtube.com/watch?v=OfMAtaocvJw</A>\
                 <L>en</L><F>MP4</F><DURATION><HOUR>1</HOUR><MINUTE>17</MINUTE><SECOND>5</SECOND></DURATION></X>\
@@ -2872,9 +2872,9 @@ class LinkDataExtractorTest {
         Assertions.assertEquals(expectedXml, generateSureXml(extractor));
         Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
         Assertions.assertEquals(3, extractor.getPossibleAuthors().size());
-        Assertions.assertEquals("▭ first=Michelle ▭ last=Barboza-Ramirez ▭ ▭", extractor.getPossibleAuthors().get(0).toString());
-        Assertions.assertEquals("▭ first=Kallie ▭ last=Moore ▭ ▭", extractor.getPossibleAuthors().get(1).toString());
-        Assertions.assertEquals("▭ first=Blake ▭ last=de Pastino ▭ ▭", extractor.getPossibleAuthors().get(2).toString());
+        Assertions.assertEquals("▭ first=Michelle ▭ last=Barboza-Ramirez ▭ ▭ order=western", extractor.getPossibleAuthors().get(0).toString());
+        Assertions.assertEquals("▭ first=Kallie ▭ last=Moore ▭ ▭ order=western", extractor.getPossibleAuthors().get(1).toString());
+        Assertions.assertEquals("▭ first=Blake ▭ last=de Pastino ▭ ▭ order=western", extractor.getPossibleAuthors().get(2).toString());
     }
 
     @Test
@@ -3105,7 +3105,7 @@ class LinkDataExtractorTest {
                 <ARTICLE><X><T>Trafiquant d'humains et marchand de haine #FacebookFiles</T>\
                 <A>https://www.youtube.com/watch?v=sAjm3-IaRtI</A>\
                 <L>fr</L><F>MP4</F><DURATION><MINUTE>38</MINUTE><SECOND>53</SECOND></DURATION></X>\
-                <AUTHOR><FIRSTNAME>Lê</FIRSTNAME><LASTNAME>Nguyên Hoang</LASTNAME></AUTHOR>\
+                <AUTHOR order="eastern"><FIRSTNAME>Hoang</FIRSTNAME><MIDDLENAME>Nguyên</MIDDLENAME><LASTNAME>Lê</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2021</YEAR><MONTH>12</MONTH><DAY>6</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
