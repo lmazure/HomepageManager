@@ -98,6 +98,59 @@ failing unit tests
 
 
 
+manage
+
+```
+Exception in thread "pool-2-thread-4" java.lang.IllegalStateException: Exception while retrieving https://blog.ippon.fr/2014/03/18/java-8-interfaces-fonctionnelles/
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SiteSlurper.getLinkData(SiteSlurper.java:49)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+Caused by: java.lang.NullPointerException: Cannot invoke "java.util.List.get(int)" because "l" is null
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.HttpHelper.getResponseCodeFromHeaders(HttpHelper.java:118)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:107)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
+	... 6 more
+Exception in thread "pool-2-thread-2" java.lang.IllegalStateException: Exception while retrieving https://blog.ippon.fr/2014/03/19/java-8-gestion-du-temps/
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SiteSlurper.getLinkData(SiteSlurper.java:49)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+Caused by: java.lang.NullPointerException: Cannot invoke "java.util.List.get(int)" because "l" is null
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.HttpHelper.getResponseCodeFromHeaders(HttpHelper.java:118)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:107)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
+	... 6 more
+Exception in thread "pool-2-thread-3" java.lang.IllegalStateException: Exception while retrieving https://blog.ippon.fr/2014/03/17/api-stream-une-nouvelle-facon-de-gerer-les-collections-en-java-8/
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SiteSlurper.getLinkData(SiteSlurper.java:49)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1516)
+Caused by: java.lang.NullPointerException: Cannot invoke "java.util.List.get(int)" because "l" is null
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.HttpHelper.getResponseCodeFromHeaders(HttpHelper.java:118)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:107)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
+	... 6 more
+```
+
+## To do for next issue
+
+
+
+
+add missing comments
+
+
+
 
 manage
 
@@ -108,8 +161,6 @@ manage
  detail = "TITLE "shot-scraper" must start with an uppercase"
 ```
 
-
-## To do for next issue
 
 
 
