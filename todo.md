@@ -57,14 +57,6 @@ methods       53.9%    97.9%
 
 
 
-Eastern author name
-- test on a real author name (→ Lè) : check that the display and sort are correct in the overview tables
-- fix <AUTHOR order="eastern"><FIRSTNAME>Nguyên Hoang</FIRSTNAME><LASTNAME>Lê</LASTNAME></AUTHOR> in the well-known authors
-- generate an error if the order is not always the same for a given author 
-
-
-
-
 
 manage
 
@@ -233,6 +225,17 @@ regenerate the stats
 
 
 ## To do 
+
+
+
+
+
+
+support of Eastern author names
+- generate an error if the order is not always the same for a given author 
+
+
+
 
 
 

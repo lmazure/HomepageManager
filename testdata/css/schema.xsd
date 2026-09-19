@@ -109,6 +109,7 @@
     <xs:element ref="MATH"/>
     <xs:element ref="MERMAID"/>
     <xs:element ref="TEXTBLOCK"/>
+    <xs:element ref="TEXT"/>
     <xs:element ref="CODEMENU"/>
     <xs:element ref="CODESAMPLE"/>
     <xs:element ref="CODEROUTINE"/>
@@ -350,6 +351,8 @@
 </xs:element>
 
 <xs:element name="TEXTBLOCK" type="content"/>
+
+<xs:element name="TEXT" type="content"/>
 
 <xs:element name="MATH" type="xs:string"/>
 

@@ -73,6 +73,7 @@ public enum ElementType {
     TERM,
     TERM1,
     TERM2,
+    TEXT,
     TEXTBLOCK,
     TITLE,
     U,
