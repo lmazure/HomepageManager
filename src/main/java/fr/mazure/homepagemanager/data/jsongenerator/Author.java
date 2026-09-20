@@ -105,14 +105,16 @@ public class Author extends AuthorData implements Comparable<Author> {
      * @param lastName Last name
      * @param nameSuffix Name suffix
      * @param givenName Given name
+     * @param order Name order
      */
     public Author(final Optional<String> namePrefix,
                   final Optional<String> firstName,
                   final Optional<String> middleName,
                   final Optional<String> lastName,
                   final Optional<String> nameSuffix,
-                  final Optional<String> givenName) {
-        super(namePrefix, firstName, middleName, lastName, nameSuffix, givenName);
+                  final Optional<String> givenName,
+                  final NameOrder order) {
+        super(namePrefix, firstName, middleName, lastName, nameSuffix, givenName, order);
         _sortingKey = new SortingKey(namePrefix, firstName, middleName, lastName, nameSuffix, givenName);
         _articles = new ArrayList<>();
         _links = new ArrayList<>();

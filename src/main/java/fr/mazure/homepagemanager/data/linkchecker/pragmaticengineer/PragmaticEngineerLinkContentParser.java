@@ -147,7 +147,7 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
 
     @Override
     public LinkFormat[] getFormats() {
-        return new LinkFormat[] { LinkFormat.HTML };
+        return new LinkFormat[] { LinkFormat.MP3 };
     }
 
     @Override

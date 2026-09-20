@@ -52,15 +52,18 @@ methods       53.9%    97.9%
 
 
 
+
+## Urgent - to be fixed before publication
+
+
+
+
+
+
+
+
+
 ## Must be done in this issue
-
-
-
-
-the site map is broken locally
-
-
-
 
 
 
@@ -69,6 +72,62 @@ the site map is broken locally
 
 
 
+
+https://www.dwarkesh.com/p/openai-huggingface
+subtitle "The whole OpenAI/Hugging Face story in plain English" should not be present
+
+
+
+
+
+implement quick fix for "is after page date" (set the date to today)
+
+
+
+
+
+
+
+get rid of YouTube RSS feeds (after checking once again that there is no workarounds)
+
+
+
+
+
+add missing comments
+
+
+
+
+manage
+
+```
+ tag = "TITLE"
+ value = "shot-scraper"
+ violation = "a TITLE must start with an uppercase letter"
+ detail = "TITLE "shot-scraper" must start with an uppercase"
+```
+
+
+
+
+
+
+manage
+
+```
+https://newsletter.pragmaticengineer.com/p/how-to-work-better-with-product-as
+The list of effective authors is not the effective one.
+The following authors are effectively present but are unexpected: ▭ ▭ ▭ ▭ ▭ given=Product, as an Engineer with Ebi Atawodi
+The following authors are expected but are effectively missing: ▭ first=Ebi ▭ last=Atawodi ▭ ▭
+Expected 2 links (https://newsletter.pragmaticengineer.com/p/how-to-work-better-with-product-as, https://www.youtube.com/watch?v=f4AGAeVe2Jw), but got 1 links (https://newsletter.pragmaticengineer.com/p/how-to-work-better-with-product-as)
+```
+
+
+
+
+
+all link/javanews.xml entries should be https://inside.java/ + youtube (or maybe not since https://inside.java/ contains no information)
 
 
 
@@ -82,6 +141,7 @@ add parser for `https://lucumr.pocoo.org/2026/8/19/what-is-reasoning/`
 
 
 add parser for `https://inside.java/2026/08/20/podcast-067/`
+
 
 
 
@@ -124,33 +184,39 @@ regenerate the stats
 
 
 
-manage
-
-```
-https://newsletter.pragmaticengineer.com/p/ai-tools-for-software-engineers-simon-willison
-The list of formats is not the expected one.
-expected formats: [MP3]
-effective formats: [HTML]
-```
-
-```
-https://newsletter.pragmaticengineer.com/p/building-pi-and-what-makes-self-modifying
-The list of formats is not the expected one.
-expected formats: [MP3]
-effective formats: [HTML]
-```
 
 
-```
-https://newsletter.pragmaticengineer.com/p/opencode
-The list of formats is not the expected one.
-expected formats: [MP3]
-effective formats: [HTML]
-```
+
+failing unit tests
+- fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.oracleBlogsJavaIsManaged()
+- fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.oracleBlogsJavaMagazineIsManaged()
 
 
 
 
+fix TypeScript warnings
+
+
+
+
+
+
+support of Eastern author names
+- generate an error if the order is not always the same for a given author 
+
+
+
+
+
+
+- GIVENNAME is very misleading since it can mean firstname
+
+
+
+
+
+
+add a rule to not mix `-` and `—`
 
 
 
@@ -276,8 +342,6 @@ Look for article = https://www.google.com/search?q=%22Always+Fix+Broken+Windows%
 
 
 repair unit test
-- fr.mazure.homepagemanager.data.linkchecker.test.LinkContentParserTest.testLanguageForEnglishArticle(String)
-- fr.mazure.homepagemanager.data.linkchecker.test.LinkContentParserTest.testLanguageForFrenchArticle(String)
 - fr.mazure.homepagemanager.data.nodechecker.test.IncorrectSpaceCheckerTest.stringsAreProperlyDividedAtApostrophe()
 
 

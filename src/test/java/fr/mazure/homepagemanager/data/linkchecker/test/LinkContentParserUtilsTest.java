@@ -33,7 +33,8 @@ class LinkContentParserUtilsTest {
                                                          Optional.ofNullable(expectedMiddleName),
                                                          Optional.ofNullable(expectedLastName),
                                                          Optional.ofNullable(expectedNameSuffix),
-                                                         Optional.ofNullable(expectedGivenName));
+                                                         Optional.ofNullable(expectedGivenName),
+                                                         AuthorData.NameOrder.WESTERN);
 
         final AuthorData author = LinkContentParserUtils.parseAuthorName(str);
         Assertions.assertEquals(expectedAuthor, author);

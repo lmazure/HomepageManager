@@ -54,7 +54,7 @@ public class WellKnownAuthors {
     @SuppressWarnings("javadoc") public static final AuthorData STEPHANE_ROBERT =      WellKnownAuthors.buildAuthor("Stéphane", "Robert");
     @SuppressWarnings("javadoc") public static final AuthorData STEVEN_STROGATZ =      WellKnownAuthors.buildAuthor("Steven", "Strogatz");
     @SuppressWarnings("javadoc") public static final AuthorData TONY_PADILLA =         WellKnownAuthors.buildAuthor("Tony", "Padilla");
-    @SuppressWarnings("javadoc") public static final AuthorData YONG_MOOK_KIM =        WellKnownAuthors.buildAuthor("Yong", "Mook Kim");
+    @SuppressWarnings("javadoc") public static final AuthorData YONG_MOOK_KIM =        WellKnownAuthors.buildEasternAuthor("Mook Kim", "Yong");
 
     /**
      * Create an author from a first and last names
@@ -70,9 +70,27 @@ public class WellKnownAuthors {
                               Optional.empty(),
                               Optional.of(lastName),
                               Optional.empty(),
-                              Optional.empty());
+                              Optional.empty(),
+                              AuthorData.NameOrder.WESTERN);
     }
 
+    /**
+     * Create an Eastern author from a first and last names
+     *
+     * @param firstName first name
+     * @param lastName last name
+     * @return created author
+     */
+    public static AuthorData buildEasternAuthor(final String firstName,
+                                                final String lastName) {
+        return new AuthorData(Optional.empty(),
+                              Optional.of(firstName),
+                              Optional.empty(),
+                              Optional.of(lastName),
+                              Optional.empty(),
+                              Optional.empty(),
+                              AuthorData.NameOrder.EASTERN);
+    }
     /**
      * Create an author from a first, middle, and last names
      *
@@ -89,10 +107,31 @@ public class WellKnownAuthors {
                               Optional.of(middleName),
                               Optional.of(lastName),
                               Optional.empty(),
-                              Optional.empty());
+                              Optional.empty(),
+                              AuthorData.NameOrder.WESTERN);
     }
 
-   /**
+    /**
+     * Create an Eastern author from a first, middle, and last names
+     *
+     * @param firstName first name
+     * @param middleName middle name
+     * @param lastName last name
+     * @return created author
+     */
+    public static AuthorData buildEasternAuthor(final String firstName,
+                                                final String middleName,
+                                                final String lastName) {
+        return new AuthorData(Optional.empty(),
+                              Optional.of(firstName),
+                              Optional.of(middleName),
+                              Optional.of(lastName),
+                              Optional.empty(),
+                              Optional.empty(),
+                              AuthorData.NameOrder.EASTERN);
+    }
+
+    /**
     *  Create an author from a first, last, and given names
     *
     * @param firstName first name
@@ -108,7 +147,8 @@ public class WellKnownAuthors {
                               Optional.empty(),
                               Optional.of(lastName),
                               Optional.empty(),
-                              Optional.of(givenName));
+                              Optional.of(givenName),
+                              AuthorData.NameOrder.WESTERN);
     }
 
 
@@ -128,7 +168,8 @@ public class WellKnownAuthors {
                                Optional.empty(),
                                Optional.of(lastName),
                                Optional.of(suffix),
-                               Optional.empty());
+                               Optional.empty(),
+                               AuthorData.NameOrder.WESTERN);
      }
 
     /**
@@ -143,7 +184,8 @@ public class WellKnownAuthors {
                               Optional.empty(),
                               Optional.empty(),
                               Optional.empty(),
-                              Optional.of(givenName));
+                              Optional.of(givenName),
+                              AuthorData.NameOrder.WESTERN);
     }
 
     /**
@@ -158,6 +200,7 @@ public class WellKnownAuthors {
                               Optional.empty(),
                               Optional.empty(),
                               Optional.empty(),
-                              Optional.empty());
+                              Optional.empty(),
+                              AuthorData.NameOrder.WESTERN);
     }
 }

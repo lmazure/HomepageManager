@@ -10,8 +10,8 @@
 	<url>https://github.com/lmazure/HomepageManager</url>
 
 	<properties>
-		<maven.compiler.target>26</maven.compiler.target>
-		<maven.compiler.source>26</maven.compiler.source>
+		<maven.compiler.target>27</maven.compiler.target>
+		<maven.compiler.source>27</maven.compiler.source>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<junit.version>6.0.3</junit.version>
@@ -69,9 +69,9 @@
 			<version>20251224</version>
 		</dependency>
 		<dependency>
-			<groupId>org</groupId>
+			<groupId>net.jthink</groupId>
 			<artifactId>jaudiotagger</artifactId>
-			<version>2.0.3</version>
+			<version>3.0.1</version>
 		</dependency>
 	</dependencies>
 

@@ -112,13 +112,15 @@ class SubstackLinkContentParserTest extends LinkDataExtractorTestBase {
                                                           Optional.empty(),
                                                           Optional.empty(),
                                                           Optional.empty(),
-                                                          Optional.of("PromptArmor"));
+                                                          Optional.of("PromptArmor"),
+                                                          NameOrder.WESTERN);
         final AuthorData expectedAuthor2 = new AuthorData(Optional.empty(),
                                                           Optional.of("Kai"),
                                                           Optional.empty(),
                                                           Optional.of("Greshake"),
                                                           Optional.empty(),
-                                                          Optional.empty());
+                                                          Optional.empty(),
+                                                          NameOrder.WESTERN);
         final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
         final String url = "https://promptarmor.substack.com/p/data-exfiltration-from-writercom";

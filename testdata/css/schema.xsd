@@ -20,6 +20,14 @@
     <xs:element name="NAMESUFFIX" type="xs:string" minOccurs="0" maxOccurs="1"/>
     <xs:element name="GIVENNAME" type="xs:string" minOccurs="0" maxOccurs="1"/>
   </xs:sequence>
+  <xs:attribute name="order" default="western">
+    <xs:simpleType>
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="western"/>
+        <xs:enumeration value="eastern"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:attribute>
 </xs:complexType>
 
 <xs:complexType name="fullDate">
@@ -101,6 +109,7 @@
     <xs:element ref="MATH"/>
     <xs:element ref="MERMAID"/>
     <xs:element ref="TEXTBLOCK"/>
+    <xs:element ref="TEXT"/>
     <xs:element ref="CODEMENU"/>
     <xs:element ref="CODESAMPLE"/>
     <xs:element ref="CODEROUTINE"/>
@@ -343,6 +352,8 @@
 
 <xs:element name="TEXTBLOCK" type="content"/>
 
+<xs:element name="TEXT" type="content"/>
+
 <xs:element name="MATH" type="xs:string"/>
 
 <xs:element name="MERMAID" type="xs:string"/>
@@ -367,6 +378,7 @@
       <xs:element ref="X" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element ref="CODEFILENAME" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
+  <xs:attribute  name="language" use="optional"/>
   </xs:complexType>
 </xs:element>
 
