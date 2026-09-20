@@ -52,89 +52,44 @@ methods       53.9%    97.9%
 
 
 
+
+## Urgent - to be fixed before publication
+
+
+
+
+
+
+
+
+
 ## Must be done in this issue
 
 
 
 
-
-manage
-
-```
-java.lang.IllegalStateException: Exception while retrieving https://www.baeldung.com/crawler4j
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.perform(LinkDataExtractorTestBase.java:469)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.checkCreationDate(LinkDataExtractorTestBase.java:87)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.baeldung.test.BaeldungLinkContentParserTest.testDate(BaeldungLinkContentParserTest.java:37)
-Caused by: java.lang.RuntimeException: Error while invoking the constructor
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:488)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.lambda$10(LinkDataExtractorTestBase.java:472)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
-	... 4 more
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find title in Baeldung
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.TextParser.extract(TextParser.java:61)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.baeldung.BaeldungLinkContentParser.<init>(BaeldungLinkContentParser.java:65)
-	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:483)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:486)
-	... 7 more
-```
-
-
-failing unit tests
-- fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.oracleBlogsJavaIsManaged()
-- fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.oracleBlogsJavaMagazineIsManaged()
-
-
-
-manage
-
-```
-Exception in thread "pool-2-thread-4" java.lang.IllegalStateException: Exception while retrieving https://blog.ippon.fr/2014/03/18/java-8-interfaces-fonctionnelles/
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SiteSlurper.getLinkData(SiteSlurper.java:49)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
-	at java.base/java.lang.Thread.run(Thread.java:1516)
-Caused by: java.lang.NullPointerException: Cannot invoke "java.util.List.get(int)" because "l" is null
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.HttpHelper.getResponseCodeFromHeaders(HttpHelper.java:118)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:107)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
-	... 6 more
-Exception in thread "pool-2-thread-2" java.lang.IllegalStateException: Exception while retrieving https://blog.ippon.fr/2014/03/19/java-8-gestion-du-temps/
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SiteSlurper.getLinkData(SiteSlurper.java:49)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
-	at java.base/java.lang.Thread.run(Thread.java:1516)
-Caused by: java.lang.NullPointerException: Cannot invoke "java.util.List.get(int)" because "l" is null
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.HttpHelper.getResponseCodeFromHeaders(HttpHelper.java:118)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:107)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
-	... 6 more
-Exception in thread "pool-2-thread-3" java.lang.IllegalStateException: Exception while retrieving https://blog.ippon.fr/2014/03/17/api-stream-une-nouvelle-facon-de-gerer-les-collections-en-java-8/
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SiteSlurper.getLinkData(SiteSlurper.java:49)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
-	at java.base/java.lang.Thread.run(Thread.java:1516)
-Caused by: java.lang.NullPointerException: Cannot invoke "java.util.List.get(int)" because "l" is null
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.HttpHelper.getResponseCodeFromHeaders(HttpHelper.java:118)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:107)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
-	... 6 more
-```
-
 ## To do for next issue
+
+
+
+
+https://www.dwarkesh.com/p/openai-huggingface
+subtitle "The whole OpenAI/Hugging Face story in plain English" should not be present
+
+
+
+
+
+implement quick fix for "is after page date" (set the date to today)
+
+
+
+
+
+
+
+get rid of YouTube RSS feeds (after checking once again that there is no workarounds)
+
 
 
 
@@ -225,6 +180,21 @@ regenerate the stats
 
 
 ## To do 
+
+
+
+
+
+
+
+failing unit tests
+- fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.oracleBlogsJavaIsManaged()
+- fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.oracleBlogsJavaMagazineIsManaged()
+
+
+
+
+fix TypeScript warnings
 
 
 
