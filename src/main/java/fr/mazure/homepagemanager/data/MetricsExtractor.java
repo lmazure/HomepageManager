@@ -11,7 +11,7 @@ import fr.mazure.homepagemanager.utils.ExitHelper;
 import fr.mazure.homepagemanager.utils.Logger;
 
 /**
- *
+ * Extract the site metrics
  */
 public class MetricsExtractor {
 
@@ -20,6 +20,8 @@ public class MetricsExtractor {
     private static final String s_separator = ";";
 
     /**
+     * Generate the metric file
+     *
      * @param homepage path to the directory containing the pages
      */
     public static void generate(final Path homepage) {

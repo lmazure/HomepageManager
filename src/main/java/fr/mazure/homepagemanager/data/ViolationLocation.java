@@ -6,5 +6,8 @@ package fr.mazure.homepagemanager.data;
 
 abstract public class ViolationLocation {
 
+    /**
+     * @return description of the location
+     */
     abstract String getDescription();
 }

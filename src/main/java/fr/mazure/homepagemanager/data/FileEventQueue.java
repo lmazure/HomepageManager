@@ -12,7 +12,7 @@ import fr.mazure.homepagemanager.utils.ExitHelper;
 import fr.mazure.homepagemanager.utils.Logger;
 
 /**
- *
+ * Queue dispatching the file events to the file handlers
  */
 public class FileEventQueue {
 
@@ -22,7 +22,7 @@ public class FileEventQueue {
     private final int NB_THREADS = 4;
 
     /**
-     *
+     * Type of a file event
      */
     public enum EventType {
         /**
@@ -40,7 +40,9 @@ public class FileEventQueue {
     }
 
     /**
-     * @param fileHandlers
+     * Constructor
+     *
+     * @param fileHandlers handlers processing the files
      */
     public FileEventQueue(final List<FileHandler> fileHandlers) {
         _queue = new HashMap<>();
@@ -55,8 +57,10 @@ public class FileEventQueue {
     }
 
     /**
-     * @param file
-     * @param type
+     * Insert an event in the queue
+     *
+     * @param file file
+     * @param type type of the event
      */
     public void insertEvent(final Path file,
                             final EventType type) {
@@ -96,7 +100,7 @@ public class FileEventQueue {
     }
 
     /**
-     * @return
+     * @return event to be handled, null if there is none
      */
     public Event popEvent() {
         synchronized (_queue) {
@@ -113,7 +117,9 @@ public class FileEventQueue {
     }
 
     /**
-     * @param path
+     * Indicate that the event of a file has been handled
+     *
+     * @param path path of the file whose event has been handled
      */
     public void eventHasBeenHandled(final Path path) {
        synchronized (_queue) {
@@ -147,16 +153,28 @@ public class FileEventQueue {
         private final Path _file;
         private final EventType _type;
 
+        /**
+         * Constructor
+         *
+         * @param file file
+         * @param type type of the event
+         */
         public Event(final Path file,
                      final EventType type) {
             _file = file;
             _type = type;
         }
 
+        /**
+         * @return the file
+         */
         public Path getFile() {
             return _file;
         }
 
+        /**
+         * @return type of the event
+         */
         public EventType getType() {
             return _type;
         }
@@ -166,6 +184,11 @@ public class FileEventQueue {
 
         private final FileEventQueue _fileQueue;
 
+        /**
+         * Constructor
+         *
+         * @param queue queue from which the events are popped
+         */
         public Consumer(final FileEventQueue queue) {
             _fileQueue = queue;
         }

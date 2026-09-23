@@ -29,7 +29,6 @@ import fr.mazure.homepagemanager.utils.Logger;
 
 /**
  * Manage the creation of the HTML files
- *
  */
 public class HTMLGenerator implements FileHandler {
 
