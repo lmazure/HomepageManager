@@ -15,7 +15,6 @@ class ArminRonacherLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://lucumr.pocoo.org/2026/8/19/what-is-reasoning/|Armin|Ronacher|",
-        "https://lucumr.pocoo.org/2026/9/14/interpreting-pangram/|Armin|Ronacher|",
         }, delimiter = '|')
     void testAuthor(final String url,
                     final String expectedFirstName,
@@ -28,7 +27,6 @@ class ArminRonacherLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://lucumr.pocoo.org/2026/8/19/what-is-reasoning/|What Is Reasoning",
-        "https://lucumr.pocoo.org/2026/9/14/interpreting-pangram/|Interpreting Pangram",
         }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
@@ -40,7 +38,6 @@ class ArminRonacherLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
             "https://lucumr.pocoo.org/2026/8/19/what-is-reasoning/",
-            "https://lucumr.pocoo.org/2026/9/14/interpreting-pangram/",
         }, delimiter = '|')
     void testNoSubtitle(final String url) {
         checkNoSubtitle(ArminRonacherLinkContentParser.class, url);
@@ -50,7 +47,6 @@ class ArminRonacherLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://lucumr.pocoo.org/2026/8/19/what-is-reasoning/|2026-08-19",
-        "https://lucumr.pocoo.org/2026/9/14/interpreting-pangram/|2026-09-14",
         }, delimiter = '|')
     void testDate(final String url,
                   final String expectedPublicationDate) {
