@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
+import fr.mazure.homepagemanager.data.linkchecker.arminronacher.ArminRonacherLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.arstechnica.ArsTechnicaLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.baeldung.BaeldungLinkContentChecker;
 import fr.mazure.homepagemanager.data.linkchecker.chromium.ChromiumBlogLinkContentChecker;
@@ -52,6 +53,7 @@ public class LinkContentCheckerFactory {
 
     static {
         final List<Class<? extends LinkContentChecker>> checkers = List.of(
+                ArminRonacherLinkContentChecker.class,
                 ArsTechnicaLinkContentChecker.class,
                 BaeldungLinkContentChecker.class,
                 ChromiumBlogLinkContentChecker.class,

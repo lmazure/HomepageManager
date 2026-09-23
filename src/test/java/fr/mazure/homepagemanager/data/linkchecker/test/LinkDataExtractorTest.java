@@ -38,6 +38,22 @@ class LinkDataExtractorTest {
     }
 
     @Test
+    void arminRonacherIsManaged() throws ContentParserException {
+        final String url = "https://lucumr.pocoo.org/2026/8/19/what-is-reasoning/";
+        final String expectedXml = """
+                <ARTICLE><X><T>What Is Reasoning</T>\
+                <A>https://lucumr.pocoo.org/2026/8/19/what-is-reasoning/</A>\
+                <L>en</L><F>HTML</F></X>\
+                <AUTHOR><FIRSTNAME>Armin</FIRSTNAME><LASTNAME>Ronacher</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2026</YEAR><MONTH>8</MONTH><DAY>19</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void arsTechnicaIsManaged() throws ContentParserException {
         final String url = "https://arstechnica.com/tech-policy/2021/10/uh-no-pfizer-scientist-denies-holmes-claim-that-pfizer-endorsed-theranos-tech/";
         final String expectedXml = """

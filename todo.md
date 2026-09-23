@@ -72,6 +72,32 @@ methods       53.9%    97.9%
 
 
 
+understand the bad color of
+```
+#> git config set --local user.name Laurent
+  #> git config set --local user.email laurent@gilgamesh
+```
+
+or
+
+```
+mkdir project.git
+  cd project.git
+  git --bare init
+```
+
+
+
+
+
+`<PROMPT/>`is missing for a lot of `<CODESAMPLE language="bash">` cases
+
+
+
+
+
+
+
 
 https://www.dwarkesh.com/p/openai-huggingface
 subtitle "The whole OpenAI/Hugging Face story in plain English" should not be present
@@ -126,14 +152,20 @@ Expected 2 links (https://newsletter.pragmaticengineer.com/p/how-to-work-better-
 
 
 
+manage
+
+```
+https://stackoverflow.blog/2024/11/05/how-google-is-helping-developers-get-better-answers-from-ai/
+The list of formats is not the expected one.
+expected formats: [MP3]
+effective formats: [HTML]
+```
+
+
+
 
 all link/javanews.xml entries should be https://inside.java/ + youtube (or maybe not since https://inside.java/ contains no information)
 
-
-
-
-
-add parser for `https://lucumr.pocoo.org/2026/8/19/what-is-reasoning/`
 
 
 
