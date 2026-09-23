@@ -6,14 +6,16 @@ import fr.mazure.homepagemanager.data.FileHandler.Status;
 import javafx.scene.control.TableColumn;
 
 /**
- *
+ * Controller managing the columns of the HTML generation
  */
 public class HtmlGenerationController extends GenericUiController {
 
     private final Path _homepagePath;
 
     /**
-     * @param list
+     * Constructor
+     *
+     * @param list list of the files
      * @param homepagePath path to the directory containing the pages
      */
     public HtmlGenerationController(final ObservableFileList list,

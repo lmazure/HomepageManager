@@ -6,12 +6,14 @@ import fr.mazure.homepagemanager.data.FileHandler.Status;
 import javafx.scene.control.TableColumn;
 
 /**
- *
+ * Controller managing the columns of the node value check
  */
 public class NodeValueCheckController extends GenericUiController {
 
     /**
-     * @param list
+     * Constructor
+     *
+     * @param list list of the files
      */
     public NodeValueCheckController(final ObservableFileList list) {
         super((final Path file, final Status status, final Path outputFile, final Path reportFile) -> list.getFile(file).setNodeValueCheckStatus(status, outputFile, reportFile));

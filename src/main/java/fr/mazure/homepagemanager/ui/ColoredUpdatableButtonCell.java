@@ -4,16 +4,19 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 /**
+ * Table cell containing a button whose label is updated with the cell content and whose color depends on the label
  *
- * @param <S>
+ * @param <S> Class of the object displayed in the column
  */
 public class ColoredUpdatableButtonCell<S> extends ButtonCell<S> {
 
     private final Map<String, String> _colorMap;
 
     /**
-     * @param callback
-     * @param colorMap
+     * Constructor
+     *
+     * @param callback action to be executed when the button is clicked
+     * @param colorMap map between the labels and their color
      */
     public ColoredUpdatableButtonCell(final Consumer<S> callback,
                                       final Map<String, String> colorMap) {

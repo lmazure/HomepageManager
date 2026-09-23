@@ -12,7 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- *
+ * List of the files displayed in the file table
  */
 public class ObservableFileList implements FileExistenceHandler {
 
@@ -20,7 +20,7 @@ public class ObservableFileList implements FileExistenceHandler {
     private final Map<Path, ObservableFile> _files;
 
     /**
-     *
+     * Constructor
      */
     public ObservableFileList() {
         _data = FXCollections.observableArrayList();
@@ -47,7 +47,7 @@ public class ObservableFileList implements FileExistenceHandler {
     }
 
     /**
-     * @return
+     * @return observable list of the files
      */
     public ObservableList<ObservableFile> getObservableFileList() {
         return _data;
@@ -63,8 +63,8 @@ public class ObservableFileList implements FileExistenceHandler {
     }
 
     /**
-     * @param file
-     * @return
+     * @param file path of the file
+     * @return the file
      */
     public ObservableFile getFile(final Path file) {
         return _files.get(file);

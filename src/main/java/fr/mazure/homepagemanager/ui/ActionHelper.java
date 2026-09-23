@@ -25,7 +25,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 
 /**
- *
+ * Helper methods for the UI actions
  */
 public class ActionHelper {
 
