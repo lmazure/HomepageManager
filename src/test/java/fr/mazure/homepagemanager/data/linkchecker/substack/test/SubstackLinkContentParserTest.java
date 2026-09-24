@@ -5,6 +5,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import fr.mazure.homepagemanager.data.linkchecker.substack.SubstackLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase;
+import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
 /**
  *  Tests of SubstackLinkContentParser class
@@ -48,6 +49,18 @@ class SubstackLinkContentParserTest extends LinkDataExtractorTestBase {
         }, delimiter = '|')
     void testNoSubtitle(final String url) {
         checkNoSubtitle(SubstackLinkContentParser.class, url);
+    }
+
+
+    @SuppressWarnings("static-method")
+    @ParameterizedTest
+    @CsvSource(value = {
+        "https://magazine.sebastianraschka.com/p/llm-training-rlhf-and-its-alternatives|HTML",
+        "https://www.lennysnewsletter.com/p/how-anthropics-product-team-moves|MP3",
+        }, delimiter = '|')
+    void testFormat(final String url,
+                    final String expectedFormat) {
+        checkFormat(SubstackLinkContentParser.class, url, expectedFormat);
     }
 
     @SuppressWarnings("static-method")

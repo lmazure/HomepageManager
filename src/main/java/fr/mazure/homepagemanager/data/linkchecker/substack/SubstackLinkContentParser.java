@@ -91,7 +91,7 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
         _language = (lang != null && !lang.isEmpty()) ? Locale.forLanguageTag(lang)
                                                       : StringHelper.guessLanguage(HtmlHelper.cleanContent(data)).get();
         
-        if (UrlHelper.hasPrefix(url, "https://www.lennysnewsletter.com/")) {            
+        if (UrlHelper.hasPrefix(url, "https://www.lennysnewsletter.com/")) {
             final Optional<String> youtubeLink = YouTubeHelper.getVideoURL("Lenny's Podcast", _title, getRetriever());
             _otherLink = getOtherLinkFromYouTube(youtubeLink);
         } else {
@@ -129,6 +129,9 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
 
     @Override
     public LinkFormat[] getFormats() {
+        if (UrlHelper.hasPrefix(getUrl(), "https://www.lennysnewsletter.com/")) {
+            return new LinkFormat[] { LinkFormat.MP3 };
+        }
         return new LinkFormat[] { LinkFormat.HTML };
     }
 
