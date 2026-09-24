@@ -178,11 +178,11 @@ public class HttpHelper {
 
         Integer minDelay;
         String host;
-        
+
         if (url.startsWith("https://www.youtube.com/feeds/")) { // TODO to be cleaned up
             host = "www.youtube.com/feeds";
             minDelay = Integer.valueOf(10000);
-        } else {            
+        } else {
             host = UriHelper.getHost(url);
             minDelay = s_minDelayPerSite.get(host);
             if (minDelay == null) {

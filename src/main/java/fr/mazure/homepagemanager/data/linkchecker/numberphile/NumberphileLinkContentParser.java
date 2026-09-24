@@ -98,7 +98,7 @@ public class NumberphileLinkContentParser extends LinkDataExtractor {
      */
     public static boolean isUrlManaged(final String url) {
         return UrlHelper.hasPrefix(url, "https://www.numberphile.com/podcast/") ||
-			   UrlHelper.hasPrefix(url, "https://www.numberphile.com/videos/");
+               UrlHelper.hasPrefix(url, "https://www.numberphile.com/videos/");
     }
 
     @Override

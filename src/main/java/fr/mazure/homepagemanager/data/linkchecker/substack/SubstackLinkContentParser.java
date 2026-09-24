@@ -90,7 +90,7 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
         final String lang = post.optString("language");
         _language = (lang != null && !lang.isEmpty()) ? Locale.forLanguageTag(lang)
                                                       : StringHelper.guessLanguage(HtmlHelper.cleanContent(data)).get();
-        
+
         if (UrlHelper.hasPrefix(url, "https://www.lennysnewsletter.com/")) {
             final Optional<String> youtubeLink = YouTubeHelper.getVideoURL("Lenny's Podcast", _title, getRetriever());
             _otherLink = getOtherLinkFromYouTube(youtubeLink);
@@ -195,7 +195,7 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
                 if (matcher.find()) {
                     final String authorName = matcher.group(1);
                     list.add(LinkContentParserUtils.parseAuthorName(authorName));
-                } 
+                }
             }
             if (payload.length() > 1) {
                 final List<AuthorData> authors = new ArrayList<>();

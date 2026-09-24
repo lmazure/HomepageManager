@@ -143,7 +143,7 @@ public class ExtractorBasedLinkContentChecker extends LinkContentChecker {
                                             final LinkFormat[] expectedFormats) throws ContentParserException
     {
         final LinkFormat[] effectiveFormats = _parser.getFormats();
-        
+
         if (!Arrays.equals(effectiveFormats, expectedFormats)) {
             final String message = "The list of formats is not the expected one."
                     + "\nexpected formats: " + Arrays.toString(expectedFormats)

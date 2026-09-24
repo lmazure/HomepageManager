@@ -1236,7 +1236,7 @@ class LinkDataExtractorTest {
         Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
-    
+
     @Test
     void youtubeWatchDrPeyamIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=ThaHppIWByk";
@@ -1789,7 +1789,7 @@ class LinkDataExtractorTest {
         Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
         Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
     }
-    
+
     @Test
     void youtubeWatchJamyEpicurieuxIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=5cdqxrZJt5o";

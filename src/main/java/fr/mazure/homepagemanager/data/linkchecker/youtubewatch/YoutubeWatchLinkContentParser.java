@@ -898,7 +898,7 @@ public class YoutubeWatchLinkContentParser extends LinkDataExtractor {
                                                           Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("The Rest Is Science",
                                           new ChannelData(buildList(WellKnownAuthors.buildAuthor("Hannah", "Fry"),
-																	WellKnownAuthors.buildAuthor("Michael", "Stevens")),
+                                                                    WellKnownAuthors.buildAuthor("Michael", "Stevens")),
                                                           buildMatchingList(),
                                                           Locale.ENGLISH)),
             new AbstractMap.SimpleEntry<>("Thomaths",

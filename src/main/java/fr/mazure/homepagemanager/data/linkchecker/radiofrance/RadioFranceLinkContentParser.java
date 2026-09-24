@@ -159,9 +159,9 @@ public class RadioFranceLinkContentParser extends LinkDataExtractor {
             !UrlHelper.hasPrefix(url, "https://www.radiofrance.fr/franceculture/podcasts/")) {
                 return false;
             }
-        
+
         // check that this is a podcast (e.g. https://www.radiofrance.fr/franceculture/podcasts/les-grandes-traversees/la-mort-d-un-dictateur-7740763)
-        // and not an overview page (e.g. https://www.radiofrance.fr/franceculture/podcasts/serie-devenir-staline) 
+        // and not an overview page (e.g. https://www.radiofrance.fr/franceculture/podcasts/serie-devenir-staline)
         final String urlEnd = url.split("/podcasts/")[1];
         return (urlEnd.contains("/"));
     }

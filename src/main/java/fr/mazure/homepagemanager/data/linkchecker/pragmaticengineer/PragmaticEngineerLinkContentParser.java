@@ -102,7 +102,7 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
         _subtitle = s_subtitleParser.extractOptional(data)
                                     .map(HtmlHelper::cleanContent);
 
-		_authors = new ArrayList<>();
+        _authors = new ArrayList<>();
         final Matcher matcher = s_extractGuest.matcher(_title);
         if (matcher.find()) {
             final String guestName = matcher.group(1);

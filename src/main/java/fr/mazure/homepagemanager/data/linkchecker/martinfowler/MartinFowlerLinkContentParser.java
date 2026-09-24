@@ -139,7 +139,7 @@ public class MartinFowlerLinkContentParser extends LinkDataExtractor {
     public static boolean isUrlManaged(final String url) {
         return (UrlHelper.hasPrefix(url, "https://martinfowler.com/articles/") &&
                 !url.equals("https://martinfowler.com/articles/eurogames/")) || // this page is special, we do not handle it here
-			   UrlHelper.hasPrefix(url, "https://martinfowler.com/bliki/");
+                UrlHelper.hasPrefix(url, "https://martinfowler.com/bliki/");
     }
 
     @Override
