@@ -6,12 +6,14 @@ import fr.mazure.homepagemanager.data.FileHandler.Status;
 import javafx.scene.control.TableColumn;
 
 /**
- *
+ * Controller managing the columns of the file check
  */
 public class FileCheckController extends GenericUiController {
 
     /**
-     * @param list
+     * Constructor
+     *
+     * @param list list of the files
      */
     public FileCheckController(final ObservableFileList list) {
         super((final Path file, final Status status, final Path outputFile, final Path reportFile) -> list.getFile(file).setFileCheckStatus(status, outputFile, reportFile));

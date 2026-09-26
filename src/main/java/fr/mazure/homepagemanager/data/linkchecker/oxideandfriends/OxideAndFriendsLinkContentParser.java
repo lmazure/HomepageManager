@@ -103,7 +103,7 @@ public class OxideAndFriendsLinkContentParser extends LinkDataExtractor {
             _duration = Optional.of(Duration.ofMinutes(minutes)
                                             .plusSeconds(seconds));
         } else {
-	        throw new ContentParserException("Invalid duration format: " + durationString);
+            throw new ContentParserException("Invalid duration format: " + durationString);
         }
 
         // get transcript

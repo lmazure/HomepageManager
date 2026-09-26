@@ -22,7 +22,7 @@ public class StatusRepresentation {
     }
 
     /**
-     * @return
+     * @return map between the statuses and their color
      */
     public static Map<String, String> getColorMap() {
         return _colors;

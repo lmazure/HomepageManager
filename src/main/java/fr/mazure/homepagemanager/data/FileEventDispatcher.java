@@ -16,7 +16,7 @@ import fr.mazure.homepagemanager.utils.Logger;
 import fr.mazure.homepagemanager.utils.WatchDir;
 
 /**
- *
+ * Watch the homepage directory and dispatch the file events to the file handlers
  */
 public class FileEventDispatcher {
 
@@ -38,8 +38,8 @@ public class FileEventDispatcher {
 
     /**
      * @param homepagePath path to the directory containing the pages
-     * @param handler
-     * @param fileHandlers
+     * @param handler handler tracking the existence of the files
+     * @param fileHandlers handlers processing the files
      */
     public FileEventDispatcher(final Path homepagePath,
                                final FileExistenceHandler handler,
@@ -51,7 +51,7 @@ public class FileEventDispatcher {
     }
 
     /**
-     *
+     * Start watching the directory and dispatching the file events
      */
     public void start() {
 

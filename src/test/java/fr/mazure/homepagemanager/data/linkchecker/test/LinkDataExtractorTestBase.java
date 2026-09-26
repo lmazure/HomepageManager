@@ -71,13 +71,14 @@ public class LinkDataExtractorTestBase {
 
     protected static void checkFormat(final Class<? extends LinkDataExtractor> clazz,
                                       final String url,
-                                      final LinkFormat expectedFormat) {
+                                      final String expectedFormat) {
+        final LinkFormat format = LinkFormat.valueOf(expectedFormat);
         perform(clazz,
                 url,
                 (final LinkDataExtractor p) ->
                     {
                          Assertions.assertEquals(1, p.getFormats().length);
-                         Assertions.assertEquals(expectedFormat, p.getFormats()[0]);
+                         Assertions.assertEquals(format, p.getFormats()[0]);
                     });
     }
 

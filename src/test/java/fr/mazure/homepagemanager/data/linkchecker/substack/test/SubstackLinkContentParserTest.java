@@ -50,6 +50,18 @@ class SubstackLinkContentParserTest extends LinkDataExtractorTestBase {
         checkNoSubtitle(SubstackLinkContentParser.class, url);
     }
 
+
+    @SuppressWarnings("static-method")
+    @ParameterizedTest
+    @CsvSource(value = {
+        "https://magazine.sebastianraschka.com/p/llm-training-rlhf-and-its-alternatives|HTML",
+        "https://www.lennysnewsletter.com/p/how-anthropics-product-team-moves|MP3",
+        }, delimiter = '|')
+    void testFormat(final String url,
+                    final String expectedFormat) {
+        checkFormat(SubstackLinkContentParser.class, url, expectedFormat);
+    }
+
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {

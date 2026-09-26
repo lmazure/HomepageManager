@@ -10,7 +10,6 @@ import fr.mazure.homepagemanager.utils.FileNameHelper;
 
 /**
  * This class checks the links appearing in XML files.
- *
  */
 public class LinkChecker implements FileHandler {
 

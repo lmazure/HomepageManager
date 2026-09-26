@@ -3,14 +3,17 @@ package fr.mazure.homepagemanager.ui;
 import java.util.function.Consumer;
 
 /**
+ * Table cell containing a button with a fixed label
  *
- * @param <S>
+ * @param <S> Class of the object displayed in the column
  */
 public class FixedButtonCell<S> extends ButtonCell<S> {
 
     /**
-     * @param label
-     * @param callback
+     * Constructor
+     *
+     * @param label label of the button
+     * @param callback action to be executed when the button is clicked
      */
     public FixedButtonCell(final String label,
                            final Consumer<S> callback) {

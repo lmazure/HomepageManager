@@ -153,7 +153,7 @@ public class ThoughtWorksLinkContentParser extends LinkDataExtractor {
 
     @Override
     public Optional<Duration> getDuration() {
-	    return _duration;
+        return _duration;
     }
 
     @Override

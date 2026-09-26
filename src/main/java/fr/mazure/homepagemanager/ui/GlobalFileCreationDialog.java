@@ -14,7 +14,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- *
+ * Dialog displaying the progress of the creation of the global files
  */
 public class GlobalFileCreationDialog extends Dialog<Void> {
 

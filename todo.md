@@ -72,6 +72,23 @@ methods       53.9%    97.9%
 
 
 
+understand the bad color of
+```
+#> git config set --local user.name Laurent
+  #> git config set --local user.email laurent@gilgamesh
+```
+
+
+
+
+`<PROMPT/>`is missing for a lot of `<CODESAMPLE language="bash">` cases
+
+
+
+
+
+
+
 
 https://www.dwarkesh.com/p/openai-huggingface
 subtitle "The whole OpenAI/Hugging Face story in plain English" should not be present
@@ -126,14 +143,20 @@ Expected 2 links (https://newsletter.pragmaticengineer.com/p/how-to-work-better-
 
 
 
+manage
+
+```
+https://stackoverflow.blog/2024/11/05/how-google-is-helping-developers-get-better-answers-from-ai/
+The list of formats is not the expected one.
+expected formats: [MP3]
+effective formats: [HTML]
+```
+
+
+
 
 all link/javanews.xml entries should be https://inside.java/ + youtube (or maybe not since https://inside.java/ contains no information)
 
-
-
-
-
-add parser for `https://lucumr.pocoo.org/2026/8/19/what-is-reasoning/`
 
 
 
@@ -183,14 +206,12 @@ regenerate the stats
 
 
 
-
-
-
-
-failing unit tests
+repair unit tests
+- fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.test.WellKnownRedirectionsTest.oracleBlog(String)
+- fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.test.WellKnownRedirectionsTest.redirectionsEndingWith404(String)
+- fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.test.WellKnownRedirectionsTest.redirectionsToLocale(String)
 - fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.oracleBlogsJavaIsManaged()
 - fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.oracleBlogsJavaMagazineIsManaged()
-
 
 
 
@@ -275,23 +296,6 @@ See how to look for the disappeared articles in webarchive.
 
 
 
-Fix all the americanish false positives.
-
-
-
-
-
-
-
-manage author of https://www.youtube.com/watch?v=Ct-mtWqV3Ro
-
-
-
-
-
-
-
-
 check with Claude and this prompt:
 
 ```
@@ -338,19 +342,6 @@ Look for article = https://www.google.com/search?q=%22Always+Fix+Broken+Windows%
 
 
 
-
-
-
-repair unit test
-- fr.mazure.homepagemanager.data.nodechecker.test.IncorrectSpaceCheckerTest.stringsAreProperlyDividedAtApostrophe()
-
-
-
-
-
-
-
-
 manage
 
 ```
@@ -373,27 +364,6 @@ The expected date 2026-07-03 is not equal to the effective date 2026-07-02
 manage refactoring.fm
 
 
-
-
-
-
-manage order of Vietnamese name components
-
-```
-<ITEM><ARTICLE><X><T>Pham Xuan An, le (faux) ami des Américains</T><ST>Pendant toute la guerre du Vietnam, Pham Xuan An, a été un brillant journaliste et correspondant à Saigon pour le magazine Time.</ST><A>https://www.radiofrance.fr/franceinter/podcasts/espions-une-histoire-vraie/ursula-kuczinski-alias-agent-sonya-1103675</A><L>fr</L><F>HTML</F><DURATION><MINUTE>38</MINUTE><SECOND>6</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Stéphanie</FIRSTNAME><LASTNAME>Duncan</LASTNAME></AUTHOR><DATE><YEAR>2022</YEAR><MONTH>4</MONTH><DAY>11</DAY></DATE><COMMENT><AUTHOR><LASTNAME>Phạm</LASTNAME><MIDDLENAME>Xuân</MIDDLENAME><FIRSTNAME>Ẩn</FIRSTNAME></AUTHOR>, a journalist working for the US during the Vietnam War, was a spy of the National Liberation Front of South Vietnam.</COMMENT></ARTICLE></ITEM>
-```
-
-
-
-
-
-
-repair unit tests
-- fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.test.WellKnownRedirectionsTest.oracleBlog(String)
-- fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.test.WellKnownRedirectionsTest.redirectionsEndingWith404(String)
-- fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.test.WellKnownRedirectionsTest.redirectionsToLocale(String)
-- fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.oracleBlogsJavaIsManaged()
-- fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.oracleBlogsJavaMagazineIsManaged()
 
 
 
@@ -786,7 +756,7 @@ gérer Redirection chain = https://www.rando-hauteloire.fr/ → https://www.rand
  
 
 nettoyer space.xml : space exploration vs space telescope
-	
+
 
 
 

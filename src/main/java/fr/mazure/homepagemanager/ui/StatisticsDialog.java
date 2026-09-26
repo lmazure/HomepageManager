@@ -54,8 +54,21 @@ public class StatisticsDialog extends Dialog<Void> {
         getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
     }
 
+    /**
+     * Data of a histogram bucket
+     *
+     * @param name label of the bucket
+     * @param count number of files in the bucket
+     */
     record HistogramData(String name, int count) {}
 
+    /**
+     * Generate the histogram of the number of articles in the link files
+     *
+     * @param homepage directory where the XML files are located
+     * @param files list of the paths of all files
+     * @return data of the histogram
+     */
     static List<HistogramData> generateHistogram(final Path homepage,
                                                  final List<Path> files) {
 

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.function.BiPredicate;
 
 import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
+import fr.mazure.homepagemanager.data.linkchecker.arminronacher.ArminRonacherLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.arstechnica.ArsTechnicaLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.baeldung.BaeldungLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentParser;
@@ -47,6 +48,7 @@ public class LinkDataExtractorFactory {
 
     static {
         final List<Class<? extends LinkDataExtractor>> extractors = List.of(
+                ArminRonacherLinkContentParser.class,
                 ArsTechnicaLinkContentParser.class,
                 BaeldungLinkContentParser.class,
                 DwarkeshPodcastLinkContentParser.class,

@@ -2,12 +2,12 @@ package fr.mazure.homepagemanager.data;
 import java.nio.file.Path;
 
 /**
- *
+ * Handle the processing of a file
  */
 public interface FileHandler {
 
     /**
-     *
+     * Status of the file handling
      */
     public enum Status {
         /**
@@ -33,30 +33,34 @@ public interface FileHandler {
     }
 
     /**
-     * @param file
+     * Called when a file is created
+     *
+     * @param file file
      */
     void handleCreation(final Path file);
 
     /**
-     * @param file
+     * Called when a file is deleted
+     *
+     * @param file file
      */
     void handleDeletion(final Path file);
 
     /**
-     * @param file
-     * @return
+     * @param file file
+     * @return path of the output file
      */
     Path getOutputFile(final Path file);
 
     /**
-     * @param file
-     * @return
+     * @param file file
+     * @return path of the report file
      */
     Path getReportFile(final Path file);
 
     /**
-     * @param file
-     * @return
+     * @param file file
+     * @return true if the output file must be regenerated, false otherwise
      */
     boolean outputFileMustBeRegenerated(final Path file);
 }
