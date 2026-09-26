@@ -17,7 +17,7 @@ class BritishCheckerTest extends NodeValueCheckerTestBase {
             """
             <?xml version="1.0"?>
             <?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>
-            <PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd" xml:lang="fr">
+            <PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd" xml:lang="en">
             <TITLE>Test</TITLE>
             <PATH>HomepageManager/test.xml</PATH>
             <DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>
@@ -36,10 +36,10 @@ class BritishCheckerTest extends NodeValueCheckerTestBase {
 
         try {
             test(content,
-                 "COMMENT \"A civilization is any complex society.\" contains american word \" civilization\"  matching regexp \"\\W\\p{L}{2,}ization\", it should be \"isation\"<<AmericanSpelling>>",
-                 "COMMENT \"Evaluating the magnetic dipole moment of neutrinos with the color–magnitude diagram of M5.\" contains american word \"color\"  matching regexp \"color\", it should be \"colour\"<<AmericanSpelling>>",
-                 "COMMENT \"M102 was improperly recorded in Messier catalog, it is a galaxy seen almost exactly edge-on.\" contains american word \"catalog,\"  matching regexp \"catalog[^u]\", it should be \"catalogue\"<<AmericanSpelling>>",
-                 "COMMENT \"fulfillment.\" contains american word \"fulfillm\"  matching regexp \"fulfill[^i]\", it should be \"fulfil\"<<AmericanSpelling>>");
+                 "COMMENT \"A civilization is any complex society.\" contains american word \" civilization\" matching regexp \"\\W\\p{L}{2,}ization\", it should be \"isation\"<<AmericanSpelling>>",
+                 "COMMENT \"Evaluating the magnetic dipole moment of neutrinos with the color–magnitude diagram of M5.\" contains american word \"color\" matching regexp \"color\", it should be \"colour\"<<AmericanSpelling>>",
+                 "COMMENT \"M102 was improperly recorded in Messier catalog, it is a galaxy seen almost exactly edge-on.\" contains american word \"catalog,\" matching regexp \"catalog[^u]\", it should be \"catalogue\"<<AmericanSpelling>>",
+                 "COMMENT \"fulfillment.\" contains american word \"fulfillm\" matching regexp \"fulfill[^i]\", it should be \"fulfil\"<<AmericanSpelling>>");
         } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
@@ -53,7 +53,7 @@ class BritishCheckerTest extends NodeValueCheckerTestBase {
             """
             <?xml version="1.0"?>
             <?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>
-            <PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd" xml:lang="fr">
+            <PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd" xml:lang="en">
             <TITLE>Test</TITLE>
             <PATH>HomepageManager/test.xml</PATH>
             <DATE><YEAR>2025</YEAR><MONTH>9</MONTH><DAY>30</DAY></DATE>
@@ -67,6 +67,69 @@ class BritishCheckerTest extends NodeValueCheckerTestBase {
             <ITEM><ARTICLE><X><T>When are two strings equal?</T><A>http://java.sun.com</A><L>en</L><F>HTML</F></X><COMMENT>He is not enough competent to criticize this.</COMMENT></ARTICLE></ITEM>
             <ITEM><ARTICLE><X><T>Trace &amp; Evaluate your Agent with Arize Phoenix</T><A>https://huggingface.co/blog/smolagents-phoenix</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Sri</FIRSTNAME><LASTNAME>Chavali</LASTNAME></AUTHOR><AUTHOR><FIRSTNAME>John</FIRSTNAME><LASTNAME>Gilhuly</LASTNAME></AUTHOR><AUTHOR><FIRSTNAME>Aymeric</FIRSTNAME><LASTNAME>Roucher</LASTNAME></AUTHOR><DATE><YEAR>2025</YEAR><MONTH>2</MONTH><DAY>28</DAY></DATE><COMMENT>A presentation of Arize Phoenix, a platform to trace and evaluate smolagents, the evaluation uses LLM-as-a-judge.</COMMENT></ARTICLE></ITEM>
             </BLIST>
+            </CONTENT>
+            </PAGE>""";
+
+        try {
+            test(content,
+                 "");
+        } catch (final SAXException _) {
+            Assertions.fail("SAXException");
+        }
+    }
+
+    @SuppressWarnings("static-method")
+    @Test
+    void ignoreAmericanishConfiguredAtElementLevelFileLevel() {
+
+        final String content =
+            """
+            <?xml version="1.0"?>
+            <?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>
+            <PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd" xml:lang="en-US">
+            <TITLE>Test</TITLE>
+            <PATH>HomepageManager/test.xml</PATH>
+            <DATE><YEAR>2016</YEAR><MONTH>1</MONTH><DAY>30</DAY></DATE>
+            <CONTENT>
+            <BLIST>
+            <ITEM><ARTICLE><X protection="free_registration"><T>When are two strings equal?</T><A>http://java.sun.com</A><L>en</L><F>HTML</F></X><COMMENT>A quick introduction to the common string pool and the literal strings consolidation in a same package.</COMMENT></ARTICLE></ITEM>
+            <ITEM><ARTICLE><X status="zombie"><T>When are two strings equal?</T><A>http://java.sun.com</A><L>en</L><F>HTML</F></X><COMMENT>M102 was improperly recorded in Messier catalog, it is a galaxy seen almost exactly edge-on.</COMMENT></ARTICLE></ITEM>\\n\
+            <ITEM><ARTICLE><X><T>When are two strings equal?</T><A>http://java.sun.com</A><L>en</L><F>HTML</F></X><COMMENT>Evaluating the magnetic dipole moment of neutrinos with the color–magnitude diagram of M5.</COMMENT></ARTICLE></ITEM>
+            <ITEM><ARTICLE><X><T>When are two strings equal?</T><A>http://java.sun.com</A><L>en</L><F>HTML</F></X><COMMENT>Some samples stored in the Oak Ridge National Laboratory.</COMMENT></ARTICLE></ITEM>
+            <ITEM><ARTICLE><X><T>When are two strings equal?</T><A>http://java.sun.com</A><L>en</L><F>HTML</F></X><COMMENT>The production of Californium at the Oak Ridge National Laboratory and an experiment with it.</COMMENT></ARTICLE></ITEM>
+            <ITEM><ARTICLE><X><T>When are two strings equal?</T><A>http://java.sun.com</A><L>en</L><F>HTML</F></X><COMMENT>A civilization is any complex society.</COMMENT></ARTICLE></ITEM>
+            <ITEM><ARTICLE><X><T>When are two strings equal?</T><A>http://java.sun.com</A><L>en</L><F>HTML</F></X><COMMENT>fulfillment.</COMMENT></ARTICLE></ITEM>
+            </BLIST>
+            </CONTENT>
+            </PAGE>""";
+
+        try {
+            test(content);
+        } catch (final SAXException _) {
+            Assertions.fail("SAXException");
+        }
+    }
+
+    @SuppressWarnings("static-method")
+    @Test
+    void ignoreAmericanishConfiguredAtElementLevel() {
+
+        final String content =
+            """
+            <?xml version="1.0"?>
+            <?xml-stylesheet type="text/xsl" href="../css/strict.xsl"?>
+            <PAGE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../css/schema.xsd" xml:lang="en">
+            <TITLE>Test</TITLE>
+            <PATH>HomepageManager/test.xml</PATH>
+            <DATE><YEAR>2025</YEAR><MONTH>9</MONTH><DAY>30</DAY></DATE>
+            <CONTENT>
+            <DEFINITIONTABLE>
+            <ROW>
+            <TERM>ACRO</TERM>
+            <DESC xml:lang="en-US">Association of Clinical Research Organizations<BR/>
+            <X><T>site</T><A>https://www.acrohealth.org</A><L>en</L><F>HTML</F></X></DESC>
+            </ROW>
+            </DEFINITIONTABLE>
             </CONTENT>
             </PAGE>""";
 

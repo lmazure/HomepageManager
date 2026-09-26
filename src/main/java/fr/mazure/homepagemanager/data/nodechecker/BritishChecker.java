@@ -2,6 +2,7 @@ package fr.mazure.homepagemanager.data.nodechecker;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,7 +14,7 @@ import fr.mazure.homepagemanager.utils.xmlparsing.ElementType;
 import fr.mazure.homepagemanager.utils.xmlparsing.XmlHelper;
 
 /**
- *
+ * Check that text use British instead of Americanish
  */
 public class BritishChecker extends NodeChecker {
 
@@ -67,6 +68,10 @@ public class BritishChecker extends NodeChecker {
     }
 
     private static CheckStatus commentUsesBritish(final Element e) {
+        final Optional<Locale> locale = XmlHelper.getElementLanguage(e);
+        if (locale.isPresent() && !locale.get().equals(Locale.ENGLISH)) {
+            return null;
+        }
         final List<String> list = XmlHelper.getFirstLevelTextContent(e);
         if (list.isEmpty()) {
             return null;
@@ -81,7 +86,7 @@ public class BritishChecker extends NodeChecker {
                                            e.getTextContent() +
                                            "\" contains american word \"" +
                                            match +
-                                           "\"  matching regexp \"" +
+                                           "\" matching regexp \"" +
                                            traduction.getAmerican() +
                                            "\", it should be \"" +
                                            traduction.getBritish() +

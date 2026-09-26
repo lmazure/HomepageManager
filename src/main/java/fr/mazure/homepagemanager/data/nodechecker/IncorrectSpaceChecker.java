@@ -243,7 +243,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             final char currentChar = chars[i];
             if (Character.isAlphabetic(currentChar)) {
                 final char nextChar = chars[i+ 1];
-                if (locale.equals(Locale.ENGLISH)) {
+                if (localeIsEnglish(locale)) {
                     if (isEnglishPunctuationWithSpaceBefore(nextChar)) {
                         return true;
                     }
@@ -269,7 +269,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
             final char nextChar = chars[i + 1];
             if (Character.isAlphabetic(nextChar)) {
                 final char currentChar = chars[i];
-                if (locale.equals(Locale.ENGLISH)) {
+                if (localeIsEnglish(locale)) {
                     if (isEnglishPunctuationWithSpaceAfter(currentChar)) {
                         return true;
                     }
@@ -304,7 +304,7 @@ public class IncorrectSpaceChecker extends NodeChecker {
                 if (startsWithAuthorizedMissingPrecedingSpaceList(str.substring(i))) {
                     return -1;
                 }
-                if (locale.equals(Locale.ENGLISH)) {
+                if (localeIsEnglish(locale)) {
                     if (isEnglishPunctuationWithNoSpaceBefore(currentChar)) {
                         return i;
                     }
@@ -322,6 +322,10 @@ public class IncorrectSpaceChecker extends NodeChecker {
             }
         }
         return -1;
+    }
+
+    private static boolean localeIsEnglish(final Locale locale) {
+        return locale.equals(Locale.ENGLISH) || locale.equals(Locale.US);
     }
 
     /**
