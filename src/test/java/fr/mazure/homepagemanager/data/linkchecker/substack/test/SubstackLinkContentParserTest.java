@@ -5,7 +5,6 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import fr.mazure.homepagemanager.data.linkchecker.substack.SubstackLinkContentParser;
 import fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase;
-import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
 /**
  *  Tests of SubstackLinkContentParser class

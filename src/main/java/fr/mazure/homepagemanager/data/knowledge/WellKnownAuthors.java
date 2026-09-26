@@ -152,7 +152,6 @@ public class WellKnownAuthors {
                               AuthorData.NameOrder.WESTERN);
     }
 
-
     /**
      *  Create an author from a first name, last name, and name suffix
      *
@@ -204,4 +203,29 @@ public class WellKnownAuthors {
                               Optional.empty(),
                               AuthorData.NameOrder.WESTERN);
     }
-}
+
+    /**
+     * Create an author
+     *
+     * @param namePrefix name prefix
+     * @param firstName first name
+     * @param middleName middle name
+     * @param lastName last name
+     * @param nameSuffix name suffix
+     * @param givenName givenname
+     * @return created author
+     */
+    public static AuthorData buildAuthor(final String namePrefix,
+                                         final String firstName,
+                                         final String middleName,
+                                         final String lastName,
+                                         final String nameSuffix,
+                                         final String givenName) {
+        return new AuthorData(Optional.ofNullable(namePrefix),
+                              Optional.ofNullable(firstName),
+                              Optional.ofNullable(middleName),
+                              Optional.ofNullable(lastName),
+                              Optional.ofNullable(nameSuffix),
+                              Optional.ofNullable(givenName),
+                              AuthorData.NameOrder.WESTERN);
+    }}

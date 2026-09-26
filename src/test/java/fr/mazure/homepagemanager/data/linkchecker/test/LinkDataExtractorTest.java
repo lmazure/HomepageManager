@@ -602,6 +602,22 @@ class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchAlejandroAoIsManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=Ct-mtWqV3Ro";
+        final String expectedXml = """
+                <ARTICLE><X><T>Herdr Crash Course — Step-by-Step Setup</T>\
+                <A>https://www.youtube.com/watch?v=Ct-mtWqV3Ro</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>16</MINUTE><SECOND>44</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Alejandro</FIRSTNAME><GIVENNAME>AO</GIVENNAME></AUTHOR>\
+                <DATE><YEAR>2026</YEAR><MONTH>8</MONTH><DAY>27</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void youtubeWatchAndrejKarpathyIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=VMj-3S1tku0";
         final String expectedXml = """
