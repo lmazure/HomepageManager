@@ -78,6 +78,10 @@ many Americanishes of abbreven.xml were not detected
 ## To do for next issue
 
 
+use https://earendil.com/posts/subscribe/ as a test to differentiate RSS vs. Atom
+
+
+
 
 
 
