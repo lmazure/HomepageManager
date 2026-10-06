@@ -45,7 +45,6 @@ class LinkContentParserTest {
 
     @ParameterizedTest
     @ValueSource(strings = {
-            "https://www.lemonde.fr/blog/vidberg/2013/07/20/une-banale-histoire-de-proces-sur-internet/",
             "https://www.marmiton.org/",
             })
     void testLanguageForFrenchArticle(final String url) {

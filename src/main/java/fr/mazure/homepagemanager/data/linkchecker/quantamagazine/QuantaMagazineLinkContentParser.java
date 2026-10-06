@@ -41,7 +41,7 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
                          s_sourceName,
                          "title");
     private static final TextParser s_subtitleParser
-        = new TextParser("<div class='post__title__excerpt [^']+'>\n",
+        = new TextParser("<div class=\"post__title__excerpt [^']+\">\n",
                          "</div>",
                          s_sourceName,
                          "subtitle");

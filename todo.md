@@ -68,7 +68,21 @@ methods       53.9%    97.9%
 
 
 
+many Americanishes of abbreven.xml were not detected
+
+
+
+
+
+
 ## To do for next issue
+
+
+use https://earendil.com/posts/subscribe/ as a test to differentiate RSS vs. Atom
+
+
+
+
 
 
 
@@ -692,13 +706,6 @@ ajouter une assertion sur le code HTTP dans fr.mazure.homepagemanager.data.linkc
 merge les deux pages sur OpenAI
 
 
-
-
-
-
-
-
-properly manage en_us
 
 
 
