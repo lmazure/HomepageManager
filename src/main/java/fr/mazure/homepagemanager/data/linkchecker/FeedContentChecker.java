@@ -8,6 +8,7 @@ import java.util.Optional;
 import fr.mazure.homepagemanager.data.violationcorrection.UpdateFeedFormatCorrection;
 import fr.mazure.homepagemanager.utils.FileHelper;
 import fr.mazure.homepagemanager.utils.FileSection;
+import fr.mazure.homepagemanager.utils.internet.FeedHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.FeedData;
 import fr.mazure.homepagemanager.utils.xmlparsing.FeedFormat;
 
@@ -38,7 +39,12 @@ public class FeedContentChecker implements Checker {
     public final List<LinkContentCheck> check() throws ContentParserException {
         final List<LinkContentCheck> checks = new ArrayList<>();
         final String content = FileHelper.slurpFileSection(_file, StandardCharsets.UTF_8);
-        final FeedFormat format = getFormat(content);
+        final FeedFormat format;
+        try {
+            format = FeedHelper.getFormat(content);
+        } catch (final IllegalArgumentException e) {
+            throw new ContentParserException("Failed to determine the feed format of " + _feedData.getUrl(), e);
+        }
         if (format != _feedData.getFormat()) {
             checks.add(new LinkContentCheck("WrongFeedFormat",
                                             "The expected feed format is " + _feedData.getFormat() + ", but the effective feed format is " + format,
@@ -46,12 +52,5 @@ public class FeedContentChecker implements Checker {
 
         }
         return checks;
-    }
-
-    private static FeedFormat getFormat(final String data) {
-        if (data.contains("http://www.w3.org/2005/Atom")) {
-            return FeedFormat.Atom;
-        }
-        return FeedFormat.RSS;
     }
 }

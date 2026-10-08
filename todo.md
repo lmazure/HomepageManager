@@ -287,16 +287,6 @@ Redirection matcher expected statuses = DEAD
 
 
 
-verify
-
-```
-https://www.youtube.com/feeds/channel_id=UCThg2IH7bNbIQF0hmXA9ECw
-The expected feed format is Atom, but the effective feed format is RSS
-```
-
-
-
-
 Since more and more sites require throttling, we should use virtual threads and run more of them in parallel.
 
 
