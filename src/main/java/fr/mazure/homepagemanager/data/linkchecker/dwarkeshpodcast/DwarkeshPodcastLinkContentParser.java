@@ -53,11 +53,16 @@ public class DwarkeshPodcastLinkContentParser extends LinkDataExtractor {
                          "\"\\)</script>",
                          s_sourceName,
                          "JSON");
-    private static final TextParser s_subtitleParser
+    private static final TextParser s_subtitleParser1
         = new TextParser("<div class=\"pencraft pc-reset color-pub-secondary-text-X0WYlZ line-height-24-LfpO1j font-pub-headings-kjzBhN size-17-H0j7Hb weight-regular-CQHCni reset-PDs18X subtitle-HEEcLo\" dir=\"auto\">",
                          "</div>",
                          s_sourceName,
                          "subtitle");
+    private static final TextParser s_subtitleParser2
+    = new TextParser("<h3 class=\"subtitle subtitle-HEEcLo\" dir=\"auto\">",
+                     "</h3>",
+                     s_sourceName,
+                     "subtitle");
 
     private static final Pattern s_extractGuest = Pattern.compile("^(.+?)\\s+[\u2013\u2014]\\s+.+$");
 
@@ -96,8 +101,14 @@ public class DwarkeshPodcastLinkContentParser extends LinkDataExtractor {
             throw new ContentParserException("Unexpected JSON", e);
         }
 
-        _subtitle = s_subtitleParser.extractOptional(data)
-                                    .map(HtmlHelper::cleanContent);
+        final Optional<String> subtitle = s_subtitleParser1.extractOptional(data)
+                                                           .map(HtmlHelper::cleanContent);
+        if (subtitle.isPresent()) {
+            _subtitle = subtitle;
+        } else {
+            _subtitle =  s_subtitleParser2.extractOptional(data)
+                                          .map(HtmlHelper::cleanContent);
+        }
 
         _authors = new ArrayList<>();
         final Matcher matcher = s_extractGuest.matcher(_title);

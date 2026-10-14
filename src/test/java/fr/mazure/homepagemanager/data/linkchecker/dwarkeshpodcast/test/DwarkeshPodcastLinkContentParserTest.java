@@ -28,6 +28,7 @@ class DwarkeshPodcastLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://www.dwarkesh.com/p/richard-sutton|LLMs aren’t Bitter-Lesson-pilled",
         "https://www.dwarkesh.com/p/elon-musk|“Those who live in software land are about to have a hard lesson in hardware.”",
+        "https://www.dwarkesh.com/p/openai-huggingface|The whole OpenAI/Hugging Face story in plain English",
     }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
