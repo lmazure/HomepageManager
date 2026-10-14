@@ -3274,6 +3274,27 @@ class LinkDataExtractorTest {
     }
 
     @Test
+    void youtubeWatchSciShowMadelynLeembruggensManaged() throws ContentParserException {
+        final String url = "https://www.youtube.com/watch?v=9yYQHUTv9t4";
+        final String expectedSureXml = """
+                <ARTICLE><X><T>The Science That Finally Explains the Dyatlov Pass Incident</T>\
+                <A>https://www.youtube.com/watch?v=9yYQHUTv9t4</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>44</MINUTE><SECOND>57</SECOND></DURATION></X>\
+                <DATE><YEAR>2026</YEAR><MONTH>10</MONTH><DAY>9</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final String expectedProbableXml = """
+                <ARTICLE><X><T>The Science That Finally Explains the Dyatlov Pass Incident</T>\
+                <A>https://www.youtube.com/watch?v=9yYQHUTv9t4</A>\
+                <L>en</L><F>MP4</F><DURATION><MINUTE>44</MINUTE><SECOND>57</SECOND></DURATION></X>\
+                <AUTHOR><FIRSTNAME>Madelyn</FIRSTNAME><LASTNAME>Leembruggen</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2026</YEAR><MONTH>10</MONTH><DAY>9</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedSureXml, generateSureXml(extractor));
+        Assertions.assertEquals(expectedProbableXml, generateProbableXml(extractor));
+    }
+
+    @Test
     void youtubeWatchSciShowStefanChinIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=i3_3ga2E8vw";
         final String expectedSureXml = """
