@@ -85,49 +85,10 @@ clean up the structure of aigoogle.xml
 
 
 
-manage
-```
-https://www.dwarkesh.com/p/ryan-greenblatt
-subtitle "A debate about recursive self-improvement." should not be present
-Expected link number 2 to be https://www.youtube.com/watch?v=6AgOfiZOWiY, but got https://www.youtube.com/watch?v=-RXD4bTuFTo
-```
-
-
-
-
-
 
 
 add `https://refactoring.fm/podcast` for Lucas Rossi's podcasts
 
-
-
-
-
-
-
-manage
-```
-https://newsletter.pragmaticengineer.com/p/50-years-of-microsoft
-subtitle "Scott Guthrie, a 28-year Microsoft veteran shares the inside story of how the company evolved its developer tools—from Visual Basic to Azure, VS Code, and GitHub—and what’s next with AI." should not be present
-
-https://newsletter.pragmaticengineer.com/p/linear-move-fast-with-little-process
-subtitle "The project management and issue tracking tool is wildly popular within startups and scaleups. Their 25-person eng team ships rapidly, with high-quality, while working full-remote. How do they do it?" should not be present
-The list of effective authors is not the effective one.
-The following authors are effectively present but are unexpected: ▭ first=Little ▭ last=Process ▭ ▭ order=western
-The following authors are expected but are effectively missing: ▭ first=Sabin ▭ last=Roman ▭ ▭ order=western
-
-https://newsletter.pragmaticengineer.com/p/the-history-of-servers-the-cloud
-subtitle "Bryan Cantrill explains how decades of server and cloud evolution shaped modern infrastructure and what today's software engineers can learn from it." should not be present
-The list of effective authors is not the effective one.
-The following authors are effectively present but are unexpected: ▭ ▭ ▭ ▭ ▭ given=Oxide order=western
-The following authors are expected but are effectively missing: ▭ first=Bryan ▭ last=Cantrill ▭ ▭ order=western
-
-https://newsletter.pragmaticengineer.com/p/twisting-the-rules-of-building-software
-subtitle "Its controversial acquisitions approach, why Bending Spoons aims to have no oncall, the Evernote migration in order to retire the monolith, and more." should not be present
-The list of effective authors is not the effective one.
-The following authors are effectively present but are unexpected: 
-```
 
 
 
@@ -148,16 +109,6 @@ many Americanishes of abbreven.xml were not detected
 
 
 
-manage
-```
-https://www.dwarkesh.com/p/dario-amodei-2
-subtitle ""That's why I'm sending this message of urgency"" should not be present
-```
-
-
-
-
-
 
 understand the bad color of
 ```
@@ -169,16 +120,6 @@ understand the bad color of
 
 
 `<PROMPT/>`is missing for a lot of `<CODESAMPLE language="bash">` cases
-
-
-
-
-
-
-
-
-https://www.dwarkesh.com/p/openai-huggingface
-subtitle "The whole OpenAI/Hugging Face story in plain English" should not be present
 
 
 
@@ -208,19 +149,6 @@ manage
 ```
 
 
-
-
-
-
-manage
-
-```
-https://newsletter.pragmaticengineer.com/p/how-to-work-better-with-product-as
-The list of effective authors is not the effective one.
-The following authors are effectively present but are unexpected: ▭ ▭ ▭ ▭ ▭ given=Product, as an Engineer with Ebi Atawodi
-The following authors are expected but are effectively missing: ▭ first=Ebi ▭ last=Atawodi ▭ ▭
-Expected 2 links (https://newsletter.pragmaticengineer.com/p/how-to-work-better-with-product-as, https://www.youtube.com/watch?v=f4AGAeVe2Jw), but got 1 links (https://newsletter.pragmaticengineer.com/p/how-to-work-better-with-product-as)
-```
 
 
 
@@ -524,20 +452,6 @@ Manage Martin Fowler dates on links/design.xml
 
 
 
-
-
-
-Dwarkesh subtitles should be managed  
-e.g., https://www.dwarkesh.com/p/elon-musk
-
-
-
-
-
-
-
- 
- 
 
 
 

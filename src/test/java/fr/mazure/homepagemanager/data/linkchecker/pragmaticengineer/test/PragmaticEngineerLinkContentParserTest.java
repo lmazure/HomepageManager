@@ -109,6 +109,8 @@ class PragmaticEngineerLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://newsletter.pragmaticengineer.com/p/martin-fowler|https://www.youtube.com/watch?v=CQmI4XKTa0U",
         "https://newsletter.pragmaticengineer.com/p/the-third-golden-age-of-software|https://www.youtube.com/watch?v=OfMAtaocvJw",
+        // the next article has no embedded video
+        "https://newsletter.pragmaticengineer.com/p/how-to-work-better-with-product-as|https://www.youtube.com/watch?v=f4AGAeVe2Jw",
     }, delimiter = '|')
     void testOtherLink(final String url,
                        final String expectedOtherLink) {

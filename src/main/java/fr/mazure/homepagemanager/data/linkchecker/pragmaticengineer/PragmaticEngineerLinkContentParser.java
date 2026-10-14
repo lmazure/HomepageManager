@@ -62,9 +62,9 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
                          s_sourceName,
                          "author in <title>");
     private static final TextParser s_youtubeLinkParser
-        = new TextParser("youtube-nocookie\\.com/embed/",
+        = new TextParser("<a href=\"https://www.youtube.com/watch\\?v=",
                          "[A-Za-z0-9_-]+",
-                         "\\?",
+                         "&amp;t=",
                          s_sourceName,
                          "YouTube link");
 
