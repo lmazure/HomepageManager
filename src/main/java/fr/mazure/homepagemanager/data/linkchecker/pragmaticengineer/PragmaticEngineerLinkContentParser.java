@@ -52,7 +52,7 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
                          s_sourceName,
                          "JSON");
     private static final TextParser s_subtitleParser
-        = new TextParser("<div dir=\"auto\" class=\"pencraft pc-reset color-pub-secondary-text-hGQ02T line-height-24-jnGwiv font-pub-headings-FE5byy size-17-JHHggF weight-regular-mUq6Gb reset-IxiVJZ subtitle-HEEcLo\">",
+        = new TextParser("<div class=\"pencraft pc-reset color-pub-secondary-text-X0WYlZ line-height-24-LfpO1j font-pub-headings-kjzBhN size-17-H0j7Hb weight-regular-CQHCni reset-PDs18X subtitle-HEEcLo\" dir=\"auto\">",
                          "</div>",
                          s_sourceName,
                          "subtitle");
