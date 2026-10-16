@@ -69,6 +69,8 @@ methods       53.9%    97.9%
 
 
 
+find a way to proofread with Claude
+
 
 
 
@@ -120,21 +122,6 @@ understand the bad color of
 
 
 `<PROMPT/>`is missing for a lot of `<CODESAMPLE language="bash">` cases
-
-
-
-
-
-implement quick fix for "is after page date" (set the date to today)
-
-
-
-
-
-
-
-
-add missing comments
 
 
 
@@ -430,12 +417,6 @@ but IBM is currently down…
 
 
 
-the text of the <CODESAMPLE language="bash"> is grey instead of black
-
-
-
-
-
 
 understand why the fixes add a ^M at the end of the line
 
@@ -536,7 +517,7 @@ the articles of fr.mazure.homepagemanager.data.linkchecker.ibm.test.IbmLinkConte
 
 
 
-→ write a skill to vaciliate the generation of parsers?
+→ write a skill to facilitate the generation of parsers?
 
 
 
