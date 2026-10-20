@@ -69,14 +69,35 @@ methods       53.9%    97.9%
 
 
 
-find a way to proofread with Claude
-
-
-
-
-
 
 ## To do for next issue
+
+
+
+manage
+```
+https://www.thoughtworks.com/insights/podcasts/technology-podcasts/building-intersection-machine-learning-software-engineering
+The list of effective authors is not the effective one.
+The following authors are effectively present but are unexpected: ▭ first=Scott ▭ last=Shaw ▭ ▭ order=western
+The following authors are expected but are effectively missing: ▭ first=Neal ▭ last=Ford ▭ ▭ order=western
+
+https://www.thoughtworks.com/insights/podcasts/technology-podcasts/entering-age-of-intent-digital-interaction
+The list of effective authors is not the effective one.
+The following authors are effectively present but are unexpected: ▭ first=Sara ▭ last=Taraporewalla ▭ ▭ order=western
+The following authors are expected but are effectively missing: ▭ first=Sarah ▭ last=Taraporewalla ▭ ▭ order=western
+
+https://www.thoughtworks.com/insights/podcasts/technology-podcasts/generative-ai-s-uncanny-valley--problem-or-opportunity-
+The list of effective authors is not the effective one.
+The following authors are effectively present but are unexpected: 
+The following authors are expected but are effectively missing: ▭ first=David ▭ last=Tan ▭ ▭ order=western
+```
+
+
+
+
+
+find a way to proofread with Claude
+
 
 
 
