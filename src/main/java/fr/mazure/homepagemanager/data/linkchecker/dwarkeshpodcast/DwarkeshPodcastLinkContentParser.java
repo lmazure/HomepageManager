@@ -49,8 +49,8 @@ public class DwarkeshPodcastLinkContentParser extends LinkDataExtractor {
     private final Locale _language;
 
     private static final TextParser s_jsonParser
-        = new TextParser("window\\._preloads\\s+=\\s+JSON\\.parse\\(\"",
-                         "\"\\)</script>",
+        = new TextParser("<script type=\"application/json\" id=\"preloads-json\" nonce=\"[^\"]+\">",
+                         "</script>",
                          s_sourceName,
                          "JSON");
     private static final TextParser s_subtitleParser1
@@ -59,10 +59,10 @@ public class DwarkeshPodcastLinkContentParser extends LinkDataExtractor {
                          s_sourceName,
                          "subtitle");
     private static final TextParser s_subtitleParser2
-    = new TextParser("<h3 class=\"subtitle subtitle-HEEcLo\" dir=\"auto\">",
-                     "</h3>",
-                     s_sourceName,
-                     "subtitle");
+        = new TextParser("<h3 class=\"subtitle subtitle-HEEcLo\" dir=\"auto\">",
+                         "</h3>",
+                         s_sourceName,
+                         "subtitle");
 
     private static final Pattern s_extractGuest = Pattern.compile("^(.+?)\\s+[\u2013\u2014]\\s+.+$");
 
@@ -81,8 +81,7 @@ public class DwarkeshPodcastLinkContentParser extends LinkDataExtractor {
         final String data = sluper.getContent();
 
         try {
-            final String escapedJson = s_jsonParser.extract(data);
-            final String json = JsonHelper.unescape(escapedJson);
+            final String json = s_jsonParser.extract(data);
             final JSONObject payload = new JSONObject(json);
             final JSONObject post = JsonHelper.getAsNode(payload, "post");
 

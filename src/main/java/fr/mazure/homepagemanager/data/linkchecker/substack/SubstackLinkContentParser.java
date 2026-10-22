@@ -45,8 +45,8 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
     private final Locale _language;
 
     private static final TextParser s_jsonParser
-        = new TextParser("window\\._preloads\\s+=\\s+JSON\\.parse\\(\"",
-                         "\"\\)</script>",
+        = new TextParser("<script type=\"application/json\" id=\"preloads-json\" nonce=\"[^\"]+\">",
+                         "</script>",
                          s_sourceName,
                          "JSON");
 
@@ -66,8 +66,7 @@ public class SubstackLinkContentParser extends LinkDataExtractor {
         final SiteSlurper sluper = new SiteSlurper(getRetriever(), url);
         final String data = sluper.getContent();
 
-        final String escapedJson = s_jsonParser.extract(data);
-        final String json = JsonHelper.unescape(escapedJson);
+        final String json = s_jsonParser.extract(data);
         final JSONObject payload = new JSONObject(json);
         final JSONObject post = JsonHelper.getAsNode(payload, "post");
 
