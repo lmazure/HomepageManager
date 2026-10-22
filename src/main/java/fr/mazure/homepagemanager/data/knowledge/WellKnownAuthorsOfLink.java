@@ -33,6 +33,7 @@ public class WellKnownAuthorsOfLink {
         s_knownUrls.put("eljjdx.canalblog.com",             buildKnownAuthors(WellKnownAuthors.JEROME_COTTANCEAU,                        false));
         s_knownUrls.put("embracethered.com",                buildKnownAuthors(WellKnownAuthors.JOHANN_REHBERGER,                         false));
         s_knownUrls.put("gereshes.com",                     buildKnownAuthors(WellKnownAuthors.buildAuthor("Ari", "Rubinsztejn"),        false));
+        s_knownUrls.put("greshake.github.io",               buildKnownAuthors(WellKnownAuthors.buildAuthor("Kai", "Greshake"),           true));
         s_knownUrls.put("jon.recoil.org",                   buildKnownAuthors(WellKnownAuthors.buildAuthor("Jon", "Ludlam"),             false));
         s_knownUrls.put("kirancodes.me",                    buildKnownAuthors(WellKnownAuthors.buildAuthor("Kiran", "Gopinathan"),       false));
         s_knownUrls.put("lexfridman.com",                   buildKnownAuthors(WellKnownAuthors.LEX_FRIDMAN,                              true));
