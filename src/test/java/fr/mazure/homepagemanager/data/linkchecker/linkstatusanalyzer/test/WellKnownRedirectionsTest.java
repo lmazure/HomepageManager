@@ -200,7 +200,6 @@ class WellKnownRedirectionsTest {
     @ParameterizedTest
     @CsvSource({
         "http://httpbin.org/status/503",
-        "http://www.nplus1executive.com/",
         })
     void direct503(final String url) {
         test(url,
@@ -292,7 +291,6 @@ class WellKnownRedirectionsTest {
         "https://www.dell.com",      // https://www.dell.com/fr-fr
         "https://www.ibm.com",       // https://www.ibm.com/fr-fr
         "https://www.loria.fr",      // https://www.loria.fr/en/
-        "https://www.microsoft.com", // https://www.microsoft.com/fr-fr/
         "https://www.msn.com",       // https://www.msn.com/fr-fr
         "https://www.nintendo.com",  // https://www.nintendo.com/us/
         "https://www.real.com",      // https://www.real.com/fr
@@ -307,6 +305,7 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
+        "http://weblogs.java.net/blog/arnold/archive/2005/06/generics_consid_1.html",
         "http://blogs.msdn.com/b/jw_on_tech/archive/2012/03/14/why-i-joined-microsoft.aspx",
         })
     void redirectionsEndingWith403(final String url) {
@@ -319,7 +318,6 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
-        "http://weblogs.java.net/blog/arnold/archive/2005/06/generics_consid_1.html",
         "http://www.hays.lu/prd_consump/groups/hays_common/@fr/@content/documents/digitalasset/hays_714488.pdf",
         "http://www.ineris.fr/centredoc/Communication_site_web_INERIS.pdf",
         })
