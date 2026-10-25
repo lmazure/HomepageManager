@@ -99,6 +99,20 @@ class WellKnownRedirectionsTest {
              Set.of(LinkStatus.DEAD));
     }
 
+    // URLs giving directly a 405
+    @ParameterizedTest
+    @CsvSource({
+        "http://httpbin.org/status/405",
+        "https://www.helpnetsecurity.com/2006/11/10/top-10-ajax-security-holes-and-driving-factors/",
+        })
+    void direct405(final String url) {
+        test(url,
+             false,
+             Integer.valueOf(405),
+             "direct failure",
+             Set.of(LinkStatus.DEAD));
+    }
+
     // URLs giving directly a 406
     @Disabled("lemonde.fr does not reply anymore with 106")
     @ParameterizedTest

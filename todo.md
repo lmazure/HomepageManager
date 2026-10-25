@@ -57,7 +57,23 @@ methods       53.9%    97.9%
 
 
 
-
+manage
+```
+fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://lucumr.pocoo.org/2024/08/21/harvest-season/"
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:86)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:339)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1527)
+Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find title in lucumr.pocoo.org
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.TextParser.extract(TextParser.java:61)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.arminronacher.ArminRonacherLinkContentParser.<init>(ArminRonacherLinkContentParser.java:60)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:57)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:95)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:84)
+	... 5 more
+```
 
 
 
