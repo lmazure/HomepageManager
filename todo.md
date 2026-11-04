@@ -57,30 +57,7 @@ methods       53.9%    97.9%
 
 
 
-manage
-```
-fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://lucumr.pocoo.org/2024/08/21/harvest-season/"
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:86)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:339)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
-	at java.base/java.lang.Thread.run(Thread.java:1527)
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find title in lucumr.pocoo.org
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.TextParser.extract(TextParser.java:61)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.arminronacher.ArminRonacherLinkContentParser.<init>(ArminRonacherLinkContentParser.java:60)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:57)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:95)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:84)
-	... 5 more
-```
-
-
-
-
-
 ## Must be done in this issue
-
 
 
 
@@ -88,6 +65,16 @@ Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Fa
 
 ## To do for next issue
 
+
+
+manage
+```
+https://www.quantamagazine.org/what-is-the-positive-grassmannian-and-why-does-it-show-up-everywhere-20260625/
+The list of effective authors is not the effective one.
+The following authors are effectively present but are unexpected: ▭ ▭ ▭ ▭ ▭ given=Williams order=western
+The following authors are expected but are effectively missing: ▭ first=Lauren ▭ last=Williams ▭ ▭ order=western
+Expected 2 links (https://www.quantamagazine.org/what-is-the-positive-grassmannian-and-why-does-it-show-up-everywhere-20260625/, https://www.youtube.com/watch?v=iAaGDYz3f9k), but got 1 links (https://www.quantamagazine.org/what-is-the-positive-grassmannian-and-why-does-it-show-up-everywhere-20260625/)
+```
 
 
 manage

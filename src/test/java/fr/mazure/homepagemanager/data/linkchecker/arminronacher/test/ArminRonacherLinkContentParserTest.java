@@ -15,6 +15,7 @@ class ArminRonacherLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://lucumr.pocoo.org/2026/8/19/what-is-reasoning/|Armin|Ronacher|",
+        "https://dark.ronacher.eu/2026/10/31/golden-age/|Armin|Ronacher|",
         }, delimiter = '|')
     void testAuthor(final String url,
                     final String expectedFirstName,
@@ -27,6 +28,7 @@ class ArminRonacherLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://lucumr.pocoo.org/2026/8/19/what-is-reasoning/|What Is Reasoning",
+        "https://dark.ronacher.eu/2026/10/31/golden-age/|The Golden Age",
         }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
@@ -38,6 +40,7 @@ class ArminRonacherLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
             "https://lucumr.pocoo.org/2026/8/19/what-is-reasoning/",
+            "https://dark.ronacher.eu/2026/10/31/golden-age/",
         }, delimiter = '|')
     void testNoSubtitle(final String url) {
         checkNoSubtitle(ArminRonacherLinkContentParser.class, url);
@@ -47,6 +50,7 @@ class ArminRonacherLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://lucumr.pocoo.org/2026/8/19/what-is-reasoning/|2026-08-19",
+        "https://dark.ronacher.eu/2026/10/31/golden-age/|2026-10-31",
         }, delimiter = '|')
     void testDate(final String url,
                   final String expectedPublicationDate) {
@@ -57,6 +61,7 @@ class ArminRonacherLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://lucumr.pocoo.org/2026/8/19/what-is-reasoning/|en",
+        "https://dark.ronacher.eu/2026/10/31/golden-age/|en",
         }, delimiter = '|')
     void testLanguage(final String url,
                       final String expectedLanguage) {

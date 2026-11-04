@@ -54,6 +54,22 @@ class LinkDataExtractorTest {
     }
 
     @Test
+    void arminRonacherDarkIsManaged() throws ContentParserException {
+        final String url = "https://dark.ronacher.eu/2026/10/31/golden-age/";
+        final String expectedXml = """
+                <ARTICLE><X><T>The Golden Age</T>\
+                <A>https://dark.ronacher.eu/2026/10/31/golden-age/</A>\
+                <L>en</L><F>HTML</F></X>\
+                <AUTHOR><FIRSTNAME>Armin</FIRSTNAME><LASTNAME>Ronacher</LASTNAME></AUTHOR>\
+                <DATE><YEAR>2026</YEAR><MONTH>10</MONTH><DAY>31</DAY></DATE>\
+                <COMMENT>XXXXX</COMMENT></ARTICLE>""";
+        final LinkDataExtractor extractor = getExtractor(url);
+        Assertions.assertEquals(expectedXml, generateSureXml(extractor));
+        Assertions.assertTrue(extractor.getProbableAuthors().isEmpty());
+        Assertions.assertTrue(extractor.getPossibleAuthors().isEmpty());
+    }
+
+    @Test
     void arsTechnicaIsManaged() throws ContentParserException {
         final String url = "https://arstechnica.com/tech-policy/2021/10/uh-no-pfizer-scientist-denies-holmes-claim-that-pfizer-endorsed-theranos-tech/";
         final String expectedXml = """
@@ -2045,7 +2061,7 @@ class LinkDataExtractorTest {
                 <ARTICLE><X><T>7 Things I Never Knew About Python Until Recently (Part 1)</T>\
                 <A>https://www.youtube.com/watch?v=AMoBy45dYpY</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>7</MINUTE><SECOND>12</SECOND></DURATION></X>\
-                <AUTHOR><FIRSTNAME>Liu</FIRSTNAME><LASTNAME>Zuo Lin</LASTNAME></AUTHOR>\
+                <AUTHOR order="eastern"><FIRSTNAME>Zuo Lin</FIRSTNAME><LASTNAME>Liu</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2023</YEAR><MONTH>10</MONTH><DAY>22</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final LinkDataExtractor extractor = getExtractor(url);
@@ -3886,14 +3902,14 @@ class LinkDataExtractorTest {
     void youtubeWatchVeritasiumHenryVanDyckIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=onr80iOoEXs";
         final String expectedSureXml = """
-                <ARTICLE><X><T>Alfred Nobel: The Man Who Fooled The World</T>\
+                <ARTICLE><X><T>The Nobel prize has a dark history...</T>\
                 <A>https://www.youtube.com/watch?v=onr80iOoEXs</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>46</MINUTE><SECOND>9</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Derek</FIRSTNAME><LASTNAME>Muller</LASTNAME></AUTHOR>\
                 <DATE><YEAR>2025</YEAR><MONTH>9</MONTH><DAY>21</DAY></DATE>\
                 <COMMENT>XXXXX</COMMENT></ARTICLE>""";
         final String expectedProbableXml = """
-                <ARTICLE><X><T>Alfred Nobel: The Man Who Fooled The World</T>\
+                <ARTICLE><X><T>The Nobel prize has a dark history...</T>\
                 <A>https://www.youtube.com/watch?v=onr80iOoEXs</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>46</MINUTE><SECOND>9</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Derek</FIRSTNAME><LASTNAME>Muller</LASTNAME></AUTHOR>\

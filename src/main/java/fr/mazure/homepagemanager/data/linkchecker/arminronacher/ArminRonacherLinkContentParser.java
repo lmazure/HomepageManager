@@ -58,7 +58,7 @@ public class ArminRonacherLinkContentParser extends LinkDataExtractor {
         final String data = sluper.getContent();
 
         _title = HtmlHelper.cleanContent(s_titleParser.extract(data))
-                           .replaceFirst(" \\| Armin Ronacher's Thoughts and Writings$", "");
+                           .replaceFirst(" \\| (Armin Ronacher's Thoughts and Writings|Dark Thoughts)$", "");
 
         _creationDate = LocalDate.parse(s_dateParser.extract(data));
 
@@ -85,7 +85,8 @@ public class ArminRonacherLinkContentParser extends LinkDataExtractor {
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return UrlHelper.hasPrefix(url, "https://lucumr.pocoo.org/");
+        return UrlHelper.hasPrefix(url, "https://lucumr.pocoo.org/") ||
+               UrlHelper.hasPrefix(url, "https://dark.ronacher.eu/");
     }
 
     @Override
