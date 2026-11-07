@@ -25,13 +25,13 @@ public class DZoneLinkContentChecker extends ExtractorBasedLinkContentChecker {
         super(url, linkData, articleData, (LinkDataExtractorBuilder)DZoneLinkContentParser::new, retriever);
     }
 
-        /**
-         * Determine if the link is managed
-         *
-         * @param url link
-         * @return true if the link is managed
-         */
-        public static boolean isUrlManaged(final String url) {
-            return DZoneLinkContentParser.isUrlManaged(url);
-        }
+    /**
+     * Determine if the link is managed
+     *
+     * @param url link
+     * @return true if the link is managed
+     */
+    public static boolean isUrlManaged(final String url) {
+        return DZoneLinkContentParser.isUrlManaged(url);
+    }
 }
