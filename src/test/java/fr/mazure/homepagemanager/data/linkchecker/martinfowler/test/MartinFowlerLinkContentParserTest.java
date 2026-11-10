@@ -18,6 +18,7 @@ class MartinFowlerLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://martinfowler.com/articles/mocksArentStubs.html|Mocks Aren't Stubs",
         "https://martinfowler.com/articles/exploring-gen-ai/to-vibe-or-not-vibe.html|To vibe or not to vibe",
         "https://martinfowler.com/articles/badri-hexagonal/|A Conversation with Badri Janakiraman about Hexagonal Rails",
+        "https://martinfowler.com/rachels-ramblings/good-devs-wary.html|Why are good developers so wary of agentic development?",
         }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
@@ -27,9 +28,9 @@ class MartinFowlerLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-            "https://martinfowler.com/articles/refactoring-2nd-ed.html",
-            "https://martinfowler.com/articles/mocksArentStubs.html",
-            "https://martinfowler.com/articles/exploring-gen-ai/to-vibe-or-not-vibe.html",
+        "https://martinfowler.com/articles/refactoring-2nd-ed.html",
+        "https://martinfowler.com/articles/mocksArentStubs.html",
+        "https://martinfowler.com/articles/exploring-gen-ai/to-vibe-or-not-vibe.html",
         }, delimiter = '|')
     void testNoSubtitle(final String url) {
         checkNoSubtitle(MartinFowlerLinkContentParser.class, url);
@@ -38,10 +39,10 @@ class MartinFowlerLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-            "https://martinfowler.com/articles/2023-chatgpt-xu-hao.html|Xu Hao uses chain of thought and general knowledge prompting with ChatGPT when writing self-testing code",
-            "https://martinfowler.com/articles/function-call-LLM.html|Building AI Agents that interact with the external world.",
-            // old article
-            "https://martinfowler.com/articles/patterns-legacy-displacement/revert-to-source.html|Identify the originating source of data and integrate to that",
+        "https://martinfowler.com/articles/2023-chatgpt-xu-hao.html|Xu Hao uses chain of thought and general knowledge prompting with ChatGPT when writing self-testing code",
+        "https://martinfowler.com/articles/function-call-LLM.html|Building AI Agents that interact with the external world.",
+        // old article
+        "https://martinfowler.com/articles/patterns-legacy-displacement/revert-to-source.html|Identify the originating source of data and integrate to that",
         }, delimiter = '|')
     void tesSubtitle(final String url,
                      final String expectedSubtitle) {
