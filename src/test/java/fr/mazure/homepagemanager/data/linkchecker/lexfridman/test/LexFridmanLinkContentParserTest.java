@@ -19,7 +19,7 @@ class LexFridmanLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://lexfridman.com/elon-musk|Elon Musk: Tesla Autopilot",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
         checkTitle(LexFridmanLinkContentParser.class, url, expectedTitle);
@@ -29,7 +29,7 @@ class LexFridmanLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://lexfridman.com/elon-musk",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testSubtitle(final String url) {
         checkNoSubtitle(LexFridmanLinkContentParser.class, url);
     }
@@ -44,7 +44,7 @@ class LexFridmanLinkContentParserTest extends LinkDataExtractorTestBase {
         // Lex Fridman is published before
         "https://lexfridman.com/shannon-curry|2023-03-21|2023-03-21|2023-03-22",
         "https://lexfridman.com/grant-sanderson-2|2020-08-23|2020-08-23|2020-08-24",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testDates(final String url,
                    final String expectedCreationDate,
                    final String expectedLexFridmanPublicationnDate,
@@ -72,7 +72,7 @@ class LexFridmanLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://lexfridman.com/elon-musk|PT33M1S",
         "https://lexfridman.com/graham-hancock|PT2H41M34S"
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testDuration(final String url,
                       final String expectedDuration) {
         checkDuration(LexFridmanLinkContentParser.class, url, expectedDuration);
@@ -85,7 +85,7 @@ class LexFridmanLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://lexfridman.com/mark-zuckerberg-3|Mark||Zuckerberg|Lex||Fridman|",
         "https://lexfridman.com/aaron-smith-levin|Aaron||Smith-Levin|Lex||Fridman|",
         "https://lexfridman.com/po-shen-loh|Po-Shen||Loh|Lex||Fridman|",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void test2Authors(final String url,
                       final String expectedFirstName1,
                       final String expectedMiddleName1,
@@ -115,7 +115,7 @@ class LexFridmanLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://lexfridman.com/deepseek-dylan-patel-nathan-lambert/|Lex||Fridman",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void doNotCrashIfNoNameInTitle(final String url,
                                    final String expectedFirstName1,
                                    final String expectedMiddleName1,
@@ -135,7 +135,7 @@ class LexFridmanLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://lexfridman.com/deepseek-dylan-patel-nathan-lambert/|https://www.youtube.com/watch?v=_1f-o0nqpEI",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testOtherLink(final String url,
                        final String expectedOtherLink) {
         checkOtherLink(LexFridmanLinkContentParser.class, url, expectedOtherLink);

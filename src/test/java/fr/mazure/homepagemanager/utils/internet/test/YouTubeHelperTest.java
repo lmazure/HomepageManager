@@ -19,7 +19,7 @@ class YouTubeHelperTest {
     @ParameterizedTest
     @CsvSource(value = {
         "Oxide Computer Company|Querying Metrics with OxQL|https://www.youtube.com/watch?v=RTsXM3kcAaI",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testVideoUrlRetrieval(final String channelName,
                                final String videoTitle,
                                final String expectedUrl) {

@@ -15,7 +15,7 @@ class SpectrumLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://spectrum.ieee.org/intel-20a|In 2024, Intel Hopes to Leapfrog Its Chipmaking Competitors "
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
         checkTitle(SpectrumLinkContentParser.class, url, expectedTitle);
@@ -25,7 +25,7 @@ class SpectrumLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://spectrum.ieee.org/intel-20a|The chipmaker is betting on new transistors and power-delivery tech"
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
         checkSubtitle(SpectrumLinkContentParser.class, url, expectedSubtitle);
@@ -35,7 +35,7 @@ class SpectrumLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://spectrum.ieee.org/intel-20a|2023-12-18"
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testDate(final String url,
                   final String expectedDate) {
         checkCreationDate(SpectrumLinkContentParser.class, url, expectedDate);
@@ -46,7 +46,7 @@ class SpectrumLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://spectrum.ieee.org/intel-20a|Gwendolyn||Rak|",
         "https://spectrum.ieee.org/the-end-of-gold-farming|Margo||Anderson|"
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testAuthor(final String url,
                     final String expectedFirstName,
                     final String expectedMiddleName,
@@ -65,9 +65,9 @@ class SpectrumLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-            "https://spectrum.ieee.org/winner-multicore-made-simple|Brian||Santo|Sally||Adee",
-            "https://spectrum.ieee.org/everything-you-need-to-know-about-5g|Amy||Nordrum|Kristen||Clark",
-    }, delimiter = '|')
+        "https://spectrum.ieee.org/winner-multicore-made-simple|Brian||Santo|Sally||Adee",
+        "https://spectrum.ieee.org/everything-you-need-to-know-about-5g|Amy||Nordrum|Kristen||Clark",
+        }, delimiter = '|')
     void test2Authors(final String url,
                       final String expectedFirstName1,
                       final String expectedMiddleName1,

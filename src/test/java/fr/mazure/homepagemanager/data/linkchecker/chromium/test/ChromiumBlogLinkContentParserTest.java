@@ -18,7 +18,7 @@ class ChromiumBlogLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://blog.chromium.org/2020/04/keeping-spam-off-chrome-web-store.html|Keeping spam off the Chrome Web Store",
         // the next article uses the new structure
         "https://blog.chromium.org/2025/05/fighting-unwanted-notifications-with.html|Fighting Unwanted Notifications with Machine Learning in Chrome",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
         checkTitle(ChromiumBlogLinkContentParser.class, url, expectedTitle);
@@ -28,7 +28,7 @@ class ChromiumBlogLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://blog.chromium.org/2019/05/improving-privacy-and-security-on-web.html|Improving privacy and security on the web",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testTrimmedTitle(final String url,
                           final String expectedTitle) {
         checkTitle(ChromiumBlogLinkContentParser.class, url, expectedTitle);
@@ -54,7 +54,7 @@ class ChromiumBlogLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://blog.chromium.org/2020/04/keeping-spam-off-chrome-web-store.html|2020-04-29",
         // the next article uses the new structure
         "https://blog.chromium.org/2025/05/fighting-unwanted-notifications-with.html|2025-05-08",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testPublishDate(final String url,
                          final String expectedPublicationDate) {
         checkCreationDate(ChromiumBlogLinkContentParser.class, url, expectedPublicationDate);
@@ -65,7 +65,7 @@ class ChromiumBlogLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://blog.chromium.org/2021/04/dont-copy-that-surface.html",
         "https://blog.chromium.org/2018/09/10-years-of-chrome-devtools.html",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testNoAuthor(final String url) {
         check0Author(ChromiumBlogLinkContentParser.class,
                      url);
@@ -101,7 +101,7 @@ class ChromiumBlogLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://blog.chromium.org/2020/05/protecting-chrome-users-from-abusive.html|PJ||McLachlan",
         "https://blog.chromium.org/2018/08/charting-browser-interoperability.html|Mark||Dittmer",
         "https://blog.chromium.org/2019/06/webassembly-brings-google-earth-to-more.html|Thomas||Nattestad",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testAuthor(final String url,
                     final String expectedFirstName,
                     final String expectedMiddleName,
@@ -131,7 +131,7 @@ class ChromiumBlogLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://blog.chromium.org/2019/05/taking-action-on-deceptive-installation.html|Swagateeka||Panigrahy|Benjamin||Ackerman",
         //"https://blog.chromium.org/2023/04/more-ways-were-making-chrome-faster.html|Thomas||Nattestad|Andrew||Grieve", //TODO <span>s are a complete mess!
         "https://blog.chromium.org/2020/11/transparent-privacy-practices.html|Alexandre||Blondin|Mark|M.|Jaycox",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void test2Authors(final String url,
                       final String expectedFirstName1,
                       final String expectedMiddleName1,
@@ -160,11 +160,11 @@ class ChromiumBlogLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-            "https://blog.chromium.org/2015/04/a-quic-update-on-googles-experimental.html|Alyssa||Wilk|Ryan||Hamilton|Ian||Swett",
-            "https://blog.chromium.org/2019/10/automatically-lazy-loading-offscreen.html|Addy||Osmani|Scott||Little|Raj||T",
-            "https://blog.chromium.org/2019/11/moving-towards-faster-web.html|Addy||Osmani|Ben||Greenstein|Bryan||McQuade",
-            //"https://blog.chromium.org/2020/08/helping-people-spot-spoofs-url.html|Emily||Stark|Eric||Mill|Shweta||Panditrao", //TODO <span>s are a complete mess!
-    }, delimiter = '|')
+        "https://blog.chromium.org/2015/04/a-quic-update-on-googles-experimental.html|Alyssa||Wilk|Ryan||Hamilton|Ian||Swett",
+        "https://blog.chromium.org/2019/10/automatically-lazy-loading-offscreen.html|Addy||Osmani|Scott||Little|Raj||T",
+        "https://blog.chromium.org/2019/11/moving-towards-faster-web.html|Addy||Osmani|Ben||Greenstein|Bryan||McQuade",
+        //"https://blog.chromium.org/2020/08/helping-people-spot-spoofs-url.html|Emily||Stark|Eric||Mill|Shweta||Panditrao", //TODO <span>s are a complete mess!
+        }, delimiter = '|')
     void test3Authors(final String url,
                       final String expectedFirstName1,
                       final String expectedMiddleName1,
@@ -203,8 +203,8 @@ class ChromiumBlogLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-            "https://blog.chromium.org/2012/06/tale-of-two-pwnies-part-2.html|Ken||Buchanan|Chris||Evans|Charlie||Reis|Tom||Sepez",
-    }, delimiter = '|')
+        "https://blog.chromium.org/2012/06/tale-of-two-pwnies-part-2.html|Ken||Buchanan|Chris||Evans|Charlie||Reis|Tom||Sepez",
+        }, delimiter = '|')
     void test4Authors(final String url,
                       final String expectedFirstName1,
                       final String expectedMiddleName1,

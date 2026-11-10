@@ -39,8 +39,8 @@ class ArminRonacherLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-            "https://lucumr.pocoo.org/2026/8/19/what-is-reasoning/",
-            "https://dark.ronacher.eu/2026/10/31/golden-age/",
+        "https://lucumr.pocoo.org/2026/8/19/what-is-reasoning/",
+        "https://dark.ronacher.eu/2026/10/31/golden-age/",
         }, delimiter = '|')
     void testNoSubtitle(final String url) {
         checkNoSubtitle(ArminRonacherLinkContentParser.class, url);

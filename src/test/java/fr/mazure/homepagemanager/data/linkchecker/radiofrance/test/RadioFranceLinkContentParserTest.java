@@ -21,7 +21,7 @@ class RadioFranceLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://www.radiofrance.fr/franceculture/podcasts/les-grandes-traversees/naissance-d-un-prodige-6979092|Naissance d’un prodige",
         "https://www.radiofrance.fr/franceculture/podcasts/les-grandes-traversees/les-mots-qui-tuent-6008423|Les mots qui tuent",
         "https://www.radiofrance.fr/franceculture/podcasts/les-grandes-traversees/l-etoile-de-papier-1181737|L'étoile de papier",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
         checkTitle(RadioFranceLinkContentParser.class, url, expectedTitle);
@@ -37,7 +37,7 @@ class RadioFranceLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://www.radiofrance.fr/franceculture/podcasts/les-grandes-traversees/naissance-d-un-prodige-6979092|À 12 ans, détenu avec sa mère au camp d'internement de Rieucros en Lozère, Alexandre Grothendieck découvre la beauté du cercle et des polyèdres. Pour échapper au tumulte de la guerre, l'adolescent juif apatride se réfugie dans l’abstraction.",
         "https://www.radiofrance.fr/franceculture/podcasts/les-grandes-traversees/les-mots-qui-tuent-6008423|Comment vit-on quand un mot peut être fatal ? Qu'est-ce que la langue raconte de la vie sous Staline ?",
         "https://www.radiofrance.fr/franceculture/podcasts/les-grandes-traversees/l-etoile-de-papier-1181737|Kafka sur la plage, jouant au milieu des enfants. Son carnet d’hébreu, son rêve de Palestine, sa dernière année à Berlin avec Dora Diamant et l’éternelle question : de quoi ai-je hérité et que vais-je à mon tour laisser ?",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
         checkSubtitle(RadioFranceLinkContentParser.class, url, expectedSubtitle);
@@ -54,7 +54,7 @@ class RadioFranceLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://www.radiofrance.fr/franceculture/podcasts/les-grandes-traversees/l-etoile-de-papier-1181737|2024-07-05",
         // the following podcast has dateCreated 2025-07-11 while datePublished is 2025-06-18
         "https://www.radiofrance.fr/franceculture/podcasts/les-grandes-traversees/les-mots-qui-tuent-6008423|2025-07-10",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testPublicationDate(final String url,
                              final String expectedPublicationDate) {
         checkPublicationDate(RadioFranceLinkContentParser.class, url, expectedPublicationDate);
@@ -70,7 +70,7 @@ class RadioFranceLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://www.radiofrance.fr/franceculture/podcasts/les-grandes-traversees/naissance-d-un-prodige-6979092|PT59M1S",
         "https://www.radiofrance.fr/franceculture/podcasts/les-grandes-traversees/les-mots-qui-tuent-6008423|PT59M8S",
         "https://www.radiofrance.fr/franceculture/podcasts/les-grandes-traversees/l-etoile-de-papier-1181737|PT57M40S",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testDuration(final String url,
                       final String expectedDuration) {
         checkDuration(RadioFranceLinkContentParser.class, url, expectedDuration);
@@ -81,7 +81,7 @@ class RadioFranceLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://www.radiofrance.fr/franceinter/podcasts/affaires-sensibles/affaires-sensibles-du-mercredi-13-mai-2026-3938758|Fabrice||Drouelle|||Franck||Cognard|||Adrien||Carat||",
         "https://www.radiofrance.fr/franceinter/podcasts/affaires-sensibles/affaires-sensibles-du-jeudi-30-mai-2024-3028690|Fabrice||Drouelle|||Franck||Cognard|||Adrien||Morat||",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void test3Authors(final String url,
                       final String expectedFirstName1,
                       final String expectedMiddleName1,
@@ -131,7 +131,7 @@ class RadioFranceLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://www.radiofrance.fr/franceculture/podcasts/les-grandes-traversees/naissance-d-un-prodige-6979092|Marie||Durrieu",
         "https://www.radiofrance.fr/franceculture/podcasts/les-grandes-traversees/les-mots-qui-tuent-6008423|Marie||Chartron",
         "https://www.radiofrance.fr/franceculture/podcasts/les-grandes-traversees/l-etoile-de-papier-1181737|Christine||Lecerf",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void test1Author(final String url,
                      final String expectedFirstName,
                      final String expectedMiddleName,
@@ -156,7 +156,7 @@ class RadioFranceLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://www.radiofrance.fr/franceculture/podcasts/les-grandes-traversees/naissance-d-un-prodige-6979092|fr",
         "https://www.radiofrance.fr/franceculture/podcasts/les-grandes-traversees/les-mots-qui-tuent-6008423|fr",
         "https://www.radiofrance.fr/franceculture/podcasts/les-grandes-traversees/l-etoile-de-papier-1181737|fr",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testLanguage(final String url,
                       final String expectedLanguage) {
         checkLanguage(RadioFranceLinkContentParser.class, url, expectedLanguage);

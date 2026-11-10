@@ -17,7 +17,7 @@ class DwarkeshPodcastLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://www.dwarkesh.com/p/richard-sutton|Richard Sutton – Father of RL thinks LLMs are a dead end",
         "https://www.dwarkesh.com/p/elon-musk|Elon Musk — \"In 36 months, the cheapest place to put AI will be space\u201d",
         "https://www.dwarkesh.com/p/thoughts-on-ai-progress-dec-2025-video|Thoughts on AI progress (Dec 2025)",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
         checkTitle(DwarkeshPodcastLinkContentParser.class, url, expectedTitle);
@@ -29,7 +29,7 @@ class DwarkeshPodcastLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://www.dwarkesh.com/p/richard-sutton|LLMs aren’t Bitter-Lesson-pilled",
         "https://www.dwarkesh.com/p/elon-musk|“Those who live in software land are about to have a hard lesson in hardware.”",
         "https://www.dwarkesh.com/p/openai-huggingface|The whole OpenAI/Hugging Face story in plain English",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
         checkSubtitle(DwarkeshPodcastLinkContentParser.class, url, expectedSubtitle);
@@ -40,7 +40,7 @@ class DwarkeshPodcastLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://www.dwarkesh.com/p/thoughts-on-ai-progress-dec-2025-video",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testNoSubtitle(final String url) {
         checkNoSubtitle(DwarkeshPodcastLinkContentParser.class, url);
     }
@@ -48,9 +48,9 @@ class DwarkeshPodcastLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-            "https://www.dwarkesh.com/p/richard-sutton|2025-09-26",
-            "https://www.dwarkesh.com/p/elon-musk|2026-02-05",
-    }, delimiter = '|')
+        "https://www.dwarkesh.com/p/richard-sutton|2025-09-26",
+        "https://www.dwarkesh.com/p/elon-musk|2026-02-05",
+        }, delimiter = '|')
     void testPublicationDate(final String url,
                              final String expectedPublicationDate) {
         checkPublicationDate(DwarkeshPodcastLinkContentParser.class, url, expectedPublicationDate);
@@ -61,7 +61,7 @@ class DwarkeshPodcastLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://www.dwarkesh.com/p/thoughts-on-ai-progress-dec-2025-video|Dwarkesh||Patel",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void test1Author(final String url,
                      final String expectedFirstName1,
                      final String expectedMiddleName1,
@@ -82,7 +82,7 @@ class DwarkeshPodcastLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://www.dwarkesh.com/p/richard-sutton|Richard||Sutton|Dwarkesh||Patel",
         "https://www.dwarkesh.com/p/elon-musk|Elon||Musk|Dwarkesh||Patel",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void test2Authors(final String url,
                       final String expectedFirstName1,
                       final String expectedMiddleName1,
@@ -116,7 +116,7 @@ class DwarkeshPodcastLinkContentParserTest extends LinkDataExtractorTestBase {
         // for the two following podcasts, the YouTube video does not appear on the podcast page
         "https://www.dwarkesh.com/p/the-next-paradigm|https://www.youtube.com/watch?v=20p5-kQXF_Q",
         "https://www.dwarkesh.com/p/the-sample-efficiency-black-hole|https://www.youtube.com/watch?v=4pG3SJQPAwk",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testOtherLink(final String url,
                        final String expectedOtherLink) {
         checkOtherLink(DwarkeshPodcastLinkContentParser.class, url, expectedOtherLink);
@@ -127,7 +127,7 @@ class DwarkeshPodcastLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://www.dwarkesh.com/p/richard-sutton|PT1H6M22S",
         "https://www.dwarkesh.com/p/elon-musk|PT2H49M45S",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testDuration(final String url,
                       final String expectedDuration) {
         checkDuration(DwarkeshPodcastLinkContentParser.class, url, expectedDuration);

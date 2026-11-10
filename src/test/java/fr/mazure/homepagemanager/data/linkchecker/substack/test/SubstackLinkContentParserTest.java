@@ -90,7 +90,7 @@ class SubstackLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://frontierai.substack.com/p/you-cant-build-a-moat-with-ai|Vikram||Sreekanti|Joseph|E.|Gonzalez",
         "https://www.lennysnewsletter.com/p/openai-codex-lead-on-the-new-shape|Andrew||Ambrosino|Lenny||Rachitsky"
-    }, delimiter = '|')
+        }, delimiter = '|')
     void test2Authors(final String url,
                       final String expectedFirstName1,
                       final String expectedMiddleName1,
@@ -185,7 +185,7 @@ class SubstackLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://www.lennysnewsletter.com/p/openai-codex-lead-on-the-new-shape|https://www.youtube.com/watch?v=P3KDebPTUrw",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testOtherLink(final String url,
                        final String expectedOtherLink) {
         checkOtherLink(SubstackLinkContentParser.class, url, expectedOtherLink);

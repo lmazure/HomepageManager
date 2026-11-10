@@ -15,7 +15,7 @@ class OxideAndFriendsLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://oxide-and-friends.transistor.fm/episodes/querying-metrics-with-oxql|Querying Metrics with OxQL",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
         checkTitle(OxideAndFriendsLinkContentParser.class, url, expectedTitle);
@@ -25,7 +25,7 @@ class OxideAndFriendsLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://oxide-and-friends.transistor.fm/episodes/querying-metrics-with-oxql",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testSubtitle(final String url) {
         checkNoSubtitle(OxideAndFriendsLinkContentParser.class, url);
     }
@@ -33,11 +33,11 @@ class OxideAndFriendsLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-            "https://oxide-and-friends.transistor.fm/episodes/querying-metrics-with-oxql|2024-09-30",
-            "https://oxide-and-friends.transistor.fm/episodes/the-hardest-kind-of-unsafe-rust|2026-06-08", // YouTube title is "Oxide and Friend" instead of "Oxide and Friends"
-            "https://oxide-and-friends.transistor.fm/episodes/conferences-in-tech|2024-12-09",
-            "https://oxide-and-friends.transistor.fm/episodes/the-return-to-the-chamber-of-mysteries|2026-08-17", // YouTube title contains "- -" instead of "--"
-    }, delimiter = '|')
+        "https://oxide-and-friends.transistor.fm/episodes/querying-metrics-with-oxql|2024-09-30",
+        "https://oxide-and-friends.transistor.fm/episodes/the-hardest-kind-of-unsafe-rust|2026-06-08", // YouTube title is "Oxide and Friend" instead of "Oxide and Friends"
+        "https://oxide-and-friends.transistor.fm/episodes/conferences-in-tech|2024-12-09",
+        "https://oxide-and-friends.transistor.fm/episodes/the-return-to-the-chamber-of-mysteries|2026-08-17", // YouTube title contains "- -" instead of "--"
+        }, delimiter = '|')
     void testCreationDate(final String url,
                           final String expectedDate) {
         checkCreationDate(OxideAndFriendsLinkContentParser.class, url, expectedDate);
@@ -47,7 +47,7 @@ class OxideAndFriendsLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://oxide-and-friends.transistor.fm/episodes/querying-metrics-with-oxql|2024-10-02",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testPublicationDate(final String url,
                              final String expectedDate) {
         checkPublicationDate(OxideAndFriendsLinkContentParser.class, url, expectedDate);
@@ -59,7 +59,7 @@ class OxideAndFriendsLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://oxide-and-friends.transistor.fm/episodes/querying-metrics-with-oxql|PT1H35M14S",
         // the new episode is less than 1 hour long
         "https://oxide-and-friends.transistor.fm/episodes/software-engineering-past-present-and-future-with-grady-booch|PT54M52S",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testDuration(final String url,
                       final String expectedDuration) {
         checkDuration(OxideAndFriendsLinkContentParser.class, url, expectedDuration);
@@ -69,7 +69,7 @@ class OxideAndFriendsLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://oxide-and-friends.transistor.fm/episodes/querying-metrics-with-oxql|Ben||Naecker|Bryan||Cantrill|Adam||Leventhal",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void test3Authors(final String url,
                       final String expectedFirstName1,
                       final String expectedMiddleName1,
@@ -109,7 +109,7 @@ class OxideAndFriendsLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://oxide-and-friends.transistor.fm/episodes/technical-blogging|Bryan||Cantrill|Adam||Leventhal|Cynthia||Dunlop|Tim||Bray|Piotr||Sarna|Will||Snow",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void test6Authors(final String url,
                       final String expectedFirstName1,
                       final String expectedMiddleName1,
@@ -179,7 +179,7 @@ class OxideAndFriendsLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://oxide-and-friends.transistor.fm/episodes/pragmatic-llm-usage-with-nicholas-carlini|Bryan||Cantrill||Nicholas||Carlini||Adam||Leventhal||Mike||Cafarella|||||p5commmit",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void checkThatUnknownVoicesAreIgnored(final String url,
                                           final String expectedFirstName1,
                                           final String expectedMiddleName1,
@@ -244,7 +244,7 @@ class OxideAndFriendsLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://oxide-and-friends.transistor.fm/episodes/pragmatic-llm-usage-with-nicholas-carlini|https://www.youtube.com/watch?v=UPTAX30ttMQ",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testOtherLink(final String url,
                        final String expectedOtherLink) {
         checkOtherLink(OxideAndFriendsLinkContentParser.class, url, expectedOtherLink);

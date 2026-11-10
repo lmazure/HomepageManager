@@ -21,12 +21,12 @@ class LinkContentParserTest {
 
     @ParameterizedTest
     @ValueSource(strings = {
-            "https://www.kaspersky.com/about/press-releases/all-work-and-no-play-it-security-employees-spend-six-hours-of-working-week-on-hobbies",
-            "https://viterbi-web.usc.edu/~meshkati/tefall99/toki.html",
-            "https://www.cultdeadcow.com",
-            "https://www.meteor.com/",
-            "https://www.wired.com/1998/04/es-lists/",
-            })
+        "https://www.kaspersky.com/about/press-releases/all-work-and-no-play-it-security-employees-spend-six-hours-of-working-week-on-hobbies",
+        "https://viterbi-web.usc.edu/~meshkati/tefall99/toki.html",
+        "https://www.cultdeadcow.com",
+        "https://www.meteor.com/",
+        "https://www.wired.com/1998/04/es-lists/",
+        })
     void testLanguageForEnglishArticle(final String url) {
         final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
@@ -45,8 +45,8 @@ class LinkContentParserTest {
 
     @ParameterizedTest
     @ValueSource(strings = {
-            "https://www.marmiton.org/",
-            })
+        "https://www.marmiton.org/",
+        })
     void testLanguageForFrenchArticle(final String url) {
         final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);
@@ -65,9 +65,9 @@ class LinkContentParserTest {
 
     @ParameterizedTest
     @ValueSource(strings = {
-            "https://www.govinfo.gov/app/collection/cfr",
-            "http://www.openafs.org/",
-            })
+        "https://www.govinfo.gov/app/collection/cfr",
+        "http://www.openafs.org/",
+        })
     void testLanguageForArticleWithNoText(final String url) {
         final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);

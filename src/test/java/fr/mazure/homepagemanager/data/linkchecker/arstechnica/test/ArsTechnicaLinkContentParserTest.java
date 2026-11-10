@@ -18,7 +18,7 @@ class ArsTechnicaLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://arstechnica.com/information-technology/2022/09/uber-was-hacked-to-its-core-purportedly-by-an-18-year-old-here-are-the-basics/|Uber was breached to its core, purportedly by an 18-year-old. Here’s what’s known",
         // the H1 of next article has a newline before the CSS class
         "https://arstechnica.com/space/2024/04/recoding-voyager-1-nasas-interstellar-explorer-is-finally-making-sense-again/|Recoding Voyager 1—NASA’s interstellar explorer is finally making sense again"
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
         checkTitle(ArsTechnicaLinkContentParser.class, url, expectedTitle);
@@ -29,7 +29,7 @@ class ArsTechnicaLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://arstechnica.com/cars/2021/04/consumer-reports-shows-tesla-autopilot-works-with-no-one-in-the-drivers-seat/|Consumer Reports argues Tesla needs a better driver-monitoring system.",
         "https://arstechnica.com/science/2023/03/brightest-ever-gamma-ray-burst-the-boat-continues-to-puzzle-astronomers/|No evidence of associated supernova, and afterglow radio data contradicts current models."
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
         checkSubtitle(ArsTechnicaLinkContentParser.class, url, expectedSubtitle);
@@ -64,7 +64,7 @@ class ArsTechnicaLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://arstechnica.com/cars/2023/03/why-its-time-to-officially-get-over-your-ev-range-anxiety/|Dan||Gearino",
         // the first name and last name are separated by a non breaking space
         "https://arstechnica.com/gadgets/2023/01/the-generative-ai-revolution-has-begun-how-did-we-get-here/|Haomiao||Huang",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testAuthor(final String url,
                     final String expectedFirstName,
                     final String expectedMiddleName,
@@ -83,7 +83,7 @@ class ArsTechnicaLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://arstechnica.com/information-technology/2023/03/chinese-search-giant-launches-ai-chatbot-with-prerecorded-demo/|Ryan||McMorrow|Qianer||Liu",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void test2Authors(final String url,
                       final String expectedFirstName1,
                       final String expectedMiddleName1,
@@ -114,7 +114,7 @@ class ArsTechnicaLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://arstechnica.com/tech-policy/2022/09/texts-show-roll-call-of-tech-figures-tried-to-help-elon-musk-in-twitter-deal/|Hannah||Murphy|James||Fontanella-Khan|Sujeet||Indap",
         "https://arstechnica.com/science/2023/03/radio-interference-from-satellites-is-threatening-astronomy/|Christopher|Gordon|De Pree|Christopher|R.|Anderson|Mariya||Zheleva",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void test3Authors(final String url,
                       final String expectedFirstName1,
                       final String expectedMiddleName1,
@@ -154,7 +154,7 @@ class ArsTechnicaLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://arstechnica.com/information-technology/2012/03/microsoft-announces-cloud-building-with-tfs-feature-packs-for-visual-studio/",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testAuthorAbsence(final String url) {
         check0Author(ArsTechnicaLinkContentParser.class,
                      url);

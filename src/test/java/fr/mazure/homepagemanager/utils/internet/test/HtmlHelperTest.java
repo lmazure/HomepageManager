@@ -108,7 +108,7 @@ class HtmlHelperTest {
         "http://hesketh.com/publications/inclusive_web_design_for_the_future/|",
         "https://blog.cleancoder.com/uncle-bob/2014/06/17/IsTddDeadFinalThoughts.html|UTF-8",
         "https://www.rigacci.org/docs/biblio/online/CA-2000-02/CA-2000-02.html|",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testCharsetExtraction(final String url,
                                final String expectedCharsetName) {
         final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());

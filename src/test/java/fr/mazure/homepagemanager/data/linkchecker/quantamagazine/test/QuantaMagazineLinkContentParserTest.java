@@ -25,7 +25,7 @@ class QuantaMagazineLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-            "https://www.quantamagazine.org/tiny-language-models-thrive-with-gpt-4-as-a-teacher-20231005/|Tiny Language Models Come of Age"
+        "https://www.quantamagazine.org/tiny-language-models-thrive-with-gpt-4-as-a-teacher-20231005/|Tiny Language Models Come of Age"
         }, delimiter = '|')
     void testTitleThatHasChanged(final String url,
                                  final String expectedTitle) {
@@ -35,7 +35,7 @@ class QuantaMagazineLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-            "https://www.quantamagazine.org/how-do-machines-grok-data-20240412/|How Do Machines ‘Grok’ Data?"
+        "https://www.quantamagazine.org/how-do-machines-grok-data-20240412/|How Do Machines ‘Grok’ Data?"
         }, delimiter = '|')
     void testTitleWithEncodedCharacters(final String url,
                                         final String expectedTitle) {
@@ -45,7 +45,7 @@ class QuantaMagazineLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-            "https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/|The nearest neighbor problem asks where a new point fits into an existing data set. A few researchers set out to prove that there was no universal way to solve it. Instead, they found such a way."
+        "https://www.quantamagazine.org/universal-method-to-sort-complex-information-found-20180813/|The nearest neighbor problem asks where a new point fits into an existing data set. A few researchers set out to prove that there was no universal way to solve it. Instead, they found such a way."
         }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
@@ -55,7 +55,7 @@ class QuantaMagazineLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-            "https://www.quantamagazine.org/mathematician-solves-computer-science-conjecture-in-two-pages-20190725/|The “sensitivity” conjecture stumped many top computer scientists, yet the new proof is so simple that one researcher summed it up in a single tweet."
+        "https://www.quantamagazine.org/mathematician-solves-computer-science-conjecture-in-two-pages-20190725/|The “sensitivity” conjecture stumped many top computer scientists, yet the new proof is so simple that one researcher summed it up in a single tweet."
         }, delimiter = '|')
     void testSubtitleContainingQuotes(final String url,
                                       final String expectedSubtitle) {
@@ -65,7 +65,7 @@ class QuantaMagazineLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-            "https://www.quantamagazine.org/yitang-zhang-proves-landmark-theorem-in-distribution-of-prime-numbers-20130519/|A virtually unknown researcher has made a great advance in one of mathematics’ oldest problems, the twin primes conjecture."
+        "https://www.quantamagazine.org/yitang-zhang-proves-landmark-theorem-in-distribution-of-prime-numbers-20130519/|A virtually unknown researcher has made a great advance in one of mathematics’ oldest problems, the twin primes conjecture."
         }, delimiter = '|')
     void testSubtitleContainingHtml(final String url,
                                     final String expectedSubtitle) {

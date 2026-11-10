@@ -17,7 +17,7 @@ class PragmaticEngineerLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://newsletter.pragmaticengineer.com/p/martin-fowler|How AI will change software engineering – with Martin Fowler",
         "https://newsletter.pragmaticengineer.com/p/the-third-golden-age-of-software|The third golden age of software engineering – thanks to AI, with Grady Booch",
         "https://newsletter.pragmaticengineer.com/p/building-windsurf-with-varun-mohan|Building Windsurf with Varun Mohan",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
         checkTitle(PragmaticEngineerLinkContentParser.class, url, expectedTitle);
@@ -32,7 +32,7 @@ class PragmaticEngineerLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://newsletter.pragmaticengineer.com/p/ai-tools-for-software-engineers-simon-willison|Ways to use LLMs efficiently, as a software engineer, common misconceptions about them, and tips/hacks to better interact with GenAI tools. The first episode of The Pragmatic Engineer Podcast",
         // there is a space at the end of the subtitle
         "https://newsletter.pragmaticengineer.com/p/github|How GitHub evolved from a Rails monolith, embraced remote work, why it hires more junior devs than ever before, and how GH Copilot was built thanks to a happy accident. With GitHub CEO Thomas Dohmke",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
         checkSubtitle(PragmaticEngineerLinkContentParser.class, url, expectedSubtitle);
@@ -43,7 +43,7 @@ class PragmaticEngineerLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://newsletter.pragmaticengineer.com/p/martin-fowler|2025-11-19",
         "https://newsletter.pragmaticengineer.com/p/the-third-golden-age-of-software|2026-02-04",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testPublicationDate(final String url,
                              final String expectedPublicationDate) {
         checkPublicationDate(PragmaticEngineerLinkContentParser.class, url, expectedPublicationDate);
@@ -55,7 +55,7 @@ class PragmaticEngineerLinkContentParserTest extends LinkDataExtractorTestBase {
         // extraction of author names still not supported for the following cases
         "https://newsletter.pragmaticengineer.com/p/twisting-the-rules-of-building-software|Gergely||Orosz",
         "https://newsletter.pragmaticengineer.com/p/quinn-slack-efficient-scalups|Gergely||Orosz",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void test1Author(final String url,
                      final String expectedFirstName1,
                      final String expectedMiddleName1,
@@ -78,7 +78,7 @@ class PragmaticEngineerLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://newsletter.pragmaticengineer.com/p/the-third-golden-age-of-software|Grady||Booch|Gergely||Orosz",
         "https://newsletter.pragmaticengineer.com/p/github|Thomas||Dohmke|Gergely||Orosz",
         "https://newsletter.pragmaticengineer.com/p/building-windsurf-with-varun-mohan|Varun||Mohan|Gergely||Orosz",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void test2Authors(final String url,
                       final String expectedFirstName1,
                       final String expectedMiddleName1,
@@ -111,7 +111,7 @@ class PragmaticEngineerLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://newsletter.pragmaticengineer.com/p/the-third-golden-age-of-software|https://www.youtube.com/watch?v=OfMAtaocvJw",
         // the next article has no embedded video
         "https://newsletter.pragmaticengineer.com/p/how-to-work-better-with-product-as|https://www.youtube.com/watch?v=f4AGAeVe2Jw",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testOtherLink(final String url,
                        final String expectedOtherLink) {
         checkOtherLink(PragmaticEngineerLinkContentParser.class, url, expectedOtherLink);
@@ -122,7 +122,7 @@ class PragmaticEngineerLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://newsletter.pragmaticengineer.com/p/martin-fowler|PT1H48M53S",
         "https://newsletter.pragmaticengineer.com/p/the-third-golden-age-of-software|PT1H17M5S",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testDuration(final String url,
                       final String expectedDuration) {
         checkDuration(PragmaticEngineerLinkContentParser.class, url, expectedDuration);

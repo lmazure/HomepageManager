@@ -26,7 +26,7 @@ class OracleBlogsLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://blogs.oracle.com/cloud-infrastructure/post/oracle-code-assist-ai-companion-boost-velocity|Oracle Code Assist: AI companion to boost developer velocity",
         "https://blogs.oracle.com/javamagazine/java-quiz-serialize-primitive-value/|Quiz yourself: Serializing a primitive with ObjectOutputStream",
         "https://blogs.oracle.com/javamagazine/post/java-quiz-constructor-invocation-delegation|Quiz yourself: Delegation using super(…) and this(…) during constructor execution",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
         checkTitle(OracleBlogsLinkContentParser.class, url, expectedTitle);
@@ -36,7 +36,7 @@ class OracleBlogsLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://blogs.oracle.com/javamagazine/java-quiz-serialize-primitive-value/|Primitives? Objects? What should you do?",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
         checkSubtitle(OracleBlogsLinkContentParser.class, url, expectedSubtitle);
@@ -48,7 +48,7 @@ class OracleBlogsLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://blogs.oracle.com/javamagazine/post/the-top-25-greatest-java-apps-ever-written",
         "https://blogs.oracle.com/java/faster-and-easier-use-and-redistribution-of-java-se",
         "https://blogs.oracle.com/java/the-arrival-of-java-22",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testNoSubtitle(final String url) {
         checkNoSubtitle(OracleBlogsLinkContentParser.class, url);
     }
@@ -58,7 +58,7 @@ class OracleBlogsLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://blogs.oracle.com/java/post/faster-and-easier-use-and-redistribution-of-java-se|2017-09-06",
         "https://blogs.oracle.com/javamagazine/java-quiz-serialize-primitive-value/|2023-09-25",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testDate(final String url,
                   final String expectedDate) {
         checkCreationDate(OracleBlogsLinkContentParser.class, url, expectedDate);
@@ -71,7 +71,7 @@ class OracleBlogsLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://blogs.oracle.com/cloud-infrastructure/post/oracle-code-assist-ai-companion-boost-velocity|Aanand||Krishnan",
         // the following article has lost their authors
         "https://blogs.oracle.com/javamagazine/java-timezone-part-1/|Mohamed||Taman"
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testAuthor(final String url,
                     final String expectedFirstName,
                     final String expectedMiddleName,
@@ -90,7 +90,7 @@ class OracleBlogsLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://blogs.oracle.com/javamagazine/java-quiz-serialize-primitive-value/|Mikalai|Zaikin|Simon|Roberts",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testTwoAuthors(final String url,
                         final String expectedFirstName1,
                         final String expectedLastName1,
@@ -117,7 +117,7 @@ class OracleBlogsLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://blogs.oracle.com/theaquarium/post/opening-up-java-ee-an-update|David|Delabassee",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void doesNotCrashOnCorruptedArticle(final String url) {
         final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final AtomicBoolean consumerHasBeenCalled = new AtomicBoolean(false);

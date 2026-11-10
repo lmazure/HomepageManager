@@ -21,7 +21,7 @@ class Mp3HelperTest extends Mp3Helper {
     @CsvSource(value = {
         "https://samplelib.com/lib/preview/mp3/sample-12s.mp3|PT12S",
         "https://content.blubrry.com/takeituneasy/lex_ai_jimmy_wales.mp3?_=1|PT3H19M37S",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testDuration(final String url,
                       final String expecteDuration) {
         final Mp3Helper helper = new Mp3Helper();

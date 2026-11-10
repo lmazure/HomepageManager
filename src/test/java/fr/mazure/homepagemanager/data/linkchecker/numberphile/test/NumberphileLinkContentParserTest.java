@@ -40,7 +40,7 @@ class NumberphileLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://www.numberphile.com/videos/sashko-olenchenko-podcast|2025-11-09",
         "https://www.numberphile.com/podcast/2018/11/21/fermats-last-theorem-with-ken-ribet|2018-11-22",
         "https://www.numberphile.com/podcast/ron-graham-tribute|2020-07-13"
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testPublicationDate(final String url,
                              final String expectedDate) {
         checkPublicationDate(NumberphileLinkContentParser.class, url, expectedDate);
@@ -51,7 +51,7 @@ class NumberphileLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://www.numberphile.com/videos/sashko-olenchenko-podcast|Sashko|Olenchenko",
         "https://www.numberphile.com/podcast/2018/11/21/fermats-last-theorem-with-ken-ribet|Ken|Ribet"
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testTwoAuthors(final String url,
                         final String expectedGuestFirstName,
                         final String expectedGuestLastName) {
@@ -93,7 +93,7 @@ class NumberphileLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://www.numberphile.com/podcast/ron-graham-tribute|PT39M2S",
         // the next article uses data-asset-url instead of the usual data-url
         "https://www.numberphile.com/podcast/zvezdelina-stankova|PT58M19S",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testDuration(final String url,
                       final String expectedDuration) {
         checkDuration(NumberphileLinkContentParser.class, url, expectedDuration);
@@ -105,7 +105,7 @@ class NumberphileLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://www.numberphile.com/videos/sashko-olenchenko-podcast|https://www.youtube.com/watch?v=Nd813Dg93Bs",
         "https://www.numberphile.com/podcast/2018/11/21/fermats-last-theorem-with-ken-ribet|https://www.youtube.com/watch?v=NPOw4iIxN6o",
         "https://www.numberphile.com/podcast/ron-graham-tribute|https://www.youtube.com/watch?v=pT07GtfpsDI",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testOtherLink(final String url,
                        final String expectedOtherLink) {
         checkOtherLink(NumberphileLinkContentParser.class, url, expectedOtherLink);

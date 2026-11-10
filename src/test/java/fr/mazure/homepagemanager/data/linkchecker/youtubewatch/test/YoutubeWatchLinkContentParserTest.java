@@ -22,9 +22,9 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @ValueSource(strings = {
-            "https://www.youtube.com/watch?v=_kGqkxQo-Tw",
-            "https://www.youtube.com/watch?v=z34XhE5oRwo",
-                            })
+        "https://www.youtube.com/watch?v=_kGqkxQo-Tw",
+        "https://www.youtube.com/watch?v=z34XhE5oRwo",
+        })
     void testPlayabilityStatusOk(final String url) {
         perform(YoutubeWatchLinkContentParser.class,
                 url,
@@ -38,8 +38,8 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @ValueSource(strings = {
-            "https://www.youtube.com/watch?v=EvknN89JoWo",
-                            })
+        "https://www.youtube.com/watch?v=EvknN89JoWo",
+        })
     void testPlayabilitySensibleVideo(final String url) {
         perform(YoutubeWatchLinkContentParser.class,
                 url,
@@ -79,12 +79,12 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-            "https://www.youtube.com/watch?v=4AuV93LOPcE|Mathologer",
-            "https://www.youtube.com/watch?v=zqTRdSUhgQw|Heu?reka",
-            "https://www.youtube.com/watch?v=KT18KJouHWg|Veritasium",
-            "https://www.youtube.com/watch?v=8JFyTubj30o|DeepSkyVideos",
-            "https://www.youtube.com/watch?v=LJ4W1g-6JiY|Sabine Hossenfelder"
-              }, delimiter = '|')
+        "https://www.youtube.com/watch?v=4AuV93LOPcE|Mathologer",
+        "https://www.youtube.com/watch?v=zqTRdSUhgQw|Heu?reka",
+        "https://www.youtube.com/watch?v=KT18KJouHWg|Veritasium",
+        "https://www.youtube.com/watch?v=8JFyTubj30o|DeepSkyVideos",
+        "https://www.youtube.com/watch?v=LJ4W1g-6JiY|Sabine Hossenfelder"
+        }, delimiter = '|')
     void testChannel(final String url,
                      final String expectedChannel) {
         perform(YoutubeWatchLinkContentParser.class,
@@ -99,12 +99,12 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-            "https://www.youtube.com/watch?v=_kGqkxQo-Tw|Alain Aspect - Le photon onde ou particule ? L’étrangeté quantique mise en lumière",
-            "https://www.youtube.com/watch?v=C2Tw0BeZb8Q|Scott Schiller: Web Audio - HTML5 + Flash (in a tree)",
-            "https://www.youtube.com/watch?v=EcPPjZVB2vA|L'INCROYABLE HISTOIRE DE LA CONJECTURE DE FERMAT CMH#14",
-            "https://www.youtube.com/watch?v=hcACC8LXokU|FLIP, L'émission quotidienne - Les Escapes Games",
-            "https://www.youtube.com/watch?v=Ieu0H2DLJmo|The Mathematician and the Devil Movie with English subtitles (Математик и чёрт)",
-              }, delimiter = '|')
+        "https://www.youtube.com/watch?v=_kGqkxQo-Tw|Alain Aspect - Le photon onde ou particule ? L’étrangeté quantique mise en lumière",
+        "https://www.youtube.com/watch?v=C2Tw0BeZb8Q|Scott Schiller: Web Audio - HTML5 + Flash (in a tree)",
+        "https://www.youtube.com/watch?v=EcPPjZVB2vA|L'INCROYABLE HISTOIRE DE LA CONJECTURE DE FERMAT CMH#14",
+        "https://www.youtube.com/watch?v=hcACC8LXokU|FLIP, L'émission quotidienne - Les Escapes Games",
+        "https://www.youtube.com/watch?v=Ieu0H2DLJmo|The Mathematician and the Devil Movie with English subtitles (Математик и чёрт)",
+        }, delimiter = '|')
     void testTitle(final String url,
                    final String expectedTitle) {
         checkTitle(YoutubeWatchLinkContentParser.class, url, expectedTitle);
@@ -199,7 +199,7 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://www.youtube.com/watch?v=GdcOy6zVFC4|2021-08-09",
         "https://www.youtube.com/watch?v=6z1JwZbX4dQ|2021-05-15",
         "https://www.youtube.com/watch?v=Ff4fRgnuFgQ|2023-06-09",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testDate(final String url,
                   final String expectedDate) {
         checkCreationDate(YoutubeWatchLinkContentParser.class, url, expectedDate);
@@ -211,7 +211,7 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://www.youtube.com/watch?v=_kGqkxQo-Tw|2019-05-27|2019-05-27|2019-05-27||",
         "https://www.youtube.com/watch?v=-hxeDjAxvJ8|2023-06-22|2023-06-22|2023-06-22||",
         "https://www.youtube.com/watch?v=6LXw2beprGI|2023-11-29|2023-11-30|2023-11-30|2023-11-29|2023-11-30",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testAllDates(final String url,
                       final String expectedDate,
                       final String expectedPublishDate,
@@ -236,7 +236,7 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
     @CsvSource(value = {
         "https://www.youtube.com/watch?v=_kGqkxQo-Tw|5603",
         "https://www.youtube.com/watch?v=EvknN89JoWo|1355",
-    }, delimiter = '|')
+        }, delimiter = '|')
     void testDurations(final String url,
                        final long expectedDurationInSeconds) {
         perform(YoutubeWatchLinkContentParser.class,
@@ -251,12 +251,12 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @ValueSource(strings = {
-            "https://www.youtube.com/watch?v=8idr1WZ1A7Q",
-            "https://www.youtube.com/watch?v=hMBJSMaI_uE",
-            "https://www.youtube.com/watch?v=MhTGX_ou1EM",
-            "https://www.youtube.com/watch?v=sPQViNNOAkw",
-            "https://www.youtube.com/watch?v=X63MWZIN3gM"
-                           })
+        "https://www.youtube.com/watch?v=8idr1WZ1A7Q",
+        "https://www.youtube.com/watch?v=hMBJSMaI_uE",
+        "https://www.youtube.com/watch?v=MhTGX_ou1EM",
+        "https://www.youtube.com/watch?v=sPQViNNOAkw",
+        "https://www.youtube.com/watch?v=X63MWZIN3gM"
+       })
     void testEnglish(final String url) {
         checkLanguage(YoutubeWatchLinkContentParser.class, url, "en");
     }
@@ -264,24 +264,24 @@ class YoutubeWatchLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @ValueSource(strings = {
-            "https://www.youtube.com/watch?v=16GlrK-bxaI",
-            "https://www.youtube.com/watch?v=3QqR3AQe-SU",
-            "https://www.youtube.com/watch?v=6s_zXFmWM6g",
-            "https://www.youtube.com/watch?v=AT89_nM0nes",
-            "https://www.youtube.com/watch?v=atKDrGedg_w",
-            "https://www.youtube.com/watch?v=ccB09XRdGjo",
-            // description bilingue "https://www.youtube.com/watch?v=FGjWkQePk20",
-            "https://www.youtube.com/watch?v=fxTxU0Echq8",
-            // description bilingue "https://www.youtube.com/watch?v=hGbrH8DGzRg",
-            // description bilingue "https://www.youtube.com/watch?v=iJfJPXI5EZQ",
-            // description bilingue "https://www.youtube.com/watch?v=k0-5T_oDt1E",
-            "https://www.youtube.com/watch?v=kiv32_P_T3k",
-            "https://www.youtube.com/watch?v=lkdnOuzHdFE",
-            // vidéo bilingue "https://www.youtube.com/watch?v=nhDpozSK0uw",
-            "https://www.youtube.com/watch?v=ohU1tEwxOSE",
-            // the following video has no description
-            "https://www.youtube.com/watch?v=x4rj4MfNkys"
-                           })
+        "https://www.youtube.com/watch?v=16GlrK-bxaI",
+        "https://www.youtube.com/watch?v=3QqR3AQe-SU",
+        "https://www.youtube.com/watch?v=6s_zXFmWM6g",
+        "https://www.youtube.com/watch?v=AT89_nM0nes",
+        "https://www.youtube.com/watch?v=atKDrGedg_w",
+        "https://www.youtube.com/watch?v=ccB09XRdGjo",
+        // description bilingue "https://www.youtube.com/watch?v=FGjWkQePk20",
+        "https://www.youtube.com/watch?v=fxTxU0Echq8",
+        // description bilingue "https://www.youtube.com/watch?v=hGbrH8DGzRg",
+        // description bilingue "https://www.youtube.com/watch?v=iJfJPXI5EZQ",
+        // description bilingue "https://www.youtube.com/watch?v=k0-5T_oDt1E",
+        "https://www.youtube.com/watch?v=kiv32_P_T3k",
+        "https://www.youtube.com/watch?v=lkdnOuzHdFE",
+        // vidéo bilingue "https://www.youtube.com/watch?v=nhDpozSK0uw",
+        "https://www.youtube.com/watch?v=ohU1tEwxOSE",
+        // the following video has no description
+        "https://www.youtube.com/watch?v=x4rj4MfNkys"
+        })
     void testFrench(final String url) {
         checkLanguage(YoutubeWatchLinkContentParser.class, url, "fr");
     }

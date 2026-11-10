@@ -36,7 +36,7 @@ class SimonWillisonTilLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-            "https://til.simonwillison.net/google/gmail-compose-url",
+        "https://til.simonwillison.net/google/gmail-compose-url",
         }, delimiter = '|')
     void testNoSubtitle(final String url) {
         checkNoSubtitle(SimonWillisonTilLinkContentParser.class, url);
