@@ -70,12 +70,6 @@ methods       53.9%    97.9%
 
 
 
-manage `https://www.youtube.com/@InGeniusOfficial`
-
-
-
-
-
 manage
 ```
 https://www.quantamagazine.org/what-is-the-positive-grassmannian-and-why-does-it-show-up-everywhere-20260625/
