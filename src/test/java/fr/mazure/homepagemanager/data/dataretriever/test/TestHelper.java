@@ -32,7 +32,7 @@ public class TestHelper {
         Assertions.assertTrue(data.headers().isPresent(), "headers should be present");
         Assertions.assertTrue(data.headers().get().containsKey("Content-Type"), "Content-Type should be present");
         Assertions.assertEquals(1, data.headers().get().get("Content-Type").size(), "Content-Type should have one value");
-        Assertions.assertEquals("text/html", data.headers().get().get("Content-Type").get(0), "Content-Type should be text/html");
+        Assertions.assertEquals("text/html; charset=utf-8", data.headers().get().get("Content-Type").get(0), "Content-Type should be text/html");
         Assertions.assertFalse(data.headers().get().containsKey("Cache-Control"), "Cache-Control should not be present");
         Assertions.assertTrue(data.headers().get().containsKey("Content-Encoding"), "Content-Encoding should not be present");
         Assertions.assertEquals(1, data.headers().get().get("Content-Encoding").size(), "Content-Encoding should have one value");
@@ -41,7 +41,7 @@ public class TestHelper {
         Assertions.assertFalse(data.error().isPresent());
         try {
             final String d = Files.readString(data.dataFileSection().get().file().toPath());
-            Assertions.assertNotEquals(-1, d.indexOf("This domain is for use in documentation examples without needing permission. Avoid use in operations."));
+            Assertions.assertNotEquals(-1, d.indexOf("This domain is for use in documentation examples without needing permission. This is not a service; avoid relying on it for testing and monitoring purposes."));
         } catch (final IOException e) {
             Assertions.fail("failure to read data file " + data.dataFileSection().get() + " (" + e.getMessage() +")");
         }
