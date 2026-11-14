@@ -69,19 +69,6 @@ methods       53.9%    97.9%
 
 
 
-manage
-```
-https://www.dwarkesh.com/p/dow-anthropic
-subtitle "“Preface to the highest stakes negotiations in history.”" should not be present
-Expected 1 links (https://www.dwarkesh.com/p/dow-anthropic), but got 2 links (https://www.dwarkesh.com/p/dow-anthropic, https://www.youtube.com/watch?v=n1E9IZfvGMA)
-
-https://www.dwarkesh.com/p/era-of-continual-learning
-subtitle "Locking in AI safety regulation now is a mistake." should not be present
-```
-
-
-
-
 
 
 manage
