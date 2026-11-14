@@ -19,6 +19,7 @@ import fr.mazure.homepagemanager.data.linkchecker.LinkDataExtractor;
 import fr.mazure.homepagemanager.data.linkchecker.TextParser;
 import fr.mazure.homepagemanager.utils.internet.HtmlHelper;
 import fr.mazure.homepagemanager.utils.internet.UrlHelper;
+import fr.mazure.homepagemanager.utils.internet.YouTubeHelper;
 import fr.mazure.homepagemanager.utils.xmlparsing.AuthorData;
 import fr.mazure.homepagemanager.utils.xmlparsing.LinkFormat;
 
@@ -33,6 +34,7 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
     private final Optional<String> _subtitle;
     private final Optional<TemporalAccessor> _creationDate;
     private final List<AuthorData> _sureAuthors;
+    private Optional<ExtractedLinkData> _otherLink;
     private final List<ExtractedLinkData> _links;
 
     private static final TextParser s_titleParser
@@ -80,10 +82,20 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
         final SiteSlurper sluper = new SiteSlurper(getRetriever(), url);
         final String data = sluper.getContent();
 
+        final boolean isJoyOfWhy = data.contains("'topic':'The Joy of Why'");
+
         _title = HtmlHelper.cleanContent(s_titleParser.extract(data));
         _subtitle = Optional.of(HtmlHelper.cleanContent(s_subtitleParser.extract(data)));
         _creationDate = Optional.of(LocalDate.parse(HtmlHelper.cleanContent(s_dateParser.extract(data))));
-        _sureAuthors = data.contains("'topic':'The Joy of Why'") ? getTheJoyOfWhyAuthors(data) : extractAuthors(data);
+        _sureAuthors = isJoyOfWhy ? getTheJoyOfWhyAuthors(data) : extractAuthors(data);
+
+        if (isJoyOfWhy) {
+            final Optional<String> youtubeLink = YouTubeHelper.getVideoURL("Quanta Magazine", _title + " | PODCAST: The Joy of Why", getRetriever());
+            _otherLink = getOtherLinkFromYouTube(youtubeLink);
+        } else {
+            _otherLink = Optional.empty();
+        }
+
         _links = initializeLinks();
     }
 
@@ -218,6 +230,9 @@ public class QuantaMagazineLinkContentParser extends LinkDataExtractor {
                                                                 Optional.empty());
         final List<ExtractedLinkData> list = new ArrayList<>(1);
         list.add(linkData);
+        if (_otherLink.isPresent()) {
+            list.add(_otherLink.get());
+        }
         return list;
     }
 

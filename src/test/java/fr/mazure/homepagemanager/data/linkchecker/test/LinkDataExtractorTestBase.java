@@ -462,6 +462,20 @@ public class LinkDataExtractorTestBase {
                     });
     }
 
+    protected static void checkNoOtherLink(final Class<? extends LinkDataExtractor> clazz,
+                                         final String url) {
+        perform(clazz,
+                url,
+                (final LinkDataExtractor p) ->
+                    {
+                        try {
+                            Assertions.assertEquals(1, p.getLinks().size());
+                        } catch (final ContentParserException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+    }
+
     protected static void perform(final Class<? extends LinkDataExtractor> clazz,
                                   final String url,
                                   final Consumer<LinkDataExtractor> assertor) {

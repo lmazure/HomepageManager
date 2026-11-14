@@ -225,4 +225,23 @@ class QuantaMagazineLinkContentParserTest extends LinkDataExtractorTestBase {
                       null,
                       null);
     }
+
+    @SuppressWarnings("static-method")
+    @ParameterizedTest
+    @CsvSource(value = {
+        "https://www.quantamagazine.org/what-is-the-positive-grassmannian-and-why-does-it-show-up-everywhere-20260625/|https://www.youtube.com/watch?v=iAaGDYz3f9k",
+        }, delimiter = '|')
+    void testOtherLink(final String url,
+                       final String expectedOtherLink) {
+        checkOtherLink(QuantaMagazineLinkContentParser.class, url, expectedOtherLink);
+    }
+
+    @SuppressWarnings("static-method")
+    @ParameterizedTest
+    @CsvSource(value = {
+        "https://www.quantamagazine.org/why-knots-matter-in-math-and-science-20220406/",
+        }, delimiter = '|')
+    void testNoOtherLink(final String url) {
+        checkNoOtherLink(QuantaMagazineLinkContentParser.class, url);
+    }
 }
