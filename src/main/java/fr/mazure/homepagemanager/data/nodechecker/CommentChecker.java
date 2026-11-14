@@ -24,7 +24,7 @@ public class CommentChecker extends NodeChecker {
     */
     public CommentChecker() {
         super(s_selector,
-              CommentChecker::commentFinishesWithPunctuation,"a COMMENT must finish with a punctuation");
+              CommentChecker::commentFinishesWithPunctuation,"a COMMENT must end with a punctuation mark");
     }
 
     private static CheckStatus commentFinishesWithPunctuation(final Element e) {
@@ -36,7 +36,7 @@ public class CommentChecker extends NodeChecker {
         final char lastChar = lastPart.toCharArray()[lastPart.length() - 1];
 
         boolean error = false;
-        if ((lastChar == ')') || (lastChar == '"')) {
+        if ((lastChar == ')') || (lastChar == ']') || (lastChar == '"')) {
             if (lastPart.length() > 1) {
                 final char previousChar = lastPart.toCharArray()[lastPart.length() - 2];
                 error = !isFinalPunctuation(previousChar);
@@ -46,7 +46,7 @@ public class CommentChecker extends NodeChecker {
         }
 
         return error ? new CheckStatus("MissingPuctuation",
-                                       "COMMENT \"" + e.getTextContent() + "\" must end with a punctuation",
+                                       "COMMENT \"" + e.getTextContent() + "\" must end with a punctuation mark",
                                        Optional.of(new AddDotAtCommentEnd(list)))
                      : null;
     }

@@ -69,6 +69,20 @@ methods       53.9%    97.9%
 
 
 
+manage
+```
+https://www.dwarkesh.com/p/dow-anthropic
+subtitle "“Preface to the highest stakes negotiations in history.”" should not be present
+Expected 1 links (https://www.dwarkesh.com/p/dow-anthropic), but got 2 links (https://www.dwarkesh.com/p/dow-anthropic, https://www.youtube.com/watch?v=n1E9IZfvGMA)
+
+https://www.dwarkesh.com/p/era-of-continual-learning
+subtitle "Locking in AI safety regulation now is a mistake." should not be present
+```
+
+
+
+
+
 
 manage
 ```
@@ -77,25 +91,6 @@ The list of effective authors is not the effective one.
 The following authors are effectively present but are unexpected: ▭ ▭ ▭ ▭ ▭ given=Williams order=western
 The following authors are expected but are effectively missing: ▭ first=Lauren ▭ last=Williams ▭ ▭ order=western
 Expected 2 links (https://www.quantamagazine.org/what-is-the-positive-grassmannian-and-why-does-it-show-up-everywhere-20260625/, https://www.youtube.com/watch?v=iAaGDYz3f9k), but got 1 links (https://www.quantamagazine.org/what-is-the-positive-grassmannian-and-why-does-it-show-up-everywhere-20260625/)
-```
-
-
-manage
-```
-https://www.thoughtworks.com/insights/podcasts/technology-podcasts/building-intersection-machine-learning-software-engineering
-The list of effective authors is not the effective one.
-The following authors are effectively present but are unexpected: ▭ first=Scott ▭ last=Shaw ▭ ▭ order=western
-The following authors are expected but are effectively missing: ▭ first=Neal ▭ last=Ford ▭ ▭ order=western
-
-https://www.thoughtworks.com/insights/podcasts/technology-podcasts/entering-age-of-intent-digital-interaction
-The list of effective authors is not the effective one.
-The following authors are effectively present but are unexpected: ▭ first=Sara ▭ last=Taraporewalla ▭ ▭ order=western
-The following authors are expected but are effectively missing: ▭ first=Sarah ▭ last=Taraporewalla ▭ ▭ order=western
-
-https://www.thoughtworks.com/insights/podcasts/technology-podcasts/generative-ai-s-uncanny-valley--problem-or-opportunity-
-The list of effective authors is not the effective one.
-The following authors are effectively present but are unexpected: 
-The following authors are expected but are effectively missing: ▭ first=David ▭ last=Tan ▭ ▭ order=western
 ```
 
 
