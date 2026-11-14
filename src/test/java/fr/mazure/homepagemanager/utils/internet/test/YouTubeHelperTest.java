@@ -9,6 +9,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
 import fr.mazure.homepagemanager.data.dataretriever.test.TestHelper;
+import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.utils.internet.YouTubeHelper;
 
 /**
@@ -22,7 +23,7 @@ class YouTubeHelperTest {
         }, delimiter = '|')
     void testVideoUrlRetrieval(final String channelName,
                                final String videoTitle,
-                               final String expectedUrl) {
+                               final String expectedUrl) throws ContentParserException {
         final CachedSiteDataRetriever retriever = TestHelper.buildDataSiteRetriever(getClass());
         final Optional<String> url = YouTubeHelper.getVideoURL(channelName, videoTitle, retriever);
         assertEquals(expectedUrl, url.get());

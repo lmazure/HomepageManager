@@ -67,6 +67,11 @@ methods       53.9%    97.9%
 
 
 
+repair 
+- fr.mazure.homepagemanager.data.linkchecker.dzone.test.DZoneLinkContentParserTest.testAuthor(String, String, String, String)
+-  fr.mazure.homepagemanager.data.linkchecker.huggingface.test.HuggingFaceLinkContentParserTest.test4Authors(String, String, String, String, String, String, String, String, String, String, String, String, String)
+- fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.test.WellKnownRedirectionsTest.direct444(String)
+- fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.test.WellKnownRedirectionsTest.redirectionsEndingWith403(String)
 
 
 
