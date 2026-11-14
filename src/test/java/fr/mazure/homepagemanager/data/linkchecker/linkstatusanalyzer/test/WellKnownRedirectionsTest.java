@@ -173,7 +173,6 @@ class WellKnownRedirectionsTest {
     @ParameterizedTest
     @CsvSource({
         "http://httpbin.org/status/444",
-        "https://www.opentext.com/products/dimensions-cm",
         })
     void direct444(final String url) {
         test(url,
@@ -305,7 +304,6 @@ class WellKnownRedirectionsTest {
 
     @ParameterizedTest
     @CsvSource({
-        "http://weblogs.java.net/blog/arnold/archive/2005/06/generics_consid_1.html",
         "http://blogs.msdn.com/b/jw_on_tech/archive/2012/03/14/why-i-joined-microsoft.aspx",
         })
     void redirectionsEndingWith403(final String url) {
@@ -320,6 +318,7 @@ class WellKnownRedirectionsTest {
     @CsvSource({
         "http://www.hays.lu/prd_consump/groups/hays_common/@fr/@content/documents/digitalasset/hays_714488.pdf",
         "http://www.ineris.fr/centredoc/Communication_site_web_INERIS.pdf",
+        "http://weblogs.java.net/blog/arnold/archive/2005/06/generics_consid_1.html",
         })
     void redirectionsEndingWith404(final String url) {
         test(url,
