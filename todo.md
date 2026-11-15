@@ -628,21 +628,6 @@ dzoneIsManaged(fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractor
 org.opentest4j.AssertionFailedError: expected: <<ARTICLE><X><T>Explore Annotations in Java 8</T><ST>Explore the evolution of annotations in Java 8 and how they are being used today!</ST><A>https://dzone.com/articles/explore-annotations-in-java-8</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Niamul</FIRSTNAME><LASTNAME>Sanjavi</LASTNAME></AUTHOR><DATE><YEAR>2019</YEAR><MONTH>10</MONTH><DAY>22</DAY></DATE><COMMENT>XXXXX</COMMENT></ARTICLE>> but was: <<ARTICLE><X><T>Explore Annotations in Java 8</T><ST>Explore the evolution of annotations in Java 8 and how they are being used today!</ST><A>https://dzone.com/articles/explore-annotations-in-java-8</A><L>en</L><F>HTML</F></X><DATE><YEAR>2019</YEAR><MONTH>10</MONTH><DAY>22</DAY></DATE><COMMENT>XXXXX</COMMENT></ARTICLE>>
 	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
 	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.dzoneIsManaged(LinkDataExtractorTest.java:117)
-
-fr.mazure.homepagemanager.utils.internet.test.HtmlHelperTest
-testCharsetExtraction(fr.mazure.homepagemanager.utils.internet.test.HtmlHelperTest)
-testCharsetExtraction(fr.mazure.homepagemanager.utils.internet.test.HtmlHelperTest)
-java.lang.IllegalStateException: Exception while retrieving https://www.lemondeinformatique.fr/actualites/lire-log4j-une-autre-vulnerabilite-corrigee-par-apache-85265.html
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.test.HtmlHelperTest.testCharsetExtraction(HtmlHelperTest.java:116)
-Caused by: org.opentest4j.AssertionFailedError: expected: <ISO-8859-1> but was: <UTF-8>
-	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.test.HtmlHelperTest.lambda$0(HtmlHelperTest.java:126)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:122)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
-	... 2 more
 ```
 
 

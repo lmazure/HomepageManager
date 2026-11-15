@@ -100,7 +100,6 @@ class HtmlHelperTest {
 
     @ParameterizedTest
     @CsvSource(value = {
-        "https://www.lemondeinformatique.fr/actualites/lire-log4j-une-autre-vulnerabilite-corrigee-par-apache-85265.html|iso-8859-1",
         "https://www-archive.mozilla.org/docs/web-developer/xbdhtml/xbdhtml.html|iso-8859-1",
         "http://www.business-esolutions.com/islm.htm|iso-8859-1",
         "https://blog.chromium.org/2009/01/tabbed-browsing-in-google-chrome.html|UTF-8",
