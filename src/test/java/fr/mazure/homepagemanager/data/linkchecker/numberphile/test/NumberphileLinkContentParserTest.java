@@ -29,7 +29,7 @@ class NumberphileLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://www.numberphile.com/videos/sashko-olenchenko-podcast",
         "https://www.numberphile.com/podcast/2018/11/21/fermats-last-theorem-with-ken-ribet",
         "https://www.numberphile.com/podcast/ron-graham-tribute"
-    })
+        })
     void testSubtitle(final String url) {
         checkNoSubtitle(NumberphileLinkContentParser.class, url);
     }
@@ -88,11 +88,11 @@ class NumberphileLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://www.numberphile.com/videos/sashko-olenchenko-podcast|PT50M49S",
-        "https://www.numberphile.com/podcast/2018/11/21/fermats-last-theorem-with-ken-ribet|PT48M22S",
+        "https://www.numberphile.com/videos/sashko-olenchenko-podcast|PT50M50S",
+        "https://www.numberphile.com/podcast/2018/11/21/fermats-last-theorem-with-ken-ribet|PT48M23S",
         "https://www.numberphile.com/podcast/ron-graham-tribute|PT39M2S",
         // the next article uses data-asset-url instead of the usual data-url
-        "https://www.numberphile.com/podcast/zvezdelina-stankova|PT58M19S",
+        "https://www.numberphile.com/podcast/zvezdelina-stankova|PT58M20S",
         }, delimiter = '|')
     void testDuration(final String url,
                       final String expectedDuration) {
