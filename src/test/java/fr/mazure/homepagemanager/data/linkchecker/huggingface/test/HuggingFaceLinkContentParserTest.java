@@ -43,18 +43,18 @@ class HuggingFaceLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://huggingface.co/blog/llama2|Philipp||Schmid|Omar||Sanseviero|Pedro||Cuenca|Lewis||Tunstall"
         }, delimiter = '|')
     void test4Authors(final String url,
-                     final String expectedFirstName1,
-                     final String expectedMiddleName1,
-                     final String expectedLastName1,
-                     final String expectedFirstName2,
-                     final String expectedMiddleName2,
-                     final String expectedLastName2,
-                     final String expectedFirstName3,
-                     final String expectedMiddleName3,
-                     final String expectedLastName3,
-                     final String expectedFirstName4,
-                     final String expectedMiddleName4,
-                     final String expectedLastName4) {
+                      final String expectedFirstName1,
+                      final String expectedMiddleName1,
+                      final String expectedLastName1,
+                      final String expectedFirstName2,
+                      final String expectedMiddleName2,
+                      final String expectedLastName2,
+                      final String expectedFirstName3,
+                      final String expectedMiddleName3,
+                      final String expectedLastName3,
+                      final String expectedFirstName4,
+                      final String expectedMiddleName4,
+                      final String expectedLastName4) {
         check4Authors(HuggingFaceLinkContentParser.class,
                       url,
                       // author 1

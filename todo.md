@@ -604,30 +604,6 @@ Caused by: org.json.JSONException: A JSONObject text must begin with '{' at 0 [c
 	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:516)
 	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:47)
 	... 12 more
-
-fr.mazure.homepagemanager.data.linkchecker.huggingface.test.HuggingFaceLinkContentParserTest
-test4Authors(fr.mazure.homepagemanager.data.linkchecker.huggingface.test.HuggingFaceLinkContentParserTest)
-test4Authors(fr.mazure.homepagemanager.data.linkchecker.huggingface.test.HuggingFaceLinkContentParserTest)
-java.lang.IllegalStateException: Exception while retrieving https://huggingface.co/blog/llama2
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.perform(LinkDataExtractorTestBase.java:484)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.checkAuthors(LinkDataExtractorTestBase.java:441)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.check4Authors(LinkDataExtractorTestBase.java:279)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.huggingface.test.HuggingFaceLinkContentParserTest.test4Authors(HuggingFaceLinkContentParserTest.java:58)
-Caused by: org.opentest4j.AssertionFailedError: expected: <[▭ first=Philipp ▭ last=Schmid ▭ ▭ order=western, ▭ first=Omar ▭ last=Sanseviero ▭ ▭ order=western, ▭ first=Pedro ▭ last=Cuenca ▭ ▭ order=western, ▭ first=Lewis ▭ last=Tunstall ▭ ▭ order=western]> but was: <[]>
-	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.lambda$8(LinkDataExtractorTestBase.java:445)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.lambda$11(LinkDataExtractorTestBase.java:488)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
-	... 5 more
-
-fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest
-dzoneIsManaged(fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest)
-org.opentest4j.AssertionFailedError: expected: <<ARTICLE><X><T>Explore Annotations in Java 8</T><ST>Explore the evolution of annotations in Java 8 and how they are being used today!</ST><A>https://dzone.com/articles/explore-annotations-in-java-8</A><L>en</L><F>HTML</F></X><AUTHOR><FIRSTNAME>Niamul</FIRSTNAME><LASTNAME>Sanjavi</LASTNAME></AUTHOR><DATE><YEAR>2019</YEAR><MONTH>10</MONTH><DAY>22</DAY></DATE><COMMENT>XXXXX</COMMENT></ARTICLE>> but was: <<ARTICLE><X><T>Explore Annotations in Java 8</T><ST>Explore the evolution of annotations in Java 8 and how they are being used today!</ST><A>https://dzone.com/articles/explore-annotations-in-java-8</A><L>en</L><F>HTML</F></X><DATE><YEAR>2019</YEAR><MONTH>10</MONTH><DAY>22</DAY></DATE><COMMENT>XXXXX</COMMENT></ARTICLE>>
-	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.dzoneIsManaged(LinkDataExtractorTest.java:117)
 ```
 
 

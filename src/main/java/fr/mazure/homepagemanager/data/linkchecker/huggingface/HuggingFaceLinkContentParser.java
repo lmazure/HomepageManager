@@ -44,7 +44,7 @@ public class HuggingFaceLinkContentParser extends LinkDataExtractor {
                          s_sourceName,
                          "author");
     private static final TextParser s_authorParser
-        = new TextParser("<span class=\"fullname font-sans font-semibold max-sm:text-sm\">",
+        = new TextParser("<span class=\"fullname[^>]*>",
                          "</span>",
                          s_sourceName,
                          "author");
