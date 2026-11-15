@@ -643,13 +643,6 @@ Caused by: org.opentest4j.AssertionFailedError: expected: <ISO-8859-1> but was: 
 	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:122)
 	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
 	... 2 more
-
-fr.mazure.homepagemanager.utils.internet.test.Mp3HelperTest
-testDuration(fr.mazure.homepagemanager.utils.internet.test.Mp3HelperTest)
-testDuration(fr.mazure.homepagemanager.utils.internet.test.Mp3HelperTest)
-org.opentest4j.AssertionFailedError: expected: <PT12S> but was: <PT13S>
-	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.test.Mp3HelperTest.testDuration(Mp3HelperTest.java:29)
 ```
 
 

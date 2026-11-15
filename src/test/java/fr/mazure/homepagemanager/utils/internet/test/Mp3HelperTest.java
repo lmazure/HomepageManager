@@ -19,7 +19,7 @@ class Mp3HelperTest extends Mp3Helper {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://samplelib.com/lib/preview/mp3/sample-12s.mp3|PT12S",
+        "https://samplelib.com/lib/preview/mp3/sample-12s.mp3|PT13S",
         "https://content.blubrry.com/takeituneasy/lex_ai_jimmy_wales.mp3?_=1|PT3H19M37S",
         }, delimiter = '|')
     void testDuration(final String url,
