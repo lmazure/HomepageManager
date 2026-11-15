@@ -50,8 +50,8 @@ class AuthorsCheckerTest extends NodeValueCheckerTestBase {
             </PAGE>""";
         try {
             test(content,
-                 "The list of authors of article \"https://lexfridman.com/grant-sanderson-2\" (▭ first=Grant ▭ last=Sanderson ▭ ▭) does not contain the expected list for the site (▭ first=Lex ▭ last=Fridman ▭ ▭)<<IncorrectAuthorList>>",
-                 "The list of authors of article \"https://www.numberphile.com/podcast/ben-sparks\" (▭ first=Ben ▭ last=Sparks ▭ ▭) does not contain the expected list for the site (▭ first=Brady ▭ last=Haran ▭ ▭)<<IncorrectAuthorList>>");
+                 "The list of authors of article \"https://lexfridman.com/grant-sanderson-2\" (▭ first=Grant ▭ last=Sanderson ▭ ▭ order=western) does not contain the expected list for the site (▭ first=Lex ▭ last=Fridman ▭ ▭ order=western)<<IncorrectAuthorList>>",
+                 "The list of authors of article \"https://www.numberphile.com/podcast/ben-sparks\" (▭ first=Ben ▭ last=Sparks ▭ ▭ order=western) does not contain the expected list for the site (▭ first=Brady ▭ last=Haran ▭ ▭ order=western)<<IncorrectAuthorList>>");
         } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
@@ -75,7 +75,7 @@ class AuthorsCheckerTest extends NodeValueCheckerTestBase {
             </PAGE>""";
         try {
             test(content,
-                 "The list of authors of article \"https://www.inspiredtester.com/inspired-tester-blog/embracing-change-testing-to-agile\" (▭ first=Leah ▭ last=Stockley ▭ ▭;▭ first=Grant ▭ last=Sanderson ▭ ▭) is not equal to the expected list for the site (▭ first=Leah ▭ last=Stockley ▭ ▭)<<IncorrectAuthorList>>");
+                 "The list of authors of article \"https://www.inspiredtester.com/inspired-tester-blog/embracing-change-testing-to-agile\" (▭ first=Leah ▭ last=Stockley ▭ ▭ order=western;▭ first=Grant ▭ last=Sanderson ▭ ▭ order=western) is not equal to the expected list for the site (▭ first=Leah ▭ last=Stockley ▭ ▭ order=western)<<IncorrectAuthorList>>");
         } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
@@ -99,7 +99,7 @@ class AuthorsCheckerTest extends NodeValueCheckerTestBase {
             </PAGE>""";
         try {
             test(content,
-                 "The list of authors of article \"https://www.youtube.com/watch?v=aW61yxnQvio\" contains duplicated author: ▭ ▭ ▭ ▭ ▭ given=Tarsa<<DuplicatedAuthor>>");
+                 "The list of authors of article \"https://www.youtube.com/watch?v=aW61yxnQvio\" contains duplicated author: ▭ ▭ ▭ ▭ ▭ given=Tarsa order=western<<DuplicatedAuthor>>");
         } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
@@ -123,7 +123,7 @@ class AuthorsCheckerTest extends NodeValueCheckerTestBase {
             </PAGE>""";
         try {
             test(content,
-                 "The name prefix of author prefix=Pre,fix first=FirstName middle=MiddleName last=LastName suffix=NameSuffix given=GivenName contains an illegal character<<AuthorWithIllegalCharacters>>");
+                 "The name prefix of author prefix=Pre,fix first=FirstName middle=MiddleName last=LastName suffix=NameSuffix given=GivenName order=western contains an illegal character<<AuthorWithIllegalCharacters>>");
         } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
@@ -147,7 +147,7 @@ class AuthorsCheckerTest extends NodeValueCheckerTestBase {
             </PAGE>""";
         try {
             test(content,
-                 "The first name of author prefix=Prefix first=First;Name middle=MiddleName last=LastName suffix=NameSuffix given=GivenName contains an illegal character<<AuthorWithIllegalCharacters>>");
+                 "The first name of author prefix=Prefix first=First;Name middle=MiddleName last=LastName suffix=NameSuffix given=GivenName order=western contains an illegal character<<AuthorWithIllegalCharacters>>");
         } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
@@ -171,7 +171,7 @@ class AuthorsCheckerTest extends NodeValueCheckerTestBase {
             </PAGE>""";
         try {
             test(content,
-                 "The middle name of author prefix=Prefix first=FirstName middle=Middle\"Name last=LastName suffix=NameSuffix given=GivenName contains an illegal character<<AuthorWithIllegalCharacters>>");
+                 "The middle name of author prefix=Prefix first=FirstName middle=Middle\"Name last=LastName suffix=NameSuffix given=GivenName order=western contains an illegal character<<AuthorWithIllegalCharacters>>");
         } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
@@ -195,7 +195,7 @@ class AuthorsCheckerTest extends NodeValueCheckerTestBase {
             </PAGE>""";
         try {
             test(content,
-                 "The last name of author prefix=Prefix first=FirstName middle=MiddleName last=Last!Name suffix=NameSuffix given=GivenName contains an illegal character<<AuthorWithIllegalCharacters>>");
+                 "The last name of author prefix=Prefix first=FirstName middle=MiddleName last=Last!Name suffix=NameSuffix given=GivenName order=western contains an illegal character<<AuthorWithIllegalCharacters>>");
         } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
@@ -219,7 +219,7 @@ class AuthorsCheckerTest extends NodeValueCheckerTestBase {
             </PAGE>""";
         try {
             test(content,
-                 "The name suffix of author prefix=Prefix first=FirstName middle=MiddleName last=LastName suffix=Name&Suffix given=GivenName contains an illegal character<<AuthorWithIllegalCharacters>>");
+                 "The name suffix of author prefix=Prefix first=FirstName middle=MiddleName last=LastName suffix=Name&Suffix given=GivenName order=western contains an illegal character<<AuthorWithIllegalCharacters>>");
         } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }
@@ -243,7 +243,7 @@ class AuthorsCheckerTest extends NodeValueCheckerTestBase {
             </PAGE>""";
         try {
             test(content,
-                 "The given name of author prefix=Prefix first=FirstName middle=MiddleName last=LastName suffix=NameSuffix given=Given=Name contains an illegal character<<AuthorWithIllegalCharacters>>");
+                 "The given name of author prefix=Prefix first=FirstName middle=MiddleName last=LastName suffix=NameSuffix given=Given=Name order=western contains an illegal character<<AuthorWithIllegalCharacters>>");
         } catch (final SAXException _) {
             Assertions.fail("SAXException");
         }

@@ -629,63 +629,6 @@ org.opentest4j.AssertionFailedError: expected: <<ARTICLE><X><T>Explore Annotatio
 	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
 	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.dzoneIsManaged(LinkDataExtractorTest.java:117)
 
-fr.mazure.homepagemanager.data.nodechecker.test.AuthorsCheckerTest
-illegalCharactersInAuthorLastName(fr.mazure.homepagemanager.data.nodechecker.test.AuthorsCheckerTest)
-org.opentest4j.AssertionFailedError: expected: <The last name of author prefix=Prefix first=FirstName middle=MiddleName last=Last!Name suffix=NameSuffix given=GivenName contains an illegal character<<AuthorWithIllegalCharacters>>> but was: <The last name of author prefix=Prefix first=FirstName middle=MiddleName last=Last!Name suffix=NameSuffix given=GivenName order=western contains an illegal character<<AuthorWithIllegalCharacters>>>
-	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.nodechecker.test.NodeValueCheckerTestBase.test(NodeValueCheckerTestBase.java:46)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.nodechecker.test.AuthorsCheckerTest.illegalCharactersInAuthorLastName(AuthorsCheckerTest.java:197)
-
-wellKnownAuthorIsMissing(fr.mazure.homepagemanager.data.nodechecker.test.AuthorsCheckerTest)
-org.opentest4j.AssertionFailedError: expected: <The list of authors of article "https://lexfridman.com/grant-sanderson-2" (▭ first=Grant ▭ last=Sanderson ▭ ▭) does not contain the expected list for the site (▭ first=Lex ▭ last=Fridman ▭ ▭)<<IncorrectAuthorList>>
-The list of authors of article "https://www.numberphile.com/podcast/ben-sparks" (▭ first=Ben ▭ last=Sparks ▭ ▭) does not contain the expected list for the site (▭ first=Brady ▭ last=Haran ▭ ▭)<<IncorrectAuthorList>>> but was: <The list of authors of article "https://lexfridman.com/grant-sanderson-2" (▭ first=Grant ▭ last=Sanderson ▭ ▭ order=western) does not contain the expected list for the site (▭ first=Lex ▭ last=Fridman ▭ ▭ order=western)<<IncorrectAuthorList>>
-The list of authors of article "https://www.numberphile.com/podcast/ben-sparks" (▭ first=Ben ▭ last=Sparks ▭ ▭ order=western) does not contain the expected list for the site (▭ first=Brady ▭ last=Haran ▭ ▭ order=western)<<IncorrectAuthorList>>>
-	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.nodechecker.test.NodeValueCheckerTestBase.test(NodeValueCheckerTestBase.java:46)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.nodechecker.test.AuthorsCheckerTest.wellKnownAuthorIsMissing(AuthorsCheckerTest.java:52)
-
-illegalCharactersInAuthorFirstName(fr.mazure.homepagemanager.data.nodechecker.test.AuthorsCheckerTest)
-org.opentest4j.AssertionFailedError: expected: <The first name of author prefix=Prefix first=First;Name middle=MiddleName last=LastName suffix=NameSuffix given=GivenName contains an illegal character<<AuthorWithIllegalCharacters>>> but was: <The first name of author prefix=Prefix first=First;Name middle=MiddleName last=LastName suffix=NameSuffix given=GivenName order=western contains an illegal character<<AuthorWithIllegalCharacters>>>
-	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.nodechecker.test.NodeValueCheckerTestBase.test(NodeValueCheckerTestBase.java:46)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.nodechecker.test.AuthorsCheckerTest.illegalCharactersInAuthorFirstName(AuthorsCheckerTest.java:149)
-
-illegalCharactersInAuthorMiddleName(fr.mazure.homepagemanager.data.nodechecker.test.AuthorsCheckerTest)
-org.opentest4j.AssertionFailedError: expected: <The middle name of author prefix=Prefix first=FirstName middle=Middle"Name last=LastName suffix=NameSuffix given=GivenName contains an illegal character<<AuthorWithIllegalCharacters>>> but was: <The middle name of author prefix=Prefix first=FirstName middle=Middle"Name last=LastName suffix=NameSuffix given=GivenName order=western contains an illegal character<<AuthorWithIllegalCharacters>>>
-	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.nodechecker.test.NodeValueCheckerTestBase.test(NodeValueCheckerTestBase.java:46)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.nodechecker.test.AuthorsCheckerTest.illegalCharactersInAuthorMiddleName(AuthorsCheckerTest.java:173)
-
-illegalCharactersInAuthorNameSuffix(fr.mazure.homepagemanager.data.nodechecker.test.AuthorsCheckerTest)
-org.opentest4j.AssertionFailedError: expected: <The name suffix of author prefix=Prefix first=FirstName middle=MiddleName last=LastName suffix=Name&Suffix given=GivenName contains an illegal character<<AuthorWithIllegalCharacters>>> but was: <The name suffix of author prefix=Prefix first=FirstName middle=MiddleName last=LastName suffix=Name&Suffix given=GivenName order=western contains an illegal character<<AuthorWithIllegalCharacters>>>
-	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.nodechecker.test.NodeValueCheckerTestBase.test(NodeValueCheckerTestBase.java:46)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.nodechecker.test.AuthorsCheckerTest.illegalCharactersInAuthorNameSuffix(AuthorsCheckerTest.java:221)
-
-illegalCharactersInAuthorGivenName(fr.mazure.homepagemanager.data.nodechecker.test.AuthorsCheckerTest)
-org.opentest4j.AssertionFailedError: expected: <The given name of author prefix=Prefix first=FirstName middle=MiddleName last=LastName suffix=NameSuffix given=Given=Name contains an illegal character<<AuthorWithIllegalCharacters>>> but was: <The given name of author prefix=Prefix first=FirstName middle=MiddleName last=LastName suffix=NameSuffix given=Given=Name order=western contains an illegal character<<AuthorWithIllegalCharacters>>>
-	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.nodechecker.test.NodeValueCheckerTestBase.test(NodeValueCheckerTestBase.java:46)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.nodechecker.test.AuthorsCheckerTest.illegalCharactersInAuthorGivenName(AuthorsCheckerTest.java:245)
-
-duplicatedAuthor(fr.mazure.homepagemanager.data.nodechecker.test.AuthorsCheckerTest)
-org.opentest4j.AssertionFailedError: expected: <The list of authors of article "https://www.youtube.com/watch?v=aW61yxnQvio" contains duplicated author: ▭ ▭ ▭ ▭ ▭ given=Tarsa<<DuplicatedAuthor>>> but was: <The list of authors of article "https://www.youtube.com/watch?v=aW61yxnQvio" contains duplicated author: ▭ ▭ ▭ ▭ ▭ given=Tarsa order=western<<DuplicatedAuthor>>>
-	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.nodechecker.test.NodeValueCheckerTestBase.test(NodeValueCheckerTestBase.java:46)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.nodechecker.test.AuthorsCheckerTest.duplicatedAuthor(AuthorsCheckerTest.java:101)
-
-wellKnownAuthorIsNotAlone(fr.mazure.homepagemanager.data.nodechecker.test.AuthorsCheckerTest)
-org.opentest4j.AssertionFailedError: expected: <The list of authors of article "https://www.inspiredtester.com/inspired-tester-blog/embracing-change-testing-to-agile" (▭ first=Leah ▭ last=Stockley ▭ ▭;▭ first=Grant ▭ last=Sanderson ▭ ▭) is not equal to the expected list for the site (▭ first=Leah ▭ last=Stockley ▭ ▭)<<IncorrectAuthorList>>> but was: <The list of authors of article "https://www.inspiredtester.com/inspired-tester-blog/embracing-change-testing-to-agile" (▭ first=Leah ▭ last=Stockley ▭ ▭ order=western;▭ first=Grant ▭ last=Sanderson ▭ ▭ order=western) is not equal to the expected list for the site (▭ first=Leah ▭ last=Stockley ▭ ▭ order=western)<<IncorrectAuthorList>>>
-	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.nodechecker.test.NodeValueCheckerTestBase.test(NodeValueCheckerTestBase.java:46)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.nodechecker.test.AuthorsCheckerTest.wellKnownAuthorIsNotAlone(AuthorsCheckerTest.java:77)
-
-illegalCharactersInAuthorPrefixName(fr.mazure.homepagemanager.data.nodechecker.test.AuthorsCheckerTest)
-org.opentest4j.AssertionFailedError: expected: <The name prefix of author prefix=Pre,fix first=FirstName middle=MiddleName last=LastName suffix=NameSuffix given=GivenName contains an illegal character<<AuthorWithIllegalCharacters>>> but was: <The name prefix of author prefix=Pre,fix first=FirstName middle=MiddleName last=LastName suffix=NameSuffix given=GivenName order=western contains an illegal character<<AuthorWithIllegalCharacters>>>
-	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.nodechecker.test.NodeValueCheckerTestBase.test(NodeValueCheckerTestBase.java:46)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.nodechecker.test.AuthorsCheckerTest.illegalCharactersInAuthorPrefixName(AuthorsCheckerTest.java:125)
-
 fr.mazure.homepagemanager.utils.internet.test.HtmlHelperTest
 testCharsetExtraction(fr.mazure.homepagemanager.utils.internet.test.HtmlHelperTest)
 testCharsetExtraction(fr.mazure.homepagemanager.utils.internet.test.HtmlHelperTest)

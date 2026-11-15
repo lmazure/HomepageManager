@@ -102,7 +102,7 @@ public class AuthorsChecker extends NodeChecker {
                                        "The list of authors of article \"" +
                                        articleData.links().get(0).getUrl() +
                                        "\" contains duplicated author: " +
-                                       author,
+                                       author.toString(),
                                        Optional.empty());
             }
             authors.add(author);
@@ -126,43 +126,43 @@ public class AuthorsChecker extends NodeChecker {
                 return new CheckStatus("AuthorWithIllegalCharacters",
                                        "The name prefix of author " +
                                        author +
-                                      " contains an illegal character",
-                                      Optional.empty());
+                                       " contains an illegal character",
+                                       Optional.empty());
             }
             if (author.getFirstName().isPresent() && !s_nameControl.matcher(author.getFirstName().get()).matches()) {
                 return new CheckStatus("AuthorWithIllegalCharacters",
                                        "The first name of author " +
                                        author +
-                                      " contains an illegal character",
-                                      Optional.empty());
+                                       " contains an illegal character",
+                                       Optional.empty());
             }
             if (author.getMiddleName().isPresent() && !s_nameControl.matcher(author.getMiddleName().get()).matches()) {
                 return new CheckStatus("AuthorWithIllegalCharacters",
                                        "The middle name of author " +
                                        author +
-                                      " contains an illegal character",
-                                      Optional.empty());
+                                       " contains an illegal character",
+                                       Optional.empty());
             }
             if (author.getLastName().isPresent() && !s_nameControl.matcher(author.getLastName().get()).matches()) {
                 return new CheckStatus("AuthorWithIllegalCharacters",
                                        "The last name of author " +
                                        author +
-                                      " contains an illegal character",
-                                      Optional.empty());
+                                       " contains an illegal character",
+                                       Optional.empty());
             }
             if (author.getNameSuffix().isPresent() && !s_fixControl.matcher(author.getNameSuffix().get()).matches()) {
                 return new CheckStatus("AuthorWithIllegalCharacters",
                                        "The name suffix of author " +
                                        author +
-                                      " contains an illegal character",
-                                      Optional.empty());
+                                       " contains an illegal character",
+                                       Optional.empty());
             }
             if (author.getGivenName().isPresent() && !s_givenControl.matcher(author.getGivenName().get()).matches()) {
                 return new CheckStatus("AuthorWithIllegalCharacters",
                                        "The given name of author " +
                                        author +
-                                      " contains an illegal character",
-                                      Optional.empty());
+                                       " contains an illegal character",
+                                       Optional.empty());
             }
         }
         return null;
