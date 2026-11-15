@@ -629,11 +629,6 @@ org.opentest4j.AssertionFailedError: expected: <<ARTICLE><X><T>Explore Annotatio
 	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
 	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.dzoneIsManaged(LinkDataExtractorTest.java:117)
 
-youtubeWatchTheMadPodcastWithMattTurckIsManaged(fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest)
-org.opentest4j.AssertionFailedError: expected: <<ARTICLE><X><T>Anthropic’s Felix Rieseberg: Claude Cowork, Mythos, and the SaaS Extinction</T><A>https://www.youtube.com/watch?v=9MEJ4syOVrQ</A><L>en</L><F>MP4</F><DURATION><MINUTE>58</MINUTE><SECOND>8</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Matt</FIRSTNAME><LASTNAME>Turck</LASTNAME></AUTHOR><DATE><YEAR>2026</YEAR><MONTH>4</MONTH><DAY>10</DAY></DATE><COMMENT>XXXXX</COMMENT></ARTICLE>> but was: <<ARTICLE><X><T>Anthropic Engineering Lead: How AI Agents Replace Modern SaaS | Felix Rieseberg</T><A>https://www.youtube.com/watch?v=9MEJ4syOVrQ</A><L>en</L><F>MP4</F><DURATION><MINUTE>58</MINUTE><SECOND>8</SECOND></DURATION></X><AUTHOR><FIRSTNAME>Matt</FIRSTNAME><LASTNAME>Turck</LASTNAME></AUTHOR><DATE><YEAR>2026</YEAR><MONTH>4</MONTH><DAY>10</DAY></DATE><COMMENT>XXXXX</COMMENT></ARTICLE>>
-	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.youtubeWatchTheMadPodcastWithMattTurckIsManaged(LinkDataExtractorTest.java:3775)
-
 fr.mazure.homepagemanager.data.nodechecker.test.AuthorsCheckerTest
 illegalCharactersInAuthorLastName(fr.mazure.homepagemanager.data.nodechecker.test.AuthorsCheckerTest)
 org.opentest4j.AssertionFailedError: expected: <The last name of author prefix=Prefix first=FirstName middle=MiddleName last=Last!Name suffix=NameSuffix given=GivenName contains an illegal character<<AuthorWithIllegalCharacters>>> but was: <The last name of author prefix=Prefix first=FirstName middle=MiddleName last=Last!Name suffix=NameSuffix given=GivenName order=western contains an illegal character<<AuthorWithIllegalCharacters>>>

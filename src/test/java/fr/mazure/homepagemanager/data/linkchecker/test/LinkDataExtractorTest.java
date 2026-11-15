@@ -3765,7 +3765,7 @@ class LinkDataExtractorTest {
     void youtubeWatchTheMadPodcastWithMattTurckIsManaged() throws ContentParserException {
         final String url = "https://www.youtube.com/watch?v=9MEJ4syOVrQ";
         final String expectedXml = """
-                <ARTICLE><X><T>Anthropic’s Felix Rieseberg: Claude Cowork, Mythos, and the SaaS Extinction</T>\
+                <ARTICLE><X><T>Anthropic Engineering Lead: How AI Agents Replace Modern SaaS | Felix Rieseberg</T>\
                 <A>https://www.youtube.com/watch?v=9MEJ4syOVrQ</A>\
                 <L>en</L><F>MP4</F><DURATION><MINUTE>58</MINUTE><SECOND>8</SECOND></DURATION></X>\
                 <AUTHOR><FIRSTNAME>Matt</FIRSTNAME><LASTNAME>Turck</LASTNAME></AUTHOR>\
