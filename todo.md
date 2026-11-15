@@ -764,23 +764,6 @@ org.opentest4j.AssertionFailedError: expected: <<ARTICLE><X><T>Anthropic’s Fel
 	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
 	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.youtubeWatchTheMadPodcastWithMattTurckIsManaged(LinkDataExtractorTest.java:3775)
 
-fr.mazure.homepagemanager.data.linkchecker.youtubewatch.test.YoutubeWatchLinkContentParserTest
-testTitle(fr.mazure.homepagemanager.data.linkchecker.youtubewatch.test.YoutubeWatchLinkContentParserTest)
-testTitle(fr.mazure.homepagemanager.data.linkchecker.youtubewatch.test.YoutubeWatchLinkContentParserTest)
-java.lang.IllegalStateException: Exception while retrieving https://www.youtube.com/watch?v=Ieu0H2DLJmo
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.perform(LinkDataExtractorTestBase.java:484)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.checkTitle(LinkDataExtractorTestBase.java:32)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.youtubewatch.test.YoutubeWatchLinkContentParserTest.testTitle(YoutubeWatchLinkContentParserTest.java:110)
-Caused by: org.opentest4j.AssertionFailedError: expected: <The Mathematician and the Devil Movie with English subtitles (Математик и чёрт)> but was: <null>
-	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1199)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.lambda$0(LinkDataExtractorTestBase.java:36)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.lambda$11(LinkDataExtractorTestBase.java:488)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
-	... 4 more
-
 fr.mazure.homepagemanager.data.nodechecker.test.AuthorsCheckerTest
 illegalCharactersInAuthorLastName(fr.mazure.homepagemanager.data.nodechecker.test.AuthorsCheckerTest)
 org.opentest4j.AssertionFailedError: expected: <The last name of author prefix=Prefix first=FirstName middle=MiddleName last=Last!Name suffix=NameSuffix given=GivenName contains an illegal character<<AuthorWithIllegalCharacters>>> but was: <The last name of author prefix=Prefix first=FirstName middle=MiddleName last=Last!Name suffix=NameSuffix given=GivenName order=western contains an illegal character<<AuthorWithIllegalCharacters>>>
