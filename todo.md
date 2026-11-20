@@ -67,564 +67,59 @@ methods       53.9%    97.9%
 
 
 
-repair
 
-```
-HomepageManager (unit tests)
-fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest
-testNoSubtitle(fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest)
-testNoSubtitle(fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest)
-java.lang.IllegalStateException: Exception while retrieving https://www.dwarkesh.com/p/thoughts-on-ai-progress-dec-2025-video
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.perform(LinkDataExtractorTestBase.java:484)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.checkNoSubtitle(LinkDataExtractorTestBase.java:53)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest.testNoSubtitle(DwarkeshPodcastLinkContentParserTest.java:45)
-Caused by: java.lang.RuntimeException: Error while invoking the constructor
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:503)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.lambda$11(LinkDataExtractorTestBase.java:487)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
-	... 4 more
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to parse answer of https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&q=https%3A%2F%2Fwww.dwarkesh.com%2Fp%2Fthoughts-on-ai-progress-dec-2025-video+%22Dwarkesh+Patel%22&key=AIzaSyA0E3d1F4j-pkGm41R2m-5CB41ZgQXo52E: 
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:49)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentParser.<init>(DwarkeshPodcastLinkContentParser.java:121)
-	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:501)
-	... 7 more
-Caused by: org.json.JSONException: A JSONObject text must begin with '{' at 0 [character 1 line 1]
-	at org.json@20251224/org.json.JSONTokener.syntaxError(JSONTokener.java:581)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:221)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:534)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:516)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:47)
-	... 12 more
+manage
 
-test2Authors(fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest)
-test2Authors(fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest)
-java.lang.IllegalStateException: Exception while retrieving https://www.dwarkesh.com/p/richard-sutton
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.perform(LinkDataExtractorTestBase.java:484)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.checkAuthors(LinkDataExtractorTestBase.java:441)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.check2Authors(LinkDataExtractorTestBase.java:175)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest.test2Authors(DwarkeshPodcastLinkContentParserTest.java:93)
-Caused by: java.lang.RuntimeException: Error while invoking the constructor
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:503)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.lambda$11(LinkDataExtractorTestBase.java:487)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
-	... 5 more
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to parse answer of https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&q=https%3A%2F%2Fwww.dwarkesh.com%2Fp%2Frichard-sutton+%22Dwarkesh+Patel%22&key=AIzaSyA0E3d1F4j-pkGm41R2m-5CB41ZgQXo52E: 
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:49)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentParser.<init>(DwarkeshPodcastLinkContentParser.java:121)
-	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:501)
-	... 8 more
-Caused by: org.json.JSONException: A JSONObject text must begin with '{' at 0 [character 1 line 1]
-	at org.json@20251224/org.json.JSONTokener.syntaxError(JSONTokener.java:581)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:221)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:534)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:516)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:47)
-	... 13 more
+ ```
+ https://www.quantamagazine.org/can-we-program-our-cells-20230308/
+Expected 1 links (https://www.quantamagazine.org/can-we-program-our-cells-20230308/), but got 2 links (https://www.quantamagazine.org/can-we-program-our-cells-20230308/, https://www.youtube.com/watch?v=T_2ZoMNzqHQ)
+ 
+ 
+ https://www.quantamagazine.org/how-could-life-evolve-from-cyanide-20220601/
+Expected 1 links (https://www.quantamagazine.org/how-could-life-evolve-from-cyanide-20220601/), but got 2 links (https://www.quantamagazine.org/how-could-life-evolve-from-cyanide-20220601/, https://www.youtube.com/watch?v=MsvDAGKRO4c)
+ 
+ https://www.quantamagazine.org/how-will-we-know-were-not-alone-20241219/
+Expected 1 links (https://www.quantamagazine.org/how-will-we-know-were-not-alone-20241219/), but got 2 links (https://www.quantamagazine.org/how-will-we-know-were-not-alone-20241219/, https://www.youtube.com/watch?v=z-VFby8rWZE)
 
-test2Authors(fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest)
-java.lang.IllegalStateException: Exception while retrieving https://www.dwarkesh.com/p/elon-musk
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.perform(LinkDataExtractorTestBase.java:484)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.checkAuthors(LinkDataExtractorTestBase.java:441)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.check2Authors(LinkDataExtractorTestBase.java:175)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest.test2Authors(DwarkeshPodcastLinkContentParserTest.java:93)
-Caused by: java.lang.RuntimeException: Error while invoking the constructor
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:503)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.lambda$11(LinkDataExtractorTestBase.java:487)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
-	... 5 more
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to parse answer of https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&q=https%3A%2F%2Fwww.dwarkesh.com%2Fp%2Felon-musk+%22Dwarkesh+Patel%22&key=AIzaSyA0E3d1F4j-pkGm41R2m-5CB41ZgQXo52E: 
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:49)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentParser.<init>(DwarkeshPodcastLinkContentParser.java:121)
-	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:501)
-	... 8 more
-Caused by: org.json.JSONException: A JSONObject text must begin with '{' at 0 [character 1 line 1]
-	at org.json@20251224/org.json.JSONTokener.syntaxError(JSONTokener.java:581)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:221)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:534)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:516)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:47)
-	... 13 more
+https://www.quantamagazine.org/what-is-life-20220615/
+Expected 1 links (https://www.quantamagazine.org/what-is-life-20220615/), but got 2 links (https://www.quantamagazine.org/what-is-life-20220615/, https://www.youtube.com/watch?v=zfVe1-c51Ws)
 
-testSubtitle(fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest)
-testSubtitle(fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest)
-java.lang.IllegalStateException: Exception while retrieving https://www.dwarkesh.com/p/richard-sutton
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.perform(LinkDataExtractorTestBase.java:484)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.checkSubtitle(LinkDataExtractorTestBase.java:43)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest.testSubtitle(DwarkeshPodcastLinkContentParserTest.java:35)
-Caused by: java.lang.RuntimeException: Error while invoking the constructor
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:503)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.lambda$11(LinkDataExtractorTestBase.java:487)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
-	... 4 more
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to parse answer of https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&q=https%3A%2F%2Fwww.dwarkesh.com%2Fp%2Frichard-sutton+%22Dwarkesh+Patel%22&key=AIzaSyA0E3d1F4j-pkGm41R2m-5CB41ZgQXo52E: 
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:49)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentParser.<init>(DwarkeshPodcastLinkContentParser.java:121)
-	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:501)
-	... 7 more
-Caused by: org.json.JSONException: A JSONObject text must begin with '{' at 0 [character 1 line 1]
-	at org.json@20251224/org.json.JSONTokener.syntaxError(JSONTokener.java:581)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:221)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:534)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:516)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:47)
-	... 12 more
-
-testSubtitle(fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest)
-java.lang.IllegalStateException: Exception while retrieving https://www.dwarkesh.com/p/elon-musk
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.perform(LinkDataExtractorTestBase.java:484)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.checkSubtitle(LinkDataExtractorTestBase.java:43)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest.testSubtitle(DwarkeshPodcastLinkContentParserTest.java:35)
-Caused by: java.lang.RuntimeException: Error while invoking the constructor
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:503)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.lambda$11(LinkDataExtractorTestBase.java:487)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
-	... 4 more
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to parse answer of https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&q=https%3A%2F%2Fwww.dwarkesh.com%2Fp%2Felon-musk+%22Dwarkesh+Patel%22&key=AIzaSyA0E3d1F4j-pkGm41R2m-5CB41ZgQXo52E: 
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:49)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentParser.<init>(DwarkeshPodcastLinkContentParser.java:121)
-	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:501)
-	... 7 more
-Caused by: org.json.JSONException: A JSONObject text must begin with '{' at 0 [character 1 line 1]
-	at org.json@20251224/org.json.JSONTokener.syntaxError(JSONTokener.java:581)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:221)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:534)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:516)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:47)
-	... 12 more
-
-testSubtitle(fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest)
-java.lang.IllegalStateException: Exception while retrieving https://www.dwarkesh.com/p/openai-huggingface
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.perform(LinkDataExtractorTestBase.java:484)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.checkSubtitle(LinkDataExtractorTestBase.java:43)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest.testSubtitle(DwarkeshPodcastLinkContentParserTest.java:35)
-Caused by: java.lang.RuntimeException: Error while invoking the constructor
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:503)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.lambda$11(LinkDataExtractorTestBase.java:487)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
-	... 4 more
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to parse answer of https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&q=https%3A%2F%2Fwww.dwarkesh.com%2Fp%2Fopenai-huggingface+%22Dwarkesh+Patel%22&key=AIzaSyA0E3d1F4j-pkGm41R2m-5CB41ZgQXo52E: 
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:49)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentParser.<init>(DwarkeshPodcastLinkContentParser.java:121)
-	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:501)
-	... 7 more
-Caused by: org.json.JSONException: A JSONObject text must begin with '{' at 0 [character 1 line 1]
-	at org.json@20251224/org.json.JSONTokener.syntaxError(JSONTokener.java:581)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:221)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:534)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:516)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:47)
-	... 12 more
-
-testDuration(fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest)
-testDuration(fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest)
-java.lang.IllegalStateException: Exception while retrieving https://www.dwarkesh.com/p/richard-sutton
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.perform(LinkDataExtractorTestBase.java:484)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.checkDuration(LinkDataExtractorTestBase.java:112)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest.testDuration(DwarkeshPodcastLinkContentParserTest.java:133)
-Caused by: java.lang.RuntimeException: Error while invoking the constructor
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:503)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.lambda$11(LinkDataExtractorTestBase.java:487)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
-	... 4 more
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to parse answer of https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&q=https%3A%2F%2Fwww.dwarkesh.com%2Fp%2Frichard-sutton+%22Dwarkesh+Patel%22&key=AIzaSyA0E3d1F4j-pkGm41R2m-5CB41ZgQXo52E: 
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:49)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentParser.<init>(DwarkeshPodcastLinkContentParser.java:121)
-	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:501)
-	... 7 more
-Caused by: org.json.JSONException: A JSONObject text must begin with '{' at 0 [character 1 line 1]
-	at org.json@20251224/org.json.JSONTokener.syntaxError(JSONTokener.java:581)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:221)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:534)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:516)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:47)
-	... 12 more
-
-testDuration(fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest)
-java.lang.IllegalStateException: Exception while retrieving https://www.dwarkesh.com/p/elon-musk
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.perform(LinkDataExtractorTestBase.java:484)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.checkDuration(LinkDataExtractorTestBase.java:112)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest.testDuration(DwarkeshPodcastLinkContentParserTest.java:133)
-Caused by: java.lang.RuntimeException: Error while invoking the constructor
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:503)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.lambda$11(LinkDataExtractorTestBase.java:487)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
-	... 4 more
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to parse answer of https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&q=https%3A%2F%2Fwww.dwarkesh.com%2Fp%2Felon-musk+%22Dwarkesh+Patel%22&key=AIzaSyA0E3d1F4j-pkGm41R2m-5CB41ZgQXo52E: 
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:49)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentParser.<init>(DwarkeshPodcastLinkContentParser.java:121)
-	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:501)
-	... 7 more
-Caused by: org.json.JSONException: A JSONObject text must begin with '{' at 0 [character 1 line 1]
-	at org.json@20251224/org.json.JSONTokener.syntaxError(JSONTokener.java:581)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:221)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:534)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:516)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:47)
-	... 12 more
-
-testOtherLink(fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest)
-testOtherLink(fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest)
-java.lang.IllegalStateException: Exception while retrieving https://www.dwarkesh.com/p/richard-sutton
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.perform(LinkDataExtractorTestBase.java:484)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.checkOtherLink(LinkDataExtractorTestBase.java:452)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest.testOtherLink(DwarkeshPodcastLinkContentParserTest.java:122)
-Caused by: java.lang.RuntimeException: Error while invoking the constructor
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:503)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.lambda$11(LinkDataExtractorTestBase.java:487)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
-	... 4 more
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to parse answer of https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&q=https%3A%2F%2Fwww.dwarkesh.com%2Fp%2Frichard-sutton+%22Dwarkesh+Patel%22&key=AIzaSyA0E3d1F4j-pkGm41R2m-5CB41ZgQXo52E: 
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:49)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentParser.<init>(DwarkeshPodcastLinkContentParser.java:121)
-	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:501)
-	... 7 more
-Caused by: org.json.JSONException: A JSONObject text must begin with '{' at 0 [character 1 line 1]
-	at org.json@20251224/org.json.JSONTokener.syntaxError(JSONTokener.java:581)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:221)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:534)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:516)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:47)
-	... 12 more
-
-testOtherLink(fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest)
-java.lang.IllegalStateException: Exception while retrieving https://www.dwarkesh.com/p/elon-musk
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.perform(LinkDataExtractorTestBase.java:484)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.checkOtherLink(LinkDataExtractorTestBase.java:452)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest.testOtherLink(DwarkeshPodcastLinkContentParserTest.java:122)
-Caused by: java.lang.RuntimeException: Error while invoking the constructor
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:503)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.lambda$11(LinkDataExtractorTestBase.java:487)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
-	... 4 more
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to parse answer of https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&q=https%3A%2F%2Fwww.dwarkesh.com%2Fp%2Felon-musk+%22Dwarkesh+Patel%22&key=AIzaSyA0E3d1F4j-pkGm41R2m-5CB41ZgQXo52E: 
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:49)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentParser.<init>(DwarkeshPodcastLinkContentParser.java:121)
-	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:501)
-	... 7 more
-Caused by: org.json.JSONException: A JSONObject text must begin with '{' at 0 [character 1 line 1]
-	at org.json@20251224/org.json.JSONTokener.syntaxError(JSONTokener.java:581)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:221)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:534)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:516)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:47)
-	... 12 more
-
-testOtherLink(fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest)
-java.lang.IllegalStateException: Exception while retrieving https://www.dwarkesh.com/p/the-next-paradigm
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.perform(LinkDataExtractorTestBase.java:484)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.checkOtherLink(LinkDataExtractorTestBase.java:452)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest.testOtherLink(DwarkeshPodcastLinkContentParserTest.java:122)
-Caused by: java.lang.RuntimeException: Error while invoking the constructor
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:503)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.lambda$11(LinkDataExtractorTestBase.java:487)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
-	... 4 more
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to parse answer of https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&q=https%3A%2F%2Fwww.dwarkesh.com%2Fp%2Fthe-next-paradigm+%22Dwarkesh+Patel%22&key=AIzaSyA0E3d1F4j-pkGm41R2m-5CB41ZgQXo52E: 
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:49)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentParser.<init>(DwarkeshPodcastLinkContentParser.java:121)
-	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:501)
-	... 7 more
-Caused by: org.json.JSONException: A JSONObject text must begin with '{' at 0 [character 1 line 1]
-	at org.json@20251224/org.json.JSONTokener.syntaxError(JSONTokener.java:581)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:221)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:534)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:516)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:47)
-	... 12 more
-
-testOtherLink(fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest)
-java.lang.IllegalStateException: Exception while retrieving https://www.dwarkesh.com/p/the-sample-efficiency-black-hole
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.perform(LinkDataExtractorTestBase.java:484)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.checkOtherLink(LinkDataExtractorTestBase.java:452)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest.testOtherLink(DwarkeshPodcastLinkContentParserTest.java:122)
-Caused by: java.lang.RuntimeException: Error while invoking the constructor
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:503)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.lambda$11(LinkDataExtractorTestBase.java:487)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
-	... 4 more
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to parse answer of https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&q=https%3A%2F%2Fwww.dwarkesh.com%2Fp%2Fthe-sample-efficiency-black-hole+%22Dwarkesh+Patel%22&key=AIzaSyA0E3d1F4j-pkGm41R2m-5CB41ZgQXo52E: 
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:49)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentParser.<init>(DwarkeshPodcastLinkContentParser.java:121)
-	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:501)
-	... 7 more
-Caused by: org.json.JSONException: A JSONObject text must begin with '{' at 0 [character 1 line 1]
-	at org.json@20251224/org.json.JSONTokener.syntaxError(JSONTokener.java:581)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:221)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:534)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:516)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:47)
-	... 12 more
-
-testTitle(fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest)
-testTitle(fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest)
-java.lang.IllegalStateException: Exception while retrieving https://www.dwarkesh.com/p/richard-sutton
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.perform(LinkDataExtractorTestBase.java:484)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.checkTitle(LinkDataExtractorTestBase.java:32)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest.testTitle(DwarkeshPodcastLinkContentParserTest.java:23)
-Caused by: java.lang.RuntimeException: Error while invoking the constructor
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:503)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.lambda$11(LinkDataExtractorTestBase.java:487)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
-	... 4 more
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to parse answer of https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&q=https%3A%2F%2Fwww.dwarkesh.com%2Fp%2Frichard-sutton+%22Dwarkesh+Patel%22&key=AIzaSyA0E3d1F4j-pkGm41R2m-5CB41ZgQXo52E: 
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:49)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentParser.<init>(DwarkeshPodcastLinkContentParser.java:121)
-	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:501)
-	... 7 more
-Caused by: org.json.JSONException: A JSONObject text must begin with '{' at 0 [character 1 line 1]
-	at org.json@20251224/org.json.JSONTokener.syntaxError(JSONTokener.java:581)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:221)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:534)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:516)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:47)
-	... 12 more
-
-testTitle(fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest)
-java.lang.IllegalStateException: Exception while retrieving https://www.dwarkesh.com/p/elon-musk
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.perform(LinkDataExtractorTestBase.java:484)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.checkTitle(LinkDataExtractorTestBase.java:32)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest.testTitle(DwarkeshPodcastLinkContentParserTest.java:23)
-Caused by: java.lang.RuntimeException: Error while invoking the constructor
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:503)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.lambda$11(LinkDataExtractorTestBase.java:487)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
-	... 4 more
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to parse answer of https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&q=https%3A%2F%2Fwww.dwarkesh.com%2Fp%2Felon-musk+%22Dwarkesh+Patel%22&key=AIzaSyA0E3d1F4j-pkGm41R2m-5CB41ZgQXo52E: 
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:49)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentParser.<init>(DwarkeshPodcastLinkContentParser.java:121)
-	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:501)
-	... 7 more
-Caused by: org.json.JSONException: A JSONObject text must begin with '{' at 0 [character 1 line 1]
-	at org.json@20251224/org.json.JSONTokener.syntaxError(JSONTokener.java:581)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:221)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:534)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:516)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:47)
-	... 12 more
-
-testTitle(fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest)
-java.lang.IllegalStateException: Exception while retrieving https://www.dwarkesh.com/p/thoughts-on-ai-progress-dec-2025-video
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.perform(LinkDataExtractorTestBase.java:484)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.checkTitle(LinkDataExtractorTestBase.java:32)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest.testTitle(DwarkeshPodcastLinkContentParserTest.java:23)
-Caused by: java.lang.RuntimeException: Error while invoking the constructor
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:503)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.lambda$11(LinkDataExtractorTestBase.java:487)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
-	... 4 more
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to parse answer of https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&q=https%3A%2F%2Fwww.dwarkesh.com%2Fp%2Fthoughts-on-ai-progress-dec-2025-video+%22Dwarkesh+Patel%22&key=AIzaSyA0E3d1F4j-pkGm41R2m-5CB41ZgQXo52E: 
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:49)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentParser.<init>(DwarkeshPodcastLinkContentParser.java:121)
-	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:501)
-	... 7 more
-Caused by: org.json.JSONException: A JSONObject text must begin with '{' at 0 [character 1 line 1]
-	at org.json@20251224/org.json.JSONTokener.syntaxError(JSONTokener.java:581)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:221)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:534)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:516)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:47)
-	... 12 more
-
-test1Author(fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest)
-test1Author(fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest)
-java.lang.IllegalStateException: Exception while retrieving https://www.dwarkesh.com/p/thoughts-on-ai-progress-dec-2025-video
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.perform(LinkDataExtractorTestBase.java:484)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.checkAuthors(LinkDataExtractorTestBase.java:441)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.check1Author(LinkDataExtractorTestBase.java:143)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest.test1Author(DwarkeshPodcastLinkContentParserTest.java:69)
-Caused by: java.lang.RuntimeException: Error while invoking the constructor
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:503)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.lambda$11(LinkDataExtractorTestBase.java:487)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
-	... 5 more
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to parse answer of https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&q=https%3A%2F%2Fwww.dwarkesh.com%2Fp%2Fthoughts-on-ai-progress-dec-2025-video+%22Dwarkesh+Patel%22&key=AIzaSyA0E3d1F4j-pkGm41R2m-5CB41ZgQXo52E: 
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:49)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentParser.<init>(DwarkeshPodcastLinkContentParser.java:121)
-	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:501)
-	... 8 more
-Caused by: org.json.JSONException: A JSONObject text must begin with '{' at 0 [character 1 line 1]
-	at org.json@20251224/org.json.JSONTokener.syntaxError(JSONTokener.java:581)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:221)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:534)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:516)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:47)
-	... 13 more
-
-testPublicationDate(fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest)
-testPublicationDate(fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest)
-java.lang.IllegalStateException: Exception while retrieving https://www.dwarkesh.com/p/richard-sutton
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.perform(LinkDataExtractorTestBase.java:484)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.checkPublicationDate(LinkDataExtractorTestBase.java:100)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest.testPublicationDate(DwarkeshPodcastLinkContentParserTest.java:56)
-Caused by: java.lang.RuntimeException: Error while invoking the constructor
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:503)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.lambda$11(LinkDataExtractorTestBase.java:487)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
-	... 4 more
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to parse answer of https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&q=https%3A%2F%2Fwww.dwarkesh.com%2Fp%2Frichard-sutton+%22Dwarkesh+Patel%22&key=AIzaSyA0E3d1F4j-pkGm41R2m-5CB41ZgQXo52E: 
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:49)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentParser.<init>(DwarkeshPodcastLinkContentParser.java:121)
-	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:501)
-	... 7 more
-Caused by: org.json.JSONException: A JSONObject text must begin with '{' at 0 [character 1 line 1]
-	at org.json@20251224/org.json.JSONTokener.syntaxError(JSONTokener.java:581)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:221)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:534)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:516)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:47)
-	... 12 more
-
-testPublicationDate(fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest)
-java.lang.IllegalStateException: Exception while retrieving https://www.dwarkesh.com/p/elon-musk
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:77)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever.retrieve(CachedSiteDataRetriever.java:37)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.perform(LinkDataExtractorTestBase.java:484)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.checkPublicationDate(LinkDataExtractorTestBase.java:100)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest.testPublicationDate(DwarkeshPodcastLinkContentParserTest.java:56)
-Caused by: java.lang.RuntimeException: Error while invoking the constructor
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:503)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.lambda$11(LinkDataExtractorTestBase.java:487)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieveInternal(SynchronousSiteDataRetriever.java:144)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.dataretriever.SynchronousSiteDataRetriever.retrieve(SynchronousSiteDataRetriever.java:75)
-	... 4 more
-Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to parse answer of https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=1&q=https%3A%2F%2Fwww.dwarkesh.com%2Fp%2Felon-musk+%22Dwarkesh+Patel%22&key=AIzaSyA0E3d1F4j-pkGm41R2m-5CB41ZgQXo52E: 
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:49)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.DwarkeshPodcastLinkContentParser.<init>(DwarkeshPodcastLinkContentParser.java:121)
-	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
-	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
-	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTestBase.construct(LinkDataExtractorTestBase.java:501)
-	... 7 more
-Caused by: org.json.JSONException: A JSONObject text must begin with '{' at 0 [character 1 line 1]
-	at org.json@20251224/org.json.JSONTokener.syntaxError(JSONTokener.java:581)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:221)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:534)
-	at org.json@20251224/org.json.JSONObject.<init>(JSONObject.java:516)
-	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.utils.internet.YouTubeHelper.getVideoURL(YouTubeHelper.java:47)
-	... 12 more
-```
-
-
-
-
-
-
+https://www.quantamagazine.org/why-is-it-so-hard-to-define-a-species-20241024/
+Expected 1 links (https://www.quantamagazine.org/why-is-it-so-hard-to-define-a-species-20241024/), but got 2 links (https://www.quantamagazine.org/why-is-it-so-hard-to-define-a-species-20241024/, https://www.youtube.com/watch?v=zfVe1-c51Ws)
+ ```
+ 
+ 
 
 
 
 manage
 
 ```
-https://www.quantamagazine.org/what-is-the-positive-grassmannian-and-why-does-it-show-up-everywhere-20260625/
-The list of effective authors is not the effective one.
-The following authors are effectively present but are unexpected: ▭ ▭ ▭ ▭ ▭ given=Williams order=western
-The following authors are expected but are effectively missing: ▭ first=Lauren ▭ last=Williams ▭ ▭ order=western
-Expected 2 links (https://www.quantamagazine.org/what-is-the-positive-grassmannian-and-why-does-it-show-up-everywhere-20260625/, https://www.youtube.com/watch?v=iAaGDYz3f9k), but got 1 links (https://www.quantamagazine.org/what-is-the-positive-grassmannian-and-why-does-it-show-up-everywhere-20260625/)
+ tag = "COMMENT"
+ value = "A presentation of how The Oversized Attribute Storage Technique works and why Timescale claims to do better."
+ violation = "a COMMENT must not contain US syntax"
+ detail = "COMMENT "A presentation of how The Oversized Attribute Storage Technique works and why Timescale claims to do better." contains american word " Oversized " matching regexp "\W\p{L}{2,}ize[sd]?\W", it should be "ise""
+
+ tag = "TITLE"
+ value = "sqlite-utils"
+ violation = "a TITLE must start with an uppercase letter"
+ detail = "TITLE "sqlite-utils" must start with an uppercase"
+
+ tag = "ARTICLE"
+ value = "sqlite-utils 4.0a1 has several (minor) backwards incompatible changeshttps://simonwillison.net/2025/Nov/24/sqlite-utils-40a1/enHTMLSimonWillison20251124The release notes of sqlite-utils 4.0a1."
+ violation = "article not properly sorted according to date"
+ detail = "Creation date of article "https://simonwillison.net/2025/Nov/24/sqlite-utils-40a1/" (2025-11-24) is before creation date (2026-07-07) of previous article "https://simonwillison.net/2026/Jul/7/sqlite-utils-4/""
 ```
 
 
+
+fina a way to avoit the kludge
+
+```
+<ITEM><BLIST><TITLE><CODEROUTINE>sqlite-utils</CODEROUTINE></TITLE>
+```
+
+maybe by using a keyword
 
 
 
@@ -876,20 +371,6 @@ manage
 https://blog.kilo.ai/p/23-events
 The expected date 2026-07-03 is not equal to the effective date 2026-07-02
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-manage refactoring.fm
 
 
 

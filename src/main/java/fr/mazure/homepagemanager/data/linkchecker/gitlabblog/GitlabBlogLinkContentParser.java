@@ -97,7 +97,8 @@ public class GitlabBlogLinkContentParser extends LinkDataExtractor {
         }
 
         final ExtractedLinkData linkData = new ExtractedLinkData(_title,
-                                                                 new String[] { },
+                                                                 getSubtitle().isPresent() ? new String[] { getSubtitle().get() }
+                                                                                           : new String[] {},
                                                                  url,
                                                                  Optional.empty(),
                                                                  Optional.empty(),
