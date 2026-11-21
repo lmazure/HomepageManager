@@ -63,6 +63,11 @@ public class DwarkeshPodcastLinkContentParser extends LinkDataExtractor {
                          "</h3>",
                          s_sourceName,
                          "subtitle");
+    private static final TextParser s_embededVideo
+        = new TextParser("<iframe src=\"https://www.youtube-nocookie.com/embed/",
+                         "\\?rel=0",
+                         s_sourceName,
+                         "embedded video");
 
     private static final Pattern s_extractGuest = Pattern.compile("^(.+?)\\s+[\u2013\u2014]\\s+.+$");
 
@@ -117,8 +122,15 @@ public class DwarkeshPodcastLinkContentParser extends LinkDataExtractor {
         }
         _authors.add(WellKnownAuthors.DWARKESH_PATEL);
 
-        // we use the fact that Dwarkesh writes the URL in the video description to find this one
-        final Optional<String> youtubeLink = YouTubeHelper.getVideoURL("Dwarkesh Patel", url, getRetriever());
+        final Optional<String> youtubeLink;
+        final Optional<String> embeddedVideoId = s_embededVideo.extractOptional(data);
+        if (embeddedVideoId.isPresent()) {
+            // use embedded video if there is one
+            youtubeLink = Optional.of("https://www.youtube.com/watch?v=" + embeddedVideoId.get());
+        } else {
+            // we use the fact that Dwarkesh writes the URL in the video description to find this one
+            youtubeLink = YouTubeHelper.getVideoURL("Dwarkesh Patel", url, getRetriever());
+        }
         _otherLink = getOtherLinkFromYouTube(youtubeLink);
 
         _creationDate = DateTimeHelper.getMinTemporalAccessor(_publicationDate, _otherLink.map(link -> link.publicationDate().get()));

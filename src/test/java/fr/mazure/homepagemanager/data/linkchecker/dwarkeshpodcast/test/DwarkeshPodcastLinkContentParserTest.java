@@ -116,6 +116,7 @@ class DwarkeshPodcastLinkContentParserTest extends LinkDataExtractorTestBase {
         // for the two following podcasts, the YouTube video does not appear on the podcast page
         "https://www.dwarkesh.com/p/the-next-paradigm|https://www.youtube.com/watch?v=20p5-kQXF_Q",
         "https://www.dwarkesh.com/p/the-sample-efficiency-black-hole|https://www.youtube.com/watch?v=4pG3SJQPAwk",
+        "https://www.dwarkesh.com/p/grant-sanderson-2|https://www.youtube.com/watch?v=TfyPshgMbug"
         }, delimiter = '|')
     void testOtherLink(final String url,
                        final String expectedOtherLink) {

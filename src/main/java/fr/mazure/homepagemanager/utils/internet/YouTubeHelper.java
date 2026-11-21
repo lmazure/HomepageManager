@@ -1,5 +1,6 @@
 package fr.mazure.homepagemanager.utils.internet;
 
+import java.net.HttpURLConnection;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
@@ -9,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import fr.mazure.homepagemanager.data.dataretriever.CachedSiteDataRetriever;
+import fr.mazure.homepagemanager.data.dataretriever.FullFetchedLinkData;
 import fr.mazure.homepagemanager.data.dataretriever.SiteSlurper;
 import fr.mazure.homepagemanager.data.linkchecker.ContentParserException;
 import fr.mazure.homepagemanager.utils.EnvironmentHelper;
@@ -24,7 +26,9 @@ public class YouTubeHelper {
      * @param channelName Name of the channel
      * @param videoTitle  Title of the video
      * @param retriever   data retriever
+     *
      * @return URL of the video, or empty if not found
+     *
      * @throws ContentParserException failed to parse YouTube's answer
      * @throws IllegalStateException if the YOUTUBE_API_KEY environment variable is not set
      */
@@ -41,12 +45,43 @@ public class YouTubeHelper {
 
         final SiteSlurper sluper = new SiteSlurper(retriever, searchURL);
         final String data = sluper.getContent();
+        final FullFetchedLinkData linkData = sluper.getLinkData();
 
-        JSONArray items;
+        if (linkData.error().isPresent()) {
+            throw new ContentParserException("Failed to retrieve " + searchURL + ": " + linkData.error().get());
+        }
+
+        if (linkData.headers().isPresent()) {
+            final int responseCode = HttpHelper.getResponseCodeFromHeaders(linkData.headers().get());
+            if (responseCode != HttpURLConnection.HTTP_OK) {
+                String description;
+                try {
+                    description = HttpHelper.getStringOfCode(responseCode);
+                } catch (final InvalidHttpCodeException _) {
+                    description = "unknown";
+                }
+                throw new ContentParserException("Request of " + searchURL +
+                                                 " failed with HTTP code " + responseCode +
+                                                 " (" + description + ")");
+            }
+        }
+
+        JSONObject json;
         try {
-            items = new JSONObject(data).getJSONArray("items");
+            json = new JSONObject(data);
         } catch(final JSONException e) {
-            throw new ContentParserException("Failed to parse answer of " + searchURL + ": " + data, e);
+            throw new ContentParserException("Failed to parse answer of " + searchURL + ": " + truncate(data), e);
+        }
+
+        if (json.has("error")) {
+            final JSONObject error = json.getJSONObject("error");
+            throw new ContentParserException("YouTube API returned error " + error.optInt("code") +
+                                             " \"" + error.optString("message") + "\" for " + searchURL);
+        }
+
+        final JSONArray items = json.optJSONArray("items");
+        if (items == null) {
+            throw new ContentParserException("Answer of " + searchURL + " contains no 'items': " + truncate(data));
         }
 
         if (items.isEmpty()) {
@@ -66,5 +101,9 @@ public class YouTubeHelper {
 
         return (videoId != null && !videoId.isBlank())  ? Optional.of("https://www.youtube.com/watch?v=" + videoId)
                                                         : Optional.empty();
+    }
+
+    private static String truncate(final String str) {
+        return str.substring(0, Math.min(str.length(), 512));
     }
 }

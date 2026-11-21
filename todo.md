@@ -68,6 +68,96 @@ methods       53.9%    97.9%
 
 
 
+
+repair the last unit tests
+- fr.mazure.homepagemanager.data.linkchecker.test.LinkDataExtractorTest.gitLabBlogIsManaged()
+- fr.mazure.homepagemanager.data.linkchecker.linkstatusanalyzer.test.WellKnownRedirectionsTest.redirectionsToItself(String)
+- fr.mazure.homepagemanager.data.linkchecker.dwarkeshpodcast.test.DwarkeshPodcastLinkContentParserTest.testOtherLink(String, String)
+
+
+
+
+
+manage
+
+```
+https://leidendeclaration.ai/
+Title "Mathematics in the age of AI" does not appear in the page
+Subtitle "Public lecture, International Congress of Mathematicians 2026" does not appear in the page
+```
+
+```
+https://www.dwarkesh.com/p/grant-sanderson-2
+Expected link number 2 to be https://www.youtube.com/watch?v=TfyPshgMbug, but got https://www.youtube.com/watch?v=oDyviiN4NVo
+```
+
+```
+https://www.numberphile.com/podcast/sanderson-ai
+The list of effective authors is not the effective one.
+The following authors are effectively present but are unexpected: ▭ first=Grant middle=Sanderson last=From 3Blue1Brown ▭ ▭ order=western
+The following authors are expected but are effectively missing: ▭ first=Grant ▭ last=Sanderson ▭ ▭ order=western
+```
+
+```
+https://www.numberphile.com/podcast/terence-tao-ai
+The list of effective authors is not the effective one.
+The following authors are effectively present but are unexpected: 
+The following authors are expected but are effectively missing: ▭ first=Terence ▭ last=Tao ▭ ▭ order=western
+Expected 1 links (https://www.numberphile.com/podcast/terence-tao-ai), but got 2 links (https://www.numberphile.com/podcast/terence-tao-ai, https://www.youtube.com/watch?v=48Hr3CT5Tpk)
+```
+
+```
+https://www.quantamagazine.org/live-from-icm-2026-what-is-math-for-in-the-age-of-ai-20260903/
+The list of effective authors is not the effective one.
+The following authors are effectively present but are unexpected: ▭ first=Audience ▭ last=Question ▭ ▭ order=western,▭ first=Audience ▭ last=Qa ▭ ▭ order=western
+The following authors are expected but are effectively missing: 
+Expected 1 links (https://www.quantamagazine.org/live-from-icm-2026-what-is-math-for-in-the-age-of-ai-20260903/), but got 2 links (https://www.quantamagazine.org/live-from-icm-2026-what-is-math-for-in-the-age-of-ai-20260903/, https://www.youtube.com/watch?v=IXwrLMtuv4Q)
+```
+
+add support of `https://signalsandthreads.com/`
+
+
+
+
+manage
+
+```
+fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://oxide-and-friends.transistor.fm/episodes/conferences-in-tech"
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:86)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:339)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1527)
+Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find creation date in Oxide and Friends
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.TextParser.extract(TextParser.java:61)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.oxideandfriends.OxideAndFriendsLinkContentParser.<init>(OxideAndFriendsLinkContentParser.java:141)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:57)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:95)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:84)
+	... 5 more
+
+
+fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to check data of "https://oxide-and-friends.transistor.fm/episodes/conferences-in-tech"
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:86)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.handleLinkData(LinkCheckRunner.java:339)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkCheckRunner.lambda$0(LinkCheckRunner.java:175)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)
+	at java.base/java.lang.Thread.run(Thread.java:1527)
+Caused by: fr.mazure.homepagemanager.data.linkchecker.ContentParserException: Failed to find creation date in Oxide and Friends
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.TextParser.extract(TextParser.java:61)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.oxideandfriends.OxideAndFriendsLinkContentParser.<init>(OxideAndFriendsLinkContentParser.java:141)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.ExtractorBasedLinkContentChecker.checkGlobalData(ExtractorBasedLinkContentChecker.java:57)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:95)
+	at fr.mazure.homepagemanager/fr.mazure.homepagemanager.data.linkchecker.LinkContentChecker.check(LinkContentChecker.java:84)
+	... 5 more
+```
+
+
+
+
+
 manage
 
  ```
