@@ -14,11 +14,12 @@ class ThoughtWorksLinkContentParserTest extends LinkDataExtractorTestBase {
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {
-        "https://www.thoughtworks.com/insights/podcasts/technology-podcasts/exploring-ai-agent-platforms|Exploring AI agent platforms",
-        "https://www.thoughtworks.com/insights/podcasts/technology-podcasts/architecture-antipatterns-pitfalls|Architecture antipatterns and pitfalls",
-        "https://www.thoughtworks.com/insights/podcasts/technology-podcasts/themes-in-technology-radar-vol-32|Themes in Technology Radar Vol.32",
-        "https://www.thoughtworks.com/insights/podcasts/technology-podcasts/generative-ai-s-uncanny-valley--problem-or-opportunity-|Generative AI's uncanny valley: Problem or opportunity?",
-        }, delimiter = '|')
+        "https://www.thoughtworks.com/insights/podcasts/technology-podcasts/exploring-ai-agent-platforms$Exploring AI agent platforms",
+        "https://www.thoughtworks.com/insights/podcasts/technology-podcasts/architecture-antipatterns-pitfalls$Architecture antipatterns and pitfalls",
+        "https://www.thoughtworks.com/insights/podcasts/technology-podcasts/themes-in-technology-radar-vol-32$Themes in Technology Radar Vol.32",
+        "https://www.thoughtworks.com/insights/podcasts/technology-podcasts/generative-ai-s-uncanny-valley--problem-or-opportunity-$Generative AI's uncanny valley: Problem or opportunity?",
+        "https://www.thoughtworks.com/insights/blog/technology-strategy/macro-trends-tech-industry-november-2026$Macro trends in the tech industry | November 2026"
+        }, delimiter = '$')
     void testTitle(final String url,
                    final String expectedTitle) {
         checkTitle(ThoughtWorksLinkContentParser.class, url, expectedTitle);
@@ -28,6 +29,7 @@ class ThoughtWorksLinkContentParserTest extends LinkDataExtractorTestBase {
     @ParameterizedTest
     @CsvSource(value = {
         "https://www.thoughtworks.com/insights/podcasts/technology-podcasts/architecture-antipatterns-pitfalls|Good intentions, bad habits and ugly consequences",
+        "https://www.thoughtworks.com/insights/blog/technology-strategy/macro-trends-tech-industry-november-2026|AI adoption growing pains"
         }, delimiter = '|')
     void testSubtitle(final String url,
                       final String expectedSubtitle) {
@@ -52,6 +54,7 @@ class ThoughtWorksLinkContentParserTest extends LinkDataExtractorTestBase {
         "https://www.thoughtworks.com/insights/podcasts/technology-podcasts/architecture-antipatterns-pitfalls|2026-01-08",
         "https://www.thoughtworks.com/insights/podcasts/technology-podcasts/themes-in-technology-radar-vol-32|2025-04-17",
         "https://www.thoughtworks.com/insights/podcasts/technology-podcasts/generative-ai-s-uncanny-valley--problem-or-opportunity-|2024-12-12",
+        "https://www.thoughtworks.com/insights/blog/technology-strategy/macro-trends-tech-industry-november-2026|2026-11-04"
         }, delimiter = '|')
     void testDate(final String url,
                   final String expectedDate) {
@@ -69,6 +72,25 @@ class ThoughtWorksLinkContentParserTest extends LinkDataExtractorTestBase {
     void testDuration(final String url,
                       final String expectedDuration) {
         checkDuration(ThoughtWorksLinkContentParser.class, url, expectedDuration);
+    }
+
+    @SuppressWarnings("static-method")
+    @ParameterizedTest
+    @CsvSource(value = {
+        "https://www.thoughtworks.com/insights/blog/technology-strategy/macro-trends-tech-industry-november-2026|Chris||Ford",
+        }, delimiter = '|')
+    void test1Author(final String url,
+                     final String expectedFirstName1,
+                     final String expectedMiddleName1,
+                     final String expectedLastName1) {
+        check1Author(ThoughtWorksLinkContentParser.class,
+                     url,
+                     null,
+                     expectedFirstName1,
+                     expectedMiddleName1,
+                     expectedLastName1,
+                     null,
+                     null);
     }
 
     @SuppressWarnings("static-method")
@@ -182,6 +204,19 @@ class ThoughtWorksLinkContentParserTest extends LinkDataExtractorTestBase {
                       null,
                       null);
     }
+
+    @SuppressWarnings("static-method")
+    @ParameterizedTest
+    @CsvSource(value = {
+        "https://www.thoughtworks.com/insights/podcasts/technology-podcasts/exploring-ai-agent-platforms|MP3",
+        "https://www.thoughtworks.com/insights/blog/technology-strategy/macro-trends-tech-industry-november-2026|HTML",
+        }, delimiter = '|')
+    void testFormat(final String url,
+                      final String expectedFormat) {
+        checkFormat(ThoughtWorksLinkContentParser.class, url, expectedFormat);
+    }
+
+    
     @SuppressWarnings("static-method")
     @ParameterizedTest
     @CsvSource(value = {

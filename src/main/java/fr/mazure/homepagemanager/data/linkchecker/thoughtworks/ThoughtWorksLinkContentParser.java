@@ -35,6 +35,7 @@ public class ThoughtWorksLinkContentParser extends LinkDataExtractor {
     private final Optional<TemporalAccessor> _date;
     private final List<AuthorData> _sureAuthors;
     private final Optional<Duration> _duration;
+    private final LinkFormat _format;
 
     private static final TextParser s_titleParser
         = new TextParser("<h1 class='hero-banner__overlay__container__title'>",
@@ -61,6 +62,11 @@ public class ThoughtWorksLinkContentParser extends LinkDataExtractor {
                          "</span>",
                          s_sourceName,
                          "host author");
+    private static final TextParser s_authorParser
+        = new TextParser("<a href=\"https://www.thoughtworks.com/profiles/c/[^\"]+\" class=\"author-dates__authors__profile-link\">",
+                         "</a>",
+                         s_sourceName,
+                         "host author");
     private static final TextParser s_durationParser
         = new TextParser("<div class=\"date-duration\">\n *\n *\n *[^|]+ \\|",
                          "\n *</div>",
@@ -77,6 +83,8 @@ public class ThoughtWorksLinkContentParser extends LinkDataExtractor {
                                          final CachedSiteDataRetriever retriever) throws ContentParserException {
         super(url, retriever);
 
+        final boolean isPodcast = UrlHelper.hasPrefix(url, "https://www.thoughtworks.com/insights/podcasts/technology-podcasts/");
+
         final SiteSlurper sluper = new SiteSlurper(getRetriever(), url);
         final String data = sluper.getContent();
 
@@ -90,15 +98,27 @@ public class ThoughtWorksLinkContentParser extends LinkDataExtractor {
         _date = Optional.of(LocalDateTime.parse(date, DateTimeFormatter.ISO_OFFSET_DATE_TIME).toLocalDate());
 
         _sureAuthors = new ArrayList<>();
-        for (final String authorName: s_guestParser.extractMulti(data)) {
-            _sureAuthors.add(LinkContentParserUtils.parseAuthorName(cleanName(authorName)));
-        }
-        for (final String authorName: s_hostParser.extractMulti(data)) {
-            _sureAuthors.add(LinkContentParserUtils.parseAuthorName(cleanName(authorName)));
+        if (isPodcast) {
+            for (final String authorName: s_guestParser.extractMulti(data)) {
+                _sureAuthors.add(LinkContentParserUtils.parseAuthorName(cleanName(authorName)));
+            }
+            for (final String authorName: s_hostParser.extractMulti(data)) {
+                _sureAuthors.add(LinkContentParserUtils.parseAuthorName(cleanName(authorName)));
+            }
+        } else {
+            for (final String authorName: s_authorParser.extractMulti(data)) {
+                _sureAuthors.add(LinkContentParserUtils.parseAuthorName(cleanName(authorName)));
+            }
         }
 
-        final String duration = HtmlHelper.cleanContent(s_durationParser.extract(data));
-        _duration = Optional.of(DateTimeHelper.parseDuration(duration));
+        if (isPodcast) {
+            _format = LinkFormat.MP3;
+            final String duration = HtmlHelper.cleanContent(s_durationParser.extract(data));
+            _duration = Optional.of(DateTimeHelper.parseDuration(duration));
+        } else {
+            _format = LinkFormat.HTML;
+            _duration = Optional.empty();
+        }
     }
 
     /**
@@ -108,7 +128,8 @@ public class ThoughtWorksLinkContentParser extends LinkDataExtractor {
      * @return true if the link is managed
      */
     public static boolean isUrlManaged(final String url) {
-        return UrlHelper.hasPrefix(url, "https://www.thoughtworks.com/insights/podcasts/technology-podcasts/");
+        return UrlHelper.hasPrefix(url, "https://www.thoughtworks.com/insights/podcasts/technology-podcasts/") ||
+               UrlHelper.hasPrefix(url, "https://www.thoughtworks.com/insights/blog/");
     }
 
     @Override
@@ -123,7 +144,7 @@ public class ThoughtWorksLinkContentParser extends LinkDataExtractor {
 
     @Override
     public LinkFormat[] getFormats() {
-        return new LinkFormat[] { LinkFormat.MP3 };
+        return new LinkFormat[] { _format };
     }
 
     @Override
