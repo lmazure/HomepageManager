@@ -63,7 +63,7 @@ public class DwarkeshPodcastLinkContentParser extends LinkDataExtractor {
                          "</h3>",
                          s_sourceName,
                          "subtitle");
-    private static final TextParser s_embededVideo
+    private static final TextParser s_youtubeLinkParser
         = new TextParser("<iframe src=\"https://www.youtube-nocookie.com/embed/",
                          "\\?rel=0",
                          s_sourceName,
@@ -122,12 +122,10 @@ public class DwarkeshPodcastLinkContentParser extends LinkDataExtractor {
         }
         _authors.add(WellKnownAuthors.DWARKESH_PATEL);
 
-        final Optional<String> youtubeLink;
-        final Optional<String> embeddedVideoId = s_embededVideo.extractOptional(data);
-        if (embeddedVideoId.isPresent()) {
-            // use embedded video if there is one
-            youtubeLink = Optional.of("https://www.youtube.com/watch?v=" + embeddedVideoId.get());
-        } else {
+        // use embedded video if there is one
+        Optional<String> youtubeLink = s_youtubeLinkParser.extractOptional(data)
+                                                          .map(s -> "https://www.youtube.com/watch?v=" + s);
+        if (youtubeLink.isEmpty()) {
             // we use the fact that Dwarkesh writes the URL in the video description to find this one
             youtubeLink = YouTubeHelper.getVideoURL("Dwarkesh Patel", url, getRetriever());
         }
