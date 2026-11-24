@@ -114,8 +114,8 @@ public class PragmaticEngineerLinkContentParser extends LinkDataExtractor {
         }
         _authors.add(WellKnownAuthors.GERGELY_OROSZ);
 
-        final Optional<String> youtubeVideoId = s_youtubeLinkParser.extractOptional(data);
-        final Optional<String> youtubeLink = youtubeVideoId.map(s -> "https://www.youtube.com/watch?v=" + s);
+        final Optional<String> youtubeLink = s_youtubeLinkParser.extractOptional(data)
+                                                                .map(s -> "https://www.youtube.com/watch?v=" + s);
         _otherLink = getOtherLinkFromYouTube(youtubeLink);
 
         _creationDate = DateTimeHelper.getMinTemporalAccessor(_publicationDate, _otherLink.map(link -> link.publicationDate().get()));
